@@ -1,0 +1,10 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["doc_path", "summary", "open_questions"],
+  "properties": {
+    "doc_path": {"type": "string"},
+    "summary": {"type": "string"},
+    "open_questions": {"type": "array", "items": {"type": "string"}}
+  }
+}

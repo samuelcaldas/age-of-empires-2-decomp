@@ -1,0 +1,10 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["source_url", "file_path", "sha1"],
+  "properties": {
+    "source_url": {"type": "string"},
+    "file_path": {"type": "string"},
+    "sha1": {"type": "string"}
+  }
+}

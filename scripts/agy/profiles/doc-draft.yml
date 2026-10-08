@@ -1,0 +1,29 @@
+description: >
+  Draft one documentation file under docs/ from findings given as text. Writes only docs/.
+model: gemini-3.1-pro-high
+effort: medium
+mode: accept-edits
+timeout_seconds: 900
+schema: doc-draft.json
+writes:
+  - "docs/*"
+inputs:
+  - name: topic
+    kind: text
+  - name: target
+    kind: text
+  - name: findings
+    kind: text
+prompt: |
+  Write a documentation file on this topic: {{topic}}
+
+  Write it to: {{target}}
+
+  Base it only on these findings. They come from earlier analysis and must be checked by the author:
+
+  {{findings}}
+
+  Rules:
+  - Write in English, with short sections.
+  - Make no claim beyond the findings. Put anything uncertain under open_questions.
+  - Write only {{target}}. Do not edit any other file.

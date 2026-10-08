@@ -1,0 +1,11 @@
+# URL prefixes that fetch-official may report as its source. The wrapper rejects
+# any reported URL that does not start with one of these, whatever the model says.
+#
+# Leaked betas, cracks, repacks, and unofficial mirrors are never listed
+# (see docs/adr/0001-target-editions.md). An archive.org item can be added here
+# only after a person has reviewed that specific item.
+sources:
+  - name: Microsoft support
+    prefix: https://support.microsoft.com/
+  - name: Microsoft downloads
+    prefix: https://www.microsoft.com/

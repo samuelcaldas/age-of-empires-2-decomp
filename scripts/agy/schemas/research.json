@@ -1,0 +1,22 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["summary", "findings", "sources_consulted", "limitations"],
+  "properties": {
+    "summary": {"type": "string"},
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["claim", "source_url"],
+        "properties": {
+          "claim": {"type": "string"},
+          "source_url": {"type": "string"}
+        }
+      }
+    },
+    "sources_consulted": {"type": "array", "items": {"type": "string"}},
+    "limitations": {"type": "string"}
+  }
+}

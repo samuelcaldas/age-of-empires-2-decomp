@@ -39,6 +39,9 @@ only the subset the profiles use (`type`, `enum`, `properties`, `required`,
 | `splat-split` | `config/<version>/config.yml` | `gemini-3.1-pro-high` | `TODO` values stay `TODO`. `configure.py`, `tools/`, and `build.sha1` are not writable. |
 | `doc-draft` | `docs/*` | `gemini-3.1-pro-high` | Drafts from given findings. Open questions are listed, not guessed. |
 
+A model whose name ends in `-low`, `-medium`, or `-high` already fixes its effort,
+and agy rejects a different `effort`. The loader checks this, so `effort` must match the suffix.
+
 ## How a run works
 
 1. **Validate first.** The profile, its inputs, and the agy executable are

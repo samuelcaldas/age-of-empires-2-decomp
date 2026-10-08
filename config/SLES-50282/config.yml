@@ -16,24 +16,30 @@ options:
   # Output paths
   asm_path: build/SLES-50282/asm
   src_path: src
+  asset_path: build/SLES-50282/assets
   build_path: build/SLES-50282/obj
+  cache_path: build/SLES-50282/.splache
 
   # Assembly options
   generate_asm_macros_files: True
+  generated_asm_macros_directory: build/SLES-50282/include
   named_regs_for_c_funcs: False
   find_file_boundaries: False
   disasm_unknown: True
 
   # Auto-generate undefined functions and symbols
   create_undefined_funcs_auto: True
-  undefined_funcs_auto_path: config/SLES-50282/undefined_funcs_auto.txt
+  undefined_funcs_auto_path: build/SLES-50282/undefined_funcs_auto.txt
   create_undefined_syms_auto: True
-  undefined_syms_auto_path: config/SLES-50282/undefined_syms_auto.txt
+  undefined_syms_auto_path: build/SLES-50282/undefined_syms_auto.txt
 
   # Manually defined symbols
   symbol_addrs_path: config/SLES-50282/symbols.txt
   ld_script_path: build/SLES-50282/ldscript.ld
 
-# Segments are added once the ELF has been analysed.
-segments: []
+segments:
+  - name: main
+    type: bin
+    start: 0x1e0
+  - [0x3e31c0]
 

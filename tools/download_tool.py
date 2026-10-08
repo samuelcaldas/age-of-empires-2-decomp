@@ -18,6 +18,7 @@ import shutil
 import stat
 import subprocess
 import sys
+import tarfile
 import urllib.request
 import zipfile
 from typing import Callable, Dict
@@ -54,6 +55,11 @@ def mips_binutils_url(tag):
 
 def compilers_url(tag: str) -> str:
     return f"https://github.com/dbalatoni13/compilers/releases/download/compilers_{tag}/compilers_{tag}.zip"
+
+
+def mwccps2_url(tag: str) -> str:
+    repo = "https://github.com/decompme/compilers/releases/download/compilers"
+    return f"{repo}/mwcps2-2.3.3-000906.tar.gz"
 
 
 def msvc_url(tag: str) -> str:
@@ -128,6 +134,7 @@ TOOLS: Dict[str, Callable[[str], str]] = {
     "ppc_binutils": ppc_binutils_url,
     "mips_binutils": mips_binutils_url,
     "compilers": compilers_url,
+    "mwccps2": mwccps2_url,
     "dtk": dtk_url,
     "jeff": dtk_url,
     "delink": delink_url,
@@ -147,6 +154,14 @@ def download(url, response, output) -> None:
             for name in files:
                 os.chmod(os.path.join(root, name), 0o755)
         output.touch(mode=0o755)  # Update dir modtime
+    elif url.endswith(".tar.gz") or url.endswith(".tgz"):
+        data = io.BytesIO(response.read())
+        with tarfile.open(fileobj=data, mode="r:gz") as f:
+            f.extractall(output)
+        for root, _, files in os.walk(output):
+            for name in files:
+                os.chmod(os.path.join(root, name), 0o755)
+        output.touch(mode=0o755)
     else:
         tmp_output = output.with_name(f"{output.name}.tmp.{os.getpid()}")
         with open(tmp_output, "wb") as f:

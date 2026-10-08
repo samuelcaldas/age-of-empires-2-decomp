@@ -17,6 +17,8 @@ dist/
 build/
 node_modules/
 vendor/
+compilers/
+.splache
 .venv/
 venv/
 __pycache__/

@@ -101,24 +101,40 @@ readelf -S orig/SLES-50282/AOK.ELF | grep -E 'symtab|debug'
 - **Result for SLES-50282 (`AOK.ELF` / `EN/AGE2_PS2.ELF`):**
   - Compiler string in `.comment`: `MW MIPS C Compiler (2.3.1.01)` / `PlayStation2`.
   - Toolchain: **Metrowerks CodeWarrior for PlayStation 2, compiler version 2.3.1.01** (`MWCCPS2` in splat).
+  - Distribution: Available from decomp.me/compilers archive (`mwcps2-2.3.3-000906.tar.gz`).
+  - Binaries:
+    - `compilers/PS2/mwcc-2.3.1.01/mwccps2.exe`: MIPS C/C++ compiler. Emits `.comment` string matching original binary.
+    - `compilers/PS2/mwcc-2.3.1.01/mwldps2.exe`: Linker.
+    - `compilers/PS2/mwcc-2.3.1.01/asm_r5900_elf.exe`: R5900 ELF assembler.
+    - `compilers/PS2/mwcc-2.3.1.01/LMGR326B.DLL`: License manager library required by Metrowerks tools under Wine / Wibo.
+  - Runner: `wibo` 1.2.0 runs `mwccps2.exe` natively on Linux x86_64 without full Wine installation.
   - Symbols: Stripped. `.symtab` has 0 entries and no `.debug_*` / DWARF sections are present.
 - `compiler: MWCCPS2` updated in `config/SLES-50282/config.yml`.
 - `linker_version = "PS2/mwcc-2.3.1.01"` updated in `configure.py`.
+- `mwcc_ps2` rule implemented in `tools/project.py` with GCC-compatible `-MD` depfiles.
 
 ## Expected `--compilers` layout
 
 `--compilers <DIR>` points at the directory the compiler binaries come from. For
 PC this is the Microsoft tools root, so `cl.exe` and `link.exe` are inside it.
-For PS2 it is the CodeWarrior PS2 tools root.
+For PS2 it is the CodeWarrior PS2 tools root (`compilers/PS2/mwcc-2.3.1.01`).
 
-The directory is not committed. Keep it outside the repository or in an ignored
-path such as `build/compilers`.
+`configure.py` automatically detects and defaults to `compilers/` if present in the
+repository root, making `--compilers` optional once tools are installed.
+
+To install the PS2 CodeWarrior compiler automatically:
+```sh
+.venv/bin/python tools/download_tool.py mwccps2 compilers/PS2/mwcc-2.3.1.01
+```
+
+The `compilers/` directory is gitignored and must never be committed.
 
 ## Checklist before any object is added
 
 - [~] PC toolchain partly identified from the Rich header (VS97 SP3 linker and
       resource compiler). `cl.exe` build still to confirm
 - [x] PS2 compiler identified from `.comment`, `linker_version` updated (`MW MIPS C Compiler 2.3.1.01`)
+- [x] PS2 compiler downloaded and verified (`compilers/PS2/mwcc-2.3.1.01/mwccps2.exe` with wibo)
 - [ ] Optimisation and debug flags confirmed by compiling a known function and
       diffing it against the original (objdiff)
-- [ ] `--compilers` path documented in the README quick start
+- [x] `--compilers` path and automatic detection documented

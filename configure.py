@@ -70,7 +70,7 @@ parser.add_argument(
     "--compilers",
     metavar="DIR",
     type=Path,
-    help="path to compilers (MSVC for PC, EE GCC for PS2)",
+    help="path to compilers (MSVC for PC, CodeWarrior/EE GCC for PS2, default: compilers/ if present)",
 )
 parser.add_argument(
     "--map",
@@ -142,7 +142,10 @@ config.dtk_path = args.dtk
 config.delink_path = args.delink
 config.objdiff_path = args.objdiff
 config.binutils_path = args.binutils
-config.compilers_path = args.compilers
+compilers_dir = args.compilers
+if compilers_dir is None and Path("compilers").is_dir():
+    compilers_dir = Path("compilers")
+config.compilers_path = compilers_dir
 config.generate_map = args.map
 config.non_matching = args.non_matching
 config.progress = args.progress

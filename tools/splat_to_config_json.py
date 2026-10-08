@@ -10,7 +10,6 @@
 import argparse
 from pathlib import Path
 import json
-import splat
 import splat.scripts.split as split
 
 
@@ -38,7 +37,7 @@ def generate_config_json(config_yml: Path, build_folder: Path) -> str:
     for entry in linker_entries:
         seg = entry.segment
 
-        if seg.type[0] == ".":
+        if seg.type[0] == "." or seg.type in ("bin", "pad"):
             continue
 
         if entry.object_path is None:
@@ -82,8 +81,13 @@ def main() -> None:
 
     output = generate_config_json(Path(args.yml_file), Path(args.build_folder))
 
-    with open(Path(args.build_folder) / "config.json", "w", encoding="UTF-8") as f:
+    config_json_path = Path(args.build_folder) / "config.json"
+    with open(config_json_path, "w", encoding="UTF-8") as f:
         f.write(output)
+
+    dep_path = Path(args.build_folder) / "dep"
+    with open(dep_path, "w", encoding="UTF-8") as f:
+        f.write(f"{config_json_path.as_posix()}: {Path(args.yml_file).as_posix()}\n")
 
 
 if __name__ == "__main__":

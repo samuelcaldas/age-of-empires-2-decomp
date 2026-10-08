@@ -806,6 +806,17 @@ def generate_build_ninja(
         wrapper_implicit,
     ]
 
+    # MWCC PS2
+    mwcc_ps2 = compiler_path / "mwccps2.exe"
+    if is_windows():
+        mwcc_ps2_cmd = f"{wrapper_cmd}{mwcc_ps2} $cflags -MD -c $in -o $out"
+    else:
+        mwcc_ps2_cmd = f"env MWCIncludes=\"\" {wrapper_cmd}{mwcc_ps2} $cflags -MD -c $in -o $out"
+    mwcc_ps2_implicit: List[Optional[Path]] = [
+        compilers_implicit or mwcc_ps2,
+        wrapper_implicit,
+    ]
+
     # EE-GCC
     ee_gcc = compiler_path / "bin" / "ee-gcc.exe"
     # Workaround because otherwise the dependency files are all placed into the root folder
@@ -957,6 +968,16 @@ def generate_build_ninja(
         name="prodg",
         command=ngccc_cmd,
         description="ProDG $out",
+        depfile="$basefile.d",
+        deps="gcc",
+    )
+    n.newline()
+
+    n.comment("MWCC PS2 build")
+    n.rule(
+        name="mwcc_ps2",
+        command=mwcc_ps2_cmd,
+        description="MWCC PS2 $out",
         depfile="$basefile.d",
         deps="gcc",
     )
@@ -1290,9 +1311,13 @@ def generate_build_ninja(
                 build_rule = "msvc"
                 build_implicit = msvc_implicit
             elif config.platform == Platform.PS2:
-                # Add EE-GCC build rule
-                build_rule = "ee-gcc"
-                build_implicit = ee_gcc_implicit
+                # Add MWCC PS2 build rule (or EE-GCC fallback)
+                if (compiler_path / "mwccps2.exe").exists() or "mwcc" in str(config.linker_version).lower():
+                    build_rule = "mwcc_ps2"
+                    build_implicit = mwcc_ps2_implicit
+                else:
+                    build_rule = "ee-gcc"
+                    build_implicit = ee_gcc_implicit
 
             n.comment(f"{obj.name}: {lib_name} (linked {obj.completed})")
             n.build(

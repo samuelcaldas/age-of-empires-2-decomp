@@ -1,7 +1,7 @@
 description: >
   Run or adjust the splat split for one version and propose config/<VERSION>/config.yml.
   Writes only that config file. configure.py, tools/, build.sha1, and docs are not writable.
-model: gemini-3.1-pro-high
+model: gemini-3.8-flash-high
 effort: high
 mode: accept-edits
 timeout_seconds: 1800

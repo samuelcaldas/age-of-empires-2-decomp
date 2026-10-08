@@ -31,13 +31,17 @@ only the subset the profiles use (`type`, `enum`, `properties`, `required`,
 
 ## Profiles
 
+Model choice: `gemini-3.8-flash-high` (effort high) for tasks that need both reasoning and speed.
+`gemini-3.8-flash-low` for the speed-only fetch. `gemini-3.5-flash-lite` was the first choice for speed,
+but this agy build does not recognise it (no `--effort`, and without it the model is unknown), so it is not used.
+
 | Profile | Writes | Model (default) | Notes |
 |---|---|---|---|
-| `research` | nothing | `gemini-3.8-flash-medium` | Sourced report. Every finding carries a URL. |
-| `binary-analysis` | nothing | `gemini-3.8-flash-medium` | Reads one binary by absolute path. Size, SHA-1, format, linker, section entropy. |
-| `fetch-official` | `orig/<version>/*` in the worktree, copied to the main checkout only after checks | `gemini-3.1-pro-high` | See below. |
-| `splat-split` | `config/<version>/config.yml` | `gemini-3.1-pro-high` | `TODO` values stay `TODO`. `configure.py`, `tools/`, and `build.sha1` are not writable. |
-| `doc-draft` | `docs/*` | `gemini-3.1-pro-high` | Drafts from given findings. Open questions are listed, not guessed. |
+| `research` | nothing | `gemini-3.8-flash-high` | Sourced report. Every finding carries a URL. |
+| `binary-analysis` | nothing | `gemini-3.8-flash-high` | Reads one binary by absolute path. Size, SHA-1, format, linker, section entropy. |
+| `fetch-official` | `orig/<version>/*` in the worktree, copied to the main checkout only after checks | `gemini-3.8-flash-low` (speed) | See below. |
+| `splat-split` | `config/<version>/config.yml` | `gemini-3.8-flash-high` | `TODO` values stay `TODO`. `configure.py`, `tools/`, and `build.sha1` are not writable. |
+| `doc-draft` | `docs/*` | `gemini-3.8-flash-high` | Drafts from given findings. Open questions are listed, not guessed. |
 
 A model whose name ends in `-low`, `-medium`, or `-high` already fixes its effort,
 and agy rejects a different `effort`. The loader checks this, so `effort` must match the suffix.

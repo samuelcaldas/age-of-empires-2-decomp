@@ -1,7 +1,7 @@
 description: >
   Web research that returns a sourced report. Text only: nothing is written to the repository.
-model: gemini-3.8-flash-medium
-effort: medium
+model: gemini-3.8-flash-high
+effort: high
 mode: plan
 timeout_seconds: 900
 schema: research.json

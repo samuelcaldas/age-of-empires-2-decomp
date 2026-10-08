@@ -47,6 +47,7 @@ need your own copy of the game.
 - [docs/game_files.md](docs/game_files.md): where each original file comes from and how to verify it
 - [docs/toolchain.md](docs/toolchain.md): compilers, how to identify them, what is still unverified
 - [docs/adr/0001-target-editions.md](docs/adr/0001-target-editions.md): edition decision and sources
+- [docs/agy_orchestration.md](docs/agy_orchestration.md): delegating tasks to the agy CLI through `scripts/agy/`
 
 ## Method
 

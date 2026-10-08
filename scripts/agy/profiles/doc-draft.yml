@@ -1,6 +1,6 @@
 description: >
   Draft one documentation file under docs/ from findings given as text. Writes only docs/.
-model: gemini-3.1-pro-high
+model: gemini-3.8-flash-high
 effort: high
 mode: accept-edits
 timeout_seconds: 900

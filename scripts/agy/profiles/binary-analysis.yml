@@ -1,8 +1,8 @@
 description: >
   Structural analysis of one original binary: size, hashes, format, linker version,
   and section entropy. Read-only. The binary is read from its path in the main checkout.
-model: gemini-3.8-flash-medium
-effort: medium
+model: gemini-3.8-flash-high
+effort: high
 mode: plan
 timeout_seconds: 900
 schema: binary-analysis.json

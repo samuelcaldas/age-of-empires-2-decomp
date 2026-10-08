@@ -1,8 +1,8 @@
 description: >
   Download one original game file from an allowed official source into the worktree.
   The wrapper checks the reported URL and the SHA-1, and only then copies the file into orig/<version>/.
-model: gemini-3.1-pro-high
-effort: high
+model: gemini-3.8-flash-low
+effort: low
 mode: accept-edits
 timeout_seconds: 1200
 schema: fetch-official.json

@@ -43,6 +43,7 @@ IDA-exported `splits.json` and `symbols.json` (see `docs/toolchain.md`).
   `splits.json`, `symbols.json`, and `symbols.txt` are added once a binary is analysed.
 - `orig/<VERSION>/`: original binaries. Ignored by git.
 - `docs/`: game files, toolchain, binary analysis (`docs/ps2_binary_analysis.md`), and decisions (`docs/adr/`).
+- `scripts/agy/`: wrapper for delegating separable tasks to the agy CLI. See `docs/agy_orchestration.md`.
 
 ## Rules for this repository
 
@@ -55,3 +56,5 @@ IDA-exported `splits.json` and `symbols.json` (see `docs/toolchain.md`).
 - Compiler and flag settings marked `TODO` are guesses. Replace them with
   verified values and update `docs/toolchain.md`.
 - Keep `docs/` in step with the code. Update the relevant doc in the same change.
+- Delegate to agy only through `scripts/agy/`, never with a raw `agy -p`. Accept a
+  result only after checking its `state`, the worktree diff, and the tests.

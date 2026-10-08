@@ -1,0 +1,27 @@
+description: >
+  Run or adjust the splat split for one version and propose config/<VERSION>/config.yml.
+  Writes only that config file. configure.py, tools/, build.sha1, and docs are not writable.
+model: gemini-3.1-pro-high
+effort: high
+mode: accept-edits
+timeout_seconds: 1800
+schema: splat-split.json
+writes:
+  - "config/{{version}}/config.yml"
+inputs:
+  - name: version
+    kind: text
+  - name: binary
+    kind: path
+prompt: |
+  Propose a splat configuration for version {{version}}, using the original binary at this absolute path.
+  Read the binary; do not modify it:
+
+  {{binary}}
+
+  Rules:
+  - Write only config/{{version}}/config.yml in the working directory.
+  - Do not edit configure.py, tools/, build.sha1, docs, or any other file.
+  - Do not replace a value marked TODO with a guess. Keep it TODO and list it in open_questions.
+  - Run splat only in a scratch directory under /tmp, so its output stays out of the repository.
+  - functions_split is the number of functions in the config. changed_files lists every file you wrote.

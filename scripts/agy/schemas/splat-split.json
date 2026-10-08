@@ -1,0 +1,10 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["functions_split", "changed_files", "open_questions"],
+  "properties": {
+    "functions_split": {"type": "integer"},
+    "changed_files": {"type": "array", "items": {"type": "string"}},
+    "open_questions": {"type": "array", "items": {"type": "string"}}
+  }
+}

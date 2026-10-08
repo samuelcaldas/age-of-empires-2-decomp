@@ -1,0 +1,28 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["file_name", "size_bytes", "sha1", "format", "linker_version", "whole_file_entropy", "sections", "notes"],
+  "properties": {
+    "file_name": {"type": "string"},
+    "size_bytes": {"type": "integer"},
+    "sha1": {"type": "string"},
+    "format": {"type": "string"},
+    "linker_version": {"type": "string"},
+    "whole_file_entropy": {"type": "number"},
+    "sections": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "virtual_size", "raw_size", "entropy"],
+        "properties": {
+          "name": {"type": "string"},
+          "virtual_size": {"type": "integer"},
+          "raw_size": {"type": "integer"},
+          "entropy": {"type": "number"}
+        }
+      }
+    },
+    "notes": {"type": "string"}
+  }
+}

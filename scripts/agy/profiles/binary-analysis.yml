@@ -1,0 +1,27 @@
+description: >
+  Structural analysis of one original binary: size, hashes, format, linker version,
+  and section entropy. Read-only. The binary is read from its path in the main checkout.
+model: gemini-3.8-flash-medium
+effort: medium
+mode: plan
+timeout_seconds: 900
+schema: binary-analysis.json
+inputs:
+  - name: binary
+    kind: path
+prompt: |
+  Analyse the binary at this absolute path. Read it; do not modify it:
+
+  {{binary}}
+
+  Measure and report:
+  - file name, size in bytes, and SHA-1;
+  - format (PE, ELF, or other) from the header;
+  - the linker version recorded in the header (for PE: MajorLinkerVersion and
+    MinorLinkerVersion of the optional header, joined as "major.minor");
+  - whole-file Shannon entropy in bits per byte, two decimal places;
+  - for each section: name, virtual size, raw size, and Shannon entropy of its raw bytes.
+
+  Use the Python standard library (hashlib, struct, math), or pefile if it is already installed.
+  Do not install packages. Keep scratch files in /tmp. Do not write into the repository.
+  Anything you could not measure goes in notes.

@@ -1,0 +1,38 @@
+# PS2 target: Age of Empires II: The Age of Kings, NTSC-J (SLPM-62076)
+# Layout and hashes: docs/game_files.md. Edition rationale: docs/adr/0001-target-editions.md.
+name: Age of Empires II The Age of Kings PS2 NTSC-J
+
+# Pin after the boot ELF has been dumped (see docs/game_files.md).
+sha1: ""
+
+options:
+  basename: AOK.ELF
+  target_path: orig/SLPM-62076/AOK.ELF
+  elf_path: build/SLPM-62076/AOK.ELF
+  base_path: ../..
+  platform: ps2
+  compiler: EEGCC # TODO: confirm from the ELF .comment section (docs/toolchain.md)
+
+  # Output paths
+  asm_path: build/SLPM-62076/asm
+  src_path: src
+  build_path: build/SLPM-62076/obj
+
+  # Assembly options
+  generate_asm_macros_files: True
+  named_regs_for_c_funcs: False
+  find_file_boundaries: False
+  disasm_unknown: True
+
+  # Auto-generate undefined functions and symbols
+  create_undefined_funcs_auto: True
+  undefined_funcs_auto_path: config/SLPM-62076/undefined_funcs_auto.txt
+  create_undefined_syms_auto: True
+  undefined_syms_auto_path: config/SLPM-62076/undefined_syms_auto.txt
+
+  # Manually defined symbols
+  symbol_addrs_path: config/SLPM-62076/symbols.txt
+  ld_script_path: build/SLPM-62076/ldscript.ld
+
+# Segments are added once the ELF has been analysed.
+splits: []

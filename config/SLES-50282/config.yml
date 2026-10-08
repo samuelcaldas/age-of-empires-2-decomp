@@ -1,0 +1,39 @@
+# PS2 target: Age of Empires II: The Age of Kings, PAL (SLES-50282)
+# Layout and hashes: docs/game_files.md. Edition rationale: docs/adr/0001-target-editions.md.
+name: Age of Empires II The Age of Kings PS2 PAL
+
+# Pinned SHA-1 of the game binary (EN/AGE2_PS2.ELF dumped to AOK.ELF)
+sha1: "f478e19f2059d52899b691483ef5c7522e30e17c"
+
+options:
+  basename: AOK.ELF
+  target_path: orig/SLES-50282/AOK.ELF
+  elf_path: build/SLES-50282/AOK.ELF
+  base_path: ../..
+  platform: ps2
+  compiler: MWCCPS2 # Confirmed from .comment: MW MIPS C Compiler (2.3.1.01)
+
+  # Output paths
+  asm_path: build/SLES-50282/asm
+  src_path: src
+  build_path: build/SLES-50282/obj
+
+  # Assembly options
+  generate_asm_macros_files: True
+  named_regs_for_c_funcs: False
+  find_file_boundaries: False
+  disasm_unknown: True
+
+  # Auto-generate undefined functions and symbols
+  create_undefined_funcs_auto: True
+  undefined_funcs_auto_path: config/SLES-50282/undefined_funcs_auto.txt
+  create_undefined_syms_auto: True
+  undefined_syms_auto_path: config/SLES-50282/undefined_syms_auto.txt
+
+  # Manually defined symbols
+  symbol_addrs_path: config/SLES-50282/symbols.txt
+  ld_script_path: build/SLES-50282/ldscript.ld
+
+# Segments are added once the ELF has been analysed.
+segments: []
+

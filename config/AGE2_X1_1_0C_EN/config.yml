@@ -1,0 +1,7 @@
+# PC target: Age of Empires II: The Conquerors 1.0c (English), age2_x1/age2_x1.exe
+# Layout and hashes: docs/game_files.md. Edition rationale: docs/adr/0001-target-editions.md.
+target_path: orig/AGE2_X1_1_0C_EN/age2_x1.exe
+
+# Filled in once the binary has been analysed (see docs/game_files.md).
+splits_path: config/AGE2_X1_1_0C_EN/splits.json
+symbols_path: config/AGE2_X1_1_0C_EN/symbols.json

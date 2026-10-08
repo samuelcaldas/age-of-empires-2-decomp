@@ -1,0 +1,7 @@
+# PC target: Age of Empires II: Age of Kings 2.0a (English), empires2.exe
+# Layout and hashes: docs/game_files.md. Edition rationale: docs/adr/0001-target-editions.md.
+target_path: orig/EMPIRES2_2_0A_EN/empires2.exe
+
+# Filled in once the binary has been analysed (see docs/game_files.md).
+splits_path: config/EMPIRES2_2_0A_EN/splits.json
+symbols_path: config/EMPIRES2_2_0A_EN/symbols.json

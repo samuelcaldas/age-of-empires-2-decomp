@@ -21,3 +21,35 @@ vendor/
 venv/
 __pycache__/
 *.py[cod]
+
+# Original game files (never committed; see docs/game_files.md)
+orig/*/*
+!orig/*/.gitkeep
+*.iso
+*.bin
+*.img
+*.chd
+*.exe
+*.elf
+*.ELF
+*.o
+*.map
+*.MAP
+
+# Build outputs
+build.ninja
+.ninja_*
+objdiff.json
+compile_commands.json
+
+# decompctx output
+ctx.*
+*.ctx
+
+# Caches and tooling
+__pycache__/
+.mypy_cache/
+
+# Git worktrees and Playwright artifacts
+.worktrees/
+.playwright-mcp/

@@ -1,7 +1,7 @@
 description: >
   Draft one documentation file under docs/ from findings given as text. Writes only docs/.
 model: gemini-3.1-pro-high
-effort: medium
+effort: high
 mode: accept-edits
 timeout_seconds: 900
 schema: doc-draft.json

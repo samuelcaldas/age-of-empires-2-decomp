@@ -18,6 +18,7 @@ PROFILES_DIR = AGY_DIR / "profiles"
 SCHEMAS_DIR = AGY_DIR / "schemas"
 
 PROFILE_NAME_PATTERN = re.compile(r"^[a-z][a-z0-9-]*$")
+MODEL_EFFORT_SUFFIX = re.compile(r"-(low|medium|high)$")
 VALID_MODES = ("plan", "accept-edits")
 VALID_EFFORTS = ("low", "medium", "high", "xhigh", "max")
 VALID_INPUT_KINDS = ("text", "path")
@@ -83,6 +84,7 @@ def _build_profile(name: str, raw: dict, profiles_dir: Path) -> Profile:
     _require_keys(name, raw)
     _check_choice(name, "mode", raw["mode"], VALID_MODES)
     _check_choice(name, "effort", raw["effort"], VALID_EFFORTS)
+    _check_model_effort(name, str(raw["model"]), raw["effort"])
     timeout = _check_timeout(name, raw["timeout_seconds"])
     return Profile(
         name=name,
@@ -107,6 +109,16 @@ def _require_keys(name: str, raw: dict) -> None:
 def _check_choice(name: str, field: str, value: str, choices: tuple) -> None:
     if value not in choices:
         raise ProfileError(f"{name}: {field} must be one of {choices}, got {value!r}")
+
+
+def _check_model_effort(name: str, model: str, effort: str) -> None:
+    """Reject a model whose name fixes an effort level that differs from `effort`.
+
+    agy refuses `--model X --effort Y` when X ends in -low, -medium, or -high and Y differs.
+    """
+    suffix = MODEL_EFFORT_SUFFIX.search(model)
+    if suffix and suffix.group(1) != effort:
+        raise ProfileError(f"{name}: model {model} fixes effort to {suffix.group(1)}; set effort: {suffix.group(1)}")
 
 
 def _check_timeout(name: str, value: object) -> int:

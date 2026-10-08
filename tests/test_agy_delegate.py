@@ -80,6 +80,7 @@ prompt: hi
         (("effort: low", "effort: extreme"), "effort must be one of"),
         (("timeout_seconds: 10", "timeout_seconds: 0"), "positive integer"),
         (("schema: research.json", "schema: missing.json"), "schema file not found"),
+        (("model: m", "model: gemini-3.1-pro-high"), "fixes effort to high"),
     ],
 )
 def test_invalid_profile_fields_are_rejected(tmp_path: Path, replacement: tuple[str, str], message: str) -> None:

@@ -22,6 +22,11 @@ for the base game. The Conquerors lives in its `age2_x1` subfolder.
 Patched or widescreen builds (for example `age2_x1_1.0c_1920x1080.exe`) are
 **not** the original. Use the file from an unmodified 1.0c or 2.0a install.
 
+**Note:** the 1.0c install also ships `age2_x1.icd` (2.6 MB) next to
+`age2_x1.exe`. `age2_x1.exe` looks like the SafeDisc loader, and `age2_x1.icd`
+may hold the game code. Which file to target is still open (ADR 0001, item 6).
+The pinned hash covers `age2_x1.exe` only.
+
 ## Extracting PS2 boot ELFs
 
 The PAL release (`SLES-50282`) is a multi-language disc containing a launcher ELF

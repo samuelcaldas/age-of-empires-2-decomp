@@ -1,0 +1,139 @@
+# PS2 Binary Analysis: SLES-50282 (Age of Empires II PAL)
+
+Detailed analysis of the PlayStation 2 release of *Age of Empires II: The Age of Kings* (PAL Europe v2.00, `SLES-50282`).
+
+---
+
+## 1. Disc Structure and Image Architecture
+
+The European release (`SLES-50282`) is mastered as a PlayStation 2 CD-ROM (Mode 2 Form 1, 2352 bytes/sector) with a multi-stage architecture:
+
+```mermaid
+graph TD
+    ISO["PS2 Disc Image (SLES-50282)"] --> CNF["SYSTEM.CNF<br/>(BOOT2 = cdrom0:\SLES_502.82;1)"]
+    ISO --> SLES["SLES_502.82 (1.5 MiB)<br/>Bootloader, Language Selector & PSS Video Player"]
+    ISO --> LANG["Language Subdirectories"]
+    LANG --> EN["EN/AGE2_PS2.ELF (3.9 MiB)<br/>English Game Engine (Primary Target: AOK.ELF)"]
+    LANG --> FR["FR/AGE2_PS2.ELF (French)"]
+    LANG --> GR["GR/AGE2_PS2.ELF (German)"]
+    LANG --> IT["IT/AGE2_PS2.ELF (Italian)"]
+    LANG --> SP["SP/AGE2_PS2.ELF (Spanish)"]
+    SLES -->|Executes via LoadExecPS2| EN
+```
+
+### Components
+1. **`SYSTEM.CNF`**: Points to `BOOT2 = cdrom0:\SLES_502.82;1`.
+2. **`SLES_502.82` (1.5 MiB, 1,593,256 bytes)**:
+   - Developed by Konami Computer Entertainment Tokyo (KCET).
+   - Initialises the PS2 EE/GS, checks hardware/language configuration, plays the intro FMVs (`PPS_PAL/MSLOGO_2.PSS`, `PPS_PAL/ESLOGO_2.PSS`), and executes the language-specific binary via `LoadExecPS2()`.
+3. **`EN/AGE2_PS2.ELF` (3.9 MiB, 4,076,904 bytes)**:
+   - The full Age of Empires II game engine (Ensemble Studios' Genie Engine with KCET platform layer).
+   - Copied to `orig/SLES-50282/AOK.ELF` as the primary matching target.
+
+### Verified Hashes (v2.00)
+
+| File | Path in repo | Size | SHA-1 |
+|---|---|---|---|
+| Disc Image (ISO) | `orig/SLES-50282/aoe2.iso` | 551,100,416 bytes | `77a9cec2083a7c3d82518b3ae47371b55ec2e7ce` |
+| Primary Game ELF | `orig/SLES-50282/AOK.ELF` | 4,076,904 bytes | `f478e19f2059d52899b691483ef5c7522e30e17c` |
+| Bootloader ELF | `orig/SLES-50282/SLES_502.82` | 1,593,256 bytes | `2f5139c1cb45c6b22b93e0c32bbea8e94a7b4a5f` |
+
+---
+
+## 2. Compiler & Toolchain Identification
+
+The `.comment` section of both `SLES_502.82` and `EN/AGE2_PS2.ELF` records the compiler:
+
+```sh
+readelf -p .comment orig/SLES-50282/AOK.ELF
+```
+
+Output:
+```
+  [     0]  MW MIPS C Compiler (2.3.1.01)
+  [    1e]  PlayStation2
+```
+
+* **Compiler:** **Metrowerks CodeWarrior for PlayStation 2, compiler version 2.3.1.01** (`MWCCPS2`).
+* **Architecture:** MIPS-III (MIPS R5900 Emotion Engine), little-endian, EABI64.
+* **Splat Setting:** `compiler: MWCCPS2` in `config/SLES-50282/config.yml`.
+* **Linker Target:** `PS2/mwcc-2.3.1.01` in `configure.py`.
+
+---
+
+## 3. ELF Headers and Memory Layout
+
+Analysis with `readelf -l` and `readelf -S`:
+
+* **Entry Point:** `0x00100008`
+* **Program Header:**
+  - `LOAD`: File offset `0x0001e0` -> Virtual Address `0x00100000`, File Size `0x3e2fe0` (4,075,488 bytes), Memory Size `0x16953a0`.
+* **Sections:**
+  - `.shstrtab` (section names table): Metrowerks stripped standard names (`.text`, `.data`, `.rodata`, `.bss`), retaining only `.shstrtab`, `.comment`, `.reginfo`.
+  - `.symtab`: Present in header, but 0 entries (stripped).
+  - DWARF (`.debug_*`): Stripped.
+
+---
+
+## 4. Debug Facilitators and String Evidence
+
+Although standard DWARF debug symbols are stripped, the binary contains an extensive set of debug artifacts from assertions, error handlers, and logging macros.
+
+### 4.1 Original Source File Paths (`__FILE__`)
+
+The binary embeds **16 original C and C++ source filenames** in assertion and error strings:
+
+| Subsystem | Source file | Responsibility | Key string evidence |
+|---|---|---|---|
+| **Genie Engine Core** | `tribegam.cpp` | Main game loop (*TribeGame*) | `time=%lu, count=%lu`, `tribegam.cpp ->` |
+| **Genie Engine Core** | `obmanager.cpp` | Object & zone management | `obmanager.cpp... Zone_Ptrs > PS2_MAX_ZONE_SIZE_M(=%d)` |
+| **Genie Engine Core** | `com_hand.cpp` | Command handler & pre-game | `com_hand.cpp:PREGAMEMSG_CANCEL(%d)` |
+| **Genie Engine / Net**| `mydplay.cpp` | DirectPlay / i.LINK sockets | `mydplay.cpp line:%d, Error: %d at sceILsockBind: sdRx self` |
+| **KCET Hardware** | `kt_gpu.c` | GS / GPU rendering | `kind < numberof(func_list)` |
+| **KCET Hardware** | `kt_libpad.c` | DualShock 2 controller | `n_pad > 0`, `p != NULL`, `n_pad <= numberof( buf )` |
+| **KCET Hardware** | `kt_mouse.c` | USB mouse support | `mouse_number < W->n_mouse` *(reveals work struct `W`)* |
+| **KCET Hardware** | `kt_keybd.c` | USB keyboard support | `keybd_number < W->n_keybd`, `ktKeybdGetStatus` |
+| **KCET Hardware** | `kt_usbkeybd_drv.c` | USB keyboard driver | `ktKeybdApiSetCapsTypeRequest` |
+| **KCET Hardware** | `kt_file.c` | File I/O subsystem | `kind < N_KT_FILE_KIND`, `p_string` |
+| **KCET Hardware** | `kt_libcdvd_server.c` | CD/DVD RPC subsystem | `KT_USE_SCE_LIB < KT_SCE_LIB_1_6_5`, `ktSceCdInitMmode` |
+| **KCET Hardware** | `kt_mc_2.c` | Memory Card manager | `n_card <= KT_MC_CARD_MAX`, `ktMcInit2`, `sceMcInit` |
+| **KCET Hardware** | `kt_kernel.c` | Threads & semaphores | `ThreadID=%d, can't delete`, `SignalSema` |
+| **KCET Hardware** | `kt_hd.c` | Dev filesystem driver | `host0:`, `sim:`, `atfile:` (Sony PS2 TOOL) |
+| **Network Layer** | `socketee.c` | EE Sockets (i.LINK RPC) | `line: %d in socketee.c, sceSifCheckStatRpc() == 1` |
+| **System Layer** | `libscf.c` | Sony system configuration | `SummerTime=%d`, `TimeNotation=%d` |
+| **Bootloader (`SLES_502.82`)** | `pss_main.c` | PSS/MPEG2 video playback | `sceSifInitIopHeap() Init Success` |
+| **Bootloader (`SLES_502.82`)** | `pss_audiodec.c`| Audio decoder for FMVs | `audioDecPause() rSdBlockTrans, timeout` |
+| **Bootloader (`SLES_502.82`)** | `net_iopmodule.c`| IOP module loader | `p->device >= 0 && p->device < N_KT_LOADDEV` |
+
+> [!NOTE]
+> In contrast, the PC binary (`age2_x1.exe`) has **zero** source filenames in its strings. The PS2 binary provides the exact file division needed to reconstruct the source tree.
+
+### 4.2 Function Names and Engine Constants
+
+* **Functions:**
+  - `RESFILE_load2()` (SLP / DRS resource file loader)
+  - `th_Receiver()` (direct play receiving thread)
+  - `ktMcInit2()` (memory card init)
+  - `ktSceCdInitMmode()` (CD/DVD drive mode setting)
+  - `ktWaitSyncV()` (V-Sync wait routine)
+* **Constants & Macros:**
+  - `PS2_MAX_ZONE_SIZE_M`
+  - `KT_MOUSE_MAX_NUM`, `KT_KEYBD_MAX_NUM`, `KT_MC_CARD_MAX`
+  - `N_KT_FILE_KIND`, `N_KT_LOADDEV`
+* **Save Game Identifiers (Memory Card):**
+  - `-50282age2_acn`, `-50282age2_g`, `-50282age2_s`
+* **UI Screen Identifiers:**
+  - `Single Player Menu`
+  - `Game Setup Screen`
+  - `MP Setup Screen`
+
+---
+
+## 5. Decompilation Strategy for PS2
+
+1. **Splat Mapping:**
+   Use the identified `.cpp` and `.c` files to name segments in `config/SLES-50282/config.yml` rather than using anonymous auto-generated function names.
+2. **PC Cross-Referencing:**
+   Cross-reference functions in `tribegam.cpp`, `obmanager.cpp`, and `com_hand.cpp` between PS2 MIPS assembly and PC x86 disassembly. Because both share Ensemble's Genie engine, algorithms and struct layouts can be matched between platforms.
+3. **Toolchain Configuration:**
+   Target Metrowerks CodeWarrior 2.3.1.01 (`mwccps2.exe`) running under `wibo` on Linux.

@@ -66,6 +66,29 @@ Status: **the linker and resource compiler point to VS97 (MSVC 5.0) SP3. The
 Rich header. `configure.py` sets `linker_version = "Win32/VS97-SP3-unconfirmed"`.
 The `/Ox` optimisation flags are still a guess.
 
+### Important: `age2_x1.exe` is the SafeDisc loader, not the game code
+
+Checked with pefile:
+
+- `age2_x1.exe`: linker 5.10, sections `.txt`, `.txt2`, entropy 4.88. This is
+  the wrapper that carries the VS97 SP3 tools.
+- `orig/AGE2_X1_1_0C_EN/age2_x1.icd` (2.6 MB, shipped alongside): linker 6.0,
+  timestamp 997471212 (10 Aug 2001), sections `THIS_COD` and `THIS_DAT`
+  (SafeDisc markers), entropy 7.90. Its Rich header has entries for VC++ 6.0
+  SP3 (`build 8447`, 304 objects), MASM 6.13/6.14, and cvtres 1735.
+
+The likely reading is that the game code is in `age2_x1.icd`, built with VC++
+6.0, and `age2_x1.exe` is the SafeDisc stub around it. That reading comes from a
+read-only `agy` research run. The Rich header and section evidence match it. The
+compiler version from the `.icd` Rich header is not yet confirmed by compiling
+or disassembling code. The entropy suggests the code sections may be encrypted,
+so this has to be checked before the `.icd` can be used as a split target.
+
+Decision still open: keep `age2_x1.exe` as the pinned target (what the
+pinned hash covers today), or move the target to the `.icd` (needs the `.icd`
+hash, a decryption step, and possibly a different `config.yml`). See ADR 0001,
+open item 6.
+
 ## Identifying the PS2 compiler
 
 The ELF `.comment` section records the compiler version string:

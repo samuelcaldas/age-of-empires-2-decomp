@@ -15,7 +15,8 @@ and their roles are in [docs/adr/0001-target-editions.md](docs/adr/0001-target-e
 | `SLPM-62076`       | PS2 NTSC-J | Secondary | `orig/SLPM-62076/AOK.ELF`            |
 
 Original binaries are never committed. Their layout and checksums are in
-[docs/game_files.md](docs/game_files.md).
+[docs/game_files.md](docs/game_files.md). Detailed PS2 binary analysis and debug
+findings are documented in [docs/ps2_binary_analysis.md](docs/ps2_binary_analysis.md).
 
 ## Commands
 
@@ -41,7 +42,7 @@ IDA-exported `splits.json` and `symbols.json` (see `docs/toolchain.md`).
 - `config/<VERSION>/`: `config.yml` (slicer config), `build.sha1` (pinned hash).
   `splits.json`, `symbols.json`, and `symbols.txt` are added once a binary is analysed.
 - `orig/<VERSION>/`: original binaries. Ignored by git.
-- `docs/`: game files, toolchain, and decisions (`docs/adr/`).
+- `docs/`: game files, toolchain, binary analysis (`docs/ps2_binary_analysis.md`), and decisions (`docs/adr/`).
 
 ## Rules for this repository
 

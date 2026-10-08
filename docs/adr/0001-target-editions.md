@@ -73,6 +73,13 @@ Excluded:
 5. **Compilers (Verified for SLES-50282).** The `.comment` section identifies
    `MW MIPS C Compiler (2.3.1.01)` (Metrowerks CodeWarrior for PlayStation 2).
    See `docs/toolchain.md`.
+6. **Which PC file holds the game code (Open).** `age2_x1.exe` (pinned) looks
+   like a SafeDisc loader: VS97 SP3 linker, `.txt` sections. The `age2_x1.icd`
+   shipped alongside has VC++ 6.0 Rich entries, SafeDisc sections (`THIS_COD`,
+   `THIS_DAT`), and entropy 7.90. If the game code is in the `.icd`, the PC
+   target should move to it, and decryption has to be solved first. Check by
+   reading the `.icd` entry point or by testing whether its code sections are
+   readable. See `docs/toolchain.md`.
 
 ## Sources
 

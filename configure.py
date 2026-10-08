@@ -192,7 +192,8 @@ elif config.platform == Platform.WIN32:
         f"/PDB:./build/{config.version}/{config.version}.pdb",
         "/DEBUG",
     ]
-    # Rich header: link 5.10 and cvtres 5.00.1668, both VS97 (5.0) SP3 tools. The cl.exe build is not confirmed (docs/toolchain.md)
+    # age2_x1.exe is the SafeDisc loader. Its Rich header shows link 5.10 and cvtres 5.00.1668 (VS97 SP3).
+    # The game code may be in age2_x1.icd, built with VC++ 6.0. Target still open (docs/toolchain.md)
     config.linker_version = "Win32/VS97-SP3-unconfirmed"
     config.context_defines = ["_WIN32"]
 

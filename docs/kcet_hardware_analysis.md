@@ -68,7 +68,7 @@ The boundaries of each source file were established through assertion string cro
 - **Confirmed Compiler:** Sony PlayStation 2 SDK 1.6.5 **EE-GCC 2.9-991111** (`ee-gcc.exe`).
 - **Flags:** `-O2 -G0 -Iinclude` (MIPS 64-bit EABI register conventions).
 - **Matching Progress (`kt_mouse.c`):**
-  - Matched Functions: **16 / 45** (616 / 4,236 bytes = **14.54% byte-matched**)
+  - Matched Functions: **25 / 45** (1,260 / 4,236 bytes = **29.75% byte-matched**)
   - Verified 100.0% Byte Matches:
     - `func_00134F18` (8 B) — stub (`jr ra; nop`)
     - `func_00134F20` (44 B) — `D_50A060 = func_134210(1, 1, 0)`
@@ -77,8 +77,17 @@ The boundaries of each source file were established through assertion string cro
     - `func_00134FB8` (36 B) — device event trigger
     - `func_001351B0` (8 B) — accessor returning `ptr[1]`
     - `func_00135238` (28 B) — guarded word read if `ptr[1] != -1`
+    - `func_00135478` (40 B) — set `D_50A06C = 1` inside critical lock
+    - `func_001354A0` (36 B) — clear `D_50A06C = 0` inside critical lock
+    - `func_001354C8` (60 B) — mouse startup sequence and poll kickoff
+    - `func_00135508` (36 B) — mouse reset and shutdown sequence
+    - `func_00135598` (56 B) — mouse packet buffer zero and reset
+    - `func_001355D0` (104 B) — mouse instance acquire and buffer binding
+    - `func_00135638` (156 B) — mouse release and state teardown
     - `func_001356D8` (16 B) — status check `ptr[1] != -1`
+    - `func_00135980` (52 B) — get `D_50A06C` state inside critical lock
     - `func_001359B8` (20 B) — block reset with `-1` markers
+    - `func_001359D0` (104 B) — stride iteration array initializer
     - `func_00135BE8` (8 B) — tail call to `func_134A20`
     - `func_00135D60` (56 B) — polling loop with delay-slot register restoration
     - `func_00135D98` (8 B) — stub (`jr ra; nop`)

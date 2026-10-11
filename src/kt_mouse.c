@@ -4,35 +4,52 @@ INCLUDE_ASM("build/SLES-50282/asm/nonmatchings/kt_mouse", func_00134DE8);
 
 INCLUDE_ASM("build/SLES-50282/asm/nonmatchings/kt_mouse", func_00134E50);
 
-extern int D_50A060;
+typedef struct {
+    int handle;
+    int count;
+    char *buffer;
+    int flag;
+} MouseWork;
+
+extern MouseWork D_50A060;
 int func_134210(int, int, int);
 void func_1344C0(int);
 void func_134500(int);
 void func_134440(int);
+void func_1348A8(int);
+void func_00134E50(int);
+void func_00135D60();
+void func_00135D98(void);
+void func_1143C0(void *, int);
+void *func_00135530(void);
+int func_00135258(int);
+void func_114320(const char *, int, const char *);
+extern const char D_490820[];
+extern const char D_490870[];
 
 void func_00134F18(void) {
 }
 
 void func_00134F20(void) {
-    D_50A060 = func_134210(1, 1, 0);
+    D_50A060.handle = func_134210(1, 1, 0);
 }
 
 void func_00134F50(void) {
-    if (D_50A060 != -1) {
-        func_1344C0(D_50A060);
-        D_50A060 = -1;
+    if (D_50A060.handle != -1) {
+        func_1344C0(D_50A060.handle);
+        D_50A060.handle = -1;
     }
 }
 
 void func_00134F90(void) {
-    if (D_50A060 != -1) {
-        func_134500(D_50A060);
+    if (D_50A060.handle != -1) {
+        func_134500(D_50A060.handle);
     }
 }
 
 void func_00134FB8(void) {
-    if (D_50A060 != -1) {
-        func_134440(D_50A060);
+    if (D_50A060.handle != -1) {
+        func_134440(D_50A060.handle);
     }
 }
 
@@ -68,21 +85,75 @@ INCLUDE_ASM("build/SLES-50282/asm/nonmatchings/kt_mouse", func_001352D8);
 
 INCLUDE_ASM("build/SLES-50282/asm/nonmatchings/kt_mouse", func_001353C0);
 
-INCLUDE_ASM("build/SLES-50282/asm/nonmatchings/kt_mouse", func_00135478);
+extern int D_50A06C;
 
-INCLUDE_ASM("build/SLES-50282/asm/nonmatchings/kt_mouse", func_001354A0);
+void func_00135478(void) {
+    func_00134F90();
+    D_50A06C = 1;
+    func_00134FB8();
+}
 
-INCLUDE_ASM("build/SLES-50282/asm/nonmatchings/kt_mouse", func_001354C8);
+void func_001354A0(void) {
+    func_00134F90();
+    D_50A06C = 0;
+    func_00134FB8();
+}
 
-INCLUDE_ASM("build/SLES-50282/asm/nonmatchings/kt_mouse", func_00135508);
+void func_001354C8(int a0) {
+    func_1348A8(2);
+    func_00134E50(a0);
+    func_00134F20();
+    func_00135D60(a0);
+}
+
+void func_00135508(void) {
+    func_00135D98();
+    func_00134F18();
+    func_00134F50();
+}
 
 INCLUDE_ASM("build/SLES-50282/asm/nonmatchings/kt_mouse", func_00135530);
 
-INCLUDE_ASM("build/SLES-50282/asm/nonmatchings/kt_mouse", func_00135598);
+void func_00135598(int *ptr) {
+    if (ptr != 0) {
+        func_1143C0((char *)ptr + 0xC, 0x90);
+        ptr[1] = 0;
+        ptr[2] = 0;
+    }
+}
 
-INCLUDE_ASM("build/SLES-50282/asm/nonmatchings/kt_mouse", func_001355D0);
+int func_001355D0(int a0) {
+    short res;
+    short *ptr;
 
-INCLUDE_ASM("build/SLES-50282/asm/nonmatchings/kt_mouse", func_00135638);
+    func_00134F90();
+    res = -1;
+    ptr = (short *)func_00135530();
+    if (ptr != 0) {
+        *(int *)(ptr + 2) = a0;
+        ptr[1] = 0;
+        func_00135598((int *)(ptr + 10));
+        res = ptr[0];
+    }
+    func_00134FB8();
+    return res;
+}
+
+void func_00135638(int a0, int a1) {
+    char *ptr;
+
+    if (D_50A060.count <= a0) {
+        func_114320(D_490820, 0x23B, D_490870);
+    }
+    func_00134F90();
+    ptr = D_50A060.buffer + (a0 * 0xB0);
+    if (func_00135238((short *)ptr) == a1) {
+        *(int *)(ptr + 4) = 0;
+        *(short *)(ptr + 2) = -1;
+        func_00135598((int *)(ptr + 0x14));
+    }
+    func_00134FB8();
+}
 
 int func_001356D8(short *ptr) {
     return ptr[1] != -1;
@@ -94,7 +165,14 @@ INCLUDE_ASM("build/SLES-50282/asm/nonmatchings/kt_mouse", func_00135798);
 
 INCLUDE_ASM("build/SLES-50282/asm/nonmatchings/kt_mouse", func_00135870);
 
-INCLUDE_ASM("build/SLES-50282/asm/nonmatchings/kt_mouse", func_00135980);
+int func_00135980(void) {
+    int res;
+
+    func_00134F90();
+    res = D_50A06C;
+    func_00134FB8();
+    return res;
+}
 
 typedef struct {
     int f0;
@@ -108,7 +186,13 @@ void func_001359B8(MouseBlock_9B8 *ptr, int val) {
     ptr->f8 = -1;
 }
 
-INCLUDE_ASM("build/SLES-50282/asm/nonmatchings/kt_mouse", func_001359D0);
+void func_001359D0(char *ptr, int count, int stride) {
+    int i;
+    for (i = 0; i < count; i++) {
+        func_001359B8((MouseBlock_9B8 *)ptr, i);
+        ptr += stride;
+    }
+}
 
 INCLUDE_ASM("build/SLES-50282/asm/nonmatchings/kt_mouse", func_00135A38);
 

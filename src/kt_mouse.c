@@ -1,8 +1,19 @@
 #include "common.h"
 
-INCLUDE_ASM("build/SLES-50282/asm/nonmatchings/kt_mouse", func_00134DE8);
+int func_105748(int);
+int func_104A20(int, int);
+void func_1057B0(int);
 
-INCLUDE_ASM("build/SLES-50282/asm/nonmatchings/kt_mouse", func_00134E50);
+int func_00134DE8(int a0, int a1) {
+    int flag = func_105748(a0);
+    int res = func_104A20(a0, a1);
+    if (res != 0) {
+        if (flag != 0) {
+            func_1057B0(a0);
+        }
+    }
+    return res;
+}
 
 typedef struct {
     int handle;
@@ -12,22 +23,50 @@ typedef struct {
 } MouseWork;
 
 extern MouseWork D_50A060;
+extern char D_509F00[];
+extern const char D_490820[];
+extern const char D_490830[];
+extern const char D_490870[];
+
+void func_114320(const char *, int, const char *);
+void func_1143C0(void *, int);
+
+void func_00134E50(int n_mouse) {
+    int i;
+    char *ptr;
+
+    if (n_mouse > 2) {
+        func_114320(D_490820, 100, D_490830);
+    }
+    func_1143C0(&D_50A060, 0x10);
+    D_50A060.handle = -1;
+    D_50A060.count = n_mouse;
+    func_1143C0(D_509F00, 0x160);
+    D_50A060.buffer = D_509F00;
+    i = 0;
+    if (n_mouse > 0) {
+        ptr = D_509F00;
+        do {
+            *(short *)(ptr + 0) = i;
+            *(short *)(ptr + 2) = -1;
+            *(int *)(ptr + 0x14) = 4;
+            i++;
+            ptr += 0xB0;
+        } while (i < n_mouse);
+    }
+}
+
 int func_134210(int, int, int);
 void func_1344C0(int);
 void func_134500(int);
 void func_134440(int);
 void func_1348A8(int);
-void func_00134E50(int);
 void func_00135D60();
 void func_00135D98(void);
-void func_1143C0(void *, int);
 void func_117AF8(void *, const void *, int);
 void *func_00135530(void);
 int *func_001350E0(int);
 int func_00135258(int);
-void func_114320(const char *, int, const char *);
-extern const char D_490820[];
-extern const char D_490870[];
 
 void func_00134F18(void) {
 }
@@ -350,11 +389,62 @@ void func_001359D0(char *ptr, int count, int stride) {
     }
 }
 
-INCLUDE_ASM("build/SLES-50282/asm/nonmatchings/kt_mouse", func_00135A38);
+void func_00135A38(char *ptr, int count, int stride, int a3) {
+    if (count > 0) {
+        int n = count;
+        do {
+            int f8 = *(int *)(ptr + 8);
+            int f4 = *(int *)(ptr + 4);
+            if (f8 >= 0) {
+                if (a3 != func_00135258(f8)) {
+                    func_001359B8((MouseBlock_9B8 *)ptr, f4);
+                }
+            }
+            ptr += stride;
+        } while (--n);
+    }
+}
 
-INCLUDE_ASM("build/SLES-50282/asm/nonmatchings/kt_mouse", func_00135AB8);
+void func_00135AB8(char *ptr, int count, int stride, int a3, char *buf) {
+    int i = 0;
+    int n = count;
+    if (buf[0] < n) {
+        n = buf[0];
+    }
+    if (n > 0) {
+        do {
+            int val = *(int *)(ptr + 8);
+            if (buf[i + 2] != 0) {
+                if (val < 0) {
+                    val = func_001355D0(a3);
+                    *(int *)(ptr + 8) = val;
+                }
+                func_001356E8(val, 1);
+                *(int *)(ptr + 0) = 1;
+            } else {
+                func_001356E8(val, 0);
+                *(int *)(ptr + 0) = 0;
+            }
+            i++;
+            ptr += stride;
+        } while (i < n);
+    }
+}
 
-INCLUDE_ASM("build/SLES-50282/asm/nonmatchings/kt_mouse", func_00135B88);
+extern char D_50A080[];
+void func_001359D0(char *, int, int);
+
+void func_00135B88(a0)
+int a0;
+{
+    if (a0 >= 2) {
+        a0 = 1;
+    }
+    func_1143C0(D_50A080, 0x18);
+    *(int *)(D_50A080 + 8) = a0;
+    *(int *)(D_50A080 + 4) = -1;
+    func_001359D0(D_50A080 + 0xC, 1, 0xC);
+}
 
 void func_134A20(void);
 void func_00135BE8(void) {
@@ -363,7 +453,6 @@ void func_00135BE8(void) {
 
 INCLUDE_ASM("build/SLES-50282/asm/nonmatchings/kt_mouse", func_00135BF0);
 
-void func_00135B88(void);
 int func_00135DA0(void);
 
 void func_00135D60(void) {

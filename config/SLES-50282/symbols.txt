@@ -15,4 +15,5 @@ s_node_pool = 0x50A8C0; // type:ListNode absolute:True
 func_139580 = 0x139580; // type:func absolute:True
 func_226d90 = 0x226D90; // type:func absolute:True
 func_226f70 = 0x226F70; // type:func absolute:True
+func_00134E50 = 0x134E50; // type:func InitWork(int)
 

@@ -131,8 +131,19 @@ int func_00135DA0(void) {
     return D_50A240.status < 1;
 }
 
-INCLUDE_ASM("build/SLES-50282/asm/nonmatchings/kt_mouse", func_00135DE8);
+extern int D_50A280[];
+void func_107E08(MouseDevice_DA0 *, int, int, int *, int, int, int, int, int);
 
-INCLUDE_ASM("build/SLES-50282/asm/nonmatchings/kt_mouse", func_00135E30);
+void func_00135DE8(int a0) {
+    func_107E08(&D_50A240, 1, 0, D_50A280, 0x20, a0, 0x20, 0, 0);
+}
 
-INCLUDE_ASM("build/SLES-50282/asm/nonmatchings/kt_mouse", func_00135E78);
+void func_00135E30(int a0, int a1) {
+    D_50A280[0] = a0;
+    func_107E08(&D_50A240, 2, 0, D_50A280, 0x20, a1, 0x20, 0, 0);
+}
+
+void func_00135E78(int a0, int a1) {
+    D_50A280[0] = a0;
+    func_107E08(&D_50A240, 3, 0, D_50A280, 0x20, a1, 0x20, 0, 0);
+}

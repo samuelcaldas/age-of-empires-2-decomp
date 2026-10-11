@@ -68,7 +68,7 @@ The boundaries of each source file were established through assertion string cro
 - **Confirmed Compiler:** Sony PlayStation 2 SDK 1.6.5 **EE-GCC 2.9-991111** (`ee-gcc.exe`).
 - **Flags:** `-O2 -G0 -Iinclude` (MIPS 64-bit EABI register conventions).
 - **Matching Progress (`kt_mouse.c`):**
-  - Matched Functions: **9 / 45** (332 / 4,236 bytes = **7.84% byte-matched**)
+  - Matched Functions: **12 / 45** (544 / 4,236 bytes = **12.84% byte-matched**)
   - Verified 100.0% Byte Matches:
     - `func_00134F18` (8 B) — stub (`jr ra; nop`)
     - `func_00134F20` (44 B) — `D_50A060 = func_134210(1, 1, 0)`
@@ -79,4 +79,7 @@ The boundaries of each source file were established through assertion string cro
     - `func_00135D60` (56 B) — polling loop with delay-slot register restoration
     - `func_00135D98` (8 B) — stub (`jr ra; nop`)
     - `func_00135DA0` (72 B) — event availability query and device status check
+    - `func_00135DE8` (68 B) — mouse packet read dispatch (packet mode 1)
+    - `func_00135E30` (72 B) — mouse config and read dispatch (packet mode 2)
+    - `func_00135E78` (72 B) — mouse config and read dispatch (packet mode 3)
 

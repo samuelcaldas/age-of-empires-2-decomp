@@ -227,7 +227,24 @@ int func_001352D8(int a0, int *out) {
     return len;
 }
 
-INCLUDE_ASM("build/SLES-50282/asm/nonmatchings/kt_mouse", func_001353C0);
+int func_001353C0(int a0) {
+    register int res __asm__("$18") = 0;
+    int count = D_50A060.count;
+    int i;
+
+    func_00134F90();
+    for (i = 0; i < count; i++) {
+        char *port = D_50A060.buffer + i * 0xB0;
+        int ret = func_001351B0((short *)port);
+
+        if (a0 != 0 || ret == 0) {
+            *(short *)(port + 2) = -1;
+            res++;
+        }
+    }
+    func_00134FB8();
+    return res;
+}
 
 extern int D_50A06C;
 
@@ -362,6 +379,7 @@ INCLUDE_ASM("build/SLES-50282/asm/nonmatchings/kt_mouse", func_00135870);
 
 int func_00135980(void) {
     int res;
+
 
     func_00134F90();
     res = D_50A06C;

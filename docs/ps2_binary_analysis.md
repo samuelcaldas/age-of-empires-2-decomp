@@ -170,6 +170,7 @@ Starting at VRAM `0x137810` (file offset `0x379e0`), the binary transitions from
 | `kt_mouse::func_001350E0` | `0x1350E0` | **100.0%** (52 / 52 B) | Port read buffer entry locator (`buffer + mouse_number * 0xB0 + 0x20 + read_idx * 0x24`). |
 | `kt_mouse::func_00135258` | `0x135258` | **100.0%** (128 / 128 B) | Safe port status getter with `mouse_number < W->n_mouse` assertion. |
 | `kt_mouse::func_001352D8` | `0x1352D8` | **100.0%** (232 / 232 B) | Mouse packet payload reader and byte copier for device types 1..3. |
+| `kt_mouse::func_001353C0` | `0x1353C0` | **100.0%** (184 / 184 B) | Mouse port reset / disconnect loop; scans `D_50A060.buffer`, marks active ports with `-1`, returns reset count. |
 | `kt_mouse::func_00135530` | `0x135530` | **100.0%** (104 / 104 B) | Free port search loop across `W->buffer` inspecting `port[1] == -1`. |
 | `kt_mouse::func_001356E8` | `0x1356E8` | **100.0%** (176 / 176 B) | Safe port state setter with line 0x259 assertion and guard clause. |
 | `kt_mouse::func_00135798` | `0x135798` | **100.0%** (212 / 212 B) | Safe packet payload setter with line 0x276 assertion, payload clamped to 8 B, and `memcpy`. |
@@ -218,5 +219,21 @@ Disassembly of the contiguous block following `BaseList::Clear()` reveals Ensemb
 | `BaseList::Action()` | `0x138C50` | **100.0%** (72 / 72 B) | Iterates list invoking `item->Action()` at vtable offset 24. |
 | `BaseList::Save(void*)` | `0x138CA0` | **100.0%** (104 / 104 B) | Iterates list invoking `item->Save(stream)` at vtable offset 28 + trailing terminator. |
 | `BaseList::Free()` | `0x138D10` | **100.0%** (56 / 56 B) | Head node drainage loop invoking node deallocator `func_139580(this)`. |
+
+### 6.5 `BaseList::CreateItem` Virtual Method & KCET Bird Removal (`0x138D50`–`0x138F88`)
+Immediately following `BaseList::Free()` at `0x138D50`, `__vt__8BaseList[3]` binds the item factory `CreateItem(void *stream, short type_id)` (568 bytes, Metrowerks MWCCPS2):
+* **Type Dispatch Switch:**
+  Evaluates 16-bit signed `type_id` (`dsll32`/`dsra32` sign-extension):
+  - `case 1:` Allocator `0x366c30`, stream loader `0x34fa10`.
+  - `case 4:` Allocator `0x366be0`, stream loader `0x34b730`.
+  - `case 5:` Allocator `0x366bf0`, stream loader `0x34bc10`.
+  - `case 8:` Allocator `0x366c20`, stream loader `0x34e610`.
+  - `case 9:` Allocator `0x366bc0`, stream loader `0x347c80`.
+  - `case 13:` Allocator `0x366c00`, stream loader `0x34e1b0`.
+  - `case 21:` Allocator `0x366c10`, stream loader `0x34e300`.
+  - `case 2:` Explicit `NULL` return.
+* **KCET PS2 Japanese Assertion at `0x490AE0`:**
+  - `case 10:` Formatted print via `func_118de0` emitting:
+    `" Tori(bird) ha Sonzai shitewa ikenai!!\n"` ("Birds must not exist!!") followed by infinite hang (`0x138e24: beq zero, zero, 0x138e24`), confirming that avian/bird ambient creatures were deliberately stripped from the PS2 port's active list processing for performance.
 
 

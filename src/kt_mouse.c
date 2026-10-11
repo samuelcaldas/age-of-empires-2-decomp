@@ -375,7 +375,35 @@ int func_00135798(int a0, void *a1, int a2) {
     return res;
 }
 
-INCLUDE_ASM("build/SLES-50282/asm/nonmatchings/kt_mouse", func_00135870);
+int func_00135870(int a0, int a1, int a2, int a3, int a4) {
+    register int res __asm__("$18") = -1;
+    char *port;
+    int *entry;
+    int *data;
+
+    if (D_50A060.count <= a0) {
+        func_114320(D_490820, 0x293, D_490870);
+    }
+    if (a0 >= 0) {
+        func_00134F90();
+        port = D_50A060.buffer + (a0 * 0xB0);
+        if (func_001356D8((short *)port) != 0) {
+            entry = func_00135058(a0);
+            if (entry != 0 && *entry == 0) {
+                data = entry + 1;
+                *entry = 1;
+                data[0] = a1;
+                data[1] = a2;
+                data[2] = a3;
+                data[3] = a4;
+                func_00135008(a0);
+            }
+            res = 0;
+        }
+        func_00134FB8();
+    }
+    return res;
+}
 
 int func_00135980(void) {
     int res;
@@ -469,7 +497,42 @@ void func_00135BE8(void) {
     func_134A20();
 }
 
-INCLUDE_ASM("build/SLES-50282/asm/nonmatchings/kt_mouse", func_00135BF0);
+extern char D_50A08C[];
+extern char D_50A0C0[];
+extern char D_50A140[];
+extern signed char D_50A1C0[];
+int func_00135DE8(void *);
+int func_00135E30(int, void *);
+int func_00135E78(int, void *);
+
+void func_00135BF0(void) {
+    MouseBlock_9B8 *entry_arr = (MouseBlock_9B8 *)D_50A08C;
+    int count = *(int *)((char *)entry_arr - 4);
+    int i;
+    int mouse_id;
+
+    if (func_00135DE8(D_50A0C0) != 0) {
+        return;
+    }
+    func_00135A38((char *)entry_arr, count, 0xC, 1);
+    func_00135AB8((char *)entry_arr, count, 0xC, 1, D_50A0C0);
+    for (i = 0; i < count; i++) {
+        mouse_id = entry_arr[i].f8;
+        if ((unsigned char)D_50A0C0[i + 2] == 0) {
+            continue;
+        }
+        if (func_00135E78(i, D_50A140) == 0) {
+            func_00135798(mouse_id, D_50A140, 7);
+            while (func_00135E30(i, D_50A1C0) == 0) {
+                if (D_50A1C0[0] == 0) {
+                    break;
+                }
+                func_00135870(mouse_id, D_50A1C0[1], D_50A1C0[2], D_50A1C0[3], (D_50A1C0[0] < 4) ? 0 : D_50A1C0[4]);
+                D_50A1C0[0] = 0;
+            }
+        }
+    }
+}
 
 int func_00135DA0(void);
 
@@ -499,18 +562,18 @@ int func_00135DA0(void) {
 }
 
 extern int D_50A280[];
-void func_107E08(MouseDevice_DA0 *, int, int, int *, int, int, int, int, int);
+int func_107E08(MouseDevice_DA0 *, int, int, int *, int, void *, int, int, int);
 
-void func_00135DE8(int a0) {
-    func_107E08(&D_50A240, 1, 0, D_50A280, 0x20, a0, 0x20, 0, 0);
+int func_00135DE8(void *a0) {
+    return func_107E08(&D_50A240, 1, 0, D_50A280, 0x20, a0, 0x20, 0, 0);
 }
 
-void func_00135E30(int a0, int a1) {
+int func_00135E30(int a0, void *a1) {
     D_50A280[0] = a0;
-    func_107E08(&D_50A240, 2, 0, D_50A280, 0x20, a1, 0x20, 0, 0);
+    return func_107E08(&D_50A240, 2, 0, D_50A280, 0x20, a1, 0x20, 0, 0);
 }
 
-void func_00135E78(int a0, int a1) {
+int func_00135E78(int a0, void *a1) {
     D_50A280[0] = a0;
-    func_107E08(&D_50A240, 3, 0, D_50A280, 0x20, a1, 0x20, 0, 0);
+    return func_107E08(&D_50A240, 3, 0, D_50A280, 0x20, a1, 0x20, 0, 0);
 }

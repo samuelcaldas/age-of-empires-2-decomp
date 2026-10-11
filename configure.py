@@ -227,7 +227,7 @@ if config.platform == Platform.PS2:
             "lib": "kcet",
             "objects": [
                 Object(
-                    NonMatching,
+                    Matching,
                     "kt_mouse",
                     cflags=["-O2", "-G0", "-Iinclude"],
                     toolchain_version="PS2/ee-gcc2.9-991111",

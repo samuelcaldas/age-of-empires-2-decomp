@@ -20,6 +20,7 @@ from pathlib import Path
 import yaml
 
 from tools.project import (
+    Object,
     Platform,
     ProgressCategory,
     ProjectConfig,
@@ -182,6 +183,18 @@ if config.platform == Platform.PS2:
         "-mabi=eabi",
         "-I include",
     ]
+    config.cflags = [
+        "-O2,p",
+        "-inline",
+        "on",
+        "-msext",
+        "on",
+        "-char",
+        "signed",
+        "-sym",
+        "off",
+        "-Iinclude",
+    ]
     config.ldflags = [
         "-EL",
         "-T",
@@ -208,7 +221,22 @@ Matching = True  # Object matches and should be linked
 NonMatching = False  # Object does not match and should not be linked
 Equivalent = config.non_matching  # Object should be linked when configured with --non-matching
 
-config.libs = []
+if config.platform == Platform.PS2:
+    config.libs = [
+        {
+            "lib": "kcet",
+            "objects": [
+                Object(
+                    NonMatching,
+                    "kt_mouse",
+                    cflags=["-O2", "-G0", "-Iinclude"],
+                    toolchain_version="PS2/ee-gcc2.9-991111",
+                ),
+            ],
+        }
+    ]
+else:
+    config.libs = []
 config.warn_missing_source = False
 config.progress_categories = [
     ProgressCategory("game", "Game Code"),

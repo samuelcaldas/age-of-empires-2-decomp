@@ -105,6 +105,7 @@ class Object:
         set_default("add_to_all", True)
         set_default("asflags", config.asflags)
         set_default("asm_dir", config.asm_dir)
+        set_default("cflags", config.cflags)
         set_default("extab_padding", None)
         set_default("toolchain_version", config.linker_version)
         set_default("scratch_preset_id", config.scratch_preset_id)
@@ -127,7 +128,13 @@ class Object:
 
         # Resolve paths
         build_dir = config.out_path()
-        obj.src_path = Path(obj.options["src_dir"]) / obj.options["source"]
+        source_file = Path(obj.options["src_dir"]) / obj.options["source"]
+        if not source_file.exists():
+            if source_file.with_suffix(".c").exists():
+                source_file = source_file.with_suffix(".c")
+            elif source_file.with_suffix(".cpp").exists():
+                source_file = source_file.with_suffix(".cpp")
+        obj.src_path = source_file
         if obj.options["asm_dir"] is not None:
             obj.asm_path = (
                 Path(obj.options["asm_dir"]) / obj.options["source"]
@@ -809,9 +816,9 @@ def generate_build_ninja(
     # MWCC PS2
     mwcc_ps2 = compiler_path / "mwccps2.exe"
     if is_windows():
-        mwcc_ps2_cmd = f"{wrapper_cmd}{mwcc_ps2} $cflags -MD -c $in -o $out"
+        mwcc_ps2_cmd = f"{wrapper_cmd}{mwcc_ps2} $cflags -c $in -o $out"
     else:
-        mwcc_ps2_cmd = f"env MWCIncludes=\"\" {wrapper_cmd}{mwcc_ps2} $cflags -MD -c $in -o $out"
+        mwcc_ps2_cmd = f"env MWCIncludes=\"\" {wrapper_cmd}{mwcc_ps2} $cflags -c $in -o $out"
     mwcc_ps2_implicit: List[Optional[Path]] = [
         compilers_implicit or mwcc_ps2,
         wrapper_implicit,
@@ -978,8 +985,6 @@ def generate_build_ninja(
         name="mwcc_ps2",
         command=mwcc_ps2_cmd,
         description="MWCC PS2 $out",
-        depfile="$basefile.d",
-        deps="gcc",
     )
     n.newline()
 
@@ -1233,9 +1238,11 @@ def generate_build_ninja(
             cflags = obj.options["cflags"]
             extra_cflags = obj.options["extra_cflags"]
             toolchain_version: str = obj.options["toolchain_version"]
-            is_mwcc: bool = toolchain_version.startswith(
-                "GC"
-            ) or toolchain_version.startswith("Wii")
+            is_mwcc: bool = (
+                toolchain_version.startswith("GC")
+                or toolchain_version.startswith("Wii")
+                or "mwcc" in toolchain_version.lower()
+            )
 
             def is_lang_flag(flag):
                 return (
@@ -1311,13 +1318,14 @@ def generate_build_ninja(
                 build_rule = "msvc"
                 build_implicit = msvc_implicit
             elif config.platform == Platform.PS2:
-                # Add MWCC PS2 build rule (or EE-GCC fallback)
-                if (compiler_path / "mwccps2.exe").exists() or "mwcc" in str(config.linker_version).lower():
-                    build_rule = "mwcc_ps2"
-                    build_implicit = mwcc_ps2_implicit
-                else:
+                # Add MWCC PS2 or EE-GCC build rule based on object toolchain
+                compiler_opt = str(obj.options.get("compiler", ""))
+                if "gcc" in toolchain_version.lower() or "gcc" in compiler_opt.lower():
                     build_rule = "ee-gcc"
                     build_implicit = ee_gcc_implicit
+                else:
+                    build_rule = "mwcc_ps2"
+                    build_implicit = mwcc_ps2_implicit
 
             n.comment(f"{obj.name}: {lib_name} (linked {obj.completed})")
             n.build(

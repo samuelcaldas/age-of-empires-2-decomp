@@ -38,8 +38,17 @@ options:
   ld_script_path: build/SLES-50282/ldscript.ld
 
 segments:
-  - name: main
+  - name: pre_mouse
     type: bin
     start: 0x1e0
+  - name: kt_mouse
+    type: code
+    start: 0x34fc8
+    vram: 0x134de8
+    subsegments:
+      - [0x34fc8, asm, kt_mouse]
+  - name: post_mouse
+    type: bin
+    start: 0x360a0
   - [0x3e31c0]
 

@@ -16,8 +16,6 @@ import os
 import platform
 import shutil
 import stat
-import subprocess
-import sys
 import tarfile
 import urllib.request
 import zipfile
@@ -60,6 +58,11 @@ def compilers_url(tag: str) -> str:
 def mwccps2_url(tag: str) -> str:
     repo = "https://github.com/decompme/compilers/releases/download/compilers"
     return f"{repo}/mwcps2-2.3.3-000906.tar.gz"
+
+
+def eegcc_url(tag: str) -> str:
+    repo = "https://github.com/decompme/compilers/releases/download/compilers"
+    return f"{repo}/ee-gcc2.9-991111.tar.gz"
 
 
 def msvc_url(tag: str) -> str:
@@ -135,6 +138,7 @@ TOOLS: Dict[str, Callable[[str], str]] = {
     "mips_binutils": mips_binutils_url,
     "compilers": compilers_url,
     "mwccps2": mwccps2_url,
+    "ee-gcc": eegcc_url,
     "dtk": dtk_url,
     "jeff": dtk_url,
     "delink": delink_url,
@@ -175,7 +179,7 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("tool", help="Tool name")
     parser.add_argument("output", type=Path, help="output file path")
-    parser.add_argument("--tag", help="GitHub tag", required=True)
+    parser.add_argument("--tag", help="GitHub tag", default="")
     args = parser.parse_args()
 
     url = TOOLS[args.tool](args.tag)
@@ -192,7 +196,7 @@ def main() -> None:
         try:
             import certifi
             import ssl
-        except:
+        except ImportError:
             print(
                 '"certifi" module not found. Please install it using "python -m pip install certifi".'
             )

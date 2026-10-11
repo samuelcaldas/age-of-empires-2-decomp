@@ -43,6 +43,7 @@ build.ninja
 .ninja_*
 objdiff.json
 compile_commands.json
+*.d
 
 # decompctx output
 ctx.*

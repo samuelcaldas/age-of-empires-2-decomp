@@ -184,7 +184,7 @@ if config.platform == Platform.PS2:
         "-I include",
     ]
     config.cflags = [
-        "-O2,p",
+        "-O3",
         "-inline",
         "on",
         "-msext",
@@ -233,7 +233,24 @@ if config.platform == Platform.PS2:
                     toolchain_version="PS2/ee-gcc2.9-991111",
                 ),
             ],
-        }
+        },
+        {
+            "lib": "game",
+            "objects": [
+                Object(
+                    Matching,
+                    "screen_obj",
+                    cflags=config.cflags,
+                    toolchain_version="PS2/mwcc-2.3.1.01",
+                ),
+                Object(
+                    Matching,
+                    "base_list",
+                    cflags=config.cflags,
+                    toolchain_version="PS2/mwcc-2.3.1.01",
+                ),
+            ],
+        },
     ]
 else:
     config.libs = []

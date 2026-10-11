@@ -1,0 +1,7 @@
+AspectRatio__9ScreenObjFv = 0x137A20; // type:func
+Reset__8BaseListFi = 0x138A40; // type:func
+__ct__8BaseListFi = 0x138A50; // type:func
+Clear__8BaseListFv = 0x138AB0; // type:func
+Free__8BaseListFv = 0x138D10; // type:func absolute:True
+__vec_ctor = 0x100670; // type:func absolute:True
+__vt__8BaseList = 0x4D7200; // type:Vtable absolute:True

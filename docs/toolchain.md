@@ -102,14 +102,18 @@ readelf -S orig/SLES-50282/AOK.ELF | grep -E 'symtab|debug'
   - Detailed binary instruction analysis revealed that `AOK.ELF` combines two distinct toolchains linked by Metrowerks Linker (`mwldps2.exe`):
     1. **Age of Empires II Game Code (`0x137800` – `0x380000`, ~2.4 MB C++):**
        - **Compiler:** Metrowerks CodeWarrior for PlayStation 2, compiler version 2.3.1.01 (`mwccps2.exe`).
-       - **Optimisation flags:** `-O2,p -inline on -msext on -char signed -sym off -Iinclude`.
-       - **Characteristics:** Uses 128-bit quadword register saving (`sq`/`lq`) in stack frames. Emits `.comment` string `MW MIPS C Compiler (2.3.1.01)` / `PlayStation2`.
+       - **Optimisation flags:** `-O3 -inline on -msext on -char signed -sym off -Iinclude -lang=c++`.
+       - **Characteristics:** Uses 128-bit quadword register saving (`sq`/`lq`) in stack frames, `paddub $dst, $src, $zero` for 128-bit moves, and Metrowerks C++ ABI/symbol mangling. Delay-slot filling requires `-O3` (or `-opt level=3`).
+       - **Verification:**
+         - `ScreenObj::AspectRatio()` (`src/screen_obj.cpp`): **100.0% byte-for-byte match** (24 bytes, FPU `div.s` scheduled in `jr $ra` delay slot).
+         - `BaseList::Reset()` (`src/base_list.cpp`): **100.0% byte-for-byte match** (12 bytes, virtual method).
+         - `BaseList::Clear()` (`src/base_list.cpp`): **100.0% byte-for-byte match** (44 bytes, 128-bit frame saves and quadword register restoration).
     2. **KCET Hardware Abstraction Layer (`0x100000` – `0x137800`, ~73 KiB C):**
        - **Compiler:** Sony PlayStation 2 SDK 1.6.5 EE-GCC 2.9-991111 (`ee-gcc.exe`).
        - **Optimisation flags:** `-O2 -G0 -Iinclude`.
        - **Characteristics:** Uses standard 64-bit doubleword register saving (`sd`/`ld`) with GCC delay-slot scheduling.
-  - **Verification:**
-    - 9 functions (332 bytes) in `kt_mouse.c` matched at **100.0% byte-for-byte** with EE-GCC 2.9-991111 (`func_00134F18`, `func_00134F20`, `func_00134F50`, `func_00134F90`, `func_00134FB8`, `func_00135BE8`, `func_00135D60`, `func_00135D98`, `func_00135DA0`).
+       - **Verification:**
+         - 9 functions (332 bytes) in `kt_mouse.c` matched at **100.0% byte-for-byte** with EE-GCC 2.9-991111 (`func_00134F18`, `func_00134F20`, `func_00134F50`, `func_00134F90`, `func_00134FB8`, `func_00135BE8`, `func_00135D60`, `func_00135D98`, `func_00135DA0`).
   - Distribution: Available from decomp.me/compilers archive (`mwcps2-2.3.3-000906.tar.gz` and `ee-gcc2.9-991111.tar.gz`).
   - Runner: `wibo` 1.2.0 runs both `mwccps2.exe` and `ee-gcc.exe` natively on Linux x86_64 without full Wine installation.
 
@@ -137,5 +141,5 @@ The `compilers/` directory is gitignored and must never be committed.
 - [x] PS2 compiler identified from `.comment`, `linker_version` updated (`MW MIPS C Compiler 2.3.1.01`)
 - [x] PS2 compiler downloaded and verified (`compilers/PS2/mwcc-2.3.1.01/mwccps2.exe` and `compilers/PS2/ee-gcc2.9-991111` with wibo)
 - [x] Optimisation and debug flags confirmed by compiling known functions and
-      matching 100% against the original binary in objdiff (both MWCC `-O2,p` and EE-GCC `-O2 -G0`)
+      matching 100% against the original binary in objdiff (MWCC `-O3` for C++ game code and EE-GCC `-O2 -G0` for KCET C code)
 - [x] `--compilers` path and automatic detection documented

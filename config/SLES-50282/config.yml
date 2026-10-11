@@ -50,5 +50,23 @@ segments:
   - name: post_mouse
     type: bin
     start: 0x360a0
+  - name: screen_obj
+    type: code
+    start: 0x37c00
+    vram: 0x137a20
+    subsegments:
+      - [0x37c00, asm, screen_obj]
+  - name: post_screen
+    type: bin
+    start: 0x37c20
+  - name: base_list
+    type: code
+    start: 0x38c20
+    vram: 0x138a40
+    subsegments:
+      - [0x38c20, asm, base_list]
+  - name: post_base
+    type: bin
+    start: 0x38cc0
   - [0x3e31c0]
 

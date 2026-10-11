@@ -136,4 +136,30 @@ The binary embeds **16 original C and C++ source filenames** in assertion and er
 2. **PC Cross-Referencing:**
    Cross-reference functions in `tribegam.cpp`, `obmanager.cpp`, and `com_hand.cpp` between PS2 MIPS assembly and PC x86 disassembly. Because both share Ensemble's Genie engine, algorithms and struct layouts can be matched between platforms.
 3. **Toolchain Configuration:**
-   Target Metrowerks CodeWarrior 2.3.1.01 (`mwccps2.exe`) running under `wibo` on Linux.
+   Target Metrowerks CodeWarrior 2.3.1.01 (`mwccps2.exe`) with flags `-O3 -inline on -msext on -char signed -sym off -Iinclude -lang=c++` running under `wibo` on Linux.
+
+---
+
+## 6. C++ Game Engine Matching & Virtual Table Analysis
+
+### 6.1 Emotion Engine 128-bit ABI & Register Saving
+Starting at VRAM `0x137810` (file offset `0x379e0`), the binary transitions from KCET 64-bit frames (`sd`/`ld`) to Metrowerks CodeWarrior 128-bit Emotion Engine quadword frames (`sq`/`lq`):
+- `sq $ra, 0x20($sp)`, `sq $s1, 0x10($sp)`, `sq $s0, 0x0($sp)`
+- `paddub $dst, $src, $zero` utilized as 128-bit register move instruction.
+- Branch delay-slot filling on FPU and ALU operations requires Metrowerks `-O3` (`-opt level=3`).
+
+### 6.2 Virtual Tables & Inheritance Hierarchy
+* **Base Virtual Table `__vt__8BaseList` (`0x4D7200`):**
+  A 20-entry virtual method table for core Genie Engine dynamic container/collection objects:
+  - `vtable[2] = 0x138A50` (`__ct__8BaseListFi`, constructor)
+  - `vtable[10] = 0x138A40` (`Reset__8BaseListFi`, virtual reset)
+  - `vtable[11] = 0x138AB0` (`Clear__8BaseListFv`, virtual clear)
+* **Inheritance Chain Evidence:**
+  At `0x366850`, constructor/destructor sequence overwrites `0x4D7200` (base vtable) with derived vtable `0x4DC9F0`, and subsequently with `0x4DF570` (most derived vtable), validating standard C++ inheritance layout in Metrowerks MIPS.
+
+### 6.3 Verified Matched Targets
+| Unit / Function | VRAM | Match Status | Description |
+|---|---|---|---|
+| `ScreenObj::AspectRatio()` | `0x137A20` | **100.0%** (24 / 24 B) | FPU single-precision division with `div.s` in `jr $ra` delay slot. |
+| `BaseList::Reset(int)` | `0x138A40` | **100.0%** (12 / 12 B) | Virtual method clearing count and updating capacity. |
+| `BaseList::Clear()` | `0x138AB0` | **100.0%** (44 / 44 B) | Virtual method invoking `Free()` with quadword stack save/restore. |

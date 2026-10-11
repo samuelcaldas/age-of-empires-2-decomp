@@ -48,11 +48,19 @@ INCLUDE_ASM("build/SLES-50282/asm/nonmatchings/kt_mouse", func_001350E0);
 
 INCLUDE_ASM("build/SLES-50282/asm/nonmatchings/kt_mouse", func_00135118);
 
-INCLUDE_ASM("build/SLES-50282/asm/nonmatchings/kt_mouse", func_001351B0);
+short func_001351B0(short *ptr) {
+    return ptr[1];
+}
 
 INCLUDE_ASM("build/SLES-50282/asm/nonmatchings/kt_mouse", func_001351B8);
 
-INCLUDE_ASM("build/SLES-50282/asm/nonmatchings/kt_mouse", func_00135238);
+int func_00135238(short *ptr) {
+    int res = 0;
+    if (ptr[1] != -1) {
+        res = *(int *)(ptr + 2);
+    }
+    return res;
+}
 
 INCLUDE_ASM("build/SLES-50282/asm/nonmatchings/kt_mouse", func_00135258);
 
@@ -76,7 +84,9 @@ INCLUDE_ASM("build/SLES-50282/asm/nonmatchings/kt_mouse", func_001355D0);
 
 INCLUDE_ASM("build/SLES-50282/asm/nonmatchings/kt_mouse", func_00135638);
 
-INCLUDE_ASM("build/SLES-50282/asm/nonmatchings/kt_mouse", func_001356D8);
+int func_001356D8(short *ptr) {
+    return ptr[1] != -1;
+}
 
 INCLUDE_ASM("build/SLES-50282/asm/nonmatchings/kt_mouse", func_001356E8);
 
@@ -86,7 +96,17 @@ INCLUDE_ASM("build/SLES-50282/asm/nonmatchings/kt_mouse", func_00135870);
 
 INCLUDE_ASM("build/SLES-50282/asm/nonmatchings/kt_mouse", func_00135980);
 
-INCLUDE_ASM("build/SLES-50282/asm/nonmatchings/kt_mouse", func_001359B8);
+typedef struct {
+    int f0;
+    int f4;
+    int f8;
+} MouseBlock_9B8;
+
+void func_001359B8(MouseBlock_9B8 *ptr, int val) {
+    ptr->f4 = val;
+    ptr->f0 = -1;
+    ptr->f8 = -1;
+}
 
 INCLUDE_ASM("build/SLES-50282/asm/nonmatchings/kt_mouse", func_001359D0);
 

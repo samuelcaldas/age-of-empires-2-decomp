@@ -7,6 +7,7 @@ void BaseList::Reset(int val) {
 
 BaseList::BaseList(int capacity) {
     if (this) {
+        this->vtable = (void*)&__vt__8BaseList;
         this->Free();
         this->m_capacity = 0;
         this->m_count = 0;

@@ -67,14 +67,32 @@ void func_00135008(int a0) {
     *(int *)(base + (int)D_50A060.buffer + 0x1C) = func_00134FE0(a0, *(int *)(base + (int)D_50A060.buffer + 0x1C));
 }
 
-INCLUDE_ASM("build/SLES-50282/asm/nonmatchings/kt_mouse", func_00135058);
+int *func_00135058(int a0) {
+    int idx;
+    a0 = a0 * 0xB0 + (int)D_50A060.buffer;
+    idx = *(int *)(a0 + 0x1C);
+    a0 += 0x20;
+    if (a0 != 0) {
+        a0 += idx * 0x24;
+    }
+    return (int *)a0;
+}
 
 void func_00135090(int a0) {
     char *base = (char *)(a0 * 0xB0);
     *(int *)(base + (int)D_50A060.buffer + 0x18) = func_00134FE0(a0, *(int *)(base + (int)D_50A060.buffer + 0x18));
 }
 
-INCLUDE_ASM("build/SLES-50282/asm/nonmatchings/kt_mouse", func_001350E0);
+int *func_001350E0(int a0) {
+    int idx;
+    a0 = a0 * 0xB0 + (int)D_50A060.buffer;
+    idx = *(int *)(a0 + 0x18);
+    a0 += 0x20;
+    if (a0 != 0) {
+        a0 += idx * 0x24;
+    }
+    return (int *)a0;
+}
 
 int func_00135118(int a0, int *out) {
     int *entry;
@@ -122,9 +140,52 @@ int func_00135238(short *ptr) {
     return res;
 }
 
-INCLUDE_ASM("build/SLES-50282/asm/nonmatchings/kt_mouse", func_00135258);
+int func_00135258(int a0) {
+    short *ptr;
+    int res;
 
-INCLUDE_ASM("build/SLES-50282/asm/nonmatchings/kt_mouse", func_001352D8);
+    if (D_50A060.count <= a0) {
+        func_114320(D_490820, 0x188, D_490850);
+    }
+    ptr = (short *)(D_50A060.buffer + (a0 * 0xB0));
+    func_00134F90();
+    res = func_00135238(ptr);
+    func_00134FB8();
+    return res;
+}
+
+int func_001352D8(int a0, int *out) {
+    char *ptr;
+    int type;
+    int len = 0;
+    int i;
+    char *src;
+    char *dst;
+
+    if (out != 0) {
+        if (D_50A060.count <= a0) {
+            func_114320(D_490820, 0x19D, D_490850);
+        }
+        ptr = D_50A060.buffer + (a0 * 0xB0);
+        func_00134F90();
+        type = func_00135238((short *)ptr);
+        if ((unsigned int)(type - 1) < 3) {
+            len = *(int *)(ptr + 8);
+            i = 0;
+            if (len > 0) {
+                char *src = ptr + 0xC;
+                char *dst = (char *)(out + 1);
+                do {
+                    dst[i] = src[i];
+                    i++;
+                } while (i < len);
+            }
+        }
+        *out = type;
+        func_00134FB8();
+    }
+    return len;
+}
 
 INCLUDE_ASM("build/SLES-50282/asm/nonmatchings/kt_mouse", func_001353C0);
 

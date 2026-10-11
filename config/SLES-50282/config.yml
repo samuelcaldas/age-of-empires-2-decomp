@@ -67,6 +67,6 @@ segments:
       - [0x38c20, asm, base_list]
   - name: post_base
     type: bin
-    start: 0x38cc0
+    start: 0x38f30
   - [0x3e31c0]
 

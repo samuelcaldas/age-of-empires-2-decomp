@@ -172,21 +172,35 @@ Starting at VRAM `0x137810` (file offset `0x379e0`), the binary transitions from
 | `kt_mouse::func_001356E8` | `0x1356E8` | **100.0%** (176 / 176 B) | Safe port state setter with line 0x259 assertion and guard clause. |
 | `kt_mouse::func_00135798` | `0x135798` | **100.0%** (212 / 212 B) | Safe packet payload setter with line 0x276 assertion, payload clamped to 8 B, and `memcpy`. |
 
-### 6.4 Reverse Engineered `BaseList` Linked List Architecture (`0x138A40`–`0x138D48`)
+### 6.4 Reverse Engineered `BaseList` Linked List Architecture (`0x138A40`–`0x138D50`)
 Disassembly of the contiguous block following `BaseList::Clear()` reveals Ensemble Studios' generic serializable linked list container implementation:
 * **Fixed Node Memory Pool (`0x50A8C0`):**
   Array `s_node_pool[1000]` storing 8-byte nodes (`void *item; ListNode *next;`).
-* **Node Allocator (`0x138AE0`, 112 B):**
+* **Node Allocator (`0x138AE0`, 108 B):**
   Searches pool for an unallocated entry (`node->item == NULL`), initializes it via `memset(node, 0, 8)`, and returns pointer.
 * **Node Deallocator (`0x138B50`, 80 B):**
   Binary searches pool array (4200 max span) to locate the node pointer and clears `node->item = NULL`.
-* **Deserializer `Load(void *stream)` (`0x138BA0`, 176 B):**
-  Clears existing list via `Free()`, reads 16-bit count headers, invokes virtual factory `this->vtable[3](stream)` (`CreateItem`), allocates nodes via `AllocNode()`, and appends them in FIFO order.
+* **Deserializer `Load(void *stream)` (`0x138BA0`, 172 B):**
+  Clears existing list via `Free()`, reads 16-bit count headers, invokes virtual factory `((BaseItemCreator*)this)->CreateItem(stream, count)` (vtable index 3 at offset +12), allocates nodes via `AllocNode()`, and appends them in FIFO order.
 * **Visitor `Action()` (`0x138C50`, 72 B):**
-  Iterates linked list from `m_head`, invoking item virtual method `item->vtable[6]()`.
-* **Serializer `Save(void *stream)` (`0x138CA0`, 112 B):**
-  Iterates linked list from `m_head`, invoking `item->vtable[7](stream)`, and terminates with a 16-bit zero write.
+  Iterates linked list from `m_head`, invoking item virtual method `item->vtable[6]()` (`ListItem::Action()`).
+* **Serializer `Save(void *stream)` (`0x138CA0`, 104 B):**
+  Iterates linked list from `m_head`, invoking `item->vtable[7](stream)` (`ListItem::Save()`), and terminates with a 16-bit zero write via stream write (`func_226f70`).
 * **List Drain `Free()` (`0x138D10`, 56 B):**
-  Loops while `m_head != NULL`, calling node deletion routine `0x139580(this)`.
+  Loops while `m_head != NULL`, calling node deletion routine `func_139580(this)`.
+
+#### 6.4.1 BaseList Matching Results (100.0% Complete Unit)
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `BaseList::Reset(int)` | `0x138A40` | **100.0%** (12 / 12 B) | Capacity setter and head pointer reset (`m_head = NULL`). |
+| `BaseList::BaseList(int)` | `0x138A50` | **100.0%** (96 / 96 B) | Constructor binding `__vt__8BaseList`, draining list, and invoking `__vec_ctor`. |
+| `BaseList::Clear()` | `0x138AB0` | **100.0%** (44 / 44 B) | Resets capacity and head pointer to 0 after invoking `Free()`. |
+| `BaseList::AllocNode()` | `0x138AE0` | **100.0%** (108 / 108 B) | Linear scan over `s_node_pool[1000]`, clearing matching node via `memset`. |
+| `BaseList::FreeNode(ListNode*)` | `0x138B50` | **100.0%** (80 / 80 B) | Binary search over node pool span 4200 clearing `node->item = NULL`. |
+| `BaseList::Load(void*)` | `0x138BA0` | **100.0%** (172 / 172 B) | Deserializer reading count headers, invoking virtual factory, and appending nodes. |
+| `BaseList::Action()` | `0x138C50` | **100.0%** (72 / 72 B) | Iterates list invoking `item->Action()` at vtable offset 24. |
+| `BaseList::Save(void*)` | `0x138CA0` | **100.0%** (104 / 104 B) | Iterates list invoking `item->Save(stream)` at vtable offset 28 + trailing terminator. |
+| `BaseList::Free()` | `0x138D10` | **100.0%** (56 / 56 B) | Head node drainage loop invoking node deallocator `func_139580(this)`. |
 
 

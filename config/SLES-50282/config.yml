@@ -65,8 +65,15 @@ segments:
     vram: 0x138a40
     subsegments:
       - [0x38c20, asm, base_list]
+  - name: item_creator
+    type: code
+    start: 0x38f30
+    vram: 0x138d50
+    subsegments:
+      - [0x38f30, asm, item_creator]
   - name: post_base
     type: bin
-    start: 0x38f30
+    start: 0x39170
   - [0x3e31c0]
+
 

@@ -17,4 +17,6 @@ func_226d90 = 0x226D90; // type:func absolute:True
 func_226f70 = 0x226F70; // type:func absolute:True
 func_00134E50 = 0x134E50; // type:func InitWork(int)
 func_001353C0 = 0x1353C0; // type:func ktMouseResetPorts(int)
-
+CreateItem__8BaseListFPvs = 0x138D50; // type:func BaseList.CreateItem(void*, short)
+D_4E35DC = 0x4E35DC; // type:data size:4
+D_490AE0 = 0x490AE0; // type:data size:40

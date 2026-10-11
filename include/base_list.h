@@ -44,6 +44,7 @@ public:
     void Action();
     void Save(void *stream);
     void Free();
+    void* CreateItem(void *stream, short type);
 };
 
 extern "C" void* memset(void*, int, unsigned int);

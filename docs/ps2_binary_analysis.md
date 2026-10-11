@@ -235,5 +235,15 @@ Immediately following `BaseList::Free()` at `0x138D50`, `__vt__8BaseList[3]` bin
 * **KCET PS2 Japanese Assertion at `0x490AE0`:**
   - `case 10:` Formatted print via `func_118de0` emitting:
     `" Tori(bird) ha Sonzai shitewa ikenai!!\n"` ("Birds must not exist!!") followed by infinite hang (`0x138e24: beq zero, zero, 0x138e24`), confirming that avian/bird ambient creatures were deliberately stripped from the PS2 port's active list processing for performance.
+* **Metrowerks Codegen Finding (Sparse Switch Evaluation):**
+  MWCCPS2 compiles sparse switch statements by emitting branch tests in bottom-to-top (reverse source) order while emitting body blocks in source order. Achieving 100% byte-for-byte matching required ordering the source cases `9, 10, 4, 5, 8, 1, 21, 13, 2`.
+* **Small Data / GP Addressing:**
+  Global allocator pointer `D_4E35DC` (`0x4E35DC = gp - 0x71E4`) is accessed via MIPS GP-relative addressing `%gp_rel(D_4E35DC)` and passed to all allocator functions.
+
+#### 6.5.1 Item Creator Matching Results (100.0% Complete Unit)
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `BaseList::CreateItem(void*, short)` | `0x138D50` | **100.0%** (568 / 568 B) | Virtual factory method deserializing items by type ID with KCET bird assertion. |
 
 

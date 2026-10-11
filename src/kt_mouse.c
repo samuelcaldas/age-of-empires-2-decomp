@@ -22,6 +22,7 @@ void func_00135D60();
 void func_00135D98(void);
 void func_1143C0(void *, int);
 void *func_00135530(void);
+int *func_001350E0(int);
 int func_00135258(int);
 void func_114320(const char *, int, const char *);
 extern const char D_490820[];
@@ -53,23 +54,65 @@ void func_00134FB8(void) {
     }
 }
 
-INCLUDE_ASM("build/SLES-50282/asm/nonmatchings/kt_mouse", func_00134FE0);
+int func_00134FE0(int a0, int a1) {
+    int next = a1 + 1;
+    if (next < *(int *)(D_50A060.buffer + (a0 * 0xB0) + 0x14)) {
+        return next;
+    }
+    return 0;
+}
 
-INCLUDE_ASM("build/SLES-50282/asm/nonmatchings/kt_mouse", func_00135008);
+void func_00135008(int a0) {
+    char *base = (char *)(a0 * 0xB0);
+    *(int *)(base + (int)D_50A060.buffer + 0x1C) = func_00134FE0(a0, *(int *)(base + (int)D_50A060.buffer + 0x1C));
+}
 
 INCLUDE_ASM("build/SLES-50282/asm/nonmatchings/kt_mouse", func_00135058);
 
-INCLUDE_ASM("build/SLES-50282/asm/nonmatchings/kt_mouse", func_00135090);
+void func_00135090(int a0) {
+    char *base = (char *)(a0 * 0xB0);
+    *(int *)(base + (int)D_50A060.buffer + 0x18) = func_00134FE0(a0, *(int *)(base + (int)D_50A060.buffer + 0x18));
+}
 
 INCLUDE_ASM("build/SLES-50282/asm/nonmatchings/kt_mouse", func_001350E0);
 
-INCLUDE_ASM("build/SLES-50282/asm/nonmatchings/kt_mouse", func_00135118);
+int func_00135118(int a0, int *out) {
+    int *entry;
+    int res = 0;
+
+    func_00134F90();
+    entry = func_001350E0(a0);
+    if (entry != 0 && *entry != 0) {
+        int *data = entry + 1;
+        res = 1;
+        out[0] = data[0];
+        out[1] = data[1];
+        out[2] = data[2];
+        out[3] = data[3];
+        *entry = 0;
+        func_00135090(a0);
+    }
+    func_00134FB8();
+    return res;
+}
 
 short func_001351B0(short *ptr) {
     return ptr[1];
 }
 
-INCLUDE_ASM("build/SLES-50282/asm/nonmatchings/kt_mouse", func_001351B8);
+extern const char D_490850[];
+
+short func_001351B8(int a0) {
+    short res;
+
+    if (D_50A060.count <= a0) {
+        func_114320(D_490820, 0x16B, D_490850);
+    }
+    func_00134F90();
+    res = func_001351B0((short *)(D_50A060.buffer + (a0 * 0xB0)));
+    func_00134FB8();
+    return res;
+}
 
 int func_00135238(short *ptr) {
     int res = 0;

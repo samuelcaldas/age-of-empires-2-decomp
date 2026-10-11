@@ -168,4 +168,25 @@ Starting at VRAM `0x137810` (file offset `0x379e0`), the binary transitions from
 | `kt_mouse::func_001350E0` | `0x1350E0` | **100.0%** (52 / 52 B) | Port read buffer entry locator (`buffer + mouse_number * 0xB0 + 0x20 + read_idx * 0x24`). |
 | `kt_mouse::func_00135258` | `0x135258` | **100.0%** (128 / 128 B) | Safe port status getter with `mouse_number < W->n_mouse` assertion. |
 | `kt_mouse::func_001352D8` | `0x1352D8` | **100.0%** (232 / 232 B) | Mouse packet payload reader and byte copier for device types 1..3. |
+| `kt_mouse::func_00135530` | `0x135530` | **100.0%** (104 / 104 B) | Free port search loop across `W->buffer` inspecting `port[1] == -1`. |
+| `kt_mouse::func_001356E8` | `0x1356E8` | **100.0%** (176 / 176 B) | Safe port state setter with line 0x259 assertion and guard clause. |
+| `kt_mouse::func_00135798` | `0x135798` | **100.0%** (212 / 212 B) | Safe packet payload setter with line 0x276 assertion, payload clamped to 8 B, and `memcpy`. |
+
+### 6.4 Reverse Engineered `BaseList` Linked List Architecture (`0x138A40`–`0x138D48`)
+Disassembly of the contiguous block following `BaseList::Clear()` reveals Ensemble Studios' generic serializable linked list container implementation:
+* **Fixed Node Memory Pool (`0x50A8C0`):**
+  Array `s_node_pool[1000]` storing 8-byte nodes (`void *item; ListNode *next;`).
+* **Node Allocator (`0x138AE0`, 112 B):**
+  Searches pool for an unallocated entry (`node->item == NULL`), initializes it via `memset(node, 0, 8)`, and returns pointer.
+* **Node Deallocator (`0x138B50`, 80 B):**
+  Binary searches pool array (4200 max span) to locate the node pointer and clears `node->item = NULL`.
+* **Deserializer `Load(void *stream)` (`0x138BA0`, 176 B):**
+  Clears existing list via `Free()`, reads 16-bit count headers, invokes virtual factory `this->vtable[3](stream)` (`CreateItem`), allocates nodes via `AllocNode()`, and appends them in FIFO order.
+* **Visitor `Action()` (`0x138C50`, 72 B):**
+  Iterates linked list from `m_head`, invoking item virtual method `item->vtable[6]()`.
+* **Serializer `Save(void *stream)` (`0x138CA0`, 112 B):**
+  Iterates linked list from `m_head`, invoking `item->vtable[7](stream)`, and terminates with a 16-bit zero write.
+* **List Drain `Free()` (`0x138D10`, 56 B):**
+  Loops while `m_head != NULL`, calling node deletion routine `0x139580(this)`.
+
 

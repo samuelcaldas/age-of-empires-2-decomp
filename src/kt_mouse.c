@@ -21,6 +21,7 @@ void func_00134E50(int);
 void func_00135D60();
 void func_00135D98(void);
 void func_1143C0(void *, int);
+void func_117AF8(void *, const void *, int);
 void *func_00135530(void);
 int *func_001350E0(int);
 int func_00135258(int);
@@ -216,7 +217,20 @@ void func_00135508(void) {
     func_00134F50();
 }
 
-INCLUDE_ASM("build/SLES-50282/asm/nonmatchings/kt_mouse", func_00135530);
+void *func_00135530(void) {
+    int i;
+    char *res = 0;
+    int count = D_50A060.count;
+    char *buffer = D_50A060.buffer;
+
+    for (i = 0; i < count; i++) {
+        if (*(short *)(buffer + i * 0xB0 + 2) == -1) {
+            res = buffer + i * 0xB0;
+            break;
+        }
+    }
+    return res;
+}
 
 void func_00135598(int *ptr) {
     if (ptr != 0) {
@@ -263,9 +277,47 @@ int func_001356D8(short *ptr) {
     return ptr[1] != -1;
 }
 
-INCLUDE_ASM("build/SLES-50282/asm/nonmatchings/kt_mouse", func_001356E8);
+int func_001356E8(int a0, int a1) {
+    int res = -1;
+    char *port;
 
-INCLUDE_ASM("build/SLES-50282/asm/nonmatchings/kt_mouse", func_00135798);
+    if (D_50A060.count <= a0) {
+        func_114320(D_490820, 0x259, D_490870);
+    }
+    if (a0 >= 0) {
+        func_00134F90();
+        port = D_50A060.buffer + (a0 * 0xB0);
+        if (func_001356D8((short *)port) != 0) {
+            *(short *)(port + 2) = a1;
+            res = 0;
+        }
+        func_00134FB8();
+    }
+    return res;
+}
+
+int func_00135798(int a0, void *a1, int a2) {
+    int res = -1;
+    char *port;
+
+    if (D_50A060.count <= a0) {
+        func_114320(D_490820, 0x276, D_490870);
+    }
+    if (a0 >= 0) {
+        func_00134F90();
+        port = D_50A060.buffer + (a0 * 0xB0);
+        if (func_001356D8((short *)port) != 0) {
+            if ((unsigned int)a2 >= 9) {
+                a2 = 8;
+            }
+            func_117AF8(port + 0xC, a1, a2);
+            res = 0;
+            *(int *)(port + 8) = a2;
+        }
+        func_00134FB8();
+    }
+    return res;
+}
 
 INCLUDE_ASM("build/SLES-50282/asm/nonmatchings/kt_mouse", func_00135870);
 

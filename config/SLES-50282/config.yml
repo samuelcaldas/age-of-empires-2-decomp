@@ -125,9 +125,15 @@ segments:
     vram: 0x13A280
     subsegments:
       - [0x3A460, asm, sub_list_action]
+  - name: sub_list_items
+    type: code
+    start: 0x3A8E0
+    vram: 0x13A700
+    subsegments:
+      - [0x3A8E0, asm, sub_list_items]
   - name: post_base
     type: bin
-    start: 0x3A8E0
+    start: 0x3AC60
   - [0x3e31c0]
 
 

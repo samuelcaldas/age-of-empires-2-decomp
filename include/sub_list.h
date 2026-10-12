@@ -86,7 +86,7 @@ public:
     V_SLOT_10(18)
     virtual void* v190(void *p, int a, int b);
     virtual void* v191(void *p, int a, int b); virtual void* v192(); virtual void* v193(); virtual void* v194(void *p);
-    virtual void* v195(); virtual void* v196();
+    virtual void* v195(); virtual void* v196(void *p);
     virtual void* v197(short action_id, void *other, float x, float y, float z);
     virtual void* v198();
     virtual void* v199();
@@ -108,6 +108,13 @@ public:
     void Teardown();
     void Noop();
     void Notify(void *other);
+    NodeItem* func_0013A700(void *other, float x, float y, float z);
+    void func_0013A870(short index);
+    void func_0013A910(short id);
+    void func_0013A9B0(void *item);
+    void func_0013A9D0(void *item);
+    void func_0013AA20(void *item);
+    void func_0013AA40();
 };
 
 #undef V_SLOT_10

@@ -550,4 +550,55 @@ Immediately following the spatial queries sits the primary unit action evaluatio
 | `func_0013A6D0` | `0x13A6D0` | **100.0%** (24 / 24 B) | Action delegation trampoline invoking `m_fieldA0 + 0x4C` on `(m_field4, m_field8)`. |
 | `func_0013A6F0` | `0x13A6F0` | **100.0%** (8 / 8 B) | Base class virtual no-op stub implementation. |
 
+### 6.15 `SubList` Item Resolution, Spatial Filtering, and List Management (`0x13A700`–`0x13AA80`)
+Directly continuing from the spatial action trampolines sits the item resolution, filtered acquisition, and inner `BaseList` containment management routines (864 B code, 896 B slice, Metrowerks MWCCPS2):
+
+* **`func_0013A700` (`0x13A700`, 364 B code, 368 B slice):**
+  - Polymorphic spatial item matching and secondary candidate scanner.
+  - Guard checks: verifies `other != (void*)this` and `m_field4->m_fieldCE != 0`. If either condition fails, immediately aborts and returns `m_field4`.
+  - Primary candidate query: invokes `m_field4->m_fieldC8->Method3(this, m_field4, other, x, y, z, -1, 0)`. On match, returns `m_field4`.
+  - Secondary candidate linear scan: if `m_field4->m_fieldCE != 0`, iterates `m_field8->m_items[0..m_count]`.
+  - Property match criteria: checks that candidate `item` is non-null and matches attributes `item->m_fieldE == m_field4->m_fieldE`, `item->m_field0 == m_field4->m_field0`, and `item->m_fieldCE == m_field4->m_fieldCE`.
+  - On attribute match: tests candidate via `item->m_fieldC8->Method3(this, item, other, x, y, z, -1, 0)`. Returns `item` on success.
+  - Returns default fallback `m_field4` if no candidate qualifies.
+
+* **`func_0013A870` (`0x13A870`, 148 B code, 160 B slice):**
+  - Add item by array index.
+  - Resolves item via `func_1c2680(m_field4, index)`.
+  - Duplicate check: verifies item is non-null and `!m_fieldCC->Contains(item->type)`.
+  - Instantiation & registration: creates list element via `m_fieldCC->CreateItem(item, -1.0f, 0, -1.0f, -1.0f)`.
+  - On successful instantiation, notifies list via virtual method `this->v196(created)` (vtable slot 196, offset `0x310`).
+
+* **`func_0013A910` (`0x13A910`, 160 B code, 160 B slice):**
+  - Add item by unique entity ID.
+  - Resolves item via `func_1c26d0(m_field4, id)`.
+  - Duplicate check: verifies item is non-null and `!m_fieldCC->Contains(id)`.
+  - Instantiation & registration: creates list element via `m_fieldCC->CreateItem(item, -1.0f, 0, -1.0f, -1.0f)`.
+  - On successful instantiation, notifies list via virtual method `this->v196(created)` (vtable slot 196, offset `0x310`).
+
+* **`func_0013A9B0` (`0x13A9B0`, 32 B code, 32 B slice):**
+  - Conditional item prepend. If `item != NULL`, invokes `m_fieldCC->AddHead(item)`.
+
+* **`func_0013A9D0` (`0x13A9D0`, 72 B code, 80 B slice):**
+  - Single-item list setter. Resets list via `m_fieldCC->Free()`, then prepends item via `m_fieldCC->AddHead(item)` if `item != NULL`.
+
+* **`func_0013AA20` (`0x13AA20`, 32 B code, 32 B slice):**
+  - Conditional item append. If `item != NULL`, invokes `m_fieldCC->AddTail(item)`.
+
+* **`func_0013AA40` (`0x13AA40`, 56 B code, 64 B slice):**
+  - List health verification. Checks `m_fieldCC->CallMethod13()`. If false (`0`), purges all items via `m_fieldCC->Free()`.
+
+#### 6.15.1 SubList Items Management Matching Results (100.0% Complete Unit)
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_0013A700` | `0x13A700` | **100.0%** (364 / 364 B) | Polymorphic spatial item matching and secondary candidate scanner. |
+| `func_0013A870` | `0x13A870` | **100.0%** (148 / 148 B) | Add item by array index with `Contains` guard, instantiation, and `v196` notification. |
+| `func_0013A910` | `0x13A910` | **100.0%** (160 / 160 B) | Add item by entity ID with `Contains` guard, instantiation, and `v196` notification. |
+| `func_0013A9B0` | `0x13A9B0` | **100.0%** (32 / 32 B) | Inner list conditional item prepend (`m_fieldCC->AddHead`). |
+| `func_0013A9D0` | `0x13A9D0` | **100.0%** (72 / 72 B) | Single-item list setter (`m_fieldCC->Free` + `AddHead`). |
+| `func_0013AA20` | `0x13AA20` | **100.0%** (32 / 32 B) | Inner list conditional item append (`m_fieldCC->AddTail`). |
+| `func_0013AA40` | `0x13AA40` | **100.0%** (56 / 56 B) | List validation via `CallMethod13()` with fallback `Free()`. |
+
+
 

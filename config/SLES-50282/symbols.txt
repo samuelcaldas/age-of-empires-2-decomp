@@ -93,5 +93,14 @@ func_0013A6A0 = 0x13A6A0; // type:func SubList.Method11()
 func_0013A6C0 = 0x13A6C0; // type:func BaseClass.Method11()
 func_0013A6D0 = 0x13A6D0; // type:func SubList.Method12()
 func_0013A6F0 = 0x13A6F0; // type:func BaseClass.Method12()
+func_1c2680 = 0x1C2680; // type:func absolute:True
+func_1c26d0 = 0x1C26D0; // type:func absolute:True
+func_0013A700 = 0x13A700; // type:func SubList.FindSpatial()
+func_0013A870 = 0x13A870; // type:func SubList.AddItemByIndex()
+func_0013A910 = 0x13A910; // type:func SubList.AddItemById()
+func_0013A9B0 = 0x13A9B0; // type:func SubList.AddItem()
+func_0013A9D0 = 0x13A9D0; // type:func SubList.SetSingleItem()
+func_0013AA20 = 0x13AA20; // type:func SubList.AddItemTail()
+func_0013AA40 = 0x13AA40; // type:func SubList.FreeIfEmpty()
 
 

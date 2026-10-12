@@ -58,5 +58,11 @@ func_3669F0 = 0x3669F0; // type:func absolute:True
 func_2C2DC0 = 0x2C2DC0; // type:func absolute:True
 func_1DC0B0 = 0x1DC0B0; // type:func absolute:True
 D_10B68F0 = 0x10B68F0; // type:s32 absolute:True
+func_00139BB0 = 0x139BB0; // type:func
+func_00139C10 = 0x139C10; // type:func
+func_2639D0 = 0x2639D0; // type:func absolute:True
+D_4D7A90 = 0x4D7A90; // type:s32 absolute:True
+D_4D7230 = 0x4D7230; // type:s32 absolute:True
+func_1DC100 = 0x1DC100; // type:func absolute:True
 
 

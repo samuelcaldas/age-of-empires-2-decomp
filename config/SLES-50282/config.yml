@@ -101,9 +101,15 @@ segments:
     vram: 0x139A10
     subsegments:
       - [0x39BF0, asm, base_list_spatial_ops]
+  - name: base_list_destructors
+    type: code
+    start: 0x39D90
+    vram: 0x139BB0
+    subsegments:
+      - [0x39D90, asm, base_list_destructors]
   - name: post_base
     type: bin
-    start: 0x39D90
+    start: 0x39E60
   - [0x3e31c0]
 
 

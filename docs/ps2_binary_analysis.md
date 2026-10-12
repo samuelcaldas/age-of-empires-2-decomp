@@ -824,3 +824,26 @@ Directly following `sub_list_getters` lies an uninterrupted sequence of 42 polym
 | `func_0013B6E0` | `0x13B6E0` | **100.0%** (8 / 8 B) | Virtual event callback no-op stub returning `void`. |
 | `func_0013B6F0` | `0x13B6F0` | **100.0%** (8 B each) | Capability getter returning integer `0`. |
 | `func_0013B700` | `0x13B700` | **100.0%** (8 / 8 B) | Sentinel attribute getter returning integer `-1`. |
+
+### 6.21 `SubList` Master and Player Initializers / Constructors (`0x13B710`–`0x13B770`)
+Directly following the constant stubs sit the core base initializers / constructors for the entity hierarchy (96 B code, Metrowerks MWCCPS2 2.3.1.01):
+
+* **`func_0013B710` (`0x13B710`, 48 B code):**
+  - Static/action object base initializer taking `(void *param1, void *param2, int do_setup)` (`$a1`, `$a2`, `$a3`).
+  - Sets uninitialized identity descriptors `this->m_field18 = -1` (master object ID) and `this->m_field1C = -1` (owner/player ID).
+  - Clears setup status flag `this->m_field3D = 0` in branch delay slot.
+  - If `do_setup != 0`, dispatches to full object master setup routine `func_13b8a0(this, param1, param2, do_setup)`.
+  - Called from 32 distinct entity constructor sites across the binary.
+
+* **`func_0013B740` (`0x13B740`, 48 B code):**
+  - Overloaded entity base initializer taking `(void *param1, int do_setup)` (`$a1`, `$a2`).
+  - Sets `this->m_field18 = -1`, `this->m_field1C = -1`, and clears `this->m_field3D = 0` in delay slot.
+  - If `do_setup != 0`, dispatches to entity player setup routine `func_13ba60(this, param1, do_setup)`.
+  - Called from 42 distinct entity constructor sites across the binary.
+
+#### 6.21.1 SubList Initializers Matching Results (100.0% Complete Unit)
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_0013B710` | `0x13B710` | **100.0%** (48 / 48 B) | Master entity base initializer clearing ID fields and delegating to `func_13b8a0`. |
+| `func_0013B740` | `0x13B740` | **100.0%** (48 / 48 B) | Player entity base initializer clearing ID fields and delegating to `func_13ba60`. |

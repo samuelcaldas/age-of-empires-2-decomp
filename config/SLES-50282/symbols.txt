@@ -179,4 +179,8 @@ func_0013B6D0 = 0x13B6D0; // type:func SubList.Stub6D0()
 func_0013B6E0 = 0x13B6E0; // type:func SubList.Stub6E0()
 func_0013B6F0 = 0x13B6F0; // type:func SubList.Stub6F0()
 func_0013B700 = 0x13B700; // type:func SubList.Stub700()
+func_0013B710 = 0x13B710; // type:func SubList.InitMaster()
+func_0013B740 = 0x13B740; // type:func SubList.InitPlayer()
+func_13b8a0 = 0x13B8A0; // type:func absolute:True
+func_13ba60 = 0x13BA60; // type:func absolute:True
 

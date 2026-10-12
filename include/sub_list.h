@@ -113,13 +113,16 @@ public:
 
     struct NodeItem *m_field4;
     struct WorldContainer *m_field8;
-    char pad_C[0x1C - 0xC];
+    char pad_C[0x18 - 0xC];
+    int m_field18;
     int m_field1C;
     char pad_20[4];
     short m_field24_short;
     char pad_26[0x39 - 0x26];
     unsigned char m_field39;
-    char pad_3A[0x44 - 0x3A];
+    char pad_3A[0x3D - 0x3A];
+    unsigned char m_field3D;
+    char pad_3E[0x44 - 0x3E];
     float m_field44;
     float m_field48;
     char pad_4C[0x64 - 0x4C];
@@ -225,6 +228,8 @@ public:
     void func_0013B6E0();
     int func_0013B6F0();
     int func_0013B700();
+    void func_0013B710(void *param1, void *param2, int do_setup);
+    void func_0013B740(void *param1, int do_setup);
 };
 
 #undef V_SLOT_10

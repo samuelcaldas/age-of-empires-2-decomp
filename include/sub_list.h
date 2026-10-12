@@ -7,6 +7,12 @@
     virtual void* v##base##0(); virtual void* v##base##1(); virtual void* v##base##2(); virtual void* v##base##3(); virtual void* v##base##4(); \
     virtual void* v##base##5(); virtual void* v##base##6(); virtual void* v##base##7(); virtual void* v##base##8(); virtual void* v##base##9();
 
+struct Vec3 {
+    float x;
+    float y;
+    float z;
+};
+
 struct SubListHelper {
     virtual void* v0();
     virtual void* Method3(void *self, void *field4, void *other, float x, float y, float z, int mode, int b);
@@ -90,7 +96,8 @@ public:
     V_SLOT_10(10)
     V_SLOT_10(11)
     V_SLOT_10(12)
-    V_SLOT_10(13)
+    virtual void* v130(); virtual void* v131(); virtual void* v132(); virtual void* v133(); virtual void* v134();
+    virtual void* v135(); virtual Vec3 v136(); virtual void* v137(); virtual void* v138(); virtual void* v139();
     V_SLOT_10(14)
     V_SLOT_10(15)
     V_SLOT_10(16)
@@ -107,7 +114,9 @@ public:
     struct WorldContainer *m_field8;
     char pad_C[0x1C - 0xC];
     int m_field1C;
-    char pad_20[0x39 - 0x20];
+    char pad_20[4];
+    short m_field24_short;
+    char pad_26[0x39 - 0x26];
     unsigned char m_field39;
     char pad_3A[0x64 - 0x3A];
     int m_field64;
@@ -146,6 +155,7 @@ public:
     int func_0013AFD0();
     int func_0013B020();
     int func_0013B070(int id);
+    void func_0013B0B0(short action_id, SubList *other, float x, float y, float z);
 };
 
 #undef V_SLOT_10

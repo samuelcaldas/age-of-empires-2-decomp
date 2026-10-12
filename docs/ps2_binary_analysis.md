@@ -700,6 +700,43 @@ Continuing contiguously from lifecycle dispatch sits the target candidate scanne
 | `func_0013B020` | `0x13B020` | **100.0%** (68 / 68 B) | Head item type accessor with `-1` null fallback. |
 | `func_0013B070` | `0x13B070` | **100.0%** (52 / 52 B) | Entity containment predicate delegating to `m_fieldCC->Contains(id)`. |
 
+### 6.18 `SubList` Action Sound Dispatch and 3D Positional Notification (`0x13B0B0`–`0x13B360`)
+Continuing contiguously sits the central task action dispatcher, audio cue coordinator, and 3D spatial target transformer (676 B code, 688 B slice, Metrowerks MWCCPS2):
+
+* **`func_0013B0B0` (`0x13B0B0`, 676 B code, 688 B slice):**
+  - Task sound and visual effect notification coordinator (`SubList::func_0013B0B0(short action_id, SubList *other, float x, float y, float z)`).
+  - Validates `m_fieldC8` presence; returns immediately if null.
+  - Implements the complete Age of Empires II task action table, mapping task IDs to paired sound/visual IDs (`s0 = s1 + 100`):
+    - `0x01` (1, Attack): `s1 = 0x262` (610), `s0 = 0x2C6` (710)
+    - `0x03` (3, Work): `s1 = 0x269` (617), `s0 = 0x2CD` (717)
+    - `0x04` (4, Heal): `s1 = 0x25D` (605), `s0 = 0x2C1` (705)
+    - `0x05` (5, Repair): `s1 = 0x261` (609), `s0 = 0x2C5` (709)
+    - `0x09` (9, Build): `s1 = 0x258` (600), `s0 = 0x2BC` (700)
+    - `0x0C` (12, Trade): `s1 = 0x266` (614), `s0 = 0x2CA` (714)
+    - `0x65` (101, Move): `s1 = 0x25A` (602), `s0 = 0x2BE` (702)
+    - `0x68` (104, Gather): `s1 = 0x25C` (604), `s0 = 0x2C0` (704)
+    - `0x69` (105, Hunt): `s1 = 0x25B` (603), `s0 = 0x2BF` (703)
+    - `0x6A` (106, Fish): `s1 = 0x26A` (618), `s0 = 0x2CE` (718)
+    - `0x6E` (110, Farm): `s1 = 0x265` (613), `s0 = 0x2C9` (713)
+    - `0x6F` (111, Chop): `s1 = 0x267` (615), `s0 = 0x2CB` (715)
+  - Broadcasts sound triggers to audio subsystem via `func_147180(c8, s0)` and `func_1471b0(c8, s1)`.
+  - Target branch (`other != NULL`):
+    - Dispatches entity audio setup via `func_14bd90(c8, other->m_field24_short, other->m_field4->m_fieldE, x, y, z)`.
+    - Queries 3D spatial positions: `this->v136()` (slot 136, offset `0x220`) and `other->v136()`.
+    - Dispatches multi-entity spatial event via `func_151490(c8, s0, s1, &v1, other->m_field24_short, &v2)`.
+  - Positional ground branch (`other == NULL`):
+    - Dispatches ground audio setup via `func_14bd90(c8, -1, -1, x, y, z)`.
+    - Converts 2D/3D Genie Z-up coordinates to PS2 graphics Y-up frame: `pos.x = x, pos.y = z, pos.z = y`.
+    - Queries origin entity position `this->v136()`.
+    - Dispatches ground-target spatial event via `func_151490(c8, s0, s1, &v1, -1, &pos)`.
+  - Finalizes frame audio dispatch via `func_14bef0(c8)`.
+
+#### 6.18.1 SubList Dispatch Matching Results (100.0% Complete Unit)
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_0013B0B0` | `0x13B0B0` | **100.0%** (676 / 676 B) | Action sound dispatcher, 12-task mapping table, coordinate frame converter & 3D event coordinator. |
+
 
 
 

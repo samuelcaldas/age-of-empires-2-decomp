@@ -121,6 +121,9 @@ func_0013AFC0 = 0x13AFC0; // type:func SubList.GetNodeMetric()
 func_0013AFD0 = 0x13AFD0; // type:func SubList.GetHeadTotalMetric()
 func_0013B020 = 0x13B020; // type:func SubList.GetHeadType()
 func_0013B070 = 0x13B070; // type:func SubList.ContainsItem()
+func_0013B0B0 = 0x13B0B0; // type:func SubList.DispatchAction()
+func_151490 = 0x151490; // type:func absolute:True
+func_14bef0 = 0x14BEF0; // type:func absolute:True
 
 
 

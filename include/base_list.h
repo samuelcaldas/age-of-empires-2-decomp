@@ -32,8 +32,13 @@ public:
 class BaseList {
 public:
     void *vtable;
-    int m_capacity;
+    union {
+        int m_capacity;
+        void *m_field4;
+    };
     ListNode *m_head;
+    char pad_0c[0xbc];
+    int m_fieldC8;
 
     BaseList(int capacity);
     void Reset(int val);
@@ -45,6 +50,8 @@ public:
     void Save(void *stream);
     void Free();
     void* CreateItem(void *stream, short type);
+    void* CreateItem(void *obj1, float x, void *obj2, float y, float z);
+    int GetFieldC8();
 };
 
 extern "C" void* memset(void*, int, unsigned int);

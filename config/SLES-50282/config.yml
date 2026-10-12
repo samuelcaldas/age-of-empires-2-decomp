@@ -71,9 +71,15 @@ segments:
     vram: 0x138d50
     subsegments:
       - [0x38f30, asm, item_creator]
+  - name: spatial_item_creator
+    type: code
+    start: 0x39170
+    vram: 0x138f90
+    subsegments:
+      - [0x39170, asm, spatial_item_creator]
   - name: post_base
     type: bin
-    start: 0x39170
+    start: 0x394a0
   - [0x3e31c0]
 
 

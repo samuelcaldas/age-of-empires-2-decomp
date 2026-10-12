@@ -42,7 +42,8 @@ struct WorldContainer {
     char pad_00[0x6C];
     int m_count;
     NodeItem **m_items;
-    char pad_74[0xB98 - 0x74];
+    char pad_74[0xB94 - 0x74];
+    void *m_fieldB94;
     void *m_fieldB98;
     char pad_B9C[0xBAC - 0xB9C];
     ScaleInfo *m_fieldBAC;
@@ -118,9 +119,24 @@ public:
     short m_field24_short;
     char pad_26[0x39 - 0x26];
     unsigned char m_field39;
-    char pad_3A[0x64 - 0x3A];
+    char pad_3A[0x44 - 0x3A];
+    float m_field44;
+    float m_field48;
+    char pad_4C[0x64 - 0x4C];
     int m_field64;
-    char pad_68[0xC5 - 0x68];
+    float m_field68;
+    char pad_6C[0x7C - 0x6C];
+    float m_field7C;
+    char pad_80[0x8C - 0x80];
+    short m_field8C_short;
+    char pad_8E[0x90 - 0x8E];
+    Vec3 m_field90;
+    Vec3 m_field9C;
+    char pad_A8[0xB4 - 0xA8];
+    int m_fieldB4;
+    char pad_B8[0xC0 - 0xB8];
+    int m_fieldC0;
+    char pad_C4[0xC5 - 0xC4];
     unsigned char m_fieldC5;
     char pad_C6[2];
     void *m_fieldC8;
@@ -156,6 +172,17 @@ public:
     int func_0013B020();
     int func_0013B070(int id);
     void func_0013B0B0(short action_id, SubList *other, float x, float y, float z);
+    Vec3 func_0013B360();
+    float func_0013B380();
+    short func_0013B390();
+    int func_0013B3A0();
+    int func_0013B3B0();
+    Vec3 func_0013B3C0();
+    float func_0013B3E0();
+    int func_0013B3F0();
+    int func_0013B400();
+    int func_0013B410();
+    void func_0013B420(WorldContainer *world);
 };
 
 #undef V_SLOT_10

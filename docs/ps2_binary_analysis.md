@@ -737,6 +737,55 @@ Continuing contiguously sits the central task action dispatcher, audio cue coord
 |---|---|---|---|
 | `func_0013B0B0` | `0x13B0B0` | **100.0%** (676 / 676 B) | Action sound dispatcher, 12-task mapping table, coordinate frame converter & 3D event coordinator. |
 
+### 6.19 `SubList` Inline Virtual Getters, Vector Accessors, and Tile Zone Dispatch (`0x13B360`–`0x13B470`)
+Continuing contiguously sits the initial cluster of polymorphic property accessors, vector return methods, and map zone resolution routines (200 B code, 272 B slice, Metrowerks MWCCPS2):
+
+* **`func_0013B360` (`0x13B360`, 28 B code, 32 B slice):**
+  - Primary vector position accessor implementing `vtable[0x220]` (`this->v136()`).
+  - Returns 12-byte `Vec3` struct copied from `m_field90` via hidden pointer return convention in `$a0`.
+
+* **`func_0013B380` (`0x13B380`, 8 B code, 16 B slice):**
+  - Float attribute getter returning `m_field7C` via `$f0`.
+
+* **`func_0013B390` (`0x13B390`, 8 B code, 16 B slice):**
+  - Signed 16-bit integer attribute getter returning `m_field8C_short` via `$v0`.
+
+* **`func_0013B3A0` (`0x13B3A0`, 8 B code, 16 B slice):**
+  - 32-bit integer attribute getter returning `m_fieldB4` via `$v0`.
+
+* **`func_0013B3B0` (`0x13B3B0`, 8 B code, 16 B slice):**
+  - 32-bit integer attribute getter returning `m_fieldC0` via `$v0`.
+
+* **`func_0013B3C0` (`0x13B3C0`, 28 B code, 32 B slice):**
+  - Secondary vector accessor returning 12-byte `Vec3` struct copied from `m_field9C` via `$a0`.
+
+* **`func_0013B3E0` (`0x13B3E0`, 8 B code, 16 B slice):**
+  - Float attribute getter returning `m_field68` via `$f0`.
+
+* **`func_0013B3F0`, `func_0013B400`, `func_0013B410` (`0x13B3F0`–`0x13B420`, 8 B each, 16 B slice each):**
+  - Polymorphic virtual method stubs returning integer constant `0` via `$v0`.
+
+* **`func_0013B420` (`0x13B420`, 80 B code, 80 B slice):**
+  - Entity map zone and tile coordinate updater (`SubList::func_0013B420(WorldContainer *world)`).
+  - Truncates entity coordinates via float-to-int conversion helper `func_123350(m_field44)` and `func_123350(m_field48)`.
+  - Dispatches zone update through container handle `func_1378c0(world->m_fieldB94, y, y)`.
+
+#### 6.19.1 SubList Getters Matching Results (100.0% Complete Unit)
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_0013B360` | `0x13B360` | **100.0%** (28 / 28 B) | Primary vector position accessor returning `Vec3` from `m_field90`. |
+| `func_0013B380` | `0x13B380` | **100.0%** (8 / 8 B) | Float property getter returning `m_field7C`. |
+| `func_0013B390` | `0x13B390` | **100.0%** (8 / 8 B) | Short property getter returning `m_field8C_short`. |
+| `func_0013B3A0` | `0x13B3A0` | **100.0%** (8 / 8 B) | Integer property getter returning `m_fieldB4`. |
+| `func_0013B3B0` | `0x13B3B0` | **100.0%** (8 / 8 B) | Integer property getter returning `m_fieldC0`. |
+| `func_0013B3C0` | `0x13B3C0` | **100.0%** (28 / 28 B) | Secondary vector accessor returning `Vec3` from `m_field9C`. |
+| `func_0013B3E0` | `0x13B3E0` | **100.0%** (8 / 8 B) | Float property getter returning `m_field68`. |
+| `func_0013B3F0` | `0x13B3F0` | **100.0%** (8 / 8 B) | Polymorphic virtual stub returning constant `0`. |
+| `func_0013B400` | `0x13B400` | **100.0%** (8 / 8 B) | Polymorphic virtual stub returning constant `0`. |
+| `func_0013B410` | `0x13B410` | **100.0%** (8 / 8 B) | Polymorphic virtual stub returning constant `0`. |
+| `func_0013B420` | `0x13B420` | **100.0%** (80 / 80 B) | Tile coordinate truncation and map zone updater dispatching `func_1378c0`. |
+
 
 
 

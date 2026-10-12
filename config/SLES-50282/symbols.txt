@@ -124,6 +124,19 @@ func_0013B070 = 0x13B070; // type:func SubList.ContainsItem()
 func_0013B0B0 = 0x13B0B0; // type:func SubList.DispatchAction()
 func_151490 = 0x151490; // type:func absolute:True
 func_14bef0 = 0x14BEF0; // type:func absolute:True
+func_0013B360 = 0x13B360; // type:func SubList.GetPosition()
+func_0013B380 = 0x13B380; // type:func SubList.GetField7C()
+func_0013B390 = 0x13B390; // type:func SubList.GetField8C()
+func_0013B3A0 = 0x13B3A0; // type:func SubList.GetFieldB4()
+func_0013B3B0 = 0x13B3B0; // type:func SubList.GetFieldC0()
+func_0013B3C0 = 0x13B3C0; // type:func SubList.GetField9C()
+func_0013B3E0 = 0x13B3E0; // type:func SubList.GetField68()
+func_0013B3F0 = 0x13B3F0; // type:func SubList.Stub3F0()
+func_0013B400 = 0x13B400; // type:func SubList.Stub400()
+func_0013B410 = 0x13B410; // type:func SubList.Stub410()
+func_0013B420 = 0x13B420; // type:func SubList.UpdateZone()
+func_123350 = 0x123350; // type:func absolute:True
+func_1378c0 = 0x1378C0; // type:func absolute:True
 
 
 

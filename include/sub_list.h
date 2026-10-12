@@ -21,7 +21,7 @@ struct NodeItem {
     float m_fieldA4;
     char pad_A8[0xC8 - 0xA8];
     SubListHelper *m_fieldC8;
-    char pad_CC[2];
+    short m_fieldCC_short;
     unsigned char m_fieldCE;
 };
 
@@ -34,17 +34,27 @@ struct WorldContainer {
     char pad_00[0x6C];
     int m_count;
     NodeItem **m_items;
-    char pad_74[0xBAC - 0x74];
+    char pad_74[0xB98 - 0x74];
+    void *m_fieldB98;
+    char pad_B9C[0xBAC - 0xB9C];
     ScaleInfo *m_fieldBAC;
 };
 
 struct SpatialObj1 {
     virtual void* v0(); virtual void* v1(); virtual void* v2();
     virtual void* v3(); virtual void* v4(); virtual void* v5();
+    virtual void* v6(); virtual void* v7();
     virtual int v8();
+    virtual void* v9(); virtual void* v10(); virtual void* v11();
+    virtual void* v12(); virtual void* v13(); virtual void* v14();
+    virtual void* v15(); virtual void* v16(); virtual void* v17();
+    virtual void* v18(); virtual void* v19(); virtual void* v20();
+    virtual void* v21();
     short m_field4;
     short type;
-    char pad_08[0x1C];
+    char pad_08[4];
+    unsigned char m_fieldC;
+    char pad_0D[0x24 - 0xD];
     float f24;
 };
 
@@ -85,7 +95,7 @@ public:
     V_SLOT_10(17)
     V_SLOT_10(18)
     virtual void* v190(void *p, int a, int b);
-    virtual void* v191(void *p, int a, int b); virtual void* v192(); virtual void* v193(); virtual void* v194(void *p);
+    virtual void* v191(void *p, int a, int b); virtual void* v192(); virtual void* v193(short arg); virtual void* v194(void *p);
     virtual void* v195(); virtual void* v196(void *p);
     virtual void* v197(short action_id, void *other, float x, float y, float z);
     virtual void* v198();
@@ -93,7 +103,13 @@ public:
 
     struct NodeItem *m_field4;
     struct WorldContainer *m_field8;
-    char pad_C[0xC5 - 0xC];
+    char pad_C[0x1C - 0xC];
+    int m_field1C;
+    char pad_20[0x39 - 0x20];
+    unsigned char m_field39;
+    char pad_3A[0x64 - 0x3A];
+    int m_field64;
+    char pad_68[0xC5 - 0x68];
     unsigned char m_fieldC5;
     char pad_C6[2];
     void *m_fieldC8;
@@ -115,6 +131,13 @@ public:
     void func_0013A9D0(void *item);
     void func_0013AA20(void *item);
     void func_0013AA40();
+    int func_0013AA80();
+    void func_0013AB90(int arg1);
+    void func_0013ABF0(int msg);
+    int func_0013AC40();
+    int func_0013AC70();
+    int func_0013ACA0();
+    void* func_0013ADC0();
 };
 
 #undef V_SLOT_10

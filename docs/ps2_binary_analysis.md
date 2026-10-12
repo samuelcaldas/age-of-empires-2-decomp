@@ -600,5 +600,61 @@ Directly continuing from the spatial action trampolines sits the item resolution
 | `func_0013AA20` | `0x13AA20` | **100.0%** (32 / 32 B) | Inner list conditional item append (`m_fieldCC->AddTail`). |
 | `func_0013AA40` | `0x13AA40` | **100.0%** (56 / 56 B) | List validation via `CallMethod13()` with fallback `Free()`. |
 
+### 6.16 `SubList` Event Handling, Lifecycle Dispatch, and State Inspection (`0x13AA80`–`0x13AE00`)
+Continuing contiguously from list manipulation routines sits the update lifecycle handler, message broadcast coordinator, and head item state predicate suite (856 B code, 896 B slice, Metrowerks MWCCPS2):
+
+* **`func_0013AA80` (`0x13AA80`, 268 B code, 272 B slice):**
+  - Primary update and lifecycle coordinator mapped to `BaseList::__vt[0x60]`.
+  - Queries event flags via `func_1dd700()`.
+  - Mode checking: if `m_field39 >= 3`, checks `m_fieldCC->m_head` and purges list if active via `m_fieldCC->Free()`.
+  - Else (`m_field39 < 3`):
+    - If list is empty (`!m_head`), checks if `m_field39 == 2` and `m_field4->m_fieldCC_short != -1`, delegating to `this->v193(m_field4->m_fieldCC_short)` (vtable slot 193, offset `0x304`).
+    - If list is non-empty: if `m_field1C` is active, invokes virtual method `m_fieldCC->Update()` (vtable slot 5, offset `0x14`).
+    - If `m_field1C` is inactive, invokes `m_fieldCC->Update2()` (slot 6, offset `0x18`). If return value is 3 or 1, removes head via `m_fieldCC->DeleteHead()`.
+  - Finalizes lifecycle frame via `func_1dd780(this)` and returns acquired event flags.
+
+* **`func_0013AB90` (`0x13AB90`, 88 B code, 96 B slice):**
+  - Action state transition handler.
+  - Invokes virtual method `this->v46()` (vtable slot 46, offset `0xB8`).
+  - Delegates state registration via `func_267530(this, arg1)`.
+  - Resets item notification via `this->v196(0)` (vtable slot 196, offset `0x310`).
+
+* **`func_0013ABF0` (`0x13ABF0`, 72 B code, 80 B slice):**
+  - Message broadcasting coordinator.
+  - Dispatches virtual broadcast to inner list elements via `m_fieldCC->Broadcast(msg)` (vtable slot 8, offset `0x20`).
+  - Dispatches external notification via `func_1df2c0(this, msg)`.
+
+* **`func_0013AC40` (`0x13AC40`, 40 B code, 48 B slice):**
+  - Non-empty status inspection. Evaluates `m_fieldCC->HasItems() != 0` via branchless MIPS `movz`.
+
+* **`func_0013AC70` (`0x13AC70`, 48 B code, 48 B slice):**
+  - Head item type acquisition. Fetches head item via `m_fieldCC->GetHeadItem()`. If present, returns `head->m_field4`, else returns `-1`.
+
+* **`func_0013ACA0` (`0x13ACA0`, 276 B code, 288 B slice):**
+  - Target validity and action readiness predicate.
+  - External container check: if `m_field64 != -1`, resolves container item via `func_333b30(m_field8->m_fieldB98, m_field64)`. If resolved, returns `item->m_field298 == -1 ? 1 : 0`.
+  - Head inspection: queries `m_fieldCC->GetHeadItem()`. If absent, returns `1`.
+  - Category classification: if `head->m_fieldC < 4 || (head->m_fieldC == 13 || head->m_fieldC == 14)`, returns `1`.
+  - Type guard: if `head->m_field4 != 0x6B` (107), returns `0`.
+  - Polymorphic readiness check: queries `head->v21()` (vtable slot 21, offset `0x54`). If non-zero, returns `1`.
+  - External validity check: invokes `func_13c430(head)`. Returns `1` if return value is not `-1.0f`, else `0`.
+
+* **`func_0013ADC0` (`0x13ADC0`, 64 B code, 64 B slice):**
+  - Head item polymorphic query delegate, mapped to secondary vtable `0x4D730C`.
+  - Resolves `head = m_fieldCC->GetHeadItem()`. If present, delegates to `head->v21()`, else returns `0`.
+
+#### 6.16.1 SubList Events Matching Results (100.0% Complete Unit)
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_0013AA80` | `0x13AA80` | **100.0%** (268 / 268 B) | Primary update & lifecycle coordinator mapped to `BaseList::__vt[0x60]`. |
+| `func_0013AB90` | `0x13AB90` | **100.0%** (88 / 88 B) | Action state transition handler invoking `v46()`, `func_267530`, and `v196(0)`. |
+| `func_0013ABF0` | `0x13ABF0` | **100.0%** (72 / 72 B) | Message broadcasting coordinator invoking `m_fieldCC->Broadcast` and `func_1df2c0`. |
+| `func_0013AC40` | `0x13AC40` | **100.0%** (40 / 40 B) | Branchless non-empty status check via `HasItems() != 0`. |
+| `func_0013AC70` | `0x13AC70` | **100.0%** (48 / 48 B) | Head item type extraction returning `head->m_field4` or `-1`. |
+| `func_0013ACA0` | `0x13ACA0` | **100.0%** (276 / 276 B) | Target validity and action readiness predicate with multi-stage filtering. |
+| `func_0013ADC0` | `0x13ADC0` | **100.0%** (64 / 64 B) | Head item polymorphic delegate `head ? head->v21() : 0` (vtable `0x4D730C`). |
+
+
 
 

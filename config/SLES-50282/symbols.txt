@@ -102,5 +102,19 @@ func_0013A9B0 = 0x13A9B0; // type:func SubList.AddItem()
 func_0013A9D0 = 0x13A9D0; // type:func SubList.SetSingleItem()
 func_0013AA20 = 0x13AA20; // type:func SubList.AddItemTail()
 func_0013AA40 = 0x13AA40; // type:func SubList.FreeIfEmpty()
+func_13c430 = 0x13C430; // type:func absolute:True
+func_1dd700 = 0x1DD700; // type:func absolute:True
+func_1dd780 = 0x1DD780; // type:func absolute:True
+func_1df2c0 = 0x1DF2C0; // type:func absolute:True
+func_267530 = 0x267530; // type:func absolute:True
+func_333b30 = 0x333B30; // type:func absolute:True
+func_0013AA80 = 0x13AA80; // type:func SubList.OnEvent()
+func_0013AB90 = 0x13AB90; // type:func SubList.Method19()
+func_0013ABF0 = 0x13ABF0; // type:func SubList.Method20()
+func_0013AC40 = 0x13AC40; // type:func SubList.Method21()
+func_0013AC70 = 0x13AC70; // type:func SubList.Method22()
+func_0013ACA0 = 0x13ACA0; // type:func SubList.Method23()
+func_0013ADC0 = 0x13ADC0; // type:func SubList.Method24()
+
 
 

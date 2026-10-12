@@ -477,3 +477,43 @@ Directly following the list destructors sit the stream serialization and operati
 | `SubList::Noop()` | `0x139E40` | **100.0%** (8 / 8 B) | Empty stub method (`jr $ra; nop`). |
 | `SubList::Notify(void*)` | `0x139E50` | **100.0%** (72 / 72 B) | Notification dispatch via virtual slot `0x2fc` and counter increment. |
 
+### 6.13 `SubList` Spatial Queries and Event Handlers (`0x139EA0`–`0x13A280`)
+Directly continuing the `SubList` implementation sit the spatial target query, scale factor checking, range calculation, and secondary event dispatch routines (972 B code, 992 B slice with padding):
+
+* **`func_00139EA0` (`0x139EA0`, 496 B):**
+  - Resets output distance pointer `*out = 0.0f`.
+  - Self-check guard: if `other == this`, aborts returning `-1`.
+  - Performs primary spatial query via virtual method `Method3` on spatial node helper `m_field4->m_fieldC8`.
+  - Secondary grid traversal: if primary query yields no target and `m_field4->m_fieldCE` is active, loops across grid array `m_field8->m_items[0..m_count]` matching unit parameters `(m_fieldE, m_field0, m_fieldCE)`.
+  - Target analysis: if found (`s0 != NULL`):
+    - When unit type is 104 (`0x68`), checks other entity type (types 3 or 52) and world scale factor `m_field8->m_fieldBAC->m_scale <= 1.0f`. If true, sets `*out = 1.0f`; otherwise dispatches to virtual range getter `this->GetRange()` (vtable slot 71, offset `0x124`).
+    - For non-104 units, assigns distance `*out = s0->f24`.
+    - Returns target unit type `s0->type`.
+  - If no target detected, returns `-1`.
+
+* **`func_0013A090` (`0x13A090`, 12 B code, 16 B slice):**
+  - Default range accessor: `float SubList::GetRange()`, bound to vtable slot 71 (offset `0x124`).
+  - Emits `mtc1 $zero, $f0; jr $ra; nop`, returning `0.0f`.
+
+* **`func_0013A0A0` (`0x13A0A0`, 392 B code, 400 B slice):**
+  - Spatial action / entity update query. Self-check: if `other == this`, returns 0.
+  - Checks list activity via `CallMethod14__8BaseListFv(m_fieldCC)`; if active, early-exits returning 1.
+  - Allocates / acquires query scratch element via `func_366C30(&D_4E35DC)`.
+  - If `other` is present, dispatches to `func_34FB10(s1, this, other, 0, 0.0f)`; otherwise dispatches spatial coordinates to `func_34FA60(s1, this, x, y, z, 0, 0.0f)`.
+  - If listener resource `m_fieldC8` is active, notifies audio/event triggers via `func_147180(*(void**)m_fieldC8, 0x2C6)` and `func_1471B0(*(void**)m_fieldC8, 0x262)`, then invokes `func_14BD90` with entity details or broadcast coordinates.
+  - Completes notification through virtual method slot 194 (`this->v194(s1)` at offset `0x310`) and increments `m_fieldC5++`, returning 0.
+
+* **`func_0013A230` (`0x13A230`, 72 B code, 80 B slice):**
+  - Twin event notifier to `SubList::Notify`: guards on `other != this`.
+  - Dispatches virtual event notification at slot 190 (offset `0x300`): `this->v190(other, 1, -1)`.
+  - Increments notification counter `m_fieldC5++`.
+
+#### 6.13.1 SubList Spatial Queries Matching Results (100.0% Complete Unit)
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_00139EA0` | `0x139EA0` | **100.0%** (496 / 496 B) | Spatial targeting & distance query with grid iteration and `GetRange` dispatch. |
+| `func_0013A090` | `0x13A090` | **100.0%** (12 / 12 B) | Default range accessor `SubList::GetRange()`, returning `0.0f`. |
+| `func_0013A0A0` | `0x13A0A0` | **100.0%** (392 / 392 B) | Spatial entity update query via `D_4E35DC`, listener notification, and `v194`. |
+| `func_0013A230` | `0x13A230` | **100.0%** (72 / 72 B) | Secondary notification dispatch via virtual slot `0x300` and counter increment. |
+

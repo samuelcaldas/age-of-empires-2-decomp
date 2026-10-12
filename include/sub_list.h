@@ -7,6 +7,48 @@
     virtual void* v##base##0(); virtual void* v##base##1(); virtual void* v##base##2(); virtual void* v##base##3(); virtual void* v##base##4(); \
     virtual void* v##base##5(); virtual void* v##base##6(); virtual void* v##base##7(); virtual void* v##base##8(); virtual void* v##base##9();
 
+struct SubListHelper {
+    virtual void* v0();
+    virtual void* Method3(void *self, void *field4, void *other, int a, float x, float y, float z, int b);
+};
+
+struct NodeItem {
+    unsigned char m_field0;
+    char pad_1[0xD];
+    short m_fieldE;
+    char pad_10[0xC8 - 0x10];
+    SubListHelper *m_fieldC8;
+    char pad_CC[2];
+    unsigned char m_fieldCE;
+};
+
+struct ScaleInfo {
+    char pad_00[0x70];
+    float m_scale;
+};
+
+struct WorldContainer {
+    char pad_00[0x6C];
+    int m_count;
+    NodeItem **m_items;
+    char pad_74[0xBAC - 0x74];
+    ScaleInfo *m_fieldBAC;
+};
+
+struct SpatialObj1 {
+    char pad_00[6];
+    short type;
+    char pad_08[0x1C];
+    float f24;
+};
+
+struct OtherObj {
+    char pad_00[4];
+    NodeItem *m_field4;
+    char pad_08[0x24 - 8];
+    short m_field24_short;
+};
+
 class SubList {
 public:
     virtual void* v0(); virtual void* v1(); virtual void* v2(); virtual void* v3(); virtual void* v4();
@@ -17,7 +59,10 @@ public:
     V_SLOT_10(4)
     V_SLOT_10(5)
     V_SLOT_10(6)
-    V_SLOT_10(7)
+    virtual void* v70();
+    virtual float GetRange();
+    virtual void* v72(); virtual void* v73();
+    virtual void* v74(); virtual void* v75(); virtual void* v76(); virtual void* v77(); virtual void* v78(); virtual void* v79();
     V_SLOT_10(8)
     V_SLOT_10(9)
     V_SLOT_10(10)
@@ -30,13 +75,16 @@ public:
     V_SLOT_10(17)
     V_SLOT_10(18)
     virtual void* v190(void *p, int a, int b);
-    virtual void* v191(); virtual void* v192(); virtual void* v193(); virtual void* v194();
+    virtual void* v191(void *p, int a, int b); virtual void* v192(); virtual void* v193(); virtual void* v194(void *p);
     virtual void* v195(); virtual void* v196(); virtual void* v197(); virtual void* v198();
     virtual void* v199();
 
-    char pad_4[0xC5 - 4];
+    struct NodeItem *m_field4;
+    struct WorldContainer *m_field8;
+    char pad_C[0xC5 - 0xC];
     unsigned char m_fieldC5;
-    char pad_C6[6];
+    char pad_C6[2];
+    void *m_fieldC8;
     void *m_fieldCC;
 
     int SetupSpatial();

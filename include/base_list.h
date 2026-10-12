@@ -66,6 +66,7 @@ public:
     ListNode *m_head;
     char pad_0c[0xbc];
     int m_fieldC8;
+    void *m_fieldCC;
 
     BaseList(int capacity);
     void Reset(int val);
@@ -97,6 +98,9 @@ public:
     void Broadcast(int msg);
     void Broadcast4(int a, int b, int c);
     void Method7(char *out);
+    void SetupSpatial(void *obj1, void *obj2, int flag, float x, float y, float z);
+    void Setup(void *obj1, void *obj2, int flag);
+    void Cleanup(int flag);
 };
 
 extern "C" void* memset(void*, int, unsigned int);

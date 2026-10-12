@@ -47,5 +47,16 @@ GetHeadItemField30__8BaseListFv = 0x1398F0; // type:func BaseList.GetHeadItemFie
 Broadcast__8BaseListFi = 0x139920; // type:func BaseList.Broadcast(int)
 Broadcast4__8BaseListFiii = 0x139980; // type:func BaseList.Broadcast4(int, int, int)
 Method7__8BaseListFPc = 0x139A00; // type:func BaseList.Method7(char*)
+SetupSpatial__8BaseListFPvPvifff = 0x139A10; // type:func BaseList.SetupSpatial(void*, void*, int, float, float, float)
+Setup__8BaseListFPvPvi = 0x139AB0; // type:func BaseList.Setup(void*, void*, int)
+Cleanup__8BaseListFi = 0x139B20; // type:func BaseList.Cleanup(int)
+func_1DBEA0 = 0x1DBEA0; // type:func absolute:True
+func_139C80 = 0x139C80; // type:func absolute:True
+func_1DBFC0 = 0x1DBFC0; // type:func absolute:True
+func_139CC0 = 0x139CC0; // type:func absolute:True
+func_3669F0 = 0x3669F0; // type:func absolute:True
+func_2C2DC0 = 0x2C2DC0; // type:func absolute:True
+func_1DC0B0 = 0x1DC0B0; // type:func absolute:True
+D_10B68F0 = 0x10B68F0; // type:s32 absolute:True
 
 

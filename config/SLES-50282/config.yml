@@ -95,9 +95,15 @@ segments:
     vram: 0x139620
     subsegments:
       - [0x39800, asm, base_list_ops]
+  - name: base_list_spatial_ops
+    type: code
+    start: 0x39BF0
+    vram: 0x139A10
+    subsegments:
+      - [0x39BF0, asm, base_list_spatial_ops]
   - name: post_base
     type: bin
-    start: 0x39BF0
+    start: 0x39D90
   - [0x3e31c0]
 
 

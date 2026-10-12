@@ -29,5 +29,7 @@ func_00135BF0 = 0x135BF0; // type:func ktMouseProcessEvents()
 CreateItem__8BaseListFPvfPvff = 0x138F90; // type:func BaseList.CreateItem(void*, float, void*, float, float)
 GetFieldC8__8BaseListFv = 0x1392B0; // type:func BaseList.GetFieldC8()
 D_490B10 = 0x490B10; // type:asciz size:40
+Update__8BaseListFv = 0x1392C0; // type:func BaseList.Update()
+Update2__8BaseListFv = 0x139370; // type:func BaseList.Update2()
 
 

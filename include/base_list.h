@@ -18,6 +18,11 @@ public:
     virtual void v3();
     virtual void Action();
     virtual void Save(void *stream);
+    virtual void v8();
+    virtual void v9();
+    virtual bool Method10();
+    virtual void Method11();
+    virtual bool Method12();
 };
 
 class BaseItemCreator {
@@ -52,6 +57,8 @@ public:
     void* CreateItem(void *stream, short type);
     void* CreateItem(void *obj1, float x, void *obj2, float y, float z);
     int GetFieldC8();
+    int Update();
+    int Update2();
 };
 
 extern "C" void* memset(void*, int, unsigned int);

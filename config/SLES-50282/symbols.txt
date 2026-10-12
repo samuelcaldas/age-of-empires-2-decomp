@@ -115,6 +115,12 @@ func_0013AC40 = 0x13AC40; // type:func SubList.Method21()
 func_0013AC70 = 0x13AC70; // type:func SubList.Method22()
 func_0013ACA0 = 0x13ACA0; // type:func SubList.Method23()
 func_0013ADC0 = 0x13ADC0; // type:func SubList.Method24()
+func_0013AE00 = 0x13AE00; // type:func SubList.FindTargetCandidate()
+func_0013AF70 = 0x13AF70; // type:func SubList.GetHeadCategory()
+func_0013AFC0 = 0x13AFC0; // type:func SubList.GetNodeMetric()
+func_0013AFD0 = 0x13AFD0; // type:func SubList.GetHeadTotalMetric()
+func_0013B020 = 0x13B020; // type:func SubList.GetHeadType()
+func_0013B070 = 0x13B070; // type:func SubList.ContainsItem()
 
 
 

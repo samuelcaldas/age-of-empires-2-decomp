@@ -655,6 +655,51 @@ Continuing contiguously from list manipulation routines sits the update lifecycl
 | `func_0013ACA0` | `0x13ACA0` | **100.0%** (276 / 276 B) | Target validity and action readiness predicate with multi-stage filtering. |
 | `func_0013ADC0` | `0x13ADC0` | **100.0%** (64 / 64 B) | Head item polymorphic delegate `head ? head->v21() : 0` (vtable `0x4D730C`). |
 
+### 6.17 `SubList` Target Handlers, Item Properties, and Query Dispatch (`0x13AE00`–`0x13B0B0`)
+Continuing contiguously from lifecycle dispatch sits the target candidate scanner, item attribute accessors, and membership query handlers (640 B code, 688 B slice, Metrowerks MWCCPS2):
+
+* **`func_0013AE00` (`0x13AE00`, 364 B code, 368 B slice):**
+  - Secondary target candidate resolution and activation routine mapped to primary vtable slot `0x4D7548`.
+  - Dispatches spatial target evaluation through `m_field4->m_fieldC8->Method3(this, m_field4, other, x, y, z, mode, 0)`.
+  - If initial target matches, returns directly.
+  - If `m_field4->m_fieldCE` is active, iterates over `m_field8->m_items` searching for matching candidates with identical properties (`m_fieldE`, `m_field0`, `m_fieldCE`).
+  - Evaluates matching candidates via `item->m_fieldC8->Method3(this, m_field4, other, x, y, z, -1, 0)`. On match, registers selection via virtual slot 26 (`this->v26(item)`) and terminates search.
+
+* **`func_0013AF70` (`0x13AF70`, 68 B code, 80 B slice):**
+  - Head item category byte accessor.
+  - Verifies presence with `m_fieldCC->HasItems()`. Returns `0` if empty.
+  - Retrieves head item via `m_fieldCC->GetHeadItem()` and returns `item->m_fieldC`.
+
+* **`func_0013AFC0` (`0x13AFC0`, 12 B code, 16 B slice):**
+  - Node item scale/metric accessor.
+  - Directly dereferences `m_field4` and returns single-precision float `m_field4->m_fieldD0` via `$f0`.
+
+* **`func_0013AFD0` (`0x13AFD0`, 76 B code, 80 B slice):**
+  - Composite item attribute summation routine.
+  - Inspects inner list `m_fieldCC`. If non-null, retrieves head item via `GetHeadItem()`.
+  - Accumulates `item->m_field4 + item->m_fieldC` into integer return value, returning `0` if null.
+
+* **`func_0013B020` (`0x13B020`, 68 B code, 80 B slice):**
+  - Head item type query routine.
+  - Inspects inner list `m_fieldCC`. If present, fetches head item via `GetHeadItem()`.
+  - Returns `item->m_field4` if item exists, else returns `-1`.
+
+* **`func_0013B070` (`0x13B070`, 52 B code, 64 B slice):**
+  - Entity membership predicate.
+  - Inspects inner list `m_fieldCC`. If null, returns `0`.
+  - Forwards query to `m_fieldCC->Contains(id)`.
+
+#### 6.17.1 SubList Handlers Matching Results (100.0% Complete Unit)
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_0013AE00` | `0x13AE00` | **100.0%** (364 / 364 B) | Target candidate scanner with `Method3` spatial queries & `v26(item)` dispatch. |
+| `func_0013AF70` | `0x13AF70` | **100.0%** (68 / 68 B) | Head item category byte accessor with `HasItems` guard. |
+| `func_0013AFC0` | `0x13AFC0` | **100.0%** (12 / 12 B) | Node item float property accessor (`m_field4->m_fieldD0`). |
+| `func_0013AFD0` | `0x13AFD0` | **100.0%** (76 / 76 B) | Composite item metric summation (`m_field4 + m_fieldC`). |
+| `func_0013B020` | `0x13B020` | **100.0%** (68 / 68 B) | Head item type accessor with `-1` null fallback. |
+| `func_0013B070` | `0x13B070` | **100.0%** (52 / 52 B) | Entity containment predicate delegating to `m_fieldCC->Contains(id)`. |
+
 
 
 

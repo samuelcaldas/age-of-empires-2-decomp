@@ -23,6 +23,8 @@ struct NodeItem {
     SubListHelper *m_fieldC8;
     short m_fieldCC_short;
     unsigned char m_fieldCE;
+    char pad_CF;
+    float m_fieldD0;
 };
 
 struct ScaleInfo {
@@ -72,7 +74,7 @@ public:
     V_SLOT_10(1)
     virtual void* v20(); virtual void* v21(); virtual void* v22(); virtual void* v23();
     virtual void* v24(void *item);
-    virtual void* v25(); virtual void* v26(); virtual void* v27(); virtual void* v28(); virtual void* v29();
+    virtual void* v25(); virtual void* v26(void *item); virtual void* v27(); virtual void* v28(); virtual void* v29();
     V_SLOT_10(3)
     virtual void* v40(); virtual void* v41();
     virtual void* v42(void *other, float x, float y, float z);
@@ -138,6 +140,12 @@ public:
     int func_0013AC70();
     int func_0013ACA0();
     void* func_0013ADC0();
+    void* func_0013AE00(void *other, int mode, float x, float y, float z);
+    int func_0013AF70();
+    float func_0013AFC0();
+    int func_0013AFD0();
+    int func_0013B020();
+    int func_0013B070(int id);
 };
 
 #undef V_SLOT_10

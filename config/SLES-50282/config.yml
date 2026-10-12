@@ -107,9 +107,15 @@ segments:
     vram: 0x139BB0
     subsegments:
       - [0x39D90, asm, base_list_destructors]
+  - name: base_list_stream_ops
+    type: code
+    start: 0x39E60
+    vram: 0x139C80
+    subsegments:
+      - [0x39E60, asm, base_list_stream_ops]
   - name: post_base
     type: bin
-    start: 0x39E60
+    start: 0x3A080
   - [0x3e31c0]
 
 

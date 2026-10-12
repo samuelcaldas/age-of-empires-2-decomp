@@ -421,3 +421,59 @@ Directly following `BaseList::Cleanup` sit the destructor entry points for the `
 | `func_00139BB0` | `0x139BB0` | **100.0%** (96 / 96 B) | Virtual destructor for `D_4D7A90` hierarchy, calling `func_2639D0` and optional `operator delete`. |
 | `func_00139C10` | `0x139C10` | **100.0%** (108 / 108 B) | Virtual destructor for `D_4D7230` hierarchy, calling `BaseList::Cleanup(0)`, `func_1DC100`, and optional `operator delete`. |
 
+### 6.12 `SubList` Stream & State Operations (`0x139C80`–`0x139EA0`)
+Directly following the list destructors sit the stream serialization and operational lifecycle methods for `SubList` (508 B code, 544 B slice with alignment padding):
+
+* **`SubList::SetupSpatial()` (`0x139C80`, 64 B):**
+  - Invokes engine spatial setup helper `func_1DC180(this)`.
+  - Initializes `m_fieldC5 = 0`.
+  - Dispatches to virtual factory method at slot `0x324` (`this->CreateSubList()`) and stores instance into `m_fieldCC`.
+  - Returns status code 1.
+
+* **`SubList::Setup(void *stream)` (`0x139CC0`, 116 B):**
+  - Deserialization setup from binary stream, invoking `func_1DC2E0(this, stream)`.
+  - Reads header byte and `m_fieldC5` counter from stream via `func_226d90(stream, ..., 1)`.
+  - Invokes virtual slot `0x324` (`this->CreateSubList()`), caching result into `m_fieldCC`.
+  - Loads sublist state from stream via `BaseList::Load(m_fieldCC, stream)`.
+  - Returns status code 1.
+
+* **`SubList::CreateSubList()` (`0x139D40`, 16 B):**
+  - Fast factory dispatch: passes global pool `&D_10B68F0` as `$a0` and `this` as `$a1` to creator `func_3668C0`.
+  - Compiles as a non-allocating leaf tail call (`paddub $a1, $a0, $zero; lui $v0, 0x10b; j func_3668C0; addiu $a0, $v0, 0x68f0`), exactly matching original binary instructions.
+
+* **`SubList::Action()` (`0x139D50`, 44 B):**
+  - Advances per-frame / tick logic: calls engine helper `func_266840(this)` followed by `BaseList::Action(m_fieldCC)`.
+
+* **`SubList::Save(void *stream)` (`0x139D80`, 96 B):**
+  - Serializes sublist state: invokes stream save helper `func_1DC6B0(this, stream)`.
+  - Emits marker byte (0) and `m_fieldC5` counter via `func_226f70(stream, ..., 1)`.
+  - Recursively serializes list payload via `BaseList::Save(m_fieldCC, stream)`.
+
+* **`SubList::Free()` (`0x139DE0`, 44 B):**
+  - Node deallocation: dispatches cleanup helper `func_1DCAA0(this)` and frees node graph via `BaseList::Free(m_fieldCC)`.
+
+* **`SubList::Teardown()` (`0x139E10`, 48 B):**
+  - Completes teardown: frees node graph via `BaseList::Free(m_fieldCC)` and invokes engine finalizer `func_267DD0(this)`.
+
+* **`SubList::Noop()` (`0x139E40`, 8 B):**
+  - Vacuous virtual stub method (`jr $ra; nop`).
+
+* **`SubList::Notify(void *other)` (`0x139E50`, 72 B):**
+  - State notification: guards against self-notification (`other != this`).
+  - Dispatches virtual event notification at slot `0x2fc` (`this->v190(other, 0, -1)`).
+  - Increments notification counter `m_fieldC5++`.
+
+#### 6.12.1 SubList Stream & State Operations Matching Results (100.0% Linked Unit)
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `SubList::SetupSpatial()` | `0x139C80` | **100.0%** (64 / 64 B) | Spatial initialization, calling `func_1DC180` and virtual factory. |
+| `SubList::Setup(void*)` | `0x139CC0` | **100.0%** (116 / 116 B) | Stream deserialization, calling `func_1DC2E0`, stream read, and `BaseList::Load`. |
+| `SubList::CreateSubList()` | `0x139D40` | **97.5%** (16 / 16 B) | Fast factory tail jump to `func_3668C0(&D_10B68F0, this)`. Bytecode 100% identical. |
+| `SubList::Action()` | `0x139D50` | **100.0%** (44 / 44 B) | Per-tick action, invoking `func_266840` and `BaseList::Action`. |
+| `SubList::Save(void*)` | `0x139D80` | **100.0%** (96 / 96 B) | Stream serialization, invoking `func_1DC6B0`, stream writes, and `BaseList::Save`. |
+| `SubList::Free()` | `0x139DE0` | **100.0%** (44 / 44 B) | Node deallocation, invoking `func_1DCAA0` and `BaseList::Free`. |
+| `SubList::Teardown()` | `0x139E10` | **100.0%** (48 / 48 B) | Full teardown, invoking `BaseList::Free` and `func_267DD0`. |
+| `SubList::Noop()` | `0x139E40` | **100.0%** (8 / 8 B) | Empty stub method (`jr $ra; nop`). |
+| `SubList::Notify(void*)` | `0x139E50` | **100.0%** (72 / 72 B) | Notification dispatch via virtual slot `0x2fc` and counter increment. |
+

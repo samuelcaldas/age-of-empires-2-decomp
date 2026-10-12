@@ -18,18 +18,18 @@ public:
     virtual void v3();
     virtual void Action();
     virtual void Save(void *stream);
-    virtual void v8();
+    virtual short v8();
     virtual void Method9(int active);
     virtual bool Method10();
     virtual void Method11();
     virtual bool Method12();
-    virtual void v13();
-    virtual void v14();
-    virtual void v15();
+    virtual int Method13();
+    virtual int Method14();
+    virtual int Method15();
     virtual void v16();
     virtual void v17();
-    virtual void v18();
-    virtual void v19();
+    virtual void Method18(int msg);
+    virtual void Method19(int a, int b, int c);
     virtual void v20();
     virtual void v21();
     virtual void v22();
@@ -37,6 +37,9 @@ public:
     virtual void v24();
     virtual void v25();
     virtual void Method26();
+
+    char pad_04[44];
+    int field_30;
 };
 
 struct WorldObj {
@@ -81,6 +84,19 @@ public:
     void AddHead(void *item);
     void AddTail(void *item);
     void DeleteHead();
+    void* RemoveHead();
+    void PushHead(void *item);
+    int HasItems();
+    int Contains(int type);
+    int CallMethod13();
+    int CallMethod14();
+    int CallMethod15();
+    void* GetHeadItem();
+    void* FindItem(int type);
+    int GetHeadItemField30();
+    void Broadcast(int msg);
+    void Broadcast4(int a, int b, int c);
+    void Method7(char *out);
 };
 
 extern "C" void* memset(void*, int, unsigned int);

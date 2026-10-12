@@ -12,7 +12,8 @@ __vec_ctor = 0x100670; // type:func absolute:True
 __vt__8BaseList = 0x4D7200; // type:Vtable absolute:True BaseList.__vtable
 memset = 0x117CAC; // type:func absolute:True
 s_node_pool = 0x50A8C0; // type:ListNode absolute:True
-func_139580 = 0x139580; // type:func absolute:True
+DeleteHead__8BaseListFv = 0x139580; // type:func BaseList.DeleteHead()
+func_366af0 = 0x366AF0; // type:func absolute:True
 func_226d90 = 0x226D90; // type:func absolute:True
 func_226f70 = 0x226F70; // type:func absolute:True
 func_00134E50 = 0x134E50; // type:func InitWork(int)
@@ -31,5 +32,7 @@ GetFieldC8__8BaseListFv = 0x1392B0; // type:func BaseList.GetFieldC8()
 D_490B10 = 0x490B10; // type:asciz size:40
 Update__8BaseListFv = 0x1392C0; // type:func BaseList.Update()
 Update2__8BaseListFv = 0x139370; // type:func BaseList.Update2()
+AddHead__8BaseListFPv = 0x139430; // type:func BaseList.AddHead(void*)
+AddTail__8BaseListFPv = 0x1394C0; // type:func BaseList.AddTail(void*)
 
 

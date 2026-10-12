@@ -19,10 +19,29 @@ public:
     virtual void Action();
     virtual void Save(void *stream);
     virtual void v8();
-    virtual void v9();
+    virtual void Method9(int active);
     virtual bool Method10();
     virtual void Method11();
     virtual bool Method12();
+    virtual void v13();
+    virtual void v14();
+    virtual void v15();
+    virtual void v16();
+    virtual void v17();
+    virtual void v18();
+    virtual void v19();
+    virtual void v20();
+    virtual void v21();
+    virtual void v22();
+    virtual void v23();
+    virtual void v24();
+    virtual void v25();
+    virtual void Method26();
+};
+
+struct WorldObj {
+    char pad_00[57];
+    unsigned char field_39;
 };
 
 class BaseItemCreator {
@@ -59,6 +78,9 @@ public:
     int GetFieldC8();
     int Update();
     int Update2();
+    void AddHead(void *item);
+    void AddTail(void *item);
+    void DeleteHead();
 };
 
 extern "C" void* memset(void*, int, unsigned int);

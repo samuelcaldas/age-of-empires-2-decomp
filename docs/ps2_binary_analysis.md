@@ -294,6 +294,35 @@ Directly following `BaseList::GetFieldC8()` at `0x1392C0` sit the queue processi
 | `BaseList::Update()` | `0x1392C0` | **100.0%** (164 / 164 B) | Virtual execution loop calling head method 10, tail method 11, with head retirement. |
 | `BaseList::Update2()` | `0x139370` | **100.0%** (180 / 180 B) | Virtual execution loop calling head method 12, tail method 11, with container guard. |
 
+### 6.8 `BaseList` Node Management & Item Lifecycle (`0x139430`–`0x139600`)
+Directly following `BaseList::Update2()` at `0x139430` sit the node insertion and removal primitives managing the linked list's items (480 B total code, Metrowerks MWCCPS2):
 
+* **Lifecycle State & WorldObj Threshold (`field_39 > 2`):**
+  - All insertion methods check `((WorldObj*)this->m_field4)->field_39 > 2`.
+  - If state is $\ge 3$, the item cannot be inserted into the active list; it is immediately registered with global pool `func_366af0(&D_4E35DC, item)` and recycled/destroyed via `item->Method26()`.
+  - Otherwise, a `ListNode` is allocated via `AllocNode()`, linked into the list, and notified via `item->Method9(1)` (activation callback).
 
+* **Head Insertion `AddHead(void *item)` (`0x139430`, 136 B):**
+  - Inserts the newly allocated node before `m_head` (`node->next = m_head; m_head = node;`).
+  - Calls `item->Method9(1)` on the newly added item.
 
+* **Tail Insertion `AddTail(void *item)` (`0x1394C0`, 192 B):**
+  - Allocates node with `node->next = NULL`.
+  - If `m_head` is empty, sets `m_head = node`.
+  - Otherwise, traverses linked list to the tail node and sets `curr->next = node`.
+  - Notifies item via `item->Method9(1)`.
+  - **Metrowerks Codegen Insight:** The construct `if (curr) { while (curr) { if (!curr->next) { curr->next = node; break; } curr = curr->next; } } else { this->m_head = node; }` generates `beqz` for empty check, and `bnezl` with branch delay slot for pointer advance, matching original MIPS assembly 100% byte-for-byte.
+
+* **Head Removal `DeleteHead()` (`0x139580`, 152 B):**
+  - Unlinks the current head node (`this->m_head = node->next;`).
+  - Passes old item to pool handler `func_366af0(&D_4E35DC, node->item)` and invokes cleanup `item->Method26()`.
+  - Recycles node memory via `this->FreeNode(node)`.
+  - If a new head node exists and `((WorldObj*)this->m_field4)->field_39 < 3`, notifies the promoted head item via `new_head->Method9(0)`.
+
+#### 6.8.1 BaseList Node Management Matching Results (100.0% Complete Unit)
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `BaseList::AddHead(void*)` | `0x139430` | **100.0%** (136 / 136 B) | Prepends item to list with `field_39` threshold guard and `Method9(1)` activation. |
+| `BaseList::AddTail(void*)` | `0x1394C0` | **100.0%** (192 / 192 B) | Appends item to list tail with traversal loop and `Method9(1)` activation. |
+| `BaseList::DeleteHead()` | `0x139580` | **100.0%** (152 / 152 B) | Pops head node, recycles item via `Method26`, frees node, and activates next head. |

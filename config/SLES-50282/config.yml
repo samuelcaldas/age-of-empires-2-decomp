@@ -83,9 +83,15 @@ segments:
     vram: 0x1392c0
     subsegments:
       - [0x394a0, asm, base_list_update]
+  - name: base_list_node_mgr
+    type: code
+    start: 0x39610
+    vram: 0x139430
+    subsegments:
+      - [0x39610, asm, base_list_node_mgr]
   - name: post_base
     type: bin
-    start: 0x39610
+    start: 0x39800
   - [0x3e31c0]
 
 

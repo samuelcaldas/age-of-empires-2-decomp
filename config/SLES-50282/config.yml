@@ -155,9 +155,15 @@ segments:
     vram: 0x13B360
     subsegments:
       - [0x3B540, asm, sub_list_getters]
+  - name: sub_list_constants
+    type: code
+    start: 0x3B650
+    vram: 0x13B470
+    subsegments:
+      - [0x3B650, asm, sub_list_constants]
   - name: post_base
     type: bin
-    start: 0x3B650
+    start: 0x3B8F0
   - [0x3e31c0]
 
 

@@ -22,7 +22,7 @@ int func_00139EA0(SubList *self, void *other, float *out, float x, float y, floa
         return -1;
     }
 
-    SpatialObj1 *s0 = (SpatialObj1*)self->m_field4->m_fieldC8->Method3(self, self->m_field4, other, -1, x, y, z, 0);
+    SpatialObj1 *s0 = (SpatialObj1*)self->m_field4->m_fieldC8->Method3(self, self->m_field4, other, x, y, z, -1, 0);
     if (!s0 && self->m_field4->m_fieldCE) {
         for (int i = 0; i < self->m_field8->m_count; i++) {
             NodeItem *item = self->m_field8->m_items[i];
@@ -32,7 +32,7 @@ int func_00139EA0(SubList *self, void *other, float *out, float x, float y, floa
             if (item->m_fieldE == self->m_field4->m_fieldE &&
                 item->m_field0 == self->m_field4->m_field0 &&
                 item->m_fieldCE == self->m_field4->m_fieldCE) {
-                s0 = (SpatialObj1*)item->m_fieldC8->Method3(self, self->m_field4, other, -1, x, y, z, 0);
+                s0 = (SpatialObj1*)item->m_fieldC8->Method3(self, self->m_field4, other, x, y, z, -1, 0);
                 if (s0) {
                     break;
                 }

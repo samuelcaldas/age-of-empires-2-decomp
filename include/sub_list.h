@@ -9,14 +9,17 @@
 
 struct SubListHelper {
     virtual void* v0();
-    virtual void* Method3(void *self, void *field4, void *other, int a, float x, float y, float z, int b);
+    virtual void* Method3(void *self, void *field4, void *other, float x, float y, float z, int mode, int b);
 };
 
 struct NodeItem {
     unsigned char m_field0;
     char pad_1[0xD];
     short m_fieldE;
-    char pad_10[0xC8 - 0x10];
+    char pad_10[0xA0 - 0x10];
+    void *m_fieldA0;
+    float m_fieldA4;
+    char pad_A8[0xC8 - 0xA8];
     SubListHelper *m_fieldC8;
     char pad_CC[2];
     unsigned char m_fieldCE;
@@ -36,7 +39,10 @@ struct WorldContainer {
 };
 
 struct SpatialObj1 {
-    char pad_00[6];
+    virtual void* v0(); virtual void* v1(); virtual void* v2();
+    virtual void* v3(); virtual void* v4(); virtual void* v5();
+    virtual int v8();
+    short m_field4;
     short type;
     char pad_08[0x1C];
     float f24;
@@ -54,9 +60,13 @@ public:
     virtual void* v0(); virtual void* v1(); virtual void* v2(); virtual void* v3(); virtual void* v4();
     virtual void* v5(); virtual void* v6(); virtual void* v7(); virtual void* v8(); virtual void* v9();
     V_SLOT_10(1)
-    V_SLOT_10(2)
+    virtual void* v20(); virtual void* v21(); virtual void* v22(); virtual void* v23();
+    virtual void* v24(void *item);
+    virtual void* v25(); virtual void* v26(); virtual void* v27(); virtual void* v28(); virtual void* v29();
     V_SLOT_10(3)
-    V_SLOT_10(4)
+    virtual void* v40(); virtual void* v41();
+    virtual void* v42(void *other, float x, float y, float z);
+    virtual void* v43(); virtual void* v44(); virtual void* v45(); virtual void* v46(); virtual void* v47(); virtual void* v48(); virtual void* v49();
     V_SLOT_10(5)
     V_SLOT_10(6)
     virtual void* v70();
@@ -76,7 +86,9 @@ public:
     V_SLOT_10(18)
     virtual void* v190(void *p, int a, int b);
     virtual void* v191(void *p, int a, int b); virtual void* v192(); virtual void* v193(); virtual void* v194(void *p);
-    virtual void* v195(); virtual void* v196(); virtual void* v197(); virtual void* v198();
+    virtual void* v195(); virtual void* v196();
+    virtual void* v197(short action_id, void *other, float x, float y, float z);
+    virtual void* v198();
     virtual void* v199();
 
     struct NodeItem *m_field4;
@@ -85,7 +97,7 @@ public:
     unsigned char m_fieldC5;
     char pad_C6[2];
     void *m_fieldC8;
-    void *m_fieldCC;
+    BaseList *m_fieldCC;
 
     int SetupSpatial();
     int Setup(void *stream);

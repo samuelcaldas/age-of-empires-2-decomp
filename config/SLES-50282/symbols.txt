@@ -330,4 +330,8 @@ D_4D7650 = 0x4D7650; // type:s32 absolute:True
 func_0013E200 = 0x13E200; // type:func
 func_0013E250 = 0x13E250; // type:func
 func_0013E260 = 0x13E260; // type:func
+func_0013E370 = 0x13E370; // type:func
+func_0013E8D0 = 0x13E8D0; // type:func
+func_0013F650 = 0x13F650; // type:func absolute:True
+func_0013F6C0 = 0x13F6C0; // type:func absolute:True
 

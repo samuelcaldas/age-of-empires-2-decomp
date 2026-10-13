@@ -1398,5 +1398,25 @@ Directly following `BuildAI::Save` sits the diagnostic logging routine for `Buil
 |---|---|---|---|
 | `func_0013D820` (`BuildAI::Log`) | `0x13D820` | **100.0%** (668 / 668 B) | Complete `BuildAI` debug logging routine matching 100% byte-for-byte. |
 
+### 6.39 BuildAI Free Item Search and Allocation Routine (`0x13DAC0`–`0x13DB20`, `build_ai_alloc_item.cpp`)
+
+Directly following `BuildAI::Log` sits the item allocation routine for `BuildAI` (`0x13DAC0`–`0x13DB20`, 92 bytes of code, 96-byte slice, Metrowerks MWCCPS2 2.3.1.01):
+
+* **Architecture and Reverse Engineering:**
+  - `func_0013DAC0` (`BuildAI::AllocItem` / `GetFreeItem`):
+    - Member method scanning internal item pool `m_items[50]` at offset `+0x57C` (each element size 180 / `0xB4` bytes).
+    - Leaf function requiring zero stack frame allocation (`$sp` preserved).
+    - Iterates `for (int i = 0; i < 50; i++)`:
+      - Tests element link pointers `m_next` (`+0x5E8`) and `m_prev` (`+0x5EC`).
+      - Uses branch likely `bnel` instruction optimization for `m_next != 0` rejection check.
+      - If both `m_next == 0` and `m_prev == 0`, returns pointer to free element `&this->m_items[i]` (`addiu $v0, $v1, 0x57C`).
+    - If no slot is free after scanning all 50 slots, returns `NULL` (`0`).
+
+* **Matching Results (1 / 1 Functions 100.0%, 100.0% Exact Unit Match):**
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_0013DAC0` (`BuildAI::AllocItem`) | `0x13DAC0` | **100.0%** (92 / 92 B) | Complete `BuildAI` free item scanning routine matching 100% byte-for-byte. |
+
 
 

@@ -91,7 +91,10 @@ class SubList {
 public:
     virtual void* v0(); virtual void* v1(); virtual void* v2(); virtual void* v3(void *player = 0); virtual void* v4();
     virtual void* v5(); virtual void* v6(); virtual void* v7(); virtual void* v8(); virtual void* v9();
-    V_SLOT_10(1)
+    virtual void* v10(); virtual void* v11(); virtual void* v12(); virtual void* v13(); virtual void* v14();
+    virtual void* v15(); virtual void* v16();
+    virtual void* v17(void *a = 0, void *b = 0, void *c = 0);
+    virtual void* v18(); virtual void* v19();
     virtual void* v20(); virtual void* v21(int a1); virtual void* v22(void *item); virtual void* v23();
     virtual void* v24();
     virtual void* v25(); virtual void* v26(void *item); virtual void* v27(); virtual void* v28(); virtual void* v29();
@@ -280,7 +283,19 @@ extern "C" {
     int func_0013BE90(SubList *self);
     void func_0013BF50(SubList *self, void *new_target);
     void func_0013C010(SubList *self, void *new_target);
+    void func_0013C0D0(SubList *self, void *param1);
+    void func_0013C250(SubList *self);
 }
+
+struct PlayerContext {
+    V_SLOT_10(0)
+    virtual void* v10(); virtual void* v11(); virtual void* v12(); virtual void* v13(); virtual void* v14();
+    virtual void* v15(); virtual void* v16();
+    virtual void* Method17(int val);
+
+    char pad_04[12];
+    int m_target_type;
+};
 
 #undef V_SLOT_10
 

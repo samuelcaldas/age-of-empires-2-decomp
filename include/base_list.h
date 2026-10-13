@@ -19,7 +19,7 @@ public:
     virtual int Action();
     virtual void Save(void *stream);
     virtual int v8();
-    virtual void Method9(int active);
+    virtual void Method9(void *a = 0, void *b = 0, void *c = 0);
     virtual bool Method10();
     virtual void Method11();
     virtual bool Method12();

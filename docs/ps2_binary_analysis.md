@@ -1027,7 +1027,24 @@ Directly following target health checks sit the primary target registration, lis
 | `func_0013BE90` | `0x13BE90` | **100.0%** (188 / 188 B) | Validation check delegating to inner list `Action()` or testing `m_fieldC == 1`. |
 | `func_0013BF50` | `0x13BF50` | **100.0%** (188 / 188 B) | Primary target assignment unbinding previous entity and binding observer `Method50`. |
 | `func_0013C010` | `0x13C010` | **100.0%** (188 / 188 B) | Secondary target assignment unbinding previous entity and binding observer `Method50`. |
+### 6.28 `SubList` Target Event Notification and Stub (`0x13C0D0`–`0x13C260`)
+Directly following target assignment sits the master static object event notification handler and its trailing stub (392 B code, 400 B slice, Metrowerks MWCCPS2 2.3.1.01):
 
+* **`func_0013C0D0` (`0x13C0D0`, 384 B code, 384 B slice):**
+  - Master unit/object update and listener dispatch routine (`SubList::UpdateMaster(void *world)`).
+  - Validates `self->m_field30 != NULL` and container `header = *(MasterObjects**)((char*)world + 0xC8) != NULL`.
+  - Iterates backwards through master table `header->m_table[count - 1 .. 0]` searching for an entry whose ID (`+0x06`) matches current master ID `*(short*)((char*)self->m_field30 + 6)`.
+  - On match, compares player context target type `player->m_target_type` against master target classifications at offsets `+0x34`, `+0x38`, `+0x3C`, and `+0x40`. If matched, dispatches notification `player->Method17(match)` (vtable slot 17, offset `0x4C`).
+  - Virtually dispatches `self->v17(world, self->m_field30, *p)` and nested list `self->m_field34->Method9(world, self->m_field30, *p)` (vtable slot 7, offset `0x24`), updating `self->m_field30 = *p`.
+  - Fallback path (null target or header): dispatches `self->v17(world, 0, 0)` and `self->m_field34->Method9(world, 0, 0)`.
+  - Control flow and instruction structure match 100%; minor difference in callee-saved register allocation order (`s0`, `s1`, `s2`).
 
+* **`func_0013C250` (`0x13C250`, 8 B code, 16 B slice with alignment):**
+  - Out-of-line empty virtual stub / event callback (`jr $ra; nop`). 100.0% exact match.
 
+#### 6.28.1 SubList Target Event Notification Matching Results
 
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_0013C0D0` | `0x13C0D0` | **98.3%** (376 / 384 B) | Master object lookup, player target category matching, and polymorphic notification. |
+| `func_0013C250` | `0x13C250` | **100.0%** (8 / 8 B) | Empty virtual event callback stub (`jr $ra; nop`). |

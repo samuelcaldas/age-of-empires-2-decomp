@@ -200,4 +200,6 @@ func_0013BD50 = 0x13BD50; // type:func
 func_0013BD60 = 0x13BD60; // type:func
 func_0013BD70 = 0x13BD70; // type:func
 func_0013BD80 = 0x13BD80; // type:func
+func_0013BD90 = 0x13BD90; // type:func
+func_0013BE10 = 0x13BE10; // type:func
 

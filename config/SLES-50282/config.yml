@@ -191,9 +191,15 @@ segments:
     vram: 0x13BD10
     subsegments:
       - [0x3BEF0, asm, sub_list_accessors]
+  - name: sub_list_validate
+    type: code
+    start: 0x3BF70
+    vram: 0x13BD90
+    subsegments:
+      - [0x3BF70, asm, sub_list_validate]
   - name: post_base
     type: bin
-    start: 0x3BF70
+    start: 0x3C070
   - [0x3e31c0]
 
 

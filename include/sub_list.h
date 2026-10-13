@@ -262,6 +262,8 @@ extern "C" {
     int func_0013BD60(SubList *self);
     int func_0013BD70(SubList *self);
     void func_0013BD80(SubList *self, char val);
+    int func_0013BD90(SubList *self);
+    int func_0013BE10(SubList *self);
 }
 
 #undef V_SLOT_10

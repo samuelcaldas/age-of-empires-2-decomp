@@ -303,4 +303,6 @@ D_00490D50 = 0x490D50; // type:asciz absolute:True
 D_00490D60 = 0x490D60; // type:asciz absolute:True
 D_00490D80 = 0x490D80; // type:asciz absolute:True
 AddItem__7BuildAIFPviiiii = 0x13DB20; // type:func BuildAI.AddItem(void*, int, int, int, int, int)
+func_0013DD80 = 0x13DD80; // type:func
+func_0013DDD0 = 0x13DDD0; // type:func
 

@@ -1448,5 +1448,38 @@ Directly following `BuildAI::AllocItem` sits the build item creation and inserti
 |---|---|---|---|
 | `func_0013DB20` (`BuildAI::AddItem`) | `0x13DB20` | **98.38%** (596 / 596 B) | Complete `BuildAI` item insertion method with 149 matching instructions and full control flow. |
 
+### 6.41 BuildAI List Operations (`0x13DD80`–`0x13DE00`, `build_ai_list_ops.cpp`)
 
+Directly following `BuildAI::AddItem` sits the circular doubly linked list manipulation routines for `BuildAI` (`0x13DD80`–`0x13DE00`, 116 bytes of code across 2 methods, 128-byte slice, Metrowerks MWCCPS2 2.3.1.01):
 
+* **Architecture and Reverse Engineering:**
+  - `func_0013DD80` (`BuildAI::MoveItemToEnd`, 68 bytes of code, `0x13DD80`–`0x13DDC4`):
+    - Member method taking pointer to item: `void BuildAI::MoveItemToEnd(BuildAIItem *item)`.
+    - Leaf function requiring zero stack frame allocation (`$sp` preserved).
+    - If `item != NULL`:
+      - Unlinks `item` from current position in circular list:
+        `item->m_prev->m_next = item->m_next;`
+        `item->m_next->m_prev = item->m_prev;`
+      - Re-inserts `item` at the tail (immediately before sentinel `this->m_buildItemPrev`):
+        `BuildAIItem *prev = this->m_buildItemPrev;`
+        `item->m_prev = prev;`
+        `item->m_next = prev->m_next;`
+        `item->m_next->m_prev = item;`
+        `prev->m_next = item;`
+  - `func_0013DDD0` (`BuildAI::RemoveItem`, 48 bytes of code, `0x13DDD0`–`0x13DE00`):
+    - Member method taking pointer to item: `void BuildAI::RemoveItem(BuildAIItem *item)`.
+    - Leaf function requiring zero stack frame allocation (`$sp` preserved).
+    - If `item != NULL`:
+      - Unlinks `item` from circular list:
+        `item->m_prev->m_next = item->m_next;`
+        `item->m_next->m_prev = item->m_prev;`
+      - Clears item links:
+        `item->m_next = NULL;`
+        `item->m_prev = NULL;`
+
+* **Matching Results (2 / 2 Functions 100.0%, 100.0% Exact Unit Match):**
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_0013DD80` (`BuildAI::MoveItemToEnd`) | `0x13DD80` | **100.0%** (68 / 68 B) | Complete list unlinking and tail re-insertion leaf routine matching 100% byte-for-byte. |
+| `func_0013DDD0` (`BuildAI::RemoveItem`) | `0x13DDD0` | **100.0%** (48 / 48 B) | Complete list unlinking and pointer clear leaf routine matching 100% byte-for-byte. |

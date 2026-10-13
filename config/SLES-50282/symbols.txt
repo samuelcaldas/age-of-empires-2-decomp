@@ -285,7 +285,7 @@ func_0013CDE0 = 0x13CDE0; // type:func
 func_0013D2B0 = 0x13D2B0; // type:func
 func_00226D90 = 0x226D90; // type:func absolute:True
 func_0013DAC0 = 0x13DAC0; // type:func absolute:True
-func_0013DEC0 = 0x13DEC0; // type:func absolute:True
+func_0013DEC0 = 0x13DEC0; // type:func
 func_00100340 = 0x100340; // type:func absolute:True
 func_00145350 = 0x145350; // type:func absolute:True
 D_004E2F24 = 0x4E2F24; // type:f32 absolute:True
@@ -305,4 +305,7 @@ D_00490D80 = 0x490D80; // type:asciz absolute:True
 AddItem__7BuildAIFPviiiii = 0x13DB20; // type:func BuildAI.AddItem(void*, int, int, int, int, int)
 func_0013DD80 = 0x13DD80; // type:func
 func_0013DDD0 = 0x13DDD0; // type:func
+func_0013DE00 = 0x13DE00; // type:func
+func_0013DF00 = 0x13DF00; // type:func
+func_0013DF80 = 0x13DF80; // type:func
 

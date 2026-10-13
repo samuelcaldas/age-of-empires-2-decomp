@@ -213,4 +213,6 @@ func_0011ABBC = 0x11ABBC; // type:func absolute:True
 func_0013C440 = 0x13C440; // type:func
 func_0013C450 = 0x13C450; // type:func
 func_0013C460 = 0x13C460; // type:func
+func_0013C470 = 0x13C470; // type:func
+func_0013C4B0 = 0x13C4B0; // type:func
 

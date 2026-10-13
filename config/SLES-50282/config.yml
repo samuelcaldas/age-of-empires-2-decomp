@@ -221,9 +221,15 @@ segments:
     vram: 0x13C430
     subsegments:
       - [0x3C610, asm, sub_list_float_accessors]
+  - name: sub_list_target_entities
+    type: code
+    start: 0x3C650
+    vram: 0x13C470
+    subsegments:
+      - [0x3C650, asm, sub_list_target_entities]
   - name: post_base
     type: bin
-    start: 0x3C650
+    start: 0x3C6D0
   - [0x3e31c0]
 
 

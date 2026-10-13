@@ -1105,3 +1105,23 @@ Directly following action name dispatch sits a series of 4 inline float and cont
 | `func_0013C440` | `0x13C440` | **100.0%** (8 / 8 B) | Getter returning float field at offset `+0x24`. |
 | `func_0013C450` | `0x13C450` | **100.0%** (8 / 8 B) | Getter returning float field at offset `+0x28`. |
 | `func_0013C460` | `0x13C460` | **100.0%** (8 / 8 B) | Setter storing control byte to offset `+0x3C`. |
+
+### 6.31 `SubList` Target Entity Resolution (`0x13C470`–`0x13C4F0`)
+Directly following float accessors sits target entity query routines (120 B code, 128 B slice with alignment padding, Metrowerks MWCCPS2 2.3.1.01):
+
+* **`func_0013C470` (`0x13C470`, 60 B code, 64 B slice):**
+  - Primary target entity resolver (`SubList::GetTarget1Entity()`).
+  - Guards against invalid target ID (`self->m_field18 < 0`), immediately returning `NULL` (`$v0 = 0`).
+  - Otherwise, navigates `world = *(void**)((char*)self->m_field8 + 8)` and entity manager `mgr = *(void**)((char*)world + 0xB98)`.
+  - Dispatches `func_332e60(mgr, self->m_field18)` and returns entity pointer. 100.0% exact match.
+
+* **`func_0013C4B0` (`0x13C4B0`, 60 B code, 64 B slice):**
+  - Secondary target entity resolver (`SubList::GetTarget2Entity()`).
+  - Performs symmetric query for secondary target ID `self->m_field1C` (`< 0` returns `NULL`, else dispatches `func_332e60(mgr, self->m_field1C)`). 100.0% exact match.
+
+#### 6.31.1 SubList Target Entities Matching Results (100.0% Complete Unit)
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_0013C470` | `0x13C470` | **100.0%** (60 / 60 B) | Resolves primary target entity from manager or returns NULL. |
+| `func_0013C4B0` | `0x13C4B0` | **100.0%** (60 / 60 B) | Resolves secondary target entity from manager or returns NULL. |

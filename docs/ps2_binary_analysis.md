@@ -832,21 +832,21 @@ Directly following the constant stubs sit the core base initializers / construct
   - Static/action object base initializer taking `(void *param1, void *param2, int do_setup)` (`$a1`, `$a2`, `$a3`).
   - Sets uninitialized identity descriptors `this->m_field18 = -1` (master object ID) and `this->m_field1C = -1` (owner/player ID).
   - Clears setup status flag `this->m_field3D = 0` in branch delay slot.
-  - If `do_setup != 0`, dispatches to full object master setup routine `func_13b8a0(this, param1, param2, do_setup)`.
+  - If `do_setup != 0`, dispatches to full object master setup routine `func_0013B8A0(this, param1, param2)`.
   - Called from 32 distinct entity constructor sites across the binary.
 
 * **`func_0013B740` (`0x13B740`, 48 B code):**
   - Overloaded entity base initializer taking `(void *param1, int do_setup)` (`$a1`, `$a2`).
   - Sets `this->m_field18 = -1`, `this->m_field1C = -1`, and clears `this->m_field3D = 0` in delay slot.
-  - If `do_setup != 0`, dispatches to entity player setup routine `func_13ba60(this, param1, do_setup)`.
+  - If `do_setup != 0`, dispatches to entity player setup routine `func_0013BA60(this, param1)`.
   - Called from 42 distinct entity constructor sites across the binary.
 
 #### 6.21.1 SubList Initializers Matching Results (100.0% Complete Unit)
 
 | Function / Method | VRAM Address | Match Status | Description |
 |---|---|---|---|
-| `func_0013B710` | `0x13B710` | **100.0%** (48 / 48 B) | Master entity base initializer clearing ID fields and delegating to `func_13b8a0`. |
-| `func_0013B740` | `0x13B740` | **100.0%** (48 / 48 B) | Player entity base initializer clearing ID fields and delegating to `func_13ba60`. |
+| `func_0013B710` | `0x13B710` | **100.0%** (48 / 48 B) | Master entity base initializer clearing ID fields and delegating to `func_0013B8A0`. |
+| `func_0013B740` | `0x13B740` | **100.0%** (48 / 48 B) | Player entity base initializer clearing ID fields and delegating to `func_0013BA60`. |
 
 ### 6.22 `SubList` Virtual Destructor and Teardown Cleanup (`0x13B770`–`0x13B8A0`)
 Directly following the entity constructors sit the polymorphic virtual destructor and the common teardown cleanup routines for `SubList` (288 B code, 304 B slice, Metrowerks MWCCPS2 2.3.1.01):
@@ -878,3 +878,37 @@ Directly following the entity constructors sit the polymorphic virtual destructo
 |---|---|---|---|
 | `func_0013B770` | `0x13B770` | **100.0%** (172 / 172 B) | Virtual deleting destructor for `D_4D7560` hierarchy with inlined teardown and optional `__vec_ctor`. |
 | `func_0013B820` | `0x13B820` | **100.0%** (116 / 116 B) | Out-of-line teardown method invoking virtual slots 23 & 24 and releasing `m_field34`. |
+
+### 6.23 `SubList` Stream Deserialization and Player Entity Setup (`0x13B8A0`–`0x13BAD0`)
+Completing the object setup lifecycle for `SubList` are the stream deserialization (`func_0013B8A0`) and default player entity setup (`func_0013BA60`) routines (556 B code, 560 B slice, Metrowerks MWCCPS2 2.3.1.01):
+
+* **`func_0013B8A0` (`0x13B8A0`, 448 B code):**
+  - Stream loader setup routine: `int func_0013B8A0(SubList *self, void *stream, void *player)`.
+  - Resets `self->m_field4_short = 0` (union with `m_field4` at offset `0x4`).
+  - Sets `self->m_field8 = player` (`0x8`).
+  - Invokes polymorphic factory `self->v3(self->m_field8)` (`vtable[0x14]`, slot 3) and stores the resulting node into `self->m_field34` (`0x34`).
+  - Reads 1 byte from stream into `&self->m_fieldC` via `func_226d90`.
+  - Reads 4 bytes into stack temp; if `-1`, clears `self->m_field10 = 0`, else stores value.
+  - Reads 4 bytes into stack temp; if `-1`, clears `self->m_field14 = 0`, else stores value.
+  - Reads 4 bytes each sequentially into `m_field18`, `m_field1C`, `m_field20`, `m_field24`, `m_field28`, `m_field2C`.
+  - Savegame version check: compares `D_4E2F24` (global float accessed via `%gp_rel` at `-0x789C($gp)`) against `9.92f` (`-0x7EE8($gp)`). If `D_4E2F24 >= 9.92f`, reads 1 byte from stream into `self->m_field3D`.
+  - Reads 2-byte short ID from stream. If `id != -1`, resolves master object pointer via player's master table (`player->field4->fieldC8->field4[id]`) and stores into `self->m_field30`.
+  - Reads 1 byte from stream into `self->m_field3C`.
+  - Invokes `((BaseList*)self->m_field34)->Load(stream)`.
+  - Reads 2-byte short ID from stream and resolves object pointer via `func_2668d0(self->m_field8, id)`, storing into `self->m_field38`.
+  - Returns `1`.
+
+* **`func_0013BA60` (`0x13BA60`, 108 B code, 112 B slice):**
+  - Default player entity setup routine: `int func_0013BA60(SubList *self, void *player)`.
+  - Clears `self->m_field4_short = 0`, stores `self->m_field8 = player`.
+  - Clears `m_fieldC = 0`, `m_field10 = 0`, `m_field14 = 0`, `m_field20..0x30 = 0`.
+  - Invokes polymorphic factory `self->v3(self->m_field8)` (`vtable[0x14]`, slot 3) and stores into `self->m_field34`.
+  - Clears `m_field38 = 0`, `m_field3C = 0`, `m_field3D = 0`.
+  - Returns `1`.
+
+#### 6.23.1 SubList Setup Matching Results (100.0% Complete Unit)
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_0013B8A0` | `0x13B8A0` | **100.0%** (448 / 448 B) | Stream deserializer with backwards compatibility checks, master pointer resolution, and nested list loading. |
+| `func_0013BA60` | `0x13BA60` | **100.0%** (108 / 108 B) | Default player entity setup clearing identity fields and invoking virtual slot 3 factory. |

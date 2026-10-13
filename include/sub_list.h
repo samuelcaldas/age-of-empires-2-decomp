@@ -76,7 +76,7 @@ struct OtherObj {
 
 class SubList {
 public:
-    virtual void* v0(); virtual void* v1(); virtual void* v2(); virtual void* v3(); virtual void* v4();
+    virtual void* v0(); virtual void* v1(); virtual void* v2(); virtual void* v3(void *player = 0); virtual void* v4();
     virtual void* v5(); virtual void* v6(); virtual void* v7(); virtual void* v8(); virtual void* v9();
     V_SLOT_10(1)
     virtual void* v20(); virtual void* v21(int a1); virtual void* v22(void *item); virtual void* v23();
@@ -111,18 +111,31 @@ public:
     virtual void* v198();
     virtual void* v199();
 
-    struct NodeItem *m_field4;
+    union {
+        short m_field4_short;
+        struct NodeItem *m_field4;
+    };
     struct WorldContainer *m_field8;
-    char pad_C[0x18 - 0xC];
+    unsigned char m_fieldC;
+    char pad_D[3];
+    int m_field10;
+    int m_field14;
     int m_field18;
     int m_field1C;
-    char pad_20[4];
-    short m_field24_short;
-    char pad_26[0x34 - 0x26];
+    int m_field20;
+    int m_field24;
+    int m_field28;
+    int m_field2C;
+    void *m_field30;
     ListItem *m_field34;
-    char pad_38[0x39 - 0x38];
-    unsigned char m_field39;
-    char pad_3A[0x3D - 0x3A];
+    union {
+        void *m_field38;
+        struct {
+            char pad_38;
+            unsigned char m_field39;
+        };
+    };
+    unsigned char m_field3C;
     unsigned char m_field3D;
     char pad_3E[0x44 - 0x3E];
     float m_field44;
@@ -234,6 +247,11 @@ public:
     void func_0013B740(void *param1, int do_setup);
     void func_0013B820();
 };
+
+extern "C" {
+    int func_0013B8A0(SubList *self, void *stream, void *player);
+    int func_0013BA60(SubList *self, void *player);
+}
 
 #undef V_SLOT_10
 

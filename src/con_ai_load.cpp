@@ -31,9 +31,8 @@ struct ConAI {
     char m_name[64];
     char pad_108[0xC4];
     SubListConItem m_sentinel1;
-    char pad_248[0x4];
     SubListConItem m_sentinel2;
-    char pad_2C8[0x8];
+    char pad_2CC[0x4];
     SubListConItem m_items[10];
 };
 

@@ -334,4 +334,5 @@ func_0013E370 = 0x13E370; // type:func
 func_0013E8D0 = 0x13E8D0; // type:func
 func_0013F650 = 0x13F650; // type:func absolute:True
 func_0013F6C0 = 0x13F6C0; // type:func absolute:True
+Save__5ConAIFPv = 0x13E990; // type:func ConAI.Save(void*)
 

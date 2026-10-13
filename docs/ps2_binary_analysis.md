@@ -1628,3 +1628,36 @@ Directly following `con_ai_init` sits the stream deserialization constructor and
 | `func_0013E370` (`ConAI::Load`) | `0x13E370` | **100.0%** (1,376 / 1,376 B) | Complete stream deserialization constructor matching 100% byte-for-byte. |
 | `func_0013E8D0` (`ConAI::~ConAI`) | `0x13E8D0` | **100.0%** (180 / 180 B) | Complete `ConAI` destructor and cleanup handler matching 100% byte-for-byte. |
 
+### 6.46 ConAI Construction AI Stream Serialization (`0x13E990`–`0x13EE20`, `con_ai_save.cpp`)
+
+Directly following `con_ai_load` sits the stream serialization method for the Construction AI (`ConAI`, `0x13E990`–`0x13EE20`, 1,160 bytes of code in 1 method, 1,168-byte slice, Metrowerks MWCCPS2 2.3.1.01):
+
+* **Architecture and Reverse Engineering:**
+  - Class Hierarchy and Serialization Protocol (`ConAI::Save`):
+    - Method: `Save__5ConAIFPv` (`ConAI::Save(void *stream)`, 1,160 B code, VRAM `0x13E990`).
+    - Serializes header scalars to stream via `func_00226F70`:
+      - `m_fieldAC` (active items count for list 1, 4 bytes).
+      - Subsystem name string: copies from `+0xC8` into stack buffer `buf[264]`, writes length `strlen(buf)` and string content.
+      - Floats at `+0xBC`, `+0xC0`, `+0xC4` (4 bytes each).
+      - Integers at `+0xB4`, `+0xB8` (4 bytes each).
+    - Serializes list 1 items: iterates circularly starting from head pointer `*(char**)(this + 0x238)` until reaching sentinel `this->GetSentinel1()` (`&this->m_sentinel1` at `+0x1CC`) or `NULL`. For each item:
+      - Item name string via getter `func_0013C7F0(item)`, length and string content.
+      - Integer attributes via `func_0013C7C0`, `func_0013C7D0`, `func_0013C7E0`.
+      - Single-precision float attributes via `func_0013C800`, `func_0013C810`, `func_0013C820`, `func_0013C830`, `func_0013C840`, `func_0013C850`.
+      - ConAI-specific integer attributes via `func_0013C860`, `func_0013E160` (`m_field74`), `func_0013E170` (`m_field78`), `func_0013E180` (`m_field7C`).
+    - Serializes list 2 count: writes `m_fieldB0` (4 bytes).
+    - Serializes list 2 items: iterates circularly starting from head pointer `*(char**)(this + 0x2B8)` until reaching sentinel `this->GetSentinel2()` (`&this->m_sentinel2` at `+0x24C`) or `NULL`. Writes identical item schema.
+    - Returns `1`.
+    - **100.0% exact byte-for-byte match**.
+
+* **Key Reverse Engineering Insight (Inline Sentinel Getters and LICM):**
+  - In Metrowerks C++ with `-O3`, raw pointer arithmetic `item != (char*)this + 0x1CC` in the loop condition causes loop-invariant code motion (LICM) to hoist the sentinel address into an extra callee-saved register (`$s3`), which shifts the entire register allocation across the method.
+  - Structuring the sentinel checks through inline member functions `SubListConItem* GetSentinel1() { return &this->m_sentinel1; }` and `GetSentinel2()` prevents unwanted hoisting and forces the compiler to evaluate `addiu $v0, $s2, 0x1CC` and `0x24C` directly in the loop test blocks (`.L0013EC08` / `.L0013EDE8`), producing an exact 100% byte-for-byte match across all 290 instructions.
+
+* **Matching Results (1 / 1 Functions 100.0%, 100.0% Exact Unit Match):**
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `Save__5ConAIFPv` (`ConAI::Save`) | `0x13E990` | **100.0%** (1,160 / 1,160 B) | Complete stream serialization method matching 100% byte-for-byte. |
+
+

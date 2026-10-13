@@ -58,4 +58,12 @@ void* func_0013DF00(BuildAI *self, int id) {
 int func_0013DF80(BuildAI *self) {
     return 0;
 }
+
+int func_0013DF90(BuildAI *self) {
+    return 0;
+}
+
+int func_0013DFA0(BuildAI *self) {
+    return 0;
+}
 }

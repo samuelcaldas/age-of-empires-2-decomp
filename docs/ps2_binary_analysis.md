@@ -1484,9 +1484,9 @@ Directly following `BuildAI::AddItem` sits the circular doubly linked list manip
 | `func_0013DD80` (`BuildAI::MoveItemToEnd`) | `0x13DD80` | **100.0%** (68 / 68 B) | Complete list unlinking and tail re-insertion leaf routine matching 100% byte-for-byte. |
 | `func_0013DDD0` (`BuildAI::RemoveItem`) | `0x13DDD0` | **100.0%** (48 / 48 B) | Complete list unlinking and pointer clear leaf routine matching 100% byte-for-byte. |
 
-### 6.42 BuildAI List Query, Clear, and Lookup Routines (`0x13DE00`–`0x13DF90`, `build_ai_query.cpp`)
+### 6.42 BuildAI List Query, Clear, and Lookup Routines (`0x13DE00`–`0x13DFB0`, `build_ai_query.cpp`)
 
-Directly following `BuildAI::RemoveItem` sits the concluding routines of the `BuildAI` class (`0x13DE00`–`0x13DF90`, 376 bytes of code across 4 methods, 400-byte slice, Metrowerks MWCCPS2 2.3.1.01):
+Directly following `BuildAI::RemoveItem` sits the concluding routines of the `BuildAI` class (`0x13DE00`–`0x13DFB0`, 392 bytes of code across 6 methods, 432-byte slice, Metrowerks MWCCPS2 2.3.1.01):
 
 * **Architecture and Reverse Engineering:**
   - `func_0013DE00` (`BuildAI::GetItemCount`, 192 bytes of code, `0x13DE00`–`0x13DEC0`):
@@ -1507,18 +1507,20 @@ Directly following `BuildAI::RemoveItem` sits the concluding routines of the `Bu
     - Iterates circular list inspecting `func_0013C7E0(it)` (`SubListItemBase::GetId()`).
     - If `id == item->GetId()`, returns pointer to `item` (`$v0`).
     - Returns `NULL` (`0`) if sentinel reached or list empty. **100.0% exact match**.
-  - `func_0013DF80` (`BuildAI::VirtualStub`, 8 bytes of code, `0x13DF80`–`0x13DF88`):
-    - Virtual method slot in `BuildAI` vtable (`0x4D7618`).
-    - Leaf function returning constant `0` (`jr $ra; paddub $v0, $zero, $zero`). **100.0% exact match**.
+  - `func_0013DF80`, `func_0013DF90`, `func_0013DFA0` (`BuildAI::VirtualStub1-3`, 8 bytes of code each, `0x13DF80`–`0x13DFB0`):
+    - Virtual method slots in `BuildAI` vtable (`0x4D7618`, `0x4D761C`, `0x4D7620`).
+    - Leaf functions returning constant `0` (`jr $ra; paddub $v0, $zero, $zero`). **100.0% exact match**.
 
-* **Matching Results (4 / 4 Functions 100.0%, 100.0% Exact Unit Match):**
+* **Matching Results (6 / 6 Functions 100.0%, 100.0% Exact Unit Match):**
 
 | Function / Method | VRAM Address | Match Status | Description |
 |---|---|---|---|
 | `func_0013DE00` (`BuildAI::GetItemCount`) | `0x13DE00` | **100.0%** (192 / 192 B) | Complete item counting routine matching 100% byte-for-byte. |
 | `func_0013DEC0` (`BuildAI::ClearItems`) | `0x13DEC0` | **100.0%** (60 / 60 B) | Complete list clear and sentinel reset leaf routine matching 100% byte-for-byte. |
 | `func_0013DF00` (`BuildAI::FindItem`) | `0x13DF00` | **100.0%** (116 / 116 B) | Complete item lookup routine matching 100% byte-for-byte. |
-| `func_0013DF80` (`BuildAI::VirtualStub`) | `0x13DF80` | **100.0%** (8 / 8 B) | Complete virtual stub returning 0 matching 100% byte-for-byte. |
+| `func_0013DF80` (`BuildAI::VirtualStub1`) | `0x13DF80` | **100.0%** (8 / 8 B) | Complete virtual stub returning 0 matching 100% byte-for-byte. |
+| `func_0013DF90` (`BuildAI::VirtualStub2`) | `0x13DF90` | **100.0%** (8 / 8 B) | Complete virtual stub returning 0 matching 100% byte-for-byte. |
+| `func_0013DFA0` (`BuildAI::VirtualStub3`) | `0x13DFA0` | **100.0%** (8 / 8 B) | Complete virtual stub returning 0 matching 100% byte-for-byte. |
 
 > [!NOTE]
-> With the completion of `build_ai_query.cpp`, the entire `BuildAI` module (`0x13CC60`–`0x13DF90`, 4,912 bytes of code across 15 functions) is 100% decompiled and verified against the original PS2 binary!
+> With the completion of `build_ai_query.cpp`, the entire `BuildAI` module (`0x13CC60`–`0x13DFB0`, 4,928 bytes of code across 17 functions) is 100% decompiled and verified against the original PS2 binary!

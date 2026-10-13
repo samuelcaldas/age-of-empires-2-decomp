@@ -295,7 +295,7 @@ segments:
       - [0x3DFE0, asm, build_ai_query]
   - name: post_base
     type: bin
-    start: 0x3E170
+    start: 0x3E190
   - [0x3e31c0]
 
 

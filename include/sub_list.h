@@ -74,6 +74,19 @@ struct OtherObj {
     short m_field24_short;
 };
 
+struct TargetEntity {
+    V_SLOT_10(0)
+    V_SLOT_10(1)
+    V_SLOT_10(2)
+    V_SLOT_10(3)
+    V_SLOT_10(4)
+    virtual void Method50(void *player, short id, int zero);
+    virtual void Method51(void *player);
+
+    char pad_04[0x20];
+    short m_id;
+};
+
 class SubList {
 public:
     virtual void* v0(); virtual void* v1(); virtual void* v2(); virtual void* v3(void *player = 0); virtual void* v4();
@@ -264,6 +277,9 @@ extern "C" {
     void func_0013BD80(SubList *self, char val);
     int func_0013BD90(SubList *self);
     int func_0013BE10(SubList *self);
+    int func_0013BE90(SubList *self);
+    void func_0013BF50(SubList *self, void *new_target);
+    void func_0013C010(SubList *self, void *new_target);
 }
 
 #undef V_SLOT_10

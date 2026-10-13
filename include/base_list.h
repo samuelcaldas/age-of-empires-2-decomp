@@ -16,7 +16,7 @@ public:
     virtual void v1();
     virtual void v2();
     virtual void v3();
-    virtual void Action();
+    virtual int Action();
     virtual void Save(void *stream);
     virtual int v8();
     virtual void Method9(int active);
@@ -38,7 +38,9 @@ public:
     virtual void v25();
     virtual void Method26();
 
-    char pad_04[44];
+    int pad_04;
+    void *m_field8;
+    char pad_0C[36];
     int field_30;
 };
 

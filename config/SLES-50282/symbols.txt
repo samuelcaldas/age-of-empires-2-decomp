@@ -215,4 +215,9 @@ func_0013C450 = 0x13C450; // type:func
 func_0013C460 = 0x13C460; // type:func
 func_0013C470 = 0x13C470; // type:func
 func_0013C4B0 = 0x13C4B0; // type:func
+func_0013C4F0 = 0x13C4F0; // type:func
+func_0013C510 = 0x13C510; // type:func
+func_0013C560 = 0x13C560; // type:func
+func_0013C580 = 0x13C580; // type:func
+func_0013C650 = 0x13C650; // type:func
 

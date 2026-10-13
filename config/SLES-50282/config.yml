@@ -227,9 +227,15 @@ segments:
     vram: 0x13C470
     subsegments:
       - [0x3C650, asm, sub_list_target_entities]
+  - name: sub_list_callback_item
+    type: code
+    start: 0x3C6D0
+    vram: 0x13C4F0
+    subsegments:
+      - [0x3C6D0, asm, sub_list_callback_item]
   - name: post_base
     type: bin
-    start: 0x3C6D0
+    start: 0x3C840
   - [0x3e31c0]
 
 

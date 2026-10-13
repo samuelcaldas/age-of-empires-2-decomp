@@ -1125,3 +1125,45 @@ Directly following float accessors sits target entity query routines (120 B code
 |---|---|---|---|
 | `func_0013C470` | `0x13C470` | **100.0%** (60 / 60 B) | Resolves primary target entity from manager or returns NULL. |
 | `func_0013C4B0` | `0x13C4B0` | **100.0%** (60 / 60 B) | Resolves secondary target entity from manager or returns NULL. |
+
+### 6.32 Callback Item Helper Class (`0x13C4F0`–`0x13C660`)
+Directly following target entity queries sits an independent 12-byte callback / command dispatcher object (`CallbackItem`, 344 B code, 368 B slice with alignment padding, Metrowerks MWCCPS2 2.3.1.01):
+
+* **Class Structure (`CallbackItem` / 12 bytes):**
+  - `+0x00` (`unsigned char m_type`): Callback dispatch signature mode (0 to 4 arguments).
+  - `+0x04` (`void *m_func`): Function pointer to invoke.
+  - `+0x08` (`unsigned char m_arg1`): Byte argument 1.
+  - `+0x09` (`unsigned char m_arg2`): Byte argument 2.
+  - `+0x0A` (`unsigned char m_arg3`): Byte argument 3.
+  - `+0x0B` (`unsigned char m_arg4`): Byte argument 4.
+
+* **`func_0013C4F0` (`0x13C4F0`, 32 B code, 32 B slice):**
+  - Default constructor (`CallbackItem::CallbackItem()`).
+  - Clears all fields to 0 and returns `this`. 100.0% exact match.
+
+* **`func_0013C510` (`0x13C510`, 68 B code, 80 B slice):**
+  - Deleting destructor (`CallbackItem::~CallbackItem(int flag)`).
+  - Checks `if (this)`, clears `m_func = NULL`, and invokes scalar delete (`__vec_ctor(this)`) if `(short)flag > 0`. Returns `this`. 100.0% exact match.
+
+* **`func_0013C560` (`0x13C560`, 28 B code, 32 B slice):**
+  - Setup / initializer method (`CallbackItem::Init(...)`).
+  - Stores type, function pointer, and 4 byte arguments into fields `+0x00`–`+0x0B`. 100.0% exact match.
+
+* **`func_0013C580` (`0x13C580`, 208 B code, 208 B slice):**
+  - Runtime invocation dispatcher (`CallbackItem::Invoke(int a1, int a2, int a3, int a4)`).
+  - Switches on `m_type` (modes 0 through 4), dispatching `m_func` with 0 to 4 integer arguments accordingly. 100.0% exact match.
+
+* **`func_0013C650` (`0x13C650`, 8 B code, 16 B slice):**
+  - Getter for dispatch type (`CallbackItem::GetType()`).
+  - Returns unsigned byte `m_type`. 100.0% exact match.
+
+#### 6.32.1 Callback Item Matching Results (100.0% Complete Unit)
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_0013C4F0` | `0x13C4F0` | **100.0%** (32 / 32 B) | Default constructor zeroing all 12 bytes of CallbackItem. |
+| `func_0013C510` | `0x13C510` | **100.0%** (68 / 68 B) | Deleting destructor with scalar deallocation branch. |
+| `func_0013C560` | `0x13C560` | **100.0%** (28 / 28 B) | Parameterized initializer storing type, pointer, and 4 args. |
+| `func_0013C580` | `0x13C580` | **100.0%** (208 / 208 B) | Runtime dispatcher calling function pointer with 0 to 4 args. |
+| `func_0013C650` | `0x13C650` | **100.0%** (8 / 8 B) | Accessor returning CallbackItem dispatch type byte. |
+

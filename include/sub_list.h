@@ -254,6 +254,14 @@ extern "C" {
     void func_0013BAD0(SubList *self);
     void func_0013BAE0(SubList *self);
     void func_0013BB70(SubList *self, void *stream);
+    short func_0013BD10(SubList *self);
+    void func_0013BD20(SubList *self);
+    int func_0013BD30(SubList *self);
+    int func_0013BD40(SubList *self);
+    int func_0013BD50(SubList *self);
+    int func_0013BD60(SubList *self);
+    int func_0013BD70(SubList *self);
+    void func_0013BD80(SubList *self, char val);
 }
 
 #undef V_SLOT_10

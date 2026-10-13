@@ -209,9 +209,15 @@ segments:
     vram: 0x13C0D0
     subsegments:
       - [0x3C2B0, asm, sub_list_target_notify]
+  - name: sub_list_action_name
+    type: code
+    start: 0x3C440
+    vram: 0x13C260
+    subsegments:
+      - [0x3C440, asm, sub_list_action_name]
   - name: post_base
     type: bin
-    start: 0x3C440
+    start: 0x3C610
   - [0x3e31c0]
 
 

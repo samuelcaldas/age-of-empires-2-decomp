@@ -1048,3 +1048,36 @@ Directly following target assignment sits the master static object event notific
 |---|---|---|---|
 | `func_0013C0D0` | `0x13C0D0` | **98.3%** (376 / 384 B) | Master object lookup, player target category matching, and polymorphic notification. |
 | `func_0013C250` | `0x13C250` | **100.0%** (8 / 8 B) | Empty virtual event callback stub (`jr $ra; nop`). |
+
+### 6.29 `SubList` Action Name Dispatch (`0x13C260`–`0x13C430`)
+Directly following target notification sits the action type name string formatting dispatcher (464 B code, 464 B slice, Metrowerks MWCCPS2 2.3.1.01):
+
+* **`func_0013C260` (`0x13C260`, 464 B code, 464 B slice):**
+  - Action name lookup and output formatter (`SubList::GetActionName(void *dest)`).
+  - Inspects action state enum `self->m_fieldC` (`lbu $v0, 0xC($a0)`).
+  - Dispatches through a 16-case jump table (`jtbl_490BD0` at `0x00490BD0`):
+    - `0`: `"None"` (exits with early return)
+    - `1`: `"Done"`
+    - `2`: `"Wait"`
+    - `3`: `"Search"`
+    - `4`: `"Goto"`
+    - `5`: `"Goto2"`
+    - `6`: `"Work"`
+    - `7`: `"Work2"`
+    - `8`: `"Return"`
+    - `9`: `"Turn"`
+    - `10`: `"Delay"`
+    - `11`: `"Move"`
+    - `12`: `"Attack"`
+    - `13`: `"Failed"`
+    - `14`: `"Invalidated"`
+    - `15`: `"MoveNoSearch"`
+    - `default` (`>= 16`): `"Unknown"`
+  - Invokes `func_0011ABBC(dest, str)` for string emission.
+  - Requires `-sdatathreshold 0` compiler flag to avoid small-data ($gp) addressing for string literals shorter than 8 bytes, producing exact 32-bit `lui` / `addiu` relocations.
+
+#### 6.29.1 SubList Action Name Matching Results (100.0% Complete Unit)
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_0013C260` | `0x13C260` | **100.0%** (464 / 464 B) | 16-case jump table action name formatter calling `func_0011ABBC`. |

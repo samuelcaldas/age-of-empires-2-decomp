@@ -324,4 +324,10 @@ func_0013E1A0 = 0x13E1A0; // type:func
 func_0013E1B0 = 0x13E1B0; // type:func
 func_0013E1C0 = 0x13E1C0; // type:func
 func_0013E1F0 = 0x13E1F0; // type:func
+D_00490D98 = 0x490D98; // type:asciz absolute:True
+D_00490DA0 = 0x490DA0; // type:asciz absolute:True
+D_4D7650 = 0x4D7650; // type:s32 absolute:True
+func_0013E200 = 0x13E200; // type:func
+func_0013E250 = 0x13E250; // type:func
+func_0013E260 = 0x13E260; // type:func
 

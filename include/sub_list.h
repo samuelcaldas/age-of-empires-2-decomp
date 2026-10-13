@@ -251,6 +251,9 @@ public:
 extern "C" {
     int func_0013B8A0(SubList *self, void *stream, void *player);
     int func_0013BA60(SubList *self, void *player);
+    void func_0013BAD0(SubList *self);
+    void func_0013BAE0(SubList *self);
+    void func_0013BB70(SubList *self, void *stream);
 }
 
 #undef V_SLOT_10

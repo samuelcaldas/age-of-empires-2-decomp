@@ -188,4 +188,8 @@ func_0013B820 = 0x13B820; // type:func SubList.Teardown()
 D_4D7560 = 0x4D7560; // type:s32 absolute:True
 func_2668d0 = 0x2668D0; // type:func absolute:True
 D_4E2F24 = 0x4E2F24; // type:u32 size:4 absolute:True
+func_0013BAD0 = 0x13BAD0; // type:func SubList.Notify()
+func_0013BAE0 = 0x13BAE0; // type:func SubList.Action()
+func_0013BB70 = 0x13BB70; // type:func SubList.Save(void*)
+func_2668c0 = 0x2668C0; // type:func absolute:True
 

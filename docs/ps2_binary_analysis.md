@@ -912,3 +912,37 @@ Completing the object setup lifecycle for `SubList` are the stream deserializati
 |---|---|---|---|
 | `func_0013B8A0` | `0x13B8A0` | **100.0%** (448 / 448 B) | Stream deserializer with backwards compatibility checks, master pointer resolution, and nested list loading. |
 | `func_0013BA60` | `0x13BA60` | **100.0%** (108 / 108 B) | Default player entity setup clearing identity fields and invoking virtual slot 3 factory. |
+
+### 6.24 `SubList` Action and Stream Serialization (`0x13BAD0`–`0x13BD10`)
+Directly following player entity setup sit the periodic action tick and stream serialization methods for `SubList` (560 B code, 576 B slice, Metrowerks MWCCPS2 2.3.1.01):
+
+* **`func_0013BAD0` (`0x13BAD0`, 16 B code):**
+  - Tail-call stub dispatching to `func_3668C0(D_10B68F0, self->m_field8)` passing the global spatial manager `D_10B68F0` and player context `self->m_field8`.
+
+* **`func_0013BAE0` (`0x13BAE0`, 136 B code):**
+  - Periodic action tick and target resolution routine:
+    - Resolves target object pointer `self->m_field10 = func_2668c0(self->m_field8, self->m_field10)`. If valid, updates target ID `self->m_field18 = *(short*)(m_field10 + 0x24)`.
+    - Resolves secondary target pointer `self->m_field14 = func_2668c0(self->m_field8, self->m_field14)`. If valid, updates secondary target ID `self->m_field1C = *(short*)(m_field14 + 0x24)`.
+    - If `self->m_field34 != NULL`, delegates action processing: `((BaseList*)self->m_field34)->Action()`.
+
+* **`func_0013BB70` (`0x13BB70`, 408 B code):**
+  - Stream serialization routine: `void func_0013BB70(SubList *self, void *stream)`.
+  - Serializes binary state via stream writer `func_226f70(stream, buffer, size)`:
+    - Writes `self->m_field4_short` (2 B).
+    - Writes `self->m_fieldC` (1 B).
+    - Target 1 ID: tests `!self->m_field10`. If null, writes `-1`, else writes `*(short*)(m_field10 + 0x24)` (4 B).
+    - Target 2 ID: tests `!self->m_field14`. If null, writes `-1`, else writes `*(short*)(m_field14 + 0x24)` (4 B).
+    - Sequential status fields: writes `m_field18`, `m_field1C`, `m_field20`, `m_field24`, `m_field28`, `m_field2C` (4 B each) and `m_field3D` (1 B).
+    - Master reference: tests `!self->m_field30`. If null, writes `-1`, else writes `*(short*)(m_field30 + 2)` (2 B).
+    - Writes `self->m_field3C` (1 B).
+    - Recursively serializes inner list: `((BaseList*)self->m_field34)->Save(stream)`.
+    - Target reference: tests `!self->m_field38`. If null, writes `-1`, else writes `*(short*)(m_field38 + 0x34)` (2 B).
+
+#### 6.24.1 SubList Action and Save Matching Results (100.0% Linked Unit)
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_0013BAD0` | `0x13BAD0` | **97.5%** (15 / 16 B) | Tail-call stub dispatching to `func_3668C0(D_10B68F0, self->m_field8)`. |
+| `func_0013BAE0` | `0x13BAE0` | **100.0%** (136 / 136 B) | Periodic action update with target object re-resolution and inner list dispatch. |
+| `func_0013BB70` | `0x13BB70` | **100.0%** (408 / 408 B) | Complete stream serialization matching inverted guard control flow. |
+

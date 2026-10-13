@@ -183,4 +183,7 @@ func_0013B710 = 0x13B710; // type:func SubList.InitMaster()
 func_0013B740 = 0x13B740; // type:func SubList.InitPlayer()
 func_13b8a0 = 0x13B8A0; // type:func absolute:True
 func_13ba60 = 0x13BA60; // type:func absolute:True
+func_0013B770 = 0x13B770; // type:func SubList.Destructor()
+func_0013B820 = 0x13B820; // type:func SubList.Teardown()
+D_4D7560 = 0x4D7560; // type:s32 absolute:True
 

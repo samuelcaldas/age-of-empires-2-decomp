@@ -167,9 +167,15 @@ segments:
     vram: 0x13B710
     subsegments:
       - [0x3B8F0, asm, sub_list_init]
+  - name: sub_list_teardown
+    type: code
+    start: 0x3B950
+    vram: 0x13B770
+    subsegments:
+      - [0x3B950, asm, sub_list_teardown]
   - name: post_base
     type: bin
-    start: 0x3B950
+    start: 0x3BA80
   - [0x3e31c0]
 
 

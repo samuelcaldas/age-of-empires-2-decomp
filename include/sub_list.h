@@ -79,8 +79,8 @@ public:
     virtual void* v0(); virtual void* v1(); virtual void* v2(); virtual void* v3(); virtual void* v4();
     virtual void* v5(); virtual void* v6(); virtual void* v7(); virtual void* v8(); virtual void* v9();
     V_SLOT_10(1)
-    virtual void* v20(); virtual void* v21(); virtual void* v22(); virtual void* v23();
-    virtual void* v24(void *item);
+    virtual void* v20(); virtual void* v21(int a1); virtual void* v22(void *item); virtual void* v23();
+    virtual void* v24();
     virtual void* v25(); virtual void* v26(void *item); virtual void* v27(); virtual void* v28(); virtual void* v29();
     V_SLOT_10(3)
     virtual void* v40(); virtual void* v41();
@@ -118,7 +118,9 @@ public:
     int m_field1C;
     char pad_20[4];
     short m_field24_short;
-    char pad_26[0x39 - 0x26];
+    char pad_26[0x34 - 0x26];
+    ListItem *m_field34;
+    char pad_38[0x39 - 0x38];
     unsigned char m_field39;
     char pad_3A[0x3D - 0x3A];
     unsigned char m_field3D;
@@ -230,6 +232,7 @@ public:
     int func_0013B700();
     void func_0013B710(void *param1, void *param2, int do_setup);
     void func_0013B740(void *param1, int do_setup);
+    void func_0013B820();
 };
 
 #undef V_SLOT_10

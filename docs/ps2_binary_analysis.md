@@ -847,3 +847,34 @@ Directly following the constant stubs sit the core base initializers / construct
 |---|---|---|---|
 | `func_0013B710` | `0x13B710` | **100.0%** (48 / 48 B) | Master entity base initializer clearing ID fields and delegating to `func_13b8a0`. |
 | `func_0013B740` | `0x13B740` | **100.0%** (48 / 48 B) | Player entity base initializer clearing ID fields and delegating to `func_13ba60`. |
+
+### 6.22 `SubList` Virtual Destructor and Teardown Cleanup (`0x13B770`–`0x13B8A0`)
+Directly following the entity constructors sit the polymorphic virtual destructor and the common teardown cleanup routines for `SubList` (288 B code, 304 B slice, Metrowerks MWCCPS2 2.3.1.01):
+
+* **`func_0013B770` (`0x13B770`, 172 B code, 176 B slice):**
+  - Bound to slot 2 (`vt[2] = 0x4D7568`) of virtual table `D_4D7560`.
+  - Implements the Metrowerks deleting destructor convention (`SubList::~SubList(int flag)`):
+    - Guards on `this != NULL`.
+    - Resets `this->vptr = &D_4D7560` (`0x4D7560`).
+    - Inlines the common teardown logic:
+      - Invokes polymorphic notification `this->v21(0)` (`vtable[0x5C]`, slot 23).
+      - Invokes polymorphic notification `this->v22(0)` (`vtable[0x60]`, slot 24).
+      - Checks `this->m_field34` (`ListItem*` at offset `0x34`). If non-null:
+        - Logs/notifies global spatial manager via `func_3669F0(D_10B68F0, this->m_field34)`.
+        - Calls `((ListItem*)this->m_field34)->Method11()` (`vtable[0x2C]`).
+        - Resets `this->m_field34 = NULL`.
+    - If `(short)flag > 0`, invokes scalar `operator delete` / allocator release via `__vec_ctor(this)` (`0x100670`).
+    - Returns `this` pointer in `$v0`.
+
+* **`func_0013B820` (`0x13B820`, 116 B code, 128 B slice):**
+  - Bound to slot 26 (`vt[26] = 0x4D75C8`) of virtual table `D_4D7560`.
+  - Implements the non-deleting teardown cleanup routine (`SubList::func_0013B820()`):
+    - Executes the identical teardown sequence without vptr mutation or heap deallocation.
+    - Emitted out-of-line by Metrowerks PS2.
+
+#### 6.22.1 SubList Teardown Matching Results (100.0% Complete Unit)
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_0013B770` | `0x13B770` | **100.0%** (172 / 172 B) | Virtual deleting destructor for `D_4D7560` hierarchy with inlined teardown and optional `__vec_ctor`. |
+| `func_0013B820` | `0x13B820` | **100.0%** (116 / 116 B) | Out-of-line teardown method invoking virtual slots 23 & 24 and releasing `m_field34`. |

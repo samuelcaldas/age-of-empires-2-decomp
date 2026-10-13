@@ -317,9 +317,15 @@ segments:
     vram: 0x13E990
     subsegments:
       - [0x3EB70, asm, con_ai_save]
+  - name: con_ai_log
+    type: code
+    start: 0x3F000
+    vram: 0x13EE20
+    subsegments:
+      - [0x3F000, asm, con_ai_log]
   - name: post_base
     type: bin
-    start: 0x3F000
+    start: 0x3F0D0
   - [0x3e31c0]
 
 

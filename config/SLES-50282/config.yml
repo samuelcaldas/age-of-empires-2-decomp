@@ -263,9 +263,15 @@ segments:
     vram: 0x13D370
     subsegments:
       - [0x3D550, asm, build_ai_save]
+  - name: build_ai_log
+    type: code
+    start: 0x3DA00
+    vram: 0x13D820
+    subsegments:
+      - [0x3DA00, asm, build_ai_log]
   - name: post_base
     type: bin
-    start: 0x3DA00
+    start: 0x3DCA0
   - [0x3e31c0]
 
 

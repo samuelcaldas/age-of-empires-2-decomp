@@ -294,4 +294,9 @@ D_004E2AD4 = 0x4E2AD4; // type:f32 absolute:True
 Save__7BuildAIFPv = 0x13D370; // type:func BuildAI.Save(void*)
 func_00226F70 = 0x226F70; // type:func absolute:True
 func_0011ACD0 = 0x11ACD0; // type:func absolute:True
+Log__7BuildAIFv = 0x13D820; // type:func BuildAI.Log()
+func_001454C0 = 0x1454C0; // type:func absolute:True
+D_00490C30 = 0x490C30; // type:asciz absolute:True
+D_00490C50 = 0x490C50; // type:asciz absolute:True
+D_00490CD0 = 0x490CD0; // type:asciz absolute:True
 

@@ -332,8 +332,6 @@ func_0013E250 = 0x13E250; // type:func
 func_0013E260 = 0x13E260; // type:func
 func_0013E370 = 0x13E370; // type:func
 func_0013E8D0 = 0x13E8D0; // type:func
-func_0013F650 = 0x13F650; // type:func absolute:True
-func_0013F6C0 = 0x13F6C0; // type:func absolute:True
 Save__5ConAIFPv = 0x13E990; // type:func ConAI.Save(void*)
 func_0013EE20 = 0x13EE20; // type:func ConAI.LoadPlan(char const*, int, int, float, float, float)
 func_0013EEF0 = 0x13EEF0; // type:func ConAI.SetBounds(int, int, float, float, float)
@@ -347,6 +345,9 @@ func_0013F220 = 0x13F220; // type:func ConAI.ResetItemById(int, int)
 func_0013F2F0 = 0x13F2F0; // type:func ConAI.ResetItemByPos(float, float, int)
 func_0013F3F0 = 0x13F3F0; // type:func
 func_0013F450 = 0x13F450; // type:func
-func_0013F4B0 = 0x13F4B0; // type:func absolute:True
+func_0013F4B0 = 0x13F4B0; // type:func
+func_0013F5B0 = 0x13F5B0; // type:func
+func_0013F650 = 0x13F650; // type:func
+func_0013F6C0 = 0x13F6C0; // type:func
 
 

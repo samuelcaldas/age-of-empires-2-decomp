@@ -291,4 +291,7 @@ func_00145350 = 0x145350; // type:func absolute:True
 D_004E2F24 = 0x4E2F24; // type:f32 absolute:True
 D_004E2AD0 = 0x4E2AD0; // type:f32 absolute:True
 D_004E2AD4 = 0x4E2AD4; // type:f32 absolute:True
+Save__7BuildAIFPv = 0x13D370; // type:func BuildAI.Save(void*)
+func_00226F70 = 0x226F70; // type:func absolute:True
+func_0011ACD0 = 0x11ACD0; // type:func absolute:True
 

@@ -1346,3 +1346,34 @@ Directly following default initialization sits the savegame/scenario stream load
 | `func_0013CDE0` | `0x13CDE0` | **99.66%** (1,228 / 1,228 B) | `BuildAI` stream loading constructor with version checks and linked list deserialization. |
 | `func_0013D2B0` | `0x13D2B0` | **99.47%** (188 / 188 B) | `BuildAI` virtual deleting destructor chaining array, member, and base destructors. |
 
+### 6.37 BuildAI Save Serialization Decompilation (`0x13D370`–`0x13D820`, `build_ai_save.cpp`)
+
+Directly following stream deserialization and class destruction sits the scenario/stream saving routine for `BuildAI` (`0x13D370`–`0x13D820`, 1,188 bytes of code, 1,200-byte slice, Metrowerks MWCCPS2 2.3.1.01):
+
+* **Architecture and Reverse Engineering:**
+  - `func_0013D370` (`BuildAI::Save(void *stream)`, mangled symbol `Save__7BuildAIFPv`):
+    - Member method serializing `BuildAI` state to output stream.
+    - Metrowerks PS2 register convention preserves `this` in callee-saved register `$s1` and `stream` in `$s0`.
+    - Writes `m_field160` (4 bytes via `func_00226F70`).
+    - Serializes four string buffers (`m_buf1`–`m_buf4`): copies each string to stack buffer `buf[264]` via `func_0011ABBC`, computes string length via `func_0011ACD0`, writes length (4 bytes), and writes string payload.
+    - Writes `m_field568` (4 bytes).
+    - Traverses circular doubly-linked list `m_buildItem` (sentinel pointer `+0x118`, next pointer `+0x6C`), counting elements in stack slot `0x150($sp)`.
+    - Writes element count (4 bytes).
+    - Re-traverses the linked list, serializing each `SubListBuildItem` entry via 24 accessors/getters:
+      - Name string (`func_0013C7F0`), length, and payload.
+      - Integer properties: `func_0013C7C0`, `func_0013C7D0`, `func_0013C7E0`.
+      - Float properties: `func_0013C800`, `func_0013C810`, `func_0013C820`, `func_0013C830`, `func_0013C840`, `func_0013C850`.
+      - Integer properties: `func_0013C860`, `func_0013CAB0`, `func_0013CAC0`, `func_0013CAD0`, `func_0013CAE0`, `func_0013CAF0`, `func_0013CB00`.
+      - Target array entries: `func_0013CB10(item, 1)` and `func_0013CB10(item, 2)`.
+      - Integer properties: `func_0013CB50`, `func_0013CBD0`, `func_0013CC00`, `func_0013CC20`.
+      - Byte property: `func_0013CC40` (1 byte).
+      - Trailing integer field at `+0xAC` (4 bytes).
+    - Returns `1` (`addiu $v0, $zero, 1`).
+
+* **Matching Results (1 / 1 Functions 100.0%, 100.0% Exact Unit Match):**
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_0013D370` (`BuildAI::Save`) | `0x13D370` | **100.0%** (1,188 / 1,188 B) | Complete `BuildAI` scenario stream serialization method matching 100% byte-for-byte. |
+
+

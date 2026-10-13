@@ -251,9 +251,15 @@ segments:
     vram: 0x13CC60
     subsegments:
       - [0x3CE40, asm, build_ai_init]
+  - name: build_ai_load
+    type: code
+    start: 0x3CFC0
+    vram: 0x13CDE0
+    subsegments:
+      - [0x3CFC0, asm, build_ai_load]
   - name: post_base
     type: bin
-    start: 0x3CFC0
+    start: 0x3D550
   - [0x3e31c0]
 
 

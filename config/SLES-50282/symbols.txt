@@ -345,4 +345,8 @@ D_00490DC0 = 0x490DC0; // type:asciz absolute:True
 func_0013F190 = 0x13F190; // type:func ConAI.UpdateItem(int, int)
 func_0013F220 = 0x13F220; // type:func ConAI.ResetItemById(int, int)
 func_0013F2F0 = 0x13F2F0; // type:func ConAI.ResetItemByPos(float, float, int)
+func_0013F3F0 = 0x13F3F0; // type:func
+func_0013F450 = 0x13F450; // type:func
+func_0013F4B0 = 0x13F4B0; // type:func absolute:True
+
 

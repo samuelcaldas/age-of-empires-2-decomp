@@ -271,4 +271,14 @@ func_0013CC30 = 0x13CC30; // type:func
 func_0013CC40 = 0x13CC40; // type:func
 func_0013CC50 = 0x13CC50; // type:func
 D_4D75E0 = 0x4D75E0; // type:s32 absolute:True
+func_0013CC60 = 0x13CC60; // type:func
+func_0013CD70 = 0x13CD70; // type:func
+func_001452B0 = 0x1452B0; // type:func absolute:True
+func_001003B0 = 0x1003B0; // type:func absolute:True
+func_00100630 = 0x100630; // type:func absolute:True
+func_00100670 = 0x100670; // type:func absolute:True
+D_4D75F0 = 0x4D75F0; // type:s32 absolute:True
+D_00490C18 = 0x490C18; // type:asciz absolute:True
+D_00490C24 = 0x490C24; // type:asciz absolute:True
+D_00490C28 = 0x490C28; // type:asciz absolute:True
 

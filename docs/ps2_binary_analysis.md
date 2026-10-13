@@ -1081,3 +1081,27 @@ Directly following target notification sits the action type name string formatti
 | Function / Method | VRAM Address | Match Status | Description |
 |---|---|---|---|
 | `func_0013C260` | `0x13C260` | **100.0%** (464 / 464 B) | 16-case jump table action name formatter calling `func_0011ABBC`. |
+
+### 6.30 `SubList` Float and Control Field Accessors (`0x13C430`–`0x13C470`)
+Directly following action name dispatch sits a series of 4 inline float and control byte accessor methods (32 B code, 64 B slice with alignment padding, Metrowerks MWCCPS2 2.3.1.01):
+
+* **`func_0013C430` (`0x13C430`, 8 B code, 16 B slice):**
+  - Getter for primary float parameter `m_field20_float` (`lwc1 $f0, 0x20($a0)`). 100.0% exact match.
+
+* **`func_0013C440` (`0x13C440`, 8 B code, 16 B slice):**
+  - Getter for secondary float parameter `m_field24_float` (`lwc1 $f0, 0x24($a0)`). 100.0% exact match.
+
+* **`func_0013C450` (`0x13C450`, 8 B code, 16 B slice):**
+  - Getter for tertiary float parameter `m_field28_float` (`lwc1 $f0, 0x28($a0)`). 100.0% exact match.
+
+* **`func_0013C460` (`0x13C460`, 8 B code, 16 B slice):**
+  - Setter for control state byte `m_field3C` (`sb $a1, 0x3C($a0)`). 100.0% exact match.
+
+#### 6.30.1 SubList Float Accessors Matching Results (100.0% Complete Unit)
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_0013C430` | `0x13C430` | **100.0%** (8 / 8 B) | Getter returning float field at offset `+0x20`. |
+| `func_0013C440` | `0x13C440` | **100.0%** (8 / 8 B) | Getter returning float field at offset `+0x24`. |
+| `func_0013C450` | `0x13C450` | **100.0%** (8 / 8 B) | Getter returning float field at offset `+0x28`. |
+| `func_0013C460` | `0x13C460` | **100.0%** (8 / 8 B) | Setter storing control byte to offset `+0x3C`. |

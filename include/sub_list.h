@@ -138,9 +138,9 @@ public:
     int m_field14;
     int m_field18;
     int m_field1C;
-    int m_field20;
-    int m_field24;
-    int m_field28;
+    union { int m_field20; float m_field20_float; };
+    union { int m_field24; float m_field24_float; };
+    union { int m_field28; float m_field28_float; };
     int m_field2C;
     void *m_field30;
     ListItem *m_field34;

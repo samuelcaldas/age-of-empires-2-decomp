@@ -1,5 +1,7 @@
 #include "sub_list.h"
 
+#pragma exceptions off
+
 extern "C" {
 void func_0013A280(SubList *self, void *other, int a2, int mode, float x, float y, float z);
 void func_0013A6A0(SubList *self);
@@ -24,6 +26,21 @@ struct SpatialObjV8 {
     virtual void* v4();
     virtual void* v5();
     virtual int v8();
+};
+
+class NodeItemBaseData {
+public:
+    char pad_00[0xA0];
+};
+
+class NodeActionTarget : public NodeItemBaseData {
+public:
+    virtual void* v0(); virtual void* v1(); virtual void* v2(); virtual void* v3();
+    virtual void* v4(); virtual void* v5(); virtual void* v6(); virtual void* v7();
+    virtual void* v8(); virtual void* v9(); virtual void* v10(); virtual void* v11();
+    virtual void* v12(); virtual void* v13(); virtual void* v14(); virtual void* v15();
+    virtual void Method16(void *world);
+    virtual void Method17(void *world);
 };
 
 void func_0013A280(SubList *self, void *other, int a2, int mode, float x, float y, float z) {
@@ -110,25 +127,15 @@ void func_0013A280(SubList *self, void *other, int a2, int mode, float x, float 
     self->v42(other, x, y, z);
 }
 
-asm void func_0013A6A0(SubList *self) {
-    lw a1, 8(a0)
-    lw a0, 4(a0)
-    lw t9, 160(a0)
-    lw t9, 72(t9)
-    jr t9
-    nop
+void func_0013A6A0(SubList *self) {
+    ((NodeActionTarget*)self->m_field4)->Method16(self->m_field8);
 }
 
 void func_0013A6C0() {
 }
 
-asm void func_0013A6D0(SubList *self) {
-    lw a1, 8(a0)
-    lw a0, 4(a0)
-    lw t9, 160(a0)
-    lw t9, 76(t9)
-    jr t9
-    nop
+void func_0013A6D0(SubList *self) {
+    ((NodeActionTarget*)self->m_field4)->Method17(self->m_field8);
 }
 
 void func_0013A6F0() {

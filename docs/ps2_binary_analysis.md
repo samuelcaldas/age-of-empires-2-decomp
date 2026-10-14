@@ -2950,6 +2950,29 @@ Directly following the `InfantryAI` constructor sits the complete suite of 42 vi
 | `func_00145660` | `0x145660` | **100.0%** (8 / 8 B) | Combat speed factor getter. |
 | `func_00145670` | `0x145670` | **100.0%** (92 / 92 B) | Combat slot batch table reset (16 entries). |
 
+### 6.88 `Strategy AI` Subsystem (`0x1456CC`–`0x14595C`)
+
+Following the tactical AI infantry module sits the primary Strategy AI subsystem (`0x1456CC`–`0x14595C`, 656 bytes code), initiating higher-level strategic planning, AI class hierarchy constructors, and state matrix initialization:
+
+* **Class Hierarchy & Vtables:**
+  - `StrategyAI` (`0x1457A0` / `0x1457F0`): Type ID `0x3F0`, name string `"Strategy AI"` (`0x490FF8`), vtable `0x4D78B0`.
+  - `TacAI` (`0x145850` / `0x1458A0`): Type ID `0x3F1`, name string `"TacAI"` (`0x491008`), vtable `0x4D7900`.
+  - Base class ctor: `func_001452B0`, base class dtor: `func_00145350`.
+
+#### 6.88.1 StrategyAI Matching Results (100.0% Unit Linked, 445 Functions Matched)
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_001456CC` | `0x1456CC` | **100.0%** (8 / 8 B) | Strategy AI instance self-reference getter. |
+| `func_001456E0` | `0x1456E0` | **100.0%** (68 / 68 B) | Scalar deleting destructor / memory cleanup helper. |
+| `func_00145730` | `0x145730` | **100.0%** (100 / 100 B) | Strategy slot batch table reset (16 slot records). |
+| `func_001457A0` | `0x1457A0` | **100.0%** (72 / 72 B) | `StrategyAI::StrategyAI` constructor (`0x3F0`, vtable `0x4D78B0`). |
+| `func_001457F0` | `0x1457F0` | **100.0%** (96 / 96 B) | `StrategyAI::~StrategyAI` destructor (`0x3F0`, vtable `0x4D78B0`). |
+| `func_00145850` | `0x145850` | **100.0%** (72 / 72 B) | `TacAI::TacAI` constructor (`0x3F1`, vtable `0x4D7900`). |
+| `func_001458A0` | `0x1458A0` | **100.0%** (96 / 96 B) | `TacAI::~TacAI` destructor (`0x3F1`, vtable `0x4D7900`). |
+| `func_00145900` | `0x145900` | **100.0%** (92 / 92 B) | Strategy AI 8x10 matrix table initializer (`-1` default). |
+
+
 
 
 

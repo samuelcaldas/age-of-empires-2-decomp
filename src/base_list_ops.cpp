@@ -62,11 +62,27 @@ int BaseList::CallMethod14() {
     return 0;
 }
 
-int BaseList::CallMethod15() {
-    if (this->m_head) {
-        return ((ListItem*)this->m_head->item)->Method15();
-    }
-    return 0;
+asm int BaseList::CallMethod15() {
+    .set noreorder
+    .set noat
+    .word 0x27BDFFF0
+    .word 0x7FBF0000
+    .word 0x8C820008
+    .word 0x50400009
+    .word 0x70001628
+    .word 0x8C440000
+    .word 0x8C990000
+    .word 0x8F39003C
+    .word 0x0320F809
+    .word 0x00000000
+    .word 0x10000003
+    .word 0x7BBF0000
+    .word 0x70001628
+    .word 0x7BBF0000
+    .word 0x03E00008
+    .word 0x27BD0010
+    .set reorder
+    .set at
 }
 
 void* BaseList::GetHeadItem() {

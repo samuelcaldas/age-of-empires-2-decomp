@@ -200,13 +200,6 @@ _L00144424:
     lq s2, 0x20(sp)
     lq s1, 0x10(sp)
     lq s0, 0x0(sp)
-    .set reorder
-    .set at
-}
-
-asm void func_00144434() {
-    .set noreorder
-    .set noat
     jr ra
     addiu sp, sp, 0x40
     nop

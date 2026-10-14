@@ -3128,6 +3128,17 @@ Following deserialization sits the atomic accessor/mutator block for `TradeActio
 | `func_001471C0` | `0x1471C0` | **100.0%** (8 / 8 B) | Trade state flag getter (`m_field4C`). |
 | `func_001471D0` | `0x1471D0` | **100.0%** (8 / 8 B) | Trade completion status getter (`m_field66`). |
 
+### 6.96 `Trade Action Transaction Update` Subsystem (`0x1471E0`–`0x147A40`)
+
+Following atomic property getters sits the primary transaction update and market evaluator `TradeAction::Update` (`0x1471E0`–`0x147A40`, 2132 bytes code in Metrowerks C++), executing delta-time timer accumulation, target entity state validation, route pathing verification, and AI command execution:
+
+#### 6.96.1 Trade Action Update Matching Results (Pure C++, 2132 Bytes)
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_001471E0` | `0x1471E0` | **WIP C++** (2132 B) | `TradeAction::Update` periodic transaction state update and action dispatcher. |
+
+
 
 
 

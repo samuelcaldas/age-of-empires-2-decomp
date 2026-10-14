@@ -590,3 +590,4 @@ func_001471A0 = 0x1471A0; // type:func size:0x10 absolute:True
 func_001471B0 = 0x1471B0; // type:func size:0x8 absolute:True
 func_001471C0 = 0x1471C0; // type:func size:0x8 absolute:True
 func_001471D0 = 0x1471D0; // type:func size:0x8 absolute:True
+func_001471E0 = 0x1471E0; // type:func size:0x854 absolute:True

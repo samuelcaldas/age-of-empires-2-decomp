@@ -2,6 +2,8 @@
 
 extern "C" {
 
+void *func_332e60(void *mgr, int id);
+
 asm void func_001446EC(void) {
     .set noreorder
     .set noat
@@ -491,7 +493,7 @@ asm void func_00144D00(void) {
     .set noreorder
     .set noat
     .word 0x8C8200AC // lw         $v0, 0xAC($a0)
-    .word 0x080CCB98 // j          func_332e60
+    j func_332e60
     .word 0x8C440B98 // lw        $a0, 0xB98($v0)
     .set reorder
     .set at

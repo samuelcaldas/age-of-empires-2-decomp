@@ -2928,7 +2928,7 @@ Directly following the `InfantryAI` constructor sits the complete suite of 42 vi
 | `func_00144B60` | `0x144B60` | **100.0%** (156 / 156 B) | Tactical movement candidate evaluation. |
 | `func_00144C00` | `0x144C00` | **99.82%** (228 / 228 B) | Friendly unit proximity scanner. |
 | `func_00144CF0` | `0x144CF0` | **100.0%** (8 / 8 B) | Target valid predicate. |
-| `func_00144D00` | `0x144D00` | **98.33%** (12 / 12 B) | Sub-list trampoline. |
+| `func_00144D00` | `0x144D00` | **100.0%** (12 / 12 B) | Sub-list trampoline with relocation-preserving tail jump to `func_332e60`. |
 | `func_00144D10` | `0x144D10` | **99.87%** (632 / 632 B) | Target selection and weapon scoring loop. |
 | `func_00144F90` | `0x144F90` | **98.50%** (40 / 40 B) | Tactical waypoint dispatcher. |
 | `func_00144FC0` | `0x144FC0` | **100.0%** (8 / 8 B) | Path confirmation stub. |

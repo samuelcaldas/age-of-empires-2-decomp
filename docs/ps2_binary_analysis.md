@@ -3106,6 +3106,26 @@ Following serialization sits the binary deserialization routine `TradeAction::lo
 |---|---|---|---|
 | `func_00146A40` | `0x146A40` | **70.10%** (1250 / 1784 B) | `TradeAction::load` binary stream deserialization via `func_00226D90`. |
 
+### 6.95 `Trade Action Field Getters & Mutators` Subsystem (`0x147140`–`0x1471E0`)
+
+Following deserialization sits the atomic accessor/mutator block for `TradeAction` (`0x147140`–`0x1471E0`, 160 bytes code in Metrowerks C++ across 10 methods):
+
+#### 6.95.1 Trade Action Getters Matching Results (100.0% Unit Linked, 490 Functions Matched)
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_00147140` | `0x147140` | **100.0%** (12 / 12 B) | Target object attribute accessor (`m_target->m_field8`). |
+| `func_00147150` | `0x147150` | **100.0%** (8 / 8 B) | Action sub-buffer 1 element counter getter (`m_field31`). |
+| `func_00147160` | `0x147160` | **100.0%** (8 / 8 B) | Primary trade resource identifier getter (`m_field44`). |
+| `func_00147170` | `0x147170` | **100.0%** (16 / 16 B) | Primary trade resource mutator with history backup (`m_field60 = m_field44, m_field44 = val`). |
+| `func_00147180` | `0x147180` | **100.0%** (8 / 8 B) | Secondary trade resource identifier getter (`m_field46`). |
+| `func_00147190` | `0x147190` | **100.0%** (8 / 8 B) | Tertiary trade resource identifier getter (`m_field48`). |
+| `func_001471A0` | `0x1471A0` | **100.0%** (16 / 16 B) | Tertiary trade resource mutator with history backup (`m_field62 = m_field48, m_field48 = val`). |
+| `func_001471B0` | `0x1471B0` | **100.0%** (8 / 8 B) | Trade priority rating getter (`m_field4A`). |
+| `func_001471C0` | `0x1471C0` | **100.0%** (8 / 8 B) | Trade state flag getter (`m_field4C`). |
+| `func_001471D0` | `0x1471D0` | **100.0%** (8 / 8 B) | Trade completion status getter (`m_field66`). |
+
+
 
 
 

@@ -1,5 +1,7 @@
 #include "sub_list.h"
 
+#pragma exceptions off
+
 struct TacticalNode {
     int field_0;
     int field_4;
@@ -16,52 +18,27 @@ extern "C" {
 
 void func_00100670(void *ptr);
 
-asm TacticalNode *func_00144434(TacticalNode *self) {
-    .set noreorder
-    .set noat
-    sw zero, 0x0(a0)
-    sw zero, 0x4(a0)
-    sw zero, 0x8(a0)
-    sb zero, 0xC(a0)
-    sw zero, 0x10(a0)
-    sb zero, 0x14(a0)
-    sb zero, 0x15(a0)
-    sb zero, 0x16(a0)
-    sb zero, 0x17(a0)
-    jr ra
-    paddub v0, a0, zero
-    nop
-    .set reorder
-    .set at
+TacticalNode *func_00144434(TacticalNode *self) {
+    self->field_0 = 0;
+    self->field_4 = 0;
+    self->field_8 = 0;
+    self->field_C = 0;
+    self->field_10 = 0;
+    self->field_14 = 0;
+    self->field_15 = 0;
+    self->field_16 = 0;
+    self->field_17 = 0;
+    return self;
 }
 
-asm TacticalNode *func_00144464(TacticalNode *self, int a1) {
-    .set noreorder
-    .set noat
-    addiu sp, sp, -0x20
-    sq ra, 0x10(sp)
-    sq s0, 0x0(sp)
-    paddub s0, a0, zero
-    beqz s0, _L00144498
-    paddub v0, s0, zero
-    dsll32 v0, a1, 16
-    dsra32 v0, v0, 16
-    blez v0, _L00144494
-    sw zero, 0x10(s0)
-    jal func_00100670
-    nop
-_L00144494:
-    paddub v0, s0, zero
-_L00144498:
-    lq ra, 0x10(sp)
-    lq s0, 0x0(sp)
-    jr ra
-    addiu sp, sp, 0x20
-    nop
-    nop
-    nop
-    .set reorder
-    .set at
+TacticalNode *func_00144464(TacticalNode *self, int a1) {
+    if (self) {
+        self->field_10 = 0;
+        if ((short)a1 > 0) {
+            func_00100670(self);
+        }
+    }
+    return self;
 }
 
 asm void func_001444B4(TacticalNode *self, int a1) {
@@ -74,20 +51,13 @@ asm void func_001444B4(TacticalNode *self, int a1) {
     .set at
 }
 
-asm void func_001444C0(TacticalNode *self, char a2, int (*a3)(), char t0, char t1, char t2, char t3) {
-    .set noreorder
-    .set noat
-    sb a2, 0xC(a0)
-    sw a3, 0x10(a0)
-    sb t0, 0x14(a0)
-    sb t1, 0x15(a0)
-    sb t2, 0x16(a0)
-    jr ra
-    sb t3, 0x17(a0)
-    nop
-    nop
-    .set reorder
-    .set at
+void func_001444C0(TacticalNode *self, int unused, char a2, int (*a3)(), char t0, char t1, char t2, char t3) {
+    self->field_C = a2;
+    self->field_10 = a3;
+    self->field_14 = t0;
+    self->field_15 = t1;
+    self->field_16 = t2;
+    self->field_17 = t3;
 }
 
 asm void func_001444E4(TacticalNode *self) {

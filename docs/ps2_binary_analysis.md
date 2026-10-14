@@ -3046,6 +3046,18 @@ Following Trade AI resource management sits the trade action mapping table and `
 | `func_00145E20` | `0x145E20` | **100.0%** (652 / 652 B) | Trade action mapping and command normalization dispatcher. |
 | `func_001460B0` | `0x1460B0` | **100.0%** (124 / 124 B) | `TradeAction::TradeAction` constructor (vtable `0x4D79A0`). |
 
+### 6.92 `Trade Action Initialization & Cleanup` Subsystem (`0x146130`–`0x146400`)
+
+Following the `TradeAction` class default constructor sits the full action initialization and cleanup lifecycle (`0x146130`–`0x146400`, 704 bytes code in Metrowerks C++):
+
+#### 6.92.1 Trade Action Initialization Matching Results (100.0% Unit Linked, 480 Functions Matched)
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_00146130` | `0x146130` | **100.0%** (468 / 468 B) | `TradeAction::Init` dynamic buffer allocation (`func_00100730`) and timers. |
+| `func_00146310` | `0x146310` | **100.0%** (236 / 236 B) | `TradeAction::CleanUp` dynamic memory release (`func_00100630`) and reset. |
+
+
 
 
 

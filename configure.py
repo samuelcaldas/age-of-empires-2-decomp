@@ -584,6 +584,7 @@ if config.platform == Platform.PS2:
                 Object(
                     Matching,
                     "tactical_ai_init",
+                    source="tactical_ai_init.s",
                     cflags=config.cflags,
                     toolchain_version="PS2/mwcc-2.3.1.01",
                 ),

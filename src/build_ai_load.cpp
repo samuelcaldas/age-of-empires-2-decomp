@@ -33,6 +33,7 @@ void func_00100340(void *list, void *dtor, int elem_size, int count);
 void func_00100630(void *ptr);
 void func_00145350(void *self, int flag);
 void func_00100670(void *ptr);
+struct SubListBuildItem;
 struct BuildAIBuffer {
     void *m_data;
     int m_size;
@@ -188,8 +189,7 @@ void *func_0013D2B0(BuildAI *self, int flag) {
     if (self != 0) {
         self->m_vtable = D_4D75F0;
         func_0013DEC0(self);
-        char *items = self->m_items;
-        func_00100340(items, (void*)func_0013CA40, 0xB4, 50);
+        func_00100340((SubListBuildItem*)((char*)self + 0x57C), (void*)func_0013CA40, 0xB4, 50);
         if (&self->m_buffer != 0) {
             if (self->m_buffer.m_data != 0) {
                 func_00100630(self->m_buffer.m_data);

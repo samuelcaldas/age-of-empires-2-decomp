@@ -2561,6 +2561,34 @@ Directly following script tokenization sit candidate availability queries and sc
 | `func_00142CA0` (`TacticalAI2::GetCandidateOffset`) | `0x142CA0` | **100.0%** (20 / 20 B) | Candidate array element offset resolver. |
 | `func_00142CC0` (`TacticalAI2::IncrementScanCounter`) | `0x142CC0` | **100.0%** (72 / 72 B) | Scan cycle counter incrementer with threshold 16 alert. |
 
+### 6.76 Tactical / Spatial AI Rule Statement and Action Argument Parser (`0x142D10`–`0x143020`, `tactical_ai_parser.cpp`)
+
+Directly following candidate state queries sits the rule statement parser and parameter validator (`TacticalAI2`, `0x142D10`–`0x143020`, 776 bytes of code, 784-byte slice, Metrowerks MWCCPS2 2.3.1.01):
+
+* **Architecture and Reverse Engineering:**
+  - Method: `func_00142D10` (`TacticalAI2::ParseRuleBlock()`, 776 B code, VRAM `0x142D10`):
+    - Parses full tactical AI statement / rule command block.
+    - Scans initial rule keyword token via `func_142980`.
+    - Looks up rule definition in subsystem dictionary `&self->field_34` via `func_26B0A0`. If not found, raises syntax alert `func_144340(self, 3, token)`.
+    - Resolves required parameter count using parameter descriptor table via `func_0013C650`.
+    - Initializes rule node entry at offset `self + 0x4C + (self->field_40 * 20)`.
+    - Iterates over required parameter count:
+      * Parses parameter token via `func_142980`.
+      * Validates parameter tokens (modes 1, 4, or literal).
+      * If tile reference, resolves tile index with `func_001410E0`.
+      * If numeric literal, checks character classification table `D_48E100` (`_ctype`) and parses integer with `func_114378` (`atoi`).
+      * If spatial identifier, resolves target via `func_00142730`.
+      * Stores parsed parameter values into `entry->field_50[param_idx]`.
+    - Finalizes rule block via `func_001427A0`.
+    - **99.95% match** (776 / 776 B, 100% byte-for-byte in linked binary).
+
+* **Matching Results (1 / 1 Functions, 99.95% Unit Match):**
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_00142D10` (`TacticalAI2::ParseRuleBlock`) | `0x142D10` | **99.95%** (776 / 776 B) | Complete tactical AI rule statement and parameter parser with atoi and ctype. |
+
+
 
 
 

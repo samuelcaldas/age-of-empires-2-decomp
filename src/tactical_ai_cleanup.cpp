@@ -1,113 +1,52 @@
 #include "sub_list.h"
 
+struct TacticalItem {
+    int m_field00;
+    char m_name[1024];
+    int m_field404;
+    int m_field408;
+    int m_field40C;
+    int m_field410;
+    int m_field414;
+};
+
 struct TacticalAI2 {
     void *m_vtable;
+    char pad_004[0x194];
+    int m_field198;
+    char pad_19C[0x108];
+    int m_field2A4;
+    char m_name[1024];
+    int m_field6A8;
+    int m_field6AC;
+    int m_field6B0;
+    int pad_6B4;
+    int m_field6B8;
+    int m_field6BC;
+    int m_item_count;
+    TacticalItem m_items[10];
+    int m_stack_count;
+    int m_stack[1];
 };
 
 extern "C" {
 
 char *func_0011ABBC(char *dst, const char *src);
 
-asm void func_144050(TacticalAI2 *self) {
-    .set noreorder
-    .set noat
-    addiu sp, sp, -0x20
-    sq ra, 0x10(sp)
-    sq s0, 0x0(sp)
-    lw v0, 0x6C0(a0)
-    paddub s0, a0, zero
-    addiu v0, v0, -0x1
-    sw v0, 0x6C0(a0)
-    lw v1, 0x6C0(a0)
-    sll v0, v1, 6
-    addu v0, v0, v1
-    sll v0, v0, 1
-    addu v0, v0, v1
-    sll v0, v0, 3
-    addu v0, v0, a0
-    lw v0, 0x6C4(v0)
-    sw v0, 0x2A4(a0)
-    lw v1, 0x6C0(a0)
-    sll v0, v1, 6
-    addu v0, v0, v1
-    sll v0, v0, 1
-    addu v0, v0, v1
-    sll v0, v0, 3
-    addu v0, v0, a0
-    lw v0, 0xACC(v0)
-    sw v0, 0x6AC(a0)
-    lw v1, 0x6C0(a0)
-    sll v0, v1, 6
-    addu v0, v0, v1
-    sll v0, v0, 1
-    addu v0, v0, v1
-    sll v0, v0, 3
-    addu v0, v0, a0
-    lw v0, 0xAC8(v0)
-    sw v0, 0x6A8(a0)
-    lw v1, 0x6C0(a0)
-    sll v0, v1, 6
-    addu v0, v0, v1
-    sll v0, v0, 1
-    addu v0, v0, v1
-    sll v0, v0, 3
-    addu v0, v0, a0
-    lw v0, 0xAD0(v0)
-    sw v0, 0x6B0(a0)
-    lw v1, 0x6C0(a0)
-    sll v0, v1, 6
-    addu v0, v0, v1
-    sll v0, v0, 1
-    addu v0, v0, v1
-    sll v0, v0, 3
-    addu v0, a0, v0
-    addiu a1, v0, 0x6C8
-    jal func_0011ABBC
-    addiu a0, s0, 0x2A8
-    lw a0, 0x6C0(s0)
-    sll v1, a0, 6
-    addu v1, v1, a0
-    sll v1, v1, 1
-    addu v1, v1, a0
-    sll v1, v1, 3
-    addu v1, v1, s0
-    lw v1, 0xAD4(v1)
-    sw v1, 0x6B8(s0)
-    lw a0, 0x6C0(s0)
-    sll v1, a0, 6
-    addu v1, v1, a0
-    sll v1, v1, 1
-    addu v1, v1, a0
-    sll v1, v1, 3
-    addu v1, v1, s0
-    lw v1, 0xAD8(v1)
-    sw v1, 0x6BC(s0)
-    lq ra, 0x10(sp)
-    lq s0, 0x0(sp)
-    jr ra
-    addiu sp, sp, 0x20
-    nop
-    .set reorder
-    .set at
+void func_144050(TacticalAI2 *self) {
+    self->m_item_count--;
+    self->m_field2A4 = self->m_items[self->m_item_count].m_field00;
+    self->m_field6AC = self->m_items[self->m_item_count].m_field408;
+    self->m_field6A8 = self->m_items[self->m_item_count].m_field404;
+    self->m_field6B0 = self->m_items[self->m_item_count].m_field40C;
+    func_0011ABBC(self->m_name, self->m_items[self->m_item_count].m_name);
+    self->m_field6B8 = self->m_items[self->m_item_count].m_field410;
+    self->m_field6BC = self->m_items[self->m_item_count].m_field414;
 }
 
-asm void func_144180(TacticalAI2 *self) {
-    .set noreorder
-    .set noat
-    lw v1, 0x2FB4(a0)
-    addiu v1, v1, -0x1
-    sw v1, 0x2FB4(a0)
-    lw v1, 0x2FB4(a0)
-    sll v1, v1, 2
-    addu v1, v1, a0
-    lw v1, 0x2FB8(v1)
-    jr ra
-    sw v1, 0x198(a0)
-    nop
-    nop
-    nop
-    .set reorder
-    .set at
+void func_144180(TacticalAI2 *self) {
+    self->m_stack_count--;
+    self->m_field198 = self->m_stack[self->m_stack_count];
 }
 
 }

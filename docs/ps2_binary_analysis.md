@@ -2095,6 +2095,31 @@ Directly following `emotional_ai_init` sits the stream serialization and persona
 | `Save__11EmotionalAIFPv` (`EmotionalAI::Save`) | `0x140600` | **100.0%** (104 / 104 B) | Stream serializer for 6 emotional personality traits. |
 | `func_00140670` (`EmotionalAI::SetPersonality`) | `0x140670` | **100.0%** (320 / 320 B) | Personality trait archetype preset switch with jump table `0x490E60`. |
 
+### 6.60 Tactical / Spatial AI Vector Grid Allocator and Constructor (`0x1407B0`–`0x1409B0`, `tactical_ai_init.cpp`)
+
+Directly following `EmotionalAI` sits the spatial matrix and tactical grid allocator constructor (`TacticalAI`, `0x1407B0`–`0x1409B0`, 500 bytes of code, 512-byte slice, Metrowerks MWCCPS2 2.3.1.01):
+
+* **Architecture and Reverse Engineering:**
+  - Class `TacticalAI`:
+    - Vtable: `0x004D7758`.
+    - Methods:
+      - `0x1407B0`: Parameterized grid allocator constructor `TacticalAI::TacticalAI(a1, a2, a3, t0)`:
+        - Installs vtable `0x004D7758`.
+        - Clears internal status fields (`0x28`, `0x2C`, `0x30`).
+        - Computes dynamic buffer size for primary grid array via 64-bit MIPS doubleword arithmetic (`dsll $v0, 2`, `dsll32 $a0, 0`).
+        - Allocates dynamic memory buffer via `operator new[]` (`func_100730`).
+        - Constructs secondary object array via `__vec_ctor` (`func_1004E0`) with element size `0x18`, constructor `0x144440`, destructor `0x144470`.
+        - Constructs tertiary item array via `__vec_ctor` (`func_1004E0`) with element size `0x0C`, constructor `func_0013C4F0`, destructor `func_0013C510`.
+        - Formats and zeroes memory slots in dual initialization loops.
+        - **100.0% instruction and operand match** (500 / 500 B, 99.6% relocation-invariant).
+
+* **Matching Results (1 / 1 Functions, 100.0% Instruction Match):**
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_001407B0` (`TacticalAI::TacticalAI`) | `0x1407B0` | **100.0%** (500 / 500 B) | Spatial grid allocator constructing sub-arrays via `func_100730` and `__vec_ctor`. |
+
+
 
 
 

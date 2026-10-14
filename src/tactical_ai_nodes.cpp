@@ -1,143 +1,85 @@
 #include "sub_list.h"
 
+struct Item16 {
+    void *field_0;
+    int pad[3];
+};
+
+struct Node328 {
+    char pad_0[2];
+    short next;
+    char pad_4;
+    char field_5;
+    char pad_6[322];
+};
+
+struct Obj2C {
+    char pad_0[0xC];
+    Node328 *nodes;
+};
+
+struct Obj30 {
+    char pad_0[2];
+    short count;
+    short *table;
+};
+
 struct TacticalAI {
     void *m_vtable;
-    char pad_04[0x30];
+    char pad_04[0x18];
+    short field_1C;
+    short pad_1E;
+    Item16 *field_20;
+    char pad_24[0x8];
+    Obj2C *field_2C;
+    Obj30 *field_30;
 };
 
 extern "C" {
 
-asm int func_001418E0(TacticalAI *self, int a1) {
-    .set noreorder
-    .set noat
-    lw v1, 0x30(a0)
-    bnez v1, _L001418F4
-    nop
-    b _L00141974
-    paddub v0, zero, zero
-_L001418F4:
-    bltz a1, _L00141910
-    paddub v0, zero, zero
-    lh v0, 0x2(v1)
-    slt v0, a1, v0
-    bnez v0, _L00141918
-    nop
-    paddub v0, zero, zero
-_L00141910:
-    b _L00141974
-    nop
-_L00141918:
-    lw v1, 0x4(v1)
-    sll a1, a1, 1
-    addu v1, v1, a1
-    lh a1, 0x0(v1)
-    .word 0x1000000F
-    addiu v0, zero, -0x1
-    sll v1, a1, 2
-_L00141934:
-    addu v1, v1, a1
-    lw a2, 0x2C(a0)
-    sll v1, v1, 3
-    addu a1, v1, a1
-    sll a1, a1, 3
-    lw v1, 0xC(a2)
-    addu v1, v1, a1
-    sb zero, 0x5(v1)
-    lw v1, 0x2C(a0)
-    lw v1, 0xC(v1)
-    addu v1, v1, a1
-    lh a1, 0x2(v1)
-    nop
-_L00141968:
-    bne a1, v0, _L00141934
-    sll v1, a1, 2
-    addiu v0, zero, 0x1
-_L00141974:
-    jr ra
-    nop
-    nop
-    .set reorder
-    .set at
+int func_001418E0(TacticalAI *self, int a1) {
+    Obj30 *obj30 = self->field_30;
+    if (!obj30) {
+        return 0;
+    }
+    if (a1 < 0) goto ret0;
+    if (a1 < obj30->count) goto valid;
+ret0:
+    return 0;
+valid:
+    int idx = obj30->table[a1];
+    while (idx != -1) {
+        self->field_2C->nodes[idx].field_5 = 0;
+        idx = self->field_2C->nodes[idx].next;
+    }
+    return 1;
 }
 
-asm int func_00141980(TacticalAI *self, int a1) {
-    .set noreorder
-    .set noat
-    lw v1, 0x30(a0)
-    bnez v1, _L00141994
-    nop
-    b _L00141A18
-    paddub v0, zero, zero
-_L00141994:
-    bltz a1, _L001419B0
-    paddub v0, zero, zero
-    lh v0, 0x2(v1)
-    slt v0, a1, v0
-    bnez v0, _L001419B8
-    nop
-    paddub v0, zero, zero
-_L001419B0:
-    b _L00141A18
-    nop
-_L001419B8:
-    lw v1, 0x4(v1)
-    sll a1, a1, 1
-    addiu a3, zero, 0x1
-    addu v1, v1, a1
-    lh a1, 0x0(v1)
-    .word 0x1000000F
-    addiu v0, zero, -0x1
-    sll v1, a1, 2
-_L001419D8:
-    addu v1, v1, a1
-    lw a2, 0x2C(a0)
-    sll v1, v1, 3
-    addu a1, v1, a1
-    sll a1, a1, 3
-    lw v1, 0xC(a2)
-    addu v1, v1, a1
-    sb a3, 0x5(v1)
-    lw v1, 0x2C(a0)
-    lw v1, 0xC(v1)
-    addu v1, v1, a1
-    lh a1, 0x2(v1)
-    nop
-_L00141A0C:
-    bne a1, v0, _L001419D8
-    sll v1, a1, 2
-    addiu v0, zero, 0x1
-_L00141A18:
-    jr ra
-    nop
-    .set reorder
-    .set at
+int func_00141980(TacticalAI *self, int a1) {
+    Obj30 *obj30 = self->field_30;
+    if (!obj30) {
+        return 0;
+    }
+    if (a1 < 0) goto ret0;
+    if (a1 < obj30->count) goto valid;
+ret0:
+    return 0;
+valid:
+    int idx = obj30->table[a1];
+    while (idx != -1) {
+        self->field_2C->nodes[idx].field_5 = 1;
+        idx = self->field_2C->nodes[idx].next;
+    }
+    return 1;
 }
 
-asm int func_00141A20(TacticalAI *self, int a1) {
-    .set noreorder
-    .set noat
-    bltz a1, _L00141A3C
-    paddub v0, zero, zero
-    lh v0, 0x1C(a0)
-    slt v0, a1, v0
-    bnez v0, _L00141A44
-    nop
-    paddub v0, zero, zero
-_L00141A3C:
-    b _L00141A5C
-    nop
-_L00141A44:
-    lw v1, 0x20(a0)
-    sll a1, a1, 4
-    addiu v0, zero, 0x1
-    addu v1, v1, a1
-    lw v1, 0x0(v1)
-    movz v0, zero, v1
-_L00141A5C:
-    jr ra
-    nop
-    .set reorder
-    .set at
+int func_00141A20(TacticalAI *self, int a1) {
+    if (a1 < 0) goto ret0;
+    if (a1 < self->field_1C) goto valid;
+ret0:
+    return 0;
+valid:
+    return self->field_20[a1].field_0 ? 1 : 0;
 }
 
 }

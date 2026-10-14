@@ -434,6 +434,7 @@ func_00142C90 = 0x142C90; // type:func TacticalAI2.HasValidCandidate()
 func_00142CA0 = 0x142CA0; // type:func TacticalAI2.GetCandidateOffset()
 func_00142CC0 = 0x142CC0; // type:func TacticalAI2.IncrementScanCounter()
 func_00142D10 = 0x142D10; // type:func TacticalAI2.ParseRuleBlock(int, int)
+func_00143020 = 0x143020; // type:func TacticalAI2.CompileRuleExpression(int, int)
 func_100850 = 0x100850; // type:func absolute:True
 func_144550 = 0x144550; // type:func absolute:True
 jtbl_490E80 = 0x490E80; // type:jtbl absolute:True
@@ -453,5 +454,6 @@ func_11A7BC = 0x11A7BC; // type:func absolute:True
 func_21A4A0 = 0x21A4A0; // type:func absolute:True
 D_48E100 = 0x48E100; // type:s8 absolute:True
 func_114378 = 0x114378; // type:func absolute:True
+func_1446A0 = 0x1446A0; // type:func absolute:True
 
 

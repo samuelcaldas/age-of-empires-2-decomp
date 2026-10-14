@@ -2588,6 +2588,34 @@ Directly following candidate state queries sits the rule statement parser and pa
 |---|---|---|---|
 | `func_00142D10` (`TacticalAI2::ParseRuleBlock`) | `0x142D10` | **99.95%** (776 / 776 B) | Complete tactical AI rule statement and parameter parser with atoi and ctype. |
 
+### 6.77 Tactical / Spatial AI Recursive Rule Expression and Condition Compiler (`0x143020`–`0x143440`, `tactical_ai_compiler.cpp`)
+
+Directly following rule block statement parsing sits the recursive condition and compound expression compiler (`TacticalAI2`, `0x143020`–`0x143440`, 1044 bytes of code, 1056-byte slice, Metrowerks MWCCPS2 2.3.1.01):
+
+* **Architecture and Reverse Engineering:**
+  - Method: `func_00143020` (`TacticalAI2::CompileRuleExpression(int)`, 1044 B code, VRAM `0x143020`):
+    - Recursive compiler generating bytecode/tree structures for tactical rule expressions.
+    - If argument `a1 == 0`, parses leading expression token via `func_142980` and ensures valid mode 2.
+    - Resolves compound expression operator via `func_26B0A0(&self->field_34, token, 1)`:
+      * When an operator keyword is found, sets expression node type 2 (`entry->field_4C = 2`) and compiles left child recursively (`func_00143020(self, 0)`).
+      * If binary operator (`s0->field_2 != 0`), compiles right child recursively (`func_00143020(self, 0)`).
+    - If operator keyword not found, searches condition dictionary with mode 3:
+      * Obtains condition descriptor and expected parameter count via `func_1446A0`.
+      * Sets expression node type 3 (`entry->field_4C = 3`).
+      * Iterates over required parameters, parsing each token via `func_142980`.
+      * Translates numeric arguments using `_ctype` (`D_48E100`) and `func_114378` (`atoi`).
+      * Resolves spatial target identifiers via `func_00142730`.
+      * Stores compiled parameters into `entry->field_50[param_idx]`.
+    - Finalizes compound expression via `func_001427A0`.
+    - **99.96% match** (1044 / 1044 B, 100% byte-for-byte in linked binary).
+
+* **Matching Results (1 / 1 Functions, 99.96% Unit Match):**
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_00143020` (`TacticalAI2::CompileRuleExpression`) | `0x143020` | **99.96%** (1044 / 1044 B) | Recursive compiler for compound tactical rule conditions and expressions. |
+
+
 
 
 

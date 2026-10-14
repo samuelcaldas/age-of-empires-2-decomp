@@ -497,9 +497,15 @@ segments:
     vram: 0x142D10
     subsegments:
       - [0x42EF0, asm, tactical_ai_parser]
+  - name: tactical_ai_compiler
+    type: code
+    start: 0x43200
+    vram: 0x143020
+    subsegments:
+      - [0x43200, asm, tactical_ai_compiler]
   - name: post_base
     type: bin
-    start: 0x43200
+    start: 0x43620
   - [0x3e31c0]
 
 

@@ -2297,6 +2297,37 @@ Directly following node flag manipulation sits the spatial predicate expression 
 | `func_00141A70` (`TacticalAI::EvaluateNode`) | `0x141A70` | **99.92%** (504 / 504 B) | Recursive boolean expression tree evaluator with `jtbl_490E80`. |
 | `func_00141C70` (`TacticalAI::CheckSpatialPredicate`) | `0x141C70` | **100.0%** (208 / 208 B) | Rule predicate validator and action dispatcher with fail-fast. |
 
+### 6.67 Tactical / Spatial AI Subsystem Derived Constructors (`0x141D40`–`0x141F60`, `tactical_ai_actions.cpp`)
+
+Directly following spatial predicate evaluation sits the derived spatial AI subsystem (`TacticalAI2`, ID `1013` / `0x3F5`, vtable `D_4D7768`, `0x141D40`–`0x141F60`, 536 bytes of code across 2 constructors, 544-byte slice, Metrowerks MWCCPS2 2.3.1.01):
+
+* **Architecture and Reverse Engineering:**
+  - Method: `func_00141D40` (`TacticalAI2::TacticalAI2(int a1, int a2, int a3, int t0)`, 380 B code, VRAM `0x141D40`):
+    - Primary constructor for derived Tactical AI subsystem with archetype ID `1013` (`0x3F5`).
+    - Invokes base `TacticalAI` constructor `func_001407B0`.
+    - Installs vtable `D_4D7768`.
+    - Initializes sub-components via `func_26AD90(&self->field_34, 1013)` and `func_145680(&self->field_44)`.
+    - Dynamically allocates pointer buffer `0x3C` via `func_100730` with `t0 * 4` bytes and zeros all entries.
+    - Zeroes internal state fields (`0x40`, `0x190`, `0x194`, `0x19C`, `0x1A0`, `0x2A0`, `0x2A4`, `0x2A8`, `0x6AC`..`0x6C0`, `0x2FB4`, `0x3080`).
+    - Sets linked pointer `self->field_6A8 = &self->field_2A8`.
+    - Clears sub-buffers with `memset(&self->field_6C4, 0, 0x28F0)` and `memset(&self->field_2FB8, 0, 0xC8)`.
+    - **99.89% match** (380 / 380 B, 100% byte-for-byte in linked binary).
+  - Method: `func_00141EC0` (`TacticalAI2::TacticalAI2(void *stream)`, 156 B code, VRAM `0x141EC0`):
+    - Deserialization stream constructor for `TacticalAI2`.
+    - Invokes base stream constructor `func_001409B0`.
+    - Installs vtable `D_4D7768`.
+    - Re-initializes sub-components via `func_26AD90` and `func_145680`.
+    - Dynamically allocates pointer buffer `0x3C` sized `self->field_1C * 4` via `func_100730` and zeros all entries.
+    - **99.74% match** (156 / 156 B, 100% byte-for-byte in linked binary).
+
+* **Matching Results (2 / 2 Functions, 99.85% Unit Match):**
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_00141D40` (`TacticalAI2::TacticalAI2`) | `0x141D40` | **99.89%** (380 / 380 B) | Derived TacticalAI2 primary constructor (ID 1013, vtable D_4D7768). |
+| `func_00141EC0` (`TacticalAI2::TacticalAI2`) | `0x141EC0` | **99.74%** (156 / 156 B) | Derived TacticalAI2 stream deserialization constructor. |
+
+
 
 
 

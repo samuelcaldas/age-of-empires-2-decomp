@@ -2482,6 +2482,32 @@ Directly following target scanning sit the candidate target allocation, registry
 | `func_00142730` (`TacticalAI2::LookupSpatialTarget`) | `0x142730` | **100.0%** (112 / 112 B) | Double-lookup of spatial target across primary and secondary registries. |
 | `func_001427A0` (`TacticalAI2::ValidateNextCandidate`) | `0x1427A0` | **100.0%** (132 / 132 B) | Validates candidate state and handles notification alerts. |
 
+### 6.73 Tactical / Spatial AI Candidate State Validation and Rule Script Decompiler (`0x142830`–`0x142980`, `tactical_ai_scoring.cpp`)
+
+Directly following candidate target queries sit the candidate mode validator and tokenized tactical rule decompiler (`TacticalAI2`, `0x142830`–`0x142980`, 324 bytes of code across 2 methods, 336-byte slice, Metrowerks MWCCPS2 2.3.1.01):
+
+* **Architecture and Reverse Engineering:**
+  - Method: `func_00142830` (`TacticalAI2::ValidateCandidateState()`, 124 B code, VRAM `0x142830`):
+    - Polls next candidate state through `func_142980(self)`.
+    - If candidate state is 2: verifies mode `field_19C == 1`. If mode does not match, invokes alert handler `func_144340(self, 0x10, 0)`.
+    - If candidate state is 1: invokes error alert handler `func_144340(self, 0x1A, 0)`.
+    - **100.0% exact byte-for-byte match**.
+  - Method: `func_001428B0` (`TacticalAI2::FormatRuleLine(char *out_buffer)`, 200 B code, VRAM `0x1428B0`):
+    - Tokenized rule stream decompiler / pretty-printer.
+    - Iterates over 16-bit token array `field_6B8[field_6BC]`, clearing destination string `*out_buffer = '\0'`.
+    - If token is `0xFFFF`, terminates scanning and returns 0.
+    - If token is `0xFFFE`, appends newline delimiter `D_490E9C` (`"\n"`) via `func_11A7BC` (`strcat`), increments token index, and returns 1.
+    - For regular token IDs, resolves human-readable token name string via `func_21A4A0(token)`, appends string to output buffer via `func_11A7BC`, advances token pointer, and loops.
+    - **99.80% match** (200 / 200 B, 100% byte-for-byte in linked binary).
+
+* **Matching Results (2 / 2 Functions, 99.88% Unit Match):**
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_00142830` (`TacticalAI2::ValidateCandidateState`) | `0x142830` | **100.0%** (124 / 124 B) | Candidate polling state validator with alert handlers. |
+| `func_001428B0` (`TacticalAI2::FormatRuleLine`) | `0x1428B0` | **99.80%** (200 / 200 B) | Tokenized tactical rule decompiler / script formatter with string lookup. |
+
+
 
 
 

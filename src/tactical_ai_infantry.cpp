@@ -478,4 +478,231 @@ asm void func_00144C00(void *self, void *p1) {
     .set at
 }
 
+asm void func_00144CF0(void) {
+    .set noreorder
+    .set noat
+    .word 0x0800E003 // jr ra
+    .word 0x28160070 // paddub v0, zero, zero
+    .set reorder
+    .set at
+}
+
+asm void func_00144D00(void *self) {
+    .set noreorder
+    .set noat
+    .word 0xAC00828C // lw v0, 0xAC(a0)
+    .word 0x98CB0C08 // j func_332e60
+    .word 0x980B448C // lw a0, 0xB98(v0)
+    .set reorder
+    .set at
+}
+
+asm void func_00144D10(void *self, void *p1, void *p2, void *p3) {
+    .set noreorder
+    .set noat
+    .word 0x50FFBD27 // addiu sp, sp, -0xB0
+    .word 0x9000BF7F // sq ra, 0x90(sp)
+    .word 0x8000BE7F // sq fp, 0x80(sp)
+    .word 0x7000B77F // sq s7, 0x70(sp)
+    .word 0x6000B67F // sq s6, 0x60(sp)
+    .word 0x5000B57F // sq s5, 0x50(sp)
+    .word 0x4000B47F // sq s4, 0x40(sp)
+    .word 0x3000B37F // sq s3, 0x30(sp)
+    .word 0x2000B27F // sq s2, 0x20(sp)
+    .word 0x1000B17F // sq s1, 0x10(sp)
+    .word 0x0000B07F // sq s0, 0x0(sp)
+    .word 0x28B68070 // paddub s6, a0, zero
+    .word 0x28AEA070 // paddub s5, a1, zero
+    .word 0x28A6C070 // paddub s4, a2, zero
+    .word 0x289EE070 // paddub s3, a3, zero
+    .word 0x28960071 // paddub s2, t0, zero
+    .word 0x28BE2071 // paddub s7, t1, zero
+    .word 0x28F64071 // paddub fp, t2, zero
+    .word 0xAC00ABAF // sw t3, 0xAC(sp)
+    .word 0x79000010 // b .L00144F44
+    .word 0x28860070 // paddub s0, zero, zero
+  // .L00144D64:
+    .word 0xBC00C28E // lw v0, 0xBC(s6)
+    .word 0xFFFF4224 // addiu v0, v0, -0x1
+    .word 0x2A085000 // slt at, v0, s0
+    .word 0x03002010 // beqz at, .L00144D80
+    .word 0xAC00C48E // lw a0, 0xAC(s6)
+    .word 0x04000010 // b .L00144D8C
+    .word 0xB000C28E // lw v0, 0xB0(s6)
+  // .L00144D80:
+    .word 0xB000C28E // lw v0, 0xB0(s6)
+    .word 0x80181000 // sll v1, s0, 2
+    .word 0x21104300 // addu v0, v0, v1
+  // .L00144D8C:
+    .word 0x0000458C // lw a1, 0x0(v0)
+    .word 0x98CB0C0C // jal func_332e60
+    .word 0x980B848C // lw a0, 0xB98(a0)
+    .word 0x288E4070 // paddub s1, v0, zero
+    .word 0x69002052 // beql s1, zero, .L00144F44
+    .word 0x01001026 // addiu s0, s0, 0x1
+    .word 0x0000398E // lw t9, 0x0(s1)
+    .word 0x6401398F // lw t9, 0x164(t9)
+    .word 0x09F82003 // jalr t9
+    .word 0x28262072 // paddub a0, s1, zero
+    .word 0x62004010 // beqz v0, .L00144F40
+    .word 0x00000000 // nop
+    .word 0xFFFF0224 // addiu v0, zero, -0x1
+    .word 0x0500A212 // beq s5, v0, .L00144DD8
+    .word 0xFFFF0224 // addiu v0, zero, -0x1
+    .word 0x24002286 // lh v0, 0x24(s1)
+    .word 0x5C005514 // bne v0, s5, .L00144F40
+    .word 0x00000000 // nop
+    .word 0xFFFF0224 // addiu v0, zero, -0x1
+  // .L00144DD8:
+    .word 0x06008212 // beq s4, v0, .L00144DF4
+    .word 0xFFFF0224 // addiu v0, zero, -0x1
+    .word 0x0400228E // lw v0, 0x4(s1)
+    .word 0x08004284 // lh v0, 0x8(v0)
+    .word 0x55005414 // bne v0, s4, .L00144F40
+    .word 0x00000000 // nop
+    .word 0xFFFF0224 // addiu v0, zero, -0x1
+  // .L00144DF4:
+    .word 0x06006212 // beq s3, v0, .L00144E10
+    .word 0xFFFF0224 // addiu v0, zero, -0x1
+    .word 0x0400228E // lw v0, 0x4(s1)
+    .word 0x0E004284 // lh v0, 0xE(v0)
+    .word 0x4E005314 // bne v0, s3, .L00144F40
+    .word 0x00000000 // nop
+    .word 0xFFFF0224 // addiu v0, zero, -0x1
+  // .L00144E10:
+    .word 0x0A004212 // beq s2, v0, .L00144E3C
+    .word 0xFFFF0224 // addiu v0, zero, -0x1
+    .word 0x0000398E // lw t9, 0x0(s1)
+    .word 0x6401398F // lw t9, 0x164(t9)
+    .word 0x09F82003 // jalr t9
+    .word 0x28262072 // paddub a0, s1, zero
+    .word 0x681C050C // jal func_1471A0
+    .word 0x0000448C // lw a0, 0x0(v0)
+    .word 0x43004216 // bne s2, v0, .L00144F40
+    .word 0x00000000 // nop
+    .word 0xFFFF0224 // addiu v0, zero, -0x1
+  // .L00144E3C:
+    .word 0x1400E212 // beq s7, v0, .L00144E90
+    .word 0xFFFF0224 // addiu v0, zero, -0x1
+    .word 0xBC00C28E // lw v0, 0xBC(s6)
+    .word 0xFFFF4224 // addiu v0, v0, -0x1
+    .word 0x2A085000 // slt at, v0, s0
+    .word 0x03002010 // beqz at, .L00144E60
+    .word 0x00000000 // nop
+    .word 0x04000010 // b .L00144E6C
+    .word 0xB000C28E // lw v0, 0xB0(s6)
+  // .L00144E60:
+    .word 0xB000C28E // lw v0, 0xB0(s6)
+    .word 0x80181000 // sll v1, s0, 2
+    .word 0x21104300 // addu v0, v0, v1
+  // .L00144E6C:
+    .word 0x0000D98E // lw t9, 0x0(s6)
+    .word 0x0000458C // lw a1, 0x0(v0)
+    .word 0x2826C072 // paddub a0, s6, zero
+    .word 0x5800398F // lw t9, 0x58(t9)
+    .word 0x09F82003 // jalr t9
+    .word 0x2836E072 // paddub a2, s7, zero
+    .word 0x2E004010 // beqz v0, .L00144F40
+    .word 0x00000000 // nop
+    .word 0xFFFF0224 // addiu v0, zero, -0x1
+  // .L00144E90:
+    .word 0x0900C213 // beq fp, v0, .L00144EB8
+    .word 0x00000000 // nop
+    .word 0x0000398E // lw t9, 0x0(s1)
+    .word 0x6401398F // lw t9, 0x164(t9)
+    .word 0x09F82003 // jalr t9
+    .word 0x28262072 // paddub a0, s1, zero
+    .word 0x701C050C // jal func_1471C0
+    .word 0x0000448C // lw a0, 0x0(v0)
+    .word 0x2300C217 // bne fp, v0, .L00144F40
+    .word 0x00000000 // nop
+  // .L00144EB8:
+    .word 0xAC00A28F // lw v0, 0xAC(sp)
+    .word 0xFFFF0324 // addiu v1, zero, -0x1
+    .word 0x0A004310 // beq v0, v1, .L00144EEC
+    .word 0x00000000 // nop
+    .word 0x0000398E // lw t9, 0x0(s1)
+    .word 0x6401398F // lw t9, 0x164(t9)
+    .word 0x09F82003 // jalr t9
+    .word 0x28262072 // paddub a0, s1, zero
+    .word 0x741C050C // jal func_1471D0
+    .word 0x0000448C // lw a0, 0x0(v0)
+    .word 0xAC00A38F // lw v1, 0xAC(sp)
+    .word 0x16006214 // bne v1, v0, .L00144F40
+    .word 0x00000000 // nop
+  // .L00144EEC:
+    .word 0xB800A28F // lw v0, 0xB8(sp)
+    .word 0xFFFF0324 // addiu v1, zero, -0x1
+    .word 0x04004310 // beq v0, v1, .L00144F08
+    .word 0x00000000 // nop
+    .word 0x39002392 // lbu v1, 0x39(s1)
+    .word 0x0F006214 // bne v1, v0, .L00144F40
+    .word 0x00000000 // nop
+  // .L00144F08:
+    .word 0xC000A28F // lw v0, 0xC0(sp)
+    .word 0xFFFF0324 // addiu v1, zero, -0x1
+    .word 0x09004350 // beql v0, v1, .L00144F38
+    .word 0x28162072 // paddub v0, s1, zero
+    .word 0x00008244 // mtc1 v0, f0
+    .word 0x400021C6 // lwc1 f1, 0x40(s1)
+    .word 0x20008046 // cvt.s.w f0, f0
+    .word 0x36080046 // c.le.s f1, f0
+    .word 0x00000000 // nop
+    .word 0x04000045 // bc1f .L00144F40
+    .word 0x00000000 // nop
+    .word 0x28162072 // paddub v0, s1, zero
+  // .L00144F38:
+    .word 0x08000010 // b .L00144F5C
+    .word 0x9000BF7B // lq ra, 0x90(sp)
+  // .L00144F40:
+    .word 0x01001026 // addiu s0, s0, 0x1
+  // .L00144F44:
+    .word 0xB400C28E // lw v0, 0xB4(s6)
+    .word 0x2A100202 // slt v0, s0, v0
+    .word 0x85FF4014 // bnez v0, .L00144D64
+    .word 0x00000000 // nop
+    .word 0x28160070 // paddub v0, zero, zero
+    .word 0x9000BF7B // lq ra, 0x90(sp)
+  // .L00144F5C:
+    .word 0x8000BE7B // lq fp, 0x80(sp)
+    .word 0x7000B77B // lq s7, 0x70(sp)
+    .word 0x6000B67B // lq s6, 0x60(sp)
+    .word 0x5000B57B // lq s5, 0x50(sp)
+    .word 0x4000B47B // lq s4, 0x40(sp)
+    .word 0x3000B37B // lq s3, 0x30(sp)
+    .word 0x2000B27B // lq s2, 0x20(sp)
+    .word 0x1000B17B // lq s1, 0x10(sp)
+    .word 0x0000B07B // lq s0, 0x0(sp)
+    .word 0x0800E003 // jr ra
+    .word 0xB000BD27 // addiu sp, sp, 0xB0
+    .set reorder
+    .set at
+}
+
+asm void func_00144F90(void *self, void *p1) {
+    .set noreorder
+    .set noat
+    .word 0xF0FFBD27 // addiu sp, sp, -0x10
+    .word 0x2836A070 // paddub a2, a1, zero
+    .word 0x4900023C // lui v0, %hi(D_490FC0)
+    .word 0x0000BF7F // sq ra, 0x0(sp)
+    .word 0x3015050C // jal func_001454C0
+    .word 0xC00F4524 // addiu a1, v0, %lo(D_490FC0)
+    .word 0x0000BF7B // lq ra, 0x0(sp)
+    .word 0xFFFF0224 // addiu v0, zero, -0x1
+    .word 0x0800E003 // jr ra
+    .word 0x1000BD27 // addiu sp, sp, 0x10
+    .set reorder
+    .set at
+}
+
+asm void func_00144FC0(void) {
+    .set noreorder
+    .set noat
+    .word 0x0800E003 // jr ra
+    .word 0x28160070 // paddub v0, zero, zero
+    .set reorder
+    .set at
+}
+
 }

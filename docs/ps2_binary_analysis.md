@@ -1137,22 +1137,22 @@ Directly following target entity queries sits an independent 12-byte callback / 
   - `+0x0A` (`unsigned char m_arg3`): Byte argument 3.
   - `+0x0B` (`unsigned char m_arg4`): Byte argument 4.
 
-### 6.87 `InfantryAI` Subsystem and Combat Dispatch (`0x1446E0`–`0x144A80`)
+### 6.87 `InfantryAI` Subsystem and Combat Dispatch (`0x1446E0`–`0x144FC0`)
 
-Directly following Tactical AI parameter descriptor routines sits the infantry combat subsystem (`InfantryAI`, `0x1446E0`–`0x144A80`), implementing combat entity initialization, initialization guard checks, list iteration, and rule dispatching (Metrowerks MWCCPS2 2.3.1.01):
+Directly following Tactical AI parameter descriptor routines sits the infantry combat subsystem (`InfantryAI`, `0x1446E0`–`0x144FC0`), implementing combat entity initialization, initialization guard checks, list iteration, candidate matching, and rule dispatching (Metrowerks MWCCPS2 2.3.1.01):
 
-* **`func_001446EC` (`0x1446EC`, 4 B code):**
-  - Empty stub / no-op method.
-* **`func_001446F0` (`0x1446F0`, 96 B code):**
-  - InfantryAI initialization routine setting up vtable pointer `D_4D7780` and invoking tactical methods.
-* **`func_00144750` / `func_001447E0` (`0x144750`–`0x14494C`, 368 B code):**
-  - Infantry AI candidate scanning and rule evaluation loops iterating over tactical target lists.
-* **`func_00144950` (`0x144950`, 148 B code):**
-  - Cleanup and reset routine for InfantryAI instance members and child lists.
-* **`func_00144A00` (`0x144A00`, 172 B code):**
-  - Candidate filtering and evaluation method querying target entities via `func_00226F70`.
+* **`func_001446EC`–`func_001446F0` (`0x1446EC`–`0x1446F0`, 100 B code):**
+  - Initialization routines setting up vtable pointer `0x4D7780` and invoking tactical methods.
+* **`func_00144750`–`func_00144950` (`0x144750`–`0x144950`, 520 B code):**
+  - Candidate scanning, target registration, and rule evaluation loops iterating over tactical target lists.
+* **`func_00144A00`–`func_00144C00` (`0x144A00`–`0x144C00`, 528 B code):**
+  - Candidate filtering, target resolution, and vtable method dispatcher (`func_00226F70`).
+* **`func_00144CF0`–`func_00144D10` (`0x144CF0`–`0x144D10`, 636 B code):**
+  - Advanced entity matching, conditional validation, floating-point proximity checks (`c.le.s`), and rule execution triggers.
+* **`func_00144F90`–`func_00144FC0` (`0x144F90`–`0x144FC0`, 48 B code):**
+  - Helper wrapper invoking `func_001454C0` with string table reference `D_490FC0`.
 
-#### 6.87.1 InfantryAI Matching Results (100.0% Unit Linked, 408 Functions Matched)
+#### 6.87.1 InfantryAI Matching Results (100.0% Unit Linked, 402 Functions Matched)
 
 | Function / Method | VRAM Address | Match Status | Description |
 |---|---|---|---|
@@ -1162,7 +1162,16 @@ Directly following Tactical AI parameter descriptor routines sits the infantry c
 | `func_001447E0` | `0x1447E0` | **100.0%** (368 / 368 B) | Candidate scan and loop evaluator. |
 | `func_00144950` | `0x144950` | **100.0%** (148 / 148 B) | Instance cleanup and child list destruction. |
 | `func_001449F0` | `0x1449F0` | **100.0%** (8 / 8 B) | Simple return stub. |
-| `func_00144A00` | `0x144A00` | **172 / 172 B** | Target filtering and predicate evaluation. |
+| `func_00144A00` | `0x144A00` | **100.0%** (172 / 172 B) | Target filtering and predicate evaluation. |
+| `func_00144AB0` | `0x144AB0` | **100.0%** (172 / 172 B) | Target lookup and validation routing. |
+| `func_00144B60` | `0x144B60` | **100.0%** (156 / 156 B) | Entity unlinking and candidate list cleanup. |
+| `func_00144C00` | `0x144C00` | **100.0%** (228 / 228 B) | Candidate evaluation and vtable method dispatcher. |
+| `func_00144CF0` | `0x144CF0` | **100.0%** (8 / 8 B) | Return stub. |
+| `func_00144D00` | `0x144D00` | **100.0%** (12 / 12 B) | Tail call jump to `func_332e60`. |
+| `func_00144D10` | `0x144D10` | **100.0%** (624 / 624 B) | Advanced target candidate matching and floating-point proximity checks. |
+| `func_00144F90` | `0x144F90` | **100.0%** (40 / 40 B) | Subsystem error / logging helper calling `func_001454C0`. |
+| `func_00144FC0` | `0x144FC0` | **100.0%** (8 / 8 B) | Return stub. |
+
 
 
 * **`func_0013C4F0` (`0x13C4F0`, 32 B code, 32 B slice):**

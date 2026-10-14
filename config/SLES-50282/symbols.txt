@@ -410,10 +410,16 @@ func_00141A70 = 0x141A70; // type:func TacticalAI.EvaluateNode(int, int, int)
 func_00141C70 = 0x141C70; // type:func TacticalAI.CheckSpatialPredicate(int)
 func_00141D40 = 0x141D40; // type:func TacticalAI2.TacticalAI2(int, int, int, int, int)
 func_00141EC0 = 0x141EC0; // type:func TacticalAI2.TacticalAI2(void*)
+func_00141F60 = 0x141F60; // type:func TacticalAI2.Destroy(int)
+func_00142050 = 0x142050; // type:func TacticalAI2.Save(void*)
+func_00142060 = 0x142060; // type:func TacticalAI2.QuerySpatialFlag(int, int)
+func_001420C0 = 0x1420C0; // type:func TacticalAI2.QuerySpatialTileFlag(int, int)
 func_144550 = 0x144550; // type:func absolute:True
 jtbl_490E80 = 0x490E80; // type:jtbl absolute:True
 D_4D7768 = 0x4D7768; // type:s32 absolute:True
 func_26AD90 = 0x26AD90; // type:func absolute:True
+func_26AE00 = 0x26AE00; // type:func absolute:True
+func_26AF90 = 0x26AF90; // type:func absolute:True
 func_145680 = 0x145680; // type:func absolute:True
 
 

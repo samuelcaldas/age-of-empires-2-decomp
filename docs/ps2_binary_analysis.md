@@ -2327,6 +2327,42 @@ Directly following spatial predicate evaluation sits the derived spatial AI subs
 | `func_00141D40` (`TacticalAI2::TacticalAI2`) | `0x141D40` | **99.89%** (380 / 380 B) | Derived TacticalAI2 primary constructor (ID 1013, vtable D_4D7768). |
 | `func_00141EC0` (`TacticalAI2::TacticalAI2`) | `0x141EC0` | **99.74%** (156 / 156 B) | Derived TacticalAI2 stream deserialization constructor. |
 
+### 6.68 Tactical / Spatial AI Subsystem Virtual Destructor, Save Thunk, and Spatial Flag Queries (`0x141F60`–`0x142130`, `tactical_ai_methods.cpp`)
+
+Directly following derived constructors sit the virtual destructor, save forwarder thunk, and spatial flag query methods (`TacticalAI2`, `0x141F60`–`0x142130`, 432 bytes of code across 4 methods, 464-byte slice, Metrowerks MWCCPS2 2.3.1.01):
+
+* **Architecture and Reverse Engineering:**
+  - Method: `func_00141F60` (`TacticalAI2::~TacticalAI2(int flag)`, 236 B code, VRAM `0x141F60`):
+    - Virtual scalar deleting destructor for derived subsystem `TacticalAI2`.
+    - Restores vtable `D_4D7768`.
+    - Iterates over active pointer array `0x3C($s1)`, freeing non-null entries with `func_26AE00(ptr, 1)`.
+    - Frees array buffer with `func_00100630`.
+    - Resets internal fields and invokes sub-component destructors `func_1456F0(&self->field_44, -1)` and `func_26AE00(&self->field_34, -1)`.
+    - Calls base class destructor `func_00140D40(self, 0)`.
+    - If `flag > 0`, invokes `operator delete` via `func_00100670(self)`.
+    - **99.83% match** (236 / 236 B, 100% byte-for-byte in linked binary).
+  - Method: `func_00142050` (`TacticalAI2::Save(void *stream)`, 8 B code, VRAM `0x142050`):
+    - Forwarding thunk dispatching tail call `j Save__10TacticalAIFPv`.
+    - **100.0% exact byte-for-byte match**.
+  - Method: `func_00142060` (`TacticalAI2::QuerySpatialFlag(int, int)`, 84 B code, VRAM `0x142060`):
+    - Subsystem spatial flag query delegating to `func_26AF90(&self->field_34, a1, &sp_2C)`.
+    - Evaluates returned flag byte against target `a2` and returns boolean status.
+    - **100.0% exact byte-for-byte match**.
+  - Method: `func_001420C0` (`TacticalAI2::QuerySpatialTileFlag(int, int)`, 104 B code, VRAM `0x1420C0`):
+    - Indexed spatial tile flag query retrieving buffer element `self->m_field3C[a1]` and invoking `func_26AF90`.
+    - Evaluates returned flag byte and returns boolean status.
+    - **100.0% exact byte-for-byte match**.
+
+* **Matching Results (4 / 4 Functions, 99.91% Unit Match):**
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_00141F60` (`TacticalAI2::~TacticalAI2`) | `0x141F60` | **99.83%** (236 / 236 B) | Virtual scalar deleting destructor with sub-allocator cleanup. |
+| `func_00142050` (`TacticalAI2::Save`) | `0x142050` | **100.0%** (8 / 8 B) | Forwarding thunk jumping to base TacticalAI::Save. |
+| `func_00142060` (`TacticalAI2::QuerySpatialFlag`) | `0x142060` | **100.0%** (84 / 84 B) | Subsystem spatial flag query via func_26AF90. |
+| `func_001420C0` (`TacticalAI2::QuerySpatialTileFlag`) | `0x1420C0` | **100.0%** (104 / 104 B) | Indexed spatial tile flag query via func_26AF90. |
+
+
 
 
 

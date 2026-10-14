@@ -2829,6 +2829,24 @@ Directly following node item methods sit the tactical condition node multi-arity
 | `func_144544` (`TacticalNode::ExecuteRule`) | `0x144544` | **100.0%** (332 / 332 B) | Multi-arity rule evaluator calling callback with 0-4 args. |
 | `func_00144694` (`TacticalNode::GetType`) | `0x144694` | **100.0%** (8 / 8 B) | Returns node type / arity flag field_C. |
 
+### 6.86 Infantry / Unit Tactical AI Constructor (`0x1446A0`–`0x1446F0`, `tactical_ai_param_desc.cpp`)
+
+Directly following condition node methods sits the constructor for the specialized unit AI subsystem (`InfantryAI`, ID `1005` / `0x3ED`, name `"InfAI"`, vtable `D_4D7780`, `0x1446A0`–`0x1446F0`, 76 bytes of code, 80-byte slice, Metrowerks MWCCPS2 2.3.1.01):
+
+* **Architecture and Reverse Engineering:**
+  - Method: `func_1446A0` (`InfantryAI::InfantryAI(void *p1, void *p2)`, 76 B code, VRAM `0x1446A0`):
+    - Subsystem constructor initializing the infantry/tactical combat AI component.
+    - Dispatches base initialization `func_1452B0(self, D_490F90, 1005, p2, p1)` where `D_490F90` is `"InfAI"`.
+    - Installs specialized vtable `D_4D7780`.
+    - **98.95% match** (76 / 76 B, 100% byte-for-byte in linked binary).
+
+* **Matching Results (1 / 1 Functions, 98.95% Unit Match):**
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_1446A0` (`InfantryAI::InfantryAI`) | `0x1446A0` | **98.95%** (76 / 76 B) | Constructor for Infantry AI subsystem (ID 1005, name "InfAI", vtable D_4D7780). |
+
+
 
 
 

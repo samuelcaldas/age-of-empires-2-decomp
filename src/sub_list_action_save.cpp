@@ -35,21 +35,20 @@ void func_0013BB70(SubList *self, void *stream) {
     func_00226F70(stream, &self->m_field4, 2);
     func_00226F70(stream, &self->m_fieldC, 1);
 
-    int id1;
-    if (self->m_field10) {
-        id1 = *(short*)((char*)self->m_field10 + 0x24);
+    int id;
+    if (!self->m_field10) {
+        id = -1;
     } else {
-        id1 = -1;
+        id = *(short*)((char*)self->m_field10 + 0x24);
     }
-    func_00226F70(stream, &id1, 4);
+    func_00226F70(stream, &id, 4);
 
-    int id2;
-    if (self->m_field14) {
-        id2 = *(short*)((char*)self->m_field14 + 0x24);
+    if (!self->m_field14) {
+        id = -1;
     } else {
-        id2 = -1;
+        id = *(short*)((char*)self->m_field14 + 0x24);
     }
-    func_00226F70(stream, &id2, 4);
+    func_00226F70(stream, &id, 4);
 
     func_00226F70(stream, &self->m_field18, 4);
     func_00226F70(stream, &self->m_field1C, 4);
@@ -59,22 +58,21 @@ void func_0013BB70(SubList *self, void *stream) {
     func_00226F70(stream, &self->m_field2C, 4);
     func_00226F70(stream, &self->m_field3D, 1);
 
-    short s1;
-    if (self->m_field30) {
-        s1 = *(short*)((char*)self->m_field30 + 0x2);
+    short s;
+    if (!self->m_field30) {
+        s = -1;
     } else {
-        s1 = -1;
+        s = *(short*)((char*)self->m_field30 + 0x2);
     }
-    func_00226F70(stream, &s1, 2);
+    func_00226F70(stream, &s, 2);
 
     func_00226F70(stream, &self->m_field3C, 1);
     ((BaseList*)self->m_field34)->Save(stream);
 
-    short s2;
-    if (self->m_field38) {
-        s2 = *(short*)((char*)self->m_field38 + 0x34);
+    if (!self->m_field38) {
+        s = -1;
     } else {
-        s2 = -1;
+        s = *(short*)((char*)self->m_field38 + 0x34);
     }
-    func_00226F70(stream, &s2, 2);
+    func_00226F70(stream, &s, 2);
 }

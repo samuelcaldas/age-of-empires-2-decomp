@@ -641,9 +641,15 @@ segments:
     vram: 0x146400
     subsegments:
       - [0x465F0, asm, trade_action_save]
+  - name: trade_action_load
+    type: code
+    start: 0x46C30
+    vram: 0x146A40
+    subsegments:
+      - [0x46C30, asm, trade_action_load]
   - name: post_base
     type: bin
-    start: 0x46C30
+    start: 0x47330
   - [0x3e31c0]
 
 

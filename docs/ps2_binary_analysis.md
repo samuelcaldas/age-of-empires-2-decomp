@@ -3091,6 +3091,17 @@ Following action cleanup sits the binary serialization routine `TradeAction::sav
 |---|---|---|---|
 | `func_00146400` | `0x146400` | **99.68%** (1596 / 1600 B) | `TradeAction::save` binary stream serialization via `func_00226F70`. |
 
+### 6.94 `Trade Action Deserialization` Subsystem (`0x146A40`–`0x147140`)
+
+Following serialization sits the binary deserialization routine `TradeAction::load` (`0x146A40`–`0x147140`, 1784 bytes code in Metrowerks C++), reconstructing trade actions, unpacked container items, version checks, and vector records via `func_00226D90`:
+
+#### 6.94.1 Trade Action Deserialization Matching Results (Pure C++, 1784 Bytes)
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_00146A40` | `0x146A40` | **70.10%** (1250 / 1784 B) | `TradeAction::load` binary stream deserialization via `func_00226D90`. |
+
+
 
 
 

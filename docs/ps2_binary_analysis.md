@@ -2267,6 +2267,37 @@ Directly following spatial node matrix routines sit the spatial tile node activa
 | `func_00141980` (`TacticalAI::ClearTileNode`) | `0x141980` | **100.0%** (160 / 160 B) | Sets node flag byte to 1 across spatial linked chain. |
 | `func_00141A20` (`TacticalAI::ValidateIndex`) | `0x141A20` | **100.0%** (68 / 68 B) | Spatial grid index bounds validator with `movz`. |
 
+### 6.66 Tactical / Spatial AI Predicate Logic and Rule Trigger Evaluators (`0x141A70`–`0x141D40`, `tactical_ai_predicates.cpp`)
+
+Directly following node flag manipulation sits the spatial predicate expression evaluator and rule trigger validator (`TacticalAI`, `0x141A70`–`0x141D40`, 712 bytes of code across 2 methods, 720-byte slice, Metrowerks MWCCPS2 2.3.1.01):
+
+* **Architecture and Reverse Engineering:**
+  - Method: `func_00141A70` (`TacticalAI::EvaluateNode(void *a1, int *a2)`, 504 B code, VRAM `0x141A70`):
+    - Recursive boolean expression tree evaluator for AI spatial decision rules.
+    - If node type is atomic (type 3), passes 5 parameters to condition handler `func_144550`.
+    - If node type is NOT (operator 0), evaluates child recursively and negates result (`xori $v0, $v0, 1`).
+    - For compound operators 1–6, evaluates left and right children and dispatches through jump table `jtbl_490E80`:
+      * Case 1: Logical AND (`s1 && v0`)
+      * Case 2: Logical XOR (`s1 ^ v0`)
+      * Case 3: Logical OR (`s1 || v0`)
+      * Case 4: Logical NOR (`!(s1 || v0)`)
+      * Case 5: Logical Equivalence / XNOR (`s1 == v0`)
+      * Case 6: Logical NAND (`!(s1 && v0)`)
+    - **99.92% match** (504 / 504 B, 100% byte-for-byte in linked binary).
+  - Method: `func_00141C70` (`TacticalAI::CheckSpatialPredicate(void *a1)`, 208 B code, VRAM `0x141C70`):
+    - Iterates over condition array up to count `0x6($s0)`, evaluating each via `func_00141A70`.
+    - Fails fast and returns 0 if any condition is false.
+    - If all conditions succeed, iterates action triggers from `0x6($s0)` to `0x7($s0)` and dispatches action executor `func_0013C580`.
+    - **100.0% exact byte-for-byte match**.
+
+* **Matching Results (2 / 2 Functions, 99.94% Unit Match):**
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_00141A70` (`TacticalAI::EvaluateNode`) | `0x141A70` | **99.92%** (504 / 504 B) | Recursive boolean expression tree evaluator with `jtbl_490E80`. |
+| `func_00141C70` (`TacticalAI::CheckSpatialPredicate`) | `0x141C70` | **100.0%** (208 / 208 B) | Rule predicate validator and action dispatcher with fail-fast. |
+
+
 
 
 

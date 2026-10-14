@@ -54,18 +54,18 @@ asm int func_13FEF0(DiplomacyAI *self, int a1, int a2, int a3, int t0) {
     .word 0x16B20006
     .word 0x00000000
     .word 0x72E02628
-    .word 0x0C0500A0
+    jal func_140280
     .word 0x72402E28
     .word 0x14400034
     .word 0x00000000
     .word 0x72E02628
-    .word 0x0C0500A0
+    jal func_140280
     .word 0x72402E28
     .word 0x24030001
     .word 0x1043002E
     .word 0x00000000
     .word 0x72E02628
-    .word 0x0C050088
+    jal func_140220
     .word 0x72402E28
     .word 0x24030001
     .word 0x10430028
@@ -83,7 +83,7 @@ asm int func_13FEF0(DiplomacyAI *self, int a1, int a2, int a3, int t0) {
     .word 0x8C420054
     .word 0x00531021
     .word 0x8C420000
-    .word 0x0C0C60A0
+    jal func_318280
     .word 0x8C440B90
     .word 0x02F31821
     .word 0x2A810002

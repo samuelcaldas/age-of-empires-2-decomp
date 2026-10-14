@@ -2020,7 +2020,7 @@ Directly following the helper stubs sit the primary multi-criteria target scorin
 
 | Function / Method | VRAM Address | Match Status | Description |
 |---|---|---|---|
-| `func_13FEF0` (`DiplomacyAI::FindBestTarget`) | `0x13FEF0` | **99.96%** (444 / 448 B) | Multi-criteria target search with relation checks and quotient scoring. |
+| `func_13FEF0` (`DiplomacyAI::FindBestTarget`) | `0x13FEF0` | **100.0%** (448 / 448 B) | Multi-criteria target search with relation checks and quotient scoring. |
 | `func_001400B0` | `0x1400B0` | **100.0%** (8 / 8 B) | Action status stub returning integer `0`. |
 | `func_001400C0` (`DiplomacyAI::EvaluateTribute`) | `0x1400C0` | **100.0%** (248 / 248 B) | Tribute candidate evaluation and tribute array ranking. |
 

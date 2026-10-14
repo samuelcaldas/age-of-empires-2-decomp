@@ -15,7 +15,7 @@ asm void* BaseList::RemoveHead() {
     .word 0x8C850008
     .word 0x70808E28
     .word 0x10A00012
-    .word 0x70000628
+    .word 0x70008628
     .word 0x8CA20004
     .word 0xAE220008
     .word 0x0C04E2D4

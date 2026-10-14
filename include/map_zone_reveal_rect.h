@@ -25,7 +25,7 @@ struct ZoneMapReveal {
     int m_height;
     int m_field1C;
     int pad_20;
-    int pad_24;
+    int m_field24;
     int m_field28;
     int m_field2C;
 };

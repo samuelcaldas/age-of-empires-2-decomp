@@ -77,9 +77,12 @@ segments:
     vram: 0x137e90
     subsegments:
       - [0x38070, asm, map_zone_los]
-  - name: post_screen2
-    type: bin
+  - name: map_zone_add_rect
+    type: code
     start: 0x38220
+    vram: 0x138040
+    subsegments:
+      - [0x38220, asm, map_zone_add_rect]
   - name: map_zone_rect
     type: code
     start: 0x38500

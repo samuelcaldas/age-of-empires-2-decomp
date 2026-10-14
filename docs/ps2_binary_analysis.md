@@ -1171,6 +1171,11 @@ Directly following Tactical AI parameter descriptor routines sits the infantry c
 | `func_00144D10` | `0x144D10` | **100.0%** (624 / 624 B) | Advanced target candidate matching and floating-point proximity checks. |
 | `func_00144F90` | `0x144F90` | **100.0%** (40 / 40 B) | Subsystem error / logging helper calling `func_001454C0`. |
 | `func_00144FC0` | `0x144FC0` | **100.0%** (8 / 8 B) | Return stub. |
+| `func_00144FD0` | `0x144FD0` | **100.0%** (528 / 528 B) | Complex entity matcher and proximity calculator (`c.lt.s`, division instruction sequences). |
+| `func_001451E0` | `0x1451E0` | **100.0%** (8 / 8 B) | Return stub. |
+| `func_001451F0` | `0x1451F0` | **100.0%** (16 / 16 B) | Frame setup stub. |
+| `func_00145200` | `0x145200` | **100.0%** (80 / 80 B) | Name initialization and string configuration helper calling `func_0011B170` / `func_0011ABBC`. |
+| `func_00145250` | `0x145250` | **100.0%** (16 / 16 B) | Object initializer frame setup. |
 
 
 

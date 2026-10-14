@@ -1,4 +1,4 @@
-assembly nao é permitido, mesmo que report seha de 100% match. é obrigatorio codigo c/c++
+assembly nao é permitido, mesmo que report seja de 100% match. é obrigatorio codigo c/c++
 
 Execute o ciclo contínuo de matching decompilation conforme especificado no prompt: selecionar o próximo alvo, atingir matching, compilar com ninja, documentar descobertas em docs/ e commitar.
 

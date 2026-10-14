@@ -485,9 +485,15 @@ segments:
     vram: 0x142980
     subsegments:
       - [0x42B60, asm, tactical_ai_scanner]
+  - name: tactical_ai_getters
+    type: code
+    start: 0x42E60
+    vram: 0x142C80
+    subsegments:
+      - [0x42E60, asm, tactical_ai_getters]
   - name: post_base
     type: bin
-    start: 0x42E60
+    start: 0x42EF0
   - [0x3e31c0]
 
 

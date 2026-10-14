@@ -2530,6 +2530,38 @@ Directly following candidate evaluation sit the core script lexer and rule token
 |---|---|---|---|
 | `func_142980` (`TacticalAI2::ScanSpatialCandidate`) | `0x142980` | **100.0%** (764 / 764 B) | Complete AI script lexical scanner, token classifier, and string parser. |
 
+### 6.75 Tactical / Spatial AI Candidate Queries and Scan Counter Increment (`0x142C80`–`0x142D10`, `tactical_ai_getters.cpp`)
+
+Directly following script tokenization sit candidate availability queries and scan iteration counter methods (`TacticalAI2`, `0x142C80`–`0x142D10`, 124 bytes of code across 4 methods, 144-byte slice, Metrowerks MWCCPS2 2.3.1.01):
+
+* **Architecture and Reverse Engineering:**
+  - Method: `func_00142C80` (`TacticalAI2::IsCandidateEmpty()`, 16 B code, VRAM `0x142C80`):
+    - Leaf query testing if candidate count is 0 (`return self->field_2FB4 == 0`).
+    - Uses MIPS `sltiu $v0, $v0, 1` zero-comparator pattern.
+    - **100.0% exact byte-for-byte match**.
+  - Method: `func_00142C90` (`TacticalAI2::HasValidCandidate()`, 16 B code, VRAM `0x142C90`):
+    - Leaf query testing if candidate count reached capacity 50 (`return self->field_2FB4 == 50`).
+    - Uses `xori $v0, $v0, 50` followed by `sltiu $v0, $v0, 1`.
+    - **100.0% exact byte-for-byte match**.
+  - Method: `func_00142CA0` (`TacticalAI2::GetCandidateOffset()`, 20 B code, VRAM `0x142CA0`):
+    - Index accessor retrieving word element at offset `self + 0x2FB4 + (self->field_2FB4 * 4)`.
+    - **100.0% exact byte-for-byte match**.
+  - Method: `func_00142CC0` (`TacticalAI2::IncrementScanCounter()`, 72 B code, VRAM `0x142CC0`):
+    - Increments scan counter `self->field_40++`.
+    - Bounds-checks if counter is less than 16 (`0x10`). If limit is reached, dispatches alert handler `func_144340(self, 0x14, 0)`.
+    - Returns status 1.
+    - **100.0% exact byte-for-byte match**.
+
+* **Matching Results (4 / 4 Functions, 100.0% Unit Match):**
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_00142C80` (`TacticalAI2::IsCandidateEmpty`) | `0x142C80` | **100.0%** (16 / 16 B) | Candidate count zero tester with sltiu. |
+| `func_00142C90` (`TacticalAI2::HasValidCandidate`) | `0x142C90` | **100.0%** (16 / 16 B) | Candidate capacity limit tester (count == 50). |
+| `func_00142CA0` (`TacticalAI2::GetCandidateOffset`) | `0x142CA0` | **100.0%** (20 / 20 B) | Candidate array element offset resolver. |
+| `func_00142CC0` (`TacticalAI2::IncrementScanCounter`) | `0x142CC0` | **100.0%** (72 / 72 B) | Scan cycle counter incrementer with threshold 16 alert. |
+
+
 
 
 

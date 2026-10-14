@@ -2937,7 +2937,7 @@ Directly following the `InfantryAI` constructor sits the complete suite of 42 vi
 | `func_001451F0` | `0x1451F0` | **100.0%** (16 / 16 B) | Tactical stack setup stub. |
 | `func_00145200` | `0x145200` | **98.95%** (76 / 76 B) | Component instance setup. |
 | `func_00145250` | `0x145250` | **100.0%** (16 / 16 B) | Tactical state stack entry. |
-| `func_00145260` | `0x145260` | **99.00%** (60 / 60 B) | Tactical unit unregister / release. |
+| `func_00145260` | `0x145260` | **99.33%** (60 / 60 B) | Tactical unit unregister / release; `func_00100670` call relocation preserved. |
 | `func_001452A0` | `0x1452A0` | **99.25%** (160 / 160 B) | Subsystem state allocation. |
 | `func_00145340` | `0x145340` | **99.20%** (100 / 100 B) | Unit registry reset. |
 | `func_001453B0` | `0x1453B0` | **98.82%** (68 / 68 B) | Formation slot binding. |

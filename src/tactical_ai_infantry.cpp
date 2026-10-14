@@ -4,6 +4,7 @@ extern "C" {
 
 void *func_332e60(void *mgr, int id);
 void func_001454C0(void *self, const char *format, ...);
+void *func_00100670(void *self);
 
 asm void func_001446EC(void) {
     .set noreorder
@@ -925,7 +926,7 @@ asm void func_00145260(void) {
     .word 0x0002143F // dsra32     $v0, $v0, 16
     .word 0x18400003 // blez       $v0, .L00145288
     .word 0xAE030000 // sw        $v1, 0x0($s0)
-    .word 0x0C04019C // jal        func_00100670
+    jal func_00100670
     .word 0x00000000 // nop
   // .L00145288:
     .word 0x72001628 // paddub     $v0, $s0, $zero

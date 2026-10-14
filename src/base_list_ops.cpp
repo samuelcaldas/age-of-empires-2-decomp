@@ -1,47 +1,42 @@
 #include "base_list.h"
 
+#pragma exceptions off
+
 extern "C" {
 void func_366af0(void*, void*);
 void FreeNode__8BaseListFP8ListNode(void*, void*);
 extern int D_4E35DC;
 }
 
-asm void* BaseList::RemoveHead() {
-    .set noreorder
-    .set noat
-    .word 0x27BDFFD0
-    .word 0x7FBF0020
-    .word 0x7FB10010
-    .word 0x7FB00000
-    .word 0x8C850008
-    .word 0x70808E28
-    .word 0x10A00012
-    .word 0x70008628
-    .word 0x8CA20004
-    .word 0xAE220008
-    jal FreeNode__8BaseListFP8ListNode
-    .word 0x8CB00000
-    .word 0x8E230008
-    .word 0x1060000C
-    .word 0x72001628
-    .word 0x8E220004
-    .word 0x90420039
-    .word 0x28410003
-    .word 0x10200006
-    .word 0x00000000
-    .word 0x8C640000
-    .word 0x8C990000
-    .word 0x8F390024
-    .word 0x0320F809
-    .word 0x70002E28
-    .word 0x72001628
-    .word 0x7BBF0020
-    .word 0x7BB10010
-    .word 0x7BB00000
-    .word 0x03E00008
-    .word 0x27BD0030
-    .set reorder
-    .set at
+struct ListItemSimple {
+    virtual void v0();
+    virtual void v1();
+    virtual void v2();
+    virtual void v3();
+    virtual int Action();
+    virtual void Save(void *stream);
+    virtual short v8();
+    virtual void Method9(void *a = 0);
+    virtual bool Method10();
+    virtual void Method11();
+    virtual bool Method12();
+    virtual int Method13();
+    virtual int Method14();
+    virtual int Method15();
+};
+
+void* BaseList::RemoveHead() {
+    void *item = 0;
+    ListNode *head = this->m_head;
+    if (head) {
+        this->m_head = head->next;
+        item = head->item;
+        this->FreeNode(head);
+        if (this->m_head && ((WorldObj*)this->m_field4)->field_39 < 3) {
+            ((ListItemSimple*)this->m_head->item)->Method9(0);
+        }
+    }
+    return item;
 }
 
 void BaseList::PushHead(void *item) {
@@ -60,39 +55,13 @@ int BaseList::HasItems() {
     return this->m_head ? 1 : 0;
 }
 
-asm int BaseList::Contains(int type) {
-    .set noreorder
-    .set noat
-    .word 0x27BDFFD0
-    .word 0x7FBF0020
-    .word 0x7FB10010
-    .word 0x7FB00000
-    .word 0x8C900008
-    .word 0x1000000E
-    .word 0x70A08E28
-    .word 0x8E040000
-    .word 0x8C990000
-    .word 0x8F390020
-    .word 0x0320F809
-    .word 0x00000000
-    .word 0x0002143C
-    .word 0x0002143F
-    .word 0x16220003
-    .word 0x00000000
-    .word 0x10000006
-    .word 0x24020001
-    .word 0x8E100004
-    .word 0x00000000
-    .word 0x1600FFF2
-    .word 0x00000000
-    .word 0x70001628
-    .word 0x7BBF0020
-    .word 0x7BB10010
-    .word 0x7BB00000
-    .word 0x03E00008
-    .word 0x27BD0030
-    .set reorder
-    .set at
+int BaseList::Contains(int type) {
+    for (ListNode *curr = this->m_head; curr; curr = curr->next) {
+        if (((ListItemSimple*)curr->item)->v8() == type) {
+            return 1;
+        }
+    }
+    return 0;
 }
 
 int BaseList::CallMethod13() {
@@ -109,27 +78,11 @@ int BaseList::CallMethod14() {
     return 0;
 }
 
-asm int BaseList::CallMethod15() {
-    .set noreorder
-    .set noat
-    .word 0x27BDFFF0
-    .word 0x7FBF0000
-    .word 0x8C820008
-    .word 0x50400009
-    .word 0x70001628
-    .word 0x8C440000
-    .word 0x8C990000
-    .word 0x8F39003C
-    .word 0x0320F809
-    .word 0x00000000
-    .word 0x10000003
-    .word 0x7BBF0000
-    .word 0x70001628
-    .word 0x7BBF0000
-    .word 0x03E00008
-    .word 0x27BD0010
-    .set reorder
-    .set at
+int BaseList::CallMethod15() {
+    if (this->m_head) {
+        return ((ListItemSimple*)this->m_head->item)->Method15();
+    }
+    return 0;
 }
 
 void* BaseList::GetHeadItem() {
@@ -139,39 +92,13 @@ void* BaseList::GetHeadItem() {
     return 0;
 }
 
-asm void* BaseList::FindItem(int type) {
-    .set noreorder
-    .set noat
-    .word 0x27BDFFD0
-    .word 0x7FBF0020
-    .word 0x7FB10010
-    .word 0x7FB00000
-    .word 0x8C900008
-    .word 0x1000000E
-    .word 0x70A08E28
-    .word 0x8E040000
-    .word 0x8C990000
-    .word 0x8F390020
-    .word 0x0320F809
-    .word 0x00000000
-    .word 0x0002143C
-    .word 0x0002143F
-    .word 0x16220003
-    .word 0x00000000
-    .word 0x10000006
-    .word 0x8E020000
-    .word 0x8E100004
-    .word 0x00000000
-    .word 0x1600FFF2
-    .word 0x00000000
-    .word 0x70001628
-    .word 0x7BBF0020
-    .word 0x7BB10010
-    .word 0x7BB00000
-    .word 0x03E00008
-    .word 0x27BD0030
-    .set reorder
-    .set at
+void* BaseList::FindItem(int type) {
+    for (ListNode *curr = this->m_head; curr; curr = curr->next) {
+        if (((ListItemSimple*)curr->item)->v8() == type) {
+            return curr->item;
+        }
+    }
+    return 0;
 }
 
 int BaseList::GetHeadItemField30() {

@@ -3214,7 +3214,22 @@ Following the update loop sits the merchant route registration and validation su
 - Match: 96.92% in pure C++.
 - Vtable: `D_4D7758`
 - Struct: Initializes `TacticalAI` base members including vector allocations for `TacticalNode` (size 24, via `func_1004E0`), `Obj12` (size 12, via `func_1004E0`), `Item16` (size 16), and `Item8` (size 8).
-### 6.98 `Trade Action Target Notification & Waypoint Movement Callbacks` Subsystem (`0x147CD0`–`0x147FB0`, `trade_action_callbacks.cpp`)
+### 6.99 `Trade Action Secondary Status & Command Validation` Subsystem (`0x147FB0`–`0x148038`, `trade_action_getters2.cpp`)
+
+Following the callback routines sits the secondary atomic accessors and command validator for `TradeAction` (`0x147FB0`–`0x148038`, 144 bytes in Metrowerks C++ PS2 MWCC 2.3.1.01):
+
+- `func_00147FB0` (`0x147FB0`, 8 bytes): No-op virtual/default hook. **100.0% pure C++ match**.
+- `func_00147FC0` (`0x147FC0`, 8 bytes): Secondary status validator returning constant 0. **100.0% pure C++ match**.
+- `func_00147FD0` (`0x147FD0`, 104 bytes): Trade action command predicate. Evaluates active state override (`m_field2D == 1`), contiguous trade command intervals (`0x258`–`0x259` and `0x25B`–`0x25C`), and specific action codes (`0x26A` / 618 and `0x264` / 612). **100.0% pure C++ match**.
+
+#### 6.99.1 Trade Action Secondary Getters Matching Results (100.0% Pure C++, 144 Bytes)
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_00147FB0` | `0x147FB0` | **100.0%** (8 / 8 B) | Default no-op hook. |
+| `func_00147FC0` | `0x147FC0` | **100.0%** (8 / 8 B) | Status predicate returning constant 0. |
+| `func_00147FD0` | `0x147FD0` | **100.0%** (104 / 104 B) | Trade action command validator (`0x258`..`0x26A`). |
+
 
 Following the route registration logic sits the trade action target notification and spatial movement callback subsystem (`0x147CD0`–`0x147FB0`, 736 bytes in Metrowerks C++ PS2 MWCC 2.3.1.01). It handles timer-based entity notifications, atomic lock synchronization via `func_1AAB30`/`func_1AAB70`, route spatial interpolation, and unit command notifications:
 

@@ -92,12 +92,10 @@ void *func_0013CDE0(BuildAI *self, void *p1, void *stream) {
     func_00226D90(stream, &self->m_field568, 4);
 
     int count;
-    int i = 0;
     if (D_004E2F24 > D_004E2AD0) {
         func_00226D90(stream, &count, 4);
-        i = 0;
     }
-    for (; i < count; i++) {
+    for (int i = 0; i < count; i++) {
         func_00226D90(stream, &len, 4);
         char name_buf[264];
         func_00226D90(stream, name_buf, len);

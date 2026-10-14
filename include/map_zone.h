@@ -3,8 +3,8 @@
 
 struct ZoneWorld {
     char pad_00[2976];
-    short m_fieldBA0;      // 2976 (0xBA0)
-    char pad_BA2[14];
+    int m_fieldBA0;        // 2976 (0xBA0)
+    char pad_BA4[12];
     char m_fieldBB0[12];   // 2992 (0xBB0)
     int m_fieldBBC;        // 3004 (0xBBC)
     char pad_BC0[100];

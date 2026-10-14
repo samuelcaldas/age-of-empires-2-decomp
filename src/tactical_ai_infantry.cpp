@@ -7,6 +7,8 @@ void func_001454C0(void *self, const char *format, ...);
 void *func_00100670(void *self);
 void func_0011B170(void *destination, const char *source, int length);
 void func_0011ABBC(void *destination, const char *source);
+void *func_001452B0(void *self, const char *name, int id, void *p2, void *p1);
+void *func_100730(void);
 
 asm void func_001446EC(void) {
     .set noreorder
@@ -62,7 +64,7 @@ asm void func_00144750(void) {
     .word 0x70A04628 // paddub     $t0, $a1, $zero
     .word 0x3C020049 // lui        $v0, %hi(D_490FA0)
     .word 0x24450FA0 // addiu      $a1, $v0, %lo(D_490FA0)
-    .word 0x0C0514AC // jal        func_001452B0
+    jal func_001452B0
     .word 0x240603E8 // addiu     $a2, $zero, 0x3E8
     .word 0x3C02004D // lui        $v0, %hi(D_4D77D0)
     .word 0x244577D0 // addiu      $a1, $v0, %lo(D_4D77D0)
@@ -79,7 +81,7 @@ asm void func_00144750(void) {
     .word 0x8FA2002C // lw         $v0, 0x2C($sp)
     .word 0xAC4000B8 // sw         $zero, 0xB8($v0)
     .word 0x8FA2002C // lw         $v0, 0x2C($sp)
-    .word 0x0C0401CC // jal        func_100730
+    jal func_100730
     .word 0xAC4300BC // sw        $v1, 0xBC($v0)
     .word 0x8FA3002C // lw         $v1, 0x2C($sp)
     .word 0xAC6200B0 // sw         $v0, 0xB0($v1)

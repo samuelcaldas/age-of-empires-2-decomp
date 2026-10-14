@@ -436,6 +436,7 @@ func_00142CC0 = 0x142CC0; // type:func TacticalAI2.IncrementScanCounter()
 func_00142D10 = 0x142D10; // type:func TacticalAI2.ParseRuleBlock(int, int)
 func_00143020 = 0x143020; // type:func TacticalAI2.CompileRuleExpression(int, int)
 func_143440 = 0x143440; // type:func TacticalAI2.AnalyzeCandidateTarget()
+func_143860 = 0x143860; // type:func TacticalAI2.EvaluateActionBlock()
 func_100850 = 0x100850; // type:func absolute:True
 func_144550 = 0x144550; // type:func absolute:True
 jtbl_490E80 = 0x490E80; // type:jtbl absolute:True
@@ -447,7 +448,6 @@ func_145680 = 0x145680; // type:func absolute:True
 func_144310 = 0x144310; // type:func absolute:True
 func_144340 = 0x144340; // type:func absolute:True
 func_21A3F0 = 0x21A3F0; // type:func absolute:True
-func_143860 = 0x143860; // type:func absolute:True
 func_26B0A0 = 0x26B0A0; // type:func absolute:True
 D_490E9C = 0x490E9C; // type:asciz absolute:True
 func_11A7BC = 0x11A7BC; // type:func absolute:True
@@ -465,5 +465,11 @@ D_490EA8 = 0x490EA8; // type:asciz absolute:True
 D_490EB8 = 0x490EB8; // type:asciz absolute:True
 D_490EC0 = 0x490EC0; // type:asciz absolute:True
 D_48E101 = 0x48E101; // type:s8 absolute:True
+func_1442E0 = 0x1442E0; // type:func absolute:True
+func_144180 = 0x144180; // type:func absolute:True
+D_490ED0 = 0x490ED0; // type:asciz absolute:True
+D_490EF0 = 0x490EF0; // type:asciz absolute:True
+D_490F08 = 0x490F08; // type:asciz absolute:True
+D_490F10 = 0x490F10; // type:asciz absolute:True
 
 

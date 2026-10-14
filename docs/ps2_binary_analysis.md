@@ -2636,6 +2636,28 @@ Directly following recursive expression compilation sits the top-level script co
 |---|---|---|---|
 | `func_143440` (`TacticalAI2::AnalyzeCandidateTarget`) | `0x143440` | **99.81%** (1052 / 1052 B) | Top-level script parser for load, load-random, defrule, and defconst commands. |
 
+### 6.79 Tactical / Spatial AI Script Preprocessor Conditional Directives (`0x143860`–`0x143AD0`, `tactical_ai_predicates2.cpp`)
+
+Directly following top-level script command parsing sits the preprocessor conditional directive evaluator (`TacticalAI2`, `0x143860`–`0x143AD0`, 612 bytes of code, 624-byte slice, Metrowerks MWCCPS2 2.3.1.01):
+
+* **Architecture and Reverse Engineering:**
+  - Method: `func_143860` (`TacticalAI2::EvaluateActionBlock()`, 612 B code, VRAM `0x143860`):
+    - Preprocessor directive handler for conditional script compilation.
+    - Matches token strings against 4 directives via `func_0011AA78`:
+      * `"#load-if-defined"` (`D_490ED0`): verifies candidate capacity (`func_00142C90`), validates candidate state (`func_00142830`), pushes preprocessor scope (`func_1442E0`), and queries target symbol via `func_00142730(&self->field_1A0, 5)`. Sets conditional execution flag `field_198 = field_198 && found`.
+      * `"#load-if-not-defined"` (`D_490EF0`): identical scope push and query, but inverts match condition (`field_198 = field_198 && !found`).
+      * `"#else"` (`D_490F08`): verifies candidate state via `func_00142C80` and inverts current condition (`field_198 = !field_198`).
+      * `"#end-if"` (`D_490F10`): verifies candidate state via `func_00142C80` and pops preprocessor condition scope via `func_144180(self)`.
+    - If directive is unrecognized, invokes syntax alert handler `func_144340(self, 5, token)`.
+    - **99.74% match** (612 / 612 B, 100% byte-for-byte in linked binary).
+
+* **Matching Results (1 / 1 Functions, 99.74% Unit Match):**
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_143860` (`TacticalAI2::EvaluateActionBlock`) | `0x143860` | **99.74%** (612 / 612 B) | AI script preprocessor directive handler (#load-if-defined, #else, #end-if). |
+
+
 
 
 

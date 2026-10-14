@@ -1893,6 +1893,37 @@ Directly following `diplomacy_ai_init` sits the periodic player stance evaluatio
 | `func_0013F910` | `0x13F910` | **100.0%** (216 / 216 B) | Periodic player stance evaluator and alliance update dispatcher. |
 | `Save__11DiplomacyAIFPv` (`DiplomacyAI::Save`) | `0x13F9F0` | **100.0%** (148 / 148 B) | Stream serializer for stance, tribute, and status arrays. |
 
+### 6.54 DiplomacyAI Stance Query and Modification (`0x13FA90`–`0x13FC80`, `diplomacy_ai_query.cpp`)
+
+Directly following `diplomacy_ai_save` sit the primary stance query and relationship modifier routines (`DiplomacyAI`, `0x13FA90`–`0x13FC80`, 492 bytes of code across 2 methods, 496-byte slice, Metrowerks MWCCPS2 2.3.1.01):
+
+* **Architecture and Reverse Engineering:**
+  - Method: `func_0013FA90` (`DiplomacyAI::GetStance(int player, int mode)`, 192 B code, VRAM `0x13FA90`):
+    - Validates target `player > 0` and `player < num_players`. Returns `-1` on boundary violation.
+    - Inspects mode parameter `$a2`:
+      - Mode `0`: returns raw stance offset `m_fieldB0[player]`.
+      - Mode `1`: calculates symmetric diplomatic balance: `(100 - |49 - m_fieldB0[player]| - |49 - m_fieldD8[player]|)`, clamped to `[0, 100]`.
+      - Mode `2`: returns tribute/relationship offset `m_fieldD8[player]`.
+    - **100.0% exact byte-for-byte match**.
+  - Method: `func_13FB50` (`DiplomacyAI::SetStance(int player, int a2, int a3)`, 300 B code, VRAM `0x13FB50`):
+    - Validates target `player > 0` and `player < num_players`.
+    - Dispatches stance alteration based on category `$a2`:
+      - Category `0`: increments `m_fieldB0[player] += a3`, clamping based on `m_field100[player]`:
+        - If `m_field100[player] != 0`: clamped to `[0, 100]`.
+        - If `m_field100[player] == 0`: clamped to `[50, 100]`.
+      - Category `2`: increments `m_fieldD8[player] += a3`, clamping:
+        - If `m_field100[player] != 0`: clamped to `[0, 100]`.
+        - If `m_field100[player] == 0`: clamped to `[0, 48]`.
+    - **100.0% exact byte-for-byte match**.
+
+* **Matching Results (2 / 2 Functions 100.0%, 100.0% Exact Unit Match):**
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_0013FA90` (`DiplomacyAI::GetStance`) | `0x13FA90` | **100.0%** (192 / 192 B) | Stance score evaluator with 3 mode branches and delta calculation. |
+| `func_13FB50` (`DiplomacyAI::SetStance`) | `0x13FB50` | **100.0%** (300 / 300 B) | Stance and tribute modifier with category branches and range clamps. |
+
+
 
 
 

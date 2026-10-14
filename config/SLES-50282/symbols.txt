@@ -399,5 +399,9 @@ func_00141250 = 0x141250; // type:func
 func_00141370 = 0x141370; // type:func
 func_00141470 = 0x141470; // type:func
 func_001414A0 = 0x1414A0; // type:func
+func_00141500 = 0x141500; // type:func TacticalAI::AllocateMatrix(int)
+func_00141630 = 0x141630; // type:func TacticalAI::ResetMatrix(int)
+func_00141760 = 0x141760; // type:func TacticalAI::ScanNodes(int, int)
+func_001418B0 = 0x1418B0; // type:func TacticalAI::ClearActiveNode(int)
 
 

@@ -2207,6 +2207,40 @@ Directly following spatial item insertion sits the tile coordinate query, grid d
 | `func_00141470` (`TacticalAI::GetWidth`) | `0x141470` | **100.0%** (36 / 36 B) | Spatial grid width accessor. |
 | `func_001414A0` (`TacticalAI::GetHeight`) | `0x1414A0` | **99.78%** (92 / 92 B) | Spatial grid height accessor with relation query. |
 
+### 6.64 Tactical / Spatial AI Dynamic Spatial Matrix and Node Allocators (`0x141500`–`0x1418E0`, `tactical_ai_matrix.cpp`)
+
+Directly following spatial tile querying sits the spatial matrix allocation, buffer resetting, and unit node iteration algorithms (`TacticalAI`, `0x141500`–`0x1418E0`, 972 bytes of code across 4 methods, 992-byte slice, Metrowerks MWCCPS2 2.3.1.01):
+
+* **Architecture and Reverse Engineering:**
+  - Method: `func_00141500` (`TacticalAI::AllocateSpatialMatrix(int count)`, 296 B code, VRAM `0x141500`):
+    - Searches existing matrix slots in array `0x20($s3)` up to count `0x1C($a0)`.
+    - Allocates element buffer via `func_100730`, calls vector constructor `func_1004E0` with element size `0x148`, constructor `func_00145680` and destructor `func_001456F0`.
+    - Initializes 100-entry short index lookup table in secondary buffer `0x24($s3)` filled with `-1`.
+    - **99.73% match** (300 / 300 B, 100% byte-for-byte in linked binary).
+  - Method: `func_00141630` (`TacticalAI::ResetSpatialMatrix(int index)`, 300 B code, VRAM `0x141630`):
+    - Validates index via `func_141A20`. Calls vector destructor `func_1002A0` with `func_001456F0` if existing node buffer is active.
+    - Reallocates buffer with `func_100730` and reinitializes elements via `func_1004E0`.
+    - Frees previous index table with `func_00100630`, reallocates 100-entry array initialized to `-1`.
+    - **99.60% match** (300 / 300 B, 100% byte-for-byte in linked binary).
+  - Method: `func_00141760` (`TacticalAI::ScanSpatialNodes(int a1, int a2)`, 336 B code, VRAM `0x141760`):
+    - Validates index with `func_141A20`. Dispatches node setup across all active layers up to `0xE($s3)` via `func_144530`.
+    - Traverses active node list `0xA($v1)`, verifies active flag at offset `0x5`, and evaluates spatial predicates with `func_141C70`.
+    - Stores count results into output coordinates `a2`.
+    - **100.0% exact byte-for-byte match**.
+  - Method: `func_001418B0` (`TacticalAI::ClearActiveNode(int a1)`, 36 B code, VRAM `0x1418B0`):
+    - Checks active node pointer at `0x28(self)`, clears flag byte `0x5(node)`, and returns status.
+    - **100.0% exact byte-for-byte match**.
+
+* **Matching Results (4 / 4 Functions, 99.83% Unit Match):**
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_00141500` (`TacticalAI::AllocateMatrix`) | `0x141500` | **99.73%** (300 / 300 B) | Spatial node matrix allocator with vector constructor call. |
+| `func_00141630` (`TacticalAI::ResetMatrix`) | `0x141630` | **99.60%** (300 / 300 B) | Spatial node matrix reset and vector destruction/realloc. |
+| `func_00141760` (`TacticalAI::ScanNodes`) | `0x141760` | **100.0%** (336 / 336 B) | Spatial node predicate evaluator and count accumulator. |
+| `func_001418B0` (`TacticalAI::ClearActiveNode`) | `0x1418B0` | **100.0%** (36 / 36 B) | Active node flag byte clearer. |
+
+
 
 
 

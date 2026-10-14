@@ -201,6 +201,8 @@ Starting at VRAM `0x137810` (file offset `0x379e0`), the binary transitions from
 | `DiplomacyAI::IsEnemy(int)` (`func_140280`) | `0x140280` | **100.0%** (96 / 96 B) | Returns 1 if player is self, or if valid and within player count with enemy/none stance (0). |
 | `DiplomacyAI::IsMutualRelation(int)` (`func_1402E0`) | `0x1402E0` | **100.0%** (120 / 120 B) | Queries other player's virtual method CheckRelation (slot 0x24) passing own player_id. |
 | `DiplomacyAI::Save(void*)` | `0x13F9F0` | **100.0%** (148 / 148 B) | Serializer streaming 10 player entries across fields `0xB0`, `0xD8`, and `0x100` via `func_00226F70`. |
+| `DiplomacyAI::GetStance(int, int)` (`func_0013FA90`) | `0x13FA90` | **100.0%** (192 / 192 B) | Stance query returning stance value for enemy/allied or calculating 100 - diff1 - diff2 neutrality score for neutral mode. |
+| `DiplomacyAI::SetStance(int, int, int)` (`func_13FB50`) | `0x13FB50` | **100.0%** (300 / 300 B) | Incremental stance modification adding delta to fieldB0 or fieldD8 with bounds clamping. |
 | `TacticalAI2::EndScriptScope()` (`func_144050`) | `0x144050` | **100.0%** (300 / 300 B) | Scope terminator popping from 10-entry array `0x6C4`, restoring 6 fields and copying script name via `func_0011ABBC`. |
 | `TacticalAI2::PopConditionScope()` (`func_144180`) | `0x144180` | **100.0%** (36 / 36 B) | Leaf method popping condition scope index from `0x2FB8` array and restoring to `0x198`. |
 | `SubListBuildItem::Init(...)` (`func_0013C960`) | `0x13C960` | **100.0%** (216 / 216 B) | Constructor/initializer delegating base state to `func_0013C6D0` and populating fields and targets array. |

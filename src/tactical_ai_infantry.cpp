@@ -887,14 +887,14 @@ asm void func_00145200(void) {
     .word 0x10A00006 // beqz       $a1, .L00145228
     .word 0xAC860004 // sw        $a2, 0x4($a0)
     .word 0x26040008 // addiu      $a0, $s0, 0x8
-    .word 0x0C046C5C // jal        func_0011B170
+    jal func_0011B170
     .word 0x2406003F // addiu     $a2, $zero, 0x3F
     .word 0x10000006 // b          .L0014523C
     .word 0x72001628 // paddub    $v0, $s0, $zero
   // .L00145228:
     .word 0x3C020049 // lui        $v0, %hi(D_490FEC)
     .word 0x26040008 // addiu      $a0, $s0, 0x8
-    .word 0x0C046AEF // jal        func_0011ABBC
+    jal func_0011ABBC
     .word 0x24450FEC // addiu     $a1, $v0, %lo(D_490FEC)
     .word 0x72001628 // paddub     $v0, $s0, $zero
   // .L0014523C:

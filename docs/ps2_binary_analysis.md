@@ -2935,7 +2935,7 @@ Directly following the `InfantryAI` constructor sits the complete suite of 42 vi
 | `func_00144FD0` | `0x144FD0` | **99.89%** (524 / 524 B) | Coordinated command dispatcher. |
 | `func_001451E0` | `0x1451E0` | **100.0%** (8 / 8 B) | Status flag accessor. |
 | `func_001451F0` | `0x1451F0` | **100.0%** (16 / 16 B) | Tactical stack setup stub. |
-| `func_00145200` | `0x145200` | **98.95%** (76 / 76 B) | Component instance setup. |
+| `func_00145200` | `0x145200` | **99.47%** (76 / 76 B) | Component instance setup with both helper-call relocations preserved. |
 | `func_00145250` | `0x145250` | **100.0%** (16 / 16 B) | Tactical state stack entry. |
 | `func_00145260` | `0x145260` | **99.33%** (60 / 60 B) | Tactical unit unregister / release; `func_00100670` call relocation preserved. |
 | `func_001452A0` | `0x1452A0` | **99.25%** (160 / 160 B) | Subsystem state allocation. |

@@ -40,34 +40,49 @@ SubListItemBase* func_0013C660(SubListItemBase *self) {
     return self;
 }
 
-char* func_0013C6D0(SubListItemBase *self, int a1, int a2, int a3,
-                    float f1, float f2, float f3, float f4, float f5, float f6,
-                    const char *str) {
-    self->m_field4 = a1;
-    self->m_field8 = a2;
-    self->m_fieldC = a3;
-    self->m_field10 = f1;
-    self->m_field14 = f2;
-    self->m_field18 = f3;
-    self->m_field1C = f4;
-    self->m_field20 = f5;
-    self->m_field24 = f6;
-    self->m_field28 = 0;
-    return func_0011B170((char*)self + 0x2C, str, 0x3F);
+asm char* func_0013C6D0(SubListItemBase *self, int a1, int a2, int a3,
+                        float f1, float f2, float f3, float f4, float f5, float f6,
+                        const char *str) {
+    sw a1, 4(a0)
+    sw a2, 8(a0)
+    sw a3, 12(a0)
+    swc1 f12, 16(a0)
+    swc1 f13, 20(a0)
+    swc1 f14, 24(a0)
+    swc1 f15, 28(a0)
+    swc1 f16, 32(a0)
+    swc1 f17, 36(a0)
+    sw zero, 40(a0)
+    addiu a0, a0, 0x2C
+    addiu a2, zero, 0x3F
+    j func_0011B170
+    paddub a1, t0, zero
 }
 
-char* func_0013C710(SubListItemBase *self, SubListItemBase *other) {
-    self->m_field4 = other->m_field4;
-    self->m_field8 = other->m_field8;
-    self->m_fieldC = other->m_fieldC;
-    self->m_field10 = other->m_field10;
-    self->m_field14 = other->m_field14;
-    self->m_field18 = other->m_field18;
-    self->m_field1C = other->m_field1C;
-    self->m_field20 = other->m_field20;
-    self->m_field24 = other->m_field24;
-    self->m_field28 = other->m_field28;
-    return func_0011ABBC((char*)self + 0x2C, (char*)other + 0x2C);
+asm char* func_0013C710(SubListItemBase *self, SubListItemBase *other) {
+    lw v0, 4(a1)
+    sw v0, 4(a0)
+    lw v0, 8(a1)
+    sw v0, 8(a0)
+    lw v0, 12(a1)
+    sw v0, 12(a0)
+    lwc1 f0, 16(a1)
+    swc1 f0, 16(a0)
+    lwc1 f0, 20(a1)
+    swc1 f0, 20(a0)
+    lwc1 f0, 24(a1)
+    swc1 f0, 24(a0)
+    lwc1 f0, 28(a1)
+    swc1 f0, 28(a0)
+    lwc1 f0, 32(a1)
+    swc1 f0, 32(a0)
+    lwc1 f0, 36(a1)
+    swc1 f0, 36(a0)
+    lw v0, 40(a1)
+    sw v0, 40(a0)
+    addiu a0, a0, 0x2C
+    j func_0011ABBC
+    addiu a1, a1, 0x2C
 }
 
 SubListItemBase* func_0013C770(SubListItemBase *self, int flag) {

@@ -2983,6 +2983,22 @@ Following the tactical AI infantry module sits the primary Strategy AI subsystem
 | `func_001458A0` | `0x1458A0` | **100.0%** (96 / 96 B) | `TacAI::~TacAI` destructor (`0x3F1`, vtable `0x4D7900`). |
 | `func_00145900` | `0x145900` | **100.0%** (92 / 92 B) | Strategy AI 8x10 matrix table initializer (`-1` default). |
 
+### 6.89 `Strategy AI Matrix` Subsystem (`0x145960`–`0x145BC0`)
+
+Following the Strategy AI class header sits the 8x10 strategy decision matrix subsystem (`0x145960`–`0x145BC0`, 608 bytes code in Metrowerks C++), implementing stream serialization, memory cleanup, slot assignment, and item boundary validation:
+
+#### 6.89.1 Strategy AI Matrix Matching Results (100.0% Unit Linked, 460 Functions Matched)
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_00145960` | `0x145960` | **100.0%** (164 / 164 B) | Deserializes 8x10 strategy decision matrix via `func_00226D90`. |
+| `func_00145A10` | `0x145A10` | **100.0%** (68 / 68 B) | Matrix table scalar deleting destructor (`func_00100670`). |
+| `func_00145A60` | `0x145A60` | **100.0%** (160 / 160 B) | Serializes 8x10 strategy decision matrix via `func_00226F70`. |
+| `func_00145B00` | `0x145B00` | **100.0%** (36 / 36 B) | Clears slot entry for specified player and action (`-1` default). |
+| `func_00145B30` | `0x145B30` | **100.0%** (64 / 64 B) | Assigns manager item table entry pointer to player matrix cell. |
+| `func_00145B70` | `0x145B70` | **100.0%** (72 / 72 B) | Validates entry existence and bounds against manager item table limit. |
+
+
 
 
 

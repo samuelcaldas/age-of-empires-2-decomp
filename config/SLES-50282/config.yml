@@ -581,9 +581,15 @@ segments:
     vram: 0x1456CC
     subsegments:
       - [0x458BC, asm, strategy_ai_init]
+  - name: strategy_ai_matrix
+    type: code
+    start: 0x45B50
+    vram: 0x145960
+    subsegments:
+      - [0x45B50, asm, strategy_ai_matrix]
   - name: post_base
     type: bin
-    start: 0x45B4C
+    start: 0x45DB0
   - [0x3e31c0]
 
 

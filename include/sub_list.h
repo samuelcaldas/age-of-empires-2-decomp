@@ -120,12 +120,13 @@ public:
     V_SLOT_10(16)
     V_SLOT_10(17)
     V_SLOT_10(18)
-    virtual void* v190(void *p, int a, int b);
-    virtual void* v191(void *p, int a, int b); virtual void* v192(); virtual void* v193(short arg); virtual void* v194(void *p);
+    virtual void* v192(void *other = 0, int a = 0, int b = -1); virtual void* v193(short arg); virtual void* v194(void *p);
     virtual void* v195(); virtual void* v196(void *p);
     virtual void* v197(short action_id, void *other, float x, float y, float z);
     virtual void* v198();
     virtual void* v199();
+    virtual void* v200();
+    virtual BaseList* v201();
 
     union {
         short m_field4_short;

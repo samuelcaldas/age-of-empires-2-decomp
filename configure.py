@@ -336,7 +336,6 @@ if config.platform == Platform.PS2:
                 Object(
                     Matching,
                     "base_list_stream_ops",
-                    source="base_list_stream_ops.s",
                     cflags=config.cflags,
                     toolchain_version="PS2/mwcc-2.3.1.01",
                 ),

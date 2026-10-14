@@ -178,6 +178,15 @@ Starting at VRAM `0x137810` (file offset `0x379e0`), the binary transitions from
 | `VisibleMap::SetupPointers()` (`func_00138960`) | `0x138960` | **100.0%** (128 / 128 B) | Calculates 200 row pointers in table `D_50A5A0` for map scanlines up to height and zeroes remainder. |
 | `VisibleMap::SetVisibleMode(int)` (`func_001389E0`) | `0x1389E0` | **100.0%** (16 / 16 B) | Sets global fog of war / visibility mode flag in `gp`-relative variable `D_004E3058`. |
 | `VisibleMap::Clear()` (`func_001389F0`) | `0x1389F0` | **100.0%** (80 / 80 B) | Resets map height to 0, updates row pointers, and zeroes buffer `0x27100` B via `memset`. |
+| `SubList::SetupSpatial()` | `0x139C80` | **100.0%** (64 / 64 B) | Spatial list initializer invoking `func_1DC180`, clearing `m_fieldC5`, and setting `m_fieldCC` via virtual call `v201()`. |
+| `SubList::Setup(void*)` | `0x139CC0` | **100.0%** (116 / 116 B) | Stream reader deserializing stream data via `func_1DC2E0`, reading 1 byte dummy, reading `m_fieldC5`, and delegating to `m_fieldCC->Load`. |
+| `SubList::CreateSubList()` | `0x139D40` | **100.0%** (16 / 16 B) | Factory tail call `j func_3668C0(D_10B68F0, this)` enabled by `#pragma exceptions off`. |
+| `SubList::Action()` | `0x139D50` | **100.0%** (44 / 44 B) | Action pump calling `func_266840(this)` and delegating to `m_fieldCC->Action()`. |
+| `SubList::Save(void*)` | `0x139D80` | **100.0%** (96 / 96 B) | Stream writer serializing stream data via `func_1DC6B0`, writing 1 byte dummy (`&(dummy = 0)` in branch delay slot), writing `m_fieldC5`, and delegating to `m_fieldCC->Save`. |
+| `SubList::Free()` | `0x139DE0` | **100.0%** (44 / 44 B) | Resource deallocator invoking `func_1DCAA0(this)` and `m_fieldCC->Free()`. |
+| `SubList::Teardown()` | `0x139E10` | **100.0%** (48 / 48 B) | Teardown method invoking `m_fieldCC->Free()` and `func_267DD0(this)`. |
+| `SubList::Noop()` | `0x139E40` | **100.0%** (8 / 8 B) | Empty method stub `jr $ra; nop`. |
+| `SubList::Notify(void*)` | `0x139E50` | **100.0%** (72 / 72 B) | Self-notification guard dispatching virtual call `v192(other, 0, -1)` and incrementing `m_fieldC5`. |
 | `BaseList::Reset(int)` | `0x138A40` | **100.0%** (12 / 12 B) | Method clearing count and updating capacity. |
 | `BaseList::BaseList(int)` | `0x138A50` | **100.0%** (96 / 96 B) | Constructor with explicit vtable assignment (`__vt__8BaseList`) and `Free()` invocation. |
 | `BaseList::Clear()` | `0x138AB0` | **100.0%** (44 / 44 B) | Method invoking `Free()` with quadword stack save/restore. |

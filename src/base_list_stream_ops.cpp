@@ -64,7 +64,7 @@ void SubList::Noop() {
 
 void SubList::Notify(void *other) {
     if (other != this) {
-        this->v192(other, 0, -1);
+        this->v190(other, 0, -1);
         this->m_fieldC5++;
     }
 }

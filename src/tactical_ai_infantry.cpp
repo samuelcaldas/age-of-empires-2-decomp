@@ -4,6 +4,7 @@ extern "C" {
 
 void *func_332e60(void *mgr, int id);
 void func_001454C0(void *self, const char *format, ...);
+extern const char D_490FC0[];
 void *func_00100670(void *self);
 void func_0011B170(void *destination, const char *source, int length);
 void func_0011ABBC(void *destination, const char *source);
@@ -688,21 +689,9 @@ asm void func_00144D10(void) {
     .set at
 }
 
-asm void func_00144F90(void) {
-    .set noreorder
-    .set noat
-    .word 0x27BDFFF0 // addiu      $sp, $sp, -0x10
-    .word 0x70A03628 // paddub     $a2, $a1, $zero
-    .word 0x3C020049 // lui        $v0, %hi(D_490FC0)
-    .word 0x7FBF0000 // sq         $ra, 0x0($sp)
-    jal func_001454C0
-    .word 0x24450FC0 // addiu     $a1, $v0, %lo(D_490FC0)
-    .word 0x7BBF0000 // lq         $ra, 0x0($sp)
-    .word 0x2402FFFF // addiu      $v0, $zero, -0x1
-    .word 0x03E00008 // jr         $ra
-    .word 0x27BD0010 // addiu     $sp, $sp, 0x10
-    .set reorder
-    .set at
+int func_00144F90(void *self, void *argument) {
+    func_001454C0(self, D_490FC0, argument);
+    return -1;
 }
 
 asm void func_00144FC0(void) {

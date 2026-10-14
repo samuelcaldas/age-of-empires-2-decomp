@@ -104,6 +104,7 @@ readelf -S orig/SLES-50282/AOK.ELF | grep -E 'symtab|debug'
        - **Compiler:** Metrowerks CodeWarrior for PlayStation 2, compiler version 2.3.1.01 (`mwccps2.exe`).
        - **Optimisation flags:** `-O3 -inline on -msext on -char signed -sym off -Iinclude -lang=c++`.
        - **Characteristics:** Uses 128-bit quadword register saving (`sq`/`lq`) in stack frames, `paddub $dst, $src, $zero` for 128-bit moves, and Metrowerks C++ ABI/symbol mangling. Delay-slot filling requires `-O3` (or `-opt level=3`).
+       - **Inline assembly note:** MWCCPS2 rejects GNU-style `%hi(symbol)` and `%lo(symbol)` operands in inline assembly. Existing matching sources therefore use literal `.word` encodings for address loads when necessary; this can preserve instruction bytes but does not preserve the reference object's relocation metadata.
        - **Verification:**
          - `ScreenObj::AspectRatio()` (`src/screen_obj.cpp`): **100.0% byte-for-byte match** (24 bytes, FPU `div.s` scheduled in `jr $ra` delay slot).
          - `BaseList::Reset()` (`src/base_list.cpp`): **100.0% byte-for-byte match** (12 bytes, virtual method).

@@ -17,9 +17,12 @@ dist/
 build/
 node_modules/
 vendor/
+compilers
 compilers/
 .splache
+.venv
 .venv/
+venv
 venv/
 __pycache__/
 *.py[cod]

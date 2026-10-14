@@ -449,9 +449,15 @@ segments:
     vram: 0x141F60
     subsegments:
       - [0x42140, asm, tactical_ai_methods]
+  - name: tactical_ai_dispatch
+    type: code
+    start: 0x42310
+    vram: 0x142130
+    subsegments:
+      - [0x42310, asm, tactical_ai_dispatch]
   - name: post_base
     type: bin
-    start: 0x42310
+    start: 0x424D0
   - [0x3e31c0]
 
 

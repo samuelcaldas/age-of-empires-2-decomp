@@ -2362,6 +2362,38 @@ Directly following derived constructors sit the virtual destructor, save forward
 | `func_00142060` (`TacticalAI2::QuerySpatialFlag`) | `0x142060` | **100.0%** (84 / 84 B) | Subsystem spatial flag query via func_26AF90. |
 | `func_001420C0` (`TacticalAI2::QuerySpatialTileFlag`) | `0x1420C0` | **100.0%** (104 / 104 B) | Indexed spatial tile flag query via func_26AF90. |
 
+### 6.69 Tactical / Spatial AI Event Dispatch and Spatial Flag Manipulators (`0x142130`–`0x1422F0`, `tactical_ai_dispatch.cpp`)
+
+Directly following spatial queries sit the spatial flag modifiers and object insertion event dispatcher (`TacticalAI2`, `0x142130`–`0x1422F0`, 412 bytes of code across 4 methods, 448-byte slice, Metrowerks MWCCPS2 2.3.1.01):
+
+* **Architecture and Reverse Engineering:**
+  - Method: `func_00142130` (`TacticalAI2::ResetSpatialFlag(int, int, int)`, 100 B code, VRAM `0x142130`):
+    - Indexed spatial tile flag reset using opcode type 2 and target flag `a3`.
+    - Dispatches to `func_26AF90` and evaluates returned flag comparison.
+    - **100.0% exact byte-for-byte match**.
+  - Method: `func_001421A0` (`TacticalAI2::SetSpatialFlag(int, int)`, 88 B code, VRAM `0x1421A0`):
+    - Subsystem spatial flag activator using opcode type 5 and value 1.
+    - Dispatches to `func_26AF90` on `&self->field_34`.
+    - **100.0% exact byte-for-byte match**.
+  - Method: `func_00142200` (`TacticalAI2::ClearSpatialFlag(int, int)`, 84 B code, VRAM `0x142200`):
+    - Subsystem spatial flag clearer using opcode type 2 and target flag `a2`.
+    - Dispatches to `func_26AF90` on `&self->field_34`.
+    - **100.0% exact byte-for-byte match**.
+  - Method: `func_00142260` (`TacticalAI2::DispatchSpatialEvent(int, int, int, int)`, 140 B code, VRAM `0x142260`):
+    - Inserts spatial object via base `func_00141170`. If return is `-1`, immediately aborts and returns 0.
+    - On success, triggers spatial event using opcode type 3 via `func_26AF90` on `&self->field_34`.
+    - **100.0% exact byte-for-byte match**.
+
+* **Matching Results (4 / 4 Functions, 100.0% Unit Match):**
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_00142130` (`TacticalAI2::ResetSpatialFlag`) | `0x142130` | **100.0%** (100 / 100 B) | Resets indexed tile spatial flag via func_26AF90. |
+| `func_001421A0` (`TacticalAI2::SetSpatialFlag`) | `0x1421A0` | **100.0%** (88 / 88 B) | Activates subsystem spatial flag via func_26AF90. |
+| `func_00142200` (`TacticalAI2::ClearSpatialFlag`) | `0x142200` | **100.0%** (84 / 84 B) | Clears subsystem spatial flag via func_26AF90. |
+| `func_00142260` (`TacticalAI2::DispatchSpatialEvent`) | `0x142260` | **100.0%** (140 / 140 B) | Inserts spatial object and dispatches event trigger. |
+
+
 
 
 

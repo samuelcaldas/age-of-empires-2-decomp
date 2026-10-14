@@ -239,6 +239,12 @@ if config.platform == Platform.PS2:
             "objects": [
                 Object(
                     Matching,
+                    "map_zone",
+                    cflags=config.cflags,
+                    toolchain_version="PS2/mwcc-2.3.1.01",
+                ),
+                Object(
+                    Matching,
                     "screen_obj",
                     cflags=config.cflags,
                     toolchain_version="PS2/mwcc-2.3.1.01",

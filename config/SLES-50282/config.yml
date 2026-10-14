@@ -50,6 +50,12 @@ segments:
   - name: post_mouse
     type: bin
     start: 0x360a0
+  - name: map_zone
+    type: code
+    start: 0x379f0
+    vram: 0x137810
+    subsegments:
+      - [0x379f0, asm, map_zone]
   - name: screen_obj
     type: code
     start: 0x37c00

@@ -1,3 +1,8 @@
+func_00137810 = 0x137810; // type:func MapZone.Save(void*)
+func_001378C0 = 0x1378C0; // type:func MapZone.GetTileFlag(int, int)
+func_00137920 = 0x137920; // type:func MapZone.ProcessTiles()
+func_002082B0 = 0x2082B0; // type:func absolute:True
+D_004E2A98 = 0x4E2A98; // type:f32 size:4 absolute:True
 AspectRatio__9ScreenObjFv = 0x137A20; // type:func ScreenObj.AspectRatio()
 func_00138760 = 0x138760; // type:func VisibleMap.__dt()
 func_00138770 = 0x138770; // type:func VisibleMap.__ct(int)

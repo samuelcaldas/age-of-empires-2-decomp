@@ -383,9 +383,15 @@ segments:
     vram: 0x1401C0
     subsegments:
       - [0x403A0, asm, diplomacy_ai_relations]
+  - name: emotional_ai_init
+    type: code
+    start: 0x40550
+    vram: 0x140370
+    subsegments:
+      - [0x40550, asm, emotional_ai_init]
   - name: post_base
     type: bin
-    start: 0x40550
+    start: 0x407E0
   - [0x3e31c0]
 
 

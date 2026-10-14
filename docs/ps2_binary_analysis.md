@@ -2021,6 +2021,53 @@ Directly following the target evaluation routines sit the final player relations
 | `func_1402E0` (`DiplomacyAI::CanInteract`) | `0x1402E0` | **100.0%** (120 / 120 B) | Polymorphic player capability check invoking virtual `Method9`. |
 | `func_00140360` | `0x140360` | **100.0%** (8 / 8 B) | Empty leaf callback stub. |
 
+### 6.58 EmotionalAI Initialization, Deserialization, and Personality Table (`0x140370`–`0x140600`, `emotional_ai_init.cpp`)
+
+Directly following `DiplomacyAI` sits the entry point to the Emotional AI subsystem (`EmotionalAI`, `0x140370`–`0x140600`, 624 bytes of code across 4 methods, 656-byte slice, Metrowerks MWCCPS2 2.3.1.01):
+
+* **Architecture and Reverse Engineering:**
+  - Class `EmotionalAI`:
+    - Vtable: `0x004D7710`.
+    - Subsystem label `"Emotional AI"` (`D_00490DF8`), module source ID `1004` (`0x3EC`).
+    - Internal layout: Base class (172 / `0xAC` bytes) + `int m_fieldAC` + `int m_fieldB0[6]` (24 B) + 6 personality string buffers (30 B each, total 180 B):
+      - `+0xC8`: `"Aggressive"` (`D_00490E08`)
+      - `+0xE6`: `"Compassionate"` (`D_00490E18`)
+      - `+0x104`: `"Defensive"` (`D_00490E28`)
+      - `+0x122`: `"Friendly"` (`D_00490E38`)
+      - `+0x140`: `"Passive"` (`D_00490E48`)
+      - `+0x15E`: `"Vengeful"` (`D_00490E50`)
+  - Method: `func_00140370` (`EmotionalAI::EmotionalAI(p1, p2)`, 244 B code, VRAM `0x140370`):
+    - Default/parameterized constructor. Preserves stack-spilled `this` slot at `0x1C($sp)` via `(void)&self;`.
+    - Chains base constructor `func_001452B0(self, "Emotional AI", 1004, p2, p1)`.
+    - Installs vtable `0x004D7710` and resets `m_fieldAC = 0`.
+    - Loops `for (int i = 0; i < 6; i++)`: initializes array `m_fieldB0[i] = 49`.
+    - Populates all 6 personality buffers using `func_0011ABBC`.
+    - **100.0% exact byte-for-byte match**.
+  - Method: `func_00140470` (`EmotionalAI::EmotionalAI(p1, stream)`, 272 B code, VRAM `0x140470`):
+    - Stream deserialization constructor. Preserves stack-spilled `this` slot at `0x3C($sp)`.
+    - Chains base constructor `func_001452B0(self, "Emotional AI", 1004, p1, 0)`.
+    - Installs vtable `0x004D7710` and resets `m_fieldAC = 0`.
+    - Loops `for (int i = 0; i < 6; i++)`: deserializes 4 bytes into `&m_fieldB0[i]` via stream reader `func_00226D90`.
+    - Re-populates the 6 personality buffers using `func_0011ABBC`.
+    - **100.0% exact byte-for-byte match**.
+  - Method: `func_00140580` (`EmotionalAI::~EmotionalAI(flag)`, 100 B code, VRAM `0x140580`):
+    - Virtual deleting destructor. Reinstalls vtable `0x004D7710`, resets `m_fieldAC = 0`, invokes base destructor `func_00145350(self, 0)`.
+    - Evaluates `(short)flag > 0`, invoking `operator delete(self)` (`func_00100670`) if true.
+    - **100.0% exact byte-for-byte match**.
+  - Method: `func_001405F0` (`EmotionalAI::SetFieldAC(val)`, 8 B code, VRAM `0x1405F0`):
+    - Leaf method storing `val` directly into `self->m_fieldAC` (`0xAC($a0)`).
+    - **100.0% exact byte-for-byte match**.
+
+* **Matching Results (4 / 4 Functions 100.0%, 100.0% Exact Unit Match):**
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_00140370` (`EmotionalAI::EmotionalAI`) | `0x140370` | **100.0%** (244 / 244 B) | Default constructor initializing 6 emotional traits to 49 and populating personality strings. |
+| `func_00140470` (`EmotionalAI::EmotionalAI`) | `0x140470` | **100.0%** (272 / 272 B) | Stream deserialization constructor reading trait values and setting personality strings. |
+| `func_00140580` (`EmotionalAI::~EmotionalAI`) | `0x140580` | **100.0%** (100 / 100 B) | Virtual scalar deleting destructor matching 100% byte-for-byte. |
+| `func_001405F0` (`EmotionalAI::SetFieldAC`) | `0x1405F0` | **100.0%** (8 / 8 B) | Leaf field setter method matching 100% byte-for-byte. |
+
+
 
 
 

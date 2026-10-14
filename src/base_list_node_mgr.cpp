@@ -125,7 +125,7 @@ asm void BaseList::DeleteHead() {
     .word 0x00000000
     .word 0x72002E28
     jal FreeNode__8BaseListFP8ListNode
-    .word 0x72002628
+    .word 0x72202628
     .word 0x8E240008
     .word 0x1080000B
     .word 0x00000000

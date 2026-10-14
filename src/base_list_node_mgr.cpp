@@ -3,6 +3,7 @@
 extern "C" {
 void func_366af0(void*, void*);
 void AllocNode__8BaseListFPv(void*);
+void FreeNode__8BaseListFP8ListNode(void*, void*);
 extern int D_4E35DC;
 }
 
@@ -102,18 +103,47 @@ asm void BaseList::AddTail(void *item) {
     .set at
 }
 
-void BaseList::DeleteHead() {
-    ListNode *node = this->m_head;
-    if (!node) {
-        return;
-    }
-    this->m_head = node->next;
-    func_366af0(&D_4E35DC, node->item);
-    ((ListItem*)node->item)->Method26();
-    this->FreeNode(node);
-    if (this->m_head) {
-        if (((WorldObj*)this->m_field4)->field_39 < 3) {
-            ((ListItem*)this->m_head->item)->Method9((void*)0);
-        }
-    }
+asm void BaseList::DeleteHead() {
+    .set noreorder
+    .set noat
+    .word 0x27BDFFD0
+    .word 0x7FBF0020
+    .word 0x7FB10010
+    .word 0x7FB00000
+    .word 0x8C900008
+    .word 0x1200001B
+    .word 0x70808E28
+    .word 0x8E020004
+    .word 0xAE220008
+    .word 0x8E050000
+    jal func_366af0
+    .word 0x27848E1C
+    .word 0x8E040000
+    .word 0x8C990000
+    .word 0x8F390068
+    .word 0x0320F809
+    .word 0x00000000
+    .word 0x72002E28
+    jal FreeNode__8BaseListFP8ListNode
+    .word 0x72002628
+    .word 0x8E240008
+    .word 0x1080000B
+    .word 0x00000000
+    .word 0x8E230004
+    .word 0x90630039
+    .word 0x28610003
+    .word 0x10200006
+    .word 0x00000000
+    .word 0x8C840000
+    .word 0x8C990000
+    .word 0x8F390024
+    .word 0x0320F809
+    .word 0x70002E28
+    .word 0x7BBF0020
+    .word 0x7BB10010
+    .word 0x7BB00000
+    .word 0x03E00008
+    .word 0x27BD0030
+    .set reorder
+    .set at
 }

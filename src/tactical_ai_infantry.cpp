@@ -1237,7 +1237,7 @@ asm void func_00145580(void) {
     .word 0x0002143F // dsra32     $v0, $v0, 16
     .word 0x18400003 // blez       $v0, .L001455C0
     .word 0xAE000004 // sw        $zero, 0x4($s0)
-    .word 0x0C04019C // jal        func_00100670
+    jal func_00100670
     .word 0x00000000 // nop
   // .L001455C0:
     .word 0x72001628 // paddub     $v0, $s0, $zero

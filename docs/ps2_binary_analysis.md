@@ -2944,7 +2944,7 @@ Directly following the `InfantryAI` constructor sits the complete suite of 42 vi
 | `func_00145400`–`func_001454A0` | `0x145400`–`0x1454A0` | **100.0%** (88 / 88 B) | 11 leaf accessor and status predicates. |
 | `func_001454B0` | `0x1454B0` | **100.0%** (56 / 56 B) | Tactical priority evaluator. |
 | `func_001454F0` | `0x1454F0` | **99.72%** (144 / 144 B) | Engagement rule checker. |
-| `func_00145580` | `0x145580` | **99.29%** (84 / 84 B) | Retreat threshold evaluator. |
+| `func_00145580` | `0x145580` | **99.52%** (84 / 84 B) | Retreat threshold evaluator with `func_00100670` call relocation preserved. |
 | `func_001455E0` | `0x1455E0` | **100.0%** (60 / 60 B) | Stance switch validator. |
 | `func_00145620` | `0x145620` | **100.0%** (56 / 56 B) | Target lock confirmation. |
 | `func_00145660` | `0x145660` | **100.0%** (8 / 8 B) | Combat speed factor getter. |

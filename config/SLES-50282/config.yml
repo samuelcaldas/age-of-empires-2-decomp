@@ -553,10 +553,10 @@ segments:
       - [0x44730, asm, tactical_ai_condition]
   - name: tactical_ai_param_desc
     type: code
-    start: 0x4488C
-    vram: 0x1446A0
+    start: 0x44890
+    vram: 0x1446A4
     subsegments:
-      - [0x4488C, asm, tactical_ai_param_desc]
+      - [0x44890, asm, tactical_ai_param_desc]
   - name: tactical_ai_infantry
     type: code
     start: 0x448DC

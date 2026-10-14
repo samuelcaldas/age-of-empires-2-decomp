@@ -19,7 +19,7 @@ void func_267DD0(void*);
 int SubList::SetupSpatial() {
     func_1DC180(this);
     this->m_fieldC5 = 0;
-    this->m_fieldCC = this->v199();
+    this->m_fieldCC = (BaseList*)this->v199();
     return 1;
 }
 
@@ -28,18 +28,15 @@ int SubList::Setup(void *stream) {
     char temp;
     func_226d90(stream, &temp, 1);
     func_226d90(stream, &this->m_fieldC5, 1);
-    this->m_fieldCC = this->v199();
+    this->m_fieldCC = (BaseList*)this->v199();
     Load__8BaseListFPv(this->m_fieldCC, stream);
     return 1;
 }
 
 extern "C" char D_10B68F0[1024];
 
-asm void* SubList::CreateSubList() {
-    paddub a1, a0, zero
-    lui v0, 0x10b
-    j func_3668C0
-    addiu a0, v0, 0x68f0
+void* SubList::CreateSubList() {
+    return func_3668C0(D_10B68F0, this);
 }
 
 void SubList::Action() {

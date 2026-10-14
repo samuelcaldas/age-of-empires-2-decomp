@@ -6,11 +6,8 @@ extern "C" {
     void* func_2668c0(void *player, int id);
 }
 
-asm void func_0013BAD0(SubList *self) {
-    lw a1, 0x8(a0)
-    lui v0, 0x10b
-    j func_3668C0
-    addiu a0, v0, 0x68f0
+void func_0013BAD0(SubList *self) {
+    func_3668C0(D_10B68F0, self->m_field8);
 }
 
 void func_0013BAE0(SubList *self) {

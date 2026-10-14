@@ -3072,6 +3072,17 @@ Following the `TradeAction` class default constructor sits the full action initi
 | `func_00146130` | `0x146130` | **100.0%** (468 / 468 B) | `TradeAction::Init` dynamic buffer allocation (`func_00100730`) and timers. |
 | `func_00146310` | `0x146310` | **100.0%** (236 / 236 B) | `TradeAction::CleanUp` dynamic memory release (`func_00100630`) and reset. |
 
+### 6.93 `Trade Action Serialization` Subsystem (`0x146400`–`0x146A40`)
+
+Following action cleanup sits the binary serialization routine `TradeAction::save` (`0x146400`–`0x146A40`, 1600 bytes code in Metrowerks C++), packing scalar fields, default 3D vector state `D_38FB00`, packed action item sub-buffers (`ActionItem1` and `ActionItem2`), checked parameter tables, and optional secondary trade records via `func_00226F70`:
+
+#### 6.93.1 Trade Action Serialization Matching Results (99.68% Fuzzy Matched, 1600 Bytes)
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_00146400` | `0x146400` | **99.68%** (1596 / 1600 B) | `TradeAction::save` binary stream serialization via `func_00226F70`. |
+
+
 
 
 

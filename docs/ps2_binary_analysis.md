@@ -3224,3 +3224,18 @@ Following the update loop sits the merchant route registration and validation su
   * `func_1442E0` (`PushConditionScope`): 100.0% match in pure C++. Pushes condition flag from `0x198` to `0x2FB8[field_2FB4]`.
   * `func_144310` (`ResetScriptState`): 100.0% match in pure C++. Resets error struct fields (`0x0`, `0x104`, `0x108`, `0x188`).
   * `func_144340` (`ReportScriptError`): 96.56% match in pure C++. Formats error messages and handles jump table `jtbl_490F20` across 27 error codes.
+
+### TacticalAI Preprocessor Directives (tactical_ai_predicates2) Decompilation Notes
+- Address: `0x143860` (612 bytes)
+- Source: `src/tactical_ai_predicates2.cpp`
+- Function: `func_143860` (`EvaluateActionBlock` / Preprocessor Evaluator): 99.58% match in pure C++.
+- Directives parsed:
+  * `#load-if-defined` (`D_490ED0`, type 1)
+  * `#load-if-not-defined` (`D_490EF0`, type 2)
+  * `#else` (`D_490F08`, type 3)
+  * `#end-if` (`D_490F10`, type 4)
+- Error codes reported via `func_144340`:
+  * 0x5: Unknown preprocessor directive
+  * 0x13: Nesting depth limit reached (checked via `func_00142C90`)
+  * 0x17: `#else` without matching `#load-if` (scope depth zero via `func_00142C80`)
+  * 0x18: `#end-if` without matching `#load-if` (scope depth zero via `func_00142C80`)

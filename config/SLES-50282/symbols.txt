@@ -399,9 +399,12 @@ func_00141250 = 0x141250; // type:func
 func_00141370 = 0x141370; // type:func
 func_00141470 = 0x141470; // type:func
 func_001414A0 = 0x1414A0; // type:func
-func_00141500 = 0x141500; // type:func TacticalAI::AllocateMatrix(int)
-func_00141630 = 0x141630; // type:func TacticalAI::ResetMatrix(int)
-func_00141760 = 0x141760; // type:func TacticalAI::ScanNodes(int, int)
-func_001418B0 = 0x1418B0; // type:func TacticalAI::ClearActiveNode(int)
+func_00141500 = 0x141500; // type:func TacticalAI.AllocateMatrix(int)
+func_00141630 = 0x141630; // type:func TacticalAI.ResetMatrix(int)
+func_00141760 = 0x141760; // type:func TacticalAI.ScanNodes(int, int)
+func_001418B0 = 0x1418B0; // type:func TacticalAI.ClearActiveNode(int)
+func_001418E0 = 0x1418E0; // type:func TacticalAI.SetTileNode(int, int)
+func_00141980 = 0x141980; // type:func TacticalAI.ClearTileNode(int, int)
+func_00141A20 = 0x141A20; // type:func TacticalAI.ValidateIndex(int)
 
 

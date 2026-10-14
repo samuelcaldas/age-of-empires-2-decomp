@@ -2240,6 +2240,34 @@ Directly following spatial tile querying sits the spatial matrix allocation, buf
 | `func_00141760` (`TacticalAI::ScanNodes`) | `0x141760` | **100.0%** (336 / 336 B) | Spatial node predicate evaluator and count accumulator. |
 | `func_001418B0` (`TacticalAI::ClearActiveNode`) | `0x1418B0` | **100.0%** (36 / 36 B) | Active node flag byte clearer. |
 
+### 6.65 Tactical / Spatial AI Tile Node Flags and Coordinate Index Validator (`0x1418E0`–`0x141A70`, `tactical_ai_nodes.cpp`)
+
+Directly following spatial node matrix routines sit the spatial tile node activation flags, flag clearers, and spatial index bounds validation (`TacticalAI`, `0x1418E0`–`0x141A70`, 384 bytes of code across 3 methods, 400-byte slice, Metrowerks MWCCPS2 2.3.1.01):
+
+* **Architecture and Reverse Engineering:**
+  - Method: `func_001418E0` (`TacticalAI::SetTileNode(int a1, int a2)`, 156 B code, VRAM `0x1418E0`):
+    - Validates tile index against secondary buffer `0x30($a0)` bounds `0x2($v1)`.
+    - Traverses linked node chain starting from index `0x4($v1)[a1]`.
+    - Clears active flag byte `0x5(node)` to 0 (`sb $zero, 0x5($v1)`) for all linked nodes until index `-1`. Returns 1 on success, 0 on out-of-bounds.
+    - **100.0% exact byte-for-byte match**.
+  - Method: `func_00141980` (`TacticalAI::ClearTileNode(int a1, int a2)`, 160 B code, VRAM `0x141980`):
+    - Validates tile index against buffer `0x30($a0)` bounds.
+    - Traverses linked node chain and sets active flag byte `0x5(node)` to 1 (`sb $a3, 0x5($v1)`). Returns 1 on success, 0 on out-of-bounds.
+    - **100.0% exact byte-for-byte match**.
+  - Method: `func_00141A20` (`TacticalAI::ValidateIndex(int a1)`, 68 B code, VRAM `0x141A20`):
+    - Leaf index validator checking `0 <= a1 < m_field1C`.
+    - Inspects active matrix pointer `m_field20[a1].field0` and conditionally sets return register using MIPS conditional move `movz $v0, $zero, $v1`.
+    - **100.0% exact byte-for-byte match**.
+
+* **Matching Results (3 / 3 Functions, 100.0% Unit Match):**
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_001418E0` (`TacticalAI::SetTileNode`) | `0x1418E0` | **100.0%** (156 / 156 B) | Clears node flag byte across spatial linked chain. |
+| `func_00141980` (`TacticalAI::ClearTileNode`) | `0x141980` | **100.0%** (160 / 160 B) | Sets node flag byte to 1 across spatial linked chain. |
+| `func_00141A20` (`TacticalAI::ValidateIndex`) | `0x141A20` | **100.0%** (68 / 68 B) | Spatial grid index bounds validator with `movz`. |
+
+
 
 
 

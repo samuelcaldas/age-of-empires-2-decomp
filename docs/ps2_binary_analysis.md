@@ -2422,6 +2422,36 @@ Directly following spatial event dispatch sit the unit node updater and dynamic 
 | `func_00142380` (`TacticalAI2::AllocateMatrixNode`) | `0x142380` | **100.0%** (116 / 116 B) | Allocates matrix slot and initializes component ID 211. |
 | `func_00142400` (`TacticalAI2::ResetMatrixNode`) | `0x142400` | **100.0%** (152 / 152 B) | Resets matrix slot, cleans previous node, reallocates component. |
 
+### 6.71 Tactical / Spatial AI Target Scanning Loop and Bounds Computation (`0x1424A0`–`0x142680`, `tactical_ai_bounds.cpp`)
+
+Directly following spatial node lifecycle sit the spatial bounds computation and iterative target scanning state machine (`TacticalAI2`, `0x1424A0`–`0x142680`, 464 bytes of code across 2 methods, 480-byte slice, Metrowerks MWCCPS2 2.3.1.01):
+
+* **Architecture and Reverse Engineering:**
+  - Method: `func_001424A0` (`TacticalAI2::ComputeSpatialBounds(int, int, int, int)`, 184 B code, VRAM `0x1424A0`):
+    - Initializes spatial bounds evaluation parameters: `field_190 = a1`, `field_6B4 = t0`, `field_3080 = a3`.
+    - Zeroes working buffers with `memset(&self->field_6C4, 0, 0x28F0)` and `memset(&self->field_2FB8, 0, 0xC8)`.
+    - Dispatches base preprocessing `func_144310(self)` and executes target scanning `func_00142560(self, a2)`.
+    - If `field_194 == 0`, invokes error notification handler `func_144340(self, 0x12, 0)`.
+    - **100.0% exact byte-for-byte match**.
+  - Method: `func_00142560` (`TacticalAI2::QueryNearbyTargets(int)`, 280 B code, VRAM `0x142560`):
+    - Core state machine scanning nearby spatial targets.
+    - Resolves target spatial quadrant using `func_21A3F0(a1)` into `field_6B8`.
+    - Evaluates next candidate through `func_142980(self)` in a `while (state == 2)` loop.
+    - Inside loop, branches on mode `self->field_19C`:
+      * Mode 1: processes candidate via `func_143860(self)`.
+      * Mode 2: processes candidate via `func_143440(self)`.
+      * Default: dispatches error handler `func_144340(self, 0xF, 0)`.
+    - When scanning completes, checks if target count changed (`field_2FB4 != s0`). If unchanged, triggers notification `func_144340(self, 0xA, 0)`.
+    - **100.0% exact byte-for-byte match**.
+
+* **Matching Results (2 / 2 Functions, 100.0% Unit Match):**
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_001424A0` (`TacticalAI2::ComputeSpatialBounds`) | `0x1424A0` | **100.0%** (184 / 184 B) | Initializes spatial query parameters, buffers, and triggers target scan. |
+| `func_00142560` (`TacticalAI2::QueryNearbyTargets`) | `0x142560` | **100.0%** (280 / 280 B) | Spatial target scanning loop and candidate dispatch state machine. |
+
+
 
 
 

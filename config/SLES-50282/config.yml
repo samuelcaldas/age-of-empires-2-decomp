@@ -461,9 +461,15 @@ segments:
     vram: 0x1422F0
     subsegments:
       - [0x424D0, asm, tactical_ai_spatial]
+  - name: tactical_ai_bounds
+    type: code
+    start: 0x42680
+    vram: 0x1424A0
+    subsegments:
+      - [0x42680, asm, tactical_ai_bounds]
   - name: post_base
     type: bin
-    start: 0x42680
+    start: 0x42860
   - [0x3e31c0]
 
 

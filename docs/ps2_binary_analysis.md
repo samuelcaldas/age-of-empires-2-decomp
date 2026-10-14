@@ -164,6 +164,7 @@ Starting at VRAM `0x137810` (file offset `0x379e0`), the binary transitions from
 | `MapZone::GetTileFlag(int, int)` (`func_001378C0`) | `0x1378C0` | **100.0%** (96 / 96 B) | Fast tile flag inspector reading `D_50A5A0[y][x]` with conditional bitmask tests against world fields `3112` and `3108`. |
 | `MapZone::ProcessTiles()` (`func_00137920`) | `0x137920` | **100.0%** (256 / 256 B) | Nested 2D grid pump clearing 255 marks, incrementing count, OR-ing flags into `D_50A5A0`, and dispatching `func_002082B0`. |
 | `ScreenObj::AspectRatio()` | `0x137A20` | **100.0%** (24 / 24 B) | FPU single-precision division with `div.s` in `jr $ra` delay slot. |
+| `GetSightTable(int, int)` (`func_00137A40`) | `0x137A40` | **100.0%** (92 / 92 B) | Clamps LOS radius to range 0..20 and selects sight offset table (`D_0038FAA0` vs `D_0038FA40`). |
 | `VisibleMap::__dt()` (`func_00138760`) | `0x138760` | **100.0%** (16 / 16 B) | Destructor returning `this` via `paddub $v0, $a0, $zero`. |
 | `VisibleMap::__ct(int)` (`func_00138770`) | `0x138770` | **100.0%** (80 / 80 B) | Constructor with positive capacity check dispatching `__vec_ctor`. |
 | `VisibleMap::Init(int, int)` (`func_001387C0`) | `0x1387C0` | **100.0%** (112 / 112 B) | Grid initializer resetting mode `D_004E3058`, clearing static buffer, and calling `SetupPointers`. |

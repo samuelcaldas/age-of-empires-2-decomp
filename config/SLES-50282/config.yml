@@ -62,9 +62,15 @@ segments:
     vram: 0x137a20
     subsegments:
       - [0x37c00, asm, screen_obj]
+  - name: sight_table
+    type: code
+    start: 0x37c20
+    vram: 0x137a40
+    subsegments:
+      - [0x37c20, asm, sight_table]
   - name: post_screen
     type: bin
-    start: 0x37c20
+    start: 0x37c80
   - name: visible_map
     type: code
     start: 0x38940

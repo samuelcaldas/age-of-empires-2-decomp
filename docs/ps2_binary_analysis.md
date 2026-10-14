@@ -938,11 +938,11 @@ Directly following player entity setup sit the periodic action tick and stream s
     - Recursively serializes inner list: `((BaseList*)self->m_field34)->Save(stream)`.
     - Target reference: tests `!self->m_field38`. If null, writes `-1`, else writes `*(short*)(m_field38 + 0x34)` (2 B).
 
-#### 6.24.1 SubList Action and Save Matching Results (100.0% Linked Unit)
+#### 6.24.1 SubList Action and Save Matching Results (100.0% Complete Unit)
 
 | Function / Method | VRAM Address | Match Status | Description |
 |---|---|---|---|
-| `func_0013BAD0` | `0x13BAD0` | **97.5%** (15 / 16 B) | Tail-call stub dispatching to `func_3668C0(D_10B68F0, self->m_field8)`. |
+| `func_0013BAD0` | `0x13BAD0` | **100.0%** (16 / 16 B) | Tail-call stub dispatching to `func_3668C0(D_10B68F0, self->m_field8)`. |
 | `func_0013BAE0` | `0x13BAE0` | **100.0%** (136 / 136 B) | Periodic action update with target object re-resolution and inner list dispatch. |
 | `func_0013BB70` | `0x13BB70` | **100.0%** (408 / 408 B) | Complete stream serialization matching inverted guard control flow. |
 
@@ -1042,11 +1042,11 @@ Directly following target assignment sits the master static object event notific
 * **`func_0013C250` (`0x13C250`, 8 B code, 16 B slice with alignment):**
   - Out-of-line empty virtual stub / event callback (`jr $ra; nop`). 100.0% exact match.
 
-#### 6.28.1 SubList Target Event Notification Matching Results
+#### 6.28.1 SubList Target Event Notification Matching Results (100.0% Complete Unit)
 
 | Function / Method | VRAM Address | Match Status | Description |
 |---|---|---|---|
-| `func_0013C0D0` | `0x13C0D0` | **98.3%** (376 / 384 B) | Master object lookup, player target category matching, and polymorphic notification. |
+| `func_0013C0D0` | `0x13C0D0` | **100.0%** (384 / 384 B) | Master object lookup, player target category matching, and polymorphic notification. |
 | `func_0013C250` | `0x13C250` | **100.0%** (8 / 8 B) | Empty virtual event callback stub (`jr $ra; nop`). |
 
 ### 6.29 `SubList` Action Name Dispatch (`0x13C260`–`0x13C430`)

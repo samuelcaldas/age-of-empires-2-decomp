@@ -3,6 +3,7 @@
 extern "C" {
 
 void *func_332e60(void *mgr, int id);
+void func_001454C0(void *self, const char *format, ...);
 
 asm void func_001446EC(void) {
     .set noreorder
@@ -688,7 +689,7 @@ asm void func_00144F90(void) {
     .word 0x70A03628 // paddub     $a2, $a1, $zero
     .word 0x3C020049 // lui        $v0, %hi(D_490FC0)
     .word 0x7FBF0000 // sq         $ra, 0x0($sp)
-    .word 0x0C051530 // jal        func_001454C0
+    jal func_001454C0
     .word 0x24450FC0 // addiu     $a1, $v0, %lo(D_490FC0)
     .word 0x7BBF0000 // lq         $ra, 0x0($sp)
     .word 0x2402FFFF // addiu      $v0, $zero, -0x1

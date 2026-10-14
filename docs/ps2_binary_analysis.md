@@ -1169,7 +1169,7 @@ Directly following Tactical AI parameter descriptor routines sits the infantry c
 | `func_00144CF0` | `0x144CF0` | **100.0%** (8 / 8 B) | Return stub. |
 | `func_00144D00` | `0x144D00` | **100.0%** (12 / 12 B) | Tail call jump to `func_332e60`. |
 | `func_00144D10` | `0x144D10` | **100.0%** (624 / 624 B) | Advanced target candidate matching and floating-point proximity checks. |
-| `func_00144F90` | `0x144F90` | **100.0%** (40 / 40 B) | Subsystem error / logging helper calling `func_001454C0`. |
+| `func_00144F90` | `0x144F90` | **99.0%** (40 / 40 B) | Subsystem error / logging helper; the call relocation matches, while the string address relocation remains compiler-limited. |
 | `func_00144FC0` | `0x144FC0` | **100.0%** (8 / 8 B) | Return stub. |
 | `func_00144FD0` | `0x144FD0` | **100.0%** (528 / 528 B) | Complex entity matcher and proximity calculator (`c.lt.s`, division instruction sequences). |
 | `func_001451E0` | `0x1451E0` | **100.0%** (8 / 8 B) | Return stub. |
@@ -2930,7 +2930,7 @@ Directly following the `InfantryAI` constructor sits the complete suite of 42 vi
 | `func_00144CF0` | `0x144CF0` | **100.0%** (8 / 8 B) | Target valid predicate. |
 | `func_00144D00` | `0x144D00` | **100.0%** (12 / 12 B) | Sub-list trampoline with relocation-preserving tail jump to `func_332e60`. |
 | `func_00144D10` | `0x144D10` | **99.87%** (632 / 632 B) | Target selection and weapon scoring loop. |
-| `func_00144F90` | `0x144F90` | **98.50%** (40 / 40 B) | Tactical waypoint dispatcher. |
+| `func_00144F90` | `0x144F90` | **99.0%** (40 / 40 B) | Tactical waypoint dispatcher; call relocation preserved, string address relocation remains compiler-limited. |
 | `func_00144FC0` | `0x144FC0` | **100.0%** (8 / 8 B) | Path confirmation stub. |
 | `func_00144FD0` | `0x144FD0` | **99.89%** (524 / 524 B) | Coordinated command dispatcher. |
 | `func_001451E0` | `0x1451E0` | **100.0%** (8 / 8 B) | Status flag accessor. |

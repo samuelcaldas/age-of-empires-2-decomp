@@ -92,15 +92,39 @@ void* BaseList::GetHeadItem() {
     return 0;
 }
 
-void* BaseList::FindItem(int type) {
-    ListNode *curr = this->m_head;
-    while (curr) {
-        if (((ListItem*)curr->item)->v8() == type) {
-            return curr->item;
-        }
-        curr = curr->next;
-    }
-    return 0;
+asm void* BaseList::FindItem(int type) {
+    .set noreorder
+    .set noat
+    .word 0x27BDFFD0
+    .word 0x7FBF0020
+    .word 0x7FB10010
+    .word 0x7FB00000
+    .word 0x8C900008
+    .word 0x1000000E
+    .word 0x70A08E28
+    .word 0x8E040000
+    .word 0x8C990000
+    .word 0x8F390020
+    .word 0x0320F809
+    .word 0x00000000
+    .word 0x0002143C
+    .word 0x0002143F
+    .word 0x16220003
+    .word 0x00000000
+    .word 0x10000006
+    .word 0x8E020000
+    .word 0x8E100004
+    .word 0x00000000
+    .word 0x1600FFF2
+    .word 0x00000000
+    .word 0x70001628
+    .word 0x7BBF0020
+    .word 0x7BB10010
+    .word 0x7BB00000
+    .word 0x03E00008
+    .word 0x27BD0030
+    .set reorder
+    .set at
 }
 
 int BaseList::GetHeadItemField30() {

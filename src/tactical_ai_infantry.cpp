@@ -5,6 +5,8 @@ extern "C" {
 void *func_332e60(void *mgr, int id);
 void func_001454C0(void *self, const char *format, ...);
 void *func_00100670(void *self);
+void func_0011B170(void *destination, const char *source, int length);
+void func_0011ABBC(void *destination, const char *source);
 
 asm void func_001446EC(void) {
     .set noreorder
@@ -1031,14 +1033,14 @@ asm void func_001453B0(void) {
     .word 0xAC85004C // sw        $a1, 0x4C($a0)
     .word 0x70C02E28 // paddub     $a1, $a2, $zero
     .word 0x24840068 // addiu      $a0, $a0, 0x68
-    .word 0x0C046C5C // jal        func_0011B170
+    jal func_0011B170
     .word 0x2406003F // addiu     $a2, $zero, 0x3F
     .word 0x10000006 // b          .L001453EC
     .word 0x7BBF0000 // lq        $ra, 0x0($sp)
   // .L001453D8:
     .word 0x3C020049 // lui        $v0, %hi(D_490FF0)
     .word 0x24840068 // addiu      $a0, $a0, 0x68
-    .word 0x0C046AEF // jal        func_0011ABBC
+    jal func_0011ABBC
     .word 0x24450FF0 // addiu     $a1, $v0, %lo(D_490FF0)
     .word 0x7BBF0000 // lq         $ra, 0x0($sp)
   // .L001453EC:

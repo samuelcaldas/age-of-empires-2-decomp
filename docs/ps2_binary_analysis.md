@@ -2940,7 +2940,7 @@ Directly following the `InfantryAI` constructor sits the complete suite of 42 vi
 | `func_00145260` | `0x145260` | **99.33%** (60 / 60 B) | Tactical unit unregister / release; `func_00100670` call relocation preserved. |
 | `func_001452A0` | `0x1452A0` | **99.25%** (160 / 160 B) | Subsystem state allocation. |
 | `func_00145340` | `0x145340` | **99.20%** (100 / 100 B) | Unit registry reset. |
-| `func_001453B0` | `0x1453B0` | **98.82%** (68 / 68 B) | Formation slot binding. |
+| `func_001453B0` | `0x1453B0` | **99.41%** (68 / 68 B) | Formation slot binding with both helper-call relocations preserved. |
 | `func_00145400`–`func_001454A0` | `0x145400`–`0x1454A0` | **100.0%** (88 / 88 B) | 11 leaf accessor and status predicates. |
 | `func_001454B0` | `0x1454B0` | **100.0%** (56 / 56 B) | Tactical priority evaluator. |
 | `func_001454F0` | `0x1454F0` | **99.72%** (144 / 144 B) | Engagement rule checker. |

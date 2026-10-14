@@ -3192,3 +3192,11 @@ Following atomic property getters sits the primary transaction update and market
 
 
 
+
+### TacticalAI::TacticalAI (func_001407B0) Decompilation Notes
+- Address: `0x1407B0` (500 bytes)
+- Source: `src/tactical_ai_init.cpp`
+- Match: 96.92% in pure C++.
+- Vtable: `D_4D7758`
+- Struct: Initializes `TacticalAI` base members including vector allocations for `TacticalNode` (size 24, via `func_1004E0`), `Obj12` (size 12, via `func_1004E0`), `Item16` (size 16), and `Item8` (size 8).
+- Minor difference: MWCC allocates registers `$s1` and `$s2` swapped between `self` and `a2`, while all control flow, call sequences, and instructions are otherwise identical.

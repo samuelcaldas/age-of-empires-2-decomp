@@ -365,9 +365,15 @@ segments:
     vram: 0x13FA90
     subsegments:
       - [0x3FC70, asm, diplomacy_ai_query]
+  - name: diplomacy_ai_helpers
+    type: code
+    start: 0x3FE60
+    vram: 0x13FC80
+    subsegments:
+      - [0x3FE60, asm, diplomacy_ai_helpers]
   - name: post_base
     type: bin
-    start: 0x3FE60
+    start: 0x400D0
   - [0x3e31c0]
 
 

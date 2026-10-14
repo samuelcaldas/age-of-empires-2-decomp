@@ -359,5 +359,10 @@ func_0013F910 = 0x13F910; // type:func
 Save__11DiplomacyAIFPv = 0x13F9F0; // type:func DiplomacyAI.Save(void*)
 func_0013FA90 = 0x13FA90; // type:func DiplomacyAI.GetStance(int)
 func_13FB50 = 0x13FB50; // type:func DiplomacyAI.SetStance(int, int, int)
+func_0013FC80 = 0x13FC80; // type:func
+func_0013FDA0 = 0x13FDA0; // type:func
+func_0013FDF0 = 0x13FDF0; // type:func
+func_0013FE30 = 0x13FE30; // type:func
+func_0013FEE0 = 0x13FEE0; // type:func
 
 

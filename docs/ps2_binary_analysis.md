@@ -3001,6 +3001,28 @@ Following the Strategy AI class header sits the 8x10 strategy decision matrix su
 | `func_00145B30` | `0x145B30` | **100.0%** (64 / 64 B) | Assigns manager item table entry pointer to player matrix cell. |
 | `func_00145B70` | `0x145B70` | **100.0%** (72 / 72 B) | Validates entry existence and bounds against manager item table limit. |
 
+### 6.90 `Trade AI` Subsystem (`0x145BC0`–`0x145E20`)
+
+Directly following Strategy AI matrix routines sits the Trade AI class hierarchy and resource pool manager (`0x145BC0`–`0x145E20`, 608 bytes code in Metrowerks C++):
+
+* **Class Details & Vtables:**
+  - `TradeAI` (`0x145BC0` / `0x145C10` / `0x145C60`): Type ID `0x3F2` (1010), string `"Trade AI"` (`0x491010`), vtable `0x4D7950`.
+  - Resource pool: Table `D_512C00` (800 entries of 8 bytes = 0x1900 bytes) with 100-byte allocation bitset `D_514500`.
+
+#### 6.90.1 Trade AI Matching Results (100.0% Unit Linked, 472 Functions Matched)
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_00145BC0` | `0x145BC0` | **100.0%** (76 / 76 B) | `TradeAI::TradeAI` constructor (primary overload, ID `0x3F2`, vtable `0x4D7950`). |
+| `func_00145C10` | `0x145C10` | **100.0%** (76 / 76 B) | `TradeAI::TradeAI` constructor (secondary overload with default null second param). |
+| `func_00145C60` | `0x145C60` | **100.0%** (100 / 100 B) | `TradeAI::~TradeAI` destructor (`ID 0x3F2`, vtable `0x4D7950`). |
+| `func_00145CD0` | `0x145CD0` | **100.0%** (8 / 8 B) | Trade AI field `0xAC` mutator (`m_fieldAC = val`). |
+| `func_00145CE0` | `0x145CE0` | **100.0%** (8 / 8 B) | Trade AI validity predicate returning constant 1. |
+| `func_00145CF0` | `0x145CF0` | **100.0%** (72 / 72 B) | Allocates slot from resource pool via bitset scan (`func_001FC8C0`). |
+| `func_00145D40` | `0x145D40` | **100.0%** (144 / 144 B) | Deallocates slot from resource pool and clears bit in bitset `D_514500`. |
+| `func_00145DD0` | `0x145DD0` | **100.0%** (80 / 80 B) | Initializes resource pool table memory (`func_00117CAC`) and bitset. |
+
+
 
 
 

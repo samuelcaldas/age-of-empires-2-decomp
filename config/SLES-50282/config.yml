@@ -593,9 +593,15 @@ segments:
     vram: 0x145960
     subsegments:
       - [0x45B50, asm, strategy_ai_matrix]
+  - name: trade_ai_init
+    type: code
+    start: 0x45DB0
+    vram: 0x145BC0
+    subsegments:
+      - [0x45DB0, asm, trade_ai_init]
   - name: post_base
     type: bin
-    start: 0x45DB0
+    start: 0x46010
   - [0x3e31c0]
 
 

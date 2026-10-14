@@ -2626,13 +2626,13 @@ Directly following candidate evaluation sit the core script lexer and rule token
       * `0xD` (`\r`), `0xA` (`\n`), `0x9` (`\t`), `0x20` (` `): whitespace and line break delimiters.
     - Copies identifier and literal characters into token buffer `field_1A0`.
     - Returns status 2 when a valid token is scanned, 1 on comment/eol, and 0 on EOF/error.
-    - **100.0% exact byte-for-byte match**.
+    - **84.99% pure C++ match** (764 / 764 B, inline asm block with raw `.word` instructions completely eliminated).
 
-* **Matching Results (1 / 1 Functions, 100.0% Unit Match):**
+* **Matching Results (1 / 1 Functions, Pure C++ Match):**
 
 | Function / Method | VRAM Address | Match Status | Description |
 |---|---|---|---|
-| `func_142980` (`TacticalAI2::ScanSpatialCandidate`) | `0x142980` | **100.0%** (764 / 764 B) | Complete AI script lexical scanner, token classifier, and string parser. |
+| `func_142980` (`TacticalAI2::ScanSpatialCandidate`) | `0x142980` | **84.99%** (764 / 764 B) | Complete AI script lexical scanner, token classifier, and string parser in pure C++. |
 
 ### 6.75 Tactical / Spatial AI Candidate Queries and Scan Counter Increment (`0x142C80`–`0x142D10`, `tactical_ai_getters.cpp`)
 

@@ -3215,3 +3215,12 @@ Following the update loop sits the merchant route registration and validation su
 - Vtable: `D_4D7758`
 - Struct: Initializes `TacticalAI` base members including vector allocations for `TacticalNode` (size 24, via `func_1004E0`), `Obj12` (size 12, via `func_1004E0`), `Item16` (size 16), and `Item8` (size 8).
 - Minor difference: MWCC allocates registers `$s1` and `$s2` swapped between `self` and `a2`, while all control flow, call sequences, and instructions are otherwise identical.
+
+### TacticalAI Scope Operations (tactical_ai_scope) Decompilation Notes
+- Address: `0x1441B0` - `0x144434` (644 bytes)
+- Source: `src/tactical_ai_scope.cpp`
+- Functions:
+  * `func_1441B0` (`BeginScriptScope`): 100.0% match in pure C++. Saves `ScopeContext` state (1048 bytes per scope slot at `0x6C4 + idx * 1048`) and copies string buffer `0x2A8` via `func_0011ABBC`.
+  * `func_1442E0` (`PushConditionScope`): 100.0% match in pure C++. Pushes condition flag from `0x198` to `0x2FB8[field_2FB4]`.
+  * `func_144310` (`ResetScriptState`): 100.0% match in pure C++. Resets error struct fields (`0x0`, `0x104`, `0x108`, `0x188`).
+  * `func_144340` (`ReportScriptError`): 96.56% match in pure C++. Formats error messages and handles jump table `jtbl_490F20` across 27 error codes.

@@ -59,6 +59,12 @@ segments:
   - name: post_screen
     type: bin
     start: 0x37c20
+  - name: visible_map
+    type: code
+    start: 0x38940
+    vram: 0x138760
+    subsegments:
+      - [0x38940, asm, visible_map]
   - name: base_list
     type: code
     start: 0x38c20

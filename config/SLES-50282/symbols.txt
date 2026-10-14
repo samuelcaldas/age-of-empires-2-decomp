@@ -1,4 +1,14 @@
 AspectRatio__9ScreenObjFv = 0x137A20; // type:func ScreenObj.AspectRatio()
+func_00138760 = 0x138760; // type:func VisibleMap.__dt()
+func_00138770 = 0x138770; // type:func VisibleMap.__ct(int)
+func_001387C0 = 0x1387C0; // type:func VisibleMap.Init(int, int)
+func_00138830 = 0x138830; // type:func VisibleMap.Load(void*)
+func_001388E0 = 0x1388E0; // type:func VisibleMap.Save(void*)
+func_00138960 = 0x138960; // type:func VisibleMap.SetupPointers()
+func_001389E0 = 0x1389E0; // type:func VisibleMap.SetVisibleMode(int)
+func_001389F0 = 0x1389F0; // type:func VisibleMap.Clear()
+D_50A5A0 = 0x50A5A0; // type:u32 size:800 absolute:True
+D_004E3058 = 0x4E3058; // type:u32 size:4 absolute:True
 Reset__8BaseListFi = 0x138A40; // type:func BaseList.Reset(int)
 __ct__8BaseListFi = 0x138A50; // type:func BaseList.BaseList(int)
 Clear__8BaseListFv = 0x138AB0; // type:func BaseList.Clear()

@@ -2795,12 +2795,12 @@ Directly following script scope cleanup sit the script scope frame pusher, condi
   - Method: `func_144310` (`TacticalAI2::ResetScriptState()`, 44 B code, VRAM `0x144310`):
     - Resets script error record fields: `rec->field_0 = 0`, `rec->field_104 = -1`, `rec->field_108 = 0`, `rec->field_188 = 0x19`.
     - **100.0% exact byte-for-byte match**.
-  - Method: `func_144340` (`TacticalAI2::ReportScriptError(int, const char*)`, 252 B code, VRAM `0x144340`):
+  - Method: `func_144340` (`TacticalAI2::ReportScriptError(int, const char*)`, 244 B code, VRAM `0x144340`):
     - Comprehensive script syntax error reporter.
     - Copies script filename into error record `self->field_6B4->filename`.
     - Evaluates error code index against jump table `jtbl_490F20` (27 entries) to assign line numbers or default `-1`.
     - Copies error token string into record token buffer. Sets error code `rec->errorCode = a1`.
-    - **99.52% match** (252 / 252 B, 100% byte-for-byte in linked binary).
+    - **100.0% exact byte-for-byte match** (244 / 244 B). The reference object stores the trailing return sequence at `func_00144434` (`0x144434`) as a separate 12-byte symbol fragment; the standalone assembly source preserves that object boundary.
 
 * **Matching Results (4 / 4 Functions, 99.81% Unit Match):**
 
@@ -2809,7 +2809,7 @@ Directly following script scope cleanup sit the script scope frame pusher, condi
 | `func_1441B0` (`TacticalAI2::BeginScriptScope`) | `0x1441B0` | **100.0%** (300 / 300 B) | Pushes current parser state to 0x418-stride scope frame. |
 | `func_1442E0` (`TacticalAI2::PushConditionScope`) | `0x1442E0` | **100.0%** (36 / 36 B) | Pushes execution flag onto preprocessor condition stack. |
 | `func_144310` (`TacticalAI2::ResetScriptState`) | `0x144310` | **100.0%** (44 / 44 B) | Resets error record buffers and code. |
-| `func_144340` (`TacticalAI2::ReportScriptError`) | `0x144340` | **99.52%** (252 / 252 B) | Error reporting dispatcher with jtbl_490F20 and filename/token copy. |
+| `func_144340` (`TacticalAI2::ReportScriptError`) | `0x144340` | **100.0%** (244 / 244 B) | Error reporting dispatcher with jtbl_490F20 and filename/token copy; return fragment retained at `0x144434`. |
 
 ### 6.84 Tactical / Spatial AI Node Item Operations (`0x144434`–`0x144540`, `tactical_ai_node_item.cpp`)
 

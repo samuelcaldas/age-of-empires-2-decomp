@@ -25,13 +25,12 @@ int func_00142CA0(TacticalAI2 *self) {
 }
 
 int func_00142CC0(TacticalAI2 *self) {
-    int result = 1;
     self->m_counter += 1;
     if (self->m_counter >= 0x10) {
         func_144340(self, 0x14, 0);
-        result = 0;
+        return 0;
     }
-    return result;
+    return 1;
 }
 
 }

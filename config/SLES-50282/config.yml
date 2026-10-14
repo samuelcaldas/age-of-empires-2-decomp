@@ -71,6 +71,15 @@ segments:
   - name: post_screen
     type: bin
     start: 0x37c80
+  - name: map_zone_los
+    type: code
+    start: 0x38070
+    vram: 0x137e90
+    subsegments:
+      - [0x38070, asm, map_zone_los]
+  - name: post_screen2
+    type: bin
+    start: 0x38220
   - name: visible_map
     type: code
     start: 0x38940

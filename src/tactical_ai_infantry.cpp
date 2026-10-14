@@ -302,4 +302,180 @@ asm void func_00144A00(void *self, void *p1) {
     .set at
 }
 
+asm void func_00144AB0(void *self, void *p1) {
+    .set noreorder
+    .set noat
+    .word 0x0300A014 // bnez a1, .L00144AC0
+    .word 0x00000000 // nop
+    .word 0x26000010 // b .L00144B54
+    .word 0x28160070 // paddub v0, zero, zero
+  // .L00144AC0:
+    .word 0x2400A584 // lh a1, 0x24(a1)
+    .word 0xB400878C // lw a3, 0xB4(a0)
+    .word 0x0A000010 // b .L00144AF4
+    .word 0x28360070 // paddub a2, zero, zero
+  // .L00144AD0:
+    .word 0xB000828C // lw v0, 0xB0(a0)
+    .word 0x80180600 // sll v1, a2, 2
+    .word 0x21104300 // addu v0, v0, v1
+    .word 0x0000428C // lw v0, 0x0(v0)
+    .word 0x04008254 // bnel a1, v0, .L00144AF4
+    .word 0x0100C624 // addiu a2, a2, 0x1
+    .word 0x0A000010 // b .L00144B14
+    .word 0x01000324 // addiu v1, zero, 0x1
+    .word 0x0100C624 // addiu a2, a2, 0x1
+  // .L00144AF4:
+    .word 0x2A08C700 // slt at, a2, a3
+    .word 0x06002010 // beqz at, .L00144B14
+    .word 0x281E0070 // paddub v1, zero, zero
+    .word 0xBC00828C // lw v0, 0xBC(a0)
+    .word 0x2A10C200 // slt v0, a2, v0
+    .word 0xF1FF4014 // bnez v0, .L00144AD0
+    .word 0x00000000 // nop
+    .word 0x281E0070 // paddub v1, zero, zero
+  // .L00144B14:
+    .word 0x01000224 // addiu v0, zero, 0x1
+    .word 0x0E006210 // beq v1, v0, .L00144B54
+    .word 0x01000224 // addiu v0, zero, 0x1
+    .word 0xBC00828C // lw v0, 0xBC(a0)
+    .word 0xFFFF4224 // addiu v0, v0, -0x1
+    .word 0x2A084700 // slt at, v0, a3
+    .word 0x08002014 // bnez at, .L00144B50
+    .word 0x00000000 // nop
+    .word 0xB000828C // lw v0, 0xB0(a0)
+    .word 0x80180700 // sll v1, a3, 2
+    .word 0x21104300 // addu v0, v0, v1
+    .word 0x000045AC // sw a1, 0x0(v0)
+    .word 0xB400828C // lw v0, 0xB4(a0)
+    .word 0x01004224 // addiu v0, v0, 0x1
+    .word 0xB40082AC // sw v0, 0xB4(a0)
+  // .L00144B50:
+    .word 0x01000224 // addiu v0, zero, 0x1
+  // .L00144B54:
+    .word 0x0800E003 // jr ra
+    .word 0x00000000 // nop
+    .set reorder
+    .set at
+}
+
+asm void func_00144B60(void *self, void *p1) {
+    .set noreorder
+    .set noat
+    .word 0xBC00878C // lw a3, 0xBC(a0)
+    .word 0x02000010 // b .L00144B70
+    .word 0x28360070 // paddub a2, zero, zero
+    .word 0x0100C624 // addiu a2, a2, 0x1
+  // .L00144B70:
+    .word 0x2A08C700 // slt at, a2, a3
+    .word 0x08002010 // beqz at, .L00144B98
+    .word 0x2A10C700 // slt v0, a2, a3
+    .word 0xB000828C // lw v0, 0xB0(a0)
+    .word 0x80180600 // sll v1, a2, 2
+    .word 0x21104300 // addu v0, v0, v1
+    .word 0x0000428C // lw v0, 0x0(v0)
+    .word 0xF8FFA254 // bnel a1, v0, .L00144B70
+    .word 0x0100C624 // addiu a2, a2, 0x1
+    .word 0x2A10C700 // slt v0, a2, a3
+  // .L00144B98:
+    .word 0x09004014 // bnez v0, .L00144BC0
+    .word 0x00000000 // nop
+    .word 0x14000010 // b .L00144BF4
+    .word 0x28160070 // paddub v0, zero, zero
+  // .L00144BA8:
+    .word 0xB000828C // lw v0, 0xB0(a0)
+    .word 0x80180600 // sll v1, a2, 2
+    .word 0x0100C624 // addiu a2, a2, 0x1
+    .word 0x21184300 // addu v1, v0, v1
+    .word 0x0400628C // lw v0, 0x4(v1)
+    .word 0x000062AC // sw v0, 0x0(v1)
+  // .L00144BC0:
+    .word 0xBC00828C // lw v0, 0xBC(a0)
+    .word 0xFFFF4224 // addiu v0, v0, -0x1
+    .word 0x2A10C200 // slt v0, a2, v0
+    .word 0xF6FF4014 // bnez v0, .L00144BA8
+    .word 0x00000000 // nop
+    .word 0xB400828C // lw v0, 0xB4(a0)
+    .word 0xFFFF4224 // addiu v0, v0, -0x1
+    .word 0xB40082AC // sw v0, 0xB4(a0)
+    .word 0xB400828C // lw v0, 0xB4(a0)
+    .word 0x03004104 // bgez v0, .L00144BF4
+    .word 0x01000224 // addiu v0, zero, 0x1
+    .word 0xB40080AC // sw zero, 0xB4(a0)
+    .word 0x01000224 // addiu v0, zero, 0x1
+  // .L00144BF4:
+    .word 0x0800E003 // jr ra
+    .word 0x00000000 // nop
+    .set reorder
+    .set at
+}
+
+asm void func_00144C00(void *self, void *p1) {
+    .set noreorder
+    .set noat
+    .word 0xA0FFBD27 // addiu sp, sp, -0x60
+    .word 0x5000BF7F // sq ra, 0x50(sp)
+    .word 0x4000B47F // sq s4, 0x40(sp)
+    .word 0x3000B37F // sq s3, 0x30(sp)
+    .word 0x2000B27F // sq s2, 0x20(sp)
+    .word 0x1000B17F // sq s1, 0x10(sp)
+    .word 0x0000B07F // sq s0, 0x0(sp)
+    .word 0x289E8070 // paddub s3, a0, zero
+    .word 0x2896A070 // paddub s2, a1, zero
+    .word 0x28860070 // paddub s0, zero, zero
+    .word 0x21000010 // b .L00144CB0
+    .word 0x288E0070 // paddub s1, zero, zero
+  // .L00144C30:
+    .word 0xBC00628E // lw v0, 0xBC(s3)
+    .word 0xFFFF4224 // addiu v0, v0, -0x1
+    .word 0x2A085100 // slt at, v0, s1
+    .word 0x03002010 // beqz at, .L00144C4C
+    .word 0xAC00648E // lw a0, 0xAC(s3)
+    .word 0x04000010 // b .L00144C58
+    .word 0xB000628E // lw v0, 0xB0(s3)
+  // .L00144C4C:
+    .word 0xB000628E // lw v0, 0xB0(s3)
+    .word 0x80181100 // sll v1, s1, 2
+    .word 0x21104300 // addu v0, v0, v1
+  // .L00144C58:
+    .word 0x0000458C // lw a1, 0x0(v0)
+    .word 0x98CB0C0C // jal func_332e60
+    .word 0x980B848C // lw a0, 0xB98(a0)
+    .word 0x28A64070 // paddub s4, v0, zero
+    .word 0x11008052 // beql s4, zero, .L00144CB0
+    .word 0x01003126 // addiu s1, s1, 0x1
+    .word 0x0000998E // lw t9, 0x0(s4)
+    .word 0x6401398F // lw t9, 0x164(t9)
+    .word 0x09F82003 // jalr t9
+    .word 0x28268072 // paddub a0, s4, zero
+    .word 0x0A004010 // beqz v0, .L00144CAC
+    .word 0x00000000 // nop
+    .word 0x0000998E // lw t9, 0x0(s4)
+    .word 0x6401398F // lw t9, 0x164(t9)
+    .word 0x09F82003 // jalr t9
+    .word 0x28268072 // paddub a0, s4, zero
+    .word 0x681C050C // jal func_1471A0
+    .word 0x0000448C // lw a0, 0x0(v0)
+    .word 0x02004216 // bne s2, v0, .L00144CAC
+    .word 0x00000000 // nop
+    .word 0x01001026 // addiu s0, s0, 0x1
+  // .L00144CAC:
+    .word 0x01003126 // addiu s1, s1, 0x1
+  // .L00144CB0:
+    .word 0xB400628E // lw v0, 0xB4(s3)
+    .word 0x2A102202 // slt v0, s1, v0
+    .word 0xDDFF4014 // bnez v0, .L00144C30
+    .word 0x00000000 // nop
+    .word 0x28160072 // paddub v0, s0, zero
+    .word 0x5000BF7B // lq ra, 0x50(sp)
+    .word 0x4000B47B // lq s4, 0x40(sp)
+    .word 0x3000B37B // lq s3, 0x30(sp)
+    .word 0x2000B27B // lq s2, 0x20(sp)
+    .word 0x1000B17B // lq s1, 0x10(sp)
+    .word 0x0000B07B // lq s0, 0x0(sp)
+    .word 0x0800E003 // jr ra
+    .word 0x6000BD27 // addiu sp, sp, 0x60
+    .set reorder
+    .set at
+}
+
 }

@@ -2705,6 +2705,38 @@ Directly following randomized script loading sits the canonical `(defrule ... =>
 |---|---|---|---|
 | `func_143E00` (`TacticalAI2::CompileRule`) | `0x143E00` | **99.86%** (592 / 592 B) | Canonical defrule statement compiler splitting conditions and actions around "=>". |
 
+### 6.82 Tactical / Spatial AI Script Parser Scope and Condition Stack Pops (`0x144050`–`0x1441B0`, `tactical_ai_cleanup.cpp`)
+
+Directly following canonical rule compilation sit the parser scope stack pop and preprocessor condition scope pop methods (`TacticalAI2`, `0x144050`–`0x1441B0`, 336 bytes of code across 2 methods, 352-byte slice, Metrowerks MWCCPS2 2.3.1.01):
+
+* **Architecture and Reverse Engineering:**
+  - Method: `func_144050` (`TacticalAI2::EndScriptScope()`, 300 B code, VRAM `0x144050`):
+    - Finalizes nested script parsing scope (e.g. after `load` or `include`).
+    - Decrements scope depth `self->field_6C0--`.
+    - Computes frame stride of 1048 bytes (`sizeof(ScopeFrame) = 0x418`, computed via `((idx * 65) * 2 + idx) * 8`).
+    - Restores previous file's parser state:
+      * `field_2A4 = frame->field_6C4`
+      * `field_6AC = frame->field_ACC`
+      * `field_6A8 = frame->field_AC8`
+      * `field_6B0 = frame->field_AD0`
+      * Restores script path via `strcpy(&self->field_2A8, frame->field_6C8)` (`func_0011ABBC`).
+      * `field_6B8 = frame->field_AD4`
+      * `field_6BC = frame->field_AD8`
+    - **100.0% exact byte-for-byte match**.
+  - Method: `func_144180` (`TacticalAI2::PopConditionScope()`, 36 B code, VRAM `0x144180`):
+    - Pops preprocessor condition scope after `#end-if`.
+    - Decrements stack pointer `self->field_2FB4--`.
+    - Restores active condition flag: `self->field_198 = self->field_2FB8[self->field_2FB4]`.
+    - **100.0% exact byte-for-byte match**.
+
+* **Matching Results (2 / 2 Functions, 100.0% Unit Match):**
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_144050` (`TacticalAI2::EndScriptScope`) | `0x144050` | **100.0%** (300 / 300 B) | Restores previous script scope frame (0x418 stride) after nested load. |
+| `func_144180` (`TacticalAI2::PopConditionScope`) | `0x144180` | **100.0%** (36 / 36 B) | Pops preprocessor condition stack and restores execution flag. |
+
+
 
 
 

@@ -527,9 +527,15 @@ segments:
     vram: 0x143E00
     subsegments:
       - [0x43FE0, asm, tactical_ai_defrule]
+  - name: tactical_ai_cleanup
+    type: code
+    start: 0x44230
+    vram: 0x144050
+    subsegments:
+      - [0x44230, asm, tactical_ai_cleanup]
   - name: post_base
     type: bin
-    start: 0x44230
+    start: 0x44390
   - [0x3e31c0]
 
 

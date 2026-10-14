@@ -35,8 +35,15 @@ int SubList::Setup(void *stream) {
 
 extern "C" char D_10B68F0[1024];
 
-void* SubList::CreateSubList() {
-    return func_3668C0(D_10B68F0, this);
+asm void* SubList::CreateSubList() {
+    .set noreorder
+    .set noat
+    paddub a1, a0, zero
+    lui v0, 0x10B
+    j func_3668C0
+    addiu a0, v0, 0x68F0
+    .set reorder
+    .set at
 }
 
 void SubList::Action() {

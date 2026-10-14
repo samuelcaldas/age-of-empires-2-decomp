@@ -3214,7 +3214,20 @@ Following the update loop sits the merchant route registration and validation su
 - Match: 96.92% in pure C++.
 - Vtable: `D_4D7758`
 - Struct: Initializes `TacticalAI` base members including vector allocations for `TacticalNode` (size 24, via `func_1004E0`), `Obj12` (size 12, via `func_1004E0`), `Item16` (size 16), and `Item8` (size 8).
-- Minor difference: MWCC allocates registers `$s1` and `$s2` swapped between `self` and `a2`, while all control flow, call sequences, and instructions are otherwise identical.
+### 6.98 `Trade Action Target Notification & Waypoint Movement Callbacks` Subsystem (`0x147CD0`–`0x147FB0`, `trade_action_callbacks.cpp`)
+
+Following the route registration logic sits the trade action target notification and spatial movement callback subsystem (`0x147CD0`–`0x147FB0`, 736 bytes in Metrowerks C++ PS2 MWCC 2.3.1.01). It handles timer-based entity notifications, atomic lock synchronization via `func_1AAB30`/`func_1AAB70`, route spatial interpolation, and unit command notifications:
+
+- `TradeAction::OnTargetNotify` (`func_00147CD0`, 152 bytes): Validates target timer (`m_field64 != -1`), retrieves game timer via `func_333b30`, evaluates command codes (`0x1F4` / 500 and `0x20F` / 527) via jump-optimized `switch`, and dispatches notification via `func_1BCE20`. **100.0% pure C++ match**.
+- `TradeAction::SetTargetPosition` (`func_00147D70`, 572 bytes): Enters critical section (`func_1AAB30`), guards against re-entrant execution via `D_004E305C`, performs route validation (`m_field44 == 0x2BD`), updates entity coordinates and pathing bounds (`func_327A30`), executes delta-time movement accumulation, and triggers building communication via `Method118` when `m_float15C > 10.0f`. **97.83% pure C++ match**.
+
+#### 6.98.1 Trade Action Callbacks Matching Results (Pure C++, 736 Bytes)
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_00147CD0` | `0x147CD0` | **100.0%** (152 / 152 B) | Target notification callback and timer-based entity update. |
+| `func_00147D70` | `0x147D70` | **97.83%** (572 B, 143 ins) | Spatial movement coordinator and critical section handler. |
+
 
 ### TacticalAI Scope Operations (tactical_ai_scope) Decompilation Notes
 - Address: `0x1441B0` - `0x144434` (644 bytes)

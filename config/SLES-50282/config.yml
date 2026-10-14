@@ -665,9 +665,15 @@ segments:
     vram: 0x147A40
     subsegments:
       - [0x47C30, asm, trade_action_routes]
+  - name: trade_action_callbacks
+    type: code
+    start: 0x47EC0
+    vram: 0x147CD0
+    subsegments:
+      - [0x47EC0, asm, trade_action_callbacks]
   - name: post_base
     type: bin
-    start: 0x47EC0
+    start: 0x481A0
   - [0x3e31c0]
 
 

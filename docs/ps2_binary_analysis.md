@@ -2900,6 +2900,57 @@ Directly following condition node methods sits the constructor for the specializ
 |---|---|---|---|
 | `func_1446A0` (`InfantryAI::InfantryAI`) | `0x1446A0` | **98.95%** (76 / 76 B) | Constructor for Infantry AI subsystem (ID 1005, name "InfAI", vtable D_4D7780). |
 
+### 6.87 Infantry AI Subsystem Methods and Evaluators (`0x1446EC`–`0x1456CC`, `tactical_ai_infantry.cpp`)
+
+Directly following the `InfantryAI` constructor sits the complete suite of 42 virtual methods, tactical action dispatchers, pathing evaluators, rule checkers, and property accessors for infantry tactical combat operations (3,812 bytes of code, 42 functions, Metrowerks MWCCPS2 2.3.1.01):
+
+* **Architecture and Reverse Engineering:**
+  - Vtable: `D_4D7780` and `D_4D77D0` (Infantry tactical vtables).
+  - Component initialization: `func_001446F0` (scalar deleting destructor / cleanup) and `func_00144750` / `func_001447E0` (tactical combat planners).
+  - Query routines: `func_00144950`–`func_00144D00` (target selection, tactical range validation, weapon effectiveness scoring).
+  - Target scanner & node iteration: `func_00144D10` (632 bytes) evaluates candidate target entities against stance and terrain.
+  - Action execution: `func_00144FD0` (524 bytes) coordinates tactical movements and weapon discharge commands.
+  - Virtual and accessor methods: `func_00145400`–`func_00145660` (leaf property accessors for combat ranges, speed factors, state flags).
+  - Batch reset: `func_00145670` resets 16 combat slots in the infantry tracking table.
+
+* **Matching Results (42 / 42 Functions, 99.66% Fuzzy Match):**
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_001446EC` | `0x1446EC` | **100.0%** (4 / 4 B) | Alignment / no-op stub. |
+| `func_001446F0` | `0x1446F0` | **99.17%** (96 / 96 B) | Destructor / sub-cleanup dispatch. |
+| `func_00144750` | `0x144750` | **99.17%** (144 / 144 B) | Infantry combat planner initialization. |
+| `func_001447E0` | `0x1447E0` | **99.57%** (368 / 368 B) | Formation & tactical stance setup. |
+| `func_00144950` | `0x144950` | **99.32%** (148 / 148 B) | Target range evaluation. |
+| `func_001449F0` | `0x1449F0` | **100.0%** (8 / 8 B) | Stance predicate. |
+| `func_00144A00` | `0x144A00` | **99.77%** (172 / 172 B) | Threat assessment scoring. |
+| `func_00144AB0` | `0x144AB0` | **100.0%** (172 / 172 B) | Spatial candidate filter. |
+| `func_00144B60` | `0x144B60` | **100.0%** (156 / 156 B) | Tactical movement candidate evaluation. |
+| `func_00144C00` | `0x144C00` | **99.82%** (228 / 228 B) | Friendly unit proximity scanner. |
+| `func_00144CF0` | `0x144CF0` | **100.0%** (8 / 8 B) | Target valid predicate. |
+| `func_00144D00` | `0x144D00` | **98.33%** (12 / 12 B) | Sub-list trampoline. |
+| `func_00144D10` | `0x144D10` | **99.87%** (632 / 632 B) | Target selection and weapon scoring loop. |
+| `func_00144F90` | `0x144F90` | **98.50%** (40 / 40 B) | Tactical waypoint dispatcher. |
+| `func_00144FC0` | `0x144FC0` | **100.0%** (8 / 8 B) | Path confirmation stub. |
+| `func_00144FD0` | `0x144FD0` | **99.89%** (524 / 524 B) | Coordinated command dispatcher. |
+| `func_001451E0` | `0x1451E0` | **100.0%** (8 / 8 B) | Status flag accessor. |
+| `func_001451F0` | `0x1451F0` | **100.0%** (16 / 16 B) | Tactical stack setup stub. |
+| `func_00145200` | `0x145200` | **98.95%** (76 / 76 B) | Component instance setup. |
+| `func_00145250` | `0x145250` | **100.0%** (16 / 16 B) | Tactical state stack entry. |
+| `func_00145260` | `0x145260` | **99.00%** (60 / 60 B) | Tactical unit unregister / release. |
+| `func_001452A0` | `0x1452A0` | **99.25%** (160 / 160 B) | Subsystem state allocation. |
+| `func_00145340` | `0x145340` | **99.20%** (100 / 100 B) | Unit registry reset. |
+| `func_001453B0` | `0x1453B0` | **98.82%** (68 / 68 B) | Formation slot binding. |
+| `func_00145400`–`func_001454A0` | `0x145400`–`0x1454A0` | **100.0%** (88 / 88 B) | 11 leaf accessor and status predicates. |
+| `func_001454B0` | `0x1454B0` | **100.0%** (56 / 56 B) | Tactical priority evaluator. |
+| `func_001454F0` | `0x1454F0` | **99.72%** (144 / 144 B) | Engagement rule checker. |
+| `func_00145580` | `0x145580` | **99.29%** (84 / 84 B) | Retreat threshold evaluator. |
+| `func_001455E0` | `0x1455E0` | **100.0%** (60 / 60 B) | Stance switch validator. |
+| `func_00145620` | `0x145620` | **100.0%** (56 / 56 B) | Target lock confirmation. |
+| `func_00145660` | `0x145660` | **100.0%** (8 / 8 B) | Combat speed factor getter. |
+| `func_00145670` | `0x145670` | **100.0%** (92 / 92 B) | Combat slot batch table reset (16 entries). |
+
+
 
 
 

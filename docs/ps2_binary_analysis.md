@@ -2679,6 +2679,33 @@ Directly following preprocessor directives sits the randomized script loader (`T
 |---|---|---|---|
 | `func_143AD0` (`TacticalAI2::LoadRandomScript`) | `0x143AD0` | **99.95%** (812 / 812 B) | Weighted random script selection parser using rand() % 100 and dynamic loading. |
 
+### 6.81 Tactical / Spatial AI Canonical Rule Statement Parser (`0x143E00`–`0x144050`, `tactical_ai_defrule.cpp`)
+
+Directly following randomized script loading sits the canonical `(defrule ... => ...)` block parser (`TacticalAI2`, `0x143E00`–`0x144050`, 592 bytes of code, 592-byte slice, Metrowerks MWCCPS2 2.3.1.01):
+
+* **Architecture and Reverse Engineering:**
+  - Method: `func_143E00` (`TacticalAI2::CompileRule()`, 592 B code, VRAM `0x143E00`):
+    - Two-stage syntax compiler for Age of Empires II AI rule definitions.
+    - Stage 1 (Pre-`=>` Condition Parsing Loop):
+      * Scans condition expression tokens via `func_142980`.
+      * Evaluates optional leading rule priority / saliency integer with `func_00142680`.
+      * Compiles each condition clause via `func_00143020(self, 1)`.
+      * Detects transition delimiter `"=>"` (`D_490F18`) via `func_0011AA78`.
+      * Records condition count `self->field_4A = self->field_40 + 1`.
+    - Stage 2 (Post-`=>` Action Parsing Loop):
+      * Scans action command tokens via `func_142980`.
+      * Parses each action clause via `func_00142D10(self)`.
+      * Detects rule closing parenthesis `")"` and records total action count `self->field_4B = self->field_40 + 1`.
+    - Returns 1 on successful compilation, or dispatches syntax alerts via `func_144340`.
+    - **99.86% match** (592 / 592 B, 100% byte-for-byte in linked binary).
+
+* **Matching Results (1 / 1 Functions, 99.86% Unit Match):**
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_143E00` (`TacticalAI2::CompileRule`) | `0x143E00` | **99.86%** (592 / 592 B) | Canonical defrule statement compiler splitting conditions and actions around "=>". |
+
+
 
 
 

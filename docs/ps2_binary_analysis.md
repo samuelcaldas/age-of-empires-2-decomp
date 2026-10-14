@@ -2393,6 +2393,36 @@ Directly following spatial queries sit the spatial flag modifiers and object ins
 | `func_00142200` (`TacticalAI2::ClearSpatialFlag`) | `0x142200` | **100.0%** (84 / 84 B) | Clears subsystem spatial flag via func_26AF90. |
 | `func_00142260` (`TacticalAI2::DispatchSpatialEvent`) | `0x142260` | **100.0%** (140 / 140 B) | Inserts spatial object and dispatches event trigger. |
 
+### 6.70 Tactical / Spatial AI Unit Node Insertion and Matrix Node Lifecycle (`0x1422F0`–`0x1424A0`, `tactical_ai_spatial.cpp`)
+
+Directly following spatial event dispatch sit the unit node updater and dynamic matrix node allocators (`TacticalAI2`, `0x1422F0`–`0x1424A0`, 400 bytes of code across 3 methods, 432-byte slice, Metrowerks MWCCPS2 2.3.1.01):
+
+* **Architecture and Reverse Engineering:**
+  - Method: `func_001422F0` (`TacticalAI2::InsertUnitNode(int, int, int)`, 132 B code, VRAM `0x1422F0`):
+    - Inserts spatial unit via base `func_001411E0`. Returns 0 on failure (`-1`).
+    - Dispatches spatial event trigger type 0 via `func_26AF90` on `&self->field_34`.
+    - **100.0% exact byte-for-byte match**.
+  - Method: `func_00142380` (`TacticalAI2::AllocateMatrixNode(int count)`, 116 B code, VRAM `0x142380`):
+    - Allocates spatial matrix slot via base `func_00141500`.
+    - Dynamically allocates 8-byte node instance via `func_100850(8)` and initializes it with ID `0xD3` (211) via `func_26AD90`.
+    - Stores node instance pointer into `self->m_field3C[slot]` and returns slot index.
+    - **100.0% exact byte-for-byte match**.
+  - Method: `func_00142400` (`TacticalAI2::ResetMatrixNode(int index)`, 152 B code, VRAM `0x142400`):
+    - Resets spatial matrix slot via base `func_00141630`.
+    - Destroys existing node instance at `self->m_field3C[index]` via `func_26AE00(node, 1)` if active.
+    - Reallocates 8-byte node instance via `func_100850(8)` and re-initializes with ID `0xD3` via `func_26AD90`.
+    - Stores updated node instance pointer into `self->m_field3C[index]` and returns status.
+    - **100.0% exact byte-for-byte match**.
+
+* **Matching Results (3 / 3 Functions, 100.0% Unit Match):**
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_001422F0` (`TacticalAI2::InsertUnitNode`) | `0x1422F0` | **100.0%** (132 / 132 B) | Inserts spatial unit and triggers type 0 spatial event. |
+| `func_00142380` (`TacticalAI2::AllocateMatrixNode`) | `0x142380` | **100.0%** (116 / 116 B) | Allocates matrix slot and initializes component ID 211. |
+| `func_00142400` (`TacticalAI2::ResetMatrixNode`) | `0x142400` | **100.0%** (152 / 152 B) | Resets matrix slot, cleans previous node, reallocates component. |
+
+
 
 
 

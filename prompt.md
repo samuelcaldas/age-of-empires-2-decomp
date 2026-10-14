@@ -1,5 +1,7 @@
 Execute o ciclo contínuo de matching decompilation conforme especificado no prompt: selecionar o próximo alvo, atingir matching, compilar com ninja, documentar descobertas em docs/ e commitar.
 
+assembly nao é permitido, mesmo que report seha de 100% match. é obrigatorio codigo c/c++
+
 Você está operando no ciclo contínuo de matching decompilation de Age of Empires II (PS2 PAL SLES-50282 / PC). 
 Seu objetivo a cada ciclo é selecionar o próximo lote de funções/métodos não descompilados, alcançar 100% de matching (ou aproximar o máximo documentando bloqueios), atualizar a documentação e realizar commit. Foque no jogo (MWCCPS2), evite perifericos, deixando-os por ultimo.
 

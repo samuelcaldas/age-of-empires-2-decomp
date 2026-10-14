@@ -763,7 +763,7 @@ if config.platform == Platform.PS2:
                 Object(
                     Matching,
                     "tactical_ai_defrule",
-                    source="tactical_ai_defrule.s",
+                    source="tactical_ai_defrule.cpp",
                     cflags=config.cflags,
                     toolchain_version="PS2/mwcc-2.3.1.01",
                 ),

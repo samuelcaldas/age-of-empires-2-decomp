@@ -8,6 +8,7 @@ extern const char D_490FC0[];
 void *func_00100670(void *self);
 void func_0011B170(void *destination, const char *source, int length);
 void func_0011ABBC(void *destination, const char *source);
+extern const char D_490FF0[];
 void *func_001452B0(void *self, const char *name, int id, void *p2, void *p1);
 void *func_100730(void);
 void *func_00145350(void *self, int mode);
@@ -1016,6 +1017,17 @@ asm void func_00145340(void) {
     .set at
 }
 
+void func_001453B0(void *self, void *value, void *source) {
+    *(void **)((char *)self + 0x4C) = value;
+    if (source) {
+        func_0011B170((char *)self + 0x68, (const char *)source, 0x3F);
+        return;
+    }
+    func_0011ABBC((char *)self + 0x68, D_490FF0);
+}
+
+/* legacy reference removed */
+/*
 asm void func_001453B0(void) {
     .set noreorder
     .set noat
@@ -1041,6 +1053,7 @@ asm void func_001453B0(void) {
     .set reorder
     .set at
 }
+*/
 
 asm void func_00145400(void) {
     .set noreorder

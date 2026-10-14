@@ -16,6 +16,16 @@ struct VBaseList {
     virtual void* CreateItem(void *s0, void *other, float x, float y, float z);
 };
 
+struct SpatialObjV8 {
+    virtual void* v0();
+    virtual void* v1();
+    virtual void* v2();
+    virtual void* v3();
+    virtual void* v4();
+    virtual void* v5();
+    virtual int v8();
+};
+
 void func_0013A280(SubList *self, void *other, int a2, int mode, float x, float y, float z) {
     if (other == self) {
         return;
@@ -87,7 +97,7 @@ void func_0013A280(SubList *self, void *other, int a2, int mode, float x, float 
     s0 = s0 ? (SpatialObj1*)((VBaseList*)self->m_fieldCC)->CreateItem(s0, other, x, y, z) : 0;
 
     if (s0) {
-        self->v197(s0->v8(), other, x, y, z);
+        self->v197(((SpatialObjV8*)s0)->v8(), other, x, y, z);
         self->v194(s0);
         return;
     }

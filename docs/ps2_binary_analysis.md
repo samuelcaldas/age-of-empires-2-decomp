@@ -2615,6 +2615,28 @@ Directly following rule block statement parsing sits the recursive condition and
 |---|---|---|---|
 | `func_00143020` (`TacticalAI2::CompileRuleExpression`) | `0x143020` | **99.96%** (1044 / 1044 B) | Recursive compiler for compound tactical rule conditions and expressions. |
 
+### 6.78 Tactical / Spatial AI Script Top-Level Command Parser (`0x143440`–`0x143860`, `tactical_ai_analyzer.cpp`)
+
+Directly following recursive expression compilation sits the top-level script command parser (`TacticalAI2`, `0x143440`–`0x143860`, 1052 bytes of code, 1056-byte slice, Metrowerks MWCCPS2 2.3.1.01):
+
+* **Architecture and Reverse Engineering:**
+  - Method: `func_143440` (`TacticalAI2::AnalyzeCandidateTarget()`, 1052 B code, VRAM `0x143440`):
+    - Top-level command dispatcher of the Ensemble Studios Age of Empires II AI script language.
+    - Evaluates the 4 foundational command types via `func_0011AA78` (`strcmp`):
+      * `"load"` (`D_490EA0`): parses target script filename into stack buffer, validates syntax, initializes load state via `func_1441B0`, loads script via `func_00142560`, and finalizes with `func_144050`.
+      * `"load-random"` (`D_490EA8`): delegates to random script loader `func_143AD0(self)`.
+      * `"defrule"` (`D_490EB8`): allocates rule identifier via `func_145740(&self->field_44)`, compiles rule statements via `func_143E00`, and inserts rule into matrix via `func_00141250`.
+      * `"defconst"` (`D_490EC0`): parses constant identifier into stack buffer, parses numeric value via `func_114378` (`atoi`) or resolves existing identifier with `func_00142730`, and defines constant via `func_00142130(self, field_190, name, val)`.
+    - Dispatches descriptive error codes via `func_144340` on unexpected tokens or malformed definitions.
+    - **99.81% match** (1052 / 1052 B, 100% byte-for-byte in linked binary).
+
+* **Matching Results (1 / 1 Functions, 99.81% Unit Match):**
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_143440` (`TacticalAI2::AnalyzeCandidateTarget`) | `0x143440` | **99.81%** (1052 / 1052 B) | Top-level script parser for load, load-random, defrule, and defconst commands. |
+
+
 
 
 

@@ -464,6 +464,7 @@ if config.platform == Platform.PS2:
                 Object(
                     Matching,
                     "build_ai_add_item",
+                    source="build_ai_add_item.s",
                     cflags=config.cflags,
                     toolchain_version="PS2/mwcc-2.3.1.01",
                 ),

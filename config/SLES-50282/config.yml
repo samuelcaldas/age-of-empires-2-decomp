@@ -515,9 +515,15 @@ segments:
     vram: 0x143860
     subsegments:
       - [0x43A40, asm, tactical_ai_predicates2]
+  - name: tactical_ai_random
+    type: code
+    start: 0x43CB0
+    vram: 0x143AD0
+    subsegments:
+      - [0x43CB0, asm, tactical_ai_random]
   - name: post_base
     type: bin
-    start: 0x43CB0
+    start: 0x43FE0
   - [0x3e31c0]
 
 

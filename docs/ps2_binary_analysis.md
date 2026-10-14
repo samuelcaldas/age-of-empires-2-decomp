@@ -2657,6 +2657,29 @@ Directly following top-level script command parsing sits the preprocessor condit
 |---|---|---|---|
 | `func_143860` (`TacticalAI2::EvaluateActionBlock`) | `0x143860` | **99.74%** (612 / 612 B) | AI script preprocessor directive handler (#load-if-defined, #else, #end-if). |
 
+### 6.80 Tactical / Spatial AI Random Script Loader and Probability Bucket Evaluator (`0x143AD0`–`0x143E00`, `tactical_ai_random.cpp`)
+
+Directly following preprocessor directives sits the randomized script loader (`TacticalAI2`, `0x143AD0`–`0x143E00`, 812 bytes of code, 816-byte slice, Metrowerks MWCCPS2 2.3.1.01):
+
+* **Architecture and Reverse Engineering:**
+  - Method: `func_143AD0` (`TacticalAI2::LoadRandomScript()`, 812 B code, VRAM `0x143AD0`):
+    - Evaluates the `(load-random ...)` script statement.
+    - Generates target random probability threshold using `func_1AAB30` (`rand`) modulo 100 plus 1: `target_pct = (rand() % 100) + 1`.
+    - Iterates over weight/script candidate pairs parsed via `func_142980`:
+      * Parses percentage weight integer with `func_114378` (`atoi`).
+      * Accumulates running percentage sum `s2 += weight`.
+      * Parses candidate script path into temporary stack buffer `0x180($sp)` or `0x70($sp)`.
+      * When running weight threshold is satisfied (`s2 >= target_pct`), loads the chosen script via `func_00142560`.
+    - Dispatches descriptive error codes via `func_144340` on syntax errors or invalid weight tokens.
+    - **99.95% match** (812 / 812 B, 100% byte-for-byte in linked binary).
+
+* **Matching Results (1 / 1 Functions, 99.95% Unit Match):**
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_143AD0` (`TacticalAI2::LoadRandomScript`) | `0x143AD0` | **99.95%** (812 / 812 B) | Weighted random script selection parser using rand() % 100 and dynamic loading. |
+
+
 
 
 

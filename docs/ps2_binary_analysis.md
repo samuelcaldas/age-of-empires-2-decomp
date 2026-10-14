@@ -2178,6 +2178,36 @@ Directly following the virtual destructor sits the stream serializer and spatial
 | `func_00141170` (`TacticalAI::InsertObject`) | `0x141170` | **100.0%** (100 / 100 B) | Spatial object insertion with bounds check and `func_1444C0`. |
 | `func_001411E0` (`TacticalAI::InsertUnit`) | `0x1411E0` | **100.0%** (100 / 100 B) | Spatial unit insertion with bounds check and `func_0013C560`. |
 
+### 6.63 Tactical / Spatial AI Tile Query, Coordinate Accessors, and Grid Update (`0x141250`–`0x141500`, `tactical_ai_query.cpp`)
+
+Directly following spatial item insertion sits the tile coordinate query, grid dimension accessors, and dynamic tile updater (`TacticalAI`, `0x141250`–`0x141500`, 656 bytes of code across 4 methods, 688-byte slice, Metrowerks MWCCPS2 2.3.1.01):
+
+* **Architecture and Reverse Engineering:**
+  - Method: `func_00141250` (`TacticalAI::GetSpatialTile(int a1, int a2, void *a3)`, 280 B code, VRAM `0x141250`):
+    - Leaf function executing 64-bit doubleword and quadword spatial grid indexing without stack frame.
+    - Copies 8-byte tile metadata into output buffer `a3` in an unrolled loop.
+    - **99.93% match** (280 / 280 B, 100% size match).
+  - Method: `func_00141370` (`TacticalAI::UpdateSpatialTile(int a1)`, 248 B code, VRAM `0x141370`):
+    - Spatial coordinate verification calling `func_141A20`.
+    - Updates spatial grid array `0x24($s1)` and allocates buffer elements via `func_100730`.
+    - **99.92% match** (248 / 248 B, 100% size match).
+  - Method: `func_00141470` (`TacticalAI::GetGridWidth()`, 36 B code, VRAM `0x141470`):
+    - Spatial grid boundary query method.
+    - **100.0% exact byte-for-byte match**.
+  - Method: `func_001414A0` (`TacticalAI::GetGridHeight()`, 92 B code, VRAM `0x1414A0`):
+    - Spatial grid height/dimension query method.
+    - **99.78% match** (92 / 92 B, 100% size match).
+
+* **Matching Results (4 / 4 Functions, 99.91% Unit Match):**
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_00141250` (`TacticalAI::GetTile`) | `0x141250` | **99.93%** (280 / 280 B) | Leaf spatial grid tile data accessor. |
+| `func_00141370` (`TacticalAI::UpdateTile`) | `0x141370` | **99.92%** (248 / 248 B) | Spatial grid tile updater dispatching `func_141A20`. |
+| `func_00141470` (`TacticalAI::GetWidth`) | `0x141470` | **100.0%** (36 / 36 B) | Spatial grid width accessor. |
+| `func_001414A0` (`TacticalAI::GetHeight`) | `0x1414A0` | **99.78%** (92 / 92 B) | Spatial grid height accessor with relation query. |
+
+
 
 
 

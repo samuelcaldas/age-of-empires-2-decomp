@@ -395,5 +395,9 @@ Save__10TacticalAIFPv = 0x140EF0; // type:func TacticalAI.Save(void*)
 func_001410E0 = 0x1410E0; // type:func
 func_00141170 = 0x141170; // type:func
 func_001411E0 = 0x1411E0; // type:func
+func_00141250 = 0x141250; // type:func
+func_00141370 = 0x141370; // type:func
+func_00141470 = 0x141470; // type:func
+func_001414A0 = 0x1414A0; // type:func
 
 

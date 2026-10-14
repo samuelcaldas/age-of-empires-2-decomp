@@ -1137,6 +1137,34 @@ Directly following target entity queries sits an independent 12-byte callback / 
   - `+0x0A` (`unsigned char m_arg3`): Byte argument 3.
   - `+0x0B` (`unsigned char m_arg4`): Byte argument 4.
 
+### 6.87 `InfantryAI` Subsystem and Combat Dispatch (`0x1446E0`–`0x144A80`)
+
+Directly following Tactical AI parameter descriptor routines sits the infantry combat subsystem (`InfantryAI`, `0x1446E0`–`0x144A80`), implementing combat entity initialization, initialization guard checks, list iteration, and rule dispatching (Metrowerks MWCCPS2 2.3.1.01):
+
+* **`func_001446EC` (`0x1446EC`, 4 B code):**
+  - Empty stub / no-op method.
+* **`func_001446F0` (`0x1446F0`, 96 B code):**
+  - InfantryAI initialization routine setting up vtable pointer `D_4D7780` and invoking tactical methods.
+* **`func_00144750` / `func_001447E0` (`0x144750`–`0x14494C`, 368 B code):**
+  - Infantry AI candidate scanning and rule evaluation loops iterating over tactical target lists.
+* **`func_00144950` (`0x144950`, 148 B code):**
+  - Cleanup and reset routine for InfantryAI instance members and child lists.
+* **`func_00144A00` (`0x144A00`, 172 B code):**
+  - Candidate filtering and evaluation method querying target entities via `func_00226F70`.
+
+#### 6.87.1 InfantryAI Matching Results (100.0% Unit Linked, 408 Functions Matched)
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_001446EC` | `0x1446EC` | **100.0%** (4 / 4 B) | Empty stub / no-op. |
+| `func_001446F0` | `0x1446F0` | **100.0%** (96 / 96 B) | InfantryAI initializer setting vtable `0x4D7780`. |
+| `func_00144750` | `0x144750` | **100.0%** (144 / 144 B) | Target registration and parameter setup routine. |
+| `func_001447E0` | `0x1447E0` | **100.0%** (368 / 368 B) | Candidate scan and loop evaluator. |
+| `func_00144950` | `0x144950` | **100.0%** (148 / 148 B) | Instance cleanup and child list destruction. |
+| `func_001449F0` | `0x1449F0` | **100.0%** (8 / 8 B) | Simple return stub. |
+| `func_00144A00` | `0x144A00` | **172 / 172 B** | Target filtering and predicate evaluation. |
+
+
 * **`func_0013C4F0` (`0x13C4F0`, 32 B code, 32 B slice):**
   - Default constructor (`CallbackItem::CallbackItem()`).
   - Clears all fields to 0 and returns `this`. 100.0% exact match.

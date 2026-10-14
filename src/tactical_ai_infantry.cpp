@@ -9,6 +9,7 @@ void func_0011B170(void *destination, const char *source, int length);
 void func_0011ABBC(void *destination, const char *source);
 void *func_001452B0(void *self, const char *name, int id, void *p2, void *p1);
 void *func_100730(void);
+void *func_00145350(void *self, int mode);
 
 asm void func_001446EC(void) {
     .set noreorder
@@ -31,13 +32,13 @@ asm void func_001446F0(void) {
     .word 0x3C02004D // lui        $v0, %hi(D_4D7780)
     .word 0x24427780 // addiu      $v0, $v0, %lo(D_4D7780)
     .word 0xAE220000 // sw         $v0, 0x0($s1)
-    .word 0x0C0514D4 // jal        func_00145350
+    jal func_00145350
     .word 0x70002E28 // paddub    $a1, $zero, $zero
     .word 0x0010143C // dsll32     $v0, $s0, 16
     .word 0x0002143F // dsra32     $v0, $v0, 16
     .word 0x18400004 // blez       $v0, .L0014473C
     .word 0x72201628 // paddub    $v0, $s1, $zero
-    .word 0x0C04019C // jal        func_00100670
+    jal func_00100670
     .word 0x72202628 // paddub    $a0, $s1, $zero
   // .L00144738:
     .word 0x72201628 // paddub     $v0, $s1, $zero

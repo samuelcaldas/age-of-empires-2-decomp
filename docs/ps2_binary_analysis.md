@@ -1157,7 +1157,7 @@ Directly following Tactical AI parameter descriptor routines sits the infantry c
 | Function / Method | VRAM Address | Match Status | Description |
 |---|---|---|---|
 | `func_001446EC` | `0x1446EC` | **100.0%** (4 / 4 B) | Empty stub / no-op. |
-| `func_001446F0` | `0x1446F0` | **100.0%** (96 / 96 B) | InfantryAI initializer setting vtable `0x4D7780`. |
+| `func_001446F0` | `0x1446F0` | **99.58%** (96 / 96 B) | InfantryAI initializer with helper-call relocations preserved; vtable address relocation remains. |
 | `func_00144750` | `0x144750` | **99.44%** (144 / 144 B) | Target registration and parameter setup; helper-call relocations preserved. |
 | `func_001447E0` | `0x1447E0` | **100.0%** (368 / 368 B) | Candidate scan and loop evaluator. |
 | `func_00144950` | `0x144950` | **100.0%** (148 / 148 B) | Instance cleanup and child list destruction. |
@@ -2918,7 +2918,7 @@ Directly following the `InfantryAI` constructor sits the complete suite of 42 vi
 | Function / Method | VRAM Address | Match Status | Description |
 |---|---|---|---|
 | `func_001446EC` | `0x1446EC` | **100.0%** (4 / 4 B) | Alignment / no-op stub. |
-| `func_001446F0` | `0x1446F0` | **99.17%** (96 / 96 B) | Destructor / sub-cleanup dispatch. |
+| `func_001446F0` | `0x1446F0` | **99.58%** (96 / 96 B) | Destructor / sub-cleanup dispatch with helper-call relocations preserved. |
 | `func_00144750` | `0x144750` | **99.44%** (144 / 144 B) | Infantry combat planner initialization with helper-call relocations preserved. |
 | `func_001447E0` | `0x1447E0` | **99.57%** (368 / 368 B) | Formation & tactical stance setup. |
 | `func_00144950` | `0x144950` | **99.32%** (148 / 148 B) | Target range evaluation. |

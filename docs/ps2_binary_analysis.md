@@ -2451,6 +2451,38 @@ Directly following spatial node lifecycle sit the spatial bounds computation and
 | `func_001424A0` (`TacticalAI2::ComputeSpatialBounds`) | `0x1424A0` | **100.0%** (184 / 184 B) | Initializes spatial query parameters, buffers, and triggers target scan. |
 | `func_00142560` (`TacticalAI2::QueryNearbyTargets`) | `0x142560` | **100.0%** (280 / 280 B) | Spatial target scanning loop and candidate dispatch state machine. |
 
+### 6.72 Tactical / Spatial AI Candidate Evaluation, Registration, and Validation (`0x142680`–`0x142830`, `tactical_ai_candidates.cpp`)
+
+Directly following target scanning sit the candidate target allocation, registry lookup, and candidate state validation routines (`TacticalAI2`, `0x142680`–`0x142830`, 416 bytes of code across 3 methods, 432-byte slice, Metrowerks MWCCPS2 2.3.1.01):
+
+* **Architecture and Reverse Engineering:**
+  - Method: `func_00142680` (`TacticalAI2::FindOrAllocateSpatialTarget(int)`, 172 B code, VRAM `0x142680`):
+    - Searches existing target in array `0x3C[field_190]` via `func_26B0A0(ptr, a1, 4)`.
+    - If found, immediately returns existing index `lh 0x2(v0)`.
+    - Otherwise, allocates new spatial slot via `func_00141370(self, field_190)`.
+    - Registers entry using opcode type 4 via `func_26AF90` and returns allocated index.
+    - **100.0% exact byte-for-byte match**.
+  - Method: `func_00142730` (`TacticalAI2::LookupSpatialTarget(int, int)`, 112 B code, VRAM `0x142730`):
+    - Queries target entry in array `0x3C[field_190]` via `func_26B0A0`.
+    - If not found in primary array, queries secondary subsystem registry `&self->field_34` via `func_26B0A0`.
+    - **100.0% exact byte-for-byte match**.
+  - Method: `func_001427A0` (`TacticalAI2::ValidateNextCandidate()`, 132 B code, VRAM `0x1427A0`):
+    - Obtains next candidate via `func_142980(self)`.
+    - If state is 2 and mode `field_19C == 3`, returns 1.
+    - If state is 2 and mode `!= 3`, invokes notification handler `func_144340(self, 8, 0)` and returns 1.
+    - If state is 1, dispatches error notification `func_144340(self, 0x1A, 0)` and returns 0.
+    - Otherwise returns 0.
+    - **100.0% exact byte-for-byte match**.
+
+* **Matching Results (3 / 3 Functions, 100.0% Unit Match):**
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_00142680` (`TacticalAI2::FindOrAllocateSpatialTarget`) | `0x142680` | **100.0%** (172 / 172 B) | Queries or allocates spatial target slot in matrix. |
+| `func_00142730` (`TacticalAI2::LookupSpatialTarget`) | `0x142730` | **100.0%** (112 / 112 B) | Double-lookup of spatial target across primary and secondary registries. |
+| `func_001427A0` (`TacticalAI2::ValidateNextCandidate`) | `0x1427A0` | **100.0%** (132 / 132 B) | Validates candidate state and handles notification alerts. |
+
+
 
 
 

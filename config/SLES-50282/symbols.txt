@@ -423,6 +423,9 @@ func_00142380 = 0x142380; // type:func TacticalAI2.AllocateMatrixNode(int)
 func_00142400 = 0x142400; // type:func TacticalAI2.ResetMatrixNode(int)
 func_001424A0 = 0x1424A0; // type:func TacticalAI2.ComputeSpatialBounds(int, int, int)
 func_00142560 = 0x142560; // type:func TacticalAI2.QueryNearbyTargets(int, int, int)
+func_00142680 = 0x142680; // type:func TacticalAI2.FindOrAllocateSpatialTarget(int)
+func_00142730 = 0x142730; // type:func TacticalAI2.LookupSpatialTarget(int, int)
+func_001427A0 = 0x1427A0; // type:func TacticalAI2.ValidateNextCandidate()
 func_100850 = 0x100850; // type:func absolute:True
 func_144550 = 0x144550; // type:func absolute:True
 jtbl_490E80 = 0x490E80; // type:jtbl absolute:True
@@ -437,5 +440,6 @@ func_21A3F0 = 0x21A3F0; // type:func absolute:True
 func_142980 = 0x142980; // type:func absolute:True
 func_143860 = 0x143860; // type:func absolute:True
 func_143440 = 0x143440; // type:func absolute:True
+func_26B0A0 = 0x26B0A0; // type:func absolute:True
 
 

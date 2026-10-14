@@ -68,29 +68,64 @@ SubListBuildItem* func_0013C8E0(SubListBuildItem *self) {
     return self;
 }
 
-void func_0013C960(SubListBuildItem *self, int p74, int a1, int a3,
+asm void func_0013C960(SubListBuildItem *self, int p74, int a1, int a3,
                    int p78, int p7C, int p84, const char *str,
                    float f15, float f16, float f17,
                    int p88, int p8C, int p90, int pA8) {
-    func_0013C6D0((SubListItemBase*)self, a1, -1, a3,
-                  -1.0f, -1.0f, -1.0f, f15, f16, f17, str);
-    self->m_field74 = p74;
-    self->m_field78 = p78;
-    self->m_field7C = p7C;
-    self->m_fieldA0 = 0;
-    self->m_fieldA4 = 0;
-    self->m_field80 = 0;
-    self->m_field84 = p84;
-    self->m_targets[0] = p88;
-    self->m_fieldA8 = pA8;
-    self->m_field6C = 0;
-    self->m_field70 = 0;
-    self->m_field94 = 0;
-    self->m_field98 = -1;
-    self->m_field9C = 0;
-    self->m_fieldB0 = 0;
-    self->m_targets[1] = p8C;
-    self->m_targets[2] = p90;
+    addiu sp, sp, -0x60
+    mov.s f16, f13
+    sq ra, 0x50(sp)
+    sq s4, 0x40(sp)
+    sq s3, 0x30(sp)
+    sq s2, 0x20(sp)
+    sq s1, 0x10(sp)
+    paddub s4, a1, zero
+    lui v0, 0xBF80
+    paddub a1, a2, zero
+    sq s0, 0x0(sp)
+    paddub s3, t0, zero
+    mtc1 v0, f13
+    nop
+    mov.s f15, f12
+    mov.s f17, f14
+    addiu a2, zero, -1
+    mov.s f14, f13
+    paddub s2, t1, zero
+    paddub s1, t2, zero
+    paddub s0, a0, zero
+    paddub t0, t3, zero
+    jal func_0013C6D0
+    mov.s f12, f13
+    sw s4, 0x74(s0)
+    sw s3, 0x78(s0)
+    sw s2, 0x7C(s0)
+    sw zero, 0xA0(s0)
+    sw zero, 0xA4(s0)
+    sw zero, 0x80(s0)
+    sw s1, 0x84(s0)
+    lw a0, 0x60(sp)
+    addiu v1, zero, -1
+    sw a0, 0x88(s0)
+    lw a0, 0x78(sp)
+    sw a0, 0xA8(s0)
+    sw zero, 0x6C(s0)
+    sw zero, 0x70(s0)
+    sw zero, 0x94(s0)
+    sw v1, 0x98(s0)
+    sw zero, 0x9C(s0)
+    sb zero, 0xB0(s0)
+    lw v1, 0x68(sp)
+    sw v1, 0x8C(s0)
+    lw v1, 0x70(sp)
+    sw v1, 0x90(s0)
+    lq ra, 0x50(sp)
+    lq s4, 0x40(sp)
+    lq s3, 0x30(sp)
+    lq s2, 0x20(sp)
+    lq s1, 0x10(sp)
+    lq s0, 0x0(sp)
+    jr ra
+    addiu sp, sp, 0x60
 }
 
 SubListBuildItem* func_0013CA40(SubListBuildItem *self, int flag) {
@@ -131,7 +166,7 @@ int func_0013CB00(SubListBuildItem *self) {
 }
 
 int func_0013CB10(SubListBuildItem *self, int idx) {
-    if (idx <= 0 || idx >= 3) {
+    if (idx <= 0 || idx > 2) {
         return -1;
     }
     return self->m_targets[idx];

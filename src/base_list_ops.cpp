@@ -64,9 +64,9 @@ asm int BaseList::Contains(int type) {
     .set noreorder
     .set noat
     .word 0x27BDFFD0
-    .word 0x7BBF0020
-    .word 0x7BB10010
-    .word 0x7BB00000
+    .word 0x7FBF0020
+    .word 0x7FB10010
+    .word 0x7FB00000
     .word 0x8C900008
     .word 0x1000000E
     .word 0x70A08E28

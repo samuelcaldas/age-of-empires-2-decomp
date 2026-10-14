@@ -2146,6 +2146,39 @@ Directly following the default constructor sits the stream deserializer construc
 | `func_001409B0` (`TacticalAI::TacticalAI`) | `0x1409B0` | **99.64%** (900 / 900 B) | Stream deserializer reconstructing spatial grid matrix and sub-arrays. |
 | `func_00140D40` (`TacticalAI::~TacticalAI`) | `0x140D40` | **99.62%** (424 / 424 B) | Virtual deleting destructor cleaning sub-arrays with `__vec_dtor` and freeing buffers. |
 
+### 6.62 Tactical / Spatial AI Serializer and Grid Item Insertion (`0x140EF0`–`0x141250`, `tactical_ai_save.cpp`)
+
+Directly following the virtual destructor sits the stream serializer and spatial grid item insertion methods (`TacticalAI`, `0x140EF0`–`0x141250`, 844 bytes of code across 4 methods, 864-byte slice, Metrowerks MWCCPS2 2.3.1.01):
+
+* **Architecture and Reverse Engineering:**
+  - Method: `Save__10TacticalAIFPv` (`TacticalAI::Save(void *stream)`, 484 B code, VRAM `0x140EF0`):
+    - Serializes spatial grid header (`0x4($s4)`, size 8 B) via `func_00226F70`.
+    - Iterates and serializes sub-arrays and string identifiers using `func_0011ACD0` and stream writers.
+    - Serializes custom elements via `func_1444C0` and `func_0013C560`.
+    - **99.96% match** (484 / 484 B, 100% size match, only pre-link JAL relocations).
+  - Method: `func_001410E0` (`TacticalAI::InsertTileItem(int a1, int a2)`, 140 B code, VRAM `0x1410E0`):
+    - Bounds-checks tile coordinates against grid limits (`0x4` and `0x6`).
+    - Computes slot index, allocates string buffer via `func_116F40`, and registers spatial node.
+    - **100.0% exact byte-for-byte match**.
+  - Method: `func_00141170` (`TacticalAI::InsertSpatialObject(int a1, int a2)`, 100 B code, VRAM `0x141170`):
+    - Bounds-checks object coordinate indices (`0xC` and `0xE`).
+    - Formats zeroed quadword registers and dispatches object node setup via `func_1444C0`.
+    - **100.0% exact byte-for-byte match**.
+  - Method: `func_001411E0` (`TacticalAI::InsertSpatialUnit(int a1, int a2)`, 100 B code, VRAM `0x1411E0`):
+    - Bounds-checks unit coordinate indices (`0x14` and `0x16`).
+    - Formats zeroed quadword registers and dispatches item node setup via `func_0013C560`.
+    - **100.0% exact byte-for-byte match**.
+
+* **Matching Results (4 / 4 Functions, 99.98% Unit Match):**
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `Save__10TacticalAIFPv` (`TacticalAI::Save`) | `0x140EF0` | **99.96%** (484 / 484 B) | Complete spatial grid and sub-array stream serializer. |
+| `func_001410E0` (`TacticalAI::InsertTile`) | `0x1410E0` | **100.0%** (140 / 140 B) | Tile item insertion with bounds check and `func_116F40`. |
+| `func_00141170` (`TacticalAI::InsertObject`) | `0x141170` | **100.0%** (100 / 100 B) | Spatial object insertion with bounds check and `func_1444C0`. |
+| `func_001411E0` (`TacticalAI::InsertUnit`) | `0x1411E0` | **100.0%** (100 / 100 B) | Spatial unit insertion with bounds check and `func_0013C560`. |
+
+
 
 
 

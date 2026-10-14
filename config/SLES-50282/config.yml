@@ -407,9 +407,15 @@ segments:
     vram: 0x1409B0
     subsegments:
       - [0x40B90, asm, tactical_ai_load]
+  - name: tactical_ai_save
+    type: code
+    start: 0x410D0
+    vram: 0x140EF0
+    subsegments:
+      - [0x410D0, asm, tactical_ai_save]
   - name: post_base
     type: bin
-    start: 0x410D0
+    start: 0x41430
   - [0x3e31c0]
 
 

@@ -391,5 +391,9 @@ D_4D7758 = 0x4D7758; // type:s32 absolute:True
 func_001407B0 = 0x1407B0; // type:func
 func_001409B0 = 0x1409B0; // type:func
 func_00140D40 = 0x140D40; // type:func
+Save__10TacticalAIFPv = 0x140EF0; // type:func TacticalAI.Save(void*)
+func_001410E0 = 0x1410E0; // type:func
+func_00141170 = 0x141170; // type:func
+func_001411E0 = 0x1411E0; // type:func
 
 

@@ -105,6 +105,7 @@ readelf -S orig/SLES-50282/AOK.ELF | grep -E 'symtab|debug'
        - **Optimisation flags:** `-O3 -inline on -msext on -char signed -sym off -Iinclude -lang=c++`.
        - **Characteristics:** Uses 128-bit quadword register saving (`sq`/`lq`) in stack frames, `paddub $dst, $src, $zero` for 128-bit moves, and Metrowerks C++ ABI/symbol mangling. Delay-slot filling requires `-O3` (or `-opt level=3`).
        - **Inline assembly note:** MWCCPS2 rejects GNU-style `%hi(symbol)` and `%lo(symbol)` operands in inline assembly. Existing matching sources therefore use literal `.word` encodings for address loads when necessary; this can preserve instruction bytes but does not preserve the reference object's relocation metadata.
+       - **Standalone assembly exception:** When relocation metadata is part of the matching target, use a `.s` source assembled by the project's GNU assembler. `src/sub_list_action_save.s` preserves the reference `R_MIPS_HI16`/`R_MIPS_LO16` entries for `D_10B68F0` while retaining the exact instruction bytes; keep this limited to cases where MWCC inline assembly cannot express the required relocations.
        - **Verification:**
          - `ScreenObj::AspectRatio()` (`src/screen_obj.cpp`): **100.0% byte-for-byte match** (24 bytes, FPU `div.s` scheduled in `jr $ra` delay slot).
          - `BaseList::Reset()` (`src/base_list.cpp`): **100.0% byte-for-byte match** (12 bytes, virtual method).

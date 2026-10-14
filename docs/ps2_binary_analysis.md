@@ -355,7 +355,7 @@ Directly following `BaseList::DeleteHead()` at `0x139620` sit the remaining oper
 
 | Function / Method | VRAM Address | Match Status | Description |
 |---|---|---|---|
-| `BaseList::RemoveHead()` | `0x139620` | **97.90%** (124 / 124 B) | Unlinks head node, activates next head, and returns item; remaining difference is in the `FreeNode` call relocation. |
+| `BaseList::RemoveHead()` | `0x139620` | **100.0%** (124 / 124 B) | Unlinks head node, activates next head, and returns item with relocation-preserving `FreeNode` dispatch. |
 | `BaseList::PushHead(void*)` | `0x1396A0` | **100.0%** (116 / 116 B) | Prepends item to head without activation callback. |
 | `BaseList::HasItems()` | `0x139720` | **100.0%** (16 / 16 B) | Branchless head existence check via `movz`. |
 | `BaseList::Contains(int)` | `0x139730` | **93.57%** (112 / 112 B) | Scans list testing item `v8()`; hand-matched control flow and dispatch sequence, with residual relocation differences. |

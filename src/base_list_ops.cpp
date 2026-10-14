@@ -2,6 +2,7 @@
 
 extern "C" {
 void func_366af0(void*, void*);
+void FreeNode__8BaseListFP8ListNode(void*, void*);
 extern int D_4E35DC;
 }
 
@@ -18,7 +19,7 @@ asm void* BaseList::RemoveHead() {
     .word 0x70008628
     .word 0x8CA20004
     .word 0xAE220008
-    .word 0x0C04E2D4
+    jal FreeNode__8BaseListFP8ListNode
     .word 0x8CB00000
     .word 0x8E230008
     .word 0x1060000C
@@ -34,7 +35,7 @@ asm void* BaseList::RemoveHead() {
     .word 0x0320F809
     .word 0x70002E28
     .word 0x72001628
-    .word 0x7FBF0020
+    .word 0x7BBF0020
     .word 0x7BB10010
     .word 0x7BB00000
     .word 0x03E00008

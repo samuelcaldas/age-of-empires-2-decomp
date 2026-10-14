@@ -389,9 +389,15 @@ segments:
     vram: 0x140370
     subsegments:
       - [0x40550, asm, emotional_ai_init]
+  - name: emotional_ai_save
+    type: code
+    start: 0x407E0
+    vram: 0x140600
+    subsegments:
+      - [0x407E0, asm, emotional_ai_save]
   - name: post_base
     type: bin
-    start: 0x407E0
+    start: 0x40990
   - [0x3e31c0]
 
 

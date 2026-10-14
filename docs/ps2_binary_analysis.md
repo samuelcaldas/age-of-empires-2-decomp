@@ -2067,6 +2067,35 @@ Directly following `DiplomacyAI` sits the entry point to the Emotional AI subsys
 | `func_00140580` (`EmotionalAI::~EmotionalAI`) | `0x140580` | **100.0%** (100 / 100 B) | Virtual scalar deleting destructor matching 100% byte-for-byte. |
 | `func_001405F0` (`EmotionalAI::SetFieldAC`) | `0x1405F0` | **100.0%** (8 / 8 B) | Leaf field setter method matching 100% byte-for-byte. |
 
+### 6.59 EmotionalAI Serialization and Personality Archetype Preset Loader (`0x140600`–`0x1407B0`, `emotional_ai_save.cpp`)
+
+Directly following `emotional_ai_init` sits the stream serialization and personality preset initialization switch statement (`EmotionalAI`, `0x140600`–`0x1407B0`, 424 bytes of code across 2 methods, 432-byte slice, Metrowerks MWCCPS2 2.3.1.01):
+
+* **Architecture and Reverse Engineering:**
+  - Method: `Save__11EmotionalAIFPv` (`EmotionalAI::Save(void *stream)`, 104 B code, VRAM `0x140600`):
+    - Loops `for (int i = 0; i < 6; i++)`: writes 4 bytes from `&m_fieldB0[i]` through stream writer `func_00226F70`.
+    - Returns `1`.
+    - **100.0% exact byte-for-byte match**.
+  - Method: `func_00140670` (`EmotionalAI::SetPersonality(int personality_idx)`, 320 B code, VRAM `0x140670`):
+    - Validates `personality_idx < 6`.
+    - Dispatches through 6-entry jump table `jtbl_490E60` at `0x00490E60`:
+      - `case 0` (Aggressive): `[100, 10, 0, 10, 10, 70]`
+      - `case 4` (Passive): `[20, 70, 60, 50, 100, 0]`
+      - `case 1` (Compassionate): `[10, 100, 50, 80, 50, 0]`
+      - `case 3` (Friendly): `[10, 70, 50, 100, 50, 20]`
+      - `case 2` (Defensive): `[20, 50, 100, 50, 60, 10]`
+      - `case 5` (Vengeful): `[90, 0, 50, 30, 10, 100]`
+    - Physical case order in source matches binary sequence (`0, 4, 1, 3, 2, 5`), producing identical jump table target offsets and register delay slots.
+    - **100.0% exact byte-for-byte match**.
+
+* **Matching Results (2 / 2 Functions 100.0%, 100.0% Exact Unit Match):**
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `Save__11EmotionalAIFPv` (`EmotionalAI::Save`) | `0x140600` | **100.0%** (104 / 104 B) | Stream serializer for 6 emotional personality traits. |
+| `func_00140670` (`EmotionalAI::SetPersonality`) | `0x140670` | **100.0%** (320 / 320 B) | Personality trait archetype preset switch with jump table `0x490E60`. |
+
+
 
 
 

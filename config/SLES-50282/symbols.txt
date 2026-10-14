@@ -384,5 +384,8 @@ func_00140370 = 0x140370; // type:func
 func_00140470 = 0x140470; // type:func
 func_00140580 = 0x140580; // type:func
 func_001405F0 = 0x1405F0; // type:func
+Save__11EmotionalAIFPv = 0x140600; // type:func EmotionalAI.Save(void*)
+D_00490E60 = 0x490E60; // type:s32 absolute:True
+func_00140670 = 0x140670; // type:func EmotionalAI.SetPersonality(int)
 
 

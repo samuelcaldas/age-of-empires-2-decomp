@@ -191,6 +191,10 @@ Starting at VRAM `0x137810` (file offset `0x379e0`), the binary transitions from
 | `BaseList::BaseList(int)` | `0x138A50` | **100.0%** (96 / 96 B) | Constructor with explicit vtable assignment (`__vt__8BaseList`) and `Free()` invocation. |
 | `BaseList::Clear()` | `0x138AB0` | **100.0%** (44 / 44 B) | Method invoking `Free()` with quadword stack save/restore. |
 | `DiplomacyAI::UpdateStances(DiplomacyAI*)` (`func_0013F910`) | `0x13F910` | **100.0%** (216 / 216 B) | Reciprocity stance updater looping across active players, testing `func_140280` and `func_1402E0`, and dispatching `func_13FB50` (SetStance). |
+| `DiplomacyAI::IsAllied(int)` (`func_1401C0`) | `0x1401C0` | **100.0%** (92 / 92 B) | Checks if specified player is valid, not self, within player count and has allied stance (3). |
+| `DiplomacyAI::IsNeutral(int)` (`func_140220`) | `0x140220` | **100.0%** (92 / 92 B) | Checks if specified player is valid, not self, within player count and has neutral stance (1). |
+| `DiplomacyAI::IsEnemy(int)` (`func_140280`) | `0x140280` | **100.0%** (96 / 96 B) | Returns 1 if player is self, or if valid and within player count with enemy/none stance (0). |
+| `DiplomacyAI::IsMutualRelation(int)` (`func_1402E0`) | `0x1402E0` | **100.0%** (120 / 120 B) | Queries other player's virtual method CheckRelation (slot 0x24) passing own player_id. |
 | `DiplomacyAI::Save(void*)` | `0x13F9F0` | **100.0%** (148 / 148 B) | Serializer streaming 10 player entries across fields `0xB0`, `0xD8`, and `0x100` via `func_00226F70`. |
 | `TacticalAI2::EndScriptScope()` (`func_144050`) | `0x144050` | **100.0%** (300 / 300 B) | Scope terminator popping from 10-entry array `0x6C4`, restoring 6 fields and copying script name via `func_0011ABBC`. |
 | `TacticalAI2::PopConditionScope()` (`func_144180`) | `0x144180` | **100.0%** (36 / 36 B) | Leaf method popping condition scope index from `0x2FB8` array and restoring to `0x198`. |

@@ -2800,6 +2800,36 @@ Directly following script error logging sit the constructors, destructors, initi
 | `func_001444E4` (`TacticalNode::Evaluate`) | `0x1444E4` | **100.0%** (64 / 64 B) | Invokes node evaluation callback field_10 for type 3 nodes. |
 | `func_00144524` (`TacticalNode::Reset`) | `0x144524` | **100.0%** (28 / 28 B) | Resets state field_4 for type 2 nodes. |
 
+### 6.85 Tactical / Spatial AI Condition Node Evaluation and Type Accessor (`0x144544`–`0x14469C`, `tactical_ai_condition.cpp`)
+
+Directly following node item methods sit the tactical condition node multi-arity evaluator and type accessor (`TacticalNode`, `0x144544`–`0x14469C`, 340 bytes of code across 2 methods, 348-byte slice, Metrowerks MWCCPS2 2.3.1.01):
+
+* **Architecture and Reverse Engineering:**
+  - Method: `func_144544` (`TacticalNode::ExecuteRule(...)`, 332 B code, VRAM `0x144544` / label `func_144550`):
+    - Multi-arity rule execution engine for tactical conditions.
+    - Inspects node type at `field_0`:
+      * Type 3: Constant or cached result; returns stored value `field_8`.
+      * Type 2: Cached evaluation; if already evaluated (`field_4 != 0`), returns `field_8`. Otherwise calls `field_10()`, marks `field_4 = 1`, stores and returns `field_8`.
+      * Type 1: Dispatches function callback `field_10` with variable arity based on parameter count flag `field_C`:
+        - 0 args: `field_10()`
+        - 1 arg: `field_10(a1)`
+        - 2 args: `field_10(a1, a2)`
+        - 3 args: `field_10(a1, a2, a3)`
+        - 4 args: `field_10(a1, a2, a3, t0)`
+      * Stores returned value in `field_8` and returns it.
+    - **100.0% exact byte-for-byte match**.
+  - Method: `func_00144694` (`TacticalNode::GetType()`, 8 B code, VRAM `0x144694`):
+    - Leaf method returning the byte parameter count / type flag `field_C`.
+    - **100.0% exact byte-for-byte match**.
+
+* **Matching Results (2 / 2 Functions, 100.0% Unit Match):**
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_144544` (`TacticalNode::ExecuteRule`) | `0x144544` | **100.0%** (332 / 332 B) | Multi-arity rule evaluator calling callback with 0-4 args. |
+| `func_00144694` (`TacticalNode::GetType`) | `0x144694` | **100.0%** (8 / 8 B) | Returns node type / arity flag field_C. |
+
+
 
 
 

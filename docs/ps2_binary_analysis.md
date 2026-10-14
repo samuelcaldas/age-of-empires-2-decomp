@@ -206,6 +206,11 @@ Starting at VRAM `0x137810` (file offset `0x379e0`), the binary transitions from
 | `SubListItemBase::Copy(...)` (`func_0013C710`) | `0x13C710` | **100.0%** (92 / 92 B) | Base item copy routine copying 10 fields and performing tail call (`j func_0011ABBC`) to strcpy. |
 | `SubList::Method11()` (`func_0013A6A0`) | `0x13A6A0` | **100.0%** (24 / 24 B) | Indirect virtual call dispatching `((NodeActionTarget*)field4)->Method16(field8)` as a pure tail call (`jr $t9`). |
 | `SubList::Method12()` (`func_0013A6D0`) | `0x13A6D0` | **100.0%** (24 / 24 B) | Indirect virtual call dispatching `((NodeActionTarget*)field4)->Method17(field8)` as a pure tail call (`jr $t9`). |
+| `DiplomacyAI::SetStanceDirect(...)` (`func_0013FC80`) | `0x13FC80` | **100.0%** (284 / 284 B) | Direct stance setter updating `m_fieldB0` or `m_fieldD8` with activity-dependent clamping via switch dispatch. |
+| `DiplomacyAI::IsPlayerActive(int)` (`func_0013FDA0`) | `0x13FDA0` | **100.0%** (76 / 76 B) | Boolean player active query checking `m_field100[player] == 1` within player bounds. |
+| `DiplomacyAI::SetPlayerActive(int, int)` (`func_0013FDF0`) | `0x13FDF0` | **100.0%** (52 / 52 B) | Player active flag setter updating `m_field100[player]` within player bounds. |
+| `DiplomacyAI::DispatchAction()` (`func_0013FE30`) | `0x13FE30` | **89.65%** (160 / 172 B) | Virtual dispatch on `m_fieldAC` slot 20 querying facts and chaining to `func_13FEF0`. |
+| `DiplomacyAI::GetDefaultStatus()` (`func_0013FEE0`) | `0x13FEE0` | **100.0%** (8 / 8 B) | Sentinel status getter returning integer `-1`. |
 | `kt_mouse::func_00134DE8` | `0x134DE8` | **100.0%** (104 / 104 B) | Input dispatch wrapper checking status flag (`func_105748`), invoking handler (`func_104A20`), and conditionally notifying (`func_1057B0`). |
 | `kt_mouse::func_00134E50` | `0x134E50` | **100.0%** (196 / 196 B) | `InitWork`: Mouse work initialization, asserting `n_mouse <= KT_MOUSE_MAX_NUM` (line 100), initializing `W` (`D_50A060`), clearing buffer (`D_509F00`, 0x160 B), and setting port defaults. |
 | `kt_mouse::func_00135058` | `0x135058` | **100.0%** (52 / 52 B) | Port write buffer entry locator (`buffer + mouse_number * 0xB0 + 0x20 + write_idx * 0x24`). |

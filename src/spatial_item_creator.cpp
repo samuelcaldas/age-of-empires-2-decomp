@@ -29,7 +29,7 @@ struct SubWorld {
     float f118;
 };
 
-class WorldObj {
+class SpatialWorldObj {
 public:
     virtual void* v0();
     virtual void* v1();
@@ -152,22 +152,22 @@ void* BaseList::CreateItem(void *a1, float x, void *a2, float y, float z) {
         func_118DE0(D_490B10);
         while (1) {}
     case 7:
-        if (((WorldObj*)this->m_field4)->v87()) {
-            func_1471B0(*(void**)((WorldObj*)this->m_field4)->v87(), 0x258);
+        if (((SpatialWorldObj*)this->m_field4)->v87()) {
+            func_1471B0(*(void**)((SpatialWorldObj*)this->m_field4)->v87(), 0x258);
             if (a2) {
-                func_14BD20(*(void**)((WorldObj*)this->m_field4)->v87(), ((SpatialObj2*)a2)->f24, ((SpatialObj2*)a2)->f44, ((SpatialObj2*)a2)->f48, ((SpatialObj2*)a2)->f4C);
+                func_14BD20(*(void**)((SpatialWorldObj*)this->m_field4)->v87(), ((SpatialObj2*)a2)->f24, ((SpatialObj2*)a2)->f44, ((SpatialObj2*)a2)->f48, ((SpatialObj2*)a2)->f4C);
             } else {
-                func_14BD20(*(void**)((WorldObj*)this->m_field4)->v87(), -1, x, y, z);
+                func_14BD20(*(void**)((SpatialWorldObj*)this->m_field4)->v87(), -1, x, y, z);
             }
         }
         item = func_366BC0(&D_4E35DC);
         if (a2) {
             if (item) {
-                SubWorld *sub = ((WorldObj*)this->m_field4)->field_4;
+                SubWorld *sub = ((SpatialWorldObj*)this->m_field4)->field_4;
                 func_347DE0(item, this->m_field4, a2, ((SpatialObj1*)a1)->f34, ((SpatialObj1*)a1)->f38, 0, ((SpatialObj1*)a1)->f24, sub->f118, sub->f104, sub->f108);
             }
         } else if (item) {
-            SubWorld *sub = ((WorldObj*)this->m_field4)->field_4;
+            SubWorld *sub = ((SpatialWorldObj*)this->m_field4)->field_4;
             func_348000(item, this->m_field4, ((SpatialObj1*)a1)->f34, ((SpatialObj1*)a1)->f38, 0, x, y, z, ((SpatialObj1*)a1)->f24, sub->f118, sub->f104, sub->f108);
         }
         return item;

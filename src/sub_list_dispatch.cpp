@@ -32,10 +32,10 @@ void SubList::func_0013B0B0(short action_id, SubList *other, float x, float y, f
     func_147180(c8, s0);
     func_1471b0(c8, s1);
     if (other) {
-        func_14bd90(c8, other->m_field24_short, other->m_field4->m_fieldE, x, y, z);
+        func_14bd90(c8, ((OtherObj*)other)->m_field24_short, ((OtherObj*)other)->m_field4->m_fieldE, x, y, z);
         Vec3 v1 = this->v136();
-        Vec3 v2 = other->v136();
-        func_151490(c8, s0, s1, &v1, other->m_field24_short, &v2);
+        Vec3 v2 = ((SubList*)other)->v136();
+        func_151490(c8, s0, s1, &v1, ((OtherObj*)other)->m_field24_short, &v2);
     } else {
         func_14bd90(c8, -1, -1, x, y, z);
         Vec3 pos;

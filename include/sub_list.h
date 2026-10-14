@@ -96,7 +96,7 @@ public:
     virtual void* v17(void *a = 0, void *b = 0, void *c = 0);
     virtual void* v18(); virtual void* v19();
     virtual void* v20(); virtual void* v21(int a1); virtual void* v22(void *item); virtual void* v23();
-    virtual void* v24();
+    virtual void* v24(void *item = 0);
     virtual void* v25(); virtual void* v26(void *item); virtual void* v27(); virtual void* v28(); virtual void* v29();
     V_SLOT_10(3)
     virtual void* v40(); virtual void* v41();

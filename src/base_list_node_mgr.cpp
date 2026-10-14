@@ -15,7 +15,7 @@ void BaseList::AddHead(void *item) {
     node->item = item;
     node->next = this->m_head;
     this->m_head = node;
-    ((ListItem*)item)->Method9(1);
+    ((ListItem*)item)->Method9((void*)1);
 }
 
 void BaseList::AddTail(void *item) {
@@ -39,7 +39,7 @@ void BaseList::AddTail(void *item) {
     } else {
         this->m_head = node;
     }
-    ((ListItem*)item)->Method9(1);
+    ((ListItem*)item)->Method9((void*)1);
 }
 
 void BaseList::DeleteHead() {
@@ -53,7 +53,7 @@ void BaseList::DeleteHead() {
     this->FreeNode(node);
     if (this->m_head) {
         if (((WorldObj*)this->m_field4)->field_39 < 3) {
-            ((ListItem*)this->m_head->item)->Method9(0);
+            ((ListItem*)this->m_head->item)->Method9((void*)0);
         }
     }
 }

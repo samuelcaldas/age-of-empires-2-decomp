@@ -389,5 +389,7 @@ D_00490E60 = 0x490E60; // type:s32 absolute:True
 func_00140670 = 0x140670; // type:func EmotionalAI.SetPersonality(int)
 D_4D7758 = 0x4D7758; // type:s32 absolute:True
 func_001407B0 = 0x1407B0; // type:func
+func_001409B0 = 0x1409B0; // type:func
+func_00140D40 = 0x140D40; // type:func
 
 

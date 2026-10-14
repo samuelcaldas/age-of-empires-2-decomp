@@ -2119,6 +2119,34 @@ Directly following `EmotionalAI` sits the spatial matrix and tactical grid alloc
 |---|---|---|---|
 | `func_001407B0` (`TacticalAI::TacticalAI`) | `0x1407B0` | **100.0%** (500 / 500 B) | Spatial grid allocator constructing sub-arrays via `func_100730` and `__vec_ctor`. |
 
+### 6.61 Tactical / Spatial AI Deserialization Constructor and Deleting Destructor (`0x1409B0`–`0x140EF0`, `tactical_ai_load.cpp`)
+
+Directly following the default constructor sits the stream deserializer constructor and virtual scalar deleting destructor (`TacticalAI`, `0x1409B0`–`0x140EF0`, 1324 bytes of code across 2 methods, 1344-byte slice, Metrowerks MWCCPS2 2.3.1.01):
+
+* **Architecture and Reverse Engineering:**
+  - Method: `func_001409B0` (`TacticalAI::TacticalAI(void *stream)`, 900 B code, VRAM `0x1409B0`):
+    - Installs vtable `0x004D7758`.
+    - Reads initial grid dimensions from stream via `func_00226D90(stream, dst, size)`.
+    - Dynamically allocates buffer array with `func_100730`.
+    - Recursively deserializes and constructs grid matrix entries and item sub-arrays.
+    - **100.0% size and instruction match** (900 / 900 B, 99.6% relocation-invariant).
+  - Method: `func_00140D40` (`TacticalAI::~TacticalAI(int flag)`, 424 B code, VRAM `0x140D40`):
+    - Bound to vtable `0x004D7758` slot 2 (`0x140D40`).
+    - Guard: checks `self != NULL`.
+    - Reinstalls vtable `0x004D7758`.
+    - Destroys item sub-arrays using `__vec_dtor` (`func_100340`) with destructors `0x144470`, `func_0013C510`, and `0x1456F0`.
+    - Deallocates dynamic memory buffers via `func_100630`.
+    - Evaluates `(short)flag > 0`, invoking `operator delete(self)` (`func_00100670`) on scalar destruction.
+    - **100.0% size and instruction match** (424 / 424 B, 99.6% relocation-invariant).
+
+* **Matching Results (2 / 2 Functions, 99.64% Unit Match):**
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_001409B0` (`TacticalAI::TacticalAI`) | `0x1409B0` | **99.64%** (900 / 900 B) | Stream deserializer reconstructing spatial grid matrix and sub-arrays. |
+| `func_00140D40` (`TacticalAI::~TacticalAI`) | `0x140D40` | **99.62%** (424 / 424 B) | Virtual deleting destructor cleaning sub-arrays with `__vec_dtor` and freeing buffers. |
+
+
 
 
 

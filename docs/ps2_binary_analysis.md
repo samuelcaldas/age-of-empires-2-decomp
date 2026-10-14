@@ -1982,6 +1982,46 @@ Directly following the helper stubs sit the primary multi-criteria target scorin
 | `func_001400B0` | `0x1400B0` | **100.0%** (8 / 8 B) | Action status stub returning integer `0`. |
 | `func_001400C0` (`DiplomacyAI::EvaluateTribute`) | `0x1400C0` | **100.0%** (248 / 248 B) | Tribute candidate evaluation and tribute array ranking. |
 
+### 6.57 DiplomacyAI Player Relation Queries (`0x1401C0`–`0x140370`, `diplomacy_ai_relations.cpp`)
+
+Directly following the target evaluation routines sit the final player relationship and diplomatic state predicate methods, concluding the `DiplomacyAI` subsystem (`DiplomacyAI`, `0x1401C0`–`0x140370`, 408 bytes of code across 5 methods, 432-byte slice, Metrowerks MWCCPS2 2.3.1.01):
+
+* **Architecture and Reverse Engineering:**
+  - Method: `func_1401C0` (`DiplomacyAI::IsNeutralOrAlly(int player)`, 92 B code, VRAM `0x1401C0`):
+    - Validates target `player` bounds against `world->num_players` (`0x50($v0)`).
+    - Checks relation byte `world->m_relations[player] == 3` (Neutral / Non-hostile).
+    - Returns `1` if matched, `0` otherwise.
+    - **100.0% exact byte-for-byte match**.
+  - Method: `func_140220` (`DiplomacyAI::IsEnemy(int player)`, 92 B code, VRAM `0x140220`):
+    - Validates target `player` bounds against `world->num_players`.
+    - Checks relation byte `world->m_relations[player] == 1` (Enemy / Hostile).
+    - Returns `1` if matched, `0` otherwise.
+    - **100.0% exact byte-for-byte match**.
+  - Method: `func_140280` (`DiplomacyAI::IsAlly(int player)`, 96 B code, VRAM `0x140280`):
+    - If `player == world->m_self_id`, returns `1`.
+    - Otherwise checks relation byte `world->m_relations[player] == 0` (Allied).
+    - Returns `1` if matched, `0` otherwise.
+    - **100.0% exact byte-for-byte match**.
+  - Method: `func_1402E0` (`DiplomacyAI::CanInteract(int player)`, 120 B code, VRAM `0x1402E0`):
+    - Validates player slot and retrieves player object handle `player_obj = world->m_players[player]`.
+    - Invokes virtual slot 9 `player_obj->Method9(world->m_self_id)` (`0x24($t9)`) to verify diplomatic communication capability.
+    - Returns `1` if active, `0` otherwise.
+    - **100.0% exact byte-for-byte match**.
+  - Method: `func_00140360` (`DiplomacyAI::Stub()`, 8 B code, VRAM `0x140360`):
+    - Leaf callback stub returning `void` (`jr $ra; nop`).
+    - **100.0% exact byte-for-byte match**.
+
+* **Matching Results (5 / 5 Functions 100.0%, 100.0% Exact Unit Match):**
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_1401C0` (`DiplomacyAI::IsNeutralOrAlly`) | `0x1401C0` | **100.0%** (92 / 92 B) | Stance predicate testing relation byte == 3. |
+| `func_140220` (`DiplomacyAI::IsEnemy`) | `0x140220` | **100.0%** (92 / 92 B) | Stance predicate testing relation byte == 1. |
+| `func_140280` (`DiplomacyAI::IsAlly`) | `0x140280` | **100.0%** (96 / 96 B) | Stance predicate testing relation byte == 0 or self player ID. |
+| `func_1402E0` (`DiplomacyAI::CanInteract`) | `0x1402E0` | **100.0%** (120 / 120 B) | Polymorphic player capability check invoking virtual `Method9`. |
+| `func_00140360` | `0x140360` | **100.0%** (8 / 8 B) | Empty leaf callback stub. |
+
+
 
 
 

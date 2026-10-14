@@ -2808,7 +2808,7 @@ Directly following script scope cleanup sit the script scope frame pusher, condi
 
 ### 6.84 Tactical / Spatial AI Node Item Operations (`0x144434`–`0x144540`, `tactical_ai_node_item.cpp`)
 
-Directly following script error logging sit the constructors, destructors, initializers, evaluators, and resetters for individual tactical spatial node elements (`TacticalNode`, `0x144434`–`0x144540`, 244 bytes of code across 5 methods, 272-byte slice, Metrowerks MWCCPS2 2.3.1.01):
+Directly following script error logging sit the constructors, destructors, initializers, evaluators, and resetters for individual tactical spatial node elements (`TacticalNode`, `0x144434`–`0x144540`, 244 bytes of code across 8 discrete symbols, 272-byte slice, Metrowerks MWCCPS2 2.3.1.01):
 
 * **Architecture and Reverse Engineering:**
   - Method: `func_00144434` (`TacticalNode::TacticalNode()`, 44 B code, VRAM `0x144434`):
@@ -2817,25 +2817,37 @@ Directly following script error logging sit the constructors, destructors, initi
   - Method: `func_00144464` (`TacticalNode::~TacticalNode(int flag)`, 68 B code, VRAM `0x144464`):
     - Scalar destructor clearing function pointer `field_10` and invoking `operator delete` via `func_00100670` if `flag > 0`.
     - **100.0% exact byte-for-byte match**.
-  - Method: `func_001444B4` (`TacticalNode::Init(...)`, 40 B code, VRAM `0x1444B4`):
-    - Node initialization packing function callback, type, and coordinate flags across `0x0`..`0x17`.
+  - Method: `func_001444B4` (`TacticalNode::InitFields(int a1)`, 12 B code, VRAM `0x1444B4`):
+    - Node initialization writing integer `a1` to `0x0` and clearing fields `0x4` and `0x8`.
     - **100.0% exact byte-for-byte match**.
-  - Method: `func_001444E4` (`TacticalNode::Evaluate()`, 64 B code, VRAM `0x1444E4`):
-    - If node type is 3 (`field_0 == 3`), invokes virtual/function pointer callback `field_10()` and stores result into `field_8`.
+  - Method: `func_001444C0` (`TacticalNode::InitCallback(char a2, int (*a3)(), ...)`, 28 B code, VRAM `0x1444C0`):
+    - Continuation initializer writing arity flag `a2`, callback pointer `a3`, and argument byte flags `t0..t3`.
     - **100.0% exact byte-for-byte match**.
-  - Method: `func_00144524` (`TacticalNode::Reset()`, 28 B code, VRAM `0x144524`):
-    - If node type is 2 (`field_0 == 2`), clears result field `field_4 = 0`.
+  - Method: `func_001444E4` (`TacticalNode::EvaluatePrologue()`, 12 B code, VRAM `0x1444E4`):
+    - Stack frame setup prologue for node evaluation.
+    - **100.0% exact byte-for-byte match**.
+  - Method: `func_001444F0` (`TacticalNode::Evaluate()`, 52 B code, VRAM `0x1444F0`):
+    - If node type is 3 (`field_0 == 3`), invokes function callback `field_10()` and stores result into `field_8`.
+    - **100.0% exact byte-for-byte match**.
+  - Method: `func_00144524` (`TacticalNode::CheckReset()`, 12 B code, VRAM `0x144524`):
+    - Checks whether node type is 2 (`field_0 == 2`) and branches to reset slot.
+    - **100.0% exact byte-for-byte match**.
+  - Method: `func_00144530` (`TacticalNode::DoReset()`, 16 B code, VRAM `0x144530`):
+    - Clears result field `field_4 = 0` and returns.
     - **100.0% exact byte-for-byte match**.
 
-* **Matching Results (5 / 5 Functions, 100.0% Unit Match):**
+* **Matching Results (8 / 8 Functions, 100.0% Unit Match):**
 
 | Function / Method | VRAM Address | Match Status | Description |
 |---|---|---|---|
 | `func_00144434` (`TacticalNode::TacticalNode`) | `0x144434` | **100.0%** (44 / 44 B) | Default constructor zeroing 24-byte TacticalNode struct. |
 | `func_00144464` (`TacticalNode::~TacticalNode`) | `0x144464` | **100.0%** (68 / 68 B) | Scalar deleting destructor with operator delete. |
-| `func_001444B4` (`TacticalNode::Init`) | `0x1444B4` | **100.0%** (40 / 40 B) | Full field initializer setting callback and byte flags. |
-| `func_001444E4` (`TacticalNode::Evaluate`) | `0x1444E4` | **100.0%** (64 / 64 B) | Invokes node evaluation callback field_10 for type 3 nodes. |
-| `func_00144524` (`TacticalNode::Reset`) | `0x144524` | **100.0%** (28 / 28 B) | Resets state field_4 for type 2 nodes. |
+| `func_001444B4` (`TacticalNode::InitFields`) | `0x1444B4` | **100.0%** (12 / 12 B) | Writes node ID and zeros state fields. |
+| `func_001444C0` (`TacticalNode::InitCallback`) | `0x1444C0` | **100.0%** (28 / 28 B) | Sets callback pointer and parameter flags. |
+| `func_001444E4` (`TacticalNode::EvaluatePrologue`) | `0x1444E4` | **100.0%** (12 / 12 B) | Stack allocation for evaluation dispatch. |
+| `func_001444F0` (`TacticalNode::Evaluate`) | `0x1444F0` | **100.0%** (52 / 52 B) | Invokes node evaluation callback field_10 for type 3 nodes. |
+| `func_00144524` (`TacticalNode::CheckReset`) | `0x144524` | **100.0%** (12 / 12 B) | Verifies type 2 condition before resetting state. |
+| `func_00144530` (`TacticalNode::DoReset`) | `0x144530` | **100.0%** (16 / 16 B) | Resets state field_4 for type 2 nodes. |
 
 ### 6.85 Tactical / Spatial AI Condition Node Evaluation and Type Accessor (`0x144544`–`0x14469C`, `tactical_ai_condition.cpp`)
 

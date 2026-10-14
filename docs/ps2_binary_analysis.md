@@ -215,6 +215,9 @@ Starting at VRAM `0x137810` (file offset `0x379e0`), the binary transitions from
 | `DiplomacyAI::SetPlayerActive(int, int)` (`func_0013FDF0`) | `0x13FDF0` | **100.0%** (52 / 52 B) | Player active flag setter updating `m_field100[player]` within player bounds. |
 | `DiplomacyAI::DispatchAction()` (`func_0013FE30`) | `0x13FE30` | **89.65%** (160 / 172 B) | Virtual dispatch on `m_fieldAC` slot 20 querying facts and chaining to `func_13FEF0`. |
 | `DiplomacyAI::GetDefaultStatus()` (`func_0013FEE0`) | `0x13FEE0` | **100.0%** (8 / 8 B) | Sentinel status getter returning integer `-1`. |
+| `DiplomacyAI::FindBestTarget(...)` (`func_13FEF0`) | `0x13FEF0` | **96.50%** (432 / 448 B) | Multi-criteria diplomatic target search with relation checks and quotient scoring in pure C++. |
+| `DiplomacyAI::ActionStub()` (`func_001400B0`) | `0x1400B0` | **100.0%** (8 / 8 B) | Action execution stub returning integer `0`. |
+| `DiplomacyAI::FindAllyCandidate(...)` (`func_001400C0`) | `0x1400C0` | **100.0%** (248 / 248 B) | Search for best candidate player maximizing fieldD8 score while skipping inactive and allied players. |
 | `TacticalAIScoring::ScanScoring()` (`func_00142830`) | `0x142830` | **99.20%** (124 / 124 B) | Parser scoring scanner calling `func_142980` and reporting script errors via `func_144340` (codes `0x10` and `0x1A`). Blocking: MWCC -O3 branch order on switch. |
 | `TacticalAIScoring::DecompileTokens(char*)` (`func_001428B0`) | `0x1428B0` | **98.38%** (200 / 200 B) | Token stream decompiler translating 16-bit bytecode into string buffer via token lookup `func_21A4A0` and newline token `0xFFFE` (`D_490E9C`). Blocking: MWCC -O3 register assignment on buffer pointers. |
 | `kt_mouse::func_00134DE8` | `0x134DE8` | **100.0%** (104 / 104 B) | Input dispatch wrapper checking status flag (`func_105748`), invoking handler (`func_104A20`), and conditionally notifying (`func_1057B0`). |

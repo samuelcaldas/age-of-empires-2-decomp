@@ -1,213 +1,130 @@
-
 #include "sub_list.h"
+
+#pragma exceptions off
+
+class OtherPlayer {
+public:
+    char pad_00[0x54];
+    char pad_54[0xB90 - 0x54];
+    void *m_fieldB90;
+    char pad_B94[0xBA6 - 0xB94];
+    unsigned char m_status;
+};
+
+struct PlayerMgr {
+    char pad_00[0x50];
+    short m_num_players;
+    short pad_52;
+    OtherPlayer **m_players;
+};
+
+struct TribePlayer {
+    char pad_00[0xB98];
+    PlayerMgr *m_mgr;
+    char pad_B9C[4];
+    int m_player_id;
+};
+
+struct AIObj {
+    virtual void* v0(); virtual void* v1(); virtual void* v2(); virtual void* v3(); virtual void* v4();
+    virtual void* v5(); virtual void* v6(); virtual void* v7(); virtual void* v8(); virtual void* v9();
+    virtual void* v10(); virtual void* v11(); virtual void* v12(); virtual void* v13(); virtual void* v14();
+    virtual void* v15(); virtual void* v16(); virtual void* v17(); virtual void* v18(); virtual void* v19();
+    virtual void* v20(); virtual void* v21();
+    virtual int Method24(int player);
+};
+
+struct TribeAI {
+    char pad_00[0xAC];
+    TribePlayer *m_player;
+};
 
 struct DiplomacyAI {
     void *m_vtable;
     char pad_04[0xA8];
-    int m_fieldAC;
+    AIObj *m_fieldAC;
     int m_fieldB0[10];
     int m_fieldD8[10];
-    char m_field100[10];
+    unsigned char m_field100[10];
 };
 
 extern "C" {
 
 int func_140280(void*, int);
 int func_140220(void*, int);
-void* func_318280(void*);
+int func_318280(void*);
 int func_1401C0(void*, int);
 
-asm int func_13FEF0(DiplomacyAI *self, int a1, int a2, int a3, int t0) {
-    .word 0x27BDFF60
-    .word 0x7FBF0090
-    .word 0x7FBE0080
-    .word 0x7FB70070
-    .word 0x7FB60060
-    .word 0x7FB50050
-    .word 0x7FB40040
-    .word 0x7FB30030
-    .word 0x7FB20020
-    .word 0x7FB10010
-    .word 0x7FB00000
-    .word 0x2410FFFF
-    .word 0x24120001
-    .word 0x7080BE28
-    .word 0x70A0B628
-    .word 0x70C0AE28
-    .word 0x70E0F628
-    .word 0x7100A628
-    .word 0x10000049
-    .word 0x72008E28
-    .word 0x8C620BA0
-    .word 0x52420046
-    .word 0x26520001
-    .word 0x8C830054
-    .word 0x00129880
-    .word 0x24020002
-    .word 0x00731821
-    .word 0x8C630000
-    .word 0x90630BA6
-    .word 0x1062003D
-    .word 0x00000000
-    .word 0x1AC00009
-    .word 0x72E02628
-    .word 0x16B20006
-    .word 0x00000000
-    .word 0x72E02628
-    jal func_140280
-    .word 0x72402E28
-    .word 0x14400034
-    .word 0x00000000
-    .word 0x72E02628
-    jal func_140280
-    .word 0x72402E28
-    .word 0x24030001
-    .word 0x1043002E
-    .word 0x00000000
-    .word 0x72E02628
-    jal func_140220
-    .word 0x72402E28
-    .word 0x24030001
-    .word 0x10430028
-    .word 0x00000000
-    .word 0x8EE400AC
-    .word 0x8C990000
-    .word 0x8F390060
-    .word 0x0320F809
-    .word 0x72402E28
-    .word 0x10400021
-    .word 0x00000000
-    .word 0x8EE200AC
-    .word 0x8C4200AC
-    .word 0x8C420B98
-    .word 0x8C420054
-    .word 0x00531021
-    .word 0x8C420000
-    jal func_318280
-    .word 0x8C440B90
-    .word 0x02F31821
-    .word 0x2A810002
-    .word 0x14200010
-    .word 0x8C6400B0
-    .word 0x24030001
-    .word 0x57C30008
-    .word 0x0054001A
-    .word 0x16800002
-    .word 0x0054001A
-    .word 0x000001CD
-    .word 0x00001012
-    .word 0x10000007
-    .word 0x00822021
-    .word 0x0054001A
-    .word 0x16800002
-    .word 0x00000000
-    .word 0x000001CD
-    .word 0x00001012
-    .word 0x00822023
-    .word 0x0224082A
-    .word 0x10200003
-    .word 0x00000000
-    .word 0x70808E28
-    .word 0x72408628
-    .word 0x26520001
-    .word 0x8EE200AC
-    .word 0x8C4300AC
-    .word 0x8C640B98
-    .word 0x84820050
-    .word 0x0242102A
-    .word 0x1440FFB2
-    .word 0x00000000
-    .word 0x72001628
-    .word 0x7BBF0090
-    .word 0x7BBE0080
-    .word 0x7BB70070
-    .word 0x7BB60060
-    .word 0x7BB50050
-    .word 0x7BB40040
-    .word 0x7BB30030
-    .word 0x7BB20020
-    .word 0x7BB10010
-    .word 0x7BB00000
-    .word 0x03E00008
-    .word 0x27BD00A0
+int func_13FEF0(DiplomacyAI *self, int a1, int a2, int t0, int a3) {
+    int best_player = -1;
+    int best_score = best_player;
+
+    for (int player = 1; player < ((TribeAI*)self->m_fieldAC)->m_player->m_mgr->m_num_players; player++) {
+        if (player == ((TribeAI*)self->m_fieldAC)->m_player->m_player_id) {
+            continue;
+        }
+        if (((TribeAI*)self->m_fieldAC)->m_player->m_mgr->m_players[player]->m_status == 2) {
+            continue;
+        }
+        if (a1 > 0) {
+            if (a2 == player && func_140280(self, player)) {
+                continue;
+            }
+        }
+        if (func_140280(self, player) == 1) {
+            continue;
+        }
+        if (func_140220(self, player) == 1) {
+            continue;
+        }
+        if (!self->m_fieldAC->Method24(player)) {
+            continue;
+        }
+        int val = func_318280(((TribeAI*)self->m_fieldAC)->m_player->m_mgr->m_players[player]->m_fieldB90);
+        int score = self->m_fieldB0[player];
+        if (a3 >= 2) {
+            if (t0 == 1) {
+                score += val / a3;
+            } else {
+                score -= val / a3;
+            }
+        }
+        if (score > best_score) {
+            best_score = score;
+            best_player = player;
+        }
+    }
+    return best_player;
 }
 
 int func_001400B0() {
     return 0;
 }
 
-asm int func_001400C0(DiplomacyAI *self, int a1, int a2) {
-    .set noreorder
-    .set noat
-    addiu sp, sp, -0x80
-    sq ra, 0x70(sp)
-    sq s6, 0x60(sp)
-    sq s5, 0x50(sp)
-    sq s4, 0x40(sp)
-    sq s3, 0x30(sp)
-    sq s2, 0x20(sp)
-    sq s1, 0x10(sp)
-    sq s0, 0x0(sp)
-    addiu s0, zero, -0x1
-    addiu s2, zero, 0x1
-    paddub s6, a0, zero
-    paddub s5, a1, zero
-    paddub s4, a2, zero
-    b _L00140170
-    paddub s1, s0, zero
-    _L00140100:
-    lw v0, 0xBA0(v1)
-    beql s2, v0, _L00140170
-    addiu s2, s2, 0x1
-    lw v1, 0x54(a0)
-    sll s3, s2, 2
-    addiu v0, zero, 0x2
-    addu v1, v1, s3
-    lw v1, 0x0(v1)
-    lbu v1, 0xBA6(v1)
-    beq v1, v0, _L0014016C
-    nop
-    blez s5, _L00140154
-    addu v0, s6, s3
-    bne s4, s2, _L00140150
-    nop
-    paddub a0, s6, zero
-    jal func_1401C0
-    paddub a1, s2, zero
-    bnez v0, _L0014016C
-    nop
-    _L00140150:
-    addu v0, s6, s3
-    _L00140154:
-    lw v0, 0xD8(v0)
-    slt at, s1, v0
-    beqz at, _L0014016C
-    nop
-    paddub s1, v0, zero
-    paddub s0, s2, zero
-    _L0014016C:
-    addiu s2, s2, 0x1
-    _L00140170:
-    lw v0, 0xAC(s6)
-    lw v1, 0xAC(v0)
-    lw a0, 0xB98(v1)
-    lh v0, 0x50(a0)
-    slt v0, s2, v0
-    bnez v0, _L00140100
-    nop
-    paddub v0, s0, zero
-    lq ra, 0x70(sp)
-    lq s6, 0x60(sp)
-    lq s5, 0x50(sp)
-    lq s4, 0x40(sp)
-    lq s3, 0x30(sp)
-    lq s2, 0x20(sp)
-    lq s1, 0x10(sp)
-    lq s0, 0x0(sp)
-    jr ra
-    addiu sp, sp, 0x80
-    .set reorder
-    .set at
+int func_001400C0(DiplomacyAI *self, int a1, int a2) {
+    int best_player = -1;
+    int best_val = best_player;
+
+    for (int player = 1; player < ((TribeAI*)self->m_fieldAC)->m_player->m_mgr->m_num_players; player++) {
+        if (player == ((TribeAI*)self->m_fieldAC)->m_player->m_player_id) {
+            continue;
+        }
+        OtherPlayer *other = ((TribeAI*)self->m_fieldAC)->m_player->m_mgr->m_players[player];
+        if (other->m_status == 2) {
+            continue;
+        }
+        if (a1 > 0) {
+            if (a2 == player && func_1401C0(self, player)) {
+                continue;
+            }
+        }
+        int val = self->m_fieldD8[player];
+        if (val > best_val) {
+            best_val = val;
+            best_player = player;
+        }
+    }
+    return best_player;
 }
 
 }

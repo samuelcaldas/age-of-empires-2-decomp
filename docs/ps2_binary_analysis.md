@@ -2507,6 +2507,30 @@ Directly following candidate target queries sit the candidate mode validator and
 | `func_00142830` (`TacticalAI2::ValidateCandidateState`) | `0x142830` | **100.0%** (124 / 124 B) | Candidate polling state validator with alert handlers. |
 | `func_001428B0` (`TacticalAI2::FormatRuleLine`) | `0x1428B0` | **99.80%** (200 / 200 B) | Tokenized tactical rule decompiler / script formatter with string lookup. |
 
+### 6.74 Tactical / Spatial AI Lexical Scanner and Script Tokenizer (`0x142980`–`0x142C80`, `tactical_ai_scanner.cpp`)
+
+Directly following candidate evaluation sit the core script lexer and rule tokenizer (`TacticalAI2`, `0x142980`–`0x142C80`, 764 bytes of code, 768-byte slice, Metrowerks MWCCPS2 2.3.1.01):
+
+* **Architecture and Reverse Engineering:**
+  - Method: `func_142980` (`TacticalAI2::ScanSpatialCandidate()`, 764 B code, VRAM `0x142980`):
+    - Lexical analyzer and script parser state machine for AI tactical scripts.
+    - Resets token buffer pointer `self->field_2A0 = &self->field_1A0` and clears null terminator.
+    - Scans input stream `self->field_6A8`, analyzing characters:
+      * `0x22` (`"`): double quote, switches to string literal parsing mode (mode 4).
+      * `0x3B` (`;`): semicolon comment delimiter, discards comment text via `func_001428B0`.
+      * `0x28` (`(`) and `0x29` (`)`): parenthesis tokens (modes 2 and 3).
+      * `0xD` (`\r`), `0xA` (`\n`), `0x9` (`\t`), `0x20` (` `): whitespace and line break delimiters.
+    - Copies identifier and literal characters into token buffer `field_1A0`.
+    - Returns status 2 when a valid token is scanned, 1 on comment/eol, and 0 on EOF/error.
+    - **100.0% exact byte-for-byte match**.
+
+* **Matching Results (1 / 1 Functions, 100.0% Unit Match):**
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_142980` (`TacticalAI2::ScanSpatialCandidate`) | `0x142980` | **100.0%** (764 / 764 B) | Complete AI script lexical scanner, token classifier, and string parser. |
+
+
 
 
 

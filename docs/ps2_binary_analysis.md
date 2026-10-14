@@ -3027,6 +3027,21 @@ Directly following Strategy AI matrix routines sits the Trade AI class hierarchy
 | `func_00145D40` | `0x145D40` | **100.0%** (144 / 144 B) | Deallocates slot from resource pool and clears bit in bitset `D_514500`. |
 | `func_00145DD0` | `0x145DD0` | **100.0%** (80 / 80 B) | Initializes resource pool table memory (`func_00117CAC`) and bitset. |
 
+### 6.91 `Trade AI Actions` Subsystem (`0x145E20`–`0x146130`)
+
+Following Trade AI resource management sits the trade action mapping table and `TradeAction` class constructor (`0x145E20`–`0x146130`, 776 bytes code in Metrowerks C++):
+
+* **Class Details & Vtables:**
+  - `TradeAction` (`0x1460B0`): Vtable `0x4D79A0`, internal state buffer at offset `0x90`, default capacity 10 (`0xB0`).
+
+#### 6.91.1 Trade AI Actions Matching Results (100.0% Unit Linked, 478 Functions Matched)
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_00145E20` | `0x145E20` | **100.0%** (652 / 652 B) | Trade action mapping and command normalization dispatcher. |
+| `func_001460B0` | `0x1460B0` | **100.0%** (124 / 124 B) | `TradeAction::TradeAction` constructor (vtable `0x4D79A0`). |
+
+
 
 
 

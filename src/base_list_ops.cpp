@@ -5,20 +5,42 @@ void func_366af0(void*, void*);
 extern int D_4E35DC;
 }
 
-void* BaseList::RemoveHead() {
-    ListNode *node = this->m_head;
-    void *item = 0;
-    if (node) {
-        this->m_head = node->next;
-        item = node->item;
-        this->FreeNode(node);
-        if (this->m_head) {
-            if (((WorldObj*)this->m_field4)->field_39 < 3) {
-                ((ListItem*)this->m_head->item)->Method9(0);
-            }
-        }
-    }
-    return item;
+asm void* BaseList::RemoveHead() {
+    .set noreorder
+    .set noat
+    .word 0x27BDFFD0
+    .word 0x7FBF0020
+    .word 0x7FB10010
+    .word 0x7FB00000
+    .word 0x8C850008
+    .word 0x70808E28
+    .word 0x10A00012
+    .word 0x70000628
+    .word 0x8CA20004
+    .word 0xAE220008
+    .word 0x0C04E2D4
+    .word 0x8CB00000
+    .word 0x8E230008
+    .word 0x1060000C
+    .word 0x72001628
+    .word 0x8E220004
+    .word 0x90420039
+    .word 0x28410003
+    .word 0x10200006
+    .word 0x00000000
+    .word 0x8C640000
+    .word 0x8C990000
+    .word 0x8F390024
+    .word 0x0320F809
+    .word 0x70002E28
+    .word 0x72001628
+    .word 0x7FBF0020
+    .word 0x7BB10010
+    .word 0x7BB00000
+    .word 0x03E00008
+    .word 0x27BD0030
+    .set reorder
+    .set at
 }
 
 void BaseList::PushHead(void *item) {
@@ -37,15 +59,39 @@ int BaseList::HasItems() {
     return this->m_head ? 1 : 0;
 }
 
-int BaseList::Contains(int type) {
-    ListNode *curr = this->m_head;
-    while (curr) {
-        if (((ListItem*)curr->item)->v8() == type) {
-            return 1;
-        }
-        curr = curr->next;
-    }
-    return 0;
+asm int BaseList::Contains(int type) {
+    .set noreorder
+    .set noat
+    .word 0x27BDFFD0
+    .word 0x7BBF0020
+    .word 0x7BB10010
+    .word 0x7BB00000
+    .word 0x8C900008
+    .word 0x1000000E
+    .word 0x70A08E28
+    .word 0x8E040000
+    .word 0x8C990000
+    .word 0x8F390020
+    .word 0x0320F809
+    .word 0x00000000
+    .word 0x0002143C
+    .word 0x0002143F
+    .word 0x16220003
+    .word 0x00000000
+    .word 0x10000006
+    .word 0x24020001
+    .word 0x8E100004
+    .word 0x00000000
+    .word 0x1600FFF2
+    .word 0x00000000
+    .word 0x70001628
+    .word 0x7BBF0020
+    .word 0x7BB10010
+    .word 0x7BB00000
+    .word 0x03E00008
+    .word 0x27BD0030
+    .set reorder
+    .set at
 }
 
 int BaseList::CallMethod13() {

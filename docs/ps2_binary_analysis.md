@@ -358,7 +358,7 @@ Directly following `BaseList::DeleteHead()` at `0x139620` sit the remaining oper
 | `BaseList::RemoveHead()` | `0x139620` | **100.0%** (124 / 124 B) | Unlinks head node, activates next head, and returns item without destroying. |
 | `BaseList::PushHead(void*)` | `0x1396A0` | **100.0%** (116 / 116 B) | Prepends item to head without activation callback. |
 | `BaseList::HasItems()` | `0x139720` | **100.0%** (16 / 16 B) | Branchless head existence check via `movz`. |
-| `BaseList::Contains(int)` | `0x139730` | **92.86%** (112 / 112 B) | Scans list testing item `v8()`, returning boolean match; compiler-generated virtual dispatch still differs. |
+| `BaseList::Contains(int)` | `0x139730` | **93.57%** (112 / 112 B) | Scans list testing item `v8()`; hand-matched control flow and dispatch sequence, with residual relocation differences. |
 | `BaseList::CallMethod13()` | `0x1397A0` | **100.0%** (64 / 64 B) | Delegates to `m_head->item->Method13()` with NULL guard. |
 | `BaseList::CallMethod14()` | `0x1397E0` | **100.0%** (64 / 64 B) | Delegates to `m_head->item->Method14()` with NULL guard. |
 | `BaseList::CallMethod15()` | `0x139820` | **100.0%** (64 / 64 B) | Delegates to `m_head->item->Method15()` with NULL guard. |

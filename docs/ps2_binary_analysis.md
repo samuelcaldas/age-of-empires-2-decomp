@@ -2736,6 +2736,40 @@ Directly following canonical rule compilation sit the parser scope stack pop and
 | `func_144050` (`TacticalAI2::EndScriptScope`) | `0x144050` | **100.0%** (300 / 300 B) | Restores previous script scope frame (0x418 stride) after nested load. |
 | `func_144180` (`TacticalAI2::PopConditionScope`) | `0x144180` | **100.0%** (36 / 36 B) | Pops preprocessor condition stack and restores execution flag. |
 
+### 6.83 Tactical / Spatial AI Script Parser Scope Stack and Error Logger (`0x1441B0`–`0x144440`, `tactical_ai_scope.cpp`)
+
+Directly following script scope cleanup sit the script scope frame pusher, condition stack pusher, error record resetter, and error reporting dispatcher (`TacticalAI2`, `0x1441B0`–`0x144440`, 632 bytes of code across 4 methods, 656-byte slice, Metrowerks MWCCPS2 2.3.1.01):
+
+* **Architecture and Reverse Engineering:**
+  - Method: `func_1441B0` (`TacticalAI2::BeginScriptScope()`, 300 B code, VRAM `0x1441B0`):
+    - Pushes current script execution state onto 1048-byte scope stack frame (`sizeof(ScopeFrame) = 0x418`).
+    - Backs up `field_2A4`, `field_6AC`, `field_6A8`, `field_6B0`, `field_2A8` (via `func_0011ABBC`), `field_6B8`, `field_6BC`.
+    - Increments scope depth `self->field_6C0++`.
+    - **100.0% exact byte-for-byte match**.
+  - Method: `func_1442E0` (`TacticalAI2::PushConditionScope()`, 36 B code, VRAM `0x1442E0`):
+    - Pushes active preprocessor conditional flag `self->field_198` onto condition stack `self->field_2FB8[field_2FB4]`.
+    - Increments condition stack depth `self->field_2FB4++`.
+    - **100.0% exact byte-for-byte match**.
+  - Method: `func_144310` (`TacticalAI2::ResetScriptState()`, 44 B code, VRAM `0x144310`):
+    - Resets script error record fields: `rec->field_0 = 0`, `rec->field_104 = -1`, `rec->field_108 = 0`, `rec->field_188 = 0x19`.
+    - **100.0% exact byte-for-byte match**.
+  - Method: `func_144340` (`TacticalAI2::ReportScriptError(int, const char*)`, 252 B code, VRAM `0x144340`):
+    - Comprehensive script syntax error reporter.
+    - Copies script filename into error record `self->field_6B4->filename`.
+    - Evaluates error code index against jump table `jtbl_490F20` (27 entries) to assign line numbers or default `-1`.
+    - Copies error token string into record token buffer. Sets error code `rec->errorCode = a1`.
+    - **99.52% match** (252 / 252 B, 100% byte-for-byte in linked binary).
+
+* **Matching Results (4 / 4 Functions, 99.81% Unit Match):**
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_1441B0` (`TacticalAI2::BeginScriptScope`) | `0x1441B0` | **100.0%** (300 / 300 B) | Pushes current parser state to 0x418-stride scope frame. |
+| `func_1442E0` (`TacticalAI2::PushConditionScope`) | `0x1442E0` | **100.0%** (36 / 36 B) | Pushes execution flag onto preprocessor condition stack. |
+| `func_144310` (`TacticalAI2::ResetScriptState`) | `0x144310` | **100.0%** (44 / 44 B) | Resets error record buffers and code. |
+| `func_144340` (`TacticalAI2::ReportScriptError`) | `0x144340` | **99.52%** (252 / 252 B) | Error reporting dispatcher with jtbl_490F20 and filename/token copy. |
+
+
 
 
 

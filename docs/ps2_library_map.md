@@ -14,8 +14,8 @@ code-section size. File offset converts to VMA as `offset + 0xffe20`.
 
 The only third-party code currently bounded with defensible routine boundaries
 is a set of Metrowerks MSL C runtime routines. The displayed sizes are the exact
-address spans configured as named `c` splits; no MSL or Sony library routines
-are registered as matched objects.
+address spans configured as named `asm` analysis targets, not decompiled C/C++
+implementations; no MSL or Sony library routines are registered as matched objects.
 
 | Library / routine | VMA range (end exclusive) | File-offset range (end exclusive) | Size | Evidence | Confidence |
 |---|---:|---:|---:|---|---|
@@ -63,11 +63,12 @@ misclassified as game code.
 
 ## Configuration and progress tracking
 
-`config/SLES-50282/config.yml` marks the nine bounded MSL routines as named C
-subsegments, and `config/SLES-50282/symbols.txt` records their labels and the
-Sony SDK version-string labels. Intervening unknown bytes remain binary
-segments. This makes the identified library routines visible in splits without
-adding assembly, inline assembly, or matched library objects. Sony SDK tags are
-symbol labels only because no trustworthy module code spans are known. The
+`config/SLES-50282/config.yml` marks the nine bounded MSL routines as named
+`asm` analysis targets, and `config/SLES-50282/symbols.txt` records their labels
+and the Sony SDK version-string labels. Intervening unknown bytes remain binary
+segments. These targets generate original-side disassembly for analysis, not
+C/C++ implementations or matched library objects. Generated analysis assembly
+does not count as decompilation progress. Sony SDK tags are symbol labels only
+because no trustworthy module code spans are known. The
 existing `libs` progress category is object-based; library splits are not
 registered as matched objects and therefore do not increase game-match progress.

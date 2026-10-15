@@ -1,0 +1,13 @@
+#ifndef TRADE_ACTION_STREAM_COLLECTORS_H
+#define TRADE_ACTION_STREAM_COLLECTORS_H
+
+extern "C" {
+
+void func_00156670();
+void func_001567A0();
+void func_00156920();
+void func_00156AC0();
+
+}
+
+#endif // TRADE_ACTION_STREAM_COLLECTORS_H

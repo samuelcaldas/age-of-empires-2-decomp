@@ -3566,6 +3566,36 @@ Following trade helpers sits the trade action finalization, state serialization,
 | `func_00151E60` | `0x151E60` | **100.0%** (28 / 28 B) | Counter decrement helper in pure C++. |
 | `func_00151E80` | `0x151E80` | **Implemented** (1,120 B) | 64 default virtual method implementations of `TradeActionBase`. |
 
+#### 6.131 `Trade Action Stream Serializer` Subsystem (`0x1522E0`–`0x1527A0`, `trade_action_stream.cpp`)
+
+Following trade finalize sits the route packet encoding and binary stream serialization subsystem (`0x1522E0`–`0x1527A0`, 1,216 bytes in Metrowerks C++ PS2 MWCC 2.3.1.01):
+- `func_001522E0` (`0x1522E0`, 16 bytes): Stream buffer state reset.
+- `func_001522F0` (`0x1522F0`, 48 bytes): Stream capacity check.
+- `func_00152320` (`0x152320`, 96 bytes): Write 16-bit integer to buffer.
+- `func_00152380` (`0x152380`, 96 bytes): Write 16-bit word to stream.
+- `func_001523E0` (`0x1523E0`, 128 bytes): Write 32-bit integer to stream.
+- `func_00152460` (`0x152460`, 128 bytes): Write 32-bit float to stream.
+- `func_001524E0` (`0x1524E0`, 176 bytes): Write byte array to stream.
+- `func_00152590` (`0x152590`, 176 bytes): Write string to stream.
+- `func_00152640` (`0x152640`, 176 bytes): Write waypoint packet.
+- `func_001526F0` (`0x1526F0`, 176 bytes): Stream buffer commit.
+
+#### 6.132 `Trade Action Stream Reader` Subsystem (`0x1527A0`–`0x152B10`, `trade_action_stream_reader.cpp`)
+
+Following stream serializer sits the route packet decoding and stream deserialization subsystem (`0x1527A0`–`0x152B10`, 880 bytes in Metrowerks C++ PS2 MWCC 2.3.1.01):
+- `func_001527A0` (`0x1527A0`, 208 bytes): Read 16-bit integer from stream.
+- `func_00152870` (`0x152870`, 208 bytes): Read 32-bit integer from stream.
+- `func_00152940` (`0x152940`, 208 bytes): Read float from stream.
+- `func_00152A10` (`0x152A10`, 256 bytes): Read waypoint packet from stream.
+
+#### 6.133 `Trade Action Stream Writers` Subsystem (`0x152B10`–`0x152F20`, `trade_action_stream_writers.cpp`)
+
+Following stream reader sits the packet dispatch and route packet writer subsystem (`0x152B10`–`0x152F20`, 1,040 bytes in Metrowerks C++ PS2 MWCC 2.3.1.01):
+- `func_00152B10` (`0x152B10`, 256 bytes): Write packet header.
+- `func_00152C10` (`0x152C10`, 256 bytes): Write action payload.
+- `func_00152D10` (`0x152D10`, 256 bytes): Write route payload.
+- `func_00152E10` (`0x152E10`, 272 bytes): Finalize packet buffer.
+
 
 
 

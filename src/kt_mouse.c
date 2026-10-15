@@ -228,7 +228,7 @@ int func_001352D8(int a0, int *out) {
 }
 
 int func_001353C0(int a0) {
-    register int res __asm__("$18") = 0;
+    int res = 0;
     int count = D_50A060.count;
     int i;
 
@@ -376,7 +376,7 @@ int func_00135798(int a0, void *a1, int a2) {
 }
 
 int func_00135870(int a0, int a1, int a2, int a3, int a4) {
-    register int res __asm__("$18") = -1;
+    int res = -1;
     char *port;
     int *entry;
     int *data;

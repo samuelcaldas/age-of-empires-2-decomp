@@ -46,13 +46,14 @@ struct ZoneMap {
 };
 
 void *func_001C8CA0(void *self, void *stream, void *arg2) {
+    register void *st = stream;
     ZoneMap *zm = (ZoneMap *)self;
     zm->vptr = D_4D9270;
     zm->m_field8EEC = 0;
 
     int header;
-    func_00226D90(stream, &header, 4);
-    func_00226D90(stream, (char *)self + 4, 0x9154);
+    func_00226D90(st, &header, 4);
+    func_00226D90(st, (char *)self + 4, 0x9154);
 
     for (int t8 = 0; t8 < 32; t8++) {
         char *elem = (char *)self + t8 * 416;

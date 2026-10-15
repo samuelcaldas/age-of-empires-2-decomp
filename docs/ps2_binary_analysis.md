@@ -3515,6 +3515,11 @@ Following target resolution sits the route trajectory sampling, route object cle
 | `func_00151440` | `0x151440` | **100.0%** (60 / 60 B) | Exact byte-for-byte route object cleanup via `func_1FC810`. |
 | `func_00151480` | `0x151480` | **Implemented** (336 B) | Route waypoint state initialization and sub-action invocation in pure C++. |
 
+#### 6.128 `Trade Action Trade State Evaluation` Subsystem (`0x1515E0`–`0x151960`, `trade_action_trade_state.cpp`)
+
+Following target management sits the trade state progression and route distance evaluator (`0x1515E0`–`0x151960`, 896 bytes in Metrowerks C++ PS2 MWCC 2.3.1.01):
+- `func_001515E0` (`0x1515E0`, 896 bytes): Validates trade route capacity via `m_target->Method114()`, queries candidate market entity via `func_00332E60`, calculates distance bounds via `func_002690D0`, computes clamped travel time, dispatches virtual method `Method1C`, and manages dynamic waypoint table resizing and route assignment.
+
 
 
 

@@ -1,0 +1,14 @@
+#ifndef TRADE_ACTION_STREAM_TRANSFORMERS2_H
+#define TRADE_ACTION_STREAM_TRANSFORMERS2_H
+
+extern "C" {
+
+void func_0015B0E0();
+void func_0015B1E0();
+void func_0015B300();
+void func_0015B430();
+void func_0015B530();
+
+}
+
+#endif // TRADE_ACTION_STREAM_TRANSFORMERS2_H

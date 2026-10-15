@@ -4040,7 +4040,26 @@ Directly following stream decoders 2 sits the multi-phase stream OR-masking and 
 | `func_0015AF20` | `0x15AF20` | **86.06%** (231 / 268 B) | Dual-cycle 4-byte and 3-byte decoder with OR-masking. |
 | `func_0015B030` | `0x15B030` | **82.86%** (143 / 172 B) | 4-byte validated block copy loop with OR-masking. |
 
-#### 6.157 `Trade Action Stream Evaluators` Subsystem (`0x15BD30`–`0x15C2F0`, `trade_action_stream_evaluators.cpp`)
+#### 6.157 `Trade Action Stream Transformers 2` Subsystem (`0x15B0E0`–`0x15B660`, `trade_action_stream_transformers2.cpp`)
+
+Directly following stream decoders 3 sits the secondary stream transformers subsystem (`0x15B0E0`–`0x15B660`, 1,408 bytes across 5 functions in Metrowerks C++ PS2 MWCC 2.3.1.01). It implements loop-driven continuous 4-byte block serialization combined with `D_004E2DA4` bitwise OR reconstruction, sub-block alignment calls (`func_001522C0`), and variable-length prefix and trailer decodes:
+- `func_0015B0E0` (`0x15B0E0`, 256 bytes): 1-byte prefix + continuous 4-byte block copy loop with `D_004E2DA4` masking. **90.82% pure C++ match**.
+- `func_0015B1E0` (`0x15B1E0`, 288 bytes): 2-byte prefix + continuous 4-byte block copy loop with `D_004E2DA4` masking. **79.15% pure C++ match**.
+- `func_0015B300` (`0x15B300`, 304 bytes): 3-byte prefix + continuous 4-byte block copy loop with `D_004E2DA4` masking. **89.04% pure C++ match**.
+- `func_0015B430` (`0x15B430`, 256 bytes): Counter decrement + continuous 4-byte block loop + 1-byte trailer flush. **90.82% pure C++ match**.
+- `func_0015B530` (`0x15B530`, 304 bytes): 1-byte prefix + continuous 4-byte block loop + 1-byte trailer flush. **92.63% pure C++ match**.
+
+#### 6.157.1 Trade Action Stream Transformers 2 Matching Results (Pure C++, 1,408 Bytes)
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_0015B0E0` | `0x15B0E0` | **90.82%** (256 B) | 1-byte prefix + continuous 4-byte block loop with `D_004E2DA4`. |
+| `func_0015B1E0` | `0x15B1E0` | **79.15%** (288 B) | 2-byte prefix + continuous 4-byte block loop with `D_004E2DA4`. |
+| `func_0015B300` | `0x15B300` | **89.04%** (304 B) | 3-byte prefix + continuous 4-byte block loop with `D_004E2DA4`. |
+| `func_0015B430` | `0x15B430` | **90.82%** (256 B) | Continuous 4-byte block loop with 1-byte trailer flush. |
+| `func_0015B530` | `0x15B530` | **92.63%** (304 B) | 1-byte prefix + continuous 4-byte loop + 1-byte trailer flush. |
+
+#### 6.158 `Trade Action Stream Evaluators` Subsystem (`0x15BD30`–`0x15C2F0`, `trade_action_stream_evaluators.cpp`)
 
 Directly following stream decoders 4 sits the loop-driven stream evaluation and multi-phase block unmarshaling subsystem (`0x15BD30`–`0x15C2F0`, 1,472 bytes across 4 functions in Metrowerks C++ PS2 MWCC 2.3.1.01):
 - `func_0015BD30` (`0x15BD30`, 400 bytes, **80.94% match**): Staged 3-byte prefix evaluator with `D_004E2DA8 -= 5`, continuous 4-byte validated loop with OR mask `D_004E2DA4`, and 2-byte trailer flush.
@@ -4048,7 +4067,7 @@ Directly following stream decoders 4 sits the loop-driven stream evaluation and 
 - `func_0015BFF0` (`0x15BFF0`, 368 bytes, **82.01% match**): 1-byte prefix evaluator with `D_004E2DA8 -= 4`, continuous 4-byte loop with OR mask `D_004E2DA4`, and 3-byte trailing stream flush.
 - `func_0015C160` (`0x15C160`, 400 bytes, **77.51% match**): 2-byte prefix evaluator with `D_004E2DA8 -= 5`, continuous 4-byte loop with OR mask `D_004E2DA4`, and 3-byte trailing stream flush.
 
-#### 6.157.1 Trade Action Stream Evaluators Matching Results (Pure C++, 1,472 Bytes)
+#### 6.158.1 Trade Action Stream Evaluators Matching Results (Pure C++, 1,472 Bytes)
 
 | Function / Method | VRAM Address | Match Status | Description |
 |---|---|---|---|

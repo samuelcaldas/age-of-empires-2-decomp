@@ -1,6 +1,6 @@
 #pragma exceptions off
 #include "sub_list.h"
-#include "zone_raycast_core.h"
+#include "zone_raycast_query.h"
 
 extern "C" {
 
@@ -26,8 +26,5 @@ int func_001C8C20(void *self, void *param, int i, void *arr) {
 
     return func_123350(sum);
 }
-
-void func_001C8CA0() {}
-void func_001C8FF0() {}
 
 }

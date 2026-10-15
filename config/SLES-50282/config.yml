@@ -769,10 +769,10 @@ segments:
       - [0x4C000, asm, trade_action_destination]
   - name: trade_action_route_search
     type: code
-    start: 0x4C310
-    vram: 0x14C120
+    start: 0x4C300
+    vram: 0x14C110
     subsegments:
-      - [0x4C310, asm, trade_action_route_search]
+      - [0x4C300, asm, trade_action_route_search]
   - name: trade_action_market_search
     type: code
     start: 0x4C660

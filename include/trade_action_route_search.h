@@ -1,10 +1,6 @@
 #ifndef TRADE_ACTION_ROUTE_SEARCH_H
 #define TRADE_ACTION_ROUTE_SEARCH_H
 
-#define V_SLOT_10(base) \
-    virtual int v##base##0(); virtual int v##base##1(); virtual int v##base##2(); virtual int v##base##3(); virtual int v##base##4(); \
-    virtual int v##base##5(); virtual int v##base##6(); virtual int v##base##7(); virtual int v##base##8(); virtual int v##base##9();
-
 struct TimerNode {
     char pad_00[14];
     short m_id;
@@ -13,7 +9,7 @@ struct TimerNode {
 class TargetObj {
 public:
     virtual void vfn0();
-    void *m_node_ptr;              // offset 4
+    TimerNode *m_node;             // offset 4
     void *m_game;                  // offset 8
     char pad_0C[0x39 - 0xC];       // offset 12..56
     unsigned char m_field39;       // offset 57
@@ -21,8 +17,11 @@ public:
     float x;                       // offset 68
     float y;                       // offset 72
     float z;                       // offset 76
+};
 
-    TimerNode* GetNode() { return (TimerNode*)m_node_ptr; }
+struct SearchItem {
+    int id;
+    int field_4;
 };
 
 struct RouteItem {
@@ -49,10 +48,10 @@ public:
 
 extern "C" {
     void* func_332e60(void *timer, int id);
-    extern int *D_F99910[];
-    extern int D_F99930[];
+    extern SearchItem *D_00F99910[];
+    extern int D_00F99930[];
 
-    int func_0014C110(TradeAction *self, int mode, int *results, int *p_count, int max_results);
+    void func_0014C110(TradeAction *self, int mode, int *results, int *p_count, int max_results);
     int func_0014C420(TradeAction *self, int a1);
 }
 

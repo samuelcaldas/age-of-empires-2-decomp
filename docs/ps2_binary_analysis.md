@@ -4149,3 +4149,14 @@ Directly following stream operators sits the secondary bitmask-driven stream eva
 | `func_0015CBB0` | `0x15CBB0` | **78.75%** (176 / 224 B) | Single-byte prefix evaluator with subsequent 3-byte validated stream extraction. |
 | `func_0015CC90` | `0x15CC90` | **80.32%** (199 / 248 B) | 4-byte block evaluator with trailing byte masking and stream transfer. |
 | `func_0015CD90` | `0x15CD90` | **78.48%** (201 / 256 B) | Composite 3-byte and 2-byte dual-cycle validated stream evaluator. |
+
+#### 6.161 `Zone Path & Building Placement Obstruction Evaluator` Subsystem (`0x1C7850`–`0x1C8480`, `zone_path_eval.cpp`)
+
+Directly beginning the `aoe2` fixed address range (`0x1C7330`–`0x2665B0`) sits the core spatial obstruction and building placement validator `func_001C7850` (`0x1C7850`–`0x1C8480`, 3,120 bytes in Metrowerks C++ PS2 MWCC 2.3.1.01). It validates spatial bounding box coordinates, perimeter zone adjacency, slope elevation gradients, and unit radius collisions:
+- `func_001C7850` (`0x1C7850`, 3,120 bytes): Evaluates map dimensions, converts floating-point coordinates to integer tile coordinates (`func_123350`), tests 4-sided perimeter connectivity against `bld->m_required_zone`, checks tile slope gradient against building type limits (`map + 0x68`), performs special Mill/Farm adjacency logic (`0x3B`), and queries unit collision radii (`func_3675D0`) for obstruction detection.
+
+#### 6.161.1 Zone Path Evaluator Matching Results (Pure C++, 3,120 Bytes)
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_001C7850` | `0x1C7850` | **44.58%** (3,116 / 3,120 B) | Building placement obstruction and spatial perimeter validator. |

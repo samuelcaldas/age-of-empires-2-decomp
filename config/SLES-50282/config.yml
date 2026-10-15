@@ -1149,7 +1149,7 @@ segments:
       - [0x117910, asm, trade_action_helper_217730]
   - name: post_217730
     type: bin
-    start: 0x1179A0
+    start: 0x117A14
   - name: unit_action_core
     type: code
     start: 0x166960

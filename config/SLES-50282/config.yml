@@ -833,9 +833,15 @@ segments:
     vram: 0x14F7C0
     subsegments:
       - [0x4F9B0, asm, trade_action_market_ai]
+  - name: trade_action_market_helpers
+    type: code
+    start: 0x505F0
+    vram: 0x150400
+    subsegments:
+      - [0x505F0, asm, trade_action_market_helpers]
   - name: post_base
     type: bin
-    start: 0x505F0
+    start: 0x50730
   - [0x3e31c0]
 
 

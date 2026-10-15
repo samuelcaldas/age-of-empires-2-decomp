@@ -3821,6 +3821,19 @@ Following stream transformers is the stream filters subsystem (`0x155B10`–`0x1
 | `func_00155E50` | `0x155E50` | **89.33%** (304 B) | 2-byte prefix staging + continuous 4-byte validated block loop. |
 | `func_00155F80` | `0x155F80` | **90.23%** (336 B) | Offset -1 3-byte prefix + continuous 4-byte validated block loop. |
 
+#### 6.144 `Trade Action Stream Aggregators` Subsystem (`0x1560D0`–`0x156670`, `trade_action_stream_aggregators.cpp`)
+
+This section restores coverage lost after commit `86fa6880d563a0e372ded39d93b9450d777f6112`. The 1,440-byte slice contains four functions with 1,416 instruction bytes and 24 alignment bytes. They stage input through `func_001522C0`, apply `D_004E30A8` and `D_004E30AC`, and copy four-byte blocks in counter-driven loops before a one-byte trailer. The helper's higher-level purpose remains unconfirmed.
+
+The current objdiff report gives the following **fuzzy similarity**, not a count of exactly matched bytes. This unit remains `NonMatching`.
+
+| Function | Instruction bytes | Fuzzy similarity | Prefix before block loop |
+|---|---:|---:|---|
+| `func_001560D0` | 276 | 96.52% | None |
+| `func_001561F0` | 352 | 97.27% | One byte |
+| `func_00156350` | 380 | 94.95% | Two bytes |
+| `func_001564D0` | 408 | 95.29% | Three bytes, staged from input minus one |
+
 #### 6.145 `Trade Action Stream Collectors & Composite Decoders` Subsystem (`0x156670`–`0x156C80`, `trade_action_stream_collectors.cpp`)
 
 Following stream aggregators is the stream collectors subsystem (`0x156670`–`0x156C80`, 1,552 bytes across 4 functions). It implements complex multi-phase stream block transformations and composite payload deserialization using `Buffer4` (`D_004E2DA0`), bitmasks `D_004E30A8` and `D_004E30AC`, and unrolled 4-byte `do-while` stream copy loops:
@@ -3854,6 +3867,26 @@ Directly following stream collectors sits the bounded counter accumulation and l
 | `func_00156DD0` | `0x156DD0` | **77.24%** (312 / 404 B) | 1-byte prefix + continuous 4-byte block copy loop + 3-byte trailer. |
 | `func_00156F70` | `0x156F70` | **76.66%** (331 / 432 B) | 2-byte prefix + continuous 4-byte block copy loop + 3-byte trailer. |
 | `func_00157120` | `0x157120` | **78.08%** (359 / 460 B) | Offset -1 3-byte prefix + continuous 4-byte block copy loop + 3-byte trailer. |
+
+#### 6.147 `Trade Action Stream Emitters` Subsystem (`0x1572F0`–`0x1577F0`, `trade_action_stream_emitters.cpp`)
+
+This section restores coverage lost after commit `54d00cb2faa419451f71b309f256a40fc4562095`. The 1,280-byte slice contains thirteen leaf functions with 1,180 instruction bytes and 100 alignment bytes. Each writes a fixed byte-index pattern from `D_004E2DA0` to the global output cursor `D_004E2DB4`. All thirteen currently report 100.00% in objdiff; that report is separate from the relocation-resolved byte regression added for decoders5.
+
+| Function | Instruction bytes | Staging byte indices emitted |
+|---|---:|---|
+| `func_001572F0` | 28 | `[0]` |
+| `func_00157310` | 52 | `[0, 1]` |
+| `func_00157350` | 52 | `[0, 0]` |
+| `func_00157390` | 76 | `[0, 1, 0]` |
+| `func_001573E0` | 76 | `[0, 0, 1]` |
+| `func_00157430` | 100 | `[0, 1, 0, 1]` |
+| `func_001574A0` | 100 | `[0, 1, 0, 0]` |
+| `func_00157510` | 100 | `[0, 1, 0, 1]` |
+| `func_00157580` | 100 | `[0, 1, 0, 0]` |
+| `func_001575F0` | 124 | `[0, 1, 0, 1, 0]` |
+| `func_00157670` | 124 | `[0, 1, 0, 0, 1]` |
+| `func_001576F0` | 124 | `[0, 1, 0, 1, 0]` |
+| `func_00157770` | 124 | `[0, 0, 1, 0, 1]` |
 
 #### 6.148 `Trade Action Stream Encoders` Subsystem (`0x1577F0`–`0x157D30`, `trade_action_stream_encoders.cpp`)
 
@@ -4164,22 +4197,27 @@ Directly following stream operators sits the secondary bitmask-driven stream eva
 
 #### 6.161 `Trade Action Stream Decoders 5` Subsystem (`0x15CE90`–`0x15D3F0`, `trade_action_stream_decoders5.cpp`)
 
-Directly following stream evaluators 2 sits the multi-phase stream block decoding and flag assignment subsystem (`0x15CE90`–`0x15D3F0`, 1,376 bytes across 5 functions in Metrowerks C++ PS2 MWCC 2.3.1.01):
-- `func_0015CE90` (`0x15CE90`, 256 bytes, **78.14% match**): Dual-cycle 2-byte and 3-byte validated stream decoder with bitmask `D_004E30A8` and OR-flag `D_004E30B0`.
-- `func_0015CF90` (`0x15CF90`, 256 bytes, **80.81% match**): Staged 1-byte prefix decoder staging `D_004E2DA0[1]`, followed by `func_001522C0` validation and 4-byte stream transfer.
-- `func_0015D090` (`0x15D090`, 288 bytes, **80.04% match**): Dual-cycle 4-byte and 2-byte validated stream decoder with bitmask and OR flag application.
-- `func_0015D1B0` (`0x15D1B0`, 288 bytes, **80.33% match**): Offset -1 3-byte prefix decoder with secondary 3-byte validated stream extraction.
-- `func_0015D2D0` (`0x15D2D0`, 288 bytes, **80.04% match**): Dual-cycle 2-byte and 4-byte validated stream decoder with bitmask and OR flag application.
+The slice contains five two-phase stream routines compiled with MWCCPS2 2.3.1.01. Its 1,376 bytes comprise 1,332 instruction bytes and 44 alignment bytes. Each staged phase calls `func_001522C0`, advances input cursor `D_004E2DB0`, applies AND mask `D_004E30A8` and OR mask `D_004E30B0`, and emits individual staging bytes to `D_004E2DB4`. The helper's higher-level purpose and the masks' domain meanings are not yet established.
 
-#### 6.161.1 Trade Action Stream Decoders 5 Matching Results (Pure C++, 1,376 Bytes)
+#### 6.161.1 Trade Action Stream Decoders 5 Matching Results
 
-| Function / Method | VRAM Address | Match Status | Description |
-|---|---|---|---|
-| `func_0015CE90` | `0x15CE90` | **78.14%** (197 / 252 B) | Dual-cycle 2-byte and 3-byte decoder with D_004E30B0 flag. |
-| `func_0015CF90` | `0x15CF90` | **80.81%** (200 / 248 B) | 1-byte prefix staging + 4-byte validated block copy loop. |
-| `func_0015D090` | `0x15D090` | **80.04%** (221 / 276 B) | Dual-cycle 4-byte and 2-byte decoder with D_004E30B0 flag. |
-| `func_0015D1B0` | `0x15D1B0` | **80.33%** (225 / 280 B) | Offset -1 3-byte prefix + secondary 3-byte validated extraction. |
-| `func_0015D2D0` | `0x15D2D0` | **80.04%** (221 / 276 B) | Dual-cycle 2-byte and 4-byte decoder with D_004E30B0 flag. |
+All five functions report **100.00%** in objdiff. Independently linking the C++ object at its original address and resolving its external calls and GP-relative references also produces **byte-for-byte equality for the entire 1,376-byte slice**, including all alignment padding. The unit is therefore registered `Matching`.
+
+| Function | Exact instruction bytes | Match | Phases |
+|---|---:|---:|---|
+| `func_0015CE90` | 252 | 100.00% | Two bytes, then three bytes |
+| `func_0015CF90` | 248 | 100.00% | Direct byte into staging index 1, then four bytes |
+| `func_0015D090` | 276 | 100.00% | Four bytes, then two bytes |
+| `func_0015D1B0` | 280 | 100.00% | Three bytes staged from input minus one, then three bytes |
+| `func_0015D2D0` | 276 | 100.00% | Two bytes, then four bytes |
+
+`tests/test_trade_action_stream_decoders5.py` independently compiles the C++ source, resolves external calls and GP-relative data references at their original addresses, and compares each function and the full padded slice directly against the locally supplied original ELF. All six comparisons pass in `docker-dev`. These tests skip explicitly when the private original or local compiler tools are unavailable; they never distribute original code. Run them inside the `docker-dev` build environment with `python -m pytest -q tests/test_trade_action_stream_decoders5.py`.
+
+#### 6.161.2 Source Ordering and Register Allocation
+
+Declaring the four-byte staging object as a word/byte union permits GP-relative accesses without cast-based indirect loads. The matching C++ source advances the input cursor **before** the AND/OR assignments. MWCC schedules the independent cursor update among the staging operations, placing the cursor store between the masked-word reload and the OR in the original instruction sequence. Writing the C++ in that assembly store order instead produced different register allocation and only 92–96% fuzzy similarity. No volatile accesses, register bindings, inline assembly, or encoded instructions are needed.
+
+The shared `stage_masked_input` helper is fully inlined; every implementation function stays within fifteen lines. The relocated-byte tests originally failed on all five functions, then passed after correcting the source ordering. `tests/test_stream_documentation.py` additionally protects the recovered aggregator and emitter function coverage from accidental removal during future merges.
 
 #### 6.162 `Zone Path & Building Placement Obstruction Evaluator` Subsystem (`0x1C7850`–`0x1C8480`, `zone_path_eval.cpp`)
 

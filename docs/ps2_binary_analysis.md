@@ -3151,12 +3151,18 @@ Following the update loop sits the merchant route registration and validation su
 - `TradeAction::AddRoute` (`func_00147A40`, 372 bytes): Validates `m_target->m_state > 2`, enqueues previous waypoint when `a5 == 1`, registers new route target waypoint, dispatches state change virtual method `0x5C` when `a2 != 0x2D9`, resets transaction buffer via `func_150F50`, and invokes buffer commit virtual method `0xD8`.
 - `TradeAction::CheckRouteValid` (`func_00147BC0`, 268 bytes): Validates active route status (`m_target->m_state == 2`), checks destination index matching in internal route cache (`m_fieldA4`), validates building/market command codes (`0x2BB`, `0x1FB`, `0x1FA`, `0x262`), and delegates fallback validation to `func_150CE0`.
 
-#### 6.97.1 Trade Action Routes Matching Results (100.0% Pure C++, 656 Bytes)
+#### 6.100 `Trade Action Market Pair Evaluation` Subsystem (`0x148FF0`–`0x149450`, `trade_action_market_eval.cpp`)
+
+Following the primary evaluator sits the bilateral market pair evaluation and price quotient routine (`0x148FF0`–`0x149450`, 1120 bytes in Metrowerks C++ PS2 MWCC 2.3.1.01). It assesses reciprocal resource availability, spatial path length, tariff quotient calculations, and market distance bounds:
+
+- `TradeAction::EvaluateMarketPair` (`func_00148FF0`, 1120 bytes): Evaluates entity validity across trading endpoints, records candidate routes into 32-byte descriptor table, tracks minimum/maximum bounds across active markets, computes price quotient via reciprocal division (`f1 / f21 / f118`), and enforces pathing threshold via `D_004E2824` (1.0e-7f).
+
+#### 6.100.1 Trade Action Market Evaluation Matching Results (Pure C++, 1120 Bytes)
 
 | Function / Method | VRAM Address | Match Status | Description |
 |---|---|---|---|
-| `func_00147A40` | `0x147A40` | **100.0%** (372 / 372 B) | `TradeAction::AddRoute` merchant waypoint registration and virtual dispatcher. |
-| `func_00147BC0` | `0x147BC0` | **100.0%** (268 / 268 B) | `TradeAction::CheckRouteValid` route validation and waypoint table search. |
+| `func_00148FF0` | `0x148FF0` | **68.75%** (1120 B) | Bilateral market candidate evaluation and reciprocal rate computation. |
+
 
 
 

@@ -4172,3 +4172,22 @@ Directly beginning the `aoe2` fixed address range (`0x1C7330`–`0x2665B0`) sits
 | Function / Method | VRAM Address | Match Status | Description |
 |---|---|---|---|
 | `func_001C7850` | `0x1C7850` | **44.58%** (3,116 / 3,120 B) | Building placement obstruction and spatial perimeter validator. |
+
+#### 6.162 `Unit Action Core & Serialization` Subsystem (`0x266780`–`0x266C50`, `unit_action_core.cpp`)
+
+Located at the base of the `0x2665B0`–`0x2B5F00` engine domain sits the core unit action coordination and state serialization subsystem (`0x266780`–`0x266C50`, 1,232 bytes across 5 functions in Metrowerks C++ PS2 MWCC 2.3.1.01). It implements entity target resolution, spatial action execution via virtual vtable dispatch, item container index lookups, and complete unit action binary stream serialization:
+- `func_00266780` (`0x266780`, 180 bytes): Entity target notification callback and spatial action dispatcher via vtable slot 13 (`Method34`). **91.07% pure C++ match**.
+- `func_00266840` (`0x266840`, 116 bytes): Unit action completion and spatial position notification via vtable slots 17 and 57 (`Method17`, `Method57`). **100.0% exact match** in pure C++.
+- `func_002668C0` (`0x2668C0`, 12 bytes): Entity lookup tail-call forwarder to `func_332e60`. **100.0% exact match** in pure C++.
+- `func_002668D0` (`0x2668D0`, 72 bytes): Container item index lookup with short sign-extension and boundary verification. **88.33% pure C++ match**.
+- `func_00266920` (`0x266920`, 816 bytes): Full unit action serialization to binary output stream via `func_00226F70`. **86.05% pure C++ match**.
+
+#### 6.162.1 Unit Action Core Matching Results (Pure C++, 1,232 Bytes)
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_00266780` | `0x266780` | **91.07%** (180 B) | Target notification and spatial action vtable dispatch. |
+| `func_00266840` | `0x266840` | **100.0%** (116 / 116 B) | Unit action finish and spatial notification (Method17, Method57). |
+| `func_002668C0` | `0x2668C0` | **100.0%** (12 / 12 B) | Entity lookup tail call forwarder to func_332e60. |
+| `func_002668D0` | `0x2668D0` | **88.33%** (72 B) | Container item index lookup with short sign extension. |
+| `func_00266920` | `0x266920` | **86.05%** (816 B) | Complete unit action state serialization to binary stream. |

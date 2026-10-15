@@ -1135,6 +1135,15 @@ segments:
   - name: post_aoe2
     type: bin
     start: 0xC8670
+  - name: unit_action_core
+    type: code
+    start: 0x166960
+    vram: 0x266780
+    subsegments:
+      - [0x166960, asm, unit_action_core]
+  - name: post_unit_action_core
+    type: bin
+    start: 0x166E30
   - [0x3e31c0]
 
 

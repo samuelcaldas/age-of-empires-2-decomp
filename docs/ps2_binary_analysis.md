@@ -3370,6 +3370,35 @@ Following route search sits the market candidate search and allied trading node 
 |---|---|---|---|
 | `func_0014C470` | `0x14C470` | **90.78%** (792 / 872 B) | Candidate market search, diplomacy filtering, distance checks, and route assignment in pure C++. |
 
+#### 6.116 `Trade Action State Updates & Mode Control` Subsystem (`0x14C7E0`–`0x14CAB0`, `trade_action_state_updates.cpp`)
+
+Following market search sits the merchant trading state updates and mode control subsystem (`0x14C7E0`–`0x14CAB0`, 720 bytes in Metrowerks C++ PS2 MWCC 2.3.1.01):
+- `func_0014C7E0` (`0x14C7E0`, 144 bytes): Trade state transition handler updating mode identifier, coordinates, and triggering sub-action 0x14BCE0.
+- `func_0014C870` (`0x14C870`, 160 bytes): Merchant distance verification checking route waypoint proximity via `func_269190`.
+- `func_0014C910` (`0x14C910`, 112 bytes): Trade mode string name resolution dispatch.
+- `func_0014C990` (`0x14C990`, 288 bytes): Route status validator ensuring market connectivity and action validity.
+
+#### 6.117 `Trade Action Trade Evaluation & Pricing` Subsystem (`0x14CAB0`–`0x14CFF0`, `trade_action_trade_eval.cpp`)
+
+Following state updates sits the trade evaluation and resource pricing subsystem (`0x14CAB0`–`0x14CFF0`, 1,344 bytes in Metrowerks C++ PS2 MWCC 2.3.1.01):
+- `func_0014CAB0` (`0x14CAB0`, 1,344 bytes): Resource pricing calculator and gold generation evaluator.
+
+#### 6.118 `Trade Action Market Trade Operations` Subsystem (`0x14CFF0`–`0x14D290`, `trade_action_market_trade.cpp`)
+
+Following trade evaluation sits the market trade transaction and cargo handling subsystem (`0x14CFF0`–`0x14D290`, 672 bytes in Metrowerks C++ PS2 MWCC 2.3.1.01):
+- `func_0014CFF0` (`0x14CFF0`, 672 bytes): Cargo load/unload and gold transfer processor.
+
+#### 6.119 `Trade Action Market Manager & Event Dispatch` Subsystem (`0x14D290`–`0x14EA34`, `trade_action_market_manager.cpp`)
+
+Following market trade sits the core trade event processing and market management state machine (`0x14D290`–`0x14EA34`, 6,064 bytes in Metrowerks C++ PS2 MWCC 2.3.1.01):
+- `func_0014D290` (`0x14D290`, 6,064 bytes): Master trade action event handler processing update ticks (code 500), target changes (code 527), user commands (codes 605–617), waypoint buffer management, notification dispatch (codes 513, 521), and ally market passability verification.
+
+#### 6.119.1 Trade Action Market Manager Matching Results (100.00% Pure C++, 6,064 Bytes)
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_0014D290` | `0x14D290` | **Implemented** (6,064 B) | Master trade action event processing state machine in pure C++. |
+
 
 
 

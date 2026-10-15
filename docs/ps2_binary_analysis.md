@@ -4127,16 +4127,19 @@ Directly following stream evaluators sits the secondary bitmasking and shift-ope
 - `func_0015C780` (`0x15C780`, 208 bytes, **77.20% match**): Composite 2-byte validated stream extractor with secondary 1-byte direct stream stage.
 - `func_0015C850` (`0x15C850`, 208 bytes, **76.20% match**): 1-byte prefix transformer followed by 2-byte validated stream extraction.
 
-#### 6.160 `Trade Action Helper 217730` Subsystem (`0x217730`–`0x2177C0`, `trade_action_helper_217730.cpp`)
+#### 6.160 `Trade Action Helpers 217730` Subsystem (`0x217730`–`0x217834`, `trade_action_helper_217730.cpp`)
 
-Directly within our assigned VRAM range `0x216F00`–`0x2665B0` sits the route and target evaluation helper subsystem (`0x217730`–`0x2177C0`, 144 bytes across 1 function in Metrowerks C++ PS2 MWCC 2.3.1.01):
-- `func_00217730` (`0x217730`, 144 bytes, **82.36% match**): Conditional validation helper invoking `func_185E20` based on argument sign, populating local 4-element integer staging buffer with entity coordinate pointers (`val`, `a2`, `a3`), and dispatching to `func_2177C0`.
+Directly within our assigned VRAM range `0x216F00`–`0x2665B0` sits the route and target evaluation helper subsystem (`0x217730`–`0x217834`, 260 bytes across 2 functions in Metrowerks C++ PS2 MWCC 2.3.1.01):
+- `func_00217730` (`0x217730`, 144 bytes, **78.89% match**): Conditional validation helper invoking `func_00185E20` based on ternary selection index `(arg1 < 0) ? 2 : arg1`, populating local 4-element integer staging buffer with entity coordinate pointers (`val`, `a2`, `a3`), and dispatching to `func_002177C0`.
+- `func_002177C0` (`0x2177C0`, 116 bytes, **79.76% match**): Copies 4 coordinate values into `self + 0x12C`, updates parameters at `0x13C` and `0x140`, invokes `func_00217B50(self)`, and dispatches virtual method at vtable offset `0x28`.
 
-#### 6.160.1 Trade Action Helper 217730 Matching Results (Pure C++, 144 Bytes)
+#### 6.160.1 Trade Action Helpers 217730 Matching Results (Pure C++, 260 Bytes)
 
 | Function / Method | VRAM Address | Match Status | Description |
 |---|---|---|---|
-| `func_00217730` | `0x217730` | **82.36%** (118 / 144 B) | Conditional evaluation helper and coordinate buffer staging dispatch. |
+| `func_00217730` | `0x217730` | **78.89%** (118 / 144 B) | Conditional evaluation helper and coordinate buffer staging dispatch. |
+| `func_002177C0` | `0x2177C0` | **79.76%** (94 / 116 B) | Coordinate staging, parameter update, and virtual method dispatch. |
+
 
 
 | Function / Method | VRAM Address | Match Status | Description |

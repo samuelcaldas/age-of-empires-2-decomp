@@ -44,6 +44,7 @@ func_001353C0 = 0x1353C0; // type:func ktMouseResetPorts(int)
 CreateItem__8BaseListFPvs = 0x138D50; // type:func BaseList.CreateItem(void*, short)
 D_004E2808 = 0x4E2808; // type:f32 size:4 absolute:True
 D_004E2824 = 0x4E2824; // type:f32 size:4 absolute:True
+D_004E2930 = 0x4E2930; // type:f32 size:4 absolute:True
 D_4E35DC = 0x4E35DC; // type:u32 size:4 absolute:True
 D_004E305C = 0x4E305C; // type:u8 size:1 absolute:True
 D_004E3060 = 0x4E3060; // type:u32 size:4 absolute:True

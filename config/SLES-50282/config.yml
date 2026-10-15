@@ -1174,9 +1174,15 @@ segments:
     vram: 0x1C8C20
     subsegments:
       - [0xC8E00, asm, zone_raycast_query]
+  - name: zone_constructor
+    type: code
+    start: 0xC8E80
+    vram: 0x1C8CA0
+    subsegments:
+      - [0xC8E80, asm, zone_constructor]
   - name: post_aoe2
     type: bin
-    start: 0xC8E80
+    start: 0xC91D0
   - name: unit_action_core
     type: code
     start: 0x166960

@@ -4464,3 +4464,14 @@ Independent reproduction via GNU ld relocation resolution confirms:
 | `func_002674C0` | `0x2674C0` | 52 B | 64 B | **100.0%** (52/52 B) | Conditional action code notification via `func_182610`. |
 | `func_00267500` | `0x267500` | 40 B | 48 B | **100.0%** (40/40 B) | Conditional target notifier via `func_1827B0`. |
 | `func_00267530` | `0x267530` | 536 B | 544 B | **94.96%** (509/536 B) | Entity initialization, unit state scaling, and world bind. |
+
+#### 6.175 `Tactical AI Player Command Dispatch` Subsystem (`0x305CB0`–`0x305F30`, `tactical_ai_player_dispatch.cpp`)
+
+Directly following Tactical AI Player Operations sits `func_00305CB0` (`0x305CB0`–`0x305F30`, 640 bytes in Metrowerks C++ PS2 MWCC 2.3.1.01). It iterates through three player-specific command and status arrays (`m_data`, `m_data2`, `m_data3`), updates unit item status flags `m_field42` and `m_field43`, notifies subsystem `func_2d42a0`, dispatches mode-dependent player commands via `func_2e0630`, and updates player target state:
+- `func_00305CB0` (`0x305CB0`, 636 bytes code + 4 bytes zero padding, 640 bytes slice): Pure C++ implementation matching 129 / 159 words identically (30 words differing affecting 49 bytes, strictly confined to loop 3 register allocation; all 7 relocations resolved without masks: 6 calls + GP). The independent reviews found no verified semantic defect; registered as NonMatching in `configure.py`.
+
+#### 6.175.1 Tactical AI Player Command Dispatch Matching Results (Pure C++, 640 Bytes)
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_00305CB0` | `0x305CB0` | NonMatching (129 / 159 instruction words exact; 636 B code + 4 B padding) | Tactical AI player command dispatcher, item flag coordinator, and state notification. |

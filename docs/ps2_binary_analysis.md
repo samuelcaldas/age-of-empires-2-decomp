@@ -4265,18 +4265,79 @@ All five functions report **100.00%** in objdiff. Independently compiling and li
 
 `tests/test_trade_action_stream_decoders7.py` independently verifies exact relocated instruction bytes and full padded slice equality against the original ELF.
 
-#### 6.164 `Zone Path & Building Placement Obstruction Evaluator` Subsystem (`0x1C7850`–`0x1C8480`, `zone_path_eval.cpp`)
+#### 6.164 `Trade Action Stream Decoders 8` Subsystem (`0x15DFF0`–`0x15E5A0`, `trade_action_stream_decoders8.cpp`)
+
+Following stream decoders 7 sits the eighth stream decoder unit (`0x15DFF0`–`0x15E5A0`, 1,456 bytes across 4 routines in Metrowerks C++ PS2 MWCC 2.3.1.01). The slice comprises 1,444 instruction bytes and 12 alignment bytes at file offset `0x5E1D0`–`0x5E780`. Each routine combines a 4-byte continuous copy loop (`D_004E2DA8 -= 4`) with prefix staging and single/dual byte trailers:
+- `func_0015DFF0` (`0x15DFF0`, 352 bytes): 1-byte prefix staging (`D_004E2DA8 -= 2`), continuous 4-byte loop, and 1-byte masked trailer.
+- `func_0015E150` (`0x15E150`, 380 bytes): 2-byte prefix staging (`D_004E2DA8 -= 3`), continuous 4-byte loop, and 1-byte masked trailer.
+- `func_0015E2D0` (`0x15E2D0`, 408 bytes): Offset -1 3-byte prefix staging (`D_004E2DA8 -= 4`), continuous 4-byte loop, and 1-byte masked trailer.
+- `func_0015E470` (`0x15E470`, 304 bytes): Counter decrement (`D_004E2DA8 -= 2`), continuous 4-byte loop, and 2-byte masked trailer.
+
+#### 6.164.1 Trade Action Stream Decoders 8 Matching Results
+
+All four functions report **100.00%** in objdiff. Independently compiling and linking the unit at its true `PT_LOAD` address (`0x15DFF0`) produces **byte-for-byte equality for the entire 1,456-byte slice** including padding. Registered `Matching`.
+
+| Function | Exact instruction bytes | Match | Phases |
+|---|---:|---:|---|
+| `func_0015DFF0` | 352 | 100.00% | 1-byte prefix, 4-byte loop, 1-byte trailer |
+| `func_0015E150` | 380 | 100.00% | 2-byte prefix, 4-byte loop, 1-byte trailer |
+| `func_0015E2D0` | 408 | 100.00% | Offset -1 3-byte prefix, 4-byte loop, 1-byte trailer |
+| `func_0015E470` | 304 | 100.00% | Counter decrement, 4-byte loop, 2-byte trailer |
+
+`tests/test_trade_action_stream_decoders8.py` independently verifies exact relocated instruction bytes and full padded slice equality.
+
+#### 6.165 `Trade Action Stream Decoders 9` Subsystem (`0x15E5A0`–`0x15EA80`, `trade_action_stream_decoders9.cpp`)
+
+Following stream decoders 8 sits the ninth stream decoder unit (`0x15E5A0`–`0x15EA80`, 1,248 bytes across 3 routines in Metrowerks C++ PS2 MWCC 2.3.1.01). The slice comprises 1,224 instruction bytes and 24 alignment bytes at file offset `0x5E780`–`0x5EC60`:
+- `func_0015E5A0` (`0x15E5A0`, 380 bytes): 1-byte prefix staging (`D_004E2DA8 -= 3`), continuous 4-byte loop, and 2-byte masked trailer.
+- `func_0015E720` (`0x15E720`, 408 bytes): 2-byte prefix staging (`D_004E2DA8 -= 4`), continuous 4-byte loop, and 2-byte masked trailer.
+- `func_0015E8C0` (`0x15E8C0`, 436 bytes): Offset -1 3-byte prefix staging (`D_004E2DA8 -= 5`), continuous 4-byte loop, and 2-byte masked trailer.
+
+#### 6.165.1 Trade Action Stream Decoders 9 Matching Results
+
+All three functions report **100.00%** in objdiff. Independently compiling and linking the unit at its true `PT_LOAD` address (`0x15E5A0`) produces **byte-for-byte equality for the entire 1,248-byte slice** including padding. Registered `Matching`.
+
+| Function | Exact instruction bytes | Match | Phases |
+|---|---:|---:|---|
+| `func_0015E5A0` | 380 | 100.00% | 1-byte prefix, 4-byte loop, 2-byte trailer |
+| `func_0015E720` | 408 | 100.00% | 2-byte prefix, 4-byte loop, 2-byte trailer |
+| `func_0015E8C0` | 436 | 100.00% | Offset -1 3-byte prefix, 4-byte loop, 2-byte trailer |
+
+`tests/test_trade_action_stream_decoders9.py` independently verifies exact relocated instruction bytes and full padded slice equality.
+
+#### 6.166 `Trade Action Stream Decoders 10` Subsystem (`0x15EA80`–`0x15F0F0`, `trade_action_stream_decoders10.cpp`)
+
+Following stream decoders 9 sits the tenth stream decoder unit (`0x15EA80`–`0x15F0F0`, 1,648 bytes across 4 routines in Metrowerks C++ PS2 MWCC 2.3.1.01). The slice comprises 1,624 instruction bytes and 24 alignment bytes at file offset `0x5EC60`–`0x5F2D0`:
+- `func_0015EA80` (`0x15EA80`, 328 bytes): Counter decrement (`D_004E2DA8 -= 3`), continuous 4-byte loop, and 3-byte masked trailer.
+- `func_0015EBD0` (`0x15EBD0`, 404 bytes): 1-byte prefix staging (`D_004E2DA8 -= 4`), continuous 4-byte loop, and 3-byte masked trailer.
+- `func_0015ED70` (`0x15ED70`, 432 bytes): 2-byte prefix staging (`D_004E2DA8 -= 5`), continuous 4-byte loop, and 3-byte masked trailer.
+- `func_0015EF20` (`0x15EF20`, 460 bytes): Offset -1 3-byte prefix staging (`D_004E2DA8 -= 6`), continuous 4-byte loop, and 3-byte masked trailer.
+
+#### 6.166.1 Trade Action Stream Decoders 10 Matching Results
+
+All four functions report **100.00%** in objdiff. Independently compiling and linking the unit at its true `PT_LOAD` address (`0x15EA80`) produces **byte-for-byte equality for the entire 1,648-byte slice** including padding. Registered `Matching`.
+
+| Function | Exact instruction bytes | Match | Phases |
+|---|---:|---:|---|
+| `func_0015EA80` | 328 | 100.00% | Counter decrement, 4-byte loop, 3-byte trailer |
+| `func_0015EBD0` | 404 | 100.00% | 1-byte prefix, 4-byte loop, 3-byte trailer |
+| `func_0015ED70` | 432 | 100.00% | 2-byte prefix, 4-byte loop, 3-byte trailer |
+| `func_0015EF20` | 460 | 100.00% | Offset -1 3-byte prefix, 4-byte loop, 3-byte trailer |
+
+`tests/test_trade_action_stream_decoders10.py` independently verifies exact relocated instruction bytes and full padded slice equality.
+
+#### 6.167 `Zone Path & Building Placement Obstruction Evaluator` Subsystem (`0x1C7850`–`0x1C8480`, `zone_path_eval.cpp`)
 
 Directly beginning the `aoe2` fixed address range (`0x1C7330`–`0x2665B0`) sits the core spatial obstruction and building placement validator `func_001C7850` (`0x1C7850`–`0x1C8480`, 3,120 bytes in Metrowerks C++ PS2 MWCC 2.3.1.01). It validates spatial bounding box coordinates, perimeter zone adjacency, slope elevation gradients, and unit radius collisions:
 - `func_001C7850` (`0x1C7850`, 3,120 bytes): Evaluates map dimensions, converts floating-point coordinates to integer tile coordinates (`func_123350`), tests 4-sided perimeter connectivity against `bld->m_required_zone`, checks tile slope gradient against building type limits (`map + 0x68`), performs special Mill/Farm adjacency logic (`0x3B`), and queries unit collision radii (`func_3675D0`) for obstruction detection.
 
-#### 6.164.1 Zone Path Evaluator Matching Results (Pure C++, 3,120 Bytes)
+#### 6.167.1 Zone Path Evaluator Matching Results (Pure C++, 3,120 Bytes)
 
 | Function / Method | VRAM Address | Match Status | Description |
 |---|---|---|---|
 | `func_001C7850` | `0x1C7850` | **44.58%** (3,116 / 3,120 B) | Building placement obstruction and spatial perimeter validator. |
 
-#### 6.165 `Zone Path Queries & Position Clamping` Subsystem (`0x1C8480`–`0x1C8C10`, `zone_path_queries.cpp`)
+#### 6.168 `Zone Path Queries & Position Clamping` Subsystem (`0x1C8480`–`0x1C8C10`, `zone_path_queries.cpp`)
 
 Following the core placement validator sits the spatial queries, tile snapping, and coordinate clamping subsystem (`0x1C8480`–`0x1C8C10`, 1,936 bytes across 6 functions in Metrowerks C++ PS2 MWCC 2.3.1.01):
 - `func_001C8480` (`0x1C8480`, 32 bytes): Status byte updater conditionally writing to `0x42` based on flag `0x43`. **100.0% exact match** in pure C++.
@@ -4286,7 +4347,7 @@ Following the core placement validator sits the spatial queries, tile snapping, 
 - `func_001C8BF0` (`0x1C8BF0`, 16 bytes): Fast atomic accessor returning pointer at offset `0x84`. **100.0% exact match** in pure C++.
 - `func_001C8C00` (`0x1C8C00`, 16 bytes): Fast atomic accessor returning pointer at offset `0x88`. **100.0% exact match** in pure C++.
 
-#### 6.165.1 Zone Path Queries Matching Results (Pure C++, 1,936 Bytes)
+#### 6.168.1 Zone Path Queries Matching Results (Pure C++, 1,936 Bytes)
 
 | Function / Method | VRAM Address | Match Status | Description |
 |---|---|---|---|
@@ -4297,7 +4358,7 @@ Following the core placement validator sits the spatial queries, tile snapping, 
 | `func_001C8BF0` | `0x1C8BF0` | **100.0%** (8 / 8 B) | Atomic pointer accessor for offset 0x84. |
 | `func_001C8C00` | `0x1C8C00` | **100.0%** (8 / 8 B) | Atomic pointer accessor for offset 0x88. |
 
-#### 6.166 `Unit Action Core & Serialization` Subsystem (`0x266780`–`0x266C50`, `unit_action_core.cpp`)
+#### 6.169 `Unit Action Core & Serialization` Subsystem (`0x266780`–`0x266C50`, `unit_action_core.cpp`)
 
 Located at the base of the `0x2665B0`–`0x2B5F00` engine domain sits the core unit action coordination and state serialization subsystem (`0x266780`–`0x266C50`, 1,232 bytes across 5 functions in Metrowerks C++ PS2 MWCC 2.3.1.01). It implements entity target resolution, spatial action execution via virtual vtable dispatch, item container index lookups, and complete unit action binary stream serialization:
 - `func_00266780` (`0x266780`, 180 bytes): Entity target notification callback and spatial action dispatcher via vtable slot 13 (`Method34`). **91.07% pure C++ match**.
@@ -4306,7 +4367,7 @@ Located at the base of the `0x2665B0`–`0x2B5F00` engine domain sits the core u
 - `func_002668D0` (`0x2668D0`, 72 bytes): Container item index lookup with short sign-extension and boundary verification. **88.33% pure C++ match**.
 - `func_00266920` (`0x266920`, 816 bytes): Full unit action serialization to binary output stream via `func_00226F70`. **86.05% pure C++ match**.
 
-#### 6.166.1 Unit Action Core Matching Results (Pure C++, 1,232 Bytes)
+#### 6.169.1 Unit Action Core Matching Results (Pure C++, 1,232 Bytes)
 
 | Function / Method | VRAM Address | Match Status | Description |
 |---|---|---|---|
@@ -4316,19 +4377,19 @@ Located at the base of the `0x2665B0`–`0x2B5F00` engine domain sits the core u
 | `func_002668D0` | `0x2668D0` | **88.33%** (72 B) | Container item index lookup with short sign extension. |
 | `func_00266920` | `0x266920` | **86.05%** (816 B) | Complete unit action state serialization to binary stream. |
 
-#### 6.167 `Trade Action Getters 3` Subsystem (`0x2B6150`, `trade_action_getters3.cpp`)
+#### 6.170 `Trade Action Getters 3` Subsystem (`0x2B6150`, `trade_action_getters3.cpp`)
 
 Located at VRAM `0x2B6150` (file offset `0x1B6330`), `trade_action_getters3` implements a core field accessor method:
 - `func_002B6150` (`0x2B6150`, 8 bytes code + 8 bytes zero padding): Leaf getter returning field at offset `0xD8` (`return *(int *)((char *)self + 0xD8);`). Implemented in pure C++ (100.0% exact match, verified via docker-dev exclusive container).
 
-#### 6.168 `Tactical AI Player Operations` Subsystem (`0x305B90`–`0x305CB0`, `tactical_ai_player_ops.cpp`)
+#### 6.171 `Tactical AI Player Operations` Subsystem (`0x305B90`–`0x305CB0`, `tactical_ai_player_ops.cpp`)
 
 Directly beginning the `aoe4` fixed address range (`0x305830`–`0x38A360`) sits the core Tactical AI Player Operations subsystem (`0x305B90`–`0x305CB0`, 264 bytes of code + 24 bytes of 16-byte alignment padding across a 288-byte slice in Metrowerks C++ PS2 MWCC 2.3.1.01):
 - `func_00305B90` (`0x305B90`, 8 bytes code + 8 bytes padding, **100.00% match**): Stub virtual method returning void.
 - `func_00305BA0` (`0x305BA0`, 40 bytes code + 8 bytes padding, **100.00% match**): Player entity accessor by index/ID querying `func_332e60(this->m_field04, id - 1)` with negative/zero check.
 - `func_00305BD0` (`0x305BD0`, 216 bytes code + 8 bytes padding, **100.00% match**): Multi-player command dispatcher iterating active players (`m_count` in `m_field04`), dispatching queued commands via `func_2e05f0` using player-indexed command buffers (`m_counts` and `m_data`).
 
-#### 6.168.1 Tactical AI Player Operations Matching Results (100.00% Pure C++, 264B Code + 24B Padding / 288B Slice)
+#### 6.171.1 Tactical AI Player Operations Matching Results (100.00% Pure C++, 264B Code + 24B Padding / 288B Slice)
 
 | Function / Method | VRAM Address | Match Status | Description |
 |---|---|---|---|

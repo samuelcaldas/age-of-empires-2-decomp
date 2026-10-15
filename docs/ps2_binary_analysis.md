@@ -4127,7 +4127,17 @@ Directly following stream evaluators sits the secondary bitmasking and shift-ope
 - `func_0015C780` (`0x15C780`, 208 bytes, **77.20% match**): Composite 2-byte validated stream extractor with secondary 1-byte direct stream stage.
 - `func_0015C850` (`0x15C850`, 208 bytes, **76.20% match**): 1-byte prefix transformer followed by 2-byte validated stream extraction.
 
-#### 6.159.1 Trade Action Stream Operators Matching Results (Pure C++, 1,584 Bytes)
+#### 6.160 `Trade Action Helper 217730` Subsystem (`0x217730`–`0x2177C0`, `trade_action_helper_217730.cpp`)
+
+Directly within our assigned VRAM range `0x216F00`–`0x2665B0` sits the route and target evaluation helper subsystem (`0x217730`–`0x2177C0`, 144 bytes across 1 function in Metrowerks C++ PS2 MWCC 2.3.1.01):
+- `func_00217730` (`0x217730`, 144 bytes, **82.36% match**): Conditional validation helper invoking `func_185E20` based on argument sign, populating local 4-element integer staging buffer with entity coordinate pointers (`val`, `a2`, `a3`), and dispatching to `func_2177C0`.
+
+#### 6.160.1 Trade Action Helper 217730 Matching Results (Pure C++, 144 Bytes)
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_00217730` | `0x217730` | **82.36%** (118 / 144 B) | Conditional evaluation helper and coordinate buffer staging dispatch. |
+
 
 | Function / Method | VRAM Address | Match Status | Description |
 |---|---|---|---|

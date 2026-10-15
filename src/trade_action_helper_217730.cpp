@@ -11,11 +11,9 @@ void func_00217730(void *self, int arg1) {
     void *s0 = self;
     void *v0;
     if (arg1 < 0) {
-        func_185E20(D_004E3058, 0);
-        v0 = 0;
+        v0 = func_185E20(D_004E3058, 0);
     } else {
-        func_185E20(D_004E3058, 2);
-        v0 = 0;
+        v0 = func_185E20(D_004E3058, 2);
     }
 
     int arr[4];

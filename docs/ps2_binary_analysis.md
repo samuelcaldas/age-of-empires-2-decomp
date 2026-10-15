@@ -3886,6 +3886,31 @@ Directly following stream encoders sits the high-throughput leaf block serialize
 | `func_00158130` | `0x158130` | **93.38%** (200 B) | 2-byte prefix + continuous 4-byte loop + 1-byte trailer flush. |
 | `func_00158200` | `0x158200` | **94.09%** (224 B) | 3-byte prefix + continuous 4-byte loop + 1-byte trailer flush. |
 
+#### 6.150 `Trade Action Stream Packers` Subsystem (`0x1582E0`–`0x158A00`, `trade_action_stream_packers.cpp`)
+
+Directly following stream serializers sits the unrolled stream packing and multi-byte trailing sequence subsystem (`0x1582E0`–`0x158A00`, 1,824 bytes across 8 leaf functions in Metrowerks C++ PS2 MWCC 2.3.1.01). Each function operates directly as a leaf function (`#pragma exceptions off`, 0 stack allocation) executing unrolled 4-byte stream serialization loops from `D_004E2DA0` into `D_004E2DB4` bounded by counter decrement `(D_004E2DA8 -= 4) != 0`:
+- `func_001582E0` (`0x1582E0`, 176 bytes): 4-byte continuous loop with `D_004E2DA8 -= 2` decrement and 2-byte trailer flush. **100.0% exact match** in pure C++.
+- `func_00158390` (`0x158390`, 200 bytes): 1-byte prefix, continuous 4-byte loop with `D_004E2DA8 -= 3`, and 2-byte trailer flush. **100.0% exact match** in pure C++.
+- `func_00158460` (`0x158460`, 224 bytes): 2-byte prefix, continuous 4-byte loop with `D_004E2DA8 -= 4`, and 2-byte trailer flush. **100.0% exact match** in pure C++.
+- `func_00158540` (`0x158540`, 248 bytes): 3-byte prefix, continuous 4-byte loop with `D_004E2DA8 -= 5`, and 2-byte trailer flush. **100.0% exact match** in pure C++.
+- `func_00158640` (`0x158640`, 200 bytes): 4-byte continuous loop with `D_004E2DA8 -= 3` decrement and 3-byte trailer flush. **100.0% exact match** in pure C++.
+- `func_00158710` (`0x158710`, 224 bytes): 1-byte prefix, continuous 4-byte loop with `D_004E2DA8 -= 4`, and 3-byte trailer flush. **100.0% exact match** in pure C++.
+- `func_001587F0` (`0x1587F0`, 248 bytes): 2-byte prefix, continuous 4-byte loop with `D_004E2DA8 -= 5`, and 3-byte trailer flush. **100.0% exact match** in pure C++.
+- `func_001588F0` (`0x1588F0`, 272 bytes): 3-byte prefix, continuous 4-byte loop with `D_004E2DA8 -= 6`, and 3-byte trailer flush. **100.0% exact match** in pure C++.
+
+#### 6.150.1 Trade Action Stream Packers Matching Results (100.00% Pure C++, 1,824 Bytes)
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_001582E0` | `0x1582E0` | **100.0%** (176 / 176 B) | Loop-driven 4-byte block copy loop + 2-byte trailer. |
+| `func_00158390` | `0x158390` | **100.0%** (200 / 200 B) | 1-byte prefix + 4-byte block copy loop + 2-byte trailer. |
+| `func_00158460` | `0x158460` | **100.0%** (224 / 224 B) | 2-byte prefix + 4-byte block copy loop + 2-byte trailer. |
+| `func_00158540` | `0x158540` | **100.0%** (248 / 248 B) | 3-byte prefix + 4-byte block copy loop + 2-byte trailer. |
+| `func_00158640` | `0x158640` | **100.0%** (200 / 200 B) | Loop-driven 4-byte block copy loop + 3-byte trailer. |
+| `func_00158710` | `0x158710` | **100.0%** (224 / 224 B) | 1-byte prefix + 4-byte block copy loop + 3-byte trailer. |
+| `func_001587F0` | `0x1587F0` | **100.0%** (248 / 248 B) | 2-byte prefix + 4-byte block copy loop + 3-byte trailer. |
+| `func_001588F0` | `0x1588F0` | **100.0%** (272 / 272 B) | 3-byte prefix + 4-byte block copy loop + 3-byte trailer. |
+
 #### 6.151 `Trade Action Stream Sequence Emitters` Subsystem (`0x158A00`–`0x158F40`, `trade_action_stream_sequence.cpp`)
 
 Directly following stream packers sits the short-sequence permutation stream encoder subsystem (`0x158A00`–`0x158F40`, 1,344 bytes across 15 leaf functions in Metrowerks C++ PS2 MWCC 2.3.1.01). Each function operates directly as a leaf function (`#pragma exceptions off`, 0 stack allocation) emitting specialized 1-symbol to 5-symbol permutation patterns from `D_004E2DA0` into the output stream `D_004E2DB4`:

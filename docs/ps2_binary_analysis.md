@@ -3171,7 +3171,23 @@ Following market evaluation sits the market operations filtering and comparator 
 
 #### 6.102 `Trade Action Market Strategy` Subsystem (`0x149660`–`0x1499F0`, `trade_action_market_strategy.cpp`)
 
-- `func_00149660` (`0x149660`, 912 bytes): Trade route sorting via qsort, route selection, and transaction dispatch strategy.
+Following market operations sits the trade market route selection and strategy dispatcher (`0x149660`–`0x1499F0`, 900 bytes of code, 912-byte slice, Metrowerks C++ PS2 MWCC 2.3.1.01):
+- `TradeAction::SelectMarketRoutes` (`func_00149660`, 900 bytes):
+  - Sorts all candidate routes in descending order by route profit/score using `qsort` (`func_118E30`) with comparator `func_00149610`.
+  - Clears static route visitation bitmap `D_514DF0` via `memset`.
+  - Mode 1: Evaluates candidate routes against building state flags and active score, respecting `m_max_routes` (offset `0x21`).
+  - Evaluates civ trading characteristics via `func_202B10(player->field_8)`.
+  - Pass 1: Selects market trade routes where building type != 49 (Markets/Docks).
+  - Pass 2: Selects market trade routes where building type == 49.
+  - Mode 0: Fallback selection of any remaining valid routes with non-zero flags and positive score.
+  - Records selected route indices into `m_selected_routes` (offset `0x31`).
+  - **100.0% exact byte-for-byte pure C++ match**.
+
+#### 6.102.1 Trade Action Market Strategy Matching Results (Pure C++, 912 Bytes)
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_00149660` | `0x149660` | **100.0%** (900 / 900 B) | Trade route priority sorting via qsort, multi-pass filtering, and selection strategy. |
 
 #### 6.103 `Trade Action Market Items` Subsystem (`0x1499F0`–`0x149C20`, `trade_action_market_items.cpp`)
 

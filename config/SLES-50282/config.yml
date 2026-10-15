@@ -779,9 +779,33 @@ segments:
     vram: 0x14C470
     subsegments:
       - [0x4C660, asm, trade_action_market_search]
+  - name: trade_action_state_updates
+    type: code
+    start: 0x4C9D0
+    vram: 0x14C7E0
+    subsegments:
+      - [0x4C9D0, asm, trade_action_state_updates]
+  - name: trade_action_trade_eval
+    type: code
+    start: 0x4CCA0
+    vram: 0x14CAB0
+    subsegments:
+      - [0x4CCA0, asm, trade_action_trade_eval]
+  - name: trade_action_market_trade
+    type: code
+    start: 0x4D1E0
+    vram: 0x14CFF0
+    subsegments:
+      - [0x4D1E0, asm, trade_action_market_trade]
+  - name: trade_action_market_manager
+    type: code
+    start: 0x4D480
+    vram: 0x14D290
+    subsegments:
+      - [0x4D480, asm, trade_action_market_manager]
   - name: post_base
     type: bin
-    start: 0x4C9D0
+    start: 0x4EC30
   - [0x3e31c0]
 
 

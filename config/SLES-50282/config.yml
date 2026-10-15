@@ -707,9 +707,15 @@ segments:
     vram: 0x1499F0
     subsegments:
       - [0x49BE0, asm, trade_action_market_items]
+  - name: trade_action_navigation
+    type: code
+    start: 0x49E10
+    vram: 0x149C20
+    subsegments:
+      - [0x49E10, asm, trade_action_navigation]
   - name: post_base
     type: bin
-    start: 0x49E10
+    start: 0x4A1D0
   - [0x3e31c0]
 
 

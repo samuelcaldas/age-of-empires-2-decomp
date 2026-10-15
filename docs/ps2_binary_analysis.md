@@ -3196,10 +3196,30 @@ Following market operations sits the trade market route selection and strategy d
 |---|---|---|---|
 | `func_00149660` | `0x149660` | **100.0%** (900 / 900 B) | Trade route priority sorting via qsort, multi-pass filtering, and selection strategy. |
 
-#### 6.103 `Trade Action Market Items` Subsystem (`0x1499F0`–`0x149C20`, `trade_action_market_items.cpp`)
+#### 6.104 `Trade Action Navigation & Route State` Subsystem (`0x149C20`–`0x149FE0`, `trade_action_navigation.cpp`)
 
-- `func_001499F0` (`0x1499F0`, 224 bytes): Market item rate calculation and trade route distance metric.
-- `func_00149AD0` (`0x149AD0`, 336 bytes): Market item spatial search and destination waypoint evaluation.
+Following the market items subsystem sits the merchant route navigation, spatial position caching, and waypoint transition subsystem (`0x149C20`–`0x149FE0`, 960 bytes in Metrowerks C++ PS2 MWCC 2.3.1.01):
+
+- `TradeAction::FindNearestMarket` (`func_00149C20`, 252 bytes): Evaluates nearest market endpoint from active table `D_00F99920` using position projected through `Method2C`, returning closest candidate identifier. **94.8% match**.
+- `TradeAction::AddCachedPosition` (`func_00149D20`, 92 bytes): Circular position buffer inserting `(float)a1, (float)a2` into 8-element table `m_posEntries`. **100.0% pure C++ match**.
+- `TradeAction::HasCachedPosition` (`func_00149D80`, 116 bytes): Searches circular position buffer for matching coordinate pair. **98.6% match**.
+- `func_00149E00` (`0x149E00`, 8 bytes): Predicate returning constant 1. **100.0% pure C++ match**.
+- `func_00149E10` (`0x149E10`, 8 bytes): Predicate returning constant 1. **100.0% pure C++ match**.
+- `TradeAction::ResetWaypoint` (`func_00149E20`, 172 bytes): Resets waypoint state, backs up resource identifiers (`m_field60`, `m_field62`), checks target type `0x12`, and notifies target via virtual `Method1AC`. **100.0% pure C++ match**.
+- `TradeAction::DispatchWaypoint` (`func_00149ED0`, 268 bytes): Validates command code `0x265`, dispatches transition `Method5C`, validates target with `Method180`, queries entity via `func_332e60`, updates priority `func_001471B0`, and transmits waypoint command via `func_14bd90`. **100.0% pure C++ match**.
+
+#### 6.104.1 Trade Action Navigation Matching Results (Pure C++, 960 Bytes)
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_00149C20` | `0x149C20` | **94.8%** (252 B) | Nearest market search across candidate list. |
+| `func_00149D20` | `0x149D20` | **100.0%** (92 B) | Circular position buffer insert. |
+| `func_00149D80` | `0x149D80` | **98.6%** (116 B) | Circular position buffer lookup. |
+| `func_00149E00` | `0x149E00` | **100.0%** (8 B) | Navigation predicate returning constant 1. |
+| `func_00149E10` | `0x149E10` | **100.0%** (8 B) | Navigation predicate returning constant 1. |
+| `func_00149E20` | `0x149E20` | **100.0%** (172 B) | Waypoint reset and target position backup. |
+| `func_00149ED0` | `0x149ED0` | **100.0%** (268 B) | Waypoint action dispatch and target notification. |
+
 
 #### 6.103.1 Trade Action Market Items Matching Results (Pure C++, 560 Bytes)
 

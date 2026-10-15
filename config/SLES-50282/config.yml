@@ -683,9 +683,15 @@ segments:
     vram: 0x148040
     subsegments:
       - [0x48230, asm, trade_action_evaluator]
+  - name: trade_action_market_eval
+    type: code
+    start: 0x491E0
+    vram: 0x148FF0
+    subsegments:
+      - [0x491E0, asm, trade_action_market_eval]
   - name: post_base
     type: bin
-    start: 0x491E0
+    start: 0x49640
   - [0x3e31c0]
 
 

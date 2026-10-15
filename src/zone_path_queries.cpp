@@ -1,5 +1,6 @@
 #pragma exceptions off
 #include "sub_list.h"
+#include "zone_path_queries.h"
 
 extern "C" {
 

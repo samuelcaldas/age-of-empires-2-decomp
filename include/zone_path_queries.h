@@ -4,7 +4,7 @@
 extern "C" {
 
 void func_001C8480(void *obj, char val);
-void func_001C84A0();
+int func_001C84A0(void *master, float *p_x, float *p_y, void *map, int snap);
 void func_001C8770();
 void func_001C8A40();
 void *func_001C8BF0(void *self);

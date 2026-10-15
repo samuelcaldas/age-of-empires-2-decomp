@@ -4173,13 +4173,13 @@ Directly beginning the `aoe2` fixed address range (`0x1C7330`–`0x2665B0`) sits
 |---|---|---|---|
 | `func_001C7850` | `0x1C7850` | **44.58%** (3,116 / 3,120 B) | Building placement obstruction and spatial perimeter validator. |
 
-#### 6.162 `Zone Path Queries & Position Clamping` Subsystem (`0x1C8490`–`0x1C8C10`, `zone_path_queries.cpp`)
+#### 6.162 `Zone Path Queries & Position Clamping` Subsystem (`0x1C8490`–`0x1C8C20`, `zone_path_queries.cpp`)
 
-Following the core placement validator sits the spatial queries, tile snapping, and coordinate clamping subsystem (`0x1C8490`–`0x1C8C10`, 1,936 bytes across 6 functions in Metrowerks C++ PS2 MWCC 2.3.1.01):
+Following the core placement validator sits the spatial queries, tile snapping, and coordinate clamping subsystem (`0x1C8490`–`0x1C8C20`, 1,936 bytes across 6 functions in Metrowerks C++ PS2 MWCC 2.3.1.01):
 - `func_001C8490` (`0x1C8490`, 32 bytes): Status byte updater conditionally writing to `0x42` based on flag `0x43`. **100.0% exact match** in pure C++.
 - `func_001C84B0` (`0x1C84B0`, 720 bytes): Map boundary clamping and grid-snapping validator (`func_123350`) adjusting entity coordinates to half-tile or full-tile centers. **98.13% pure C++ match**.
-- `func_001C8780` (`0x1C8780`, 720 bytes): Spatial ray-casting and tile coordinate query routine.
-- `func_001C8A50` (`0x1C8A50`, 432 bytes): MapZone coordinate projection and ray validator dispatching `func_262570` and `func_1D0350`.
+- `func_001C8780` (`0x1C8780`, 720 bytes): Spatial ray-casting and tile coordinate query routine. Stub (corpo vazio, comportamento ausente a implementar).
+- `func_001C8A50` (`0x1C8A50`, 432 bytes): MapZone coordinate projection and ray validator dispatching `func_262570` and `func_1D0350`. Stub (corpo vazio, comportamento ausente a implementar).
 - `func_001C8C00` (`0x1C8C00`, 16 bytes): Fast atomic accessor returning pointer at offset `0x84`. **100.0% exact match** in pure C++.
 - `func_001C8C10` (`0x1C8C10`, 16 bytes): Fast atomic accessor returning pointer at offset `0x88`. **100.0% exact match** in pure C++.
 
@@ -4189,8 +4189,8 @@ Following the core placement validator sits the spatial queries, tile snapping, 
 |---|---|---|---|
 | `func_001C8490` | `0x1C8490` | **100.0%** (24 / 24 B) | Conditional byte state updater. |
 | `func_001C84B0` | `0x1C84B0` | **98.13%** (708 / 720 B) | Map boundary clamping and tile-snapping coordinator. |
-| `func_001C8780` | `0x1C8780` | Pure C++ | Spatial ray-casting and tile coordinate query routine. |
-| `func_001C8A50` | `0x1C8A50` | Pure C++ | MapZone coordinate projection and ray validator. |
+| `func_001C8780` | `0x1C8780` | Stub (0.78%) | Spatial ray-casting (corpo vazio / a implementar). |
+| `func_001C8A50` | `0x1C8A50` | Stub (1.31%) | Corner projection validator (corpo vazio / a implementar). |
 | `func_001C8C00` | `0x1C8C00` | **100.0%** (8 / 8 B) | Atomic pointer accessor for offset 0x84. |
 | `func_001C8C10` | `0x1C8C10` | **100.0%** (8 / 8 B) | Atomic pointer accessor for offset 0x88. |
 

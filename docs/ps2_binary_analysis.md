@@ -3747,6 +3747,25 @@ Directly following stream records sits the bitwise-masked stream parser and mult
 | `func_00154EA0` | `0x154EA0` | **80.32%** (199 / 248 B) | 4-byte block parser with trailing byte masking and stream transfer. |
 | `func_00154FA0` | `0x154FA0` | **78.48%** (201 / 256 B) | Composite 3-byte and 2-byte dual-cycle validated stream parser. |
 
+#### 6.140b `Trade Action Stream Bitmasks & Block Staging` Subsystem (`0x1550A0`–`0x155600`, `trade_action_stream_bitmasks.cpp`)
+
+Directly following stream parsers sits the stream bitmasking and dual-cycle block staging subsystem (`0x1550A0`–`0x155600`, 1,376 bytes across 5 functions). It implements specialized word bitmasking via `Buffer4` (`D_004E2DA0`), bitmasks `D_004E30A8` and `D_004E30AC`, and dual validation calls (`func_001522C0`):
+- `func_001550A0` (`0x1550A0`, 252 bytes): Dual 2-byte and 3-byte masked stream transfer with dual `func_001522C0` cycles. **91.75% pure C++ match**.
+- `func_001551A0` (`0x1551A0`, 248 bytes): Single-byte direct head unmarshaling followed by 4-byte validated masked stream payload. **95.50% pure C++ match**.
+- `func_001552A0` (`0x1552A0`, 276 bytes): 4-byte validated masked stream transfer followed by secondary 2-byte stream flush. **92.41% pure C++ match**.
+- `func_001553C0` (`0x1553C0`, 280 bytes): Offset -1 3-byte validated stream extraction followed by secondary 3-byte stream flush. **92.51% pure C++ match**.
+- `func_001554E0` (`0x1554E0`, 276 bytes): 2-byte validated stream extraction followed by secondary 4-byte masked stream payload. **92.41% pure C++ match**.
+
+#### 6.140b.1 Trade Action Stream Bitmasks Matching Results (Pure C++, 1,376 Bytes)
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_001550A0` | `0x1550A0` | **91.75%** (252 B) | Dual-cycle 2-byte and 3-byte masked stream transfer. |
+| `func_001551A0` | `0x1551A0` | **95.50%** (248 B) | 1-byte head decode with secondary 4-byte validated stream block. |
+| `func_001552A0` | `0x1552A0` | **92.41%** (276 B) | 4-byte validated stream transfer with secondary 2-byte flush. |
+| `func_001553C0` | `0x1553C0` | **92.51%** (280 B) | Offset -1 3-byte validated stream transfer with secondary 3-byte flush. |
+| `func_001554E0` | `0x1554E0` | **92.41%** (276 B) | 2-byte validated stream extraction with secondary 4-byte stream block. |
+
 #### 6.141 `Trade Action Stream Filters & 4-Byte Block Transformers` Subsystem (`0x155B10`–`0x1560D0`, `trade_action_stream_filters.cpp`)
 
 Following stream transformers is the stream filters subsystem (`0x155B10`–`0x1560D0`, 1,472 bytes across 5 functions). It implements multi-stage block stream transformations combining sub-block alignment calls (`func_001522C0`), `Buffer4` staging (`D_004E2DA0`), bitmasking via `D_004E30A8`/`D_004E30AC`, and unrolled 4-byte `do-while` stream copy loops:

@@ -1061,9 +1061,21 @@ segments:
     vram: 0x15C2F0
     subsegments:
       - [0x5C4E0, asm, trade_action_stream_operators]
+  - name: trade_action_stream_evaluators2
+    type: code
+    start: 0x5CB10
+    vram: 0x15C920
+    subsegments:
+      - [0x5CB10, asm, trade_action_stream_evaluators2]
+  - name: trade_action_stream_decoders5
+    type: code
+    start: 0x5D080
+    vram: 0x15CE90
+    subsegments:
+      - [0x5D080, asm, trade_action_stream_decoders5]
   - name: post_base
     type: bin
-    start: 0x5CB10
+    start: 0x5D5E0
   - [0x3e31c0]
 
 

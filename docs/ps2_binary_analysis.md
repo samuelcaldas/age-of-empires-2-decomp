@@ -4121,3 +4121,24 @@ Directly following stream evaluators sits the secondary bitmasking and shift-ope
 | `func_0015C6E0` | `0x15C6E0` | **82.95%** (126 / 152 B) | Offset -1 3-byte validated stream extractor. |
 | `func_0015C780` | `0x15C780` | **77.20%** (154 / 200 B) | Composite 2-byte validated extractor + 1-byte direct stage. |
 | `func_0015C850` | `0x15C850` | **76.20%** (152 / 200 B) | 1-byte prefix transformer + 2-byte validated extraction. |
+
+#### 6.160 `Trade Action Stream Evaluators 2` Subsystem (`0x15C920`–`0x15CE90`, `trade_action_stream_evaluators2.cpp`)
+
+Directly following stream operators sits the secondary bitmask-driven stream evaluation and multi-phase block unmarshaling subsystem (`0x15C920`–`0x15CE90`, 1,392 bytes across 6 functions in Metrowerks C++ PS2 MWCC 2.3.1.01):
+- `func_0015C920` (`0x15C920`, 176 bytes, **84.93% match**): Primary stream evaluator invoking `func_001522C0` to validate staging buffer `D_004E2DA0`, applying bitmask `D_004E30A8` and OR-flag `D_004E30B0`, advancing input stream `D_004E2DB0` by 4, and transferring 4 serialized bytes to `D_004E2DB4`.
+- `func_0015C9D0` (`0x15C9D0`, 240 bytes, **79.30% match**): Bounded 3-byte evaluator calling `func_001522C0` with stream offset -1, updating `D_004E2DA0` mask flags, advancing input stream by 3, transferring bytes 1-3, and reading a trailing byte into `D_004E2DA0[0]`.
+- `func_0015CAC0` (`0x15CAC0`, 240 bytes, **75.84% match**): Dual-phase 2-byte evaluator invoking two consecutive rounds of `func_001522C0` validation and 2-byte masked payload extraction.
+- `func_0015CBB0` (`0x15CBB0`, 224 bytes, **78.75% match**): Single-byte prefix evaluator staging `D_004E2DA0[1]`, followed by `func_001522C0` validation and 3-byte sequential stream payload transfer.
+- `func_0015CC90` (`0x15CC90`, 256 bytes, **80.32% match**): 4-byte block evaluator executing `func_001522C0` validation, advancing stream by 4, transferring 4 bytes, and parsing an additional trailing byte.
+- `func_0015CD90` (`0x15CD90`, 256 bytes, **78.48% match**): Composite 3-byte and 2-byte staged stream evaluator executing dual `func_001522C0` validation cycles.
+
+#### 6.160.1 Trade Action Stream Evaluators 2 Matching Results (Pure C++, 1,392 Bytes)
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_0015C920` | `0x15C920` | **84.93%** (146 / 172 B) | Primary 4-byte stream evaluator with `func_001522C0` buffer validation. |
+| `func_0015C9D0` | `0x15C9D0` | **79.30%** (181 / 228 B) | 3-byte evaluator with stream offset validation and trailing byte staging. |
+| `func_0015CAC0` | `0x15CAC0` | **75.84%** (173 / 228 B) | Dual 2-byte evaluator with repeated validation and stream advancement. |
+| `func_0015CBB0` | `0x15CBB0` | **78.75%** (176 / 224 B) | Single-byte prefix evaluator with subsequent 3-byte validated stream extraction. |
+| `func_0015CC90` | `0x15CC90` | **80.32%** (199 / 248 B) | 4-byte block evaluator with trailing byte masking and stream transfer. |
+| `func_0015CD90` | `0x15CD90` | **78.48%** (201 / 256 B) | Composite 3-byte and 2-byte dual-cycle validated stream evaluator. |

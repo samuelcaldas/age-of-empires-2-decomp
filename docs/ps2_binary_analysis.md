@@ -3465,6 +3465,18 @@ Following market candidate selection sits the 2D tile raycasting, boundary clamp
 |---|---|---|---|
 | `func_0014F250` | `0x14F250` | **Implemented** (1,008 B) | 2D tile grid search, boundary clamping, passability validation, and route destination calculation in pure C++. |
 
+### Trade action route buffers: verified ELF mapping
+
+The route-buffer slice is `[0x1508F0, 0x150F50)`, not the former
+`[0x1508E0, 0x150F30)` labels. The original ELF maps file offset `0x1E0` to
+virtual address `0x100000`; the previous configuration was 16 bytes low and
+excluded the final return delay slot. The four C++ functions at `0x1508F0`,
+`0x150920`, `0x150CC0`, and `0x150CE0` now match all 1,616 instruction bytes,
+including independently resolved jump relocations. See
+[the route-buffer notes](trade_action_route_finish.md) for boundaries, layouts,
+behavioral regressions, and validation commands. Nearby slices still require
+individual mapping audits; fuzzy percentages elsewhere are not exact byte counts.
+
 #### 6.122 `Trade Action Market Status & Order Dispatch` Subsystem (`0x14F640`–`0x14F7C0`, `trade_action_market_status.cpp`)
 
 Following market route calc sits the market order dispatch and route status evaluation subsystem (`0x14F640`–`0x14F7C0`, 384 bytes in Metrowerks C++ PS2 MWCC 2.3.1.01):

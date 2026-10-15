@@ -898,7 +898,7 @@ segments:
   - name: trade_action_route_finish
     type: code
     start: 0x50AD0
-    vram: 0x1508E0
+    vram: 0x1508F0
     subsegments:
       - [0x50AD0, asm, trade_action_route_finish]
   - name: trade_action_target_resolver

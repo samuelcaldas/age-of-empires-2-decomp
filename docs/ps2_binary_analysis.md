@@ -4361,6 +4361,19 @@ The percentages below are fresh objdiff metrics, not ratios of exactly matched b
 | `func_001C8C00` | `0x1C8C00` | **100.0%** (8 / 8 B) | Atomic pointer accessor for offset 0x84. |
 | `func_001C8C10` | `0x1C8C10` | **100.0%** (8 / 8 B) | Atomic pointer accessor for offset 0x88. |
 
+#### 6.168.2 `Zone Raycast Query` Atomic Unit (`0x1C8C20`–`0x1C8CA0`, `zone_raycast_query.cpp`)
+
+Immediately contiguous to `zone_path_queries` sits the spatial raycasting and entity obstruction query evaluator (`0x1C8C20`–`0x1C8CA0`, 128 bytes code across 1 function in Metrowerks C++ PS2 MWCC 2.3.1.01):
+- `func_001C8C20` (`0x1C8C20`, 128 bytes / 128 B code, 32 instructions): Map entity ray-testing and obstruction query evaluator at slot 13 of the MapZone vtable (`0x4D8F54`). **100.0% exact match** in pure C++.
+
+#### 6.168.3 Zone Raycast Query Matching Results (Pure C++, 128 Bytes)
+
+A fresh independent MWCC compilation and GNU link resolved the tail jump to `func_123350` at `0x123350` and matched all 128 instruction bytes against the original ELF's file-backed `PT_LOAD` mapping. The slice spans file offsets `0xC8E00`–`0xC8E80` (end-exclusive), contains no alignment padding, and does not overrun into the following constructor at `0x1C8CA0`. That constructor and the later destructor remain separate WIP, not completed functions in this unit. The atomic object is registered as `Matching`.
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_001C8C20` | `0x1C8C20` | **100.0%** (128 / 128 B) | Entity ray-testing and obstruction query evaluator. |
+
 #### 6.169 `Unit Action Core & Serialization` Subsystem (`0x266780`–`0x266C50`, `unit_action_core.cpp`)
 
 Located at the base of the `0x2665B0`–`0x2B5F00` engine domain sits the core unit action coordination and state serialization subsystem (`0x266780`–`0x266C50`, 1,232 bytes across 5 functions in Metrowerks C++ PS2 MWCC 2.3.1.01). It implements entity target resolution, spatial action execution via virtual vtable dispatch, item container index lookups, and complete unit action binary stream serialization:

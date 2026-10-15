@@ -3471,6 +3471,30 @@ Following market route calc sits the market order dispatch and route status eval
 | `func_0014F640` | `0x14F640` | **75.64%** (128 B) | Order data parameter unpacking, virtual method 0x28 tail call, and action manager notification. |
 | `func_0014F6C0` | `0x14F6C0` | **93.00%** (238 / 256 B) | Route state validation, waypoint position search via `func_00148050`, and status code return. |
 
+#### 6.126 `Trade Action Target Resolution & Sub-Action Dispatch` Subsystem (`0x150F40`–`0x1512A0`, `trade_action_target_resolver.cpp`)
+
+Following route finish sits the target entity resolution, sub-action object management, and action query subsystem (`0x150F40`–`0x1512A0`, 864 bytes in Metrowerks C++ PS2 MWCC 2.3.1.01):
+- `func_00150F40` (`0x150F40`, 372 bytes, **77.88% match**): Trade target loop searching for waypoint entry ID 506 matching action ID 610/616, triggering waypoint reset (`func_0014BCE0`) and `Method5C(1)`, and reallocating the 20-byte `RouteEntry` array via `func_00100730`.
+- `func_001510C0` (`0x1510C0`, 76 bytes, **43.16% match**): Core target entity resolver. Traverses `self->m_target->m_game->m_timer` and queries entity pointer via `func_332e60(timer, a1)`.
+- `func_00151110` (`0x151110`, 120 bytes, **91.33% match**): State status predicate verifying whether `m_field48` matches active trade actions (617, 600, 610, 613, 609, 620, or 619).
+- `func_00151190` (`0x151190`, 120 bytes, **91.33% match**): Action predicate checking whether `m_field44` matches pending trade commands (617, 700, 710, 713, 709, 720, or 719).
+- `func_00151210` (`0x151210`, 16 bytes, **100.0% exact match**): Sub-action object query returning whether `m_field164 != 0`.
+- `func_00151220` (`0x151220`, 96 bytes, **58.71% match**): Sub-action object manager freeing previous instance via `func_001FC810`, creating new object via `target->Method1F4(&m_field168)`, and updating `m_field164`.
+- `func_00151280` (`0x151280`, 24 bytes, **100.0% exact match**): Status predicate returning 0 (`jr $ra; paddub $v0, $zero, $zero`).
+
+#### 6.126.1 Trade Action Target Resolution Matching Results (Pure C++, 864 Bytes)
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_00150F40` | `0x150F40` | **77.88%** (292 / 372 B) | Route entry matching, waypoint reset, and RouteEntry buffer reallocation. |
+| `func_001510C0` | `0x1510C0` | **43.16%** (36 / 76 B) | Target entity pointer lookup via game timer and `func_332e60`. |
+| `func_00151110` | `0x151110` | **91.33%** (112 / 120 B) | Trade state predicate checking active action IDs in `m_field48`. |
+| `func_00151190` | `0x151190` | **91.33%** (112 / 120 B) | Trade command predicate checking action IDs in `m_field44`. |
+| `func_00151210` | `0x151210` | **100.0%** (16 / 16 B) | Sub-action instance query predicate (`m_field164 != 0`). |
+| `func_00151220` | `0x151220` | **58.71%** (60 / 96 B) | Sub-action instance allocation and lifecycle management via `Method1F4`. |
+| `func_00151280` | `0x151280` | **100.0%** (24 / 24 B) | Status predicate returning 0 in pure C++. |
+
+
 
 
 

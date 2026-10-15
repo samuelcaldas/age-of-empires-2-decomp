@@ -4173,7 +4173,28 @@ Directly beginning the `aoe2` fixed address range (`0x1C7330`–`0x2665B0`) sits
 |---|---|---|---|
 | `func_001C7850` | `0x1C7850` | **44.58%** (3,116 / 3,120 B) | Building placement obstruction and spatial perimeter validator. |
 
-#### 6.162 `Unit Action Core & Serialization` Subsystem (`0x266780`–`0x266C50`, `unit_action_core.cpp`)
+#### 6.162 `Zone Path Queries & Position Clamping` Subsystem (`0x1C8480`–`0x1C8C10`, `zone_path_queries.cpp`)
+
+Following the core placement validator sits the spatial queries, tile snapping, and coordinate clamping subsystem (`0x1C8480`–`0x1C8C10`, 1,936 bytes across 6 functions in Metrowerks C++ PS2 MWCC 2.3.1.01):
+- `func_001C8480` (`0x1C8480`, 32 bytes): Status byte updater conditionally writing to `0x42` based on flag `0x43`. **100.0% exact match** in pure C++.
+- `func_001C84A0` (`0x1C84A0`, 720 bytes): Map boundary clamping and grid-snapping validator (`func_123350`) adjusting entity coordinates to half-tile or full-tile centers. **60.34% pure C++ match**.
+- `func_001C8770` (`0x1C8770`, 720 bytes): Spatial ray-casting and tile coordinate query routine.
+- `func_001C8A40` (`0x1C8A40`, 432 bytes): MapZone coordinate projection and ray validator dispatching `func_262570` and `func_1D0350`.
+- `func_001C8BF0` (`0x1C8BF0`, 16 bytes): Fast atomic accessor returning pointer at offset `0x84`. **100.0% exact match** in pure C++.
+- `func_001C8C00` (`0x1C8C00`, 16 bytes): Fast atomic accessor returning pointer at offset `0x88`. **100.0% exact match** in pure C++.
+
+#### 6.162.1 Zone Path Queries Matching Results (Pure C++, 1,936 Bytes)
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_001C8480` | `0x1C8480` | **100.0%** (24 / 24 B) | Conditional byte state updater. |
+| `func_001C84A0` | `0x1C84A0` | **60.34%** (708 / 720 B) | Map boundary clamping and tile-snapping coordinator. |
+| `func_001C8770` | `0x1C8770` | Pure C++ | Spatial ray-casting and tile coordinate query routine. |
+| `func_001C8A40` | `0x1C8A40` | Pure C++ | MapZone coordinate projection and ray validator. |
+| `func_001C8BF0` | `0x1C8BF0` | **100.0%** (8 / 8 B) | Atomic pointer accessor for offset 0x84. |
+| `func_001C8C00` | `0x1C8C00` | **100.0%** (8 / 8 B) | Atomic pointer accessor for offset 0x88. |
+
+#### 6.163 `Unit Action Core & Serialization` Subsystem (`0x266780`–`0x266C50`, `unit_action_core.cpp`)
 
 Located at the base of the `0x2665B0`–`0x2B5F00` engine domain sits the core unit action coordination and state serialization subsystem (`0x266780`–`0x266C50`, 1,232 bytes across 5 functions in Metrowerks C++ PS2 MWCC 2.3.1.01). It implements entity target resolution, spatial action execution via virtual vtable dispatch, item container index lookups, and complete unit action binary stream serialization:
 - `func_00266780` (`0x266780`, 180 bytes): Entity target notification callback and spatial action dispatcher via vtable slot 13 (`Method34`). **91.07% pure C++ match**.
@@ -4182,7 +4203,7 @@ Located at the base of the `0x2665B0`–`0x2B5F00` engine domain sits the core u
 - `func_002668D0` (`0x2668D0`, 72 bytes): Container item index lookup with short sign-extension and boundary verification. **88.33% pure C++ match**.
 - `func_00266920` (`0x266920`, 816 bytes): Full unit action serialization to binary output stream via `func_00226F70`. **86.05% pure C++ match**.
 
-#### 6.162.1 Unit Action Core Matching Results (Pure C++, 1,232 Bytes)
+#### 6.163.1 Unit Action Core Matching Results (Pure C++, 1,232 Bytes)
 
 | Function / Method | VRAM Address | Match Status | Description |
 |---|---|---|---|

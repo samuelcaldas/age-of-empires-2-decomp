@@ -1268,6 +1268,12 @@ if config.platform == Platform.PS2:
                     toolchain_version="PS2/mwcc-2.3.1.01",
                 ),
                 Object(
+                    NonMatching,
+                    "zone_path_queries",
+                    cflags=config.cflags,
+                    toolchain_version="PS2/mwcc-2.3.1.01",
+                ),
+                Object(
                     Matching,
                     "unit_action_core",
                     cflags=config.cflags,

@@ -4387,6 +4387,17 @@ Immediately following `zone_raycast_query` sits the constructor and deserializer
 
 A fresh independent MWCC compilation and GNU link resolved all 13 relocations using the original call targets, data addresses, and `_gp = 0x4EA7C0`, without instruction masks. All 211 instructions (844 bytes) matched the original file-backed `PT_LOAD` bytes at file offsets `0xC8E80`–`0xC91CC`. The return at `0x1C8FE4` includes its delay slot at `0x1C8FE8`; the following four zero alignment bytes occupy `0x1C8FEC`–`0x1C8FEF`. The configured 848-byte slice ends at file offset `0xC91D0` / VRAM `0x1C8FF0`, excluding the next function. The symbol size records the 844 instruction bytes, not the padded slice. The atomic object is registered as `Matching`.
 
+#### 6.168.6 `Zone Destructor & Resource Teardown` Unit (`0x1C8FF0`–`0x1C93C0`, `zone_destructor.cpp`)
+
+Immediately following `zone_constructor` sits the deleting destructor and resource cleanup routine for the primary pathfinding zone class `D_4D9270` (`0x1C8FF0`–`0x1C93C0`, 976 bytes / 244 instructions, 0 bytes padding in Metrowerks C++ PS2 MWCC 2.3.1.01):
+- `func_001C8FF0` (`0x1C8FF0`, 976 bytes): Primary destructor resetting vtable to `D_4D9270`, deallocating allocated zone arrays, tearing down spatial listener references, and invoking scalar `operator delete`.
+
+#### 6.168.7 Zone Destructor Matching Results (Pure C++, 976 Bytes)
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_001C8FF0` | `0x1C8FF0` | NonMatching (976 B) | Primary destructor and resource cleanup. |
+
 #### 6.169 `Unit Action Core & Serialization` Subsystem (`0x266780`–`0x266C50`, `unit_action_core.cpp`)
 
 Located at the base of the `0x2665B0`–`0x2B5F00` engine domain sits the core unit action coordination and state serialization subsystem (`0x266780`–`0x266C50`, 1,232 bytes across 5 functions in Metrowerks C++ PS2 MWCC 2.3.1.01). It implements entity target resolution, spatial action execution via virtual vtable dispatch, item container index lookups, and complete unit action binary stream serialization:

@@ -4361,6 +4361,19 @@ The percentages below are fresh objdiff metrics, not ratios of exactly matched b
 | `func_001C8C00` | `0x1C8C00` | **100.0%** (8 / 8 B) | Atomic pointer accessor for offset 0x84. |
 | `func_001C8C10` | `0x1C8C10` | **100.0%** (8 / 8 B) | Atomic pointer accessor for offset 0x88. |
 
+#### 6.168.2 `Zone Raycast Core` Subsystem (`0x1C8C20`–`0x1C93C0`, `zone_raycast_core.cpp`)
+
+Immediately contiguous to `zone_path_queries` sits the spatial raycasting, line-of-sight obstruction testing, and coordinate query subsystem (`0x1C8C20`–`0x1C93C0`, 1,952 bytes across 2 functions in Metrowerks C++ PS2 MWCC 2.3.1.01):
+- `func_001C8C20` (`0x1C8C20`, 976 bytes): Map entity ray-testing and obstruction query evaluator.
+- `func_001C8FF0` (`0x1C8FF0`, 976 bytes): Coordinate projection and path reachability analyzer.
+
+#### 6.168.3 Zone Raycast Core Matching Results (Pure C++, 1,952 Bytes)
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_001C8C20` | `0x1C8C20` | NonMatching (976 B) | Entity ray-testing and obstruction query evaluator. |
+| `func_001C8FF0` | `0x1C8FF0` | NonMatching (976 B) | Coordinate projection and path reachability analyzer. |
+
 #### 6.169 `Unit Action Core & Serialization` Subsystem (`0x266780`–`0x266C50`, `unit_action_core.cpp`)
 
 Located at the base of the `0x2665B0`–`0x2B5F00` engine domain sits the core unit action coordination and state serialization subsystem (`0x266780`–`0x266C50`, 1,232 bytes across 5 functions in Metrowerks C++ PS2 MWCC 2.3.1.01). It implements entity target resolution, spatial action execution via virtual vtable dispatch, item container index lookups, and complete unit action binary stream serialization:

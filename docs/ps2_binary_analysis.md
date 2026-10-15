@@ -4418,3 +4418,14 @@ Directly following Tactical AI Player Operations sits `func_00305CB0` (`0x305CB0
 | Function / Method | VRAM Address | Match Status | Description |
 |---|---|---|---|
 | `func_00305CB0` | `0x305CB0` | **97.16%** (636 / 640 B) | Tactical AI player command dispatcher, item flag coordinator, and state notification. |
+
+#### 6.170 `Tactical AI Unit Command & Combat Action Coordinator` Subsystem (`0x305F30`–`0x307160`, `tactical_ai_unit_command.cpp`)
+
+Directly beginning at VRAM `0x305F30` (file offset `0x206110`–`0x207340`) sits the central unit command and combat action coordinator `func_00305F30` (`0x305F30`–`0x307160`, 4,656 bytes across 1,164 instructions in Metrowerks C++ PS2 MWCC 2.3.1.01). It dispatches unit targeting, formation movement, diplomacy stance checks (`IsAlliedWith` via diplomacy slot 9 at `player + 0x1B30`), combat engagement validation, and spatial position tracking across floating-point coordinates `($f12, $f13, $f14)`:
+- `func_00305F30` (`0x305F30`, 4,656 bytes): Core tactical command dispatcher validating source unit, target unit, action mode, and team diplomacy. Calls `func_2cc2a0` and unit action methods.
+
+#### 6.170.1 Tactical AI Unit Command Matching Results (Architecture & Specification)
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_00305F30` | `0x305F30` | Identified | Central tactical unit command, combat action coordinator, and diplomacy validator (4,656 B). |

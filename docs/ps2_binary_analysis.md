@@ -3458,6 +3458,19 @@ Following market candidate selection sits the 2D tile raycasting, boundary clamp
 |---|---|---|---|
 | `func_0014F250` | `0x14F250` | **Implemented** (1,008 B) | 2D tile grid search, boundary clamping, passability validation, and route destination calculation in pure C++. |
 
+#### 6.122 `Trade Action Market Status & Order Dispatch` Subsystem (`0x14F640`–`0x14F7C0`, `trade_action_market_status.cpp`)
+
+Following market route calc sits the market order dispatch and route status evaluation subsystem (`0x14F640`–`0x14F7C0`, 384 bytes in Metrowerks C++ PS2 MWCC 2.3.1.01):
+- `func_0014F640` (`0x14F640`, 128 bytes): Unpacks order parameters from struct and tail-calls virtual method `Method28` (offset 0x28). Contains internal helper `func_0014F670` dispatching notification code through action manager interface `0x1B30`. **100.0% match on unpacker**.
+- `func_0014F6C0` (`0x14F6C0`, 256 bytes, **93.00% match**): Route transition and waypoint validation routine evaluating unit state, probing entity positions via `func_00148050`, and dispatching route completion code 6 or continuation code 5.
+
+#### 6.122.1 Trade Action Market Status Matching Results (Pure C++, 384 Bytes)
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_0014F640` | `0x14F640` | **75.64%** (128 B) | Order data parameter unpacking, virtual method 0x28 tail call, and action manager notification. |
+| `func_0014F6C0` | `0x14F6C0` | **93.00%** (238 / 256 B) | Route state validation, waypoint position search via `func_00148050`, and status code return. |
+
 
 
 

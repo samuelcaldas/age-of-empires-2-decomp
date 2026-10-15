@@ -3338,6 +3338,14 @@ Following route status sits the target spatial operations and tile visibility su
 | `func_0014BD80` | `0x14BD80` | **100.0%** (40 / 40 B) | Direct waypoint target projection and 3D coordinate setter. |
 | `func_0014BDB0` | `0x14BDB0` | **100.0%** (88 / 88 B) | Map tile fog of war and exploration status query via `D_50A5A0`. |
 
+#### 6.113 `Trade Action Destination & Route Timing` Subsystem (`0x14BE10`–`0x14C120`, `trade_action_destination.cpp`)
+
+Following target ops sits the destination selection and route timer subsystem (`0x14BE10`–`0x14C120`, 784 bytes in Metrowerks C++ PS2 MWCC 2.3.1.01):
+- `func_0014BE10` (`0x14BE10`, 96 bytes): Route timer randomizer based on field 0x144.
+- `func_0014BE70` (`0x14BE70`, 112 bytes): Route timeout randomizer clamped to 1000 minimum.
+- `func_0014BEE0` (`0x14BEE0`, 32 bytes): Route buffer reset tail-calling `func_00150F50(self, 0)`.
+- `func_0014BF00` (`0x14BF00`, 544 bytes): Target destination search loop across tables `D_00F99910` and `D_00F99930`.
+
 
 
 

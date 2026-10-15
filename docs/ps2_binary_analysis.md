@@ -3422,6 +3422,20 @@ Following market trade sits the core trade event processing and market managemen
 |---|---|---|---|
 | `func_0014D290` | `0x14D290` | **Implemented** (6,064 B) | Master trade action event processing state machine in pure C++. |
 
+#### 6.120 `Trade Action Market Selection & Candidate Scoring` Subsystem (`0x14EA40`–`0x14EE80`, `trade_action_market_select.cpp`)
+
+Following market manager sits the market candidate selection, entity filter loop, and scoring subsystem (`0x14EA40`–`0x14EE80`, 1,088 bytes in Metrowerks C++ PS2 MWCC 2.3.1.01):
+- `func_0014EA40` (`0x14EA40`, 1,072 bytes, **81.70% match**): Core market selection and candidate evaluation routine. Searches candidate markets across 5 categories in tables `D_F99910` and `D_F99930`, tracks active category groups in a 9-element bitmask array, filters candidates by mode, entity type, node subtype ID, and alliance status, evaluates pathing feasibility via `Method1B8`, selects candidate with lowest score, counts active groups in global `D_004E3064`, and returns optimal target ID with optional rounded score output.
+- `func_0014EE70` (`0x14EE70`, 8 bytes, **100.0% exact match**): Status predicate returning `-1` (`addiu $v0, $zero, -1; jr $ra`).
+
+#### 6.120.1 Trade Action Market Selection Matching Results (Pure C++, 1,088 Bytes)
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_0014EA40` | `0x14EA40` | **81.70%** (876 / 1072 B) | Candidate market selection, 5-category evaluation loop, pathing check, and active group counting in pure C++. |
+| `func_0014EE70` | `0x14EE70` | **100.0%** (8 / 8 B) | Exact byte-for-byte status helper returning -1. |
+
+
 #### 6.120 `Trade Action Market Actions & Candidate Selection` Subsystem (`0x14EE80`–`0x14F250`, `trade_action_market_eval_planner.cpp`)
 
 Following market selection sits the route node candidate search and market evaluation subsystem (`0x14EE80`–`0x14F250`, 976 bytes in Metrowerks C++ PS2 MWCC 2.3.1.01):

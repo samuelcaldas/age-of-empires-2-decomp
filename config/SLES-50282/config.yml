@@ -47,8 +47,8 @@ segments:
     start: 0x14558
     vram: 0x114378
     subsegments:
-      - [0x14558, c, msl/atoi]
-      - [0x14580, c, msl/atol]
+      - [0x14558, asm, msl/atoi]
+      - [0x14580, asm, msl/atol]
   - name: pre_mouse_after_integer_runtime
     type: bin
     start: 0x145a0
@@ -57,7 +57,7 @@ segments:
     start: 0x17e8c
     vram: 0x117cac
     subsegments:
-      - [0x17e8c, c, msl/memset]
+      - [0x17e8c, asm, msl/memset]
   - name: pre_mouse_before_qsort
     type: bin
     start: 0x17f50
@@ -66,9 +66,9 @@ segments:
     start: 0x19010
     vram: 0x118e30
     subsegments:
-      - [0x19010, c, msl/qsort]
-      - [0x19a38, c, msl/srand]
-      - [0x19a48, c, msl/rand]
+      - [0x19010, asm, msl/qsort]
+      - [0x19a38, asm, msl/srand]
+      - [0x19a48, asm, msl/rand]
   - name: pre_mouse_before_string_runtime
     type: bin
     start: 0x19a78
@@ -77,7 +77,7 @@ segments:
     start: 0x1a99c
     vram: 0x11a7bc
     subsegments:
-      - [0x1a99c, c, msl/strcat]
+      - [0x1a99c, asm, msl/strcat]
   - name: pre_mouse_between_string_runtime
     type: bin
     start: 0x1aac8
@@ -86,8 +86,8 @@ segments:
     start: 0x1ac58
     vram: 0x11aa78
     subsegments:
-      - [0x1ac58, c, msl/strcmp]
-      - [0x1ad9c, c, msl/strcpy]
+      - [0x1ac58, asm, msl/strcmp]
+      - [0x1ad9c, asm, msl/strcpy]
   - name: pre_mouse_after_runtime
     type: bin
     start: 0x1aeb0
@@ -868,7 +868,7 @@ segments:
   - name: trade_action_market_route_calc
     type: code
     start: 0x4F440
-    vram: 0x14F250
+    vram: 0x14F260
     subsegments:
       - [0x4F440, asm, trade_action_market_route_calc]
   - name: trade_action_market_status

@@ -124,6 +124,13 @@ def staging_test(tmp_path_factory):
     if compiler is None:
         pytest.skip("trade-action staging regressions require g++")
     fixture = tmp_path_factory.mktemp("trade-action-staging")
+    probe = subprocess.run(
+        [compiler, "-m32", "-x", "c++", "-", "-o", str(fixture / "probe")],
+        input="#include <cstddef>\nint main() { static_assert(sizeof(void *) == 4); }\n",
+        capture_output=True, text=True,
+    )
+    if probe.returncode:
+        pytest.skip(f"native 32-bit g++ unavailable: {probe.stderr.strip()}")
     harness = fixture / "staging_test.cpp"
     harness.write_text(FIXTURE, encoding="utf-8")
     binary = fixture / "staging-test"

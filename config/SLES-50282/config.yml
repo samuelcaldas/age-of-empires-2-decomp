@@ -689,9 +689,27 @@ segments:
     vram: 0x148FF0
     subsegments:
       - [0x491E0, asm, trade_action_market_eval]
+  - name: trade_action_market_ops
+    type: code
+    start: 0x49640
+    vram: 0x149450
+    subsegments:
+      - [0x49640, asm, trade_action_market_ops]
+  - name: trade_action_market_strategy
+    type: code
+    start: 0x49850
+    vram: 0x149660
+    subsegments:
+      - [0x49850, asm, trade_action_market_strategy]
+  - name: trade_action_market_items
+    type: code
+    start: 0x49BE0
+    vram: 0x1499F0
+    subsegments:
+      - [0x49BE0, asm, trade_action_market_items]
   - name: post_base
     type: bin
-    start: 0x49640
+    start: 0x49E10
   - [0x3e31c0]
 
 

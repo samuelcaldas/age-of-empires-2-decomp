@@ -3163,6 +3163,22 @@ Following the primary evaluator sits the bilateral market pair evaluation and pr
 |---|---|---|---|
 | `func_00148FF0` | `0x148FF0` | **68.75%** (1120 B) | Bilateral market candidate evaluation and reciprocal rate computation. |
 
+#### 6.101 `Trade Action Market Operations` Subsystem (`0x149450`–`0x149660`, `trade_action_market_ops.cpp`)
+
+Following market evaluation sits the market operations filtering and comparator subsystem (`0x149450`–`0x149660`, 528 bytes in Metrowerks C++ PS2 MWCC 2.3.1.01):
+- `func_00149450` (`0x149450`, 432 bytes): Normalizes and filters candidate routes across bounds and computes relative ratings.
+- `func_00149600` (`0x149600`, 96 bytes): Descending float comparator for qsort on entry score field `0x1C`.
+
+#### 6.102 `Trade Action Market Strategy` Subsystem (`0x149660`–`0x1499F0`, `trade_action_market_strategy.cpp`)
+
+- `func_00149660` (`0x149660`, 912 bytes): Trade route sorting via qsort, route selection, and transaction dispatch strategy.
+
+#### 6.103 `Trade Action Market Items` Subsystem (`0x1499F0`–`0x149C20`, `trade_action_market_items.cpp`)
+
+- `func_001499F0` (`0x1499F0`, 224 bytes): Market item rate calculation and trade route distance metric.
+- `func_00149AD0` (`0x149AD0`, 336 bytes): Market item spatial search and destination waypoint evaluation.
+
+
 
 
 

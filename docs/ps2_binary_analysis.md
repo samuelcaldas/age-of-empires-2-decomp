@@ -4001,3 +4001,23 @@ Directly following stream patterns sits the stream dispatchers and loop-driven b
 | `func_00159850` | `0x159850` | **92.48%** (176 B) | 1-byte prefix + continuous 4-byte loop + 1-byte trailer flush. |
 | `func_00159900` | `0x159900` | **93.38%** (200 B) | 2-byte prefix + continuous 4-byte loop + 1-byte trailer flush. |
 | `func_001599D0` | `0x1599D0` | **94.09%** (224 B) | 3-byte prefix + continuous 4-byte loop + 1-byte trailer flush. |
+
+#### 6.155 `Trade Action Stream Decoders 2` Subsystem (`0x15A710`–`0x15ABF0`, `trade_action_stream_decoders2.cpp`)
+
+Directly following stream mutators sits the multi-byte stream decode and bitwise `D_004E2DA4` masking subsystem (`0x15A710`–`0x15ABF0`, 1,248 bytes across 5 functions in Metrowerks C++ PS2 MWCC 2.3.1.01). It combines sub-block alignment calls (`func_001522C0`), `Buffer4` staging (`D_004E2DA0`), bitmasking via `D_004E2DA4`, and sequential stream transfers to `D_004E2DB4`:
+- `func_0015A710` (`0x15A710`, 216 bytes): 4-byte stream transfer with secondary 1-byte decode. **94.94% pure C++ match**.
+- `func_0015A7F0` (`0x15A7F0`, 256 bytes): 4-byte stream transfer with secondary 2-byte decode. **81.19% pure C++ match**.
+- `func_0015A8F0` (`0x15A8F0`, 256 bytes): 4-byte stream transfer with secondary 2-byte decode. **81.19% pure C++ match**.
+- `func_0015A9F0` (`0x15A9F0`, 256 bytes): 4-byte stream transfer with secondary 2-byte decode. **81.19% pure C++ match**.
+- `func_0015AAF0` (`0x15AAF0`, 256 bytes): 4-byte stream transfer with secondary 2-byte decode. **81.19% pure C++ match**.
+
+#### 6.155.1 Trade Action Stream Decoders 2 Matching Results (Pure C++, 1,248 Bytes)
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_0015A710` | `0x15A710` | **94.94%** (216 B) | 4-byte block decode with secondary 1-byte mask decode. |
+| `func_0015A7F0` | `0x15A7F0` | **81.19%** (256 B) | 4-byte block decode with secondary 2-byte mask decode. |
+| `func_0015A8F0` | `0x15A8F0` | **81.19%** (256 B) | 4-byte block decode with secondary 2-byte mask decode. |
+| `func_0015A9F0` | `0x15A9F0` | **81.19%** (256 B) | 4-byte block decode with secondary 2-byte mask decode. |
+| `func_0015AAF0` | `0x15AAF0` | **81.19%** (256 B) | 4-byte block decode with secondary 2-byte mask decode. |
+

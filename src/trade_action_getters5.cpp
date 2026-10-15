@@ -3,7 +3,7 @@
 
 extern "C" {
 extern const char D_4D0570[];
-void *func_001454C0(void *self, const char *fmt, ...);
+void func_001454C0(void *self, const char *fmt, ...);
 int func_2BBCD0(void *self, int index);
 int func_2B9770(void *self, int index, int val);
 

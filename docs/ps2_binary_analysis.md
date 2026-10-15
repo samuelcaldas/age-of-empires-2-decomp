@@ -3400,8 +3400,16 @@ Following state updates sits the central trade action command evaluator and acti
 
 #### 6.118 `Trade Action Market Trade Operations` Subsystem (`0x14CFF0`–`0x14D290`, `trade_action_market_trade.cpp`)
 
-Following trade evaluation sits the market trade transaction and cargo handling subsystem (`0x14CFF0`–`0x14D290`, 672 bytes in Metrowerks C++ PS2 MWCC 2.3.1.01):
-- `func_0014CFF0` (`0x14CFF0`, 672 bytes): Cargo load/unload and gold transfer processor.
+Following trade eval sits the market trade validation and action 0x258 dispatch subsystem (`0x14CFF0`–`0x14D290`, 672 bytes in Metrowerks C++ PS2 MWCC 2.3.1.01):
+- `func_0014CFF0` (`0x14CFF0`, 368 bytes, **98.9% match**): Market trade validation verifying current target `m_field4A`, querying entity passability via `Method54`, validating route bounds through `Method124`/`Method1B8`, and committing action ID `0x258` with target coordinates.
+- `func_0014D160` (`0x14D160`, 304 bytes, **98.7% match**): Market trade action 0x258 dispatcher with entity passability validation via `Method54` and route passability query `Method16C`.
+
+#### 6.118.1 Trade Action Market Trade Matching Results (Pure C++, 672 Bytes)
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_0014CFF0` | `0x14CFF0` | **98.9%** (364 / 368 B) | Market trade candidate validation, route bounds checking, and action ID 0x258 commit. |
+| `func_0014D160` | `0x14D160` | **98.7%** (300 / 304 B) | Market trade route passability validation, entity coordinate dispatch, and action ID 0x258 commit. |
 
 #### 6.119 `Trade Action Market Manager & Event Dispatch` Subsystem (`0x14D290`–`0x14EA34`, `trade_action_market_manager.cpp`)
 

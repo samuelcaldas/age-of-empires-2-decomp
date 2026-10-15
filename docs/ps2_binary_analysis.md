@@ -3291,10 +3291,19 @@ Following cargo exchange sits the route advancement and cycle reset subsystem (`
 #### 6.111 `Trade Action Route Status & State Queries` Subsystem (`0x14B8F0`–`0x14BC10`, `trade_action_route_status.cpp`)
 
 Following route advance sits the trade route status and state query routines (`0x14B8F0`–`0x14BC10`, 800 bytes in Metrowerks C++ PS2 MWCC 2.3.1.01):
-- `func_0014B8F0` (`0x14B8F0`, 240 bytes): Route status query 1.
-- `func_0014B9E0` (`0x14B9E0`, 192 bytes): Route status query 2.
-- `func_0014BAA0` (`0x14BAA0`, 160 bytes): Route status query 3.
-- `func_0014BB40` (`0x14BB40`, 208 bytes): Route status query 4.
+- `func_0014B8F0` (`0x14B8F0`, 240 bytes): Route waypoint arrival check and threshold distance dispatcher.
+- `func_0014B9E0` (`0x14B9E0`, 192 bytes): Target market waypoint update and action status commit.
+- `func_0014BAA0` (`0x14BAA0`, 160 bytes): Direct waypoint position projection and route flag reset.
+- `func_0014BB40` (`0x14BB40`, 208 bytes): Route obstacle and passability query dispatcher.
+
+#### 6.111.1 Trade Action Route Status Matching Results (99.95% Pure C++, 800 Bytes)
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_0014B8F0` | `0x14B8F0` | **99.83%** (232 / 240 B) | Route arrival check, distance threshold comparison, and virtual method 0x98 dispatch. |
+| `func_0014B9E0` | `0x14B9E0` | **100.0%** (180 / 192 B) | Target waypoint registration with action ID 0x259. |
+| `func_0014BAA0` | `0x14BAA0` | **100.0%** (152 / 160 B) | Direct waypoint target projection and coordinate caching. |
+| `func_0014BB40` | `0x14BB40` | **100.0%** (196 / 208 B) | Target passability validation and action ID 0x26E commit. |
 
 
 

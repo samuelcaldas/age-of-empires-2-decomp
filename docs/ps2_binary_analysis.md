@@ -3802,23 +3802,6 @@ Following stream transformers is the stream filters subsystem (`0x155B10`–`0x1
 | `func_00155E50` | `0x155E50` | **89.33%** (304 B) | 2-byte prefix staging + continuous 4-byte validated block loop. |
 | `func_00155F80` | `0x155F80` | **90.23%** (336 B) | Offset -1 3-byte prefix + continuous 4-byte validated block loop. |
 
-#### 6.145 `Trade Action Stream Collectors & Composite Decoders` Subsystem (`0x156670`–`0x156C80`, `trade_action_stream_collectors.cpp`)
-
-Following stream aggregators is the stream collectors subsystem (`0x156670`–`0x156C80`, 1,552 bytes across 4 functions). It implements complex multi-phase stream block transformations and composite payload deserialization using `Buffer4` (`D_004E2DA0`), bitmasks `D_004E30A8` and `D_004E30AC`, and unrolled 4-byte `do-while` stream copy loops:
-- `func_00156670` (`0x156670`, 304 bytes): 2-byte decrement continuous 4-byte block loop followed by 2-byte trailer flush. **89.47% pure C++ match**.
-- `func_001567A0` (`0x1567A0`, 384 bytes): 1-byte prefix staging filter, continuous 4-byte block copy loop, and 2-byte trailer flush. **91.58% pure C++ match**.
-- `func_00156920` (`0x156920`, 416 bytes): 2-byte leading block filter, continuous 4-byte block copy loop, and 2-byte trailer flush. **89.70% pure C++ match**.
-- `func_00156AC0` (`0x156AC0`, 448 bytes): Offset -1 3-byte prefix filter, continuous 4-byte block copy loop, and 2-byte trailer flush. **90.36% pure C++ match**.
-
-#### 6.145.1 Trade Action Stream Collectors Matching Results (Pure C++, 1,552 Bytes)
-
-| Function / Method | VRAM Address | Match Status | Description |
-|---|---|---|---|
-| `func_00156670` | `0x156670` | **89.47%** (304 B) | Continuous 4-byte block copy loop with 2-byte trailer. |
-| `func_001567A0` | `0x1567A0` | **91.58%** (384 B) | 1-byte prefix + continuous 4-byte block loop + 2-byte trailer. |
-| `func_00156920` | `0x156920` | **89.70%** (416 B) | 2-byte prefix + continuous 4-byte block loop + 2-byte trailer. |
-| `func_00156AC0` | `0x156AC0` | **90.36%** (448 B) | Offset -1 3-byte prefix + continuous 4-byte block loop + 2-byte trailer. |
-
 #### 6.144 `Trade Action Stream Aggregators` Subsystem (`0x1560D0`–`0x156670`, `trade_action_stream_aggregators.cpp`)
 
 Following stream filters sits the stream aggregators subsystem (`0x1560D0`–`0x156670`, 1,440 bytes across 4 functions). It implements multi-byte continuous stream unmarshaling and block aggregations combining sub-block alignment calls (`func_001522C0`), `Buffer4` staging (`D_004E2DA0`), bitmasking via `D_004E30A8`/`D_004E30AC`, and unrolled 4-byte `do-while` stream copy loops:
@@ -3835,4 +3818,21 @@ Following stream filters sits the stream aggregators subsystem (`0x1560D0`–`0x
 | `func_001561F0` | `0x1561F0` | **96.64%** (352 B) | 1-byte prefix + validated 4-byte block loop + trailing 1-byte decode. |
 | `func_00156350` | `0x156350` | **94.31%** (380 B) | 2-byte prefix + validated 4-byte block loop + trailing 1-byte decode. |
 | `func_001564D0` | `0x1564D0` | **94.66%** (408 B) | Offset -1 3-byte prefix + validated 4-byte block loop + trailing 1-byte decode. |
+
+#### 6.145 `Trade Action Stream Collectors & Composite Decoders` Subsystem (`0x156670`–`0x156C80`, `trade_action_stream_collectors.cpp`)
+
+Following stream aggregators is the stream collectors subsystem (`0x156670`–`0x156C80`, 1,552 bytes across 4 functions). It implements complex multi-phase stream block transformations and composite payload deserialization using `Buffer4` (`D_004E2DA0`), bitmasks `D_004E30A8` and `D_004E30AC`, and unrolled 4-byte `do-while` stream copy loops:
+- `func_00156670` (`0x156670`, 304 bytes): 2-byte decrement continuous 4-byte block loop followed by 2-byte trailer flush. **89.47% pure C++ match**.
+- `func_001567A0` (`0x1567A0`, 384 bytes): 1-byte prefix staging filter, continuous 4-byte block copy loop, and 2-byte trailer flush. **91.58% pure C++ match**.
+- `func_00156920` (`0x156920`, 416 bytes): 2-byte leading block filter, continuous 4-byte block copy loop, and 2-byte trailer flush. **89.70% pure C++ match**.
+- `func_00156AC0` (`0x156AC0`, 448 bytes): Offset -1 3-byte prefix filter, continuous 4-byte block copy loop, and 2-byte trailer flush. **90.36% pure C++ match**.
+
+#### 6.145.1 Trade Action Stream Collectors Matching Results (Pure C++, 1,552 Bytes)
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_00156670` | `0x156670` | **89.47%** (304 B) | Continuous 4-byte block copy loop with 2-byte trailer. |
+| `func_001567A0` | `0x1567A0` | **91.58%** (384 B) | 1-byte prefix + continuous 4-byte block loop + 2-byte trailer. |
+| `func_00156920` | `0x156920` | **89.70%** (416 B) | 2-byte prefix + continuous 4-byte block loop + 2-byte trailer. |
+| `func_00156AC0` | `0x156AC0` | **90.36%** (448 B) | Offset -1 3-byte prefix + continuous 4-byte block loop + 2-byte trailer. |
 

@@ -45,7 +45,7 @@ int SubList::func_0013AA80() {
 }
 
 void SubList::func_0013AB90(int arg1) {
-    this->v46();
+    this->v44();
     func_00267530(this, arg1);
     this->v196(0);
 }

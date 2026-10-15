@@ -684,7 +684,7 @@ Continuing contiguously from list manipulation routines sits the update lifecycl
 
 * **`func_0013AB90` (`0x13AB90`, 88 B code, 96 B slice):**
   - Action state transition handler.
-  - Invokes virtual method `this->v46()` (vtable slot 46, offset `0xB8`).
+  - Invokes virtual method `this->v44()` at physical vtable offset `0xB8`, accounting for MWCC's eight-byte header.
   - Delegates state registration via `func_00267530(this, arg1)`.
   - Resets item notification via `this->v196(0)` (vtable slot 196, offset `0x310`).
 
@@ -717,7 +717,7 @@ Continuing contiguously from list manipulation routines sits the update lifecycl
 | Function / Method | VRAM Address | Match Status | Description |
 |---|---|---|---|
 | `func_0013AA80` | `0x13AA80` | **100.0%** (268 / 268 B) | Primary update & lifecycle coordinator mapped to `BaseList::__vt[0x60]`. |
-| `func_0013AB90` | `0x13AB90` | **100.0%** (88 / 88 B) | Action state transition handler invoking `v46()`, `func_00267530`, and `v196(0)`. |
+| `func_0013AB90` | `0x13AB90` | **100.0%** (88 / 88 B) | Action state transition handler invoking `v44()`, `func_00267530`, and `v196(0)`. |
 | `func_0013ABF0` | `0x13ABF0` | **100.0%** (72 / 72 B) | Message broadcasting coordinator invoking `m_fieldCC->Broadcast` and `func_1df2c0`. |
 | `func_0013AC40` | `0x13AC40` | **100.0%** (40 / 40 B) | Branchless non-empty status check via `HasItems() != 0`. |
 | `func_0013AC70` | `0x13AC70` | **100.0%** (48 / 48 B) | Head item type extraction returning `head->m_field4` or `-1`. |
@@ -4439,7 +4439,7 @@ Independent reproduction via GNU ld relocation resolution confirms:
 - Alignment padding: 40 / 40 B matched (100.0%).
 - Full slice: 949 / 976 B matched (97.23%).
 - All 15 `R_MIPS_26` relocations cleanly resolved without masks.
-- The existing `SubList::func_0013AB90` declaration and call use the same canonical `func_00267530` name as the new implementation. The former `func_267530` spelling is not a second Splat symbol at the same address; this avoids a duplicate-symbol split failure without changing the target address.
+- The existing `SubList::func_0013AB90` declaration and call use the same canonical `func_00267530` name as the new implementation. The former `func_267530` spelling is not a second Splat symbol at the same address; this avoids a duplicate-symbol split failure without changing the target address. A fresh comparison also exposed an inherited virtual-dispatch error in this caller: `v46()` emitted offset `0xC0`, while the original uses `0xB8`. Selecting `v44()` corrects that single-byte difference; the caller's 88-byte body is checked against the original separately from the canonical rename.
 - Registered as `NonMatching` in `configure.py`.
 
 #### 6.174.1 Unit Action Targets Matching Results (Pure C++, 976-Byte Slice)

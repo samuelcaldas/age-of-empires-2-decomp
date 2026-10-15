@@ -3663,6 +3663,41 @@ Following stream buffers sits the bounded stream payload decoder and alignment u
 | `func_00153890` | `0x153890` | **71.12%** (228 / 320 B) | Bounded 3-byte composite stream unpacker. |
 | `func_001539D0` | `0x1539D0` | **100.0%** (16 / 16 B) | Stream decoding status helper returning 0. |
 
+#### 6.137 `Trade Action Stream Unpacker` Subsystem (`0x1539E0`–`0x153EF0`, `trade_action_stream_unpacker.cpp`)
+
+Directly following the decoders sits the stream unpacker subsystem (`0x1539E0`–`0x153EF0`, 1,296 bytes). It processes byte unaligned stream data by consuming unrolled 4-byte copy blocks and flushing buffers via `func_001522C0`:
+- `func_001539E0` (`0x1539E0`, 336 bytes): 3-byte prefix unpacker with 4-byte unrolled loop and trailing byte. **100.0% exact match** in pure C++.
+- `func_00153B30` (`0x153B30`, 288 bytes): 2-byte post-offset unpacker calling `func_001522C0`. **100.0% exact match** in pure C++.
+- `func_00153C50` (`0x153C50`, 320 bytes): 1-byte leading unpacker with 4-byte unrolled loop and 2-byte trailer. **100.0% exact match** in pure C++.
+- `func_00153D90` (`0x153D90`, 352 bytes): Dual `func_001522C0` calling unpacker with trailing 2-byte copy. **100.0% exact match** in pure C++.
+
+#### 6.137.1 Trade Action Stream Unpacker Matching Results (100.00% Pure C++, 1,296 Bytes)
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_001539E0` | `0x1539E0` | **100.0%** (336 / 336 B) | Stream unpacker with prefix alignment. |
+| `func_00153B30` | `0x153B30` | **100.0%** (288 / 288 B) | Stream unpacker with trailer synchronization. |
+| `func_00153C50` | `0x153C50` | **100.0%** (320 / 320 B) | Stream unpacker with leading byte copy. |
+| `func_00153D90` | `0x153D90` | **100.0%** (352 / 352 B) | Stream unpacker with buffer flush and trailing words. |
+
+#### 6.138 `Trade Action Stream Handlers` Subsystem (`0x153EF0`–`0x154480`, `trade_action_stream_handlers.cpp`)
+
+Following the stream unpackers is the stream handlers subsystem (`0x153EF0`–`0x154480`, 1,424 bytes). It implements byte stream synchronization and block alignment transformations using 4-byte unrolled copy loops and sub-block alignment calls (`func_001522C0`):
+- `func_00153EF0` (`0x153EF0`, 376 bytes): 3-byte prefix staging unpacker, 4-byte unrolled copy loop, and 2-byte trailer flush. **100.0% exact match** in pure C++.
+- `func_00154070` (`0x154070`, 304 bytes): 3-byte offset decrement handler, 4-byte unrolled copy loop, and 3-byte trailer synchronization. **100.0% exact match** in pure C++.
+- `func_001541A0` (`0x1541A0`, 344 bytes): Single leading byte transfer, 4-byte unrolled copy loop, and 3-byte trailer synchronization. **100.0% exact match** in pure C++.
+- `func_00154300` (`0x154300`, 376 bytes): 2-byte leading buffer flush, 4-byte unrolled copy loop, and 3-byte trailer flush. **100.0% exact match** in pure C++.
+
+#### 6.138.1 Trade Action Stream Handlers Matching Results (100.00% Pure C++, 1,424 Bytes)
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_00153EF0` | `0x153EF0` | **100.0%** (376 / 376 B) | Stream handler: 3-byte prefix, unrolled loop, 2-byte trailer. |
+| `func_00154070` | `0x154070` | **100.0%** (304 / 304 B) | Stream handler: 4-byte unrolled loop, 3-byte trailer. |
+| `func_001541A0` | `0x1541A0` | **100.0%** (344 / 344 B) | Stream handler: 1-byte head, unrolled loop, 3-byte trailer. |
+| `func_00154300` | `0x154300` | **100.0%** (376 / 376 B) | Stream handler: 2-byte head, unrolled loop, 3-byte trailer. |
+
+
 
 
 

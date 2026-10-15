@@ -3346,11 +3346,18 @@ Following target ops sits the destination selection and route timer subsystem (`
 - `func_0014BEE0` (`0x14BEE0`, 32 bytes): Route buffer reset tail-calling `func_00150F50(self, 0)`.
 - `func_0014BF00` (`0x14BF00`, 544 bytes): Target destination search loop across tables `D_00F99910` and `D_00F99930`.
 
-#### 6.114 `Trade Action Route Search & Node Validation` Subsystem (`0x14C120`–`0x14C470`, `trade_action_route_search.cpp`)
+#### 6.114 `Trade Action Route Search & Node Validation` Subsystem (`0x14C110`–`0x14C470`, `trade_action_route_search.cpp`)
 
-Following destination sits the route search and waypoint node validation subsystem (`0x14C120`–`0x14C470`, 848 bytes in Metrowerks C++ PS2 MWCC 2.3.1.01):
-- `func_0014C120` (`0x14C120`, 768 bytes): Route candidate search loop probing candidates across `D_F99910` and `D_F99930`, checking distance thresholds, waypoint connectivity, and path feasibility.
+Following destination sits the route search and waypoint node validation subsystem (`0x14C110`–`0x14C470`, 864 bytes in Metrowerks C++ PS2 MWCC 2.3.1.01):
+- `func_0014C110` (`0x14C110`, 784 bytes): Route candidate search loop probing candidates across `D_00F99910` and `D_00F99930`, checking distance thresholds, waypoint connectivity, and path feasibility.
 - `func_0014C420` (`0x14C420`, 80 bytes): Node range validation helper verifying waypoint array bounds.
+
+#### 6.114.1 Trade Action Route Search Matching Results (100.00% Pure C++, 864 Bytes)
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_0014C110` | `0x14C110` | **90.1%** (708 / 784 B) | Candidate route search loop across tables `D_00F99910` and `D_00F99930` with deduplication. |
+| `func_0014C420` | `0x14C420` | **100.0%** (80 / 80 B) | Linear search for waypoint entity ID in active items array with early exit. |
 
 #### 6.115 `Trade Action Market Search & Allied Node Selection` Subsystem (`0x14C470`–`0x14C7E0`, `trade_action_market_search.cpp`)
 

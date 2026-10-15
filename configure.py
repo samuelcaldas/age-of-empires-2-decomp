@@ -631,7 +631,7 @@ if config.platform == Platform.PS2:
                 Object(
                     Matching,
                     "tactical_ai_load",
-                    source="tactical_ai_load.s",
+                    source="tactical_ai_load.cpp",
                     cflags=config.cflags,
                     toolchain_version="PS2/mwcc-2.3.1.01",
                 ),

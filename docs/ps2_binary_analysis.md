@@ -3194,6 +3194,13 @@ Following market operations sits the trade market route selection and strategy d
 - `func_001499F0` (`0x1499F0`, 224 bytes): Market item rate calculation and trade route distance metric.
 - `func_00149AD0` (`0x149AD0`, 336 bytes): Market item spatial search and destination waypoint evaluation.
 
+#### 6.103.1 Trade Action Market Items Matching Results (Pure C++, 560 Bytes)
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_001499F0` | `0x1499F0` | **100.0%** (224 / 224 B) | Market item rate calculation based on age tech and player diplomacy state. |
+| `func_00149AD0` | `0x149AD0` | **96.95%** (328 / 336 B) | Spatial item candidate evaluation and highest-rated target destination search. |
+
 
 
 

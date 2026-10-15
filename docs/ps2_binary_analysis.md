@@ -3520,6 +3520,36 @@ Following target resolution sits the route trajectory sampling, route object cle
 Following target management sits the trade state progression and route distance evaluator (`0x1515E0`–`0x151960`, 896 bytes in Metrowerks C++ PS2 MWCC 2.3.1.01):
 - `func_001515E0` (`0x1515E0`, 896 bytes): Validates trade route capacity via `m_target->Method114()`, queries candidate market entity via `func_00332E60`, calculates distance bounds via `func_002690D0`, computes clamped travel time, dispatches virtual method `Method1C`, and manages dynamic waypoint table resizing and route assignment.
 
+#### 6.129 `Trade Action Trade Helper Utilities` Subsystem (`0x151960`–`0x151C70`, `trade_action_trade_helpers.cpp`)
+
+Following trade state sits the trade action helper utilities and stream operations subsystem (`0x151960`–`0x151C70`, 784 bytes in Metrowerks C++ PS2 MWCC 2.3.1.01):
+- `func_00151960` (`0x151960`, 100 bytes, **94.20% match**): Action entry finder scanning `m_entries` for non-negative field 6 and matching `entry->m_pad0 == target->m_field24`.
+- `func_001519D0` (`0x1519D0`, 64 bytes, **99.38% match**): Action predicate checking action type IDs (15, 7–10, 32).
+- `func_00151A10` (`0x151A10`, 64 bytes, **96.88% match**): Array membership search probing byte elements at `self + 4 + i` against argument `a1`.
+- `func_00151A50` (`0x151A50`, 8 bytes, **100.0% exact match**): Status predicate returning 0.
+- `func_00151A60` (`0x151A60`, 8 bytes, **100.0% exact match**): Status helper returning -1.
+- `func_00151A70` (`0x151A70`, 148 bytes, **60.81% match**): Action execution wrapper verifying `func_00263700` and invoking `func_00151BA0`.
+- `func_00151B10` (`0x151B10`, 100 bytes, **72.40% match**): Action transition wrapper verifying `func_00263760` and invoking `func_00151C20`.
+- `func_00151B80` (`0x151B80`, 32 bytes, **92.50% match**): Safe cleanup wrapper invoking `func_002637C0` on non-null instance.
+- `func_00151BA0` (`0x151BA0`, 116 bytes, **64.14% match**): Stream state initialization calling `func_00263A30`, `func_0026A540`, clearing field 104, and querying node interfaces `Method2D0` and `Method4C`.
+- `func_00151C20` (`0x151C20`, 68 bytes, **87.65% match**): Stream serialization helper calling `func_00263CC0` and `func_00226D90` on field 104.
+
+#### 6.129.1 Trade Action Trade Helpers Matching Results (Pure C++, 784 Bytes)
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_00151960` | `0x151960` | **94.20%** (94 / 100 B) | Target action entry search and index resolution. |
+| `func_001519D0` | `0x1519D0` | **99.38%** (63 / 64 B) | Action type predicate checking IDs 15, 7–10, 32. |
+| `func_00151A10` | `0x151A10` | **96.88%** (62 / 64 B) | Byte array element membership search. |
+| `func_00151A50` | `0x151A50` | **100.0%** (8 / 8 B) | Status predicate returning 0. |
+| `func_00151A60` | `0x151A60` | **100.0%** (8 / 8 B) | Status helper returning -1. |
+| `func_00151A70` | `0x151A70` | **60.81%** (90 / 148 B) | Action execution wrapper via `func_00263700`. |
+| `func_00151B10` | `0x151B10` | **72.40%** (72 / 100 B) | Action transition wrapper via `func_00263760`. |
+| `func_00151B80` | `0x151B80` | **92.50%** (30 / 32 B) | Safe cleanup wrapper calling `func_002637C0`. |
+| `func_00151BA0` | `0x151BA0` | **64.14%** (74 / 116 B) | Stream state setup and virtual method dispatch. |
+| `func_00151C20` | `0x151C20` | **87.65%** (60 / 68 B) | Stream serialization helper via `func_00226D90`. |
+
+
 
 
 

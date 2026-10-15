@@ -1001,4 +1001,6 @@ func_00305BA0 = 0x305BA0; // type:func size:0x30 absolute:True
 func_00305BD0 = 0x305BD0; // type:func size:0xE0 absolute:True
 func_00305CB0 = 0x305CB0; // type:func size:0x280 absolute:True
 func_2e05f0 = 0x2E05F0; // type:func absolute:True
+func_2d42a0 = 0x2D42A0; // type:func absolute:True
+func_2e0630 = 0x2E0630; // type:func absolute:True
 

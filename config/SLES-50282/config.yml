@@ -809,9 +809,21 @@ segments:
     vram: 0x14EA40
     subsegments:
       - [0x4EC30, asm, trade_action_market_select]
+  - name: trade_action_market_eval_planner
+    type: code
+    start: 0x4F070
+    vram: 0x14EE80
+    subsegments:
+      - [0x4F070, asm, trade_action_market_eval_planner]
+  - name: trade_action_market_route_calc
+    type: code
+    start: 0x4F440
+    vram: 0x14F250
+    subsegments:
+      - [0x4F440, asm, trade_action_market_route_calc]
   - name: post_base
     type: bin
-    start: 0x4F070
+    start: 0x4F830
   - [0x3e31c0]
 
 

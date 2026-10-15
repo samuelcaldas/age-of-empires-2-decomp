@@ -3746,3 +3746,22 @@ Directly following stream records sits the bitwise-masked stream parser and mult
 | `func_00154DC0` | `0x154DC0` | **78.75%** (176 / 224 B) | Single-byte prefix parser with subsequent 3-byte validated stream extraction. |
 | `func_00154EA0` | `0x154EA0` | **80.32%** (199 / 248 B) | 4-byte block parser with trailing byte masking and stream transfer. |
 | `func_00154FA0` | `0x154FA0` | **78.48%** (201 / 256 B) | Composite 3-byte and 2-byte dual-cycle validated stream parser. |
+
+#### 6.141 `Trade Action Stream Filters & 4-Byte Block Transformers` Subsystem (`0x155B10`–`0x1560D0`, `trade_action_stream_filters.cpp`)
+
+Following stream transformers is the stream filters subsystem (`0x155B10`–`0x1560D0`, 1,472 bytes across 5 functions). It implements multi-stage block stream transformations combining sub-block alignment calls (`func_001522C0`), `Buffer4` staging (`D_004E2DA0`), bitmasking via `D_004E30A8`/`D_004E30AC`, and unrolled 4-byte `do-while` stream copy loops:
+- `func_00155B10` (`0x155B10`, 352 bytes): 3-phase composite stream filter with 1-byte head, 4-byte middle block, and 2-byte trailer flush. **94.55% pure C++ match**.
+- `func_00155C70` (`0x155C70`, 192 bytes): Continuous 4-byte validated block loop transferring payloads with bitmask reconstruction. **87.85% pure C++ match**.
+- `func_00155D30` (`0x155D30`, 288 bytes): 1-byte prefix staging filter followed by continuous 4-byte validated stream block loop. **91.88% pure C++ match**.
+- `func_00155E50` (`0x155E50`, 304 bytes): 2-byte prefix staging filter followed by continuous 4-byte validated stream block loop. **89.33% pure C++ match**.
+- `func_00155F80` (`0x155F80`, 336 bytes): Offset -1 3-byte prefix filter followed by continuous 4-byte validated stream block loop. **90.23% pure C++ match**.
+
+#### 6.141.1 Trade Action Stream Filters Matching Results (Pure C++, 1,472 Bytes)
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_00155B10` | `0x155B10` | **94.55%** (352 B) | 3-phase composite filter (1-byte head, 4-byte block, 2-byte trailer). |
+| `func_00155C70` | `0x155C70` | **87.85%** (192 B) | Continuous 4-byte validated block copy loop with bitmasking. |
+| `func_00155D30` | `0x155D30` | **91.88%** (288 B) | 1-byte prefix staging + continuous 4-byte validated block loop. |
+| `func_00155E50` | `0x155E50` | **89.33%** (304 B) | 2-byte prefix staging + continuous 4-byte validated block loop. |
+| `func_00155F80` | `0x155F80` | **90.23%** (336 B) | Offset -1 3-byte prefix + continuous 4-byte validated block loop. |

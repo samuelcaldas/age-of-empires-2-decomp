@@ -3305,6 +3305,26 @@ Following route advance sits the trade route status and state query routines (`0
 | `func_0014BAA0` | `0x14BAA0` | **100.0%** (152 / 160 B) | Direct waypoint target projection and coordinate caching. |
 | `func_0014BB40` | `0x14BB40` | **100.0%** (196 / 208 B) | Target passability validation and action ID 0x26E commit. |
 
+#### 6.112 `Trade Action Target Operations & Spatial Queries` Subsystem (`0x14BC10`–`0x14BE10`, `trade_action_target_ops.cpp`)
+
+Following route status sits the target spatial operations and tile visibility subsystem (`0x14BC10`–`0x14BE10`, 512 bytes in Metrowerks C++ PS2 MWCC 2.3.1.01):
+- `func_0014BC10` (`0x14BC10`, 184 bytes, **100.0% match**): Target spatial validation and action commit. Dispatches virtual method `m_target->Method412(a1, a2)` (vtable offset `0x19C`), emits notification code `0x26F`, and sets destination position via `func_0014BD20`.
+- `func_0014BCD0` (`0x14BCD0`, 60 bytes, **100.0% match**): Waypoint reset routine. Caches previous target indices `m_field4A`/`m_field4C` into `m_field64`/`m_field66`, and resets active coordinates to `-1.0f`.
+- `func_0014BD10` (`0x14BD10`, 104 bytes, **100.0% match**): Target position update and entity type sync. Caches previous waypoint indices, registers target coordinate vectors, queries timer node entity via `func_332e60`, and records entity type at offset `0x4C`. Contains internal label alias `func_0014BD20`.
+- `func_0014BD80` (`0x14BD80`, 40 bytes, **100.0% match**): Direct waypoint and position setter. Writes target index, secondary index, and 3D position vector `(f12, f13, f14)`. Contains internal label alias `func_0014BD90`.
+- `func_0014BDB0` (`0x14BDB0`, 88 bytes, **100.0% match**): Map tile visibility and fog of war query. Indexes global 2D lookup table `D_50A5A0[a3][a2]`, checking visibility mask at `game + 0xC28` (returns `0xF` if visible) and exploration mask at `game + 0xC24` (returns `0x80` if explored, `0` otherwise).
+
+#### 6.112.1 Trade Action Target Operations Matching Results (100.00% Pure C++, 512 Bytes)
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_0014BC10` | `0x14BC10` | **100.0%** (184 / 184 B) | Target spatial validation and action commit with notification code `0x26F`. |
+| `func_0014BCD0` | `0x14BCD0` | **100.0%** (60 / 60 B) | Waypoint reset and coordinate clearing to `-1.0f`. |
+| `func_0014BD10` | `0x14BD10` | **100.0%** (104 / 104 B) | Target entity coordinate registration and timer node entity sync (`func_332e60`). |
+| `func_0014BD80` | `0x14BD80` | **100.0%** (40 / 40 B) | Direct waypoint target projection and 3D coordinate setter. |
+| `func_0014BDB0` | `0x14BDB0` | **100.0%** (88 / 88 B) | Map tile fog of war and exploration status query via `D_50A5A0`. |
+
+
 
 
 

@@ -5,7 +5,6 @@ extern "C" {
 void *func_185E20(void *arg, int val);
 void func_2177C0(void *self, int *arr, int arg2, int arg3);
 void func_217B50(void *self);
-void func_00217840();
 
 extern void *D_004E3058;
 
@@ -50,8 +49,5 @@ void func_002177C0(void *self, int *arr, int arg2, int arg3) {
     typedef void (*Fn)(void *, int);
     Fn fn = (Fn)*(void **)((char *)vtable + 0x28);
     fn(self, 1);
-}
-
-void func_00217840() {
 }
 }

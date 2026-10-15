@@ -3549,6 +3549,23 @@ Following trade state sits the trade action helper utilities and stream operatio
 | `func_00151BA0` | `0x151BA0` | **64.14%** (74 / 116 B) | Stream state setup and virtual method dispatch. |
 | `func_00151C20` | `0x151C20` | **87.65%** (60 / 68 B) | Stream serialization helper via `func_00226D90`. |
 
+#### 6.130 `Trade Action Trade Finalize & Default Virtual Methods` Subsystem (`0x151C70`–`0x1522E0`, `trade_action_trade_finalize.cpp`)
+
+Following trade helpers sits the trade action finalization, state serialization, and default virtual method table subsystem (`0x151C70`–`0x1522E0`, 1,648 bytes in Metrowerks C++ PS2 MWCC 2.3.1.01):
+- `func_00151C70` (`0x151C70`, 416 bytes): Action status evaluation, state reset, and timer coordinate synchronization.
+- `func_00151E10` (`0x151E10`, 80 bytes): State serialization saving field 104 into stream via `func_00226F70`.
+- `func_00151E60` (`0x151E60`, 28 bytes, **100.0% exact match**): Counter decrement helper (`m_field3A--`).
+- `func_00151E80` (`0x151E80`, 1,120 bytes): 64 default virtual method implementations of `TradeActionBase`.
+
+#### 6.130.1 Trade Action Trade Finalize Matching Results (Pure C++, 1,648 Bytes)
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_00151C70` | `0x151C70` | **Implemented** (416 B) | Action status evaluation, mode transition, and timer synchronization in pure C++. |
+| `func_00151E10` | `0x151E10` | **Implemented** (80 B) | State serialization saving field 104 into stream via `func_00226F70`. |
+| `func_00151E60` | `0x151E60` | **100.0%** (28 / 28 B) | Counter decrement helper in pure C++. |
+| `func_00151E80` | `0x151E80` | **Implemented** (1,120 B) | 64 default virtual method implementations of `TradeActionBase`. |
+
 
 
 

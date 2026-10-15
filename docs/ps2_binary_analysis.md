@@ -3166,8 +3166,15 @@ Following the primary evaluator sits the bilateral market pair evaluation and pr
 #### 6.101 `Trade Action Market Operations` Subsystem (`0x149450`–`0x149660`, `trade_action_market_ops.cpp`)
 
 Following market evaluation sits the market operations filtering and comparator subsystem (`0x149450`–`0x149660`, 528 bytes in Metrowerks C++ PS2 MWCC 2.3.1.01):
-- `func_00149450` (`0x149450`, 432 bytes): Normalizes and filters candidate routes across bounds and computes relative ratings.
-- `func_00149600` (`0x149600`, 96 bytes): Descending float comparator for qsort on entry score field `0x1C`.
+- `func_00149450` (`0x149450`, 432 bytes, 416 bytes code): Normalizes and scores candidate routes across four 2D resource bounds intervals, computes weighted ratings, and sums composite score. **100.0% match**.
+- `func_00149600` (`0x149600`, 96 bytes, 88 bytes code): Descending float comparator for qsort on entry total score field `0x1C`. **100.0% match**.
+
+#### 6.101.1 Trade Action Market Operations Matching Results (100.0% Pure C++)
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_00149450` | `0x149450` | **100.0%** (420 / 420 B) | Candidate route bounds normalization, weighted scoring, and total summation. |
+| `func_00149600` | `0x149600` | **100.0%** (92 / 92 B) | Descending float comparator for qsort on score offset 0x1C. |
 
 #### 6.102 `Trade Action Market Strategy` Subsystem (`0x149660`–`0x1499F0`, `trade_action_market_strategy.cpp`)
 

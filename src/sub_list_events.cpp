@@ -1,9 +1,9 @@
 #include "sub_list.h"
+#include "unit_action_targets.h"
 
 extern "C" {
     int func_1dd700();
     void func_1dd780(void *self);
-    void func_00267530(void *self, int arg1);
     void func_1df2c0(void *self, int msg);
     void* func_333b30(void *container, int id);
     float func_13c430(void *item);
@@ -46,7 +46,9 @@ int SubList::func_0013AA80() {
 
 void SubList::func_0013AB90(int arg1) {
     this->v44();
-    func_00267530(this, arg1);
+    ActionExtended *action = reinterpret_cast<ActionExtended *>(this);
+    WorldExtended *world = reinterpret_cast<WorldExtended *>(arg1);
+    func_00267530(action, world);
     this->v196(0);
 }
 

@@ -4439,7 +4439,7 @@ Independent reproduction via GNU ld relocation resolution confirms:
 - Alignment padding: 40 / 40 B matched (100.0%).
 - Full slice: 949 / 976 B matched (97.23%).
 - All 15 `R_MIPS_26` relocations cleanly resolved without masks.
-- The existing `SubList::func_0013AB90` declaration and call use the same canonical `func_00267530` name as the new implementation. The former `func_267530` spelling is not a second Splat symbol at the same address; this avoids a duplicate-symbol split failure without changing the target address. A fresh comparison also exposed an inherited virtual-dispatch error in this caller: `v46()` emitted offset `0xC0`, while the original uses `0xB8`. Selecting `v44()` corrects that single-byte difference; the caller's 88-byte body is checked against the original separately from the canonical rename.
+- The existing `SubList::func_0013AB90` declaration and call use the same canonical `func_00267530` name as the new implementation. The former `func_267530` spelling is not a second Splat symbol at the same address; this avoids a duplicate-symbol split failure without changing the target address. The caller includes the target's public header and explicitly reinterprets its legacy 32-bit world-address argument as `WorldExtended *`, preserving the existing method ABI while sharing the actual C-linkage prototype. A fresh comparison also exposed an inherited virtual-dispatch error in this caller: `v46()` emitted offset `0xC0`, while the original uses `0xB8`. Selecting `v44()` corrects that single-byte difference; the caller's 88-byte body is checked against the original separately from the canonical rename.
 - Registered as `NonMatching` in `configure.py`.
 
 #### 6.174.1 Unit Action Targets Matching Results (Pure C++, 976-Byte Slice)

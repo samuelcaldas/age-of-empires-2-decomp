@@ -41,6 +41,56 @@ segments:
   - name: pre_mouse
     type: bin
     start: 0x1e0
+  # Identified Metrowerks MSL runtime routines. These are library references, not matched objects.
+  - name: msl_integer_conversions
+    type: code
+    start: 0x14558
+    vram: 0x114378
+    subsegments:
+      - [0x14558, c, msl/atoi]
+      - [0x14580, c, msl/atol]
+  - name: pre_mouse_after_integer_runtime
+    type: bin
+    start: 0x145a0
+  - name: msl_memset
+    type: code
+    start: 0x17e8c
+    vram: 0x117cac
+    subsegments:
+      - [0x17e8c, c, msl/memset]
+  - name: pre_mouse_before_qsort
+    type: bin
+    start: 0x17f50
+  - name: msl_sort_and_random
+    type: code
+    start: 0x19010
+    vram: 0x118e30
+    subsegments:
+      - [0x19010, c, msl/qsort]
+      - [0x19a38, c, msl/srand]
+      - [0x19a48, c, msl/rand]
+  - name: pre_mouse_before_string_runtime
+    type: bin
+    start: 0x19a78
+  - name: msl_strcat
+    type: code
+    start: 0x1a99c
+    vram: 0x11a7bc
+    subsegments:
+      - [0x1a99c, c, msl/strcat]
+  - name: pre_mouse_between_string_runtime
+    type: bin
+    start: 0x1aac8
+  - name: msl_string_comparison_and_copy
+    type: code
+    start: 0x1ac58
+    vram: 0x11aa78
+    subsegments:
+      - [0x1ac58, c, msl/strcmp]
+      - [0x1ad9c, c, msl/strcpy]
+  - name: pre_mouse_after_runtime
+    type: bin
+    start: 0x1aeb0
   - name: kt_mouse
     type: code
     start: 0x34fc8

@@ -2,7 +2,7 @@
 #include "sub_list.h"
 #include "zone_constructor.h"
 
-extern void *D_4D9270;
+extern char D_4D9270[];
 extern void *D_004E3180;
 extern char D_938AC0[];
 extern char D_938CC0[];
@@ -13,9 +13,17 @@ void func_1CDD00(void *self, void *arg);
 void func_1CDE30(void *self, void *arg);
 void *memset(void *dst, int val, unsigned int size);
 
+struct ZoneMap {
+    void *vptr;
+    char payload[0x8EE4];
+    void *m_world;
+    int m_field8EEC;
+};
+
 void *func_001C8CA0(void *self, void *stream, void *arg2) {
-    *(void **)self = &D_4D9270;
-    *(int *)((char *)self + 0x8EEC) = 0;
+    ZoneMap *zm = (ZoneMap *)self;
+    zm->vptr = D_4D9270;
+    zm->m_field8EEC = 0;
 
     int header;
     func_00226D90(stream, &header, 4);

@@ -881,9 +881,27 @@ segments:
     vram: 0x151C70
     subsegments:
       - [0x51E60, asm, trade_action_trade_finalize]
+  - name: trade_action_stream
+    type: code
+    start: 0x524D0
+    vram: 0x1522E0
+    subsegments:
+      - [0x524D0, asm, trade_action_stream]
+  - name: trade_action_stream_reader
+    type: code
+    start: 0x52990
+    vram: 0x1527A0
+    subsegments:
+      - [0x52990, asm, trade_action_stream_reader]
+  - name: trade_action_stream_writers
+    type: code
+    start: 0x52D00
+    vram: 0x152B10
+    subsegments:
+      - [0x52D00, asm, trade_action_stream_writers]
   - name: post_base
     type: bin
-    start: 0x524D0
+    start: 0x53110
   - [0x3e31c0]
 
 

@@ -4021,3 +4021,21 @@ Directly following stream mutators sits the multi-byte stream decode and bitwise
 | `func_0015A9F0` | `0x15A9F0` | **81.19%** (256 B) | 4-byte block decode with secondary 2-byte mask decode. |
 | `func_0015AAF0` | `0x15AAF0` | **81.19%** (256 B) | 4-byte block decode with secondary 2-byte mask decode. |
 
+#### 6.156 `Trade Action Stream Decoders 3` Subsystem (`0x15ABF0`–`0x15B0E0`, `trade_action_stream_decoders3.cpp`)
+
+Directly following stream decoders 2 sits the multi-phase stream OR-masking and block decode subsystem (`0x15ABF0`–`0x15B0E0`, 1,264 bytes across 5 functions in Metrowerks C++ PS2 MWCC 2.3.1.01):
+- `func_0015ABF0` (`0x15ABF0`, 272 bytes, **86.06% match**): Dual-cycle 4-byte and 3-byte stream decoder applying bitwise OR `D_004E2DA0 |= D_004E2DA4` between validation passes with 7 total bytes transferred.
+- `func_0015AD00` (`0x15AD00`, 272 bytes, **86.06% match**): Matching dual-cycle 4-byte and 3-byte stream decoder with bitwise OR flag application.
+- `func_0015AE10` (`0x15AE10`, 272 bytes, **86.06% match**): Matching dual-cycle 4-byte and 3-byte stream decoder with bitwise OR flag application.
+- `func_0015AF20` (`0x15AF20`, 272 bytes, **86.06% match**): Matching dual-cycle 4-byte and 3-byte stream decoder with bitwise OR flag application.
+- `func_0015B030` (`0x15B030`, 176 bytes, **82.86% match**): Unrolled 4-byte block copy loop executing `func_001522C0` validation and OR mask staging while decrementing `D_004E2DA8 -= 4`.
+
+#### 6.156.1 Trade Action Stream Decoders 3 Matching Results (Pure C++, 1,264 Bytes)
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_0015ABF0` | `0x15ABF0` | **86.06%** (231 / 268 B) | Dual-cycle 4-byte and 3-byte decoder with OR-masking. |
+| `func_0015AD00` | `0x15AD00` | **86.06%** (231 / 268 B) | Dual-cycle 4-byte and 3-byte decoder with OR-masking. |
+| `func_0015AE10` | `0x15AE10` | **86.06%** (231 / 268 B) | Dual-cycle 4-byte and 3-byte decoder with OR-masking. |
+| `func_0015AF20` | `0x15AF20` | **86.06%** (231 / 268 B) | Dual-cycle 4-byte and 3-byte decoder with OR-masking. |
+| `func_0015B030` | `0x15B030` | **82.86%** (143 / 172 B) | 4-byte validated block copy loop with OR-masking. |

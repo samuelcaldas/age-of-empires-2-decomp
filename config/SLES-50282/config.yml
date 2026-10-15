@@ -1031,9 +1031,15 @@ segments:
     vram: 0x15A710
     subsegments:
       - [0x5A900, asm, trade_action_stream_decoders2]
+  - name: trade_action_stream_decoders3
+    type: code
+    start: 0x5ADE0
+    vram: 0x15ABF0
+    subsegments:
+      - [0x5ADE0, asm, trade_action_stream_decoders3]
   - name: post_base
     type: bin
-    start: 0x5ADE0
+    start: 0x5B2D0
   - [0x3e31c0]
 
 

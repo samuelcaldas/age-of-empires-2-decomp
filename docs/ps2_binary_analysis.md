@@ -4232,3 +4232,22 @@ Directly beginning the `aoe4` fixed address range (`0x305830`–`0x38A360`) sits
 | `func_00305B90` | `0x305B90` | **100.00%** (8 / 8 B code, 16 B slice) | Stub virtual method for Tactical AI Player Operations. |
 | `func_00305BA0` | `0x305BA0` | **100.00%** (40 / 40 B code, 48 B slice) | Player object lookup delegating to `func_332e60`. |
 | `func_00305BD0` | `0x305BD0` | **100.00%** (216 / 216 B code, 224 B slice) | Tactical AI multi-player buffered command dispatcher. |
+
+#### 6.166 `Unit Action Targets` Subsystem (`0x267380`–`0x267750`, `unit_action_targets.cpp`)
+
+Located at VRAM `0x267380`–`0x267750` (file offset `0x167560`–`0x167930`, 976 bytes total across 5 functions, Metrowerks C++ PS2 MWCC 2.3.1.01):
+- `func_00267380` (`0x267380`, 80 B, **100.0% exact match**): Target elevation setter and conditional clamp. Implemented as a leaf function via `#pragma exceptions off` evaluating unit type at `m_field4[2]` (switch cases 0 and 1) and updating `m_z`.
+- `func_002673D0` (`0x2673D0`, 228 B code, 240 B slice, **95.00% match** [100% instructions match; remaining diffs are unlinked relocations and 12 B padding]): Target change dispatcher and notification forwarder. Updates `m_field14 = m_field10`, dispatches `func_1827B0` or `func_2634A0`/`func_26A460`, updates target ID, and sends action state change notifications via `func_182610`.
+- `func_002674C0` (`0x2674C0`, 52 B code, 64 B slice, **81.25% match** [100% instructions match; remaining diff is 12 B alignment padding]): Conditional notification forwarder executing `func_182610(self->m_fieldC, arg1, arg2, 0, 0, self->m_field35)`.
+- `func_00267500` (`0x267500`, 40 B code, 48 B slice, **83.33% match** [100% instructions match; remaining diffs are unlinked relocations and 8 B padding]): Conditional target notifier executing `func_1827B0(self->m_fieldC, arg1)`.
+- `func_00267530` (`0x267530`, 524 B code, 544 B slice, **96.53% match** [100% instructions match; remaining diffs are unlinked relocations and 8 B padding]): Entity initialization, unit action state scaling, and world container binding. Resolves entity pointer via `world->m_entities[id]`, conditionally executes spatial update `func_205F70`, computes scaled progress `f20 = ((float)val1 * self->m_field30) / (float)val2` via delay-slot `div.s` into `jal func_2643c0`, executes virtual dispatch `Method62` (slot 62), invokes `WorldSub1B30` methods `Method114` (slot 69) and `Method110` (slot 68), updates target via `Method19` (slot 19), binds world and entity pointers, executes `Method61` (slot 61) and `func_264290`, and finalizes world container binding via `Method90` (slot 90).
+
+#### 6.166.1 Unit Action Targets Matching Results (100.0% Pure C++, 976-Byte Slice)
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_00267380` | `0x267380` | **100.0%** (80 / 80 B) | Target elevation clamp and setter switch statement. |
+| `func_002673D0` | `0x2673D0` | **95.00%** (228 B code, 240 B slice) | Target change dispatcher and state notification forwarder. |
+| `func_002674C0` | `0x2674C0` | **81.25%** (52 B code, 64 B slice) | Conditional action code notification via `func_182610`. |
+| `func_00267500` | `0x267500` | **83.33%** (40 B code, 48 B slice) | Conditional target notifier via `func_1827B0`. |
+| `func_00267530` | `0x267530` | **96.53%** (524 B code, 544 B slice) | Entity initialization, unit state scaling, and world bind. |

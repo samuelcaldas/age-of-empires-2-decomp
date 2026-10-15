@@ -3747,7 +3747,7 @@ Directly following stream records sits the bitwise-masked stream parser and mult
 | `func_00154EA0` | `0x154EA0` | **80.32%** (199 / 248 B) | 4-byte block parser with trailing byte masking and stream transfer. |
 | `func_00154FA0` | `0x154FA0` | **78.48%** (201 / 256 B) | Composite 3-byte and 2-byte dual-cycle validated stream parser. |
 
-#### 6.140b `Trade Action Stream Bitmasks & Block Staging` Subsystem (`0x1550A0`–`0x155600`, `trade_action_stream_bitmasks.cpp`)
+#### 6.141 `Trade Action Stream Bitmasks & Block Staging` Subsystem (`0x1550A0`–`0x155600`, `trade_action_stream_bitmasks.cpp`)
 
 Directly following stream parsers sits the stream bitmasking and dual-cycle block staging subsystem (`0x1550A0`–`0x155600`, 1,376 bytes across 5 functions). It implements specialized word bitmasking via `Buffer4` (`D_004E2DA0`), bitmasks `D_004E30A8` and `D_004E30AC`, and dual validation calls (`func_001522C0`):
 - `func_001550A0` (`0x1550A0`, 252 bytes): Dual 2-byte and 3-byte masked stream transfer with dual `func_001522C0` cycles. **91.75% pure C++ match**.
@@ -3756,7 +3756,7 @@ Directly following stream parsers sits the stream bitmasking and dual-cycle bloc
 - `func_001553C0` (`0x1553C0`, 280 bytes): Offset -1 3-byte validated stream extraction followed by secondary 3-byte stream flush. **92.51% pure C++ match**.
 - `func_001554E0` (`0x1554E0`, 276 bytes): 2-byte validated stream extraction followed by secondary 4-byte masked stream payload. **92.41% pure C++ match**.
 
-#### 6.140b.1 Trade Action Stream Bitmasks Matching Results (Pure C++, 1,376 Bytes)
+#### 6.141.1 Trade Action Stream Bitmasks Matching Results (Pure C++, 1,376 Bytes)
 
 | Function / Method | VRAM Address | Match Status | Description |
 |---|---|---|---|
@@ -3766,7 +3766,24 @@ Directly following stream parsers sits the stream bitmasking and dual-cycle bloc
 | `func_001553C0` | `0x1553C0` | **92.51%** (280 B) | Offset -1 3-byte validated stream transfer with secondary 3-byte flush. |
 | `func_001554E0` | `0x1554E0` | **92.41%** (276 B) | 2-byte validated stream extraction with secondary 4-byte stream block. |
 
-#### 6.141 `Trade Action Stream Filters & 4-Byte Block Transformers` Subsystem (`0x155B10`–`0x1560D0`, `trade_action_stream_filters.cpp`)
+#### 6.142 `Trade Action Stream Transformers` Subsystem (`0x155600`–`0x155B10`, `trade_action_stream_transformers.cpp`)
+
+Directly following stream bitmasks sits the multi-phase stream transformation and byte alignment unmarshaling subsystem (`0x155600`–`0x155B10`, 1,296 bytes in Metrowerks C++ PS2 MWCC 2.3.1.01):
+- `func_00155600` (`0x155600`, 336 bytes, **78.25% match**): Staged 1-byte prefix transformer staging `D_004E2DA0[1]`, followed by `func_001522C0` buffer validation, 4-byte stream transfer, and trailing byte masking.
+- `func_00155750` (`0x155750`, 304 bytes, **81.64% match**): Dual-validation 4-byte and 3-byte composite transformer invoking two sequential `func_001522C0` cycles with 7 total bytes transferred.
+- `func_00155880` (`0x155880`, 304 bytes, **81.88% match**): Stream offset -1 validator transferring 3 bytes, followed by standard `func_001522C0` validation and 4-byte block copy loop.
+- `func_001559B0` (`0x1559B0`, 352 bytes, **77.97% match**): 2-byte prefix and 4-byte body transformer with trailing byte mask and output staging.
+
+#### 6.142.1 Trade Action Stream Transformers Matching Results (Pure C++, 1,296 Bytes)
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_00155600` | `0x155600` | **78.25%** (254 / 324 B) | 1-byte prefix transformer with 4-byte validated body and trailer. |
+| `func_00155750` | `0x155750` | **81.64%** (245 / 300 B) | Dual-validation 4-byte and 3-byte sequential stream transformer. |
+| `func_00155880` | `0x155880` | **81.88%** (249 / 304 B) | Offset -1 validator with 3-byte prefix and 4-byte block copy. |
+| `func_001559B0` | `0x1559B0` | **77.97%** (275 / 352 B) | 2-byte prefix and 4-byte validated body with trailing byte. |
+
+#### 6.143 `Trade Action Stream Filters & 4-Byte Block Transformers` Subsystem (`0x155B10`–`0x1560D0`, `trade_action_stream_filters.cpp`)
 
 Following stream transformers is the stream filters subsystem (`0x155B10`–`0x1560D0`, 1,472 bytes across 5 functions). It implements multi-stage block stream transformations combining sub-block alignment calls (`func_001522C0`), `Buffer4` staging (`D_004E2DA0`), bitmasking via `D_004E30A8`/`D_004E30AC`, and unrolled 4-byte `do-while` stream copy loops:
 - `func_00155B10` (`0x155B10`, 352 bytes): 3-phase composite stream filter with 1-byte head, 4-byte middle block, and 2-byte trailer flush. **94.55% pure C++ match**.
@@ -3775,7 +3792,7 @@ Following stream transformers is the stream filters subsystem (`0x155B10`–`0x1
 - `func_00155E50` (`0x155E50`, 304 bytes): 2-byte prefix staging filter followed by continuous 4-byte validated stream block loop. **89.33% pure C++ match**.
 - `func_00155F80` (`0x155F80`, 336 bytes): Offset -1 3-byte prefix filter followed by continuous 4-byte validated stream block loop. **90.23% pure C++ match**.
 
-#### 6.141.1 Trade Action Stream Filters Matching Results (Pure C++, 1,472 Bytes)
+#### 6.143.1 Trade Action Stream Filters Matching Results (Pure C++, 1,472 Bytes)
 
 | Function / Method | VRAM Address | Match Status | Description |
 |---|---|---|---|

@@ -3422,6 +3422,17 @@ Following market trade sits the core trade event processing and market managemen
 |---|---|---|---|
 | `func_0014D290` | `0x14D290` | **Implemented** (6,064 B) | Master trade action event processing state machine in pure C++. |
 
+#### 6.120 `Trade Action Market Actions & Candidate Selection` Subsystem (`0x14EE80`–`0x14F250`, `trade_action_market_eval_planner.cpp`)
+
+Following market selection sits the route node candidate search and market evaluation subsystem (`0x14EE80`–`0x14F250`, 976 bytes in Metrowerks C++ PS2 MWCC 2.3.1.01):
+- `func_0014EE80` (`0x14EE80`, 976 bytes, **89.73% match**): Iterative trade candidate market evaluator and route validator. Probes spatial candidate markets via `func_3283C0`, performs alliance team validation (`func_269FF0`), checks building occupancy and range thresholds (5.0f / 10.0f limits), enforces entity limits via `m_field39` and `m_field3A`, dispatches virtual method `Method1B8` (offset `0x1B8`), tracks visited node history (100-entry array), and updates output travel distance.
+
+#### 6.120.1 Trade Action Market Actions Matching Results (Pure C++, 976 Bytes)
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_0014EE80` | `0x14EE80` | **89.73%** (876 / 976 B) | Market action candidate evaluator and route validator in pure C++. |
+
 
 
 

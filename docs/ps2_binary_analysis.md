@@ -4075,3 +4075,30 @@ Directly following stream decoders 4 sits the loop-driven stream evaluation and 
 | `func_0015BEC0` | `0x15BEC0` | **81.14%** (240 / 296 B) | Counter decrement + continuous 4-byte block copy loop + 3-byte trailer. |
 | `func_0015BFF0` | `0x15BFF0` | **82.01%** (292 / 356 B) | 1-byte prefix + continuous 4-byte block copy loop + 3-byte trailer. |
 | `func_0015C160` | `0x15C160` | **77.51%** (307 / 396 B) | 2-byte prefix + continuous 4-byte block copy loop + 3-byte trailer. |
+
+#### 6.159 `Trade Action Stream Operators` Subsystem (`0x15C2F0`–`0x15C920`, `trade_action_stream_operators.cpp`)
+
+Directly following stream evaluators sits the secondary bitmasking and shift-operation stream processor subsystem (`0x15C2F0`–`0x15C920`, 1,584 bytes across 9 functions in Metrowerks C++ PS2 MWCC 2.3.1.01):
+- `func_0015C2F0` (`0x15C2F0`, 416 bytes, **82.28% match**): Staged 3-byte prefix operator with `D_004E2DA8 -= 6`, continuous 4-byte validated loop with OR mask `D_004E2DA4`, and 3-byte trailer flush.
+- `func_0015C490` (`0x15C490`, 80 bytes, **78.40% match**): Single-byte direct stream transformer with bitmask `D_004E30A8` and OR-flag `D_004E30B0`.
+- `func_0015C4E0` (`0x15C4E0`, 80 bytes, **78.40% match**): Secondary single-byte direct stream transformer staging `D_004E2DA0[1]`.
+- `func_0015C530` (`0x15C530`, 128 bytes, **79.10% match**): 2-byte validated stream extractor with bitmask `D_004E30A8` and OR-flag `D_004E30B0`.
+- `func_0015C5B0` (`0x15C5B0`, 144 bytes, **75.49% match**): Offset -1 2-byte validated stream extractor with 8-bit right shift operation.
+- `func_0015C640` (`0x15C640`, 160 bytes, **82.49% match**): 3-byte validated stream extractor with bitmask `D_004E30A8` and OR-flag `D_004E30B0`.
+- `func_0015C6E0` (`0x15C6E0`, 160 bytes, **82.95% match**): Offset -1 3-byte validated stream extractor transferring payload bytes [1..3].
+- `func_0015C780` (`0x15C780`, 208 bytes, **77.20% match**): Composite 2-byte validated stream extractor with secondary 1-byte direct stream stage.
+- `func_0015C850` (`0x15C850`, 208 bytes, **76.20% match**): 1-byte prefix transformer followed by 2-byte validated stream extraction.
+
+#### 6.159.1 Trade Action Stream Operators Matching Results (Pure C++, 1,584 Bytes)
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_0015C2F0` | `0x15C2F0` | **82.28%** (335 / 408 B) | 3-byte prefix + continuous 4-byte block copy loop + 3-byte trailer. |
+| `func_0015C490` | `0x15C490` | **78.40%** (62 / 80 B) | Single-byte direct stream transformer leaf function. |
+| `func_0015C4E0` | `0x15C4E0` | **78.40%** (62 / 80 B) | Secondary single-byte direct stream transformer leaf function. |
+| `func_0015C530` | `0x15C530` | **79.10%** (98 / 124 B) | 2-byte validated stream extractor with D_004E30B0 flag. |
+| `func_0015C5B0` | `0x15C5B0` | **75.49%** (105 / 140 B) | Offset -1 2-byte extractor with 8-bit right shift. |
+| `func_0015C640` | `0x15C640` | **82.49%** (122 / 148 B) | 3-byte validated stream extractor with D_004E30B0 flag. |
+| `func_0015C6E0` | `0x15C6E0` | **82.95%** (126 / 152 B) | Offset -1 3-byte validated stream extractor. |
+| `func_0015C780` | `0x15C780` | **77.20%** (154 / 200 B) | Composite 2-byte validated extractor + 1-byte direct stage. |
+| `func_0015C850` | `0x15C850` | **76.20%** (152 / 200 B) | 1-byte prefix transformer + 2-byte validated extraction. |

@@ -50,8 +50,8 @@ void func_002177C0(void *self, int *arr, int arg2, int arg3) {
     func_217B50(self);
 
     void **vtable = *(void ***)self;
-    typedef void (*Fn)(void *);
+    typedef void (*Fn)(void *, int);
     Fn fn = (Fn)*(void **)((char *)vtable + 0x28);
-    fn(self);
+    fn(self, 1);
 }
 }

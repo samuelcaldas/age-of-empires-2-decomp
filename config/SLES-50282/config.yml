@@ -1177,6 +1177,15 @@ segments:
   - name: post_aoe2
     type: bin
     start: 0xC8E80
+  - name: trade_action_helper_217730
+    type: code
+    start: 0x117910
+    vram: 0x217730
+    subsegments:
+      - [0x117910, asm, trade_action_helper_217730]
+  - name: post_trade_action_helper_217730
+    type: bin
+    start: 0x117A20
   - name: unit_action_core
     type: code
     start: 0x166960

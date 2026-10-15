@@ -4494,3 +4494,12 @@ Total: 772 / 808 B code (95.54%) matched byte-for-byte in pure C++ (0 asm files,
 | `func_002679A0` | `0x2679A0` | 224 B | 224 B | **99.73% objdiff fuzzy (author-reported)** (221/224 B) | Multiplicative action property modifier with rounding. |
 
 Two independent fresh MWCC compilations and GNU links reproduced the instruction-byte counts above against the original ELF through its file-backed `PT_LOAD` mapping. All six direct-call relocations resolved to `func_123350` without masks. The eight inter-function padding bytes also matched, for 780 / 816 bytes across the complete slice. The reported fuzzy scores were not independently rerun. The following function starts at `0x267A80` and is excluded.
+
+#### 6.177 `Trade Action Staging Helpers` (`0x217730`–`0x217840`, `trade_action_helper_217730.cpp`)
+
+The atomic slice spans file offsets `0x117910`–`0x117A20` (end-exclusive): 260 original instruction bytes across two complete C++ routines, followed by 12 zero alignment bytes. The following function at `0x217840` is excluded and remains separate WIP; no empty implementation of it is included here.
+
+- `func_00217730` (`0x217730`, 144 original code bytes): Calls `func_00185E20(D_004E3058, index)` with index 2 for a negative argument, otherwise the unchanged argument. A null result supplies three zero values; otherwise it loads the three 32-bit words. It fills all four staging-array entries with the first value and calls the local `func_002177C0` with that array and the remaining two values.
+- `func_002177C0` (`0x2177C0`, 116 original code bytes + 12 padding bytes): Copies the four array words into offsets `0x12C`–`0x138`, stores the other arguments at `0x13C` and `0x140`, calls `func_00217B50(self)`, then invokes the raw vtable entry at byte offset `0x28` with `(self, 1)`.
+
+Independent original-disassembly reviews support both implementations. A fresh MWCC compilation emits 124-byte and 104-byte bodies. A GNU link with `--no-undefined` resolves the real external targets `0x185E20` and `0x217B50`, the global `D_004E3058`, and the internal call to the local second definition. With the real `_gp = 0x4EA7C0`, its GP-relative load uses `-30568(gp)`. The shorter compiled first body places the second definition at `0x2177B0` in a natural link, not at its original `0x2177C0`; this is not an exact-byte matching result. Earlier author-reported fuzzy percentages were not independently reproduced and are not used as byte-equality claims. The unit remains registered as `NonMatching`.

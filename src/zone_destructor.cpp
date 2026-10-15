@@ -55,106 +55,107 @@ public:
 };
 
 void *func_001C8FF0(void *self, int flag) {
-    if (!self) {
-        return 0;
-    }
+    if (self) {
+        ZoneMap *zm = (ZoneMap *)self;
+        zm->vptr = D_4D9270;
 
-    ZoneMap *zm = (ZoneMap *)self;
-    zm->vptr = D_4D9270;
+        if (zm->m_field8EEC) {
+            func_335560(D_4E35DC, zm->m_field8EEC);
+        }
 
-    if (zm->m_field8EEC) {
-        func_335560(D_4E35DC, zm->m_field8EEC);
-    }
+        if (zm->m_field8EE4) {
+            void *obj = zm->m_field8EE4;
+            typedef void (*Dtor)(void *, int);
+            Dtor dtor = *(Dtor *)(*(char **)((char *)obj + 0x34) + 8);
+            dtor(obj, 1);
+        }
 
-    if (zm->m_field8EE4) {
-        ((DestructibleObject *)zm->m_field8EE4)->Destroy(1);
-    }
+        func_1D16D0(self);
 
-    func_1D16D0(self);
+        if (zm->m_field4) {
+            for (int s0 = 0; s0 < zm->m_fieldC; s0++) {
+                for (int s1 = 0; s1 < zm->m_field8; s1++) {
+                    char *cell = (char *)zm->m_field8E8C[s0] + s1 * 28;
+                    void *sub_item = *(void **)(cell + 0x10);
+                    if (sub_item) {
+                        func_25DE30(sub_item, 1);
+                    }
+                }
+            }
+            memset(D_81D120, 0, 0x111700);
+            zm->m_field4 = 0;
+        }
 
-    if (zm->m_field4) {
-        for (int s0 = 0; s0 < zm->m_fieldC; s0++) {
-            for (int s1 = 0; s1 < zm->m_field8; s1++) {
-                char *cell = (char *)zm->m_field8E8C[s0] + s1 * 28;
-                void *sub_item = *(void **)(cell + 0x10);
-                if (sub_item) {
-                    func_25DE30(sub_item, 1);
+        if (zm->m_field8EC4) {
+            memset(D_92E820, 0, 0x9C40);
+            zm->m_field8EC4 = 0;
+        }
+
+        if (zm->m_field8E8C) {
+            memset(D_938460, 0, 0x324);
+            zm->m_field8E8C = 0;
+        }
+
+        if (zm->m_field8EC8) {
+            memset(D_938790, 0, 0x324);
+            zm->m_field8EC8 = 0;
+        }
+
+        for (int s0 = 31; s0 >= 0; s0--) {
+            char *elem = (char *)self + s0 * 416;
+            void *item = *(void **)(elem + 0xAC);
+            if (item) {
+                func_25DE30(item, 1);
+                *(void **)(elem + 0xAC) = 0;
+            }
+        }
+
+        for (int s0 = 15; s0 >= 0; s0--) {
+            char *elem = (char *)self + s0 * 480;
+            void *item = *(void **)(elem + 0x34AC);
+            if (item) {
+                func_25DE30(item, 1);
+                *(void **)(elem + 0x34AC) = 0;
+            }
+        }
+
+        if (zm->m_field8EF0) {
+            func_001389F0(D_4E35DC);
+            zm->m_field8EF0 = 0;
+        }
+
+        if (zm->m_field8EF4) {
+            func_327590(D_4E35DC);
+            zm->m_field8EF4 = 0;
+        }
+
+        if (zm->m_field8ED0 > 0) {
+            if (zm->m_field8EDC) {
+                for (int s0 = 0; s0 < zm->m_field8ED0; s0++) {
+                    func_00100630(zm->m_field8EDC[s0]);
                 }
             }
         }
-        memset(D_81D120, 0, 0x111700);
-        zm->m_field4 = 0;
-    }
 
-    if (zm->m_field8EC4) {
-        memset(D_92E820, 0, 0x9C40);
-        zm->m_field8EC4 = 0;
-    }
-
-    if (zm->m_field8E8C) {
-        memset(D_938460, 0, 0x324);
-        zm->m_field8E8C = 0;
-    }
-
-    if (zm->m_field8EC8) {
-        memset(D_938790, 0, 0x324);
-        zm->m_field8EC8 = 0;
-    }
-
-    for (int s0 = 31; s0 >= 0; s0--) {
-        char *elem = (char *)self + s0 * 416;
-        void *item = *(void **)(elem + 0xAC);
-        if (item) {
-            func_25DE30(item, 1);
-            *(void **)(elem + 0xAC) = 0;
-        }
-    }
-
-    for (int s0 = 15; s0 >= 0; s0--) {
-        char *elem = (char *)self + s0 * 480;
-        void *item = *(void **)(elem + 0x34AC);
-        if (item) {
-            func_25DE30(item, 1);
-            *(void **)(elem + 0x34AC) = 0;
-        }
-    }
-
-    if (zm->m_field8EF0) {
-        func_001389F0(D_4E35DC);
-        zm->m_field8EF0 = 0;
-    }
-
-    if (zm->m_field8EF4) {
-        func_327590(D_4E35DC);
-        zm->m_field8EF4 = 0;
-    }
-
-    if (zm->m_field8ED0 > 0) {
         if (zm->m_field8EDC) {
-            for (int s0 = 0; s0 < zm->m_field8ED0; s0++) {
-                func_00100630(zm->m_field8EDC[s0]);
-            }
+            memset(D_938CC0, 0, 0x200);
+            zm->m_field8EDC = 0;
         }
-    }
 
-    if (zm->m_field8EDC) {
-        memset(D_938CC0, 0, 0x200);
-        zm->m_field8EDC = 0;
-    }
+        if (zm->m_field8ED8) {
+            memset(D_938AC0, 0, 0x200);
+            zm->m_field8ED8 = 0;
+        }
 
-    if (zm->m_field8ED8) {
-        memset(D_938AC0, 0, 0x200);
-        zm->m_field8ED8 = 0;
-    }
+        if (zm->m_field8EE0) {
+            func_1ED830(self);
+        }
 
-    if (zm->m_field8EE0) {
-        func_1ED830(self);
-    }
+        func_1D06A0(self);
 
-    func_1D06A0(self);
-
-    if ((short)flag > 0) {
-        func_00100670(self);
+        if ((short)flag > 0) {
+            func_00100670(self);
+        }
     }
 
     return self;

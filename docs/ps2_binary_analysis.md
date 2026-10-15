@@ -3835,3 +3835,39 @@ Directly following stream collectors sits the bounded counter accumulation and l
 | `func_00156DD0` | `0x156DD0` | **77.24%** (312 / 404 B) | 1-byte prefix + continuous 4-byte block copy loop + 3-byte trailer. |
 | `func_00156F70` | `0x156F70` | **76.66%** (331 / 432 B) | 2-byte prefix + continuous 4-byte block copy loop + 3-byte trailer. |
 | `func_00157120` | `0x157120` | **78.08%** (359 / 460 B) | Offset -1 3-byte prefix + continuous 4-byte block copy loop + 3-byte trailer. |
+
+#### 6.147 `Trade Action Stream Emitters` Subsystem (`0x1572F0`–`0x1577F0`, `trade_action_stream_emitters.cpp`)
+
+Directly following stream accumulators sits the bit stream sequence emitter and leaf variable-length deserialization helper subsystem (`0x1572F0`–`0x1577F0`, 1,280 bytes across 13 leaf functions in Metrowerks C++ PS2 MWCC 2.3.1.01). Each function operates directly as a leaf function (`#pragma exceptions off`, 0 stack allocation) emitting specialized 1-symbol to 5-symbol permutation patterns from `D_004E2DA0` into the output stream `D_004E2DB4`:
+- `func_001572F0` (`0x1572F0`, 28 bytes): 1-symbol pattern [0]. **100.0% exact match** in pure C++.
+- `func_00157310` (`0x157310`, 52 bytes): 2-symbol pattern [0, 1]. **100.0% exact match** in pure C++.
+- `func_00157350` (`0x157350`, 52 bytes): 2-symbol pattern [0, 0]. **100.0% exact match** in pure C++.
+- `func_00157390` (`0x157390`, 76 bytes): 3-symbol pattern [0, 1, 0]. **100.0% exact match** in pure C++.
+- `func_001573E0` (`0x1573E0`, 76 bytes): 3-symbol pattern [0, 0, 1]. **100.0% exact match** in pure C++.
+- `func_00157430` (`0x157430`, 100 bytes): 4-symbol pattern [0, 1, 0, 1]. **100.0% exact match** in pure C++.
+- `func_001574A0` (`0x1574A0`, 100 bytes): 4-symbol pattern [0, 1, 0, 0]. **100.0% exact match** in pure C++.
+- `func_00157510` (`0x157510`, 100 bytes): 4-symbol pattern [0, 1, 0, 1]. **100.0% exact match** in pure C++.
+- `func_00157580` (`0x157580`, 100 bytes): 4-symbol pattern [0, 0, 1, 0]. **100.0% exact match** in pure C++.
+- `func_001575F0` (`0x1575F0`, 124 bytes): 5-symbol pattern [0, 1, 0, 1, 0]. **100.0% exact match** in pure C++.
+- `func_00157670` (`0x157670`, 124 bytes): 5-symbol pattern [0, 1, 0, 0, 1]. **100.0% exact match** in pure C++.
+- `func_001576F0` (`0x1576F0`, 124 bytes): 5-symbol pattern [0, 1, 0, 1, 0]. **100.0% exact match** in pure C++.
+- `func_00157770` (`0x157770`, 124 bytes): 5-symbol pattern [0, 0, 1, 0, 1]. **100.0% exact match** in pure C++.
+
+#### 6.147.1 Trade Action Stream Emitters Matching Results (100.00% Pure C++, 1,280 Bytes)
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_001572F0` | `0x1572F0` | **100.0%** (28 / 28 B) | 1-symbol pattern [0]. |
+| `func_00157310` | `0x157310` | **100.0%** (52 / 52 B) | 2-symbol pattern [0, 1]. |
+| `func_00157350` | `0x157350` | **100.0%** (52 / 52 B) | 2-symbol pattern [0, 0]. |
+| `func_00157390` | `0x157390` | **100.0%** (76 / 76 B) | 3-symbol pattern [0, 1, 0]. |
+| `func_001573E0` | `0x1573E0` | **100.0%** (76 / 76 B) | 3-symbol pattern [0, 0, 1]. |
+| `func_00157430` | `0x157430` | **100.0%** (100 / 100 B) | 4-symbol pattern [0, 1, 0, 1]. |
+| `func_001574A0` | `0x1574A0` | **100.0%** (100 / 100 B) | 4-symbol pattern [0, 1, 0, 0]. |
+| `func_00157510` | `0x157510` | **100.0%** (100 / 100 B) | 4-symbol pattern [0, 1, 0, 1]. |
+| `func_00157580` | `0x157580` | **100.0%** (100 / 100 B) | 4-symbol pattern [0, 0, 1, 0]. |
+| `func_001575F0` | `0x1575F0` | **100.0%** (124 / 124 B) | 5-symbol pattern [0, 1, 0, 1, 0]. |
+| `func_00157670` | `0x157670` | **100.0%** (124 / 124 B) | 5-symbol pattern [0, 1, 0, 0, 1]. |
+| `func_001576F0` | `0x1576F0` | **100.0%** (124 / 124 B) | 5-symbol pattern [0, 1, 0, 1, 0]. |
+| `func_00157770` | `0x157770` | **100.0%** (124 / 124 B) | 5-symbol pattern [0, 0, 1, 0, 1]. |
+

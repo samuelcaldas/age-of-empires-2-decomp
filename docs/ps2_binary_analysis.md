@@ -4039,3 +4039,20 @@ Directly following stream decoders 2 sits the multi-phase stream OR-masking and 
 | `func_0015AE10` | `0x15AE10` | **86.06%** (231 / 268 B) | Dual-cycle 4-byte and 3-byte decoder with OR-masking. |
 | `func_0015AF20` | `0x15AF20` | **86.06%** (231 / 268 B) | Dual-cycle 4-byte and 3-byte decoder with OR-masking. |
 | `func_0015B030` | `0x15B030` | **82.86%** (143 / 172 B) | 4-byte validated block copy loop with OR-masking. |
+
+#### 6.157 `Trade Action Stream Evaluators` Subsystem (`0x15BD30`–`0x15C2F0`, `trade_action_stream_evaluators.cpp`)
+
+Directly following stream decoders 4 sits the loop-driven stream evaluation and multi-phase block unmarshaling subsystem (`0x15BD30`–`0x15C2F0`, 1,472 bytes across 4 functions in Metrowerks C++ PS2 MWCC 2.3.1.01):
+- `func_0015BD30` (`0x15BD30`, 400 bytes, **80.94% match**): Staged 3-byte prefix evaluator with `D_004E2DA8 -= 5`, continuous 4-byte validated loop with OR mask `D_004E2DA4`, and 2-byte trailer flush.
+- `func_0015BEC0` (`0x15BEC0`, 304 bytes, **81.14% match**): Bounded 4-byte stream transfer loop initialized with `D_004E2DA8 -= 3`, executing repeated `func_001522C0` validation cycles and transferring 3 trailing bytes.
+- `func_0015BFF0` (`0x15BFF0`, 368 bytes, **82.01% match**): 1-byte prefix evaluator with `D_004E2DA8 -= 4`, continuous 4-byte loop with OR mask `D_004E2DA4`, and 3-byte trailing stream flush.
+- `func_0015C160` (`0x15C160`, 400 bytes, **77.51% match**): 2-byte prefix evaluator with `D_004E2DA8 -= 5`, continuous 4-byte loop with OR mask `D_004E2DA4`, and 3-byte trailing stream flush.
+
+#### 6.157.1 Trade Action Stream Evaluators Matching Results (Pure C++, 1,472 Bytes)
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_0015BD30` | `0x15BD30` | **80.94%** (320 / 396 B) | 3-byte prefix + continuous 4-byte block copy loop + 2-byte trailer. |
+| `func_0015BEC0` | `0x15BEC0` | **81.14%** (240 / 296 B) | Counter decrement + continuous 4-byte block copy loop + 3-byte trailer. |
+| `func_0015BFF0` | `0x15BFF0` | **82.01%** (292 / 356 B) | 1-byte prefix + continuous 4-byte block copy loop + 3-byte trailer. |
+| `func_0015C160` | `0x15C160` | **77.51%** (307 / 396 B) | 2-byte prefix + continuous 4-byte block copy loop + 3-byte trailer. |

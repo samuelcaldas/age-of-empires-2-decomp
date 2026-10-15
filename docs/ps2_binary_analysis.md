@@ -3976,3 +3976,28 @@ Directly following stream sequence sits the multi-symbol pattern serialization s
 | `func_001592F0` | `0x1592F0` | **100.0%** (172 / 172 B) | 7-symbol pattern [1, 0, 1, 0, 1, 2, 3]. |
 | `func_001593A0` | `0x1593A0` | **100.0%** (172 / 172 B) | 7-symbol pattern [0, 1, 0, 1, 2, 3, 0]. |
 | `func_00159450` | `0x159450` | **100.0%** (172 / 172 B) | 7-symbol pattern [1, 0, 1, 2, 3, 0, 1]. |
+
+#### 6.153 `Trade Action Stream Dispatchers` Subsystem (`0x159500`–`0x159AB0`, `trade_action_stream_dispatchers.cpp`)
+
+Directly following stream patterns sits the stream dispatchers and loop-driven block unpacking subsystem (`0x159500`–`0x159AB0`, 1,456 bytes across 8 functions in Metrowerks C++ PS2 MWCC 2.3.1.01). Each function operates directly as a leaf function (`#pragma exceptions off`, 0 stack allocation) executing unrolled 4-byte `do-while` block stream writes with specialized prefix and suffix permutations:
+- `func_00159500` (`0x159500`, 120 bytes): Continuous 4-byte block copy loop. **88.97% pure C++ match**.
+- `func_00159580` (`0x159580`, 156 bytes): 1-byte prefix + continuous 4-byte block copy loop. **91.51% pure C++ match**.
+- `func_00159620` (`0x159620`, 180 bytes): 2-byte prefix + continuous 4-byte block copy loop. **92.64% pure C++ match**.
+- `func_001596E0` (`0x1596E0`, 204 bytes): 3-byte prefix + continuous 4-byte block copy loop. **93.51% pure C++ match**.
+- `func_001597B0` (`0x1597B0`, 152 bytes): Counter decrement + continuous 4-byte block loop + 1-byte trailer flush. **91.29% pure C++ match**.
+- `func_00159850` (`0x159850`, 176 bytes): 1-byte prefix + continuous 4-byte block loop + 1-byte trailer flush. **92.48% pure C++ match**.
+- `func_00159900` (`0x159900`, 200 bytes): 2-byte prefix + continuous 4-byte block loop + 1-byte trailer flush. **93.38% pure C++ match**.
+- `func_001599D0` (`0x1599D0`, 224 bytes): 3-byte prefix + continuous 4-byte block loop + 1-byte trailer flush. **94.09% pure C++ match**.
+
+#### 6.153.1 Trade Action Stream Dispatchers Matching Results (Pure C++, 1,456 Bytes)
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_00159500` | `0x159500` | **88.97%** (120 B) | Continuous 4-byte block copy loop. |
+| `func_00159580` | `0x159580` | **91.51%** (156 B) | 1-byte prefix + continuous 4-byte block copy loop. |
+| `func_00159620` | `0x159620` | **92.64%** (180 B) | 2-byte prefix + continuous 4-byte block copy loop. |
+| `func_001596E0` | `0x1596E0` | **93.51%** (204 B) | 3-byte prefix + continuous 4-byte block copy loop. |
+| `func_001597B0` | `0x1597B0` | **91.29%** (152 B) | Continuous 4-byte loop with 1-byte trailer flush. |
+| `func_00159850` | `0x159850` | **92.48%** (176 B) | 1-byte prefix + continuous 4-byte loop + 1-byte trailer flush. |
+| `func_00159900` | `0x159900` | **93.38%** (200 B) | 2-byte prefix + continuous 4-byte loop + 1-byte trailer flush. |
+| `func_001599D0` | `0x1599D0` | **94.09%** (224 B) | 3-byte prefix + continuous 4-byte loop + 1-byte trailer flush. |

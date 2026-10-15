@@ -5,12 +5,12 @@ struct MasterInfo;
 
 extern "C" {
 
-void func_001C8480(void *obj, char val);
-int func_001C84A0(MasterInfo *master, float *p_x, float *p_y, void *map, int snap);
-void func_001C8770();
-void func_001C8A40();
-void *func_001C8BF0(void *self);
+void func_001C8490(void *obj, char val);
+int func_001C84B0(MasterInfo *master, float *p_x, float *p_y, void *map, int snap);
+void func_001C8780();
+void func_001C8A50();
 void *func_001C8C00(void *self);
+void *func_001C8C10(void *self);
 
 }
 

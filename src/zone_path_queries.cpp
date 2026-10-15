@@ -12,13 +12,13 @@ struct MasterInfo {
 
 int func_123350(float val);
 
-void func_001C8480(void *obj, char val) {
+void func_001C8490(void *obj, char val) {
     if (!*(unsigned char *)((char *)obj + 0x43)) {
         *(char *)((char *)obj + 0x42) = val;
     }
 }
 
-int func_001C84A0(MasterInfo *master, float *p_x, float *p_y, void *map, int snap) {
+int func_001C84B0(MasterInfo *master, float *p_x, float *p_y, void *map, int snap) {
     void *s0 = *(void **)((char *)map + 0x3C);
     int map_w = *(int *)((char *)s0 + 0x8);
     int map_h = *(int *)((char *)s0 + 0xC);
@@ -80,14 +80,14 @@ int func_001C84A0(MasterInfo *master, float *p_x, float *p_y, void *map, int sna
     return 1;
 }
 
-void func_001C8770() {}
-void func_001C8A40() {}
+void func_001C8780() {}
+void func_001C8A50() {}
 
-void *func_001C8BF0(void *self) {
+void *func_001C8C00(void *self) {
     return *(void **)((char *)self + 0x84);
 }
 
-void *func_001C8C00(void *self) {
+void *func_001C8C10(void *self) {
     return *(void **)((char *)self + 0x88);
 }
 

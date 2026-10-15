@@ -4173,26 +4173,26 @@ Directly beginning the `aoe2` fixed address range (`0x1C7330`–`0x2665B0`) sits
 |---|---|---|---|
 | `func_001C7850` | `0x1C7850` | **44.58%** (3,116 / 3,120 B) | Building placement obstruction and spatial perimeter validator. |
 
-#### 6.162 `Zone Path Queries & Position Clamping` Subsystem (`0x1C8480`–`0x1C8C10`, `zone_path_queries.cpp`)
+#### 6.162 `Zone Path Queries & Position Clamping` Subsystem (`0x1C8490`–`0x1C8C10`, `zone_path_queries.cpp`)
 
-Following the core placement validator sits the spatial queries, tile snapping, and coordinate clamping subsystem (`0x1C8480`–`0x1C8C10`, 1,936 bytes across 6 functions in Metrowerks C++ PS2 MWCC 2.3.1.01):
-- `func_001C8480` (`0x1C8480`, 32 bytes): Status byte updater conditionally writing to `0x42` based on flag `0x43`. **100.0% exact match** in pure C++.
-- `func_001C84A0` (`0x1C84A0`, 720 bytes): Map boundary clamping and grid-snapping validator (`func_123350`) adjusting entity coordinates to half-tile or full-tile centers. **60.34% pure C++ match**.
-- `func_001C8770` (`0x1C8770`, 720 bytes): Spatial ray-casting and tile coordinate query routine.
-- `func_001C8A40` (`0x1C8A40`, 432 bytes): MapZone coordinate projection and ray validator dispatching `func_262570` and `func_1D0350`.
-- `func_001C8BF0` (`0x1C8BF0`, 16 bytes): Fast atomic accessor returning pointer at offset `0x84`. **100.0% exact match** in pure C++.
-- `func_001C8C00` (`0x1C8C00`, 16 bytes): Fast atomic accessor returning pointer at offset `0x88`. **100.0% exact match** in pure C++.
+Following the core placement validator sits the spatial queries, tile snapping, and coordinate clamping subsystem (`0x1C8490`–`0x1C8C10`, 1,936 bytes across 6 functions in Metrowerks C++ PS2 MWCC 2.3.1.01):
+- `func_001C8490` (`0x1C8490`, 32 bytes): Status byte updater conditionally writing to `0x42` based on flag `0x43`. **100.0% exact match** in pure C++.
+- `func_001C84B0` (`0x1C84B0`, 720 bytes): Map boundary clamping and grid-snapping validator (`func_123350`) adjusting entity coordinates to half-tile or full-tile centers. **98.13% pure C++ match**.
+- `func_001C8780` (`0x1C8780`, 720 bytes): Spatial ray-casting and tile coordinate query routine.
+- `func_001C8A50` (`0x1C8A50`, 432 bytes): MapZone coordinate projection and ray validator dispatching `func_262570` and `func_1D0350`.
+- `func_001C8C00` (`0x1C8C00`, 16 bytes): Fast atomic accessor returning pointer at offset `0x84`. **100.0% exact match** in pure C++.
+- `func_001C8C10` (`0x1C8C10`, 16 bytes): Fast atomic accessor returning pointer at offset `0x88`. **100.0% exact match** in pure C++.
 
 #### 6.162.1 Zone Path Queries Matching Results (Pure C++, 1,936 Bytes)
 
 | Function / Method | VRAM Address | Match Status | Description |
 |---|---|---|---|
-| `func_001C8480` | `0x1C8480` | **100.0%** (24 / 24 B) | Conditional byte state updater. |
-| `func_001C84A0` | `0x1C84A0` | **60.34%** (708 / 720 B) | Map boundary clamping and tile-snapping coordinator. |
-| `func_001C8770` | `0x1C8770` | Pure C++ | Spatial ray-casting and tile coordinate query routine. |
-| `func_001C8A40` | `0x1C8A40` | Pure C++ | MapZone coordinate projection and ray validator. |
-| `func_001C8BF0` | `0x1C8BF0` | **100.0%** (8 / 8 B) | Atomic pointer accessor for offset 0x84. |
-| `func_001C8C00` | `0x1C8C00` | **100.0%** (8 / 8 B) | Atomic pointer accessor for offset 0x88. |
+| `func_001C8490` | `0x1C8490` | **100.0%** (24 / 24 B) | Conditional byte state updater. |
+| `func_001C84B0` | `0x1C84B0` | **98.13%** (708 / 720 B) | Map boundary clamping and tile-snapping coordinator. |
+| `func_001C8780` | `0x1C8780` | Pure C++ | Spatial ray-casting and tile coordinate query routine. |
+| `func_001C8A50` | `0x1C8A50` | Pure C++ | MapZone coordinate projection and ray validator. |
+| `func_001C8C00` | `0x1C8C00` | **100.0%** (8 / 8 B) | Atomic pointer accessor for offset 0x84. |
+| `func_001C8C10` | `0x1C8C10` | **100.0%** (8 / 8 B) | Atomic pointer accessor for offset 0x88. |
 
 #### 6.163 `Unit Action Core & Serialization` Subsystem (`0x266780`–`0x266C50`, `unit_action_core.cpp`)
 

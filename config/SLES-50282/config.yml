@@ -1120,19 +1120,19 @@ segments:
   - name: trade_action_stream_decoders5
     type: code
     start: 0x5D080
-    vram: 0x15CE90
+    vram: 0x15CEA0
     subsegments:
       - [0x5D080, asm, trade_action_stream_decoders5]
   - name: trade_action_stream_decoders6
     type: code
     start: 0x5D5E0
-    vram: 0x15D3F0
+    vram: 0x15D400
     subsegments:
       - [0x5D5E0, asm, trade_action_stream_decoders6]
   - name: trade_action_stream_decoders7
     type: code
     start: 0x5DC50
-    vram: 0x15DA60
+    vram: 0x15DA70
     subsegments:
       - [0x5DC50, asm, trade_action_stream_decoders7]
   - name: post_base

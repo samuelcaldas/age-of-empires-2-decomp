@@ -22,7 +22,7 @@ static inline void stage_masked_input(int input_advance, int source_offset) {
 }
 
 /** Emit a staged prefix byte, a masked 4-byte phase, and a 1-byte phase. */
-void func_0015D3F0() {
+void func_0015D400() {
     D_004E2DA0.bytes[1] = *D_004E2DB0++;
     D_004E2DA0.word = D_004E2DA0.word & D_004E30A8;
     D_004E2DA0.word = D_004E2DA0.word | D_004E30B0;
@@ -39,7 +39,7 @@ void func_0015D3F0() {
 }
 
 /** Emit a masked 4-byte phase followed by a masked 3-byte phase. */
-void func_0015D540() {
+void func_0015D550() {
     stage_masked_input(4, 0);
     *D_004E2DB4++ = D_004E2DA0.bytes[0];
     *D_004E2DB4++ = D_004E2DA0.bytes[1];
@@ -52,7 +52,7 @@ void func_0015D540() {
 }
 
 /** Emit three offset staging bytes followed by a masked 4-byte phase. */
-void func_0015D670() {
+void func_0015D680() {
     stage_masked_input(3, -1);
     *D_004E2DB4++ = D_004E2DA0.bytes[1];
     *D_004E2DB4++ = D_004E2DA0.bytes[2];
@@ -65,7 +65,7 @@ void func_0015D670() {
 }
 
 /** Emit a masked 2-byte phase, a 4-byte phase, and a 1-byte phase. */
-void func_0015D7A0() {
+void func_0015D7B0() {
     stage_masked_input(2, 0);
     *D_004E2DB4++ = D_004E2DA0.bytes[0];
     *D_004E2DB4++ = D_004E2DA0.bytes[1];
@@ -81,7 +81,7 @@ void func_0015D7A0() {
 }
 
 /** Emit a staged prefix byte, a masked 4-byte phase, and a 2-byte phase. */
-void func_0015D900() {
+void func_0015D910() {
     D_004E2DA0.bytes[1] = *D_004E2DB0++;
     D_004E2DA0.word = D_004E2DA0.word & D_004E30A8;
     D_004E2DA0.word = D_004E2DA0.word | D_004E30B0;

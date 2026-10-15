@@ -4195,23 +4195,23 @@ Directly following stream operators sits the secondary bitmask-driven stream eva
 | `func_0015CC90` | `0x15CC90` | **80.32%** (199 / 248 B) | 4-byte block evaluator with trailing byte masking and stream transfer. |
 | `func_0015CD90` | `0x15CD90` | **78.48%** (201 / 256 B) | Composite 3-byte and 2-byte dual-cycle validated stream evaluator. |
 
-#### 6.161 `Trade Action Stream Decoders 5` Subsystem (`0x15CE90`–`0x15D3F0`, `trade_action_stream_decoders5.cpp`)
+#### 6.161 `Trade Action Stream Decoders 5` Subsystem (`0x15CEA0`–`0x15D400`, `trade_action_stream_decoders5.cpp`)
 
-The slice contains five two-phase stream routines compiled with MWCCPS2 2.3.1.01. Its 1,376 bytes comprise 1,332 instruction bytes and 44 alignment bytes. Each staged phase calls `func_001522C0`, advances input cursor `D_004E2DB0`, applies AND mask `D_004E30A8` and OR mask `D_004E30B0`, and emits individual staging bytes to `D_004E2DB4`. The helper's higher-level purpose and the masks' domain meanings are not yet established.
+The slice contains five two-phase stream routines compiled with MWCCPS2 2.3.1.01. Its 1,376 bytes comprise 1,332 instruction bytes and 44 alignment bytes. The VRAM address range is derived strictly from the ELF `PT_LOAD` program header (`p_offset 0x1E0`, `p_vaddr 0x100000`, file slice `0x5D080`–`0x5D5E0`). Each staged phase calls `func_001522C0`, advances input cursor `D_004E2DB0`, applies AND mask `D_004E30A8` and OR mask `D_004E30B0`, and emits individual staging bytes to `D_004E2DB4`.
 
 #### 6.161.1 Trade Action Stream Decoders 5 Matching Results
 
-All five functions report **100.00%** in objdiff. Independently linking the C++ object at its original address and resolving its external calls and GP-relative references also produces **byte-for-byte equality for the entire 1,376-byte slice**, including all alignment padding. The unit is therefore registered `Matching`.
+All five functions report **100.00%** in objdiff. Independently linking the C++ object at its true `PT_LOAD` VRAM address (`0x15CEA0`) and resolving its external calls and GP-relative references also produces **byte-for-byte equality for the entire 1,376-byte slice**, including all alignment padding. The unit is registered `Matching`.
 
 | Function | Exact instruction bytes | Match | Phases |
 |---|---:|---:|---|
-| `func_0015CE90` | 252 | 100.00% | Two bytes, then three bytes |
-| `func_0015CF90` | 248 | 100.00% | Direct byte into staging index 1, then four bytes |
-| `func_0015D090` | 276 | 100.00% | Four bytes, then two bytes |
-| `func_0015D1B0` | 280 | 100.00% | Three bytes staged from input minus one, then three bytes |
-| `func_0015D2D0` | 276 | 100.00% | Two bytes, then four bytes |
+| `func_0015CEA0` | 252 | 100.00% | Two bytes, then three bytes |
+| `func_0015CFA0` | 248 | 100.00% | Direct byte into staging index 1, then four bytes |
+| `func_0015D0A0` | 276 | 100.00% | Four bytes, then two bytes |
+| `func_0015D1C0` | 280 | 100.00% | Three bytes staged from input minus one, then three bytes |
+| `func_0015D2E0` | 276 | 100.00% | Two bytes, then four bytes |
 
-`tests/test_trade_action_stream_decoders5.py` independently compiles the C++ source, resolves external calls and GP-relative data references at their original addresses, and compares each function and the full padded slice directly against the locally supplied original ELF. All six comparisons pass in `docker-dev`. These tests skip explicitly when the private original or local compiler tools are unavailable; they never distribute original code. Run them inside the `docker-dev` build environment with `python -m pytest -q tests/test_trade_action_stream_decoders5.py`.
+`tests/test_trade_action_stream_decoders5.py` independently compiles the C++ source, resolves external calls and GP-relative data references at their true addresses, and compares each function and the full padded slice directly against the locally supplied original ELF. An automated regression test verifies that the VRAM origin strictly equals `file_offset + (p_vaddr - p_offset)`.
 
 #### 6.161.2 Source Ordering and Register Allocation
 
@@ -4219,49 +4219,49 @@ Declaring the four-byte staging object as a word/byte union permits GP-relative 
 
 The shared `stage_masked_input` helper is fully inlined; every implementation function stays within fifteen lines. The relocated-byte tests originally failed on all five functions, then passed after correcting the source ordering. `tests/test_stream_documentation.py` additionally protects the recovered aggregator and emitter function coverage from accidental removal during future merges.
 
-#### 6.162 `Trade Action Stream Decoders 6` Subsystem (`0x15D3F0`–`0x15DA60`, `trade_action_stream_decoders6.cpp`)
+#### 6.162 `Trade Action Stream Decoders 6` Subsystem (`0x15D400`–`0x15DA70`, `trade_action_stream_decoders6.cpp`)
 
-Following stream decoders 5 sits the sixth stream decoder unit (`0x15D3F0`–`0x15DA60`, 1,648 bytes across 5 routines in Metrowerks C++ PS2 MWCC 2.3.1.01). The slice comprises 1,592 instruction bytes and 56 alignment bytes. Each routine uses the same input-before-mask ordering and GP-relative word/byte staging union:
-- `func_0015D3F0` (`0x15D3F0`, 324 bytes): Direct byte into staging index 1, followed by a 4-byte masked phase and a 1-byte masked phase.
-- `func_0015D540` (`0x15D540`, 300 bytes): Masked 4-byte phase followed by a masked 3-byte phase.
-- `func_0015D670` (`0x15D670`, 304 bytes): Offset -1 3-byte prefix staging followed by a masked 4-byte phase.
-- `func_0015D7A0` (`0x15D7A0`, 352 bytes): Masked 2-byte phase, followed by a 4-byte phase and a 1-byte phase.
-- `func_0015D900` (`0x15D900`, 352 bytes): Direct byte into staging index 1, followed by a 4-byte masked phase and a 2-byte phase.
+Following stream decoders 5 sits the sixth stream decoder unit (`0x15D400`–`0x15DA70`, 1,648 bytes across 5 routines in Metrowerks C++ PS2 MWCC 2.3.1.01). The slice comprises 1,592 instruction bytes and 56 alignment bytes at file offset `0x5D5E0`–`0x5DC50`. Each routine uses the same input-before-mask ordering and GP-relative word/byte staging union:
+- `func_0015D400` (`0x15D400`, 324 bytes): Direct byte into staging index 1, followed by a 4-byte masked phase and a 1-byte masked phase.
+- `func_0015D550` (`0x15D550`, 300 bytes): Masked 4-byte phase followed by a masked 3-byte phase.
+- `func_0015D680` (`0x15D680`, 304 bytes): Offset -1 3-byte prefix staging followed by a masked 4-byte phase.
+- `func_0015D7B0` (`0x15D7B0`, 352 bytes): Masked 2-byte phase, followed by a 4-byte phase and a 1-byte phase.
+- `func_0015D910` (`0x15D910`, 352 bytes): Direct byte into staging index 1, followed by a 4-byte masked phase and a 2-byte phase.
 
 #### 6.162.1 Trade Action Stream Decoders 6 Matching Results
 
-All five functions report **100.00%** in objdiff. Independently compiling and linking the unit at its original address and resolving all relocations produces **byte-for-byte equality for the entire 1,648-byte slice** including alignment padding. The unit is registered `Matching`.
+All five functions report **100.00%** in objdiff. Independently compiling and linking the unit at its true `PT_LOAD` address (`0x15D400`) and resolving all relocations produces **byte-for-byte equality for the entire 1,648-byte slice** including alignment padding. The unit is registered `Matching`.
 
 | Function | Exact instruction bytes | Match | Phases |
 |---|---:|---:|---|
-| `func_0015D3F0` | 324 | 100.00% | Direct byte at index 1, then four bytes, then one byte |
-| `func_0015D540` | 300 | 100.00% | Four bytes, then three bytes |
-| `func_0015D670` | 304 | 100.00% | Three bytes staged from input minus one, then four bytes |
-| `func_0015D7A0` | 352 | 100.00% | Two bytes, then four bytes, then one byte |
-| `func_0015D900` | 352 | 100.00% | Direct byte at index 1, then four bytes, then two bytes |
+| `func_0015D400` | 324 | 100.00% | Direct byte at index 1, then four bytes, then one byte |
+| `func_0015D550` | 300 | 100.00% | Four bytes, then three bytes |
+| `func_0015D680` | 304 | 100.00% | Three bytes staged from input minus one, then four bytes |
+| `func_0015D7B0` | 352 | 100.00% | Two bytes, then four bytes, then one byte |
+| `func_0015D910` | 352 | 100.00% | Direct byte at index 1, then four bytes, then two bytes |
 
 `tests/test_trade_action_stream_decoders6.py` independently verifies exact relocated instruction bytes and full padded slice equality against the original ELF.
 
-#### 6.163 `Trade Action Stream Decoders 7` Subsystem (`0x15DA60`–`0x15DFE0`, `trade_action_stream_decoders7.cpp`)
+#### 6.163 `Trade Action Stream Decoders 7` Subsystem (`0x15DA70`–`0x15DFE0`, `trade_action_stream_decoders7.cpp`)
 
-Following stream decoders 6 sits the seventh stream decoder unit (`0x15DA60`–`0x15DFE0`, 1,408 bytes across 5 routines in Metrowerks C++ PS2 MWCC 2.3.1.01). The slice comprises 1,356 instruction bytes and 52 alignment bytes. Each routine executes a continuous 4-byte block copy loop governed by `D_004E2DA8 -= 4` until exhaustion, combined with distinct prefix staging and trailer phases:
-- `func_0015DA60` (`0x15DA60`, 188 bytes): Continuous 4-byte block loop decremented by 4 until counter reaches zero.
-- `func_0015DB20` (`0x15DB20`, 276 bytes): 1-byte prefix staging (`D_004E2DA8 -= 1`) followed by continuous 4-byte block copy loop.
-- `func_0015DC40` (`0x15DC40`, 304 bytes): 2-byte prefix staging (`D_004E2DA8 -= 2`) followed by continuous 4-byte block copy loop.
-- `func_0015DD70` (`0x15DD70`, 332 bytes): Offset -1 3-byte prefix staging (`D_004E2DA8 -= 3`) followed by continuous 4-byte block copy loop.
-- `func_0015DEC0` (`0x15DEC0`, 276 bytes): Counter decrement (`D_004E2DA8 -= 1`), continuous 4-byte block copy loop, and 1-byte masked trailer.
+Following stream decoders 6 sits the seventh stream decoder unit (`0x15DA70`–`0x15DFE0`, 1,408 bytes across 5 routines in Metrowerks C++ PS2 MWCC 2.3.1.01). The slice comprises 1,356 instruction bytes and 52 alignment bytes at file offset `0x5DC50`–`0x5E1D0`. Each routine executes a continuous 4-byte block copy loop governed by `D_004E2DA8 -= 4` until exhaustion, combined with distinct prefix staging and trailer phases:
+- `func_0015DA70` (`0x15DA70`, 188 bytes): Continuous 4-byte block loop decremented by 4 until counter reaches zero.
+- `func_0015DB30` (`0x15DB30`, 276 bytes): 1-byte prefix staging (`D_004E2DA8 -= 1`) followed by continuous 4-byte block copy loop.
+- `func_0015DC50` (`0x15DC50`, 304 bytes): 2-byte prefix staging (`D_004E2DA8 -= 2`) followed by continuous 4-byte block copy loop.
+- `func_0015DD80` (`0x15DD80`, 332 bytes): Offset -1 3-byte prefix staging (`D_004E2DA8 -= 3`) followed by continuous 4-byte block copy loop.
+- `func_0015DED0` (`0x15DED0`, 276 bytes): Counter decrement (`D_004E2DA8 -= 1`), continuous 4-byte block copy loop, and 1-byte masked trailer.
 
 #### 6.163.1 Trade Action Stream Decoders 7 Matching Results
 
-All five functions report **100.00%** in objdiff. Independently compiling and linking the unit at its original address and resolving all relocations produces **byte-for-byte equality for the entire 1,408-byte slice** including alignment padding. The unit is registered `Matching`.
+All five functions report **100.00%** in objdiff. Independently compiling and linking the unit at its true `PT_LOAD` address (`0x15DA70`) and resolving all relocations produces **byte-for-byte equality for the entire 1,408-byte slice** including alignment padding. The unit is registered `Matching`.
 
 | Function | Exact instruction bytes | Match | Phases |
 |---|---:|---:|---|
-| `func_0015DA60` | 188 | 100.00% | Continuous 4-byte loop with `D_004E2DA8 -= 4` |
-| `func_0015DB20` | 276 | 100.00% | 1-byte prefix, then continuous 4-byte loop |
-| `func_0015DC40` | 304 | 100.00% | 2-byte prefix, then continuous 4-byte loop |
-| `func_0015DD70` | 332 | 100.00% | Offset -1 3-byte prefix, then continuous 4-byte loop |
-| `func_0015DEC0` | 276 | 100.00% | Counter decrement, 4-byte loop, then 1-byte trailer |
+| `func_0015DA70` | 188 | 100.00% | Continuous 4-byte loop with `D_004E2DA8 -= 4` |
+| `func_0015DB30` | 276 | 100.00% | 1-byte prefix, then continuous 4-byte loop |
+| `func_0015DC50` | 304 | 100.00% | 2-byte prefix, then continuous 4-byte loop |
+| `func_0015DD80` | 332 | 100.00% | Offset -1 3-byte prefix, then continuous 4-byte loop |
+| `func_0015DED0` | 276 | 100.00% | Counter decrement, 4-byte loop, then 1-byte trailer |
 
 `tests/test_trade_action_stream_decoders7.py` independently verifies exact relocated instruction bytes and full padded slice equality against the original ELF.
 

@@ -30,7 +30,7 @@ static inline void emit_staging_word() {
 }
 
 /** Continuous 4-byte block copy loop decremented by 4 until counter reaches zero. */
-void func_0015DA60() {
+void func_0015DA70() {
     do {
         stage_masked_input(4, 0);
         emit_staging_word();
@@ -38,7 +38,7 @@ void func_0015DA60() {
 }
 
 /** 1-byte prefix staging followed by continuous 4-byte block copy loop. */
-void func_0015DB20() {
+void func_0015DB30() {
     D_004E2DA0.bytes[1] = *D_004E2DB0++;
     D_004E2DA0.word = D_004E2DA0.word & D_004E30A8;
     D_004E2DA0.word = D_004E2DA0.word | D_004E30B0;
@@ -52,7 +52,7 @@ void func_0015DB20() {
 }
 
 /** 2-byte prefix staging followed by continuous 4-byte block copy loop. */
-void func_0015DC40() {
+void func_0015DC50() {
     stage_masked_input(2, 0);
     *D_004E2DB4++ = D_004E2DA0.bytes[0];
     *D_004E2DB4++ = D_004E2DA0.bytes[1];
@@ -65,7 +65,7 @@ void func_0015DC40() {
 }
 
 /** Offset -1 3-byte prefix staging followed by continuous 4-byte block copy loop. */
-void func_0015DD70() {
+void func_0015DD80() {
     stage_masked_input(3, -1);
     *D_004E2DB4++ = D_004E2DA0.bytes[1];
     *D_004E2DB4++ = D_004E2DA0.bytes[2];
@@ -79,7 +79,7 @@ void func_0015DD70() {
 }
 
 /** Counter decrement, continuous 4-byte block copy loop, and 1-byte trailer. */
-void func_0015DEC0() {
+void func_0015DED0() {
     D_004E2DA8 -= 1;
 
     do {

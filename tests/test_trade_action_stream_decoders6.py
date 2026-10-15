@@ -12,15 +12,20 @@ SOURCE = ROOT / "src/trade_action_stream_decoders6.cpp"
 COMPILER = ROOT / "compilers/PS2/mwcc-2.3.1.01/mwccps2.exe"
 WRAPPER = ROOT / "build/tools/wibo"
 BINUTILS = ROOT / "build/mips_binutils"
-START_ADDRESS = 0x15D3F0
+
+# True VRAM and file offsets derived from AOK.ELF program header:
+# PT_LOAD p_vaddr = 0x100000, p_offset = 0x1E0 -> VRAM = file_offset + 0xFFE20.
+# decoders6 file slice is 0x5D5E0 to 0x5DC50 (size 0x670 = 1648 bytes).
 FILE_OFFSET = 0x5D5E0
+START_ADDRESS = FILE_OFFSET + 0xFFE20  # 0x15D400 (not 0x15D3F0)
 SLICE_SIZE = 0x670
+
 FUNCTIONS = (
-    ("func_0015D3F0", 0x15D3F0, 0x144),
-    ("func_0015D540", 0x15D540, 0x12C),
-    ("func_0015D670", 0x15D670, 0x130),
-    ("func_0015D7A0", 0x15D7A0, 0x160),
-    ("func_0015D900", 0x15D900, 0x160),
+    ("func_0015D400", 0x15D400, 0x144),
+    ("func_0015D550", 0x15D550, 0x12C),
+    ("func_0015D680", 0x15D680, 0x130),
+    ("func_0015D7B0", 0x15D7B0, 0x160),
+    ("func_0015D910", 0x15D910, 0x160),
 )
 SYMBOLS = {
     "_gp": 0x4EA7C0,
@@ -60,7 +65,7 @@ def compile_decoders(directory):
 
 
 def write_linker_script(directory):
-    """Place the code and resolve external relocations at original PS2 addresses."""
+    """Place the code and resolve external relocations at true PS2 VRAM addresses."""
     definitions = "\n".join(f"{name} = {address:#x};" for name, address in SYMBOLS.items())
     sections = (
         "\nSECTIONS {\n"
@@ -109,6 +114,17 @@ def assert_same_code(actual, expected, address):
     differences = (index for index, pair in enumerate(zip(actual, expected)) if pair[0] != pair[1])
     first_difference = next(differences, None)
     assert first_difference is None, f"Instruction bytes differ at {address + first_difference:#x}"
+
+
+def test_vram_mapping_matches_pt_load():
+    """Verify that START_ADDRESS is derived strictly from PT_LOAD offset + vaddr."""
+    header = ORIGINAL.read_bytes()[:0x54]
+    p_offset = int.from_bytes(header[0x38:0x3C], "little")  # 0x1E0
+    p_vaddr = int.from_bytes(header[0x3C:0x40], "little")   # 0x100000
+    pt_load_diff = p_vaddr - p_offset                       # 0xFFE20
+    assert START_ADDRESS == FILE_OFFSET + pt_load_diff, (
+        f"START_ADDRESS {START_ADDRESS:#x} drift from PT_LOAD {FILE_OFFSET + pt_load_diff:#x}"
+    )
 
 
 @pytest.mark.parametrize("name,address,size", FUNCTIONS)

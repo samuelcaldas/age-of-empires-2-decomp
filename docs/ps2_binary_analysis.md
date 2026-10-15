@@ -4316,7 +4316,7 @@ Located at the base of the `0x2665B0`–`0x2B5F00` engine domain sits the core u
 | `func_002668D0` | `0x2668D0` | **88.33%** (72 B) | Container item index lookup with short sign extension. |
 | `func_00266920` | `0x266920` | **86.05%** (816 B) | Complete unit action state serialization to binary stream. |
 
-#### 6.164 `Trade Action Getters 3` Subsystem (`0x2B6150`, `trade_action_getters3.cpp`)
+#### 6.167 `Trade Action Getters 3` Subsystem (`0x2B6150`, `trade_action_getters3.cpp`)
 
 Located at VRAM `0x2B6150` (file offset `0x1B6330`), `trade_action_getters3` implements a core field accessor method:
 - `func_002B6150` (`0x2B6150`, 8 bytes code + 8 bytes zero padding): Leaf getter returning field at offset `0xD8` (`return *(int *)((char *)self + 0xD8);`). Implemented in pure C++ (100.0% exact match, verified via docker-dev exclusive container).

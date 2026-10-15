@@ -3885,3 +3885,42 @@ Directly following stream encoders sits the high-throughput leaf block serialize
 | `func_00158080` | `0x158080` | **92.48%** (176 B) | 1-byte prefix + continuous 4-byte loop + 1-byte trailer flush. |
 | `func_00158130` | `0x158130` | **93.38%** (200 B) | 2-byte prefix + continuous 4-byte loop + 1-byte trailer flush. |
 | `func_00158200` | `0x158200` | **94.09%** (224 B) | 3-byte prefix + continuous 4-byte loop + 1-byte trailer flush. |
+
+#### 6.151 `Trade Action Stream Sequence Emitters` Subsystem (`0x158A00`–`0x158F40`, `trade_action_stream_sequence.cpp`)
+
+Directly following stream packers sits the short-sequence permutation stream encoder subsystem (`0x158A00`–`0x158F40`, 1,344 bytes across 15 leaf functions in Metrowerks C++ PS2 MWCC 2.3.1.01). Each function operates directly as a leaf function (`#pragma exceptions off`, 0 stack allocation) emitting specialized 1-symbol to 5-symbol permutation patterns from `D_004E2DA0` into the output stream `D_004E2DB4`:
+- `func_00158A00` (`0x158A00`, 32 bytes): 1-symbol pattern [0]. **100.0% exact match** in pure C++.
+- `func_00158A20` (`0x158A20`, 32 bytes): 1-symbol pattern [1]. **100.0% exact match** in pure C++.
+- `func_00158A40` (`0x158A40`, 64 bytes): 2-symbol pattern [0, 1]. **100.0% exact match** in pure C++.
+- `func_00158A80` (`0x158A80`, 64 bytes): 2-symbol pattern [1, 0]. **100.0% exact match** in pure C++.
+- `func_00158AC0` (`0x158AC0`, 80 bytes): 3-symbol pattern [0, 1, 0]. **100.0% exact match** in pure C++.
+- `func_00158B10` (`0x158B10`, 80 bytes): 3-symbol pattern [1, 0, 1]. **100.0% exact match** in pure C++.
+- `func_00158B60` (`0x158B60`, 80 bytes): 3-symbol pattern [0, 1, 0]. **100.0% exact match** in pure C++.
+- `func_00158BB0` (`0x158BB0`, 80 bytes): 3-symbol pattern [1, 0, 1]. **100.0% exact match** in pure C++.
+- `func_00158C00` (`0x158C00`, 112 bytes): 4-symbol pattern [0, 1, 2, 3]. **100.0% exact match** in pure C++.
+- `func_00158C70` (`0x158C70`, 112 bytes): 4-symbol pattern [1, 0, 1, 0]. **100.0% exact match** in pure C++.
+- `func_00158CE0` (`0x158CE0`, 112 bytes): 4-symbol pattern [0, 1, 0, 1]. **100.0% exact match** in pure C++.
+- `func_00158D50` (`0x158D50`, 112 bytes): 4-symbol pattern [1, 0, 1, 0]. **100.0% exact match** in pure C++.
+- `func_00158DC0` (`0x158DC0`, 128 bytes): 5-symbol pattern [0, 1, 2, 3, 0]. **100.0% exact match** in pure C++.
+- `func_00158E40` (`0x158E40`, 128 bytes): 5-symbol pattern [1, 0, 1, 0, 1]. **100.0% exact match** in pure C++.
+- `func_00158EC0` (`0x158EC0`, 128 bytes): 5-symbol pattern [0, 1, 0, 1, 0]. **100.0% exact match** in pure C++.
+
+#### 6.151.1 Trade Action Stream Sequence Emitters Matching Results (100.00% Pure C++, 1,344 Bytes)
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_00158A00` | `0x158A00` | **100.0%** (28 / 28 B) | 1-symbol pattern [0]. |
+| `func_00158A20` | `0x158A20` | **100.0%** (28 / 28 B) | 1-symbol pattern [1]. |
+| `func_00158A40` | `0x158A40` | **100.0%** (52 / 52 B) | 2-symbol pattern [0, 1]. |
+| `func_00158A80` | `0x158A80` | **100.0%** (52 / 52 B) | 2-symbol pattern [1, 0]. |
+| `func_00158AC0` | `0x158AC0` | **100.0%** (76 / 76 B) | 3-symbol pattern [0, 1, 0]. |
+| `func_00158B10` | `0x158B10` | **100.0%** (76 / 76 B) | 3-symbol pattern [1, 0, 1]. |
+| `func_00158B60` | `0x158B60` | **100.0%** (76 / 76 B) | 3-symbol pattern [0, 1, 0]. |
+| `func_00158BB0` | `0x158BB0` | **100.0%** (76 / 76 B) | 3-symbol pattern [1, 0, 1]. |
+| `func_00158C00` | `0x158C00` | **100.0%** (100 / 100 B) | 4-symbol pattern [0, 1, 2, 3]. |
+| `func_00158C70` | `0x158C70` | **100.0%** (100 / 100 B) | 4-symbol pattern [1, 0, 1, 0]. |
+| `func_00158CE0` | `0x158CE0` | **100.0%** (100 / 100 B) | 4-symbol pattern [0, 1, 0, 1]. |
+| `func_00158D50` | `0x158D50` | **100.0%** (100 / 100 B) | 4-symbol pattern [1, 0, 1, 0]. |
+| `func_00158DC0` | `0x158DC0` | **100.0%** (124 / 124 B) | 5-symbol pattern [0, 1, 2, 3, 0]. |
+| `func_00158E40` | `0x158E40` | **100.0%** (124 / 124 B) | 5-symbol pattern [1, 0, 1, 0, 1]. |
+| `func_00158EC0` | `0x158EC0` | **100.0%** (124 / 124 B) | 5-symbol pattern [0, 1, 0, 1, 0]. |

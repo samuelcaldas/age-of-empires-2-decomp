@@ -1135,9 +1135,27 @@ segments:
     vram: 0x15DA70
     subsegments:
       - [0x5DC50, asm, trade_action_stream_decoders7]
+  - name: trade_action_stream_decoders8
+    type: code
+    start: 0x5E1D0
+    vram: 0x15DFF0
+    subsegments:
+      - [0x5E1D0, asm, trade_action_stream_decoders8]
+  - name: trade_action_stream_decoders9
+    type: code
+    start: 0x5E780
+    vram: 0x15E5A0
+    subsegments:
+      - [0x5E780, asm, trade_action_stream_decoders9]
+  - name: trade_action_stream_decoders10
+    type: code
+    start: 0x5EC60
+    vram: 0x15EA80
+    subsegments:
+      - [0x5EC60, asm, trade_action_stream_decoders10]
   - name: post_base
     type: bin
-    start: 0x5E1D0
+    start: 0x5F2D0
   - name: zone_path_eval
     type: code
     start: 0xC7A40

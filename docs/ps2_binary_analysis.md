@@ -4297,6 +4297,11 @@ Following the core placement validator sits the spatial queries, tile snapping, 
 | `func_001C8BF0` | `0x1C8BF0` | **100.0%** (8 / 8 B) | Atomic pointer accessor for offset 0x84. |
 | `func_001C8C00` | `0x1C8C00` | **100.0%** (8 / 8 B) | Atomic pointer accessor for offset 0x88. |
 
+#### 6.166 `Trade Action Getters 4` Subsystem (`0x2B6170`, `trade_action_getters4.cpp`)
+
+Located at VRAM `0x2B6170` (file offset `0x1B6350`), `trade_action_getters4` implements a core field accessor method:
+- `func_002B6170` (`0x2B6170`, 8 bytes code + 8 bytes zero padding): Leaf getter returning field at offset `0x108` (`return *(int *)((char *)self + 0x108);`). Implemented in pure C++ (NonMatching under conservative policy, verified via exclusive docker-dev container `aoe6-getters4-val`).
+
 #### 6.166 `Unit Action Core & Serialization` Subsystem (`0x266780`–`0x266C50`, `unit_action_core.cpp`)
 
 Located at the base of the `0x2665B0`–`0x2B5F00` engine domain sits the core unit action coordination and state serialization subsystem (`0x266780`–`0x266C50`, 1,232 bytes across 5 functions in Metrowerks C++ PS2 MWCC 2.3.1.01). It implements entity target resolution, spatial action execution via virtual vtable dispatch, item container index lookups, and complete unit action binary stream serialization:

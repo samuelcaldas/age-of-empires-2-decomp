@@ -4363,16 +4363,18 @@ The percentages below are fresh objdiff metrics, not ratios of exactly matched b
 
 #### 6.168.2 `Zone Raycast Core` Subsystem (`0x1C8C20`–`0x1C93C0`, `zone_raycast_core.cpp`)
 
-Immediately contiguous to `zone_path_queries` sits the spatial raycasting, line-of-sight obstruction testing, and coordinate query subsystem (`0x1C8C20`–`0x1C93C0`, 1,952 bytes across 2 functions in Metrowerks C++ PS2 MWCC 2.3.1.01):
-- `func_001C8C20` (`0x1C8C20`, 976 bytes): Map entity ray-testing and obstruction query evaluator.
-- `func_001C8FF0` (`0x1C8FF0`, 976 bytes): Coordinate projection and path reachability analyzer.
+Immediately contiguous to `zone_path_queries` sits the spatial raycasting, line-of-sight obstruction testing, and coordinate query subsystem (`0x1C8C20`–`0x1C93C0`, 1,952 bytes across 3 functions in Metrowerks C++ PS2 MWCC 2.3.1.01):
+- `func_001C8C20` (`0x1C8C20`, 128 bytes / 128 B code): Map entity ray-testing and obstruction query evaluator. **96.72% pure C++ match**.
+- `func_001C8CA0` (`0x1C8CA0`, 848 bytes / 844 B code + 4 B pad): Primary constructor and stream deserializer for pathfinding zone class `D_4D9270`.
+- `func_001C8FF0` (`0x1C8FF0`, 976 bytes / 972 B code + 4 B pad): Destructor and buffer cleaner for `D_4D9270`.
 
 #### 6.168.3 Zone Raycast Core Matching Results (Pure C++, 1,952 Bytes)
 
 | Function / Method | VRAM Address | Match Status | Description |
 |---|---|---|---|
-| `func_001C8C20` | `0x1C8C20` | NonMatching (976 B) | Entity ray-testing and obstruction query evaluator. |
-| `func_001C8FF0` | `0x1C8FF0` | NonMatching (976 B) | Coordinate projection and path reachability analyzer. |
+| `func_001C8C20` | `0x1C8C20` | **96.72%** (128 B) | Entity ray-testing and obstruction query evaluator. |
+| `func_001C8CA0` | `0x1C8CA0` | NonMatching (848 B) | Primary constructor / stream deserializer for `D_4D9270`. |
+| `func_001C8FF0` | `0x1C8FF0` | NonMatching (976 B) | Destructor and buffer cleaner for `D_4D9270`. |
 
 #### 6.169 `Unit Action Core & Serialization` Subsystem (`0x266780`–`0x266C50`, `unit_action_core.cpp`)
 

@@ -1165,7 +1165,7 @@ segments:
   - name: zone_path_queries
     type: code
     start: 0xC8670
-    vram: 0x1C8480
+    vram: 0x1C8490
     subsegments:
       - [0xC8670, asm, zone_path_queries]
   - name: post_aoe2

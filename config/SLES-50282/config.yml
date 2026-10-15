@@ -1132,9 +1132,15 @@ segments:
     vram: 0x1C7850
     subsegments:
       - [0xC7A40, asm, zone_path_eval]
+  - name: zone_path_queries
+    type: code
+    start: 0xC8670
+    vram: 0x1C8480
+    subsegments:
+      - [0xC8670, asm, zone_path_queries]
   - name: post_aoe2
     type: bin
-    start: 0xC8670
+    start: 0xC8E00
   - [0x3e31c0]
 
 

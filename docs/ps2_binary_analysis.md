@@ -4242,12 +4242,35 @@ All five functions report **100.00%** in objdiff. Independently compiling and li
 
 `tests/test_trade_action_stream_decoders6.py` independently verifies exact relocated instruction bytes and full padded slice equality against the original ELF.
 
-#### 6.163 `Zone Path & Building Placement Obstruction Evaluator` Subsystem (`0x1C7850`–`0x1C8480`, `zone_path_eval.cpp`)
+#### 6.163 `Trade Action Stream Decoders 7` Subsystem (`0x15DA60`–`0x15DFE0`, `trade_action_stream_decoders7.cpp`)
+
+Following stream decoders 6 sits the seventh stream decoder unit (`0x15DA60`–`0x15DFE0`, 1,408 bytes across 5 routines in Metrowerks C++ PS2 MWCC 2.3.1.01). The slice comprises 1,356 instruction bytes and 52 alignment bytes. Each routine executes a continuous 4-byte block copy loop governed by `D_004E2DA8 -= 4` until exhaustion, combined with distinct prefix staging and trailer phases:
+- `func_0015DA60` (`0x15DA60`, 188 bytes): Continuous 4-byte block loop decremented by 4 until counter reaches zero.
+- `func_0015DB20` (`0x15DB20`, 276 bytes): 1-byte prefix staging (`D_004E2DA8 -= 1`) followed by continuous 4-byte block copy loop.
+- `func_0015DC40` (`0x15DC40`, 304 bytes): 2-byte prefix staging (`D_004E2DA8 -= 2`) followed by continuous 4-byte block copy loop.
+- `func_0015DD70` (`0x15DD70`, 332 bytes): Offset -1 3-byte prefix staging (`D_004E2DA8 -= 3`) followed by continuous 4-byte block copy loop.
+- `func_0015DEC0` (`0x15DEC0`, 276 bytes): Counter decrement (`D_004E2DA8 -= 1`), continuous 4-byte block copy loop, and 1-byte masked trailer.
+
+#### 6.163.1 Trade Action Stream Decoders 7 Matching Results
+
+All five functions report **100.00%** in objdiff. Independently compiling and linking the unit at its original address and resolving all relocations produces **byte-for-byte equality for the entire 1,408-byte slice** including alignment padding. The unit is registered `Matching`.
+
+| Function | Exact instruction bytes | Match | Phases |
+|---|---:|---:|---|
+| `func_0015DA60` | 188 | 100.00% | Continuous 4-byte loop with `D_004E2DA8 -= 4` |
+| `func_0015DB20` | 276 | 100.00% | 1-byte prefix, then continuous 4-byte loop |
+| `func_0015DC40` | 304 | 100.00% | 2-byte prefix, then continuous 4-byte loop |
+| `func_0015DD70` | 332 | 100.00% | Offset -1 3-byte prefix, then continuous 4-byte loop |
+| `func_0015DEC0` | 276 | 100.00% | Counter decrement, 4-byte loop, then 1-byte trailer |
+
+`tests/test_trade_action_stream_decoders7.py` independently verifies exact relocated instruction bytes and full padded slice equality against the original ELF.
+
+#### 6.164 `Zone Path & Building Placement Obstruction Evaluator` Subsystem (`0x1C7850`–`0x1C8480`, `zone_path_eval.cpp`)
 
 Directly beginning the `aoe2` fixed address range (`0x1C7330`–`0x2665B0`) sits the core spatial obstruction and building placement validator `func_001C7850` (`0x1C7850`–`0x1C8480`, 3,120 bytes in Metrowerks C++ PS2 MWCC 2.3.1.01). It validates spatial bounding box coordinates, perimeter zone adjacency, slope elevation gradients, and unit radius collisions:
 - `func_001C7850` (`0x1C7850`, 3,120 bytes): Evaluates map dimensions, converts floating-point coordinates to integer tile coordinates (`func_123350`), tests 4-sided perimeter connectivity against `bld->m_required_zone`, checks tile slope gradient against building type limits (`map + 0x68`), performs special Mill/Farm adjacency logic (`0x3B`), and queries unit collision radii (`func_3675D0`) for obstruction detection.
 
-#### 6.163.1 Zone Path Evaluator Matching Results (Pure C++, 3,120 Bytes)
+#### 6.164.1 Zone Path Evaluator Matching Results (Pure C++, 3,120 Bytes)
 
 | Function / Method | VRAM Address | Match Status | Description |
 |---|---|---|---|

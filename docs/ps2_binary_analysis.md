@@ -3871,3 +3871,28 @@ Directly following stream accumulators sits the bit stream sequence emitter and 
 | `func_001576F0` | `0x1576F0` | **100.0%** (124 / 124 B) | 5-symbol pattern [0, 1, 0, 1, 0]. |
 | `func_00157770` | `0x157770` | **100.0%** (124 / 124 B) | 5-symbol pattern [0, 0, 1, 0, 1]. |
 
+#### 6.148 `Trade Action Stream Encoders` Subsystem (`0x1577F0`–`0x157D30`, `trade_action_stream_encoders.cpp`)
+
+Directly following stream emitters sits the 6-symbol and 7-symbol sequence encoder subsystem (`0x1577F0`–`0x157D30`, 1,344 bytes across 8 leaf functions in Metrowerks C++ PS2 MWCC 2.3.1.01). Each function operates directly as a leaf function (`#pragma exceptions off`, 0 stack allocation) emitting specialized 6-symbol and 7-symbol permutation patterns from `D_004E2DA0` into the output stream `D_004E2DB4`:
+- `func_001577F0` (`0x1577F0`, 160 bytes): 6-symbol pattern [0, 1, 0, 1, 0, 1]. **100.0% exact match** in pure C++.
+- `func_00157890` (`0x157890`, 160 bytes): 6-symbol pattern [0, 1, 0, 0, 1, 0]. **100.0% exact match** in pure C++.
+- `func_00157930` (`0x157930`, 160 bytes): 6-symbol pattern [0, 1, 0, 1, 0, 1]. **100.0% exact match** in pure C++.
+- `func_001579D0` (`0x1579D0`, 160 bytes): 6-symbol pattern [0, 0, 1, 0, 1, 0]. **100.0% exact match** in pure C++.
+- `func_00157A70` (`0x157A70`, 176 bytes): 7-symbol pattern [0, 1, 0, 1, 0, 1, 0]. **100.0% exact match** in pure C++.
+- `func_00157B20` (`0x157B20`, 176 bytes): 7-symbol pattern [0, 1, 0, 0, 1, 0, 1]. **100.0% exact match** in pure C++.
+- `func_00157BD0` (`0x157BD0`, 176 bytes): 7-symbol pattern [0, 1, 0, 1, 0, 1, 0]. **100.0% exact match** in pure C++.
+- `func_00157C80` (`0x157C80`, 176 bytes): 7-symbol pattern [0, 0, 1, 0, 1, 0, 1]. **100.0% exact match** in pure C++.
+
+#### 6.148.1 Trade Action Stream Encoders Matching Results (100.00% Pure C++, 1,344 Bytes)
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_001577F0` | `0x1577F0` | **100.0%** (148 / 148 B) | 6-symbol pattern [0, 1, 0, 1, 0, 1]. |
+| `func_00157890` | `0x157890` | **100.0%** (148 / 148 B) | 6-symbol pattern [0, 1, 0, 0, 1, 0]. |
+| `func_00157930` | `0x157930` | **100.0%** (148 / 148 B) | 6-symbol pattern [0, 1, 0, 1, 0, 1]. |
+| `func_001579D0` | `0x1579D0` | **100.0%** (148 / 148 B) | 6-symbol pattern [0, 0, 1, 0, 1, 0]. |
+| `func_00157A70` | `0x157A70` | **100.0%** (172 / 172 B) | 7-symbol pattern [0, 1, 0, 1, 0, 1, 0]. |
+| `func_00157B20` | `0x157B20` | **100.0%** (172 / 172 B) | 7-symbol pattern [0, 1, 0, 0, 1, 0, 1]. |
+| `func_00157BD0` | `0x157BD0` | **100.0%** (172 / 172 B) | 7-symbol pattern [0, 1, 0, 1, 0, 1, 0]. |
+| `func_00157C80` | `0x157C80` | **100.0%** (172 / 172 B) | 7-symbol pattern [0, 0, 1, 0, 1, 0, 1]. |
+

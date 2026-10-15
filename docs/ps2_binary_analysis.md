@@ -3623,6 +3623,27 @@ Following stream reader sits the packet dispatch and route packet writer subsyst
 | `func_00152D10` | `0x152D10` | **100.0%** (252 / 252 B) | Exact 6-byte composite packet serialization in pure C++. |
 | `func_00152E10` | `0x152E10` | **100.0%** (272 / 272 B) | Exact 7-byte composite packet serialization in pure C++. |
 
+#### 6.136 `Trade Action Stream Decoders` Subsystem (`0x153440`–`0x1539E0`, `trade_action_stream_decoders.cpp`)
+
+Following stream buffers sits the bounded stream payload decoder and alignment unpacking subsystem (`0x153440`–`0x1539E0`, 1,440 bytes in Metrowerks C++ PS2 MWCC 2.3.1.01):
+- `func_00153440` (`0x153440`, 288 bytes, **81.29% match**): Bounded 2-byte unpacker with remaining length decrement and 4-byte loop.
+- `func_00153560` (`0x153560`, 304 bytes, **81.38% match**): Bounded 3-byte unpacker with remaining length decrement and 4-byte loop.
+- `func_00153690` (`0x153690`, 240 bytes, **66.38% match**): Bounded 1-byte unpacker decrementing remaining length.
+- `func_00153780` (`0x153780`, 272 bytes, **71.32% match**): Bounded 2-byte direct unpacker without staging buffer.
+- `func_00153890` (`0x153890`, 320 bytes, **71.12% match**): Bounded 3-byte composite unpacker.
+- `func_001539D0` (`0x1539D0`, 16 bytes, **100.0% exact match**): Status helper returning 0.
+
+#### 6.136.1 Trade Action Stream Decoders Matching Results (Pure C++, 1,440 Bytes)
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_00153440` | `0x153440` | **81.29%** (228 / 280 B) | Bounded 2-byte stream unpacker with 4-byte unrolled loop. |
+| `func_00153560` | `0x153560` | **81.38%** (248 / 304 B) | Bounded 3-byte stream unpacker with 4-byte unrolled loop. |
+| `func_00153690` | `0x153690` | **66.38%** (154 / 232 B) | Bounded 1-byte stream unpacker. |
+| `func_00153780` | `0x153780` | **71.32%** (194 / 272 B) | Bounded 2-byte direct stream unpacker. |
+| `func_00153890` | `0x153890` | **71.12%** (228 / 320 B) | Bounded 3-byte composite stream unpacker. |
+| `func_001539D0` | `0x1539D0` | **100.0%** (16 / 16 B) | Stream decoding status helper returning 0. |
+
 
 
 

@@ -803,9 +803,15 @@ segments:
     vram: 0x14D290
     subsegments:
       - [0x4D480, asm, trade_action_market_manager]
+  - name: trade_action_market_select
+    type: code
+    start: 0x4EC30
+    vram: 0x14EA40
+    subsegments:
+      - [0x4EC30, asm, trade_action_market_select]
   - name: post_base
     type: bin
-    start: 0x4EC30
+    start: 0x4F070
   - [0x3e31c0]
 
 

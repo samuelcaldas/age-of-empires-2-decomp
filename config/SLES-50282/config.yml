@@ -917,9 +917,21 @@ segments:
     vram: 0x1539E0
     subsegments:
       - [0x53BD0, asm, trade_action_stream_unpacker]
+  - name: trade_action_stream_handlers
+    type: code
+    start: 0x540E0
+    vram: 0x153EF0
+    subsegments:
+      - [0x540E0, asm, trade_action_stream_handlers]
+  - name: trade_action_stream_records
+    type: code
+    start: 0x54670
+    vram: 0x154480
+    subsegments:
+      - [0x54670, asm, trade_action_stream_records]
   - name: post_base
     type: bin
-    start: 0x540E0
+    start: 0x54D20
   - [0x3e31c0]
 
 

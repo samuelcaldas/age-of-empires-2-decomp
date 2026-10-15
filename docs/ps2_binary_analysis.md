@@ -3346,6 +3346,24 @@ Following target ops sits the destination selection and route timer subsystem (`
 - `func_0014BEE0` (`0x14BEE0`, 32 bytes): Route buffer reset tail-calling `func_00150F50(self, 0)`.
 - `func_0014BF00` (`0x14BF00`, 544 bytes): Target destination search loop across tables `D_00F99910` and `D_00F99930`.
 
+#### 6.114 `Trade Action Route Search & Node Validation` Subsystem (`0x14C120`–`0x14C470`, `trade_action_route_search.cpp`)
+
+Following destination sits the route search and waypoint node validation subsystem (`0x14C120`–`0x14C470`, 848 bytes in Metrowerks C++ PS2 MWCC 2.3.1.01):
+- `func_0014C120` (`0x14C120`, 768 bytes): Route candidate search loop probing candidates across `D_F99910` and `D_F99930`, checking distance thresholds, waypoint connectivity, and path feasibility.
+- `func_0014C420` (`0x14C420`, 80 bytes): Node range validation helper verifying waypoint array bounds.
+
+#### 6.115 `Trade Action Market Search & Allied Node Selection` Subsystem (`0x14C470`–`0x14C7E0`, `trade_action_market_search.cpp`)
+
+Following route search sits the market candidate search and allied trading node selection subsystem (`0x14C470`–`0x14C7E0`, 880 bytes in Metrowerks C++ PS2 MWCC 2.3.1.01):
+- `func_0014C470` (`0x14C470`, 872 bytes, **90.78% match**): Core market search processor. Probes entity candidates across `D_F99910` and `D_F99930`, filtering non-tradable entity types (types 1, 2, 3, 27, 39, and 18–21), validating target passability (`Method0C`), checking player alliance via `PlayerDiplomacy::IsAllied`, verifying minimum travel distance (`func_002690D0 > 3.0f`), validating action states (`func_001471A0`, `func_00147170`, `func_00147160`, `func_001471C0`), and dispatching pathing assignment (`Method1B8`) and sub-action registration (`Method150`).
+
+#### 6.115.1 Trade Action Market Search Matching Results (90.78% Pure C++, 880 Bytes)
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_0014C470` | `0x14C470` | **90.78%** (792 / 872 B) | Candidate market search, diplomacy filtering, distance checks, and route assignment in pure C++. |
+
+
 
 
 

@@ -2732,13 +2732,13 @@ Directly following recursive expression compilation sits the top-level script co
       * `"defrule"` (`D_490EB8`): allocates rule identifier via `func_145740(&self->field_44)`, compiles rule statements via `func_143E00`, and inserts rule into matrix via `func_00141250`.
       * `"defconst"` (`D_490EC0`): parses constant identifier into stack buffer, parses numeric value via `func_114378` (`atoi`) or resolves existing identifier with `func_00142730`, and defines constant via `func_00142130(self, field_190, name, val)`.
     - Dispatches descriptive error codes via `func_144340` on unexpected tokens or malformed definitions.
-    - **99.81% match** (1052 / 1052 B, 100% byte-for-byte in linked binary).
+    - **97.37% pure C++ match** (1052 / 1052 B, converted from standalone assembly .s to pure C++).
 
-* **Matching Results (1 / 1 Functions, 99.81% Unit Match):**
+* **Matching Results (1 / 1 Functions, Pure C++ Match):**
 
 | Function / Method | VRAM Address | Match Status | Description |
 |---|---|---|---|
-| `func_143440` (`TacticalAI2::AnalyzeCandidateTarget`) | `0x143440` | **99.81%** (1052 / 1052 B) | Top-level script parser for load, load-random, defrule, and defconst commands. |
+| `func_143440` (`TacticalAI2::AnalyzeCandidateTarget`) | `0x143440` | **97.37%** (1052 / 1052 B) | Top-level script parser for load, load-random, defrule, and defconst commands in pure C++. |
 
 ### 6.79 Tactical / Spatial AI Script Preprocessor Conditional Directives (`0x143860`–`0x143AD0`, `tactical_ai_predicates2.cpp`)
 

@@ -1173,10 +1173,10 @@ segments:
     start: 0x1B6340
   - name: trade_action_getters4
     type: code
-    start: 0x1B6350
-    vram: 0x2B6170
+    start: 0x1B6340
+    vram: 0x2B6160
     subsegments:
-      - [0x1B6350, asm, trade_action_getters4]
+      - [0x1B6340, asm, trade_action_getters4]
   - name: post_trade_action_getters4
     type: bin
     start: 0x1B6360

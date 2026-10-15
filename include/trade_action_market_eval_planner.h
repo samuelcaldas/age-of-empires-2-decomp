@@ -1,8 +1,6 @@
 #ifndef TRADE_ACTION_MARKET_EVAL_PLANNER_H
 #define TRADE_ACTION_MARKET_EVAL_PLANNER_H
 
-typedef int int128_t __attribute__((mode(TI)));
-
 class TargetObj {
 public:
     virtual void vfn0(); virtual void vfn1(); virtual void vfn2(); virtual void vfn3();
@@ -70,8 +68,8 @@ extern "C" {
     void *func_332e60(void *manager, int identifier);
     int func_269FF0(void *object);
     void func_1E9130(void *manager);
-    int128_t func_123350(float coordinate);
-    CandidateNode *func_3283C0(void *map, int128_t x, int128_t y, int team, int category, int *visited, int count);
+    int func_123350(float coordinate);
+    CandidateNode *func_3283C0(void *map, int x, int y, int team, int category, int *visited, int count);
     TargetObj *func_001510D0(TradeAction *self, int identifier);
 
     /** Return a dispatched candidate identifier, or -1; optionally write its distance. */

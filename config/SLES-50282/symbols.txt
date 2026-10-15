@@ -965,3 +965,11 @@ sony_libpad_version = 0x38A5E0; // type:asciz absolute:True
 sony_libcdvd_version = 0x38A640; // type:asciz absolute:True
 sony_libmc_version = 0x38BFB0; // type:asciz absolute:True
 sony_libscf_version = 0x48D130; // type:asciz absolute:True
+
+// Tactical AI Player Operations (aoe4 range 0x305830-0x38A360)
+func_00305B90 = 0x305B90; // type:func size:0x10 absolute:True
+func_00305BA0 = 0x305BA0; // type:func size:0x30 absolute:True
+func_00305BD0 = 0x305BD0; // type:func size:0xE0 absolute:True
+func_00305CB0 = 0x305CB0; // type:func size:0x280 absolute:True
+func_2e05f0 = 0x2E05F0; // type:func absolute:True
+

@@ -25,13 +25,13 @@ int func_0014EE90(TradeAction *self, int category, int target_identifier, int li
     int count = 0;
     int tested = 0;
     bool retry = false;
-    int128_t y;
+    int y;
 
     func_1E9130(D_004E3244->m_controller);
 
     while (mode < 4 && count < 100 && tested < 30) {
         while (count < 100 && tested < 30) {
-            int128_t x = func_123350(target->pos_x);
+            int x = func_123350(target->pos_x);
             y = func_123350(target->pos_y);
             int team = func_269FF0(target) & 0xFF;
 

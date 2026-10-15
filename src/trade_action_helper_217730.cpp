@@ -3,19 +3,16 @@
 
 extern "C" {
 void *func_185E20(void *arg, int val);
-void func_2177C0(void *self, int *arr);
+void func_2177C0(void *self, int *arr, int arg2, int arg3);
 void func_217B50(void *self);
+void func_00217840();
 
 extern void *D_004E3058;
 
 void func_00217730(void *self, int arg1) {
     void *s0 = self;
-    void *v0;
-    if (arg1 < 0) {
-        v0 = func_185E20(D_004E3058, 0);
-    } else {
-        v0 = func_185E20(D_004E3058, 2);
-    }
+    int selected_index = (arg1 < 0) ? 2 : arg1;
+    void *v0 = func_185E20(D_004E3058, selected_index);
 
     int arr[4];
     int val = 0;
@@ -33,7 +30,7 @@ void func_00217730(void *self, int arg1) {
         a0_loop++;
     } while (a0_loop < 4);
 
-    func_2177C0(s0, arr);
+    func_2177C0(s0, arr, a2, a3);
 }
 
 void func_002177C0(void *self, int *arr, int arg2, int arg3) {
@@ -53,5 +50,8 @@ void func_002177C0(void *self, int *arr, int arg2, int arg3) {
     typedef void (*Fn)(void *, int);
     Fn fn = (Fn)*(void **)((char *)vtable + 0x28);
     fn(self, 1);
+}
+
+void func_00217840() {
 }
 }

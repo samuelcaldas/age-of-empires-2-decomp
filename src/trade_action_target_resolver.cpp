@@ -69,7 +69,7 @@ void func_00100630(void *p);
 void* func_00100730(int sz);
 void func_001FC810(void *obj);
 
-void func_00150F40(TradeAction *self, int a1) {
+void func_00150F50(TradeAction *self, int a1) {
     for (int t0 = 0; t0 < (int)self->m_field32; t0++) {
         RouteEntry *entry = (RouteEntry *)((char *)self->m_field40 + t0 * 20);
         if (entry->m_type != 506) {
@@ -110,11 +110,7 @@ void func_00150F40(TradeAction *self, int a1) {
     self->m_field32 = 0;
 }
 
-void func_00150F50(TradeAction *self, int a1) {
-    func_00150F40(self, a1);
-}
-
-TargetObj* func_001510C0(TradeAction *self, int a1) {
+TargetObj* func_001510D0(TradeAction *self, int a1) {
     if (!self->m_target) {
         return 0;
     }
@@ -132,11 +128,7 @@ TargetObj* func_001510C0(TradeAction *self, int a1) {
     return (TargetObj *)func_332e60(timer, a1);
 }
 
-TargetObj* func_001510D0(TradeAction *self, int a1) {
-    return func_001510C0(self, a1);
-}
-
-int func_00151110(TradeAction *self) {
+int func_00151120(TradeAction *self) {
     short s = self->m_field48;
     if (s == 617 || s == 600 || s == 610 || s == 613 || s == 609 || s == 620 || s == 619) {
         return 1;
@@ -144,7 +136,7 @@ int func_00151110(TradeAction *self) {
     return 0;
 }
 
-int func_00151190(TradeAction *self) {
+int func_001511A0(TradeAction *self) {
     short s = self->m_field44;
     if (s == 617 || s == 700 || s == 710 || s == 713 || s == 709 || s == 720 || s == 719) {
         return 1;
@@ -152,11 +144,11 @@ int func_00151190(TradeAction *self) {
     return 0;
 }
 
-int func_00151210(TradeAction *self) {
+int func_00151220(TradeAction *self) {
     return *(void **)((char *)self + 0x164) != 0 ? 1 : 0;
 }
 
-int func_00151220(TradeAction *self) {
+int func_00151230(TradeAction *self) {
     void *obj = *(void **)((char *)self + 0x164);
     if (obj) {
         func_001FC810(obj);
@@ -172,10 +164,6 @@ int func_00151220(TradeAction *self) {
 }
 
 int func_00151290() {
-    return 0;
-}
-
-int func_00151280() {
     return 0;
 }
 

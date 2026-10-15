@@ -853,10 +853,10 @@ segments:
       - [0x50AD0, asm, trade_action_route_finish]
   - name: trade_action_target_resolver
     type: code
-    start: 0x51120
-    vram: 0x150F30
+    start: 0x51130
+    vram: 0x150F50
     subsegments:
-      - [0x51120, asm, trade_action_target_resolver]
+      - [0x51130, asm, trade_action_target_resolver]
   - name: trade_action_target_management
     type: code
     start: 0x51490

@@ -3623,6 +3623,25 @@ Following stream reader sits the packet dispatch and route packet writer subsyst
 | `func_00152D10` | `0x152D10` | **100.0%** (252 / 252 B) | Exact 6-byte composite packet serialization in pure C++. |
 | `func_00152E10` | `0x152E10` | **100.0%** (272 / 272 B) | Exact 7-byte composite packet serialization in pure C++. |
 
+#### 6.134 `Trade Action Stream Buffers & Payload Deserialization` Subsystem (`0x152F30`–`0x153440`, `trade_action_stream_buffers.cpp`)
+
+Following stream writers sits the packet payload buffering, packet validation, and sequential 4-byte block copy subsystem (`0x152F30`–`0x153440`, 1,296 bytes in Metrowerks C++ PS2 MWCC 2.3.1.01):
+- `func_00152F30` (`0x152F30`, 276 bytes, **81.07% match**): Composite payload deserializer copying 4 leading bytes, calling packet validator `func_001522C0` using buffer `D_004E2DA0`, advancing input stream `D_004E2DB0` by 3, and transferring 3 trailing payload bytes.
+- `func_00153050` (`0x153050`, 276 bytes, **81.07% match**): Matching composite payload deserializer.
+- `func_00153170` (`0x153170`, 276 bytes, **81.07% match**): Matching composite payload deserializer.
+- `func_00153290` (`0x153290`, 208 bytes, **81.60% match**): Unrolled 4-byte block stream transfer loop decrementing counter `D_004E2DA8` by 4 until zero.
+- `func_00153360` (`0x153360`, 220 bytes, **93.51% match**): Aligned block stream transfer handler adjusting initial byte, decrementing `D_004E2DA8--`, and executing unrolled 4-byte transfer loop.
+
+#### 6.134.1 Trade Action Stream Buffers Matching Results (Pure C++, 1,296 Bytes)
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_00152F30` | `0x152F30` | **81.07%** (224 / 276 B) | Validated stream payload unmarshaling with `func_001522C0`. |
+| `func_00153050` | `0x153050` | **81.07%** (224 / 276 B) | Validated stream payload unmarshaling with `func_001522C0`. |
+| `func_00153170` | `0x153170` | **81.07%** (224 / 276 B) | Validated stream payload unmarshaling with `func_001522C0`. |
+| `func_00153290` | `0x153290` | **81.60%** (170 / 208 B) | Unrolled 4-byte block copy loop with `D_004E2DA8` counter. |
+| `func_00153360` | `0x153360` | **93.51%** (206 / 220 B) | Single-byte prefix and unrolled 4-byte block copy loop. |
+
 #### 6.136 `Trade Action Stream Decoders` Subsystem (`0x153440`–`0x1539E0`, `trade_action_stream_decoders.cpp`)
 
 Following stream buffers sits the bounded stream payload decoder and alignment unpacking subsystem (`0x153440`–`0x1539E0`, 1,440 bytes in Metrowerks C++ PS2 MWCC 2.3.1.01):
@@ -3643,6 +3662,7 @@ Following stream buffers sits the bounded stream payload decoder and alignment u
 | `func_00153780` | `0x153780` | **71.32%** (194 / 272 B) | Bounded 2-byte direct stream unpacker. |
 | `func_00153890` | `0x153890` | **71.12%** (228 / 320 B) | Bounded 3-byte composite stream unpacker. |
 | `func_001539D0` | `0x1539D0` | **100.0%** (16 / 16 B) | Stream decoding status helper returning 0. |
+
 
 
 

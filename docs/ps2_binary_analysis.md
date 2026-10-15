@@ -3697,7 +3697,36 @@ Following the stream unpackers is the stream handlers subsystem (`0x153EF0`–`0
 | `func_001541A0` | `0x1541A0` | **100.0%** (344 / 344 B) | Stream handler: 1-byte head, unrolled loop, 3-byte trailer. |
 | `func_00154300` | `0x154300` | **100.0%** (376 / 376 B) | Stream handler: 2-byte head, unrolled loop, 3-byte trailer. |
 
-#### 6.139 `Trade Action Stream Parsers` Subsystem (`0x154B30`–`0x1550A0`, `trade_action_stream_parsers.cpp`)
+#### 6.139 `Trade Action Stream Records & Bitwise Decoders` Subsystem (`0x154480`–`0x154B30`, `trade_action_stream_records.cpp`)
+
+Following the stream handlers is the stream records subsystem (`0x154480`–`0x154B30`, 1,712 bytes across 10 functions). It implements specialized bitwise record unmarshaling and composite payload deserialization using `Buffer4` (`D_004E2DA0`), bitmasks `D_004E30A8` and `D_004E30AC`, and sub-block alignment calls (`func_001522C0`):
+- `func_00154480` (`0x154480`, 400 bytes): 3-byte prefix staging unpacker, 4-byte unrolled `do-while` loop, and 3-byte trailer synchronization. **90.03% pure C++ match**.
+- `func_00154610` (`0x154610`, 80 bytes): Single-byte bitwise mask and insert decoder into `D_004E2DA0[0]`. **100.0% exact match** in pure C++.
+- `func_00154660` (`0x154660`, 80 bytes): Single-byte bitwise mask and insert decoder into `D_004E2DA0[1]`. **100.0% exact match** in pure C++.
+- `func_001546B0` (`0x1546B0`, 128 bytes): 2-byte aligned stream record decoder with bitmask insertion. **92.26% pure C++ match**.
+- `func_00154730` (`0x154730`, 144 bytes): Offset -1 sub-block record decoder with 8-bit right shift. **93.14% pure C++ match**.
+- `func_001547C0` (`0x1547C0`, 144 bytes): Offset -1 sub-block record decoder with 8-bit right shift. **93.14% pure C++ match**.
+- `func_00154850` (`0x154850`, 160 bytes): 3-byte aligned stream record decoder with bitmask insertion. **93.51% pure C++ match**.
+- `func_001548F0` (`0x1548F0`, 160 bytes): Offset -1 sub-block 3-byte record decoder (`b[1..3]`). **93.68% pure C++ match**.
+- `func_00154990` (`0x154990`, 208 bytes): Composite 2-byte stream decoder with secondary byte mask decode. **90.40% pure C++ match**.
+- `func_00154A60` (`0x154A60`, 208 bytes): Composite 1-byte pre-decoder with secondary 2-byte stream decode. **95.20% pure C++ match**.
+
+#### 6.139.1 Trade Action Stream Records Matching Results (Pure C++, 1,712 Bytes)
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_00154480` | `0x154480` | **90.03%** (400 B) | Stream record: 3-byte prefix, unrolled loop, 3-byte trailer. |
+| `func_00154610` | `0x154610` | **100.0%** (80 / 80 B) | 1-byte bitwise mask record decoder (`b[0]`). |
+| `func_00154660` | `0x154660` | **100.0%** (80 / 80 B) | 1-byte bitwise mask record decoder (`b[1]`). |
+| `func_001546B0` | `0x1546B0` | **92.26%** (128 B) | 2-byte stream record decoder with bitmask insertion. |
+| `func_00154730` | `0x154730` | **93.14%** (144 B) | Sub-block record decoder with 8-bit right shift. |
+| `func_001547C0` | `0x1547C0` | **93.14%** (144 B) | Sub-block record decoder with 8-bit right shift. |
+| `func_00154850` | `0x154850` | **93.51%** (160 B) | 3-byte stream record decoder with bitmask insertion. |
+| `func_001548F0` | `0x1548F0` | **93.68%** (160 B) | Sub-block 3-byte record decoder (`b[1..3]`). |
+| `func_00154990` | `0x154990` | **90.40%** (208 B) | Composite 2-byte stream decoder and secondary mask. |
+| `func_00154A60` | `0x154A60` | **95.20%** (208 B) | Composite 1-byte pre-decoder and secondary stream decode. |
+
+#### 6.140 `Trade Action Stream Parsers` Subsystem (`0x154B30`–`0x1550A0`, `trade_action_stream_parsers.cpp`)
 
 Directly following stream records sits the bitwise-masked stream parser and multi-byte staging subsystem (`0x154B30`–`0x1550A0`, 1,392 bytes in Metrowerks C++ PS2 MWCC 2.3.1.01):
 - `func_00154B30` (`0x154B30`, 176 bytes, **84.93% match**): Primary stream parser invoking `func_001522C0` to validate staging buffer `D_004E2DA0`, applying bitmask `D_004E30A8` and OR-flag `D_004E30AC`, advancing input stream `D_004E2DB0` by 4, and transferring 4 serialized bytes to `D_004E2DB4`.
@@ -3707,7 +3736,7 @@ Directly following stream records sits the bitwise-masked stream parser and mult
 - `func_00154EA0` (`0x154EA0`, 256 bytes, **80.32% match**): 4-byte block parser executing `func_001522C0` validation, advancing stream by 4, transferring 4 bytes, and parsing an additional trailing byte.
 - `func_00154FA0` (`0x154FA0`, 256 bytes, **78.48% match**): Composite 3-byte and 2-byte staged stream parser executing dual `func_001522C0` validation cycles.
 
-#### 6.139.1 Trade Action Stream Parsers Matching Results (Pure C++, 1,392 Bytes)
+#### 6.140.1 Trade Action Stream Parsers Matching Results (Pure C++, 1,392 Bytes)
 
 | Function / Method | VRAM Address | Match Status | Description |
 |---|---|---|---|
@@ -3717,120 +3746,3 @@ Directly following stream records sits the bitwise-masked stream parser and mult
 | `func_00154DC0` | `0x154DC0` | **78.75%** (176 / 224 B) | Single-byte prefix parser with subsequent 3-byte validated stream extraction. |
 | `func_00154EA0` | `0x154EA0` | **80.32%** (199 / 248 B) | 4-byte block parser with trailing byte masking and stream transfer. |
 | `func_00154FA0` | `0x154FA0` | **78.48%** (201 / 256 B) | Composite 3-byte and 2-byte dual-cycle validated stream parser. |
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-### TacticalAI::TacticalAI (func_001407B0) Decompilation Notes
-- Address: `0x1407B0` (500 bytes)
-- Source: `src/tactical_ai_init.cpp`
-- Match: 96.92% in pure C++.
-- Vtable: `D_4D7758`
-- Struct: Initializes `TacticalAI` base members including vector allocations for `TacticalNode` (size 24, via `func_1004E0`), `Obj12` (size 12, via `func_1004E0`), `Item16` (size 16), and `Item8` (size 8).
-### 6.99 `Trade Action Secondary Status & Command Validation` Subsystem (`0x147FB0`–`0x148038`, `trade_action_getters2.cpp`)
-
-Following the callback routines sits the secondary atomic accessors and command validator for `TradeAction` (`0x147FB0`–`0x148038`, 144 bytes in Metrowerks C++ PS2 MWCC 2.3.1.01):
-
-- `func_00147FB0` (`0x147FB0`, 8 bytes): No-op virtual/default hook. **100.0% pure C++ match**.
-- `func_00147FC0` (`0x147FC0`, 8 bytes): Secondary status validator returning constant 0. **100.0% pure C++ match**.
-- `func_00147FD0` (`0x147FD0`, 104 bytes): Trade action command predicate. Evaluates active state override (`m_field2D == 1`), contiguous trade command intervals (`0x258`–`0x259` and `0x25B`–`0x25C`), and specific action codes (`0x26A` / 618 and `0x264` / 612). **100.0% pure C++ match**.
-
-#### 6.99.1 Trade Action Secondary Getters Matching Results (100.0% Pure C++, 144 Bytes)
-
-| Function / Method | VRAM Address | Match Status | Description |
-|---|---|---|---|
-| `func_00147FB0` | `0x147FB0` | **100.0%** (8 / 8 B) | Default no-op hook. |
-| `func_00147FC0` | `0x147FC0` | **100.0%** (8 / 8 B) | Status predicate returning constant 0. |
-| `func_00147FD0` | `0x147FD0` | **100.0%** (104 / 104 B) | Trade action command validator (`0x258`..`0x26A`). |
-
-
-Following the route registration logic sits the trade action target notification and spatial movement callback subsystem (`0x147CD0`–`0x147FB0`, 736 bytes in Metrowerks C++ PS2 MWCC 2.3.1.01). It handles timer-based entity notifications, atomic lock synchronization via `func_1AAB30`/`func_1AAB70`, route spatial interpolation, and unit command notifications:
-
-- `TradeAction::OnTargetNotify` (`func_00147CD0`, 152 bytes): Validates target timer (`m_field64 != -1`), retrieves game timer via `func_333b30`, evaluates command codes (`0x1F4` / 500 and `0x20F` / 527) via jump-optimized `switch`, and dispatches notification via `func_1BCE20`. **100.0% pure C++ match**.
-- `TradeAction::SetTargetPosition` (`func_00147D70`, 572 bytes): Enters critical section (`func_1AAB30`), guards against re-entrant execution via `D_004E305C`, performs route validation (`m_field44 == 0x2BD`), updates entity coordinates and pathing bounds (`func_327A30`), executes delta-time movement accumulation, and triggers building communication via `Method118` when `m_float15C > 10.0f`. **97.83% pure C++ match**.
-
-#### 6.98.1 Trade Action Callbacks Matching Results (Pure C++, 736 Bytes)
-
-| Function / Method | VRAM Address | Match Status | Description |
-|---|---|---|---|
-| `func_00147CD0` | `0x147CD0` | **100.0%** (152 / 152 B) | Target notification callback and timer-based entity update. |
-| `func_00147D70` | `0x147D70` | **97.83%** (572 B, 143 ins) | Spatial movement coordinator and critical section handler. |
-
-
-### TacticalAI Scope Operations (tactical_ai_scope) Decompilation Notes
-- Address: `0x1441B0` - `0x144434` (644 bytes)
-- Source: `src/tactical_ai_scope.cpp`
-- Functions:
-  * `func_1441B0` (`BeginScriptScope`): 100.0% match in pure C++. Saves `ScopeContext` state (1048 bytes per scope slot at `0x6C4 + idx * 1048`) and copies string buffer `0x2A8` via `func_0011ABBC`.
-  * `func_1442E0` (`PushConditionScope`): 100.0% match in pure C++. Pushes condition flag from `0x198` to `0x2FB8[field_2FB4]`.
-  * `func_144310` (`ResetScriptState`): 100.0% match in pure C++. Resets error struct fields (`0x0`, `0x104`, `0x108`, `0x188`).
-  * `func_144340` (`ReportScriptError`): 96.56% match in pure C++. Formats error messages and handles jump table `jtbl_490F20` across 27 error codes.
-
-### TacticalAI Preprocessor Directives (tactical_ai_predicates2) Decompilation Notes
-- Address: `0x143860` (612 bytes)
-- Source: `src/tactical_ai_predicates2.cpp`
-- Function: `func_143860` (`EvaluateActionBlock` / Preprocessor Evaluator): 99.58% match in pure C++.
-- Directives parsed:
-  * `#load-if-defined` (`D_490ED0`, type 1)
-  * `#load-if-not-defined` (`D_490EF0`, type 2)
-  * `#else` (`D_490F08`, type 3)
-  * `#end-if` (`D_490F10`, type 4)
-- Error codes reported via `func_144340`:
-  * 0x5: Unknown preprocessor directive
-  * 0x13: Nesting depth limit reached (checked via `func_00142C90`)
-  * 0x17: `#else` without matching `#load-if` (scope depth zero via `func_00142C80`)
-  * 0x18: `#end-if` without matching `#load-if` (scope depth zero via `func_00142C80`)

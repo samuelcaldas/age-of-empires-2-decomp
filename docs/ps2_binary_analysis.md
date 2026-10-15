@@ -3278,9 +3278,16 @@ Following pathing sits the primary trade route destination validation and step e
 
 #### 6.109 `Trade Action Cargo Exchange` Subsystem (`0x14AEF0`–`0x14B310`, `trade_action_cargo_exchange.cpp`)
 
-Following trade step sits the cargo exchange and transaction settling routine (`0x14AEF0`–`0x14B310`, 1,056 bytes in Metrowerks C++ PS2 MWCC 2.3.1.01):
-- `func_0014AEF0` (`0x14AEF0`, 1,040 bytes): Commodity transaction settling, market tariff calculation, and player resource deposition.
-- `func_0014B300` (`0x14B300`, 16 bytes): Cargo exchange status helper.
+Following trade step sits the cargo exchange, radial tile search, and waypoint dispatch routine (`0x14AEF0`–`0x14B310`, 1,056 bytes across 2 methods, Metrowerks C++ PS2 MWCC 2.3.1.01):
+- `func_0014AEF0` (`0x14AEF0`, 1,040 bytes): Coordinates trade cargo loading/unloading, clamps entity coordinates against map boundaries, executes tile occupancy checks (`Method1B4`), executes an 8-direction radial search around blocked target tiles using jump table `jtbl_4910A0`, evaluates distance thresholds via `func_269190`, sets command code `610` (`0x262`), and dispatches waypoint updates via `func_0014BD20`. **88.75% pure C++ match**.
+- `func_0014B300` (`0x14B300`, 16 bytes): Leaf return status helper. **100.0% exact byte-for-byte pure C++ match**.
+
+#### 6.109.1 Trade Action Cargo Exchange Matching Results (Pure C++, 1056 Bytes)
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_0014AEF0` | `0x14AEF0` | **88.75%** (1040 / 1040 B) | Cargo transaction settling, 8-direction tile radial search with jtbl_4910A0, and command 610 dispatch. |
+| `func_0014B300` | `0x14B300` | **100.0%** (16 / 16 B) | Leaf return status helper. |
 
 #### 6.110 `Trade Action Route Advance & Cycle Reset` Subsystem (`0x14B310`–`0x14B8F0`, `trade_action_route_advance.cpp`)
 

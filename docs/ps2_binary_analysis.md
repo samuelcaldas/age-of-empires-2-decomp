@@ -3433,6 +3433,17 @@ Following market selection sits the route node candidate search and market evalu
 |---|---|---|---|
 | `func_0014EE80` | `0x14EE80` | **89.73%** (876 / 976 B) | Market action candidate evaluator and route validator in pure C++. |
 
+#### 6.121 `Trade Action Market Route Calculation & Grid Search` Subsystem (`0x14F250`–`0x14F640`, `trade_action_market_route_calc.cpp`)
+
+Following market candidate selection sits the 2D tile raycasting, boundary clamping, and grid route calculation subsystem (`0x14F250`–`0x14F640`, 1,008 bytes in Metrowerks C++ PS2 MWCC 2.3.1.01):
+- `func_0014F250` (`0x14F250`, 1,008 bytes): Evaluates 2D tile grid around merchant entity with bounding box `radius + 3`, checks map boundary limits, queries tile fog of war (`func_0014BDC0`), verifies passability zone (`func_269E50`), checks entity passability (`Method300`), applies avoidance scoring (`func_00149D90`), finds minimum distance tile, and commits target destination (`Method60`).
+
+#### 6.121.1 Trade Action Market Route Calculation Matching Results (100.00% Pure C++, 1,008 Bytes)
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_0014F250` | `0x14F250` | **Implemented** (1,008 B) | 2D tile grid search, boundary clamping, passability validation, and route destination calculation in pure C++. |
+
 
 
 

@@ -55,8 +55,10 @@ void *func_001C8CA0(void *self, void *stream, void *arg2) {
     func_00226D90(st, &header, 4);
     func_00226D90(st, (char *)self + 4, 0x9154);
 
-    for (int t8 = 0; t8 < 32; t8++) {
-        char *elem = (char *)self + t8 * 416;
+    int t8;
+    char *elem;
+    for (t8 = 0; t8 < 32; t8++) {
+        elem = (char *)self + t8 * 416;
         switch (t8) {
         default:
             *(short *)(elem + 0x14E) = 1;

@@ -127,6 +127,9 @@ The binary embeds **16 original C and C++ source filenames** in assertion and er
   - `Game Setup Screen`
   - `MP Setup Screen`
 
+For bounded third-party runtime code ranges, Sony SDK version markers, and the
+limits of the current attribution, see the [PS2 library code map](ps2_library_map.md).
+
 ---
 
 ## 5. Decompilation Strategy for PS2

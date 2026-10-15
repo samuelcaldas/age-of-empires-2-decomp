@@ -767,9 +767,15 @@ segments:
     vram: 0x14BE10
     subsegments:
       - [0x4C000, asm, trade_action_destination]
+  - name: trade_action_route_search
+    type: code
+    start: 0x4C310
+    vram: 0x14C120
+    subsegments:
+      - [0x4C310, asm, trade_action_route_search]
   - name: post_base
     type: bin
-    start: 0x4C310
+    start: 0x4C660
   - [0x3e31c0]
 
 

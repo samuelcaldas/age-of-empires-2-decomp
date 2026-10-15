@@ -3270,6 +3270,32 @@ Following waypoints 2 sits the trade pathing and waypoint step execution subsyst
 - `func_0014A970` (`0x14A970`, 240 bytes): Pathing route advance.
 - `func_0014AA60` (`0x14AA60`, 192 bytes): Pathing step finalization.
 
+#### 6.108 `Trade Action Trade Step Execution` Subsystem (`0x14AB20`–`0x14AEF0`, `trade_action_trade_step.cpp`)
+
+Following pathing sits the primary trade route step execution routine (`0x14AB20`–`0x14AEF0`, 976 bytes in Metrowerks C++ PS2 MWCC 2.3.1.01):
+- `func_0014AB20` (`0x14AB20`, 960 bytes): Core trade step processor handling waypoint progression, timer increments, and cargo loading.
+- `func_0014AEE0` (`0x14AEE0`, 16 bytes): Step completion status helper.
+
+#### 6.109 `Trade Action Cargo Exchange` Subsystem (`0x14AEF0`–`0x14B310`, `trade_action_cargo_exchange.cpp`)
+
+Following trade step sits the cargo exchange and transaction settling routine (`0x14AEF0`–`0x14B310`, 1,056 bytes in Metrowerks C++ PS2 MWCC 2.3.1.01):
+- `func_0014AEF0` (`0x14AEF0`, 1,040 bytes): Commodity transaction settling, market tariff calculation, and player resource deposition.
+- `func_0014B300` (`0x14B300`, 16 bytes): Cargo exchange status helper.
+
+#### 6.110 `Trade Action Route Advance & Cycle Reset` Subsystem (`0x14B310`–`0x14B8F0`, `trade_action_route_advance.cpp`)
+
+Following cargo exchange sits the route advancement and cycle reset subsystem (`0x14B310`–`0x14B8F0`, 1,504 bytes in Metrowerks C++ PS2 MWCC 2.3.1.01):
+- `func_0014B310` (`0x14B310`, 1,488 bytes): Route advance cycle processor, waypoint loop wrapping, and merchant unit re-direction.
+- `func_0014B8E0` (`0x14B8E0`, 16 bytes): Route cycle status helper.
+
+#### 6.111 `Trade Action Route Status & State Queries` Subsystem (`0x14B8F0`–`0x14BC10`, `trade_action_route_status.cpp`)
+
+Following route advance sits the trade route status and state query routines (`0x14B8F0`–`0x14BC10`, 800 bytes in Metrowerks C++ PS2 MWCC 2.3.1.01):
+- `func_0014B8F0` (`0x14B8F0`, 240 bytes): Route status query 1.
+- `func_0014B9E0` (`0x14B9E0`, 192 bytes): Route status query 2.
+- `func_0014BAA0` (`0x14BAA0`, 160 bytes): Route status query 3.
+- `func_0014BB40` (`0x14BB40`, 208 bytes): Route status query 4.
+
 
 
 

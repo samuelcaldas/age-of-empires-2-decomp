@@ -965,9 +965,15 @@ segments:
     vram: 0x156670
     subsegments:
       - [0x56860, asm, trade_action_stream_collectors]
+  - name: trade_action_stream_accumulators
+    type: code
+    start: 0x56E70
+    vram: 0x156C80
+    subsegments:
+      - [0x56E70, asm, trade_action_stream_accumulators]
   - name: post_base
     type: bin
-    start: 0x56E70
+    start: 0x574E0
   - [0x3e31c0]
 
 

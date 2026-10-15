@@ -2875,7 +2875,7 @@ Directly following script scope cleanup sit the script scope frame pusher, condi
 
 ### 6.84 Tactical / Spatial AI Node Item Operations (`0x144434`–`0x144540`, `tactical_ai_node_item.cpp`)
 
-Directly following script error logging sit the constructors, destructors, initializers, evaluators, and resetters for individual tactical spatial node elements (`TacticalNode`, `0x144434`–`0x144540`, 244 bytes of code across 8 discrete symbols, 272-byte slice, Metrowerks MWCCPS2 2.3.1.01):
+Directly following script error logging sit the constructors, destructors, initializers, evaluators, and resetters for individual tactical spatial node elements (`TacticalNode`, `0x144434`–`0x144540`, 244 bytes of code across 8 discrete symbols, 272-byte slice, Metrowerks MWCCPS2 2.3.1.01). All functions are implemented in 100% pure C++ without any assembly blocks.
 
 * **Architecture and Reverse Engineering:**
   - Method: `func_00144434` (`TacticalNode::TacticalNode()`, 44 B code, VRAM `0x144434`):

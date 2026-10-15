@@ -41,14 +41,10 @@ TacticalNode *func_00144464(TacticalNode *self, int a1) {
     return self;
 }
 
-asm void func_001444B4(TacticalNode *self, int a1) {
-    .set noreorder
-    .set noat
-    sw a1, 0x0(a0)
-    sw zero, 0x4(a0)
-    sw zero, 0x8(a0)
-    .set reorder
-    .set at
+void func_001444B4(TacticalNode *self, int a1) {
+    self->field_0 = a1;
+    self->field_4 = 0;
+    self->field_8 = 0;
 }
 
 void func_001444C0(TacticalNode *self, int unused, char a2, int (*a3)(), char t0, char t1, char t2, char t3) {
@@ -60,57 +56,26 @@ void func_001444C0(TacticalNode *self, int unused, char a2, int (*a3)(), char t0
     self->field_17 = t3;
 }
 
-asm void func_001444E4(TacticalNode *self) {
-    .set noreorder
-    .set noat
-    addiu sp, sp, -0x20
-    sq ra, 0x10(sp)
-    sq s0, 0x0(sp)
-    .set reorder
-    .set at
+void func_001444E4(TacticalNode *self) {
+    if (self->field_0 == 3) {
+        self->field_8 = self->field_10();
+    }
 }
 
-asm void func_001444F0(TacticalNode *self) {
-    .set noreorder
-    .set noat
-    paddub s0, a0, zero
-    lw a0, 0x0(a0)
-    addiu v1, zero, 0x3
-    bne a0, v1, _L00144514
-    nop
-    lw v0, 0x10(s0)
-    jalr ra, v0
-    nop
-    sw v0, 0x8(s0)
-_L00144514:
-    lq ra, 0x10(sp)
-    lq s0, 0x0(sp)
-    jr ra
-    addiu sp, sp, 0x20
-    .set reorder
-    .set at
+void func_001444F0(TacticalNode *self) {
+    if (self->field_0 == 3) {
+        self->field_8 = self->field_10();
+    }
 }
 
-asm void func_00144524(TacticalNode *self) {
-    .set noreorder
-    .set noat
-    lw a1, 0x0(a0)
-    addiu v1, zero, 0x2
-    .word 0x14A30002 // bne a1, v1, +2 (to 0x144538)
-    .set reorder
-    .set at
+void func_00144524(TacticalNode *self) {
+    if (self->field_0 == 2) {
+        self->field_4 = 0;
+    }
 }
 
-asm void func_00144530(TacticalNode *self) {
-    .set noreorder
-    .set noat
-    nop
-    sw zero, 0x4(a0)
-    jr ra
-    nop
-    nop
-    .set reorder
-    .set at
+void func_00144530(TacticalNode *self) {
+    self->field_4 = 0;
 }
 
 }

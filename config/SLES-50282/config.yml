@@ -929,9 +929,15 @@ segments:
     vram: 0x154480
     subsegments:
       - [0x54670, asm, trade_action_stream_records]
+  - name: trade_action_stream_parsers
+    type: code
+    start: 0x54D20
+    vram: 0x154B30
+    subsegments:
+      - [0x54D20, asm, trade_action_stream_parsers]
   - name: post_base
     type: bin
-    start: 0x54D20
+    start: 0x55290
   - [0x3e31c0]
 
 

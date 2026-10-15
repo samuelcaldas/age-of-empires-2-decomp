@@ -3697,6 +3697,26 @@ Following the stream unpackers is the stream handlers subsystem (`0x153EF0`–`0
 | `func_001541A0` | `0x1541A0` | **100.0%** (344 / 344 B) | Stream handler: 1-byte head, unrolled loop, 3-byte trailer. |
 | `func_00154300` | `0x154300` | **100.0%** (376 / 376 B) | Stream handler: 2-byte head, unrolled loop, 3-byte trailer. |
 
+#### 6.139 `Trade Action Stream Parsers` Subsystem (`0x154B30`–`0x1550A0`, `trade_action_stream_parsers.cpp`)
+
+Directly following stream records sits the bitwise-masked stream parser and multi-byte staging subsystem (`0x154B30`–`0x1550A0`, 1,392 bytes in Metrowerks C++ PS2 MWCC 2.3.1.01):
+- `func_00154B30` (`0x154B30`, 176 bytes, **84.93% match**): Primary stream parser invoking `func_001522C0` to validate staging buffer `D_004E2DA0`, applying bitmask `D_004E30A8` and OR-flag `D_004E30AC`, advancing input stream `D_004E2DB0` by 4, and transferring 4 serialized bytes to `D_004E2DB4`.
+- `func_00154BE0` (`0x154BE0`, 240 bytes, **79.30% match**): Bounded 3-byte parser calling `func_001522C0` with stream offset -1, updating `D_004E2DA0` mask flags, advancing input stream by 3, transferring bytes 1-3, and reading a trailing byte into `D_004E2DA0[0]`.
+- `func_00154CD0` (`0x154CD0`, 240 bytes, **75.84% match**): Dual-phase 2-byte parser invoking two consecutive rounds of `func_001522C0` validation and 2-byte masked payload extraction.
+- `func_00154DC0` (`0x154DC0`, 224 bytes, **78.75% match**): Single-byte prefix parser staging `D_004E2DA0[1]`, followed by `func_001522C0` validation and 3-byte sequential stream payload transfer.
+- `func_00154EA0` (`0x154EA0`, 256 bytes, **80.32% match**): 4-byte block parser executing `func_001522C0` validation, advancing stream by 4, transferring 4 bytes, and parsing an additional trailing byte.
+- `func_00154FA0` (`0x154FA0`, 256 bytes, **78.48% match**): Composite 3-byte and 2-byte staged stream parser executing dual `func_001522C0` validation cycles.
+
+#### 6.139.1 Trade Action Stream Parsers Matching Results (Pure C++, 1,392 Bytes)
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_00154B30` | `0x154B30` | **84.93%** (146 / 172 B) | Primary 4-byte stream parser with `func_001522C0` buffer validation. |
+| `func_00154BE0` | `0x154BE0` | **79.30%** (181 / 228 B) | 3-byte parser with stream offset validation and trailing byte staging. |
+| `func_00154CD0` | `0x154CD0` | **75.84%** (173 / 228 B) | Dual 2-byte parser with repeated validation and stream advancement. |
+| `func_00154DC0` | `0x154DC0` | **78.75%** (176 / 224 B) | Single-byte prefix parser with subsequent 3-byte validated stream extraction. |
+| `func_00154EA0` | `0x154EA0` | **80.32%** (199 / 248 B) | 4-byte block parser with trailing byte masking and stream transfer. |
+| `func_00154FA0` | `0x154FA0` | **78.48%** (201 / 256 B) | Composite 3-byte and 2-byte dual-cycle validated stream parser. |
 
 
 

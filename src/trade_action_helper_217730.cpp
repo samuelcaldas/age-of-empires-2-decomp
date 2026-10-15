@@ -2,16 +2,16 @@
 #include "sub_list.h"
 
 extern "C" {
-void *func_185E20(void *arg, int val);
-void func_2177C0(void *self, int *arr, int arg2, int arg3);
-void func_217B50(void *self);
+void *func_00185E20(void *arg, int val);
+void func_002177C0(void *self, int *arr, int arg2, int arg3);
+void func_00217B50(void *self);
 
 extern void *D_004E3058;
 
 void func_00217730(void *self, int arg1) {
     void *s0 = self;
     int selected_index = (arg1 < 0) ? 2 : arg1;
-    void *v0 = func_185E20(D_004E3058, selected_index);
+    void *v0 = func_00185E20(D_004E3058, selected_index);
 
     int arr[4];
     int val = 0;
@@ -29,7 +29,7 @@ void func_00217730(void *self, int arg1) {
         a0_loop++;
     } while (a0_loop < 4);
 
-    func_2177C0(s0, arr, a2, a3);
+    func_002177C0(s0, arr, a2, a3);
 }
 
 void func_002177C0(void *self, int *arr, int arg2, int arg3) {
@@ -43,7 +43,7 @@ void func_002177C0(void *self, int *arr, int arg2, int arg3) {
     *(int *)(s0 + 0x13C) = arg2;
     *(int *)(s0 + 0x140) = arg3;
 
-    func_217B50(self);
+    func_00217B50(self);
 
     void **vtable = *(void ***)self;
     typedef void (*Fn)(void *, int);

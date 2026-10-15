@@ -2775,13 +2775,13 @@ Directly following preprocessor directives sits the randomized script loader (`T
       * Parses candidate script path into temporary stack buffer `0x180($sp)` or `0x70($sp)`.
       * When running weight threshold is satisfied (`s2 >= target_pct`), loads the chosen script via `func_00142560`.
     - Dispatches descriptive error codes via `func_144340` on syntax errors or invalid weight tokens.
-    - **99.95% match** (812 / 812 B, 100% byte-for-byte in linked binary).
+    - **82.85% pure C++ match** (812 / 812 B, converted from standalone assembly .s to pure C++).
 
-* **Matching Results (1 / 1 Functions, 99.95% Unit Match):**
+* **Matching Results (1 / 1 Functions, Pure C++ Match):**
 
 | Function / Method | VRAM Address | Match Status | Description |
 |---|---|---|---|
-| `func_143AD0` (`TacticalAI2::LoadRandomScript`) | `0x143AD0` | **99.95%** (812 / 812 B) | Weighted random script selection parser using rand() % 100 and dynamic loading. |
+| `func_143AD0` (`TacticalAI2::LoadRandomScript`) | `0x143AD0` | **82.85%** (812 / 812 B) | Weighted random script selection parser in pure C++. |
 
 ### 6.81 Tactical / Spatial AI Canonical Rule Statement Parser (`0x143E00`–`0x144050`, `tactical_ai_defrule.cpp`)
 

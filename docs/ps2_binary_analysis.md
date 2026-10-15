@@ -4407,3 +4407,19 @@ Directly beginning the `aoe4` fixed address range (`0x305830`–`0x38A360`) sits
 | `func_00305B90` | `0x305B90` | **100.00%** (8 / 8 B code, 16 B slice) | Stub virtual method for Tactical AI Player Operations. |
 | `func_00305BA0` | `0x305BA0` | **100.00%** (40 / 40 B code, 48 B slice) | Player object lookup delegating to `func_332e60`. |
 | `func_00305BD0` | `0x305BD0` | **100.00%** (216 / 216 B code, 224 B slice) | Tactical AI multi-player buffered command dispatcher. |
+
+#### 6.173 `Unit Action Movement` Atomic Unit (`0x266C50`–`0x266D20`, `unit_action_movement.cpp`)
+
+Located at VRAM `0x266C50`–`0x266D20` (file offset `0x166E30`–`0x166F00`, end-exclusive), this atomic slice contains 200 instruction bytes and 8 zero alignment bytes compiled from C++ with Metrowerks PS2 MWCC 2.3.1.01.
+
+- `func_00266C50` (`0x266C50`, 200 bytes code + 8 bytes padding): Unit action movement reset and spatial detachment. Checks `m_field18`, conditionally dispatches `func_1EDF20` and `func_1EE720` via `D_004E3244`, queries the subsystem via `D_004E3180`, dispatches `func_1D0B40`, invokes `Method62`, clears `m_field18`, resets `m_x`, `m_y`, and `m_z` to `-1.0f`, invokes `func_205F70`, and clears `m_field37`.
+- `Method62` is source virtual index 60. MWCC's eight-byte vtable header places its dispatch entry at physical offset `0xF8`; adding two source declarations would change the target incorrectly.
+- The following `func_00266D20` (1,624-byte original function) is excluded and remains unimplemented WIP, preserved separately on `wip/unit-action-movement-266d20`.
+
+#### 6.173.1 Unit Action Movement Matching Results (Pure C++, 208-Byte Atomic Slice)
+
+A fresh independent MWCC compilation and GNU link resolved every direct call and GP-relative reference, then matched **200/200 instruction bytes** against the original ELF through its file-backed `PT_LOAD` mapping. The following eight original padding bytes are zero. The historical **95.71% objdiff score** is a separate fuzzy metric, not the code-to-slice ratio or an exact-byte percentage. The object remains conservatively registered as `NonMatching`.
+
+| Function / Method | VRAM Address | Exact instruction comparison | Description |
+|---|---|---|---|
+| `func_00266C50` | `0x266C50` | **200 / 200 bytes** (208-byte slice) | Unit action movement reset and spatial detachment. |

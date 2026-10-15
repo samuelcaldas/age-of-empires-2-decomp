@@ -3288,6 +3288,13 @@ Following cargo exchange sits the route advancement and cycle reset subsystem (`
 - `func_0014B310` (`0x14B310`, 1,488 bytes): Route advance cycle processor, waypoint loop wrapping, and merchant unit re-direction.
 - `func_0014B8E0` (`0x14B8E0`, 16 bytes): Route cycle status helper.
 
+#### 6.110.1 Trade Action Route Advance Matching Results (100.00% Pure C++, 1,504 Bytes)
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_0014B310` | `0x14B310` | **95.2%** (1416 / 1488 B) | Route advance cycle processor, waypoint iteration, market evaluation loop, and destination angle calculation. |
+| `func_0014B8E0` | `0x14B8E0` | **100.0%** (16 / 16 B) | Route cycle status stub returning 0. |
+
 #### 6.111 `Trade Action Route Status & State Queries` Subsystem (`0x14B8F0`–`0x14BC10`, `trade_action_route_status.cpp`)
 
 Following route advance sits the trade route status and state query routines (`0x14B8F0`–`0x14BC10`, 800 bytes in Metrowerks C++ PS2 MWCC 2.3.1.01):

@@ -4162,12 +4162,31 @@ Directly following stream operators sits the secondary bitmask-driven stream eva
 | `func_0015CC90` | `0x15CC90` | **80.32%** (199 / 248 B) | 4-byte block evaluator with trailing byte masking and stream transfer. |
 | `func_0015CD90` | `0x15CD90` | **78.48%** (201 / 256 B) | Composite 3-byte and 2-byte dual-cycle validated stream evaluator. |
 
-#### 6.161 `Zone Path & Building Placement Obstruction Evaluator` Subsystem (`0x1C7850`–`0x1C8480`, `zone_path_eval.cpp`)
+#### 6.161 `Trade Action Stream Decoders 5` Subsystem (`0x15CE90`–`0x15D3F0`, `trade_action_stream_decoders5.cpp`)
+
+Directly following stream evaluators 2 sits the multi-phase stream block decoding and flag assignment subsystem (`0x15CE90`–`0x15D3F0`, 1,376 bytes across 5 functions in Metrowerks C++ PS2 MWCC 2.3.1.01):
+- `func_0015CE90` (`0x15CE90`, 256 bytes, **78.14% match**): Dual-cycle 2-byte and 3-byte validated stream decoder with bitmask `D_004E30A8` and OR-flag `D_004E30B0`.
+- `func_0015CF90` (`0x15CF90`, 256 bytes, **80.81% match**): Staged 1-byte prefix decoder staging `D_004E2DA0[1]`, followed by `func_001522C0` validation and 4-byte stream transfer.
+- `func_0015D090` (`0x15D090`, 288 bytes, **80.04% match**): Dual-cycle 4-byte and 2-byte validated stream decoder with bitmask and OR flag application.
+- `func_0015D1B0` (`0x15D1B0`, 288 bytes, **80.33% match**): Offset -1 3-byte prefix decoder with secondary 3-byte validated stream extraction.
+- `func_0015D2D0` (`0x15D2D0`, 288 bytes, **80.04% match**): Dual-cycle 2-byte and 4-byte validated stream decoder with bitmask and OR flag application.
+
+#### 6.161.1 Trade Action Stream Decoders 5 Matching Results (Pure C++, 1,376 Bytes)
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_0015CE90` | `0x15CE90` | **78.14%** (197 / 252 B) | Dual-cycle 2-byte and 3-byte decoder with D_004E30B0 flag. |
+| `func_0015CF90` | `0x15CF90` | **80.81%** (200 / 248 B) | 1-byte prefix staging + 4-byte validated block copy loop. |
+| `func_0015D090` | `0x15D090` | **80.04%** (221 / 276 B) | Dual-cycle 4-byte and 2-byte decoder with D_004E30B0 flag. |
+| `func_0015D1B0` | `0x15D1B0` | **80.33%** (225 / 280 B) | Offset -1 3-byte prefix + secondary 3-byte validated extraction. |
+| `func_0015D2D0` | `0x15D2D0` | **80.04%** (221 / 276 B) | Dual-cycle 2-byte and 4-byte decoder with D_004E30B0 flag. |
+
+#### 6.162 `Zone Path & Building Placement Obstruction Evaluator` Subsystem (`0x1C7850`–`0x1C8480`, `zone_path_eval.cpp`)
 
 Directly beginning the `aoe2` fixed address range (`0x1C7330`–`0x2665B0`) sits the core spatial obstruction and building placement validator `func_001C7850` (`0x1C7850`–`0x1C8480`, 3,120 bytes in Metrowerks C++ PS2 MWCC 2.3.1.01). It validates spatial bounding box coordinates, perimeter zone adjacency, slope elevation gradients, and unit radius collisions:
 - `func_001C7850` (`0x1C7850`, 3,120 bytes): Evaluates map dimensions, converts floating-point coordinates to integer tile coordinates (`func_123350`), tests 4-sided perimeter connectivity against `bld->m_required_zone`, checks tile slope gradient against building type limits (`map + 0x68`), performs special Mill/Farm adjacency logic (`0x3B`), and queries unit collision radii (`func_3675D0`) for obstruction detection.
 
-#### 6.161.1 Zone Path Evaluator Matching Results (Pure C++, 3,120 Bytes)
+#### 6.162.1 Zone Path Evaluator Matching Results (Pure C++, 3,120 Bytes)
 
 | Function / Method | VRAM Address | Match Status | Description |
 |---|---|---|---|

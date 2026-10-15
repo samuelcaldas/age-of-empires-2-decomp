@@ -58,35 +58,35 @@ void *func_001C8CA0(void *self, void *stream, void *arg2) {
     for (int t8 = 0; t8 < 32; t8++) {
         char *elem = (char *)self + t8 * 416;
         switch (t8) {
-        case 3:
-        case 9:
-        case 12:
-        case 0:
-            *(short *)(elem + 0x14E) = 5;
-            *(short *)(elem + 0x150) = 5;
+        default:
+            *(short *)(elem + 0x14E) = 1;
+            *(short *)(elem + 0x150) = 1;
+            break;
+        case 11:
+        case 10:
+        case 24:
+        case 25:
+        case 22:
+        case 23:
+        case 1:
+            *(short *)(elem + 0x14E) = 2;
+            *(short *)(elem + 0x150) = 2;
+            break;
+        case 4:
+        case 13:
+            *(short *)(elem + 0x14E) = 3;
+            *(short *)(elem + 0x150) = 3;
             break;
         case 6:
             *(short *)(elem + 0x14E) = 4;
             *(short *)(elem + 0x150) = 4;
             break;
-        case 13:
-        case 4:
-            *(short *)(elem + 0x14E) = 3;
-            *(short *)(elem + 0x150) = 3;
-            break;
-        case 1:
-        case 23:
-        case 22:
-        case 25:
-        case 24:
-        case 10:
-        case 11:
-            *(short *)(elem + 0x14E) = 2;
-            *(short *)(elem + 0x150) = 2;
-            break;
-        default:
-            *(short *)(elem + 0x14E) = 1;
-            *(short *)(elem + 0x150) = 1;
+        case 0:
+        case 12:
+        case 9:
+        case 3:
+            *(short *)(elem + 0x14E) = 5;
+            *(short *)(elem + 0x150) = 5;
             break;
         }
     }

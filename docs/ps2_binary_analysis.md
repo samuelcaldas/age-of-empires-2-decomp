@@ -3370,13 +3370,22 @@ Following route search sits the market candidate search and allied trading node 
 |---|---|---|---|
 | `func_0014C470` | `0x14C470` | **90.78%** (792 / 872 B) | Candidate market search, diplomacy filtering, distance checks, and route assignment in pure C++. |
 
-#### 6.116 `Trade Action State Updates & Mode Control` Subsystem (`0x14C7E0`–`0x14CAB0`, `trade_action_state_updates.cpp`)
+#### 6.116 `Trade Action State Updates & Stance Management` Subsystem (`0x14C7E0`–`0x14CAB0`, `trade_action_state_updates.cpp`)
 
-Following market search sits the merchant trading state updates and mode control subsystem (`0x14C7E0`–`0x14CAB0`, 720 bytes in Metrowerks C++ PS2 MWCC 2.3.1.01):
-- `func_0014C7E0` (`0x14C7E0`, 144 bytes): Trade state transition handler updating mode identifier, coordinates, and triggering sub-action 0x14BCE0.
-- `func_0014C870` (`0x14C870`, 160 bytes): Merchant distance verification checking route waypoint proximity via `func_269190`.
-- `func_0014C910` (`0x14C910`, 112 bytes): Trade mode string name resolution dispatch.
-- `func_0014C990` (`0x14C990`, 288 bytes): Route status validator ensuring market connectivity and action validity.
+Following market search sits the action state update, stance lookup, and target timer synchronization subsystem (`0x14C7E0`–`0x14CAB0`, 720 bytes in Metrowerks C++ PS2 MWCC 2.3.1.01):
+- `func_0014C7E0` (`0x14C7E0`, 136 bytes, **100.0% match**): Action state updater and target waypoint synchronization. Caches target coordinates into `m_target_x` and `m_target_y`, verifies state 3 with command 700 or 600, dispatches virtual method `Method5C(1)` and calls `func_14bce0(self)`.
+- `func_0014C870` (`0x14C870`, 156 bytes, **99.75% match**): Proximity distance validation and pathing dispatch. Evaluates Euclidean distance to target using `func_269190`. If distance exceeds 1.0f, dispatches virtual method `Method17C(..., 1, 0)` and triggers navigation command 610 via `func_001471B0`.
+- `func_0014C910` (`0x14C910`, 124 bytes, **91.03% match**): Stance identifier string lookup returning string constants `D_4910C0` ("Defend"), `D_4910D0` ("StandGround"), `D_4910D8` ("NoAttack"), `D_4910E8` ("Unknown"), and `D_4910F8`.
+- `func_0014C990` (`0x14C990`, 280 bytes, **90.63% match**): Target validation and action timer synchronization. Queries target object via `func_332e60` from game manager `D_004E3180`, verifies timer object with `func_333b30`, checks active timer state with `func_1bbe40`, and dispatches notification via `func_1b95b0`.
+
+#### 6.116.1 Trade Action State Updates Matching Results (Pure C++, 720 Bytes)
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_0014C7E0` | `0x14C7E0` | **100.0%** (136 / 136 B) | Action state update and waypoint sync in pure C++. |
+| `func_0014C870` | `0x14C870` | **99.75%** (152 / 156 B) | Target distance check and command 610 dispatch in pure C++. |
+| `func_0014C910` | `0x14C910` | **91.03%** (112 / 124 B) | Stance name constant resolver in pure C++. |
+| `func_0014C990` | `0x14C990` | **90.63%** (254 / 280 B) | Target object and timer validation in pure C++. |
 
 #### 6.117 `Trade Action Evaluation & Jump Table Dispatch` Subsystem (`0x14CAB0`–`0x14CFF0`, `trade_action_trade_eval.cpp`)
 

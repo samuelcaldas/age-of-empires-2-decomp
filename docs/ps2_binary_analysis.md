@@ -4297,10 +4297,11 @@ Following the core placement validator sits the spatial queries, tile snapping, 
 | `func_001C8BF0` | `0x1C8BF0` | **100.0%** (8 / 8 B) | Atomic pointer accessor for offset 0x84. |
 | `func_001C8C00` | `0x1C8C00` | **100.0%** (8 / 8 B) | Atomic pointer accessor for offset 0x88. |
 
-#### 6.166 `Trade Action Getters 4` Subsystem (`0x2B6170`, `trade_action_getters4.cpp`)
+#### 6.166 `Trade Action Getters 4` Subsystem (`0x2B6160`–`0x2B6180`, `trade_action_getters4.cpp`)
 
-Located at VRAM `0x2B6170` (file offset `0x1B6350`), `trade_action_getters4` implements a core field accessor method:
-- `func_002B6170` (`0x2B6170`, 8 bytes code + 8 bytes zero padding): Leaf getter returning field at offset `0x108` (`return *(int *)((char *)self + 0x108);`). Implemented in pure C++ (NonMatching under conservative policy, verified via exclusive docker-dev container `aoe6-getters4-val`).
+Located at VRAM `0x2B6160`–`0x2B6180` (file offset `0x1B6340`–`0x1B6360`), `trade_action_getters4` implements two routines:
+- `func_002B6160` (`0x2B6160`, 8 bytes): Tail-call wrapper forwarding to `func_002BE570(self, 0x65)`.
+- `func_002B6170` (`0x2B6170`, 8 bytes code + padding): Leaf getter returning field at offset `0x108` (`return *(int *)((char *)self + 0x108);`). Implemented in pure C++ (NonMatching under conservative policy, verified via exclusive docker-dev container `aoe6-getters4-val`).
 
 #### 6.166 `Unit Action Core & Serialization` Subsystem (`0x266780`–`0x266C50`, `unit_action_core.cpp`)
 

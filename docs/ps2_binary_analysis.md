@@ -4301,7 +4301,7 @@ All three functions report **100.00%** in objdiff. Independently compiling and l
 |---|---:|---:|---|
 | `func_0015E5A0` | 380 | 100.00% | 1-byte prefix, 4-byte loop, 2-byte trailer |
 | `func_0015E720` | 408 | 100.00% | 2-byte prefix, 4-byte loop, 2-byte trailer |
-| `func_0015E8C0` | 436 | 100.00% | 2-byte prefix, 4-byte loop, 2-byte trailer |
+| `func_0015E8C0` | 436 | 100.00% | Offset -1 3-byte prefix, 4-byte loop, 2-byte trailer |
 
 `tests/test_trade_action_stream_decoders9.py` independently verifies exact relocated instruction bytes and full padded slice equality.
 

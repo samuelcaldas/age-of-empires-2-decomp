@@ -4411,10 +4411,10 @@ Directly beginning the `aoe4` fixed address range (`0x305830`–`0x38A360`) sits
 #### 6.169 `Tactical AI Player Command Dispatch` Subsystem (`0x305CB0`–`0x305F30`, `tactical_ai_player_dispatch.cpp`)
 
 Directly following Tactical AI Player Operations sits `func_00305CB0` (`0x305CB0`–`0x305F30`, 640 bytes in Metrowerks C++ PS2 MWCC 2.3.1.01). It iterates through three player-specific command and status arrays (`m_data`, `m_data2`, `m_data3`), updates unit item status flags `m_field42` and `m_field43`, notifies subsystem `func_2d42a0`, dispatches mode-dependent player commands via `func_2e0630`, and updates player target state:
-- `func_00305CB0` (`0x305CB0`, 640 bytes): Pure C++ implementation matching 80.62% on initial pass; registered as NonMatching during iterative register matching.
+- `func_00305CB0` (`0x305CB0`, 636 bytes code + 4 bytes zero padding, 640 bytes slice): Pure C++ implementation matching 97.16% in objdiff-cli (128 / 160 words exact). Prologue, checks, loop 1, loop 2, epilogue, and switch statements match bit-for-bit (123 / 159 instructions identical). Loop 3 matches structurally 1-to-1 with a localized register allocation permutation ($a2/$a1/$a0/$v0 vs $a3/$v1/$a0/$a2); registered as NonMatching in `configure.py`.
 
 #### 6.169.1 Tactical AI Player Command Dispatch Matching Results (Pure C++, 640 Bytes)
 
 | Function / Method | VRAM Address | Match Status | Description |
 |---|---|---|---|
-| `func_00305CB0` | `0x305CB0` | **80.62%** (636 / 640 B) | Tactical AI player command dispatcher, item flag coordinator, and state notification. |
+| `func_00305CB0` | `0x305CB0` | **97.16%** (636 / 640 B) | Tactical AI player command dispatcher, item flag coordinator, and state notification. |

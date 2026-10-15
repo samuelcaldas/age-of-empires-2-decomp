@@ -4377,13 +4377,13 @@ A fresh independent MWCC compilation and GNU link resolved the tail jump to `fun
 #### 6.168.4 `Zone Constructor & Terrain Cost Table` Unit (`0x1C8CA0`–`0x1C8FF0`, `zone_constructor.cpp`)
 
 Immediately following `zone_raycast_query` sits the constructor and deserializer for the primary pathfinding zone class `D_4D9270` (`0x1C8CA0`–`0x1C8FF0`, 848 bytes / 844 B code + 4 B pad in Metrowerks C++ PS2 MWCC 2.3.1.01):
-- `func_001C8CA0` (`0x1C8CA0`, 848 bytes): Primary constructor initializing `D_4D9270` vtable, deserializing state from stream, configuring 32-entry terrain passability cost tables, zeroing scratch buffers, and binding spatial helpers.
+- `func_001C8CA0` (`0x1C8CA0`, 848 bytes / 844 B code + 4 B pad): Primary constructor initializing `D_4D9270` vtable, deserializing state from stream, configuring 32-entry terrain passability cost tables, zeroing scratch buffers, and binding spatial helpers. **100.0% exact match** in pure C++.
 
 #### 6.168.5 Zone Constructor Matching Results (Pure C++, 848 Bytes)
 
 | Function / Method | VRAM Address | Match Status | Description |
 |---|---|---|---|
-| `func_001C8CA0` | `0x1C8CA0` | NonMatching (848 B) | Primary constructor and terrain cost table initializer. |
+| `func_001C8CA0` | `0x1C8CA0` | **100.0%** (844 / 844 B) | Primary constructor and terrain cost table initializer. |
 
 #### 6.169 `Unit Action Core & Serialization` Subsystem (`0x266780`–`0x266C50`, `unit_action_core.cpp`)
 

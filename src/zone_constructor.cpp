@@ -45,6 +45,23 @@ struct ZoneMap {
     int m_table4[17];        // 0x9114 to 0x9158 (-0x6EEC)
 };
 
+class ZoneMapBase {
+public:
+    virtual void Method0();
+    virtual void Method1();
+    virtual void Method2();
+    virtual void Method3();
+    virtual void Method4();
+    virtual void Method5();
+    virtual void Method6();
+    virtual void Method7();
+    virtual void Method8();
+    virtual void Method9();
+    virtual void Method10();
+    virtual void Method11();
+    virtual void Method12();
+};
+
 void *func_001C8CA0(void *self, void *stream, void *arg2) {
     register void *st = stream;
     ZoneMap *zm = (ZoneMap *)self;
@@ -56,40 +73,48 @@ void *func_001C8CA0(void *self, void *stream, void *arg2) {
     func_00226D90(st, (char *)self + 4, 0x9154);
 
     int t8;
-    char *elem;
     for (t8 = 0; t8 < 32; t8++) {
-        elem = (char *)self + t8 * 416;
         switch (t8) {
-        default:
+        default: {
+            char *elem = (char *)self + t8 * 416;
             *(short *)(elem + 0x14E) = 1;
             *(short *)(elem + 0x150) = 1;
             break;
+        }
         case 11:
         case 10:
         case 24:
         case 25:
         case 22:
         case 23:
-        case 1:
+        case 1: {
+            char *elem = (char *)self + t8 * 416;
             *(short *)(elem + 0x14E) = 2;
             *(short *)(elem + 0x150) = 2;
             break;
+        }
         case 4:
-        case 13:
+        case 13: {
+            char *elem = (char *)self + t8 * 416;
             *(short *)(elem + 0x14E) = 3;
             *(short *)(elem + 0x150) = 3;
             break;
-        case 6:
+        }
+        case 6: {
+            char *elem = (char *)self + t8 * 416;
             *(short *)(elem + 0x14E) = 4;
             *(short *)(elem + 0x150) = 4;
             break;
+        }
         case 0:
         case 12:
         case 9:
-        case 3:
+        case 3: {
+            char *elem = (char *)self + t8 * 416;
             *(short *)(elem + 0x14E) = 5;
             *(short *)(elem + 0x150) = 5;
             break;
+        }
         }
     }
 
@@ -107,9 +132,7 @@ void *func_001C8CA0(void *self, void *stream, void *arg2) {
     func_1CDD00(self, arg2);
     func_1CDE30(self, arg2);
 
-    typedef void (*VirtualMethod)(void *);
-    VirtualMethod slot12 = *(VirtualMethod *)(*(char **)self + 0x30);
-    slot12(self);
+    ((ZoneMapBase *)self)->Method10();
 
     zm->m_field8ED0 = 0;
     zm->m_field8ED4 = 0x80;

@@ -3,7 +3,8 @@
 
 extern "C" {
 
-void func_001C8C20();
+int func_001C8C20(void *self, void *param, int i, void *arr);
+void func_001C8CA0();
 void func_001C8FF0();
 
 }

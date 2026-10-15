@@ -3494,6 +3494,27 @@ Following route finish sits the target entity resolution, sub-action object mana
 | `func_00151220` | `0x151220` | **58.71%** (60 / 96 B) | Sub-action instance allocation and lifecycle management via `Method1F4`. |
 | `func_00151280` | `0x151280` | **100.0%** (24 / 24 B) | Status predicate returning 0 in pure C++. |
 
+#### 6.127 `Trade Action Target Management & Trajectory Tracking` Subsystem (`0x1512A0`–`0x1515D0`, `trade_action_target_management.cpp`)
+
+Following target resolution sits the route trajectory sampling, route object cleanup, and target management subsystem (`0x1512A0`–`0x1515D0`, 816 bytes in Metrowerks C++ PS2 MWCC 2.3.1.01):
+- `func_001512A0` (`0x1512A0`, 312 bytes): Route trajectory sampling loop with `func_1fd4e0` coordinate sampling and virtual dispatch `Method484`/`Method488`.
+- `func_001513E0` (`0x1513E0`, 8 bytes, **100.0% match**): Helper returning 0.
+- `func_001513F0` (`0x1513F0`, 8 bytes, **100.0% match**): Helper stub.
+- `func_00151400` (`0x151400`, 64 bytes): Flag validation checking `0x00491024` with early exit.
+- `func_00151440` (`0x151440`, 60 bytes, **100.0% match**): Route object destruction via `func_1FC810` and field zeroing.
+- `func_00151480` (`0x151480`, 336 bytes): Target entity verification via `func_332e60`, route state field reset, and sub-action setup via `func_00145E30`.
+
+#### 6.127.1 Trade Action Target Management Matching Results (Pure C++, 816 Bytes)
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_001512A0` | `0x1512A0` | **Implemented** (312 B) | Route trajectory waypoint interpolation and position vector assignment in pure C++. |
+| `func_001513E0` | `0x1513E0` | **100.0%** (8 / 8 B) | Exact byte-for-byte status helper returning 0. |
+| `func_001513F0` | `0x1513F0` | **100.0%** (8 / 8 B) | Exact byte-for-byte stub function. |
+| `func_00151400` | `0x151400` | **Implemented** (64 B) | Route object flag validation with bitmask 0x00491024. |
+| `func_00151440` | `0x151440` | **100.0%** (60 / 60 B) | Exact byte-for-byte route object cleanup via `func_1FC810`. |
+| `func_00151480` | `0x151480` | **Implemented** (336 B) | Route waypoint state initialization and sub-action invocation in pure C++. |
+
 
 
 

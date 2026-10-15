@@ -821,6 +821,12 @@ segments:
     vram: 0x14F250
     subsegments:
       - [0x4F440, asm, trade_action_market_route_calc]
+  - name: trade_action_market_status
+    type: code
+    start: 0x4F830
+    vram: 0x14F640
+    subsegments:
+      - [0x4F830, asm, trade_action_market_status]
   - name: trade_action_market_ai
     type: code
     start: 0x4F9B0

@@ -4423,3 +4423,30 @@ A fresh independent MWCC compilation and GNU link resolved every direct call and
 | Function / Method | VRAM Address | Exact instruction comparison | Description |
 |---|---|---|---|
 | `func_00266C50` | `0x266C50` | **200 / 200 bytes** (208-byte slice) | Unit action movement reset and spatial detachment. |
+
+#### 6.174 `Unit Action Targets` Subsystem (`0x267380`–`0x267750`, `unit_action_targets.cpp`)
+
+Located at VRAM `0x267380`–`0x267750` (file offset `0x167560`–`0x167930`, 976 bytes total = 936 bytes code across 5 functions + 40 bytes 16-byte alignment padding, Metrowerks C++ PS2 MWCC 2.3.1.01):
+- `func_00267380` (`0x267380`, 80 B code, 80 B slice, **100.0% exact match** [80/80 B]): Target elevation setter and conditional clamp. Implemented as a leaf function via `#pragma exceptions off` evaluating unit type at `m_field4[2]` (switch cases 0 and 1) and updating `m_z`.
+- `func_002673D0` (`0x2673D0`, 228 B code, 240 B slice [12 B padding], **100.0% instruction match** [228/228 B]): Target change dispatcher and notification forwarder. Updates `m_field14 = m_field10`, dispatches `func_1827B0` or `func_2634A0`/`func_26A460`, updates target ID, and sends action state change notifications via `func_182610`.
+- `func_002674C0` (`0x2674C0`, 52 B code, 64 B slice [12 B padding], **100.0% instruction match** [52/52 B]): Conditional notification forwarder executing `func_182610(self->m_fieldC, arg1, arg2, 0, 0, self->m_field35)`.
+- `func_00267500` (`0x267500`, 40 B code, 48 B slice [8 B padding], **100.0% instruction match** [40/40 B]): Conditional target notifier executing `func_1827B0(self->m_fieldC, arg1)`.
+- `func_00267530` (`0x267530`, 536 B code, 544 B slice [8 B padding], **94.96% instruction match** [509/536 B]): Entity initialization, unit action state scaling, and world container binding. Resolves entity pointer via `world->m_entities[id]`, conditionally executes spatial update `func_205F70`, computes scaled progress `f20 = ((float)val1 * self->m_field30) / (float)val2` via delay-slot `div.s` into `jal func_2643c0`, executes virtual dispatch `Method62` (slot 62), invokes `WorldSub1B30` methods `Method114` (offset 276) and `Method110` (offset 272), updates target via `Method19` (slot 19), binds world and entity pointers, executes `Method61` (slot 61) and `func_264290`, and finalizes world container binding via `Method90` (slot 90). The 27 differing bytes are confined to register allocation and instruction scheduling in the two WorldSub call sequences; the independent review established no semantic defect, but the function is not byte-exact.
+
+Independent reproduction via GNU ld relocation resolution confirms:
+- 4 / 5 functions match 100.0% exact byte-for-byte (80/80, 228/228, 52/52, 40/40).
+- Instructions: 909 / 936 B matched (97.12%).
+- Alignment padding: 40 / 40 B matched (100.0%).
+- Full slice: 949 / 976 B matched (97.23%).
+- All 15 `R_MIPS_26` relocations cleanly resolved without masks.
+- Registered as `NonMatching` in `configure.py`.
+
+#### 6.174.1 Unit Action Targets Matching Results (Pure C++, 976-Byte Slice)
+
+| Function / Method | VRAM Address | Code Size (Orig) | Slice Size | Match Status | Description |
+|---|---|---|---|---|---|
+| `func_00267380` | `0x267380` | 80 B | 80 B | **100.0%** (80/80 B) | Target elevation clamp and setter switch statement. |
+| `func_002673D0` | `0x2673D0` | 228 B | 240 B | **100.0%** (228/228 B) | Target change dispatcher and state notification forwarder. |
+| `func_002674C0` | `0x2674C0` | 52 B | 64 B | **100.0%** (52/52 B) | Conditional action code notification via `func_182610`. |
+| `func_00267500` | `0x267500` | 40 B | 48 B | **100.0%** (40/40 B) | Conditional target notifier via `func_1827B0`. |
+| `func_00267530` | `0x267530` | 536 B | 544 B | **94.96%** (509/536 B) | Entity initialization, unit state scaling, and world bind. |

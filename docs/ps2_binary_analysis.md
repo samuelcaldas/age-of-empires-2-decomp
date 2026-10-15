@@ -3230,11 +3230,20 @@ Following the market items subsystem sits the merchant route navigation, spatial
 
 #### 6.105 `Trade Action Waypoints 1` Subsystem (`0x149FE0`–`0x14A3A0`, `trade_action_waypoints1.cpp`)
 
-Following navigation sits the first waypoint evaluation subsystem (`0x149FE0`–`0x14A3A0`, 960 bytes in Metrowerks C++ PS2 MWCC 2.3.1.01):
-- `func_00149FE0` (`0x149FE0`, 240 bytes): Waypoint evaluation routine 1.
-- `func_0014A0D0` (`0x14A0D0`, 240 bytes): Waypoint evaluation routine 2.
-- `func_0014A1C0` (`0x14A1C0`, 240 bytes): Waypoint evaluation routine 3.
-- `func_0014A2B0` (`0x14A2B0`, 240 bytes): Waypoint evaluation routine 4.
+Following navigation sits the first trade waypoint validation and dispatch subsystem (`0x149FE0`–`0x14A3A0`, 960 bytes across 4 methods, Metrowerks C++ PS2 MWCC 2.3.1.01):
+- `func_00149FE0` (`0x149FE0`, 240 bytes): Validates trade command `604` (`0x25C`), checks target validity via virtual method `Method188` (vtable index 96, offset 392), retrieves object from manager via `func_332e60`, sets command via `func_001471B0(604)`, and dispatches waypoint update via `func_14bd90`. **100.0% exact byte-for-byte pure C++ match**.
+- `func_0014A0D0` (`0x14A0D0`, 240 bytes): Validates trade command `603` (`0x25B`), checks target validity via `Method18C` (vtable index 97, offset 396), sets command via `func_001471B0(603)`, and dispatches waypoint update via `func_14bd90`. **99.67% pure C++ match** (59/60 instructions exact).
+- `func_0014A1C0` (`0x14A1C0`, 240 bytes): Validates trade command `609` (`0x261`), checks target validity via `Method184` (vtable index 95, offset 388), sets command via `func_001471B0(609)`, and dispatches waypoint update via `func_14bd90`. **100.0% exact byte-for-byte pure C++ match**.
+- `func_0014A2B0` (`0x14A2B0`, 240 bytes): Validates trade command `618` (`0x26A`), checks target validity via `Method190` (vtable index 98, offset 400), sets command via `func_001471B0(618)`, and dispatches waypoint update via `func_14bd90`. **100.0% exact byte-for-byte pure C++ match**.
+
+#### 6.105.1 Trade Action Waypoints 1 Matching Results (Pure C++, 960 Bytes)
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_00149FE0` | `0x149FE0` | **100.0%** (240 / 240 B) | Trade waypoint evaluator for command 604 with Method188 dispatch. |
+| `func_0014A0D0` | `0x14A0D0` | **99.67%** (240 / 240 B) | Trade waypoint evaluator for command 603 with Method18C dispatch. |
+| `func_0014A1C0` | `0x14A1C0` | **100.0%** (240 / 240 B) | Trade waypoint evaluator for command 609 with Method184 dispatch. |
+| `func_0014A2B0` | `0x14A2B0` | **100.0%** (240 / 240 B) | Trade waypoint evaluator for command 618 with Method190 dispatch. |
 
 #### 6.106 `Trade Action Waypoints 2` Subsystem (`0x14A3A0`–`0x14A640`, `trade_action_waypoints2.cpp`)
 

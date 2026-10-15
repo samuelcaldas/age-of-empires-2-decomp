@@ -4251,3 +4251,20 @@ Located at VRAM `0x267380`–`0x267750` (file offset `0x167560`–`0x167930`, 97
 | `func_002674C0` | `0x2674C0` | **81.25%** (52 B code, 64 B slice) | Conditional action code notification via `func_182610`. |
 | `func_00267500` | `0x267500` | **83.33%** (40 B code, 48 B slice) | Conditional target notifier via `func_1827B0`. |
 | `func_00267530` | `0x267530` | **96.53%** (524 B code, 544 B slice) | Entity initialization, unit state scaling, and world bind. |
+
+#### 6.167 `Unit Action Properties` Subsystem (`0x267750`–`0x267A80`, `unit_action_properties.cpp`)
+
+Located at VRAM `0x267750`–`0x267A80` (file offset `0x167930`–`0x167C60`, 816 bytes total = 808 bytes code across 3 functions + 8 bytes 16-byte alignment padding, Metrowerks C++ PS2 MWCC 2.3.1.01):
+- `func_00267750` (`0x267750`, 336 B code, 336 B slice): Property modifier state machine dispatching on property ID (`a1 & 0xFF`). Case 0 scales action progress `(self->m_field30 * val) / val2` via `func_123350`, case 1 checks `m_field18` and `m_field39 == 2` to invoke `Method62` and `Method61`, case 21 evaluates unit type at offset 112 and invokes `WorldSub1B30::Method7C` (offset 124) with inverted float `-f0` and `val`. (objdiff score: 98.81%, byte-level: 314/336 B = 93.45%).
+- `func_002678A0` (`0x2678A0`, 248 B code, 256 B slice [8 B padding]): Additive scaled property modifier. Case 0 computes `(self->m_field30 * (val + val2)) / val2 + 0.5f` passing to `func_123350`, case 1 invokes `Method62` and `Method61` with `val + f0`. (objdiff score: 96.09%, byte-level: 237/248 B = 95.56%).
+- `func_002679A0` (`0x2679A0`, 224 B code, 224 B slice): Multiplicative property modifier. Case 0 computes `self->m_field30 * val + 0.5f` passing to `func_123350`, case 1 invokes `Method62` and `Method61` with `f0 * val`. (objdiff score: 99.73%, byte-level: 221/224 B = 98.66%).
+
+Total: 772 / 808 B code (95.54%) matched byte-for-byte in pure C++ (0 asm files, 0 inline asm). Registered as `NonMatching` in `configure.py`.
+
+#### 6.167.1 Unit Action Properties Matching Results (Pure C++, 816-Byte Slice)
+
+| Function / Method | VRAM Address | Code Size (Orig) | Slice Size | Match Status | Description |
+|---|---|---|---|---|---|
+| `func_00267750` | `0x267750` | 336 B | 336 B | **98.81% objdiff** (314/336 B) | Action property modifier switch state machine (cases 0, 1, 21). |
+| `func_002678A0` | `0x2678A0` | 248 B | 256 B | **96.09% objdiff** (237/248 B) | Additive scaled action property modifier with rounding. |
+| `func_002679A0` | `0x2679A0` | 224 B | 224 B | **99.73% objdiff** (221/224 B) | Multiplicative action property modifier with rounding. |

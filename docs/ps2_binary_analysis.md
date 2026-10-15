@@ -3378,10 +3378,16 @@ Following market search sits the merchant trading state updates and mode control
 - `func_0014C910` (`0x14C910`, 112 bytes): Trade mode string name resolution dispatch.
 - `func_0014C990` (`0x14C990`, 288 bytes): Route status validator ensuring market connectivity and action validity.
 
-#### 6.117 `Trade Action Trade Evaluation & Pricing` Subsystem (`0x14CAB0`–`0x14CFF0`, `trade_action_trade_eval.cpp`)
+#### 6.117 `Trade Action Evaluation & Jump Table Dispatch` Subsystem (`0x14CAB0`–`0x14CFF0`, `trade_action_trade_eval.cpp`)
 
-Following state updates sits the trade evaluation and resource pricing subsystem (`0x14CAB0`–`0x14CFF0`, 1,344 bytes in Metrowerks C++ PS2 MWCC 2.3.1.01):
-- `func_0014CAB0` (`0x14CAB0`, 1,344 bytes): Resource pricing calculator and gold generation evaluator.
+Following state updates sits the central trade action command evaluator and action entry compaction routine (`0x14CAB0`–`0x14CFF0`, 1,344 bytes in Metrowerks C++ PS2 MWCC 2.3.1.01):
+- `func_0014CAB0` (`0x14CAB0`, 1,340 bytes, **90.76% match**): Core action dispatcher. Implements a 31-case jump table (`jtbl_491100`, cases 700 to 730) dispatching virtual action handlers across methods `Method5C`, `Method60`, `Method64`, `Method68`, `Method6C`, `Method70`, `Method74`, `Method78`, `Method7C`, `Method84`, `Method88`, `Method8C`, `Method90`, `Method9C`, `MethodA8`, `MethodAC`, `MethodB0`, `MethodB4`, `MethodB8`, and `MethodBC`. Updates active action state (`m_field44`/`m_field46`), resets waypoints via `func_0014BCE0`, and performs in-place compaction on 24-byte `ActionEntry` array (`m_entries`).
+
+#### 6.117.1 Trade Action Evaluation Matching Results (90.76% Pure C++, 1,344 Bytes)
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_0014CAB0` | `0x14CAB0` | **90.76%** (1216 / 1340 B) | 31-case jump table action evaluator, state transition router, and entry compaction routine in pure C++. |
 
 #### 6.118 `Trade Action Market Trade Operations` Subsystem (`0x14CFF0`–`0x14D290`, `trade_action_market_trade.cpp`)
 

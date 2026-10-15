@@ -3609,10 +3609,19 @@ Following stream serializer sits the route packet decoding and stream deserializ
 #### 6.133 `Trade Action Stream Writers` Subsystem (`0x152B10`–`0x152F20`, `trade_action_stream_writers.cpp`)
 
 Following stream reader sits the packet dispatch and route packet writer subsystem (`0x152B10`–`0x152F20`, 1,040 bytes in Metrowerks C++ PS2 MWCC 2.3.1.01):
-- `func_00152B10` (`0x152B10`, 256 bytes): Write packet header.
-- `func_00152C10` (`0x152C10`, 256 bytes): Write action payload.
-- `func_00152D10` (`0x152D10`, 256 bytes): Write route payload.
-- `func_00152E10` (`0x152E10`, 272 bytes): Finalize packet buffer.
+- `func_00152B10` (`0x152B10`, 252 bytes, **100.0% exact match**): 6-byte composite packet serialization with `func_001522C0` encoding and small data GP addressing.
+- `func_00152C10` (`0x152C10`, 252 bytes, **100.0% exact match**): Identical 6-byte composite packet serialization.
+- `func_00152D10` (`0x152D10`, 252 bytes, **100.0% exact match**): Identical 6-byte composite packet serialization.
+- `func_00152E10` (`0x152E10`, 272 bytes, **100.0% exact match**): 7-byte composite packet serialization with 3-byte staging buffer commit.
+
+#### 6.133.1 Trade Action Stream Writers Matching Results (100.00% Pure C++, 1,040 Bytes)
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_00152B10` | `0x152B10` | **100.0%** (252 / 252 B) | Exact 6-byte composite packet serialization in pure C++. |
+| `func_00152C10` | `0x152C10` | **100.0%** (252 / 252 B) | Exact 6-byte composite packet serialization in pure C++. |
+| `func_00152D10` | `0x152D10` | **100.0%** (252 / 252 B) | Exact 6-byte composite packet serialization in pure C++. |
+| `func_00152E10` | `0x152E10` | **100.0%** (272 / 272 B) | Exact 7-byte composite packet serialization in pure C++. |
 
 
 

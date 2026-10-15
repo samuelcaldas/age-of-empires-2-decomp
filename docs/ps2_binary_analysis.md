@@ -3243,6 +3243,14 @@ Following waypoints 1 sits the second waypoint evaluation subsystem (`0x14A3A0`�
 - `func_0014A490` (`0x14A490`, 240 bytes): Waypoint target validation against 0x267.
 - `func_0014A580` (`0x14A580`, 192 bytes): Waypoint route status validation against -1 and 0x25D.
 
+#### 6.106.1 Trade Action Waypoints 2 Matching Results (100.0% Pure C++, 672 Bytes)
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_0014A3A0` | `0x14A3A0` | **100.0%** (240 / 240 B) | Waypoint action validation against 0x25A, entity dispatch, and diplomacy evaluation. |
+| `func_0014A490` | `0x14A490` | **100.0%** (240 / 240 B) | Waypoint target validation against 0x267 and entity waypoint dispatch. |
+| `func_0014A580` | `0x14A580` | **100.0%** (192 / 192 B) | Waypoint route status validation against -1 and 0x25D position projection. |
+
 #### 6.107 `Trade Action Pathing` Subsystem (`0x14A640`–`0x14AB20`, `trade_action_pathing.cpp`)
 
 Following waypoints 2 sits the trade pathing and waypoint step execution subsystem (`0x14A640`–`0x14AB20`, 1,248 bytes in Metrowerks C++ PS2 MWCC 2.3.1.01):

@@ -2684,13 +2684,13 @@ Directly following candidate state queries sits the rule statement parser and pa
       * If spatial identifier, resolves target via `func_00142730`.
       * Stores parsed parameter values into `entry->field_50[param_idx]`.
     - Finalizes rule block via `func_001427A0`.
-    - **99.95% match** (776 / 776 B, 100% byte-for-byte in linked binary).
+    - **91.54% pure C++ match** (776 / 776 B, converted from standalone assembly .s to pure C++).
 
-* **Matching Results (1 / 1 Functions, 99.95% Unit Match):**
+* **Matching Results (1 / 1 Functions, Pure C++ Match):**
 
 | Function / Method | VRAM Address | Match Status | Description |
 |---|---|---|---|
-| `func_00142D10` (`TacticalAI2::ParseRuleBlock`) | `0x142D10` | **99.95%** (776 / 776 B) | Complete tactical AI rule statement and parameter parser with atoi and ctype. |
+| `func_00142D10` (`TacticalAI2::ParseRuleBlock`) | `0x142D10` | **91.54%** (776 / 776 B) | Complete tactical AI rule statement and parameter parser in pure C++. |
 
 ### 6.77 Tactical / Spatial AI Recursive Rule Expression and Condition Compiler (`0x143020`–`0x143440`, `tactical_ai_compiler.cpp`)
 

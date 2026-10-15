@@ -4219,12 +4219,35 @@ Declaring the four-byte staging object as a word/byte union permits GP-relative 
 
 The shared `stage_masked_input` helper is fully inlined; every implementation function stays within fifteen lines. The relocated-byte tests originally failed on all five functions, then passed after correcting the source ordering. `tests/test_stream_documentation.py` additionally protects the recovered aggregator and emitter function coverage from accidental removal during future merges.
 
-#### 6.162 `Zone Path & Building Placement Obstruction Evaluator` Subsystem (`0x1C7850`–`0x1C8480`, `zone_path_eval.cpp`)
+#### 6.162 `Trade Action Stream Decoders 6` Subsystem (`0x15D3F0`–`0x15DA60`, `trade_action_stream_decoders6.cpp`)
+
+Following stream decoders 5 sits the sixth stream decoder unit (`0x15D3F0`–`0x15DA60`, 1,648 bytes across 5 routines in Metrowerks C++ PS2 MWCC 2.3.1.01). The slice comprises 1,592 instruction bytes and 56 alignment bytes. Each routine uses the same input-before-mask ordering and GP-relative word/byte staging union:
+- `func_0015D3F0` (`0x15D3F0`, 324 bytes): Direct byte into staging index 1, followed by a 4-byte masked phase and a 1-byte masked phase.
+- `func_0015D540` (`0x15D540`, 300 bytes): Masked 4-byte phase followed by a masked 3-byte phase.
+- `func_0015D670` (`0x15D670`, 304 bytes): Offset -1 3-byte prefix staging followed by a masked 4-byte phase.
+- `func_0015D7A0` (`0x15D7A0`, 352 bytes): Masked 2-byte phase, followed by a 4-byte phase and a 1-byte phase.
+- `func_0015D900` (`0x15D900`, 352 bytes): Direct byte into staging index 1, followed by a 4-byte masked phase and a 2-byte phase.
+
+#### 6.162.1 Trade Action Stream Decoders 6 Matching Results
+
+All five functions report **100.00%** in objdiff. Independently compiling and linking the unit at its original address and resolving all relocations produces **byte-for-byte equality for the entire 1,648-byte slice** including alignment padding. The unit is registered `Matching`.
+
+| Function | Exact instruction bytes | Match | Phases |
+|---|---:|---:|---|
+| `func_0015D3F0` | 324 | 100.00% | Direct byte at index 1, then four bytes, then one byte |
+| `func_0015D540` | 300 | 100.00% | Four bytes, then three bytes |
+| `func_0015D670` | 304 | 100.00% | Three bytes staged from input minus one, then four bytes |
+| `func_0015D7A0` | 352 | 100.00% | Two bytes, then four bytes, then one byte |
+| `func_0015D900` | 352 | 100.00% | Direct byte at index 1, then four bytes, then two bytes |
+
+`tests/test_trade_action_stream_decoders6.py` independently verifies exact relocated instruction bytes and full padded slice equality against the original ELF.
+
+#### 6.163 `Zone Path & Building Placement Obstruction Evaluator` Subsystem (`0x1C7850`–`0x1C8480`, `zone_path_eval.cpp`)
 
 Directly beginning the `aoe2` fixed address range (`0x1C7330`–`0x2665B0`) sits the core spatial obstruction and building placement validator `func_001C7850` (`0x1C7850`–`0x1C8480`, 3,120 bytes in Metrowerks C++ PS2 MWCC 2.3.1.01). It validates spatial bounding box coordinates, perimeter zone adjacency, slope elevation gradients, and unit radius collisions:
 - `func_001C7850` (`0x1C7850`, 3,120 bytes): Evaluates map dimensions, converts floating-point coordinates to integer tile coordinates (`func_123350`), tests 4-sided perimeter connectivity against `bld->m_required_zone`, checks tile slope gradient against building type limits (`map + 0x68`), performs special Mill/Farm adjacency logic (`0x3B`), and queries unit collision radii (`func_3675D0`) for obstruction detection.
 
-#### 6.162.1 Zone Path Evaluator Matching Results (Pure C++, 3,120 Bytes)
+#### 6.163.1 Zone Path Evaluator Matching Results (Pure C++, 3,120 Bytes)
 
 | Function / Method | VRAM Address | Match Status | Description |
 |---|---|---|---|

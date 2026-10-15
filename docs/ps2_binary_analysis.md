@@ -4368,11 +4368,24 @@ Immediately contiguous to `zone_path_queries` sits the spatial raycasting and en
 
 #### 6.168.3 Zone Raycast Query Matching Results (Pure C++, 128 Bytes)
 
-A fresh independent MWCC compilation and GNU link resolved the tail jump to `func_123350` at `0x123350` and matched all 128 instruction bytes against the original ELF's file-backed `PT_LOAD` mapping. The slice spans file offsets `0xC8E00`–`0xC8E80` (end-exclusive), contains no alignment padding, and does not overrun into the following constructor at `0x1C8CA0`. That constructor and the later destructor remain separate WIP, not completed functions in this unit. The atomic object is registered as `Matching`.
+A fresh independent MWCC compilation and GNU link resolved the tail jump to `func_123350` at `0x123350` and matched all 128 instruction bytes against the original ELF's file-backed `PT_LOAD` mapping. The slice spans file offsets `0xC8E00`–`0xC8E80` (end-exclusive), contains no alignment padding, and does not overrun into the following constructor at `0x1C8CA0`. That constructor is described separately below; the later destructor remains WIP and is not a completed function in this unit. The atomic object is registered as `Matching`.
 
 | Function / Method | VRAM Address | Match Status | Description |
 |---|---|---|---|
 | `func_001C8C20` | `0x1C8C20` | **100.0%** (128 / 128 B) | Entity ray-testing and obstruction query evaluator. |
+
+#### 6.168.4 `Zone Constructor & Terrain Cost Table` Unit (`0x1C8CA0`–`0x1C8FF0`, `zone_constructor.cpp`)
+
+Immediately following `zone_raycast_query` sits the constructor and deserializer for the primary pathfinding zone class `D_4D9270` (`0x1C8CA0`–`0x1C8FF0`, 848 bytes / 844 B code + 4 B pad in Metrowerks C++ PS2 MWCC 2.3.1.01):
+- `func_001C8CA0` (`0x1C8CA0`, 848 bytes / 844 B code + 4 B pad): Primary constructor initializing `D_4D9270` vtable, deserializing state from stream, configuring 32-entry terrain passability cost tables, zeroing scratch buffers, and binding spatial helpers. **100.0% exact match** in pure C++.
+
+#### 6.168.5 Zone Constructor Matching Results (Pure C++, 848 Bytes)
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_001C8CA0` | `0x1C8CA0` | **100.0% exact instruction bytes** (844 / 844 B) | Primary constructor and terrain cost table initializer. |
+
+A fresh independent MWCC compilation and GNU link resolved all 13 relocations using the original call targets, data addresses, and `_gp = 0x4EA7C0`, without instruction masks. All 211 instructions (844 bytes) matched the original file-backed `PT_LOAD` bytes at file offsets `0xC8E80`–`0xC91CC`. The return at `0x1C8FE4` includes its delay slot at `0x1C8FE8`; the following four zero alignment bytes occupy `0x1C8FEC`–`0x1C8FEF`. The configured 848-byte slice ends at file offset `0xC91D0` / VRAM `0x1C8FF0`, excluding the next function. The symbol size records the 844 instruction bytes, not the padded slice. The atomic object is registered as `Matching`.
 
 #### 6.169 `Unit Action Core & Serialization` Subsystem (`0x266780`–`0x266C50`, `unit_action_core.cpp`)
 

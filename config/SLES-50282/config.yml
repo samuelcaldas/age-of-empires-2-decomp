@@ -1150,6 +1150,12 @@ segments:
   - name: post_unit_action_core
     type: bin
     start: 0x166E30
+  - name: trade_action_getters3
+    type: code
+    start: 0x1B6330
+    vram: 0x2B6150
+    subsegments:
+      - [0x1B6330, asm, trade_action_getters3]
   - [0x3e31c0]
 
 

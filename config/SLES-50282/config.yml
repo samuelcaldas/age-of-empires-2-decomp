@@ -863,9 +863,15 @@ segments:
     vram: 0x1512A0
     subsegments:
       - [0x51490, asm, trade_action_target_management]
+  - name: trade_action_trade_state
+    type: code
+    start: 0x517D0
+    vram: 0x1515E0
+    subsegments:
+      - [0x517D0, asm, trade_action_trade_state]
   - name: post_base
     type: bin
-    start: 0x517C0
+    start: 0x51B50
   - [0x3e31c0]
 
 

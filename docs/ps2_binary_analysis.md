@@ -3272,9 +3272,9 @@ Following waypoints 2 sits the trade pathing and waypoint step execution subsyst
 
 #### 6.108 `Trade Action Trade Step Execution` Subsystem (`0x14AB20`–`0x14AEF0`, `trade_action_trade_step.cpp`)
 
-Following pathing sits the primary trade route step execution routine (`0x14AB20`–`0x14AEF0`, 976 bytes in Metrowerks C++ PS2 MWCC 2.3.1.01):
-- `func_0014AB20` (`0x14AB20`, 960 bytes): Core trade step processor handling waypoint progression, timer increments, and cargo loading.
-- `func_0014AEE0` (`0x14AEE0`, 16 bytes): Step completion status helper.
+Following pathing sits the primary trade route destination validation and step execution routine (`0x14AB20`–`0x14AEF0`, 976 bytes in Metrowerks C++ PS2 MWCC 2.3.1.01):
+- `func_0014AB20` (`0x14AB20`, 952 bytes, 95.6% match in pure C++): Core trade step processor. Implements map boundary clamping via world map dimensions (`[0.0f, width - 1.0f]` and `[0.0f, height - 1.0f]`), a 5-iteration stochastic perturbation loop probing `m_target->Method12C(x, y)` using pseudo-random offsets `(func_1AAB30() % 4)` along X and Y axes according to parity `(func_1AAB30() % 2)`, virtual pathfinding dispatch via `m_target->Method17C(a1, x, y, z, 0.0f, 0)`, action notification `func_001471B0(self, 0x262)`, and spatial update `func_14BD20(self, -1, x, y, z)`.
+- `func_0014AEE0` (`0x14AEE0`, 8 bytes, 100.0% match in pure C++): Status predicate returning 0 (`paddub $v0, $zero, $zero; jr $ra`).
 
 #### 6.109 `Trade Action Cargo Exchange` Subsystem (`0x14AEF0`–`0x14B310`, `trade_action_cargo_exchange.cpp`)
 

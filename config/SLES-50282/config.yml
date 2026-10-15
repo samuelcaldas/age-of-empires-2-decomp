@@ -677,9 +677,15 @@ segments:
     vram: 0x147FB0
     subsegments:
       - [0x481A0, asm, trade_action_getters2]
+  - name: trade_action_evaluator
+    type: code
+    start: 0x48230
+    vram: 0x148040
+    subsegments:
+      - [0x48230, asm, trade_action_evaluator]
   - name: post_base
     type: bin
-    start: 0x48230
+    start: 0x491E0
   - [0x3e31c0]
 
 

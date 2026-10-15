@@ -1126,6 +1126,15 @@ segments:
   - name: post_base
     type: bin
     start: 0x5D5E0
+  - name: zone_path_eval
+    type: code
+    start: 0xC7A40
+    vram: 0x1C7850
+    subsegments:
+      - [0xC7A40, asm, zone_path_eval]
+  - name: post_aoe2
+    type: bin
+    start: 0xC8670
   - [0x3e31c0]
 
 

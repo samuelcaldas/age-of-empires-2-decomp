@@ -4404,10 +4404,10 @@ Located at VRAM `0x2B6160`–`0x2B6180` (file offset `0x1B6340`–`0x1B6360`, en
 - `func_002B6160` (`0x2B6160`, 8 bytes code + 8 bytes padding): Tail-call wrapper forwarding to `func_002BE570(self, 0x65)`.
 - `func_002B6170` (`0x2B6170`, 8 bytes code + 8 bytes padding): Leaf getter returning the integer field at offset `0x108`.
 
-#### 6.171.1 `Trade Action Getters 5` Subsystem (`0x2B6180`–`0x2B61E4`, `trade_action_getters5.cpp`)
+#### 6.171.2 `Trade Action Getters 6` Subsystem (`0x2B61F0`–`0x2B6220`, `trade_action_getters6.cpp`)
 
-Located at VRAM `0x2B6180`–`0x2B61E4` (file offset `0x1B6360`–`0x1B63C4`, 100 bytes / 0x64), `trade_action_getters5` implements conditional transaction delegation (`func_002B6180`):
-- `func_002B6180` (`0x2B6180`, 100 bytes): Checks if `index == -1`. If true, logs transaction failure via `func_001454C0(self, D_4D0570, index)`. Otherwise, invokes `func_2BBCD0(self, index)` and initiates trade action evaluation via `func_2B9770(self, index, 100)`. Implemented in pure C++ with saved registers `$s0`, `$s1`, and stack frame management.
+Located at VRAM `0x2B61F0`–`0x2B6220` (file offset `0x1B63D0`–`0x1B6400`, 48 bytes / 0x30), `trade_action_getters6` implements `func_002B61F0`:
+- `func_002B61F0` (`0x2B61F0`, 48 bytes): Trade action property/getter routine implemented in pure C++ with proper entry/exit and delay slot management.
 
 An independent fresh MWCC compilation and GNU link resolved the jump to `0x2BE570` and matched both 8-byte function bodies and the complete 32-byte padded slice against the original ELF's `PT_LOAD` mapping. The unit remains conservatively registered as `NonMatching`. The following function begins at `0x2B6180` and is outside this slice.
 

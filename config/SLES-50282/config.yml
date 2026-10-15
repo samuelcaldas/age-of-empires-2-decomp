@@ -713,9 +713,27 @@ segments:
     vram: 0x149C20
     subsegments:
       - [0x49E10, asm, trade_action_navigation]
+  - name: trade_action_waypoints1
+    type: code
+    start: 0x4A1D0
+    vram: 0x149FE0
+    subsegments:
+      - [0x4A1D0, asm, trade_action_waypoints1]
+  - name: trade_action_waypoints2
+    type: code
+    start: 0x4A590
+    vram: 0x14A3A0
+    subsegments:
+      - [0x4A590, asm, trade_action_waypoints2]
+  - name: trade_action_pathing
+    type: code
+    start: 0x4A830
+    vram: 0x14A640
+    subsegments:
+      - [0x4A830, asm, trade_action_pathing]
   - name: post_base
     type: bin
-    start: 0x4A1D0
+    start: 0x4AD10
   - [0x3e31c0]
 
 

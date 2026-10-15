@@ -3228,6 +3228,31 @@ Following the market items subsystem sits the merchant route navigation, spatial
 | `func_001499F0` | `0x1499F0` | **100.0%** (224 / 224 B) | Market item rate calculation based on age tech and player diplomacy state. |
 | `func_00149AD0` | `0x149AD0` | **96.95%** (328 / 336 B) | Spatial item candidate evaluation and highest-rated target destination search. |
 
+#### 6.105 `Trade Action Waypoints 1` Subsystem (`0x149FE0`–`0x14A3A0`, `trade_action_waypoints1.cpp`)
+
+Following navigation sits the first waypoint evaluation subsystem (`0x149FE0`–`0x14A3A0`, 960 bytes in Metrowerks C++ PS2 MWCC 2.3.1.01):
+- `func_00149FE0` (`0x149FE0`, 240 bytes): Waypoint evaluation routine 1.
+- `func_0014A0D0` (`0x14A0D0`, 240 bytes): Waypoint evaluation routine 2.
+- `func_0014A1C0` (`0x14A1C0`, 240 bytes): Waypoint evaluation routine 3.
+- `func_0014A2B0` (`0x14A2B0`, 240 bytes): Waypoint evaluation routine 4.
+
+#### 6.106 `Trade Action Waypoints 2` Subsystem (`0x14A3A0`–`0x14A640`, `trade_action_waypoints2.cpp`)
+
+Following waypoints 1 sits the second waypoint evaluation subsystem (`0x14A3A0`–`0x14A640`, 672 bytes in Metrowerks C++ PS2 MWCC 2.3.1.01):
+- `func_0014A3A0` (`0x14A3A0`, 240 bytes): Waypoint action validation against 0x25A and diplomacy status check.
+- `func_0014A490` (`0x14A490`, 240 bytes): Waypoint target validation against 0x267.
+- `func_0014A580` (`0x14A580`, 192 bytes): Waypoint route status validation against -1 and 0x25D.
+
+#### 6.107 `Trade Action Pathing` Subsystem (`0x14A640`–`0x14AB20`, `trade_action_pathing.cpp`)
+
+Following waypoints 2 sits the trade pathing and waypoint step execution subsystem (`0x14A640`–`0x14AB20`, 1,248 bytes in Metrowerks C++ PS2 MWCC 2.3.1.01):
+- `func_0014A640` (`0x14A640`, 160 bytes): Pathing step initialization.
+- `func_0014A6E0` (`0x14A6E0`, 192 bytes): Pathing obstacle check.
+- `func_0014A7A0` (`0x14A7A0`, 224 bytes): Pathing waypoint transition.
+- `func_0014A880` (`0x14A880`, 240 bytes): Pathing distance calculation.
+- `func_0014A970` (`0x14A970`, 240 bytes): Pathing route advance.
+- `func_0014AA60` (`0x14AA60`, 192 bytes): Pathing step finalization.
+
 
 
 

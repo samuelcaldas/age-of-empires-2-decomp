@@ -1147,9 +1147,15 @@ segments:
     vram: 0x266780
     subsegments:
       - [0x166960, asm, unit_action_core]
-  - name: post_unit_action_core
-    type: bin
+  - name: unit_action_movement
+    type: code
     start: 0x166E30
+    vram: 0x266C50
+    subsegments:
+      - [0x166E30, asm, unit_action_movement]
+  - name: post_unit_action_movement
+    type: bin
+    start: 0x166F00
   - name: trade_action_getters3
     type: code
     start: 0x1B6330

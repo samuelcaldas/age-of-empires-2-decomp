@@ -4232,3 +4232,15 @@ Directly beginning the `aoe4` fixed address range (`0x305830`–`0x38A360`) sits
 | `func_00305B90` | `0x305B90` | **100.00%** (8 / 8 B code, 16 B slice) | Stub virtual method for Tactical AI Player Operations. |
 | `func_00305BA0` | `0x305BA0` | **100.00%** (40 / 40 B code, 48 B slice) | Player object lookup delegating to `func_332e60`. |
 | `func_00305BD0` | `0x305BD0` | **100.00%** (216 / 216 B code, 224 B slice) | Tactical AI multi-player buffered command dispatcher. |
+
+#### 6.166 `Unit Action Movement` Atomic Unit (`0x266C50`–`0x266D20`, `unit_action_movement.cpp`)
+
+Located at VRAM `0x266C50`–`0x266D20` (file offset `0x166E30`–`0x166F00`, 208 bytes total = 200 bytes code + 8 bytes nop padding, Metrowerks C++ PS2 MWCC 2.3.1.01):
+- `func_00266C50` (`0x266C50`, 200 B code + 8 B padding): Unit action movement reset and spatial detachment. Checks `m_field18`, conditionally dispatches `func_1EDF20` and `func_1EE720` via `D_004E3244`, queries subsystem via `D_004E3180`, dispatches `func_1D0B40`, invokes `Method62` (slot 62 at vtable offset 248), resets `m_field18` and spatial coordinates `m_x, m_y, m_z` to `-1.0f`, invokes `func_205F70`, and clears `m_field37`. Implemented in pure C++ (objdiff score: 95.71% due to alignment padding and unlinked relocations; 200/200 bytes exact instruction match verified via GNU ld relocation test). Registered as `NonMatching` in `configure.py`.
+- Note: `func_00266D20` (1,624 bytes) is excluded from this unit and preserved on separate WIP branch `wip/unit-action-movement-266d20` for full semantic implementation.
+
+#### 6.166.1 Unit Action Movement Matching Results (Pure C++, 208-Byte Atomic Slice)
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_00266C50` | `0x266C50` | **95.71%** (200 B code, 208 B slice) | Unit action movement reset and spatial detachment. |

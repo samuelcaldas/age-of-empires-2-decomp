@@ -3949,3 +3949,30 @@ Directly following stream packers sits the short-sequence permutation stream enc
 | `func_00158DC0` | `0x158DC0` | **100.0%** (124 / 124 B) | 5-symbol pattern [0, 1, 2, 3, 0]. |
 | `func_00158E40` | `0x158E40` | **100.0%** (124 / 124 B) | 5-symbol pattern [1, 0, 1, 0, 1]. |
 | `func_00158EC0` | `0x158EC0` | **100.0%** (124 / 124 B) | 5-symbol pattern [0, 1, 0, 1, 0]. |
+
+#### 6.152 `Trade Action Stream Patterns` Subsystem (`0x158F40`–`0x159500`, `trade_action_stream_patterns.cpp`)
+
+Directly following stream sequence sits the multi-symbol pattern serialization subsystem (`0x158F40`–`0x159500`, 1,472 bytes across 9 leaf functions in Metrowerks C++ PS2 MWCC 2.3.1.01). Each function operates directly as a leaf function (`#pragma exceptions off`, 0 stack allocation) emitting specialized 5-symbol to 7-symbol permutation patterns from `D_004E2DA0` into the output stream `D_004E2DB4`:
+- `func_00158F40` (`0x158F40`, 128 bytes): 5-symbol pattern [1, 0, 1, 2, 3]. **100.0% exact match** in pure C++.
+- `func_00158FC0` (`0x158FC0`, 160 bytes): 6-symbol pattern [0, 1, 2, 3, 0, 1]. **100.0% exact match** in pure C++.
+- `func_00159060` (`0x159060`, 160 bytes): 6-symbol pattern [1, 0, 1, 0, 1, 0]. **100.0% exact match** in pure C++.
+- `func_00159100` (`0x159100`, 160 bytes): 6-symbol pattern [0, 1, 0, 1, 2, 3]. **100.0% exact match** in pure C++.
+- `func_001591A0` (`0x1591A0`, 160 bytes): 6-symbol pattern [1, 0, 1, 2, 3, 0]. **100.0% exact match** in pure C++.
+- `func_00159240` (`0x159240`, 176 bytes): 7-symbol pattern [0, 1, 2, 3, 0, 1, 0]. **100.0% exact match** in pure C++.
+- `func_001592F0` (`0x1592F0`, 176 bytes): 7-symbol pattern [1, 0, 1, 0, 1, 2, 3]. **100.0% exact match** in pure C++.
+- `func_001593A0` (`0x1593A0`, 176 bytes): 7-symbol pattern [0, 1, 0, 1, 2, 3, 0]. **100.0% exact match** in pure C++.
+- `func_00159450` (`0x159450`, 176 bytes): 7-symbol pattern [1, 0, 1, 2, 3, 0, 1]. **100.0% exact match** in pure C++.
+
+#### 6.152.1 Trade Action Stream Patterns Matching Results (100.00% Pure C++, 1,472 Bytes)
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_00158F40` | `0x158F40` | **100.0%** (124 / 124 B) | 5-symbol pattern [1, 0, 1, 2, 3]. |
+| `func_00158FC0` | `0x158FC0` | **100.0%** (148 / 148 B) | 6-symbol pattern [0, 1, 2, 3, 0, 1]. |
+| `func_00159060` | `0x159060` | **100.0%** (148 / 148 B) | 6-symbol pattern [1, 0, 1, 0, 1, 0]. |
+| `func_00159100` | `0x159100` | **100.0%** (148 / 148 B) | 6-symbol pattern [0, 1, 0, 1, 2, 3]. |
+| `func_001591A0` | `0x1591A0` | **100.0%** (148 / 148 B) | 6-symbol pattern [1, 0, 1, 2, 3, 0]. |
+| `func_00159240` | `0x159240` | **100.0%** (172 / 172 B) | 7-symbol pattern [0, 1, 2, 3, 0, 1, 0]. |
+| `func_001592F0` | `0x1592F0` | **100.0%** (172 / 172 B) | 7-symbol pattern [1, 0, 1, 0, 1, 2, 3]. |
+| `func_001593A0` | `0x1593A0` | **100.0%** (172 / 172 B) | 7-symbol pattern [0, 1, 0, 1, 2, 3, 0]. |
+| `func_00159450` | `0x159450` | **100.0%** (172 / 172 B) | 7-symbol pattern [1, 0, 1, 2, 3, 0, 1]. |

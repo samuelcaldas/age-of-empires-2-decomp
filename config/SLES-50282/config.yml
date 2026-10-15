@@ -1001,9 +1001,15 @@ segments:
     vram: 0x158A00
     subsegments:
       - [0x58BF0, asm, trade_action_stream_sequence]
+  - name: trade_action_stream_patterns
+    type: code
+    start: 0x59130
+    vram: 0x158F40
+    subsegments:
+      - [0x59130, asm, trade_action_stream_patterns]
   - name: post_base
     type: bin
-    start: 0x59130
+    start: 0x596F0
   - [0x3e31c0]
 
 

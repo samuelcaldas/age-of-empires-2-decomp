@@ -1,0 +1,149 @@
+#pragma exceptions off
+#include "sub_list.h"
+
+extern "C" {
+extern unsigned char D_004E2DA0[4];
+extern unsigned char *D_004E2DB4;
+
+void func_00158F40() {
+    *D_004E2DB4 = D_004E2DA0[1];
+    D_004E2DB4++;
+    *D_004E2DB4 = D_004E2DA0[0];
+    D_004E2DB4++;
+    *D_004E2DB4 = D_004E2DA0[1];
+    D_004E2DB4++;
+    *D_004E2DB4 = D_004E2DA0[2];
+    D_004E2DB4++;
+    *D_004E2DB4 = D_004E2DA0[3];
+    D_004E2DB4++;
+}
+
+void func_00158FC0() {
+    *D_004E2DB4 = D_004E2DA0[0];
+    D_004E2DB4++;
+    *D_004E2DB4 = D_004E2DA0[1];
+    D_004E2DB4++;
+    *D_004E2DB4 = D_004E2DA0[2];
+    D_004E2DB4++;
+    *D_004E2DB4 = D_004E2DA0[3];
+    D_004E2DB4++;
+    *D_004E2DB4 = D_004E2DA0[0];
+    D_004E2DB4++;
+    *D_004E2DB4 = D_004E2DA0[1];
+    D_004E2DB4++;
+}
+
+void func_00159060() {
+    *D_004E2DB4 = D_004E2DA0[1];
+    D_004E2DB4++;
+    *D_004E2DB4 = D_004E2DA0[0];
+    D_004E2DB4++;
+    *D_004E2DB4 = D_004E2DA0[1];
+    D_004E2DB4++;
+    *D_004E2DB4 = D_004E2DA0[0];
+    D_004E2DB4++;
+    *D_004E2DB4 = D_004E2DA0[1];
+    D_004E2DB4++;
+    *D_004E2DB4 = D_004E2DA0[0];
+    D_004E2DB4++;
+}
+
+void func_00159100() {
+    *D_004E2DB4 = D_004E2DA0[0];
+    D_004E2DB4++;
+    *D_004E2DB4 = D_004E2DA0[1];
+    D_004E2DB4++;
+    *D_004E2DB4 = D_004E2DA0[0];
+    D_004E2DB4++;
+    *D_004E2DB4 = D_004E2DA0[1];
+    D_004E2DB4++;
+    *D_004E2DB4 = D_004E2DA0[2];
+    D_004E2DB4++;
+    *D_004E2DB4 = D_004E2DA0[3];
+    D_004E2DB4++;
+}
+
+void func_001591A0() {
+    *D_004E2DB4 = D_004E2DA0[1];
+    D_004E2DB4++;
+    *D_004E2DB4 = D_004E2DA0[0];
+    D_004E2DB4++;
+    *D_004E2DB4 = D_004E2DA0[1];
+    D_004E2DB4++;
+    *D_004E2DB4 = D_004E2DA0[2];
+    D_004E2DB4++;
+    *D_004E2DB4 = D_004E2DA0[3];
+    D_004E2DB4++;
+    *D_004E2DB4 = D_004E2DA0[0];
+    D_004E2DB4++;
+}
+
+void func_00159240() {
+    *D_004E2DB4 = D_004E2DA0[0];
+    D_004E2DB4++;
+    *D_004E2DB4 = D_004E2DA0[1];
+    D_004E2DB4++;
+    *D_004E2DB4 = D_004E2DA0[2];
+    D_004E2DB4++;
+    *D_004E2DB4 = D_004E2DA0[3];
+    D_004E2DB4++;
+    *D_004E2DB4 = D_004E2DA0[0];
+    D_004E2DB4++;
+    *D_004E2DB4 = D_004E2DA0[1];
+    D_004E2DB4++;
+    *D_004E2DB4 = D_004E2DA0[0];
+    D_004E2DB4++;
+}
+
+void func_001592F0() {
+    *D_004E2DB4 = D_004E2DA0[1];
+    D_004E2DB4++;
+    *D_004E2DB4 = D_004E2DA0[0];
+    D_004E2DB4++;
+    *D_004E2DB4 = D_004E2DA0[1];
+    D_004E2DB4++;
+    *D_004E2DB4 = D_004E2DA0[0];
+    D_004E2DB4++;
+    *D_004E2DB4 = D_004E2DA0[1];
+    D_004E2DB4++;
+    *D_004E2DB4 = D_004E2DA0[2];
+    D_004E2DB4++;
+    *D_004E2DB4 = D_004E2DA0[3];
+    D_004E2DB4++;
+}
+
+void func_001593A0() {
+    *D_004E2DB4 = D_004E2DA0[0];
+    D_004E2DB4++;
+    *D_004E2DB4 = D_004E2DA0[1];
+    D_004E2DB4++;
+    *D_004E2DB4 = D_004E2DA0[0];
+    D_004E2DB4++;
+    *D_004E2DB4 = D_004E2DA0[1];
+    D_004E2DB4++;
+    *D_004E2DB4 = D_004E2DA0[2];
+    D_004E2DB4++;
+    *D_004E2DB4 = D_004E2DA0[3];
+    D_004E2DB4++;
+    *D_004E2DB4 = D_004E2DA0[0];
+    D_004E2DB4++;
+}
+
+void func_00159450() {
+    *D_004E2DB4 = D_004E2DA0[1];
+    D_004E2DB4++;
+    *D_004E2DB4 = D_004E2DA0[0];
+    D_004E2DB4++;
+    *D_004E2DB4 = D_004E2DA0[1];
+    D_004E2DB4++;
+    *D_004E2DB4 = D_004E2DA0[2];
+    D_004E2DB4++;
+    *D_004E2DB4 = D_004E2DA0[3];
+    D_004E2DB4++;
+    *D_004E2DB4 = D_004E2DA0[0];
+    D_004E2DB4++;
+    *D_004E2DB4 = D_004E2DA0[1];
+    D_004E2DB4++;
+}
+
+}

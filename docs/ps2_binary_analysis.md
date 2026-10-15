@@ -3557,6 +3557,24 @@ Following trade helpers sits the trade action finalization, state serialization,
 - `func_00151E60` (`0x151E60`, 28 bytes, **100.0% exact match**): Counter decrement helper (`m_field3A--`).
 - `func_00151E80` (`0x151E80`, 1,120 bytes): 64 default virtual method implementations of `TradeActionBase`.
 
+#### 6.132 `Trade Action Stream Reader & Packet Unmarshaling` Subsystem (`0x1527A0`–`0x152B10`, `trade_action_stream_reader.cpp`)
+
+Following stream writers sits the packet stream unmarshaling and sequential byte deserialization subsystem (`0x1527A0`–`0x152B10`, 880 bytes in Metrowerks C++ PS2 MWCC 2.3.1.01):
+- `func_001527A0` (`0x1527A0`, 204 bytes, **100.0% exact match**): 5-byte unrolled stream byte deserializer transferring sequential payload bytes from `D_004E2DB0` to `D_004E2DB4`.
+- `func_00152870` (`0x152870`, 204 bytes, **100.0% exact match**): Matching 5-byte unrolled stream byte deserializer.
+- `func_00152940` (`0x152940`, 204 bytes, **100.0% exact match**): Matching 5-byte unrolled stream byte deserializer.
+- `func_00152A10` (`0x152A10`, 252 bytes, **80.94% match**): 6-byte composite packet unmarshaler reading 4 leading bytes, invoking packet validation `func_001522C0` with staging buffer `D_004E2DA0`, and deserializing the 2 trailing header bytes.
+
+#### 6.132.1 Trade Action Stream Reader Matching Results (Pure C++, 880 Bytes)
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_001527A0` | `0x1527A0` | **100.0%** (204 / 204 B) | Exact 5-byte unrolled stream byte transfer. |
+| `func_00152870` | `0x152870` | **100.0%** (204 / 204 B) | Exact 5-byte unrolled stream byte transfer. |
+| `func_00152940` | `0x152940` | **100.0%** (204 / 204 B) | Exact 5-byte unrolled stream byte transfer. |
+| `func_00152A10` | `0x152A10` | **80.94%** (204 / 252 B) | 6-byte composite packet unmarshaler with `func_001522C0` validation. |
+
+
 #### 6.130.1 Trade Action Trade Finalize Matching Results (Pure C++, 1,648 Bytes)
 
 | Function / Method | VRAM Address | Match Status | Description |

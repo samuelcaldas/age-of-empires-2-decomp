@@ -1264,9 +1264,18 @@ segments:
     vram: 0x305CB0
     subsegments:
       - [0x205E90, asm, tactical_ai_player_dispatch]
-  - name: post_aoe4
+  - name: post_tactical_ai_player_dispatch
     type: bin
     start: 0x206110
+  - name: tactical_ai_action_constructors
+    type: code
+    start: 0x207340
+    vram: 0x307160
+    subsegments:
+      - [0x207340, asm, tactical_ai_action_constructors]
+  - name: post_aoe4
+    type: bin
+    start: 0x207400
   - [0x3e31c0]
 
 

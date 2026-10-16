@@ -4530,3 +4530,20 @@ The atomic slice spans file offsets `0x117910`–`0x117A20` (end-exclusive): 260
 - `func_002177C0` (`0x2177C0`, 116 original code bytes + 12 padding bytes): Copies the four array words into offsets `0x12C`–`0x138`, stores the other arguments at `0x13C` and `0x140`, calls `func_00217B50(self)`, then invokes the raw vtable entry at byte offset `0x28` with `(self, 1)`.
 
 Independent original-disassembly reviews support both implementations. A fresh MWCC compilation emits 124-byte and 104-byte bodies. A GNU link with `--no-undefined` resolves the real external targets `0x185E20` and `0x217B50`, the global `D_004E3058`, and the internal call to the local second definition. With the real `_gp = 0x4EA7C0`, its GP-relative load uses `-30568(gp)`. The shorter compiled first body places the second definition at `0x2177B0` in a natural link, not at its original `0x2177C0`; this is not an exact-byte matching result. Earlier author-reported fuzzy percentages were not independently reproduced and are not used as byte-equality claims. The unit remains registered as `NonMatching`.
+
+#### 6.178 `Tactical AI Action Delegator & Constructors` Subsystem (`0x307160`–`0x307220`, `tactical_ai_action_constructors.cpp`)
+
+Located at VRAM `0x307160`–`0x307220` (file offset `0x207340`–`0x207400`, 192 bytes total slice, Metrowerks C++ PS2 MWCC 2.3.1.01 compiled with `-sdatathreshold 0`):
+- `func_00307160` (`0x307160`, 52 bytes code + 12 bytes padding, 64 bytes slice): Action command delegator checking action type 104 (`desc->m_type == 104 -> return 1`) or forwarding to `func_2cc630(self, desc)`.
+- `func_003071A0` (`0x3071A0`, 52 bytes code + 12 bytes padding, 64 bytes slice): Tactical action primary constructor executing base constructor `func_315560`, assigning vtable pointer `D_4DE760` (address `0x4DE760`) at offset 36, and returning `self`.
+- `func_003071E0` (`0x3071E0`, 52 bytes code + 12 bytes padding, 64 bytes slice): Tactical action secondary constructor executing base constructor `func_315a50`, assigning vtable pointer `D_4DE760` (address `0x4DE760`) at offset 36, and returning `self`.
+
+Emitted instructions: 156 bytes code (3 x 52B) + 24 bytes inter-function padding = 180 bytes emitted; followed by 12 bytes trailing original zero padding = 192 bytes full slice. All emitted instructions and real external targets (`func_2cc630`, `func_315560`, `func_315a50`, `D_4DE760`) match the original ELF bit-for-bit. Registered as `Matching` in `configure.py`.
+
+#### 6.178.1 Tactical AI Action Delegator & Constructors Matching Results (100.00% Exact Match, 192 Bytes)
+
+| Function / Method | VRAM Address | Code Size (Orig) | Slice Size | Match Status | Description |
+|---|---|---|---|---|---|
+| `func_00307160` | `0x307160` | 52 B | 64 B | **100.00% exact match** (52/52 B) | Action command delegator checking task 104 or forwarding to `func_2cc630`. |
+| `func_003071A0` | `0x3071A0` | 52 B | 64 B | **100.00% exact match** (52/52 B) | Primary tactical action constructor setting vtable pointer `D_4DE760`. |
+| `func_003071E0` | `0x3071E0` | 52 B | 64 B | **100.00% exact match** (52/52 B) | Secondary tactical action constructor setting vtable pointer `D_4DE760`. |

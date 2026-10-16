@@ -3,65 +3,7 @@
 #include <climits>
 #include <cmath>
 #include <vector>
-
-extern float last_scaled_val;
-extern int helper_call_count;
-extern int custom_mock_return;
-extern int last_helper_val;
-extern void *last_mgr_target;
-extern int scaler_call_count;
-
-extern "C" {
-int select_trade_increment(int mode, int flag);
-float get_scaling_factor(int index, int mode, int flag);
-extern void *p_sentinel;
-extern void *ctx_sentinel;
-extern void *D_004E3180;
-
-extern int mock_mode;
-extern int mock_flag;
-
-int func_00332da0(void *ptr);
-int func_00188070(void *ctx);
-int func_00123350(float val);
-int func_002a0b30(void *mgr, int id);
-int func_0029df60(void *mgr, int val);
-void func_002B6220(void *self, int index, int value);
-}
-
-void run_matrix_test(std::vector<char> &storage, const int *ids, size_t num_ids, const float *expected_factors) {
-    int modes[] = {2, 3, 4};
-    int flags[] = {0, 1};
-
-    for (size_t m = 0; m < 3; ++m) {
-        for (size_t f = 0; f < 2; ++f) {
-            for (size_t i = 0; i < num_ids; ++i) {
-                std::vector<char> p1_obj(16384, 0);
-                std::vector<char> p2_obj(16384, 0);
-                char *base = storage.data();
-                *reinterpret_cast<void **>(base + 0xB0) = p1_obj.data();
-                *reinterpret_cast<void **>(p1_obj.data() + 0xAC) = p2_obj.data();
-                *reinterpret_cast<void **>(p2_obj.data() + 0xB98) = p_sentinel;
-
-                mock_mode = modes[m];
-                mock_flag = flags[f];
-                custom_mock_return = 42;
-                int id = ids[i];
-                scaler_call_count = 0;
-                last_scaled_val = NAN;
-                helper_call_count = 0;
-
-                func_002B6220(base, id, 100);
-                float expected_scaled = expected_factors[m] * 100.0f;
-                assert(scaler_call_count == 1);
-                assert(std::fabs(last_scaled_val - expected_scaled) < 0.0001f);
-                assert(helper_call_count == 0);
-                int *slot = reinterpret_cast<int *>(base + 0x858 + id * 4);
-                assert(*slot == 42);
-            }
-        }
-    }
-}
+#include "trade_action_getters7_matrix_support.h"
 
 void run_getters7_test_part2(int test_case, std::vector<char> &storage) {
     void *self = storage.data();
@@ -169,18 +111,18 @@ void run_getters7_test_part2(int test_case, std::vector<char> &storage) {
     } else if (test_case == 18) {
         int ids[] = {0x24, 0x3A};
         float expected_factors[] = {0.6f, 0.4f, 0.2f};
-        run_matrix_test(storage, ids, 2, expected_factors);
+        run_matrix_test(storage, ids, 2, expected_factors, 42);
     } else if (test_case == 19) {
         int ids[] = {0x10, 0x1A, 0x3B, 0x3C};
         float expected_factors[] = {0.75f, 0.5f, 0.25f};
-        run_matrix_test(storage, ids, 4, expected_factors);
+        run_matrix_test(storage, ids, 4, expected_factors, 77);
     } else if (test_case == 20) {
         int ids[] = {0x13, 0x14};
         float expected_factors[] = {0.6f, 0.4f, 0.2f};
-        run_matrix_test(storage, ids, 2, expected_factors);
+        run_matrix_test(storage, ids, 2, expected_factors, 88);
     } else if (test_case == 21) {
         int ids[] = {0xE3, 0xE4};
         float expected_factors[] = {0.75f, 0.5f, 0.25f};
-        run_matrix_test(storage, ids, 2, expected_factors);
+        run_matrix_test(storage, ids, 2, expected_factors, 99);
     }
 }

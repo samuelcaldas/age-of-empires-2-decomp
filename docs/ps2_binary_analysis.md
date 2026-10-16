@@ -4424,10 +4424,14 @@ An independent fresh MWCC compilation and GNU link resolved the jump to `0x2BE57
 Located at VRAM `0x2B6180`–`0x2B61F0` (file offset `0x1B6360`–`0x1B63D0`, 100 bytes of code + 12 bytes of alignment padding up to `0x2B61F0`), `trade_action_getters5` implements conditional transaction delegation (`func_002B6180`):
 - `func_002B6180` (`0x2B6180`, 100 bytes): Checks if `index == -1`. If true, logs transaction failure via `func_001454C0(self, D_4D0570, index)`. Otherwise, invokes `func_2BBCD0(self, index)` and initiates trade action evaluation via `func_2B9770(self, index, 100)`. Implemented in pure C++ with saved registers `$s0`, `$s1`, and stack frame management.
 
+A fresh MWCC compilation and GNU link with the original callee/data addresses and `_gp = 0x4EA7C0` matched all 100 emitted instruction bytes against the original ELF's `PT_LOAD` mapping without relocation masks. The 12 original zero-padding bytes were checked separately, not counted as generated code. Registration remains conservatively `NonMatching`.
+
 #### 6.171.2 `Trade Action Getters 6` Subsystem (`0x2B61F0`–`0x2B6220`, `trade_action_getters6.cpp`)
 
 Located at VRAM `0x2B61F0`–`0x2B6220` (file offset `0x1B63D0`–`0x1B6400`, end-exclusive), `trade_action_getters6` contains 48 instruction bytes and no alignment padding:
 - `func_002B61F0(void *self, int index)` returns `-1` for signed indices below zero or at least 239. Otherwise, it returns the 32-bit field at `self + 0x858 + index * 4`. The routine has no calls or writes; its return delay slot is at `0x2B621C`. The distinct function beginning at `0x2B6220` is excluded.
+
+The complete C++ implementation remains `NonMatching`: fresh MWCC compilation emits a 56-byte body rather than the original 48-byte body. Native regressions compile the actual source and cover `INT_MIN`, `-1`, `0`, `238`, `239`, and `INT_MAX`, including distinct table values and a full-buffer no-write check. Replacing the valid-index load with the former constant `return -1` causes both valid-index cases to fail (two failures, four passes).
 
 #### 6.172 `Tactical AI Player Operations` Subsystem (`0x305B90`–`0x305CB0`, `tactical_ai_player_ops.cpp`)
 

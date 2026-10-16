@@ -103,16 +103,25 @@ static void test_corner_diagonal_replacement() {
 }
 
 static void test_bounds_clamping() {
-    BlendLayout zm;
-    BlendCell cells[7][7];
-    BlendCell *row_ptrs[7];
-    setup_grid(&zm, cells, row_ptrs, 7, 7, 1);
+    BlendLayout zm1, zm2;
+    BlendCell cells1[7][7], cells2[7][7];
+    BlendCell *row_ptrs1[7], *row_ptrs2[7];
+    setup_grid(&zm1, cells1, row_ptrs1, 7, 7, 1);
 
-    cells[0][1].f_5 = 2;
-    cells[1][0].f_5 = 2;
+    cells1[0][1].f_5 = 2;
+    cells1[1][0].f_5 = 2;
 
-    func_001CC6E0(&zm, -10, -10, 50, 50, 2);
-    assert(g_replaced_count >= 0);
+    func_001CC6E0(&zm1, -10, -10, 50, 50, 2);
+    int count_clamped = g_replaced_count;
+
+    setup_grid(&zm2, cells2, row_ptrs2, 7, 7, 1);
+    cells2[0][1].f_5 = 2;
+    cells2[1][0].f_5 = 2;
+    func_001CC6E0(&zm2, 0, 0, 6, 6, 2);
+    int count_explicit = g_replaced_count;
+
+    assert(count_clamped == count_explicit);
+    assert(std::memcmp(cells1, cells2, sizeof(cells1)) == 0);
 }
 
 static void test_truncation_andi_ff() {

@@ -1949,9 +1949,15 @@ segments:
     vram: 0x1CCE10
     subsegments:
       - [0xCCFF0, asm, zone_paint_line]
+  - name: zone_paint_elevation
+    type: code
+    start: 0xCD240
+    vram: 0x1CD060
+    subsegments:
+      - [0xCD240, asm, zone_paint_elevation]
   - name: post_aoe2
     type: bin
-    start: 0xCD240
+    start: 0xCD2F0
   - name: trade_action_helper_217730
     type: code
     start: 0x117910

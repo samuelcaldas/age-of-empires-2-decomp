@@ -9,6 +9,7 @@ int helper_call_count = 0;
 int custom_mock_return = -1;
 int last_helper_val = -1;
 void *last_mgr_target = nullptr;
+int scaler_call_count = 0;
 
 extern "C" {
 int select_trade_increment(int mode, int flag);
@@ -29,6 +30,7 @@ int func_00188070(void *ctx) {
     return mock_flag;
 }
 int func_00123350(float val) {
+    scaler_call_count++;
     last_scaled_val = val;
     return (custom_mock_return != -1) ? custom_mock_return : static_cast<int>(val);
 }

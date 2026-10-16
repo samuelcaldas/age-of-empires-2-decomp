@@ -9,6 +9,7 @@ extern int helper_call_count;
 extern int custom_mock_return;
 extern int last_helper_val;
 extern void *last_mgr_target;
+extern int scaler_call_count;
 
 extern "C" {
 int select_trade_increment(int mode, int flag);
@@ -151,12 +152,13 @@ void run_getters7_test_part2(int test_case, std::vector<char> &storage) {
                     mock_flag = flags[f];
                     custom_mock_return = 42;
                     int id = ids[i];
-                    helper_call_count = 0;
+                    scaler_call_count = 0;
+                    last_scaled_val = NAN;
 
                     func_002B6220(self, id, 100);
                     float expected_scaled = expected_factors[m] * 100.0f;
+                    assert(scaler_call_count == 1);
                     assert(std::fabs(last_scaled_val - expected_scaled) < 0.0001f);
-                    assert(helper_call_count == 0); // matrix targets are not 0x56/0x57/0x69
                     int *slot = reinterpret_cast<int *>(storage.data() + 0x858 + id * 4);
                     assert(*slot == 42);
                 }
@@ -182,12 +184,13 @@ void run_getters7_test_part2(int test_case, std::vector<char> &storage) {
                     mock_flag = flags[f];
                     custom_mock_return = 77;
                     int id = ids[i];
-                    helper_call_count = 0;
+                    scaler_call_count = 0;
+                    last_scaled_val = NAN;
 
                     func_002B6220(self, id, 100);
                     float expected_scaled = expected_factors[m] * 100.0f;
+                    assert(scaler_call_count == 1);
                     assert(std::fabs(last_scaled_val - expected_scaled) < 0.0001f);
-                    assert(helper_call_count == 0);
                     int *slot = reinterpret_cast<int *>(storage.data() + 0x858 + id * 4);
                     assert(*slot == 77);
                 }

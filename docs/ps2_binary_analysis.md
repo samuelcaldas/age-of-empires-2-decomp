@@ -4343,18 +4343,33 @@ Following stream decoders 10 sits the eleventh stream decoder and table lookup s
 
 An independent test suite (`tests/test_trade_action_stream_decoders11.py`) compiles the actual C++ source and resolves the original global addresses with GNU `ld --no-undefined`. It verifies the 56 instruction bytes of `func_0015F0F0` and the 108 instruction bytes of `func_0015F1B0` byte-for-byte, the complete 304-byte linked extent, the 8-byte internal alignment, and the 4-byte emitted tail alignment. `func_0015F130` has complete behavioral logic matching 125 of 128 bytes, with the only difference being `sb v1, 0(a0)` versus `sb v1, -0x7A20(gp)` at offset `0x0C`. The test pins both complete store words, decodes the shared `addiu a0, gp, -0x7A20` setup instruction, and derives both effective addresses as `0x4E2DA0`, without masking any differing bytes. Symbol sizes record only the 56, 128, and 108 instruction bytes, excluding alignment. The unit remains `NonMatching`.
 
-#### 6.168 `Zone Path & Building Placement Obstruction Evaluator` Subsystem (`0x1C7850`–`0x1C8480`, `zone_path_eval.cpp`)
+#### 6.168 `Trade Action Stream Decoders 12` Subsystem (`0x15F220`–`0x15F450`, `trade_action_stream_decoders12.cpp`)
+
+Following stream decoders 11 sits the twelfth stream decoder subsystem (`0x15F220`–`0x15F450`, 560 bytes across 2 routines in Metrowerks C++ PS2 MWCC 2.3.1.01). The slice comprises 548 instruction bytes and 12 trailing zero alignment bytes at file offset `0x5F400`–`0x5F630`. Both routines execute multi-phase table lookups through permutation table `D_004E2DA4` with index word `D_004E2DAC`, execute byte swaps between positions 0 and 3 while copying position 1 to 2 via staging pointer `(unsigned char *)&D_004E2DA0`, and write 4 bytes to `D_004E2DB4`:
+- `func_0015F220` (`0x15F220`, 272 bytes): Calls `func_001522C0(D_004E2DA0, D_004E2DB4)`, performs 2-phase table lookups via `D_004E2DA4` and staging permutations, sequentially writes 4 bytes to `D_004E2DB4`, and decrements the pointer. **100.00% exact match** byte-for-byte.
+- `func_0015F330` (`0x15F330`, 276 bytes): Calls `func_001522C0(D_004E2DA0, D_004E2DB4 - 1)`, performs 2-phase table lookups via `D_004E2DA4` and staging permutations, decrements the stream pointer before writing byte 0, and advances sequentially through byte 3. **100.00% exact match** byte-for-byte.
+
+#### 6.168.1 Trade Action Stream Decoders 12 Matching Results
+
+| Function | Instruction bytes | Match | Description |
+|---|---:|---:|---|
+| `func_0015F220` | 272 | 100.00% | 2-phase table lookup and permutation before 4-byte stream write |
+| `func_0015F330` | 276 | 100.00% | Offset -1 lookup and permutation before 4-byte stream write |
+
+An independent test suite (`tests/test_trade_action_stream_decoders12.py`) compiles the actual C++ source and resolves the original global addresses with GNU `ld --no-undefined`. It verifies the 272 instruction bytes of `func_0015F220` and the 276 instruction bytes of `func_0015F330` byte-for-byte, the complete 560-byte linked extent, the 12-byte tail alignment padding, and strict PT_LOAD derivation. Symbol sizes record 272 and 276 instruction bytes, excluding alignment padding. Registered as `Matching` in `configure.py`.
+
+#### 6.169 `Zone Path & Building Placement Obstruction Evaluator` Subsystem (`0x1C7850`–`0x1C8480`, `zone_path_eval.cpp`)
 
 Directly beginning the `aoe2` fixed address range (`0x1C7330`–`0x2665B0`) sits the core spatial obstruction and building placement validator `func_001C7850` (`0x1C7850`–`0x1C8480`, 3,120 bytes in Metrowerks C++ PS2 MWCC 2.3.1.01). It validates spatial bounding box coordinates, perimeter zone adjacency, slope elevation gradients, and unit radius collisions:
 - `func_001C7850` (`0x1C7850`, 3,120 bytes): Evaluates map dimensions, converts floating-point coordinates to integer tile coordinates (`func_123350`), tests 4-sided perimeter connectivity against `bld->m_required_zone`, checks tile slope gradient against building type limits (`map + 0x68`), performs special Mill/Farm adjacency logic (`0x3B`), and queries unit collision radii (`func_3675D0`) for obstruction detection.
 
-#### 6.167.1 Zone Path Evaluator Matching Results (Pure C++, 3,120 Bytes)
+#### 6.169.1 Zone Path Evaluator Matching Results (Pure C++, 3,120 Bytes)
 
 | Function / Method | VRAM Address | Match Status | Description |
 |---|---|---|---|
 | `func_001C7850` | `0x1C7850` | **44.58%** (3,116 / 3,120 B) | Building placement obstruction and spatial perimeter validator. |
 
-#### 6.168 `Zone Path Queries & Position Clamping` Subsystem (`0x1C8490`–`0x1C8C20`, `zone_path_queries.cpp`)
+#### 6.170 `Zone Path Queries & Position Clamping` Subsystem (`0x1C8490`–`0x1C8C20`, `zone_path_queries.cpp`)
 
 Following the core placement validator sits the spatial queries, tile snapping, and coordinate clamping subsystem (file `0xC8670`–`0xC8E00`, VRAM `0x1C8490`–`0x1C8C20`, end-exclusive). Its 1,936-byte slice contains six original functions and alignment padding. Four functions have C++ implementations; two pre-existing empty stubs still lack behavior. The unit remains `NonMatching`, and the stubs do not count as completed decompilation.
 
@@ -4365,7 +4380,7 @@ Following the core placement validator sits the spatial queries, tile snapping, 
 - `func_001C8C00` (`0x1C8C00`, 8 bytes code + 8 bytes padding): Fast atomic accessor returning pointer at offset `0x84`. **100.0% objdiff match** in pure C++.
 - `func_001C8C10` (`0x1C8C10`, 8 bytes code + 8 bytes padding): Fast atomic accessor returning pointer at offset `0x88`. **100.0% objdiff match** in pure C++.
 
-#### 6.168.1 Zone Path Queries Matching Results (Partial C++, 1,936-Byte Original Slice)
+#### 6.170.1 Zone Path Queries Matching Results (Partial C++, 1,936-Byte Original Slice)
 
 The percentages below are fresh objdiff metrics, not ratios of exactly matched bytes. Function sizes exclude alignment padding; the `func_001C84B0` extent is 708 bytes within a 720-byte aligned span.
 
@@ -4378,12 +4393,12 @@ The percentages below are fresh objdiff metrics, not ratios of exactly matched b
 | `func_001C8C00` | `0x1C8C00` | **100.0%** (8 / 8 B) | Atomic pointer accessor for offset 0x84. |
 | `func_001C8C10` | `0x1C8C10` | **100.0%** (8 / 8 B) | Atomic pointer accessor for offset 0x88. |
 
-#### 6.168.2 `Zone Raycast Query` Atomic Unit (`0x1C8C20`–`0x1C8CA0`, `zone_raycast_query.cpp`)
+#### 6.170.2 `Zone Raycast Query` Atomic Unit (`0x1C8C20`–`0x1C8CA0`, `zone_raycast_query.cpp`)
 
 Immediately contiguous to `zone_path_queries` sits the spatial raycasting and entity obstruction query evaluator (`0x1C8C20`–`0x1C8CA0`, 128 bytes code across 1 function in Metrowerks C++ PS2 MWCC 2.3.1.01):
 - `func_001C8C20` (`0x1C8C20`, 128 bytes / 128 B code, 32 instructions): Map entity ray-testing and obstruction query evaluator at slot 13 of the MapZone vtable (`0x4D8F54`). **100.0% exact match** in pure C++.
 
-#### 6.168.3 Zone Raycast Query Matching Results (Pure C++, 128 Bytes)
+#### 6.170.3 Zone Raycast Query Matching Results (Pure C++, 128 Bytes)
 
 A fresh independent MWCC compilation and GNU link resolved the tail jump to `func_123350` at `0x123350` and matched all 128 instruction bytes against the original ELF's file-backed `PT_LOAD` mapping. The slice spans file offsets `0xC8E00`–`0xC8E80` (end-exclusive), contains no alignment padding, and does not overrun into the following constructor at `0x1C8CA0`. That constructor is described separately below; the later destructor remains WIP and is not a completed function in this unit. The atomic object is registered as `Matching`.
 
@@ -4391,12 +4406,12 @@ A fresh independent MWCC compilation and GNU link resolved the tail jump to `fun
 |---|---|---|---|
 | `func_001C8C20` | `0x1C8C20` | **100.0%** (128 / 128 B) | Entity ray-testing and obstruction query evaluator. |
 
-#### 6.168.4 `Zone Constructor & Terrain Cost Table` Unit (`0x1C8CA0`–`0x1C8FF0`, `zone_constructor.cpp`)
+#### 6.170.4 `Zone Constructor & Terrain Cost Table` Unit (`0x1C8CA0`–`0x1C8FF0`, `zone_constructor.cpp`)
 
 Immediately following `zone_raycast_query` sits the constructor and deserializer for the primary pathfinding zone class `D_4D9270` (`0x1C8CA0`–`0x1C8FF0`, 848 bytes / 844 B code + 4 B pad in Metrowerks C++ PS2 MWCC 2.3.1.01):
 - `func_001C8CA0` (`0x1C8CA0`, 848 bytes / 844 B code + 4 B pad): Primary constructor initializing `D_4D9270` vtable, deserializing state from stream, configuring 32-entry terrain passability cost tables, zeroing scratch buffers, and binding spatial helpers. **100.0% exact match** in pure C++.
 
-#### 6.168.5 Zone Constructor Matching Results (Pure C++, 848 Bytes)
+#### 6.170.5 Zone Constructor Matching Results (Pure C++, 848 Bytes)
 
 | Function / Method | VRAM Address | Match Status | Description |
 |---|---|---|---|
@@ -4404,33 +4419,33 @@ Immediately following `zone_raycast_query` sits the constructor and deserializer
 
 A fresh independent MWCC compilation and GNU link resolved all 13 relocations using the original call targets, data addresses, and `_gp = 0x4EA7C0`, without instruction masks. All 211 instructions (844 bytes) matched the original file-backed `PT_LOAD` bytes at file offsets `0xC8E80`–`0xC91CC`. The return at `0x1C8FE4` includes its delay slot at `0x1C8FE8`; the following four zero alignment bytes occupy `0x1C8FEC`–`0x1C8FEF`. The configured 848-byte slice ends at file offset `0xC91D0` / VRAM `0x1C8FF0`, excluding the next function. The symbol size records the 844 instruction bytes, not the padded slice. The atomic object is registered as `Matching`.
 
-#### 6.168.6 `Zone Destructor & Resource Teardown` Unit (`0x1C8FF0`–`0x1C93C0`, `zone_destructor.cpp`)
+#### 6.170.6 `Zone Destructor & Resource Teardown` Unit (`0x1C8FF0`–`0x1C93C0`, `zone_destructor.cpp`)
 
 Immediately following `zone_constructor` sits the deleting destructor and resource cleanup routine for the primary pathfinding zone class `D_4D9270` (`0x1C8FF0`–`0x1C93C0`, 976 bytes / 244 instructions, 0 bytes padding in Metrowerks C++ PS2 MWCC 2.3.1.01):
 - `func_001C8FF0` (`0x1C8FF0`, 976 bytes / 244 instructions): Primary destructor resetting vtable to `D_4D9270`, deallocating allocated zone arrays, tearing down spatial listener references, and invoking scalar `operator delete`. A fresh independent compilation of the typed-cell implementation and GNU `ld --no-undefined` link matched all 976 emitted instruction bytes against the original file-backed `PT_LOAD` range `0xC91D0`–`0xC95A0`, without relocation masks or padding. The allocator globals resolve separately to `0x4E2DF0`, `0x4E2DE8`, and `0x4E2DEC`; `memset` resolves to `0x117CAC`, with `_gp = 0x4EA7C0`. Registration remains conservatively `NonMatching`.
 
 The destructor uses the distinct layout name `ZoneDestructorLayout`, rather than redefining the constructor's incompatible `ZoneMap` type. Its target layout has 28-byte grid cells; native host pointer sizes must not be assumed to preserve that layout. `tests/test_zone_destructor_matching.py` compiles the current C++ source, resolves real external addresses, verifies the original ELF hash and file mapping, and requires all 976 instruction bytes to match. Only missing private files or toolchain prerequisites skip the test; compilation, linking, and comparison failures remain errors.
 
-#### 6.168.7 Zone Destructor Matching Results (Pure C++, 976 Bytes)
+#### 6.170.7 Zone Destructor Matching Results (Pure C++, 976 Bytes)
 
 | Function / Method | VRAM Address | Match Status | Description |
 |---|---|---|---|
 | `func_001C8FF0` | `0x1C8FF0` | NonMatching (976 B, 0 diffs linked) | Primary destructor and resource cleanup. |
 
-#### 6.168.8 `Zone Parameter Initialiser` Unit (`0x1C93C0`–`0x1C97A0`, `zone_init_params.cpp`)
+#### 6.170.8 `Zone Parameter Initialiser` Unit (`0x1C93C0`–`0x1C97A0`, `zone_init_params.cpp`)
 
 Immediately following `zone_destructor` sits the ZoneInitLayout parameter-initialisation routine (`0x1C93C0`–`0x1C97A0`, 980 bytes / 245 instructions + 12 NOP padding bytes in Metrowerks C++ PS2 MWCC 2.3.1.01):
 - `func_001C93C0` (`0x1C93C0`, 980 bytes / 245 instructions): Sets five short fields (`f_8EAE=60`, `f_8EB0=30`, `f_8EB2=15`, `f_8EB4=30`, `f_8EB6=15`) on a `ZoneInitLayout` object, then makes exactly 19 sequential calls to `func_1CEA30` (indices 0–18). Call sites 2, 6, 8, 10, and 14 pass `(short)(f_8EB0 + f_8EB6)` as the width argument; calls 17 and 18 use `f_8EB4` instead of `f_8EAE` for the first dimension argument; the fifth argument cycles through `0`, `7`, and `-7`. A fresh independent MWCC compilation and GNU `ld --no-undefined` link resolved all 19 JAL relocations to `0x1CEA30` and matched all 980 instruction bytes against the original file-backed `PT_LOAD` range `0xC95A0`–`0xC9974`, with `_gp = 0x4EA7C0`. The atomic object is registered as `Matching`.
 
 The `ZoneInitLayout` member declarations establish the target offsets for five `short` fields at `0x8EAE`–`0x8EB6`. The function body assigns all five fields before making the calls; the source assignment order and resulting MWCC code generation are relevant to the byte match. No default or zero initialization is implied. The 12 trailing zero bytes belong only to the original slice, not the emitted function. `tests/test_zone_init_params_matching.py` compiles the current C++ source, resolves `func_1CEA30 = 0x1CEA30`, verifies the original ELF hash and file mapping, and requires all 980 instruction bytes to match. Only missing private files or toolchain prerequisites skip the test; compilation, linking, and comparison failures are errors.
 
-#### 6.168.9 Zone Parameter Initialiser Matching Results (Pure C++, 980 Bytes)
+#### 6.170.9 Zone Parameter Initialiser Matching Results (Pure C++, 980 Bytes)
 
 | Function / Method | VRAM Address | Match Status | Description |
 |---|---|---|---|
 | `func_001C93C0` | `0x1C93C0` | **Matching (980 / 980 B, 0 diffs linked)** | ZoneInitLayout field setup and 19 sequential func_1CEA30 calls. |
 
-#### 6.169 `Unit Action Core & Serialization` Subsystem (`0x266780`–`0x266C50`, `unit_action_core.cpp`)
+#### 6.171 `Unit Action Core & Serialization` Subsystem (`0x266780`–`0x266C50`, `unit_action_core.cpp`)
 
 Located at the base of the `0x2665B0`–`0x2B5F00` engine domain sits the core unit action coordination and state serialization subsystem (`0x266780`–`0x266C50`, 1,232 bytes across 5 functions in Metrowerks C++ PS2 MWCC 2.3.1.01). It implements entity target resolution, spatial action execution via virtual vtable dispatch, item container index lookups, and complete unit action binary stream serialization:
 - `func_00266780` (`0x266780`, 180 bytes): Entity target notification callback and spatial action dispatcher via vtable slot 13 (`Method34`). **91.07% pure C++ match**.
@@ -4439,7 +4454,7 @@ Located at the base of the `0x2665B0`–`0x2B5F00` engine domain sits the core u
 - `func_002668D0` (`0x2668D0`, 72 bytes): Container item index lookup with short sign-extension and boundary verification. **88.33% pure C++ match**.
 - `func_00266920` (`0x266920`, 816 bytes): Full unit action serialization to binary output stream via `func_00226F70`. **86.05% pure C++ match**.
 
-#### 6.169.1 Unit Action Core Matching Results (Pure C++, 1,232 Bytes)
+#### 6.171.1 Unit Action Core Matching Results (Pure C++, 1,232 Bytes)
 
 | Function / Method | VRAM Address | Match Status | Description |
 |---|---|---|---|
@@ -4449,12 +4464,12 @@ Located at the base of the `0x2665B0`–`0x2B5F00` engine domain sits the core u
 | `func_002668D0` | `0x2668D0` | **88.33%** (72 B) | Container item index lookup with short sign extension. |
 | `func_00266920` | `0x266920` | **86.05%** (816 B) | Complete unit action state serialization to binary stream. |
 
-#### 6.170 `Trade Action Getters 3` Subsystem (`0x2B6150`, `trade_action_getters3.cpp`)
+#### 6.172 `Trade Action Getters 3` Subsystem (`0x2B6150`, `trade_action_getters3.cpp`)
 
 Located at VRAM `0x2B6150` (file offset `0x1B6330`), `trade_action_getters3` implements a core field accessor method:
 - `func_002B6150` (`0x2B6150`, 8 bytes code + 8 bytes zero padding): Leaf getter returning field at offset `0xD8` (`return *(int *)((char *)self + 0xD8);`). Implemented in pure C++ (100.0% exact match, verified via docker-dev exclusive container).
 
-#### 6.171 `Trade Action Getters 4` Subsystem (`0x2B6160`–`0x2B6180`, `trade_action_getters4.cpp`)
+#### 6.173 `Trade Action Getters 4` Subsystem (`0x2B6160`–`0x2B6180`, `trade_action_getters4.cpp`)
 
 Located at VRAM `0x2B6160`–`0x2B6180` (file offset `0x1B6340`–`0x1B6360`, end-exclusive), `trade_action_getters4` contains 16 bytes of C++ instructions and 16 bytes of alignment padding:
 - `func_002B6160` (`0x2B6160`, 8 bytes code + 8 bytes padding): Tail-call wrapper forwarding to `func_002BE570(self, 0x65)`.
@@ -4462,28 +4477,28 @@ Located at VRAM `0x2B6160`–`0x2B6180` (file offset `0x1B6340`–`0x1B6360`, en
 
 An independent fresh MWCC compilation and GNU link resolved the jump to `0x2BE570` and matched both 8-byte function bodies and the complete 32-byte padded slice against the original ELF's `PT_LOAD` mapping. The unit remains conservatively registered as `NonMatching`.
 
-#### 6.171.1 `Trade Action Getters 5` Subsystem (`0x2B6180`–`0x2B61F0`, `trade_action_getters5.cpp`)
+#### 6.173.1 `Trade Action Getters 5` Subsystem (`0x2B6180`–`0x2B61F0`, `trade_action_getters5.cpp`)
 
 Located at VRAM `0x2B6180`–`0x2B61F0` (file offset `0x1B6360`–`0x1B63D0`, 100 bytes of code + 12 bytes of alignment padding up to `0x2B61F0`), `trade_action_getters5` implements conditional transaction delegation (`func_002B6180`):
 - `func_002B6180` (`0x2B6180`, 100 bytes): Checks if `index == -1`. If true, logs transaction failure via `func_001454C0(self, D_4D0570, index)`. Otherwise, invokes `func_2BBCD0(self, index)` and initiates trade action evaluation via `func_2B9770(self, index, 100)`. Implemented in pure C++ with saved registers `$s0`, `$s1`, and stack frame management.
 
 A fresh MWCC compilation and GNU link with the original callee/data addresses and `_gp = 0x4EA7C0` matched all 100 emitted instruction bytes against the original ELF's `PT_LOAD` mapping without relocation masks. The 12 original zero-padding bytes were checked separately, not counted as generated code. Registration remains conservatively `NonMatching`.
 
-#### 6.171.2 `Trade Action Getters 6` Subsystem (`0x2B61F0`–`0x2B6220`, `trade_action_getters6.cpp`)
+#### 6.173.2 `Trade Action Getters 6` Subsystem (`0x2B61F0`–`0x2B6220`, `trade_action_getters6.cpp`)
 
 Located at VRAM `0x2B61F0`–`0x2B6220` (file offset `0x1B63D0`–`0x1B6400`, end-exclusive), `trade_action_getters6` contains 48 instruction bytes and no alignment padding:
 - `func_002B61F0(void *self, int index)` returns `-1` for signed indices below zero or at least 239. Otherwise, it returns the 32-bit field at `self + 0x858 + index * 4`. The routine has no calls or writes; its return delay slot is at `0x2B621C`. The distinct function beginning at `0x2B6220` is excluded.
 
 The complete C++ implementation remains `NonMatching`: fresh MWCC compilation emits a 56-byte body rather than the original 48-byte body. Native regressions compile the actual source and cover `INT_MIN`, `-1`, `0`, `238`, `239`, and `INT_MAX`, including distinct table values and a full-buffer no-write check. Replacing the valid-index load with the former constant `return -1` causes both valid-index cases to fail (two failures, four passes).
 
-#### 6.172 `Tactical AI Player Operations` Subsystem (`0x305B90`–`0x305CB0`, `tactical_ai_player_ops.cpp`)
+#### 6.174 `Tactical AI Player Operations` Subsystem (`0x305B90`–`0x305CB0`, `tactical_ai_player_ops.cpp`)
 
 Directly beginning the `aoe4` fixed address range (`0x305830`–`0x38A360`) sits the core Tactical AI Player Operations subsystem (`0x305B90`–`0x305CB0`, 264 bytes of code + 24 bytes of 16-byte alignment padding across a 288-byte slice in Metrowerks C++ PS2 MWCC 2.3.1.01):
 - `func_00305B90` (`0x305B90`, 8 bytes code + 8 bytes padding, **100.00% match**): Stub virtual method returning void.
 - `func_00305BA0` (`0x305BA0`, 40 bytes code + 8 bytes padding, **100.00% match**): Player entity accessor by index/ID querying `func_332e60(this->m_field04, id - 1)` with negative/zero check.
 - `func_00305BD0` (`0x305BD0`, 216 bytes code + 8 bytes padding, **100.00% match**): Multi-player command dispatcher iterating active players (`m_count` in `m_field04`), dispatching queued commands via `func_2e05f0` using player-indexed command buffers (`m_counts` and `m_data`).
 
-#### 6.172.1 Tactical AI Player Operations Matching Results (100.00% Pure C++, 264B Code + 24B Padding / 288B Slice)
+#### 6.174.1 Tactical AI Player Operations Matching Results (100.00% Pure C++, 264B Code + 24B Padding / 288B Slice)
 
 | Function / Method | VRAM Address | Match Status | Description |
 |---|---|---|---|
@@ -4491,7 +4506,7 @@ Directly beginning the `aoe4` fixed address range (`0x305830`–`0x38A360`) sits
 | `func_00305BA0` | `0x305BA0` | **100.00%** (40 / 40 B code, 48 B slice) | Player object lookup delegating to `func_332e60`. |
 | `func_00305BD0` | `0x305BD0` | **100.00%** (216 / 216 B code, 224 B slice) | Tactical AI multi-player buffered command dispatcher. |
 
-#### 6.173 `Unit Action Movement` Atomic Unit (`0x266C50`–`0x266D20`, `unit_action_movement.cpp`)
+#### 6.175 `Unit Action Movement` Atomic Unit (`0x266C50`–`0x266D20`, `unit_action_movement.cpp`)
 
 Located at VRAM `0x266C50`–`0x266D20` (file offset `0x166E30`–`0x166F00`, end-exclusive), this atomic slice contains 200 instruction bytes and 8 zero alignment bytes compiled from C++ with Metrowerks PS2 MWCC 2.3.1.01.
 
@@ -4499,7 +4514,7 @@ Located at VRAM `0x266C50`–`0x266D20` (file offset `0x166E30`–`0x166F00`, en
 - `Method62` is source virtual index 60. MWCC's eight-byte vtable header places its dispatch entry at physical offset `0xF8`; adding two source declarations would change the target incorrectly.
 - The following `func_00266D20` (1,624-byte original function) is excluded and remains unimplemented WIP, preserved separately on `wip/unit-action-movement-266d20`.
 
-#### 6.173.1 Unit Action Movement Matching Results (Pure C++, 208-Byte Atomic Slice)
+#### 6.175.1 Unit Action Movement Matching Results (Pure C++, 208-Byte Atomic Slice)
 
 A fresh independent MWCC compilation and GNU link resolved every direct call and GP-relative reference, then matched **200/200 instruction bytes** against the original ELF through its file-backed `PT_LOAD` mapping. The following eight original padding bytes are zero. The historical **95.71% objdiff score** is a separate fuzzy metric, not the code-to-slice ratio or an exact-byte percentage. The object remains conservatively registered as `NonMatching`.
 
@@ -4507,7 +4522,7 @@ A fresh independent MWCC compilation and GNU link resolved every direct call and
 |---|---|---|---|
 | `func_00266C50` | `0x266C50` | **200 / 200 bytes** (208-byte slice) | Unit action movement reset and spatial detachment. |
 
-#### 6.174 `Unit Action Targets` Subsystem (`0x267380`–`0x267750`, `unit_action_targets.cpp`)
+#### 6.176 `Unit Action Targets` Subsystem (`0x267380`–`0x267750`, `unit_action_targets.cpp`)
 
 Located at VRAM `0x267380`–`0x267750` (file offset `0x167560`–`0x167930`, 976 bytes total = 936 bytes code across 5 functions + 40 bytes 16-byte alignment padding, Metrowerks C++ PS2 MWCC 2.3.1.01):
 - `func_00267380` (`0x267380`, 80 B code, 80 B slice, **100.0% exact match** [80/80 B]): Target elevation setter and conditional clamp. Implemented as a leaf function via `#pragma exceptions off` evaluating unit type at `m_field4[2]` (switch cases 0 and 1) and updating `m_z`.
@@ -4525,7 +4540,7 @@ Independent reproduction via GNU ld relocation resolution confirms:
 - The existing `SubList::func_0013AB90` declaration and call use the same canonical `func_00267530` name as the new implementation. The former `func_267530` spelling is not a second Splat symbol at the same address; this avoids a duplicate-symbol split failure without changing the target address. The caller includes the target's public header and explicitly reinterprets its legacy 32-bit world-address argument as `WorldExtended *`, preserving the existing method ABI while sharing the actual C-linkage prototype. A fresh comparison also exposed an inherited virtual-dispatch error in this caller: `v46()` emitted offset `0xC0`, while the original uses `0xB8`. Selecting `v44()` corrects that single-byte difference; the caller's 88-byte body is checked against the original separately from the canonical rename.
 - Registered as `NonMatching` in `configure.py`.
 
-#### 6.174.1 Unit Action Targets Matching Results (Pure C++, 976-Byte Slice)
+#### 6.176.1 Unit Action Targets Matching Results (Pure C++, 976-Byte Slice)
 
 | Function / Method | VRAM Address | Code Size (Orig) | Slice Size | Match Status | Description |
 |---|---|---|---|---|---|
@@ -4535,18 +4550,18 @@ Independent reproduction via GNU ld relocation resolution confirms:
 | `func_00267500` | `0x267500` | 40 B | 48 B | **100.0%** (40/40 B) | Conditional target notifier via `func_1827B0`. |
 | `func_00267530` | `0x267530` | 536 B | 544 B | **94.96%** (509/536 B) | Entity initialization, unit state scaling, and world bind. |
 
-#### 6.175 `Tactical AI Player Command Dispatch` Subsystem (`0x305CB0`–`0x305F30`, `tactical_ai_player_dispatch.cpp`)
+#### 6.177 `Tactical AI Player Command Dispatch` Subsystem (`0x305CB0`–`0x305F30`, `tactical_ai_player_dispatch.cpp`)
 
 Directly following Tactical AI Player Operations sits `func_00305CB0` (`0x305CB0`–`0x305F30`, 640 bytes in Metrowerks C++ PS2 MWCC 2.3.1.01). It iterates through three player-specific command and status arrays (`m_data`, `m_data2`, `m_data3`), updates unit item status flags `m_field42` and `m_field43`, notifies subsystem `func_2d42a0`, dispatches mode-dependent player commands via `func_2e0630`, and updates player target state:
 - `func_00305CB0` (`0x305CB0`, 636 bytes code + 4 bytes zero padding, 640 bytes slice): Pure C++ implementation matching 129 / 159 words identically (30 words differing affecting 49 bytes, strictly confined to loop 3 register allocation; all 7 relocations resolved without masks: 6 calls + GP). The independent reviews found no verified semantic defect; registered as NonMatching in `configure.py`.
 
-#### 6.175.1 Tactical AI Player Command Dispatch Matching Results (Pure C++, 640 Bytes)
+#### 6.177.1 Tactical AI Player Command Dispatch Matching Results (Pure C++, 640 Bytes)
 
 | Function / Method | VRAM Address | Match Status | Description |
 |---|---|---|---|
 | `func_00305CB0` | `0x305CB0` | NonMatching (129 / 159 instruction words exact; 636 B code + 4 B padding) | Tactical AI player command dispatcher, item flag coordinator, and state notification. |
 
-#### 6.176 `Unit Action Properties` Subsystem (`0x267750`–`0x267A80`, `unit_action_properties.cpp`)
+#### 6.178 `Unit Action Properties` Subsystem (`0x267750`–`0x267A80`, `unit_action_properties.cpp`)
 
 Located at VRAM `0x267750`–`0x267A80` (file offset `0x167930`–`0x167C60`, 816 bytes total = 808 bytes code across 3 functions + 8 bytes 16-byte alignment padding, Metrowerks C++ PS2 MWCC 2.3.1.01):
 - `func_00267750` (`0x267750`, 336 B code, 336 B slice): Property modifier state machine dispatching on property ID (`a1 & 0xFF`). Case 0 scales action progress `(self->m_field30 * val) / val2` via `func_123350`, case 1 checks `m_field18` and `m_field39 == 2` to invoke `Method62` and `Method61`, case 21 evaluates unit type at offset 112 and invokes `WorldSub1B30::Method7C` (offset 124) with inverted float `-f0` and `val`. (author-reported objdiff fuzzy score: 98.81%, byte-level: 314/336 B = 93.45%).
@@ -4555,7 +4570,7 @@ Located at VRAM `0x267750`–`0x267A80` (file offset `0x167930`–`0x167C60`, 81
 
 Total: 772 / 808 B code (95.54%) matched byte-for-byte in pure C++ (0 asm files, 0 inline asm). Registered as `NonMatching` in `configure.py`.
 
-#### 6.176.1 Unit Action Properties Matching Results (Pure C++, 816-Byte Slice)
+#### 6.178.1 Unit Action Properties Matching Results (Pure C++, 816-Byte Slice)
 
 | Function / Method | VRAM Address | Code Size (Orig) | Slice Size | Match Status | Description |
 |---|---|---|---|---|---|
@@ -4565,7 +4580,7 @@ Total: 772 / 808 B code (95.54%) matched byte-for-byte in pure C++ (0 asm files,
 
 Two independent fresh MWCC compilations and GNU links reproduced the instruction-byte counts above against the original ELF through its file-backed `PT_LOAD` mapping. All six direct-call relocations resolved to `func_123350` without masks. The eight inter-function padding bytes also matched, for 780 / 816 bytes across the complete slice. The reported fuzzy scores were not independently rerun. The following function starts at `0x267A80` and is excluded.
 
-#### 6.177 `Trade Action Staging Helpers` (`0x217730`–`0x217840`, `trade_action_helper_217730.cpp`)
+#### 6.179 `Trade Action Staging Helpers` (`0x217730`–`0x217840`, `trade_action_helper_217730.cpp`)
 
 The atomic slice spans file offsets `0x117910`–`0x117A20` (end-exclusive): 260 original instruction bytes across two complete C++ routines, followed by 12 zero alignment bytes. The following function at `0x217840` is excluded and remains separate WIP; no empty implementation of it is included here.
 
@@ -4574,7 +4589,7 @@ The atomic slice spans file offsets `0x117910`–`0x117A20` (end-exclusive): 260
 
 Independent original-disassembly reviews support both implementations. A fresh MWCC compilation emits 124-byte and 104-byte bodies. A GNU link with `--no-undefined` resolves the real external targets `0x185E20` and `0x217B50`, the global `D_004E3058`, and the internal call to the local second definition. With the real `_gp = 0x4EA7C0`, its GP-relative load uses `-30568(gp)`. The shorter compiled first body places the second definition at `0x2177B0` in a natural link, not at its original `0x2177C0`; this is not an exact-byte matching result. Earlier author-reported fuzzy percentages were not independently reproduced and are not used as byte-equality claims. The unit remains registered as `NonMatching`.
 
-#### 6.178 `Tactical AI Action Delegator & Constructors` Subsystem (`0x307160`–`0x307220`, `tactical_ai_action_constructors.cpp`)
+#### 6.180 `Tactical AI Action Delegator & Constructors` Subsystem (`0x307160`–`0x307220`, `tactical_ai_action_constructors.cpp`)
 
 Located at VRAM `0x307160`–`0x307220` (file offset `0x207340`–`0x207400`, 192 bytes total slice, Metrowerks C++ PS2 MWCC 2.3.1.01 compiled with `-sdatathreshold 0`):
 - `func_00307160` (`0x307160`, 52 bytes code + 12 bytes padding, 64 bytes slice): Action command delegator checking action type 104 (`desc->m_type == 104 -> return 1`) or forwarding to `func_2cc630(self, desc)`.
@@ -4583,7 +4598,7 @@ Located at VRAM `0x307160`–`0x307220` (file offset `0x207340`–`0x207400`, 19
 
 Emitted instructions: 156 bytes code (3 x 52B) + 24 bytes inter-function padding = 180 bytes emitted; followed by 12 bytes trailing original zero padding = 192 bytes full slice. All emitted instructions and real external targets (`func_2cc630`, `func_315560`, `func_315a50`, `D_4DE760`) match the original ELF bit-for-bit. Registered as `Matching` in `configure.py`.
 
-#### 6.178.1 Tactical AI Action Delegator & Constructors Matching Results (100.00% Exact Match, 192 Bytes)
+#### 6.180.1 Tactical AI Action Delegator & Constructors Matching Results (100.00% Exact Match, 192 Bytes)
 
 | Function / Method | VRAM Address | Code Size (Orig) | Slice Size | Match Status | Description |
 |---|---|---|---|---|---|

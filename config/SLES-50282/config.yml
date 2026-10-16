@@ -2195,9 +2195,27 @@ segments:
     vram: 0x1D1CC0
     subsegments:
       - [0xD1EA0, asm, zone_unlink_render_item]
+  - name: zone_spatial_pyramid_init
+    type: code
+    start: 0xD1F50
+    vram: 0x1D1D70
+    subsegments:
+      - [0xD1F50, asm, zone_spatial_pyramid_init]
+  - name: zone_spatial_pyramid_destroy
+    type: code
+    start: 0xD2190
+    vram: 0x1D1FB0
+    subsegments:
+      - [0xD2190, asm, zone_spatial_pyramid_destroy]
+  - name: zone_spatial_pyramid_compare
+    type: code
+    start: 0xD22B0
+    vram: 0x1D20D0
+    subsegments:
+      - [0xD22B0, asm, zone_spatial_pyramid_compare]
   - name: post_aoe2
     type: bin
-    start: 0xD1F50
+    start: 0xD2320
   - name: trade_action_helper_217730
     type: code
     start: 0x117910

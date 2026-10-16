@@ -5004,6 +5004,52 @@ An independent verification suite (`tests/test_trade_action_stream_decoders27.py
 | `func_00165160` | `0x165160` | 552 | 549/552 equal (near match) | 8 B |
 | `func_00165390` | `0x165390` | 552 | 552/552 exact (100.00%) | 8 B |
 
+#### 6.204 Trade Action Stream Decoders 28 (`0x1655C0`–`0x165D50`)
+
+The C++ slice maps file offsets `0x657A0`–`0x65F30` through the original PAL ELF's file-backed `PT_LOAD` mapping (`VRAM = file offset + 0xFFE20`). Its 1,936 bytes contain 1,908 instruction bytes and 28 bytes of zero alignment padding (4, 4, 12, and 8 bytes). The object remains `NonMatching`.
+
+| Function | Size | Result |
+|---|---:|---|
+| `func_001655C0` | 332 B | 332/332 exact |
+| `func_00165710` | 428 B | 428/428 exact |
+| `func_001658C0` | 500 B | 496/500; store at `+0x14` differs |
+| `func_00165AC0` | 648 B | 648/648 exact |
+
+#### 6.205 Trade Action Stream Decoders 29 (`0x165D50`–`0x166630`)
+
+The C++ slice maps file offsets `0x65F30`–`0x66810`; its 2,272 bytes contain 2,256 instruction bytes and 16 bytes of zero alignment padding (4, 0, and 8 bytes between functions, plus 4 bytes at the end). The object remains `NonMatching`.
+
+| Function | Size | Result |
+|---|---:|---|
+| `func_00165D50` | 428 B | 428/428 exact |
+| `func_00165F00` | 512 B | 512/512 exact |
+| `func_00166100` | 584 B | 580/584; store at `+0x14` differs |
+| `func_00166350` | 732 B | 732/732 exact |
+
+#### 6.206 Trade Action Stream Decoders 30 (`0x166630`–`0x167020`)
+
+The C++ slice maps file offsets `0x66810`–`0x67200`; its 2,544 bytes contain 2,528 instruction bytes and 16 bytes of zero alignment padding (12 and 4 bytes). The object remains `NonMatching`.
+
+| Function | Size | Result |
+|---|---:|---|
+| `func_00166630` | 496 B | 496/496 exact |
+| `func_00166820` | 580 B | 580/580 exact |
+| `func_00166A70` | 652 B | 648/652; store at `+0x14` differs |
+| `func_00166D00` | 800 B | 800/800 exact |
+
+#### 6.207 Trade Action Stream Decoders 31 (`0x167020`–`0x167D10`)
+
+The C++ slice maps file offsets `0x67200`–`0x67EF0`; its 3,312 bytes contain 3,296 instruction bytes and 16 bytes of zero alignment padding (12 and 4 bytes). The object remains `NonMatching`.
+
+| Function | Size | Result |
+|---|---:|---|
+| `func_00167020` | 688 B | 688/688 exact |
+| `func_001672D0` | 772 B | 772/772 exact |
+| `func_001675E0` | 844 B | 840/844; store at `+0x14` differs |
+| `func_00167930` | 992 B | 992/992 exact |
+
+The focused tests pin the original ELF SHA-1 (`f478e19f2059d52899b691483ef5c7522e30e17c`) and file-backed mapping. The independent proof at `tests/check_trade_action_stream_decoders28_31.py` checks the four Ninja-built `ET_REL` objects, each function's unique `.text` `st_shndx` and size, four combined and 16 isolated GNU MIPS `ET_EXEC` links with `--no-undefined`, raw bytes without relocation masks, and zero padding. For each near match it numerically resolves the original `v1`-relative store and emitted `gp`-relative store to `D_004E2DA0` (`0x4E2DA0`) and verifies store registers before comparing raw bytes. The proof and mutation helper are scoped to units 28–31.
+
 #### Zone dispatcher resize and grid operations (`0x1C98A0`–`0x1CA180`, `zone_dispatch.cpp` / `zone_dispatch_grid.cpp`)
 
 The original PAL ELF maps this 0x8E0-byte slice from file offset `0xC9A80` to `0xCA360` through a file-backed `PT_LOAD` segment (`VRAM = file offset + 0xFFE20`). It contains 0x8C0 instruction bytes and 0x20 zero-alignment bytes. The implemented C++ definitions are `func_001C98A0` (0x558 bytes), `func_001C9E00` (0xF4), `func_001C9F00` (0x74), and the tail-jump wrapper `func_001C9F80` (0x20), totaling 0x6E0 bytes. The wrapper transfers to original helper `func_001C9FA0` (0x1E0), which remains an external declaration and is explicitly assigned to the `bin` range beginning at file offset `0xCA180` / VRAM `0x1C9FA0`; that helper body is not implemented or counted as another source function. The three inter-function alignment ranges total 0x20 bytes and were confirmed zero in the original. The final return delay slot is included in each original function size; alignment is excluded. The unit remains `NonMatching`; these independent function comparisons do not claim a whole-object or whole-project match.

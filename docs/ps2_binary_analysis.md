@@ -5792,3 +5792,23 @@ An independent verification suite (`tests/test_trade_action_stream_decoders95.py
 | `func_00177660` | `0x177660` | 468 | 468/468 exact (100.00%) | 12 B |
 | `func_00177840` | `0x177840` | 576 | 576/576 exact (100.00%) | 0 B |
 | `func_00177A80` | `0x177A80` | 412 | 412/412 exact (100.00%) | 4 B |
+
+#### 6.272 `Trade Action Stream Decoders 96` Subsystem (`0x177C20`–`0x178490`, `trade_action_stream_decoders96.cpp`)
+
+This four-function C++ slice spans VRAM `0x177C20`–`0x178490` and file offsets `0x77E00`–`0x78670` (2,160 bytes total). The original ELF `PT_LOAD` mapping gives the VRAM/file-offset delta `0xFFE20`. The slice comprises 2,140 instruction bytes and 20 alignment-padding bytes (0, 8, 12, and 0 bytes respectively). Symbol sizes exclude padding. The unit remains registered as `NonMatching`.
+
+- `func_00177C20` (`0x177C20`, 464 instruction bytes): Non-leaf loop function with stack frame performing single staged lookup and write-back, decrementing `D_004E2DA8` by 3, followed by a `do ... while ((D_004E2DA8 -= 4) != 0)` loop calling `func_001522C0(D_004E2DA0.bytes, D_004E2DB4 - 3)` with dual staged lookups, permutation, second dual lookups, and 4 stores of indices 0..3 to `D_004E2DB4`, followed by a trailing 2-byte staged lookup from `D_004E2DB4 - 1` and write-back of bytes 1 and 0 to `D_004E2DB4`. All 464 instruction bytes match exactly (100.00%).
+- `func_00177DF0` (`0x177DF0`, 536 instruction bytes): Non-leaf loop function with stack frame performing 2-byte staged lookup and write-back of bytes 1 and 0 to `D_004E2DB4`, decrementing `D_004E2DA8` by 4, followed by a `do ... while ((D_004E2DA8 -= 4) != 0)` loop calling `func_001522C0(D_004E2DA0.bytes, D_004E2DB4 - 3)` with dual lookups, permutation, second dual lookups, and 4 stores of indices 0..3 to `D_004E2DB4`, followed by a trailing 2-byte staged lookup from `D_004E2DB4 - 1` and write-back of bytes 1 and 0 to `D_004E2DB4`. All 536 instruction bytes match exactly (100.00%).
+- `func_00178010` (`0x178010`, 644 instruction bytes): Non-leaf loop function calling `func_001522C0(D_004E2DA0.bytes, D_004E2DB4 - 2)`, dual lookups, permutation, lookup, 4 stores, decrementing `D_004E2DA8` by 5, followed by a `do ... while ((D_004E2DA8 -= 4) != 0)` loop calling `func_001522C0(D_004E2DA0.bytes, D_004E2DB4 - 3)` with dual lookups, permutation, second dual lookups, and 4 stores of indices 0..3 to `D_004E2DB4`, followed by a trailing 2-byte staged lookup from `D_004E2DB4 - 1` and write-back of bytes 1 and 0 to `D_004E2DB4`. All 644 instruction bytes match exactly (100.00%).
+- `func_001782A0` (`0x1782A0`, 496 instruction bytes): Non-leaf loop function decrementing `D_004E2DA8` by 3, followed by a `do ... while ((D_004E2DA8 -= 4) != 0)` loop calling `func_001522C0(D_004E2DA0.bytes, D_004E2DB4 - 3)` with dual lookups, permutation, second dual lookups, and 4 stores of indices 0..3 to `D_004E2DB4`, followed by calling `func_001522C0(D_004E2DA0.bytes, D_004E2DB4 - 3)` with single lookup on byte 1, permutation, dual lookups on bytes 1, 0, and 4 stores of indices 0..3 to `D_004E2DB4`. All 496 instruction bytes match exactly (100.00%).
+
+An independent verification suite (`tests/test_trade_action_stream_decoders96.py`, with fixture/build support in `tests/trade_action_stream_decoders96_support.py`) compiles the actual source, checks the pinned original ELF SHA-1 (`f478e19f2059d52899b691483ef5c7522e30e17c`) and file-backed `PT_LOAD` mapping, validates object and linked `STT_FUNC` symbol sizes and `st_shndx`, links an `ET_EXEC` with no unresolved symbols, and compares emitted instruction and padding bytes.
+
+#### 6.272.1 Trade Action Stream Decoders 96 Matching Results (2,140 Code Bytes, 2,160-Byte Slice)
+
+| Function | VRAM | Instruction bytes | Result | Padding |
+|---|---:|---:|---|---:|
+| `func_00177C20` | `0x177C20` | 464 | 464/464 exact (100.00%) | 0 B |
+| `func_00177DF0` | `0x177DF0` | 536 | 536/536 exact (100.00%) | 8 B |
+| `func_00178010` | `0x178010` | 644 | 644/644 exact (100.00%) | 12 B |
+| `func_001782A0` | `0x1782A0` | 496 | 496/496 exact (100.00%) | 0 B |

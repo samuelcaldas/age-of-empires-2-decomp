@@ -5073,6 +5073,23 @@ These four non-matching C++ objects continue the stream decoder sequence. Unit 3
 
 Focused coverage is in `tests/test_trade_action_stream_decoders32.py` through `tests/test_trade_action_stream_decoders35.py`; their independent snapshot proof and production-source mutants are `tests/check_trade_action_stream_decoders32_35.py` and `tests/mutate_trade_action_stream_decoders32_35.py`. The Docker snapshot gate passed all 40 focused tests. Its proof validates the pinned original ELF SHA-1 and segment mapping, each Ninja `ET_REL` function's unique `.text` section and size, the numeric external symbol addresses, four combined and 16 isolated GNU MIPS `ET_EXEC` links with `--no-undefined`, unmasked raw bytes, and zero padding; all 16 function bodies match exactly. Four production-source mutants (direct source byte selection in units 32/33 and second-stage source advancement in units 34/35) were rejected against fixed original bytes, and all 12 imported source/test/support files were restored to their pinned SHA-256 values. The object list remains `NonMatching`; per-function byte evidence does not imply an object-wide or full-project match.
 
+#### 6.209 Trade Action Stream Decoders 36–43 (`0x1688C0`–`0x16A5D0`)
+
+These eight non-matching C++ objects continue the stream decoder sequence from units 32–35. Units 36–39 decode four-byte blocks while handling variable direct or decoded prefix/tail bytes and updating the remaining count and source/destination cursors. Units 40–43 stage direct or decoded bytes and apply the `D_004E30A8` mask and `D_004E30AC` OR value; several variants decode from one byte before the source cursor. The slices use the verified file-backed `PT_LOAD` mapping `VRAM = file offset + 0xFFE20`. `post_base` begins at file offset `0x6A7B0` / VRAM `0x16A5D0`, immediately after unit 43.
+
+| Unit | File range | VRAM range | Slice | Function code | Alignment padding |
+|---|---|---|---:|---:|---:|
+| 36 | `0x68AA0`–`0x68E10` | `0x1688C0`–`0x168C30` | 880 B | 868 B | 12 B |
+| 37 | `0x68E10`–`0x69230` | `0x168C30`–`0x169050` | 1,056 B | 1,040 B | 16 B |
+| 38 | `0x69230`–`0x696D0` | `0x169050`–`0x1694F0` | 1,184 B | 1,168 B | 16 B |
+| 39 | `0x696D0`–`0x69BD0` | `0x1694F0`–`0x1699F0` | 1,280 B | 1,264 B | 16 B |
+| 40 | `0x69BD0`–`0x69D80` | `0x1699F0`–`0x169BA0` | 432 B | 424 B | 8 B |
+| 41 | `0x69D80`–`0x6A020` | `0x169BA0`–`0x169E40` | 672 B | 640 B | 32 B |
+| 42 | `0x6A020`–`0x6A3A0` | `0x169E40`–`0x16A1C0` | 896 B | 872 B | 24 B |
+| 43 | `0x6A3A0`–`0x6A7B0` | `0x16A1C0`–`0x16A5D0` | 1,040 B | 1,016 B | 24 B |
+
+Focused coverage is in `tests/test_trade_action_stream_decoders36.py` through `tests/test_trade_action_stream_decoders43.py`. The independent snapshot proof and production-source mutation checks are `tests/check_trade_action_stream_decoders36_43.py` and `tests/mutate_trade_action_stream_decoders36_43.py`; the proof is scoped to units 36–43. All object entries remain `NonMatching`; byte-exact function results are not object-wide or full-project match claims.
+
 #### Zone dispatcher resize and grid operations (`0x1C98A0`–`0x1CA180`, `zone_dispatch.cpp` / `zone_dispatch_grid.cpp`)
 
 The original PAL ELF maps this 0x8E0-byte slice from file offset `0xC9A80` to `0xCA360` through a file-backed `PT_LOAD` segment (`VRAM = file offset + 0xFFE20`). It contains 0x8C0 instruction bytes and 0x20 zero-alignment bytes. The implemented C++ definitions are `func_001C98A0` (0x558 bytes), `func_001C9E00` (0xF4), `func_001C9F00` (0x74), and the tail-jump wrapper `func_001C9F80` (0x20), totaling 0x6E0 bytes. The wrapper transfers to original helper `func_001C9FA0` (0x1E0), which remains an external declaration and is explicitly assigned to the `bin` range beginning at file offset `0xCA180` / VRAM `0x1C9FA0`; that helper body is not implemented or counted as another source function. The three inter-function alignment ranges total 0x20 bytes and were confirmed zero in the original. The final return delay slot is included in each original function size; alignment is excluded. The unit remains `NonMatching`; these independent function comparisons do not claim a whole-object or whole-project match.

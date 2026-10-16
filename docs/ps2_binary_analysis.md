@@ -6257,3 +6257,17 @@ Emitted instructions: 396 bytes code across 99 instructions + 4 bytes trailing z
 | Function / Method | VRAM Address | Code Size (Orig) | Slice Size | Match Status | Description |
 |---|---|---|---|---|---|
 | `func_003074B0` | `0x3074B0` | 396 B | 400 B | **100.00% exact match** (396/396 B) | Action manager waypoint circular FIFO cache coordinator. |
+
+#### Spatial View Object and Orientation Slices (`0x1D8AB0`–`0x1D9070`)
+
+Contiguous decompilation of the Age of Empires II PlayStation 2 spatial view camera and orientation subsystem along file offsets `0xD8C90`–`0xD9250` (VRAM `0x1D8AB0`–`0x1D9070`, offset mapping `+0xFFE20`):
+
+| Unit | File range | VRAM range | Original code / slice | Pad | Match Status | Description |
+|---|---:|---:|---:|---:|---|---|
+| `zone_spatial_view_check_status` | `0xD8C90`–`0xD8CD0` | `0x1D8AB0`–`0x1D8AF0` | 56 / 64 B | 8 B | **Matching (100.00%)** | Status checking: tests active flag byte `field_106`; if set dispatches event `func_26AD60(self, 0x20)` returning float constant `D_004E2960` (-99.9f), else delegates to `func_1DD650(self)`. |
+| `zone_spatial_view_obj_ctor` | `0xD8CD0`–`0xD8E10` | `0x1D8AF0`–`0x1D8C30` | 320 / 320 B | 0 B | **Matching (100.00%)** | Spatial view constructor: assigns vtable `__vt__004D9610`, zeroes 37 member fields, sets bounding limits at 0x98/0x9C/0xA4 to `FLT_MAX` (`D_004E2808`), initializes 2D affine basis on stack, and invokes virtual methods 8 (`+0x20`) and 36 (`+0x90`). |
+| `zone_spatial_view_obj_dtor` | `0xD8E10`–`0xD8E80` | `0x1D8C30`–`0x1D8CA0` | 108 / 112 B | 4 B | **Matching (100.00%)** | Scalar deleting destructor for spatial view objects: resets vtable `__vt__004D9610`, destroys sub-object at offset `+0xA8` via `func_1FC610`, clears pointer, and conditionally deallocates `self` when `(short)flag > 0` via `func_100670`. |
+| `zone_spatial_view_set_orient` | `0xD8E80`–`0xD9170` | `0x1D8CA0`–`0x1D8F90` | 740 / 752 B | 12 B | NonMatching (28.30%) | Spatial view orientation setter: validates orthogonality of input vectors `v1` and `v2`, computes cross product `u3 = v2 x v1` via `func_3151E0`, normalizes all 3 basis vectors, and stores orientation matrix at offsets 0x10, 0x40, and 0x4C when `flag == 1`. |
+| `zone_spatial_view_set_rate` | `0xD9170`–`0xD91B0` | `0x1D8F90`–`0x1D8FD0` | 56 / 64 B | 8 B | **Matching (100.00%)** | View rate setter: stores rate at offset `+0xA0`; if rate == 0 sets interval `+0xA4` to `FLT_MAX` (`D_004E2808`), otherwise computes reciprocal `100.0f / rate` (`D_004E27FC / val`). Pure leaf function. |
+| `zone_spatial_view_is_valid` | `0xD91B0`–`0xD9200` | `0x1D8FD0`–`0x1D9020` | 72 / 80 B | 8 B | NonMatching (45.56%) | Spatial view validity tester: computes Euclidean norm of direction vector `(x, y, z)` at offset `0x64`, returning 0 if `len <= 0.0f`, else returning 1. |
+| `zone_spatial_view_has_active_mode` | `0xD9200`–`0xD9250` | `0x1D9020`–`0x1D9070` | 72 / 80 B | 8 B | **Matching (100.00%)** | Active mode tester: dereferences sub-object pointer at offset `+0xA8`; if non-null, reads mode byte at offset `0x26` and returns 1 if mode is 1 or 2, else returns 0. |

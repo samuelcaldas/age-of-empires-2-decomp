@@ -32,7 +32,7 @@ struct GridCell {
     char pad2[8];
 };
 
-struct ZoneMap {
+struct ZoneDestructorLayout {
     void *vptr;              // 0x0
     int m_field4;            // 0x4
     int m_field8;            // 0x8
@@ -63,7 +63,7 @@ public:
 
 void *func_001C8FF0(void *self, int flag) {
     if (self) {
-        ZoneMap *zm = (ZoneMap *)self;
+        ZoneDestructorLayout *zm = (ZoneDestructorLayout *)self;
         zm->vptr = D_4D9270;
 
         if (zm->m_field8EEC) {

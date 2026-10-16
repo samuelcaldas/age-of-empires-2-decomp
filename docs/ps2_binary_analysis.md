@@ -4390,7 +4390,9 @@ A fresh independent MWCC compilation and GNU link resolved all 13 relocations us
 #### 6.168.6 `Zone Destructor & Resource Teardown` Unit (`0x1C8FF0`–`0x1C93C0`, `zone_destructor.cpp`)
 
 Immediately following `zone_constructor` sits the deleting destructor and resource cleanup routine for the primary pathfinding zone class `D_4D9270` (`0x1C8FF0`–`0x1C93C0`, 976 bytes / 244 instructions, 0 bytes padding in Metrowerks C++ PS2 MWCC 2.3.1.01):
-- `func_001C8FF0` (`0x1C8FF0`, 976 bytes / 244 instructions): Primary destructor resetting vtable to `D_4D9270`, deallocating allocated zone arrays, tearing down spatial listener references, and invoking scalar `operator delete`. All 976 / 976 bytes linked identically with 0 diffs via GNU `ld --no-undefined` resolving all 34 relocations. Registered as `NonMatching` pending coordinator audit.
+- `func_001C8FF0` (`0x1C8FF0`, 976 bytes / 244 instructions): Primary destructor resetting vtable to `D_4D9270`, deallocating allocated zone arrays, tearing down spatial listener references, and invoking scalar `operator delete`. A fresh independent compilation of the typed-cell implementation and GNU `ld --no-undefined` link matched all 976 emitted instruction bytes against the original file-backed `PT_LOAD` range `0xC91D0`–`0xC95A0`, without relocation masks or padding. The allocator globals resolve separately to `0x4E2DF0`, `0x4E2DE8`, and `0x4E2DEC`; `memset` resolves to `0x117CAC`, with `_gp = 0x4EA7C0`. Registration remains conservatively `NonMatching`.
+
+The destructor uses the distinct layout name `ZoneDestructorLayout`, rather than redefining the constructor's incompatible `ZoneMap` type. Its target layout has 28-byte grid cells; native host pointer sizes must not be assumed to preserve that layout.
 
 #### 6.168.7 Zone Destructor Matching Results (Pure C++, 976 Bytes)
 

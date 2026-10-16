@@ -4547,3 +4547,38 @@ Emitted instructions: 156 bytes code (3 x 52B) + 24 bytes inter-function padding
 | `func_00307160` | `0x307160` | 52 B | 64 B | **100.00% exact match** (52/52 B) | Action command delegator checking task 104 or forwarding to `func_2cc630`. |
 | `func_003071A0` | `0x3071A0` | 52 B | 64 B | **100.00% exact match** (52/52 B) | Primary tactical action constructor setting vtable pointer `D_4DE760`. |
 | `func_003071E0` | `0x3071E0` | 52 B | 64 B | **100.00% exact match** (52/52 B) | Secondary tactical action constructor setting vtable pointer `D_4DE760`. |
+
+#### 6.179 `Unit Action Rebind` Subsystem (`0x267A80`–`0x267E60`, `unit_action_rebind.cpp`)
+
+Located at VRAM `0x267A80`–`0x267E60` (file offset `0x167C60`–`0x168040`, end-exclusive), this 992-byte slice contains 968 instruction bytes and 24 alignment bytes across three functions in Metrowerks C++ PS2 MWCC 2.3.1.01:
+- `func_00267A80` (`0x267A80`, 412 B code, 416 B slice [4 B padding]): Unit action entity rebind. Checks `m_field39 < 3`, rescales progress `f20 = (new_val * m_field30) / old_val`, stores `m_field30 = old_val` at 0x267ADC before `Method13`, unregisters from old entity via `func_207AB0` and `func_207C30` with delta -1, notifies subsystem via `func_1EDF20`, rebinds `m_field4 = new_entity`, registers with new entity with delta 1, dispatches `func_1EDA80`, updates target via `Method19`, and finalizes with `func_264330`. (author-reported objdiff fuzzy score: 99.69%, 405/412 B match).
+- `func_00267C20` (`0x267C20`, 420 B code, 432 B slice [12 B padding]): Entity target exchange and progress scaling state machine with 16-bit sign-extended multiplication (`dsll32 / dsra32` at `0x267CC4` / `0x267CC8`), where `(short)res * (short)new_val` is strictly bounded within 32-bit signed limits (maximum 32768 * 32768 = 1073741824 < INT_MAX), precluding division overflow and matching original hardware output (e.g. 100000 * 30000 / 1 -> -932160000). (author-reported objdiff fuzzy score: 93.55%).
+- `func_267DD0` (`0x267DD0`, 136 B code, 144 B slice [8 B padding]): Unit action termination and world detachment. Guards `m_field39 < 7`, invokes `Method58`, conditionally executes spatial detachment `func_205F70`, clears state via `func_26A540(self, 0)` and `m_field30 = 0.0f`, and triggers state transition via `Method28(7)`. (author-reported objdiff unlinked score: 100.0%; whole-slice linked proof pending).
+
+Registered as `NonMatching` in `configure.py`.
+Native regressions in `tests/test_unit_action_rebind.py` compile the actual source with 4-byte aligned aggregate-initialized mock entities and verify normal scaling (100 * 50 / 25 == 200), 16-bit sign-extended multiplication (100000 * 30000 / 1 == -932160000), 16-bit signed boundary limits, and callback ordering proving `m_field30` is scaled prior to `Method19`.
+
+#### 6.179.1 Unit Action Rebind Matching Results (Pure C++, 992-Byte Slice)
+
+| Function / Method | VRAM Address | Code Size (Orig) | Slice Size | Match Status | Description |
+|---|---|---|---|---|---|
+| `func_00267A80` | `0x267A80` | 412 B | 416 B | **99.69% objdiff fuzzy (author-reported)** | Action entity rebind and spatial/world notification state machine. |
+| `func_00267C20` | `0x267C20` | 420 B | 432 B | **93.55% objdiff fuzzy (author-reported)** | Entity target exchange and progress scaling state machine. |
+| `func_267DD0` | `0x267DD0` | 136 B | 144 B | **100.0% objdiff unlinked (author-reported)** | Action termination, world detachment, and state transition. |
+
+#### 6.180 `Unit Action Visibility` Subsystem (`0x267E60`–`0x268200`, `unit_action_visibility.cpp`)
+
+Located at VRAM `0x267E60`–`0x268200` (file offset `0x168040`–`0x1683E0`, end-exclusive), this 928-byte slice contains 916 instruction bytes and 12 alignment bytes across three functions in Metrowerks C++ PS2 MWCC 2.3.1.01:
+- `func_00267E60` (`0x267E60`, 72 B code, 80 B slice [8 B padding]): Action world state reset and detachment. Checks `m_field36 & 1`, dispatches `func_205F70(self->m_world, self)`, invokes `func_26A540(self, 0)` and resets progress `m_field30 = 0.0f`. (author-reported objdiff unlinked score: 100.0%; whole-slice linked proof pending).
+- `func_00267EB0` (`0x267EB0`, 448 B code, 448 B slice): Primary line-of-sight visibility scan. Indexes tile coordinates via `func_123350`, resolves tile sight mask from `D_50A5A0`, iterates active player bitmasks, queries obstacle obstruction via `func_1EBA00`, and dispatches player sight notification via component vtable method at offset 116 passing `(component, player, action, float x, float y, float z)`. (author-reported objdiff fuzzy score: 61.35%).
+- `func_00268070` (`0x268070`, 396 B code, 400 B slice [4 B padding]): Secondary projectile line-of-sight visibility scan for missile actions. Verifies action type 2, queries sight bits, dispatches player sight notification passing `(component, player, action, float x, float y, float z)` in `$f12/$f13/$f14`, and updates subsystem sight map via `func_1ECBF0`. (author-reported objdiff fuzzy score: 65.39%).
+
+Registered as `NonMatching` in `configure.py`.
+
+#### 6.180.1 Unit Action Visibility Matching Results (Pure C++, 928-Byte Slice)
+
+| Function / Method | VRAM Address | Code Size (Orig) | Slice Size | Match Status | Description |
+|---|---|---|---|---|---|
+| `func_00267E60` | `0x267E60` | 72 B | 80 B | **100.0% objdiff unlinked (author-reported)** | Action world state reset and detachment. |
+| `func_00267EB0` | `0x267EB0` | 448 B | 448 B | **61.35% objdiff fuzzy (author-reported)** | Sight table index and primary player LOS scan. |
+| `func_00268070` | `0x268070` | 396 B | 400 B | **65.39% objdiff fuzzy (author-reported)** | Secondary projectile sight LOS scan. |

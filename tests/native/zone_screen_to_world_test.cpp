@@ -35,23 +35,23 @@ static void setup_zm(char *zm, short scale_x, short scale_y) {
     *reinterpret_cast<short *>(zm + 0x8EB0) = scale_y;
 }
 
-static void test_case0_flat() {
+static void test_case0_exact_coordinates() {
     char zm[0x10000];
     setup_zm(zm, 64, 32);
-    CmdPacket pkt = {{}, 0}; // case 0: flat
+    // fx = 16/64 = 0.25, fy = 16/32 = 0.5 -> exact original formula produces (0.25, 0.25)
+    CmdPacket pkt = {{}, 0};
     float out_x = -999.0f, out_y = -999.0f;
 
-    func_001CEA60(zm, 128, 64, &pkt, &out_y, &out_x);
+    func_001CEA60(zm, 16, 16, &pkt, &out_y, &out_x);
 
-    assert(out_x != -999.0f && out_y != -999.0f);
-    assert(!std::isnan(out_x) && !std::isnan(out_y));
+    assert(std::fabs(out_x - 0.25f) < 0.0001f);
+    assert(std::fabs(out_y - 0.25f) < 0.0001f);
 }
 
 static void test_case1_and_case5_slopes() {
     char zm[0x10000];
     setup_zm(zm, 64, 32);
 
-    // With screen_x = 20 (fx = 20/64 = 0.3125 <= 0.5), case 1 and case 5 evaluate different branches
     CmdPacket pkt1 = {{}, 1};
     float out_x1 = 0.0f, out_y1 = 0.0f;
     func_001CEA60(zm, 20, 50, &pkt1, &out_y1, &out_x1);
@@ -61,7 +61,7 @@ static void test_case1_and_case5_slopes() {
     float out_x5 = 0.0f, out_y5 = 0.0f;
     func_001CEA60(zm, 20, 50, &pkt5, &out_y5, &out_x5);
     assert(!std::isnan(out_x5) && !std::isnan(out_y5));
-    // Different slope formulas must produce distinct coordinates
+    // Different slope formulas produce distinct coordinates
     assert(out_x1 != out_x5 || out_y1 != out_y5);
 }
 
@@ -96,45 +96,47 @@ static void test_all_17_cases_coverage() {
             prev_x = ox; prev_y = oy;
         }
     }
-    // Verifies that across all 17 slope cases, the jump table activates multiple distinct slope outputs
     assert(distinct_count >= 8);
 }
 
-static void test_invalid_cmd_skips_output() {
+static void test_default_cases_17_and_255() {
     char zm[0x10000];
     setup_zm(zm, 64, 32);
-    CmdPacket pkt = {{}, 25}; // > 16: invalid
+
+    // Command 17 (> 16): original branches to common calculation with selected_term = 0 and writes outputs
+    CmdPacket pkt17 = {{}, 17};
     float out_x = -777.0f, out_y = -888.0f;
+    func_001CEA60(zm, 16, 16, &pkt17, &out_y, &out_x);
 
-    func_001CEA60(zm, 128, 64, &pkt, &out_y, &out_x);
+    assert(std::fabs(out_x - 0.25f) < 0.0001f);
+    assert(std::fabs(out_y - 0.25f) < 0.0001f);
 
-    assert(out_x == -777.0f);
-    assert(out_y == -888.0f);
+    // Command 255: also branches to common calculation with selected_term = 0 and writes outputs
+    CmdPacket pkt255 = {{}, 255};
+    out_x = -777.0f; out_y = -888.0f;
+    func_001CEA60(zm, 16, 16, &pkt255, &out_y, &out_x);
 
-    // Also test boundary cmd 17 (first out of range)
-    pkt.cmd = 17;
-    func_001CEA60(zm, 128, 64, &pkt, &out_y, &out_x);
-    assert(out_x == -777.0f);
-    assert(out_y == -888.0f);
+    assert(std::fabs(out_x - 0.25f) < 0.0001f);
+    assert(std::fabs(out_y - 0.25f) < 0.0001f);
 }
 
 int main(int argc, char **argv) {
-    if (argc > 1 && std::string(argv[1]) == "case0_flat") {
-        test_case0_flat();
+    if (argc > 1 && std::string(argv[1]) == "case0_exact") {
+        test_case0_exact_coordinates();
     } else if (argc > 1 && std::string(argv[1]) == "case1_case5") {
         test_case1_and_case5_slopes();
     } else if (argc > 1 && std::string(argv[1]) == "case9_case13") {
         test_case9_and_case13_slopes();
     } else if (argc > 1 && std::string(argv[1]) == "all_cases") {
         test_all_17_cases_coverage();
-    } else if (argc > 1 && std::string(argv[1]) == "invalid_cmd") {
-        test_invalid_cmd_skips_output();
+    } else if (argc > 1 && std::string(argv[1]) == "default_cases") {
+        test_default_cases_17_and_255();
     } else {
-        test_case0_flat();
+        test_case0_exact_coordinates();
         test_case1_and_case5_slopes();
         test_case9_and_case13_slopes();
         test_all_17_cases_coverage();
-        test_invalid_cmd_skips_output();
+        test_default_cases_17_and_255();
     }
     return 0;
 }

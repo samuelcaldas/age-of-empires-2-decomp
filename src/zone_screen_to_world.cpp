@@ -45,10 +45,6 @@ extern "C" void func_001CEA60(
     int64_t fy = func_1223C0(func_122690(screen_y), func_122690(scale_y));
 
     unsigned char cmd = ((CmdPacket *)cmd_pkt)->cmd;
-    if (cmd > 16) {
-        return;
-    }
-
     int64_t s2 = 0;
     int64_t s5_fp;
 
@@ -151,13 +147,15 @@ extern "C" void func_001CEA60(
         } else {
             s2 = func_122058(func_1220B0(FP_ONE, func_122118(FP_TWO, fx)), func_122118(FP_TWO, fy));
         }
+        s2 = func_122058(s2, func_122118(FP_TWO, fy));
         break;
     }
 
-    s2 = func_122058(s2, func_122118(FP_TWO, fy));
-    int64_t sum_term = func_122058(func_122118(func_1220B0(func_122118(FP_TWO, fy), FP_ONE), fx), s2);
+    int64_t two_fy_minus_one = func_1220B0(func_122118(FP_TWO, fy), FP_ONE);
+    int64_t two_fx = func_122118(FP_TWO, fx);
+    int64_t sum_term = func_122058(s2, func_122058(two_fy_minus_one, two_fx));
     int64_t x_fp = func_1223C0(sum_term, FP_TWO);
 
     *out_x = func_1228E8(x_fp);
-    *out_y = func_1228E8(func_1220B0(fx, func_1234E0(*out_x)));
+    *out_y = func_1228E8(func_1220B0(two_fx, func_1234E0(*out_x)));
 }

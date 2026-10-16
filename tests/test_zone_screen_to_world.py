@@ -19,11 +19,11 @@ int main() {
 """
 
 CASES = [
-    ("case0_flat", "Transforms flat terrain screen coordinates to isometric world space"),
+    ("case0_exact", "Transforms flat terrain screen coordinates to exact isometric world space (0.25, 0.25)"),
     ("case1_case5", "Calculates distinct slope-adjusted elevation offsets for cases 1 and 5"),
     ("case9_case13", "Calculates distinct slope-adjusted elevation offsets for cases 9 and 13"),
     ("all_cases", "Validates that all 17 slope cases execute valid math and produce distinct world coordinates"),
-    ("invalid_cmd", "When command byte exceeds 16, immediately aborts without modifying outputs"),
+    ("default_cases", "When command byte is 17 or 255, branches to common calculation with selected_term=0 and writes outputs"),
 ]
 
 

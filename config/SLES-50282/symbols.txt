@@ -1246,6 +1246,7 @@ func_002181F0 = 0x2181F0; // type:func size:0x15C absolute:True
 func_00218350 = 0x218350; // type:func size:0x17C absolute:True
 func_002184D0 = 0x2184D0; // type:func size:0x348 absolute:True
 func_00218820 = 0x218820; // type:func size:0x240 absolute:True
+func_00219040 = 0x219040; // type:func size:0x340 absolute:True
 
 // Zone constructor external call targets and storage.
 func_1CDD00 = 0x1CDD00; // type:func absolute:True

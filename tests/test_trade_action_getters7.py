@@ -9,11 +9,13 @@ import pytest
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 CASES = [
-    ("0", "ID 0x75 clamp range [0, 100]"),
-    ("1", "ID 0x14 cap at 50"),
-    ("2", "ID 0xE6 cap at 30"),
-    ("3", "ID 0xCC cap at 8"),
-    ("4", "ID 0x2B positive value sets to 1"),
+    ("0", "out of bounds negative index returns early"),
+    ("1", "out of bounds high index returns early"),
+    ("2", "ID 0x75 clamp range [0, 100] including negative/overflow"),
+    ("3", "ID 0x9F clamp range [0, 100] overflow"),
+    ("4", "ID 0x14 cap at 50"),
+    ("5", "ID 0x2C positive value sets to 1"),
+    ("6", "BEC == 1 runs limits even for negative input"),
 ]
 
 
@@ -36,7 +38,7 @@ def getters7_test_binary(tmp_path_factory):
 
 @pytest.mark.parametrize("case,description", CASES, ids=[case[1] for case in CASES])
 def test_getters7_behavior(getters7_test_binary, case, description):
-    """Check trade_action_getters7 clamp behavior in isolated native process."""
+    """Check trade_action_getters7 execution in isolated native process."""
     result = subprocess.run(
         [str(getters7_test_binary), case], capture_output=True, text=True,
     )

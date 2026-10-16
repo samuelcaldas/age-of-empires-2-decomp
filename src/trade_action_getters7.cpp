@@ -2,8 +2,8 @@
 #include "sub_list.h"
 
 extern "C" {
-void *func_00332da0(int id);
-int func_00188070(void *ctx, int id);
+int func_00332da0(void *ptr);
+int func_00188070(void *ctx);
 int func_00123350(float val);
 int func_002a0b30(void *mgr, int id);
 int func_0029df60(void *mgr, int id);
@@ -38,15 +38,14 @@ void func_002B6220(void *self, int index, int value) {
     int *table_slot = reinterpret_cast<int *>(base + 0x858 + index * 4);
     *table_slot = value;
 
-    // Limits executed on ALL paths (including value <= 0 and BEC == 1)
-    apply_trade_limits(index, table_slot);
-
     if (value <= 0) {
+        apply_trade_limits(index, table_slot);
         return;
     }
 
     int field_bec = *reinterpret_cast<int *>(base + 0x0BEC);
     if (field_bec == 1) {
+        apply_trade_limits(index, table_slot);
         return;
     }
 
@@ -60,14 +59,12 @@ void func_002B6220(void *self, int index, int value) {
     }
 
     if (mgr) {
-        void *target = func_00332da0(0);
-        if (target) {
-            int mode_flag = func_00188070(mgr, 0x10);
-            if (index == 0x68) {
-                int inc = (mode_flag == 1) ? 600 : 240;
-                *table_slot += inc;
-                apply_trade_limits(index, table_slot);
-            }
+        void *loaded_ptr = *reinterpret_cast<void **>(mgr);
+        int mode_flag = func_00332da0(loaded_ptr);
+        int global_ctx = func_00188070(mgr);
+        if (index == 0x68) {
+            int inc = (mode_flag == 1 || global_ctx == 1) ? 600 : 240;
+            *table_slot += inc;
         }
     }
 
@@ -76,5 +73,7 @@ void func_002B6220(void *self, int index, int value) {
         func_002a0b30(static_cast<char *>(p1) + 0x3624, 0x14);
         func_0029df60(static_cast<char *>(p1) + 0x3624, 0x1E);
     }
+
+    apply_trade_limits(index, table_slot);
 }
 }

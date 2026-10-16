@@ -25,6 +25,7 @@ CASES = [
     ("all_cases", "Validates that all 17 slope cases execute valid math and produce distinct world coordinates"),
     ("default_cases", "When command byte is 17 or 255, branches to common calculation with selected_term=0 and writes outputs"),
     ("float_rounding", "Verifies floatX rounding occurs before Y subtraction preserving IEEE 754 precision"),
+    ("dual_sided_slopes", "Verifies both positive and negative branches for all conditional slope commands"),
 ]
 
 
@@ -95,7 +96,9 @@ def test_zone_screen_to_world_old_formula_mutant_fails(tmp_path):
         text=True,
     )
     res = subprocess.run([str(mut_bin), "case0_exact"], capture_output=True, text=True)
-    assert res.returncode != 0, "Mutant (old multiplication formula) should have failed case0_exact!"
+    assert res.returncode in (-6, 134) or "Assertion" in res.stderr, "Mutant process should abort on assertion failure!"
+    assert "out_x == 0.25f" in res.stderr
+    assert "zone_screen_to_world_test.cpp" in res.stderr
 
 
 def test_zone_screen_to_world_early_return_mutant_fails(tmp_path):
@@ -123,6 +126,8 @@ def test_zone_screen_to_world_early_return_mutant_fails(tmp_path):
         text=True,
     )
     res = subprocess.run([str(mut_bin), "default_cases"], capture_output=True, text=True)
-    assert res.returncode != 0, "Mutant (early return on cmd > 16) should have failed default_cases!"
+    assert res.returncode in (-6, 134) or "Assertion" in res.stderr, "Mutant process should abort on assertion failure!"
+    assert "out_x == 0.25f" in res.stderr
+    assert "zone_screen_to_world_test.cpp" in res.stderr
 
 

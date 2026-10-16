@@ -5272,3 +5272,23 @@ An independent verification suite (`tests/test_trade_action_stream_decoders69.py
 | `func_00171CF0` | `0x171CF0` | 76 | 76/76 exact (100.00%) | 4 B |
 | `func_00171D40` | `0x171D40` | 76 | 76/76 exact (100.00%) | 4 B |
 | `func_00171D90` | `0x171D90` | 128 | 128/128 exact (100.00%) | 0 B |
+
+#### 6.246 `Trade Action Stream Decoders 70` Subsystem (`0x171E10`–`0x172000`, `trade_action_stream_decoders70.cpp`)
+
+This four-function C++ slice spans VRAM `0x171E10`–`0x172000` and file offsets `0x71FF0`–`0x721E0` (496 bytes total). The original ELF `PT_LOAD` mapping gives the VRAM/file-offset delta `0xFFE20`. The slice comprises 452 instruction bytes and 44 alignment-padding bytes (12, 12, 12, and 8 bytes respectively). Symbol sizes exclude padding. The unit remains registered as `NonMatching`.
+
+- `func_00171E10` (`0x171E10`, 100 instruction bytes): Leaf function without stack frame storing staged bytes 0, 1, 0, 0 sequentially to `D_004E2DB4` with decrements. All 100 instruction bytes match exactly (100.00%).
+- `func_00171E80` (`0x171E80`, 100 instruction bytes): Leaf function without stack frame storing staged bytes 1, 0, 1, 0 sequentially to `D_004E2DB4` with decrements. All 100 instruction bytes match exactly (100.00%).
+- `func_00171EF0` (`0x171EF0`, 100 instruction bytes): Leaf function without stack frame storing staged bytes 0, 0, 1, 0 sequentially to `D_004E2DB4` with decrements. All 100 instruction bytes match exactly (100.00%).
+- `func_00171F60` (`0x171F60`, 152 instruction bytes): Leaf function without stack frame executing 4-byte permutation on `(unsigned char*)&D_004E2DA0` followed by 5 stores of indices 0, 1, 2, 3, 0 to `D_004E2DB4` with decrements. All 152 instruction bytes match exactly (100.00%).
+
+An independent verification suite (`tests/test_trade_action_stream_decoders70.py`, with fixture/build support in `tests/trade_action_stream_decoders70_support.py`) compiles the actual source, checks the pinned original ELF SHA-1 (`f478e19f2059d52899b691483ef5c7522e30e17c`) and file-backed `PT_LOAD` mapping, validates object and linked `STT_FUNC` symbol sizes and `st_shndx`, links an `ET_EXEC` with no unresolved symbols, and compares emitted instruction and padding bytes.
+
+#### 6.246.1 Trade Action Stream Decoders 70 Matching Results (452 Code Bytes, 496-Byte Slice)
+
+| Function | VRAM | Instruction bytes | Result | Padding |
+|---|---:|---:|---|---:|
+| `func_00171E10` | `0x171E10` | 100 | 100/100 exact (100.00%) | 12 B |
+| `func_00171E80` | `0x171E80` | 100 | 100/100 exact (100.00%) | 12 B |
+| `func_00171EF0` | `0x171EF0` | 100 | 100/100 exact (100.00%) | 12 B |
+| `func_00171F60` | `0x171F60` | 152 | 152/152 exact (100.00%) | 8 B |

@@ -2045,9 +2045,21 @@ segments:
     vram: 0x1CF350
     subsegments:
       - [0xCF530, asm, zone_get_tile_terrain]
+  - name: zone_update_elevation_rect
+    type: code
+    start: 0xCF5C0
+    vram: 0x1CF3E0
+    subsegments:
+      - [0xCF5C0, asm, zone_update_elevation_rect]
+  - name: zone_set_tile_terrain
+    type: code
+    start: 0xCFA10
+    vram: 0x1CF830
+    subsegments:
+      - [0xCFA10, asm, zone_set_tile_terrain]
   - name: post_aoe2
     type: bin
-    start: 0xCF5C0
+    start: 0xCFB90
   - name: trade_action_helper_217730
     type: code
     start: 0x117910

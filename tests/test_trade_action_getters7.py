@@ -20,6 +20,10 @@ CASES = [
     ("8", "ID 0xE3 mode 1 flag 0 scale factor 1.0 yielding 100.0f scaled"),
     ("9", "ID 0x10 mode 1 flag 1 scale factor 0.8 yielding 80.0f scaled"),
     ("10", "ID 0x10 mode 2 flag 1 scale factor 0.75 yielding 75.0f scaled"),
+    ("11", "Scaler returns 0 forces slot to 1"),
+    ("12", "BEC == 1 with late cap on ID 0x14 clamping to 50"),
+    ("13", "Tail ID 0x56 helper call verification"),
+    ("14", "Tail ID 0x69 helper call verification"),
 ]
 
 

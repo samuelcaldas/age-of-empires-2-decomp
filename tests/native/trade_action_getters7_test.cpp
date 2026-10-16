@@ -6,6 +6,9 @@
 static float last_scaled_val = 0.0f;
 static int helper_call_count = 0;
 static int custom_mock_return = -1;
+static int last_helper_id = -1;
+static int last_helper_val = -1;
+static void *last_mgr_target = nullptr;
 
 extern "C" {
 int select_trade_increment(int mode, int flag);
@@ -31,10 +34,14 @@ int func_00123350(float val) {
 }
 int func_002a0b30(void *mgr, int id) {
     helper_call_count++;
+    last_mgr_target = mgr;
+    last_helper_id = id;
     return id;
 }
 int func_0029df60(void *mgr, int val) {
     helper_call_count++;
+    last_mgr_target = mgr;
+    last_helper_val = val;
     return val;
 }
 
@@ -168,6 +175,52 @@ int main(int argc, char **argv) {
         int *slot = reinterpret_cast<int *>(storage.data() + 0x858 + 0x10 * 4);
         assert(*slot == 75);
         assert(last_scaled_val == 75.0f);
+    } else if (test_case == 11) {
+        // Test case 11: Scaler returns 0 => forces slot to 1 (when initial slot != 0)
+        std::vector<char> p1_obj(4096, 0);
+        std::vector<char> p2_obj(4096, 0);
+        char *base = storage.data();
+        *reinterpret_cast<void **>(base + 0xB0) = p1_obj.data();
+        *reinterpret_cast<void **>(p1_obj.data() + 0xAC) = p2_obj.data();
+        *reinterpret_cast<void **>(p2_obj.data() + 0xB98) = p_sentinel;
+
+        mock_mode = 2;
+        mock_flag = 0;
+        custom_mock_return = 0; // Scaler returns 0
+        func_002B6220(self, 0x10, 50);
+        int *slot = reinterpret_cast<int *>(storage.data() + 0x858 + 0x10 * 4);
+        assert(*slot == 1);
+    } else if (test_case == 12) {
+        // Test case 12: Positive BEC == 1 with late cap
+        std::vector<char> p1_obj(4096, 0);
+        char *base = storage.data();
+        *reinterpret_cast<int *>(base + 0x0BEC) = 1; // BEC == 1
+        *reinterpret_cast<void **>(base + 0xB0) = p1_obj.data();
+        func_002B6220(self, 0x14, 100); // ID 0x14 cap is 50
+        int *slot = reinterpret_cast<int *>(storage.data() + 0x858 + 0x14 * 4);
+        assert(*slot == 50);
+    } else if (test_case == 13) {
+        // Test case 13: Tails 0x56/0x57 receiver, args, count
+        std::vector<char> p1_obj(4096, 0);
+        char *base = storage.data();
+        *reinterpret_cast<void **>(base + 0xB0) = p1_obj.data();
+        helper_call_count = 0;
+        last_helper_id = -1;
+        func_002B6220(self, 0x56, 42);
+        assert(helper_call_count == 1);
+        assert(last_helper_id == 0x56);
+        assert(last_mgr_target == (p1_obj.data() + 0x3624));
+    } else if (test_case == 14) {
+        // Test case 14: Tail 0x69 receiver, args, count
+        std::vector<char> p1_obj(4096, 0);
+        char *base = storage.data();
+        *reinterpret_cast<void **>(base + 0xB0) = p1_obj.data();
+        helper_call_count = 0;
+        last_helper_val = -1;
+        func_002B6220(self, 0x69, 77);
+        assert(helper_call_count == 1);
+        assert(last_helper_val == 77);
+        assert(last_mgr_target == (p1_obj.data() + 0x3624));
     }
 
     std::cout << "GETTERS7 TEST " << test_case << " PASSED\n";

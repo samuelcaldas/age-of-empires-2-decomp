@@ -54,8 +54,8 @@ def test_func_00160B70_near_matching(decoder_code, original_image):
     actual_base = struct.unpack_from("<I", actual, 0x0C)[0]
     original_target = effective_store_target(expected)
     actual_target = effective_store_target(actual)
-    assert original_base == actual_base == 0x278485E0
     assert original_target == actual_target == EXTERNAL_SYMBOLS["D_004E2DA0"]
+    assert original_base == actual_base == 0x278485E0
     assert sum(a == b for a, b in zip(actual, expected)) == 453
     assert (struct.unpack_from("<I", expected, 0x14)[0],
             struct.unpack_from("<I", actual, 0x14)[0]) == (0xA0820000, 0xA38285E0)

@@ -1913,9 +1913,15 @@ segments:
     vram: 0x1CB6A0
     subsegments:
       - [0xCB880, asm, zone_grid_getters]
+  - name: zone_smooth_elevation
+    type: code
+    start: 0xCB8B0
+    vram: 0x1CB6D0
+    subsegments:
+      - [0xCB8B0, asm, zone_smooth_elevation]
   - name: post_aoe2
     type: bin
-    start: 0xCB8B0
+    start: 0xCBD70
   - name: trade_action_helper_217730
     type: code
     start: 0x117910

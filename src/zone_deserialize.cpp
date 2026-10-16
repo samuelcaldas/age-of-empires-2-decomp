@@ -70,6 +70,7 @@ extern "C" void func_001CD770(void *self, void *stream) {
         func_335560(D_4E2DF0);
     }
     func_335470(D_4E2DF0, stream, zm);
+    zm->f_8EEC = D_4E2DF0;
 
     func_226D90(stream, &zm->f_8ECD, 1);
     func_226D90(stream, &zm->f_8ECE, 1);

@@ -1503,6 +1503,14 @@ func_001D5B00 = 0x1D5B00; // type:func size:0x34C absolute:True
 func_001D5E50 = 0x1D5E50; // type:func size:0x58 absolute:True
 func_001D5EB0 = 0x1D5EB0; // type:func size:0x824 absolute:True
 func_1D5E50 = 0x1D5E50; // type:func absolute:True
+func_001D66E0 = 0x1D66E0; // type:func size:0x82C absolute:True
+func_001D6F10 = 0x1D6F10; // type:func size:0xB8C absolute:True
+func_001D7AA0 = 0x1D7AA0; // type:func size:0x14 absolute:True
+func_1D66E0 = 0x1D66E0; // type:func absolute:True
+func_1D6F10 = 0x1D6F10; // type:func absolute:True
+func_1D7AA0 = 0x1D7AA0; // type:func absolute:True
+func_2E6CD0 = 0x2E6CD0; // type:func absolute:True
+func_2E6D40 = 0x2E6D40; // type:func absolute:True
 
 // Metrowerks MSL runtime functions, identified by disassembly and call sites.
 atol = 0x1143A0; // type:func size:0x20 absolute:True

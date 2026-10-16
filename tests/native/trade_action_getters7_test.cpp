@@ -3,6 +3,7 @@
 #include <climits>
 #include <cmath>
 #include <vector>
+#include "trade_action_getters7_matrix_support.h"
 
 void run_getters7_test_part1(int test_case, std::vector<char> &storage);
 void run_getters7_test_part2(int test_case, std::vector<char> &storage);

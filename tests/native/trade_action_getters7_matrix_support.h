@@ -1,17 +1,12 @@
+#ifndef TRADE_ACTION_GETTERS7_MATRIX_SUPPORT_H
+#define TRADE_ACTION_GETTERS7_MATRIX_SUPPORT_H
+
 #include <vector>
 #include <cmath>
 #include <cassert>
-#include <iostream>
+#include <algorithm>
 
-extern float last_scaled_val;
-extern int helper_call_count;
-extern int custom_mock_return;
-extern int scaler_call_count;
-extern void *p_sentinel;
-extern int mock_mode;
-extern int mock_flag;
-
-void func_002B6220(void *self, int index, int value);
+#include "trade_action_getters7_test_support.h"
 
 inline void run_matrix_test(std::vector<char> &storage, const int *ids, size_t num_ids, const float *expected_factors, int expected_mock_return) {
     int modes[] = {2, 3, 4};
@@ -20,12 +15,16 @@ inline void run_matrix_test(std::vector<char> &storage, const int *ids, size_t n
     for (size_t m = 0; m < 3; ++m) {
         for (size_t f = 0; f < 2; ++f) {
             for (size_t i = 0; i < num_ids; ++i) {
+                std::fill(storage.begin(), storage.end(), 0);
                 std::vector<char> p1_obj(16384, 0);
                 std::vector<char> p2_obj(16384, 0);
                 char *base = storage.data();
                 *reinterpret_cast<void **>(base + 0xB0) = p1_obj.data();
                 *reinterpret_cast<void **>(p1_obj.data() + 0xAC) = p2_obj.data();
                 *reinterpret_cast<void **>(p2_obj.data() + 0xB98) = p_sentinel;
+
+                int *slot_pre = reinterpret_cast<int *>(base + 0x858 + ids[i] * 4);
+                *slot_pre = -999;
 
                 mock_mode = modes[m];
                 mock_flag = flags[f];
@@ -46,3 +45,5 @@ inline void run_matrix_test(std::vector<char> &storage, const int *ids, size_t n
         }
     }
 }
+
+#endif

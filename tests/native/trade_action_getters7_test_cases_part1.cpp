@@ -4,30 +4,7 @@
 #include <cmath>
 #include <vector>
 
-extern float last_scaled_val;
-extern int helper_call_count;
-extern int custom_mock_return;
-extern int last_helper_val;
-extern void *last_mgr_target;
-extern int scaler_call_count;
-
-extern "C" {
-int select_trade_increment(int mode, int flag);
-float get_scaling_factor(int index, int mode, int flag);
-extern void *p_sentinel;
-extern void *ctx_sentinel;
-extern void *D_004E3180;
-
-extern int mock_mode;
-extern int mock_flag;
-
-int func_00332da0(void *ptr);
-int func_00188070(void *ctx);
-int func_00123350(float val);
-int func_002a0b30(void *mgr, int id);
-int func_0029df60(void *mgr, int val);
-void func_002B6220(void *self, int index, int value);
-}
+#include "trade_action_getters7_test_support.h"
 
 void run_getters7_test_part1(int test_case, std::vector<char> &storage) {
     void *self = storage.data();

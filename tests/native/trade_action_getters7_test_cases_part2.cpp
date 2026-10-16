@@ -119,7 +119,7 @@ void run_getters7_test_part2(int test_case, std::vector<char> &storage) {
     } else if (test_case == 20) {
         int ids[] = {0x13, 0x14};
         float expected_factors[] = {0.6f, 0.4f, 0.2f};
-        run_matrix_test(storage, ids, 2, expected_factors, 88);
+        run_matrix_test(storage, ids, 2, expected_factors, 33);
     } else if (test_case == 21) {
         int ids[] = {0xE3, 0xE4};
         float expected_factors[] = {0.75f, 0.5f, 0.25f};

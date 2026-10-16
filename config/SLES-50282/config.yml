@@ -2501,9 +2501,27 @@ segments:
     vram: 0x1D8340
     subsegments:
       - [0xD8520, asm, zone_spatial_allocator_push]
+  - name: zone_spatial_notify_pos
+    type: code
+    start: 0xD8550
+    vram: 0x1D8370
+    subsegments:
+      - [0xD8550, asm, zone_spatial_notify_pos]
+  - name: zone_spatial_notify_state
+    type: code
+    start: 0xD85F0
+    vram: 0x1D8410
+    subsegments:
+      - [0xD85F0, asm, zone_spatial_notify_state]
+  - name: zone_spatial_trigger_update
+    type: code
+    start: 0xD8660
+    vram: 0x1D8480
+    subsegments:
+      - [0xD8660, asm, zone_spatial_trigger_update]
   - name: post_aoe2
     type: bin
-    start: 0xD8550
+    start: 0xD8690
   - name: trade_action_helper_217730
     type: code
     start: 0x117910

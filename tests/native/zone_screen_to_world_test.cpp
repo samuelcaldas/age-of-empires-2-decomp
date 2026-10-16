@@ -80,6 +80,26 @@ static void test_case9_and_case13_slopes() {
     assert(!std::isnan(out_x13) && !std::isnan(out_y13));
 }
 
+static void test_all_17_cases_coverage() {
+    char zm[0x10000];
+    setup_zm(zm, 64, 32);
+    float prev_x = -999.0f, prev_y = -999.0f;
+    int distinct_count = 0;
+
+    for (unsigned char c = 0; c <= 16; c++) {
+        CmdPacket pkt = {{}, c};
+        float ox = 0.0f, oy = 0.0f;
+        func_001CEA60(zm, 96, 48, &pkt, &oy, &ox);
+        assert(!std::isnan(ox) && !std::isnan(oy));
+        if (ox != prev_x || oy != prev_y) {
+            distinct_count++;
+            prev_x = ox; prev_y = oy;
+        }
+    }
+    // Verifies that across all 17 slope cases, the jump table activates multiple distinct slope outputs
+    assert(distinct_count >= 8);
+}
+
 static void test_invalid_cmd_skips_output() {
     char zm[0x10000];
     setup_zm(zm, 64, 32);
@@ -88,6 +108,12 @@ static void test_invalid_cmd_skips_output() {
 
     func_001CEA60(zm, 128, 64, &pkt, &out_y, &out_x);
 
+    assert(out_x == -777.0f);
+    assert(out_y == -888.0f);
+
+    // Also test boundary cmd 17 (first out of range)
+    pkt.cmd = 17;
+    func_001CEA60(zm, 128, 64, &pkt, &out_y, &out_x);
     assert(out_x == -777.0f);
     assert(out_y == -888.0f);
 }
@@ -99,12 +125,15 @@ int main(int argc, char **argv) {
         test_case1_and_case5_slopes();
     } else if (argc > 1 && std::string(argv[1]) == "case9_case13") {
         test_case9_and_case13_slopes();
+    } else if (argc > 1 && std::string(argv[1]) == "all_cases") {
+        test_all_17_cases_coverage();
     } else if (argc > 1 && std::string(argv[1]) == "invalid_cmd") {
         test_invalid_cmd_skips_output();
     } else {
         test_case0_flat();
         test_case1_and_case5_slopes();
         test_case9_and_case13_slopes();
+        test_all_17_cases_coverage();
         test_invalid_cmd_skips_output();
     }
     return 0;

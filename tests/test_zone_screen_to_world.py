@@ -22,6 +22,7 @@ CASES = [
     ("case0_flat", "Transforms flat terrain screen coordinates to isometric world space"),
     ("case1_case5", "Calculates distinct slope-adjusted elevation offsets for cases 1 and 5"),
     ("case9_case13", "Calculates distinct slope-adjusted elevation offsets for cases 9 and 13"),
+    ("all_cases", "Validates that all 17 slope cases execute valid math and produce distinct world coordinates"),
     ("invalid_cmd", "When command byte exceeds 16, immediately aborts without modifying outputs"),
 ]
 

@@ -144,6 +144,21 @@ static void test_math_3_4_5_and_vtable_reload() {
     assert(g_math_calls[10].fn == "1223C0" && g_math_calls[10].in_a == 262144 && g_math_calls[10].in_b == 327680 && g_math_calls[10].out_val == 52428); // step_y
     assert(g_math_calls[11].fn == "122690" && g_math_calls[11].in_a == 1); // cur_x = x0
     assert(g_math_calls[12].fn == "122690" && g_math_calls[12].in_a == 1); // cur_y = y0
+
+    // Verify each consumed step value in subsequent accumulation calls (in_b == step_x / step_y)
+    // and accumulated coordinates (cur_x, cur_y)
+    const int64_t expected_accum_x[5] = {104857, 144178, 183499, 222820, 262141};
+    const int64_t expected_accum_y[5] = {117964, 170392, 222820, 275248, 327676};
+    for (int step_idx = 0; step_idx < 5; step_idx++) {
+        size_t call_x = 13 + step_idx * 4;
+        size_t call_y = 14 + step_idx * 4;
+        assert(g_math_calls[call_x].fn == "122058");
+        assert(g_math_calls[call_x].in_b == 39321); // exact consumed step_x
+        assert(g_math_calls[call_x].out_val == expected_accum_x[step_idx]);
+        assert(g_math_calls[call_y].fn == "122058");
+        assert(g_math_calls[call_y].in_b == 52428); // exact consumed step_y
+        assert(g_math_calls[call_y].out_val == expected_accum_y[step_idx]);
+    }
 }
 
 static void test_line_directions_and_clipping() {

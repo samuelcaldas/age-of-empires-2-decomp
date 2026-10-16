@@ -5412,3 +5412,23 @@ An independent verification suite (`tests/test_trade_action_stream_decoders76.py
 | `func_00172FF0` | `0x172FF0` | 252 | 252/252 exact (100.00%) | 4 B |
 | `func_001730F0` | `0x1730F0` | 276 | 276/276 exact (100.00%) | 12 B |
 | `func_00173210` | `0x173210` | 228 | 228/228 exact (100.00%) | 12 B |
+
+#### 6.253 `Trade Action Stream Decoders 77` Subsystem (`0x173300`–`0x173670`, `trade_action_stream_decoders77.cpp`)
+
+This four-function C++ slice spans VRAM `0x173300`–`0x173670` and file offsets `0x734E0`–`0x73850` (880 bytes total). The original ELF `PT_LOAD` mapping gives the VRAM/file-offset delta `0xFFE20`. The slice comprises 856 instruction bytes and 24 alignment-padding bytes (4, 12, 4, and 4 bytes respectively). Symbol sizes exclude padding. The unit remains registered as `NonMatching`.
+
+- `func_00173300` (`0x173300`, 252 instruction bytes): Leaf loop without stack frame storing staged byte 0, decrementing `D_004E2DA8 -= 4`, executing 4-byte decoded transfer loop with permutation, decrementing `D_004E2DA8 -= 4` until zero, followed by stores of staged bytes 0, 1, 0 to `D_004E2DB4`. All 252 instruction bytes match exactly (100.00%).
+- `func_00173400` (`0x173400`, 276 instruction bytes): Leaf loop without stack frame storing staged bytes 1 and 0, decrementing `D_004E2DA8 -= 5`, executing 4-byte decoded transfer loop with permutation, decrementing `D_004E2DA8 -= 4` until zero, followed by stores of staged bytes 0, 1, 0 to `D_004E2DB4`. All 276 instruction bytes match exactly (100.00%).
+- `func_00173520` (`0x173520`, 300 instruction bytes): Leaf loop without stack frame storing staged bytes 0, 1, 0, decrementing `D_004E2DA8 -= 6`, executing 4-byte decoded transfer loop with permutation, decrementing `D_004E2DA8 -= 4` until zero, followed by stores of staged bytes 0, 1, 0 to `D_004E2DB4`. All 300 instruction bytes match exactly (100.00%).
+- `func_00173650` (`0x173650`, 28 instruction bytes): Leaf function without stack frame storing staged byte 0 to `D_004E2DB4` and decrementing `D_004E2DB4--`. All 28 instruction bytes match exactly (100.00%).
+
+An independent verification suite (`tests/test_trade_action_stream_decoders77.py`, with fixture/build support in `tests/trade_action_stream_decoders77_support.py`) compiles the actual source, checks the pinned original ELF SHA-1 (`f478e19f2059d52899b691483ef5c7522e30e17c`) and file-backed `PT_LOAD` mapping, validates object and linked `STT_FUNC` symbol sizes and `st_shndx`, links an `ET_EXEC` with no unresolved symbols, and compares emitted instruction and padding bytes.
+
+#### 6.253.1 Trade Action Stream Decoders 77 Matching Results (856 Code Bytes, 880-Byte Slice)
+
+| Function | VRAM | Instruction bytes | Result | Padding |
+|---|---:|---:|---|---:|
+| `func_00173300` | `0x173300` | 252 | 252/252 exact (100.00%) | 4 B |
+| `func_00173400` | `0x173400` | 276 | 276/276 exact (100.00%) | 12 B |
+| `func_00173520` | `0x173520` | 300 | 300/300 exact (100.00%) | 4 B |
+| `func_00173650` | `0x173650` | 28 | 28/28 exact (100.00%) | 4 B |

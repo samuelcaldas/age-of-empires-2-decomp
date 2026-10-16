@@ -1,6 +1,5 @@
 #pragma exceptions off
 #include "sub_list.h"
-#include <cstdint>
 
 extern "C" {
 int func_001ABA00(void *arg0);
@@ -19,14 +18,15 @@ static int field_value(char *self, unsigned int offset) {
     return *reinterpret_cast<int *>(self + offset);
 }
 
-static int run_callback(char *self, int handle, int index, int sequence, int mode) {
+static void *pointer_from_int(int value) {
+    return reinterpret_cast<void *>(static_cast<unsigned int>(value));
+}
+
+static void run_callback(char *self, int handle, int index, int sequence, int mode) {
     void **vtable = *reinterpret_cast<void ***>(self);
     VFn5 callback = reinterpret_cast<VFn5>(vtable[0x120 / sizeof(void *)]);
-    callback(self, reinterpret_cast<void *>(static_cast<uintptr_t>(handle)),
-             reinterpret_cast<void *>(static_cast<uintptr_t>(index)),
-             reinterpret_cast<void *>(static_cast<uintptr_t>(sequence)),
-             reinterpret_cast<void *>(static_cast<uintptr_t>(mode)));
-    return 1;
+    callback(self, pointer_from_int(handle), pointer_from_int(index),
+             pointer_from_int(sequence), pointer_from_int(mode));
 }
 
 void func_002181F0(void *object) {
@@ -46,7 +46,7 @@ void func_002181F0(void *object) {
         return;
     }
 
-    int first = func_002257A0(reinterpret_cast<void *>(static_cast<uintptr_t>(handle)),
+    int first = func_002257A0(pointer_from_int(handle),
                               field_value(self, 0x12C));
     int sequence = *reinterpret_cast<short *>(self + 0x124);
     int index = 0;
@@ -62,7 +62,7 @@ void func_002181F0(void *object) {
         index = signed_low16(index + 1);
     }
 
-    func_002257A0(reinterpret_cast<void *>(static_cast<uintptr_t>(handle)), first);
+    func_002257A0(pointer_from_int(handle), first);
     func_001ABA70(*reinterpret_cast<void **>(self + 0x20));
     vtable = *reinterpret_cast<void ***>(self);
     reinterpret_cast<void (*)(void *)>(vtable[0x34 / sizeof(void *)])(self);

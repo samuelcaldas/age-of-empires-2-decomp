@@ -24,9 +24,12 @@ def effective_store_target(code):
     gp_address = EXTERNAL_SYMBOLS["_gp"]
     if base_register == 28:
         return gp_address + store_offset
-    assert base_register == 4
     base_instruction = struct.unpack_from("<I", code, 0x0C)[0]
-    assert base_instruction == 0x278485E0
+    opcode = base_instruction >> 26
+    source_register = (base_instruction >> 21) & 0x1F
+    destination_register = (base_instruction >> 16) & 0x1F
+    assert opcode == 9 and source_register == 28
+    assert destination_register == base_register
     base_offset = struct.unpack_from("<h", code, 0x0C)[0]
     return gp_address + base_offset + store_offset
 

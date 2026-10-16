@@ -1,3 +1,4 @@
+#include <cassert>
 #include "unit_action_update_test_support.h"
 
 void test_func_00268500() {

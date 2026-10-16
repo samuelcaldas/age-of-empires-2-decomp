@@ -4657,3 +4657,20 @@ Registered as `NonMatching` in `configure.py`.
 | `func_00267E60` | `0x267E60` | 72 B | 80 B | **100.0% objdiff unlinked (author-reported)** | Action world state reset and detachment. |
 | `func_00267EB0` | `0x267EB0` | 448 B | 448 B | **61.35% objdiff fuzzy (author-reported)** | Sight table index and primary player LOS scan. |
 | `func_00268070` | `0x268070` | 396 B | 400 B | **65.39% objdiff fuzzy (author-reported)** | Secondary projectile sight LOS scan. |
+
+#### 6.182 `Tactical AI Action Manager Lifecycle & Notification` Subsystem (`0x307320`–`0x3074B0`, `tactical_ai_action_manager.cpp`)
+
+Located at VRAM `0x307320`–`0x3074B0` (file offset `0x207500`–`0x207690`, 400 bytes total slice, Metrowerks C++ PS2 MWCC 2.3.1.01 compiled with `-sdatathreshold 0`):
+- `func_00307320` (`0x307320`, 160 bytes code, 160 bytes slice): Action manager constructor executing base `func_3285d0`, assigning vtable pointer `D_4DE780`, initializing fields `m_field194`–`m_field1B3`, and zeroing 6 arrays across 5 iterations. Instruction at `0x3073BC` (`addiu sp, sp, 32`) is an executed delay slot. **100.00% exact bit-for-bit match** (160/160 B).
+- `func_003073C0` (`0x3073C0`, 96 bytes code, 96 bytes slice): Scalar deleting destructor assigning vtable `D_4DEBF0`, calling sub-destructor `func_1a2cf0`, and invoking `operator delete` via `func_100670` if `(short)flags > 0`. Instruction at `0x30741C` (`addiu sp, sp, 48`) is an executed delay slot. **100.00% exact bit-for-bit match** (96/96 B).
+- `func_00307420` (`0x307420`, 136 bytes code + 8 bytes trailing zero padding, 144 bytes slice): Notification coordinator calling `func_1a34d0`, checking state flags and `D_004E3180`, forwarding to `func_242fc0(s1->m_field40, s0)` or logging error via `func_118de0(D_004D1930)`. Canonical symbol size `0x88` (136 bytes code excluding 8B tail zero padding). NonMatching (67/136 unmasked code bytes exact, emitted size 140 bytes).
+
+Original binary layout: 392 bytes code (160B + 96B + 136B) + 8 bytes trailing zero padding = 400 bytes total slice. Emitted instructions from C++ source: 396 bytes code (160B + 96B + 140B). Total unmasked exact code bytes: 323 / 392 B (160 + 96 + 67). Registered as `NonMatching` in `configure.py`.
+
+#### 6.182.1 Tactical AI Action Manager Matching Results (Pure C++, 400 Bytes)
+
+| Function / Method | VRAM Address | Code Size (Orig) | Slice Size | Match Status | Description |
+|---|---|---|---|---|---|
+| `func_00307320` | `0x307320` | 160 B | 160 B | **100.00% exact match** (160/160 B) | Action manager constructor setting vtable pointer `D_4DE780`. |
+| `func_003073C0` | `0x3073C0` | 96 B | 96 B | **100.00% exact match** (96/96 B) | Scalar deleting destructor setting vtable pointer `D_4DEBF0`. |
+| `func_00307420` | `0x307420` | 136 B | 144 B | NonMatching (67/136 B unmasked) | Notification coordinator calling `func_242fc0` or `func_118de0`. |

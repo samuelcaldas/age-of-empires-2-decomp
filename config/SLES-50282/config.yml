@@ -1285,9 +1285,15 @@ segments:
     vram: 0x267E60
     subsegments:
       - [0x168040, asm, unit_action_visibility]
-  - name: post_unit_action_visibility
-    type: bin
+  - name: unit_action_update
+    type: code
     start: 0x1683E0
+    vram: 0x268200
+    subsegments:
+      - [0x1683E0, asm, unit_action_update]
+  - name: post_unit_action_update
+    type: bin
+    start: 0x168710
   - name: trade_action_getters3
     type: code
     start: 0x1B6330

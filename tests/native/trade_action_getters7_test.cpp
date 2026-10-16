@@ -3,6 +3,9 @@
 #include <climits>
 #include <vector>
 
+static float last_scaled_val = 0.0f;
+static int last_helper_id = 0;
+
 extern "C" {
 int select_trade_increment(int mode, int flag);
 void *p_sentinel = reinterpret_cast<void *>(0x78563412);
@@ -17,8 +20,14 @@ int func_00188070(void *ctx) {
     assert(ctx == ctx_sentinel);
     return 1;
 }
-int func_00123350(float val) { return static_cast<int>(val) * 2; }
-int func_002a0b30(void *mgr, int id) { return id; }
+int func_00123350(float val) {
+    last_scaled_val = val;
+    return static_cast<int>(val) * 2;
+}
+int func_002a0b30(void *mgr, int id) {
+    last_helper_id = id;
+    return id;
+}
 int func_0029df60(void *mgr, int id) { return id; }
 
 void func_002B6220(void *self, int index, int value);
@@ -30,6 +39,17 @@ int main(int argc, char **argv) {
         return 1;
     }
     int test_case = std::stoi(argv[1]);
+
+    for (int m = 0; m <= 5; ++m) {
+        for (int f = 0; f <= 1; ++f) {
+            int inc = select_trade_increment(m, f);
+            if (m == 1) assert(inc == 0);
+            else if (m == 2) assert(inc == (f == 1 ? 600 : 240));
+            else if (m == 3) assert(inc == (f == 1 ? 1200 : 900));
+            else if (m == 4) assert(inc == (f == 1 ? 1800 : 1260));
+            else assert(inc == 0);
+        }
+    }
 
     const size_t buf_size = 4096;
     std::vector<char> storage(buf_size, 0);
@@ -67,6 +87,7 @@ int main(int argc, char **argv) {
         func_002B6220(self, 0x10, 25);
         int *slot = reinterpret_cast<int *>(storage.data() + 0x858 + 0x10 * 4);
         assert(*slot == 50);
+        assert(last_scaled_val == 25.0f);
     }
 
     std::cout << "GETTERS7 TEST " << test_case << " PASSED\n";

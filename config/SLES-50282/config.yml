@@ -2177,9 +2177,27 @@ segments:
     vram: 0x1D1560
     subsegments:
       - [0xD1740, asm, zone_cleanup_render_items]
+  - name: zone_destroy_render_items
+    type: code
+    start: 0xD18B0
+    vram: 0x1D16D0
+    subsegments:
+      - [0xD18B0, asm, zone_destroy_render_items]
+  - name: zone_bind_render_item
+    type: code
+    start: 0xD1980
+    vram: 0x1D17A0
+    subsegments:
+      - [0xD1980, asm, zone_bind_render_item]
+  - name: zone_unlink_render_item
+    type: code
+    start: 0xD1EA0
+    vram: 0x1D1CC0
+    subsegments:
+      - [0xD1EA0, asm, zone_unlink_render_item]
   - name: post_aoe2
     type: bin
-    start: 0xD18B0
+    start: 0xD1F50
   - name: trade_action_helper_217730
     type: code
     start: 0x117910

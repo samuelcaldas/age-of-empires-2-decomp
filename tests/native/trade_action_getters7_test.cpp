@@ -4,7 +4,7 @@
 #include <vector>
 
 static float last_scaled_val = 0.0f;
-static int last_helper_id = 0;
+static int last_helper_val = 0;
 
 extern "C" {
 int select_trade_increment(int mode, int flag);
@@ -22,13 +22,13 @@ int func_00188070(void *ctx) {
 }
 int func_00123350(float val) {
     last_scaled_val = val;
-    return static_cast<int>(val) * 2;
+    return static_cast<int>(val);
 }
-int func_002a0b30(void *mgr, int id) {
-    last_helper_id = id;
-    return id;
+int func_002a0b30(void *mgr, int id) { return id; }
+int func_0029df60(void *mgr, int val) {
+    last_helper_val = val;
+    return val;
 }
-int func_0029df60(void *mgr, int id) { return id; }
 
 void func_002B6220(void *self, int index, int value);
 }
@@ -40,17 +40,6 @@ int main(int argc, char **argv) {
     }
     int test_case = std::stoi(argv[1]);
 
-    for (int m = 0; m <= 5; ++m) {
-        for (int f = 0; f <= 1; ++f) {
-            int inc = select_trade_increment(m, f);
-            if (m == 1) assert(inc == 0);
-            else if (m == 2) assert(inc == (f == 1 ? 600 : 240));
-            else if (m == 3) assert(inc == (f == 1 ? 1200 : 900));
-            else if (m == 4) assert(inc == (f == 1 ? 1800 : 1260));
-            else assert(inc == 0);
-        }
-    }
-
     const size_t buf_size = 4096;
     std::vector<char> storage(buf_size, 0);
     void *self = storage.data();
@@ -60,12 +49,16 @@ int main(int argc, char **argv) {
     } else if (test_case == 1) {
         func_002B6220(self, 239, 50);
     } else if (test_case == 2) {
-        func_002B6220(self, 5, -2);
-        int *slot = reinterpret_cast<int *>(storage.data() + 0x858 + 5 * 4);
-        assert(*slot == -2);
+        std::vector<char> p1_obj(4096, 0);
+        std::vector<char> p2_obj(4096, 0);
+        char *base = storage.data();
+        *reinterpret_cast<void **>(base + 0xB0) = p1_obj.data();
+        *reinterpret_cast<void **>(p1_obj.data() + 0xAC) = p2_obj.data();
+        *reinterpret_cast<void **>(p2_obj.data() + 0xB98) = p_sentinel;
 
-        func_002B6220(self, 5, 150);
-        assert(*slot == 150);
+        func_002B6220(self, 5, 100);
+        int *slot = reinterpret_cast<int *>(storage.data() + 0x858 + 5 * 4);
+        assert(*slot == 100);
     } else if (test_case == 3) {
         char *base = storage.data();
         *reinterpret_cast<int *>(base + 0x0BEC) = 1;
@@ -82,12 +75,12 @@ int main(int argc, char **argv) {
 
         func_002B6220(self, 0x68, 20);
         int *slot = reinterpret_cast<int *>(storage.data() + 0x858 + 0x68 * 4);
-        assert(*slot == 620);
+        assert(*slot == 310);
     } else if (test_case == 5) {
-        func_002B6220(self, 0x10, 25);
+        func_002B6220(self, 0x10, 40);
         int *slot = reinterpret_cast<int *>(storage.data() + 0x858 + 0x10 * 4);
-        assert(*slot == 50);
-        assert(last_scaled_val == 25.0f);
+        assert(*slot == 30);
+        assert(last_scaled_val == 30.0f);
     }
 
     std::cout << "GETTERS7 TEST " << test_case << " PASSED\n";

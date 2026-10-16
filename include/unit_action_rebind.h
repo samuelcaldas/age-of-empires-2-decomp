@@ -8,7 +8,7 @@ struct ActionRebind {
     V_SLOT_10(0)
     virtual void* v10(); virtual void* v11(); virtual void* v12();
     virtual void* Method13();
-    virtual void* v14(); virtual void* v15(); virtual void* v16();
+    virtual void* v14(); virtual void Method15(float x, float y, float z); virtual void* v16();
     virtual void Method19(int target);
     virtual void* v18(); virtual void* v19();
     virtual void* v20(); virtual void* v21(); virtual void* v22(); virtual void* v23(); virtual void* v24();
@@ -24,14 +24,15 @@ struct ActionRebind {
     virtual void* v37(); virtual void* v38(); virtual void* v39();
     V_SLOT_10(4)
     virtual void* v50(); virtual void* v51(); virtual void* v52(); virtual void* v53(); virtual void* v54();
-    virtual void* v55(); virtual void* v56(); virtual void* v57();
-    virtual void Method58();
+    virtual void* v55(); virtual void Method58(); virtual void* v57();
+    virtual void* v58();
     virtual void Method61(void *world, int a2, int a3, int a4);
     virtual void Method62(void *world, int a2, int a3, int a4);
     virtual void* v61(); virtual void* v62(); virtual void* v63(); virtual void* v64(); virtual void* v65();
     virtual void* v66(); virtual void* v67(); virtual void* v68(); virtual void* v69();
     V_SLOT_10(7)
-    V_SLOT_10(8)
+    virtual void* v80(); virtual void* v81(); virtual void* v82(); virtual void* v83(); virtual void* v84();
+    virtual void* v85(); virtual void* v86(); virtual int Method87(); virtual void* v88(); virtual void* v89();
     virtual void Method90(short a1, short a2, int a3, void *ba0, int zero1, int zero2);
 
     void *m_field4;

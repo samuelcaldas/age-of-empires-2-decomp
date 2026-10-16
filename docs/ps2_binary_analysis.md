@@ -4326,7 +4326,24 @@ All four functions report **100.00%** in objdiff. Independently compiling and li
 
 `tests/test_trade_action_stream_decoders10.py` independently verifies exact relocated instruction bytes and full padded slice equality.
 
-#### 6.167 `Zone Path & Building Placement Obstruction Evaluator` Subsystem (`0x1C7850`–`0x1C8480`, `zone_path_eval.cpp`)
+#### 6.167 `Trade Action Stream Decoders 11` Subsystem (`0x15F0F0`–`0x15F220`, `trade_action_stream_decoders11.cpp`)
+
+Following stream decoders 10 sits the eleventh stream decoder and table lookup subsystem (`0x15F0F0`–`0x15F220`, 304 bytes across 3 routines in Metrowerks C++ PS2 MWCC 2.3.1.01). The slice comprises 292 instruction bytes and 12 alignment bytes at file offset `0x5F2D0`–`0x5F400`. Each routine looks up output stream bytes through the permutation table `D_004E2DA4` using index word `D_004E2DAC`:
+- `func_0015F0F0` (`0x15F0F0`, 56 bytes): Looks up a single byte through `D_004E2DA4[D_004E2DAC.word]`, writes it back to output `*D_004E2DB4`, and advances cursor. **100.00% exact match** byte-for-byte.
+- `func_0015F130` (`0x15F130`, 128 bytes): 2-byte staging and dual table lookup.
+- `func_0015F1B0` (`0x15F1B0`, 108 bytes): Looks up two consecutive bytes individually through table `D_004E2DA4`, advances cursor after each byte. **100.00% exact match** byte-for-byte.
+
+#### 6.167.1 Trade Action Stream Decoders 11 Matching Results
+
+| Function | Instruction bytes | Match | Description |
+|---|---:|---:|---|
+| `func_0015F0F0` | 56 | 100.00% | Single byte table lookup via `D_004E2DA4` |
+| `func_0015F130` | 128 | NonMatching | 2-byte staged table lookup (125/128B exact, register diff on store) |
+| `func_0015F1B0` | 108 | 100.00% | Dual sequential single byte table lookup |
+
+An independent test suite (`tests/test_trade_action_stream_decoders11.py`) compiles the actual C++ source and resolves the original global addresses with GNU `ld --no-undefined`. It verifies the 56 instruction bytes of `func_0015F0F0` and the 108 instruction bytes of `func_0015F1B0` byte-for-byte, the complete 304-byte linked extent, the 8-byte internal alignment, and the 4-byte emitted tail alignment. `func_0015F130` has complete behavioral logic matching 125 of 128 bytes, with the only difference being `sb v1, 0(a0)` versus `sb v1, -0x7A20(gp)` at offset `0x0C`. The test pins both complete store words, decodes the shared `addiu a0, gp, -0x7A20` setup instruction, and derives both effective addresses as `0x4E2DA0`, without masking any differing bytes. Symbol sizes record only the 56, 128, and 108 instruction bytes, excluding alignment. The unit remains `NonMatching`.
+
+#### 6.168 `Zone Path & Building Placement Obstruction Evaluator` Subsystem (`0x1C7850`–`0x1C8480`, `zone_path_eval.cpp`)
 
 Directly beginning the `aoe2` fixed address range (`0x1C7330`–`0x2665B0`) sits the core spatial obstruction and building placement validator `func_001C7850` (`0x1C7850`–`0x1C8480`, 3,120 bytes in Metrowerks C++ PS2 MWCC 2.3.1.01). It validates spatial bounding box coordinates, perimeter zone adjacency, slope elevation gradients, and unit radius collisions:
 - `func_001C7850` (`0x1C7850`, 3,120 bytes): Evaluates map dimensions, converts floating-point coordinates to integer tile coordinates (`func_123350`), tests 4-sided perimeter connectivity against `bld->m_required_zone`, checks tile slope gradient against building type limits (`map + 0x68`), performs special Mill/Farm adjacency logic (`0x3B`), and queries unit collision radii (`func_3675D0`) for obstruction detection.

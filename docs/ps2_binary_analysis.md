@@ -5958,3 +5958,19 @@ An independent verification suite (`tests/test_trade_action_stream_decoders104.p
 |---|---:|---:|---|---:|
 | `func_0017a730` | `0x17A730` | 512 | 512/512 exact (100.00%) | 0 B |
 | `func_0017a930` | `0x17A930` | 644 | 644/644 exact (100.00%) | 12 B |
+
+#### 6.281 `Trade Action Stream Decoders 105` Subsystem (`0x17ABC0`–`0x17B0B0`, `trade_action_stream_decoders105.cpp`)
+
+This two-function C++ slice spans VRAM `0x17ABC0`–`0x17B0B0` and file offsets `0x7ADA0`–`0x7B290` (1,264 bytes total). The original ELF `PT_LOAD` mapping gives the VRAM/file-offset delta `0xFFE20`. The slice comprises 1,248 instruction bytes and 16 alignment-padding bytes (4 and 12 bytes respectively). Symbol sizes exclude padding. The unit remains registered as `NonMatching`.
+
+- `func_0017abc0` (`0x17ABC0`, 668 instruction bytes): Non-leaf compound function with isolated block-scoped staging pointers calling `func_001522C0(D_004E2DA0.bytes, D_004E2DB4 - 2)` with dual lookups, permutation, lookup, permutation, bitwise mask with `D_004E30A8` and OR with `D_004E30AC`, permutation, write-back of bytes 0..3 with decrements, followed by calling `func_001522C0(D_004E2DA0.bytes, D_004E2DB4 - 3)` with dual lookups, permutation, second dual lookups, permutation, bitwise mask and OR, permutation, write-back of bytes 0..3 with decrements to `D_004E2DB4`. All 668 instruction bytes match exactly (100.00%).
+- `func_0017ae60` (`0x17AE60`, 580 instruction bytes): Non-leaf function copying 2 bytes from cursor to staging buffer, dual lookups, bitwise mask and OR, 2 stores, followed by calling `func_001522C0(D_004E2DA0.bytes, D_004E2DB4 - 3)`, dual staged lookups, permutation, second dual lookups, permutation, bitwise mask with `D_004E30A8` and OR with `D_004E30AC`, permutation, 4 stores of bytes 0..3 with decrements, followed by single lookup on byte 1 with bitwise mask and OR, write-back of byte 1 to `D_004E2DB4`. All 580 instruction bytes match exactly (100.00%).
+
+An independent verification suite (`tests/test_trade_action_stream_decoders105.py`, with fixture/build support in `tests/trade_action_stream_decoders105_support.py`) compiles the actual source, checks the pinned original ELF SHA-1 (`66df5e9314388f028846f5eab19c4703200b5e36`) and file-backed `PT_LOAD` mapping, validates object and linked `STT_FUNC` symbol sizes and `st_shndx`, links an `ET_EXEC` with no unresolved symbols, and compares emitted instruction and padding bytes.
+
+#### 6.281.1 Trade Action Stream Decoders 105 Matching Results (1,248 Code Bytes, 1,264-Byte Slice)
+
+| Function | VRAM | Instruction bytes | Result | Padding |
+|---|---:|---:|---|---:|
+| `func_0017abc0` | `0x17ABC0` | 668 | 668/668 exact (100.00%) | 4 B |
+| `func_0017ae60` | `0x17AE60` | 580 | 580/580 exact (100.00%) | 12 B |

@@ -100,6 +100,54 @@ static void test_dual_sided_slope_branches() {
     assert(ox10_a != ox10_b || oy10_a != oy10_b);
     assert(ox10_b == 1.0f);
     assert(oy10_b == 0.0f);
+
+    // Case 3: condition (fx/2 < screen_y)
+    CmdPacket pkt3 = {{}, 3};
+    float ox3_a = 0.0f, oy3_a = 0.0f;
+    func_001CEA60(zm, 32, 100, &pkt3, &oy3_a, &ox3_a);
+    assert(ox3_a == 1.9375f);
+    assert(oy3_a == -0.9375f);
+
+    float ox3_b = 0.0f, oy3_b = 0.0f;
+    func_001CEA60(zm, 32, 0, &pkt3, &oy3_b, &ox3_b);
+    assert(ox3_b == 0.0f);
+    assert(oy3_b == 1.0f);
+
+    // Case 4: condition ((1-fx)/2 < screen_y)
+    CmdPacket pkt4 = {{}, 4};
+    float ox4_a = 0.0f, oy4_a = 0.0f;
+    func_001CEA60(zm, 32, 100, &pkt4, &oy4_a, &ox4_a);
+    assert(ox4_a == 1.9375f);
+    assert(oy4_a == -0.9375f);
+
+    float ox4_b = 0.0f, oy4_b = 0.0f;
+    func_001CEA60(zm, 32, 0, &pkt4, &oy4_b, &ox4_b);
+    assert(ox4_b == 0.0f);
+    assert(oy4_b == 1.0f);
+
+    // Case 15: condition screen_y > (1 - fx/2)
+    CmdPacket pkt15 = {{}, 15};
+    float ox15_a = 0.0f, oy15_a = 0.0f;
+    func_001CEA60(zm, 32, 100, &pkt15, &oy15_a, &ox15_a);
+    assert(ox15_a == 1.6875f);
+    assert(oy15_a == -0.6875f);
+
+    float ox15_b = 0.0f, oy15_b = 0.0f;
+    func_001CEA60(zm, 32, 0, &pkt15, &oy15_b, &ox15_b);
+    assert(ox15_b == 0.0f);
+    assert(oy15_b == 1.0f);
+
+    // Case 16: condition (1 - (1-fx)/2) > screen_y
+    CmdPacket pkt16 = {{}, 16};
+    float ox16_a = 0.0f, oy16_a = 0.0f;
+    func_001CEA60(zm, 32, 0, &pkt16, &oy16_a, &ox16_a);
+    assert(ox16_a == 0.125f);
+    assert(oy16_a == 0.875f);
+
+    float ox16_b = 0.0f, oy16_b = 0.0f;
+    func_001CEA60(zm, 32, 100, &pkt16, &oy16_b, &ox16_b);
+    assert(ox16_b == 9.375f);
+    assert(oy16_b == -8.375f);
 }
 
 static void test_case1_and_case5_slopes() {

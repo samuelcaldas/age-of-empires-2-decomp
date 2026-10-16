@@ -96,9 +96,10 @@ def test_zone_screen_to_world_old_formula_mutant_fails(tmp_path):
         text=True,
     )
     res = subprocess.run([str(mut_bin), "case0_exact"], capture_output=True, text=True)
-    assert res.returncode in (-6, 134) or "Assertion" in res.stderr, "Mutant process should abort on assertion failure!"
-    assert "out_x == 0.25f" in res.stderr
+    assert res.returncode in (-6, 134), f"Expected SIGABRT but got returncode {res.returncode}"
+    assert "Assertion" in res.stderr
     assert "zone_screen_to_world_test.cpp" in res.stderr
+    assert "out_x == 0.25f" in res.stderr
 
 
 def test_zone_screen_to_world_early_return_mutant_fails(tmp_path):
@@ -126,8 +127,9 @@ def test_zone_screen_to_world_early_return_mutant_fails(tmp_path):
         text=True,
     )
     res = subprocess.run([str(mut_bin), "default_cases"], capture_output=True, text=True)
-    assert res.returncode in (-6, 134) or "Assertion" in res.stderr, "Mutant process should abort on assertion failure!"
-    assert "out_x == 0.25f" in res.stderr
+    assert res.returncode in (-6, 134), f"Expected SIGABRT but got returncode {res.returncode}"
+    assert "Assertion" in res.stderr
     assert "zone_screen_to_world_test.cpp" in res.stderr
+    assert "out_x == 0.25f" in res.stderr
 
 

@@ -2009,9 +2009,15 @@ segments:
     vram: 0x1CDE30
     subsegments:
       - [0xCE010, asm, zone_rebind_table2]
+  - name: zone_generate_terrain_objects
+    type: code
+    start: 0xCE110
+    vram: 0x1CDF30
+    subsegments:
+      - [0xCE110, asm, zone_generate_terrain_objects]
   - name: post_aoe2
     type: bin
-    start: 0xCE110
+    start: 0xCE590
   - name: trade_action_helper_217730
     type: code
     start: 0x117910

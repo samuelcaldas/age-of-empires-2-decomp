@@ -1243,9 +1243,21 @@ segments:
     vram: 0x267750
     subsegments:
       - [0x167930, asm, unit_action_properties]
-  - name: post_unit_action_properties
-    type: bin
+  - name: unit_action_rebind
+    type: code
     start: 0x167C60
+    vram: 0x267A80
+    subsegments:
+      - [0x167C60, asm, unit_action_rebind]
+  - name: unit_action_visibility
+    type: code
+    start: 0x168040
+    vram: 0x267E60
+    subsegments:
+      - [0x168040, asm, unit_action_visibility]
+  - name: post_unit_action_visibility
+    type: bin
+    start: 0x1683E0
   - name: trade_action_getters3
     type: code
     start: 0x1B6330

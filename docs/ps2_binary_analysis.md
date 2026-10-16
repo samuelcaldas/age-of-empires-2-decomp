@@ -5206,3 +5206,16 @@ Emitted instructions: 396 bytes code across 99 instructions + 4 bytes trailing z
 | Function / Method | VRAM Address | Code Size (Orig) | Slice Size | Match Status | Description |
 |---|---|---|---|---|---|
 | `func_003074B0` | `0x3074B0` | 396 B | 400 B | **100.00% exact match** (396/396 B) | Action manager waypoint circular FIFO cache coordinator. |
+
+#### 6.184 `Tactical AI Waypoint Path Cost & Terrain Evaluator` Subsystem (`0x307640`–`0x307A00`, `tactical_ai_waypoint_cost.cpp`)
+
+Located at VRAM `0x307640`–`0x307A00` (file offset `0x207820`–`0x207BE0`, 960 bytes total slice across 240 instructions, Metrowerks C++ PS2 MWCC 2.3.1.01):
+- `func_00307640` (`0x307640`, 960 bytes code, 960 bytes slice): Waypoint path cost and terrain elevation evaluator. Iterates across the 5 waypoint cache entries, converts floating-point waypoint coordinates `m_array4` and `m_array5` to integer tile coordinates via `func_123350`, traverses the spatial cell grid `m_grid` (36 bytes per cell: `m_grid + a3 * 36`), evaluates line-of-sight raycasts and terrain obstruction costs via `func_1ad450` and `func_1ad270`, and conditionally triggers movement update `self->Method10(2)` via virtual method slot 10. Emitted instructions: 960 bytes code matching 81.26% on initial compilation.
+
+Registered as `NonMatching` in `configure.py`.
+
+#### 6.184.1 Tactical AI Waypoint Path Cost Matching Results (Pure C++, 960 Bytes)
+
+| Function / Method | VRAM Address | Code Size (Orig) | Slice Size | Match Status | Description |
+|---|---|---|---|---|---|
+| `func_00307640` | `0x307640` | 960 B | 960 B | NonMatching (81.26% objdiff) | Waypoint path cost and terrain elevation evaluator (960 B). |

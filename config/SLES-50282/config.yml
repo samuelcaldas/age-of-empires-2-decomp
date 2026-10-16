@@ -1745,9 +1745,15 @@ segments:
     vram: 0x3074B0
     subsegments:
       - [0x207690, asm, tactical_ai_action_waypoints]
+  - name: tactical_ai_waypoint_cost
+    type: code
+    start: 0x207820
+    vram: 0x307640
+    subsegments:
+      - [0x207820, asm, tactical_ai_waypoint_cost]
   - name: post_aoe4
     type: bin
-    start: 0x207820
+    start: 0x207BE0
   - [0x3e31c0]
 
 

@@ -1035,6 +1035,14 @@ func_2e0630 = 0x2E0630; // type:func absolute:True
 // Trade action staging helpers
 func_00217730 = 0x217730; // type:func size:0x90 absolute:True
 func_002177C0 = 0x2177C0; // type:func size:0x74 absolute:True
+func_00217840 = 0x217840; // type:func size:0x20 absolute:True
+func_00217860 = 0x217860; // type:func size:0x18 absolute:True
+func_00217880 = 0x217880; // type:func size:0x18 absolute:True
+func_002178A0 = 0x2178A0; // type:func size:0x18 absolute:True
+func_002178C0 = 0x2178C0; // type:func size:0x18 absolute:True
+func_002178E0 = 0x2178E0; // type:func size:0x20 absolute:True
+func_00217900 = 0x217900; // type:func size:0x20 absolute:True
+func_00217920 = 0x217920; // type:func size:0x10 absolute:True
 func_00185E20 = 0x185E20; // type:func absolute:True
 func_00217B50 = 0x217B50; // type:func absolute:True
 

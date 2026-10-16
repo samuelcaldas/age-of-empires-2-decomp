@@ -1315,9 +1315,15 @@ segments:
     vram: 0x307220
     subsegments:
       - [0x207400, asm, tactical_ai_action_items]
+  - name: tactical_ai_action_manager
+    type: code
+    start: 0x207500
+    vram: 0x307320
+    subsegments:
+      - [0x207500, asm, tactical_ai_action_manager]
   - name: post_aoe4
     type: bin
-    start: 0x207500
+    start: 0x207690
   - [0x3e31c0]
 
 

@@ -2537,9 +2537,27 @@ segments:
     vram: 0x1D8550
     subsegments:
       - [0xD8730, asm, zone_spatial_entity_deserialize]
+  - name: zone_spatial_action_stub
+    type: code
+    start: 0xD87B0
+    vram: 0x1D85D0
+    subsegments:
+      - [0xD87B0, asm, zone_spatial_action_stub]
+  - name: zone_spatial_entity_serialize
+    type: code
+    start: 0xD87C0
+    vram: 0x1D85E0
+    subsegments:
+      - [0xD87C0, asm, zone_spatial_entity_serialize]
+  - name: zone_spatial_spawn_projectile
+    type: code
+    start: 0xD8830
+    vram: 0x1D8650
+    subsegments:
+      - [0xD8830, asm, zone_spatial_spawn_projectile]
   - name: post_aoe2
     type: bin
-    start: 0xD87B0
+    start: 0xD88F0
   - name: trade_action_helper_217730
     type: code
     start: 0x117910

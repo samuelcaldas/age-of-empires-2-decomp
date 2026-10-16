@@ -5,7 +5,7 @@
 
 extern "C" {
     void func_3675D0(void *arg0, int a1, int a2);
-    void func_1C9E00(void *arg0, int a1, int a2);
+    void func_1C9E00(void *arg0, int a1, int a2, int a3 = 0, int a4 = 0, int a5 = 0);
     char func_26AD20(void *action, int flag);
     void func_26AD30(void *action, int flag);
     void func_26AD60(void *action, int flag);

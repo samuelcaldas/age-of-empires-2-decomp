@@ -18,7 +18,7 @@ static unsigned short g_mock_flags = 0;
 
 extern "C" {
     void func_00272D10(void *action) { (void)action; g_func_272D10_called++; }
-    void func_0026BDF0(void *action) { (void)action; g_func_26BDF0_called++; }
+    void func_0026BDF0(ActionRebind *self, void *a1, void *a2) { (void)self; (void)a1; (void)a2; g_func_26BDF0_called++; }
     void func_1ECBF0(void *field98, void *action, void *sight) {
         (void)field98; (void)action; (void)sight;
         g_func_1ECBF0_called++;

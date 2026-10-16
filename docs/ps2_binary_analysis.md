@@ -4676,3 +4676,23 @@ Original binary layout: 392 bytes code (160B + 96B + 136B) + 8 bytes trailing ze
 | `func_00307320` | `0x307320` | 160 B | 160 B | **100.00% exact match** (160/160 B) | Action manager constructor setting vtable pointer `D_4DE780`. |
 | `func_003073C0` | `0x3073C0` | 96 B | 96 B | **100.00% exact match** (96/96 B) | Scalar deleting destructor setting vtable pointer `D_4DEBF0`. |
 | `func_00307420` | `0x307420` | 136 B | 144 B | NonMatching (67/136 B unmasked) | Notification coordinator calling `func_242fc0` or `func_118de0`. |
+
+#### 6.186 `Trade Action Stream Decoders 13` Subsystem (`0x15F450`–`0x15F840`, `trade_action_stream_decoders13.cpp`)
+
+This four-function C++ slice spans VRAM `0x15F450`–`0x15F840` and file offsets `0x5F630`–`0x5FA20` (1,008 bytes total). The original ELF `PT_LOAD` mapping gives the VRAM/file-offset delta `0xFFE20`. The slice comprises 972 instruction bytes and 36 alignment-padding bytes (12, 12, 4, and 8 bytes respectively). Symbol sizes exclude padding. The unit remains registered as `NonMatching`.
+
+- `func_0015F450` (`0x15F450`, 180 instruction bytes): Performs a two-byte staging lookup and stream write, followed by a single-byte lookup and write. 177/180 bytes are equal; the differing store instruction targets the same global address through another register.
+- `func_0015F510` (`0x15F510`, 180 instruction bytes): Performs a single-byte lookup/write followed by a two-byte staging lookup/write. 176/180 bytes are equal; the differing store instruction targets the same global address through another register.
+- `func_0015F5D0` (`0x15F5D0`, 284 instruction bytes): Runs two-phase dual lookups and byte permutations, then writes four sequential bytes. All 284 instruction bytes match exactly.
+- `func_0015F6F0` (`0x15F6F0`, 328 instruction bytes): Runs offset-adjusted dual lookups and byte permutations, writes four bytes, then performs a trailing lookup/write. All 328 instruction bytes match exactly.
+
+An independent verification suite (`tests/test_trade_action_stream_decoders13.py`, with fixture/build support in `tests/trade_action_stream_decoders13_support.py`) compiles the actual source, checks the pinned original ELF SHA-1 and file-backed `PT_LOAD` mapping, validates object and linked `STT_FUNC` symbol sizes and `st_shndx`, links an `ET_EXEC` with no unresolved symbols, and compares emitted instruction and padding bytes. It verifies the effective store target for both near matches and byte-exact code for the final two routines; the first two comparisons are near matches, not exact matches.
+
+#### 6.186.1 Trade Action Stream Decoders 13 Matching Results (972 Code Bytes, 1,008-Byte Slice)
+
+| Function | VRAM | Instruction bytes | Result | Padding |
+|---|---:|---:|---|---:|
+| `func_0015F450` | `0x15F450` | 180 | 177/180 equal (near match) | 12 B |
+| `func_0015F510` | `0x15F510` | 180 | 176/180 equal (near match) | 12 B |
+| `func_0015F5D0` | `0x15F5D0` | 284 | 284/284 exact | 4 B |
+| `func_0015F6F0` | `0x15F6F0` | 328 | 328/328 exact | 8 B |

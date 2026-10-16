@@ -251,5 +251,35 @@ void run_getters7_test(int test_case, std::vector<char> &storage) {
         func_002B6220(self, 0x3A, 50);
         slot = reinterpret_cast<int *>(storage.data() + 0x858 + 0x3A * 4);
         assert(*slot == 1);
+    } else if (test_case == 18) {
+        // Test case 18: Table-driven / parametrized matrix for f20 IDs 0x24 / 0x3A across modes 2, 3, 4 with flags 0 and 1
+        int modes[] = {2, 3, 4};
+        int flags[] = {0, 1};
+        float expected_factors[] = {0.6f, 0.4f, 0.2f};
+        int ids[] = {0x24, 0x3A};
+
+        for (size_t m = 0; m < 3; ++m) {
+            for (size_t f = 0; f < 2; ++f) {
+                for (size_t i = 0; i < 2; ++i) {
+                    std::vector<char> p1_obj(16384, 0);
+                    std::vector<char> p2_obj(16384, 0);
+                    char *base = storage.data();
+                    *reinterpret_cast<void **>(base + 0xB0) = p1_obj.data();
+                    *reinterpret_cast<void **>(p1_obj.data() + 0xAC) = p2_obj.data();
+                    *reinterpret_cast<void **>(p2_obj.data() + 0xB98) = p_sentinel;
+
+                    mock_mode = modes[m];
+                    mock_flag = flags[f];
+                    custom_mock_return = 42;
+                    int id = ids[i];
+
+                    func_002B6220(self, id, 100);
+                    float expected_scaled = expected_factors[m] * 100.0f;
+                    assert(std::fabs(last_scaled_val - expected_scaled) < 0.0001f);
+                    int *slot = reinterpret_cast<int *>(storage.data() + 0x858 + id * 4);
+                    assert(*slot == 42);
+                }
+            }
+        }
     }
 }

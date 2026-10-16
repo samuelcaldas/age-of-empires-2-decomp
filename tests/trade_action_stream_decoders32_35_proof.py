@@ -78,8 +78,10 @@ def check_object(number):
 def link(number, object_path, output, address, entry, isolated):
     support = ENV.SUPPORTS[number]
     script = output.with_suffix(".ld")
-    assignments = "".join(f"{name} = {value:#x};\n"
-                           for name, value in support.EXTERNAL_SYMBOLS.items())
+    assignments = "".join(
+        f"{name} = {value:#x};\n"
+        for name, value in support.EXTERNAL_SYMBOLS.items()
+    )
     script.write_text(assignments + "SECTIONS {\n" +
                       f" .text {address:#x} : {{ *(.text) . = ALIGN(16); }}\n" +
                       " /DISCARD/ : { *(*) }\n}\n")
@@ -142,7 +144,6 @@ def _check_padding(support, actual, expected):
 
 
 def _check_isolated(number, object_path, base, expected):
-    support = ENV.SUPPORTS[number]
     for name, address, size in functions(number):
         linked, section, symbol, extent = link(
             number, object_path, PROOF / f"{name}_isolated.elf", address, name, True)

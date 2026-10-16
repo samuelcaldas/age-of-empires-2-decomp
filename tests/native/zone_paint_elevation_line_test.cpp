@@ -24,43 +24,35 @@ static std::vector<MathLogEntry> g_math_calls;
 extern "C" {
 int64_t func_122690(int x) {
     int64_t res = static_cast<int64_t>(x) << 16;
-    g_math_calls.push_back({"122690", x, 0, 0.0f, res, 0.0f});
-    return res;
+    g_math_calls.push_back({"122690", x, 0, 0.0f, res, 0.0f}); return res;
 }
 int64_t func_122118(int64_t a, int64_t b) {
     int64_t res = (a * b) >> 16;
-    g_math_calls.push_back({"122118", a, b, 0.0f, res, 0.0f});
-    return res;
+    g_math_calls.push_back({"122118", a, b, 0.0f, res, 0.0f}); return res;
 }
 int64_t func_122058(int64_t a, int64_t b) {
     int64_t res = a + b;
-    g_math_calls.push_back({"122058", a, b, 0.0f, res, 0.0f});
-    return res;
+    g_math_calls.push_back({"122058", a, b, 0.0f, res, 0.0f}); return res;
 }
 float func_1228E8(int64_t a) {
     float res = static_cast<float>(static_cast<double>(a) / 65536.0);
-    g_math_calls.push_back({"1228E8", a, 0, 0.0f, 0, res});
-    return res;
+    g_math_calls.push_back({"1228E8", a, 0, 0.0f, 0, res}); return res;
 }
 int64_t func_1234E0(float f) {
     int64_t res = static_cast<int64_t>(static_cast<double>(f) * 65536.0);
-    g_math_calls.push_back({"1234E0", 0, 0, f, res, 0.0f});
-    return res;
+    g_math_calls.push_back({"1234E0", 0, 0, f, res, 0.0f}); return res;
 }
 int func_122748(int64_t a) {
     int res = static_cast<int>((a + 32768) >> 16);
-    g_math_calls.push_back({"122748", a, 0, 0.0f, res, 0.0f});
-    return res;
+    g_math_calls.push_back({"122748", a, 0, 0.0f, res, 0.0f}); return res;
 }
 int64_t func_1223C0(int64_t a, int64_t b) {
     int64_t res = (b == 0) ? 0 : (a << 16) / b;
-    g_math_calls.push_back({"1223C0", a, b, 0.0f, res, 0.0f});
-    return res;
+    g_math_calls.push_back({"1223C0", a, b, 0.0f, res, 0.0f}); return res;
 }
 int func_100100(int64_t a, int64_t b) {
     int res = (a == b) ? 0 : 1;
-    g_math_calls.push_back({"100100", a, b, 0.0f, res, 0.0f});
-    return res;
+    g_math_calls.push_back({"100100", a, b, 0.0f, res, 0.0f}); return res;
 }
 
 static int g_fe_calls = 0;

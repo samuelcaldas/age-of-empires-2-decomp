@@ -2303,9 +2303,27 @@ segments:
     vram: 0x1D42A0
     subsegments:
       - [0xD4480, asm, zone_spatial_pyramid_insert_sorted]
+  - name: zone_spatial_pyramid_alloc_node
+    type: code
+    start: 0xD4510
+    vram: 0x1D4330
+    subsegments:
+      - [0xD4510, asm, zone_spatial_pyramid_alloc_node]
+  - name: zone_spatial_pyramid_check_edge
+    type: code
+    start: 0xD4620
+    vram: 0x1D4440
+    subsegments:
+      - [0xD4620, asm, zone_spatial_pyramid_check_edge]
+  - name: zone_spatial_pyramid_connect_nodes
+    type: code
+    start: 0xD4A90
+    vram: 0x1D48B0
+    subsegments:
+      - [0xD4A90, asm, zone_spatial_pyramid_connect_nodes]
   - name: post_aoe2
     type: bin
-    start: 0xD4510
+    start: 0xD4E00
   - name: trade_action_helper_217730
     type: code
     start: 0x117910

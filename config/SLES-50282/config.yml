@@ -1895,9 +1895,111 @@ segments:
     vram: 0x1CAD90
     subsegments:
       - [0xCAF70, asm, zone_raster_deserialize]
+  - name: zone_world_to_screen
+    type: code
+    start: 0xCB190
+    vram: 0x1CAFB0
+    subsegments:
+      - [0xCB190, asm, zone_world_to_screen]
+  - name: zone_deserialize_grid
+    type: code
+    start: 0xCB6B0
+    vram: 0x1CB4D0
+    subsegments:
+      - [0xCB6B0, asm, zone_deserialize_grid]
+  - name: zone_grid_getters
+    type: code
+    start: 0xCB880
+    vram: 0x1CB6A0
+    subsegments:
+      - [0xCB880, asm, zone_grid_getters]
+  - name: zone_smooth_elevation
+    type: code
+    start: 0xCB8B0
+    vram: 0x1CB6D0
+    subsegments:
+      - [0xCB8B0, asm, zone_smooth_elevation]
+  - name: zone_level_elevation
+    type: code
+    start: 0xCBD70
+    vram: 0x1CBB90
+    subsegments:
+      - [0xCBD70, asm, zone_level_elevation]
+  - name: zone_filter_elevation
+    type: code
+    start: 0xCC1C0
+    vram: 0x1CBFE0
+    subsegments:
+      - [0xCC1C0, asm, zone_filter_elevation]
+  - name: zone_blend_terrain
+    type: code
+    start: 0xCC8C0
+    vram: 0x1CC6E0
+    subsegments:
+      - [0xCC8C0, asm, zone_blend_terrain]
+  - name: zone_paint_terrain
+    type: code
+    start: 0xCCEF0
+    vram: 0x1CCD10
+    subsegments:
+      - [0xCCEF0, asm, zone_paint_terrain]
+  - name: zone_paint_line
+    type: code
+    start: 0xCCFF0
+    vram: 0x1CCE10
+    subsegments:
+      - [0xCCFF0, asm, zone_paint_line]
+  - name: zone_paint_elevation
+    type: code
+    start: 0xCD240
+    vram: 0x1CD060
+    subsegments:
+      - [0xCD240, asm, zone_paint_elevation]
+  - name: zone_paint_elevation_line
+    type: code
+    start: 0xCD2F0
+    vram: 0x1CD110
+    subsegments:
+      - [0xCD2F0, asm, zone_paint_elevation_line]
+  - name: zone_stub_1cd3c0
+    type: code
+    start: 0xCD5A0
+    vram: 0x1CD3C0
+    subsegments:
+      - [0xCD5A0, asm, zone_stub_1cd3c0]
+  - name: zone_paint_cliff_line
+    type: code
+    start: 0xCD5B0
+    vram: 0x1CD3D0
+    subsegments:
+      - [0xCD5B0, asm, zone_paint_cliff_line]
+  - name: zone_map_generator
+    type: code
+    start: 0xCD800
+    vram: 0x1CD620
+    subsegments:
+      - [0xCD800, asm, zone_map_generator]
+  - name: zone_deserialize
+    type: code
+    start: 0xCD950
+    vram: 0x1CD770
+    subsegments:
+      - [0xCD950, asm, zone_deserialize]
+  - name: zone_serialize
+    type: code
+    start: 0xCDC20
+    vram: 0x1CDA40
+    subsegments:
+      - [0xCDC20, asm, zone_serialize]
+  - name: zone_snapshot_serialize
+    type: code
+    start: 0xCDD90
+    vram: 0x1CDBB0
+    subsegments:
+      - [0xCDD90, asm, zone_snapshot_serialize]
   - name: post_aoe2
     type: bin
-    start: 0xCB190
+    start: 0xCDEE0
   - name: trade_action_helper_217730
     type: code
     start: 0x117910

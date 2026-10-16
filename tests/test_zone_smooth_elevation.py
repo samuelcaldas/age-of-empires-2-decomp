@@ -22,6 +22,7 @@ CASES = [
     ("flat_no_mod", "Flat terrain without slope violations returns modified=0 with elevations unchanged"),
     ("eight_neighbors", "Smoothing upward (+1) is triggered across all 8 cardinal and diagonal neighbors"),
     ("downward", "Smoothing downward (-1) is triggered when neighboring elevation is too steep downward"),
+    ("ne_sw_isolation", "NE and SW diagonal neighbors isolated tests verifying repaired non-inverted offsets"),
     ("corners_expansion", "Bounding box expands outward by 1 tile correctly smoothing grid corners and borders"),
     ("truncation_andi_ff", "max_slope truncation with andi 0xFF behaves identically for 0/0x100, 1/0x101, 15/0x10F"),
 ]

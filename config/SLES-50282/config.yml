@@ -2447,9 +2447,27 @@ segments:
     vram: 0x1D7E90
     subsegments:
       - [0xD8070, asm, zone_spatial_matrix_init_identity]
+  - name: matrix_rotate_axis_angle
+    type: code
+    start: 0xD80B0
+    vram: 0x1D7ED0
+    subsegments:
+      - [0xD80B0, asm, matrix_rotate_axis_angle]
+  - name: matrix_mul_vec3
+    type: code
+    start: 0xD81E0
+    vram: 0x1D8000
+    subsegments:
+      - [0xD81E0, asm, matrix_mul_vec3]
+  - name: zone_spatial_tree_node_dtor
+    type: code
+    start: 0xD8250
+    vram: 0x1D8070
+    subsegments:
+      - [0xD8250, asm, zone_spatial_tree_node_dtor]
   - name: post_aoe2
     type: bin
-    start: 0xD80B0
+    start: 0xD82B0
   - name: trade_action_helper_217730
     type: code
     start: 0x117910

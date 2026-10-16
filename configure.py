@@ -2661,6 +2661,24 @@ if config.platform == Platform.PS2:
                 ),
                 Object(
                     NonMatching,
+                    "matrix_rotate_axis_angle",
+                    cflags=config.cflags,
+                    toolchain_version="PS2/mwcc-2.3.1.01",
+                ),
+                Object(
+                    Matching,
+                    "matrix_mul_vec3",
+                    cflags=config.cflags,
+                    toolchain_version="PS2/mwcc-2.3.1.01",
+                ),
+                Object(
+                    Matching,
+                    "zone_spatial_tree_node_dtor",
+                    cflags=config.cflags,
+                    toolchain_version="PS2/mwcc-2.3.1.01",
+                ),
+                Object(
+                    NonMatching,
                     "unit_action_core",
                     cflags=config.cflags,
                     toolchain_version="PS2/mwcc-2.3.1.01",

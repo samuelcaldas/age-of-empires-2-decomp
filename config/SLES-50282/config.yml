@@ -2645,9 +2645,27 @@ segments:
     vram: 0x1D90C0
     subsegments:
       - [0xD92A0, asm, zone_spatial_view_reset]
+  - name: zone_spatial_view_clear_sub
+    type: code
+    start: 0xD92F0
+    vram: 0x1D9110
+    subsegments:
+      - [0xD92F0, asm, zone_spatial_view_clear_sub]
+  - name: zone_spatial_view_get_target
+    type: code
+    start: 0xD93B0
+    vram: 0x1D91D0
+    subsegments:
+      - [0xD93B0, asm, zone_spatial_view_get_target]
+  - name: zone_spatial_view_has_reached_limit
+    type: code
+    start: 0xD9430
+    vram: 0x1D9250
+    subsegments:
+      - [0xD9430, asm, zone_spatial_view_has_reached_limit]
   - name: post_aoe2
     type: bin
-    start: 0xD92F0
+    start: 0xD94D0
   - name: trade_action_helper_217730
     type: code
     start: 0x117910

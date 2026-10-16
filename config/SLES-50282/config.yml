@@ -2099,9 +2099,21 @@ segments:
     vram: 0x1D07D0
     subsegments:
       - [0xD09B0, asm, zone_init_spatial_level]
+  - name: zone_init_bucket_arrays
+    type: code
+    start: 0xD0AC0
+    vram: 0x1D08E0
+    subsegments:
+      - [0xD0AC0, asm, zone_init_bucket_arrays]
+  - name: zone_unlink_cell_item
+    type: code
+    start: 0xD0BA0
+    vram: 0x1D09C0
+    subsegments:
+      - [0xD0BA0, asm, zone_unlink_cell_item]
   - name: post_aoe2
     type: bin
-    start: 0xD0AC0
+    start: 0xD0D20
   - name: trade_action_helper_217730
     type: code
     start: 0x117910

@@ -5106,6 +5106,24 @@ These eight non-matching C++ slices continue the stream decoder sequence. Units 
 | 51 | `0x6CB00`–`0x6CE00` | `0x16C920`–`0x16CC20` | 768 B | 748 B | 20 B |
 
 The eight slices contain 9,624 function-code bytes and 184 bytes of alignment padding. Focused source tests are in `tests/test_trade_action_stream_decoders44.py` through `tests/test_trade_action_stream_decoders51.py`; the isolated ELF proof and production-source mutants are `tests/check_trade_action_stream_decoders44_51.py` and `tests/mutate_trade_action_stream_decoders44_51.py`. The proof verifies the pinned original ELF and `PT_LOAD` mapping, each Ninja `ET_REL` function section and size, numeric external addresses, eight combined and 32 isolated GNU MIPS `ET_EXEC --no-undefined` links, unmasked function bytes, complete slice coverage, and zero padding. All eight object entries remain `NonMatching`; per-function byte evidence is not an object-wide or full-project match claim.
+
+#### Trade Action Stream Decoders 52–59 (`0x16CC20`–`0x16ECC0`)
+
+These eight non-matching C++ slices continue the stream decoder sequence. The verified file-backed PAL mapping is `VRAM = file offset + 0xFFE20`; `post_base` resumes at file offset `0x6EEA0` / VRAM `0x16ECC0`.
+
+| Unit | File range | VRAM range | Slice | Function code | Alignment padding |
+|---|---:|---:|---:|---:|---:|
+| 52 | `0x6CE00`–`0x6D1E0` | `0x16CC20`–`0x16D000` | 992 B | 948 B | 44 B |
+| 53 | `0x6D1E0`–`0x6D610` | `0x16D000`–`0x16D430` | 1,072 B | 1,048 B | 24 B |
+| 54 | `0x6D610`–`0x6D9E0` | `0x16D430`–`0x16D800` | 976 B | 956 B | 20 B |
+| 55 | `0x6D9E0`–`0x6DE90` | `0x16D800`–`0x16DCB0` | 1,200 B | 1,176 B | 24 B |
+| 56 | `0x6DE90`–`0x6E3D0` | `0x16DCB0`–`0x16E1F0` | 1,344 B | 1,320 B | 24 B |
+| 57 | `0x6E3D0`–`0x6E970` | `0x16E1F0`–`0x16E790` | 1,440 B | 1,420 B | 20 B |
+| 58 | `0x6E970`–`0x6EC30` | `0x16E790`–`0x16EA50` | 704 B | 692 B | 12 B |
+| 59 | `0x6EC30`–`0x6EEA0` | `0x16EA50`–`0x16ECC0` | 624 B | 596 B | 28 B |
+
+These slices contain 8,156 function-code bytes and 196 bytes of alignment padding. All 32 function extents include their terminal branch delay instruction; the independent proof disassembles each exact original-ELF range with `objdump -d -z`, checks the final JR and delay-slot addresses, then verifies every function byte and every zero-padding byte. In particular, unit 53's four JR/delay pairs end at `0x16D0F4`, `0x16D20C`, `0x16D31C`, and `0x16D42C`; padding follows each delay slot through the next function boundary. Unit 59's JR/delay pairs end at `0x16EC14` and `0x16ECB8`, with padding beginning after the delay slots at `0x16EC14` and `0x16ECB8` respectively. The snapshot-only ELF proof and production-source mutation runner are `tests/check_trade_action_stream_decoders52_59.py` and `tests/mutate_trade_action_stream_decoders52_59.py`. All object entries remain `NonMatching`; function-level byte evidence is not an object-wide or full-project match claim.
+
 #### Zone dispatcher resize and grid operations (`0x1C98A0`–`0x1CA180`, `zone_dispatch.cpp` / `zone_dispatch_grid.cpp`)
 
 The original PAL ELF maps this 0x8E0-byte slice from file offset `0xC9A80` to `0xCA360` through a file-backed `PT_LOAD` segment (`VRAM = file offset + 0xFFE20`). It contains 0x8C0 instruction bytes and 0x20 zero-alignment bytes. The implemented C++ definitions are `func_001C98A0` (0x558 bytes), `func_001C9E00` (0xF4), `func_001C9F00` (0x74), and the tail-jump wrapper `func_001C9F80` (0x20), totaling 0x6E0 bytes. The wrapper transfers to original helper `func_001C9FA0` (0x1E0), which remains an external declaration and is explicitly assigned to the `bin` range beginning at file offset `0xCA180` / VRAM `0x1C9FA0`; that helper body is not implemented or counted as another source function. The three inter-function alignment ranges total 0x20 bytes and were confirmed zero in the original. The final return delay slot is included in each original function size; alignment is excluded. The unit remains `NonMatching`; these independent function comparisons do not claim a whole-object or whole-project match.

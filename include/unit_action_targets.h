@@ -22,7 +22,7 @@ struct WorldExtended {
 };
 
 struct ActionExtended {
-    // 17 dummy slots before Method19 so it lands at slot 19 (offset 76 = 0x4C)
+    // Virtual index 17 uses physical offset 0x4C with MWCC's eight-byte vtable header.
     V_SLOT_10(0)
     virtual void* v10(); virtual void* v11(); virtual void* v12(); virtual void* v13(); virtual void* v14();
     virtual void* v15(); virtual void* v16();

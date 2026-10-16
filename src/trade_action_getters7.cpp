@@ -7,7 +7,7 @@ int func_00188070(void *ctx);
 int func_00123350(float val);
 int func_002a0b30(void *mgr, int id);
 int func_0029df60(void *mgr, int id);
-void *D_004E3180 = reinterpret_cast<void *>(0x4E3180);
+extern void *D_004E3180;
 
 int select_trade_increment(int mode, int flag) {
     if (mode == 1) return 0;
@@ -65,17 +65,22 @@ void func_002B6220(void *self, int index, int value) {
             void *ptr = *reinterpret_cast<void **>(static_cast<char *>(p2) + 0xB98);
             if (ptr) {
                 int mode = func_00332da0(ptr);
-                int flag = func_00188070(D_004E3180);
-                if (index == 0x68) {
-                    int inc = select_trade_increment(mode, flag);
-                    *table_slot += inc;
+                if (mode >= 1 && mode <= 4) {
+                    int flag = func_00188070(D_004E3180);
+                    if (index == 0x68) {
+                        int inc = select_trade_increment(mode, flag);
+                        *table_slot += inc;
+                    }
                 }
             }
         }
     }
 
-    func_00123350(1.0f);
-    if (p1) {
+    if (index == 0x68 || index == 0x14 || index == 0xE6) {
+        func_00123350(static_cast<float>(*table_slot));
+    }
+
+    if (p1 && (index == 0x68 || index == 0x75)) {
         func_002a0b30(static_cast<char *>(p1) + 0x3624, 0x14);
         func_0029df60(static_cast<char *>(p1) + 0x3624, 0x1E);
     }

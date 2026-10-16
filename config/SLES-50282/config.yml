@@ -1811,9 +1811,15 @@ segments:
     vram: 0x1CA670
     subsegments:
       - [0xCA850, asm, zone_raster_extent]
+  - name: zone_raster_register
+    type: code
+    start: 0xCA9D0
+    vram: 0x1CA7F0
+    subsegments:
+      - [0xCA9D0, asm, zone_raster_register]
   - name: post_aoe2
     type: bin
-    start: 0xCA9D0
+    start: 0xCADE0
   - name: trade_action_helper_217730
     type: code
     start: 0x117910

@@ -38,14 +38,20 @@ static void setup_zm(char *zm, short scale_x, short scale_y) {
 static void test_case0_exact_coordinates() {
     char zm[0x10000];
     setup_zm(zm, 64, 32);
-    // fx = 16/64 = 0.25, fy = 16/32 = 0.5 -> exact original formula produces (0.25, 0.25)
     CmdPacket pkt = {{}, 0};
+
+    // fx = 16/64 = 0.25, fy = 16/32 = 0.5 -> exact original formula produces (0.25, 0.25)
     float out_x = -999.0f, out_y = -999.0f;
-
     func_001CEA60(zm, 16, 16, &pkt, &out_y, &out_x);
+    assert(out_x == 0.25f);
+    assert(out_y == 0.25f);
 
-    assert(std::fabs(out_x - 0.25f) < 0.0001f);
-    assert(std::fabs(out_y - 0.25f) < 0.0001f);
+    // Non-binary fractional case: (17, 19) -> fx = 17/64 = 0.265625, fy = 19/32 = 0.59375
+    // Dyadic rational: 23/64 = 0.359375f and 11/64 = 0.171875f are exact IEEE 754 floats
+    out_x = -999.0f; out_y = -999.0f;
+    func_001CEA60(zm, 17, 19, &pkt, &out_y, &out_x);
+    assert(out_x == 0.359375f);
+    assert(out_y == 0.171875f);
 }
 
 static void test_case1_and_case5_slopes() {
@@ -55,14 +61,14 @@ static void test_case1_and_case5_slopes() {
     CmdPacket pkt1 = {{}, 1};
     float out_x1 = 0.0f, out_y1 = 0.0f;
     func_001CEA60(zm, 20, 50, &pkt1, &out_y1, &out_x1);
-    assert(!std::isnan(out_x1) && !std::isnan(out_y1));
+    assert(out_x1 == 2.75f);
+    assert(out_y1 == -2.125f);
 
     CmdPacket pkt5 = {{}, 5};
     float out_x5 = 0.0f, out_y5 = 0.0f;
     func_001CEA60(zm, 20, 50, &pkt5, &out_y5, &out_x5);
-    assert(!std::isnan(out_x5) && !std::isnan(out_y5));
-    // Different slope formulas produce distinct coordinates
-    assert(out_x1 != out_x5 || out_y1 != out_y5);
+    assert(out_x5 == 3.125f);
+    assert(out_y5 == -2.5f);
 }
 
 static void test_case9_and_case13_slopes() {
@@ -71,32 +77,37 @@ static void test_case9_and_case13_slopes() {
 
     CmdPacket pkt9 = {{}, 9};
     float out_x9 = 0.0f, out_y9 = 0.0f;
-    func_001CEA60(zm, 80, 40, &pkt9, &out_y9, &out_x9);
-    assert(!std::isnan(out_x9) && !std::isnan(out_y9));
+    func_001CEA60(zm, 96, 48, &pkt9, &out_y9, &out_x9);
+    assert(out_x9 == 3.5f);
+    assert(out_y9 == -0.5f);
 
     CmdPacket pkt13 = {{}, 13};
     float out_x13 = 0.0f, out_y13 = 0.0f;
-    func_001CEA60(zm, 80, 40, &pkt13, &out_y13, &out_x13);
-    assert(!std::isnan(out_x13) && !std::isnan(out_y13));
+    func_001CEA60(zm, 96, 48, &pkt13, &out_y13, &out_x13);
+    assert(out_x13 == 5.0f);
+    assert(out_y13 == -2.0f);
 }
 
 static void test_all_17_cases_coverage() {
     char zm[0x10000];
     setup_zm(zm, 64, 32);
-    float prev_x = -999.0f, prev_y = -999.0f;
-    int distinct_count = 0;
+
+    // Exact expected coordinates at (96, 48) where fx=1.5, fy=1.5 for all 17 cases
+    const float expected_coords[17][2] = {
+        {2.5f, 0.5f}, {3.0f, 0.0f}, {1.625f, 1.375f}, {1.875f, 1.125f},
+        {2.375f, 0.625f}, {3.0f, 0.0f}, {1.625f, 1.375f}, {5.0f, -2.0f},
+        {2.125f, 0.875f}, {3.5f, -0.5f}, {2.0f, 1.0f}, {2.5f, 0.5f},
+        {3.5f, -0.5f}, {5.0f, -2.0f}, {2.125f, 0.875f}, {2.125f, 0.875f},
+        {4.5f, -1.5f}
+    };
 
     for (unsigned char c = 0; c <= 16; c++) {
         CmdPacket pkt = {{}, c};
-        float ox = 0.0f, oy = 0.0f;
+        float ox = -999.0f, oy = -999.0f;
         func_001CEA60(zm, 96, 48, &pkt, &oy, &ox);
-        assert(!std::isnan(ox) && !std::isnan(oy));
-        if (ox != prev_x || oy != prev_y) {
-            distinct_count++;
-            prev_x = ox; prev_y = oy;
-        }
+        assert(ox == expected_coords[c][0]);
+        assert(oy == expected_coords[c][1]);
     }
-    assert(distinct_count >= 8);
 }
 
 static void test_default_cases_17_and_255() {
@@ -108,16 +119,16 @@ static void test_default_cases_17_and_255() {
     float out_x = -777.0f, out_y = -888.0f;
     func_001CEA60(zm, 16, 16, &pkt17, &out_y, &out_x);
 
-    assert(std::fabs(out_x - 0.25f) < 0.0001f);
-    assert(std::fabs(out_y - 0.25f) < 0.0001f);
+    assert(out_x == 0.25f);
+    assert(out_y == 0.25f);
 
     // Command 255: also branches to common calculation with selected_term = 0 and writes outputs
     CmdPacket pkt255 = {{}, 255};
     out_x = -777.0f; out_y = -888.0f;
     func_001CEA60(zm, 16, 16, &pkt255, &out_y, &out_x);
 
-    assert(std::fabs(out_x - 0.25f) < 0.0001f);
-    assert(std::fabs(out_y - 0.25f) < 0.0001f);
+    assert(out_x == 0.25f);
+    assert(out_y == 0.25f);
 }
 
 int main(int argc, char **argv) {

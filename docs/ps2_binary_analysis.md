@@ -4658,7 +4658,7 @@ Registered as `NonMatching` in `configure.py`.
 | `func_00267EB0` | `0x267EB0` | 448 B | 448 B | **61.35% objdiff fuzzy (author-reported)** | Sight table index and primary player LOS scan. |
 | `func_00268070` | `0x268070` | 396 B | 400 B | **65.39% objdiff fuzzy (author-reported)** | Secondary projectile sight LOS scan. |
 
-#### 6.182 `Tactical AI Action Manager Lifecycle & Notification` Subsystem (`0x307320`–`0x3074B0`, `tactical_ai_action_manager.cpp`)
+#### 6.184 `Tactical AI Action Manager Lifecycle & Notification` Subsystem (`0x307320`–`0x3074B0`, `tactical_ai_action_manager.cpp`)
 
 Located at VRAM `0x307320`–`0x3074B0` (file offset `0x207500`–`0x207690`, 400 bytes total slice, Metrowerks C++ PS2 MWCC 2.3.1.01 compiled with `-sdatathreshold 0`):
 - `func_00307320` (`0x307320`, 160 bytes code, 160 bytes slice): Action manager constructor executing base `func_3285d0`, assigning vtable pointer `D_4DE780`, initializing fields `m_field194`–`m_field1B3`, and zeroing 6 arrays across 5 iterations. Instruction at `0x3073BC` (`addiu sp, sp, 32`) is an executed delay slot. **100.00% exact bit-for-bit match** (160/160 B).
@@ -4667,7 +4667,9 @@ Located at VRAM `0x307320`–`0x3074B0` (file offset `0x207500`–`0x207690`, 40
 
 Original binary layout: 392 bytes code (160B + 96B + 136B) + 8 bytes trailing zero padding = 400 bytes total slice. Emitted instructions from C++ source: 396 bytes code (160B + 96B + 140B). Total unmasked exact code bytes: 323 / 392 B (160 + 96 + 67). Registered as `NonMatching` in `configure.py`.
 
-#### 6.182.1 Tactical AI Action Manager Matching Results (Pure C++, 400 Bytes)
+`tests/test_tactical_ai_action_manager.py` compiles the production source for 32-bit native execution. Its constructor checks compare the full 588-byte object before the base call and after initialization, preserving untouched fields and padding. Destructor cases exercise signed-short flags, including even positive flags and high-bit values. A pre-notification mock changes the condition inputs during the callback, proving that dispatch observes the updated state; boundary cases include `INT_MIN` and `INT_MAX`.
+
+#### 6.184.1 Tactical AI Action Manager Matching Results (Pure C++, 400 Bytes)
 
 | Function / Method | VRAM Address | Code Size (Orig) | Slice Size | Match Status | Description |
 |---|---|---|---|---|---|

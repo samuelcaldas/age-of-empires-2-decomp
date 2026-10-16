@@ -1967,9 +1967,15 @@ segments:
     vram: 0x1CD3C0
     subsegments:
       - [0xCD5A0, asm, zone_stub_1cd3c0]
+  - name: zone_paint_cliff_line
+    type: code
+    start: 0xCD5B0
+    vram: 0x1CD3D0
+    subsegments:
+      - [0xCD5B0, asm, zone_paint_cliff_line]
   - name: post_aoe2
     type: bin
-    start: 0xCD5B0
+    start: 0xCD800
   - name: trade_action_helper_217730
     type: code
     start: 0x117910

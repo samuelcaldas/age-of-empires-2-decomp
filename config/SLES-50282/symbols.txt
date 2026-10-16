@@ -1174,6 +1174,7 @@ func_002B6160 = 0x2B6160; // type:func size:0x8 absolute:True
 func_002B6170 = 0x2B6170; // type:func size:0x8 absolute:True
 func_002B6180 = 0x2B6180; // type:func size:0x64 absolute:True
 func_002B61F0 = 0x2B61F0; // type:func size:0x30 absolute:True
+func_002B6220 = 0x2B6220; // type:func size:0x490 absolute:True
 func_2BBCD0 = 0x2BBCD0; // type:func absolute:True
 func_2B9770 = 0x2B9770; // type:func absolute:True
 D_4D0570 = 0x4D0570; // type:char* absolute:True

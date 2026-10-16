@@ -1706,6 +1706,15 @@ segments:
   - name: post_trade_action_getters6
     type: bin
     start: 0x1B6400
+  - name: trade_action_getters7
+    type: code
+    start: 0x1B6400
+    vram: 0x2B6220
+    subsegments:
+      - [0x1B6400, asm, trade_action_getters7]
+  - name: post_trade_action_getters7
+    type: bin
+    start: 0x1B68AC
   - name: tactical_ai_player_ops
     type: code
     start: 0x205D70

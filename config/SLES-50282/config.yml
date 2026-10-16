@@ -1374,9 +1374,13 @@ segments:
     subsegments:
       - [0x118530, asm, trade_action_helper_218350]
       - [0x1186AC, bin]
-  - name: post_218350
-    type: bin
+  - name: trade_action_helper_2184D0
+    type: code
     start: 0x1186B0
+    vram: 0x2184D0
+    subsegments:
+      - [0x1186B0, asm, trade_action_helper_2184D0]
+      - [0x1189F8, bin]
   - name: trade_action_helper_218820
     type: code
     start: 0x118A00

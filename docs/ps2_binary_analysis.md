@@ -4390,13 +4390,13 @@ A fresh independent MWCC compilation and GNU link resolved all 13 relocations us
 #### 6.168.6 `Zone Destructor & Resource Teardown` Unit (`0x1C8FF0`–`0x1C93C0`, `zone_destructor.cpp`)
 
 Immediately following `zone_constructor` sits the deleting destructor and resource cleanup routine for the primary pathfinding zone class `D_4D9270` (`0x1C8FF0`–`0x1C93C0`, 976 bytes / 244 instructions, 0 bytes padding in Metrowerks C++ PS2 MWCC 2.3.1.01):
-- `func_001C8FF0` (`0x1C8FF0`, 976 bytes / 244 instructions): Primary destructor resetting vtable to `D_4D9270`, deallocating allocated zone arrays, tearing down spatial listener references, and invoking scalar `operator delete`. **100.0% exact match** in pure C++.
+- `func_001C8FF0` (`0x1C8FF0`, 976 bytes / 244 instructions): Primary destructor resetting vtable to `D_4D9270`, deallocating allocated zone arrays, tearing down spatial listener references, and invoking scalar `operator delete`. All 976 / 976 bytes linked identically with 0 diffs via GNU `ld --no-undefined` resolving all 34 relocations. Registered as `NonMatching` pending coordinator audit.
 
 #### 6.168.7 Zone Destructor Matching Results (Pure C++, 976 Bytes)
 
 | Function / Method | VRAM Address | Match Status | Description |
 |---|---|---|---|
-| `func_001C8FF0` | `0x1C8FF0` | **100.0%** (976 / 976 B) | Primary destructor and resource cleanup. |
+| `func_001C8FF0` | `0x1C8FF0` | NonMatching (976 B, 0 diffs linked) | Primary destructor and resource cleanup. |
 
 #### 6.169 `Unit Action Core & Serialization` Subsystem (`0x266780`–`0x266C50`, `unit_action_core.cpp`)
 

@@ -19,10 +19,7 @@ void func_002B6220(void *self, int index, int value) {
 
     int *table_slot = reinterpret_cast<int *>(base + 0x858 + index * 4);
     if (value > 0) {
-        int clamped = value;
-        if (clamped < 0) clamped = 0;
-        if (clamped > 100) clamped = 100;
-        *table_slot = clamped;
+        *table_slot = value;
     }
 
     int field_bec = *reinterpret_cast<int *>(base + 0x0BEC);

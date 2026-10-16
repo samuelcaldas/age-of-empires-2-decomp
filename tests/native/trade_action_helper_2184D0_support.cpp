@@ -35,15 +35,21 @@ void assert_manager(const unsigned char *manager, int base) {
 }
 
 void mutate_handler(void *manager) {
-    if (!state.mutate_handler) {
+    if (!state.mutate_handler && !state.mutate_y) {
         return;
     }
     const int call = state.handler_calls;
-    set_field(state.self, 0x184, static_cast<short>(call + 2));
-    set_field(state.self, 0x0c, static_cast<void *>(reinterpret_cast<void *>(10 * call)));
-    set_field(state.self, 0x180, reinterpret_cast<void *>(0x8888 + call));
-    mutate_manager(static_cast<unsigned char *>(manager), call * 100 + 500);
-    set_field(state.self, 0x20, state.handler_manager_replacement);
+    if (state.mutate_handler) {
+        set_field(state.self, 0x184, static_cast<short>(call + 2));
+        set_field(state.self, 0x0c, static_cast<void *>(reinterpret_cast<void *>(10 * call)));
+        set_field(state.self, 0x180, reinterpret_cast<void *>(0x8888 + call));
+        mutate_manager(static_cast<unsigned char *>(manager), call * 100 + 500);
+        set_field(state.self, 0x20, state.handler_manager_replacement);
+    }
+    if (state.mutate_y) {
+        set_field(state.self, 0x186, static_cast<short>(call + 2));
+        set_field(state.self, 0x10, static_cast<void *>(reinterpret_cast<void *>(20 * call)));
+    }
 }
 
 void virtual_slot_3c(void *receiver, void *argument) {
@@ -66,7 +72,12 @@ using namespace helper_2184d0_test;
 
 extern "C" {
 
-int func_001AC470(void *, void *, void *, int, int) {
+int func_001AC470(void *manager, void *x0, void *y0, int x1, int y1) {
+    state.begin_arguments[0] = manager;
+    state.begin_arguments[1] = x0;
+    state.begin_arguments[2] = y0;
+    state.begin_arguments[3] = reinterpret_cast<void *>(static_cast<intptr_t>(x1));
+    state.begin_arguments[4] = reinterpret_cast<void *>(static_cast<intptr_t>(y1));
     state.events.push_back(1);
     ++state.begin_calls;
     if (state.mutate_begin) {
@@ -78,7 +89,9 @@ int func_001AC470(void *, void *, void *, int, int) {
     return 1;
 }
 
-int func_001AB8F0(void *, int) {
+int func_001AB8F0(void *manager, int mode) {
+    state.clip_arguments[0] = manager;
+    state.clip_arguments[1] = reinterpret_cast<void *>(static_cast<intptr_t>(mode));
     state.events.push_back(2);
     ++state.clip_calls;
     if (state.mutate_clip) {
@@ -101,7 +114,8 @@ int func_0025E640(void *field, void *manager, void *x, void *y, int arg4, int ar
     return 1;
 }
 
-int func_001AB9D0(void *) {
+int func_001AB9D0(void *manager) {
+    state.cleanup_argument = manager;
     state.events.push_back(4);
     ++state.cleanup_calls;
     return 1;

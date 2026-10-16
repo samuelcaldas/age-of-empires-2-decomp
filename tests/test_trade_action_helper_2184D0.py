@@ -22,6 +22,8 @@ CASES = [
     ("9", "clipping mutations are reloaded for grid counts"),
     ("10", "zero x step traps before grid callbacks"),
     ("11", "zero y step traps before grid callbacks"),
+    ("12", "field 188 state two exits before fallback callback"),
+    ("13", "y values reload after callbacks across multiple rows"),
 ]
 
 
@@ -64,17 +66,18 @@ def test_helper_2184D0_behavior(helper_2184D0_test, case, description):
 
 
 @pytest.mark.parametrize(
-    "mutation,expected_signal",
+    "mutation,expected_signal,case",
     [
-        ("wrong-break-code", -signal.SIGABRT),
-        ("removed-break", -signal.SIGFPE),
-        ("altered-zero-guard", -signal.SIGFPE),
+        ("wrong-break-code", -signal.SIGABRT, "10"),
+        ("removed-break", -signal.SIGFPE, "10"),
+        ("altered-zero-guard", -signal.SIGFPE, "10"),
+        ("removed-state-two-guard", -signal.SIGABRT, "12"),
     ],
 )
 def test_zero_step_trap_regression_rejects_mutations(
-    helper_2184D0_test, tmp_path, mutation, expected_signal
+    helper_2184D0_test, tmp_path, mutation, expected_signal, case
 ):
-    """Require wrong BREAK codes and missing or altered guards to fail distinctly."""
+    """Require trap and state-gate mutants to fail at the expected signal."""
     compiler = shutil.which("g++")
     assert compiler is not None
     source = PROJECT_ROOT / "src/trade_action_helper_2184D0.cpp"
@@ -84,8 +87,12 @@ def test_zero_step_trap_regression_rejects_mutations(
         changed = original.replace("__I_break(7)", "__I_break(6)", 1)
     elif mutation == "removed-break":
         changed = original.replace(guard, "", 1)
-    else:
+    elif mutation == "altered-zero-guard":
         changed = original.replace("if (step == 0)", "if (step > 0)", 1)
+    else:
+        changed = original.replace(
+            "if (state == 2 || state == 3)", "if (state == 3)", 1
+        )
     assert changed != original
     source_copy = tmp_path / "trade_action_helper_2184D0_mutant.cpp"
     source_copy.write_text(changed)
@@ -98,5 +105,5 @@ def test_zero_step_trap_regression_rejects_mutations(
          "tests/native/trade_action_helper_2184D0_test.cpp", "-o", str(binary)],
         cwd=PROJECT_ROOT, check=True, capture_output=True, text=True,
     )
-    result = subprocess.run([str(binary), "10"], capture_output=True, text=True)
+    result = subprocess.run([str(binary), case], capture_output=True, text=True)
     assert result.returncode == expected_signal, result.stderr

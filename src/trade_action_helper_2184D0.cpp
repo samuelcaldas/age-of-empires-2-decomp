@@ -153,7 +153,7 @@ void func_002184D0(void *self) {
         dispatch_rectangle(self);
         return;
     }
-    if (state == 3) {
+    if (state == 2 || state == 3) {
         return;
     }
     dispatch_fallback(self, read_word(self, 0x1ac));

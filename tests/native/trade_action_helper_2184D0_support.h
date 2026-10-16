@@ -16,6 +16,7 @@ struct CallbackState {
     bool mutate_begin;
     bool mutate_clip;
     bool mutate_handler;
+    bool mutate_y;
     int begin_calls;
     int clip_calls;
     int handler_calls;
@@ -31,6 +32,9 @@ struct CallbackState {
     std::vector<void *> handler_fields;
     std::vector<void *> handler_managers;
     void *handler_manager_replacement;
+    void *begin_arguments[5];
+    void *clip_arguments[2];
+    void *cleanup_argument;
     void *rectangle_arguments[6];
 };
 

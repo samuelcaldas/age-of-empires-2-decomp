@@ -100,7 +100,7 @@ def inspect_object(path):
         table = elf.get_section_by_name(".symtab")
         function = unique_symbol(table, FUNCTION)
         require(function["st_info"]["type"] == "STT_FUNC", "entry is not a function")
-        require(function["st_size"] == 360, "unexpected emitted entry size")
+        require(function["st_size"] == 364, "unexpected emitted entry size")
         text_indices = [index for index, section in enumerate(elf.iter_sections())
                         if section.name == ".text"]
         require(function["st_shndx"] in text_indices, "entry is not in a .text section")

@@ -71,8 +71,19 @@ void test_begin_mutations_are_reloaded_for_grid_counts() {
     set_field(object, 0x18, 2);
     state.mutate_begin = true;
     func_002184D0(object);
+    assert(state.begin_calls == 1);
+    assert(state.begin_arguments[0] == manager);
+    assert(state.begin_arguments[1] == reinterpret_cast<void *>(0));
+    assert(state.begin_arguments[2] == reinterpret_cast<void *>(0));
+    assert(state.begin_arguments[3] == reinterpret_cast<void *>(1));
+    assert(state.begin_arguments[4] == reinterpret_cast<void *>(1));
+    assert(state.clip_calls == 1);
+    assert(state.clip_arguments[0] == manager);
+    assert(state.clip_arguments[1] == reinterpret_cast<void *>(1));
     assert(state.handler_calls == 3);
     assert(state.cleanup_calls == 1);
+    assert(state.cleanup_argument == manager);
+    assert((state.events == std::vector<int>{1, 2, 3, 3, 3, 4}));
 }
 
 void test_handler_mutations_change_later_positions_and_arguments() {

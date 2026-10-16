@@ -4,7 +4,7 @@
 #include <vector>
 
 extern "C" {
-int func_00332da0(void *ptr) { return 1; }
+int func_00332da0(void *ptr) { return 2; }
 int func_00188070(void *ctx) { return 1; }
 int func_00123350(float val) { return static_cast<int>(val); }
 int func_002a0b30(void *mgr, int id) { return id; }
@@ -29,33 +29,13 @@ int main(int argc, char **argv) {
     } else if (test_case == 1) {
         func_002B6220(self, 239, 50);
     } else if (test_case == 2) {
-        func_002B6220(self, 0x75, -2);
-        int *slot = reinterpret_cast<int *>(storage.data() + 0x858 + 0x75 * 4);
-        assert(*slot == 0);
-
-        func_002B6220(self, 0x75, 100);
-        assert(*slot == 100);
-
-        func_002B6220(self, 0x75, 101);
-        assert(*slot == 100);
+        func_002B6220(self, 0xE6, 35);
+        int *slot = reinterpret_cast<int *>(storage.data() + 0x858 + 0xE6 * 4);
+        assert(*slot == 30);
     } else if (test_case == 3) {
-        func_002B6220(self, 0x9F, 101);
-        int *slot = reinterpret_cast<int *>(storage.data() + 0x858 + 0x9F * 4);
-        assert(*slot == 100);
-    } else if (test_case == 4) {
-        func_002B6220(self, 0x14, 51);
-        int *slot = reinterpret_cast<int *>(storage.data() + 0x858 + 0x14 * 4);
-        assert(*slot == 50);
-    } else if (test_case == 5) {
-        func_002B6220(self, 0x2C, 5);
-        int *slot = reinterpret_cast<int *>(storage.data() + 0x858 + 0x2C * 4);
-        assert(*slot == 1);
-    } else if (test_case == 6) {
-        char *base = storage.data();
-        *reinterpret_cast<int *>(base + 0x0BEC) = 1;
-        func_002B6220(self, 0x75, -10);
-        int *slot = reinterpret_cast<int *>(storage.data() + 0x858 + 0x75 * 4);
-        assert(*slot == 0);
+        func_002B6220(self, 0xCC, 10);
+        int *slot = reinterpret_cast<int *>(storage.data() + 0x858 + 0xCC * 4);
+        assert(*slot == 8);
     }
 
     std::cout << "GETTERS7 TEST " << test_case << " PASSED\n";

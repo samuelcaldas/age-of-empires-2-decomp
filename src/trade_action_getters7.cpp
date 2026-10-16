@@ -8,6 +8,14 @@ int func_00123350(float val);
 int func_002a0b30(void *mgr, int id);
 int func_0029df60(void *mgr, int id);
 
+int select_trade_increment(int mode, int flag) {
+    if (mode == 1) return 0;
+    if (mode == 2) return (flag == 1) ? 600 : 240;
+    if (mode == 3) return (flag == 1) ? 1200 : 900;
+    if (mode == 4) return (flag == 1) ? 1800 : 1260;
+    return 0;
+}
+
 void apply_trade_limits(int index, int *slot) {
     if (!slot) return;
     int val = *slot;
@@ -49,22 +57,19 @@ void func_002B6220(void *self, int index, int value) {
         return;
     }
 
-    void *mgr = nullptr;
     void *p1 = *reinterpret_cast<void **>(base + 0xB0);
     if (p1) {
         void *p2 = *reinterpret_cast<void **>(static_cast<char *>(p1) + 0xAC);
         if (p2) {
-            mgr = *reinterpret_cast<void **>(static_cast<char *>(p2) + 0xB98);
-        }
-    }
-
-    if (mgr) {
-        void *loaded_ptr = *reinterpret_cast<void **>(mgr);
-        int mode_flag = func_00332da0(loaded_ptr);
-        int global_ctx = func_00188070(mgr);
-        if (index == 0x68) {
-            int inc = (mode_flag == 1 || global_ctx == 1) ? 600 : 240;
-            *table_slot += inc;
+            void *ptr = *reinterpret_cast<void **>(static_cast<char *>(p2) + 0xB98);
+            if (ptr) {
+                int mode = func_00332da0(ptr);
+                int flag = func_00188070(nullptr);
+                if (index == 0x68) {
+                    int inc = select_trade_increment(mode, flag);
+                    *table_slot += inc;
+                }
+            }
         }
     }
 

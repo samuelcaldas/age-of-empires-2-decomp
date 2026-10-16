@@ -5872,3 +5872,105 @@ An independent verification suite (`tests/test_trade_action_stream_decoders99.py
 | `func_00179040` | `0x179040` | 324 | 324/324 exact (100.00%) | 12 B |
 | `func_00179190` | `0x179190` | 244 | 244/244 exact (100.00%) | 12 B |
 | `func_00179290` | `0x179290` | 244 | 244/244 exact (100.00%) | 12 B |
+
+#### 6.276 `Trade Action Stream Decoders 100` Subsystem (`0x179390`–`0x1797E0`, `trade_action_stream_decoders100.cpp`)
+
+This three-function C++ slice spans VRAM `0x179390`–`0x1797E0` and file offsets `0x79570`–`0x799C0` (1,104 bytes total). The original ELF `PT_LOAD` mapping gives the VRAM/file-offset delta `0xFFE20`. The slice comprises 1,088 instruction bytes and 16 alignment-padding bytes (8, 0, and 8 bytes respectively). Symbol sizes exclude padding. The unit remains registered as `NonMatching`.
+
+- `func_00179390` (`0x179390`, 344 instruction bytes): Non-leaf function calling `func_001522C0(D_004E2DA0.bytes, D_004E2DB4 - 3)`, dual staged lookups, permutation, second dual lookups, permutation, bitwise mask with `D_004E30A8` and OR with `D_004E30AC`, permutation, write-back of bytes 0..3 to `D_004E2DB4` with decrements. All 344 instruction bytes match exactly (100.00%).
+- `func_001794f0` (`0x1794F0`, 432 instruction bytes): Non-leaf function calling `func_001522C0(D_004E2DA0.bytes, D_004E2DB4 - 2)`, dual lookups, permutation, lookup, permutation, bitwise mask with `D_004E30A8` and OR with `D_004E30AC`, permutation, write-back of bytes 0..3 with decrements, followed by single lookup on byte 1 with bitwise mask and OR, write-back of byte 1 to `D_004E2DB4`. All 432 instruction bytes match exactly (100.00%).
+- `func_001796a0` (`0x1796A0`, 312 instruction bytes): Leaf function performing double 2-byte staged lookups: first 2-byte copy, dual lookups, bitwise mask and OR, 2 stores; then second 2-byte copy, dual lookups, bitwise mask and OR, 2 stores to `D_004E2DB4`. All 312 instruction bytes match exactly (100.00%).
+
+An independent verification suite (`tests/test_trade_action_stream_decoders100.py`, with fixture/build support in `tests/trade_action_stream_decoders100_support.py`) compiles the actual source, checks the pinned original ELF SHA-1 (`f74fa5ec7373b98f325bc19455b3534980f03c0e`) and file-backed `PT_LOAD` mapping, validates object and linked `STT_FUNC` symbol sizes and `st_shndx`, links an `ET_EXEC` with no unresolved symbols, and compares emitted instruction and padding bytes.
+
+#### 6.276.1 Trade Action Stream Decoders 100 Matching Results (1,088 Code Bytes, 1,104-Byte Slice)
+
+| Function | VRAM | Instruction bytes | Result | Padding |
+|---|---:|---:|---|---:|
+| `func_00179390` | `0x179390` | 344 | 344/344 exact (100.00%) | 8 B |
+| `func_001794f0` | `0x1794F0` | 432 | 432/432 exact (100.00%) | 0 B |
+| `func_001796a0` | `0x1796A0` | 312 | 312/312 exact (100.00%) | 8 B |
+
+#### 6.277 `Trade Action Stream Decoders 101` Subsystem (`0x1797E0`–`0x179D30`, `trade_action_stream_decoders101.cpp`)
+
+This three-function C++ slice spans VRAM `0x1797E0`–`0x179D30` and file offsets `0x799C0`–`0x79F10` (1,360 bytes total). The original ELF `PT_LOAD` mapping gives the VRAM/file-offset delta `0xFFE20`. The slice comprises 1,332 instruction bytes and 28 alignment-padding bytes (8, 4, and 12 bytes respectively). Symbol sizes exclude padding. The unit remains registered as `NonMatching`.
+
+- `func_001797e0` (`0x1797E0`, 408 instruction bytes): Non-leaf function performing byte 0 staged lookup with bitwise mask and OR and store, followed by calling `func_001522C0(D_004E2DA0.bytes, D_004E2DB4 - 3)`, lookup on byte 1, permutation, dual lookups on bytes 1 and 0, permutation, bitwise mask with `D_004E30A8` and OR with `D_004E30AC`, permutation, write-back of bytes 0..3 to `D_004E2DB4`. All 408 instruction bytes match exactly (100.00%).
+- `func_00179980` (`0x179980`, 428 instruction bytes): Non-leaf function calling `func_001522C0(D_004E2DA0.bytes, D_004E2DB4 - 3)`, dual staged lookups, permutation, second dual lookups, permutation, bitwise mask with `D_004E30A8` and OR with `D_004E30AC`, permutation, write-back of bytes 0..3 with decrements, followed by single lookup on byte 1 with bitwise mask and OR, write-back of byte 1 to `D_004E2DB4`. All 428 instruction bytes match exactly (100.00%).
+- `func_00179b30` (`0x179B30`, 500 instruction bytes): Non-leaf function calling `func_001522C0(D_004E2DA0.bytes, D_004E2DB4 - 2)`, dual lookups, permutation, lookup on byte 1, permutation, bitwise mask with `D_004E30A8` and OR with `D_004E30AC`, permutation, 4 stores of bytes 0..3 with decrements, followed by 2-byte copy, dual lookups, bitwise mask and OR, and 2 stores to `D_004E2DB4`. All 500 instruction bytes match exactly (100.00%).
+
+An independent verification suite (`tests/test_trade_action_stream_decoders101.py`, with fixture/build support in `tests/trade_action_stream_decoders101_support.py`) compiles the actual source, checks the pinned original ELF SHA-1 (`7bcb37384a1bc470595a5ad62405fa3a7e372bc3`) and file-backed `PT_LOAD` mapping, validates object and linked `STT_FUNC` symbol sizes and `st_shndx`, links an `ET_EXEC` with no unresolved symbols, and compares emitted instruction and padding bytes.
+
+#### 6.277.1 Trade Action Stream Decoders 101 Matching Results (1,332 Code Bytes, 1,360-Byte Slice)
+
+| Function | VRAM | Instruction bytes | Result | Padding |
+|---|---:|---:|---|---:|
+| `func_001797e0` | `0x1797E0` | 408 | 408/408 exact (100.00%) | 8 B |
+| `func_00179980` | `0x179980` | 428 | 428/428 exact (100.00%) | 4 B |
+| `func_00179b30` | `0x179B30` | 500 | 500/500 exact (100.00%) | 12 B |
+
+#### 6.278 `Trade Action Stream Decoders 102` Subsystem (`0x179D30`–`0x17A2B0`, `trade_action_stream_decoders102.cpp`)
+
+This three-function C++ slice spans VRAM `0x179D30`–`0x17A2B0` and file offsets `0x79F10`–`0x7A490` (1,408 bytes total). The original ELF `PT_LOAD` mapping gives the VRAM/file-offset delta `0xFFE20`. The slice comprises 1,400 instruction bytes and 8 alignment-padding bytes (4, 4, and 0 bytes respectively). Symbol sizes exclude padding. The unit remains registered as `NonMatching`.
+
+- `func_00179d30` (`0x179D30`, 476 instruction bytes): Non-leaf function copying 2 bytes from cursor to staging buffer, dual lookups, bitwise mask and OR, 2 backward stores, followed by calling `func_001522C0(D_004E2DA0.bytes, D_004E2DB4 - 3)`, lookup on byte 1, permutation, dual lookups on bytes 1 and 0, permutation, bitwise mask with `D_004E30A8` and OR with `D_004E30AC`, permutation, write-back of bytes 0..3 to `D_004E2DB4`. All 476 instruction bytes match exactly (100.00%).
+- `func_00179f10` (`0x179F10`, 428 instruction bytes): Non-leaf function performing byte 0 staged lookup with bitwise mask and OR and store, followed by calling `func_001522C0(D_004E2DA0.bytes, D_004E2DB4 - 3)`, dual staged lookups, permutation, second dual lookups, permutation, bitwise mask with `D_004E30A8` and OR with `D_004E30AC`, permutation, write-back of bytes 0..3 with decrements to `D_004E2DB4`. All 428 instruction bytes match exactly (100.00%).
+- `func_0017a0c0` (`0x17A0C0`, 496 instruction bytes): Non-leaf function calling `func_001522C0(D_004E2DA0.bytes, D_004E2DB4 - 3)`, dual staged lookups, permutation, second dual lookups, permutation, bitwise mask with `D_004E30A8` and OR with `D_004E30AC`, permutation, 4 stores of bytes 0..3 with decrements, followed by 2-byte copy, dual lookups, bitwise mask and OR, and 2 stores to `D_004E2DB4`. All 496 instruction bytes match exactly (100.00%).
+
+An independent verification suite (`tests/test_trade_action_stream_decoders102.py`, with fixture/build support in `tests/trade_action_stream_decoders102_support.py`) compiles the actual source, checks the pinned original ELF SHA-1 (`4527104b282ed78f08a7a15c1b355c1a6c7f50ef`) and file-backed `PT_LOAD` mapping, validates object and linked `STT_FUNC` symbol sizes and `st_shndx`, links an `ET_EXEC` with no unresolved symbols, and compares emitted instruction and padding bytes.
+
+#### 6.278.1 Trade Action Stream Decoders 102 Matching Results (1,400 Code Bytes, 1,408-Byte Slice)
+
+| Function | VRAM | Instruction bytes | Result | Padding |
+|---|---:|---:|---|---:|
+| `func_00179d30` | `0x179D30` | 476 | 476/476 exact (100.00%) | 4 B |
+| `func_00179f10` | `0x179F10` | 428 | 428/428 exact (100.00%) | 4 B |
+| `func_0017a0c0` | `0x17A0C0` | 496 | 496/496 exact (100.00%) | 0 B |
+
+#### 6.279 `Trade Action Stream Decoders 103` Subsystem (`0x17A2B0`–`0x17A730`, `trade_action_stream_decoders103.cpp`)
+
+This two-function C++ slice spans VRAM `0x17A2B0`–`0x17A730` and file offsets `0x7A490`–`0x7A910` (1,152 bytes total). The original ELF `PT_LOAD` mapping gives the VRAM/file-offset delta `0xFFE20`. The slice comprises 1,144 instruction bytes and 8 alignment-padding bytes (8 and 0 bytes respectively). Symbol sizes exclude padding. The unit remains registered as `NonMatching`.
+
+- `func_0017a2b0` (`0x17A2B0`, 648 instruction bytes): Non-leaf compound function with isolated block-scoped staging pointers calling `func_001522C0(D_004E2DA0.bytes, D_004E2DB4 - 2)` with dual lookups, permutation, lookup, permutation, bitwise mask with `D_004E30A8` and OR with `D_004E30AC`, permutation, write-back of bytes 0..3 with decrements, followed by calling `func_001522C0(D_004E2DA0.bytes, D_004E2DB4 - 3)` with lookup on byte 1, permutation, dual lookups on 1 and 0, permutation, bitwise mask and OR, permutation, write-back of bytes 0..3 to `D_004E2DB4`. All 648 instruction bytes match exactly (100.00%).
+- `func_0017a540` (`0x17A540`, 496 instruction bytes): Non-leaf function copying 2 bytes from cursor to staging buffer, dual lookups, bitwise mask and OR, 2 stores, followed by calling `func_001522C0(D_004E2DA0.bytes, D_004E2DB4 - 3)`, dual staged lookups, permutation, second dual lookups, permutation, bitwise mask with `D_004E30A8` and OR with `D_004E30AC`, permutation, 4 stores of bytes 0..3 with decrements to `D_004E2DB4`. All 496 instruction bytes match exactly (100.00%).
+
+An independent verification suite (`tests/test_trade_action_stream_decoders103.py`, with fixture/build support in `tests/trade_action_stream_decoders103_support.py`) compiles the actual source, checks the pinned original ELF SHA-1 (`1df67e83ad4f52324c3d75f60325bf352092a922`) and file-backed `PT_LOAD` mapping, validates object and linked `STT_FUNC` symbol sizes and `st_shndx`, links an `ET_EXEC` with no unresolved symbols, and compares emitted instruction and padding bytes.
+
+#### 6.279.1 Trade Action Stream Decoders 103 Matching Results (1,144 Code Bytes, 1,152-Byte Slice)
+
+| Function | VRAM | Instruction bytes | Result | Padding |
+|---|---:|---:|---|---:|
+| `func_0017a2b0` | `0x17A2B0` | 648 | 648/648 exact (100.00%) | 8 B |
+| `func_0017a540` | `0x17A540` | 496 | 496/496 exact (100.00%) | 0 B |
+
+#### 6.280 `Trade Action Stream Decoders 104` Subsystem (`0x17A730`–`0x17ABC0`, `trade_action_stream_decoders104.cpp`)
+
+This two-function C++ slice spans VRAM `0x17A730`–`0x17ABC0` and file offsets `0x7A910`–`0x7ADA0` (1,168 bytes total). The original ELF `PT_LOAD` mapping gives the VRAM/file-offset delta `0xFFE20`. The slice comprises 1,156 instruction bytes and 12 alignment-padding bytes (0 and 12 bytes respectively). Symbol sizes exclude padding. The unit remains registered as `NonMatching`.
+
+- `func_0017a730` (`0x17A730`, 512 instruction bytes): Non-leaf function performing byte 0 staged lookup with bitwise mask and OR and store, followed by calling `func_001522C0(D_004E2DA0.bytes, D_004E2DB4 - 3)`, dual staged lookups, permutation, second dual lookups, permutation, bitwise mask with `D_004E30A8` and OR with `D_004E30AC`, permutation, 4 stores of bytes 0..3 with decrements, followed by single lookup on byte 1 with bitwise mask and OR, write-back of byte 1 to `D_004E2DB4`. All 512 instruction bytes match exactly (100.00%).
+- `func_0017a930` (`0x17A930`, 644 instruction bytes): Non-leaf compound function with isolated block-scoped staging pointers calling `func_001522C0(D_004E2DA0.bytes, D_004E2DB4 - 3)` with dual staged lookups, permutation, second dual lookups, permutation, bitwise mask with `D_004E30A8` and OR with `D_004E30AC`, permutation, 4 stores of bytes 0..3 with decrements, followed by calling `func_001522C0(D_004E2DA0.bytes, D_004E2DB4 - 3)` with lookup on byte 1, permutation, dual lookups on 1 and 0, permutation, bitwise mask and OR, permutation, write-back of bytes 0..3 to `D_004E2DB4`. All 644 instruction bytes match exactly (100.00%).
+
+An independent verification suite (`tests/test_trade_action_stream_decoders104.py`, with fixture/build support in `tests/trade_action_stream_decoders104_support.py`) compiles the actual source, checks the pinned original ELF SHA-1 (`cfa05bbebb2988712e55b344ea92be28f74c280a`) and file-backed `PT_LOAD` mapping, validates object and linked `STT_FUNC` symbol sizes and `st_shndx`, links an `ET_EXEC` with no unresolved symbols, and compares emitted instruction and padding bytes.
+
+#### 6.280.1 Trade Action Stream Decoders 104 Matching Results (1,156 Code Bytes, 1,168-Byte Slice)
+
+| Function | VRAM | Instruction bytes | Result | Padding |
+|---|---:|---:|---|---:|
+| `func_0017a730` | `0x17A730` | 512 | 512/512 exact (100.00%) | 0 B |
+| `func_0017a930` | `0x17A930` | 644 | 644/644 exact (100.00%) | 12 B |
+
+#### 6.281 `Trade Action Stream Decoders 105` Subsystem (`0x17ABC0`–`0x17B0B0`, `trade_action_stream_decoders105.cpp`)
+
+This two-function C++ slice spans VRAM `0x17ABC0`–`0x17B0B0` and file offsets `0x7ADA0`–`0x7B290` (1,264 bytes total). The original ELF `PT_LOAD` mapping gives the VRAM/file-offset delta `0xFFE20`. The slice comprises 1,248 instruction bytes and 16 alignment-padding bytes (4 and 12 bytes respectively). Symbol sizes exclude padding. The unit remains registered as `NonMatching`.
+
+- `func_0017abc0` (`0x17ABC0`, 668 instruction bytes): Non-leaf compound function with isolated block-scoped staging pointers calling `func_001522C0(D_004E2DA0.bytes, D_004E2DB4 - 2)` with dual lookups, permutation, lookup, permutation, bitwise mask with `D_004E30A8` and OR with `D_004E30AC`, permutation, write-back of bytes 0..3 with decrements, followed by calling `func_001522C0(D_004E2DA0.bytes, D_004E2DB4 - 3)` with dual lookups, permutation, second dual lookups, permutation, bitwise mask and OR, permutation, write-back of bytes 0..3 with decrements to `D_004E2DB4`. All 668 instruction bytes match exactly (100.00%).
+- `func_0017ae60` (`0x17AE60`, 580 instruction bytes): Non-leaf function copying 2 bytes from cursor to staging buffer, dual lookups, bitwise mask and OR, 2 stores, followed by calling `func_001522C0(D_004E2DA0.bytes, D_004E2DB4 - 3)`, dual staged lookups, permutation, second dual lookups, permutation, bitwise mask with `D_004E30A8` and OR with `D_004E30AC`, permutation, 4 stores of bytes 0..3 with decrements, followed by single lookup on byte 1 with bitwise mask and OR, write-back of byte 1 to `D_004E2DB4`. All 580 instruction bytes match exactly (100.00%).
+
+An independent verification suite (`tests/test_trade_action_stream_decoders105.py`, with fixture/build support in `tests/trade_action_stream_decoders105_support.py`) compiles the actual source, checks the pinned original ELF SHA-1 (`66df5e9314388f028846f5eab19c4703200b5e36`) and file-backed `PT_LOAD` mapping, validates object and linked `STT_FUNC` symbol sizes and `st_shndx`, links an `ET_EXEC` with no unresolved symbols, and compares emitted instruction and padding bytes.
+
+#### 6.281.1 Trade Action Stream Decoders 105 Matching Results (1,248 Code Bytes, 1,264-Byte Slice)
+
+| Function | VRAM | Instruction bytes | Result | Padding |
+|---|---:|---:|---|---:|
+| `func_0017abc0` | `0x17ABC0` | 668 | 668/668 exact (100.00%) | 4 B |
+| `func_0017ae60` | `0x17AE60` | 580 | 580/580 exact (100.00%) | 12 B |

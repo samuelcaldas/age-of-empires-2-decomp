@@ -2075,9 +2075,21 @@ segments:
     vram: 0x1D00C0
     subsegments:
       - [0xD02A0, asm, zone_update_tile_transitions]
+  - name: zone_calc_subtile_screen_coords
+    type: code
+    start: 0xD0530
+    vram: 0x1D0350
+    subsegments:
+      - [0xD0530, asm, zone_calc_subtile_screen_coords]
+  - name: zone_setup_spatial_buckets
+    type: code
+    start: 0xD0610
+    vram: 0x1D0430
+    subsegments:
+      - [0xD0610, asm, zone_setup_spatial_buckets]
   - name: post_aoe2
     type: bin
-    start: 0xD0530
+    start: 0xD0860
   - name: trade_action_helper_217730
     type: code
     start: 0x117910

@@ -2633,9 +2633,21 @@ segments:
     vram: 0x1D9020
     subsegments:
       - [0xD9200, asm, zone_spatial_view_has_active_mode]
+  - name: zone_spatial_view_clear_rates
+    type: code
+    start: 0xD9250
+    vram: 0x1D9070
+    subsegments:
+      - [0xD9250, asm, zone_spatial_view_clear_rates]
+  - name: zone_spatial_view_reset
+    type: code
+    start: 0xD92A0
+    vram: 0x1D90C0
+    subsegments:
+      - [0xD92A0, asm, zone_spatial_view_reset]
   - name: post_aoe2
     type: bin
-    start: 0xD9250
+    start: 0xD92F0
   - name: trade_action_helper_217730
     type: code
     start: 0x117910

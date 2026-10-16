@@ -4702,3 +4702,23 @@ An independent verification suite (`tests/test_trade_action_stream_decoders13.py
 | `func_0015F510` | `0x15F510` | 180 | 176/180 equal (near match) | 12 B |
 | `func_0015F5D0` | `0x15F5D0` | 284 | 284/284 exact | 4 B |
 | `func_0015F6F0` | `0x15F6F0` | 328 | 328/328 exact | 8 B |
+
+#### 6.187 `Trade Action Stream Decoders 14` Subsystem (`0x15F840`–`0x15FD70`, `trade_action_stream_decoders14.cpp`)
+
+This four-function C++ slice spans VRAM `0x15F840`–`0x15FD70` and file offsets `0x5FA20`–`0x5FF50` (1,328 bytes total). The original ELF `PT_LOAD` mapping gives the VRAM/file-offset delta `0xFFE20`. The slice comprises 1,304 instruction bytes and 24 alignment-padding bytes (8, 12, 0, and 4 bytes respectively). A fresh linked build matched 1,296/1,304 instruction bytes; all 24 padding bytes matched, for 1,320/1,328 bytes across the slice. Symbol sizes exclude padding. The unit remains registered as `NonMatching`.
+
+- `func_0015F840` (`0x15F840`, 248 instruction bytes): Performs two consecutive two-byte staging lookups and stream writes. 240/248 bytes are equal (60/62 instructions); two differing store instructions at offsets `0x0C` and `0x84` target `0x4E2DA0` through another register.
+- `func_0015F940` (`0x15F940`, 324 instruction bytes): Executes a single-byte lookup and write followed by a two-phase permutation stream decoder writing four bytes to `D_004E2DB4` and decrementing the cursor. All 324 instruction bytes match exactly.
+- `func_0015FA90` (`0x15FA90`, 336 instruction bytes): Runs two-phase dual lookups and byte permutations via staging pointer `(unsigned char *)&D_004E2DA0`, writes four bytes to `D_004E2DB4`, and completes with a trailing single-byte lookup and write. All 336 instruction bytes match exactly.
+- `func_0015FBE0` (`0x15FBE0`, 396 instruction bytes): Runs offset-adjusted dual lookups and byte permutations, writes four bytes with cursor adjustment, and completes with a trailing two-byte staged lookup and write. All 396 instruction bytes match exactly.
+
+The independent verification suite (`tests/test_trade_action_stream_decoders14.py`, with build and fixture support in `tests/trade_action_stream_decoders14_support.py`) compiles the actual source, checks the pinned original ELF SHA-1 and file-backed `PT_LOAD` mapping, validates object and linked `STT_FUNC` symbol sizes and `st_shndx`, links an `ET_EXEC` with no unresolved symbols, and compares full instruction words without masks, including the effective store targets for the first routine.
+
+#### 6.187.1 Trade Action Stream Decoders 14 Matching Results (1,304 Code Bytes, 1,328-Byte Slice)
+
+| Function | VRAM | Instruction bytes | Result | Padding |
+|---|---:|---:|---|---:|
+| `func_0015F840` | `0x15F840` | 248 | 240/248 equal (near match) | 8 B |
+| `func_0015F940` | `0x15F940` | 324 | 324/324 exact (100.00%) | 12 B |
+| `func_0015FA90` | `0x15FA90` | 336 | 336/336 exact (100.00%) | 0 B |
+| `func_0015FBE0` | `0x15FBE0` | 396 | 396/396 exact (100.00%) | 4 B |

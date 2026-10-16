@@ -45,8 +45,8 @@ void func_00307420(TacticalActionManagerObj *self, int arg1) {
     int s0 = arg1;
     if (s0 != 0 && s1->m_field88 != 0 && s1->m_field84 != 0) {
         int val = *(int *)((char *)D_004E3180 + 456);
-        if ((unsigned int)(val - 4) < 2) {
-            func_242fc0(self->m_field40, arg1);
+        if ((unsigned int)val - 4U < 2U) {
+            func_242fc0(s1->m_field40, s0);
             return;
         }
     } else {

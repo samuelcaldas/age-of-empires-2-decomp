@@ -80,9 +80,9 @@ void func_002B6220(void *self, int index, int value) {
         func_00123350(static_cast<float>(*table_slot));
     }
 
-    if (p1 && (index == 0x68 || index == 0x75)) {
-        func_002a0b30(static_cast<char *>(p1) + 0x3624, 0x14);
-        func_0029df60(static_cast<char *>(p1) + 0x3624, 0x1E);
+    if (p1 && (index == 0x68 || index == 0x75 || index == 0x14 || index == 0xCC)) {
+        func_002a0b30(static_cast<char *>(p1) + 0x3624, 0x56);
+        func_0029df60(static_cast<char *>(p1) + 0x3624, 0x57);
     }
 
     apply_trade_limits(index, table_slot);

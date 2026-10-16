@@ -5,6 +5,7 @@
 
 static float last_scaled_val = 0.0f;
 static int helper_call_count = 0;
+static int custom_mock_return = -1;
 
 extern "C" {
 int select_trade_increment(int mode, int flag);
@@ -14,7 +15,7 @@ void *ctx_sentinel = reinterpret_cast<void *>(0x4E3180);
 void *D_004E3180 = ctx_sentinel;
 
 static int mock_mode = 2;
-static int mock_flag = 1;
+static int mock_flag = 0;
 
 int func_00332da0(void *ptr) {
     assert(ptr == p_sentinel);
@@ -26,7 +27,7 @@ int func_00188070(void *ctx) {
 }
 int func_00123350(float val) {
     last_scaled_val = val;
-    return static_cast<int>(val);
+    return (custom_mock_return != -1) ? custom_mock_return : static_cast<int>(val);
 }
 int func_002a0b30(void *mgr, int id) {
     helper_call_count++;
@@ -90,10 +91,11 @@ int main(int argc, char **argv) {
         *reinterpret_cast<void **>(p2_obj.data() + 0xB98) = p_sentinel;
 
         mock_mode = 2;
-        mock_flag = 1;
+        mock_flag = 0; // f21 mode 2 flag 0 -> 0.75 scaling factor
+        custom_mock_return = 731;
         func_002B6220(self, 0x10, 100);
         int *slot = reinterpret_cast<int *>(storage.data() + 0x858 + 0x10 * 4);
-        assert(*slot == 75);
+        assert(*slot == 731);
         assert(last_scaled_val == 75.0f);
     } else if (test_case == 6) {
         std::vector<char> p1_obj(4096, 0);

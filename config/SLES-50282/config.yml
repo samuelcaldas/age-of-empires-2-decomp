@@ -1561,10 +1561,16 @@ segments:
     vram: 0x173670
     subsegments:
       - [0x73850, asm, trade_action_stream_decoders78]
-  - name: post_base
-    type: bin
+  - name: trade_action_stream_decoders79
+    type: code
     start: 0x73930
     vram: 0x173750
+    subsegments:
+      - [0x73930, asm, trade_action_stream_decoders79]
+  - name: post_base
+    type: bin
+    start: 0x73A70
+    vram: 0x173890
   - name: zone_path_eval
     type: code
     start: 0xC7A40

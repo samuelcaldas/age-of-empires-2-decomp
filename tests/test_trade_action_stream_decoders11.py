@@ -96,7 +96,7 @@ def link_decoders(directory, object_file):
     linked = directory / "decoders11.elf"
     binary = directory / "decoders11.bin"
     run_tool([
-        str(BINUTILS / "mips-linux-gnu-ld"), "-EL", "-T", str(script),
+        str(BINUTILS / "mips-linux-gnu-ld"), "-EL", "--no-undefined", "-T", str(script),
         "-o", str(linked), str(object_file),
     ])
     run_tool([
@@ -157,53 +157,31 @@ def test_internal_alignment_padding(decoder_code):
     assert_same_code(actual_pad, expected_pad, START_ADDRESS + PAD1_OFFSET)
 
 
+def decode_staging_address(code):
+    """Derive a0 from the pinned addiu instruction, rejecting other registers or offsets."""
+    instruction = struct.unpack_from("<I", code, 0x04)[0]
+    assert instruction == 0x278485E0
+    assert instruction >> 26 == 0x09
+    assert (instruction >> 21) & 0x1F == 28
+    assert (instruction >> 16) & 0x1F == 4
+    displacement = struct.unpack_from("<h", code, 0x04)[0]
+    assert displacement == -0x7A20
+    return SYMBOLS["_gp"] + displacement
+
+
 def test_func_0015F130_near_matching(decoder_code):
-    """Verify func_0015F130 instruction size and strictly prove exact raw instruction words."""
+    """Pin both store encodings and prove their effective addresses without masks."""
     actual = decoder_code[F130_OFFSET:F130_OFFSET + F130_SIZE]
     expected = read_original(F130_OFFSET, F130_SIZE)
     assert len(actual) == len(expected) == F130_SIZE
-
-    # Exactly 125 of 128 bytes must be strictly identical across the function body:
-    matching_bytes = sum(1 for a, b in zip(actual, expected) if a == b)
-    assert matching_bytes == 125, f"Expected 125 matching bytes in func_0015F130, got {matching_bytes}"
-
-    # Verify the exact instruction word at offset 0x04 in both binaries:
-    # Instruction: addiu $a0, $gp, -0x7A20
-    # Encoding: opcode 0x09 (addiu), rs $gp (28), rt $a0 (4), imm -0x7A20 (0x85E0) -> 0x278485E0 (little endian: e0 85 84 27)
-    expected_setup_word = struct.unpack("<I", expected[0x04:0x08])[0]
-    actual_setup_word = struct.unpack("<I", actual[0x04:0x08])[0]
-    assert expected_setup_word == actual_setup_word == 0x278485E0, (
-        f"Expected addiu $a0, $gp, -0x7A20 (0x278485E0), got exp={expected_setup_word:#010X}, act={actual_setup_word:#010X}"
-    )
-
-    # Decode opcode, rs, rt, signed immediate from the decoded setup word to prove a0 computation from gp:
-    opcode = (expected_setup_word >> 26) & 0x3F
-    rs = (expected_setup_word >> 21) & 0x1F
-    rt = (expected_setup_word >> 16) & 0x1F
-    imm = struct.unpack("<h", expected[0x04:0x06])[0]  # signed 16-bit immediate
-    assert opcode == 0x09, "Opcode is not addiu"
-    assert rs == 28, "Source register is not $gp (28)"
-    assert rt == 4, "Destination register is not $a0 (4)"
-    assert imm == -0x7A20, f"Immediate is not -0x7A20, got {imm:#x}"
-
-    # Verify the exact 4-byte instruction words at offset 0x0C:
-    # Expected original instruction: sb $v1, 0($a0) where $a0 was computed above as $gp - 0x7A20
-    # Encoding: opcode 0x28 (sb), base $a0 (4), rt $v1 (3), offset 0x0000 -> 0xA0830000 (little endian: 00 00 83 a0)
-    expected_store_word = struct.unpack("<I", expected[0x0C:0x10])[0]
-    assert expected_store_word == 0xA0830000, f"Expected sb $v1, 0($a0) (0xA0830000), got {expected_store_word:#010X}"
-
-    # Compiled instruction: sb $v1, -0x7A20($gp)
-    # Encoding: opcode 0x28 (sb), base $gp (28), rt $v1 (3), offset -0x7A20 (0x85E0) -> 0xA38385E0 (little endian: e0 85 83 a3)
-    actual_store_word = struct.unpack("<I", actual[0x0C:0x10])[0]
-    assert actual_store_word == 0xA38385E0, f"Expected sb $v1, -0x7A20($gp) (0xA38385E0), got {actual_store_word:#010X}"
-
-    # Verify that both instructions store $v1 into the exact same effective target address 0x4E2DA0:
-    # 1. Expected effective address: $a0 ($gp + imm) + store_offset 0 = $gp - 0x7A20 + 0 = 0x4E2DA0
-    # 2. Actual effective address: $gp + (-0x7A20) = 0x4EA7C0 - 0x7A20 = 0x4E2DA0
-    gp_val = SYMBOLS["_gp"]
-    expected_target = (gp_val + imm) + 0x0000
-    actual_target = gp_val - 0x7A20
-    assert expected_target == actual_target == SYMBOLS["D_004E2DA0"], "Target address mismatch"
+    assert sum(a == b for a, b in zip(actual, expected)) == 125
+    expected_store = struct.unpack_from("<I", expected, 0x0C)[0]
+    actual_store = struct.unpack_from("<I", actual, 0x0C)[0]
+    assert (expected_store, actual_store) == (0xA0830000, 0xA38385E0)
+    assert decode_staging_address(actual) == decode_staging_address(expected)
+    expected_target = decode_staging_address(expected) + struct.unpack_from("<h", expected, 0x0C)[0]
+    actual_target = SYMBOLS["_gp"] + struct.unpack_from("<h", actual, 0x0C)[0]
+    assert expected_target == actual_target == SYMBOLS["D_004E2DA0"]
 
 
 def test_func_0015F1B0_exact_bytes(decoder_code):

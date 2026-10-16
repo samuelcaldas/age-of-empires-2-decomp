@@ -1714,7 +1714,7 @@ segments:
       - [0x1B6400, asm, trade_action_getters7]
   - name: post_trade_action_getters7
     type: bin
-    start: 0x1B68AC
+    start: 0x1B688C
   - name: tactical_ai_player_ops
     type: code
     start: 0x205D70

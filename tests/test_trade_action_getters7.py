@@ -9,8 +9,10 @@ import pytest
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 CASES = [
-    ("0", "null self safety guard"),
-    ("1", "valid self object execution"),
+    ("0", "out of bounds negative index returns -1"),
+    ("1", "out of bounds high index returns -1"),
+    ("2", "valid index direct store of positive value"),
+    ("3", "pointer chain traversal when BEC != 1"),
 ]
 
 
@@ -33,7 +35,7 @@ def getters7_test_binary(tmp_path_factory):
 
 @pytest.mark.parametrize("case,description", CASES, ids=[case[1] for case in CASES])
 def test_getters7_behavior(getters7_test_binary, case, description):
-    """Check trade_action_getters7 execution in isolated native process."""
+    """Check trade_action_getters7 state updates and table stores in isolated native process."""
     result = subprocess.run(
         [str(getters7_test_binary), case], capture_output=True, text=True,
     )

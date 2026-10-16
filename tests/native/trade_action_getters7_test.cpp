@@ -1,8 +1,17 @@
 #include <iostream>
 #include <cassert>
+#include <climits>
 #include <vector>
 
-extern "C" void func_002B6220(void *self);
+extern "C" {
+void *func_00332da0(void *a0, int a1) { return a0; }
+int func_00188070(void *a0, int a1) { return a1; }
+int func_00123350(void *a0, float a1, int a2) { return a2; }
+int func_002a0b30(void *a0, int a1) { return a1; }
+int func_0029df60(void *a0, int a1) { return a1; }
+
+int func_002B6220(void *self, int index, int value);
+}
 
 int main(int argc, char **argv) {
     if (argc < 2) {
@@ -11,11 +20,21 @@ int main(int argc, char **argv) {
     }
     int test_case = std::stoi(argv[1]);
 
-    std::vector<char> storage(2048, 0);
+    const size_t buf_size = 4096;
+    std::vector<char> storage(buf_size, 0);
     void *self = storage.data();
 
-    func_002B6220(self);
-    func_002B6220(nullptr);
+    if (test_case == 0) {
+        assert(func_002B6220(self, -1, 0) == -1);
+    } else if (test_case == 1) {
+        assert(func_002B6220(self, 239, 0) == -1);
+    } else if (test_case == 2) {
+        assert(func_002B6220(self, 5, 42) == 42);
+    } else if (test_case == 3) {
+        char *base = storage.data();
+        *reinterpret_cast<int *>(base + 0x0BEC) = 2;
+        assert(func_002B6220(self, 10, 100) == 100);
+    }
 
     std::cout << "GETTERS7 TEST " << test_case << " PASSED\n";
     return 0;

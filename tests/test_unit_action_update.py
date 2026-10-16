@@ -1,6 +1,7 @@
 """Native regressions for unit_action_update methods, state machine, and edge cases."""
 
 from pathlib import Path
+import re
 import shutil
 import subprocess
 
@@ -16,6 +17,20 @@ CASES = [
     "func_00268200 state transitions (0->1, 0->2, descending rejection, 0 reset)",
     "func_00268200 Method61 and Method62 visibility callbacks",
 ]
+
+
+def test_update_symbol_registration():
+    """Keep executed return delay slots within original function symbol sizes."""
+    expected = {0x268200: 488, 0x2683F0: 20, 0x268410: 92,
+                0x268470: 64, 0x2684B0: 72, 0x268500: 40}
+    symbols = (PROJECT_ROOT / "config/SLES-50282/symbols.txt").read_text()
+    for address, size in expected.items():
+        name = f"func_{address:08X}"
+        pattern = rf"^{name} = (0x[0-9A-Fa-f]+); // type:func size:(0x[0-9A-Fa-f]+)\b"
+        matches = re.findall(pattern, symbols, re.MULTILINE)
+        assert [(int(value, 16), int(length, 16)) for value, length in matches] == [
+            (address, size)
+        ]
 
 
 @pytest.fixture(scope="module")

@@ -2393,9 +2393,27 @@ segments:
     vram: 0x1D7AA0
     subsegments:
       - [0xD7C80, asm, zone_spatial_node_ctor]
+  - name: zone_spatial_node_dtor
+    type: code
+    start: 0xD7CA0
+    vram: 0x1D7AC0
+    subsegments:
+      - [0xD7CA0, asm, zone_spatial_node_dtor]
+  - name: zone_spatial_node_cleanup
+    type: code
+    start: 0xD7D00
+    vram: 0x1D7B20
+    subsegments:
+      - [0xD7D00, asm, zone_spatial_node_cleanup]
+  - name: zone_spatial_lookup_item
+    type: code
+    start: 0xD7D90
+    vram: 0x1D7BB0
+    subsegments:
+      - [0xD7D90, asm, zone_spatial_lookup_item]
   - name: post_aoe2
     type: bin
-    start: 0xD7CA0
+    start: 0xD7DD0
   - name: trade_action_helper_217730
     type: code
     start: 0x117910

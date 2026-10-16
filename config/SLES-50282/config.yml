@@ -1180,9 +1180,15 @@ segments:
     vram: 0x1C8CA0
     subsegments:
       - [0xC8E80, asm, zone_constructor]
+  - name: zone_destructor
+    type: code
+    start: 0xC91D0
+    vram: 0x1C8FF0
+    subsegments:
+      - [0xC91D0, asm, zone_destructor]
   - name: post_aoe2
     type: bin
-    start: 0xC91D0
+    start: 0xC95A0
   - name: trade_action_helper_217730
     type: code
     start: 0x117910

@@ -2483,9 +2483,27 @@ segments:
     vram: 0x1D8160
     subsegments:
       - [0xD8340, asm, zone_spatial_tree_manager_dtor]
+  - name: zone_spatial_allocator_init
+    type: code
+    start: 0xD83A0
+    vram: 0x1D81C0
+    subsegments:
+      - [0xD83A0, asm, zone_spatial_allocator_init]
+  - name: zone_spatial_allocator_pop
+    type: code
+    start: 0xD83C0
+    vram: 0x1D81E0
+    subsegments:
+      - [0xD83C0, asm, zone_spatial_allocator_pop]
+  - name: zone_spatial_allocator_push
+    type: code
+    start: 0xD8520
+    vram: 0x1D8340
+    subsegments:
+      - [0xD8520, asm, zone_spatial_allocator_push]
   - name: post_aoe2
     type: bin
-    start: 0xD83A0
+    start: 0xD8550
   - name: trade_action_helper_217730
     type: code
     start: 0x117910

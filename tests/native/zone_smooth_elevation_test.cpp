@@ -136,6 +136,20 @@ static void test_smooth_max_slope_low_byte_truncation() {
         assert(mod1 == mod2);
         assert(std::memcmp(cells1, cells2, sizeof(cells1)) == 0);
     }
+
+    // Mutation test: with elev=10 and low neighbor=5:
+    // With andi 0xFF mask: max_slope=0x100 -> limit=0.
+    // 10 > 0 triggers downward branch: neighbor (5) < new_elev (9) -> cell[3][3] smoothed to 9, returns 1!
+    // Without mask: limit=256 -> 10 < 256 enters upward branch, finds no neighbor > 11, returns 0!
+    // Thus removing the mask obligatorily fails this assertion!
+    SmoothLayout zm;
+    SmoothCell cells[7][7];
+    SmoothCell *row_ptrs[7];
+    setup_grid(&zm, cells, row_ptrs, 7, 7, 10);
+    cells[2][3].f_6 = 5;
+    int mod_0x100 = func_001CB6D0(&zm, 3, 3, 3, 3, 0x100);
+    assert(mod_0x100 == 1);
+    assert(cells[3][3].f_6 == 9);
 }
 
 int main(int argc, char **argv) {

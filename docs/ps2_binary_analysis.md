@@ -5124,6 +5124,39 @@ These eight non-matching C++ slices continue the stream decoder sequence. The ve
 
 These slices contain 8,156 function-code bytes and 196 bytes of alignment padding. All 32 function extents include their terminal branch delay instruction; the independent proof disassembles each exact original-ELF range with `objdump -d -z`, checks the final JR and delay-slot addresses, then verifies every function byte and every zero-padding byte. In particular, unit 53's four JR/delay pairs end at `0x16D0F4`, `0x16D20C`, `0x16D31C`, and `0x16D42C`; padding follows each delay slot through the next function boundary. Unit 59's JR/delay pairs end at `0x16EC14` and `0x16ECB8`, with padding beginning after the delay slots at `0x16EC14` and `0x16ECB8` respectively. The snapshot-only ELF proof and production-source mutation runner are `tests/check_trade_action_stream_decoders52_59.py` and `tests/mutate_trade_action_stream_decoders52_59.py`. All object entries remain `NonMatching`; function-level byte evidence is not an object-wide or full-project match claim.
 
+#### Trade Action Stream Decoders 60–67 (`0x16ECC0`–`0x171850`)
+
+These eight C++ decoder slices continue the verified PAL stream range. The mapping remains `VRAM = file offset + 0xFFE20`; `post_base` resumes at file offset `0x71A30` / VRAM `0x171850`. Every unit remains `NonMatching`.
+
+| Unit | File range | VRAM range | Slice | Code | Padding |
+|---|---:|---:|---:|---:|---:|
+| 60 | `0x6EEA0`–`0x6F220` | `0x16ECC0`–`0x16F040` | 896 B | 880 B | 16 B |
+| 61 | `0x6F220`–`0x6F660` | `0x16F040`–`0x16F480` | 1,088 B | 1,056 B | 32 B |
+| 62 | `0x6F660`–`0x6FB20` | `0x16F480`–`0x16F940` | 1,216 B | 1,192 B | 24 B |
+| 63 | `0x6FB20`–`0x700C0` | `0x16F940`–`0x16FEE0` | 1,440 B | 1,424 B | 16 B |
+| 64 | `0x700C0`–`0x70650` | `0x16FEE0`–`0x170470` | 1,424 B | 1,404 B | 20 B |
+| 65 | `0x70650`–`0x70C40` | `0x170470`–`0x170A60` | 1,520 B | 1,484 B | 36 B |
+| 66 | `0x70C40`–`0x71300` | `0x170A60`–`0x171120` | 1,728 B | 1,716 B | 12 B |
+| 67 | `0x71300`–`0x71A30` | `0x171120`–`0x171850` | 1,840 B | 1,820 B | 20 B |
+The eight slices contain 10,976 function-code bytes and 176 alignment-padding bytes. The snapshot proof checks each final `jr ra` at function end minus eight bytes and its `addiu sp,sp,16` delay slot at end minus four, then compares all code and padding against the pinned original ELF, validates complete slice coverage, and links eight combined plus 32 isolated no-undefined GNU MIPS executables. This is per-function byte evidence only, not an object-wide or full-project match claim. The snapshot-only proof and mutation runner are `tests/check_trade_action_stream_decoders60_67.py` and `tests/mutate_trade_action_stream_decoders60_67.py`.
+
+Unit 60 functions: func_0016ECC0 `0x16ECC0` (0xd8); func_0016EDA0 `0x16EDA0` (0xd8); func_0016EE80 `0x16EE80` (0xe0); func_0016EF60 `0x16EF60` (0xe0).
+Alignment padding: `0x6EF78`–`0x6EF80` / `0x16ED98`–`0x16EDA0`; `0x6F058`–`0x6F060` / `0x16EE78`–`0x16EE80`.
+Unit 61 functions: func_0016F040 `0x16F040` (0x104); func_0016F150 `0x16F150` (0xe4); func_0016F240 `0x16F240` (0x12c); func_0016F370 `0x16F370` (0x10c).
+Alignment padding: `0x6F324`–`0x6F330` / `0x16F144`–`0x16F150`; `0x6F414`–`0x6F420` / `0x16F234`–`0x16F240`; `0x6F54C`–`0x6F550` / `0x16F36C`–`0x16F370`; `0x6F65C`–`0x6F660` / `0x16F47C`–`0x16F480`.
+Unit 62 functions: func_0016F480 `0x16F480` (0x110); func_0016F590 `0x16F590` (0x12c); func_0016F6C0 `0x16F6C0` (0x154); func_0016F820 `0x16F820` (0x118).
+Alignment padding: `0x6F89C`–`0x6F8A0` / `0x16F6BC`–`0x16F6C0`; `0x6F9F4`–`0x6FA00` / `0x16F814`–`0x16F820`; `0x6FB18`–`0x6FB20` / `0x16F938`–`0x16F940`.
+Unit 63 functions: func_0016F940 `0x16F940` (0x158); func_0016FAA0 `0x16FAA0` (0x178); func_0016FC20 `0x16FC20` (0x160); func_0016FD80 `0x16FD80` (0x160).
+Alignment padding: `0x6FC78`–`0x6FC80` / `0x16FA98`–`0x16FAA0`; `0x6FDF8`–`0x6FE00` / `0x16FC18`–`0x16FC20`.
+Unit 64 functions: func_0016FEE0 `0x16FEE0` (0x1a4); func_00170090 `0x170090` (0x1a0); func_00170230 `0x170230` (0xf0); func_00170320 `0x170320` (0x148).
+Alignment padding: `0x70264`–`0x70270` / `0x170084`–`0x170090`; `0x70648`–`0x70650` / `0x170468`–`0x170470`.
+Unit 65 functions: func_00170470 `0x170470` (0x174); func_001705F0 `0x1705F0` (0x17c); func_00170770 `0x170770` (0x148); func_001708C0 `0x1708C0` (0x194).
+Alignment padding: `0x707C4`–`0x707D0` / `0x1705E4`–`0x1705F0`; `0x7094C`–`0x70950` / `0x17076C`–`0x170770`; `0x70A98`–`0x70AA0` / `0x1708B8`–`0x1708C0`; `0x70C34`–`0x70C40` / `0x170A54`–`0x170A60`.
+Unit 66 functions: func_00170A60 `0x170A60` (0x1c0); func_00170C20 `0x170C20` (0x1c8); func_00170DF0 `0x170DF0` (0x170); func_00170F60 `0x170F60` (0x1bc).
+Alignment padding: `0x70FC8`–`0x70FD0` / `0x170DE8`–`0x170DF0`; `0x712FC`–`0x71300` / `0x17111C`–`0x171120`.
+Unit 67 functions: func_00171120 `0x171120` (0x1e8); func_00171310 `0x171310` (0x1f0); func_00171500 `0x171500` (0x17c); func_00171680 `0x171680` (0x1c8).
+Alignment padding: `0x714E8`–`0x714F0` / `0x171308`–`0x171310`; `0x7185C`–`0x71860` / `0x17167C`–`0x171680`; `0x71A28`–`0x71A30` / `0x171848`–`0x171850`.
+
 #### Zone dispatcher resize and grid operations (`0x1C98A0`–`0x1CA180`, `zone_dispatch.cpp` / `zone_dispatch_grid.cpp`)
 
 The original PAL ELF maps this 0x8E0-byte slice from file offset `0xC9A80` to `0xCA360` through a file-backed `PT_LOAD` segment (`VRAM = file offset + 0xFFE20`). It contains 0x8C0 instruction bytes and 0x20 zero-alignment bytes. The implemented C++ definitions are `func_001C98A0` (0x558 bytes), `func_001C9E00` (0xF4), `func_001C9F00` (0x74), and the tail-jump wrapper `func_001C9F80` (0x20), totaling 0x6E0 bytes. The wrapper transfers to original helper `func_001C9FA0` (0x1E0), which remains an external declaration and is explicitly assigned to the `bin` range beginning at file offset `0xCA180` / VRAM `0x1C9FA0`; that helper body is not implemented or counted as another source function. The three inter-function alignment ranges total 0x20 bytes and were confirmed zero in the original. The final return delay slot is included in each original function size; alignment is excluded. The unit remains `NonMatching`; these independent function comparisons do not claim a whole-object or whole-project match.

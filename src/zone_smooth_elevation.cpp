@@ -38,8 +38,8 @@ extern "C" int func_001CB6D0(void *self, int x0, int y0, int x1, int y1, int max
     int t6_off = (t3 * 8 - t3) * 4;
     int t7_off = (stride_param * 8 - stride_param) * 4;
     int t8_off = (t2 * 8 - t2) * 4;
-    int t9_off = (s2 * 8 - s2) * 4;
-    int ra_off = (t4 * 8 - t4) * 4;
+    int t9_off = (t4 * 8 - t4) * 4;
+    int ra_off = (s2 * 8 - s2) * 4;
     int s0_off = (s1 * 8 - s1) * 4;
 
     for (int y = y0; y <= y1; y++) {

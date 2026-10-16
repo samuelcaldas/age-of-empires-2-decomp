@@ -5830,3 +5830,25 @@ An independent verification suite (`tests/test_trade_action_stream_decoders97.py
 | `func_00178490` | `0x178490` | 548 | 548/548 exact (100.00%) | 12 B |
 | `func_001786c0` | `0x1786c0` | 620 | 620/620 exact (100.00%) | 4 B |
 | `func_00178930` | `0x178930` | 728 | 728/728 exact (100.00%) | 8 B |
+
+#### 6.274 `Trade Action Stream Decoders 98` Subsystem (`0x178C10`–`0x178EE0`, `trade_action_stream_decoders98.cpp`)
+
+This five-function C++ slice spans VRAM `0x178C10`–`0x178EE0` and file offsets `0x78DF0`–`0x790C0` (720 bytes total). The original ELF `PT_LOAD` mapping gives the VRAM/file-offset delta `0xFFE20`. The slice comprises 692 instruction bytes and 28 alignment-padding bytes (8, 8, 8, 0, and 4 bytes respectively). Symbol sizes exclude padding. The unit remains registered as `NonMatching`.
+
+- `func_00178c10` (`0x178C10`, 88 instruction bytes): Leaf function without stack frame performing staged lookup on byte 0, bitwise mask with `D_004E30A8` and OR with `D_004E30AC`, write-back of byte 0 to `D_004E2DB4`, and `D_004E2DB4--`. All 88 instruction bytes match exactly (100.00%).
+- `func_00178c70` (`0x178C70`, 88 instruction bytes): Leaf function without stack frame performing staged lookup on byte 1, bitwise mask with `D_004E30A8` and OR with `D_004E30AC`, write-back of byte 1 to `D_004E2DB4`, and `D_004E2DB4--`. All 88 instruction bytes match exactly (100.00%).
+- `func_00178cd0` (`0x178CD0`, 184 instruction bytes): Leaf function copying 2 bytes from `D_004E2DB4 - 1` into staging buffer, dual lookups on bytes 0 and 1, shift left 8, bitwise mask with `D_004E30A8` and OR with `D_004E30AC`, logical shift right 8, write-back of bytes 1 and 0 to `D_004E2DB4` with decrements. All 184 instruction bytes match exactly (100.00%).
+- `func_00178d90` (`0x178D90`, 160 instruction bytes): Leaf function copying 2 bytes from `D_004E2DB4 - 1` into staging buffer, dual lookups on bytes 0 and 1, bitwise mask with `D_004E30A8` and OR with `D_004E30AC`, write-back of bytes 1 and 0 to `D_004E2DB4` with decrements. All 160 instruction bytes match exactly (100.00%).
+- `func_00178e30` (`0x178E30`, 172 instruction bytes): Leaf function performing byte 0 staged lookup with bitwise mask and OR and store, followed by byte 1 staged lookup with bitwise mask and OR and store to `D_004E2DB4`. All 172 instruction bytes match exactly (100.00%).
+
+An independent verification suite (`tests/test_trade_action_stream_decoders98.py`, with fixture/build support in `tests/trade_action_stream_decoders98_support.py`) compiles the actual source, checks the pinned original ELF SHA-1 (`867e13fd1f0aaa8a690d7ba773f5e3027ca21718`) and file-backed `PT_LOAD` mapping, validates object and linked `STT_FUNC` symbol sizes and `st_shndx`, links an `ET_EXEC` with no unresolved symbols, and compares emitted instruction and padding bytes.
+
+#### 6.274.1 Trade Action Stream Decoders 98 Matching Results (692 Code Bytes, 720-Byte Slice)
+
+| Function | VRAM | Instruction bytes | Result | Padding |
+|---|---:|---:|---|---:|
+| `func_00178c10` | `0x178C10` | 88 | 88/88 exact (100.00%) | 8 B |
+| `func_00178c70` | `0x178C70` | 88 | 88/88 exact (100.00%) | 8 B |
+| `func_00178cd0` | `0x178CD0` | 184 | 184/184 exact (100.00%) | 8 B |
+| `func_00178d90` | `0x178D90` | 160 | 160/160 exact (100.00%) | 0 B |
+| `func_00178e30` | `0x178E30` | 172 | 172/172 exact (100.00%) | 4 B |

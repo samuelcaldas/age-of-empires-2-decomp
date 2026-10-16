@@ -29,6 +29,8 @@ CASES = [
     ("17", "ID 0x24 and 0x3A scaler returns 0 forces slot to 1"),
     ("18", "Parameterized matrix test for f20 IDs 0x24 and 0x3A across modes 2, 3, 4 and flags 0, 1"),
     ("19", "Parameterized matrix test for f21 IDs 0x10, 0x1A, 0x3B, 0x3C across modes 2, 3, 4 and flags 0, 1"),
+    ("20", "Parameterized matrix test for f22 IDs 0x13, 0x14 across modes 2, 3, 4 and flags 0, 1"),
+    ("21", "Parameterized matrix test for f23 IDs 0xE3, 0xE4 across modes 2, 3, 4 and flags 0, 1"),
 ]
 
 

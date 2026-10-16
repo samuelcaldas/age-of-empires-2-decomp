@@ -4,11 +4,11 @@
 #include <vector>
 
 extern "C" {
-void *func_00332da0(void *a0, int a1) { return a0; }
-int func_00188070(void *a0, int a1) { return a1; }
-int func_00123350(void *a0, float a1, int a2) { return a2; }
-int func_002a0b30(void *a0, int a1) { return a1; }
-int func_0029df60(void *a0, int a1) { return a1; }
+void *func_00332da0(int id) { return reinterpret_cast<void *>(0x1234); }
+int func_00188070(void *ctx, int id) { return id; }
+int func_00123350(float val) { return static_cast<int>(val); }
+int func_002a0b30(void *mgr, int id) { return id; }
+int func_0029df60(void *mgr, int id) { return id; }
 
 int func_002B6220(void *self, int index, int value);
 }

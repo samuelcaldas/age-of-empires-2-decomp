@@ -10,20 +10,26 @@ struct ActionRebind {
     virtual void* Method13();
     virtual void* v14(); virtual void* v15(); virtual void* v16();
     virtual void Method19(int target);
+    virtual void* v18(); virtual void* v19();
     virtual void* v20(); virtual void* v21(); virtual void* v22(); virtual void* v23(); virtual void* v24();
-    virtual void* v25(); virtual void* v26(); virtual void* v27();
+    virtual void* v25();
     virtual void Method28(int code);
+    virtual void Method29();
+    virtual void Method30();
     virtual void* v29();
-    V_SLOT_10(3)
+    virtual void* v30();
+    virtual void* v31();
+    virtual float Method32();
+    virtual void* v33(); virtual void* v34(); virtual void* v35(); virtual void* v36();
+    virtual void* v37(); virtual void* v38(); virtual void* v39();
     V_SLOT_10(4)
     virtual void* v50(); virtual void* v51(); virtual void* v52(); virtual void* v53(); virtual void* v54();
     virtual void* v55(); virtual void* v56(); virtual void* v57();
     virtual void Method58();
-    virtual void* v59();
-    virtual void* v60();
     virtual void Method61(void *world, int a2, int a3, int a4);
     virtual void Method62(void *world, int a2, int a3, int a4);
-    virtual void* v63(); virtual void* v64(); virtual void* v65(); virtual void* v66(); virtual void* v67(); virtual void* v68(); virtual void* v69();
+    virtual void* v61(); virtual void* v62(); virtual void* v63(); virtual void* v64(); virtual void* v65();
+    virtual void* v66(); virtual void* v67(); virtual void* v68(); virtual void* v69();
     V_SLOT_10(7)
     V_SLOT_10(8)
     virtual void Method90(short a1, short a2, int a3, void *ba0, int zero1, int zero2);
@@ -35,7 +41,7 @@ struct ActionRebind {
     int m_field14;
     int m_field18;
     int m_field1C;
-    char pad_20[0x4];
+    int m_field20;
     short m_field24;
     short m_field26;
     short m_field28;

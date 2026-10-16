@@ -19,8 +19,8 @@ extern "C" {
         (void)arg0; (void)a1; (void)a2;
         g_func_3675D0_called++;
     }
-    void func_1C9E00(void *arg0, int a1, int a2) {
-        (void)arg0; (void)a1; (void)a2;
+    void func_1C9E00(void *arg0, int a1, int a2, int a3, int a4, int a5) {
+        (void)arg0; (void)a1; (void)a2; (void)a3; (void)a4; (void)a5;
         g_func_1C9E00_called++;
     }
     char func_26AD20(void *action, int flag) {

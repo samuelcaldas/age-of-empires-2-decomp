@@ -90,6 +90,8 @@ static void test_orthogonal_saddle_replacement() {
 
     func_001CC6E0(&zm, 3, 3, 3, 3, 2);
     assert(g_call_log.size() == 1);
+    assert(g_call_log[0].self == &zm);
+    assert(g_call_log[0].world == zm.m_world); // m_world verified
     assert(g_call_log[0].x == 3 && g_call_log[0].y == 3);
     assert(g_call_log[0].terrain == 2);
     assert(g_call_log[0].p5 == 0 && g_call_log[0].p6 == 0); // Trailing args zeroed
@@ -110,13 +112,17 @@ static void test_corner_diagonal_replacement() {
     cells[3][2].f_5 = 1; // West
 
     func_001CC6E0(&zm, 3, 3, 3, 3, 2);
-    assert(g_call_log.size() >= 1);
-    // Verifies trailing arguments zeroed for every call
-    for (size_t i = 0; i < g_call_log.size(); i++) {
-        assert(g_call_log[i].p5 == 0 && g_call_log[i].p6 == 0);
-        assert(g_call_log[i].terrain == 2);
-    }
-    assert(cells[3][3].f_5 == 2);
+    // Exact count of 2 calls: (3, 2) in pass 0, (3, 3) in pass 1
+    assert(g_call_log.size() == 2);
+    assert(g_call_log[0].self == &zm && g_call_log[0].world == zm.m_world);
+    assert(g_call_log[0].x == 3 && g_call_log[0].y == 2 && g_call_log[0].terrain == 2);
+    assert(g_call_log[0].p5 == 0 && g_call_log[0].p6 == 0);
+
+    assert(g_call_log[1].self == &zm && g_call_log[1].world == zm.m_world);
+    assert(g_call_log[1].x == 3 && g_call_log[1].y == 3 && g_call_log[1].terrain == 2);
+    assert(g_call_log[1].p5 == 0 && g_call_log[1].p6 == 0);
+
+    assert(cells[2][3].f_5 == 2 && cells[3][3].f_5 == 2);
 }
 
 static void test_bounds_clamping() {
@@ -131,20 +137,18 @@ static void test_bounds_clamping() {
 
     func_001CC6E0(&zm1, -10, -10, 50, 50, 2);
     assert(g_call_log.size() == 1);
+    assert(g_call_log[0].self == &zm1 && g_call_log[0].world == zm1.m_world);
     assert(g_call_log[0].x == 3 && g_call_log[0].y == 3);
     assert(g_call_log[0].p5 == 0 && g_call_log[0].p6 == 0);
-    int count1 = static_cast<int>(g_call_log.size());
 
     g_call_log.clear();
     func_001CC6E0(&zm2, 0, 0, 6, 6, 2);
     assert(g_call_log.size() == 1);
+    assert(g_call_log[0].self == &zm2 && g_call_log[0].world == zm2.m_world);
     assert(g_call_log[0].x == 3 && g_call_log[0].y == 3);
     assert(g_call_log[0].p5 == 0 && g_call_log[0].p6 == 0);
-    int count2 = static_cast<int>(g_call_log.size());
 
-    assert(count1 == 1 && count2 == 1);
-    assert(cells1[3][3].f_5 == 2);
-    assert(cells2[3][3].f_5 == 2);
+    assert(cells1[3][3].f_5 == 2 && cells2[3][3].f_5 == 2);
     assert(std::memcmp(cells1, cells2, sizeof(cells1)) == 0);
 }
 

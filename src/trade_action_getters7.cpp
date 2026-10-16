@@ -77,10 +77,14 @@ void func_002B6220(void *self, int index, int value) {
     }
 
     if (index == 0x68 || index == 0x14 || index == 0xE6) {
-        func_00123350(static_cast<float>(*table_slot));
+        float scale_factor = 1.0f;
+        if (index == 0x68) scale_factor = 0.5f;
+        else if (index == 0x14) scale_factor = 0.75f;
+        else if (index == 0xE6) scale_factor = 0.25f;
+        func_00123350(scale_factor * static_cast<float>(*table_slot));
     }
 
-    if (p1 && (index == 0x68 || index == 0x75 || index == 0x14 || index == 0xCC)) {
+    if (p1 && (index == 0x56 || index == 0x57 || index == 0x69 || index == 0x68 || index == 0x75 || index == 0x14 || index == 0xCC)) {
         func_002a0b30(static_cast<char *>(p1) + 0x3624, 0x56);
         func_0029df60(static_cast<char *>(p1) + 0x3624, 0x57);
     }

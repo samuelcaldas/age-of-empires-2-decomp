@@ -1,7 +1,5 @@
 """Compare compiled zone vtable stubs with original PS2 instructions."""
 
-import pytest
-
 from zone_vtable_stubs_matching_support import (
     EXPECTED_FUNCTIONS,
     TAIL_PADDING_BYTES,

@@ -3,7 +3,9 @@
 #include "zone_destructor.h"
 
 extern char D_4D9270[];
-extern void *D_4E35DC;
+extern void *D_004E2DF0;
+extern void *D_004E2DE8;
+extern void *D_004E2DEC;
 extern char D_938AC0[];
 extern char D_938CC0[];
 extern char D_81D120[];
@@ -13,7 +15,7 @@ extern char D_938790[];
 
 extern "C" {
 
-void func_335560(void *allocator, void *ptr);
+void func_335560(void *allocator);
 void func_00100670(void *ptr); // operator delete
 void func_00100630(void *ptr);
 void func_1D16D0(void *self);
@@ -21,7 +23,7 @@ void func_25DE30(void *ptr, int flag);
 void *memset(void *dst, int val, unsigned int size);
 void func_001389F0(void *allocator);
 void func_327590(void *allocator);
-void func_1ED830(void *self);
+void func_1ED830(void *field);
 void func_1D06A0(void *self);
 
 struct ZoneMap {
@@ -47,11 +49,10 @@ struct ZoneMap {
     void *m_field8EF4;       // 0x8EF4 (-0x710C)
 };
 
-class DestructibleObject {
+class ObjectWithBase {
 public:
-    virtual void Method0();
-    virtual void Method1();
-    virtual void Destroy(int flag);
+    char pad_base[0x34];
+    virtual ~ObjectWithBase();
 };
 
 void *func_001C8FF0(void *self, int flag) {
@@ -60,14 +61,11 @@ void *func_001C8FF0(void *self, int flag) {
         zm->vptr = D_4D9270;
 
         if (zm->m_field8EEC) {
-            func_335560(D_4E35DC, zm->m_field8EEC);
+            func_335560(D_004E2DF0);
         }
 
         if (zm->m_field8EE4) {
-            void *obj = zm->m_field8EE4;
-            typedef void (*Dtor)(void *, int);
-            Dtor dtor = *(Dtor *)(*(char **)((char *)obj + 0x34) + 8);
-            dtor(obj, 1);
+            delete ((ObjectWithBase *)zm->m_field8EE4);
         }
 
         func_1D16D0(self);
@@ -75,7 +73,8 @@ void *func_001C8FF0(void *self, int flag) {
         if (zm->m_field4) {
             for (int s0 = 0; s0 < zm->m_fieldC; s0++) {
                 for (int s1 = 0; s1 < zm->m_field8; s1++) {
-                    char *cell = (char *)zm->m_field8E8C[s0] + s1 * 28;
+                    int offset = s1 * 28;
+                    char *cell = (char *)zm->m_field8E8C[s0] + offset;
                     void *sub_item = *(void **)(cell + 0x10);
                     if (sub_item) {
                         func_25DE30(sub_item, 1);
@@ -102,30 +101,28 @@ void *func_001C8FF0(void *self, int flag) {
         }
 
         for (int s0 = 31; s0 >= 0; s0--) {
-            char *elem = (char *)self + s0 * 416;
-            void *item = *(void **)(elem + 0xAC);
-            if (item) {
-                func_25DE30(item, 1);
-                *(void **)(elem + 0xAC) = 0;
+            void **item_ptr = (void **)((char *)self + s0 * 416 + 0xAC);
+            if (*item_ptr) {
+                func_25DE30(*item_ptr, 1);
+                *item_ptr = 0;
             }
         }
 
         for (int s0 = 15; s0 >= 0; s0--) {
-            char *elem = (char *)self + s0 * 480;
-            void *item = *(void **)(elem + 0x34AC);
-            if (item) {
-                func_25DE30(item, 1);
-                *(void **)(elem + 0x34AC) = 0;
+            void **item_ptr = (void **)((char *)self + s0 * 1440 + 0x34AC);
+            if (*item_ptr) {
+                func_25DE30(*item_ptr, 1);
+                *item_ptr = 0;
             }
         }
 
         if (zm->m_field8EF0) {
-            func_001389F0(D_4E35DC);
+            func_001389F0(D_004E2DE8);
             zm->m_field8EF0 = 0;
         }
 
         if (zm->m_field8EF4) {
-            func_327590(D_4E35DC);
+            func_327590(D_004E2DEC);
             zm->m_field8EF4 = 0;
         }
 
@@ -148,7 +145,7 @@ void *func_001C8FF0(void *self, int flag) {
         }
 
         if (zm->m_field8EE0) {
-            func_1ED830(self);
+            func_1ED830(zm->m_field8EE0);
         }
 
         func_1D06A0(self);

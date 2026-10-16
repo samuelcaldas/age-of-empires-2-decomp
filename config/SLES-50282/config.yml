@@ -1495,10 +1495,58 @@ segments:
     vram: 0x171120
     subsegments:
       - [0x71300, asm, trade_action_stream_decoders67]
-  - name: post_base
-    type: bin
+  - name: trade_action_stream_decoders68
+    type: code
     start: 0x71A30
     vram: 0x171850
+    subsegments:
+      - [0x71A30, asm, trade_action_stream_decoders68]
+  - name: trade_action_stream_decoders69
+    type: code
+    start: 0x71E90
+    vram: 0x171CB0
+    subsegments:
+      - [0x71E90, asm, trade_action_stream_decoders69]
+  - name: trade_action_stream_decoders70
+    type: code
+    start: 0x71FF0
+    vram: 0x171E10
+    subsegments:
+      - [0x71FF0, asm, trade_action_stream_decoders70]
+  - name: trade_action_stream_decoders71
+    type: code
+    start: 0x721E0
+    vram: 0x172000
+    subsegments:
+      - [0x721E0, asm, trade_action_stream_decoders71]
+  - name: trade_action_stream_decoders72
+    type: code
+    start: 0x72430
+    vram: 0x172250
+    subsegments:
+      - [0x72430, asm, trade_action_stream_decoders72]
+  - name: trade_action_stream_decoders73
+    type: code
+    start: 0x72700
+    vram: 0x172520
+    subsegments:
+      - [0x72700, asm, trade_action_stream_decoders73]
+  - name: trade_action_stream_decoders74
+    type: code
+    start: 0x72A10
+    vram: 0x172830
+    subsegments:
+      - [0x72A10, asm, trade_action_stream_decoders74]
+  - name: trade_action_stream_decoders75
+    type: code
+    start: 0x72D50
+    vram: 0x172B70
+    subsegments:
+      - [0x72D50, asm, trade_action_stream_decoders75]
+  - name: post_base
+    type: bin
+    start: 0x730E0
+    vram: 0x172F00
   - name: zone_path_eval
     type: code
     start: 0xC7A40

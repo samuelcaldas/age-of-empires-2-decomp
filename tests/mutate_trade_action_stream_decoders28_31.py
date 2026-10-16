@@ -1,10 +1,9 @@
-"""Exercise value, cursor, and +1 destination mutants, then rebuild the baseline."""
+"""Reject production-source value, cursor, and destination-address mutants."""
 
+import argparse
 import hashlib
-
-from trade_action_stream_decoders28_31_proof import (
-    ROOT, prove_all, prove_unit, require_root, run,
-)
+import importlib.util
+from pathlib import Path
 
 HASHES = {
     "src/trade_action_stream_decoders28.cpp": "57e8cab1edf90e48a46fbbf19bd01f21438f03184be1a5aabca8463681f94064",
@@ -22,56 +21,67 @@ HASHES = {
 }
 
 
-def assert_import_hashes():
+def load_proof():
+    path = Path(__file__).resolve().with_name("trade_action_stream_decoders28_31_proof.py")
+    spec = importlib.util.spec_from_file_location("decoder28_31_proof", path)
+    assert spec is not None and spec.loader is not None
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def assert_import_hashes(root):
     for relative, expected in HASHES.items():
-        actual = hashlib.sha256((ROOT / relative).read_bytes()).hexdigest()
+        actual = hashlib.sha256((root / relative).read_bytes()).hexdigest()
         assert actual == expected, (relative, actual, expected)
 
 
-def ninja_object(number):
-    run(["ninja", "-v", f"build/SLES-50282/src/trade_action_stream_decoders{number}.o"])
-
-
-def mutate_and_reject(number, function_name, original, replacement):
-    path = ROOT / f"src/trade_action_stream_decoders{number}.cpp"
+def mutate_and_reject(proof, number, function_name, original, replacement, expected_error):
+    root = proof.ROOT
+    path = root / f"src/trade_action_stream_decoders{number}.cpp"
     original_file = path.read_bytes()
     prefix = f"void {function_name}()".encode()
     start = original_file.index(prefix)
     end = original_file.index(b"\n}\n", start) + 2
     body = original_file[start:end]
-    assert original in body
+    assert body.count(original) == 1, (function_name, original)
     path.write_bytes(original_file[:start] + body.replace(original, replacement, 1) + original_file[end:])
     try:
-        ninja_object(number)
+        proof.run(["ninja", "-v", f"build/SLES-50282/src/trade_action_stream_decoders{number}.o"])
         try:
-            prove_unit(number)
+            proof.prove_unit(number)
         except AssertionError as error:
-            print(f"REJECTED {function_name} mutant: {error}")
+            assert expected_error(str(error)), (function_name, error)
+            print(f"REJECTED {function_name}: {error}")
         else:
             raise AssertionError(f"{function_name} mutant unexpectedly passed")
     finally:
         path.write_bytes(original_file)
-        ninja_object(number)
-        assert_import_hashes()
+        proof.run(["ninja", "-v", f"build/SLES-50282/src/trade_action_stream_decoders{number}.o"])
+        assert_import_hashes(root)
 
 
 def main():
-    require_root()
-    assert_import_hashes()
-    mutate_and_reject(28, "func_001658C0", b"*dst = *ptr;", b"*dst = ptr[1];")
-    mutate_and_reject(30, "func_00166A70", b"D_004E2DA8 -= 4;", b"D_004E2DA8 -= 3;")
-    try:
-        prove_unit(29, {"D_004E2DA0": 0x4E2DA1})
-    except AssertionError as error:
-        assert "original/effective/expected" in str(error)
-        print(f"REJECTED destination+1 mutant before raw comparison: {error}")
-    else:
-        raise AssertionError("destination+1 mutant unexpectedly passed")
-    for number in range(28, 32):
-        ninja_object(number)
-    assert_import_hashes()
-    prove_all()
-    assert_import_hashes()
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--root", type=Path, help="explicit snapshot or worktree root; must equal cwd")
+    arguments = parser.parse_args()
+    proof = load_proof()
+    root = proof.require_root(arguments.root)
+    assert_import_hashes(root)
+    proof.prepare_build()
+    print("BASELINE BEFORE MUTANTS")
+    proof.prove_all()
+    mutate_and_reject(proof, 28, "func_001658C0", b"*dst = *ptr;", b"*dst = ptr[1];",
+                      lambda message: message.startswith("('func_001658C0', ["))
+    mutate_and_reject(proof, 30, "func_00166A70", b"D_004E2DA8 -= 4;", b"D_004E2DA8 -= 3;",
+                      lambda message: message.startswith("('func_00166A70', ["))
+    mutate_and_reject(proof, 29, "func_00166100", b"D_004E2DA0.bytes;", b"D_004E2DA0.bytes + 1;",
+                      lambda message: message.startswith("func_00166100: original/effective/expected 0x4e2da0/0x4e2da1/0x4e2da0"))
+    assert_import_hashes(root)
+    proof.prepare_build()
+    print("BASELINE AFTER MUTANTS")
+    proof.prove_all()
+    assert_import_hashes(root)
     print("RESTORED all 12 pinned source/test/support files by fixed SHA-256")
 
 

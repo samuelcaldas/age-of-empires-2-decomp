@@ -2003,9 +2003,15 @@ segments:
     vram: 0x1CDD00
     subsegments:
       - [0xCDEE0, asm, zone_rebind_table1]
+  - name: zone_rebind_table2
+    type: code
+    start: 0xCE010
+    vram: 0x1CDE30
+    subsegments:
+      - [0xCE010, asm, zone_rebind_table2]
   - name: post_aoe2
     type: bin
-    start: 0xCE010
+    start: 0xCE110
   - name: trade_action_helper_217730
     type: code
     start: 0x117910

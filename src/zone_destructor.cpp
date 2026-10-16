@@ -26,13 +26,19 @@ void func_327590(void *allocator);
 void func_1ED830(void *field);
 void func_1D06A0(void *self);
 
+struct GridCell {
+    char pad[0x10];
+    void *sub_item;
+    char pad2[8];
+};
+
 struct ZoneMap {
     void *vptr;              // 0x0
     int m_field4;            // 0x4
     int m_field8;            // 0x8
     int m_fieldC;            // 0xC
     char pad_10[0x8E7C];     // 0x10 to 0x8E8C
-    void **m_field8E8C;      // 0x8E8C (-0x7174)
+    GridCell **m_field8E8C;  // 0x8E8C (-0x7174)
     char pad_8E90[0x34];     // 0x8E90 to 0x8EC4
     int m_field8EC4;         // 0x8EC4 (-0x713C)
     int m_field8EC8;         // 0x8EC8 (-0x7138)
@@ -73,9 +79,7 @@ void *func_001C8FF0(void *self, int flag) {
         if (zm->m_field4) {
             for (int s0 = 0; s0 < zm->m_fieldC; s0++) {
                 for (int s1 = 0; s1 < zm->m_field8; s1++) {
-                    int offset = s1 * 28;
-                    char *cell = (char *)zm->m_field8E8C[s0] + offset;
-                    void *sub_item = *(void **)(cell + 0x10);
+                    void *sub_item = zm->m_field8E8C[s0][s1].sub_item;
                     if (sub_item) {
                         func_25DE30(sub_item, 1);
                     }

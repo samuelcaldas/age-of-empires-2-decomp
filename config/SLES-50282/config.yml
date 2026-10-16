@@ -1703,9 +1703,6 @@ segments:
     vram: 0x2B61F0
     subsegments:
       - [0x1B63D0, asm, trade_action_getters6]
-  - name: post_trade_action_getters6
-    type: bin
-    start: 0x1B6400
   - name: trade_action_getters7
     type: code
     start: 0x1B6400

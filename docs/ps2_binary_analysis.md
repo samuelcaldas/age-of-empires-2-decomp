@@ -5194,9 +5194,9 @@ GNU `ET_EXEC` links at the original addresses with actual external addresses and
 
 **Resolver integer-to-float correction and ABI proof:** the registered MWCC command (`mwccps2.exe -O3 -inline on -msext on -char signed -sym off -Iinclude -lang=c++`) compiles this target as ELF32 `ET_REL`. A compiler probe established `sizeof(long) == 8`, while `sizeof(int) == sizeof(void*) == 4`. A direct `int`-to-`float` conversion emits `mtc1 v0,$f0` plus `cvt.s.w`; explicitly widening to `long` emits `R_MIPS_26 __floatdisf` instead. The candidate's old `void *func_001AAB30()` declaration was also inconsistent with the existing project declarations, which use `int`; however, the probe isolated the helper to the explicit `long` cast, not the pointer declaration alone. The original callee at `0x1AAB30` returns its 32-bit result through `v0` (including signed correction via `addiu v1,v1,-32768`), and the resolver directly consumes that same `v0` with `mtc1` at `0x269AC8` and `cvt.s.w` at `0x269AD0`. The same inline word conversion appears in the other three side branches (`0x269B04/0x269B0C`, `0x269B40/0x269B48`, and `0x269B7C/0x269B84`). The minimal source correction is therefore to declare the RNG return as `int` and remove the four explicit `(long)` widenings, matching the original signed 32-bit conversion; the native fixture mock now has the same `int` signature and preserves its sequence, counters, and expectations. The corrected object has no `__floatdisf` symbol or relocation, and its isolated `ET_EXEC --no-undefined` link succeeds without a fabricated helper address. A fixed negative control reintroduced the original wide cast, confirmed MWCC still builds it with four helper relocations, and confirmed the isolated linker rejects that mutated object for unresolved `__floatdisf`; the candidate source was restored and rebuilt.
 
-#### Zone Terrain and Coordinate Transformation Slices (`0x1CDD00`–`0x1D1100`)
+#### Zone Terrain and Coordinate Transformation Slices (`0x1CDD00`–`0x1D1430`)
 
-Contiguous decompilation of the Age of Empires II PlayStation 2 terrain and spatial sub-systems along file offsets `0xCDEE0`–`0xD12E0` (VRAM `0x1CDD00`–`0x1D1100`, offset mapping `+0xFFE20`):
+Contiguous decompilation of the Age of Empires II PlayStation 2 terrain and spatial sub-systems along file offsets `0xCDEE0`–`0xD1610` (VRAM `0x1CDD00`–`0x1D1430`, offset mapping `+0xFFE20`):
 
 | Unit | File range | VRAM range | Original code / slice | Pad | Match Status | Description |
 |---|---:|---:|---:|---:|---|---|
@@ -5225,6 +5225,8 @@ Contiguous decompilation of the Age of Empires II PlayStation 2 terrain and spat
 | `zone_free_cell_items_buffer` | `0xD10A0`–`0xD10C0` | `0x1D0EC0`–`0x1D0EE0` | 28 / 32 B | 4 B | **Matching (100.00%)** | O(1) leaf function pushing deallocated cell items buffer onto bucket free list in LIFO order and incrementing free counter. |
 | `zone_reset_bucket_counters` | `0xD10C0`–`0xD10E0` | `0x1D0EE0`–`0x1D0F00` | 20 / 32 B | 12 B | **Matching (100.00%)** | Leaf function zeroing bucket tracking counters across offsets 0x34, 0x38, 0x3C, and 0x40. Zero stack frame. |
 | `zone_insert_spatial_item` | `0xD10E0`–`0xD12E0` | `0x1D0F00`–`0x1D1100` | 508 / 512 B | 4 B | NonMatching (71.18%) | Searches cell for nearest entity matching target type and mode flag by computing 2D squared Euclidean distance, with fallback query on (-1, -1) coordinates. |
+| `zone_find_cell_item_by_attr` | `0xD12E0`–`0xD1330` | `0x1D1100`–`0x1D1150` | 76 / 80 B | 4 B | **Matching (100.00%)** | Leaf function searching cell items list for matching attribute short at info offset 0xE, returning entity pointer or 0. |
+| `zone_filter_cell_items` | `0xD1330`–`0xD1610` | `0x1D1150`–`0x1D1430` | 732 / 736 B | 4 B | NonMatching (58.01%) | Filters cell items by entity type threshold (>= 50), c6 flag, and GP bitmasks, dispatching virtual method 6 (Render) and sound/queue callbacks. |
 
 <<<<<<< HEAD
 Located at VRAM `0x3074B0`–`0x307640` (file offset `0x207690`–`0x207820`, 400 bytes total slice, Metrowerks C++ PS2 MWCC 2.3.1.01):

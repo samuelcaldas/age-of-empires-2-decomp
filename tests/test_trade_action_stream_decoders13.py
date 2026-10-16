@@ -2,7 +2,12 @@
 
 import struct
 
-from trade_action_stream_decoders13_support import (
+import pytest
+
+# Preserve assertion diagnostics before pytest loads the support module as a plugin.
+pytest.register_assert_rewrite("trade_action_stream_decoders13_support")
+
+from trade_action_stream_decoders13_support import (  # noqa: E402
     EXTERNAL_SYMBOLS, F450_OFFSET, F450_SIZE, F510_OFFSET, F510_SIZE,
     F5D0_OFFSET, F5D0_SIZE, F6F0_OFFSET, F6F0_SIZE, FILE_OFFSET,
     PAD1_OFFSET, PAD1_SIZE, PAD2_OFFSET, PAD2_SIZE, PAD3_OFFSET, PAD3_SIZE,

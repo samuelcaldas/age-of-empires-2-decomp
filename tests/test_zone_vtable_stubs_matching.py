@@ -1,7 +1,13 @@
 """Compare compiled zone vtable stubs with original PS2 instructions."""
 
-from zone_vtable_stubs_matching_support import (
+import re
+
+import pytest
+
+pytest.register_assert_rewrite("zone_vtable_stubs_matching_support")
+from zone_vtable_stubs_matching_support import (  # noqa: E402
     EXPECTED_FUNCTIONS,
+    PROJECT_ROOT,
     TAIL_PADDING_BYTES,
     compile_stubs,
     link_stubs,
@@ -9,6 +15,17 @@ from zone_vtable_stubs_matching_support import (
     require_toolchain,
     verify_object_symbols,
 )
+
+
+def test_zone_vtable_stubs_symbol_registration():
+    """Require unique original function addresses and sizes in slicer metadata."""
+    symbols = (PROJECT_ROOT / "config/SLES-50282/symbols.txt").read_text()
+    for name, info in EXPECTED_FUNCTIONS.items():
+        pattern = rf"^{name} = (0x[0-9A-Fa-f]+); // type:func size:(0x[0-9A-Fa-f]+)\b"
+        matches = re.findall(pattern, symbols, re.MULTILINE)
+        assert [(int(address, 16), int(size, 16)) for address, size in matches] == [
+            (info["vram"], info["size"])
+        ]
 
 
 def test_zone_vtable_stubs_matches_original_after_resolving_externals(tmp_path):

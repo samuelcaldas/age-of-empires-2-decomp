@@ -1068,5 +1068,13 @@ func_2cc630 = 0x2CC630; // type:func absolute:True
 func_315560 = 0x315560; // type:func absolute:True
 func_315a50 = 0x315A50; // type:func absolute:True
 D_4DE760 = 0x4DE760; // type:u32 size:4 absolute:True
+
+// Tactical AI Action Items (0x307220-0x307320)
+func_00307220 = 0x307220; // type:func size:0x44 absolute:True
+func_00307270 = 0x307270; // type:func size:0x5C absolute:True
+func_003072D0 = 0x3072D0; // type:func size:0x48 absolute:True
+func_316130 = 0x316130; // type:func absolute:True
+func_2d33e0 = 0x2D33E0; // type:func absolute:True
+func_316ea0 = 0x316EA0; // type:func absolute:True
 D_938AC0 = 0x938AC0; // type:u8 size:0x200 absolute:True
 D_938CC0 = 0x938CC0; // type:u8 size:0x200 absolute:True

@@ -4590,3 +4590,20 @@ Emitted instructions: 156 bytes code (3 x 52B) + 24 bytes inter-function padding
 | `func_00307160` | `0x307160` | 52 B | 64 B | **100.00% exact match** (52/52 B) | Action command delegator checking task 104 or forwarding to `func_2cc630`. |
 | `func_003071A0` | `0x3071A0` | 52 B | 64 B | **100.00% exact match** (52/52 B) | Primary tactical action constructor setting vtable pointer `D_4DE760`. |
 | `func_003071E0` | `0x3071E0` | 52 B | 64 B | **100.00% exact match** (52/52 B) | Secondary tactical action constructor setting vtable pointer `D_4DE760`. |
+
+#### 6.179 `Tactical AI Action Item Coordinator & Handlers` Subsystem (`0x307220`–`0x307320`, `tactical_ai_action_items.cpp`)
+
+Located at VRAM `0x307220`–`0x307320` (file offset `0x207400`–`0x207500`, 256 bytes total slice, Metrowerks C++ PS2 MWCC 2.3.1.01):
+- `func_00307220` (`0x307220`, 68 bytes code + 12 bytes zero padding, 80 bytes slice): Action item type validator and switch dispatcher forwarding type 100 items to `func_00307270` or default items to `func_316130`. **100.00% exact bit-for-bit match**.
+- `func_00307270` (`0x307270`, 92 bytes code + 4 bytes zero padding, 96 bytes slice): Action item state coordinator validating player presence, querying `func_2d33e0(player->m_field1B34, item->m_field20)`, and conditionally setting `item->m_field2E = 2` when result is 3. **100.00% exact bit-for-bit match**.
+- `func_003072D0` (`0x3072D0`, 72 bytes code + 8 bytes zero padding, 80 bytes slice): Action item allocator invoking `func_316ea0(self, arg1, 0)`, initializing allocated item with `m_type = 100`, setting `m_arg2 = arg2`, and returning 1 on success (0 on null). **100.00% exact bit-for-bit match**.
+
+A fresh actual-source MWCC build and real GNU `ld --no-undefined` link emit 232 instruction bytes (68 + 92 + 72) and 16 internal-alignment bytes (12 + 4): all 248 emitted bytes match the original without masks. The final eight zero bytes belong only to the original 256-byte slice. Canonical symbol sizes exclude all alignment. `tests/test_tactical_ai_action_items_matching.py` recompiles the current C++ source, resolves the real external addresses, checks all three symbols and the original ELF hash/file mapping, and compares the complete emitted bytes without masks. Registered as `Matching` in `configure.py`.
+
+#### 6.179.1 Tactical AI Action Item Coordinator Matching Results (248 Emitted Bytes Exact, 256-Byte Original Slice)
+
+| Function / Method | VRAM Address | Code Size (Orig) | Slice Size | Match Status | Description |
+|---|---|---|---|---|---|
+| `func_00307220` | `0x307220` | 68 B | 80 B | **100.00% exact match** (68/68 B) | Action item validator switch dispatcher forwarding to `func_00307270`. |
+| `func_00307270` | `0x307270` | 92 B | 96 B | **100.00% exact match** (92/92 B) | Action item state coordinator delegating to `func_2d33e0`. |
+| `func_003072D0` | `0x3072D0` | 72 B | 80 B | **100.00% exact match** (72/72 B) | Action item allocator calling `func_316ea0` and setting type 100. |

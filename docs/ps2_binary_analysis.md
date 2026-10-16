@@ -4677,6 +4677,12 @@ Original binary layout: 392 bytes code (160B + 96B + 136B) + 8 bytes trailing ze
 | `func_003073C0` | `0x3073C0` | 96 B | 96 B | **100.00% exact match** (96/96 B) | Scalar deleting destructor setting vtable pointer `D_4DEBF0`. |
 | `func_00307420` | `0x307420` | 136 B | 144 B | NonMatching (67/136 B unmasked) | Notification coordinator calling `func_242fc0` or `func_118de0`. |
 
+#### 6.185 `Trade Action Helper` (`0x217930`–`0x217A10`, `trade_action_helper_217930.cpp`)
+
+The complete 224-byte function occupies file offsets `0x117B10`–`0x117BF0` (end-exclusive). `func_00217930(self, arg1, arg2)` first cleans up any existing target at `self + 0x180` via `func_25DE30(target, 1)`, clears that pointer, and zeroes the adjacent 16-bit fields. Only after cleanup does it test whether `arg2 == -1` and `arg1` is null or points to zero; that bypass returns without allocating. Otherwise it requests decimal 20 bytes from `func_25F2B0`, calls `func_25D6D0` only when allocation succeeds, stores the possibly null result at offset `0x180`, and always calls `func_25DF80` with that target, four 32-bit output pointers, and sixth argument 0. It stores the low 16 bits of each output before subtraction: `(short)out2 - (short)out0` and `(short)out3 - (short)out1`.
+
+`tests/test_trade_action_helper_217930.py` exercises four native cases, including a cleanup callback that mutates `arg1` to zero before the bypass check. The 32-bit native fixture verifies the pointer field and callback ABI. Registered as `NonMatching` in `configure.py`; no exact-byte match is claimed.
+
 #### 6.186 `Trade Action Stream Decoders 13` Subsystem (`0x15F450`–`0x15F840`, `trade_action_stream_decoders13.cpp`)
 
 This four-function C++ slice spans VRAM `0x15F450`–`0x15F840` and file offsets `0x5F630`–`0x5FA20` (1,008 bytes total). The original ELF `PT_LOAD` mapping gives the VRAM/file-offset delta `0xFFE20`. The slice comprises 972 instruction bytes and 36 alignment-padding bytes (12, 12, 4, and 8 bytes respectively). Symbol sizes exclude padding. The unit remains registered as `NonMatching`.

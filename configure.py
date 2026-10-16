@@ -2877,6 +2877,18 @@ if config.platform == Platform.PS2:
                 ),
                 Object(
                     NonMatching,
+                    "zone_spatial_view_update_matrices",
+                    cflags=config.cflags,
+                    toolchain_version="PS2/mwcc-2.3.1.01",
+                ),
+                Object(
+                    Matching,
+                    "zone_spatial_view_check_modes",
+                    cflags=config.cflags,
+                    toolchain_version="PS2/mwcc-2.3.1.01",
+                ),
+                Object(
+                    NonMatching,
                     "unit_action_core",
                     cflags=config.cflags,
                     toolchain_version="PS2/mwcc-2.3.1.01",

@@ -20,19 +20,19 @@ int func_002699A0(ActionRebind *self, int arg1, float *out_x, float *out_y, void
 
         if (side == 0) {
             *out_x = right_x;
-            float offset = ((float)(long)func_001AAB30() * delta_y) / 32767.0f - ext_y;
+            float offset = ((float)func_001AAB30() * delta_y) / 32767.0f - ext_y;
             *out_y = coord_y + offset;
         } else if (side == 1) {
             *out_x = left_x;
-            float offset = ((float)(long)func_001AAB30() * delta_y) / 32767.0f - ext_y;
+            float offset = ((float)func_001AAB30() * delta_y) / 32767.0f - ext_y;
             *out_y = coord_y + offset;
         } else if (side == 2) {
             *out_y = top_y;
-            float offset = ((float)(long)func_001AAB30() * delta_x) / 32767.0f - ext_x;
+            float offset = ((float)func_001AAB30() * delta_x) / 32767.0f - ext_x;
             *out_x = coord_x + offset;
         } else if (side == 3) {
             *out_y = bottom_y;
-            float offset = ((float)(long)func_001AAB30() * delta_x) / 32767.0f - ext_x;
+            float offset = ((float)func_001AAB30() * delta_x) / 32767.0f - ext_x;
             *out_x = coord_x + offset;
         }
 

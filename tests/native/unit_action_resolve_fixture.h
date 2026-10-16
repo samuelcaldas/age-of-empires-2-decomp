@@ -16,9 +16,9 @@ static int g_last_received_tile_x = -1;
 static int g_last_received_tile_y = -1;
 
 static int g_rand_calls = 0;
-static long g_rand_val = 0;
+static int g_rand_val = 0;
 static int g_use_rand_sequence = 0;
-static long g_rand_sequence[128] = {0};
+static int g_rand_sequence[128] = {0};
 
 static int g_m3c_ret = 0;
 static int g_m73_ret = 1;
@@ -44,13 +44,13 @@ static int g_last_m3c_s8 = 0;
 static int g_last_m3c_s16 = 0;
 
 extern "C" {
-    void* func_001AAB30() {
+    int func_001AAB30() {
         int idx = g_rand_calls;
         g_rand_calls++;
         if (g_use_rand_sequence && idx < 128) {
-            return (void*)g_rand_sequence[idx];
+            return g_rand_sequence[idx];
         }
-        return (void*)g_rand_val;
+        return g_rand_val;
     }
     int func_123350(float val) { return (int)val; }
     unsigned char func_00269E50(ActionRebind *self, int tile_x, int tile_y) {

@@ -10,7 +10,7 @@ int func_00123350(float val) { return static_cast<int>(val); }
 int func_002a0b30(void *mgr, int id) { return id; }
 int func_0029df60(void *mgr, int id) { return id; }
 
-int func_002B6220(void *self, int index, int value);
+void func_002B6220(void *self, int index, int value);
 }
 
 int main(int argc, char **argv) {
@@ -25,15 +25,17 @@ int main(int argc, char **argv) {
     void *self = storage.data();
 
     if (test_case == 0) {
-        assert(func_002B6220(self, -1, 0) == -1);
+        func_002B6220(self, -1, 50);
     } else if (test_case == 1) {
-        assert(func_002B6220(self, 239, 0) == -1);
+        func_002B6220(self, 239, 50);
     } else if (test_case == 2) {
-        assert(func_002B6220(self, 5, 42) == 42);
+        func_002B6220(self, 5, 150);
+        int *slot = reinterpret_cast<int *>(storage.data() + 0x858 + 5 * 4);
+        assert(*slot == 100);
     } else if (test_case == 3) {
-        char *base = storage.data();
-        *reinterpret_cast<int *>(base + 0x0BEC) = 2;
-        assert(func_002B6220(self, 10, 100) == 100);
+        func_002B6220(self, 6, 42);
+        int *slot = reinterpret_cast<int *>(storage.data() + 0x858 + 6 * 4);
+        assert(*slot == 42);
     }
 
     std::cout << "GETTERS7 TEST " << test_case << " PASSED\n";

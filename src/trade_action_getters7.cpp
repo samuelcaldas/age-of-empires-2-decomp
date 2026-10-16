@@ -8,24 +8,26 @@ int func_00123350(float val);
 int func_002a0b30(void *mgr, int id);
 int func_0029df60(void *mgr, int id);
 
-int func_002B6220(void *self, int index, int value) {
+void func_002B6220(void *self, int index, int value) {
     if (!self) {
-        return -1;
+        return;
     }
     char *base = static_cast<char *>(self);
     if (index < 0 || index >= 239) {
-        return -1;
+        return;
     }
 
     int *table_slot = reinterpret_cast<int *>(base + 0x858 + index * 4);
     if (value > 0) {
-        *table_slot = value;
+        int clamped = value;
+        if (clamped < 0) clamped = 0;
+        if (clamped > 100) clamped = 100;
+        *table_slot = clamped;
     }
 
     int field_bec = *reinterpret_cast<int *>(base + 0x0BEC);
     if (field_bec == 1) {
-        // BEC == 1 skips setup / manager resolution
-        return *table_slot;
+        return;
     }
 
     void *mgr = nullptr;
@@ -49,7 +51,5 @@ int func_002B6220(void *self, int index, int value) {
         func_002a0b30(static_cast<char *>(p1) + 0x3624, 0x14);
         func_0029df60(static_cast<char *>(p1) + 0x3624, 0x1E);
     }
-
-    return *table_slot;
 }
 }

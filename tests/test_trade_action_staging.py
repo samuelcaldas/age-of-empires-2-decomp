@@ -2,6 +2,7 @@
 
 from pathlib import Path
 import shutil
+import signal
 import subprocess
 
 import pytest
@@ -29,6 +30,7 @@ static int lookup_values[3];
 static int expected_fields[6];
 static int stage;
 static int expected_lookup_index;
+static int staging_flag;
 
 static int *field(int offset) {
     return reinterpret_cast<int *>(object + offset);
@@ -41,8 +43,10 @@ extern "C" void *func_00185E20(void *source, int index) {
     return lookup_values[0] == -999 ? 0 : lookup_values;
 }
 
-extern "C" void func_00217B50(void *self) {
+extern "C" void func_00217B50(void *self, int flag) {
     assert(self == object);
+    staging_flag = flag;
+    assert(staging_flag == 1);
     assert(stage == 0);
     for (int index = 0; index < 6; index++) {
         assert(*field(0x12C + index * 4) == expected_fields[index]);
@@ -147,3 +151,29 @@ def test_trade_action_staging_behavior(staging_test, case):
     """Verify selected indexes, staged fields, and call ordering natively."""
     result = subprocess.run([str(staging_test), case], capture_output=True, text=True)
     assert result.returncode == 0, f"{case}: {result.stderr}"
+
+
+@pytest.mark.parametrize("case", ["lookup", "null", "copy"])
+def test_staging_helper_flag_mutant_fails_expected_assertion(staging_test, tmp_path, case):
+    """Reject a zero-flag mutant at the native ABI assertion for each case."""
+    compiler = shutil.which("g++")
+    assert compiler is not None
+    source = PROJECT_ROOT / "src/trade_action_helper_217730.cpp"
+    changed = source.read_text().replace(
+        "func_00217B50(self, 1);", "func_00217B50(self, 0);", 1
+    )
+    assert changed != source.read_text()
+    source_copy = tmp_path / "trade_action_helper_217730_mutant.cpp"
+    source_copy.write_text(changed, encoding="utf-8")
+    harness = tmp_path / "staging_test.cpp"
+    harness.write_text(FIXTURE, encoding="utf-8")
+    binary = tmp_path / "staging-mutant"
+    subprocess.run(
+        [compiler, "-m32", "-Iinclude", str(source_copy), str(harness), "-o", str(binary)],
+        cwd=PROJECT_ROOT, check=True, capture_output=True, text=True,
+    )
+    result = subprocess.run([str(binary), case], capture_output=True, text=True)
+    assert result.returncode == -signal.SIGABRT, f"{case}: {result.stderr}"
+    assert "staging_test.cpp:" in result.stderr, f"{case}: {result.stderr}"
+    assert "Assertion" in result.stderr, f"{case}: {result.stderr}"
+    assert "staging_flag == 1" in result.stderr, f"{case}: {result.stderr}"

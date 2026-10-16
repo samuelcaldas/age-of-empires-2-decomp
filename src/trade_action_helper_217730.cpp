@@ -4,7 +4,7 @@
 extern "C" {
 void *func_00185E20(void *arg, int val);
 void func_002177C0(void *self, int *arr, int arg2, int arg3);
-void func_00217B50(void *self);
+void func_00217B50(void *self, int flag);
 
 extern void *D_004E3058;
 
@@ -43,7 +43,7 @@ void func_002177C0(void *self, int *arr, int arg2, int arg3) {
     *(int *)(s0 + 0x13C) = arg2;
     *(int *)(s0 + 0x140) = arg3;
 
-    func_00217B50(self);
+    func_00217B50(self, 1);
 
     void **vtable = *(void ***)self;
     typedef void (*Fn)(void *, int);

@@ -107,20 +107,24 @@ static void test_bounds_clamping() {
     BlendCell cells1[7][7], cells2[7][7];
     BlendCell *row_ptrs1[7], *row_ptrs2[7];
     setup_grid(&zm1, cells1, row_ptrs1, 7, 7, 1);
+    setup_grid(&zm2, cells2, row_ptrs2, 7, 7, 1);
 
-    cells1[0][1].f_5 = 2;
-    cells1[1][0].f_5 = 2;
+    // Setup an orthogonal saddle trigger at (3, 3)
+    cells1[2][3].f_5 = 2; cells1[4][3].f_5 = 2;
+    cells2[2][3].f_5 = 2; cells2[4][3].f_5 = 2;
 
     func_001CC6E0(&zm1, -10, -10, 50, 50, 2);
     int count_clamped = g_replaced_count;
 
     setup_grid(&zm2, cells2, row_ptrs2, 7, 7, 1);
-    cells2[0][1].f_5 = 2;
-    cells2[1][0].f_5 = 2;
+    cells2[2][3].f_5 = 2; cells2[4][3].f_5 = 2;
     func_001CC6E0(&zm2, 0, 0, 6, 6, 2);
     int count_explicit = g_replaced_count;
 
+    assert(count_clamped > 0);
     assert(count_clamped == count_explicit);
+    assert(cells1[3][3].f_5 == 2);
+    assert(cells2[3][3].f_5 == 2);
     assert(std::memcmp(cells1, cells2, sizeof(cells1)) == 0);
 }
 

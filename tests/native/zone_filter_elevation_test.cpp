@@ -11,6 +11,7 @@ void func_001CBFE0(void *self, int x0, int y0, int x1, int y1, int max_slope);
 
 static int g_cb_count = 0;
 static int g_cb_x0 = -1, g_cb_y0 = -1, g_cb_x1 = -1, g_cb_y1 = -1;
+static int g_cb_p5 = -1, g_cb_p6 = -1, g_cb_p7 = -1;
 
 extern "C" void func_001CF3E0(void *self, int x0, int y0, int x1, int y1, int p5, int p6, int p7) {
     g_cb_count++;
@@ -18,6 +19,9 @@ extern "C" void func_001CF3E0(void *self, int x0, int y0, int x1, int y1, int p5
     g_cb_y0 = y0;
     g_cb_x1 = x1;
     g_cb_y1 = y1;
+    g_cb_p5 = p5;
+    g_cb_p6 = p6;
+    g_cb_p7 = p7;
 }
 
 struct FilterCell {
@@ -81,8 +85,9 @@ static void test_corner_saddle_upward() {
     cells[4][4].f_6 = 10;
 
     func_001CBFE0(&zm, 4, 4, 4, 4, 20); // limit 20 > 10
-    assert(g_cb_count >= 1);
-    assert(cells[4][4].f_6 > 10); // Raised upward
+    assert(g_cb_count == 1);
+    assert(g_cb_p5 == 0 && g_cb_p6 == 0 && g_cb_p7 == 0);
+    assert(cells[4][4].f_6 == 14); // Raised upward to exact equilibrium
 }
 
 static void test_corner_saddle_downward() {
@@ -98,10 +103,11 @@ static void test_corner_saddle_downward() {
     cells[3][4].f_6 = 10; // North
 
     func_001CBFE0(&zm, 4, 4, 4, 4, 10);
-    assert(g_cb_count >= 1);
-    // Higher neighbors leveled down towards 15
-    assert(cells[3][3].f_6 <= 15);
-    assert(cells[3][5].f_6 <= 15);
+    assert(g_cb_count == 1);
+    assert(g_cb_p5 == 0 && g_cb_p6 == 0 && g_cb_p7 == 0);
+    // Higher neighbors leveled down to exact equilibrium limit 10
+    assert(cells[3][3].f_6 == 10);
+    assert(cells[3][5].f_6 == 10);
 }
 
 static void test_bounds_clamping_and_callback() {

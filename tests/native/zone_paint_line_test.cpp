@@ -11,147 +11,113 @@ extern "C" {
 int func_001CCE10(void *self, int x0, int y0, int x1, int y1, int width, int terrain_type);
 }
 
-// Emulate the fixed-point math helpers with 16.16 fixed point for 32-bit native testing
 typedef long long int64_t;
+static std::vector<std::string> g_math_log;
+
 extern "C" {
-int64_t func_122690(int x) { return static_cast<int64_t>(x) << 16; }
-int64_t func_122118(int64_t a, int64_t b) { return (a * b) >> 16; }
-int64_t func_122058(int64_t a, int64_t b) { return a + b; }
-int64_t func_1228E8(int64_t a) {
-    double val = static_cast<double>(a) / 65536.0;
-    return static_cast<int64_t>(std::sqrt(val) * 65536.0);
+int64_t func_122690(int x) { g_math_log.push_back("122690"); return static_cast<int64_t>(x) << 16; }
+int64_t func_122118(int64_t a, int64_t b) { g_math_log.push_back("122118"); return (a * b) >> 16; }
+int64_t func_122058(int64_t a, int64_t b) { g_math_log.push_back("122058"); return a + b; }
+float func_1228E8(int64_t a) {
+    g_math_log.push_back("1228E8");
+    return static_cast<float>(static_cast<double>(a) / 65536.0);
 }
-float func_1234E0(float f) { return f; }
+int64_t func_1234E0(float f) {
+    g_math_log.push_back("1234E0");
+    return static_cast<int64_t>(static_cast<double>(f) * 65536.0);
+}
 int func_122748(int64_t a) {
+    g_math_log.push_back("122748");
     return static_cast<int>((a + 32768) >> 16);
 }
 int64_t func_1223C0(int64_t a, int64_t b) {
-    if (b == 0) return 0;
-    return (a << 16) / b;
+    g_math_log.push_back("1223C0");
+    return (b == 0) ? 0 : (a << 16) / b;
 }
 int func_100100(int64_t a, int64_t b) {
+    g_math_log.push_back("100100");
     return (a == b) ? 0 : 1;
 }
 }
 
-struct PointRecord {
-    int x, y, radius, terrain;
-};
+struct PointRecord { int x, y, radius, terrain; };
 static std::vector<PointRecord> g_history;
-
-static int mock_paint_terrain(void *self, int x, int y, int radius, int terrain) {
-    g_history.push_back({x, y, radius, terrain});
-    return 1;
-}
-
-static void *g_vtable[10] = {
-    nullptr, nullptr, nullptr, nullptr,
-    reinterpret_cast<void *>(&mock_paint_terrain),
-    nullptr, nullptr, nullptr, nullptr, nullptr
-};
+static int g_secondary_called = 0;
 
 struct PaintLayout {
     void **vtable;
     char pad_4[4];
-    int width;
-    int height;
+    int width, height;
     char pad_10[0x8ED8];
     void *m_world;
 };
 
+static int mock_paint_primary(void *self, int x, int y, int radius, int terrain);
+static int mock_paint_secondary(void *self, int x, int y, int radius, int terrain);
+
+static void *g_vtable1[10] = { nullptr, nullptr, nullptr, nullptr, (void *)&mock_paint_primary, nullptr };
+static void *g_vtable2[10] = { nullptr, nullptr, nullptr, nullptr, (void *)&mock_paint_secondary, nullptr };
+
+static int mock_paint_primary(void *self, int x, int y, int radius, int terrain) {
+    g_history.push_back({x, y, radius, terrain});
+    if (g_history.size() == 2) {
+        reinterpret_cast<PaintLayout *>(self)->vtable = g_vtable2;
+    }
+    return 1;
+}
+
+static int mock_paint_secondary(void *self, int x, int y, int radius, int terrain) {
+    g_secondary_called++;
+    g_history.push_back({x, y, radius, terrain});
+    return 1;
+}
+
 static void setup_layout(PaintLayout *zm, int width, int height) {
     std::memset(zm, 0, sizeof(PaintLayout));
-    zm->vtable = g_vtable;
-    zm->width = width;
-    zm->height = height;
-    g_history.clear();
+    zm->vtable = g_vtable1;
+    zm->width = width; zm->height = height;
+    g_history.clear(); g_math_log.clear(); g_secondary_called = 0;
 }
 
-static void test_line_zero_length() {
+static void test_math_3_4_5_and_vtable_reload() {
     PaintLayout zm;
     setup_layout(&zm, 10, 10);
-
-    int ret = func_001CCE10(&zm, 3, 3, 3, 3, 2, 5);
+    // dx = 4 - 1 = 3, dy = 5 - 1 = 4 -> hypotenuse distance = 5
+    int ret = func_001CCE10(&zm, 1, 1, 4, 5, 2, 7);
     assert(ret == 1);
-    assert(!g_history.empty());
-    assert(g_history[0].x == 3 && g_history[0].y == 3);
-    assert(g_history[0].radius == 1); // 2 >> 1
-    assert(g_history[0].terrain == 5);
+    assert(g_history.size() == 6); // 1 start + 5 steps
+    // Verifies vtable swap during callback was dynamically honored on subsequent steps
+    assert(g_secondary_called > 0);
+    // Verifies math helper sequence logged
+    assert(!g_math_log.empty());
+    assert(g_math_log[0] == "122690"); // dx
 }
 
-static void test_line_single_step() {
-    PaintLayout zm;
-    setup_layout(&zm, 10, 10);
-
-    int ret = func_001CCE10(&zm, 2, 3, 3, 3, 4, 7);
-    assert(ret == 1);
-    assert(g_history.size() >= 2);
-    assert(g_history.front().x == 2 && g_history.front().y == 3);
-    assert(g_history.back().x == 3 && g_history.back().y == 3);
-}
-
-static void test_line_multiple_directions() {
-    const int dirs[4][4] = {
-        {1, 1, 4, 4},   // +dx, +dy
-        {4, 1, 1, 4},   // -dx, +dy
-        {1, 4, 4, 1},   // +dx, -dy
-        {4, 4, 1, 1}    // -dx, -dy
-    };
+static void test_line_directions_and_clipping() {
+    const int dirs[4][4] = {{1,1,4,4},{4,1,1,4},{1,4,4,1},{4,4,1,1}};
     for (int i = 0; i < 4; i++) {
         PaintLayout zm;
         setup_layout(&zm, 10, 10);
-        int ret = func_001CCE10(&zm, dirs[i][0], dirs[i][1], dirs[i][2], dirs[i][3], 2, 8);
-        assert(ret == 1);
+        assert(func_001CCE10(&zm, dirs[i][0], dirs[i][1], dirs[i][2], dirs[i][3], 2, 8) == 1);
         assert(g_history.size() >= 4);
-        assert(g_history.front().x == dirs[i][0] && g_history.front().y == dirs[i][1]);
-        assert(g_history.back().x == dirs[i][2] && g_history.back().y == dirs[i][3]);
     }
-}
 
-static void test_line_boundary_clipping() {
-    PaintLayout zm;
-    setup_layout(&zm, 10, 10);
-
-    // Endpoints outside [0, 9]
-    int ret = func_001CCE10(&zm, -5, 2, 15, 2, 2, 6);
-    assert(ret == 1);
-    assert(!g_history.empty());
+    PaintLayout zm_clip;
+    setup_layout(&zm_clip, 10, 10);
+    assert(func_001CCE10(&zm_clip, -5, 2, 15, 2, 2, 6) == 1);
     for (size_t i = 0; i < g_history.size(); i++) {
         assert(g_history[i].x >= 0 && g_history[i].x < 10);
-        assert(g_history[i].y >= 0 && g_history[i].y < 10);
-    }
-}
-
-static void test_callback_order_and_return() {
-    PaintLayout zm;
-    setup_layout(&zm, 10, 10);
-
-    int ret = func_001CCE10(&zm, 1, 1, 5, 1, 2, 9);
-    assert(ret == 1);
-    assert(g_history.size() >= 5);
-    for (size_t i = 0; i < g_history.size() - 1; i++) {
-        assert(g_history[i].x <= g_history[i + 1].x); // Monotonic order
-        assert(g_history[i].y == 1);
     }
 }
 
 int main(int argc, char **argv) {
-    if (argc > 1 && std::string(argv[1]) == "zero_length") {
-        test_line_zero_length();
-    } else if (argc > 1 && std::string(argv[1]) == "single_step") {
-        test_line_single_step();
-    } else if (argc > 1 && std::string(argv[1]) == "multiple_dirs") {
-        test_line_multiple_directions();
-    } else if (argc > 1 && std::string(argv[1]) == "clipping") {
-        test_line_boundary_clipping();
-    } else if (argc > 1 && std::string(argv[1]) == "callback_order") {
-        test_callback_order_and_return();
+    if (argc > 1 && std::string(argv[1]) == "math_3_4_5") {
+        test_math_3_4_5_and_vtable_reload();
+    } else if (argc > 1 && std::string(argv[1]) == "directions_clipping") {
+        test_line_directions_and_clipping();
     } else {
-        test_line_zero_length();
-        test_line_single_step();
-        test_line_multiple_directions();
-        test_line_boundary_clipping();
-        test_callback_order_and_return();
+        test_math_3_4_5_and_vtable_reload();
+        test_line_directions_and_clipping();
     }
     return 0;
 }

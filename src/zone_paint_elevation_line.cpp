@@ -8,8 +8,9 @@ typedef long long int64_t;
 int64_t func_122690(int x);
 int64_t func_122118(int64_t a, int64_t b);
 int64_t func_122058(int64_t a, int64_t b);
-int64_t func_1228E8(int64_t a);
-float func_1234E0(float f);
+float func_1228E8(int64_t a);
+float sqrtf(float f);
+int64_t func_1234E0(float f);
 int func_122748(int64_t a);
 int64_t func_1223C0(int64_t a, int64_t b);
 int func_100100(int64_t a, int64_t b);
@@ -37,15 +38,14 @@ extern "C" int func_001CD110(void *self, int x0, int y0, int x1, int y1, int wid
     if (y0 < 0) y0 = 0;
     if (y1 >= zm->height) y1 = zm->height - 1;
 
-    PaintElevationFn paint = (PaintElevationFn)zm->vtable[6];
-
     int64_t dx_fp = func_122690(x1 - x0);
     int64_t dy_fp = func_122690(y1 - y0);
 
     int64_t dx2 = func_122118(dx_fp, dx_fp);
     int64_t dy2 = func_122118(dy_fp, dy_fp);
     int64_t sum2 = func_122058(dx2, dy2);
-    int64_t dist_fp = func_1228E8(sum2);
+    float dist_flt = sqrtf(func_1228E8(sum2));
+    int64_t dist_fp = func_1234E0(dist_flt);
     int steps = func_122748(dist_fp);
 
     int64_t steps_fp = func_122690(steps);
@@ -55,21 +55,21 @@ extern "C" int func_001CD110(void *self, int x0, int y0, int x1, int y1, int wid
     int64_t cur_x = func_122690(x0);
     int64_t cur_y = func_122690(y0);
 
-    paint(zm, x0, y0, radius, (int)elev);
+    ((PaintElevationFn)zm->vtable[6])(zm, x0, y0, radius, (int)elev);
 
     for (int i = steps; i > 0; i--) {
         cur_x = func_122058(cur_x, step_x);
         cur_y = func_122058(cur_y, step_y);
         int px = func_122748(cur_x);
         int py = func_122748(cur_y);
-        paint(zm, px, py, radius, (int)elev);
+        ((PaintElevationFn)zm->vtable[6])(zm, px, py, radius, (int)elev);
     }
 
     int64_t target_x_fp = func_122690(x1);
     if (func_100100(cur_x, target_x_fp) == 0) {
         int64_t target_y_fp = func_122690(y1);
         if (func_100100(cur_y, target_y_fp) != 0) {
-            paint(zm, x1, y1, radius, (int)elev);
+            ((PaintElevationFn)zm->vtable[6])(zm, x1, y1, radius, (int)elev);
         }
     }
 

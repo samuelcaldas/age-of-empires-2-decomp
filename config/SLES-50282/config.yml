@@ -1847,9 +1847,39 @@ segments:
     vram: 0x307A00
     subsegments:
       - [0x207BE0, asm, tactical_ai_waypoint_step]
+  - name: tactical_ai_target_scan
+    type: code
+    start: 0x207D60
+    vram: 0x307B80
+    subsegments:
+      - [0x207D60, asm, tactical_ai_target_scan]
+  - name: tactical_ai_target_dispatch
+    type: code
+    start: 0x208A80
+    vram: 0x3088A0
+    subsegments:
+      - [0x208A80, asm, tactical_ai_target_dispatch]
+  - name: tactical_ai_grid_marker
+    type: code
+    start: 0x208C50
+    vram: 0x308A70
+    subsegments:
+      - [0x208C50, asm, tactical_ai_grid_marker]
+  - name: tactical_ai_tile_eval
+    type: code
+    start: 0x208E00
+    vram: 0x308C20
+    subsegments:
+      - [0x208E00, asm, tactical_ai_tile_eval]
+  - name: tactical_ai_mode_ops
+    type: code
+    start: 0x2094F0
+    vram: 0x309310
+    subsegments:
+      - [0x2094F0, asm, tactical_ai_mode_ops]
   - name: post_aoe4
     type: bin
-    start: 0x207D60
+    start: 0x209510
   - [0x3e31c0]
 
 

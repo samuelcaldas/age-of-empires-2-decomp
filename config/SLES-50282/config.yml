@@ -1781,7 +1781,12 @@ segments:
     vram: 0x1C9E00
     subsegments:
       - [0xC9FE0, asm, zone_dispatch_grid]
-      - [0xCA180, bin]
+  - name: zone_rect_update
+    type: code
+    start: 0xCA180
+    vram: 0x1C9FA0
+    subsegments:
+      - [0xCA180, asm, zone_rect_update]
   - name: post_zone_dispatch
     type: bin
     start: 0xCA360

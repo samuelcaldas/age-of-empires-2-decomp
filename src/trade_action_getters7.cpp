@@ -6,7 +6,7 @@ int func_00332da0(void *ptr);
 int func_00188070(void *ctx);
 int func_00123350(float val);
 int func_002a0b30(void *mgr, int id);
-int func_0029df60(void *mgr, int val);
+int func_0029df60(void *mgr, int id);
 extern void *D_004E3180;
 
 int select_trade_increment(int mode, int flag) {
@@ -18,7 +18,10 @@ int select_trade_increment(int mode, int flag) {
 }
 
 float get_scaling_factor(int index, int mode, int flag) {
-    if (mode == 0 || mode == 5) {
+    if (mode == 0 || mode == 5 || flag != 1) {
+        return 1.0f;
+    }
+    if (mode == 1 && flag != 1) {
         return 1.0f;
     }
     bool is_f20 = (index == 0x24 || index == 0x3A);
@@ -86,11 +89,11 @@ void func_002B6220(void *self, int index, int value) {
 
     int mode = 0;
     int flag = 0;
-    void *p1 = *reinterpret_cast<void **>(base + 0xB0);
+    char *p1 = *reinterpret_cast<char **>(base + 0xB0);
 
-    if (!skip_setup && p1) {
-        void *p2 = *reinterpret_cast<void **>(static_cast<char *>(p1) + 0xAC);
-        void *ptr = *reinterpret_cast<void **>(static_cast<char *>(p2) + 0xB98);
+    if (!skip_setup) {
+        char *p2 = *reinterpret_cast<char **>(p1 + 0xAC);
+        void *ptr = *reinterpret_cast<void **>(p2 + 0xB98);
         mode = func_00332da0(ptr);
         if (mode >= 1 && mode <= 4) {
             flag = func_00188070(D_004E3180);
@@ -111,7 +114,7 @@ void func_002B6220(void *self, int index, int value) {
     }
 
     if (p1) {
-        char *mgr_target = static_cast<char *>(p1) + 0x3624;
+        char *mgr_target = p1 + 0x3624;
         if (index == 0x56 || index == 0x57) {
             func_002a0b30(mgr_target, index);
         } else if (index == 0x69) {

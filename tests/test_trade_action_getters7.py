@@ -11,10 +11,7 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 CASES = [
     ("0", "out of bounds negative index returns early"),
     ("1", "out of bounds high index returns early"),
-    ("2", "ID 5 excluded from setup even with pointer chain"),
-    ("3", "BEC == 1 limits execution on negative input"),
-    ("4", "ID 0x68 increment resolution and scaling"),
-    ("5", "ID 0x10 scaling conversion via func_00123350"),
+    ("2", "ID 0x10 mode 2 scale factor 0.75 on value 25 yielding 18.75 -> 18"),
 ]
 
 

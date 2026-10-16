@@ -6,7 +6,7 @@ int func_00332da0(void *ptr);
 int func_00188070(void *ctx);
 int func_00123350(float val);
 int func_002a0b30(void *mgr, int id);
-int func_0029df60(void *mgr, int val);
+int func_0029df60(void *mgr, int id);
 extern void *D_004E3180;
 
 int select_trade_increment(int mode, int flag) {
@@ -15,6 +15,29 @@ int select_trade_increment(int mode, int flag) {
     if (mode == 3) return (flag == 1) ? 1200 : 900;
     if (mode == 4) return (flag == 1) ? 1800 : 1260;
     return 0;
+}
+
+float get_scaling_factor(int index, int mode, int flag) {
+    if (mode == 0 || mode == 5 || flag != 1) {
+        return 1.0f;
+    }
+    bool is_f20 = (index == 0x24 || index == 0x3A);
+    bool is_f21 = (index == 0x10 || index == 0x1A || index == 0x3B || index == 0x3C);
+    bool is_f22 = (index == 0x13 || index == 0x14);
+    bool is_f23 = (index == 0xE3 || index == 0xE4);
+
+    if (is_f20 || is_f22) {
+        if (mode == 1) return 0.8f;
+        if (mode == 2) return 0.6f;
+        if (mode == 3) return 0.4f;
+        if (mode == 4) return 0.2f;
+    } else if (is_f21 || is_f23) {
+        if (mode == 1) return 0.8f;
+        if (mode == 2) return 0.75f;
+        if (mode == 3) return 0.5f;
+        if (mode == 4) return 0.25f;
+    }
+    return 1.0f;
 }
 
 void apply_trade_limits(int index, int *slot) {
@@ -69,15 +92,17 @@ void func_002B6220(void *self, int index, int value) {
         return;
     }
 
+    int mode = 0;
+    int flag = 0;
     void *p1 = *reinterpret_cast<void **>(base + 0xB0);
     if (p1) {
         void *p2 = *reinterpret_cast<void **>(static_cast<char *>(p1) + 0xAC);
         if (p2) {
             void *ptr = *reinterpret_cast<void **>(static_cast<char *>(p2) + 0xB98);
             if (ptr) {
-                int mode = func_00332da0(ptr);
+                mode = func_00332da0(ptr);
                 if (mode >= 1 && mode <= 4) {
-                    int flag = func_00188070(D_004E3180);
+                    flag = func_00188070(D_004E3180);
                     if (index == 0x68) {
                         int inc = select_trade_increment(mode, flag);
                         *table_slot += inc;
@@ -87,13 +112,12 @@ void func_002B6220(void *self, int index, int value) {
         }
     }
 
-    if (index == 0x10 || index == 0x13 || index == 0x14 || index == 0x1A ||
-        index == 0x24 || (index >= 0x3A && index <= 0x3C) || index == 0xE3 || index == 0xE4 || index == 0x68) {
-        float scale_factor = 1.0f;
-        if (index == 0x10) scale_factor = 0.75f;
-        else if (index == 0x68) scale_factor = 0.5f;
-        else if (index == 0xE6) scale_factor = 0.25f;
-        int scaled = func_00123350(scale_factor * static_cast<float>(*table_slot));
+    if (index != 0x68 && is_setup_allowed_id(index)) {
+        float factor = get_scaling_factor(index, mode, flag);
+        int scaled = func_00123350(factor * static_cast<float>(*table_slot));
+        if (scaled == 0 && *table_slot != 0) {
+            scaled = 1;
+        }
         *table_slot = scaled;
     }
 

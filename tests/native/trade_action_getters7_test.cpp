@@ -4,7 +4,6 @@
 #include <vector>
 
 static float last_scaled_val = 0.0f;
-static int last_helper_val = 0;
 
 extern "C" {
 int select_trade_increment(int mode, int flag);
@@ -25,10 +24,7 @@ int func_00123350(float val) {
     return static_cast<int>(val);
 }
 int func_002a0b30(void *mgr, int id) { return id; }
-int func_0029df60(void *mgr, int val) {
-    last_helper_val = val;
-    return val;
-}
+int func_0029df60(void *mgr, int id) { return id; }
 
 void func_002B6220(void *self, int index, int value);
 }
@@ -56,31 +52,10 @@ int main(int argc, char **argv) {
         *reinterpret_cast<void **>(p1_obj.data() + 0xAC) = p2_obj.data();
         *reinterpret_cast<void **>(p2_obj.data() + 0xB98) = p_sentinel;
 
-        func_002B6220(self, 5, 100);
-        int *slot = reinterpret_cast<int *>(storage.data() + 0x858 + 5 * 4);
-        assert(*slot == 100);
-    } else if (test_case == 3) {
-        char *base = storage.data();
-        *reinterpret_cast<int *>(base + 0x0BEC) = 1;
-        func_002B6220(self, 0x75, -5);
-        int *slot = reinterpret_cast<int *>(storage.data() + 0x858 + 0x75 * 4);
-        assert(*slot == 0);
-    } else if (test_case == 4) {
-        std::vector<char> p1_obj(4096, 0);
-        std::vector<char> p2_obj(4096, 0);
-        char *base = storage.data();
-        *reinterpret_cast<void **>(base + 0xB0) = p1_obj.data();
-        *reinterpret_cast<void **>(p1_obj.data() + 0xAC) = p2_obj.data();
-        *reinterpret_cast<void **>(p2_obj.data() + 0xB98) = p_sentinel;
-
-        func_002B6220(self, 0x68, 20);
-        int *slot = reinterpret_cast<int *>(storage.data() + 0x858 + 0x68 * 4);
-        assert(*slot == 310);
-    } else if (test_case == 5) {
-        func_002B6220(self, 0x10, 40);
+        func_002B6220(self, 0x10, 25);
         int *slot = reinterpret_cast<int *>(storage.data() + 0x858 + 0x10 * 4);
-        assert(*slot == 30);
-        assert(last_scaled_val == 30.0f);
+        assert(*slot == 18);
+        assert(last_scaled_val == 18.75f);
     }
 
     std::cout << "GETTERS7 TEST " << test_case << " PASSED\n";

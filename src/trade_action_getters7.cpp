@@ -18,38 +18,34 @@ void func_002B6220(void *self, int index, int value) {
     }
 
     int *table_slot = reinterpret_cast<int *>(base + 0x858 + index * 4);
-    if (value > 0) {
-        *table_slot = value;
-    }
+    // Delay slot store always executes unconditionally
+    *table_slot = value;
 
-    float factor = 1.0f;
-    if (index == 0x68) {
-        factor = 0.5f;
-        int converted = func_00123350(factor * (*table_slot));
-        if (converted == 0) {
-            converted = 1;
-        }
-        *table_slot = converted + 10;
-    }
-
-    int field_bec = *reinterpret_cast<int *>(base + 0x0BEC);
-    if (field_bec == 1) {
+    if (value <= 0) {
         return;
     }
 
+    int field_bec = *reinterpret_cast<int *>(base + 0x0BEC);
     void *mgr = nullptr;
     void *p1 = *reinterpret_cast<void **>(base + 0xB0);
-    if (p1) {
-        void *p2 = *reinterpret_cast<void **>(static_cast<char *>(p1) + 0xAC);
-        if (p2) {
-            mgr = *reinterpret_cast<void **>(static_cast<char *>(p2) + 0xB98);
-        }
-    }
 
-    if (mgr) {
-        void *target = func_00332da0(0);
-        if (target) {
-            func_00188070(mgr, 0x10);
+    if (field_bec != 1) {
+        if (p1) {
+            void *p2 = *reinterpret_cast<void **>(static_cast<char *>(p1) + 0xAC);
+            if (p2) {
+                mgr = *reinterpret_cast<void **>(static_cast<char *>(p2) + 0xB98);
+            }
+        }
+
+        if (mgr) {
+            void *target = func_00332da0(0);
+            if (target) {
+                int mode_flag = func_00188070(mgr, 0x10);
+                if (index == 0x68) {
+                    int inc = (mode_flag == 1) ? 240 : 600;
+                    *table_slot += inc;
+                }
+            }
         }
     }
 

@@ -154,7 +154,7 @@ def test_trade_action_staging_behavior(staging_test, case):
 
 
 @pytest.mark.parametrize("case", ["lookup", "null", "copy"])
-def test_staging_helper_flag_mutant_fails_expected_assertion(tmp_path, case):
+def test_staging_helper_flag_mutant_fails_expected_assertion(staging_test, tmp_path, case):
     """Reject a zero-flag mutant at the native ABI assertion for each case."""
     compiler = shutil.which("g++")
     assert compiler is not None

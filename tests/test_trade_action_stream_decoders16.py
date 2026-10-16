@@ -16,6 +16,21 @@ from trade_action_stream_decoders16_support import (  # noqa: E402
 pytest_plugins = ("trade_action_stream_decoders16_support",)
 
 
+def effective_store_target(code):
+    """Resolve the destination used by the store's actual base register."""
+    instruction = struct.unpack_from("<I", code, 0x14)[0]
+    base_register = (instruction >> 21) & 0x1F
+    store_offset = struct.unpack_from("<h", code, 0x14)[0]
+    gp_address = EXTERNAL_SYMBOLS["_gp"]
+    if base_register == 28:
+        return gp_address + store_offset
+    assert base_register == 4
+    base_instruction = struct.unpack_from("<I", code, 0x0C)[0]
+    assert base_instruction == 0x278485E0
+    base_offset = struct.unpack_from("<h", code, 0x0C)[0]
+    return gp_address + base_offset + store_offset
+
+
 def test_vram_mapping_matches_pt_load(original_image):
     file_offset, virtual_address, file_size = original_load_mapping(original_image)
     assert file_offset + START_ADDRESS - virtual_address == FILE_OFFSET
@@ -34,16 +49,8 @@ def test_func_00160400_near_matching(decoder_code, original_image):
     assert len(actual) == len(expected) == F0400_SIZE
     original_base = struct.unpack_from("<I", expected, 0x0C)[0]
     actual_base = struct.unpack_from("<I", actual, 0x0C)[0]
-    original_target = (
-        EXTERNAL_SYMBOLS["_gp"]
-        + struct.unpack_from("<h", expected, 0x0C)[0]
-        + struct.unpack_from("<h", expected, 0x14)[0]
-    )
-    actual_target = (
-        EXTERNAL_SYMBOLS["_gp"]
-        + struct.unpack_from("<h", actual, 0x0C)[0]
-        + struct.unpack_from("<h", actual, 0x14)[0]
-    )
+    original_target = effective_store_target(expected)
+    actual_target = effective_store_target(actual)
     assert original_base == actual_base == 0x278485E0
     assert original_target == actual_target == EXTERNAL_SYMBOLS["D_004E2DA0"]
     assert sum(a == b for a, b in zip(actual, expected)) == 401

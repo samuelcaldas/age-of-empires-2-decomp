@@ -4924,6 +4924,86 @@ An independent verification suite (`tests/test_trade_action_stream_decoders23.py
 | `func_00163500` | `0x163500` | 244 | 241/244 equal (near match) | 12 B |
 | `func_00163600` | `0x163600` | 244 | 240/244 equal (near match) | 12 B |
 
+#### 6.200 `Trade Action Stream Decoders 24` Subsystem (`0x163700`–`0x163CF0`, `trade_action_stream_decoders24.cpp`)
+
+This four-function C++ slice spans VRAM `0x163700`–`0x163CF0` and file offsets `0x638E0`–`0x63ED0` (1,520 bytes total). The original ELF `PT_LOAD` mapping gives the VRAM/file-offset delta `0xFFE20`. The slice comprises 1,488 instruction bytes and 32 alignment-padding bytes (4, 8, 8, and 12 bytes respectively). Symbol sizes exclude padding. The unit remains registered as `NonMatching`.
+
+- `func_00163700` (`0x163700`, 316 instruction bytes): Dual permutation decoder with bitwise mask application (`|= D_004E30AC`, `&= D_004E30A8`) and 4-byte write-back. All 316 instruction bytes match exactly (100.00%).
+- `func_00163840` (`0x163840`, 408 instruction bytes): Offset -1 permutation decoder with bitwise mask application and trailing lookup. All 408 instruction bytes match exactly (100.00%).
+- `func_001639E0` (`0x1639E0`, 312 instruction bytes): 2x 2-byte staged lookups with bitwise mask applications and write-backs. 304/312 bytes are equal (76/78 instructions); two differing store instructions at offsets 0x0C and 0xA4 target the same global address `0x4E2DA0` through another register (`sb a0, 0(gp)` [0xA38485E0] vs `sb a0, 0(v1)` [0xA0640000]).
+- `func_00163B20` (`0x163B20`, 452 instruction bytes): Initial single-byte lookup at index 1 and mask, followed by 4-phase permutation stream decoder with cursor decrement. All 452 instruction bytes match exactly (100.00%).
+
+An independent verification suite (`tests/test_trade_action_stream_decoders24.py`, with fixture/build support in `tests/trade_action_stream_decoders24_support.py`) compiles the actual source, checks the pinned original ELF SHA-1 (`f478e19f2059d52899b691483ef5c7522e30e17c`) and file-backed `PT_LOAD` mapping, validates object and linked `STT_FUNC` symbol sizes and `st_shndx`, links an `ET_EXEC` with no unresolved symbols, and compares emitted instruction and padding bytes. It verifies the effective store target for near matches and byte-exact code for exact routines.
+
+#### 6.200.1 Trade Action Stream Decoders 24 Matching Results (1,488 Code Bytes, 1,520-Byte Slice)
+
+| Function | VRAM | Instruction bytes | Result | Padding |
+|---|---:|---:|---|---:|
+| `func_00163700` | `0x163700` | 316 | 316/316 exact (100.00%) | 4 B |
+| `func_00163840` | `0x163840` | 408 | 408/408 exact (100.00%) | 8 B |
+| `func_001639E0` | `0x1639E0` | 312 | 304/312 equal (near match) | 8 B |
+| `func_00163B20` | `0x163B20` | 452 | 452/452 exact (100.00%) | 12 B |
+
+#### 6.201 `Trade Action Stream Decoders 25` Subsystem (`0x163CF0`–`0x164400`, `trade_action_stream_decoders25.cpp`)
+
+This four-function C++ slice spans VRAM `0x163CF0`–`0x164400` and file offsets `0x63ED0`–`0x645E0` (1,808 bytes total). The original ELF `PT_LOAD` mapping gives the VRAM/file-offset delta `0xFFE20`. The slice comprises 1,796 instruction bytes and 12 alignment-padding bytes (0, 4, 8, and 0 bytes respectively). Symbol sizes exclude padding. The unit remains registered as `NonMatching`.
+
+- `func_00163CF0` (`0x163CF0`, 400 instruction bytes): 2-phase dual permutation decoder with mask, followed by trailing single-byte lookup and mask. All 400 instruction bytes match exactly (100.00%).
+- `func_00163E80` (`0x163E80`, 476 instruction bytes): Offset -1 permutation decoder with mask, followed by trailing 2-byte staged lookup and mask. All 476 instruction bytes match exactly (100.00%).
+- `func_00164060` (`0x164060`, 520 instruction bytes): 2-byte staged lookup and mask, followed by 4-phase permutation stream decoder with cursor decrement. 517/520 bytes are equal (129/130 instructions); single differing store instruction at offset 0x14 targets the same global address `0x4E2DA0` through another register (`sb v0, 0(gp)` [0xA38285E0] vs `sb v0, 0(a0)` [0xA0820000]).
+- `func_00164270` (`0x164270`, 400 instruction bytes): Initial single-byte lookup at index 1 and mask, followed by 2-phase dual permutation decoder. All 400 instruction bytes match exactly (100.00%).
+
+An independent verification suite (`tests/test_trade_action_stream_decoders25.py`, with fixture/build support in `tests/trade_action_stream_decoders25_support.py`) compiles the actual source, checks the pinned original ELF SHA-1 (`f478e19f2059d52899b691483ef5c7522e30e17c`) and file-backed `PT_LOAD` mapping, validates object and linked `STT_FUNC` symbol sizes and `st_shndx`, links an `ET_EXEC` with no unresolved symbols, and compares emitted instruction and padding bytes. It verifies the effective store target for near matches and byte-exact code for exact routines.
+
+#### 6.201.1 Trade Action Stream Decoders 25 Matching Results (1,796 Code Bytes, 1,808-Byte Slice)
+
+| Function | VRAM | Instruction bytes | Result | Padding |
+|---|---:|---:|---|---:|
+| `func_00163CF0` | `0x163CF0` | 400 | 400/400 exact (100.00%) | 0 B |
+| `func_00163E80` | `0x163E80` | 476 | 476/476 exact (100.00%) | 4 B |
+| `func_00164060` | `0x164060` | 520 | 517/520 equal (near match) | 8 B |
+| `func_00164270` | `0x164270` | 400 | 400/400 exact (100.00%) | 0 B |
+
+#### 6.202 `Trade Action Stream Decoders 26` Subsystem (`0x164400`–`0x164C50`, `trade_action_stream_decoders26.cpp`)
+
+This four-function C++ slice spans VRAM `0x164400`–`0x164C50` and file offsets `0x645E0`–`0x64E30` (2,128 bytes total). The original ELF `PT_LOAD` mapping gives the VRAM/file-offset delta `0xFFE20`. The slice comprises 2,088 instruction bytes and 40 alignment-padding bytes (12, 4, 12, and 12 bytes respectively). Symbol sizes exclude padding. The unit remains registered as `NonMatching`.
+
+- `func_00164400` (`0x164400`, 468 instruction bytes): 2-phase dual permutation decoder with mask, followed by trailing 2-byte staged lookup and mask. All 468 instruction bytes match exactly (100.00%).
+- `func_001645E0` (`0x1645E0`, 668 instruction bytes): Offset -1 permutation decoder with mask, followed by second 2-phase dual permutation stream decoder with mask. All 668 instruction bytes match exactly (100.00%).
+- `func_00164880` (`0x164880`, 468 instruction bytes): 2-byte staged lookup and mask, followed by 2-phase dual permutation stream decoder with mask. 465/468 bytes are equal (116/117 instructions); single differing store instruction at offset 0x14 targets the same global address `0x4E2DA0` through another register (`sb v0, 0(gp)` [0xA38285E0] vs `sb v0, 0(a0)` [0xA0820000]).
+- `func_00164A60` (`0x164A60`, 484 instruction bytes): Initial single-byte lookup at index 1 and mask, 2-phase dual permutation stream decoder with mask, followed by trailing single-byte lookup at index 0 and mask. All 484 instruction bytes match exactly (100.00%).
+
+An independent verification suite (`tests/test_trade_action_stream_decoders26.py`, with fixture/build support in `tests/trade_action_stream_decoders26_support.py`) compiles the actual source, checks the pinned original ELF SHA-1 (`f478e19f2059d52899b691483ef5c7522e30e17c`) and file-backed `PT_LOAD` mapping, validates object and linked `STT_FUNC` symbol sizes and `st_shndx`, links an `ET_EXEC` with no unresolved symbols, and compares emitted instruction and padding bytes. It verifies the effective store target for near matches and byte-exact code for exact routines.
+
+#### 6.202.1 Trade Action Stream Decoders 26 Matching Results (2,088 Code Bytes, 2,128-Byte Slice)
+
+| Function | VRAM | Instruction bytes | Result | Padding |
+|---|---:|---:|---|---:|
+| `func_00164400` | `0x164400` | 468 | 468/468 exact (100.00%) | 12 B |
+| `func_001645E0` | `0x1645E0` | 668 | 668/668 exact (100.00%) | 4 B |
+| `func_00164880` | `0x164880` | 468 | 465/468 equal (near match) | 12 B |
+| `func_00164A60` | `0x164A60` | 484 | 484/484 exact (100.00%) | 12 B |
+
+#### 6.203 `Trade Action Stream Decoders 27` Subsystem (`0x164C50`–`0x1655C0`, `trade_action_stream_decoders27.cpp`)
+
+This four-function C++ slice spans VRAM `0x164C50`–`0x1655C0` and file offsets `0x64E30`–`0x657A0` (2,416 bytes total). The original ELF `PT_LOAD` mapping gives the VRAM/file-offset delta `0xFFE20`. The slice comprises 2,380 instruction bytes and 36 alignment-padding bytes (12, 8, 8, and 8 bytes respectively). Symbol sizes exclude padding. The unit remains registered as `NonMatching`.
+
+- `func_00164C50` (`0x164C50`, 660 instruction bytes): 2-phase dual permutation stream decoder with mask, followed by second 4-phase permutation decoder with mask and cursor decrement. All 660 instruction bytes match exactly (100.00%).
+- `func_00164EF0` (`0x164EF0`, 616 instruction bytes): Offset -1 permutation decoder with mask, followed by second 2-phase dual permutation decoder with mask. All 616 instruction bytes match exactly (100.00%).
+- `func_00165160` (`0x165160`, 552 instruction bytes): 2-byte staged lookup and mask, 2-phase dual permutation decoder with mask, followed by trailing single-byte lookup at index 0 and mask. 549/552 bytes are equal (137/138 instructions); single differing store instruction at offset 0x14 targets the same global address `0x4E2DA0` through another register (`sb v0, 0(gp)` [0xA38285E0] vs `sb v0, 0(a0)` [0xA0820000]).
+- `func_00165390` (`0x165390`, 552 instruction bytes): Initial single-byte lookup at index 1 and mask, 2-phase dual permutation decoder with mask, followed by trailing 2-byte staged lookup and mask. All 552 instruction bytes match exactly (100.00%).
+
+An independent verification suite (`tests/test_trade_action_stream_decoders27.py`, with fixture/build support in `tests/trade_action_stream_decoders27_support.py`) compiles the actual source, checks the pinned original ELF SHA-1 (`f478e19f2059d52899b691483ef5c7522e30e17c`) and file-backed `PT_LOAD` mapping, validates object and linked `STT_FUNC` symbol sizes and `st_shndx`, links an `ET_EXEC` with no unresolved symbols, and compares emitted instruction and padding bytes. It verifies the effective store target for near matches and byte-exact code for exact routines.
+
+#### 6.203.1 Trade Action Stream Decoders 27 Matching Results (2,380 Code Bytes, 2,416-Byte Slice)
+
+| Function | VRAM | Instruction bytes | Result | Padding |
+|---|---:|---:|---|---:|
+| `func_00164C50` | `0x164C50` | 660 | 660/660 exact (100.00%) | 12 B |
+| `func_00164EF0` | `0x164EF0` | 616 | 616/616 exact (100.00%) | 8 B |
+| `func_00165160` | `0x165160` | 552 | 549/552 equal (near match) | 8 B |
+| `func_00165390` | `0x165390` | 552 | 552/552 exact (100.00%) | 8 B |
+
 #### Zone dispatcher resize and grid operations (`0x1C98A0`–`0x1CA180`, `zone_dispatch.cpp` / `zone_dispatch_grid.cpp`)
 
 The original PAL ELF maps this 0x8E0-byte slice from file offset `0xC9A80` to `0xCA360` through a file-backed `PT_LOAD` segment (`VRAM = file offset + 0xFFE20`). It contains 0x8C0 instruction bytes and 0x20 zero-alignment bytes. The implemented C++ definitions are `func_001C98A0` (0x558 bytes), `func_001C9E00` (0xF4), `func_001C9F00` (0x74), and the tail-jump wrapper `func_001C9F80` (0x20), totaling 0x6E0 bytes. The wrapper transfers to original helper `func_001C9FA0` (0x1E0), which remains an external declaration and is explicitly assigned to the `bin` range beginning at file offset `0xCA180` / VRAM `0x1C9FA0`; that helper body is not implemented or counted as another source function. The three inter-function alignment ranges total 0x20 bytes and were confirmed zero in the original. The final return delay slot is included in each original function size; alignment is excluded. The unit remains `NonMatching`; these independent function comparisons do not claim a whole-object or whole-project match.

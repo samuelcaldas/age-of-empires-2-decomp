@@ -2087,9 +2087,21 @@ segments:
     vram: 0x1D0430
     subsegments:
       - [0xD0610, asm, zone_setup_spatial_buckets]
+  - name: zone_free_spatial_grid
+    type: code
+    start: 0xD0880
+    vram: 0x1D06A0
+    subsegments:
+      - [0xD0880, asm, zone_free_spatial_grid]
+  - name: zone_init_spatial_level
+    type: code
+    start: 0xD09B0
+    vram: 0x1D07D0
+    subsegments:
+      - [0xD09B0, asm, zone_init_spatial_level]
   - name: post_aoe2
     type: bin
-    start: 0xD0860
+    start: 0xD0AC0
   - name: trade_action_helper_217730
     type: code
     start: 0x117910

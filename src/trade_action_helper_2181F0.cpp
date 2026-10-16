@@ -29,6 +29,14 @@ static void run_callback(char *self, int handle, int index, int sequence, int mo
              pointer_from_int(sequence), pointer_from_int(mode));
 }
 
+static void dispatch_iteration(char *self, int handle, int index, int sequence) {
+    if (field_value(self, 0x8C) != 0 && field_value(self, 0x90) != 0) {
+        run_callback(self, handle, index, sequence, 1);
+        return;
+    }
+    if (field_value(self, 0x80) != 0) run_callback(self, handle, index, sequence, 0);
+}
+
 void func_002181F0(void *object) {
     char *self = static_cast<char *>(object);
     *reinterpret_cast<int *>(self + 0x38) = 0;
@@ -51,13 +59,7 @@ void func_002181F0(void *object) {
     int sequence = *reinterpret_cast<short *>(self + 0x124);
     int index = 0;
     while (*reinterpret_cast<short *>(self + 0x126) >= sequence) {
-        int gate8c = field_value(self, 0x8C);
-        int gate90 = field_value(self, 0x90);
-        int gate80 = field_value(self, 0x80);
-        if (gate8c != 0 && gate90 != 0) run_callback(self, handle, index, sequence, 1);
-        if (!(gate8c != 0 && gate90 != 0) && gate80 != 0) {
-            run_callback(self, handle, index, sequence, 0);
-        }
+        dispatch_iteration(self, handle, index, sequence);
         sequence = signed_low16(sequence + 1);
         index = signed_low16(index + 1);
     }

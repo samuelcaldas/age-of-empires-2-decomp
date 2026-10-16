@@ -4,7 +4,7 @@ void test_cases_callbacks(int case_number) {
     unsigned char object[0x200];
     reset_fixture();
     initialize_object(object, 4, 4);
-    *reinterpret_cast<int *>(object + 0x80) = 1;
+    if (case_number != 8) *reinterpret_cast<int *>(object + 0x80) = 1;
     if (case_number == 6) *reinterpret_cast<int *>(object + 0x8C) = 1;
     if (case_number == 7) {
         *reinterpret_cast<int *>(object + 0x8C) = 1;

@@ -75,6 +75,7 @@ void func_001CBFE0(void *self, int x0, int y0, int x1, int y1, int max_slope) {
 struct PointRecord { int x, y, radius, elev; };
 static std::vector<PointRecord> g_history;
 static int g_secondary_called = 0;
+static void *g_expected_zm = nullptr;
 
 struct PaintLayout {
     void **vtable;
@@ -91,6 +92,8 @@ static void *g_vtable1[10] = { nullptr, nullptr, nullptr, nullptr, nullptr, null
 static void *g_vtable2[10] = { nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, (void *)&mock_paint_secondary, nullptr };
 
 static int mock_paint_primary(void *self, int x, int y, int radius, int elev) {
+    assert(self != nullptr);
+    assert(self == g_expected_zm);
     g_history.push_back({x, y, radius, elev});
     if (g_history.size() == 2) {
         reinterpret_cast<PaintLayout *>(self)->vtable = g_vtable2;
@@ -99,6 +102,8 @@ static int mock_paint_primary(void *self, int x, int y, int radius, int elev) {
 }
 
 static int mock_paint_secondary(void *self, int x, int y, int radius, int elev) {
+    assert(self != nullptr);
+    assert(self == g_expected_zm);
     g_secondary_called++;
     g_history.push_back({x, y, radius, elev});
     return 1;
@@ -108,6 +113,7 @@ static void setup_layout(PaintLayout *zm, int width, int height) {
     std::memset(zm, 0, sizeof(PaintLayout));
     zm->vtable = g_vtable1;
     zm->width = width; zm->height = height;
+    g_expected_zm = zm;
     g_history.clear(); g_math_calls.clear(); g_secondary_called = 0; g_fe_calls = 0;
 }
 
@@ -141,8 +147,9 @@ static void test_math_3_4_5_and_vtable_reload() {
     assert(g_math_calls[6].fn == "1234E0" && g_math_calls[6].in_f == 5.0f && g_math_calls[6].out_val == 327680); // dist_fp
     assert(g_math_calls[7].fn == "122748" && g_math_calls[7].in_a == 327680 && g_math_calls[7].out_val == 5); // steps = 5
     assert(g_math_calls[8].fn == "122690" && g_math_calls[8].in_a == 5 && g_math_calls[8].out_val == 327680); // steps_fp
-    assert(g_math_calls[9].fn == "1223C0" && g_math_calls[9].in_a == 196608 && g_math_calls[9].in_b == 327680); // step_x
-    assert(g_math_calls[10].fn == "1223C0" && g_math_calls[10].in_a == 262144 && g_math_calls[10].in_b == 327680); // step_y
+    // Exact LSB-checked step interpolation values
+    assert(g_math_calls[9].fn == "1223C0" && g_math_calls[9].in_a == 196608 && g_math_calls[9].in_b == 327680 && g_math_calls[9].out_val == 39321); // step_x
+    assert(g_math_calls[10].fn == "1223C0" && g_math_calls[10].in_a == 262144 && g_math_calls[10].in_b == 327680 && g_math_calls[10].out_val == 52428); // step_y
     assert(g_math_calls[11].fn == "122690" && g_math_calls[11].in_a == 1); // cur_x = x0
     assert(g_math_calls[12].fn == "122690" && g_math_calls[12].in_a == 1); // cur_y = y0
 

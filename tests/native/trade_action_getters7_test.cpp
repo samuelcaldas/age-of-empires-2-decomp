@@ -14,7 +14,7 @@ void *ctx_sentinel = reinterpret_cast<void *>(0x4E3180);
 void *D_004E3180 = ctx_sentinel;
 
 static int mock_mode = 2;
-static int mock_flag = 0;
+static int mock_flag = 1;
 
 int func_00332da0(void *ptr) {
     assert(ptr == p_sentinel);
@@ -77,10 +77,10 @@ int main(int argc, char **argv) {
         *reinterpret_cast<void **>(p2_obj.data() + 0xB98) = p_sentinel;
 
         mock_mode = 2;
-        mock_flag = 0;
+        mock_flag = 1;
         func_002B6220(self, 0x68, 20);
         int *slot = reinterpret_cast<int *>(storage.data() + 0x858 + 0x68 * 4);
-        assert(*slot == 260);
+        assert(*slot == 620);
     } else if (test_case == 5) {
         std::vector<char> p1_obj(4096, 0);
         std::vector<char> p2_obj(4096, 0);
@@ -95,6 +95,33 @@ int main(int argc, char **argv) {
         int *slot = reinterpret_cast<int *>(storage.data() + 0x858 + 0x10 * 4);
         assert(*slot == 75);
         assert(last_scaled_val == 75.0f);
+    } else if (test_case == 6) {
+        std::vector<char> p1_obj(4096, 0);
+        std::vector<char> p2_obj(4096, 0);
+        char *base = storage.data();
+        *reinterpret_cast<void **>(base + 0xB0) = p1_obj.data();
+        *reinterpret_cast<void **>(p1_obj.data() + 0xAC) = p2_obj.data();
+        *reinterpret_cast<void **>(p2_obj.data() + 0xB98) = p_sentinel;
+
+        mock_mode = 1;
+        mock_flag = 1;
+        func_002B6220(self, 0xE3, 100);
+        int *slot = reinterpret_cast<int *>(storage.data() + 0x858 + 0xE3 * 4);
+        assert(*slot == 100);
+        assert(last_scaled_val == 100.0f);
+    } else if (test_case == 7) {
+        std::vector<char> p1_obj(4096, 0);
+        std::vector<char> p2_obj(4096, 0);
+        char *base = storage.data();
+        *reinterpret_cast<void **>(base + 0xB0) = p1_obj.data();
+        *reinterpret_cast<void **>(p1_obj.data() + 0xAC) = p2_obj.data();
+        *reinterpret_cast<void **>(p2_obj.data() + 0xB98) = p_sentinel;
+
+        mock_mode = 2;
+        mock_flag = 0;
+        func_002B6220(self, 0x68, 20);
+        int *slot = reinterpret_cast<int *>(storage.data() + 0x858 + 0x68 * 4);
+        assert(*slot == 260);
     }
 
     std::cout << "GETTERS7 TEST " << test_case << " PASSED\n";

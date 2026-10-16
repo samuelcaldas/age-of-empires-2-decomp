@@ -13,8 +13,10 @@ CASES = [
     ("1", "out of bounds high index returns early"),
     ("2", "ID 5 negative and positive store"),
     ("3", "BEC == 1 limits execution on negative input"),
-    ("4", "ID 0x68 increment resolution with mode 2 flag 0 yielding 240"),
+    ("4", "ID 0x68 increment resolution with pointer chain"),
     ("5", "ID 0x10 mode 2 scale factor 0.75 yielding 75.0f scaled"),
+    ("6", "ID 0xE3 mode 1 scale factor 1.0 yielding 100.0f scaled"),
+    ("7", "ID 0x68 increment resolution with mode 2 flag 0 yielding 240"),
 ]
 
 

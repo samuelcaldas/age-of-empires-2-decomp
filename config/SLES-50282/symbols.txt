@@ -1091,5 +1091,18 @@ func_003072D0 = 0x3072D0; // type:func size:0x48 absolute:True
 func_316130 = 0x316130; // type:func absolute:True
 func_2d33e0 = 0x2D33E0; // type:func absolute:True
 func_316ea0 = 0x316EA0; // type:func absolute:True
+
+// Tactical AI Action Manager (0x307320-0x3074B0)
+func_00307320 = 0x307320; // type:func size:0xA0 absolute:True
+func_003073C0 = 0x3073C0; // type:func size:0x60 absolute:True
+func_00307420 = 0x307420; // type:func size:0x88 absolute:True
+func_3285d0 = 0x3285D0; // type:func absolute:True
+func_1a2cf0 = 0x1A2CF0; // type:func absolute:True
+func_1a34d0 = 0x1A34D0; // type:func absolute:True
+func_242fc0 = 0x242FC0; // type:func absolute:True
+func_118de0 = 0x118DE0; // type:func absolute:True
+D_4DE780 = 0x4DE780; // type:u32 size:4 absolute:True
+D_4DEBF0 = 0x4DEBF0; // type:u32 size:4 absolute:True
+D_004D1930 = 0x4D1930; // type:asciz absolute:True
 D_938AC0 = 0x938AC0; // type:u8 size:0x200 absolute:True
 D_938CC0 = 0x938CC0; // type:u8 size:0x200 absolute:True

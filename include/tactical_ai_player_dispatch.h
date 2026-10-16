@@ -1,16 +1,16 @@
 #ifndef TACTICAL_AI_PLAYER_DISPATCH_H
 #define TACTICAL_AI_PLAYER_DISPATCH_H
 
-struct Item {
+struct DispatchItem {
     char pad[66];
     char m_field42;
     char m_field43;
 };
 
-struct Player {
+struct DispatchPlayer {
     char pad00[108];
     int m_item_count;
-    Item **m_items;
+    DispatchItem **m_items;
     char pad78[2860];
     int m_player_id; // 2976 (0xBA0)
     char padBA4[8];
@@ -19,16 +19,16 @@ struct Player {
     void *m_field1B34; // 6964 (0x1B34)
 };
 
-struct Field04 {
+struct DispatchField04 {
     char pad[80];
     short m_count;
     short pad82;
     void **m_items;
 };
 
-struct Manager {
+struct DispatchManager {
     char pad[4];
-    Field04 *m_field04;
+    DispatchField04 *m_field04;
     char pad08[19664];
     int m_data3[16][20]; // 19672 (0x4CD8)
     char pad51D8[12];
@@ -51,7 +51,7 @@ extern "C" {
      * Dispatch player commands and update status flags.
      * VRAM: 0x305CB0 - 0x305F30 (640 bytes).
      */
-    void func_00305CB0(Manager *self, Player *player);
+    void func_00305CB0(DispatchManager *self, DispatchPlayer *player);
 }
 
 #endif // TACTICAL_AI_PLAYER_DISPATCH_H

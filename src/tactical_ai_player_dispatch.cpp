@@ -1,7 +1,7 @@
 #pragma exceptions off
 #include "tactical_ai_player_dispatch.h"
 
-void func_00305CB0(Manager *self, Player *player) {
+void func_00305CB0(DispatchManager *self, DispatchPlayer *player) {
     int s7 = 0;
     if (!player) return;
 

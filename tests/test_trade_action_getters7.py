@@ -42,7 +42,8 @@ def getters7_test_binary(tmp_path_factory):
         [compiler, "-fno-builtin", "-Iinclude",
          "src/trade_action_getters7.cpp",
          "tests/native/trade_action_getters7_test.cpp",
-         "tests/native/trade_action_getters7_test_cases.cpp",
+         "tests/native/trade_action_getters7_test_cases_part1.cpp",
+         "tests/native/trade_action_getters7_test_cases_part2.cpp",
          "-o", str(binary)],
         cwd=PROJECT_ROOT, check=True, capture_output=True, text=True,
     )

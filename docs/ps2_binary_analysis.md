@@ -4722,3 +4722,9 @@ The independent verification suite (`tests/test_trade_action_stream_decoders14.p
 | `func_0015F940` | `0x15F940` | 324 | 324/324 exact (100.00%) | 12 B |
 | `func_0015FA90` | `0x15FA90` | 336 | 336/336 exact (100.00%) | 0 B |
 | `func_0015FBE0` | `0x15FBE0` | 396 | 396/396 exact (100.00%) | 4 B |
+
+#### 6.188 `Zone Vtable Stubs` (`0x1C97A0`–`0x1C98A0`, `zone_vtable_stubs.cpp`)
+
+The 256-byte original slice maps file offset `0xC9980` to VRAM `0x1C97A0`. Four C++ definitions cover 240 instruction bytes: `func_001C97A0` (8 B, an empty `jr ra`/delay-slot body), `func_001C97B0` (16 B), `func_001C97C0` (16 B), and `func_001C97D0` (200 B). The 8 bytes from `0x1C97A8` to `0x1C97B0` are zero alignment; the final 8 bytes from `0x1C9898` to `0x1C98A0` are original-only zero tail padding.
+
+The fresh MWCC object test verifies unique `ET_REL` `STT_FUNC` symbols, sizes, and distinct `.text` section indices. It links an `ET_EXEC` with `--no-undefined`, resolves the four real callees (`0x1C98A0`, `0x32F090`, `0x1CF9B0`, `0x32FBD0`) and `_gp = 0x4EA7C0`, checks the full file-backed `PT_LOAD` mapping and ELF hash, and compares all 240 instruction bytes plus the 8 internal-alignment bytes without masks. The complete 248-byte emitted range matches exactly; the 8-byte original tail is not emitted. The four original function addresses and instruction sizes are also registered in `symbols.txt` and checked independently of private toolchain availability. Registered as `NonMatching` because a complete linked-project match is not established.

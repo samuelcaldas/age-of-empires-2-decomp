@@ -1264,6 +1264,14 @@ func_002184D0 = 0x2184D0; // type:func size:0x348 absolute:True
 func_00218820 = 0x218820; // type:func size:0x240 absolute:True
 func_00219040 = 0x219040; // type:func size:0x340 absolute:True
 func_00219380 = 0x219380; // type:func size:0x50 absolute:True
+func_002193D0 = 0x2193D0; // type:func size:0x10 absolute:True
+func_002193E0 = 0x2193E0; // type:func size:0x10 absolute:True
+func_002193F0 = 0x2193F0; // type:func size:0x10 absolute:True
+func_00219400 = 0x219400; // type:func size:0x10 absolute:True
+func_00219410 = 0x219410; // type:func size:0x10 absolute:True
+func_00219420 = 0x219420; // type:func size:0x10 absolute:True
+func_00219430 = 0x219430; // type:func size:0x10 absolute:True
+func_00219BA0 = 0x219BA0; // type:func absolute:True
 
 // Zone constructor external call targets and storage.
 func_1CDD00 = 0x1CDD00; // type:func absolute:True

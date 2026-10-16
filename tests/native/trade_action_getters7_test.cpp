@@ -40,6 +40,19 @@ int main(int argc, char **argv) {
     } else if (test_case == 1) {
         func_002B6220(self, 239, 50);
     } else if (test_case == 2) {
+        func_002B6220(self, 5, -2);
+        int *slot = reinterpret_cast<int *>(storage.data() + 0x858 + 5 * 4);
+        assert(*slot == -2);
+
+        func_002B6220(self, 5, 150);
+        assert(*slot == 150);
+    } else if (test_case == 3) {
+        char *base = storage.data();
+        *reinterpret_cast<int *>(base + 0x0BEC) = 1;
+        func_002B6220(self, 0x75, -5);
+        int *slot = reinterpret_cast<int *>(storage.data() + 0x858 + 0x75 * 4);
+        assert(*slot == 0);
+    } else if (test_case == 4) {
         std::vector<char> p1_obj(4096, 0);
         std::vector<char> p2_obj(4096, 0);
         char *base = storage.data();

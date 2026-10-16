@@ -11,7 +11,9 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 CASES = [
     ("0", "out of bounds negative index returns early"),
     ("1", "out of bounds high index returns early"),
-    ("2", "ID 0x68 increment resolution with pointer chain and D_004E3180 context"),
+    ("2", "ID 5 negative and positive store"),
+    ("3", "BEC == 1 limits execution on negative input"),
+    ("4", "ID 0x68 increment resolution with pointer chain and sentinels"),
 ]
 
 

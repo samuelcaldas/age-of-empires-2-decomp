@@ -1901,9 +1901,15 @@ segments:
     vram: 0x1CAFB0
     subsegments:
       - [0xCB190, asm, zone_world_to_screen]
+  - name: zone_deserialize_grid
+    type: code
+    start: 0xCB6B0
+    vram: 0x1CB4D0
+    subsegments:
+      - [0xCB6B0, asm, zone_deserialize_grid]
   - name: post_aoe2
     type: bin
-    start: 0xCB6B0
+    start: 0xCB880
   - name: trade_action_helper_217730
     type: code
     start: 0x117910

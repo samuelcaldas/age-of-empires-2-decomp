@@ -1991,9 +1991,15 @@ segments:
     vram: 0x1CDA40
     subsegments:
       - [0xCDC20, asm, zone_serialize]
+  - name: zone_snapshot_serialize
+    type: code
+    start: 0xCDD90
+    vram: 0x1CDBB0
+    subsegments:
+      - [0xCDD90, asm, zone_snapshot_serialize]
   - name: post_aoe2
     type: bin
-    start: 0xCDD90
+    start: 0xCDEE0
   - name: trade_action_helper_217730
     type: code
     start: 0x117910

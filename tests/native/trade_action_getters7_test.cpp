@@ -26,7 +26,7 @@ int func_00188070(void *ctx) {
 }
 int func_00123350(float val) {
     last_scaled_val = val;
-    return static_cast<int>(val);
+    return 777;
 }
 int func_002a0b30(void *mgr, int id) {
     helper_call_count++;
@@ -93,7 +93,7 @@ int main(int argc, char **argv) {
         mock_flag = 1;
         func_002B6220(self, 0x10, 100);
         int *slot = reinterpret_cast<int *>(storage.data() + 0x858 + 0x10 * 4);
-        assert(*slot == 75);
+        assert(*slot == 777);
         assert(last_scaled_val == 75.0f);
     } else if (test_case == 6) {
         std::vector<char> p1_obj(4096, 0);
@@ -107,7 +107,7 @@ int main(int argc, char **argv) {
         mock_flag = 1;
         func_002B6220(self, 0xE3, 100);
         int *slot = reinterpret_cast<int *>(storage.data() + 0x858 + 0xE3 * 4);
-        assert(*slot == 100);
+        assert(*slot == 777);
         assert(last_scaled_val == 100.0f);
     } else if (test_case == 7) {
         std::vector<char> p1_obj(4096, 0);

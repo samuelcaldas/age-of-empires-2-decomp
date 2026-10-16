@@ -1,0 +1,132 @@
+#pragma exceptions off
+
+union StagingWord { unsigned char bytes[4]; int word; };
+
+extern "C" {
+extern StagingWord D_004E2DA0;
+extern int D_004E2DA8;
+extern unsigned char *D_004E2DB0;
+extern unsigned char *D_004E2DB4;
+extern int D_004E30A8;
+extern int D_004E30AC;
+void func_001522C0(unsigned char *destination, unsigned char *source);
+
+/** 3-byte decoded transfer, D_004E2DA8 -= 3, followed by 4-byte stream decoding loop. */
+void func_0016B400() {
+    func_001522C0(D_004E2DA0.bytes, D_004E2DB0);
+    D_004E2DB0 += 3;
+    D_004E2DA0.word &= D_004E30A8;
+    D_004E2DA0.word |= D_004E30AC;
+    *D_004E2DB4 = D_004E2DA0.bytes[0];
+    D_004E2DB4--;
+    *D_004E2DB4 = D_004E2DA0.bytes[1];
+    D_004E2DB4--;
+    *D_004E2DB4 = D_004E2DA0.bytes[2];
+    D_004E2DB4--;
+    D_004E2DA8 -= 3;
+    do {
+        func_001522C0(D_004E2DA0.bytes, D_004E2DB0);
+        D_004E2DB0 += 4;
+        D_004E2DA0.word &= D_004E30A8;
+        D_004E2DA0.word |= D_004E30AC;
+        *D_004E2DB4 = D_004E2DA0.bytes[0];
+        D_004E2DB4--;
+        *D_004E2DB4 = D_004E2DA0.bytes[1];
+        D_004E2DB4--;
+        *D_004E2DB4 = D_004E2DA0.bytes[2];
+        D_004E2DB4--;
+        *D_004E2DB4 = D_004E2DA0.bytes[3];
+        D_004E2DB4--;
+    } while (D_004E2DA8 -= 4);
+}
+
+/** Pre-decrement D_004E2DA8, 4-byte decoding loop, then index 1 1-byte staged transfer. */
+void func_0016B550() {
+    D_004E2DA8--;
+    do {
+        func_001522C0(D_004E2DA0.bytes, D_004E2DB0);
+        D_004E2DB0 += 4;
+        D_004E2DA0.word &= D_004E30A8;
+        D_004E2DA0.word |= D_004E30AC;
+        *D_004E2DB4 = D_004E2DA0.bytes[0];
+        D_004E2DB4--;
+        *D_004E2DB4 = D_004E2DA0.bytes[1];
+        D_004E2DB4--;
+        *D_004E2DB4 = D_004E2DA0.bytes[2];
+        D_004E2DB4--;
+        *D_004E2DB4 = D_004E2DA0.bytes[3];
+        D_004E2DB4--;
+    } while (D_004E2DA8 -= 4);
+    D_004E2DA0.bytes[1] = *D_004E2DB0;
+    D_004E2DB0++;
+    D_004E2DA0.word &= D_004E30A8;
+    D_004E2DA0.word |= D_004E30AC;
+    *D_004E2DB4 = D_004E2DA0.bytes[1];
+    D_004E2DB4--;
+}
+
+/** 1-byte staged transfer, D_004E2DA8 -= 2, loop decoder, then index 1 1-byte staged transfer. */
+void func_0016B670() {
+    D_004E2DA0.bytes[0] = *D_004E2DB0;
+    D_004E2DB0++;
+    D_004E2DA0.word &= D_004E30A8;
+    D_004E2DA0.word |= D_004E30AC;
+    *D_004E2DB4 = D_004E2DA0.bytes[0];
+    D_004E2DB4--;
+    D_004E2DA8 -= 2;
+    do {
+        func_001522C0(D_004E2DA0.bytes, D_004E2DB0);
+        D_004E2DB0 += 4;
+        D_004E2DA0.word &= D_004E30A8;
+        D_004E2DA0.word |= D_004E30AC;
+        *D_004E2DB4 = D_004E2DA0.bytes[0];
+        D_004E2DB4--;
+        *D_004E2DB4 = D_004E2DA0.bytes[1];
+        D_004E2DB4--;
+        *D_004E2DB4 = D_004E2DA0.bytes[2];
+        D_004E2DB4--;
+        *D_004E2DB4 = D_004E2DA0.bytes[3];
+        D_004E2DB4--;
+    } while (D_004E2DA8 -= 4);
+    D_004E2DA0.bytes[1] = *D_004E2DB0;
+    D_004E2DB0++;
+    D_004E2DA0.word &= D_004E30A8;
+    D_004E2DA0.word |= D_004E30AC;
+    *D_004E2DB4 = D_004E2DA0.bytes[1];
+    D_004E2DB4--;
+}
+
+/** Offset -1 2-byte decoded transfer, D_004E2DA8 -= 3, loop decoder, then index 1 staged transfer. */
+void func_0016B7D0() {
+    func_001522C0(D_004E2DA0.bytes, D_004E2DB0 - 1);
+    D_004E2DB0 += 2;
+    D_004E2DA0.word &= D_004E30A8;
+    D_004E2DA0.word |= D_004E30AC;
+    D_004E2DA0.word = (unsigned int)D_004E2DA0.word >> 8;
+    *D_004E2DB4 = D_004E2DA0.bytes[0];
+    D_004E2DB4--;
+    *D_004E2DB4 = D_004E2DA0.bytes[1];
+    D_004E2DB4--;
+    D_004E2DA8 -= 3;
+    do {
+        func_001522C0(D_004E2DA0.bytes, D_004E2DB0);
+        D_004E2DB0 += 4;
+        D_004E2DA0.word &= D_004E30A8;
+        D_004E2DA0.word |= D_004E30AC;
+        *D_004E2DB4 = D_004E2DA0.bytes[0];
+        D_004E2DB4--;
+        *D_004E2DB4 = D_004E2DA0.bytes[1];
+        D_004E2DB4--;
+        *D_004E2DB4 = D_004E2DA0.bytes[2];
+        D_004E2DB4--;
+        *D_004E2DB4 = D_004E2DA0.bytes[3];
+        D_004E2DB4--;
+    } while (D_004E2DA8 -= 4);
+    D_004E2DA0.bytes[1] = *D_004E2DB0;
+    D_004E2DB0++;
+    D_004E2DA0.word &= D_004E30A8;
+    D_004E2DA0.word |= D_004E30AC;
+    *D_004E2DB4 = D_004E2DA0.bytes[1];
+    D_004E2DB4--;
+}
+}

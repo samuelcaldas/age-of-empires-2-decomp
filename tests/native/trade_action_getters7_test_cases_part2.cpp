@@ -154,11 +154,13 @@ void run_getters7_test_part2(int test_case, std::vector<char> &storage) {
                     int id = ids[i];
                     scaler_call_count = 0;
                     last_scaled_val = NAN;
+                    helper_call_count = 0;
 
                     func_002B6220(self, id, 100);
                     float expected_scaled = expected_factors[m] * 100.0f;
                     assert(scaler_call_count == 1);
                     assert(std::fabs(last_scaled_val - expected_scaled) < 0.0001f);
+                    assert(helper_call_count == 0);
                     int *slot = reinterpret_cast<int *>(storage.data() + 0x858 + id * 4);
                     assert(*slot == 42);
                 }
@@ -186,11 +188,13 @@ void run_getters7_test_part2(int test_case, std::vector<char> &storage) {
                     int id = ids[i];
                     scaler_call_count = 0;
                     last_scaled_val = NAN;
+                    helper_call_count = 0;
 
                     func_002B6220(self, id, 100);
                     float expected_scaled = expected_factors[m] * 100.0f;
                     assert(scaler_call_count == 1);
                     assert(std::fabs(last_scaled_val - expected_scaled) < 0.0001f);
+                    assert(helper_call_count == 0);
                     int *slot = reinterpret_cast<int *>(storage.data() + 0x858 + id * 4);
                     assert(*slot == 77);
                 }

@@ -74,7 +74,8 @@ def check_configuration():
 def prepare_build():
     require_root(ROOT)
     run([sys.executable, ROOT / "configure.py", "--version", "SLES-50282",
-         "--compilers", ROOT / "compilers"])
+         "--compilers", ROOT / "compilers", "--binutils", ROOT / "build/mips_binutils",
+         "--wrapper", ROOT / "build/tools/wibo", "--objdiff", ROOT / "build/tools/objdiff-cli"])
     targets = [f"build/SLES-50282/src/trade_action_stream_decoders{n}.o" for n in range(28, 32)]
     for target in targets:
         (ROOT / target).unlink(missing_ok=True)

@@ -24,6 +24,7 @@ TEST_CASES = [
     ("perimeter_many", "Perimeter point accumulates many points preserving order"),
     ("serialize_zero", "Serialize writes only 8-byte header when extent count is zero"),
     ("serialize_many", "Serialize writes extent array and perimeter point buffers"),
+    ("deserialize_roundtrip", "Deserialize roundtrips serialized stream and frees old buffers"),
     ("rect_update", "Rect update computes coordinates and subtracts edge masks"),
     ("raster_untag", "Raster untag clears tags inside rect preserving outside cells"),
     ("raster_trace", "Raster trace backtracks delta vectors to find origin cell"),
@@ -51,14 +52,18 @@ def zone_raster_test_binary(tmp_path_factory):
     sources = [
         "src/zone_perimeter_point.cpp",
         "src/zone_raster_serialize.cpp",
+        "src/zone_raster_deserialize.cpp",
         "src/zone_rect_update.cpp",
         "src/zone_raster_untag.cpp",
         "src/zone_raster_trace.cpp",
         "src/zone_raster_extent.cpp",
-        "tests/native/zone_raster_pipeline_test.cpp",
+        "tests/native/zone_perimeter_point_test.cpp",
+        "tests/native/zone_raster_stream_test.cpp",
+        "tests/native/zone_raster_spatial_test.cpp",
+        "tests/native/zone_raster_test_main.cpp",
     ]
     subprocess.run(
-        [compiler, "-m32", "-fno-builtin", "-Iinclude"] + sources + ["-o", str(binary)],
+        [compiler, "-m32", "-fno-builtin", "-Iinclude", "-Itests/native"] + sources + ["-o", str(binary)],
         cwd=PROJECT_ROOT,
         check=True,
         capture_output=True,

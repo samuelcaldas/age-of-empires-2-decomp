@@ -1829,9 +1829,15 @@ segments:
     vram: 0x1CAC90
     subsegments:
       - [0xCAE70, asm, zone_raster_serialize]
+  - name: zone_raster_deserialize
+    type: code
+    start: 0xCAF70
+    vram: 0x1CAD90
+    subsegments:
+      - [0xCAF70, asm, zone_raster_deserialize]
   - name: post_aoe2
     type: bin
-    start: 0xCAF70
+    start: 0xCB190
   - name: trade_action_helper_217730
     type: code
     start: 0x117910

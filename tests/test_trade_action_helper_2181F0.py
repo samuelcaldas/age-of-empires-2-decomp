@@ -1,6 +1,7 @@
 """Native semantic regressions for trade_action_helper_2181F0."""
 
 from pathlib import Path
+import re
 import shutil
 import subprocess
 
@@ -24,6 +25,16 @@ CASES = [
     (12, "callback bound mutation controls the next precheck"),
     (13, "sequence and index wrap as signed low sixteen bits"),
 ]
+
+
+def test_helper_2181f0_symbol_registration():
+    """Include the executed return delay slot in the unique original symbol."""
+    symbols = (PROJECT_ROOT / "config/SLES-50282/symbols.txt").read_text()
+    pattern = r"^func_002181F0 = (0x[0-9A-Fa-f]+); // type:func size:(0x[0-9A-Fa-f]+)\b"
+    matches = re.findall(pattern, symbols, re.MULTILINE)
+    assert [(int(address, 16), int(size, 16)) for address, size in matches] == [
+        (0x2181F0, 0x15C)
+    ]
 
 
 @pytest.fixture(scope="module")

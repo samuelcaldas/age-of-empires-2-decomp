@@ -43,20 +43,32 @@ int g_method29_called = 0;
 int g_method30_called = 0;
 int g_method61_called = 0;
 int g_method62_called = 0;
+void *g_last_m61_world = nullptr;
+void *g_last_m62_world = nullptr;
 int g_last_m61_a2 = -1;
+int g_last_m61_a3 = 0;
+int g_last_m61_a4 = 0;
 int g_last_m62_a2 = -1;
+int g_last_m62_a3 = 0;
+int g_last_m62_a4 = 0;
 
 static void mock_m29(void *self) { (void)self; g_method29_called++; }
 static void mock_m30(void *self) { (void)self; g_method30_called++; }
 static void mock_m61(void *self, void *w, int a2, int a3, int a4) {
-    (void)self; (void)w; (void)a3; (void)a4;
+    (void)self;
     g_method61_called++;
+    g_last_m61_world = w;
     g_last_m61_a2 = a2;
+    g_last_m61_a3 = a3;
+    g_last_m61_a4 = a4;
 }
 static void mock_m62(void *self, void *w, int a2, int a3, int a4) {
-    (void)self; (void)w; (void)a3; (void)a4;
+    (void)self;
     g_method62_called++;
+    g_last_m62_world = w;
     g_last_m62_a2 = a2;
+    g_last_m62_a3 = a3;
+    g_last_m62_a4 = a4;
 }
 
 static void* dummy_vtable[120];

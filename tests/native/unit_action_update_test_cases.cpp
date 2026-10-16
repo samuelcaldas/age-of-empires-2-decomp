@@ -130,14 +130,23 @@ void test_func_00268200_callbacks() {
     g_method61_called = 0;
     func_00268200(act, 3);
     assert(g_method62_called == 1);
+    assert(g_last_m62_world == mock.m_world);
     assert(g_last_m62_a2 == 0);
+    assert(g_last_m62_a3 == -1);
+    assert(g_last_m62_a4 == 0);
     assert(g_method61_called == 1);
+    assert(g_last_m61_world == mock.m_world);
     assert(g_last_m61_a2 == 1);
+    assert(g_last_m61_a3 == -1);
+    assert(g_last_m61_a4 == 0);
 
     // Transition from state < 7 to state 7 triggers Method62(world, 1, -1, 0)
     mock.m_field39 = 4;
     g_method62_called = 0;
     func_00268200(act, 7);
     assert(g_method62_called == 1);
+    assert(g_last_m62_world == mock.m_world);
     assert(g_last_m62_a2 == 1);
+    assert(g_last_m62_a3 == -1);
+    assert(g_last_m62_a4 == 0);
 }

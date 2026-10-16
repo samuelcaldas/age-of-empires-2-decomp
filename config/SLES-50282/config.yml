@@ -1919,9 +1919,15 @@ segments:
     vram: 0x1CB6D0
     subsegments:
       - [0xCB8B0, asm, zone_smooth_elevation]
+  - name: zone_level_elevation
+    type: code
+    start: 0xCBD70
+    vram: 0x1CBB90
+    subsegments:
+      - [0xCBD70, asm, zone_level_elevation]
   - name: post_aoe2
     type: bin
-    start: 0xCBD70
+    start: 0xCC1C0
   - name: trade_action_helper_217730
     type: code
     start: 0x117910

@@ -1723,10 +1723,46 @@ segments:
     vram: 0x17ABC0
     subsegments:
       - [0x7ADA0, asm, trade_action_stream_decoders105]
-  - name: post_base
-    type: bin
+  - name: trade_action_stream_decoders106
+    type: code
     start: 0x7B290
     vram: 0x17B0B0
+    subsegments:
+      - [0x7B290, asm, trade_action_stream_decoders106]
+  - name: trade_action_stream_decoders107
+    type: code
+    start: 0x7B650
+    vram: 0x17B470
+    subsegments:
+      - [0x7B650, asm, trade_action_stream_decoders107]
+  - name: trade_action_stream_decoders108
+    type: code
+    start: 0x7BA30
+    vram: 0x17B850
+    subsegments:
+      - [0x7BA30, asm, trade_action_stream_decoders108]
+  - name: trade_action_stream_decoders109
+    type: code
+    start: 0x7BEC0
+    vram: 0x17BCE0
+    subsegments:
+      - [0x7BEC0, asm, trade_action_stream_decoders109]
+  - name: trade_action_stream_decoders110
+    type: code
+    start: 0x7C350
+    vram: 0x17C170
+    subsegments:
+      - [0x7C350, asm, trade_action_stream_decoders110]
+  - name: trade_action_stream_decoders111
+    type: code
+    start: 0x7C870
+    vram: 0x17C690
+    subsegments:
+      - [0x7C870, asm, trade_action_stream_decoders111]
+  - name: post_base
+    type: bin
+    start: 0x7CD80
+    vram: 0x17CBA0
   - name: zone_path_eval
     type: code
     start: 0xC7A40

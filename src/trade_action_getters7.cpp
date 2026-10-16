@@ -18,12 +18,13 @@ int select_trade_increment(int mode, int flag) {
 }
 
 float get_scaling_factor(int index, int mode, int flag) {
-    if (mode == 0 || mode == 5 || flag != 1) {
+    if (mode == 0 || mode == 5) {
         return 1.0f;
     }
     if (mode == 1 && flag != 1) {
         return 1.0f;
     }
+
     bool is_f20 = (index == 0x24 || index == 0x3A);
     bool is_f21 = (index == 0x10 || index == 0x1A || index == 0x3B || index == 0x3C);
     bool is_f22 = (index == 0x13 || index == 0x14);
@@ -36,14 +37,14 @@ float get_scaling_factor(int index, int mode, int flag) {
         if (mode == 4) return 0.2f;
     } else if (is_f21) {
         if (mode == 1) return 0.8f;
-        if (mode == 2) return 0.75f;
-        if (mode == 3) return 0.5f;
-        if (mode == 4) return 0.25f;
+        if (mode == 2) return (flag == 1) ? 0.75f : 0.6f;
+        if (mode == 3) return (flag == 1) ? 0.5f : 0.4f;
+        if (mode == 4) return (flag == 1) ? 0.25f : 0.2f;
     } else if (is_f23) {
         if (mode == 1) return 1.0f;
-        if (mode == 2) return 0.75f;
-        if (mode == 3) return 0.5f;
-        if (mode == 4) return 0.25f;
+        if (mode == 2) return (flag == 1) ? 0.75f : 0.6f;
+        if (mode == 3) return (flag == 1) ? 0.5f : 0.4f;
+        if (mode == 4) return (flag == 1) ? 0.25f : 0.2f;
     }
     return 1.0f;
 }

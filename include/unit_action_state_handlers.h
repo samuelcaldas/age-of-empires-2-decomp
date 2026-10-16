@@ -5,7 +5,7 @@
 
 extern "C" {
     void func_00272C20(void *action);
-    void func_0026BA70(void *action);
+    void func_0026BA70(ActionRebind *self);
     void func_1ECBF0(void *field98, void *action, void *sight);
 
     void func_0026B130(ActionRebind *self, int arg1);

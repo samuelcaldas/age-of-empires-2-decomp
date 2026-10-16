@@ -11,7 +11,7 @@ extern "C" {
     void func_00272D10(void *action);
     void func_00272DD0(void *action);
     void func_00272E10(void *action);
-    void func_0026BDF0(void *action);
+    void func_0026BDF0(ActionRebind *self, void *a1 = 0, void *a2 = 0);
 
     void func_0026B550(ActionRebind *self, int arg1);
     int func_0026B710(ActionRebind *self, void *stream, int arg2, int arg3, int arg4);

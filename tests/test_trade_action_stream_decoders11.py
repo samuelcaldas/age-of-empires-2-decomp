@@ -1,5 +1,6 @@
 """Compare the compiled C++ decoders11 with their relocated original PS2 code."""
 
+import struct
 import subprocess
 from pathlib import Path
 
@@ -20,18 +21,26 @@ FILE_OFFSET = 0x5F2D0
 START_ADDRESS = FILE_OFFSET + 0xFFE20  # 0x15F0F0
 SLICE_SIZE = 0x130
 
-# Exact function offsets and instruction sizes:
+# Exact function offsets, instruction sizes, and padding ranges:
 # func_0015F0F0: 0x15F0F0, 0x38 bytes (56B) -> exact 100%
+# internal padding 1: offset 0x38 to 0x40 (8 bytes) -> 16-byte alignment before func_0015F130
 # func_0015F130: 0x15F130, 0x80 bytes (128B) -> 3 bytes differ at offset 0x0C (sb v1, 0(a0) vs sb v1, -0x7A20(gp))
 # func_0015F1B0: 0x15F1B0, 0x6C bytes (108B) -> exact 100%
+# tail padding 2: offset 0x12C to 0x130 (4 bytes) -> 16-byte alignment at slice end
 F0F0_OFFSET = 0x0
 F0F0_SIZE = 0x38
+
+PAD1_OFFSET = 0x38
+PAD1_SIZE = 0x8
 
 F130_OFFSET = 0x40
 F130_SIZE = 0x80
 
 F1B0_OFFSET = 0xC0
 F1B0_SIZE = 0x6C
+
+PAD2_OFFSET = 0x12C
+PAD2_SIZE = 0x4
 
 SYMBOLS = {
     "_gp": 0x4EA7C0,
@@ -131,9 +140,51 @@ def test_vram_mapping_matches_pt_load():
     )
 
 
+def test_slice_total_extent(decoder_code):
+    """Verify full 304-byte slice length emitted by compiler and linker."""
+    assert len(decoder_code) == SLICE_SIZE
+
+
 def test_func_0015F0F0_exact_bytes(decoder_code):
     """Require exact instructions for func_0015F0F0 (56 bytes, 100% exact)."""
     assert_same_code(decoder_code[F0F0_OFFSET:F0F0_OFFSET + F0F0_SIZE], read_original(F0F0_OFFSET, F0F0_SIZE), START_ADDRESS + F0F0_OFFSET)
+
+
+def test_internal_alignment_padding(decoder_code):
+    """Require exact 8-byte zero padding between func_0015F0F0 and func_0015F130."""
+    actual_pad = decoder_code[PAD1_OFFSET:PAD1_OFFSET + PAD1_SIZE]
+    expected_pad = read_original(PAD1_OFFSET, PAD1_SIZE)
+    assert_same_code(actual_pad, expected_pad, START_ADDRESS + PAD1_OFFSET)
+
+
+def test_func_0015F130_near_matching(decoder_code):
+    """Verify func_0015F130 instruction size and strictly prove exact raw instruction words."""
+    actual = decoder_code[F130_OFFSET:F130_OFFSET + F130_SIZE]
+    expected = read_original(F130_OFFSET, F130_SIZE)
+    assert len(actual) == len(expected) == F130_SIZE
+
+    # Exactly 125 of 128 bytes must be strictly identical across the function body:
+    matching_bytes = sum(1 for a, b in zip(actual, expected) if a == b)
+    assert matching_bytes == 125, f"Expected 125 matching bytes in func_0015F130, got {matching_bytes}"
+
+    # Verify the exact 4-byte instruction words at offset 0x0C:
+    # Expected original instruction: sb $v1, 0($a0) where $a0 = &D_004E2DA0
+    # Encoding: opcode 0x28 (sb), base $a0 (4), rt $v1 (3), offset 0x0000 -> 0xA0830000 (little endian: 00 00 83 a0)
+    expected_word = struct.unpack("<I", expected[0x0C:0x10])[0]
+    assert expected_word == 0xA0830000, f"Expected sb $v1, 0($a0) (0xA0830000), got {expected_word:#010X}"
+
+    # Compiled instruction: sb $v1, -0x7A20($gp) where $gp - 0x7A20 = 0x4EA7C0 - 0x7A20 = 0x4E2DA0 (&D_004E2DA0)
+    # Encoding: opcode 0x28 (sb), base $gp (28), rt $v1 (3), offset -0x7A20 (0x85E0) -> 0xA38385E0 (little endian: e0 85 83 a3)
+    actual_word = struct.unpack("<I", actual[0x0C:0x10])[0]
+    assert actual_word == 0xA38385E0, f"Expected sb $v1, -0x7A20($gp) (0xA38385E0), got {actual_word:#010X}"
+
+    # Verify that both instructions store $v1 into the exact same effective target address 0x4E2DA0:
+    # 1. Expected effective address: $a0 = $gp - 0x7A20 (computed at offset 0x04: addiu $a0, $gp, -0x7A20) + offset 0 = 0x4E2DA0
+    # 2. Actual effective address: $gp + (-0x7A20) = 0x4EA7C0 - 0x7A20 = 0x4E2DA0
+    gp_val = SYMBOLS["_gp"]
+    expected_target = (gp_val - 0x7A20) + 0x0000
+    actual_target = gp_val - 0x7A20
+    assert expected_target == actual_target == SYMBOLS["D_004E2DA0"], "Target address mismatch"
 
 
 def test_func_0015F1B0_exact_bytes(decoder_code):
@@ -141,11 +192,8 @@ def test_func_0015F1B0_exact_bytes(decoder_code):
     assert_same_code(decoder_code[F1B0_OFFSET:F1B0_OFFSET + F1B0_SIZE], read_original(F1B0_OFFSET, F1B0_SIZE), START_ADDRESS + F1B0_OFFSET)
 
 
-def test_func_0015F130_near_matching(decoder_code):
-    """Verify func_0015F130 instruction size and locate the single 3-byte register difference."""
-    actual = decoder_code[F130_OFFSET:F130_OFFSET + F130_SIZE]
-    expected = read_original(F130_OFFSET, F130_SIZE)
-    assert len(actual) == len(expected) == F130_SIZE
-    diffs = [i for i, (a, b) in enumerate(zip(actual, expected)) if a != b]
-    # The only differences are at byte offset 0x0C, 0x0D, 0x0F (sb v1, 0(a0) vs sb v1, -0x7A20(gp))
-    assert diffs == [0xC, 0xD, 0xF], f"Unexpected instruction differences in func_0015F130: {diffs}"
+def test_tail_alignment_padding(decoder_code):
+    """Require exact 4-byte zero padding at end of slice."""
+    actual_pad = decoder_code[PAD2_OFFSET:PAD2_OFFSET + PAD2_SIZE]
+    expected_pad = read_original(PAD2_OFFSET, PAD2_SIZE)
+    assert_same_code(actual_pad, expected_pad, START_ADDRESS + PAD2_OFFSET)

@@ -4338,8 +4338,10 @@ Following stream decoders 10 sits the eleventh stream decoder and table lookup s
 | Function | Exact instruction bytes | Match | Description |
 |---|---:|---:|---|
 | `func_0015F0F0` | 56 | 100.00% | Single byte table lookup via `D_004E2DA4` |
-| `func_0015F130` | 128 | In progress | 2-byte staged table lookup |
+| `func_0015F130` | 128 | NonMatching | 2-byte staged table lookup (125/128B exact, register diff on store) |
 | `func_0015F1B0` | 108 | 100.00% | Dual sequential single byte table lookup |
+
+An independent test suite (`tests/test_trade_action_stream_decoders11.py`) verifies the 56 instruction bytes of `func_0015F0F0` and the 108 instruction bytes of `func_0015F1B0` match byte-for-byte at their relocated VRAM addresses (`0x15F0F0` and `0x15F1B0`), while asserting the 8-byte internal alignment padding and 4-byte slice tail padding. `func_0015F130` has complete behavioral logic matching 125 of 128 bytes, with the only difference being `sb v1, 0(a0)` vs `sb v1, -0x7A20(gp)` at offset `0x0C`. The unit is registered as `NonMatching`.
 
 #### 6.168 `Zone Path & Building Placement Obstruction Evaluator` Subsystem (`0x1C7850`–`0x1C8480`, `zone_path_eval.cpp`)
 

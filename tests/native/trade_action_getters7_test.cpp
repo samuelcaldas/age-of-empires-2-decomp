@@ -243,6 +243,25 @@ int main(int argc, char **argv) {
         slot = reinterpret_cast<int *>(storage.data() + 0x858 + 0x3A * 4);
         assert(*slot == 59);
         assert(std::fabs(last_scaled_val - 60.0f) < 0.0001f);
+    } else if (test_case == 17) {
+        // Test case 17: f20 IDs 0x24 / 0x3A scaler zero -> slot 1
+        std::vector<char> p1_obj(16384, 0);
+        std::vector<char> p2_obj(16384, 0);
+        char *base = storage.data();
+        *reinterpret_cast<void **>(base + 0xB0) = p1_obj.data();
+        *reinterpret_cast<void **>(p1_obj.data() + 0xAC) = p2_obj.data();
+        *reinterpret_cast<void **>(p2_obj.data() + 0xB98) = p_sentinel;
+
+        mock_mode = 2;
+        mock_flag = 0;
+        custom_mock_return = 0;
+        func_002B6220(self, 0x24, 50);
+        int *slot = reinterpret_cast<int *>(storage.data() + 0x858 + 0x24 * 4);
+        assert(*slot == 1);
+
+        func_002B6220(self, 0x3A, 50);
+        slot = reinterpret_cast<int *>(storage.data() + 0x858 + 0x3A * 4);
+        assert(*slot == 1);
     }
 
     std::cout << "GETTERS7 TEST " << test_case << " PASSED\n";

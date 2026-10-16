@@ -24,6 +24,7 @@ CASES = [
     ("case9_case13", "Calculates distinct slope-adjusted elevation offsets for cases 9 and 13"),
     ("all_cases", "Validates that all 17 slope cases execute valid math and produce distinct world coordinates"),
     ("default_cases", "When command byte is 17 or 255, branches to common calculation with selected_term=0 and writes outputs"),
+    ("float_rounding", "Verifies floatX rounding occurs before Y subtraction preserving IEEE 754 precision"),
 ]
 
 
@@ -67,3 +68,61 @@ def test_zone_screen_to_world_cases(zone_screen_world_test_binary, case, descrip
         text=True,
     )
     assert result.returncode == 0, f"{description} failed: {result.stderr}"
+
+
+def test_zone_screen_to_world_old_formula_mutant_fails(tmp_path):
+    """Ensure that the old erroneous multiplication formula fails the regression suite."""
+    compiler = shutil.which("g++")
+    if compiler is None:
+        pytest.skip("native tests require g++")
+
+    src = (PROJECT_ROOT / "src" / "zone_screen_to_world.cpp").read_text()
+    # Mutate addition to multiplication: sum_term = s2 + ((2.0 * fy - 1.0) + 2.0 * fx) -> * 2.0 * fx
+    target = "int64_t sum_term = func_122058(s2, func_122058(two_fy_minus_one, two_fx));"
+    mutated = "int64_t sum_term = func_122058(s2, func_122118(two_fy_minus_one, two_fx));"
+    mutated_src = src.replace(target, mutated)
+    assert mutated_src != src, "mutation target not found"
+
+    mut_src_file = tmp_path / "zone_screen_to_world_mut.cpp"
+    mut_src_file.write_text(mutated_src)
+    mut_bin = tmp_path / "zone-s2w-mut-bin"
+
+    subprocess.run(
+        [compiler, "-m32", "-fno-builtin", "-Iinclude", str(mut_src_file), "tests/native/zone_screen_to_world_test.cpp", "-o", str(mut_bin)],
+        cwd=PROJECT_ROOT,
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    res = subprocess.run([str(mut_bin), "case0_exact"], capture_output=True, text=True)
+    assert res.returncode != 0, "Mutant (old multiplication formula) should have failed case0_exact!"
+
+
+def test_zone_screen_to_world_early_return_mutant_fails(tmp_path):
+    """Ensure that the old erroneous early return on cmd > 16 fails default_cases."""
+    compiler = shutil.which("g++")
+    if compiler is None:
+        pytest.skip("native tests require g++")
+
+    src = (PROJECT_ROOT / "src" / "zone_screen_to_world.cpp").read_text()
+    # Mutate to early return when cmd > 16
+    target = "int64_t s2 = 0;"
+    mutated = "if (cmd > 16) return;\n    int64_t s2 = 0;"
+    mutated_src = src.replace(target, mutated)
+    assert mutated_src != src, "mutation target not found"
+
+    mut_src_file = tmp_path / "zone_screen_to_world_mut2.cpp"
+    mut_src_file.write_text(mutated_src)
+    mut_bin = tmp_path / "zone-s2w-mut2-bin"
+
+    subprocess.run(
+        [compiler, "-m32", "-fno-builtin", "-Iinclude", str(mut_src_file), "tests/native/zone_screen_to_world_test.cpp", "-o", str(mut_bin)],
+        cwd=PROJECT_ROOT,
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    res = subprocess.run([str(mut_bin), "default_cases"], capture_output=True, text=True)
+    assert res.returncode != 0, "Mutant (early return on cmd > 16) should have failed default_cases!"
+
+

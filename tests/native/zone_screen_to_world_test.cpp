@@ -131,6 +131,26 @@ static void test_default_cases_17_and_255() {
     assert(out_y == 0.25f);
 }
 
+static void test_float_x_rounding_before_y() {
+    char zm[0x10000];
+    setup_zm(zm, 7, 11);
+    CmdPacket pkt = {{}, 0};
+
+    float out_x = 0.0f, out_y = 0.0f;
+    func_001CEA60(zm, 5, 9, &pkt, &out_y, &out_x);
+
+    // Verify out_y is computed from the rounded float out_x, not the unrounded double
+    double fx = 5.0 / 7.0;
+    double fy = 9.0 / 11.0;
+    double sum_term = (2.0 * fy - 1.0) + 2.0 * fx;
+    double x_fp = sum_term / 2.0;
+    float expected_x = static_cast<float>(x_fp);
+    float expected_y = static_cast<float>(2.0 * fx - static_cast<double>(expected_x));
+
+    assert(out_x == expected_x);
+    assert(out_y == expected_y);
+}
+
 int main(int argc, char **argv) {
     if (argc > 1 && std::string(argv[1]) == "case0_exact") {
         test_case0_exact_coordinates();
@@ -142,12 +162,15 @@ int main(int argc, char **argv) {
         test_all_17_cases_coverage();
     } else if (argc > 1 && std::string(argv[1]) == "default_cases") {
         test_default_cases_17_and_255();
+    } else if (argc > 1 && std::string(argv[1]) == "float_rounding") {
+        test_float_x_rounding_before_y();
     } else {
         test_case0_exact_coordinates();
         test_case1_and_case5_slopes();
         test_case9_and_case13_slopes();
         test_all_17_cases_coverage();
         test_default_cases_17_and_255();
+        test_float_x_rounding_before_y();
     }
     return 0;
 }

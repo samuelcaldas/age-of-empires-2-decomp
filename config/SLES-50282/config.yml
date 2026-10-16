@@ -2675,9 +2675,27 @@ segments:
     vram: 0x1D93C0
     subsegments:
       - [0xD95A0, asm, zone_spatial_view_check_modes]
+  - name: zone_spatial_view_update_frustum
+    type: code
+    start: 0xD9610
+    vram: 0x1D9430
+    subsegments:
+      - [0xD9610, asm, zone_spatial_view_update_frustum]
+  - name: zone_spatial_view_check_bitmask
+    type: code
+    start: 0xDAC40
+    vram: 0x1DAA60
+    subsegments:
+      - [0xDAC40, asm, zone_spatial_view_check_bitmask]
+  - name: zone_spatial_view_transform_point
+    type: code
+    start: 0xDAC90
+    vram: 0x1DAAB0
+    subsegments:
+      - [0xDAC90, asm, zone_spatial_view_transform_point]
   - name: post_aoe2
     type: bin
-    start: 0xD9610
+    start: 0xDAD20
   - name: trade_action_helper_217730
     type: code
     start: 0x117910

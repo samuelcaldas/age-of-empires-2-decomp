@@ -22,6 +22,16 @@ void func_002B6220(void *self, int index, int value) {
         *table_slot = value;
     }
 
+    float factor = 1.0f;
+    if (index == 0x68) {
+        factor = 0.5f;
+        int converted = func_00123350(factor * (*table_slot));
+        if (converted == 0) {
+            converted = 1;
+        }
+        *table_slot = converted + 10;
+    }
+
     int field_bec = *reinterpret_cast<int *>(base + 0x0BEC);
     if (field_bec == 1) {
         return;

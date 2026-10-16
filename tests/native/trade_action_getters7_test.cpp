@@ -29,11 +29,9 @@ int main(int argc, char **argv) {
     } else if (test_case == 1) {
         func_002B6220(self, 239, 50);
     } else if (test_case == 2) {
-        char *base = storage.data();
-        *reinterpret_cast<int *>(base + 0x0BEC) = 1;
-        func_002B6220(self, 5, 150);
-        int *slot = reinterpret_cast<int *>(storage.data() + 0x858 + 5 * 4);
-        assert(*slot == 150);
+        func_002B6220(self, 0x68, 20);
+        int *slot = reinterpret_cast<int *>(storage.data() + 0x858 + 0x68 * 4);
+        assert(*slot == 20);
     } else if (test_case == 3) {
         func_002B6220(self, 6, 42);
         int *slot = reinterpret_cast<int *>(storage.data() + 0x858 + 6 * 4);

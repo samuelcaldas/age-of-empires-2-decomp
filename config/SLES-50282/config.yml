@@ -1252,9 +1252,22 @@ segments:
     vram: 0x1C97A0
     subsegments:
       - [0xC9980, asm, zone_vtable_stubs]
-  - name: post_aoe2
-    type: bin
+  - name: zone_dispatch
+    type: code
     start: 0xC9A80
+    vram: 0x1C98A0
+    subsegments:
+      - [0xC9A80, asm, zone_dispatch]
+  - name: zone_dispatch_grid
+    type: code
+    start: 0xC9FE0
+    vram: 0x1C9E00
+    subsegments:
+      - [0xC9FE0, asm, zone_dispatch_grid]
+      - [0xCA180, bin]
+  - name: post_zone_dispatch
+    type: bin
+    start: 0xCA360
   - name: trade_action_helper_217730
     type: code
     start: 0x117910

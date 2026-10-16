@@ -2705,9 +2705,21 @@ segments:
     vram: 0x1DAC10
     subsegments:
       - [0xDADF0, asm, zone_spatial_view_calc_deflection]
+  - name: zone_spatial_view_eval_lengths
+    type: code
+    start: 0xDAEB0
+    vram: 0x1DACD0
+    subsegments:
+      - [0xDAEB0, asm, zone_spatial_view_eval_lengths]
+  - name: zone_spatial_view_scale_add
+    type: code
+    start: 0xDB000
+    vram: 0x1DAE20
+    subsegments:
+      - [0xDB000, asm, zone_spatial_view_scale_add]
   - name: post_aoe2
     type: bin
-    start: 0xDAEB0
+    start: 0xDB010
   - name: trade_action_helper_217730
     type: code
     start: 0x117910

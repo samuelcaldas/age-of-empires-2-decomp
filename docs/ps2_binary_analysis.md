@@ -5090,6 +5090,22 @@ These eight non-matching C++ objects continue the stream decoder sequence from u
 
 Focused coverage is in `tests/test_trade_action_stream_decoders36.py` through `tests/test_trade_action_stream_decoders43.py`. The independent snapshot proof and production-source mutation checks are `tests/check_trade_action_stream_decoders36_43.py` and `tests/mutate_trade_action_stream_decoders36_43.py`; the proof is scoped to units 36–43. All object entries remain `NonMatching`; byte-exact function results are not object-wide or full-project match claims.
 
+#### Trade Action Stream Decoders 44–51 (`0x16A5D0`–`0x16CC20`)
+
+These eight non-matching C++ slices continue the stream decoder sequence. Units 44–49 combine staged-byte transfers with decoded stream groups and variable source/count adjustments. Units 50–51 cover the transition from the `D_004E30A8`/`D_004E30AC` mask-and-OR pattern to direct `D_004E2DA4` OR transfers. The slices use the verified file-backed `PT_LOAD` mapping `VRAM = file offset + 0xFFE20`; `post_base` begins at file offset `0x6CE00` / VRAM `0x16CC20` immediately after unit 51.
+
+| Unit | File range | VRAM range | Slice | Function code | Alignment padding |
+|---|---:|---:|---:|---:|---:|
+| 44 | `0x6A7B0`–`0x6AC30` | `0x16A5D0`–`0x16AA50` | 1,152 B | 1,112 B | 40 B |
+| 45 | `0x6AC30`–`0x6B150` | `0x16AA50`–`0x16AF70` | 1,312 B | 1,296 B | 16 B |
+| 46 | `0x6B150`–`0x6B5E0` | `0x16AF70`–`0x16B400` | 1,168 B | 1,152 B | 16 B |
+| 47 | `0x6B5E0`–`0x6BB40` | `0x16B400`–`0x16B960` | 1,376 B | 1,352 B | 24 B |
+| 48 | `0x6BB40`–`0x6C170` | `0x16B960`–`0x16BF90` | 1,584 B | 1,560 B | 24 B |
+| 49 | `0x6C170`–`0x6C7F0` | `0x16BF90`–`0x16C610` | 1,664 B | 1,640 B | 24 B |
+| 50 | `0x6C7F0`–`0x6CB00` | `0x16C610`–`0x16C920` | 784 B | 764 B | 20 B |
+| 51 | `0x6CB00`–`0x6CE00` | `0x16C920`–`0x16CC20` | 768 B | 748 B | 20 B |
+
+The eight slices contain 9,624 function-code bytes and 184 bytes of alignment padding. Focused source tests are in `tests/test_trade_action_stream_decoders44.py` through `tests/test_trade_action_stream_decoders51.py`; the isolated ELF proof and production-source mutants are `tests/check_trade_action_stream_decoders44_51.py` and `tests/mutate_trade_action_stream_decoders44_51.py`. The proof verifies the pinned original ELF and `PT_LOAD` mapping, each Ninja `ET_REL` function section and size, numeric external addresses, eight combined and 32 isolated GNU MIPS `ET_EXEC --no-undefined` links, unmasked function bytes, complete slice coverage, and zero padding. All eight object entries remain `NonMatching`; per-function byte evidence is not an object-wide or full-project match claim.
 #### Zone dispatcher resize and grid operations (`0x1C98A0`–`0x1CA180`, `zone_dispatch.cpp` / `zone_dispatch_grid.cpp`)
 
 The original PAL ELF maps this 0x8E0-byte slice from file offset `0xC9A80` to `0xCA360` through a file-backed `PT_LOAD` segment (`VRAM = file offset + 0xFFE20`). It contains 0x8C0 instruction bytes and 0x20 zero-alignment bytes. The implemented C++ definitions are `func_001C98A0` (0x558 bytes), `func_001C9E00` (0xF4), `func_001C9F00` (0x74), and the tail-jump wrapper `func_001C9F80` (0x20), totaling 0x6E0 bytes. The wrapper transfers to original helper `func_001C9FA0` (0x1E0), which remains an external declaration and is explicitly assigned to the `bin` range beginning at file offset `0xCA180` / VRAM `0x1C9FA0`; that helper body is not implemented or counted as another source function. The three inter-function alignment ranges total 0x20 bytes and were confirmed zero in the original. The final return delay slot is included in each original function size; alignment is excluded. The unit remains `NonMatching`; these independent function comparisons do not claim a whole-object or whole-project match.

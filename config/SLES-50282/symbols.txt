@@ -1037,5 +1037,14 @@ func_00217B50 = 0x217B50; // type:func absolute:True
 func_1CDD00 = 0x1CDD00; // type:func absolute:True
 func_1CDE30 = 0x1CDE30; // type:func absolute:True
 D_4D9270 = 0x4D9270; // type:u32 absolute:True
+
+// Tactical AI Action Delegator & Constructors (0x307160-0x307220)
+func_00307160 = 0x307160; // type:func size:0x40 absolute:True
+func_003071A0 = 0x3071A0; // type:func size:0x40 absolute:True
+func_003071E0 = 0x3071E0; // type:func size:0x40 absolute:True
+func_2cc630 = 0x2CC630; // type:func absolute:True
+func_315560 = 0x315560; // type:func absolute:True
+func_315a50 = 0x315A50; // type:func absolute:True
+D_4DE760 = 0x4DE760; // type:u32 size:4 absolute:True
 D_938AC0 = 0x938AC0; // type:u8 size:0x200 absolute:True
 D_938CC0 = 0x938CC0; // type:u8 size:0x200 absolute:True

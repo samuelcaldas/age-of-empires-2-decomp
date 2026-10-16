@@ -15,10 +15,23 @@ BINUTILS = ROOT / "build/mips_binutils"
 
 # PT_LOAD VRAM derivation:
 # p_vaddr = 0x100000, p_offset = 0x1E0 -> VRAM = file_offset + 0xFFE20.
-# func_0015F0F0 is at file 0x5F2D0 -> VRAM 0x15F0F0, size 0x38 (56 bytes).
+# decoders11 slice: file 0x5F2D0 to 0x5F400 (size 0x130 = 304 bytes).
 FILE_OFFSET = 0x5F2D0
 START_ADDRESS = FILE_OFFSET + 0xFFE20  # 0x15F0F0
-FUNCTION_SIZE = 0x38
+SLICE_SIZE = 0x130
+
+# Exact function offsets and instruction sizes:
+# func_0015F0F0: 0x15F0F0, 0x38 bytes (56B) -> exact 100%
+# func_0015F130: 0x15F130, 0x80 bytes (128B) -> 3 bytes differ at offset 0x0C (sb v1, 0(a0) vs sb v1, -0x7A20(gp))
+# func_0015F1B0: 0x15F1B0, 0x6C bytes (108B) -> exact 100%
+F0F0_OFFSET = 0x0
+F0F0_SIZE = 0x38
+
+F130_OFFSET = 0x40
+F130_SIZE = 0x80
+
+F1B0_OFFSET = 0xC0
+F1B0_SIZE = 0x6C
 
 SYMBOLS = {
     "_gp": 0x4EA7C0,
@@ -118,6 +131,21 @@ def test_vram_mapping_matches_pt_load():
     )
 
 
-def test_func_0015F0F0_bytes(decoder_code):
-    """Require exact instructions for func_0015F0F0 (first 56 bytes)."""
-    assert_same_code(decoder_code[:FUNCTION_SIZE], read_original(0, FUNCTION_SIZE), START_ADDRESS)
+def test_func_0015F0F0_exact_bytes(decoder_code):
+    """Require exact instructions for func_0015F0F0 (56 bytes, 100% exact)."""
+    assert_same_code(decoder_code[F0F0_OFFSET:F0F0_OFFSET + F0F0_SIZE], read_original(F0F0_OFFSET, F0F0_SIZE), START_ADDRESS + F0F0_OFFSET)
+
+
+def test_func_0015F1B0_exact_bytes(decoder_code):
+    """Require exact instructions for func_0015F1B0 (108 bytes, 100% exact)."""
+    assert_same_code(decoder_code[F1B0_OFFSET:F1B0_OFFSET + F1B0_SIZE], read_original(F1B0_OFFSET, F1B0_SIZE), START_ADDRESS + F1B0_OFFSET)
+
+
+def test_func_0015F130_near_matching(decoder_code):
+    """Verify func_0015F130 instruction size and locate the single 3-byte register difference."""
+    actual = decoder_code[F130_OFFSET:F130_OFFSET + F130_SIZE]
+    expected = read_original(F130_OFFSET, F130_SIZE)
+    assert len(actual) == len(expected) == F130_SIZE
+    diffs = [i for i, (a, b) in enumerate(zip(actual, expected)) if a != b]
+    # The only differences are at byte offset 0x0C, 0x0D, 0x0F (sb v1, 0(a0) vs sb v1, -0x7A20(gp))
+    assert diffs == [0xC, 0xD, 0xF], f"Unexpected instruction differences in func_0015F130: {diffs}"

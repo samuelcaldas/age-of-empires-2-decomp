@@ -24,6 +24,25 @@ void func_0015F0F0() {
     D_004E2DB4++;
 }
 
+/** Look up two consecutive bytes via D_004E2DA4 table and advance cursor by two. */
+void func_0015F130() {
+    unsigned char *ptr = D_004E2DB4;
+    unsigned char *dst = D_004E2DA0.bytes;
+    *dst++ = *ptr++;
+    *dst = *ptr;
+
+    D_004E2DAC.bytes[0] = D_004E2DA0.bytes[0];
+    D_004E2DA0.bytes[0] = D_004E2DA4[D_004E2DAC.word];
+
+    D_004E2DAC.bytes[0] = D_004E2DA0.bytes[1];
+    D_004E2DA0.bytes[1] = D_004E2DA4[D_004E2DAC.word];
+
+    *D_004E2DB4 = D_004E2DA0.bytes[0];
+    D_004E2DB4++;
+    *D_004E2DB4 = D_004E2DA0.bytes[1];
+    D_004E2DB4++;
+}
+
 /** Look up two consecutive bytes individually via D_004E2DA4 table. */
 void func_0015F1B0() {
     D_004E2DAC.bytes[0] = *D_004E2DB4;

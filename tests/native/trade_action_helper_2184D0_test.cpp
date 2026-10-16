@@ -1,9 +1,20 @@
 #include "trade_action_helper_2184D0_support.h"
+#include <csignal>
+#include <csetjmp>
 #include <iostream>
 
 using namespace helper_2184d0_test;
 
 namespace {
+
+sigjmp_buf trap_environment;
+volatile sig_atomic_t trap_caught = 0;
+
+void capture_trap(int) {
+    trap_caught = 1;
+    siglongjmp(trap_environment, 1);
+}
+
 
 // Positive span with zero step traps on PS2; host C++ division is undefined and is not tested here.
 void test_zero_step_and_span_produces_one_call() {
@@ -125,7 +136,23 @@ int main(int argc, char **argv) {
         std::cerr << "Usage: " << argv[0] << " <case>\n";
         return 1;
     }
-    run_core_case(std::stoi(argv[1]));
-    std::cout << "PASS\n";
+    const int test_case = std::stoi(argv[1]);
+    if (test_case == 10 || test_case == 11) {
+        std::signal(SIGTRAP, capture_trap);
+        if (sigsetjmp(trap_environment, 1) != 0) {
+            assert(trap_caught == 1);
+            assert(state.break_code == 7);
+            assert((state.events == std::vector<int>{1, 2}));
+            assert(state.handler_calls == 0);
+            assert(state.cleanup_calls == 0);
+            assert_manager(state.manager, 900);
+            std::cout << "PASS\\n";
+            return 0;
+        }
+        run_core_case(test_case);
+        assert(false && "positive-span zero step must trap");
+    }
+    run_core_case(test_case);
+    std::cout << "PASS\\n";
     return 0;
 }

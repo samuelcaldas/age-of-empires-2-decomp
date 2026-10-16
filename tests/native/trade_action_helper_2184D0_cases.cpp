@@ -4,6 +4,32 @@ using namespace helper_2184d0_test;
 
 namespace {
 
+void test_zero_x_step_with_positive_span_traps_before_visit() {
+    unsigned char object[0x300];
+    unsigned char manager[0x100];
+    initialize(object, manager);
+    mutate_manager(manager, 100);
+    state.mutate_begin = true;
+    set_field(object, 0x184, static_cast<short>(0));
+    set_field(object, 0x186, static_cast<short>(2));
+    set_field(object, 0x14, 5);
+    set_field(object, 0x18, 2);
+    func_002184D0(object);
+}
+
+void test_zero_y_step_with_positive_span_traps_before_visit() {
+    unsigned char object[0x300];
+    unsigned char manager[0x100];
+    initialize(object, manager);
+    mutate_manager(manager, 100);
+    state.mutate_begin = true;
+    set_field(object, 0x184, static_cast<short>(2));
+    set_field(object, 0x186, static_cast<short>(0));
+    set_field(object, 0x14, 5);
+    set_field(object, 0x18, 5);
+    func_002184D0(object);
+}
+
 void test_zero_spans_with_nonzero_steps_visit_once() {
     unsigned char object[0x300];
     unsigned char manager[0x100];
@@ -92,6 +118,8 @@ void run_extra_case(int test_case) {
         case 7: test_rectangle_callback_arguments_and_cleanup(); break;
         case 8: test_fallback_virtual_slots_receive_exact_arguments(); break;
         case 9: test_clip_mutations_are_reloaded_for_grid_counts(); break;
+        case 10: test_zero_x_step_with_positive_span_traps_before_visit(); break;
+        case 11: test_zero_y_step_with_positive_span_traps_before_visit(); break;
     }
 }
 

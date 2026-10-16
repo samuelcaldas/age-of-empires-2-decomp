@@ -2,6 +2,7 @@
 
 from pathlib import Path
 import shutil
+import signal
 import subprocess
 
 import pytest
@@ -19,6 +20,8 @@ CASES = [
     ("7", "rectangle branch preserves callback arguments and cleanup"),
     ("8", "fallback virtual calls use exact receiver and argument"),
     ("9", "clipping mutations are reloaded for grid counts"),
+    ("10", "zero x step traps before grid callbacks"),
+    ("11", "zero y step traps before grid callbacks"),
 ]
 
 
@@ -39,6 +42,7 @@ def helper_2184D0_test(tmp_path_factory):
     binary = fixture / "helper-2184d0-test"
     subprocess.run(
         [compiler, "-m32", "-fno-builtin", "-Iinclude",
+         "-include", "tests/native/trade_action_helper_2184D0_break_fixture.h",
          "src/trade_action_helper_2184D0.cpp",
          "tests/native/trade_action_helper_2184D0_support.cpp",
          "tests/native/trade_action_helper_2184D0_cases.cpp",
@@ -57,3 +61,42 @@ def test_helper_2184D0_behavior(helper_2184D0_test, case, description):
     )
     assert result.returncode == 0, f"stderr: {result.stderr}, stdout: {result.stdout}"
     assert "PASS" in result.stdout
+
+
+@pytest.mark.parametrize(
+    "mutation,expected_signal",
+    [
+        ("wrong-break-code", -signal.SIGABRT),
+        ("removed-break", -signal.SIGFPE),
+        ("altered-zero-guard", -signal.SIGFPE),
+    ],
+)
+def test_zero_step_trap_regression_rejects_mutations(
+    helper_2184D0_test, tmp_path, mutation, expected_signal
+):
+    """Require wrong BREAK codes and missing or altered guards to fail distinctly."""
+    compiler = shutil.which("g++")
+    assert compiler is not None
+    source = PROJECT_ROOT / "src/trade_action_helper_2184D0.cpp"
+    original = source.read_text()
+    guard = "    if (step == 0) {\n        __I_break(7);\n    }\n"
+    if mutation == "wrong-break-code":
+        changed = original.replace("__I_break(7)", "__I_break(6)", 1)
+    elif mutation == "removed-break":
+        changed = original.replace(guard, "", 1)
+    else:
+        changed = original.replace("if (step == 0)", "if (step > 0)", 1)
+    assert changed != original
+    source_copy = tmp_path / "trade_action_helper_2184D0_mutant.cpp"
+    source_copy.write_text(changed)
+    binary = tmp_path / "mutant-test"
+    subprocess.run(
+        [compiler, "-m32", "-fno-builtin", "-Iinclude", "-include",
+         "tests/native/trade_action_helper_2184D0_break_fixture.h", str(source_copy),
+         "tests/native/trade_action_helper_2184D0_support.cpp",
+         "tests/native/trade_action_helper_2184D0_cases.cpp",
+         "tests/native/trade_action_helper_2184D0_test.cpp", "-o", str(binary)],
+        cwd=PROJECT_ROOT, check=True, capture_output=True, text=True,
+    )
+    result = subprocess.run([str(binary), "10"], capture_output=True, text=True)
+    assert result.returncode == expected_signal, result.stderr

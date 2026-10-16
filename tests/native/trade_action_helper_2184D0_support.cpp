@@ -1,4 +1,11 @@
 #include "trade_action_helper_2184D0_support.h"
+#include <csignal>
+#include <cstdlib>
+
+extern "C" void helper_2184d0_mock_break(int code) {
+    helper_2184d0_test::state.break_code = code;
+    std::raise(SIGTRAP);
+}
 
 namespace helper_2184d0_test {
 
@@ -9,6 +16,7 @@ void initialize(unsigned char *object, unsigned char *manager) {
     std::memset(manager, 0, 0x100);
     state = CallbackState();
     state.self = object;
+    state.manager = manager;
     state.begin_return = 1;
     set_field(object, 0x20, static_cast<void *>(manager));
     set_field(object, 0x180, reinterpret_cast<void *>(0x8888));

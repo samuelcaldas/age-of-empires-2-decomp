@@ -11,6 +11,7 @@ namespace helper_2184d0_test {
 
 struct CallbackState {
     unsigned char *self;
+    unsigned char *manager;
     int begin_return;
     bool mutate_begin;
     bool mutate_clip;
@@ -21,6 +22,7 @@ struct CallbackState {
     int cleanup_calls;
     int rectangle_calls;
     int virtual_calls;
+    int break_code;
     void *virtual_receiver;
     void *virtual_argument;
     std::vector<int> events;

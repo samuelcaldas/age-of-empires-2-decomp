@@ -33,7 +33,10 @@ static short grid_count(short step, int span) {
         return 1;
     }
 
-    /* BLOCKER: MWCC emits DIV without the original zero check and BREAK 7; keep unregistered. */
+    if (step == 0) {
+        __I_break(7);
+    }
+
     int quotient = span / step;
     short truncated = (short)quotient;
     int product = (int)((unsigned int)(int)truncated * (unsigned int)(int)step);

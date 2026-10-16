@@ -1195,15 +1195,9 @@ segments:
     vram: 0x217840
     subsegments:
       - [0x117A20, asm, trade_action_helper_217840]
-  - name: trade_action_helper_217930
-    type: code
-    start: 0x117B10
-    vram: 0x217930
-    subsegments:
-      - [0x117B10, asm, trade_action_helper_217930]
-  - name: post_217930
+  - name: post_217840
     type: bin
-    start: 0x117BF0
+    start: 0x117B10
   - name: unit_action_core
     type: code
     start: 0x166960

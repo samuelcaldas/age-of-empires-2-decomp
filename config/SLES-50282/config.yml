@@ -1943,9 +1943,15 @@ segments:
     vram: 0x1CCD10
     subsegments:
       - [0xCCEF0, asm, zone_paint_terrain]
+  - name: zone_paint_line
+    type: code
+    start: 0xCCFF0
+    vram: 0x1CCE10
+    subsegments:
+      - [0xCCFF0, asm, zone_paint_line]
   - name: post_aoe2
     type: bin
-    start: 0xCCFF0
+    start: 0xCD240
   - name: trade_action_helper_217730
     type: code
     start: 0x117910

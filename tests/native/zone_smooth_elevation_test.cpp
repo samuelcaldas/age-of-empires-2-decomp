@@ -115,6 +115,29 @@ static void test_smooth_bounding_box_expansion_and_corners() {
     assert(cells[6][6].f_6 == 11); // Boundary check safely handled
 }
 
+static void test_smooth_max_slope_low_byte_truncation() {
+    // Property: max_slope & 0xFF means (val | 0x100) must produce
+    // bit-identical results and return values for all inputs (0, 1, 15, 25, 100, 200)
+    const int test_values[] = {0, 1, 15, 25, 100, 200};
+    for (int i = 0; i < 6; i++) {
+        int val = test_values[i];
+        SmoothLayout zm1, zm2;
+        SmoothCell cells1[7][7], cells2[7][7];
+        SmoothCell *row_ptrs1[7], *row_ptrs2[7];
+
+        setup_grid(&zm1, cells1, row_ptrs1, 7, 7, 20);
+        setup_grid(&zm2, cells2, row_ptrs2, 7, 7, 20);
+        cells1[2][3].f_6 = 10;
+        cells2[2][3].f_6 = 10;
+
+        int mod1 = func_001CB6D0(&zm1, 3, 3, 3, 3, val);
+        int mod2 = func_001CB6D0(&zm2, 3, 3, 3, 3, val | 0x100);
+
+        assert(mod1 == mod2);
+        assert(std::memcmp(cells1, cells2, sizeof(cells1)) == 0);
+    }
+}
+
 int main(int argc, char **argv) {
     if (argc > 1 && std::string(argv[1]) == "flat_no_mod") {
         test_smooth_flat_no_modification();
@@ -124,11 +147,14 @@ int main(int argc, char **argv) {
         test_smooth_downward();
     } else if (argc > 1 && std::string(argv[1]) == "corners_expansion") {
         test_smooth_bounding_box_expansion_and_corners();
+    } else if (argc > 1 && std::string(argv[1]) == "truncation_andi_ff") {
+        test_smooth_max_slope_low_byte_truncation();
     } else {
         test_smooth_flat_no_modification();
         test_smooth_8_neighbors_upward();
         test_smooth_downward();
         test_smooth_bounding_box_expansion_and_corners();
+        test_smooth_max_slope_low_byte_truncation();
     }
     return 0;
 }

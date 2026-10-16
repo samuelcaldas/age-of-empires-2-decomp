@@ -1763,6 +1763,15 @@ segments:
   - name: post_218820
     type: bin
     start: 0x118C40
+  - name: trade_action_helper_219040
+    type: code
+    start: 0x119220
+    vram: 0x219040
+    subsegments:
+      - [0x119220, asm, trade_action_helper_219040]
+  - name: post_219040
+    type: bin
+    start: 0x119560
   - name: unit_action_core
     type: code
     start: 0x166960

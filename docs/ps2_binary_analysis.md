@@ -4606,7 +4606,7 @@ Emitted instructions: 156 bytes code (3 x 52B) + 24 bytes inter-function padding
 | `func_003071A0` | `0x3071A0` | 52 B | 64 B | **100.00% exact match** (52/52 B) | Primary tactical action constructor setting vtable pointer `D_4DE760`. |
 | `func_003071E0` | `0x3071E0` | 52 B | 64 B | **100.00% exact match** (52/52 B) | Secondary tactical action constructor setting vtable pointer `D_4DE760`. |
 
-#### 6.179 `Tactical AI Action Item Coordinator & Handlers` Subsystem (`0x307220`–`0x307320`, `tactical_ai_action_items.cpp`)
+#### 6.181 `Tactical AI Action Item Coordinator & Handlers` Subsystem (`0x307220`–`0x307320`, `tactical_ai_action_items.cpp`)
 
 Located at VRAM `0x307220`–`0x307320` (file offset `0x207400`–`0x207500`, 256 bytes total slice, Metrowerks C++ PS2 MWCC 2.3.1.01):
 - `func_00307220` (`0x307220`, 68 bytes code + 12 bytes zero padding, 80 bytes slice): Action item type validator and switch dispatcher forwarding type 100 items to `func_00307270` or default items to `func_316130`. **100.00% exact bit-for-bit match**.
@@ -4615,7 +4615,7 @@ Located at VRAM `0x307220`–`0x307320` (file offset `0x207400`–`0x207500`, 25
 
 A fresh actual-source MWCC build and real GNU `ld --no-undefined` link emit 232 instruction bytes (68 + 92 + 72) and 16 internal-alignment bytes (12 + 4): all 248 emitted bytes match the original without masks. The final eight zero bytes belong only to the original 256-byte slice. Canonical symbol sizes exclude all alignment. `tests/test_tactical_ai_action_items_matching.py` recompiles the current C++ source, resolves the real external addresses, checks all three symbols and the original ELF hash/file mapping, and compares the complete emitted bytes without masks. Registered as `Matching` in `configure.py`.
 
-#### 6.179.1 Tactical AI Action Item Coordinator Matching Results (248 Emitted Bytes Exact, 256-Byte Original Slice)
+#### 6.181.1 Tactical AI Action Item Coordinator Matching Results (248 Emitted Bytes Exact, 256-Byte Original Slice)
 
 | Function / Method | VRAM Address | Code Size (Orig) | Slice Size | Match Status | Description |
 |---|---|---|---|---|---|
@@ -4623,7 +4623,7 @@ A fresh actual-source MWCC build and real GNU `ld --no-undefined` link emit 232 
 | `func_00307270` | `0x307270` | 92 B | 96 B | **100.00% exact match** (92/92 B) | Action item state coordinator delegating to `func_2d33e0`. |
 | `func_003072D0` | `0x3072D0` | 72 B | 80 B | **100.00% exact match** (72/72 B) | Action item allocator calling `func_316ea0` and setting type 100. |
 
-#### 6.180 `Unit Action Rebind` Subsystem (`0x267A80`–`0x267E60`, `unit_action_rebind.cpp`)
+#### 6.182 `Unit Action Rebind` Subsystem (`0x267A80`–`0x267E60`, `unit_action_rebind.cpp`)
 
 Located at VRAM `0x267A80`–`0x267E60` (file offset `0x167C60`–`0x168040`, end-exclusive), this 992-byte slice contains 968 instruction bytes and 24 alignment bytes across three functions in Metrowerks C++ PS2 MWCC 2.3.1.01:
 - `func_00267A80` (`0x267A80`, 412 B code, 416 B slice [4 B padding]): Unit action entity rebind. Checks `m_field39 < 3`, rescales progress `f20 = (new_val * m_field30) / old_val`, stores `m_field30 = old_val` at 0x267ADC before `Method13`, unregisters from old entity via `func_207AB0` and `func_207C30` with delta -1, notifies subsystem via `func_1EDF20`, rebinds `m_field4 = new_entity`, registers with new entity with delta 1, dispatches `func_1EDA80`, updates target via `Method19`, and finalizes with `func_264330`. (author-reported objdiff fuzzy score: 99.69%, 405/412 B match).
@@ -4633,7 +4633,7 @@ Located at VRAM `0x267A80`–`0x267E60` (file offset `0x167C60`–`0x168040`, en
 Registered as `NonMatching` in `configure.py`.
 Native regressions in `tests/test_unit_action_rebind.py` compile the actual source with 4-byte aligned aggregate-initialized mock entities and verify normal scaling (100 * 50 / 25 == 200), 16-bit sign-extended multiplication (100000 * 30000 / 1 == -932160000), 16-bit signed boundary limits, and callback ordering proving `m_field30` is scaled prior to `Method19`. The native GCC fixture permits only virtual index 17 and poisons all other entries, including adjacent indices 18 and 19. That same source index corresponds to physical offset `0x4C` in MWCC, whose vtables have an eight-byte header: the original loads at `0x2676AC` and `0x267D68` and fresh MWCC builds of both callers use this offset. No extra virtual slots are needed.
 
-#### 6.180.1 Unit Action Rebind Matching Results (Pure C++, 992-Byte Slice)
+#### 6.182.1 Unit Action Rebind Matching Results (Pure C++, 992-Byte Slice)
 
 | Function / Method | VRAM Address | Code Size (Orig) | Slice Size | Match Status | Description |
 |---|---|---|---|---|---|
@@ -4641,7 +4641,7 @@ Native regressions in `tests/test_unit_action_rebind.py` compile the actual sour
 | `func_00267C20` | `0x267C20` | 420 B | 432 B | **93.55% objdiff fuzzy (author-reported)** | Entity target exchange and progress scaling state machine. |
 | `func_267DD0` | `0x267DD0` | 136 B | 144 B | **100.0% objdiff unlinked (author-reported)** | Action termination, world detachment, and state transition. |
 
-#### 6.181 `Unit Action Visibility` Subsystem (`0x267E60`–`0x268200`, `unit_action_visibility.cpp`)
+#### 6.183 `Unit Action Visibility` Subsystem (`0x267E60`–`0x268200`, `unit_action_visibility.cpp`)
 
 Located at VRAM `0x267E60`–`0x268200` (file offset `0x168040`–`0x1683E0`, end-exclusive), this 928-byte slice contains 916 instruction bytes and 12 alignment bytes across three functions in Metrowerks C++ PS2 MWCC 2.3.1.01:
 - `func_00267E60` (`0x267E60`, 72 B code, 80 B slice [8 B padding]): Action world state reset and detachment. Checks `m_field36 & 1`, dispatches `func_205F70(self->m_world, self)`, invokes `func_26A540(self, 0)` and resets progress `m_field30 = 0.0f`. (author-reported objdiff unlinked score: 100.0%; whole-slice linked proof pending).
@@ -4650,7 +4650,7 @@ Located at VRAM `0x267E60`–`0x268200` (file offset `0x168040`–`0x1683E0`, en
 
 Registered as `NonMatching` in `configure.py`.
 
-#### 6.181.1 Unit Action Visibility Matching Results (Pure C++, 928-Byte Slice)
+#### 6.183.1 Unit Action Visibility Matching Results (Pure C++, 928-Byte Slice)
 
 | Function / Method | VRAM Address | Code Size (Orig) | Slice Size | Match Status | Description |
 |---|---|---|---|---|---|

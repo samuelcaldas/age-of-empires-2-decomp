@@ -4417,6 +4417,19 @@ The destructor uses the distinct layout name `ZoneDestructorLayout`, rather than
 |---|---|---|---|
 | `func_001C8FF0` | `0x1C8FF0` | NonMatching (976 B, 0 diffs linked) | Primary destructor and resource cleanup. |
 
+#### 6.168.8 `Zone Parameter Initialiser` Unit (`0x1C93C0`–`0x1C97A0`, `zone_init_params.cpp`)
+
+Immediately following `zone_destructor` sits the ZoneInitLayout parameter-initialisation routine (`0x1C93C0`–`0x1C97A0`, 980 bytes / 245 instructions + 12 NOP padding bytes in Metrowerks C++ PS2 MWCC 2.3.1.01):
+- `func_001C93C0` (`0x1C93C0`, 980 bytes / 245 instructions): Sets five short fields (`f_8EAE=60`, `f_8EB0=30`, `f_8EB2=15`, `f_8EB4=30`, `f_8EB6=15`) on a `ZoneInitLayout` object, then makes exactly 19 sequential calls to `func_1CEA30` (indices 0–18). Call sites 2, 6, 8, 10, and 14 pass `(short)(f_8EB0 + f_8EB6)` as the width argument; calls 17 and 18 use `f_8EB4` instead of `f_8EAE` for the first dimension argument; the fifth argument cycles through `0`, `7`, and `-7`. A fresh independent MWCC compilation and GNU `ld --no-undefined` link resolved all 19 JAL relocations to `0x1CEA30` and matched all 980 instruction bytes against the original file-backed `PT_LOAD` range `0xC95A0`–`0xC9974`, with `_gp = 0x4EA7C0`. The atomic object is registered as `Matching`.
+
+The `ZoneInitLayout` member declarations establish the target offsets for five `short` fields at `0x8EAE`–`0x8EB6`. The function body assigns all five fields before making the calls; the source assignment order and resulting MWCC code generation are relevant to the byte match. No default or zero initialization is implied. The 12 trailing zero bytes belong only to the original slice, not the emitted function. `tests/test_zone_init_params_matching.py` compiles the current C++ source, resolves `func_1CEA30 = 0x1CEA30`, verifies the original ELF hash and file mapping, and requires all 980 instruction bytes to match. Only missing private files or toolchain prerequisites skip the test; compilation, linking, and comparison failures are errors.
+
+#### 6.168.9 Zone Parameter Initialiser Matching Results (Pure C++, 980 Bytes)
+
+| Function / Method | VRAM Address | Match Status | Description |
+|---|---|---|---|
+| `func_001C93C0` | `0x1C93C0` | **Matching (980 / 980 B, 0 diffs linked)** | ZoneInitLayout field setup and 19 sequential func_1CEA30 calls. |
+
 #### 6.169 `Unit Action Core & Serialization` Subsystem (`0x266780`–`0x266C50`, `unit_action_core.cpp`)
 
 Located at the base of the `0x2665B0`–`0x2B5F00` engine domain sits the core unit action coordination and state serialization subsystem (`0x266780`–`0x266C50`, 1,232 bytes across 5 functions in Metrowerks C++ PS2 MWCC 2.3.1.01). It implements entity target resolution, spatial action execution via virtual vtable dispatch, item container index lookups, and complete unit action binary stream serialization:

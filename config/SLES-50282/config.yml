@@ -1219,9 +1219,21 @@ segments:
     vram: 0x162A40
     subsegments:
       - [0x62C20, asm, trade_action_stream_decoders21]
+  - name: trade_action_stream_decoders22
+    type: code
+    start: 0x63200
+    vram: 0x163020
+    subsegments:
+      - [0x63200, asm, trade_action_stream_decoders22]
+  - name: trade_action_stream_decoders23
+    type: code
+    start: 0x63420
+    vram: 0x163240
+    subsegments:
+      - [0x63420, asm, trade_action_stream_decoders23]
   - name: post_base
     type: bin
-    start: 0x63200
+    start: 0x638E0
   - name: zone_path_eval
     type: code
     start: 0xC7A40

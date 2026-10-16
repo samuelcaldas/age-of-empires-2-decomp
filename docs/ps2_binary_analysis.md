@@ -4345,18 +4345,18 @@ An independent test suite (`tests/test_trade_action_stream_decoders11.py`) compi
 
 #### 6.168 `Trade Action Stream Decoders 12` Subsystem (`0x15F220`–`0x15F450`, `trade_action_stream_decoders12.cpp`)
 
-Following stream decoders 11 sits the twelfth stream decoder subsystem (`0x15F220`–`0x15F450`, 560 bytes across 2 routines in Metrowerks C++ PS2 MWCC 2.3.1.01). The slice comprises 548 instruction bytes and 12 trailing zero alignment bytes at file offset `0x5F400`–`0x5F630`. Both routines execute multi-phase table lookups through permutation table `D_004E2DA4` with index word `D_004E2DAC`, execute byte swaps between positions 0 and 3 while copying position 1 to 2 via staging pointer `(unsigned char *)&D_004E2DA0`, and write 4 bytes to `D_004E2DB4`:
-- `func_0015F220` (`0x15F220`, 272 bytes): Calls `func_001522C0(D_004E2DA0, D_004E2DB4)`, performs 2-phase table lookups via `D_004E2DA4` and staging permutations, sequentially writes 4 bytes to `D_004E2DB4`, and decrements the pointer. **100.00% exact match** byte-for-byte.
-- `func_0015F330` (`0x15F330`, 276 bytes): Calls `func_001522C0(D_004E2DA0, D_004E2DB4 - 1)`, performs 2-phase table lookups via `D_004E2DA4` and staging permutations, decrements the stream pointer before writing byte 0, and advances sequentially through byte 3. **100.00% exact match** byte-for-byte.
+Following stream decoders 11 sits the twelfth stream decoder subsystem (`0x15F220`–`0x15F450`, 548 instruction bytes across 2 routines in Metrowerks C++ PS2 MWCC 2.3.1.01). Its 560-byte linked slice spans file offsets `0x5F400`–`0x5F630`: the compiler emits 548 instruction bytes, and the linker adds 12 zero bytes for 16-byte alignment. Both routines perform multi-step table lookups through the pointer slot `D_004E2DA4`, indexed by `D_004E2DAC`, and permute bytes in the staging word `D_004E2DA0` before writing through `D_004E2DB4`:
+- `func_0015F220` (`0x15F220`, 272 bytes): Calls `func_001522C0(D_004E2DA0, D_004E2DB4)`, performs sequential table lookups and staging permutations, writes 4 bytes to `D_004E2DB4`, and decrements the pointer. **100.00% exact match** byte-for-byte.
+- `func_0015F330` (`0x15F330`, 276 bytes): Calls `func_001522C0(D_004E2DA0, D_004E2DB4 - 1)`, performs sequential table lookups and staging permutations, decrements the stream pointer before writing byte 0, and advances sequentially through byte 3. **100.00% exact match** byte-for-byte.
 
 #### 6.168.1 Trade Action Stream Decoders 12 Matching Results
 
 | Function | Instruction bytes | Match | Description |
 |---|---:|---:|---|
-| `func_0015F220` | 272 | 100.00% | 2-phase table lookup and permutation before 4-byte stream write |
-| `func_0015F330` | 276 | 100.00% | Offset -1 lookup and permutation before 4-byte stream write |
+| `func_0015F220` | 272 | 100.00% | Table lookups and byte permutation before 4-byte stream write |
+| `func_0015F330` | 276 | 100.00% | Offset -1 table lookups and byte permutation before 4-byte stream write |
 
-An independent test suite (`tests/test_trade_action_stream_decoders12.py`) compiles the actual C++ source and resolves the original global addresses with GNU `ld --no-undefined`. It verifies the 272 instruction bytes of `func_0015F220` and the 276 instruction bytes of `func_0015F330` byte-for-byte, the complete 560-byte linked extent, the 12-byte tail alignment padding, and strict PT_LOAD derivation. Symbol sizes record 272 and 276 instruction bytes, excluding alignment padding. Registered as `Matching` in `configure.py`.
+An independent test suite (`tests/test_trade_action_stream_decoders12.py`) first checks the pinned original ELF SHA-1, then parses its ELF program headers and requires a unique file-backed `PT_LOAD` covering the full 560-byte slice at file offset `0x5F400` / VRAM `0x15F220`. It compiles the actual C++ source, verifies each unique `STT_FUNC` symbol's size and actual `st_shndx` (the two MWCC `.text` sections are homonymous), then links with GNU `ld --no-undefined` at the original function addresses using the specified external addresses and `_gp = 0x4EA7C0`. The final `ET_EXEC` must have no unresolved symbols and must match all 560 original bytes: 548 instruction bytes plus 12 linker-emitted zero alignment bytes. Symbol sizes record only the 272- and 276-byte functions. Registered as `Matching` in `configure.py`.
 
 #### 6.169 `Zone Path & Building Placement Obstruction Evaluator` Subsystem (`0x1C7850`–`0x1C8480`, `zone_path_eval.cpp`)
 

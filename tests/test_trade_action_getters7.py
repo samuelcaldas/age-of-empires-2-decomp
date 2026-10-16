@@ -28,6 +28,7 @@ CASES = [
     ("16", "ID 0x24 and 0x3A mode 2 flag 0 scale factor 0.6 yielding 60.0f scaler input with custom return 59"),
     ("17", "ID 0x24 and 0x3A scaler returns 0 forces slot to 1"),
     ("18", "Parameterized matrix test for f20 IDs 0x24 and 0x3A across modes 2, 3, 4 and flags 0, 1"),
+    ("19", "Parameterized matrix test for f21 IDs 0x10, 0x1A, 0x3B, 0x3C across modes 2, 3, 4 and flags 0, 1"),
 ]
 
 

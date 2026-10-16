@@ -107,3 +107,7 @@ def test_zero_step_trap_regression_rejects_mutations(
     )
     result = subprocess.run([str(binary), case], capture_output=True, text=True)
     assert result.returncode == expected_signal, result.stderr
+    if mutation == "removed-state-two-guard":
+        assert "trade_action_helper_2184D0_cases.cpp" in result.stderr
+        assert "Assertion" in result.stderr
+        assert "state.events.empty()" in result.stderr

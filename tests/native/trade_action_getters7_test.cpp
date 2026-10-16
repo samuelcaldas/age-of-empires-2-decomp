@@ -17,7 +17,7 @@ int func_00188070(void *ctx) {
     assert(ctx == ctx_sentinel);
     return 1;
 }
-int func_00123350(float val) { return static_cast<int>(val); }
+int func_00123350(float val) { return static_cast<int>(val) * 2; }
 int func_002a0b30(void *mgr, int id) { return id; }
 int func_0029df60(void *mgr, int id) { return id; }
 
@@ -63,6 +63,10 @@ int main(int argc, char **argv) {
         func_002B6220(self, 0x68, 20);
         int *slot = reinterpret_cast<int *>(storage.data() + 0x858 + 0x68 * 4);
         assert(*slot == 620);
+    } else if (test_case == 5) {
+        func_002B6220(self, 0x10, 25);
+        int *slot = reinterpret_cast<int *>(storage.data() + 0x858 + 0x10 * 4);
+        assert(*slot == 50);
     }
 
     std::cout << "GETTERS7 TEST " << test_case << " PASSED\n";

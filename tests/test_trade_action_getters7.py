@@ -14,6 +14,7 @@ CASES = [
     ("2", "ID 5 negative and positive store"),
     ("3", "BEC == 1 limits execution on negative input"),
     ("4", "ID 0x68 increment resolution with pointer chain and sentinels"),
+    ("5", "ID 0x10 scaling conversion via func_00123350"),
 ]
 
 

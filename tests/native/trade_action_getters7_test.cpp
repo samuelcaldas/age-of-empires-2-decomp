@@ -55,7 +55,7 @@ int main(int argc, char **argv) {
     }
     int test_case = std::stoi(argv[1]);
 
-    const size_t buf_size = 4096;
+    const size_t buf_size = 16384;
     std::vector<char> storage(buf_size, 0);
     void *self = storage.data();
 
@@ -77,8 +77,8 @@ int main(int argc, char **argv) {
         int *slot = reinterpret_cast<int *>(storage.data() + 0x858 + 0x75 * 4);
         assert(*slot == 0);
     } else if (test_case == 4) {
-        std::vector<char> p1_obj(4096, 0);
-        std::vector<char> p2_obj(4096, 0);
+        std::vector<char> p1_obj(16384, 0);
+        std::vector<char> p2_obj(16384, 0);
         char *base = storage.data();
         *reinterpret_cast<void **>(base + 0xB0) = p1_obj.data();
         *reinterpret_cast<void **>(p1_obj.data() + 0xAC) = p2_obj.data();
@@ -90,8 +90,8 @@ int main(int argc, char **argv) {
         int *slot = reinterpret_cast<int *>(storage.data() + 0x858 + 0x68 * 4);
         assert(*slot == 620);
     } else if (test_case == 5) {
-        std::vector<char> p1_obj(4096, 0);
-        std::vector<char> p2_obj(4096, 0);
+        std::vector<char> p1_obj(16384, 0);
+        std::vector<char> p2_obj(16384, 0);
         char *base = storage.data();
         *reinterpret_cast<void **>(base + 0xB0) = p1_obj.data();
         *reinterpret_cast<void **>(p1_obj.data() + 0xAC) = p2_obj.data();
@@ -105,23 +105,23 @@ int main(int argc, char **argv) {
         assert(*slot == 731);
         assert(last_scaled_val == 75.0f);
     } else if (test_case == 6) {
-        std::vector<char> p1_obj(4096, 0);
-        std::vector<char> p2_obj(4096, 0);
+        std::vector<char> p1_obj(16384, 0);
+        std::vector<char> p2_obj(16384, 0);
         char *base = storage.data();
         *reinterpret_cast<void **>(base + 0xB0) = p1_obj.data();
         *reinterpret_cast<void **>(p1_obj.data() + 0xAC) = p2_obj.data();
         *reinterpret_cast<void **>(p2_obj.data() + 0xB98) = p_sentinel;
 
         mock_mode = 1;
-        mock_flag = 0; // ID 0x10 mode 1 flag 0 -> factor 1.0f (restored alongside flag 1)
+        mock_flag = 0; // ID 0x10 mode 1 flag 0 -> factor 1.0f
         custom_mock_return = -1;
         func_002B6220(self, 0x10, 100);
         int *slot = reinterpret_cast<int *>(storage.data() + 0x858 + 0x10 * 4);
         assert(*slot == 100);
         assert(last_scaled_val == 100.0f);
     } else if (test_case == 7) {
-        std::vector<char> p1_obj(4096, 0);
-        std::vector<char> p2_obj(4096, 0);
+        std::vector<char> p1_obj(16384, 0);
+        std::vector<char> p2_obj(16384, 0);
         char *base = storage.data();
         *reinterpret_cast<void **>(base + 0xB0) = p1_obj.data();
         *reinterpret_cast<void **>(p1_obj.data() + 0xAC) = p2_obj.data();
@@ -133,8 +133,8 @@ int main(int argc, char **argv) {
         int *slot = reinterpret_cast<int *>(storage.data() + 0x858 + 0x68 * 4);
         assert(*slot == 260);
     } else if (test_case == 8) {
-        std::vector<char> p1_obj(4096, 0);
-        std::vector<char> p2_obj(4096, 0);
+        std::vector<char> p1_obj(16384, 0);
+        std::vector<char> p2_obj(16384, 0);
         char *base = storage.data();
         *reinterpret_cast<void **>(base + 0xB0) = p1_obj.data();
         *reinterpret_cast<void **>(p1_obj.data() + 0xAC) = p2_obj.data();
@@ -147,8 +147,8 @@ int main(int argc, char **argv) {
         assert(*slot == 100);
         assert(last_scaled_val == 100.0f);
     } else if (test_case == 9) {
-        std::vector<char> p1_obj(4096, 0);
-        std::vector<char> p2_obj(4096, 0);
+        std::vector<char> p1_obj(16384, 0);
+        std::vector<char> p2_obj(16384, 0);
         char *base = storage.data();
         *reinterpret_cast<void **>(base + 0xB0) = p1_obj.data();
         *reinterpret_cast<void **>(p1_obj.data() + 0xAC) = p2_obj.data();
@@ -161,8 +161,8 @@ int main(int argc, char **argv) {
         assert(*slot == 80);
         assert(last_scaled_val == 80.0f);
     } else if (test_case == 10) {
-        std::vector<char> p1_obj(4096, 0);
-        std::vector<char> p2_obj(4096, 0);
+        std::vector<char> p1_obj(16384, 0);
+        std::vector<char> p2_obj(16384, 0);
         char *base = storage.data();
         *reinterpret_cast<void **>(base + 0xB0) = p1_obj.data();
         *reinterpret_cast<void **>(p1_obj.data() + 0xAC) = p2_obj.data();
@@ -176,9 +176,8 @@ int main(int argc, char **argv) {
         assert(*slot == 75);
         assert(last_scaled_val == 75.0f);
     } else if (test_case == 11) {
-        // Test case 11: Scaler returns 0 => forces slot to 1 (when initial slot != 0)
-        std::vector<char> p1_obj(4096, 0);
-        std::vector<char> p2_obj(4096, 0);
+        std::vector<char> p1_obj(16384, 0);
+        std::vector<char> p2_obj(16384, 0);
         char *base = storage.data();
         *reinterpret_cast<void **>(base + 0xB0) = p1_obj.data();
         *reinterpret_cast<void **>(p1_obj.data() + 0xAC) = p2_obj.data();
@@ -186,22 +185,21 @@ int main(int argc, char **argv) {
 
         mock_mode = 2;
         mock_flag = 0;
-        custom_mock_return = 0; // Scaler returns 0
+        custom_mock_return = 0; // Scaler returns 0 -> forces 1
         func_002B6220(self, 0x10, 50);
         int *slot = reinterpret_cast<int *>(storage.data() + 0x858 + 0x10 * 4);
         assert(*slot == 1);
     } else if (test_case == 12) {
-        // Test case 12: Positive BEC == 1 with late cap
-        std::vector<char> p1_obj(4096, 0);
+        std::vector<char> p1_obj(16384, 0);
         char *base = storage.data();
-        *reinterpret_cast<int *>(base + 0x0BEC) = 1; // BEC == 1
+        *reinterpret_cast<int *>(base + 0x0BEC) = 1;
         *reinterpret_cast<void **>(base + 0xB0) = p1_obj.data();
-        func_002B6220(self, 0x14, 100); // ID 0x14 cap is 50
+        func_002B6220(self, 0x14, 100);
         int *slot = reinterpret_cast<int *>(storage.data() + 0x858 + 0x14 * 4);
         assert(*slot == 50);
     } else if (test_case == 13) {
-        // Test case 13: Tails 0x56/0x57 receiver, args, count
-        std::vector<char> p1_obj(4096, 0);
+        // Test case 13: Tail ID 0x56 with p1 backing >= 0x3624 + 4
+        std::vector<char> p1_obj(16384, 0);
         char *base = storage.data();
         *reinterpret_cast<void **>(base + 0xB0) = p1_obj.data();
         helper_call_count = 0;
@@ -211,8 +209,19 @@ int main(int argc, char **argv) {
         assert(last_helper_id == 0x56);
         assert(last_mgr_target == (p1_obj.data() + 0x3624));
     } else if (test_case == 14) {
-        // Test case 14: Tail 0x69 receiver, args, count
-        std::vector<char> p1_obj(4096, 0);
+        // Test case 14: Tail ID 0x57 with p1 backing >= 0x3624 + 4
+        std::vector<char> p1_obj(16384, 0);
+        char *base = storage.data();
+        *reinterpret_cast<void **>(base + 0xB0) = p1_obj.data();
+        helper_call_count = 0;
+        last_helper_id = -1;
+        func_002B6220(self, 0x57, 55);
+        assert(helper_call_count == 1);
+        assert(last_helper_id == 0x57);
+        assert(last_mgr_target == (p1_obj.data() + 0x3624));
+    } else if (test_case == 15) {
+        // Test case 15: Tail ID 0x69 with p1 backing >= 0x3624 + 4
+        std::vector<char> p1_obj(16384, 0);
         char *base = storage.data();
         *reinterpret_cast<void **>(base + 0xB0) = p1_obj.data();
         helper_call_count = 0;

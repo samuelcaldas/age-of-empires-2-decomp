@@ -23,7 +23,8 @@ CASES = [
     ("11", "Scaler returns 0 forces slot to 1"),
     ("12", "BEC == 1 with late cap on ID 0x14 clamping to 50"),
     ("13", "Tail ID 0x56 helper call verification"),
-    ("14", "Tail ID 0x69 helper call verification"),
+    ("14", "Tail ID 0x57 helper call verification"),
+    ("15", "Tail ID 0x69 helper call verification"),
 ]
 
 

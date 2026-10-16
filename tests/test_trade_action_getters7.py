@@ -14,8 +14,11 @@ CASES = [
     ("2", "ID 0x75 clamp range [0, 100] including negative/overflow"),
     ("3", "ID 0x9F clamp range [0, 100] overflow"),
     ("4", "ID 0x14 cap at 50"),
-    ("5", "ID 0x2C positive value sets to 1"),
-    ("6", "BEC == 1 runs limits even for negative input"),
+    ("5", "ID 0xE6 cap at 30"),
+    ("6", "ID 0xCC cap at 8"),
+    ("7", "ID 0x2C positive value sets to 1"),
+    ("8", "BEC == 1 runs limits even for negative input"),
+    ("9", "ID 0x68 increment resolution with pointer chain and sentinels"),
 ]
 
 

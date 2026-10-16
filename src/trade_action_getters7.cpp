@@ -7,6 +7,7 @@ int func_00188070(void *ctx);
 int func_00123350(float val);
 int func_002a0b30(void *mgr, int id);
 int func_0029df60(void *mgr, int id);
+void *D_004E3180 = reinterpret_cast<void *>(0x4E3180);
 
 int select_trade_increment(int mode, int flag) {
     if (mode == 1) return 0;
@@ -64,7 +65,7 @@ void func_002B6220(void *self, int index, int value) {
             void *ptr = *reinterpret_cast<void **>(static_cast<char *>(p2) + 0xB98);
             if (ptr) {
                 int mode = func_00332da0(ptr);
-                int flag = func_00188070(nullptr);
+                int flag = func_00188070(D_004E3180);
                 if (index == 0x68) {
                     int inc = select_trade_increment(mode, flag);
                     *table_slot += inc;

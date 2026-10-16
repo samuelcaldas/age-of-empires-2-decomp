@@ -1997,9 +1997,15 @@ segments:
     vram: 0x1CDBB0
     subsegments:
       - [0xCDD90, asm, zone_snapshot_serialize]
+  - name: zone_rebind_table1
+    type: code
+    start: 0xCDEE0
+    vram: 0x1CDD00
+    subsegments:
+      - [0xCDEE0, asm, zone_rebind_table1]
   - name: post_aoe2
     type: bin
-    start: 0xCDEE0
+    start: 0xCE010
   - name: trade_action_helper_217730
     type: code
     start: 0x117910

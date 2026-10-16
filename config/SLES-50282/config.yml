@@ -1781,10 +1781,63 @@ segments:
     vram: 0x1C9E00
     subsegments:
       - [0xC9FE0, asm, zone_dispatch_grid]
-      - [0xCA180, bin]
-  - name: post_zone_dispatch
-    type: bin
+  - name: zone_rect_update
+    type: code
+    start: 0xCA180
+    vram: 0x1C9FA0
+    subsegments:
+      - [0xCA180, asm, zone_rect_update]
+  - name: zone_raster_tag
+    type: code
     start: 0xCA360
+    vram: 0x1CA180
+    subsegments:
+      - [0xCA360, asm, zone_raster_tag]
+  - name: zone_raster_untag
+    type: code
+    start: 0xCA610
+    vram: 0x1CA430
+    subsegments:
+      - [0xCA610, asm, zone_raster_untag]
+  - name: zone_raster_trace
+    type: code
+    start: 0xCA740
+    vram: 0x1CA560
+    subsegments:
+      - [0xCA740, asm, zone_raster_trace]
+  - name: zone_raster_extent
+    type: code
+    start: 0xCA850
+    vram: 0x1CA670
+    subsegments:
+      - [0xCA850, asm, zone_raster_extent]
+  - name: zone_raster_register
+    type: code
+    start: 0xCA9D0
+    vram: 0x1CA7F0
+    subsegments:
+      - [0xCA9D0, asm, zone_raster_register]
+  - name: zone_perimeter_point
+    type: code
+    start: 0xCADE0
+    vram: 0x1CAC00
+    subsegments:
+      - [0xCADE0, asm, zone_perimeter_point]
+  - name: zone_raster_serialize
+    type: code
+    start: 0xCAE70
+    vram: 0x1CAC90
+    subsegments:
+      - [0xCAE70, asm, zone_raster_serialize]
+  - name: zone_raster_deserialize
+    type: code
+    start: 0xCAF70
+    vram: 0x1CAD90
+    subsegments:
+      - [0xCAF70, asm, zone_raster_deserialize]
+  - name: post_aoe2
+    type: bin
+    start: 0xCB190
   - name: trade_action_helper_217730
     type: code
     start: 0x117910

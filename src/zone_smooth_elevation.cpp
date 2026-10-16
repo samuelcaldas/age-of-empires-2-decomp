@@ -17,11 +17,12 @@ struct ZoneLayout {
     ZoneCell **cells_ptr;   // 0x8E8C (-0x7174)
 };
 
-extern "C" int func_001CB6D0(void *self, int x0, int y0, int x1, int y1) {
+extern "C" int func_001CB6D0(void *self, int x0, int y0, int x1, int y1, int max_slope) {
     ZoneLayout *zm = (ZoneLayout *)self;
     short stride_param = *(short *)((char *)self + 8);
 
     int modified = 0;
+    unsigned char limit = (unsigned char)max_slope;
 
     int t4 = 1 - (int)stride_param;
     int t3 = -(int)stride_param;
@@ -50,7 +51,7 @@ extern "C" int func_001CB6D0(void *self, int x0, int y0, int x1, int y1) {
             int trigger = 0;
             int new_elev = elev;
 
-            if (elev < 0xFF) {
+            if (elev < limit) {
                 new_elev = elev + 1;
                 if (y > 0) {
                     ZoneCell *north = (ZoneCell *)((char *)cell + t6_off);
@@ -88,7 +89,7 @@ extern "C" int func_001CB6D0(void *self, int x0, int y0, int x1, int y1) {
                         if (new_elev < (int)se->f_6) trigger = 1;
                     }
                 }
-            } else if (elev > 0xFF) {
+            } else if (elev > limit) {
                 new_elev = elev - 1;
                 if (y > 0) {
                     ZoneCell *north = (ZoneCell *)((char *)cell + t6_off);

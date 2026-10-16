@@ -21,6 +21,7 @@ extern int g_c9fa0_x0, g_c9fa0_y0, g_c9fa0_x1, g_c9fa0_y1;
 extern void *g_3273e0_self;
 extern int g_3273e0_count, g_3273e0_flag;
 extern int g_d0430_calls;
+extern int g_1387c0_calls, g_1387c0_width, g_1387c0_height;
 
 void func_1EBA20(void *elem);
 void func_1D16D0(void *self);
@@ -79,3 +80,7 @@ struct DispatchLayout {
     char pad_8EF8[8];
     void *f_8F00;
 };
+static_assert(offsetof(DispatchLayout, width) == 0x8, "width offset mismatch");
+static_assert(offsetof(DispatchLayout, cells_ptr) == 0x8E8C, "cells_ptr offset mismatch");
+static_assert(offsetof(DispatchLayout, zone_child) == 0x8EE8, "child offset mismatch");
+static_assert(sizeof(DispatchLayout) == 0x8F04, "layout size mismatch");

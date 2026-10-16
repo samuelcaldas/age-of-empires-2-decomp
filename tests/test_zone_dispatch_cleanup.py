@@ -44,6 +44,8 @@ def zone_dispatch_test_binary(tmp_path_factory):
     binary = fixture_dir / "zone-dispatch-cleanup-test"
     sources = [
         "src/zone_dispatch.cpp",
+        "src/zone_dispatch_grid.cpp",
+        "tests/native/zone_dispatch_fixture_support.cpp",
         "tests/native/zone_dispatch_cleanup_test.cpp",
     ]
     subprocess.run(

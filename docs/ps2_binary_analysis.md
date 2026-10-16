@@ -4762,3 +4762,43 @@ An independent verification suite (`tests/test_trade_action_stream_decoders15.py
 | `func_0015FF00` | `0x15FF00` | 336 | 336/336 exact (100.00%) | 0 B |
 | `func_00160050` | `0x160050` | 404 | 404/404 exact (100.00%) | 12 B |
 | `func_001601F0` | `0x1601F0` | 524 | 524/524 exact (100.00%) | 4 B |
+
+#### 6.192 `Trade Action Stream Decoders 16` Subsystem (`0x160400`–`0x160B70`, `trade_action_stream_decoders16.cpp`)
+
+This four-function C++ slice spans VRAM `0x160400`–`0x160B70` and file offsets `0x605E0`–`0x60D50` (1,904 bytes total). The original ELF `PT_LOAD` mapping gives the VRAM/file-offset delta `0xFFE20`. The slice comprises 1,860 instruction bytes and 44 alignment-padding bytes (12, 12, 12, and 8 bytes respectively). Symbol sizes exclude padding. The unit remains registered as `NonMatching`.
+
+- `func_00160400` (`0x160400`, 404 instruction bytes): Performs 2-byte staging lookup and write, followed by 2-phase dual permutation stream decoder writing 4 bytes to `D_004E2DB4`. 401/404 bytes and 100/101 words are equal; single differing store instruction at offset 0x14 targets the same global address `0x4E2DA0` through another register (`sb v1, -31264(gp)` [0xA38285E0] vs `sb v0, 0(a0)` [0xA0820000]).
+- `func_001605A0` (`0x1605A0`, 388 instruction bytes): Initial single-byte lookup and write, 2-phase dual permutation decoder writing 4 bytes, followed by trailing single-byte lookup and write. All 388 instruction bytes match exactly (100.00%).
+- `func_00160730` (`0x160730`, 532 instruction bytes): Dual 2-phase permutation decoder calls `func_001522C0` twice, executes 4-byte writes after each phase, and decrements cursor at function exit. All 532 instruction bytes match exactly (100.00%).
+- `func_00160950` (`0x160950`, 536 instruction bytes): Calls `func_001522C0(D_004E2DA0, D_004E2DB4 - 1)`, executes permutation decoder writing 4 bytes with cursor decrement, followed by second `func_001522C0` call and 2-phase dual permutation write pass. All 536 instruction bytes match exactly (100.00%).
+
+An independent verification suite (`tests/test_trade_action_stream_decoders16.py`, with fixture/build support in `tests/trade_action_stream_decoders16_support.py`) compiles the actual source, checks the pinned original ELF SHA-1 (`f478e19f2059d52899b691483ef5c7522e30e17c`) and file-backed `PT_LOAD` mapping, validates object and linked `STT_FUNC` symbol sizes and `st_shndx`, links an `ET_EXEC` with no unresolved symbols, and compares emitted instruction and padding bytes. It verifies the effective store target for the first near match and byte-exact code for the final three routines.
+
+#### 6.192.1 Trade Action Stream Decoders 16 Matching Results (1,860 Code Bytes, 1,904-Byte Slice)
+
+| Function | VRAM | Instruction bytes | Result | Padding |
+|---|---:|---:|---|---:|
+| `func_00160400` | `0x160400` | 404 | 401/404 bytes, 100/101 words equal (near match) | 12 B |
+| `func_001605A0` | `0x1605A0` | 388 | 388/388 exact (100.00%) | 12 B |
+| `func_00160730` | `0x160730` | 532 | 532/532 exact (100.00%) | 12 B |
+| `func_00160950` | `0x160950` | 536 | 536/536 exact (100.00%) | 8 B |
+
+#### 6.193 `Trade Action Stream Decoders 17` Subsystem (`0x160B70`–`0x1611B0`, `trade_action_stream_decoders17.cpp`)
+
+This four-function C++ slice spans VRAM `0x160B70`–`0x1611B0` and file offsets `0x60D50`–`0x61390` (1,600 bytes total). The original ELF `PT_LOAD` mapping gives the VRAM/file-offset delta `0xFFE20`. The slice comprises 1,576 instruction bytes and 24 alignment-padding bytes (8, 8, 4, and 4 bytes respectively). Symbol sizes exclude padding. The unit remains registered as `NonMatching`.
+
+- `func_00160B70` (`0x160B70`, 456 instruction bytes): Performs 2-byte staging lookup and write, 2-phase dual permutation stream decoder writing 4 bytes to `D_004E2DB4`, followed by trailing single-byte lookup and write. 453/456 bytes and 113/114 words are equal; single differing store instruction at offset 0x14 targets the same global address `0x4E2DA0` through another register (`sb v1, -31264(gp)` [0xA38285E0] vs `sb v0, 0(a0)` [0xA0820000]).
+- `func_00160D40` (`0x160D40`, 456 instruction bytes): Initial single-byte lookup and write, 2-phase dual permutation decoder writing 4 bytes, followed by trailing 2-byte staged lookup and write. All 456 instruction bytes match exactly (100.00%).
+- `func_00160F10` (`0x160F10`, 300 instruction bytes): Loop-based 2-phase permutation stream decoder decrementing `D_004E2DA8` by 4 on each iteration until zero. All 300 instruction bytes match exactly (100.00%).
+- `func_00161040` (`0x161040`, 364 instruction bytes): Initial single-byte lookup and write with `D_004E2DA8` decrement, followed by loop-based 2-phase permutation stream decoder decrementing `D_004E2DA8` by 4 until zero. All 364 instruction bytes match exactly (100.00%).
+
+An independent verification suite (`tests/test_trade_action_stream_decoders17.py`, with fixture/build support in `tests/trade_action_stream_decoders17_support.py`) compiles the actual source, checks the pinned original ELF SHA-1 (`f478e19f2059d52899b691483ef5c7522e30e17c`) and file-backed `PT_LOAD` mapping, validates object and linked `STT_FUNC` symbol sizes and `st_shndx`, links an `ET_EXEC` with no unresolved symbols, and compares emitted instruction and padding bytes. It verifies the effective store target for the first near match and byte-exact code for the final three routines.
+
+#### 6.193.1 Trade Action Stream Decoders 17 Matching Results (1,576 Code Bytes, 1,600-Byte Slice)
+
+| Function | VRAM | Instruction bytes | Result | Padding |
+|---|---:|---:|---|---:|
+| `func_00160B70` | `0x160B70` | 456 | 453/456 bytes, 113/114 words equal (near match) | 8 B |
+| `func_00160D40` | `0x160D40` | 456 | 456/456 exact (100.00%) | 8 B |
+| `func_00160F10` | `0x160F10` | 300 | 300/300 exact (100.00%) | 4 B |
+| `func_00161040` | `0x161040` | 364 | 364/364 exact (100.00%) | 4 B |

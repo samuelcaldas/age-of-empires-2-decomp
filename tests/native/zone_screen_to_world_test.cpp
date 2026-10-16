@@ -148,6 +148,48 @@ static void test_dual_sided_slope_branches() {
     func_001CEA60(zm, 32, 100, &pkt16, &oy16_b, &ox16_b);
     assert(ox16_b == 9.375f);
     assert(oy16_b == -8.375f);
+
+    // Case 2: condition fx > 0.5
+    // Branch 1 (fx <= 0.5): (16, 32) -> fx = 0.25, fy = 1.0 -> x = 0.3125f, y = 0.1875f
+    CmdPacket pkt2 = {{}, 2};
+    float ox2_a = 0.0f, oy2_a = 0.0f;
+    func_001CEA60(zm, 16, 32, &pkt2, &oy2_a, &ox2_a);
+    assert(ox2_a == 0.3125f);
+    assert(oy2_a == 0.1875f);
+
+    // Branch 2 (fx > 0.5): (48, 32) -> fx = 0.75, fy = 1.0 -> x = 0.8125f, y = 0.6875f
+    float ox2_b = 0.0f, oy2_b = 0.0f;
+    func_001CEA60(zm, 48, 32, &pkt2, &oy2_b, &ox2_b);
+    assert(ox2_b == 0.8125f);
+    assert(oy2_b == 0.6875f);
+
+    // Case 13: condition fx > 0.5
+    // Branch 1 (fx <= 0.5): (16, 32) -> fx = 0.25, fy = 1.0 -> x = 2.0f, y = -1.5f
+    CmdPacket pkt13 = {{}, 13};
+    float ox13_a = 0.0f, oy13_a = 0.0f;
+    func_001CEA60(zm, 16, 32, &pkt13, &oy13_a, &ox13_a);
+    assert(ox13_a == 2.0f);
+    assert(oy13_a == -1.5f);
+
+    // Branch 2 (fx > 0.5): (48, 32) -> fx = 0.75, fy = 1.0 -> x = 2.5f, y = -1.0f
+    float ox13_b = 0.0f, oy13_b = 0.0f;
+    func_001CEA60(zm, 48, 32, &pkt13, &oy13_b, &ox13_b);
+    assert(ox13_b == 2.5f);
+    assert(oy13_b == -1.0f);
+
+    // Case 14: condition fx > 0.5
+    // Branch 1 (fx <= 0.5): (16, 32) -> fx = 0.25, fy = 1.0 -> x = 0.4375f, y = 0.0625f
+    CmdPacket pkt14 = {{}, 14};
+    float ox14_a = 0.0f, oy14_a = 0.0f;
+    func_001CEA60(zm, 16, 32, &pkt14, &oy14_a, &ox14_a);
+    assert(ox14_a == 0.4375f);
+    assert(oy14_a == 0.0625f);
+
+    // Branch 2 (fx > 0.5): (48, 32) -> fx = 0.75, fy = 1.0 -> x = 0.9375f, y = 0.5625f
+    float ox14_b = 0.0f, oy14_b = 0.0f;
+    func_001CEA60(zm, 48, 32, &pkt14, &oy14_b, &ox14_b);
+    assert(ox14_b == 0.9375f);
+    assert(oy14_b == 0.5625f);
 }
 
 static void test_case1_and_case5_slopes() {

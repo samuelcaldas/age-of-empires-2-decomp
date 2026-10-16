@@ -133,3 +133,34 @@ def test_zone_screen_to_world_early_return_mutant_fails(tmp_path):
     assert "out_x == 0.25f" in res.stderr
 
 
+def test_zone_screen_to_world_cmd11_slope_mutant_fails(tmp_path):
+    """Ensure that mutating the slope term in case 11 fails dual_sided_slopes assertions."""
+    compiler = shutil.which("g++")
+    if compiler is None:
+        pytest.skip("native tests require g++")
+
+    src = (PROJECT_ROOT / "src" / "zone_screen_to_world.cpp").read_text()
+    target = "s2 = func_122118(FP_TWO, func_1220B0(FP_HALF, fx));"
+    mutated = "s2 = func_122058(FP_TWO, func_1220B0(FP_HALF, fx));"
+    mutated_src = src.replace(target, mutated)
+    assert mutated_src != src, "mutation target not found"
+
+    mut_src_file = tmp_path / "zone_screen_to_world_mut3.cpp"
+    mut_src_file.write_text(mutated_src)
+    mut_bin = tmp_path / "zone-s2w-mut3-bin"
+
+    subprocess.run(
+        [compiler, "-m32", "-fno-builtin", "-Iinclude", str(mut_src_file), "tests/native/zone_screen_to_world_test.cpp", "-o", str(mut_bin)],
+        cwd=PROJECT_ROOT,
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    res = subprocess.run([str(mut_bin), "dual_sided_slopes"], capture_output=True, text=True)
+    assert res.returncode in (-6, 134), f"Expected SIGABRT but got returncode {res.returncode}"
+    assert "Assertion" in res.stderr
+    assert "zone_screen_to_world_test.cpp" in res.stderr
+    assert "ox11_a == 1.0f" in res.stderr
+
+
+

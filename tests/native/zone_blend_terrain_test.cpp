@@ -2,6 +2,7 @@
 #include <cstddef>
 #include <cstring>
 #include <string>
+#include <vector>
 
 static_assert(sizeof(void *) == 4, "native fixture requires 32-bit pointers");
 
@@ -9,7 +10,16 @@ extern "C" {
 void func_001CC6E0(void *self, int x0, int y0, int x1, int y1, int terrain_param);
 }
 
-static int g_replaced_count = 0;
+struct BlendCallRecord {
+    void *self;
+    void *world;
+    int x;
+    int y;
+    int terrain;
+    int p5;
+    int p6;
+};
+static std::vector<BlendCallRecord> g_call_log;
 
 struct BlendCell {
     char pad_0[5];
@@ -31,7 +41,7 @@ struct BlendLayout {
 };
 
 extern "C" void func_1CF830(void *self, void *world, int x, int y, int terrain_type, int p5, int p6) {
-    g_replaced_count++;
+    g_call_log.push_back({self, world, x, y, terrain_type, p5, p6});
     BlendLayout *zm = reinterpret_cast<BlendLayout *>(self);
     zm->cells_ptr[y][x].f_5 = static_cast<char>(terrain_type);
 }
@@ -41,6 +51,7 @@ static void setup_grid(BlendLayout *zm, BlendCell cells[7][7], BlendCell *row_pt
     *reinterpret_cast<int *>(&zm->stride_param) = width;
     zm->stride_param = static_cast<short>(width);
     zm->height = height;
+    zm->m_world = reinterpret_cast<void *>(0x55555555);
 
     for (int y = 0; y < height; y++) {
         for (int x = 0; x < width; x++) {
@@ -50,7 +61,7 @@ static void setup_grid(BlendLayout *zm, BlendCell cells[7][7], BlendCell *row_pt
         row_ptrs[y] = cells[y];
     }
     zm->cells_ptr = row_ptrs;
-    g_replaced_count = 0;
+    g_call_log.clear();
 }
 
 static void test_matching_terrain_no_op() {
@@ -60,7 +71,7 @@ static void test_matching_terrain_no_op() {
     setup_grid(&zm, cells, row_ptrs, 7, 7, 2);
 
     func_001CC6E0(&zm, 1, 1, 5, 5, 2);
-    assert(g_replaced_count == 0);
+    assert(g_call_log.empty());
     for (int y = 0; y < 7; y++) {
         for (int x = 0; x < 7; x++) {
             assert(cells[y][x].f_5 == 2);
@@ -74,12 +85,14 @@ static void test_orthogonal_saddle_replacement() {
     BlendCell *row_ptrs[7];
     setup_grid(&zm, cells, row_ptrs, 7, 7, 1);
 
-    // North (2, 3) and South (4, 3) matching target terrain 2
-    cells[2][3].f_5 = 2;
-    cells[4][3].f_5 = 2;
+    cells[2][3].f_5 = 2; // North
+    cells[4][3].f_5 = 2; // South
 
     func_001CC6E0(&zm, 3, 3, 3, 3, 2);
-    assert(g_replaced_count >= 1);
+    assert(g_call_log.size() == 1);
+    assert(g_call_log[0].x == 3 && g_call_log[0].y == 3);
+    assert(g_call_log[0].terrain == 2);
+    assert(g_call_log[0].p5 == 0 && g_call_log[0].p6 == 0); // Trailing args zeroed
     assert(cells[3][3].f_5 == 2);
 }
 
@@ -89,7 +102,6 @@ static void test_corner_diagonal_replacement() {
     BlendCell *row_ptrs[7];
     setup_grid(&zm, cells, row_ptrs, 7, 7, 1);
 
-    // NW (2, 2) and East (3, 4) are matching target terrain 2, while NE (2, 4) is non-matching
     cells[2][2].f_5 = 2; // NW
     cells[3][4].f_5 = 2; // East
     cells[2][4].f_5 = 1; // NE
@@ -98,7 +110,12 @@ static void test_corner_diagonal_replacement() {
     cells[3][2].f_5 = 1; // West
 
     func_001CC6E0(&zm, 3, 3, 3, 3, 2);
-    assert(g_replaced_count >= 1);
+    assert(g_call_log.size() >= 1);
+    // Verifies trailing arguments zeroed for every call
+    for (size_t i = 0; i < g_call_log.size(); i++) {
+        assert(g_call_log[i].p5 == 0 && g_call_log[i].p6 == 0);
+        assert(g_call_log[i].terrain == 2);
+    }
     assert(cells[3][3].f_5 == 2);
 }
 
@@ -109,20 +126,23 @@ static void test_bounds_clamping() {
     setup_grid(&zm1, cells1, row_ptrs1, 7, 7, 1);
     setup_grid(&zm2, cells2, row_ptrs2, 7, 7, 1);
 
-    // Setup an orthogonal saddle trigger at (3, 3)
     cells1[2][3].f_5 = 2; cells1[4][3].f_5 = 2;
     cells2[2][3].f_5 = 2; cells2[4][3].f_5 = 2;
 
     func_001CC6E0(&zm1, -10, -10, 50, 50, 2);
-    int count_clamped = g_replaced_count;
+    assert(g_call_log.size() == 1);
+    assert(g_call_log[0].x == 3 && g_call_log[0].y == 3);
+    assert(g_call_log[0].p5 == 0 && g_call_log[0].p6 == 0);
+    int count1 = static_cast<int>(g_call_log.size());
 
-    setup_grid(&zm2, cells2, row_ptrs2, 7, 7, 1);
-    cells2[2][3].f_5 = 2; cells2[4][3].f_5 = 2;
+    g_call_log.clear();
     func_001CC6E0(&zm2, 0, 0, 6, 6, 2);
-    int count_explicit = g_replaced_count;
+    assert(g_call_log.size() == 1);
+    assert(g_call_log[0].x == 3 && g_call_log[0].y == 3);
+    assert(g_call_log[0].p5 == 0 && g_call_log[0].p6 == 0);
+    int count2 = static_cast<int>(g_call_log.size());
 
-    assert(count_clamped > 0);
-    assert(count_clamped == count_explicit);
+    assert(count1 == 1 && count2 == 1);
     assert(cells1[3][3].f_5 == 2);
     assert(cells2[3][3].f_5 == 2);
     assert(std::memcmp(cells1, cells2, sizeof(cells1)) == 0);

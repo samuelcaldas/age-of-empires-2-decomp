@@ -82,15 +82,45 @@ static void setup_layout(PaintLayout *zm, int width, int height) {
 static void test_math_3_4_5_and_vtable_reload() {
     PaintLayout zm;
     setup_layout(&zm, 10, 10);
-    // dx = 4 - 1 = 3, dy = 5 - 1 = 4 -> hypotenuse distance = 5
+    // dx = 4 - 1 = 3, dy = 5 - 1 = 4 -> 3-4-5 triangle, hypotenuse distance = 5
     int ret = func_001CCE10(&zm, 1, 1, 4, 5, 2, 7);
     assert(ret == 1);
     assert(g_history.size() == 6); // 1 start + 5 steps
+
+    // Verify exact coordinates and inputs for all 6 points along the 3-4-5 line
+    const PointRecord expected_pts[6] = {
+        {1, 1, 1, 7}, // start (1, 1)
+        {2, 2, 1, 7}, // step 1 (1.6 -> 2, 1.8 -> 2)
+        {2, 3, 1, 7}, // step 2 (2.2 -> 2, 2.6 -> 3)
+        {3, 3, 1, 7}, // step 3 (2.8 -> 3, 3.4 -> 3)
+        {3, 4, 1, 7}, // step 4 (3.4 -> 3, 4.2 -> 4)
+        {4, 5, 1, 7}  // step 5 (4.0 -> 4, 5.0 -> 5)
+    };
+    for (size_t i = 0; i < 6; i++) {
+        assert(g_history[i].x == expected_pts[i].x);
+        assert(g_history[i].y == expected_pts[i].y);
+        assert(g_history[i].radius == expected_pts[i].radius);
+        assert(g_history[i].terrain == expected_pts[i].terrain);
+    }
+
     // Verifies vtable swap during callback was dynamically honored on subsequent steps
     assert(g_secondary_called > 0);
-    // Verifies math helper sequence logged
-    assert(!g_math_log.empty());
-    assert(g_math_log[0] == "122690"); // dx
+
+    // Verifies exact math helper sequence
+    assert(g_math_log.size() >= 13);
+    assert(g_math_log[0] == "122690"); // dx_fp
+    assert(g_math_log[1] == "122690"); // dy_fp
+    assert(g_math_log[2] == "122118"); // dx2
+    assert(g_math_log[3] == "122118"); // dy2
+    assert(g_math_log[4] == "122058"); // sum2
+    assert(g_math_log[5] == "1228E8"); // float sum_flt
+    assert(g_math_log[6] == "1234E0"); // dist_fp from sqrtf
+    assert(g_math_log[7] == "122748"); // steps = 5
+    assert(g_math_log[8] == "122690"); // steps_fp
+    assert(g_math_log[9] == "1223C0"); // step_x
+    assert(g_math_log[10] == "1223C0"); // step_y
+    assert(g_math_log[11] == "122690"); // cur_x
+    assert(g_math_log[12] == "122690"); // cur_y
 }
 
 static void test_line_directions_and_clipping() {

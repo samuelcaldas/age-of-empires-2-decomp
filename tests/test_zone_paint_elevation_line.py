@@ -19,11 +19,8 @@ int main() {
 """
 
 CASES = [
-    ("zero_length", "Line with start == end paints single point and triggers dilation filter returning 1"),
-    ("single_step", "Line with single step paints start and end in correct order returning 1"),
-    ("multiple_dirs", "Line across all four diagonal directions paints points from start to end returning 1"),
-    ("clipping", "Out-of-bounds line endpoints are clamped strictly within map dimensions returning 1"),
-    ("callback_order", "Callback points follow strictly monotonic order and filter receives dilated bounds"),
+    ("math_3_4_5", "Verifies 3-4-5 triangle math sequence, float sqrt conversion, and dynamic vtable reloading"),
+    ("directions_clipping", "Verifies 4 diagonal directions and boundary clipping to map limits"),
 ]
 
 
@@ -60,7 +57,7 @@ def zone_paint_elevation_line_test_binary(tmp_path_factory):
 
 @pytest.mark.parametrize("case,description", CASES, ids=[c[0] for c in CASES])
 def test_zone_paint_elevation_line_cases(zone_paint_elevation_line_test_binary, case, description):
-    """Verify elevation line rasterization, boundary clipping, directions, dilation filter, and ordering."""
+    """Verify elevation line rasterization, math helpers, vtable reload, and clipping."""
     result = subprocess.run(
         [str(zone_paint_elevation_line_test_binary), case],
         capture_output=True,

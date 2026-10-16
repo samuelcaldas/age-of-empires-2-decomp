@@ -104,7 +104,7 @@ int main(int argc, char **argv) {
         *reinterpret_cast<void **>(p2_obj.data() + 0xB98) = p_sentinel;
 
         mock_mode = 1;
-        mock_flag = 0; // mode 1, flag 0 -> factor 1.0f
+        mock_flag = 0; // ID 0x10 mode 1 flag 0 -> factor 1.0f
         func_002B6220(self, 0x10, 100);
         int *slot = reinterpret_cast<int *>(storage.data() + 0x858 + 0x10 * 4);
         assert(*slot == 100);
@@ -122,6 +122,34 @@ int main(int argc, char **argv) {
         func_002B6220(self, 0x68, 20);
         int *slot = reinterpret_cast<int *>(storage.data() + 0x858 + 0x68 * 4);
         assert(*slot == 260);
+    } else if (test_case == 8) {
+        std::vector<char> p1_obj(4096, 0);
+        std::vector<char> p2_obj(4096, 0);
+        char *base = storage.data();
+        *reinterpret_cast<void **>(base + 0xB0) = p1_obj.data();
+        *reinterpret_cast<void **>(p1_obj.data() + 0xAC) = p2_obj.data();
+        *reinterpret_cast<void **>(p2_obj.data() + 0xB98) = p_sentinel;
+
+        mock_mode = 1;
+        mock_flag = 0; // ID 0xE3 mode 1 flag 0 -> factor 1.0f
+        func_002B6220(self, 0xE3, 100);
+        int *slot = reinterpret_cast<int *>(storage.data() + 0x858 + 0xE3 * 4);
+        assert(*slot == 100);
+        assert(last_scaled_val == 100.0f);
+    } else if (test_case == 9) {
+        std::vector<char> p1_obj(4096, 0);
+        std::vector<char> p2_obj(4096, 0);
+        char *base = storage.data();
+        *reinterpret_cast<void **>(base + 0xB0) = p1_obj.data();
+        *reinterpret_cast<void **>(p1_obj.data() + 0xAC) = p2_obj.data();
+        *reinterpret_cast<void **>(p2_obj.data() + 0xB98) = p_sentinel;
+
+        mock_mode = 1;
+        mock_flag = 1; // mode 1, flag 1 -> factor 0.8f for 0x10
+        func_002B6220(self, 0x10, 100);
+        int *slot = reinterpret_cast<int *>(storage.data() + 0x858 + 0x10 * 4);
+        assert(*slot == 80);
+        assert(last_scaled_val == 80.0f);
     }
 
     std::cout << "GETTERS7 TEST " << test_case << " PASSED\n";

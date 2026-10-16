@@ -16,7 +16,9 @@ CASES = [
     ("4", "ID 0x68 increment resolution with pointer chain and mode 2 flag 1"),
     ("5", "ID 0x10 mode 2 scale factor 0.75 yielding 75.0f scaled"),
     ("6", "ID 0x10 mode 1 flag 0 scale factor 1.0 yielding 100.0f scaled"),
-    ("7", "ID 0x68 increment resolution with mode 2 flag 0 yielding 240"),
+    ("7", "ID 0x68 increment resolution with mode 2 flag 0 yielding 260"),
+    ("8", "ID 0xE3 mode 1 flag 0 scale factor 1.0 yielding 100.0f scaled"),
+    ("9", "ID 0x10 mode 1 flag 1 scale factor 0.8 yielding 80.0f scaled"),
 ]
 
 

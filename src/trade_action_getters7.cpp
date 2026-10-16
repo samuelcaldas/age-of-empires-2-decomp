@@ -35,16 +35,11 @@ float get_scaling_factor(int index, int mode, int flag) {
         if (mode == 2) return 0.6f;
         if (mode == 3) return 0.4f;
         if (mode == 4) return 0.2f;
-    } else if (is_f21) {
-        if (mode == 1) return 0.8f;
-        if (mode == 2) return (flag == 1) ? 0.75f : 0.6f;
-        if (mode == 3) return (flag == 1) ? 0.5f : 0.4f;
-        if (mode == 4) return (flag == 1) ? 0.25f : 0.2f;
-    } else if (is_f23) {
-        if (mode == 1) return 1.0f;
-        if (mode == 2) return (flag == 1) ? 0.75f : 0.6f;
-        if (mode == 3) return (flag == 1) ? 0.5f : 0.4f;
-        if (mode == 4) return (flag == 1) ? 0.25f : 0.2f;
+    } else if (is_f21 || is_f23) {
+        if (mode == 1) return (is_f23 ? 1.0f : 0.8f);
+        if (mode == 2) return 0.75f;
+        if (mode == 3) return 0.5f;
+        if (mode == 4) return 0.25f;
     }
     return 1.0f;
 }

@@ -26,18 +26,21 @@ EXTERNALS = {
 }
 GP = 0x4EA7C0
 
-defrequire(condition, message):
+
+def require(condition, message):
     """Raise a clear error when an ELF verification fails."""
     if not condition:
         raise RuntimeError(message)
 
-defunique_symbol(table, name):
+
+def unique_symbol(table, name):
     """Find exactly one named ELF symbol."""
     matches = table.get_symbol_by_name(name)
     require(matches is not None and len(matches) == 1, f"expected one {name}")
     return matches[0]
 
-deforiginal_slice(path):
+
+def original_slice(path):
     """Check the pinned ELF mapping and return the full original slice."""
     data = path.read_bytes()
     require(sha1(data).hexdigest() == ORIGINAL_SHA1, "original ELF SHA-1 mismatch")
@@ -58,7 +61,8 @@ deforiginal_slice(path):
     require(set(EXTERNALS.values()) <= targets, "real external addresses are absent in original calls")
     return result
 
-defrename_text_sections(source, destination):
+
+def rename_text_sections(source, destination):
     """Give homonymous .text sections unique names without changing their bytes."""
     data = bytearray(source.read_bytes())
     require(data[:6] == b"\x7fELF\x01\x01", "expected little-endian ELF32")
@@ -87,7 +91,8 @@ defrename_text_sections(source, destination):
     destination.write_bytes(data)
     return [index for index, _ in sections]
 
-definspect_object(path):
+
+def inspect_object(path):
     """Check the entry symbol, private sections, BREAK sequence, and imports."""
     with path.open("rb") as stream:
         elf = ELFFile(stream)
@@ -109,22 +114,30 @@ definspect_object(path):
         undefined = {symbol.name for symbol in table.iter_symbols()
                      if symbol.name and symbol["st_shndx"] == "SHN_UNDEF"}
         require(undefined == set(EXTERNALS), f"unexpected imports: {sorted(undefined)}")
-        function_sections = {symbol["st_shndx"] for symbol in table.iter_symbols()
-                             if symbol["st_info"]["type"] == "STT_FUNC"
-                             and isinstance(symbol["st_shndx"], int)}
+        function_sections = {
+            symbol["st_shndx"]
+            for symbol in table.iter_symbols()
+            if symbol["st_info"]["type"] == "STT_FUNC"
+            and isinstance(symbol["st_shndx"], int)
+        }
         require(set(text_indices) <= function_sections, "unaccounted .text section")
-        private_bytes = sum(elf.get_section(index)["sh_size"] for index in text_indices
-                           if index != function["st_shndx"])
+        private_bytes = sum(
+            elf.get_section(index)["sh_size"]
+            for index in text_indices
+            if index != function["st_shndx"]
+        )
         return function["st_shndx"], text_indices, private_bytes, len(undefined)
 
-deflink_candidate(linker, candidate, directory, text_indices, main_index):
+
+def link_candidate(linker, candidate, directory, text_indices, main_index):
     """Link every real text section while placing the entry at its original VRAM."""
     script = directory / "candidate.ld"
     definitions = "".join(f"{name} = {address:#x};\n"
                           for name, address in EXTERNALS.items())
     definitions += f"_gp = {GP:#x};\n"
-    private_sections = " ".join(f"*(.text_{index})" for index in text_indices
-                                 if index != main_index)
+    private_sections = " ".join(
+        f"*(.text_{index})" for index in text_indices if index != main_index
+    )
     script.write_text(
         definitions + f"SECTIONS {{ .entry {START:#x} : {{ *(.text_{main_index}) }} "
         f".private 0x219000 : {{ {private_sections} }} "
@@ -135,7 +148,8 @@ deflink_candidate(linker, candidate, directory, text_indices, main_index):
                     "-T", str(script), "-o", str(output), str(candidate)], check=True)
     return output
 
-definspect_link(path, original, private_bytes):
+
+def inspect_link(path, original, private_bytes):
     """Verify final symbols and report complete unmasked extent metrics."""
     with path.open("rb") as stream:
         elf = ELFFile(stream)
@@ -157,14 +171,31 @@ definspect_link(path, original, private_bytes):
     different = overlap - equal
     missing = len(original) - overlap
     extra = max(0, len(generated) - len(original))
+    code_overlap = min(len(generated), FUNCTION_SIZE)
+    code_equal = sum(left == right for left, right in
+                     zip(generated[:code_overlap], original[:code_overlap]))
+    code_different = code_overlap - code_equal
+    code_missing = FUNCTION_SIZE - code_overlap
+    code_extra = max(0, len(generated) - FUNCTION_SIZE)
+    padding = generated[FUNCTION_SIZE:SLICE_SIZE]
+    padding_equal = sum(byte == 0 for byte in padding)
+    padding_different = len(padding) - padding_equal
+    padding_missing = 8 - len(padding)
+    padding_extra = max(0, len(padding) - 8)
     print(f"ET_EXEC: {FUNCTION}={START:#x}, size={len(generated)}, unresolved=0, _gp={GP:#x}")
     print(f"Raw unmasked 848-byte slice: equal={equal}, different={different}, "
           f"missing={missing}, extra={extra}; overlap={overlap}")
-    print(f"Retained private .text bytes={private_bytes}, linked private extent="
-          f"{linked_private_bytes} (alignment padding={linked_private_bytes - private_bytes}); "
+    print(f"Original 840-byte code range: equal={code_equal}, different={code_different}, "
+          f"missing={code_missing}, extra={code_extra}")
+    print(f"Original 8-byte tail padding: equal={padding_equal}, "
+          f"different={padding_different}, missing={padding_missing}, extra={padding_extra}")
+    print(f"Linked entry bytes={len(generated)}, retained private .text bytes={private_bytes}, "
+          f"linked private extent={linked_private_bytes} "
+          f"(alignment padding={linked_private_bytes - private_bytes}); "
           f"full linked code extent={linked_private_bytes + len(generated)}")
 
-defmain():
+
+def main():
     """Run source-object, original-slice, and GNU final-link checks."""
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--object", type=Path,

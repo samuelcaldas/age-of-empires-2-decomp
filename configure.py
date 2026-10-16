@@ -1329,6 +1329,18 @@ if config.platform == Platform.PS2:
                 ),
                 Object(
                     NonMatching,
+                    "trade_action_stream_decoders16",
+                    cflags=config.cflags,
+                    toolchain_version="PS2/mwcc-2.3.1.01",
+                ),
+                Object(
+                    NonMatching,
+                    "trade_action_stream_decoders17",
+                    cflags=config.cflags,
+                    toolchain_version="PS2/mwcc-2.3.1.01",
+                ),
+                Object(
+                    NonMatching,
                     "trade_action_helper_217730",
                     cflags=config.cflags,
                     toolchain_version="PS2/mwcc-2.3.1.01",

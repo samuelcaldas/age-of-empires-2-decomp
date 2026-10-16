@@ -5219,3 +5219,16 @@ Registered as `NonMatching` in `configure.py`.
 | Function / Method | VRAM Address | Code Size (Orig) | Slice Size | Match Status | Description |
 |---|---|---|---|---|---|
 | `func_00307640` | `0x307640` | 960 B | 960 B | NonMatching (81.26% objdiff) | Waypoint path cost and terrain elevation evaluator (960 B). |
+
+#### 6.185 `Tactical AI Waypoint Step & Visualizer` Subsystem (`0x307A00`–`0x307B80`, `tactical_ai_waypoint_step.cpp`)
+
+Located at VRAM `0x307A00`–`0x307B80` (file offset `0x207BE0`–`0x207D60`, 384 bytes total slice, Metrowerks C++ PS2 MWCC 2.3.1.01):
+- `func_00307A00` (`0x307A00`, 376 bytes code + 8 bytes zero padding, 384 bytes slice): Waypoint visualizer step and circular index coordinator. Checks active status of current waypoint `m_field1B2`, plots point and target position via `func_204920` and `func_204910`, falls back to `m_field1D0` if current entry is inactive, decrements current index `m_field1B2`, and performs circular ring-buffer wrap to 4 (when full flag `m_field1B3` is set) or resets to `m_field1D0`. Emitted instructions: 376 bytes code matching 95.43% objdiff fuzzy (72/94 exact unlinked words).
+
+Registered as `NonMatching` in `configure.py`.
+
+#### 6.185.1 Tactical AI Waypoint Step Matching Results (Pure C++, 384 Bytes)
+
+| Function / Method | VRAM Address | Code Size (Orig) | Slice Size | Match Status | Description |
+|---|---|---|---|---|---|
+| `func_00307A00` | `0x307A00` | 376 B | 384 B | NonMatching (95.43% objdiff) | Waypoint step and circular index coordinator (376 B). |

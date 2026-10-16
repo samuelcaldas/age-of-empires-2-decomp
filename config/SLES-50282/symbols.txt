@@ -1271,9 +1271,14 @@ func_2261c0 = 0x2261C0; // type:func absolute:True
 
 // Tactical AI Waypoint Cost (0x307640-0x307A00)
 func_00307640 = 0x307640; // type:func size:0x3C0 absolute:True
-func_123350 = 0x123350; // type:func absolute:True
 func_1ad450 = 0x1AD450; // type:func absolute:True
 func_1ad270 = 0x1AD270; // type:func absolute:True
+
+// Tactical AI Waypoint Step (0x307A00-0x307B80)
+func_00307A00 = 0x307A00; // type:func size:0x178 absolute:True
+func_186010 = 0x186010; // type:func absolute:True
+func_204920 = 0x204920; // type:func absolute:True
+func_204910 = 0x204910; // type:func absolute:True
 D_938AC0 = 0x938AC0; // type:u8 size:0x200 absolute:True
 D_938CC0 = 0x938CC0; // type:u8 size:0x200 absolute:True
 

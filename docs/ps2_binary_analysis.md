@@ -5207,35 +5207,9 @@ Emitted instructions: 396 bytes code across 99 instructions + 4 bytes trailing z
 |---|---|---|---|---|---|
 | `func_003074B0` | `0x3074B0` | 396 B | 400 B | **100.00% exact match** (396/396 B) | Action manager waypoint circular FIFO cache coordinator. |
 
-#### 6.184 `Tactical AI Waypoint Path Cost & Terrain Evaluator` Subsystem (`0x307640`–`0x307A00`, `tactical_ai_waypoint_cost.cpp`)
+#### Zone Terrain and Coordinate Transformation Slices (`0x1CDD00`–`0x1D0350`)
 
-Located at VRAM `0x307640`–`0x307A00` (file offset `0x207820`–`0x207BE0`, 960 bytes total slice across 240 instructions, Metrowerks C++ PS2 MWCC 2.3.1.01):
-- `func_00307640` (`0x307640`, 960 bytes code, 960 bytes slice): Waypoint path cost and terrain elevation evaluator. Iterates across the 5 waypoint cache entries, converts floating-point waypoint coordinates `m_array4` and `m_array5` to integer tile coordinates via `func_123350`, traverses the spatial cell grid `m_grid` (36 bytes per cell: `m_grid + a3 * 36`), evaluates line-of-sight raycasts and terrain obstruction costs via `func_1ad450` and `func_1ad270`, and conditionally triggers movement update `self->Method10(2)` via virtual method slot 10. Emitted instructions: 960 bytes code matching 81.26% on initial compilation.
-
-Registered as `NonMatching` in `configure.py`.
-
-#### 6.184.1 Tactical AI Waypoint Path Cost Matching Results (Pure C++, 960 Bytes)
-
-| Function / Method | VRAM Address | Code Size (Orig) | Slice Size | Match Status | Description |
-|---|---|---|---|---|---|
-| `func_00307640` | `0x307640` | 960 B | 960 B | NonMatching (81.26% objdiff) | Waypoint path cost and terrain elevation evaluator (960 B). |
-
-#### 6.185 `Tactical AI Waypoint Step & Visualizer` Subsystem (`0x307A00`–`0x307B80`, `tactical_ai_waypoint_step.cpp`)
-
-Located at VRAM `0x307A00`–`0x307B80` (file offset `0x207BE0`–`0x207D60`, 384 bytes total slice, Metrowerks C++ PS2 MWCC 2.3.1.01):
-- `func_00307A00` (`0x307A00`, 376 bytes code + 8 bytes zero padding, 384 bytes slice): Waypoint visualizer step and circular index coordinator. Checks active status of current waypoint `m_field1B2`, plots point and target position via `func_204920` and `func_204910`, falls back to `m_field1D0` if current entry is inactive, decrements current index `m_field1B2`, and performs circular ring-buffer wrap to 4 (when full flag `m_field1B3` is set) or resets to `m_field1D0`. Emitted instructions: 376 bytes code matching 95.43% objdiff fuzzy (72/94 exact unlinked words).
-
-Registered as `NonMatching` in `configure.py`.
-
-#### 6.185.1 Tactical AI Waypoint Step Matching Results (Pure C++, 384 Bytes)
-
-| Function / Method | VRAM Address | Code Size (Orig) | Slice Size | Match Status | Description |
-|---|---|---|---|---|---|
-| `func_00307A00` | `0x307A00` | 376 B | 384 B | NonMatching (95.43% objdiff) | Waypoint step and circular index coordinator (376 B). |
-
-#### Zone Terrain and Coordinate Transformation Slices (`0x1CDD00`–`0x1D00A0`) (feat: implement zone_paint_terrain_rect and zone_calc_tile_slope)
-
-Contiguous decompilation of the Age of Empires II PlayStation 2 terrain and spatial sub-systems along file offsets `0xCDEE0`–`0xD0280` (VRAM `0x1CDD00`–`0x1D00A0`, offset mapping `+0xFFE20`):
+Contiguous decompilation of the Age of Empires II PlayStation 2 terrain and spatial sub-systems along file offsets `0xCDEE0`–`0xD0530` (VRAM `0x1CDD00`–`0x1D0350`, offset mapping `+0xFFE20`):
 
 | Unit | File range | VRAM range | Original code / slice | Pad | Match Status | Description |
 |---|---:|---:|---:|---:|---|---|
@@ -5250,4 +5224,5 @@ Contiguous decompilation of the Age of Empires II PlayStation 2 terrain and spat
 | `zone_update_elevation_rect` | `0xCF5C0`–`0xCFA10` | `0x1CF3E0`–`0x1CF830` | 1100 / 1104 B | 4 B | NonMatching (64.33%) | Master elevation rectangular region updater: bounds clamping via `func_314EA0`, elevation clamping to [0, 8], slope recalculation via `func_1CFCD0`, entity height re-elevation via Method 17, and raster updates. |
 | `zone_set_tile_terrain` | `0xCFA10`–`0xCFB90` | `0x1CF830`–`0x1CF9B0` | 384 / 384 B | 0 B | NonMatching (59.29%) | Single-tile terrain mutation routine: updates terrain byte, updates raster and LOS, invokes `func_001CE3B0` to clean old entities, invokes `func_001CE650` to spawn new entities, and triggers `func_1D00C0`. |
 | `zone_paint_terrain_rect` | `0xCFB90`–`0xCFEB0` | `0x1CF9B0`–`0x1CFCD0` | 788 / 800 B | 12 B | NonMatching (74.26%) | Rectangular terrain painter with fallback resolution, bounds clamping, cell mutation, entity re-generation via `func_1CDF30`, 1-tile expansion, and raster update via `func_1C9E00`. |
-| `zone_calc_tile_slope` | `0xCFEB0`–`0xD0280` | `0x1CFCD0`–`0x1D00A0` | 972 / 976 B | 4 B | NonMatching (22.29%) | 8-neighbor elevation slope classifier evaluating cardinal (5..8), corner (13..16), and saddle/diagonal slopes (1..4, 9..12) with OOB clamping to center elevation. | (feat: implement zone_paint_terrain_rect and zone_calc_tile_slope)
+| `zone_calc_tile_slope` | `0xCFEB0`–`0xD02A0` | `0x1CFCD0`–`0x1D00C0` | 1004 / 1008 B | 4 B | NonMatching (22.29%) | 8-neighbor elevation slope classifier evaluating cardinal (5..8), corner (13..16), and saddle/diagonal slopes (1..4, 9..12) with OOB clamping to center elevation. |
+| `zone_update_tile_transitions` | `0xD02A0`–`0xD0530` | `0x1D00C0`–`0x1D0350` | 652 / 656 B | 4 B | NonMatching (38.79%) | 3x3 neighborhood tile transition and edge updater: resolves center and neighbor fallback terrains, updates cell transition lists, and calls `func_1D1CC0`. |

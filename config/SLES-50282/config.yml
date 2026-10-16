@@ -2069,9 +2069,15 @@ segments:
     vram: 0x1CFCD0
     subsegments:
       - [0xCFEB0, asm, zone_calc_tile_slope]
+  - name: zone_update_tile_transitions
+    type: code
+    start: 0xD02A0
+    vram: 0x1D00C0
+    subsegments:
+      - [0xD02A0, asm, zone_update_tile_transitions]
   - name: post_aoe2
     type: bin
-    start: 0xD0280
+    start: 0xD0530
   - name: trade_action_helper_217730
     type: code
     start: 0x117910

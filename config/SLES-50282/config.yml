@@ -1921,10 +1921,16 @@ segments:
     vram: 0x185570
     subsegments:
       - [0x85750, asm, render_manager_alloc]
-  - name: post_base
-    type: bin
+  - name: render_manager_ui_alloc
+    type: code
     start: 0x85840
     vram: 0x185660
+    subsegments:
+      - [0x85840, asm, render_manager_ui_alloc]
+  - name: post_base
+    type: bin
+    start: 0x85990
+    vram: 0x1857B0
   - name: zone_path_eval
     type: code
     start: 0xC7A40

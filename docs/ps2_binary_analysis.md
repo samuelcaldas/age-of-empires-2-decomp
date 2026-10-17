@@ -6645,6 +6645,22 @@ This two-function pure C++ slice spans VRAM `0x185570`–`0x185660` and file off
 | `func_00185570` | `0x185570` | 152 | **100.00% exact match** (152/152 B) | 8 B |
 | `func_00185610` | `0x185610` | 80 | **100.00% exact match** (80/80 B) | 0 B |
 
+#### 6.315 `RenderManager Complex UI Sub-Object Allocation & Teardown` Subsystem (`0x185660`–`0x1857B0`, `render_manager_ui_alloc.cpp`)
+
+This two-function pure C++ slice spans VRAM `0x185660`–`0x1857B0` and file offsets `0x85840`–`0x85990` (336 bytes total: 324 instruction bytes + 12 bytes padding). The original ELF `PT_LOAD` mapping gives the VRAM/file-offset delta `0xFFE20`. The slice implements the primary UI subsystem object allocation (0x47C0 / 18,368 bytes), resource linking through five property setters, global registration, and clean destructor teardown with virtual method dispatch. The unit is registered as `Matching` after fresh MWCC compilation and literal comparison of all 324 relocated instruction bytes.
+
+- `func_00185660` (`0x185660`, 248 instruction bytes, 8 B padding): 0x47C0 UI object factory. Allocates 18,368 bytes via `func_100850`, initializes via constructor `func_18A010`, stores into `self->field_1AC`, binds buffer `self->field_1044` via `func_189F20`, sets layout descriptors `field_1B0`..`field_1B4` via `func_189E00`–`func_189E50`, registers global `D_004E8948`, hooks parent `field_404` via `func_32FBC0`, links globals `D_004E8984` and `D_004E8988` via `func_192CD0`, and returns 1 on success or 0 on allocation failure.
+- `func_00185760` (`0x185760`, 76 instruction bytes, 4 B padding): UI sub-object destructor and teardown. Destroys active sub-object via `func_18A570(self->field_1AC, 1)`, resets `self->field_1AC = 0` and global `D_004E8948 = 0`, and executes virtual method `slot_88` (`+0x88`).
+
+`tests/test_render_manager_ui_alloc.py` exercises four 32-bit native test cases across allocation success, allocation failure, active teardown, and null teardown. `tests/test_render_manager_ui_alloc_matching.py` verifies fresh-compilation bit-exactness against `orig/SLES-50282/AOK.ELF` after `R_MIPS_26` and `R_MIPS_GPREL16` relocation resolution, as well as split boundary alignment and padding.
+
+#### 6.315.1 RenderManager Complex UI Sub-Object Allocation Matching Results (324 Code Bytes, 336-Byte Slice)
+
+| Function | VRAM | Instruction bytes | Relocated byte comparison | Padding |
+|---|---:|---:|---|---:|
+| `func_00185660` | `0x185660` | 248 | **100.00% exact match** (248/248 B) | 8 B |
+| `func_00185760` | `0x185760` | 76 | **100.00% exact match** (76/76 B) | 4 B |
+
 #### Zone Terrain and Coordinate Transformation Slices (`0x1CDD00`–`0x1D1430`)
 
 Contiguous decompilation of the Age of Empires II PlayStation 2 terrain and spatial sub-systems along file offsets `0xCDEE0`–`0xD1610` (VRAM `0x1CDD00`–`0x1D1430`, offset mapping `+0xFFE20`):

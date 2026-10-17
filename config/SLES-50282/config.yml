@@ -1819,10 +1819,16 @@ segments:
     vram: 0x182890
     subsegments:
       - [0x82A70, asm, trade_action_stream_render]
-  - name: post_base
-    type: bin
+  - name: trade_action_stream_props
+    type: code
     start: 0x82E20
     vram: 0x182C40
+    subsegments:
+      - [0x82E20, asm, trade_action_stream_props]
+  - name: post_base
+    type: bin
+    start: 0x83330
+    vram: 0x183150
   - name: zone_path_eval
     type: code
     start: 0xC7A40

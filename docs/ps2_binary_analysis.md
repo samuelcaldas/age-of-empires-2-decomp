@@ -6251,6 +6251,38 @@ An independent verification suite (`tests/test_trade_action_stream_render.py`, w
 | `func_001829f0` | `0x1829F0` | 368 | Structural alignment verified | 12 B |
 | `func_00182b60` | `0x182B60` | 224 | Structural alignment verified | 0 B |
 
+#### 6.298 `Trade Action Stream Props` Subsystem (`0x182C40`–`0x183150`, `trade_action_stream_props.cpp`)
+
+This ten-function C++ slice spans VRAM `0x182C40`–`0x183150` and file offsets `0x82E20`–`0x83330` (1,296 bytes total). The original ELF `PT_LOAD` mapping gives the VRAM/file-offset delta `0xFFE20`. The slice comprises 1,280 instruction bytes across ten property access and transformed rendering methods of `AspList` plus 16 alignment padding bytes. Symbol sizes exclude padding. The unit remains registered as `NonMatching`.
+
+- `func_00182c40` (`0x182C40`, 224 instruction bytes): Transformed coordinate renderer `AspList::draw_transformed()`. Iterates linked items, dispatches transformation coordinates `(x, y, t0, t1, t2)` and destination surfaces to `func_001835a0` (simple) or `func_00183eb0` (animated).
+- `func_00182d20` (`0x182D20`, 112 instruction bytes): Metric A accessor `AspList::get_metric_a(id)`. Searches chain for node with matching ID, returning `func_00183f00(node)` (animated) or `func_001835f0(node)` (simple), or 0 if not found.
+- `func_00182d90` (`0x182D90`, 112 instruction bytes): Metric B accessor `AspList::get_metric_b(id)`. Searches chain for node with matching ID, returning `func_00183f20(node)` (animated) or `func_00183650(node)` (simple), or 0 if not found.
+- `func_00182e00` (`0x182E00`, 144 instruction bytes): Node parameter mutator `AspList::set_item_param(id, param)`. Traverses chain updating all nodes matching ID via `func_00183600` or `func_00183f10`.
+- `func_00182e90` (`0x182E90`, 144 instruction bytes): Broadcast parameter mutator `AspList::broadcast_param(param)`. Dispatches parameter and extra pointer `this->extra` to all nodes via `func_00183610` or `func_00183f60`.
+- `func_00182f20` (`0x182F20`, 112 instruction bytes): Property 1 accessor `AspList::get_property_1(id, param)`. Dispatches to `func_00183f70` or `func_00183660`, or returns 0.
+- `func_00182f90` (`0x182F90`, 112 instruction bytes): Property 2 accessor `AspList::get_property_2(id)`. Dispatches to `func_00183fe0` or `func_00183670`, or returns 0.
+- `func_00183000` (`0x183000`, 112 instruction bytes): Property 3 accessor `AspList::get_property_3(id, param)`. Dispatches to `func_00183ff0` or `func_00183680`, or returns 0.
+- `func_00183070` (`0x183070`, 112 instruction bytes): Property 4 accessor `AspList::get_property_4(...)`. Dispatches 6th/7th parameter registers to `func_00184030` or `func_001836c0`.
+- `func_001830e0` (`0x1830E0`, 112 instruction bytes): Minimum priority query `AspList::get_min_priority()`. Computes minimum node priority across chain via `func_00183700`, initialized to 20.
+
+An independent verification suite (`tests/test_trade_action_stream_props.py`, with 32-bit test doubles in `tests/native/trade_action_stream_props_test.cpp`) validates draw traversal, node parameter mutation, broadcast parameter dispatch, property queries, and minimum priority evaluation.
+
+#### 6.298.1 Trade Action Stream Props Matching Results (1,280 Code Bytes, 1,296-Byte Slice)
+
+| Function | VRAM | Instruction bytes | Result | Padding |
+|---|---:|---:|---|---:|
+| `func_00182c40` | `0x182C40` | 224 | Structural alignment verified | 0 B |
+| `func_00182d20` | `0x182D20` | 108 | Structural alignment verified | 4 B |
+| `func_00182d90` | `0x182D90` | 108 | Structural alignment verified | 4 B |
+| `func_00182e00` | `0x182E00` | 140 | Structural alignment verified | 4 B |
+| `func_00182e90` | `0x182E90` | 136 | Structural alignment verified | 8 B |
+| `func_00182f20` | `0x182F20` | 112 | Structural alignment verified | 0 B |
+| `func_00182f90` | `0x182F90` | 108 | Structural alignment verified | 4 B |
+| `func_00183000` | `0x183000` | 112 | Structural alignment verified | 0 B |
+| `func_00183070` | `0x183070` | 112 | Structural alignment verified | 0 B |
+| `func_001830e0` | `0x1830E0` | 100 | Structural alignment verified | 12 B |
+
 #### Zone Terrain and Coordinate Transformation Slices (`0x1CDD00`–`0x1D1430`)
 
 Contiguous decompilation of the Age of Empires II PlayStation 2 terrain and spatial sub-systems along file offsets `0xCDEE0`–`0xD1610` (VRAM `0x1CDD00`–`0x1D1430`, offset mapping `+0xFFE20`):

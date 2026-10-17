@@ -7051,3 +7051,16 @@ Achieved bit-level 100.00% matching. Pure C++ with zero assembly (.s). Validated
 | Function / Method | VRAM Address | Code Size (Orig) | Slice Size | Match Status | Description |
 |---|---|---|---|---|---|
 | `func_003409C0` | `0x3409C0` | 56 B | 64 B | **Matching (100.00%)** | State branch dispatcher dispatching `func_340C30` or `func_1F8140` based on `field_858`. |
+
+#### 6.190 `Tactical AI Action Message Filter` Subsystem (`0x340D30`–`0x340D70`, `tactical_ai_action_filter_340d30.cpp`)
+
+Located at VRAM `0x340D30`–`0x340D70` (file offset `0x240F10`–`0x240F50`, 64 bytes total slice, 56 bytes code + 8 bytes zero padding, Metrowerks C++ PS2 MWCC 2.3.1.01):
+- `func_00340D30` (`0x340D30`, 56 bytes code, 64 bytes slice): Filters action message ID `a2`. If equal to `0x520`, dispatches internal handler `func_340D70(a0, a3, t0)`; otherwise, forwards parameters to base handler `func_1F45E0(a0, a1, a2, a3)`.
+
+Achieved bit-level 100.00% matching. Pure C++ with zero assembly (.s). Validated with native regression tests in `tests/native/tactical_ai_action_filter_340d30_test.cpp` and binary ELF comparison test `tests/test_tactical_ai_action_filter_340d30_matching.py`.
+
+#### 6.190.1 Tactical AI Action Message Filter Matching Results (Pure C++, 64 Bytes)
+
+| Function / Method | VRAM Address | Code Size (Orig) | Slice Size | Match Status | Description |
+|---|---|---|---|---|---|
+| `func_00340D30` | `0x340D30` | 56 B | 64 B | **Matching (100.00%)** | Action message filter dispatching `func_340D70(a0, a3, t0)` on 0x520 or `func_1F45E0(a0, a1, a2, a3)`. |

@@ -6751,6 +6751,28 @@ This six-function pure C++ slice spans VRAM `0x185D00`–`0x185E50` and file off
 | `func_00185dc0` | `0x185DC0` | 96 | **100.00% exact match** (96/96 B) | 0 B |
 | `func_00185e20` | `0x185E20` | 44 | **100.00% exact match** (44/44 B) | 4 B |
 
+#### 6.321 `RenderManager Spatial Queries, Sub-Object Modifiers & Packed Coordinates` Subsystem (`0x185E50`–`0x186000`, `render_manager_coords.cpp`)
+
+This five-function pure C++ slice spans VRAM `0x185E50`–`0x186000` and file offsets `0x86030`–`0x861E0` (432 bytes total: 408 instruction bytes + 24 bytes padding). The original ELF `PT_LOAD` mapping gives the VRAM/file-offset delta `0xFFE20`. The slice implements spatial object selection, bounds-checked item dereferencing, sub-object state updates, virtual refresh dispatch, and 8-register Win32/Emotion Engine packed coordinate unpacking with wrap detection and bitmask extraction. The unit is registered as `Matching` after fresh MWCC compilation and literal comparison of all 408 relocated instruction bytes.
+
+- `func_00185e50` (`0x185E50`, 32 instruction bytes, 0 B padding): Spatial object selector. If `self->field_84` is non-null and `a1 == 0`, returns `self->field_84`; otherwise returns 0.
+- `func_00185e70` (`0x185E70`, 80 instruction bytes, 0 B padding): Indexed item accessor. If `self->field_90` is non-null and `0 <= a1 < self->field_8C`, returns indexed element `self->field_90[a1]`; otherwise returns 0.
+- `func_00185ec0` (`0x185EC0`, 60 instruction bytes, 4 B padding): Subsystem synchronizer. Calls `func_190C40(self->field_1AC)` and sets flag `self->field_404->field_30 = 1` if sub-object is present.
+- `func_00185f00` (`0x185F00`, 116 instruction bytes, 12 B padding): Refresh evaluator and virtual dispatcher. Queries `self->field_B20 = func_185DC0(self, 1)`. If `a1 != self->field_B20`, assigns `self->field_B24 = (a1 != 0) ? a2 : 0` and dispatches virtual method 6 (`self->Method20()`).
+- `func_00185f80` (`0x185F80`, 120 instruction bytes, 8 B padding): Coordinate unpacker and flag decoder. Unpacks `pt->x = coords & 0xFFFF` and `pt->y = (coords >> 16) & 0xFFFF`, wrapping coordinates > 60000 by subtracting 65536, and extracts bitmask flags: `*b1 = flags & 1`, `*b2 = flags & 2`, `*b3 = flags & 8`, `*b4 = flags & 4`.
+
+`tests/test_render_manager_coords.py` exercises three 32-bit native test cases across spatial object selection, bounds checking, sub-object flags, virtual dispatch, coordinate wrapping, and bitmask extraction. `tests/test_render_manager_coords_matching.py` verifies fresh-compilation bit-exactness against `orig/SLES-50282/AOK.ELF` after `R_MIPS_26` relocation resolution, as well as split boundary alignment and padding.
+
+#### 6.321.1 RenderManager Spatial Queries and Packed Coordinates Matching Results (408 Code Bytes, 432-Byte Slice)
+
+| Function | VRAM | Instruction bytes | Relocated byte comparison | Padding |
+|---|---:|---:|---|---:|
+| `func_00185e50` | `0x185E50` | 32 | **100.00% exact match** (32/32 B) | 0 B |
+| `func_00185e70` | `0x185E70` | 80 | **100.00% exact match** (80/80 B) | 0 B |
+| `func_00185ec0` | `0x185EC0` | 60 | **100.00% exact match** (60/60 B) | 4 B |
+| `func_00185f00` | `0x185F00` | 116 | **100.00% exact match** (116/116 B) | 12 B |
+| `func_00185f80` | `0x185F80` | 120 | **100.00% exact match** (120/120 B) | 8 B |
+
 #### Zone Terrain and Coordinate Transformation Slices (`0x1CDD00`–`0x1D1430`)
 
 Contiguous decompilation of the Age of Empires II PlayStation 2 terrain and spatial sub-systems along file offsets `0xCDEE0`–`0xD1610` (VRAM `0x1CDD00`–`0x1D1430`, offset mapping `+0xFFE20`):

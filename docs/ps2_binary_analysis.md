@@ -6453,6 +6453,44 @@ An independent verification suite (`tests/test_render_manager_screen.py`, with 3
 |---|---:|---:|---|---:|
 | `func_001847c0` | `0x1847C0` | 708 | Structural alignment verified | 4 B |
 
+#### 6.305 `RenderManager Member Methods & Statistics` Subsystem (`0x184A88`–`0x184C28`, `render_manager_methods.cpp`)
+
+This 13-function C++ slice spans VRAM `0x184A88`–`0x184C28` and file offsets `0x84C68`–`0x84E08` (416 bytes total). The original ELF `PT_LOAD` mapping gives the VRAM/file-offset delta `0xFFE20`. The slice comprises 416 instruction bytes implementing `RenderManager` scalar destructor, statistics reset, counters, and element attribute accessors. Symbol sizes exclude padding. The unit remains registered as `NonMatching`.
+
+- `func_00184a88` (`0x184A88`, 16 instruction bytes): Setter for `field_1C8`.
+- `func_00184a98` (`0x184A98`, 84 instruction bytes): Scalar deleting destructor for `RenderManager`. Resets vtable `__vt__13RenderManager` (`0x004D7DB0`) and conditionally deallocates `self` via `func_100670` when `(short)flags > 0`.
+- `func_00184aec` (`0x184AEC`, 112 instruction bytes): Statistics reset routine. Sets `field_20 = 10`, zeroes `field_518`–`field_538`, and clears 30 element statistics records (32 bytes each) at offset `+0x53C`.
+- `func_00184b5c` (`0x184B5C`, 56 instruction bytes): Element statistic accumulator and maximum tracker.
+- `func_00184b94` (`0x184B94`, 28 instruction bytes): Increments counter `field_51C`.
+- `func_00184bb0` (`0x184BB0`, 16 instruction bytes): Increments counter `field_520`.
+- `func_00184bc0` (`0x184BC0`, 16 instruction bytes): Sets `element[idx].field_14`.
+- `func_00184bd0` (`0x184BD0`, 16 instruction bytes): Returns `element[idx].field_4`.
+- `func_00184be0` (`0x184BE0`, 16 instruction bytes): Returns `element[idx].field_14`.
+- `func_00184bf0` (`0x184BF0`, 16 instruction bytes): Returns `element[idx].field_0`.
+- `func_00184c00` (`0x184C00`, 8 instruction bytes): Returns `field_528`.
+- `func_00184c08` (`0x184C08`, 16 instruction bytes): Returns `field_51C`.
+- `func_00184c18` (`0x184C18`, 16 instruction bytes): Returns `field_64`.
+
+An independent verification suite (`tests/test_render_manager_methods.py`, with 32-bit test doubles in `tests/native/render_manager_methods_test.cpp`) validates getters, setters, statistics accumulators, counter increments, and destructor memory release.
+
+#### 6.305.1 RenderManager Member Methods & Statistics Matching Results (416 Code Bytes, 416-Byte Slice)
+
+| Function | VRAM | Instruction bytes | Result | Padding |
+|---|---:|---:|---|---:|
+| `func_00184a88` | `0x184A88` | 8 | **100.00% exact match** (8/8 B) | 8 B |
+| `func_00184a98` | `0x184A98` | 76 | **100.00% exact match** (76/76 B) | 8 B |
+| `func_00184aec` | `0x184AEC` | 108 | **100.00% exact match** (108/108 B) | 4 B |
+| `func_00184b5c` | `0x184B5C` | 52 | **100.00% exact match** (52/52 B) | 4 B |
+| `func_00184b94` | `0x184B94` | 16 | **100.00% exact match** (16/16 B) | 12 B |
+| `func_00184bb0` | `0x184BB0` | 16 | **100.00% exact match** (16/16 B) | 0 B |
+| `func_00184bc0` | `0x184BC0` | 16 | **100.00% exact match** (16/16 B) | 0 B |
+| `func_00184bd0` | `0x184BD0` | 16 | **100.00% exact match** (16/16 B) | 0 B |
+| `func_00184be0` | `0x184BE0` | 16 | **100.00% exact match** (16/16 B) | 0 B |
+| `func_00184bf0` | `0x184BF0` | 16 | **100.00% exact match** (16/16 B) | 0 B |
+| `func_00184c00` | `0x184C00` | 8 | **100.00% exact match** (8/8 B) | 0 B |
+| `func_00184c08` | `0x184C08` | 8 | **100.00% exact match** (8/8 B) | 8 B |
+| `func_00184c18` | `0x184C18` | 8 | **100.00% exact match** (8/8 B) | 8 B |
+
 #### Zone Terrain and Coordinate Transformation Slices (`0x1CDD00`–`0x1D1430`)
 
 Contiguous decompilation of the Age of Empires II PlayStation 2 terrain and spatial sub-systems along file offsets `0xCDEE0`–`0xD1610` (VRAM `0x1CDD00`–`0x1D1430`, offset mapping `+0xFFE20`):

@@ -2165,9 +2165,435 @@ segments:
     vram: 0x1D1150
     subsegments:
       - [0xD1330, asm, zone_filter_cell_items]
+  - name: zone_init_render_items
+    type: code
+    start: 0xD1610
+    vram: 0x1D1430
+    subsegments:
+      - [0xD1610, asm, zone_init_render_items]
+  - name: zone_cleanup_render_items
+    type: code
+    start: 0xD1740
+    vram: 0x1D1560
+    subsegments:
+      - [0xD1740, asm, zone_cleanup_render_items]
+  - name: zone_destroy_render_items
+    type: code
+    start: 0xD18B0
+    vram: 0x1D16D0
+    subsegments:
+      - [0xD18B0, asm, zone_destroy_render_items]
+  - name: zone_bind_render_item
+    type: code
+    start: 0xD1980
+    vram: 0x1D17A0
+    subsegments:
+      - [0xD1980, asm, zone_bind_render_item]
+  - name: zone_unlink_render_item
+    type: code
+    start: 0xD1EA0
+    vram: 0x1D1CC0
+    subsegments:
+      - [0xD1EA0, asm, zone_unlink_render_item]
+  - name: zone_spatial_pyramid_init
+    type: code
+    start: 0xD1F50
+    vram: 0x1D1D70
+    subsegments:
+      - [0xD1F50, asm, zone_spatial_pyramid_init]
+  - name: zone_spatial_pyramid_destroy
+    type: code
+    start: 0xD2190
+    vram: 0x1D1FB0
+    subsegments:
+      - [0xD2190, asm, zone_spatial_pyramid_destroy]
+  - name: zone_spatial_pyramid_compare
+    type: code
+    start: 0xD22B0
+    vram: 0x1D20D0
+    subsegments:
+      - [0xD22B0, asm, zone_spatial_pyramid_compare]
+  - name: zone_spatial_pyramid_reset_level3
+    type: code
+    start: 0xD2320
+    vram: 0x1D2140
+    subsegments:
+      - [0xD2320, asm, zone_spatial_pyramid_reset_level3]
+  - name: zone_spatial_pyramid_update_cell
+    type: code
+    start: 0xD2390
+    vram: 0x1D21B0
+    subsegments:
+      - [0xD2390, asm, zone_spatial_pyramid_update_cell]
+  - name: zone_spatial_pyramid_update_rect
+    type: code
+    start: 0xD2500
+    vram: 0x1D2320
+    subsegments:
+      - [0xD2500, asm, zone_spatial_pyramid_update_rect]
+  - name: zone_spatial_pyramid_process_cell
+    type: code
+    start: 0xD2640
+    vram: 0x1D2460
+    subsegments:
+      - [0xD2640, asm, zone_spatial_pyramid_process_cell]
+  - name: zone_spatial_pyramid_check_tile
+    type: code
+    start: 0xD2BD0
+    vram: 0x1D29F0
+    subsegments:
+      - [0xD2BD0, asm, zone_spatial_pyramid_check_tile]
+  - name: zone_spatial_pyramid_query_bounds
+    type: code
+    start: 0xD2E50
+    vram: 0x1D2C70
+    subsegments:
+      - [0xD2E50, asm, zone_spatial_pyramid_query_bounds]
+  - name: zone_spatial_pyramid_raycast
+    type: code
+    start: 0xD2FC0
+    vram: 0x1D2DE0
+    subsegments:
+      - [0xD2FC0, asm, zone_spatial_pyramid_raycast]
+  - name: zone_spatial_pyramid_check_rect
+    type: code
+    start: 0xD34F0
+    vram: 0x1D3310
+    subsegments:
+      - [0xD34F0, asm, zone_spatial_pyramid_check_rect]
+  - name: zone_spatial_pyramid_search_cell
+    type: code
+    start: 0xD3620
+    vram: 0x1D3440
+    subsegments:
+      - [0xD3620, asm, zone_spatial_pyramid_search_cell]
+  - name: zone_spatial_pyramid_eval_cost
+    type: code
+    start: 0xD37A0
+    vram: 0x1D35C0
+    subsegments:
+      - [0xD37A0, asm, zone_spatial_pyramid_eval_cost]
+  - name: zone_spatial_pyramid_search_step
+    type: code
+    start: 0xD3A60
+    vram: 0x1D3880
+    subsegments:
+      - [0xD3A60, asm, zone_spatial_pyramid_search_step]
+  - name: zone_spatial_pyramid_search_radius
+    type: code
+    start: 0xD3E50
+    vram: 0x1D3C70
+    subsegments:
+      - [0xD3E50, asm, zone_spatial_pyramid_search_radius]
+  - name: zone_spatial_pyramid_search_bounds
+    type: code
+    start: 0xD4090
+    vram: 0x1D3EB0
+    subsegments:
+      - [0xD4090, asm, zone_spatial_pyramid_search_bounds]
+  - name: zone_spatial_pyramid_test_cell_bounds
+    type: code
+    start: 0xD42C0
+    vram: 0x1D40E0
+    subsegments:
+      - [0xD42C0, asm, zone_spatial_pyramid_test_cell_bounds]
+  - name: zone_spatial_pyramid_insert_sorted
+    type: code
+    start: 0xD4480
+    vram: 0x1D42A0
+    subsegments:
+      - [0xD4480, asm, zone_spatial_pyramid_insert_sorted]
+  - name: zone_spatial_pyramid_alloc_node
+    type: code
+    start: 0xD4510
+    vram: 0x1D4330
+    subsegments:
+      - [0xD4510, asm, zone_spatial_pyramid_alloc_node]
+  - name: zone_spatial_pyramid_check_edge
+    type: code
+    start: 0xD4620
+    vram: 0x1D4440
+    subsegments:
+      - [0xD4620, asm, zone_spatial_pyramid_check_edge]
+  - name: zone_spatial_pyramid_connect_nodes
+    type: code
+    start: 0xD4A90
+    vram: 0x1D48B0
+    subsegments:
+      - [0xD4A90, asm, zone_spatial_pyramid_connect_nodes]
+  - name: zone_spatial_pyramid_resolve_target
+    type: code
+    start: 0xD4E00
+    vram: 0x1D4C20
+    subsegments:
+      - [0xD4E00, asm, zone_spatial_pyramid_resolve_target]
+  - name: zone_spatial_pyramid_check_cell_step
+    type: code
+    start: 0xD4FE0
+    vram: 0x1D4E00
+    subsegments:
+      - [0xD4FE0, asm, zone_spatial_pyramid_check_cell_step]
+  - name: zone_spatial_pyramid_alloc_grid
+    type: code
+    start: 0xD5050
+    vram: 0x1D4E70
+    subsegments:
+      - [0xD5050, asm, zone_spatial_pyramid_alloc_grid]
+  - name: zone_spatial_pyramid_search_path
+    type: code
+    start: 0xD5390
+    vram: 0x1D51B0
+    subsegments:
+      - [0xD5390, asm, zone_spatial_pyramid_search_path]
+  - name: zone_spatial_pyramid_step_path
+    type: code
+    start: 0xD57F0
+    vram: 0x1D5610
+    subsegments:
+      - [0xD57F0, asm, zone_spatial_pyramid_step_path]
+  - name: zone_check_tile_has_attr
+    type: code
+    start: 0xD5C10
+    vram: 0x1D5A30
+    subsegments:
+      - [0xD5C10, asm, zone_check_tile_has_attr]
+  - name: zone_spatial_pyramid_test_point
+    type: code
+    start: 0xD5CE0
+    vram: 0x1D5B00
+    subsegments:
+      - [0xD5CE0, asm, zone_spatial_pyramid_test_point]
+  - name: zone_tile_terrain_is_passable
+    type: code
+    start: 0xD6030
+    vram: 0x1D5E50
+    subsegments:
+      - [0xD6030, asm, zone_tile_terrain_is_passable]
+  - name: zone_spatial_pyramid_build_graph
+    type: code
+    start: 0xD6090
+    vram: 0x1D5EB0
+    subsegments:
+      - [0xD6090, asm, zone_spatial_pyramid_build_graph]
+  - name: zone_spatial_pyramid_find_path
+    type: code
+    start: 0xD68C0
+    vram: 0x1D66E0
+    subsegments:
+      - [0xD68C0, asm, zone_spatial_pyramid_find_path]
+  - name: zone_spatial_pyramid_search_hierarchical
+    type: code
+    start: 0xD70F0
+    vram: 0x1D6F10
+    subsegments:
+      - [0xD70F0, asm, zone_spatial_pyramid_search_hierarchical]
+  - name: zone_spatial_node_ctor
+    type: code
+    start: 0xD7C80
+    vram: 0x1D7AA0
+    subsegments:
+      - [0xD7C80, asm, zone_spatial_node_ctor]
+  - name: zone_spatial_node_dtor
+    type: code
+    start: 0xD7CA0
+    vram: 0x1D7AC0
+    subsegments:
+      - [0xD7CA0, asm, zone_spatial_node_dtor]
+  - name: zone_spatial_node_cleanup
+    type: code
+    start: 0xD7D00
+    vram: 0x1D7B20
+    subsegments:
+      - [0xD7D00, asm, zone_spatial_node_cleanup]
+  - name: zone_spatial_lookup_item
+    type: code
+    start: 0xD7D90
+    vram: 0x1D7BB0
+    subsegments:
+      - [0xD7D90, asm, zone_spatial_lookup_item]
+  - name: zone_spatial_find_item
+    type: code
+    start: 0xD7DD0
+    vram: 0x1D7BF0
+    subsegments:
+      - [0xD7DD0, asm, zone_spatial_find_item]
+  - name: zone_spatial_lookup_item_entry
+    type: code
+    start: 0xD7E80
+    vram: 0x1D7CA0
+    subsegments:
+      - [0xD7E80, asm, zone_spatial_lookup_item_entry]
+  - name: zone_spatial_find_or_create_item
+    type: code
+    start: 0xD7EC0
+    vram: 0x1D7CE0
+    subsegments:
+      - [0xD7EC0, asm, zone_spatial_find_or_create_item]
+  - name: zone_spatial_update_rect
+    type: code
+    start: 0xD7FB0
+    vram: 0x1D7DD0
+    subsegments:
+      - [0xD7FB0, asm, zone_spatial_update_rect]
+  - name: zone_spatial_update_rect_cb
+    type: code
+    start: 0xD8050
+    vram: 0x1D7E70
+    subsegments:
+      - [0xD8050, asm, zone_spatial_update_rect_cb]
+  - name: zone_spatial_matrix_init_identity
+    type: code
+    start: 0xD8070
+    vram: 0x1D7E90
+    subsegments:
+      - [0xD8070, asm, zone_spatial_matrix_init_identity]
+  - name: matrix_rotate_axis_angle
+    type: code
+    start: 0xD80B0
+    vram: 0x1D7ED0
+    subsegments:
+      - [0xD80B0, asm, matrix_rotate_axis_angle]
+  - name: matrix_mul_vec3
+    type: code
+    start: 0xD81E0
+    vram: 0x1D8000
+    subsegments:
+      - [0xD81E0, asm, matrix_mul_vec3]
+  - name: zone_spatial_tree_node_dtor
+    type: code
+    start: 0xD8250
+    vram: 0x1D8070
+    subsegments:
+      - [0xD8250, asm, zone_spatial_tree_node_dtor]
+  - name: zone_spatial_tree_alloc_buffer
+    type: code
+    start: 0xD82B0
+    vram: 0x1D80D0
+    subsegments:
+      - [0xD82B0, asm, zone_spatial_tree_alloc_buffer]
+  - name: zone_spatial_tree_append_child
+    type: code
+    start: 0xD8300
+    vram: 0x1D8120
+    subsegments:
+      - [0xD8300, asm, zone_spatial_tree_append_child]
+  - name: zone_spatial_tree_manager_dtor
+    type: code
+    start: 0xD8340
+    vram: 0x1D8160
+    subsegments:
+      - [0xD8340, asm, zone_spatial_tree_manager_dtor]
+  - name: zone_spatial_allocator_init
+    type: code
+    start: 0xD83A0
+    vram: 0x1D81C0
+    subsegments:
+      - [0xD83A0, asm, zone_spatial_allocator_init]
+  - name: zone_spatial_allocator_pop
+    type: code
+    start: 0xD83C0
+    vram: 0x1D81E0
+    subsegments:
+      - [0xD83C0, asm, zone_spatial_allocator_pop]
+  - name: zone_spatial_allocator_push
+    type: code
+    start: 0xD8520
+    vram: 0x1D8340
+    subsegments:
+      - [0xD8520, asm, zone_spatial_allocator_push]
+  - name: zone_spatial_notify_pos
+    type: code
+    start: 0xD8550
+    vram: 0x1D8370
+    subsegments:
+      - [0xD8550, asm, zone_spatial_notify_pos]
+  - name: zone_spatial_notify_state
+    type: code
+    start: 0xD85F0
+    vram: 0x1D8410
+    subsegments:
+      - [0xD85F0, asm, zone_spatial_notify_state]
+  - name: zone_spatial_trigger_update
+    type: code
+    start: 0xD8660
+    vram: 0x1D8480
+    subsegments:
+      - [0xD8660, asm, zone_spatial_trigger_update]
+  - name: zone_spatial_entity_dtor
+    type: code
+    start: 0xD8690
+    vram: 0x1D84B0
+    subsegments:
+      - [0xD8690, asm, zone_spatial_entity_dtor]
+  - name: zone_spatial_entity_update_pos
+    type: code
+    start: 0xD8700
+    vram: 0x1D8520
+    subsegments:
+      - [0xD8700, asm, zone_spatial_entity_update_pos]
+  - name: zone_spatial_entity_deserialize
+    type: code
+    start: 0xD8730
+    vram: 0x1D8550
+    subsegments:
+      - [0xD8730, asm, zone_spatial_entity_deserialize]
+  - name: zone_spatial_action_stub
+    type: code
+    start: 0xD87B0
+    vram: 0x1D85D0
+    subsegments:
+      - [0xD87B0, asm, zone_spatial_action_stub]
+  - name: zone_spatial_entity_serialize
+    type: code
+    start: 0xD87C0
+    vram: 0x1D85E0
+    subsegments:
+      - [0xD87C0, asm, zone_spatial_entity_serialize]
+  - name: zone_spatial_spawn_projectile
+    type: code
+    start: 0xD8830
+    vram: 0x1D8650
+    subsegments:
+      - [0xD8830, asm, zone_spatial_spawn_projectile]
+  - name: zone_spatial_spawn_projectile_at
+    type: code
+    start: 0xD88F0
+    vram: 0x1D8710
+    subsegments:
+      - [0xD88F0, asm, zone_spatial_spawn_projectile_at]
+  - name: zone_spatial_projectile_step
+    type: code
+    start: 0xD89E0
+    vram: 0x1D8800
+    subsegments:
+      - [0xD89E0, asm, zone_spatial_projectile_step]
+  - name: zone_spatial_projectile_collision
+    type: code
+    start: 0xD8AE0
+    vram: 0x1D8900
+    subsegments:
+      - [0xD8AE0, asm, zone_spatial_projectile_collision]
+  - name: zone_spatial_view_check_status
+    type: code
+    start: 0xD8C90
+    vram: 0x1D8AB0
+    subsegments:
+      - [0xD8C90, asm, zone_spatial_view_check_status]
+  - name: zone_spatial_view_obj_ctor
+    type: code
+    start: 0xD8CD0
+    vram: 0x1D8AF0
+    subsegments:
+      - [0xD8CD0, asm, zone_spatial_view_obj_ctor]
+  - name: zone_spatial_view_obj_dtor
+    type: code
+    start: 0xD8E10
+    vram: 0x1D8C30
+    subsegments:
+      - [0xD8E10, asm, zone_spatial_view_obj_dtor]
   - name: post_aoe2
     type: bin
-    start: 0xD1610
+    start: 0xD8E80
   - name: trade_action_helper_217730
     type: code
     start: 0x117910

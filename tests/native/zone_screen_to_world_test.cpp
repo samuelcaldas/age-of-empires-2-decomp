@@ -46,12 +46,150 @@ static void test_case0_exact_coordinates() {
     assert(out_x == 0.25f);
     assert(out_y == 0.25f);
 
-    // Non-binary fractional case: (17, 19) -> fx = 17/64 = 0.265625, fy = 19/32 = 0.59375
-    // Dyadic rational: 23/64 = 0.359375f and 11/64 = 0.171875f are exact IEEE 754 floats
+    // Dyadic rational non-integer coordinates: (17, 19) -> fx = 17/64 = 0.265625, fy = 19/32 = 0.59375
+    // 23/64 = 0.359375f and 11/64 = 0.171875f are exact IEEE 754 dyadic floats
     out_x = -999.0f; out_y = -999.0f;
     func_001CEA60(zm, 17, 19, &pkt, &out_y, &out_x);
     assert(out_x == 0.359375f);
     assert(out_y == 0.171875f);
+}
+
+static void test_dual_sided_slope_branches() {
+    char zm[0x10000];
+    setup_zm(zm, 64, 32);
+
+    // Case 11: condition fx > 0.5
+    // Branch 1 (fx <= 0.5): (16, 32) -> fx = 0.25, fy = 1.0 -> s2 = 0.5 -> x = 1.0f, y = -0.5f
+    CmdPacket pkt11 = {{}, 11};
+    float ox11_a = 0.0f, oy11_a = 0.0f;
+    func_001CEA60(zm, 16, 32, &pkt11, &oy11_a, &ox11_a);
+    assert(ox11_a == 1.0f);
+    assert(oy11_a == -0.5f);
+
+    // Branch 2 (fx > 0.5): (48, 32) -> fx = 0.75, fy = 1.0 -> s2 = 0.0 -> x = 1.25f, y = 0.25f
+    float ox11_b = 0.0f, oy11_b = 0.0f;
+    func_001CEA60(zm, 48, 32, &pkt11, &oy11_b, &ox11_b);
+    assert(ox11_b == 1.25f);
+    assert(oy11_b == 0.25f);
+
+    // Case 12: condition fx > 0.5
+    // Branch 1 (fx <= 0.5): (16, 32) -> s2 = 0.0 -> x = 0.75f, y = -0.25f
+    CmdPacket pkt12 = {{}, 12};
+    float ox12_a = 0.0f, oy12_a = 0.0f;
+    func_001CEA60(zm, 16, 32, &pkt12, &oy12_a, &ox12_a);
+    assert(ox12_a == 0.75f);
+    assert(oy12_a == -0.25f);
+
+    // Branch 2 (fx > 0.5): (48, 32) -> s2 = 0.5 -> x = 1.5f, y = 0.0f
+    float ox12_b = 0.0f, oy12_b = 0.0f;
+    func_001CEA60(zm, 48, 32, &pkt12, &oy12_b, &ox12_b);
+    assert(ox12_b == 1.5f);
+    assert(oy12_b == 0.0f);
+
+    // Case 10: condition fy < 1.0
+    // Branch 1 (fy < 1.0): (32, 16) -> fx = 0.5, fy = 0.5 -> s2 = -0.5 -> x = 0.25f, y = 0.75f
+    CmdPacket pkt10 = {{}, 10};
+    float ox10_a = 0.0f, oy10_a = 0.0f;
+    func_001CEA60(zm, 32, 16, &pkt10, &oy10_a, &ox10_a);
+    assert(ox10_a == 0.25f);
+    assert(oy10_a == 0.75f);
+
+    // Branch 2 (fy >= 1.0): (32, 48) -> fx = 0.5, fy = 1.5 -> s2 = -1.0 -> x = 1.0f, y = 0.0f
+    float ox10_b = 0.0f, oy10_b = 0.0f;
+    func_001CEA60(zm, 32, 48, &pkt10, &oy10_b, &ox10_b);
+    assert(ox10_a != ox10_b || oy10_a != oy10_b);
+    assert(ox10_b == 1.0f);
+    assert(oy10_b == 0.0f);
+
+    // Case 3: condition (fx/2 < screen_y)
+    CmdPacket pkt3 = {{}, 3};
+    float ox3_a = 0.0f, oy3_a = 0.0f;
+    func_001CEA60(zm, 32, 100, &pkt3, &oy3_a, &ox3_a);
+    assert(ox3_a == 1.9375f);
+    assert(oy3_a == -0.9375f);
+
+    float ox3_b = 0.0f, oy3_b = 0.0f;
+    func_001CEA60(zm, 32, 0, &pkt3, &oy3_b, &ox3_b);
+    assert(ox3_b == 0.0f);
+    assert(oy3_b == 1.0f);
+
+    // Case 4: condition ((1-fx)/2 < screen_y)
+    CmdPacket pkt4 = {{}, 4};
+    float ox4_a = 0.0f, oy4_a = 0.0f;
+    func_001CEA60(zm, 32, 100, &pkt4, &oy4_a, &ox4_a);
+    assert(ox4_a == 1.9375f);
+    assert(oy4_a == -0.9375f);
+
+    float ox4_b = 0.0f, oy4_b = 0.0f;
+    func_001CEA60(zm, 32, 0, &pkt4, &oy4_b, &ox4_b);
+    assert(ox4_b == 0.0f);
+    assert(oy4_b == 1.0f);
+
+    // Case 15: condition screen_y > (1 - fx/2)
+    CmdPacket pkt15 = {{}, 15};
+    float ox15_a = 0.0f, oy15_a = 0.0f;
+    func_001CEA60(zm, 32, 100, &pkt15, &oy15_a, &ox15_a);
+    assert(ox15_a == 1.6875f);
+    assert(oy15_a == -0.6875f);
+
+    float ox15_b = 0.0f, oy15_b = 0.0f;
+    func_001CEA60(zm, 32, 0, &pkt15, &oy15_b, &ox15_b);
+    assert(ox15_b == 0.0f);
+    assert(oy15_b == 1.0f);
+
+    // Case 16: condition (1 - (1-fx)/2) > screen_y
+    CmdPacket pkt16 = {{}, 16};
+    float ox16_a = 0.0f, oy16_a = 0.0f;
+    func_001CEA60(zm, 32, 0, &pkt16, &oy16_a, &ox16_a);
+    assert(ox16_a == 0.125f);
+    assert(oy16_a == 0.875f);
+
+    float ox16_b = 0.0f, oy16_b = 0.0f;
+    func_001CEA60(zm, 32, 100, &pkt16, &oy16_b, &ox16_b);
+    assert(ox16_b == 9.375f);
+    assert(oy16_b == -8.375f);
+
+    // Case 2: condition fx > 0.5
+    // Branch 1 (fx <= 0.5): (16, 32) -> fx = 0.25, fy = 1.0 -> x = 0.3125f, y = 0.1875f
+    CmdPacket pkt2 = {{}, 2};
+    float ox2_a = 0.0f, oy2_a = 0.0f;
+    func_001CEA60(zm, 16, 32, &pkt2, &oy2_a, &ox2_a);
+    assert(ox2_a == 0.3125f);
+    assert(oy2_a == 0.1875f);
+
+    // Branch 2 (fx > 0.5): (48, 32) -> fx = 0.75, fy = 1.0 -> x = 0.8125f, y = 0.6875f
+    float ox2_b = 0.0f, oy2_b = 0.0f;
+    func_001CEA60(zm, 48, 32, &pkt2, &oy2_b, &ox2_b);
+    assert(ox2_b == 0.8125f);
+    assert(oy2_b == 0.6875f);
+
+    // Case 13: condition fx > 0.5
+    // Branch 1 (fx <= 0.5): (16, 32) -> fx = 0.25, fy = 1.0 -> x = 2.0f, y = -1.5f
+    CmdPacket pkt13 = {{}, 13};
+    float ox13_a = 0.0f, oy13_a = 0.0f;
+    func_001CEA60(zm, 16, 32, &pkt13, &oy13_a, &ox13_a);
+    assert(ox13_a == 2.0f);
+    assert(oy13_a == -1.5f);
+
+    // Branch 2 (fx > 0.5): (48, 32) -> fx = 0.75, fy = 1.0 -> x = 2.5f, y = -1.0f
+    float ox13_b = 0.0f, oy13_b = 0.0f;
+    func_001CEA60(zm, 48, 32, &pkt13, &oy13_b, &ox13_b);
+    assert(ox13_b == 2.5f);
+    assert(oy13_b == -1.0f);
+
+    // Case 14: condition fx > 0.5
+    // Branch 1 (fx <= 0.5): (16, 32) -> fx = 0.25, fy = 1.0 -> x = 0.4375f, y = 0.0625f
+    CmdPacket pkt14 = {{}, 14};
+    float ox14_a = 0.0f, oy14_a = 0.0f;
+    func_001CEA60(zm, 16, 32, &pkt14, &oy14_a, &ox14_a);
+    assert(ox14_a == 0.4375f);
+    assert(oy14_a == 0.0625f);
+
+    // Branch 2 (fx > 0.5): (48, 32) -> fx = 0.75, fy = 1.0 -> x = 0.9375f, y = 0.5625f
+    float ox14_b = 0.0f, oy14_b = 0.0f;
+    func_001CEA60(zm, 48, 32, &pkt14, &oy14_b, &ox14_b);
+    assert(ox14_b == 0.9375f);
+    assert(oy14_b == 0.5625f);
 }
 
 static void test_case1_and_case5_slopes() {
@@ -131,6 +269,26 @@ static void test_default_cases_17_and_255() {
     assert(out_y == 0.25f);
 }
 
+static void test_float_x_rounding_before_y() {
+    char zm[0x10000];
+    setup_zm(zm, 7, 11);
+    CmdPacket pkt = {{}, 0};
+
+    float out_x = 0.0f, out_y = 0.0f;
+    func_001CEA60(zm, 5, 9, &pkt, &out_y, &out_x);
+
+    // Verify out_y is computed from the rounded float out_x, not the unrounded double
+    double fx = 5.0 / 7.0;
+    double fy = 9.0 / 11.0;
+    double sum_term = (2.0 * fy - 1.0) + 2.0 * fx;
+    double x_fp = sum_term / 2.0;
+    float expected_x = static_cast<float>(x_fp);
+    float expected_y = static_cast<float>(2.0 * fx - static_cast<double>(expected_x));
+
+    assert(out_x == expected_x);
+    assert(out_y == expected_y);
+}
+
 int main(int argc, char **argv) {
     if (argc > 1 && std::string(argv[1]) == "case0_exact") {
         test_case0_exact_coordinates();
@@ -142,12 +300,18 @@ int main(int argc, char **argv) {
         test_all_17_cases_coverage();
     } else if (argc > 1 && std::string(argv[1]) == "default_cases") {
         test_default_cases_17_and_255();
+    } else if (argc > 1 && std::string(argv[1]) == "float_rounding") {
+        test_float_x_rounding_before_y();
+    } else if (argc > 1 && std::string(argv[1]) == "dual_sided_slopes") {
+        test_dual_sided_slope_branches();
     } else {
         test_case0_exact_coordinates();
         test_case1_and_case5_slopes();
         test_case9_and_case13_slopes();
         test_all_17_cases_coverage();
         test_default_cases_17_and_255();
+        test_float_x_rounding_before_y();
+        test_dual_sided_slope_branches();
     }
     return 0;
 }

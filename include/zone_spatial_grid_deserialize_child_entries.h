@@ -1,0 +1,8 @@
+#ifndef ZONE_SPATIAL_GRID_DESERIALIZE_CHILD_ENTRIES_H
+#define ZONE_SPATIAL_GRID_DESERIALIZE_CHILD_ENTRIES_H
+
+extern "C" {
+void func_001EB440(void *self, void *stream, void *p2, void *p3);
+}
+
+#endif // ZONE_SPATIAL_GRID_DESERIALIZE_CHILD_ENTRIES_H

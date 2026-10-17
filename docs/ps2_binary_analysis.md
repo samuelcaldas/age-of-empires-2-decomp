@@ -6351,6 +6351,50 @@ An independent verification suite (`tests/test_trade_action_stream_node_base.py`
 | `func_00183700` | `0x183700` | 64 | Structural alignment verified | 0 B |
 | `func_00183740` | `0x183740` | 64 | Structural alignment verified | 0 B |
 
+#### 6.301 `Trade Action Stream Node Animated` Subsystem (`0x183780`–`0x184070`, `trade_action_stream_node_anim.cpp`)
+
+This sixteen-function C++ slice spans VRAM `0x183780`–`0x184070` and file offsets `0x83960`–`0x84250` (2,288 bytes total). The original ELF `PT_LOAD` mapping gives the VRAM/file-offset delta `0xFFE20`. The slice comprises 2,244 instruction bytes across sixteen member functions of the `AspAnimatedNode` derived class plus 44 alignment padding bytes. Symbol sizes exclude padding. The unit remains registered as `NonMatching`.
+
+- `func_00183780` (`0x183780`, 228 instruction bytes): Animated node initializer `AspAnimatedNode::init(texture, priority, x, y, flags)`.
+- `func_00183870` (`0x183870`, 152 instruction bytes): Stream deserializer `AspAnimatedNode::deserialize(stream, textures)`.
+- `func_00183920` (`0x183920`, 8 instruction bytes): Reference count reset `AspAnimatedNode::clear_ref()`.
+- `func_00183930` (`0x183930`, 144 instruction bytes): Stream serializer `AspAnimatedNode::serialize(stream)`.
+- `func_001839d0` (`0x1839D0`, 752 instruction bytes): Master animation frame updater `AspAnimatedNode::update(dt, speed)`.
+- `func_00183cc0` (`0x183CC0`, 320 instruction bytes): Clipped viewport renderer `AspAnimatedNode::draw_clipped(...)`.
+- `func_00183e00` (`0x183E00`, 176 instruction bytes): Fast direct renderer `AspAnimatedNode::draw_simple(...)`.
+- `func_00183eb0` (`0x183EB0`, 80 instruction bytes): Transformed renderer `AspAnimatedNode::draw_transformed(...)`.
+- `func_00183f00` (`0x183F00`, 8 instruction bytes): Mode getter `AspAnimatedNode::get_mode()`.
+- `func_00183f10` (`0x183F10`, 12 instruction bytes): Mode setter `AspAnimatedNode::set_mode(mode)`.
+- `func_00183f20` (`0x183F20`, 60 instruction bytes): Animation active tester `AspAnimatedNode::is_anim_active()`.
+- `func_00183f60` (`0x183F60`, 8 instruction bytes): Empty parameter callback stub `AspAnimatedNode::set_extra(param, extra)`.
+- `func_00183f70` (`0x183F70`, 100 instruction bytes): Frame trigger evaluator `AspAnimatedNode::check_trigger(target)`.
+- `func_00183fe0` (`0x183FE0`, 8 instruction bytes): Loop frame getter `AspAnimatedNode::get_loop_frame()`.
+- `func_00183ff0` (`0x183FF0`, 56 instruction bytes): Metric query `AspAnimatedNode::query_metric(param)`.
+- `func_00184030` (`0x184030`, 52 instruction bytes): Secondary metric query `AspAnimatedNode::query_metric_2(...)`.
+
+An independent verification suite (`tests/test_trade_action_stream_node_anim.py`, with 32-bit test doubles in `tests/native/trade_action_stream_node_anim_test.cpp`) validates animation frame advancement, loop wrap, draw dispatch, and frame trigger checks.
+
+#### 6.301.1 Trade Action Stream Node Animated Matching Results (2,244 Code Bytes, 2,288-Byte Slice)
+
+| Function | VRAM | Instruction bytes | Result | Padding |
+|---|---:|---:|---|---:|
+| `func_00183780` | `0x183780` | 228 | Structural alignment verified | 0 B |
+| `func_00183870` | `0x183870` | 152 | Structural alignment verified | 24 B |
+| `func_00183920` | `0x183920` | 8 | **100.00% exact match** (8/8 B) | 8 B |
+| `func_00183930` | `0x183930` | 144 | Structural alignment verified | 16 B |
+| `func_001839d0` | `0x1839D0` | 740 | Structural alignment verified | 12 B |
+| `func_00183cc0` | `0x183CC0` | 312 | Structural alignment verified | 8 B |
+| `func_00183e00` | `0x183E00` | 164 | Structural alignment verified | 12 B |
+| `func_00183eb0` | `0x183EB0` | 80 | Structural alignment verified | 0 B |
+| `func_00183f00` | `0x183F00` | 8 | **100.00% exact match** (8/8 B) | 8 B |
+| `func_00183f10` | `0x183F10` | 12 | **100.00% exact match** (12/12 B) | 4 B |
+| `func_00183f20` | `0x183F20` | 60 | Structural alignment verified | 4 B |
+| `func_00183f60` | `0x183F60` | 8 | **100.00% exact match** (8/8 B) | 8 B |
+| `func_00183f70` | `0x183F70` | 100 | Structural alignment verified | 12 B |
+| `func_00183fe0` | `0x183FE0` | 8 | **100.00% exact match** (8/8 B) | 8 B |
+| `func_00183ff0` | `0x183FF0` | 56 | Structural alignment verified | 8 B |
+| `func_00184030` | `0x184030` | 52 | Structural alignment verified | 12 B |
+
 #### Zone Terrain and Coordinate Transformation Slices (`0x1CDD00`–`0x1D1430`)
 
 Contiguous decompilation of the Age of Empires II PlayStation 2 terrain and spatial sub-systems along file offsets `0xCDEE0`–`0xD1610` (VRAM `0x1CDD00`–`0x1D1430`, offset mapping `+0xFFE20`):

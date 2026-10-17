@@ -6143,6 +6143,20 @@ An independent verification suite (`tests/test_trade_action_stream_helpers.py`, 
 | `func_0017dd90` | `0x17DD90` | 52 | 52/52 exact (100.00%) | 12 B |
 | `func_0017ddd0` | `0x17DDD0` | 16 | 16/16 exact (100.00%) | 0 B |
 
+#### 6.292 `Trade Action Stream Dispatch` Subsystem (`0x17DDE0`–`0x17E350`, `trade_action_stream_dispatch.cpp`)
+
+This single-function C++ slice spans VRAM `0x17DDE0`–`0x17E350` and file offsets `0x7DFC0`–`0x7E530` (1,392 bytes total). The original ELF `PT_LOAD` mapping gives the VRAM/file-offset delta `0xFFE20`. The slice comprises 1,384 instruction bytes and 8 alignment-padding bytes. Symbol size excludes padding. The unit remains registered as `NonMatching`.
+
+- `func_0017dde0` (`0x17DDE0`, 1,384 instruction bytes): Master scanline stream rasterizer (`ASMDRAW_HLINE`). Implements vertical coordinate bounds validation against `D_004E30DC` and `D_004E30E0`, horizontal clipping against `D_004E30E4` and `D_004E30E8`, scanline table row lookup via `D_004E3078`, scanline segment linked list traversal, run-length encoding into `D_004E2DAC`, and dynamic dispatch through the 114-entry `PostDrawFunction` table at `0x38FF30`.
+
+An independent verification suite (`tests/test_trade_action_stream_dispatch.py`, with fixture/build support in `tests/trade_action_stream_dispatch_support.py`) compiles the actual source, checks the pinned original ELF SHA-1 (`c086e9273ac798630ec2ca6978b574e8b3edd07f`) and file-backed `PT_LOAD` mapping, validates object and linked `STT_FUNC` symbol sizes and `st_shndx`, links an `ET_EXEC` with no unresolved symbols, and compares emitted instruction and padding bytes.
+
+#### 6.292.1 Trade Action Stream Dispatch Matching Results (1,384 Code Bytes, 1,392-Byte Slice)
+
+| Function | VRAM | Instruction bytes | Result | Padding |
+|---|---:|---:|---|---:|
+| `func_0017dde0` | `0x17DDE0` | 1384 | 1042/1384 normalized match (75.22%) | 8 B |
+
 #### Zone Terrain and Coordinate Transformation Slices (`0x1CDD00`–`0x1D1430`)
 
 Contiguous decompilation of the Age of Empires II PlayStation 2 terrain and spatial sub-systems along file offsets `0xCDEE0`–`0xD1610` (VRAM `0x1CDD00`–`0x1D1430`, offset mapping `+0xFFE20`):
@@ -6177,7 +6191,6 @@ Contiguous decompilation of the Age of Empires II PlayStation 2 terrain and spat
 | `zone_find_cell_item_by_attr` | `0xD12E0`–`0xD1330` | `0x1D1100`–`0x1D1150` | 76 / 80 B | 4 B | **Matching (100.00%)** | Leaf function searching cell items list for matching attribute short at info offset 0xE, returning entity pointer or 0. |
 | `zone_filter_cell_items` | `0xD1330`–`0xD1610` | `0x1D1150`–`0x1D1430` | 732 / 736 B | 4 B | NonMatching (58.01%) | Filters cell items by entity type threshold (>= 50), c6 flag, and GP bitmasks, dispatching virtual method 6 (Render) and sound/queue callbacks. |
 
-<<<<<<< HEAD
 Located at VRAM `0x3074B0`–`0x307640` (file offset `0x207690`–`0x207820`, 400 bytes total slice, Metrowerks C++ PS2 MWCC 2.3.1.01):
 - `func_003074B0` (`0x3074B0`, 396 bytes code + 4 bytes zero padding, 400 bytes slice): Action manager waypoint circular FIFO cache coordinator. Checks active cached index `m_field1D0` against waypoint ID, updates waypoint coordinates `(x, y, z)` and global position, queries timestamp `func_2261c0()`, advances head index `m_field1B1` with circular wrap at 5 entries, and updates full flag `m_field1B3`. **100.00% exact bit-for-bit match**.
 
@@ -6188,25 +6201,3 @@ Emitted instructions: 396 bytes code across 99 instructions + 4 bytes trailing z
 | Function / Method | VRAM Address | Code Size (Orig) | Slice Size | Match Status | Description |
 |---|---|---|---|---|---|
 | `func_003074B0` | `0x3074B0` | 396 B | 400 B | **100.00% exact match** (396/396 B) | Action manager waypoint circular FIFO cache coordinator. |
-
-#### Zone Terrain and Coordinate Transformation Slices (`0x1CDD00`–`0x1D0350`)
-
-Contiguous decompilation of the Age of Empires II PlayStation 2 terrain and spatial sub-systems along file offsets `0xCDEE0`–`0xD0530` (VRAM `0x1CDD00`–`0x1D0350`, offset mapping `+0xFFE20`):
-
-| Unit | File range | VRAM range | Original code / slice | Pad | Match Status | Description |
-|---|---:|---:|---:|---:|---|---|
-| `zone_rebind_table1` | `0xCDEE0`–`0xCE010` | `0x1CDD00`–`0x1CDE30` | 300 / 304 B | 4 B | NonMatching (78.33%) | Table 1 entity rebinding loop (32 entries, stride 416 B, reverse order), parses `.shp` via `func_1EB780`, allocates items (size 0x14), and rebinds pointers from entity ID array. |
-| `zone_rebind_table2` | `0xCE010`–`0xCE110` | `0x1CDE30`–`0x1CDF30` | 256 / 256 B | 0 B | NonMatching (84.69%) | Table 2 entity rebinding loop (16 entries, stride 1440 B at base 0x3400), parses `.shp`, allocates items, tests item flag bit 1, clears active flag and field 0x34B0. |
-| `zone_generate_terrain_objects` | `0xCE110`–`0xCE590` | `0x1CDF30`–`0x1CE3B0` | 1140 / 1152 B | 12 B | NonMatching (63.23%) | Terrain population routine: filters cell items, reads terrain definition from table 1, computes positions (mode 1 center, mode 0 jitter via `func_1AAB30`), verifies placement via Method 15, spawns entities via Method 13. |
-| `zone_clean_tile_objects` | `0xCE590`–`0xCE830` | `0x1CE3B0`–`0x1CE650` | 660 / 672 B | 12 B | NonMatching (70.61%) | Tile entity validation and cleanup: checks terrain type, scans cell items in `[range_min, range_max]`, unlinks via `func_1D09C0` or deletes via virtual method 31, verifies placement collisions for matching filter table items. |
-| `zone_spawn_terrain_objects` | `0xCE830`–`0xCEC10` | `0x1CE650`–`0x1CEA30` | 980 / 992 B | 12 B | NonMatching (60.25%) | Standalone terrain object spawner: spawns objects using table 1 definitions, supporting mode 1 (center) and mode 0 (jittered), executing density loops (`flag_single_spawn == 0`) or single spawn (`flag_single_spawn == 1`). |
-| `zone_set_table_item_ranges` | `0xCEC10`–`0xCEC40` | `0x1CEA30`–`0x1CEA60` | 36 / 48 B | 12 B | **Matching (100.00%)** | Leaf function computing 6-byte entry stride for table indices and storing range values at offsets 0x18, 0x1A, 0x1C. Zero stack frame. |
-| `zone_screen_to_world` | `0xCEC40`–`0xCF530` | `0x1CEA60`–`0x1CF350` | 2284 / 2288 B | 4 B | NonMatching (66.57%) | Inverse coordinate transform: converts screen coordinates to world sub-tile space across 17 tile slopes via jump table at `0x00492520`, solving exact 2D isometric de-rotation (`x = ((2*fy - 1) + 2*fx + s2)/2`, `y = 2*fx - x`) into `*out_x` and `*out_y`, with command > 16 branching to common calculation with `s2 = 0`. |
-| `zone_get_tile_terrain` | `0xCF530`–`0xCF5C0` | `0x1CF350`–`0x1CF3E0` | 144 / 144 B | 0 B | **Matching (100.00%)** | Pure leaf function resolving cell terrain type for coordinates (x, y) via `zm->cells_ptr` and (x * 28) offset, validating terrain < 33, checking active flag in table 1 entry (terrain * 416 + 0x8C) or fallback offset 0x14C >= 0. |
-| `zone_update_elevation_rect` | `0xCF5C0`–`0xCFA10` | `0x1CF3E0`–`0x1CF830` | 1100 / 1104 B | 4 B | NonMatching (64.33%) | Master elevation rectangular region updater: bounds clamping via `func_314EA0`, elevation clamping to [0, 8], slope recalculation via `func_1CFCD0`, entity height re-elevation via Method 17, and raster updates. |
-| `zone_set_tile_terrain` | `0xCFA10`–`0xCFB90` | `0x1CF830`–`0x1CF9B0` | 384 / 384 B | 0 B | NonMatching (59.29%) | Single-tile terrain mutation routine: updates terrain byte, updates raster and LOS, invokes `func_001CE3B0` to clean old entities, invokes `func_001CE650` to spawn new entities, and triggers `func_1D00C0`. |
-| `zone_paint_terrain_rect` | `0xCFB90`–`0xCFEB0` | `0x1CF9B0`–`0x1CFCD0` | 788 / 800 B | 12 B | NonMatching (74.26%) | Rectangular terrain painter with fallback resolution, bounds clamping, cell mutation, entity re-generation via `func_1CDF30`, 1-tile expansion, and raster update via `func_1C9E00`. |
-| `zone_calc_tile_slope` | `0xCFEB0`–`0xD02A0` | `0x1CFCD0`–`0x1D00C0` | 1004 / 1008 B | 4 B | NonMatching (22.29%) | 8-neighbor elevation slope classifier evaluating cardinal (5..8), corner (13..16), and saddle/diagonal slopes (1..4, 9..12) with OOB clamping to center elevation. |
-| `zone_update_tile_transitions` | `0xD02A0`–`0xD0530` | `0x1D00C0`–`0x1D0350` | 652 / 656 B | 4 B | NonMatching (38.79%) | 3x3 neighborhood tile transition and edge updater: resolves center and neighbor fallback terrains, updates cell transition lists, and calls `func_1D1CC0`. |
-=======
->>>>>>> acc86899 (feat: implement zone_calc_subtile_screen_coords and zone_setup_spatial_buckets)

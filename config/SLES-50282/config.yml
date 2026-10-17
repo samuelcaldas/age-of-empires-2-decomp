@@ -4534,9 +4534,15 @@ segments:
     vram: 0x21BC30
     subsegments:
       - [0x11BE10, asm, trade_action_helper_21BC30]
-  - name: post_21BC30
-    type: bin
+  - name: trade_action_helper_21BDF0
+    type: code
     start: 0x11BFD0
+    vram: 0x21BDF0
+    subsegments:
+      - [0x11BFD0, asm, trade_action_helper_21BDF0]
+  - name: post_21BDF0
+    type: bin
+    start: 0x11C1B0
   - name: unit_action_core
     type: code
     start: 0x166960

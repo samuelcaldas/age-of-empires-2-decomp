@@ -6832,6 +6832,23 @@ This single-function pure C++ slice spans VRAM `0x1861D0`–`0x186770` and file 
 |---|---:|---:|---|---:|
 | `func_001861d0` | `0x1861D0` | 1432 | **100.00% exact match** (1432/1432 B) | 8 B |
 
+#### 6.324 `RenderManager Idle and Periodic Update Subsystem` (`0x186770`–`0x186950`, `render_manager_idle.cpp`)
+
+This two-function pure C++ slice spans VRAM `0x186770`–`0x186950` and file offsets `0x86950`–`0x86B30` (480 bytes total: 460 instruction bytes + 20 bytes padding). The original ELF `PT_LOAD` mapping gives the VRAM/file-offset delta `0xFFE20`. The unit implements the RenderManager's idle loop, periodic display updates, screen notification dispatches, and idle query:
+
+- `func_00186770` (`0x186770`, 440 instruction bytes, 8 B padding): RenderManager update/idle processor. Verifies `field_30` and `field_2C` (returning 0 if inactive). Sets `field_1C = 1` (returning 1 if already marked). Dispatches periodic screen refresh via `self->MethodC8(D_004E8940, 0, 0, 0)` every 100 ms when `field_34 != 0 && field_1C8 != 1 && field_6C != 0`. Executes hardware timer metrics around frame refresh (`timer 15`, `timer 16`). Dispatches active screen idle callback `screen->Method54()`. When `self->field_1AC != 0 && func_1880E0(self)`, executes subsystem tick `func_18AFE0(self->field_1AC)` timed under `timer 14`. Dispatches post-update virtual callbacks `self->Method128()` and `self->Method12C()`. Returns 1.
+- `func_00186930` (`0x186930`, 20 instruction bytes, 12 B padding): Idle query `return self->field_30 ? 0 : 1;`, using `movz` conditional move instruction to return 1 when `field_30 == 0` and 0 otherwise.
+
+`tests/test_render_manager_idle.py` exercises four 32-bit native test cases covering idle state queries, initialization guards, timer calibration/refresh loops, and active screen/subsystem callbacks. `tests/test_render_manager_idle_matching.py` verifies fresh-compilation bit-exactness across all 460 instruction bytes after `R_MIPS_26`, `R_MIPS_HI16`, `R_MIPS_LO16`, and `R_MIPS_GPREL16` relocation resolution against original binary `orig/SLES-50282/AOK.ELF`.
+
+#### 6.324.1 RenderManager Idle Matching Results (460 Code Bytes, 480-Byte Slice)
+
+| Function | VRAM | Instruction bytes | Relocated byte comparison | Padding |
+|---|---:|---:|---|---:|
+| `func_00186770` | `0x186770` | 440 | **100.00% exact match** (440/440 B) | 8 B |
+| `func_00186930` | `0x186930` | 20 | **100.00% exact match** (20/20 B) | 12 B |
+
+
 
 #### Zone Terrain and Coordinate Transformation Slices (`0x1CDD00`–`0x1D1430`)
 

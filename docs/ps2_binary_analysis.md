@@ -6579,6 +6579,20 @@ This single-function pure C++ slice spans VRAM `0x185160`–`0x185230` and file 
 |---|---:|---:|---|---:|
 | `func_00185160` | `0x185160` | 208 | **100.00% exact match** (208/208 B) | 0 B |
 
+#### 6.311 `RenderManager Main Message Pump Loop` Subsystem (`0x185230`–`0x1853E0`, `render_manager_loop.cpp`)
+
+This single-function pure C++ slice spans VRAM `0x185230`–`0x1853E0` and file offsets `0x85410`–`0x855C0` (432 bytes total: 428 instruction bytes + 4 bytes padding). The original ELF `PT_LOAD` mapping gives the VRAM/file-offset delta `0xFFE20`. The slice implements the primary Win32/PS2 message pumping loop. The unit is registered as `Matching` after fresh MWCC compilation and literal comparison of all 428 relocated instruction bytes.
+
+- `func_00185230` (`0x185230`, 428 instruction bytes, 4 B padding): Message pump loop. Clears `self->field_1C = 0` and initializes an empty `MSG` structure from `D_00391CD0`. Repeatedly queries messages via `PeekMessage(&msg, 0, 0, 0, PM_REMOVE)` (`func_2265D0`). Intercepts `WM_QUIT` (`0x12`), terminating the loop if `D_004E89C4` is zero, or resetting the flag and continuing. Dispatches virtual method `PreTranslateMessage` (`slot 0xA8`), skipping unhandled events. Coordinates input mapping via `func_185160`, tracking active key states in `D_004E89C8` across press and release events, and dispatching via `TranslateMessage` (`func_226620`) and `DispatchMessage` (`func_226630`). When the queue drains, invokes virtual method `OnIdle` (`slot 0xAC`) and finishes through `func_388010()`.
+
+`tests/test_render_manager_loop.py` exercises five 32-bit native test cases across empty queue draining, `WM_QUIT` termination and continuation, `PreTranslateMessage` filtering, and message dispatch. `tests/test_render_manager_loop_matching.py` verifies fresh-compilation bit-exactness against `orig/SLES-50282/AOK.ELF` after `R_MIPS_26`, `R_MIPS_HI16/LO16`, and `R_MIPS_GPREL16` relocation resolution, as well as split boundary alignment.
+
+#### 6.311.1 RenderManager Main Message Pump Loop Matching Results (428 Code Bytes, 432-Byte Slice)
+
+| Function | VRAM | Instruction bytes | Relocated byte comparison | Padding |
+|---|---:|---:|---|---:|
+| `func_00185230` | `0x185230` | 428 | **100.00% exact match** (428/428 B) | 4 B |
+
 #### Zone Terrain and Coordinate Transformation Slices (`0x1CDD00`–`0x1D1430`)
 
 Contiguous decompilation of the Age of Empires II PlayStation 2 terrain and spatial sub-systems along file offsets `0xCDEE0`–`0xD1610` (VRAM `0x1CDD00`–`0x1D1430`, offset mapping `+0xFFE20`):

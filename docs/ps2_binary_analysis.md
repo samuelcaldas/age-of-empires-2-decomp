@@ -6593,6 +6593,26 @@ This single-function pure C++ slice spans VRAM `0x185230`–`0x1853E0` and file 
 |---|---:|---:|---|---:|
 | `func_00185230` | `0x185230` | 428 | **100.00% exact match** (428/428 B) | 4 B |
 
+#### 6.312 `RenderManager Lifecycle & Display State` Subsystem (`0x1853E0`–`0x1854B0`, `render_manager_state.cpp`)
+
+This four-function pure C++ slice spans VRAM `0x1853E0`–`0x1854B0` and file offsets `0x855C0`–`0x85690` (208 bytes total: 164 instruction bytes + 44 bytes padding). The original ELF `PT_LOAD` mapping gives the VRAM/file-offset delta `0xFFE20`. The slice implements display engine lifecycle verification, telemetry flag updates, stream factory callback registration, and display context initialization. The unit is registered as `Matching` after fresh MWCC compilation and literal comparison of all 164 relocated instruction bytes.
+
+- `func_001853e0` (`0x1853E0`, 8 instruction bytes, 8 B padding): Lifecycle stub leaf returning 1 without stack allocation.
+- `func_001853f0` (`0x1853F0`, 52 instruction bytes, 12 B padding): Engine telemetry synchronization. Sets `D_004E8624 = 1`, evaluates engine context flags `ctx->field_5C == 1` and `ctx->field_54 == 1`, sets display state flag `self->field_7C = 1` on match, and returns 1.
+- `func_00185430` (`0x185430`, 36 instruction bytes, 12 B padding): Factory registration. Passes static function pointer `func_001842f0` to `func_2264A0` and returns 1.
+- `func_00185460` (`0x185460`, 68 instruction bytes, 12 B padding): Renderer setup trigger. Sets `self->field_2C = 1`, tests initialized state, stores flag into `D_004E8940`, invokes `func_1F32D0(func_00A80BB0)`, and returns 1 on success or 0 on failure.
+
+`tests/test_render_manager_state.py` exercises six 32-bit native test cases across stub returns, flag matching and fallthrough, callback registration, and renderer setup. `tests/test_render_manager_state_matching.py` verifies fresh-compilation bit-exactness against `orig/SLES-50282/AOK.ELF` after `R_MIPS_26`, `R_MIPS_HI16/LO16`, and `R_MIPS_GPREL16` relocation resolution, as well as split boundary alignment and padding.
+
+#### 6.312.1 RenderManager Lifecycle & Display State Matching Results (164 Code Bytes, 208-Byte Slice)
+
+| Function | VRAM | Instruction bytes | Relocated byte comparison | Padding |
+|---|---:|---:|---|---:|
+| `func_001853e0` | `0x1853E0` | 8 | **100.00% exact match** (8/8 B) | 8 B |
+| `func_001853f0` | `0x1853F0` | 52 | **100.00% exact match** (52/52 B) | 12 B |
+| `func_00185430` | `0x185430` | 36 | **100.00% exact match** (36/36 B) | 12 B |
+| `func_00185460` | `0x185460` | 68 | **100.00% exact match** (68/68 B) | 12 B |
+
 #### Zone Terrain and Coordinate Transformation Slices (`0x1CDD00`–`0x1D1430`)
 
 Contiguous decompilation of the Age of Empires II PlayStation 2 terrain and spatial sub-systems along file offsets `0xCDEE0`–`0xD1610` (VRAM `0x1CDD00`–`0x1D1430`, offset mapping `+0xFFE20`):

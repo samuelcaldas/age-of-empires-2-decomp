@@ -1903,10 +1903,16 @@ segments:
     vram: 0x185230
     subsegments:
       - [0x85410, asm, render_manager_loop]
-  - name: post_base
-    type: bin
+  - name: render_manager_state
+    type: code
     start: 0x855C0
     vram: 0x1853E0
+    subsegments:
+      - [0x855C0, asm, render_manager_state]
+  - name: post_base
+    type: bin
+    start: 0x85690
+    vram: 0x1854B0
   - name: zone_path_eval
     type: code
     start: 0xC7A40

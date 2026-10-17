@@ -2885,9 +2885,51 @@ segments:
     vram: 0x1DBB80
     subsegments:
       - [0xDBD50, asm, zone_cursor_controller_reset_global]
+  - name: zone_spatial_entity_stream_read
+    type: code
+    start: 0xDBD60
+    vram: 0x1DBB90
+    subsegments:
+      - [0xDBD60, asm, zone_spatial_entity_stream_read]
+  - name: zone_spatial_entity_stream_write
+    type: code
+    start: 0xDBE40
+    vram: 0x1DBC70
+    subsegments:
+      - [0xDBE40, asm, zone_spatial_entity_stream_write]
+  - name: zone_spatial_entity_resolve_wrapper
+    type: code
+    start: 0xDC020
+    vram: 0x1DBE50
+    subsegments:
+      - [0xDC020, asm, zone_spatial_entity_resolve_wrapper]
+  - name: zone_spatial_entity_ctor
+    type: code
+    start: 0xDC070
+    vram: 0x1DBEA0
+    subsegments:
+      - [0xDC070, asm, zone_spatial_entity_ctor]
+  - name: zone_spatial_entity_ctor_simple
+    type: code
+    start: 0xDC190
+    vram: 0x1DBFC0
+    subsegments:
+      - [0xDC190, asm, zone_spatial_entity_ctor_simple]
+  - name: zone_spatial_entity_setup
+    type: code
+    start: 0xDC280
+    vram: 0x1DC0B0
+    subsegments:
+      - [0xDC280, asm, zone_spatial_entity_setup]
+  - name: zone_spatial_entity_derived_dtor
+    type: code
+    start: 0xDC2D0
+    vram: 0x1DC100
+    subsegments:
+      - [0xDC2D0, asm, zone_spatial_entity_derived_dtor]
   - name: post_aoe2
     type: bin
-    start: 0xDBD60
+    start: 0xDC350
   - name: trade_action_helper_217730
     type: code
     start: 0x117910

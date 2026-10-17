@@ -6693,6 +6693,20 @@ This two-function pure C++ slice spans VRAM `0x1859A0`–`0x185A80` and file off
 | `func_001859a0` | `0x1859A0` | 164 | **100.00% exact match** (164/164 B) | 12 B |
 | `func_00185a50` | `0x185A50` | 36 | **100.00% exact match** (36/36 B) | 12 B |
 
+#### 6.318 `RenderManager Display Surface & Sub-Object Teardown` Subsystem (`0x185A80`–`0x185BC0`, `render_manager_teardown.cpp`)
+
+This single-function pure C++ slice spans VRAM `0x185A80`–`0x185BC0` and file offsets `0x85C60`–`0x85DA0` (320 bytes total: 312 instruction bytes + 8 bytes padding). The original ELF `PT_LOAD` mapping gives the VRAM/file-offset delta `0xFFE20`. The slice implements the comprehensive teardown of surface descriptors, dynamic item lists, allocated surface pointer tables, default layer indices, and global references. The unit is registered as `Matching` after fresh MWCC compilation and literal comparison of all 312 relocated instruction bytes.
+
+- `func_00185a80` (`0x185A80`, 312 instruction bytes, 8 B padding): Display surface and sub-object teardown routine. Teardown sub-object `D_004E8944` via `func_189210`, releases lock via `func_1F33D0(func_00A80BB0)`, walks active items in `self->field_404->items` releasing via `func_25F6C0(item, 0)`, walks surface table `self->field_90` releasing entries via `func_25F860(item, 1)`, frees and zeroes `self->field_90` via `func_116F68`, resets five default surface indices `self->field_08[0..4] = -1`, releases `self->field_88` via `func_25F810(item, 1)`, and clears global `D_004E894C = 0`.
+
+`tests/test_render_manager_teardown.py` exercises two 32-bit native test cases across full populated teardown sequencing and null-pointer fallback safety. `tests/test_render_manager_teardown_matching.py` verifies fresh-compilation bit-exactness against `orig/SLES-50282/AOK.ELF` after `R_MIPS_26`, `R_MIPS_HI16/LO16`, and `R_MIPS_GPREL16` relocation resolution, as well as split boundary alignment and padding.
+
+#### 6.318.1 RenderManager Display Surface Teardown Matching Results (312 Code Bytes, 320-Byte Slice)
+
+| Function | VRAM | Instruction bytes | Relocated byte comparison | Padding |
+|---|---:|---:|---|---:|
+| `func_00185a80` | `0x185A80` | 312 | **100.00% exact match** (312/312 B) | 8 B |
+
 #### Zone Terrain and Coordinate Transformation Slices (`0x1CDD00`–`0x1D1430`)
 
 Contiguous decompilation of the Age of Empires II PlayStation 2 terrain and spatial sub-systems along file offsets `0xCDEE0`–`0xD1610` (VRAM `0x1CDD00`–`0x1D1430`, offset mapping `+0xFFE20`):

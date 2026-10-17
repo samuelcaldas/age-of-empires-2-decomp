@@ -20,6 +20,11 @@ void run_candidates_cases_part2(int test_case, std::vector<char> &storage) {
     std::vector<int> items, excluded, candidates;
     setup_candidate_env(base, mgr, group, entity, vtable, items, excluded, candidates);
 
+    std::vector<int> secondary_items = {200, 201};
+    *reinterpret_cast<int **>(base + 260) = secondary_items.data();
+    *reinterpret_cast<int *>(base + 264) = secondary_items.size();
+    *reinterpret_cast<int *>(base + 272) = 16;
+
     if (test_case == 7) {
         excluded = {101};
         *reinterpret_cast<int **>(base + 3184) = excluded.data();
@@ -72,6 +77,21 @@ void run_candidates_cases_part2(int test_case, std::vector<char> &storage) {
         *reinterpret_cast<int *>(base + 3172) = 1;
         g_147190_return_val = 10;
         int res = func_002B76B0(base, 10, 0, 0, 0);
+        assert(res == 3);
+        assert(*reinterpret_cast<int *>(base + 3172) == 3);
+        assert(candidates[0] == 100 && candidates[1] == 101 && candidates[2] == 102);
+    } else if (test_case == 13) {
+        *reinterpret_cast<int *>(base + 3172) = 99;
+        g_147190_return_val = 10;
+        int res = func_002B7BB0(base, 10, 0, 1);
+        assert(res == 5);
+        assert(*reinterpret_cast<int *>(base + 3172) == 5);
+        assert(candidates[0] == 200 && candidates[1] == 201);
+        assert(candidates[2] == 100 && candidates[3] == 101 && candidates[4] == 102);
+    } else if (test_case == 14) {
+        *reinterpret_cast<int *>(base + 3172) = 99;
+        g_147190_return_val = 10;
+        int res = func_002B7BB0(base, 10, 0, 0);
         assert(res == 3);
         assert(*reinterpret_cast<int *>(base + 3172) == 3);
         assert(candidates[0] == 100 && candidates[1] == 101 && candidates[2] == 102);

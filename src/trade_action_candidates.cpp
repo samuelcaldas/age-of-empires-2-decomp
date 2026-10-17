@@ -1,5 +1,6 @@
 #pragma exceptions off
 #include "trade_action_candidates_access.h"
+#include "trade_action_candidates_dual.h"
 
 using namespace trade_action_candidates;
 
@@ -107,6 +108,29 @@ static void evaluate_candidate(void *self, int index, int threshold, int mode, i
     matched_count++;
 }
 
+static void evaluate_secondary_candidate(void *self, int index, int threshold, int mode, int &matched_count) {
+    int item_id = get_secondary_item_id(self, index);
+    void *item = func_00332e60(manager_entity_root(self), item_id);
+    if (!item) {
+        return;
+    }
+
+    typedef int (*Predicate)(void *);
+    void **vtable = *reinterpret_cast<void ***>(item);
+    Predicate pred = reinterpret_cast<Predicate>(*reinterpret_cast<void **>(bytes(vtable) + 356));
+    if (!pred(item) || is_excluded(self, item_id)) {
+        return;
+    }
+
+    bool special_flag = check_classification_predicate(self, item, 0);
+    if (!special_flag && !matches_target_score(item, threshold, mode)) {
+        return;
+    }
+
+    append_candidate_id(self, item_id);
+    matched_count++;
+}
+
 int func_002B76B0(void *self, int a1, int a2, int a3, int t0) {
     if (a3 == 1) {
         store_integer(self, 3172, 0);
@@ -116,6 +140,24 @@ int func_002B76B0(void *self, int a1, int a2, int a3, int t0) {
     int matched_count = 0;
     for (int index = 0; index < total_items; ++index) {
         evaluate_candidate(self, index, a1, a2, t0, matched_count);
+    }
+    return matched_count;
+}
+
+int func_002B7BB0(void *self, int a1, int a2, int a3) {
+    store_integer(self, 3172, 0);
+    int matched_count = 0;
+
+    if (a3 == 1) {
+        int secondary_count = integer_at(self, 264);
+        for (int index = 0; index < secondary_count; ++index) {
+            evaluate_secondary_candidate(self, index, a1, a2, matched_count);
+        }
+    }
+
+    int total_items = integer_at(self, 216);
+    for (int index = 0; index < total_items; ++index) {
+        evaluate_candidate(self, index, a1, a2, 0, matched_count);
     }
     return matched_count;
 }

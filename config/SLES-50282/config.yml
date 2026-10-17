@@ -1957,10 +1957,16 @@ segments:
     vram: 0x185D00
     subsegments:
       - [0x85EE0, asm, render_manager_accessors]
-  - name: post_base
-    type: bin
+  - name: render_manager_coords
+    type: code
     start: 0x86030
     vram: 0x185E50
+    subsegments:
+      - [0x86030, asm, render_manager_coords]
+  - name: post_base
+    type: bin
+    start: 0x861E0
+    vram: 0x186000
   - name: zone_path_eval
     type: code
     start: 0xC7A40

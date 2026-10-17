@@ -3615,6 +3615,12 @@ if config.platform == Platform.PS2:
                 ),
                 Object(
                     NonMatching,
+                    "unit_action_build_8d0",
+                    cflags=config.cflags,
+                    toolchain_version="PS2/mwcc-2.3.1.01",
+                ),
+                Object(
+                    NonMatching,
                     "unit_action_build_capacity",
                     cflags=config.cflags,
                     toolchain_version="PS2/mwcc-2.3.1.01",

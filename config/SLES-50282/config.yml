@@ -3029,9 +3029,45 @@ segments:
     vram: 0x1DD6F0
     subsegments:
       - [0xDD8C0, asm, zone_spatial_entity_set_heading]
+  - name: zone_spatial_entity_update_velocity_threshold
+    type: code
+    start: 0xDD8E0
+    vram: 0x1DD710
+    subsegments:
+      - [0xDD8E0, asm, zone_spatial_entity_update_velocity_threshold]
+  - name: zone_spatial_entity_dispatch_registration
+    type: code
+    start: 0xDD960
+    vram: 0x1DD790
+    subsegments:
+      - [0xDD960, asm, zone_spatial_entity_dispatch_registration]
+  - name: zone_spatial_entity_check_grid_bounds
+    type: code
+    start: 0xDD9C0
+    vram: 0x1DD7F0
+    subsegments:
+      - [0xDD9C0, asm, zone_spatial_entity_check_grid_bounds]
+  - name: zone_spatial_entity_resolve_occupant
+    type: code
+    start: 0xDDB60
+    vram: 0x1DD990
+    subsegments:
+      - [0xDDB60, asm, zone_spatial_entity_resolve_occupant]
+  - name: zone_spatial_entity_link_node
+    type: code
+    start: 0xDDD40
+    vram: 0x1DDB70
+    subsegments:
+      - [0xDDD40, asm, zone_spatial_entity_link_node]
+  - name: zone_spatial_entity_validate_bounds
+    type: code
+    start: 0xDDDC0
+    vram: 0x1DDBF0
+    subsegments:
+      - [0xDDDC0, asm, zone_spatial_entity_validate_bounds]
   - name: post_aoe2
     type: bin
-    start: 0xDD8E0
+    start: 0xDDEA0
   - name: trade_action_helper_217730
     type: code
     start: 0x117910

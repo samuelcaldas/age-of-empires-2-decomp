@@ -6395,6 +6395,36 @@ An independent verification suite (`tests/test_trade_action_stream_node_anim.py`
 | `func_00183ff0` | `0x183FF0` | 56 | Structural alignment verified | 8 B |
 | `func_00184030` | `0x184030` | 52 | Structural alignment verified | 12 B |
 
+#### 6.302 `Trade Action Stream Factories` Subsystem (`0x184070`–`0x184340`, `trade_action_stream_factories.cpp`)
+
+This nine-function C++ slice spans VRAM `0x184070`–`0x184340` and file offsets `0x84250`–`0x84520` (720 bytes total). The original ELF `PT_LOAD` mapping gives the VRAM/file-offset delta `0xFFE20`. The slice comprises 720 instruction bytes across static and animated node pool initializers, node allocators, deserialization instantiators, and the singleton `RenderManager` method 4 dispatcher. Symbol sizes exclude padding. The unit remains registered as `NonMatching`.
+
+- `func_00184070` (`0x184070`, 48 instruction bytes): Static node pool zeroing routine. Zeroes 4,000 slots of 12 bytes each, clearing ref counts at offset 11.
+- `func_001840a0` (`0x1840A0`, 48 instruction bytes): Static node pool constructor. Delegates to `func_00184070`.
+- `func_001840d0` (`0x1840D0`, 112 instruction bytes): Static node allocator. Finds first free slot (`ref_count == 0`), marks active (`ref_count = 1`), initializes via `AspNode::init` (`func_00183240`), and returns node pointer.
+- `func_00184140` (`0x184140`, 112 instruction bytes): Static node deserialization allocator. Finds free slot, deserializes via `AspNode::deserialize` (`func_001832c0`), and returns node pointer.
+- `func_001841b0` (`0x1841B0`, 48 instruction bytes): Animated node pool zeroing routine. Zeroes 6,000 slots of 28 bytes each, clearing ref counts at offset 11.
+- `func_001841e0` (`0x1841E0`, 48 instruction bytes): Animated node pool constructor. Delegates to `func_001841b0`.
+- `func_00184210` (`0x184210`, 112 instruction bytes): Animated node allocator. Finds first free slot (`ref_count == 0`), marks active (`ref_count = 1`), initializes via `AspAnimatedNode::init` (`func_00183780`), and returns node pointer.
+- `func_00184280` (`0x184280`, 112 instruction bytes): Animated node deserialization allocator. Finds free slot, marks active (`ref_count = 1`), deserializes via `AspAnimatedNode::deserialize` (`func_00183870`), and returns node pointer.
+- `func_001842f0` (`0x1842F0`, 80 instruction bytes): `RenderManager` singleton dispatcher. Queries global singleton `D_004E3180`, invoking virtual method 4 (`+0x10`) or returning 0.
+
+An independent verification suite (`tests/test_trade_action_stream_factories.py`, with 32-bit test doubles in `tests/native/trade_action_stream_factories_test.cpp`) validates pool initialization, slot allocation, node instantiation, and singleton virtual method dispatching.
+
+#### 6.302.1 Trade Action Stream Factories Matching Results (720 Code Bytes, 720-Byte Slice)
+
+| Function | VRAM | Instruction bytes | Result | Padding |
+|---|---:|---:|---|---:|
+| `func_00184070` | `0x184070` | 40 | **100.00% exact match** (40/40 B) | 8 B |
+| `func_001840a0` | `0x1840A0` | 40 | **100.00% exact match** (40/40 B) | 8 B |
+| `func_001840d0` | `0x1840D0` | 100 | **100.00% exact match** (100/100 B) | 12 B |
+| `func_00184140` | `0x184140` | 100 | **100.00% exact match** (100/100 B) | 12 B |
+| `func_001841b0` | `0x1841B0` | 40 | **100.00% exact match** (40/40 B) | 8 B |
+| `func_001841e0` | `0x1841E0` | 40 | **100.00% exact match** (40/40 B) | 8 B |
+| `func_00184210` | `0x184210` | 100 | **100.00% exact match** (100/100 B) | 12 B |
+| `func_00184280` | `0x184280` | 100 | **100.00% exact match** (100/100 B) | 12 B |
+| `func_001842f0` | `0x1842F0` | 76 | **100.00% exact match** (76/76 B) | 4 B |
+
 #### Zone Terrain and Coordinate Transformation Slices (`0x1CDD00`–`0x1D1430`)
 
 Contiguous decompilation of the Age of Empires II PlayStation 2 terrain and spatial sub-systems along file offsets `0xCDEE0`–`0xD1610` (VRAM `0x1CDD00`–`0x1D1430`, offset mapping `+0xFFE20`):

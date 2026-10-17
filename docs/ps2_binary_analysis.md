@@ -6848,6 +6848,23 @@ This two-function pure C++ slice spans VRAM `0x186770`–`0x186950` and file off
 | `func_00186770` | `0x186770` | 440 | **100.00% exact match** (440/440 B) | 8 B |
 | `func_00186930` | `0x186930` | 20 | **100.00% exact match** (20/20 B) | 12 B |
 
+#### 6.325 `RenderManager Mouse and Pointer Event Dispatch Subsystem` (`0x186950`–`0x186A30`, `render_manager_mouse_dispatch.cpp`)
+
+This two-function pure C++ slice spans VRAM `0x186950`–`0x186A30` and file offsets `0x86B30`–`0x86C10` (224 bytes total: 208 instruction bytes + 16 bytes padding). The original ELF `PT_LOAD` mapping gives the VRAM/file-offset delta `0xFFE20`. The unit unpacks packed screen coordinate streams, updates subsystem status, and dispatches pointer actions through virtual dispatch:
+
+- `func_00186950` (`0x186950`, 200 instruction bytes, 8 B padding): Pointer event processor `(self, hwnd, msg, flags, coords)`. Returns 1 immediately if `self->field_30 == 0`. When `self->field_1E8 != 0`, dispatches activation and update hooks `func_1DB790(self->field_1D8, 0)` and `func_1DB7F0(self->field_1D8)`. Invokes `func_00185f80(self, flags, coords, &pt, &b1, &b2, &b3, &b4)` to unpack screen point and button bitmasks into stack temporaries. Dispatches `self->MethodF0(pt.x, pt.y, b1, b2, b3, b4)` (vtable offset `0xF0`) and post-pointer update `self->MethodAC()` (vtable offset `0xAC`). Returns 1.
+- `func_00186a20` (`0x186A20`, 8 instruction bytes, 8 B padding): Leaf boolean stub returning 1 unconditionally (`jr $ra; addiu $v0, $zero, 1`).
+
+`tests/test_render_manager_mouse_dispatch.py` exercises four 32-bit native test cases covering the stub query, inactive guards, activation mode with `field_1E8`, and coordinate unpacking parameter forwarding. `tests/test_render_manager_mouse_dispatch_matching.py` verifies fresh-compilation bit-exactness across all 208 instruction bytes after `R_MIPS_26` relocation resolution against original binary `orig/SLES-50282/AOK.ELF`.
+
+#### 6.325.1 RenderManager Mouse Dispatch Matching Results (208 Code Bytes, 224-Byte Slice)
+
+| Function | VRAM | Instruction bytes | Relocated byte comparison | Padding |
+|---|---:|---:|---|---:|
+| `func_00186950` | `0x186950` | 200 | **100.00% exact match** (200/200 B) | 8 B |
+| `func_00186a20` | `0x186A20` | 8 | **100.00% exact match** (8/8 B) | 8 B |
+
+
 
 
 #### Zone Terrain and Coordinate Transformation Slices (`0x1CDD00`–`0x1D1430`)

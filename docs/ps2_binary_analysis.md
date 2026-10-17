@@ -6629,6 +6629,22 @@ This two-function pure C++ slice spans VRAM `0x1854B0`–`0x185570` and file off
 | `func_001854b0` | `0x1854B0` | 164 | **100.00% exact match** (164/164 B) | 12 B |
 | `func_00185560` | `0x185560` | 8 | **100.00% exact match** (8/8 B) | 8 B |
 
+#### 6.314 `RenderManager Sub-Object Allocation & Subsystem Setup` Subsystem (`0x185570`–`0x185660`, `render_manager_alloc.cpp`)
+
+This two-function pure C++ slice spans VRAM `0x185570`–`0x185660` and file offsets `0x85750`–`0x85840` (240 bytes total: 232 instruction bytes + 8 bytes padding). The original ELF `PT_LOAD` mapping gives the VRAM/file-offset delta `0xFFE20`. The slice implements sub-object dynamic allocations (0x14C and 0x12C bytes), subsystem linking through `func_1DB500`, and global instance registration. The unit is registered as `Matching` after fresh MWCC compilation and literal comparison of all 232 relocated instruction bytes.
+
+- `func_00185570` (`0x185570`, 152 instruction bytes, 8 B padding): 0x14C sub-object factory. Allocates 332 bytes via `func_100850`, initializes via `func_1DB460(obj, 0)`, stores into `self->field_1D8`, checks allocation, links via `func_1DB500(obj, self->field_7C, self->field_70, self->ctx_28 + 0x28, 0xC738, 0x13)`, invokes `func_1860D0(self)`, and returns 1 on success or 0 on failure.
+- `func_00185610` (`0x185610`, 80 instruction bytes, 0 B padding): 0x12C sub-object factory. Allocates 300 bytes via `func_100850`, initializes via `func_188DF0(obj, self->field_2C)`, registers into global `D_004E8944`, and returns boolean presence `obj != 0` compiled through `movz`.
+
+`tests/test_render_manager_alloc.py` exercises five 32-bit native test cases across allocation success, allocation failure, link failure, and global storage. `tests/test_render_manager_alloc_matching.py` verifies fresh-compilation bit-exactness against `orig/SLES-50282/AOK.ELF` after `R_MIPS_26` and `R_MIPS_GPREL16` relocation resolution, as well as split boundary alignment and padding.
+
+#### 6.314.1 RenderManager Sub-Object Allocation Matching Results (232 Code Bytes, 240-Byte Slice)
+
+| Function | VRAM | Instruction bytes | Relocated byte comparison | Padding |
+|---|---:|---:|---|---:|
+| `func_00185570` | `0x185570` | 152 | **100.00% exact match** (152/152 B) | 8 B |
+| `func_00185610` | `0x185610` | 80 | **100.00% exact match** (80/80 B) | 0 B |
+
 #### Zone Terrain and Coordinate Transformation Slices (`0x1CDD00`–`0x1D1430`)
 
 Contiguous decompilation of the Age of Empires II PlayStation 2 terrain and spatial sub-systems along file offsets `0xCDEE0`–`0xD1610` (VRAM `0x1CDD00`–`0x1D1430`, offset mapping `+0xFFE20`):

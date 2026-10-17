@@ -1,0 +1,10 @@
+#ifndef ZONE_SPATIAL_ENTITY_DISPATCH_CONFIG_ACTION_10_H
+#define ZONE_SPATIAL_ENTITY_DISPATCH_CONFIG_ACTION_10_H
+
+struct SpatialEntity;
+
+extern "C" {
+int func_001E36E0(SpatialEntity *self);
+}
+
+#endif // ZONE_SPATIAL_ENTITY_DISPATCH_CONFIG_ACTION_10_H

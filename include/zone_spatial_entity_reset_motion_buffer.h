@@ -1,0 +1,10 @@
+#ifndef ZONE_SPATIAL_ENTITY_RESET_MOTION_BUFFER_H
+#define ZONE_SPATIAL_ENTITY_RESET_MOTION_BUFFER_H
+
+struct SpatialEntity;
+
+extern "C" {
+void func_001E3720(SpatialEntity *self);
+}
+
+#endif // ZONE_SPATIAL_ENTITY_RESET_MOTION_BUFFER_H

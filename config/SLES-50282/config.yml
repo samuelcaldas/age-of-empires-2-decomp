@@ -3436,9 +3436,15 @@ segments:
     vram: 0x219AC0
     subsegments:
       - [0x119CA0, asm, trade_action_helper_219AC0]
-  - name: post_219AC0
-    type: bin
+  - name: trade_action_helper_219C00
+    type: code
     start: 0x119DE0
+    vram: 0x219C00
+    subsegments:
+      - [0x119DE0, asm, trade_action_helper_219C00]
+  - name: post_219C00
+    type: bin
+    start: 0x119F10
   - name: unit_action_core
     type: code
     start: 0x166960

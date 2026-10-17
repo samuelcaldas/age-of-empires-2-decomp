@@ -1,14 +1,16 @@
-# `trade_action_candidates` (`func_002B76B0`, `func_002B7BB0`)
+# `trade_action_candidates` (`func_002B76B0`, `func_002B7BB0`, `func_002B8560`)
 
 ## Overview
 
 - **Symbols**:
   - `func_002B76B0` (VRAM `0x2B76B0`–`0x2B7BB0`, File `0x1B7890`–`0x1B7D90`, 1,276 B code, 4 B padding, 1,280 B slice)
   - `func_002B7BB0` (VRAM `0x2B7BB0`–`0x2B8560`, File `0x1B7D90`–`0x1B8740`, 2,468 B code, 12 B padding, 2,480 B slice)
+  - `func_002B8560` (VRAM `0x2B8560`–`0x2B8978`, File `0x1B8740`–`0x1B8B60`, 1,044 B code, 4 B padding, 1,048 B slice)
 - **Source Files**:
   - `include/trade_action_candidates.h`
   - `include/trade_action_candidates_access.h`
   - `include/trade_action_candidates_dual.h`
+  - `include/trade_action_candidates_selector.h`
   - `src/trade_action_candidates.cpp`
 - **Status**: NonMatching (Pure C++, zero asm, Object Calisthenics compliant)
 
@@ -17,6 +19,7 @@
 ```cpp
 int func_002B76B0(void *self, int a1, int a2, int a3, int t0);
 int func_002B7BB0(void *self, int a1, int a2, int a3);
+int func_002B8560(void *self, int mode);
 ```
 
 ## Behavior and Architecture
@@ -53,3 +56,14 @@ int func_002B7BB0(void *self, int a1, int a2, int a3);
   - Evaluates each candidate against threshold `a1` with mode `a2` and flag `t0 = 0`.
   - Appends valid candidate IDs to buffer at `self + 3168`.
 - **Return Value**: Total number of matching candidate insertions across both phases.
+
+### 3. `func_002B8560` (Candidate Pool Selector)
+- **Scan Loop**: Iterates through item pool array at `pointer_at(self, 180)` bounded by count at `self + 184`.
+- **Entity Validation**: Resolves each item through `func_00332e60(manager_entity_root(self), item_id)` and verifies virtual predicate `vtable[356/4]`.
+- **Mode Predicate Filter**:
+  - For `mode == 0` or `mode == 3`: requires `func_002bf050(self, item_id) == 0`.
+  - For `mode == 0` or `mode == 1`: requires item not present in exclusion list at `self + 196` (count at 200, capacity at 208).
+- **Sub-ID Selection**:
+  - Evaluates `(func_002bfcd0(self, short_at(item, 36)) & 0xFF) == 1`.
+  - If matched, immediately returns `short_at(item, 36)`.
+- **Return Value**: Returns matched candidate's sub-ID (or -1 if no candidate qualifies).

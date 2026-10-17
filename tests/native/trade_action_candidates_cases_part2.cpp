@@ -10,6 +10,41 @@ void setup_candidate_env(char *base, std::vector<char> &mgr, std::vector<char> &
                          std::vector<int> &items, std::vector<int> &excluded,
                          std::vector<int> &candidates);
 
+static void run_selector_cases(int test_case, char *base, std::vector<char> &entity) {
+    std::vector<int> pool_items = {300, 301};
+    std::vector<int> pool_excluded = {999};
+    *reinterpret_cast<int **>(base + 180) = pool_items.data();
+    *reinterpret_cast<int *>(base + 184) = pool_items.size();
+    *reinterpret_cast<int *>(base + 192) = 16;
+    *reinterpret_cast<int **>(base + 196) = pool_excluded.data();
+    *reinterpret_cast<int *>(base + 200) = 0;
+    *reinterpret_cast<int *>(base + 208) = 16;
+    *reinterpret_cast<short *>(entity.data() + 36) = 42;
+
+    if (test_case == 15) {
+        g_2bfcd0_return_val = 1;
+        int res = func_002B8560(base, 0);
+        assert(res == 42);
+        assert(g_2bf050_calls == 1 && g_2bfcd0_calls == 1);
+    } else if (test_case == 16) {
+        g_2bfcd0_return_val = 0;
+        int res = func_002B8560(base, 0);
+        assert(res == -1);
+    } else if (test_case == 17) {
+        g_2bf050_return_val = 1;
+        g_2bfcd0_return_val = 1;
+        int res = func_002B8560(base, 0);
+        assert(res == -1);
+    } else if (test_case == 18) {
+        pool_excluded = {300, 301};
+        *reinterpret_cast<int **>(base + 196) = pool_excluded.data();
+        *reinterpret_cast<int *>(base + 200) = 2;
+        g_2bfcd0_return_val = 1;
+        int res = func_002B8560(base, 0);
+        assert(res == -1);
+    }
+}
+
 void run_candidates_cases_part2(int test_case, std::vector<char> &storage) {
     reset_candidates_test_support();
     char *base = storage.data();
@@ -24,6 +59,11 @@ void run_candidates_cases_part2(int test_case, std::vector<char> &storage) {
     *reinterpret_cast<int **>(base + 260) = secondary_items.data();
     *reinterpret_cast<int *>(base + 264) = secondary_items.size();
     *reinterpret_cast<int *>(base + 272) = 16;
+
+    if (test_case >= 15) {
+        run_selector_cases(test_case, base, entity);
+        return;
+    }
 
     if (test_case == 7) {
         excluded = {101};

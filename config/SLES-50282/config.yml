@@ -3641,9 +3641,45 @@ segments:
     vram: 0x1E5460
     subsegments:
       - [0xE5630, asm, zone_spatial_grid_dispatch_edge]
+  - name: zone_spatial_grid_dispatch_edge_north
+    type: code
+    start: 0xE56F0
+    vram: 0x1E5520
+    subsegments:
+      - [0xE56F0, asm, zone_spatial_grid_dispatch_edge_north]
+  - name: zone_spatial_grid_dispatch_edge_east
+    type: code
+    start: 0xE5800
+    vram: 0x1E5630
+    subsegments:
+      - [0xE5800, asm, zone_spatial_grid_dispatch_edge_east]
+  - name: zone_spatial_grid_dispatch_edge_south
+    type: code
+    start: 0xE5910
+    vram: 0x1E5740
+    subsegments:
+      - [0xE5910, asm, zone_spatial_grid_dispatch_edge_south]
+  - name: zone_spatial_grid_dispatch_edge_west
+    type: code
+    start: 0xE5A20
+    vram: 0x1E5850
+    subsegments:
+      - [0xE5A20, asm, zone_spatial_grid_dispatch_edge_west]
+  - name: zone_spatial_grid_evaluate_edge_cross
+    type: code
+    start: 0xE5B30
+    vram: 0x1E5960
+    subsegments:
+      - [0xE5B30, asm, zone_spatial_grid_evaluate_edge_cross]
+  - name: zone_spatial_grid_scan_cross_occupants
+    type: code
+    start: 0xE5BD0
+    vram: 0x1E5A00
+    subsegments:
+      - [0xE5BD0, asm, zone_spatial_grid_scan_cross_occupants]
   - name: post_aoe2
     type: bin
-    start: 0xE56F0
+    start: 0xE5DA0
   - name: trade_action_helper_217730
     type: code
     start: 0x117910

@@ -6301,6 +6301,56 @@ An independent verification suite (`tests/test_trade_action_stream_pool.py`, wit
 | `func_001831b0` | `0x1831B0` | 96 | **100.00% exact match** (96/96 B) | 0 B |
 | `func_00183210` | `0x183210` | 48 | **100.00% exact match** (48/48 B) | 0 B |
 
+#### 6.300 `Trade Action Stream Node Base` Subsystem (`0x183240`–`0x183780`, `trade_action_stream_node_base.cpp`)
+
+This nineteen-function C++ slice spans VRAM `0x183240`–`0x183780` and file offsets `0x83420`–`0x83960` (1,344 bytes total). The original ELF `PT_LOAD` mapping gives the VRAM/file-offset delta `0xFFE20`. The slice comprises 1,344 instruction bytes across nineteen member functions of the `AspNode` base class. Symbol sizes exclude padding. The unit remains registered as `NonMatching`.
+
+- `func_00183240` (`0x183240`, 128 instruction bytes): Node initializer `AspNode::init(texture, priority, x, y, flags)`.
+- `func_001832c0` (`0x1832C0`, 192 instruction bytes): Node stream deserializer `AspNode::deserialize(stream, textures)`.
+- `func_00183380` (`0x183380`, 16 instruction bytes): Reference count reset `AspNode::clear_ref()`.
+- `func_00183390` (`0x183390`, 16 instruction bytes): Coordinate setter `AspNode::set_pos(x, y)`.
+- `func_001833a0` (`0x1833A0`, 176 instruction bytes): Node stream serializer `AspNode::serialize(stream)`.
+- `func_00183450` (`0x183450`, 16 instruction bytes): Render availability query `AspNode::render_check(x, y)`.
+- `func_00183460` (`0x183460`, 240 instruction bytes): Clipped viewport renderer `AspNode::draw_clipped(...)`.
+- `func_00183550` (`0x183550`, 80 instruction bytes): Fast direct renderer `AspNode::draw_simple(...)`.
+- `func_001835a0` (`0x1835A0`, 80 instruction bytes): Transformed renderer `AspNode::draw_transformed(...)`.
+- `func_001835f0` (`0x1835F0`, 16 instruction bytes): Mode getter `AspNode::get_mode()`.
+- `func_00183600` (`0x183600`, 16 instruction bytes): Mode setter `AspNode::set_mode(mode)`.
+- `func_00183610` (`0x183610`, 64 instruction bytes): Parameter dispatcher `AspNode::set_extra(param, extra)`.
+- `func_00183650` (`0x183650`, 16 instruction bytes): Metric zero stub `AspNode::get_zero()`.
+- `func_00183660` (`0x183660`, 16 instruction bytes): Metric one stub `AspNode::get_one()`.
+- `func_00183670` (`0x183670`, 16 instruction bytes): Secondary zero stub `AspNode::get_zero_2()`.
+- `func_00183680` (`0x183680`, 64 instruction bytes): Metric query `AspNode::query_metric(param)`.
+- `func_001836c0` (`0x1836C0`, 64 instruction bytes): Texture flag query `AspNode::query_metric_2(...)`.
+- `func_00183700` (`0x183700`, 64 instruction bytes): Node priority accessor `AspNode::get_priority()`.
+- `func_00183740` (`0x183740`, 64 instruction bytes): Texture status query `AspNode::check_texture()`.
+
+An independent verification suite (`tests/test_trade_action_stream_node_base.py`, with 32-bit test doubles in `tests/native/trade_action_stream_node_base_test.cpp`) validates initialization, stream serialization/deserialization, coordinate mutation, rendering passes, and texture status queries.
+
+#### 6.300.1 Trade Action Stream Node Base Matching Results (1,344 Code Bytes, 1,344-Byte Slice)
+
+| Function | VRAM | Instruction bytes | Result | Padding |
+|---|---:|---:|---|---:|
+| `func_00183240` | `0x183240` | 128 | Structural alignment verified | 0 B |
+| `func_001832c0` | `0x1832C0` | 192 | **100.00% exact match** (192/192 B) | 0 B |
+| `func_00183380` | `0x183380` | 16 | **100.00% exact match** (16/16 B) | 0 B |
+| `func_00183390` | `0x183390` | 16 | **100.00% exact match** (16/16 B) | 0 B |
+| `func_001833a0` | `0x1833A0` | 176 | **100.00% exact match** (176/176 B) | 0 B |
+| `func_00183450` | `0x183450` | 16 | **100.00% exact match** (16/16 B) | 0 B |
+| `func_00183460` | `0x183460` | 240 | Structural alignment verified | 0 B |
+| `func_00183550` | `0x183550` | 80 | Structural alignment verified | 0 B |
+| `func_001835a0` | `0x1835A0` | 80 | Structural alignment verified | 0 B |
+| `func_001835f0` | `0x1835F0` | 16 | **100.00% exact match** (16/16 B) | 0 B |
+| `func_00183600` | `0x183600` | 16 | **100.00% exact match** (16/16 B) | 0 B |
+| `func_00183610` | `0x183610` | 64 | Structural alignment verified | 0 B |
+| `func_00183650` | `0x183650` | 16 | **100.00% exact match** (16/16 B) | 0 B |
+| `func_00183660` | `0x183660` | 16 | **100.00% exact match** (16/16 B) | 0 B |
+| `func_00183670` | `0x183670` | 16 | **100.00% exact match** (16/16 B) | 0 B |
+| `func_00183680` | `0x183680` | 64 | Structural alignment verified | 0 B |
+| `func_001836c0` | `0x1836C0` | 64 | Structural alignment verified | 0 B |
+| `func_00183700` | `0x183700` | 64 | Structural alignment verified | 0 B |
+| `func_00183740` | `0x183740` | 64 | Structural alignment verified | 0 B |
+
 #### Zone Terrain and Coordinate Transformation Slices (`0x1CDD00`–`0x1D1430`)
 
 Contiguous decompilation of the Age of Empires II PlayStation 2 terrain and spatial sub-systems along file offsets `0xCDEE0`–`0xD1610` (VRAM `0x1CDD00`–`0x1D1430`, offset mapping `+0xFFE20`):

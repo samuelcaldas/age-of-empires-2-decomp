@@ -6189,6 +6189,30 @@ An independent verification suite (`tests/test_trade_action_stream_opcodes.py`, 
 | `func_001820a0` | `0x1820A0` | 32 | Structural alignment verified | 0 B |
 | `func_001820c0` | `0x1820C0` | 16 | Structural alignment verified | 0 B |
 
+#### 6.295 `Trade Action Stream List` Subsystem (`0x1820D0`–`0x182550`, `trade_action_stream_list.cpp`)
+
+This six-function C++ slice spans VRAM `0x1820D0`–`0x182550` and file offsets `0x822B0`–`0x82730` (1,152 bytes total). The original ELF `PT_LOAD` mapping gives the VRAM/file-offset delta `0xFFE20`. The slice comprises 1,152 instruction bytes across six functions of the `AspList` core class. Symbol sizes exclude padding. The unit remains registered as `NonMatching`.
+
+- `func_001820d0` (`0x1820D0`, 32 instruction bytes): `AspList` constructor, initializes vtable at `0x4D7D70`, clears head pointer, and stores parameter pointer.
+- `func_001820f0` (`0x1820F0`, 96 instruction bytes): Virtual scalar deleting destructor `~AspList(flag)`. Clears linked items and conditionally invokes `operator delete` (`func_00100670`).
+- `func_00182150` (`0x182150`, 160 instruction bytes): Binary stream deserializer `AspList::deserialize(stream, param)`. Reads stream bytes, dispatches virtual method 14, and in-place reverses the resulting singly-linked item chain.
+- `func_001821f0` (`0x1821F0`, 496 instruction bytes): Stream command opcode parser `AspList::parse_entry()`. Allocates nodes from pool `0x514E30` (`func_001831B0`), initializes through factories `0x184140` and `0x184280`, and links nodes to the active head.
+- `func_001823e0` (`0x1823E0`, 192 instruction bytes): Stream serializer `AspList::serialize(stream)`. Traverses node chain, emits serialized node payloads via `func_001833A0` or `func_00183930`, and appends terminating null byte.
+- `func_001824a0` (`0x1824A0`, 176 instruction bytes): Pool cleanup routine `AspList::clear()`. Iterates chain, invokes node cleanup handlers, and returns items to pool `0x514E30` via `func_00183210`.
+
+An independent verification suite (`tests/test_trade_action_stream_list.py`, with 32-bit test doubles in `tests/native/trade_action_stream_list_test.cpp`) validates construction, destruction, pool teardown, opcode parsing, and serialization.
+
+#### 6.295.1 Trade Action Stream List Matching Results (1,152 Code Bytes, 1,152-Byte Slice)
+
+| Function | VRAM | Instruction bytes | Result | Padding |
+|---|---:|---:|---|---:|
+| `func_001820d0` | `0x1820D0` | 32 | Structural alignment verified | 0 B |
+| `func_001820f0` | `0x1820F0` | 96 | Structural alignment verified | 0 B |
+| `func_00182150` | `0x182150` | 160 | Structural alignment verified | 0 B |
+| `func_001821f0` | `0x1821F0` | 496 | Structural alignment verified | 0 B |
+| `func_001823e0` | `0x1823E0` | 192 | Structural alignment verified | 0 B |
+| `func_001824a0` | `0x1824A0` | 176 | Structural alignment verified | 0 B |
+
 #### Zone Terrain and Coordinate Transformation Slices (`0x1CDD00`–`0x1D1430`)
 
 Contiguous decompilation of the Age of Empires II PlayStation 2 terrain and spatial sub-systems along file offsets `0xCDEE0`–`0xD1610` (VRAM `0x1CDD00`–`0x1D1430`, offset mapping `+0xFFE20`):

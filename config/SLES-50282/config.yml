@@ -4318,9 +4318,33 @@ segments:
     vram: 0x340370
     subsegments:
       - [0x240550, asm, tactical_ai_destructors_340370]
-  - name: post_tactical_ai_destructors_340370
+  - name: bin_340490_3409c0
     type: bin
     start: 0x240670
+  - name: tactical_ai_dispatch_3409c0
+    type: code
+    start: 0x240BA0
+    vram: 0x3409C0
+    subsegments:
+      - [0x240BA0, asm, tactical_ai_dispatch_3409c0]
+  - name: bin_340a00_340cf0
+    type: bin
+    start: 0x240BE0
+  - name: tactical_ai_check_340cf0
+    type: code
+    start: 0x240ED0
+    vram: 0x340CF0
+    subsegments:
+      - [0x240ED0, asm, tactical_ai_check_340cf0]
+  - name: tactical_ai_action_filter_340d30
+    type: code
+    start: 0x240F10
+    vram: 0x340D30
+    subsegments:
+      - [0x240F10, asm, tactical_ai_action_filter_340d30]
+  - name: post_tactical_ai_action_filter_340d30
+    type: bin
+    start: 0x240F50
   - [0x3e31c0]
 
 

@@ -16,6 +16,9 @@ inputs:
   - name: expected_sha1
     kind: text
 prompt: |
+  Before work, read the Inter-agent communication section in CLAUDE.md (CLAUDE.md#inter-agent-communication).
+  Apply it to report prose; keep file deliverables in normal prose. Preserve schemas and exact technical payload.
+
   Download the original file "{{file_name}}" for release "{{version}}" from an official source.
 
   Allowed sources only: Microsoft (support.microsoft.com, www.microsoft.com).

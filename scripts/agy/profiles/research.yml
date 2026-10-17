@@ -9,6 +9,9 @@ inputs:
   - name: question
     kind: text
 prompt: |
+  Before work, read the Inter-agent communication section in CLAUDE.md (CLAUDE.md#inter-agent-communication).
+  Apply it to report prose; keep file deliverables in normal prose. Preserve schemas and exact technical payload.
+
   Research the question below. Use web search where needed.
 
   Rules:

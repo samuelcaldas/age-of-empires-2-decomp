@@ -14,6 +14,9 @@ inputs:
   - name: binary
     kind: path
 prompt: |
+  Before work, read the Inter-agent communication section in CLAUDE.md (CLAUDE.md#inter-agent-communication).
+  Apply it to report prose; keep file deliverables in normal prose. Preserve schemas and exact technical payload.
+
   Propose a splat configuration for version {{version}}, using the original binary at this absolute path.
   Read the binary; do not modify it:
 

@@ -9,6 +9,25 @@ Everything goes through one wrapper, `scripts/agy/`. Ad hoc `agy -p` calls are
 not used for project work, because they gave no record of what was done and
 nothing stopped them from writing outside their task.
 
+## Inter-agent communication
+
+[The shared policy](../CLAUDE.md#inter-agent-communication) requires terse,
+answer-first prose for agent prompts, status, handoffs, and report text. Root
+`AGENTS.md` and `GEMINI.md` link to `CLAUDE.md`. Every delegation brief must carry
+the policy or an explicit read-before-work pointer, including workers without
+inherited context. All five agy profile prompts carry that pointer.
+
+Schemas, required report fields, report order, verbatim failure reasons, exact
+technical payload, and verification evidence remain unchanged. Only free-form
+report prose is compressed. Human-facing replies, code, comments, documentation
+deliverables, commits, and public artifacts retain normal prose. Persisted agent
+messages and machine reports still count as inter-agent communication.
+
+This is an instruction policy, not a message-rewriting hook or a mechanical style
+guarantee. Prompt-delivery tests check that workers receive the pointer, not that
+models always follow it. Prompt changes naturally change content-derived run keys;
+previously cached results do not demonstrate compliance with the new instructions.
+
 ## Layout
 
 | Path | Role |

@@ -6171,6 +6171,24 @@ An independent verification suite (`tests/test_trade_action_stream_raster.py`, w
 |---|---:|---:|---|---:|
 | `func_0017e350` | `0x17E350` | 15080 | Structural alignment verified | 8 B |
 
+#### 6.294 `Trade Action Stream Opcodes` Subsystem (`0x181E40`–`0x1820D0`, `trade_action_stream_opcodes.cpp`)
+
+This three-function C++ slice spans VRAM `0x181E40`–`0x1820D0` and file offsets `0x82020`–`0x822B0` (656 bytes total). The original ELF `PT_LOAD` mapping gives the VRAM/file-offset delta `0xFFE20`. The slice comprises 656 instruction bytes across three functions. Symbol sizes exclude padding. The unit remains registered as `NonMatching`.
+
+- `func_00181e40` (`0x181E40`, 608 instruction bytes): Stream command opcode interpreter. Decodes variable-length RLE and bitmap tokens from `D_004E2DB0` via two cascaded jump tables at `0x491930` and `0x4918F0`, updating stream pointers and staging registers `D_004E2DA8` and `D_004E2DA0`. Zero-stack frame leaf function.
+- `func_001820a0` (`0x1820A0`, 32 instruction bytes): Step parameter selector configuring `D_004E3088` to 2 or 4 based on alignment bit.
+- `func_001820c0` (`0x1820C0`, 16 instruction bytes): Direct global parameter setter for `D_004E3084`.
+
+An independent verification suite (`tests/test_trade_action_stream_opcodes.py`, with 32-bit test doubles in `tests/native/trade_action_stream_opcodes_test.cpp`) validates opcode token parsing, pointer advancement, and global helper mutations.
+
+#### 6.294.1 Trade Action Stream Opcodes Matching Results (656 Code Bytes, 656-Byte Slice)
+
+| Function | VRAM | Instruction bytes | Result | Padding |
+|---|---:|---:|---|---:|
+| `func_00181e40` | `0x181E40` | 608 | Structural alignment verified | 12 B |
+| `func_001820a0` | `0x1820A0` | 32 | Structural alignment verified | 0 B |
+| `func_001820c0` | `0x1820C0` | 16 | Structural alignment verified | 0 B |
+
 #### Zone Terrain and Coordinate Transformation Slices (`0x1CDD00`–`0x1D1430`)
 
 Contiguous decompilation of the Age of Empires II PlayStation 2 terrain and spatial sub-systems along file offsets `0xCDEE0`–`0xD1610` (VRAM `0x1CDD00`–`0x1D1430`, offset mapping `+0xFFE20`):

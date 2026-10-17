@@ -7008,3 +7008,20 @@ Located at VRAM `0x2B66B0`–`0x2B76B0` (file offset `0x1B6890`–`0x1B7890`, 4,
 | Function / Method | VRAM Address | Code Size (Orig) | Slice Size | Match Status | Description |
 |---|---|---|---|---|---|
 | `func_002B66B0` | `0x2B66B0` | 4,088 B | 4,096 B | NonMatching | Complex trade action dispatcher & target coordinator. |
+
+#### 6.187 `Tactical AI Destructors` Subsystem (`0x340370`–`0x340490`, `tactical_ai_destructors_340370.cpp`)
+
+Located at VRAM `0x340370`–`0x340490` (file offset `0x240550`–`0x240670`, 288 bytes total, 3 contiguous scalar deleting destructors in Metrowerks C++ PS2 MWCC 2.3.1.01):
+- `func_00340370` (`0x340370`, 96 bytes code, 96 bytes slice): Scalar deleting destructor for Tactical AI object with vtable `__vt__004DF080`. Resets vtable, calls base destructor `func_210490(self, 0)`, and conditionally invokes `operator delete` (`func_100670`) when `(short)flags > 0`.
+- `func_003403D0` (`0x3403D0`, 96 bytes code, 96 bytes slice): Scalar deleting destructor for Tactical AI object with vtable `__vt__004DF1B0`. Resets vtable, calls base destructor `func_216020(self, 0)`, and conditionally invokes `operator delete` (`func_100670`) when `(short)flags > 0`.
+- `func_00340430` (`0x340430`, 96 bytes code, 96 bytes slice): Scalar deleting destructor for Tactical AI object with vtable `__vt__004DF2E0`. Resets vtable, calls base destructor `func_208E20(self, 0)`, and conditionally invokes `operator delete` (`func_100670`) when `(short)flags > 0`.
+
+All 3 functions achieved bit-level 100.00% matching. Pure C++ with zero assembly (.s). Validated with native regression tests in `tests/native/tactical_ai_destructors_340370_test.cpp` and binary ELF comparison test `tests/test_tactical_ai_destructors_340370_matching.py`.
+
+#### 6.187.1 Tactical AI Destructors Matching Results (Pure C++, 288 Bytes)
+
+| Function / Method | VRAM Address | Code Size (Orig) | Slice Size | Match Status | Description |
+|---|---|---|---|---|---|
+| `func_00340370` | `0x340370` | 96 B | 96 B | **Matching (100.00%)** | Scalar deleting destructor resetting vtable `__vt__004DF080`, invoking `func_210490`. |
+| `func_003403D0` | `0x3403D0` | 96 B | 96 B | **Matching (100.00%)** | Scalar deleting destructor resetting vtable `__vt__004DF1B0`, invoking `func_216020`. |
+| `func_00340430` | `0x340430` | 96 B | 96 B | **Matching (100.00%)** | Scalar deleting destructor resetting vtable `__vt__004DF2E0`, invoking `func_208E20`. |

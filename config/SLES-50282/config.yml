@@ -3695,9 +3695,57 @@ segments:
     vram: 0x1E5A00
     subsegments:
       - [0xE5BD0, asm, zone_spatial_grid_scan_cross_occupants]
+  - name: zone_spatial_grid_scan_cross_occupants_east
+    type: code
+    start: 0xE5DA0
+    vram: 0x1E5BD0
+    subsegments:
+      - [0xE5DA0, asm, zone_spatial_grid_scan_cross_occupants_east]
+  - name: zone_spatial_grid_scan_cross_occupants_south
+    type: code
+    start: 0xE5F70
+    vram: 0x1E5DA0
+    subsegments:
+      - [0xE5F70, asm, zone_spatial_grid_scan_cross_occupants_south]
+  - name: zone_spatial_grid_scan_cross_occupants_west
+    type: code
+    start: 0xE6140
+    vram: 0x1E5F70
+    subsegments:
+      - [0xE6140, asm, zone_spatial_grid_scan_cross_occupants_west]
+  - name: zone_spatial_grid_check_point_in_aabb_list
+    type: code
+    start: 0xE6310
+    vram: 0x1E6140
+    subsegments:
+      - [0xE6310, asm, zone_spatial_grid_check_point_in_aabb_list]
+  - name: zone_spatial_grid_init_sub_container
+    type: code
+    start: 0xE63B0
+    vram: 0x1E61E0
+    subsegments:
+      - [0xE63B0, asm, zone_spatial_grid_init_sub_container]
+  - name: zone_spatial_grid_free_sub_container
+    type: code
+    start: 0xE6400
+    vram: 0x1E6230
+    subsegments:
+      - [0xE6400, asm, zone_spatial_grid_free_sub_container]
+  - name: zone_spatial_grid_zero_vector3
+    type: code
+    start: 0xE6470
+    vram: 0x1E62A0
+    subsegments:
+      - [0xE6470, asm, zone_spatial_grid_zero_vector3]
+  - name: zone_spatial_grid_identity_helper
+    type: code
+    start: 0xE6480
+    vram: 0x1E62B0
+    subsegments:
+      - [0xE6480, asm, zone_spatial_grid_identity_helper]
   - name: post_aoe2
     type: bin
-    start: 0xE5DA0
+    start: 0xE6490
   - name: trade_action_helper_217730
     type: code
     start: 0x117910

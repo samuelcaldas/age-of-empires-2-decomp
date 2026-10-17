@@ -2747,9 +2747,27 @@ segments:
     vram: 0x1DAF50
     subsegments:
       - [0xDB130, asm, zone_spatial_view_move_forward]
+  - name: zone_spatial_view_yaw
+    type: code
+    start: 0xDB1C0
+    vram: 0x1DAFE0
+    subsegments:
+      - [0xDB1C0, asm, zone_spatial_view_yaw]
+  - name: zone_spatial_view_serialize
+    type: code
+    start: 0xDB300
+    vram: 0x1DB120
+    subsegments:
+      - [0xDB300, asm, zone_spatial_view_serialize]
+  - name: zone_spatial_view_deserialize
+    type: code
+    start: 0xDB4A0
+    vram: 0x1DB2C0
+    subsegments:
+      - [0xDB4A0, asm, zone_spatial_view_deserialize]
   - name: post_aoe2
     type: bin
-    start: 0xDB1C0
+    start: 0xDB640
   - name: trade_action_helper_217730
     type: code
     start: 0x117910

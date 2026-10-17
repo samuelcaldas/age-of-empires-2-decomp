@@ -6727,6 +6727,30 @@ This four-function pure C++ slice spans VRAM `0x185BC0`–`0x185D00` and file of
 | `func_00185c70` | `0x185C70` | 120 | **100.00% exact match** (120/120 B) | 8 B |
 | `func_00185cf0` | `0x185CF0` | 8 | **100.00% exact match** (8/8 B) | 8 B |
 
+#### 6.320 `RenderManager Context Allocator, Mode Selectors & Accessors` Subsystem (`0x185D00`–`0x185E50`, `render_manager_accessors.cpp`)
+
+This six-function pure C++ slice spans VRAM `0x185D00`–`0x185E50` and file offsets `0x85EE0`–`0x86030` (336 bytes total: 300 instruction bytes + 36 bytes padding). The original ELF `PT_LOAD` mapping gives the VRAM/file-offset delta `0xFFE20`. The slice implements the `0x9D94`-byte context allocation and constructor invocation, frameless tail-call forwarding, coordinates setter, player context selection with bounds validation, refresh coordinator with mode status return, and indexed surface entry resolution. The unit is registered as `Matching` after fresh MWCC compilation and literal comparison of all 300 relocated instruction bytes.
+
+- `func_00185d00` (`0x185D00`, 56 instruction bytes, 8 B padding): Context object allocator. Invokes `func_100850(0x9D94)` and, if non-null, initializes the object via `func_32E8C0(obj)`, returning the constructed pointer.
+- `func_00185d40` (`0x185D40`, 20 instruction bytes, 12 B padding): Frameless tail call forwarder. Loads `self->field_2C` and executes tail call `j func_226610` with arguments `(self->field_2C, 0x10, 0, 0)`.
+- `func_00185d60` (`0x185D60`, 12 instruction bytes, 4 B padding): Configuration coordinates setter. Stores `a1` into `self->field_1CC` and `a2` into `self->field_1D0` in the return delay slot.
+- `func_00185d70` (`0x185D70`, 72 instruction bytes, 8 B padding): Player context selector. If `self->field_404` is non-null and `a1 < field_404->field_50`, writes `field_404->field_98 = a1` and dispatches `func_1C9F00(field_404->field_3C)`.
+- `func_00185dc0` (`0x185DC0`, 96 instruction bytes, 0 B padding): Refresh coordinator. If `self->field_1C8 == 7`, returns 0 immediately. If `a1 != 0 || func_1880E0()`, dispatches `func_190AF0(self->field_1AC)` and returns its integer status code, otherwise returns 0.
+- `func_00185e20` (`0x185E20`, 44 instruction bytes, 4 B padding): Surface entry accessor. If `self->field_1FC == 0`, returns 0; otherwise returns indexed entry `&self->field_1FC[a1]` scaled by 12 bytes (`SurfaceEntry`).
+
+`tests/test_render_manager_accessors.py` exercises five 32-bit native test cases across context allocation, tail calls, coordinate setters, player context bounds checking, refresh status evaluation, and surface entry indexing. `tests/test_render_manager_accessors_matching.py` verifies fresh-compilation bit-exactness against `orig/SLES-50282/AOK.ELF` after `R_MIPS_26` relocation resolution, as well as split boundary alignment and padding.
+
+#### 6.320.1 RenderManager Context Allocator and Accessors Matching Results (300 Code Bytes, 336-Byte Slice)
+
+| Function | VRAM | Instruction bytes | Relocated byte comparison | Padding |
+|---|---:|---:|---|---:|
+| `func_00185d00` | `0x185D00` | 56 | **100.00% exact match** (56/56 B) | 8 B |
+| `func_00185d40` | `0x185D40` | 20 | **100.00% exact match** (20/20 B) | 12 B |
+| `func_00185d60` | `0x185D60` | 12 | **100.00% exact match** (12/12 B) | 4 B |
+| `func_00185d70` | `0x185D70` | 72 | **100.00% exact match** (72/72 B) | 8 B |
+| `func_00185dc0` | `0x185DC0` | 96 | **100.00% exact match** (96/96 B) | 0 B |
+| `func_00185e20` | `0x185E20` | 44 | **100.00% exact match** (44/44 B) | 4 B |
+
 #### Zone Terrain and Coordinate Transformation Slices (`0x1CDD00`–`0x1D1430`)
 
 Contiguous decompilation of the Age of Empires II PlayStation 2 terrain and spatial sub-systems along file offsets `0xCDEE0`–`0xD1610` (VRAM `0x1CDD00`–`0x1D1430`, offset mapping `+0xFFE20`):

@@ -6677,6 +6677,22 @@ This two-function pure C++ slice spans VRAM `0x1857B0`–`0x1859A0` and file off
 | `func_001857b0` | `0x1857B0` | 92 | **100.00% exact match** (92/92 B) | 4 B |
 | `func_00185810` | `0x185810` | 388 | **100.00% exact match** (388/388 B) | 12 B |
 
+#### 6.317 `RenderManager Blank Screen & Presentation Flags` Subsystem (`0x1859A0`–`0x185A80`, `render_manager_blank_screen.cpp`)
+
+This two-function pure C++ slice spans VRAM `0x1859A0`–`0x185A80` and file offsets `0x85B80`–`0x85C60` (224 bytes total: 200 instruction bytes + 24 bytes padding). The original ELF `PT_LOAD` mapping gives the VRAM/file-offset delta `0xFFE20`. The slice implements the "Blank Screen" object allocation (0x804 / 2,052 bytes), display context registration, and presentation statistics flag initialization. The unit is registered as `Matching` after fresh MWCC compilation and literal comparison of all 200 relocated instruction bytes.
+
+- `func_001859a0` (`0x1859A0`, 164 instruction bytes, 12 B padding): Blank screen object factory. Allocates 2,052 bytes via `func_100850`, initializes via `func_215910(obj, D_00491A18)`, configures surface via `func_215A00`, hooks into display context via `func_1F2900((void *)func_00A80BB0, D_00491A18, 0)`, invokes `func_188A40(self)`, and returns 1 on success or 0 on allocation failure.
+- `func_00185a50` (`0x185A50`, 36 instruction bytes, 12 B padding): Presentation statistics flag initializer. Stores 1 across seven state and telemetry fields (`self->field_568`, `self->field_588`, `self->field_5A8`, `self->field_688`, `self->field_6E8`, `self->field_54C`, and delay-slot `self->field_5CC`).
+
+`tests/test_render_manager_blank_screen.py` exercises four 32-bit native test cases across blank screen creation, allocation failure, property failure, and seven-flag initialization. `tests/test_render_manager_blank_screen_matching.py` verifies fresh-compilation bit-exactness against `orig/SLES-50282/AOK.ELF` after `R_MIPS_26` and `R_MIPS_HI16/LO16` relocation resolution, as well as split boundary alignment and padding.
+
+#### 6.317.1 RenderManager Blank Screen Matching Results (200 Code Bytes, 224-Byte Slice)
+
+| Function | VRAM | Instruction bytes | Relocated byte comparison | Padding |
+|---|---:|---:|---|---:|
+| `func_001859a0` | `0x1859A0` | 164 | **100.00% exact match** (164/164 B) | 12 B |
+| `func_00185a50` | `0x185A50` | 36 | **100.00% exact match** (36/36 B) | 12 B |
+
 #### Zone Terrain and Coordinate Transformation Slices (`0x1CDD00`–`0x1D1430`)
 
 Contiguous decompilation of the Age of Empires II PlayStation 2 terrain and spatial sub-systems along file offsets `0xCDEE0`–`0xD1610` (VRAM `0x1CDD00`–`0x1D1430`, offset mapping `+0xFFE20`):

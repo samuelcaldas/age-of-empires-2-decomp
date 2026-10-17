@@ -1933,10 +1933,16 @@ segments:
     vram: 0x1857B0
     subsegments:
       - [0x85990, asm, render_manager_surfaces]
-  - name: post_base
-    type: bin
+  - name: render_manager_blank_screen
+    type: code
     start: 0x85B80
     vram: 0x1859A0
+    subsegments:
+      - [0x85B80, asm, render_manager_blank_screen]
+  - name: post_base
+    type: bin
+    start: 0x85C60
+    vram: 0x185A80
   - name: zone_path_eval
     type: code
     start: 0xC7A40

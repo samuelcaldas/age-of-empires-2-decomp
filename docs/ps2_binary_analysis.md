@@ -6880,6 +6880,23 @@ This two-function pure C++ slice spans VRAM `0x186A30`–`0x186C20` and file off
 | `func_00186a30` | `0x186A30` | 476 | **100.00% exact match** (476/476 B) | 4 B |
 | `func_00186c10` | `0x186C10` | 8 | **100.00% exact match** (8/8 B) | 8 B |
 
+#### 6.327 `RenderManager Command and Notification Dispatch Subsystem` (`0x186C20`–`0x186DC0`, `render_manager_command.cpp`)
+
+This two-function pure C++ slice spans VRAM `0x186C20`–`0x186DC0` and file offsets `0x86E00`–`0x86FA0` (416 bytes total: 396 instruction bytes + 20 bytes padding). The original ELF `PT_LOAD` mapping gives the VRAM/file-offset delta `0xFFE20`. The unit manages command codes, player subsystem notifications, and sub-object display states:
+
+- `func_00186c20` (`0x186C20`, 388 instruction bytes, 4 B align padding, 8 B trailing padding): Command processor `(self, hwnd, msg, a3, a4)`. When `func_18FFD0(self->field_1AC) >= 13` and `!D_004E8990`: for command `6076` resolves player index via `func_188870(self, a4)` and invokes secondary virtual method `item->MethodD8(a4, 1)` (vtable offset `0xD8` on sub-class at offset `0x1B30`); for command `6077` invokes `item->MethodD8(a4, 0)`. Dispatches switch command codes: ignores `6076`, `6074`, `6073`; for `6050` invokes `self->field_404->Method8C(1)` (vtable offset `0x8C`); for `6051` invokes `self->field_404->Method8C(0)`. Forwards command to `self->MethodF8(a3, a4)` (vtable offset `0xF8`) and returns boolean result via `movz` (`!= 0 ? 1 : 0`).
+- `func_00186db0` (`0x186DB0`, 8 instruction bytes, 8 B padding): Leaf boolean stub returning 1 unconditionally (`jr $ra; addiu $v0, $zero, 1`).
+
+`tests/test_render_manager_command.py` exercises four 32-bit native test cases covering the boolean stub, player notification dispatch under commands 6076/6077, and switch mode handling for commands 6050/6051/6074. `tests/test_render_manager_command_matching.py` verifies fresh-compilation bit-exactness across all 396 instruction bytes after `R_MIPS_26` and `R_MIPS_GPREL16` relocation resolution against original binary `orig/SLES-50282/AOK.ELF`.
+
+#### 6.327.1 RenderManager Command Matching Results (396 Code Bytes, 416-Byte Slice)
+
+| Function | VRAM | Instruction bytes | Relocated byte comparison | Padding |
+|---|---:|---:|---|---:|
+| `func_00186c20` | `0x186C20` | 388 | **100.00% exact match** (388/388 B) | 12 B |
+| `func_00186db0` | `0x186DB0` | 8 | **100.00% exact match** (8/8 B) | 8 B |
+
+
 
 
 

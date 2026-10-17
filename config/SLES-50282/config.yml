@@ -1993,10 +1993,16 @@ segments:
     vram: 0x186A30
     subsegments:
       - [0x86C10, asm, render_manager_key_dispatch]
-  - name: post_base
-    type: bin
+  - name: render_manager_command
+    type: code
     start: 0x86E00
     vram: 0x186C20
+    subsegments:
+      - [0x86E00, asm, render_manager_command]
+  - name: post_base
+    type: bin
+    start: 0x86FA0
+    vram: 0x186DC0
   - name: zone_path_eval
     type: code
     start: 0xC7A40

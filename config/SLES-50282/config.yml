@@ -2723,9 +2723,27 @@ segments:
     vram: 0x1DAE20
     subsegments:
       - [0xDB000, asm, zone_spatial_view_scale_add]
+  - name: zone_spatial_view_move_right
+    type: code
+    start: 0xDB010
+    vram: 0x1DAE30
+    subsegments:
+      - [0xDB010, asm, zone_spatial_view_move_right]
+  - name: zone_spatial_view_move_up
+    type: code
+    start: 0xDB0A0
+    vram: 0x1DAEC0
+    subsegments:
+      - [0xDB0A0, asm, zone_spatial_view_move_up]
+  - name: zone_spatial_view_move_forward
+    type: code
+    start: 0xDB130
+    vram: 0x1DAF50
+    subsegments:
+      - [0xDB130, asm, zone_spatial_view_move_forward]
   - name: post_aoe2
     type: bin
-    start: 0xDB010
+    start: 0xDB1C0
   - name: trade_action_helper_217730
     type: code
     start: 0x117910

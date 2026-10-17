@@ -6545,6 +6545,26 @@ The loader preserves two limitations visible in the original instructions: it do
 | `func_00184fb0` | `0x184FB0` | 76 | **100.00% exact match** (76/76 B) | 4 B |
 | `func_00185000` | `0x185000` | 48 | **100.00% exact match** (48/48 B) | 0 B |
 
+#### 6.309 `RenderManager Device Control & Metric Query` Subsystem (`0x185030`–`0x185160`, `render_manager_device.cpp`)
+
+This four-function pure C++ slice spans VRAM `0x185030`–`0x185160` and file offsets `0x85210`–`0x85340` (304 bytes total: 280 instruction bytes + 24 bytes padding). The original ELF `PT_LOAD` mapping gives the VRAM/file-offset delta `0xFFE20`. The slice implements controller device lifecycle management, three-metric telemetry queries, three-stage actuator validation, and an optimized frameless tail call. The unit is registered as `Matching` after fresh MWCC compilation and literal comparison of all 280 relocated instruction bytes.
+
+- `func_00185030` (`0x185030`, 40 instruction bytes, 8 B padding): Device reset. If `self->device != 0`, invokes `func_344580(self->device)`.
+- `func_00185060` (`0x185060`, 104 instruction bytes, 8 B padding): Telemetry query. Resolves three integer metrics from `self->device` via `func_344840`, `func_3448D0`, and `func_3447F0`, storing into `*out1`, `*out2`, and `*out3`.
+- `func_001850d0` (`0x1850D0`, 128 instruction bytes, 0 B padding): Actuator validator. Sequences `func_3445F0(self->device)`, `func_3445C0(self->device, arg2)`, and `func_344640(self->device, arg3, 1)`, returning 1 if all three succeed and short-circuiting to 0 on any failure.
+- `func_00185150` (`0x185150`, 8 instruction bytes, 8 B padding): Device query tail-call. Compiles under `#pragma exceptions off` to a single `lw $a0, 0x24($a0)` delay-slot instruction and jump `j func_344920` without a stack frame.
+
+`tests/test_render_manager_device.py` exercises eight 32-bit native test cases across device presence, metric extraction, three-stage short-circuiting, and tail-call execution. `tests/test_render_manager_device_matching.py` verifies fresh-compilation bit-exactness against `orig/SLES-50282/AOK.ELF` after `R_MIPS_26` relocation resolution, as well as split boundaries and symbol extents.
+
+#### 6.309.1 RenderManager Device Control Matching Results (280 Code Bytes, 304-Byte Slice)
+
+| Function | VRAM | Instruction bytes | Relocated byte comparison | Padding |
+|---|---:|---:|---|---:|
+| `func_00185030` | `0x185030` | 40 | **100.00% exact match** (40/40 B) | 8 B |
+| `func_00185060` | `0x185060` | 104 | **100.00% exact match** (104/104 B) | 8 B |
+| `func_001850d0` | `0x1850D0` | 128 | **100.00% exact match** (128/128 B) | 0 B |
+| `func_00185150` | `0x185150` | 8 | **100.00% exact match** (8/8 B) | 8 B |
+
 #### Zone Terrain and Coordinate Transformation Slices (`0x1CDD00`–`0x1D1430`)
 
 Contiguous decompilation of the Age of Empires II PlayStation 2 terrain and spatial sub-systems along file offsets `0xCDEE0`–`0xD1610` (VRAM `0x1CDD00`–`0x1D1430`, offset mapping `+0xFFE20`):

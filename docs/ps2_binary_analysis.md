@@ -6157,6 +6157,20 @@ An independent verification suite (`tests/test_trade_action_stream_dispatch.py`,
 |---|---:|---:|---|---:|
 | `func_0017dde0` | `0x17DDE0` | 1384 | 1042/1384 normalized match (75.22%) | 8 B |
 
+#### 6.293 `Trade Action Stream Raster` Subsystem (`0x17E350`–`0x181E40`, `trade_action_stream_raster.cpp`)
+
+This single-function C++ slice spans VRAM `0x17E350`–`0x181E40` and file offsets `0x7E530`–`0x82020` (15,088 bytes total). The original ELF `PT_LOAD` mapping gives the VRAM/file-offset delta `0xFFE20`. The slice comprises 15,080 instruction bytes and 8 alignment-padding bytes. Symbol size excludes padding. The unit remains registered as `NonMatching`.
+
+- `func_0017e350` (`0x17E350`, 15,080 instruction bytes): Master 2D rectangular stream rasterization and clipping driver (`ASMDRAW_RECT`). Implements vertical coordinate bounds validation and clipping against `D_004E30DC` and `D_004E30E0`, horizontal clipping against `D_004E30E4` and `D_004E30E8`, scanline table row lookup via `D_004E3078`, scanline segment linked list traversal, run-length decoding and multi-mode branching over 47 distinct jump tables, dispatching through `func_001522C0`, `func_00181e40`, and the 114-entry `PostDrawFunction` table at `0x38FF30`.
+
+An independent verification suite (`tests/test_trade_action_stream_raster.py`, with fixture/build support in `tests/trade_action_stream_raster_support.py`) compiles the actual source, checks the pinned original ELF SHA-1 (`e249b0199bce45744263db648efb921ca3c12859`) and file-backed `PT_LOAD` mapping, validates object and linked `STT_FUNC` symbol sizes and `st_shndx`, links an `ET_EXEC` with no unresolved symbols, and verifies emitted instruction coverage and padding bytes.
+
+#### 6.293.1 Trade Action Stream Raster Matching Results (15,080 Code Bytes, 15,088-Byte Slice)
+
+| Function | VRAM | Instruction bytes | Result | Padding |
+|---|---:|---:|---|---:|
+| `func_0017e350` | `0x17E350` | 15080 | Structural alignment verified | 8 B |
+
 #### Zone Terrain and Coordinate Transformation Slices (`0x1CDD00`–`0x1D1430`)
 
 Contiguous decompilation of the Age of Empires II PlayStation 2 terrain and spatial sub-systems along file offsets `0xCDEE0`–`0xD1610` (VRAM `0x1CDD00`–`0x1D1430`, offset mapping `+0xFFE20`):

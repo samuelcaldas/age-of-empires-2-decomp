@@ -1,0 +1,10 @@
+#ifndef ZONE_SPATIAL_GRID_RESET_BOUNDING_INDICES_H
+#define ZONE_SPATIAL_GRID_RESET_BOUNDING_INDICES_H
+
+struct SpatialGrid;
+
+extern "C" {
+void func_001E9140(SpatialGrid *self);
+}
+
+#endif // ZONE_SPATIAL_GRID_RESET_BOUNDING_INDICES_H

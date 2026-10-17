@@ -8,6 +8,7 @@ Start with the top-level [README](../README.md).
 - [ps2_library_map.md](ps2_library_map.md): bounded third-party runtime routines and Sony SDK version markers in the PAL ELF
 - [toolchain.md](toolchain.md): compilers, how to identify them from the binaries, and what is still unverified
 - [elevation_mesh_serializer_328020.md](elevation_mesh_serializer_328020.md): pure-C++ serializer at `0x328020`, 224-byte exact MWCC match, ordered-write contracts, and real mutation tests
+- [elevation_mesh_filter_328100.md](elevation_mesh_filter_328100.md): pure-C++ query filter at `0x328100`, 292-byte exact MWCC match, grid entity contracts, and real mutation tests
 - [trade_action_route_finish.md](trade_action_route_finish.md): exact route-buffer reconstruction, corrected ELF mapping, and regression validation
 - [trade_action_helpers_217840.md](trade_action_helpers_217840.md): eight independent trade-action setters, callback behavior, and native regression coverage
 - [trade_action_helper_218350.md](trade_action_helper_218350.md): reconstructed helper, exact original code/padding boundary, isolated build comparison, and seven-case native contracts

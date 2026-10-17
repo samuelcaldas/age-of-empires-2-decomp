@@ -1945,10 +1945,16 @@ segments:
     vram: 0x185A80
     subsegments:
       - [0x85C60, asm, render_manager_teardown]
-  - name: post_base
-    type: bin
+  - name: render_manager_present
+    type: code
     start: 0x85DA0
     vram: 0x185BC0
+    subsegments:
+      - [0x85DA0, asm, render_manager_present]
+  - name: post_base
+    type: bin
+    start: 0x85EE0
+    vram: 0x185D00
   - name: zone_path_eval
     type: code
     start: 0xC7A40

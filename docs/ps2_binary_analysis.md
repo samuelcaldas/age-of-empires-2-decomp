@@ -6707,6 +6707,26 @@ This single-function pure C++ slice spans VRAM `0x185A80`–`0x185BC0` and file 
 |---|---:|---:|---|---:|
 | `func_00185a80` | `0x185A80` | 312 | **100.00% exact match** (312/312 B) | 8 B |
 
+#### 6.319 `RenderManager Surface Presentation & Refresh` Subsystem (`0x185BC0`–`0x185D00`, `render_manager_present.cpp`)
+
+This four-function pure C++ slice spans VRAM `0x185BC0`–`0x185D00` and file offsets `0x85DA0`–`0x85EE0` (320 bytes total: 288 instruction bytes + 32 bytes padding). The original ELF `PT_LOAD` mapping gives the VRAM/file-offset delta `0xFFE20`. The slice implements active surface descriptor presentation, item notifications, viewport dirty-rectangle evaluation, and stub hooks. The unit is registered as `Matching` after fresh MWCC compilation and literal comparison of all 288 relocated instruction bytes.
+
+- `func_00185bc0` (`0x185BC0`, 152 instruction bytes, 8 B padding): Surface descriptor presentation. If `self->field_88` is null, iterates active items in `self->field_404->items` notifying each via `func_25F6C0(item, self->field_88)`, releases context via `func_1F3440(func_00A80BB0)`, and updates `D_004E8944` via `func_189220(D_004E8944, self->field_88)`. Returns 1.
+- `func_00185c60` (`0x185C60`, 8 instruction bytes, 8 B padding): Stub leaf returning 1 without stack allocation.
+- `func_00185c70` (`0x185C70`, 120 instruction bytes, 8 B padding): Viewport refresh query. If `self->field_30 == 0`, invokes `func_185CF0()` and returns 0. If `self->field_34 != 0`, returns 1. Checks display rectangle via `func_225F80(self->field_2C, &rect, 0)`, updating viewport via `func_1AB1C0(self->field_6C, &rect)`, and returns 0.
+- `func_00185cf0` (`0x185CF0`, 8 instruction bytes, 8 B padding): Empty stub leaf function (`jr $ra; nop`).
+
+`tests/test_render_manager_present.py` exercises seven 32-bit native test cases across active presentation, inactive bypass, stub returns, unready check, refresh bypass, and viewport refresh. `tests/test_render_manager_present_matching.py` verifies fresh-compilation bit-exactness against `orig/SLES-50282/AOK.ELF` after `R_MIPS_26`, `R_MIPS_HI16/LO16`, and `R_MIPS_GPREL16` relocation resolution, as well as split boundary alignment and padding.
+
+#### 6.319.1 RenderManager Surface Presentation Matching Results (288 Code Bytes, 320-Byte Slice)
+
+| Function | VRAM | Instruction bytes | Relocated byte comparison | Padding |
+|---|---:|---:|---|---:|
+| `func_00185bc0` | `0x185BC0` | 152 | **100.00% exact match** (152/152 B) | 8 B |
+| `func_00185c60` | `0x185C60` | 8 | **100.00% exact match** (8/8 B) | 8 B |
+| `func_00185c70` | `0x185C70` | 120 | **100.00% exact match** (120/120 B) | 8 B |
+| `func_00185cf0` | `0x185CF0` | 8 | **100.00% exact match** (8/8 B) | 8 B |
+
 #### Zone Terrain and Coordinate Transformation Slices (`0x1CDD00`–`0x1D1430`)
 
 Contiguous decompilation of the Age of Empires II PlayStation 2 terrain and spatial sub-systems along file offsets `0xCDEE0`–`0xD1610` (VRAM `0x1CDD00`–`0x1D1430`, offset mapping `+0xFFE20`):

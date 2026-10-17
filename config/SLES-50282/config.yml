@@ -3071,9 +3071,45 @@ segments:
     vram: 0x1DDBF0
     subsegments:
       - [0xDDDC0, asm, zone_spatial_entity_validate_bounds]
+  - name: zone_spatial_entity_resolve_world_node
+    type: code
+    start: 0xDDEA0
+    vram: 0x1DDCD0
+    subsegments:
+      - [0xDDEA0, asm, zone_spatial_entity_resolve_world_node]
+  - name: zone_spatial_entity_query_spatial_cell
+    type: code
+    start: 0xDE020
+    vram: 0x1DDE50
+    subsegments:
+      - [0xDE020, asm, zone_spatial_entity_query_spatial_cell]
+  - name: zone_spatial_entity_update_spatial_tile
+    type: code
+    start: 0xDE2A0
+    vram: 0x1DE0D0
+    subsegments:
+      - [0xDE2A0, asm, zone_spatial_entity_update_spatial_tile]
+  - name: zone_spatial_entity_check_cell_occupant
+    type: code
+    start: 0xDE410
+    vram: 0x1DE240
+    subsegments:
+      - [0xDE410, asm, zone_spatial_entity_check_cell_occupant]
+  - name: zone_spatial_entity_query_nearby_occupants
+    type: code
+    start: 0xDE600
+    vram: 0x1DE430
+    subsegments:
+      - [0xDE600, asm, zone_spatial_entity_query_nearby_occupants]
+  - name: zone_spatial_entity_filter_nearby_occupants
+    type: code
+    start: 0xDE820
+    vram: 0x1DE650
+    subsegments:
+      - [0xDE820, asm, zone_spatial_entity_filter_nearby_occupants]
   - name: post_aoe2
     type: bin
-    start: 0xDDEA0
+    start: 0xDEA30
   - name: trade_action_helper_217730
     type: code
     start: 0x117910

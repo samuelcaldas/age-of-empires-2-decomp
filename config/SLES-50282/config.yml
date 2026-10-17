@@ -3167,9 +3167,51 @@ segments:
     vram: 0x1DEDB0
     subsegments:
       - [0xDEF80, asm, zone_spatial_entity_dispatch_motion_callback]
+  - name: zone_spatial_entity_alloc_waypoint_buffer
+    type: code
+    start: 0xDEF90
+    vram: 0x1DEDC0
+    subsegments:
+      - [0xDEF90, asm, zone_spatial_entity_alloc_waypoint_buffer]
+  - name: zone_spatial_entity_free_waypoint_buffer
+    type: code
+    start: 0xDF0B0
+    vram: 0x1DEEE0
+    subsegments:
+      - [0xDF0B0, asm, zone_spatial_entity_free_waypoint_buffer]
+  - name: zone_spatial_entity_copy_waypoint_list
+    type: code
+    start: 0xDF1A0
+    vram: 0x1DEFD0
+    subsegments:
+      - [0xDF1A0, asm, zone_spatial_entity_copy_waypoint_list]
+  - name: zone_spatial_entity_append_waypoint_entry
+    type: code
+    start: 0xDF230
+    vram: 0x1DF060
+    subsegments:
+      - [0xDF230, asm, zone_spatial_entity_append_waypoint_entry]
+  - name: zone_spatial_entity_compute_path_step
+    type: code
+    start: 0xDF2D0
+    vram: 0x1DF100
+    subsegments:
+      - [0xDF2D0, asm, zone_spatial_entity_compute_path_step]
+  - name: zone_spatial_entity_step_waypoint_motion
+    type: code
+    start: 0xDF4A0
+    vram: 0x1DF2D0
+    subsegments:
+      - [0xDF4A0, asm, zone_spatial_entity_step_waypoint_motion]
+  - name: zone_spatial_entity_adjust_heading_step
+    type: code
+    start: 0xDF520
+    vram: 0x1DF350
+    subsegments:
+      - [0xDF520, asm, zone_spatial_entity_adjust_heading_step]
   - name: post_aoe2
     type: bin
-    start: 0xDEF90
+    start: 0xDF5C0
   - name: trade_action_helper_217730
     type: code
     start: 0x117910

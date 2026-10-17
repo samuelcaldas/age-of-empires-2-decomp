@@ -7069,3 +7069,16 @@ Achieved bit-level 100.00% matching. Pure C++ with zero assembly (.s). Validated
 | Function / Method | VRAM Address | Code Size (Orig) | Slice Size | Match Status | Description |
 |---|---|---|---|---|---|
 | `func_00340D30` | `0x340D30` | 56 B | 64 B | **Matching (100.00%)** | Action message filter dispatching `func_340D70(a0, a3, t0)` on 0x520 or `func_1F45E0(a0, a1, a2, a3)`. |
+
+#### 6.191 `Tactical AI Handler & State Reset` Subsystem (`0x340C30`–`0x340CF0`, `tactical_ai_handler_340c30.cpp`)
+
+Located at VRAM `0x340C30`–`0x340CF0` (file offset `0x240E10`–`0x240ED0`, 192 bytes total slice, 180 bytes code + 12 bytes zero padding, Metrowerks C++ PS2 MWCC 2.3.1.01):
+- `func_00340C30` (`0x340C30`, 180 bytes code, 192 bytes slice): Checks if `field_84 == 1`. If true, computes time elapsed since `field_854` using `func_2261c0()`. If elapsed time is less than 1000 ms, ensures `field_858` is set to 1 and returns early. If elapsed is 1000+ ms or `field_84 != 1`, resets `field_83C`, `field_840`, `field_84C` to -1 and `field_854`, `field_858` to 0, calls `func_33A730()`, `func_20BF20(self)`, sends "Memorycard Screen" notification via `func_1F2900(D_00A80BB0, "Memorycard Screen", 0)`, executes virtual method at vtable offset `0x1C` (`self->vfunc_1c(0)` via `$t9`), and calls cleanup helper `func_340360(self->field_844)`.
+
+Achieved bit-level 100.00% matching. Pure C++ with zero assembly (.s). Validated with native regression tests in `tests/native/tactical_ai_handler_340c30_test.cpp` and binary ELF comparison test `tests/test_tactical_ai_handler_340c30_matching.py`.
+
+#### 6.191.1 Tactical AI Handler & State Reset Matching Results (Pure C++, 192 Bytes)
+
+| Function / Method | VRAM Address | Code Size (Orig) | Slice Size | Match Status | Description |
+|---|---|---|---|---|---|
+| `func_00340C30` | `0x340C30` | 180 B | 192 B | **Matching (100.00%)** | Tactical AI state handler and memorycard screen notification dispatcher. |

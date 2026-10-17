@@ -7,6 +7,7 @@ import sys
 
 from .arguments import build_parser
 from .commands import enqueue_command, status_command, verify_command, watch_command, work_command
+from .publish_cli import publish_command
 from .site_cli import export_command, site_command
 
 
@@ -24,6 +25,9 @@ def _dispatch(args):
         return 0
     if args.command == "site":
         site_command(args)
+        return 0
+    if args.command == "publish":
+        publish_command(args)
         return 0
     handlers = dict(status=status_command, watch=watch_command, work=work_command)
     handlers[args.command](args)

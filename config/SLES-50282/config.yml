@@ -2017,10 +2017,16 @@ segments:
     vram: 0x187170
     subsegments:
       - [0x87350, asm, render_manager_activate]
-  - name: post_base
-    type: bin
+  - name: render_manager_display_change
+    type: code
     start: 0x87580
     vram: 0x1873A0
+    subsegments:
+      - [0x87580, asm, render_manager_display_change]
+  - name: post_base
+    type: bin
+    start: 0x87660
+    vram: 0x187480
   - name: zone_path_eval
     type: code
     start: 0xC7A40

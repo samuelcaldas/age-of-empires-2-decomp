@@ -2609,9 +2609,117 @@ segments:
     vram: 0x1D8C30
     subsegments:
       - [0xD8E10, asm, zone_spatial_view_obj_dtor]
+  - name: zone_spatial_view_set_orient
+    type: code
+    start: 0xD8E80
+    vram: 0x1D8CA0
+    subsegments:
+      - [0xD8E80, asm, zone_spatial_view_set_orient]
+  - name: zone_spatial_view_set_rate
+    type: code
+    start: 0xD9170
+    vram: 0x1D8F90
+    subsegments:
+      - [0xD9170, asm, zone_spatial_view_set_rate]
+  - name: zone_spatial_view_is_valid
+    type: code
+    start: 0xD91B0
+    vram: 0x1D8FD0
+    subsegments:
+      - [0xD91B0, asm, zone_spatial_view_is_valid]
+  - name: zone_spatial_view_has_active_mode
+    type: code
+    start: 0xD9200
+    vram: 0x1D9020
+    subsegments:
+      - [0xD9200, asm, zone_spatial_view_has_active_mode]
+  - name: zone_spatial_view_clear_rates
+    type: code
+    start: 0xD9250
+    vram: 0x1D9070
+    subsegments:
+      - [0xD9250, asm, zone_spatial_view_clear_rates]
+  - name: zone_spatial_view_reset
+    type: code
+    start: 0xD92A0
+    vram: 0x1D90C0
+    subsegments:
+      - [0xD92A0, asm, zone_spatial_view_reset]
+  - name: zone_spatial_view_clear_sub
+    type: code
+    start: 0xD92F0
+    vram: 0x1D9110
+    subsegments:
+      - [0xD92F0, asm, zone_spatial_view_clear_sub]
+  - name: zone_spatial_view_get_target
+    type: code
+    start: 0xD93B0
+    vram: 0x1D91D0
+    subsegments:
+      - [0xD93B0, asm, zone_spatial_view_get_target]
+  - name: zone_spatial_view_has_reached_limit
+    type: code
+    start: 0xD9430
+    vram: 0x1D9250
+    subsegments:
+      - [0xD9430, asm, zone_spatial_view_has_reached_limit]
+  - name: zone_spatial_view_update_matrices
+    type: code
+    start: 0xD94D0
+    vram: 0x1D92F0
+    subsegments:
+      - [0xD94D0, asm, zone_spatial_view_update_matrices]
+  - name: zone_spatial_view_check_modes
+    type: code
+    start: 0xD95A0
+    vram: 0x1D93C0
+    subsegments:
+      - [0xD95A0, asm, zone_spatial_view_check_modes]
+  - name: zone_spatial_view_update_frustum
+    type: code
+    start: 0xD9610
+    vram: 0x1D9430
+    subsegments:
+      - [0xD9610, asm, zone_spatial_view_update_frustum]
+  - name: zone_spatial_view_check_bitmask
+    type: code
+    start: 0xDAC40
+    vram: 0x1DAA60
+    subsegments:
+      - [0xDAC40, asm, zone_spatial_view_check_bitmask]
+  - name: zone_spatial_view_transform_point
+    type: code
+    start: 0xDAC90
+    vram: 0x1DAAB0
+    subsegments:
+      - [0xDAC90, asm, zone_spatial_view_transform_point]
+  - name: zone_spatial_view_project_xz
+    type: code
+    start: 0xDAD30
+    vram: 0x1DAB50
+    subsegments:
+      - [0xDAD30, asm, zone_spatial_view_project_xz]
+  - name: zone_spatial_view_calc_deflection
+    type: code
+    start: 0xDADF0
+    vram: 0x1DAC10
+    subsegments:
+      - [0xDADF0, asm, zone_spatial_view_calc_deflection]
+  - name: zone_spatial_view_eval_lengths
+    type: code
+    start: 0xDAEB0
+    vram: 0x1DACD0
+    subsegments:
+      - [0xDAEB0, asm, zone_spatial_view_eval_lengths]
+  - name: zone_spatial_view_scale_add
+    type: code
+    start: 0xDB000
+    vram: 0x1DAE20
+    subsegments:
+      - [0xDB000, asm, zone_spatial_view_scale_add]
   - name: post_aoe2
     type: bin
-    start: 0xD8E80
+    start: 0xDB010
   - name: trade_action_helper_217730
     type: code
     start: 0x117910

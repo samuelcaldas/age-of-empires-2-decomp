@@ -6565,6 +6565,20 @@ This four-function pure C++ slice spans VRAM `0x185030`–`0x185160` and file of
 | `func_001850d0` | `0x1850D0` | 128 | **100.00% exact match** (128/128 B) | 0 B |
 | `func_00185150` | `0x185150` | 8 | **100.00% exact match** (8/8 B) | 8 B |
 
+#### 6.310 `RenderManager Input Message Translator` Subsystem (`0x185160`–`0x185230`, `render_manager_input_translate.cpp`)
+
+This single-function pure C++ slice spans VRAM `0x185160`–`0x185230` and file offsets `0x85340`–`0x85410` (208 bytes total: 208 instruction bytes + 0 bytes padding). The original ELF `PT_LOAD` mapping gives the VRAM/file-offset delta `0xFFE20`. The slice implements the input event message translator, matching input messages against the 13-entry static descriptor table at `0x00391C30`. The unit is registered as `Matching` after fresh MWCC compilation and literal comparison of all 208 relocated instruction bytes.
+
+- `func_00185160` (`0x185160`, 208 instruction bytes, 0 B padding): Input event message translator. Evaluates incoming Windows/PS2 events against the 13-entry table `D_00391C30`. Guards against initial return-key repeat (`WM_KEYDOWN` `0x100` with `wParam == 0xD && lParam == 1`). Iterates table entries testing primary match (`entry->id == msg`) returning 1, or secondary match (`entry->field_4 == msg`) returning -1, validating `entry->field_8 == 0 || entry->field_8 == event->wParam`. Stores matching entry pointer into `*out_entry`, or clears `*out_entry = 0` and returns 0 when no descriptor matches.
+
+`tests/test_render_manager_input_translate.py` exercises six 32-bit native test cases across ignored return repeat, primary match, secondary match, parameter filtering, and unmatched fallback. `tests/test_render_manager_input_translate_matching.py` verifies fresh-compilation bit-exactness against `orig/SLES-50282/AOK.ELF` after `R_MIPS_HI16` and `R_MIPS_LO16` data relocation resolution, as well as split boundary alignment.
+
+#### 6.310.1 RenderManager Input Message Translator Matching Results (208 Code Bytes, 208-Byte Slice)
+
+| Function | VRAM | Instruction bytes | Relocated byte comparison | Padding |
+|---|---:|---:|---|---:|
+| `func_00185160` | `0x185160` | 208 | **100.00% exact match** (208/208 B) | 0 B |
+
 #### Zone Terrain and Coordinate Transformation Slices (`0x1CDD00`–`0x1D1430`)
 
 Contiguous decompilation of the Age of Empires II PlayStation 2 terrain and spatial sub-systems along file offsets `0xCDEE0`–`0xD1610` (VRAM `0x1CDD00`–`0x1D1430`, offset mapping `+0xFFE20`):

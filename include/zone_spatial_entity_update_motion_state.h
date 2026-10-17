@@ -1,0 +1,10 @@
+#ifndef ZONE_SPATIAL_ENTITY_UPDATE_MOTION_STATE_H
+#define ZONE_SPATIAL_ENTITY_UPDATE_MOTION_STATE_H
+
+struct SpatialEntity;
+
+extern "C" {
+int func_001DED70(SpatialEntity *self);
+}
+
+#endif // ZONE_SPATIAL_ENTITY_UPDATE_MOTION_STATE_H

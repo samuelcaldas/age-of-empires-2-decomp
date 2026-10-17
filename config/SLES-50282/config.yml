@@ -3113,9 +3113,57 @@ segments:
     vram: 0x1DE650
     subsegments:
       - [0xDE820, asm, zone_spatial_entity_filter_nearby_occupants]
+  - name: zone_spatial_entity_eval_motion_bounds
+    type: code
+    start: 0xDEA30
+    vram: 0x1DE860
+    subsegments:
+      - [0xDEA30, asm, zone_spatial_entity_eval_motion_bounds]
+  - name: zone_spatial_entity_calc_scale_factor
+    type: code
+    start: 0xDEC60
+    vram: 0x1DEA90
+    subsegments:
+      - [0xDEC60, asm, zone_spatial_entity_calc_scale_factor]
+  - name: zone_spatial_entity_clear_status_flag
+    type: code
+    start: 0xDECB0
+    vram: 0x1DEAE0
+    subsegments:
+      - [0xDECB0, asm, zone_spatial_entity_clear_status_flag]
+  - name: zone_spatial_entity_set_status_flag
+    type: code
+    start: 0xDED10
+    vram: 0x1DEB40
+    subsegments:
+      - [0xDED10, asm, zone_spatial_entity_set_status_flag]
+  - name: zone_spatial_entity_get_waypoint_entry
+    type: code
+    start: 0xDED20
+    vram: 0x1DEB50
+    subsegments:
+      - [0xDED20, asm, zone_spatial_entity_get_waypoint_entry]
+  - name: zone_spatial_entity_step_motion_vector
+    type: code
+    start: 0xDED60
+    vram: 0x1DEB90
+    subsegments:
+      - [0xDED60, asm, zone_spatial_entity_step_motion_vector]
+  - name: zone_spatial_entity_update_motion_state
+    type: code
+    start: 0xDEF40
+    vram: 0x1DED70
+    subsegments:
+      - [0xDEF40, asm, zone_spatial_entity_update_motion_state]
+  - name: zone_spatial_entity_dispatch_motion_callback
+    type: code
+    start: 0xDEF80
+    vram: 0x1DEDB0
+    subsegments:
+      - [0xDEF80, asm, zone_spatial_entity_dispatch_motion_callback]
   - name: post_aoe2
     type: bin
-    start: 0xDEA30
+    start: 0xDEF90
   - name: trade_action_helper_217730
     type: code
     start: 0x117910

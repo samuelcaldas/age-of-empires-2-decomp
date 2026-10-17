@@ -6509,6 +6509,20 @@ An independent verification suite (`tests/test_render_manager_query.py`, with 32
 | `func_00184c70` | `0x184C70` | 76 | **100.00% exact match** (76/76 B) | 12 B |
 | `func_00184cc0` | `0x184CC0` | 24 | **100.00% exact match** (24/24 B) | 8 B |
 
+#### 6.307 `RenderManager Message Formatter & Jump Table` Subsystem (`0x184CE0`–`0x184EEC`, `render_manager_messages.cpp`)
+
+This single-function C++ slice spans VRAM `0x184CE0`–`0x184EEC` and file offsets `0x84EC0`–`0x850CC` (524 bytes total). The original ELF `PT_LOAD` mapping gives the VRAM/file-offset delta `0xFFE20`. The slice comprises 524 instruction bytes implementing the master UI string resource resolver with a 24-case jump table at `0x00491990`. Symbol sizes exclude padding. The unit remains registered as `NonMatching`.
+
+- `func_00184ce0` (`0x184CE0`, 524 instruction bytes): Master UI string formatter and message resolver. For mode 1, indexes 24-case jump table (`0x00491990`) resolving string IDs (`0x7D2`..`0x7E1`) and dispatching virtual method 10 (`GetString`). For mode 2, invokes `GetString` with direct `msg_id`. For default/unrecognized modes and IDs, clears destination buffer (`dest[0] = 0; dest[max_len - 1] = 0`).
+
+An independent verification suite (`tests/test_render_manager_messages.py`, with 32-bit test doubles in `tests/native/render_manager_messages_test.cpp`) validates mode 1 jump table string ID resolution across representative cases, mode 2 direct parameter pass-through, and boundary buffer zeroing.
+
+#### 6.307.1 RenderManager Message Formatter Matching Results (524 Code Bytes, 524-Byte Slice)
+
+| Function | VRAM | Instruction bytes | Result | Padding |
+|---|---:|---:|---|---:|
+| `func_00184ce0` | `0x184CE0` | 492 | Structural alignment verified | 32 B |
+
 #### Zone Terrain and Coordinate Transformation Slices (`0x1CDD00`–`0x1D1430`)
 
 Contiguous decompilation of the Age of Empires II PlayStation 2 terrain and spatial sub-systems along file offsets `0xCDEE0`–`0xD1610` (VRAM `0x1CDD00`–`0x1D1430`, offset mapping `+0xFFE20`):

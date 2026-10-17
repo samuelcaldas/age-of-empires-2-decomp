@@ -2831,9 +2831,63 @@ segments:
     vram: 0x1DB6A0
     subsegments:
       - [0xDB880, asm, zone_cursor_controller_is_active]
+  - name: zone_cursor_controller_update_hover
+    type: code
+    start: 0xDB890
+    vram: 0x1DB6B0
+    subsegments:
+      - [0xDB890, asm, zone_cursor_controller_update_hover]
+  - name: zone_cursor_controller_set_normal_cursor
+    type: code
+    start: 0xDB940
+    vram: 0x1DB760
+    subsegments:
+      - [0xDB940, asm, zone_cursor_controller_set_normal_cursor]
+  - name: zone_cursor_controller_set_hover_cursor
+    type: code
+    start: 0xDB970
+    vram: 0x1DB790
+    subsegments:
+      - [0xDB970, asm, zone_cursor_controller_set_hover_cursor]
+  - name: zone_cursor_controller_hide_cursor
+    type: code
+    start: 0xDB9A0
+    vram: 0x1DB7C0
+    subsegments:
+      - [0xDB9A0, asm, zone_cursor_controller_hide_cursor]
+  - name: zone_cursor_controller_show_cursor
+    type: code
+    start: 0xDB9B0
+    vram: 0x1DB7D0
+    subsegments:
+      - [0xDB9B0, asm, zone_cursor_controller_show_cursor]
+  - name: zone_cursor_controller_init_display_res
+    type: code
+    start: 0xDB9C0
+    vram: 0x1DB7E0
+    subsegments:
+      - [0xDB9C0, asm, zone_cursor_controller_init_display_res]
+  - name: zone_cursor_controller_timer_tick
+    type: code
+    start: 0xDB9D0
+    vram: 0x1DB7F0
+    subsegments:
+      - [0xDB9D0, asm, zone_cursor_controller_timer_tick]
+  - name: zone_cursor_controller_render_sprite
+    type: code
+    start: 0xDBA60
+    vram: 0x1DB890
+    subsegments:
+      - [0xDBA60, asm, zone_cursor_controller_render_sprite]
+  - name: zone_cursor_controller_reset_global
+    type: code
+    start: 0xDBD50
+    vram: 0x1DBB80
+    subsegments:
+      - [0xDBD50, asm, zone_cursor_controller_reset_global]
   - name: post_aoe2
     type: bin
-    start: 0xDB890
+    start: 0xDBD60
   - name: trade_action_helper_217730
     type: code
     start: 0x117910

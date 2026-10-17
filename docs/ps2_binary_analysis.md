@@ -6661,6 +6661,22 @@ This two-function pure C++ slice spans VRAM `0x185660`–`0x1857B0` and file off
 | `func_00185660` | `0x185660` | 248 | **100.00% exact match** (248/248 B) | 8 B |
 | `func_00185760` | `0x185760` | 76 | **100.00% exact match** (76/76 B) | 4 B |
 
+#### 6.316 `RenderManager Display Surface Pipeline` Subsystem (`0x1857B0`–`0x1859A0`, `render_manager_surfaces.cpp`)
+
+This two-function pure C++ slice spans VRAM `0x1857B0`–`0x1859A0` and file offsets `0x85990`–`0x85B80` (496 bytes total: 480 instruction bytes + 16 bytes padding). The original ELF `PT_LOAD` mapping gives the VRAM/file-offset delta `0xFFE20`. The slice implements the groupnum shape resource loader and the 6-layer display surface pipeline setup using a 6-case jump table at `0x00491A00`. The unit is registered as `Matching` after fresh MWCC compilation and literal comparison of all 480 relocated instruction bytes.
+
+- `func_001857b0` (`0x1857B0`, 92 instruction bytes, 4 B padding): Groupnum shape resource loader. Sets flag `self->field_80 = 1`, allocates 20 bytes via `func_25F2B0`, initializes resource ID `0x124E` ("groupnum.shp" at `0x004919F0`) via `func_25D6D0`, stores into `self->field_84`, and returns 1.
+- `func_00185810` (`0x185810`, 388 instruction bytes, 12 B padding): Primary display surface setup. Allocates 6 surface descriptor records via `func_1143F8(6, 12)`, queries screen buffer `s0` via `func_1ABA00(self->field_70)`, and loops across 6 display layers (index mapping `[1, 2, 0, 5, 4, 3]` via jump table at `0x00491A00`). For each layer, queries metric `s3 = func_2257A0(s0, s2)`, stores `f0 = s2`, calls `func_223000(s2)` storing into `f4`, calls `func_223040(s2)` storing into `f8`, and synchronizes via `func_2257A0(s0, s3)`. Releases lock via `func_1ABA70(self->field_70)` and returns 1 on success or 0 on allocation failure.
+
+`tests/test_render_manager_surfaces.py` exercises five 32-bit native test cases across shape resource loading, allocation failure, 6-surface configuration, calloc failure, and buffer query failure. `tests/test_render_manager_surfaces_matching.py` verifies fresh-compilation bit-exactness against `orig/SLES-50282/AOK.ELF` after `R_MIPS_26` and `R_MIPS_HI16/LO16` relocation resolution, as well as split boundary alignment and padding.
+
+#### 6.316.1 RenderManager Display Surface Pipeline Matching Results (480 Code Bytes, 496-Byte Slice)
+
+| Function | VRAM | Instruction bytes | Relocated byte comparison | Padding |
+|---|---:|---:|---|---:|
+| `func_001857b0` | `0x1857B0` | 92 | **100.00% exact match** (92/92 B) | 4 B |
+| `func_00185810` | `0x185810` | 388 | **100.00% exact match** (388/388 B) | 12 B |
+
 #### Zone Terrain and Coordinate Transformation Slices (`0x1CDD00`–`0x1D1430`)
 
 Contiguous decompilation of the Age of Empires II PlayStation 2 terrain and spatial sub-systems along file offsets `0xCDEE0`–`0xD1610` (VRAM `0x1CDD00`–`0x1D1430`, offset mapping `+0xFFE20`):

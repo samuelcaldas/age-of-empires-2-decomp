@@ -1,0 +1,12 @@
+#!/bin/sh
+# Optional example only; install manually without replacing an existing hook.
+root=$(git rev-parse --show-toplevel 2>/dev/null) || exit 0
+common=$(git rev-parse --path-format=absolute --git-common-dir 2>/dev/null) || exit 0
+python=${OBSERVABILITY_PYTHON:-"$root/.venv/bin/python"}
+if [ ! -x "$python" ]; then
+    printf '%s\n' 'observability enqueue blocked: Python runtime unavailable' >> "$common/observability-hook.log" 2>/dev/null
+    exit 0
+fi
+"$python" -m scripts.observability --repo "$root" enqueue --commit HEAD \
+    >> "$common/observability-hook.log" 2>&1 || true
+exit 0

@@ -39,15 +39,15 @@ class MetricsStore:
         self.directory = Path(common_dir) / "observability"
         initialize(self.directory)
 
-    def enqueue(self, request):
+    def enqueue(self, request, *, force=False):
         """Enqueue a validated content-bound request idempotently."""
         with transaction(self.directory, write=True) as connection:
-            return queue.enqueue(connection, request)
+            return queue.enqueue(connection, request, force=force)
 
-    def claim(self, worker_id, lease_seconds=300, now=None):
+    def claim(self, worker_id, lease_seconds=300, now=None, key=None):
         """Claim the oldest pending request exclusively or return None."""
         with transaction(self.directory, write=True) as connection:
-            return queue.claim(connection, worker_id, lease_seconds, now)
+            return queue.claim(connection, worker_id, lease_seconds, now, key)
 
     def append_event(self, event):
         """Append a bounded private event; never export it without sanitization."""

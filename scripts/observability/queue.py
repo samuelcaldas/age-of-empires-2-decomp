@@ -7,6 +7,7 @@ import time
 import uuid
 
 from .model import EDITIONS, canonical_bytes, content_digest
+from .snapshot import utc_now
 
 REQUEST_FIELDS = {"commit", "tree", "edition", "profile", "fingerprint"}
 
@@ -25,7 +26,7 @@ def validate_request(request):
 
 def record_event(connection, event):
     """Append a local event; these private records are never published directly."""
-    payload = canonical_bytes(event).decode()
+    payload = canonical_bytes(dict(event, at=event.get("at", utc_now()))).decode()
     if len(payload) > 65536:
         raise ValueError("event exceeds size limit")
     connection.execute("INSERT INTO events(payload) VALUES (?)", (payload,))
@@ -38,10 +39,10 @@ def _record(connection, row):
                 attempt_id=content_digest([producer, row["sequence"], row["key"]]))
 
 
-def enqueue(connection, request):
+def enqueue(connection, request, *, force=False):
     """Enqueue once per content identity and return its shared attempt record."""
     validate_request(request)
-    key = content_digest(request)
+    key = content_digest([request, uuid.uuid4().hex]) if force else content_digest(request)
     row = connection.execute("SELECT * FROM requests WHERE key=?", (key,)).fetchone()
     if row is not None:
         return _record(connection, row)
@@ -62,7 +63,7 @@ def _recover_expired(connection, now):
     connection.execute("UPDATE requests SET state='pending',token=NULL WHERE state='running' AND lease<=?", (now,))
 
 
-def claim(connection, worker_id, lease_seconds, now=None):
+def claim(connection, worker_id, lease_seconds, now=None, key=None):
     """Claim with a fencing token; expired claims are explicitly recovered."""
     if not math.isfinite(lease_seconds) or lease_seconds <= 0:
         raise ValueError("lease must be positive and finite")
@@ -70,7 +71,7 @@ def claim(connection, worker_id, lease_seconds, now=None):
         raise ValueError("invalid worker identity")
     moment = time.time() if now is None else now
     _recover_expired(connection, moment)
-    row = connection.execute("SELECT * FROM requests WHERE state='pending' ORDER BY sequence LIMIT 1").fetchone()
+    row = connection.execute("SELECT * FROM requests WHERE state='pending' AND (? IS NULL OR key=?) ORDER BY sequence LIMIT 1", (key, key)).fetchone()
     if row is None:
         return None
     return _claim_row(connection, row, worker_id, moment + lease_seconds)

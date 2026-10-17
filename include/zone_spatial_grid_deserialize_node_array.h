@@ -1,0 +1,8 @@
+#ifndef ZONE_SPATIAL_GRID_DESERIALIZE_NODE_ARRAY_H
+#define ZONE_SPATIAL_GRID_DESERIALIZE_NODE_ARRAY_H
+
+extern "C" {
+void *func_001EB2C0(void *self, void *stream);
+}
+
+#endif // ZONE_SPATIAL_GRID_DESERIALIZE_NODE_ARRAY_H

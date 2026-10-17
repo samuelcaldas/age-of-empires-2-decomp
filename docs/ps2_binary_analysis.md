@@ -7014,7 +7014,20 @@ Located at VRAM `0x2B66B0`–`0x2B76B0` (file offset `0x1B6890`–`0x1B7890`, 4,
 |---|---|---|---|---|---|
 | `func_002B66B0` | `0x2B66B0` | 4,088 B | 4,096 B | NonMatching | Complex trade action dispatcher & target coordinator. |
 
-#### 6.187 `Tactical AI Destructors` Subsystem (`0x340370`–`0x340490`, `tactical_ai_destructors_340370.cpp`)
+#### 6.187 `Trade Action Candidate Evaluator` (`0x2B76B0`–`0x2B7BB0`, `trade_action_candidates.cpp`)
+
+Located at VRAM `0x2B76B0`–`0x2B7BB0` (file offset `0x1B7890`–`0x1B7D90`, 1,280 bytes total slice, 1,276 bytes code + 4 bytes zero padding, Metrowerks C++ PS2 MWCC 2.3.1.01):
+- `func_002B76B0` (`0x2B76B0`, 1,276 bytes code, 1,280 bytes slice): Candidate evaluation and list filtering helper. Populates candidate IDs into `self + 3168` (count at 3172), filters candidates by classification 600, target entity 27, and comparisons with `a1` based on mode `a2`.
+- Registered as `NonMatching` in `configure.py`.
+- Verified with 16 native 32-bit tests in Docker dev environment.
+
+#### 6.187.1 Trade Action Candidates Matching Results (Pure C++, 1,280 Bytes)
+
+| Function / Method | VRAM Address | Code Size (Orig) | Slice Size | Match Status | Description |
+|---|---|---|---|---|---|
+| `func_002B76B0` | `0x2B76B0` | 1,276 B | 1,280 B | NonMatching | Candidate evaluation and list filtering helper. |
+
+#### 6.188 `Tactical AI Destructors` Subsystem (`0x340370`–`0x340490`, `tactical_ai_destructors_340370.cpp`)
 
 Located at VRAM `0x340370`–`0x340490` (file offset `0x240550`–`0x240670`, 288 bytes total, 3 contiguous scalar deleting destructors in Metrowerks C++ PS2 MWCC 2.3.1.01):
 - `func_00340370` (`0x340370`, 96 bytes code, 96 bytes slice): Scalar deleting destructor for Tactical AI object with vtable `__vt__004DF080`. Resets vtable, calls base destructor `func_210490(self, 0)`, and conditionally invokes `operator delete` (`func_100670`) when `(short)flags > 0`.
@@ -7023,7 +7036,7 @@ Located at VRAM `0x340370`–`0x340490` (file offset `0x240550`–`0x240670`, 28
 
 All 3 functions achieved bit-level 100.00% matching. Pure C++ with zero assembly (.s). Validated with native regression tests in `tests/native/tactical_ai_destructors_340370_test.cpp` and binary ELF comparison test `tests/test_tactical_ai_destructors_340370_matching.py`.
 
-#### 6.187.1 Tactical AI Destructors Matching Results (Pure C++, 288 Bytes)
+#### 6.188.1 Tactical AI Destructors Matching Results (Pure C++, 288 Bytes)
 
 | Function / Method | VRAM Address | Code Size (Orig) | Slice Size | Match Status | Description |
 |---|---|---|---|---|---|
@@ -7031,53 +7044,53 @@ All 3 functions achieved bit-level 100.00% matching. Pure C++ with zero assembly
 | `func_003403D0` | `0x3403D0` | 96 B | 96 B | **Matching (100.00%)** | Scalar deleting destructor resetting vtable `__vt__004DF1B0`, invoking `func_216020`. |
 | `func_00340430` | `0x340430` | 96 B | 96 B | **Matching (100.00%)** | Scalar deleting destructor resetting vtable `__vt__004DF2E0`, invoking `func_208E20`. |
 
-#### 6.188 `Tactical AI Sub-pointer Status Checker` Subsystem (`0x340CF0`–`0x340D30`, `tactical_ai_check_340cf0.cpp`)
+#### 6.189 `Tactical AI Sub-pointer Status Checker` Subsystem (`0x340CF0`–`0x340D30`, `tactical_ai_check_340cf0.cpp`)
 
 Located at VRAM `0x340CF0`–`0x340D30` (file offset `0x240ED0`–`0x240F10`, 64 bytes total slice, Metrowerks C++ PS2 MWCC 2.3.1.01):
 - `func_00340CF0` (`0x340CF0`, 64 bytes code, 64 bytes slice): Validates sub-object pointer at offset `+0x838`. If null, returns 1. If non-null, queries status via `func_210010` and returns inverted boolean result (`func_210010(p) ? 0 : 1`).
 
 Achieved bit-level 100.00% matching. Pure C++ with zero assembly (.s). Validated with native regression tests in `tests/native/tactical_ai_check_340cf0_test.cpp` and binary ELF comparison test `tests/test_tactical_ai_check_340cf0_matching.py`.
 
-#### 6.188.1 Tactical AI Sub-pointer Status Checker Matching Results (Pure C++, 64 Bytes)
+#### 6.189.1 Tactical AI Sub-pointer Status Checker Matching Results (Pure C++, 64 Bytes)
 
 | Function / Method | VRAM Address | Code Size (Orig) | Slice Size | Match Status | Description |
 |---|---|---|---|---|---|
 | `func_00340CF0` | `0x340CF0` | 64 B | 64 B | **Matching (100.00%)** | Sub-pointer status checker querying `func_210010` on `field_838`. |
 
-#### 6.189 `Tactical AI State Branch Dispatcher` Subsystem (`0x3409C0`–`0x340A00`, `tactical_ai_dispatch_3409c0.cpp`)
+#### 6.190 `Tactical AI State Branch Dispatcher` Subsystem (`0x3409C0`–`0x340A00`, `tactical_ai_dispatch_3409c0.cpp`)
 
 Located at VRAM `0x3409C0`–`0x340A00` (file offset `0x240BA0`–`0x240BE0`, 64 bytes total slice, 56 bytes code + 8 bytes zero padding, Metrowerks C++ PS2 MWCC 2.3.1.01):
 - `func_003409C0` (`0x3409C0`, 56 bytes code, 64 bytes slice): Evaluates state integer at offset `+0x858`. If non-zero, delegates to sub-handler `func_340C30` and returns 0. If zero, dispatches alternative handler `func_1F8140` and propagates its return value.
 
 Achieved bit-level 100.00% matching. Pure C++ with zero assembly (.s). Validated with native regression tests in `tests/native/tactical_ai_dispatch_3409c0_test.cpp` and binary ELF comparison test `tests/test_tactical_ai_dispatch_3409c0_matching.py`.
 
-#### 6.189.1 Tactical AI State Branch Dispatcher Matching Results (Pure C++, 64 Bytes)
+#### 6.190.1 Tactical AI State Branch Dispatcher Matching Results (Pure C++, 64 Bytes)
 
 | Function / Method | VRAM Address | Code Size (Orig) | Slice Size | Match Status | Description |
 |---|---|---|---|---|---|
 | `func_003409C0` | `0x3409C0` | 56 B | 64 B | **Matching (100.00%)** | State branch dispatcher dispatching `func_340C30` or `func_1F8140` based on `field_858`. |
 
-#### 6.190 `Tactical AI Action Message Filter` Subsystem (`0x340D30`–`0x340D70`, `tactical_ai_action_filter_340d30.cpp`)
+#### 6.191 `Tactical AI Action Message Filter` Subsystem (`0x340D30`–`0x340D70`, `tactical_ai_action_filter_340d30.cpp`)
 
 Located at VRAM `0x340D30`–`0x340D70` (file offset `0x240F10`–`0x240F50`, 64 bytes total slice, 56 bytes code + 8 bytes zero padding, Metrowerks C++ PS2 MWCC 2.3.1.01):
 - `func_00340D30` (`0x340D30`, 56 bytes code, 64 bytes slice): Filters action message ID `a2`. If equal to `0x520`, dispatches internal handler `func_340D70(a0, a3, t0)`; otherwise, forwards parameters to base handler `func_1F45E0(a0, a1, a2, a3)`.
 
 Achieved bit-level 100.00% matching. Pure C++ with zero assembly (.s). Validated with native regression tests in `tests/native/tactical_ai_action_filter_340d30_test.cpp` and binary ELF comparison test `tests/test_tactical_ai_action_filter_340d30_matching.py`.
 
-#### 6.190.1 Tactical AI Action Message Filter Matching Results (Pure C++, 64 Bytes)
+#### 6.191.1 Tactical AI Action Message Filter Matching Results (Pure C++, 64 Bytes)
 
 | Function / Method | VRAM Address | Code Size (Orig) | Slice Size | Match Status | Description |
 |---|---|---|---|---|---|
 | `func_00340D30` | `0x340D30` | 56 B | 64 B | **Matching (100.00%)** | Action message filter dispatching `func_340D70(a0, a3, t0)` on 0x520 or `func_1F45E0(a0, a1, a2, a3)`. |
 
-#### 6.191 `Tactical AI Handler & State Reset` Subsystem (`0x340C30`–`0x340CF0`, `tactical_ai_handler_340c30.cpp`)
+#### 6.192 `Tactical AI Handler & State Reset` Subsystem (`0x340C30`–`0x340CF0`, `tactical_ai_handler_340c30.cpp`)
 
 Located at VRAM `0x340C30`–`0x340CF0` (file offset `0x240E10`–`0x240ED0`, 192 bytes total slice, 180 bytes code + 12 bytes zero padding, Metrowerks C++ PS2 MWCC 2.3.1.01):
 - `func_00340C30` (`0x340C30`, 180 bytes code, 192 bytes slice): Checks if `field_84 == 1`. If true, computes time elapsed since `field_854` using `func_2261c0()`. If elapsed time is less than 1000 ms, ensures `field_858` is set to 1 and returns early. If elapsed is 1000+ ms or `field_84 != 1`, resets `field_83C`, `field_840`, `field_84C` to -1 and `field_854`, `field_858` to 0, calls `func_33A730()`, `func_20BF20(self)`, sends "Memorycard Screen" notification via `func_1F2900(D_00A80BB0, "Memorycard Screen", 0)`, executes virtual method at vtable offset `0x1C` (`self->vfunc_1c(0)` via `$t9`), and calls cleanup helper `func_340360(self->field_844)`.
 
 Achieved bit-level 100.00% matching. Pure C++ with zero assembly (.s). Validated with native regression tests in `tests/native/tactical_ai_handler_340c30_test.cpp` and binary ELF comparison test `tests/test_tactical_ai_handler_340c30_matching.py`.
 
-#### 6.191.1 Tactical AI Handler & State Reset Matching Results (Pure C++, 192 Bytes)
+#### 6.192.1 Tactical AI Handler & State Reset Matching Results (Pure C++, 192 Bytes)
 
 | Function / Method | VRAM Address | Code Size (Orig) | Slice Size | Match Status | Description |
 |---|---|---|---|---|---|

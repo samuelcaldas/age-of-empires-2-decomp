@@ -11,6 +11,7 @@ Start with the top-level [README](../README.md).
 - [trade_action_helpers_217840.md](trade_action_helpers_217840.md): eight independent trade-action setters, callback behavior, and native regression coverage
 - [trade_action_helper_218350.md](trade_action_helper_218350.md): reconstructed helper, exact original code/padding boundary, isolated build comparison, and seven-case native contracts
 - [trade_action_dispatcher_2b66b0.md](trade_action_dispatcher_2b66b0.md): trade action dispatcher slice 0x2B66B0, modular architecture, and 16-case native test validation
+- [trade_action_candidates_2b76b0.md](trade_action_candidates_2b76b0.md): trade action candidate evaluator slice 0x2B76B0, filtering contracts, and 16-case native test validation
 - [ps2_binary_analysis.md](ps2_binary_analysis.md#61901-trade-action-helper-0x2184d0-0x218820-end-exclusive-trade_action_helper_2184d0cpp): adjacent helper `0x2184D0` slice, division-trap repair, and verification
 - [open_empire_re_analysis.md](open_empire_re_analysis.md): reverse engineering discoveries from glouw's Open Empire (DRS archive parsing, SLP shape bytecode VM, palette switching, and blendomatic transitions)
 - [agy_orchestration.md](agy_orchestration.md): how the agy CLI is used as a delegated worker (wrapper, profiles, batches, and what is and is not enforced)

@@ -1,0 +1,146 @@
+"""Native semantic regressions for trade_action_candidates."""
+
+from pathlib import Path
+import shutil
+import subprocess
+
+import pytest
+
+
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+CASES = [
+    ("0", "flag a3 resets count at 3172"),
+    ("1", "empty item list returns 0 matches"),
+    ("2", "mode a2 < 0 matches score < threshold"),
+    ("3", "mode a2 < 0 rejects score >= threshold"),
+    ("4", "mode a2 > 0 rejects score <= threshold"),
+    ("5", "mode a2 == 0 matches score == threshold"),
+    ("6", "mode a2 == 0 rejects score != threshold"),
+    ("7", "excluded list skips candidate"),
+    ("8", "pred_1471a0 == -1 flags special candidate"),
+    ("9", "pred_1471a0 == 600 with type 27 flags special candidate"),
+    ("10", "pred_1471a0 == 600 with type != 27 does not flag"),
+    ("11", "pred_1471a0 == 600 with missing linked entity flags special candidate"),
+    ("12", "existing candidate id is not re-appended but still counts"),
+]
+
+
+@pytest.fixture(scope="module")
+def candidates_test_binary(tmp_path_factory):
+    """Compile real source with test driver."""
+    compiler = shutil.which("g++")
+    if compiler is None:
+        pytest.skip("native tests require g++")
+    binary = tmp_path_factory.mktemp("candidates") / "trade-action-candidates-test"
+    result = subprocess.run(
+        [
+            compiler,
+            "-m32",
+            "-fno-builtin",
+            "-Iinclude",
+            "src/trade_action_candidates.cpp",
+            "tests/native/trade_action_candidates_test.cpp",
+            "tests/native/trade_action_candidates_test_support.cpp",
+            "tests/native/trade_action_candidates_cases_part1.cpp",
+            "tests/native/trade_action_candidates_cases_part2.cpp",
+            "-o",
+            str(binary),
+        ],
+        cwd=PROJECT_ROOT,
+        capture_output=True,
+        text=True,
+    )
+    assert result.returncode == 0, result.stderr
+    return binary
+
+
+@pytest.mark.parametrize("case,description", CASES, ids=[case[1] for case in CASES])
+def test_candidates_behavior(candidates_test_binary, case, description):
+    """Check trade_action_candidates execution in isolated native process."""
+    result = subprocess.run(
+        [str(candidates_test_binary), case],
+        capture_output=True,
+        text=True,
+        cwd=PROJECT_ROOT,
+    )
+    assert result.returncode == 0, f"Case {case} failed: {result.stderr}\n{result.stdout}"
+    assert f"CANDIDATES TEST {case} PASSED" in result.stdout
+
+
+MUTANTS = [
+    (
+        "mode_less_operator",
+        "return score < threshold;",
+        "return score <= threshold;",
+        "res == 0",
+    ),
+    (
+        "mode_greater_operator",
+        "return score > threshold;",
+        "return score >= threshold;",
+        "res == 0",
+    ),
+    (
+        "classification_target_type",
+        "return short_at(field4, 14) == 27;",
+        "return short_at(field4, 14) == 28;",
+        "res == 3",
+    ),
+]
+
+
+@pytest.mark.parametrize(
+    "name,original,mutated,diagnostic",
+    MUTANTS,
+    ids=[item[0] for item in MUTANTS],
+)
+def test_candidates_source_mutants_fail_at_expected_assertion(
+    tmp_path, name, original, mutated, diagnostic
+):
+    """Require compiled source mutants to hit their targeted native assertion."""
+    source = PROJECT_ROOT / "src" / "trade_action_candidates.cpp"
+    source_name = source.name
+    source_text = source.read_text()
+    assert source_text.count(original) == 1, (
+        f"{name} mutation anchor must be unique"
+    )
+    mutant_source = tmp_path / source_name
+    mutant_source.write_text(source_text.replace(original, mutated, 1))
+    binary = tmp_path / f"trade-action-candidates-{name}-mutant"
+    compiler = shutil.which("g++")
+    if compiler is None:
+        pytest.skip("native tests require g++")
+    compile_result = subprocess.run(
+        [
+            compiler,
+            "-m32",
+            "-fno-builtin",
+            f"-I{tmp_path}",
+            "-Iinclude",
+            str(mutant_source),
+            "tests/native/trade_action_candidates_test.cpp",
+            "tests/native/trade_action_candidates_test_support.cpp",
+            "tests/native/trade_action_candidates_cases_part1.cpp",
+            "tests/native/trade_action_candidates_cases_part2.cpp",
+            "-o",
+            str(binary),
+        ],
+        cwd=PROJECT_ROOT,
+        capture_output=True,
+        text=True,
+    )
+    assert compile_result.returncode == 0, (
+        f"{name} mutant failed to compile: {compile_result.stderr}"
+    )
+    case_num = "3" if "less" in name else "4" if "greater" in name else "9"
+    result = subprocess.run([str(binary), case_num], capture_output=True, text=True)
+    assert result.returncode == -6, (
+        f"{name} mutant did not terminate via SIGABRT: {result.stderr}"
+    )
+    assert "Assertion" in result.stderr, (
+        f"{name} mutant did not hit native assert: {result.stderr}"
+    )
+    assert diagnostic in result.stderr, (
+        f"{name} mutant hit wrong assertion: {result.stderr}"
+    )
+    assert source.read_text() == source_text

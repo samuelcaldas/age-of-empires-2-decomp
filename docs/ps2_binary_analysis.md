@@ -6848,6 +6848,79 @@ This two-function pure C++ slice spans VRAM `0x186770`–`0x186950` and file off
 | `func_00186770` | `0x186770` | 440 | **100.00% exact match** (440/440 B) | 8 B |
 | `func_00186930` | `0x186930` | 20 | **100.00% exact match** (20/20 B) | 12 B |
 
+#### 6.325 `RenderManager Mouse and Pointer Event Dispatch Subsystem` (`0x186950`–`0x186A30`, `render_manager_mouse_dispatch.cpp`)
+
+This two-function pure C++ slice spans VRAM `0x186950`–`0x186A30` and file offsets `0x86B30`–`0x86C10` (224 bytes total: 208 instruction bytes + 16 bytes padding). The original ELF `PT_LOAD` mapping gives the VRAM/file-offset delta `0xFFE20`. The unit unpacks packed screen coordinate streams, updates subsystem status, and dispatches pointer actions through virtual dispatch:
+
+- `func_00186950` (`0x186950`, 200 instruction bytes, 8 B padding): Pointer event processor `(self, hwnd, msg, flags, coords)`. Returns 1 immediately if `self->field_30 == 0`. When `self->field_1E8 != 0`, dispatches activation and update hooks `func_1DB790(self->field_1D8, 0)` and `func_1DB7F0(self->field_1D8)`. Invokes `func_00185f80(self, flags, coords, &pt, &b1, &b2, &b3, &b4)` to unpack screen point and button bitmasks into stack temporaries. Dispatches `self->MethodF0(pt.x, pt.y, b1, b2, b3, b4)` (vtable offset `0xF0`) and post-pointer update `self->MethodAC()` (vtable offset `0xAC`). Returns 1.
+- `func_00186a20` (`0x186A20`, 8 instruction bytes, 8 B padding): Leaf boolean stub returning 1 unconditionally (`jr $ra; addiu $v0, $zero, 1`).
+
+`tests/test_render_manager_mouse_dispatch.py` exercises four 32-bit native test cases covering the stub query, inactive guards, activation mode with `field_1E8`, and coordinate unpacking parameter forwarding. `tests/test_render_manager_mouse_dispatch_matching.py` verifies fresh-compilation bit-exactness across all 208 instruction bytes after `R_MIPS_26` relocation resolution against original binary `orig/SLES-50282/AOK.ELF`.
+
+#### 6.325.1 RenderManager Mouse Dispatch Matching Results (208 Code Bytes, 224-Byte Slice)
+
+| Function | VRAM | Instruction bytes | Relocated byte comparison | Padding |
+|---|---:|---:|---|---:|
+| `func_00186950` | `0x186950` | 200 | **100.00% exact match** (200/200 B) | 8 B |
+| `func_00186a20` | `0x186A20` | 8 | **100.00% exact match** (8/8 B) | 8 B |
+
+#### 6.326 `RenderManager Keyboard Event Dispatch Subsystem` (`0x186A30`–`0x186C20`, `render_manager_key_dispatch.cpp`)
+
+This two-function pure C++ slice spans VRAM `0x186A30`–`0x186C20` and file offsets `0x86C10`–`0x86E00` (496 bytes total: 484 instruction bytes + 12 bytes padding). The original ELF `PT_LOAD` mapping gives the VRAM/file-offset delta `0xFFE20`. The unit handles keyboard events, queries OS modifier keystates, intercepts system menu keys, cancels modal screens on escape, and delegates keystrokes via virtual dispatch:
+
+- `func_00186a30` (`0x186A30`, 476 instruction bytes, 4 B padding): Key event processor `(self, hwnd, msg, wParam, lParam)`. Returns 1 immediately if `self->field_30 == 0`. Synchronizes global key records `D_004E89CC = wParam` and `D_004E89D0 = lParam & 0xFFFF`. Queries OS modifier keystates via `func_225590` (`GetAsyncKeyState`) storing Ctrl state in `D_004E89D4`, Alt state in `D_004E89D8`, and Shift state in `D_004E89DC`. If `hwnd == self->field_2C && msg == 260` (`WM_SYSKEYDOWN`), suppresses system menu activation (returning 0) when `wParam` is 18 (Alt), 32 (Alt+Space), or 121 (F10) while `self->field_28->field_54 != 0`. When `wParam == 27` (`VK_ESCAPE`) and the active screen matches "Status Screen" (`D_00491A28`), prompts modal cancel dialog `D_00491A38` via `func_1FB860` and `func_1F2900`. Forwards key event to `self->MethodF4(D_004E89CC, D_004E89D0, D_004E89D4, D_004E89D8, D_004E89DC)` and returns boolean result using `movz` (`!= 0 ? 1 : 0`).
+- `func_00186c10` (`0x186C10`, 8 instruction bytes, 8 B padding): Leaf boolean stub returning 1 unconditionally (`jr $ra; addiu $v0, $zero, 1`).
+
+`tests/test_render_manager_key_dispatch.py` exercises four 32-bit native test cases covering the boolean stub, inactive guards, system keydown menu suppression, and escape key modal cancel dispatch. `tests/test_render_manager_key_dispatch_matching.py` verifies fresh-compilation bit-exactness across all 484 instruction bytes after `R_MIPS_26`, `R_MIPS_HI16`, `R_MIPS_LO16`, and `R_MIPS_GPREL16` relocation resolution against original binary `orig/SLES-50282/AOK.ELF`.
+
+#### 6.326.1 RenderManager Key Dispatch Matching Results (484 Code Bytes, 496-Byte Slice)
+
+| Function | VRAM | Instruction bytes | Relocated byte comparison | Padding |
+|---|---:|---:|---|---:|
+| `func_00186a30` | `0x186A30` | 476 | **100.00% exact match** (476/476 B) | 4 B |
+| `func_00186c10` | `0x186C10` | 8 | **100.00% exact match** (8/8 B) | 8 B |
+
+#### 6.327 `RenderManager Command and Notification Dispatch Subsystem` (`0x186C20`–`0x186DC0`, `render_manager_command.cpp`)
+
+This two-function pure C++ slice spans VRAM `0x186C20`–`0x186DC0` and file offsets `0x86E00`–`0x86FA0` (416 bytes total: 396 instruction bytes + 20 bytes padding). The original ELF `PT_LOAD` mapping gives the VRAM/file-offset delta `0xFFE20`. The unit manages command codes, player subsystem notifications, and sub-object display states:
+
+- `func_00186c20` (`0x186C20`, 388 instruction bytes, 4 B align padding, 8 B trailing padding): Command processor `(self, hwnd, msg, a3, a4)`. When `func_18FFD0(self->field_1AC) >= 13` and `!D_004E8990`: for command `6076` resolves player index via `func_188870(self, a4)` and invokes secondary virtual method `item->MethodD8(a4, 1)` (vtable offset `0xD8` on sub-class at offset `0x1B30`); for command `6077` invokes `item->MethodD8(a4, 0)`. Dispatches switch command codes: ignores `6076`, `6074`, `6073`; for `6050` invokes `self->field_404->Method8C(1)` (vtable offset `0x8C`); for `6051` invokes `self->field_404->Method8C(0)`. Forwards command to `self->MethodF8(a3, a4)` (vtable offset `0xF8`) and returns boolean result via `movz` (`!= 0 ? 1 : 0`).
+- `func_00186db0` (`0x186DB0`, 8 instruction bytes, 8 B padding): Leaf boolean stub returning 1 unconditionally (`jr $ra; addiu $v0, $zero, 1`).
+
+`tests/test_render_manager_command.py` exercises four 32-bit native test cases covering the boolean stub, player notification dispatch under commands 6076/6077, and switch mode handling for commands 6050/6051/6074. `tests/test_render_manager_command_matching.py` verifies fresh-compilation bit-exactness across all 396 instruction bytes after `R_MIPS_26` and `R_MIPS_GPREL16` relocation resolution against original binary `orig/SLES-50282/AOK.ELF`.
+
+#### 6.327.1 RenderManager Command Matching Results (396 Code Bytes, 416-Byte Slice)
+
+| Function | VRAM | Instruction bytes | Relocated byte comparison | Padding |
+|---|---:|---:|---|---:|
+| `func_00186c20` | `0x186C20` | 388 | **100.00% exact match** (388/388 B) | 12 B |
+| `func_00186db0` | `0x186DB0` | 8 | **100.00% exact match** (8/8 B) | 8 B |
+
+#### 6.328 `RenderManager Query Dispatch and Boolean Stubs Subsystem` (`0x186DC0`–`0x186E50`, `render_manager_query_dispatch.cpp`)
+
+This four-function pure C++ slice spans VRAM `0x186DC0`–`0x186E50` and file offsets `0x86FA0`–`0x87030` (144 bytes total: 112 instruction bytes + 32 bytes padding). The original ELF `PT_LOAD` mapping gives the VRAM/file-offset delta `0xFFE20`. The unit forwards query actions and state evaluations via virtual dispatch and provides boolean capability stubs:
+
+- `func_00186dc0` (`0x186DC0`, 48 instruction bytes, 4 B align padding, 12 B trailing padding): Query forwarder `(self, a1, a2, a3, a4)`. Forwards `(a3, a4)` to `self->MethodFC(a3, a4)` (vtable offset `0xFC`) and returns boolean result via `movz` (`!= 0 ? 1 : 0`).
+- `func_00186e00` (`0x186E00`, 8 instruction bytes, 8 B padding): Leaf boolean stub returning 1 unconditionally (`jr $ra; addiu $v0, $zero, 1`).
+- `func_00186e10` (`0x186E10`, 48 instruction bytes, 0 B padding): Query forwarder `(self)`. Invokes `self->Method100()` (vtable offset `0x100`) and returns boolean result via `movz` (`!= 0 ? 1 : 0`).
+- `func_00186e40` (`0x186E40`, 8 instruction bytes, 8 B padding): Leaf boolean stub returning 1 unconditionally (`jr $ra; addiu $v0, $zero, 1`).
+
+`tests/test_render_manager_query_dispatch.py` exercises four 32-bit native test cases covering the boolean stubs, methodFC parameter forwarding with boolean conversion, and method100 dispatch. `tests/test_render_manager_query_dispatch_matching.py` verifies fresh-compilation bit-exactness across all 112 instruction bytes against original binary `orig/SLES-50282/AOK.ELF`.
+
+#### 6.328.1 RenderManager Query Dispatch Matching Results (112 Code Bytes, 144-Byte Slice)
+
+| Function | VRAM | Instruction bytes | Relocated byte comparison | Padding |
+|---|---:|---:|---|---:|
+| `func_00186dc0` | `0x186DC0` | 48 | **100.00% exact match** (48/48 B) | 16 B |
+| `func_00186e00` | `0x186E00` | 8 | **100.00% exact match** (8/8 B) | 8 B |
+| `func_00186e10` | `0x186E10` | 48 | **100.00% exact match** (48/48 B) | 0 B |
+| `func_00186e40` | `0x186E40` | 8 | **100.00% exact match** (8/8 B) | 8 B |
+
+
+
+
+
+
 
 
 #### Zone Terrain and Coordinate Transformation Slices (`0x1CDD00`–`0x1D1430`)

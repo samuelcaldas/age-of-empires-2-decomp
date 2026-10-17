@@ -12,6 +12,10 @@ extern int g_1471c0_return_val;
 extern int g_147190_calls;
 extern int g_147190_return_val;
 extern int g_332e60_calls;
+extern int g_2bf050_calls;
+extern int g_2bf050_return_val;
+extern int g_2bfcd0_calls;
+extern int g_2bfcd0_return_val;
 
 void reset_candidates_test_support();
 

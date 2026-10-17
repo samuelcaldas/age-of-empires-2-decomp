@@ -24,6 +24,10 @@ CASES = [
     ("12", "existing candidate id is not re-appended but still counts"),
     ("13", "func_002B7BB0 with secondary list a3 == 1"),
     ("14", "func_002B7BB0 with primary list only a3 == 0"),
+    ("15", "func_002B8560 matches candidate and returns sub_id"),
+    ("16", "func_002B8560 returns -1 when predicate returns 0"),
+    ("17", "func_002B8560 returns -1 when func_002bf050 returns non-zero"),
+    ("18", "func_002B8560 returns -1 when candidate is in pool exclusion"),
 ]
 
 
@@ -94,6 +98,12 @@ MUTANTS = [
         "int secondary_count = 0;",
         "res == 5",
     ),
+    (
+        "selector_predicate_check",
+        "if ((func_002bfcd0(self, sub_id) & 0xFF) == 1) {",
+        "if ((func_002bfcd0(self, sub_id) & 0xFF) == 2) {",
+        "res == 42",
+    ),
 ]
 
 
@@ -140,7 +150,13 @@ def test_candidates_source_mutants_fail_at_expected_assertion(
     assert compile_result.returncode == 0, (
         f"{name} mutant failed to compile: {compile_result.stderr}"
     )
-    case_num = "3" if "less" in name else "4" if "greater" in name else "13" if "secondary" in name else "9"
+    case_num = (
+        "3" if "less" in name
+        else "4" if "greater" in name
+        else "13" if "secondary" in name
+        else "15" if "selector" in name
+        else "9"
+    )
     result = subprocess.run([str(binary), case_num], capture_output=True, text=True)
     assert result.returncode == -6, (
         f"{name} mutant did not terminate via SIGABRT: {result.stderr}"

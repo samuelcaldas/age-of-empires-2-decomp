@@ -7,6 +7,10 @@ int g_1471c0_return_val = 0;
 int g_147190_calls = 0;
 int g_147190_return_val = 0;
 int g_332e60_calls = 0;
+int g_2bf050_calls = 0;
+int g_2bf050_return_val = 0;
+int g_2bfcd0_calls = 0;
+int g_2bfcd0_return_val = 0;
 
 void *g_mock_candidate_entity = 0;
 void *g_mock_linked_entity = 0;
@@ -19,6 +23,10 @@ void reset_candidates_test_support() {
     g_147190_calls = 0;
     g_147190_return_val = 0;
     g_332e60_calls = 0;
+    g_2bf050_calls = 0;
+    g_2bf050_return_val = 0;
+    g_2bfcd0_calls = 0;
+    g_2bfcd0_return_val = 0;
     g_mock_candidate_entity = 0;
     g_mock_linked_entity = 0;
 }
@@ -26,7 +34,7 @@ void reset_candidates_test_support() {
 extern "C" {
 void *func_00332e60(void *manager, int id) {
     g_332e60_calls++;
-    if (id == 100 || id == 101 || id == 102 || id == 200 || id == 201) {
+    if (id == 100 || id == 101 || id == 102 || id == 200 || id == 201 || id == 300 || id == 301) {
         return g_mock_candidate_entity;
     }
     if (id == 500) {
@@ -48,5 +56,15 @@ int func_001471c0(int entity_id) {
 int func_00147190(int entity_id) {
     g_147190_calls++;
     return g_147190_return_val;
+}
+
+int func_002bf050(void *self, int item_id) {
+    g_2bf050_calls++;
+    return g_2bf050_return_val;
+}
+
+int func_002bfcd0(void *self, short sub_id) {
+    g_2bfcd0_calls++;
+    return g_2bfcd0_return_val;
 }
 }

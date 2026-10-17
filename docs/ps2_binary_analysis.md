@@ -7040,6 +7040,18 @@ Located at VRAM `0x2B7BB0`–`0x2B8560` (file offset `0x1B7D90`–`0x1B8740`, 2,
 |---|---|---|---|---|---|
 | `func_002B7BB0` | `0x2B7BB0` | 2,468 B | 2,480 B | NonMatching | Dual-phase candidate evaluation and list filtering helper. |
 
+#### 6.187c `Trade Action Candidate Selector` (`0x2B8560`–`0x2B8978`, `trade_action_candidates.cpp`)
+
+Located at VRAM `0x2B8560`–`0x2B8978` (file offset `0x1B8740`–`0x1B8B60`, 1,056 bytes total slice, 1,044 bytes code + 12 bytes zero padding, Metrowerks C++ PS2 MWCC 2.3.1.01):
+- `func_002B8560` (`0x2B8560`, 1,044 bytes code, 1,056 bytes slice): Iterative candidate pool selector. Iterates through pool array at offset 180, filters through `func_002bf050` and exclusion list at offset 196 based on mode, and returns sub-ID where `(func_002bfcd0(self, sub_id) & 0xFF) == 1`.
+- Registered as `NonMatching` in `configure.py`.
+- Verified with 24 native 32-bit tests in Docker dev environment.
+
+#### 6.187c.1 Trade Action Candidate Selector Matching Results (Pure C++, 1,056 Bytes)
+
+| Function / Method | VRAM Address | Code Size (Orig) | Slice Size | Match Status | Description |
+|---|---|---|---|---|---|
+| `func_002B8560` | `0x2B8560` | 1,044 B | 1,056 B | NonMatching | Candidate pool selector and sub-ID resolver. |
 
 #### 6.188 `Tactical AI Destructors` Subsystem (`0x340370`–`0x340490`, `tactical_ai_destructors_340370.cpp`)
 

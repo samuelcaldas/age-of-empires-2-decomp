@@ -3263,9 +3263,63 @@ segments:
     vram: 0x1DFD20
     subsegments:
       - [0xDFEF0, asm, zone_spatial_entity_get_velocity_vector]
+  - name: zone_spatial_entity_eval_motion_delta
+    type: code
+    start: 0xDFF30
+    vram: 0x1DFD60
+    subsegments:
+      - [0xDFF30, asm, zone_spatial_entity_eval_motion_delta]
+  - name: zone_spatial_entity_get_angular_velocity
+    type: code
+    start: 0xDFFD0
+    vram: 0x1DFE00
+    subsegments:
+      - [0xDFFD0, asm, zone_spatial_entity_get_angular_velocity]
+  - name: zone_spatial_entity_step_angular_motion
+    type: code
+    start: 0xE0010
+    vram: 0x1DFE40
+    subsegments:
+      - [0xE0010, asm, zone_spatial_entity_step_angular_motion]
+  - name: zone_spatial_entity_get_vertical_velocity
+    type: code
+    start: 0xE00B0
+    vram: 0x1DFEE0
+    subsegments:
+      - [0xE00B0, asm, zone_spatial_entity_get_vertical_velocity]
+  - name: zone_spatial_entity_set_vertical_velocity
+    type: code
+    start: 0xE00D0
+    vram: 0x1DFF00
+    subsegments:
+      - [0xE00D0, asm, zone_spatial_entity_set_vertical_velocity]
+  - name: zone_spatial_entity_get_angular_rate_z
+    type: code
+    start: 0xE0140
+    vram: 0x1DFF70
+    subsegments:
+      - [0xE0140, asm, zone_spatial_entity_get_angular_rate_z]
+  - name: zone_spatial_entity_set_angular_rate_z
+    type: code
+    start: 0xE0160
+    vram: 0x1DFF90
+    subsegments:
+      - [0xE0160, asm, zone_spatial_entity_set_angular_rate_z]
+  - name: zone_spatial_entity_step_heading_delta
+    type: code
+    start: 0xE01D0
+    vram: 0x1E0000
+    subsegments:
+      - [0xE01D0, asm, zone_spatial_entity_step_heading_delta]
+  - name: zone_spatial_entity_set_position_vector
+    type: code
+    start: 0xE0280
+    vram: 0x1E00B0
+    subsegments:
+      - [0xE0280, asm, zone_spatial_entity_set_position_vector]
   - name: post_aoe2
     type: bin
-    start: 0xDFF30
+    start: 0xE02C0
   - name: trade_action_helper_217730
     type: code
     start: 0x117910

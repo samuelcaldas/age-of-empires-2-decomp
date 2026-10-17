@@ -1,0 +1,10 @@
+#ifndef ZONE_SPATIAL_ENTITY_GET_VERTICAL_VELOCITY_H
+#define ZONE_SPATIAL_ENTITY_GET_VERTICAL_VELOCITY_H
+
+struct SpatialEntity;
+
+extern "C" {
+float func_001DFEE0(const SpatialEntity *self);
+}
+
+#endif // ZONE_SPATIAL_ENTITY_GET_VERTICAL_VELOCITY_H

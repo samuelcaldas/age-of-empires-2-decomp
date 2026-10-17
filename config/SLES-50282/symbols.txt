@@ -2168,3 +2168,4 @@ func_00183680 = 0x183680; // type:func size:0x40 absolute:True
 func_001836c0 = 0x1836C0; // type:func size:0x40 absolute:True
 func_00183700 = 0x183700; // type:func size:0x40 absolute:True
 func_00183740 = 0x183740; // type:func size:0x40 absolute:True
+func_002B66B0 = 0x2B66B0; // type:func size:0xFF8 absolute:True

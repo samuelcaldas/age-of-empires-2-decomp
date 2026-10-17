@@ -6613,6 +6613,22 @@ This four-function pure C++ slice spans VRAM `0x1853E0`–`0x1854B0` and file of
 | `func_00185430` | `0x185430` | 36 | **100.00% exact match** (36/36 B) | 12 B |
 | `func_00185460` | `0x185460` | 68 | **100.00% exact match** (68/68 B) | 12 B |
 
+#### 6.313 `RenderManager Secondary Screen Renderer` Subsystem (`0x1854B0`–`0x185570`, `render_manager_renderer.cpp`)
+
+This two-function pure C++ slice spans VRAM `0x1854B0`–`0x185570` and file offsets `0x85690`–`0x85750` (192 bytes total: 172 instruction bytes + 20 bytes padding). The original ELF `PT_LOAD` mapping gives the VRAM/file-offset delta `0xFFE20`. The slice implements secondary screen descriptor assignment, display buffer initialization with 8 parameters, surface transparency masking, and context locking. The unit is registered as `Matching` after fresh MWCC compilation and literal comparison of all 172 relocated instruction bytes.
+
+- `func_001854b0` (`0x1854B0`, 164 instruction bytes, 12 B padding): Screen renderer initialization. Locks context via `func_1F3320(func_00A80BB0)`, assigns static descriptor `D_00598930` to `self->field_6C`, calls `func_1AAB80`, configures display buffer via `func_1AACC0` with 8 arguments (`desc, ctx->f0c, field_2C, field_38, 2, 2, ctx->fa4, ctx->fa8, 0`), extracts buffer pointer into `self->field_70`, configures transparency via `func_1ABD90`, sets viewport via `func_1AB1C0`, releases lock via `func_1F3340`, and returns 1.
+- `func_00185560` (`0x185560`, 8 instruction bytes, 8 B padding): Stub leaf returning 1 without stack allocation.
+
+`tests/test_render_manager_renderer.py` exercises two 32-bit native test cases across parameter binding, step sequencing, and stub return. `tests/test_render_manager_renderer_matching.py` verifies fresh-compilation bit-exactness against `orig/SLES-50282/AOK.ELF` after `R_MIPS_26` and `R_MIPS_HI16/LO16` relocation resolution, as well as split boundary alignment and padding.
+
+#### 6.313.1 RenderManager Secondary Screen Renderer Matching Results (172 Code Bytes, 192-Byte Slice)
+
+| Function | VRAM | Instruction bytes | Relocated byte comparison | Padding |
+|---|---:|---:|---|---:|
+| `func_001854b0` | `0x1854B0` | 164 | **100.00% exact match** (164/164 B) | 12 B |
+| `func_00185560` | `0x185560` | 8 | **100.00% exact match** (8/8 B) | 8 B |
+
 #### Zone Terrain and Coordinate Transformation Slices (`0x1CDD00`–`0x1D1430`)
 
 Contiguous decompilation of the Age of Empires II PlayStation 2 terrain and spatial sub-systems along file offsets `0xCDEE0`–`0xD1610` (VRAM `0x1CDD00`–`0x1D1430`, offset mapping `+0xFFE20`):

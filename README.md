@@ -8,8 +8,14 @@ Work-in-progress matching decompilation of **Age of Empires II** for:
 The choice of editions and the reasons for it are in
 [ADR 0001](docs/adr/0001-target-editions.md).
 
-**Status: bootstrap.** The build scaffolding and configuration are in place. No
-object has been split or matched yet. Only the configure step has been verified.
+**Status: matching in progress.** Multiple slices and functions have been matched in pure C++ against original binaries. Verified status, matching bytes, and telemetry can be inspected via the [observability tool](docs/observability.md).
+
+Expected dynamic dashboard (pending GitHub Pages activation): `https://samuelcaldas.github.io/age-of-empires-2-decomp/`
+
+Badges (generated statically; subject to GitHub image cache):
+- Verified C++: `![Verified C++](build/observability/site/badges/bytes.svg)`
+- Verification State: `![State](build/observability/site/badges/state.svg)`
+- Last Verified: `![Last Verified](build/observability/site/badges/verified-at.svg)`
 
 This repository does **not** contain any game assets or original binaries. You
 need your own copy of the game.
@@ -46,6 +52,7 @@ need your own copy of the game.
 - [docs/README.md](docs/README.md): index of all project docs
 - [docs/game_files.md](docs/game_files.md): where each original file comes from and how to verify it
 - [docs/toolchain.md](docs/toolchain.md): compilers, how to identify them, what is still unverified
+- [docs/observability.md](docs/observability.md): decompilation progress observatory, tmux dashboard, and metric badges
 - [docs/adr/0001-target-editions.md](docs/adr/0001-target-editions.md): edition decision and sources
 - [docs/agy_orchestration.md](docs/agy_orchestration.md): delegating tasks to the agy CLI through `scripts/agy/`
 

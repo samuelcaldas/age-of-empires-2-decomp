@@ -15,6 +15,7 @@ Start with the top-level [README](../README.md).
 - [trade_action_candidates_2b76b0.md](trade_action_candidates_2b76b0.md): trade action candidate evaluator slices 0x2B76B0, 0x2B7BB0, 0x2B8560 & 0x2B8980, distance pool resolution, and 28-case native test validation
 - [ps2_binary_analysis.md](ps2_binary_analysis.md#61901-trade-action-helper-0x2184d0-0x218820-end-exclusive-trade_action_helper_2184d0cpp): adjacent helper `0x2184D0` slice, division-trap repair, and verification
 - [open_empire_re_analysis.md](open_empire_re_analysis.md): reverse engineering discoveries from glouw's Open Empire (DRS archive parsing, SLP shape bytecode VM, palette switching, and blendomatic transitions)
+- [observability.md](observability.md): offline-first verification tracking, terminal watch, static dashboard and SVG badges
 - [agy_orchestration.md](agy_orchestration.md): how the agy CLI is used as a delegated worker (wrapper, profiles, batches, and what is and is not enforced)
 - [kcet_hardware_analysis.md](kcet_hardware_analysis.md): memory layout, boundaries, and structure of the 10 KCET hardware modules in the PS2 binary
 - [adr/0001-target-editions.md](adr/0001-target-editions.md): edition decision, rationale, open verification items, and sources

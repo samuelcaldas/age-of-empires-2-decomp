@@ -1997,9 +1997,171 @@ segments:
     vram: 0x1CDBB0
     subsegments:
       - [0xCDD90, asm, zone_snapshot_serialize]
+  - name: zone_rebind_table1
+    type: code
+    start: 0xCDEE0
+    vram: 0x1CDD00
+    subsegments:
+      - [0xCDEE0, asm, zone_rebind_table1]
+  - name: zone_rebind_table2
+    type: code
+    start: 0xCE010
+    vram: 0x1CDE30
+    subsegments:
+      - [0xCE010, asm, zone_rebind_table2]
+  - name: zone_generate_terrain_objects
+    type: code
+    start: 0xCE110
+    vram: 0x1CDF30
+    subsegments:
+      - [0xCE110, asm, zone_generate_terrain_objects]
+  - name: zone_clean_tile_objects
+    type: code
+    start: 0xCE590
+    vram: 0x1CE3B0
+    subsegments:
+      - [0xCE590, asm, zone_clean_tile_objects]
+  - name: zone_spawn_terrain_objects
+    type: code
+    start: 0xCE830
+    vram: 0x1CE650
+    subsegments:
+      - [0xCE830, asm, zone_spawn_terrain_objects]
+  - name: zone_set_table_item_ranges
+    type: code
+    start: 0xCEC10
+    vram: 0x1CEA30
+    subsegments:
+      - [0xCEC10, asm, zone_set_table_item_ranges]
+  - name: zone_screen_to_world
+    type: code
+    start: 0xCEC40
+    vram: 0x1CEA60
+    subsegments:
+      - [0xCEC40, asm, zone_screen_to_world]
+  - name: zone_get_tile_terrain
+    type: code
+    start: 0xCF530
+    vram: 0x1CF350
+    subsegments:
+      - [0xCF530, asm, zone_get_tile_terrain]
+  - name: zone_update_elevation_rect
+    type: code
+    start: 0xCF5C0
+    vram: 0x1CF3E0
+    subsegments:
+      - [0xCF5C0, asm, zone_update_elevation_rect]
+  - name: zone_set_tile_terrain
+    type: code
+    start: 0xCFA10
+    vram: 0x1CF830
+    subsegments:
+      - [0xCFA10, asm, zone_set_tile_terrain]
+  - name: zone_paint_terrain_rect
+    type: code
+    start: 0xCFB90
+    vram: 0x1CF9B0
+    subsegments:
+      - [0xCFB90, asm, zone_paint_terrain_rect]
+  - name: zone_calc_tile_slope
+    type: code
+    start: 0xCFEB0
+    vram: 0x1CFCD0
+    subsegments:
+      - [0xCFEB0, asm, zone_calc_tile_slope]
+  - name: zone_update_tile_transitions
+    type: code
+    start: 0xD02A0
+    vram: 0x1D00C0
+    subsegments:
+      - [0xD02A0, asm, zone_update_tile_transitions]
+  - name: zone_calc_subtile_screen_coords
+    type: code
+    start: 0xD0530
+    vram: 0x1D0350
+    subsegments:
+      - [0xD0530, asm, zone_calc_subtile_screen_coords]
+  - name: zone_setup_spatial_buckets
+    type: code
+    start: 0xD0610
+    vram: 0x1D0430
+    subsegments:
+      - [0xD0610, asm, zone_setup_spatial_buckets]
+  - name: zone_free_spatial_grid
+    type: code
+    start: 0xD0880
+    vram: 0x1D06A0
+    subsegments:
+      - [0xD0880, asm, zone_free_spatial_grid]
+  - name: zone_init_spatial_level
+    type: code
+    start: 0xD09B0
+    vram: 0x1D07D0
+    subsegments:
+      - [0xD09B0, asm, zone_init_spatial_level]
+  - name: zone_init_bucket_arrays
+    type: code
+    start: 0xD0AC0
+    vram: 0x1D08E0
+    subsegments:
+      - [0xD0AC0, asm, zone_init_bucket_arrays]
+  - name: zone_unlink_cell_item
+    type: code
+    start: 0xD0BA0
+    vram: 0x1D09C0
+    subsegments:
+      - [0xD0BA0, asm, zone_unlink_cell_item]
+  - name: zone_unlink_entity
+    type: code
+    start: 0xD0D20
+    vram: 0x1D0B40
+    subsegments:
+      - [0xD0D20, asm, zone_unlink_entity]
+  - name: zone_link_cell_item
+    type: code
+    start: 0xD0E90
+    vram: 0x1D0CB0
+    subsegments:
+      - [0xD0E90, asm, zone_link_cell_item]
+  - name: zone_alloc_cell_items_buffer
+    type: code
+    start: 0xD0FA0
+    vram: 0x1D0DC0
+    subsegments:
+      - [0xD0FA0, asm, zone_alloc_cell_items_buffer]
+  - name: zone_free_cell_items_buffer
+    type: code
+    start: 0xD10A0
+    vram: 0x1D0EC0
+    subsegments:
+      - [0xD10A0, asm, zone_free_cell_items_buffer]
+  - name: zone_reset_bucket_counters
+    type: code
+    start: 0xD10C0
+    vram: 0x1D0EE0
+    subsegments:
+      - [0xD10C0, asm, zone_reset_bucket_counters]
+  - name: zone_insert_spatial_item
+    type: code
+    start: 0xD10E0
+    vram: 0x1D0F00
+    subsegments:
+      - [0xD10E0, asm, zone_insert_spatial_item]
+  - name: zone_find_cell_item_by_attr
+    type: code
+    start: 0xD12E0
+    vram: 0x1D1100
+    subsegments:
+      - [0xD12E0, asm, zone_find_cell_item_by_attr]
+  - name: zone_filter_cell_items
+    type: code
+    start: 0xD1330
+    vram: 0x1D1150
+    subsegments:
+      - [0xD1330, asm, zone_filter_cell_items]
   - name: post_aoe2
     type: bin
-    start: 0xCDEE0
+    start: 0xD1610
   - name: trade_action_helper_217730
     type: code
     start: 0x117910

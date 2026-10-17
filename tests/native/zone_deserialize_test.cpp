@@ -9,6 +9,8 @@ static_assert(sizeof(void *) == 4, "native fixture requires 32-bit pointers");
 extern "C" {
 void func_001CD770(void *self, void *stream);
 
+extern void *D_4E2DF0;
+
 static std::vector<int> g_resize_calls;
 static int g_ai_teardown_calls = 0;
 static int g_ai_load_calls = 0;
@@ -23,13 +25,17 @@ void func_1C98A0(void *self, int width, int height) {
 }
 
 void func_335560(void *ai_mgr) { g_ai_teardown_calls++; }
-void func_335470(void *ai_mgr, void *stream, void *self) { g_ai_load_calls++; }
+void func_335470(void *ai_mgr, void *stream, void *self) {
+    g_ai_load_calls++;
+    // Global mutates A -> B inside callback
+    D_4E2DF0 = reinterpret_cast<void *>(0xBBBBBBBB);
+}
 void func_1CAD90(void *self, void *stream) { g_raster_load_calls++; }
 void func_138830(void *obj, void *stream) { g_comp_load_calls++; }
 void func_1CF3E0(void *self, int x0, int y0, int x1, int y1, int p5, int p6, int p7) { g_cf3e0_calls++; }
 void func_1CF9B0(void *self, int p1, void *world, int p3, int p4, int x1, int y1, int p7) { g_cf9b0_calls++; }
 
-void *D_4E2DF0 = reinterpret_cast<void *>(0x11111111);
+void *D_4E2DF0 = reinterpret_cast<void *>(0xAAAAAAAA);
 float D_004E2F24 = 11.5f;
 float D_004E29E8 = 9.09f;
 float D_004E29EC = 10.8f;
@@ -45,6 +51,10 @@ int func_226D90(void *stream, void *dst, int size) {
     assert(s->offset + size <= s->length);
     std::memcpy(dst, s->data + s->offset, size);
     s->offset += size;
+    // On first byte read (f_8ECD), global mutates B -> C to prove reload happened BEFORE read
+    if (size == 1 && s->offset == 9) {
+        D_4E2DF0 = reinterpret_cast<void *>(0xCCCCCCCC);
+    }
     return size;
 }
 }
@@ -81,6 +91,7 @@ static void reset_counters() {
 static void test_deserialize_full_flow() {
     reset_counters();
     D_004E2F24 = 11.5f; // All versions pass
+    D_4E2DF0 = reinterpret_cast<void *>(0xAAAAAAAA); // Initial global A
 
     TestLayout zm;
     std::memset(&zm, 0, sizeof(TestLayout));
@@ -116,6 +127,8 @@ static void test_deserialize_full_flow() {
     assert(g_resize_calls.size() == 2 && g_resize_calls[0] == 2 && g_resize_calls[1] == 2);
     assert(g_ai_teardown_calls == 1);
     assert(g_ai_load_calls == 1);
+    // Verifies zm.f_8EEC was reloaded from D_4E2DF0 AFTER func_335470 (capturing B=0xBBBBBBBB) and BEFORE read (not C=0xCCCCCCCC)
+    assert(zm.f_8EEC == reinterpret_cast<void *>(0xBBBBBBBB));
     assert(zm.f_8ECD == (char)0xAA && zm.f_8ECE == (char)0xBB);
 
     // Verify cell (0, 0)

@@ -230,6 +230,7 @@ func_207ab0 = 0x207AB0; // type:func absolute:True
 func_207c30 = 0x207C30; // type:func absolute:True
 func_1eda80 = 0x1EDA80; // type:func absolute:True
 func_264330 = 0x264330; // type:func absolute:True
+func_00328020 = 0x328020; // type:func size:0xE0 absolute:True
 func_328300 = 0x328300; // type:func absolute:True
 func_1eba00 = 0x1EBA00; // type:func absolute:True
 func_1ecd00 = 0x1ECD00; // type:func absolute:True

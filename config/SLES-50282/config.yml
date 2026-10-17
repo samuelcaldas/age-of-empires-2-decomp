@@ -3329,9 +3329,45 @@ segments:
     vram: 0x1E00B0
     subsegments:
       - [0xE0280, asm, zone_spatial_entity_set_position_vector]
+  - name: zone_spatial_entity_compute_rotation_matrix
+    type: code
+    start: 0xE02C0
+    vram: 0x1E00F0
+    subsegments:
+      - [0xE02C0, asm, zone_spatial_entity_compute_rotation_matrix]
+  - name: zone_spatial_entity_has_positive_velocity
+    type: code
+    start: 0xE0450
+    vram: 0x1E0280
+    subsegments:
+      - [0xE0450, asm, zone_spatial_entity_has_positive_velocity]
+  - name: zone_spatial_entity_reset_motion_state
+    type: code
+    start: 0xE04B0
+    vram: 0x1E02E0
+    subsegments:
+      - [0xE04B0, asm, zone_spatial_entity_reset_motion_state]
+  - name: zone_spatial_entity_update_motion_step
+    type: code
+    start: 0xE0520
+    vram: 0x1E0350
+    subsegments:
+      - [0xE0520, asm, zone_spatial_entity_update_motion_step]
+  - name: zone_spatial_entity_set_motion_scale
+    type: code
+    start: 0xE06A0
+    vram: 0x1E04D0
+    subsegments:
+      - [0xE06A0, asm, zone_spatial_entity_set_motion_scale]
+  - name: zone_spatial_entity_get_state_id
+    type: code
+    start: 0xE06C0
+    vram: 0x1E04F0
+    subsegments:
+      - [0xE06C0, asm, zone_spatial_entity_get_state_id]
   - name: post_aoe2
     type: bin
-    start: 0xE02C0
+    start: 0xE06D0
   - name: trade_action_helper_217730
     type: code
     start: 0x117910

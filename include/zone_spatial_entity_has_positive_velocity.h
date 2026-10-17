@@ -1,0 +1,10 @@
+#ifndef ZONE_SPATIAL_ENTITY_HAS_POSITIVE_VELOCITY_H
+#define ZONE_SPATIAL_ENTITY_HAS_POSITIVE_VELOCITY_H
+
+struct SpatialEntity;
+
+extern "C" {
+int func_001E0280(const SpatialEntity *self);
+}
+
+#endif // ZONE_SPATIAL_ENTITY_HAS_POSITIVE_VELOCITY_H

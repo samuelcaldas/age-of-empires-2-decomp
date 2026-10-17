@@ -3755,9 +3755,57 @@ segments:
     vram: 0x1E62B0
     subsegments:
       - [0xE6480, asm, zone_spatial_grid_identity_helper]
+  - name: zone_spatial_grid_reset_destructor
+    type: code
+    start: 0xE6490
+    vram: 0x1E62C0
+    subsegments:
+      - [0xE6490, asm, zone_spatial_grid_reset_destructor]
+  - name: zone_spatial_grid_init_node
+    type: code
+    start: 0xE6520
+    vram: 0x1E6350
+    subsegments:
+      - [0xE6520, asm, zone_spatial_grid_init_node]
+  - name: zone_spatial_grid_free_buffers
+    type: code
+    start: 0xE6560
+    vram: 0x1E6390
+    subsegments:
+      - [0xE6560, asm, zone_spatial_grid_free_buffers]
+  - name: zone_spatial_grid_init_pyramid
+    type: code
+    start: 0xE65E0
+    vram: 0x1E6410
+    subsegments:
+      - [0xE65E0, asm, zone_spatial_grid_init_pyramid]
+  - name: zone_spatial_grid_leaf_helper
+    type: code
+    start: 0xE6710
+    vram: 0x1E6540
+    subsegments:
+      - [0xE6710, asm, zone_spatial_grid_leaf_helper]
+  - name: zone_spatial_grid_reset_pyramid
+    type: code
+    start: 0xE6720
+    vram: 0x1E6550
+    subsegments:
+      - [0xE6720, asm, zone_spatial_grid_reset_pyramid]
+  - name: zone_spatial_grid_realloc_vector
+    type: code
+    start: 0xE6850
+    vram: 0x1E6680
+    subsegments:
+      - [0xE6850, asm, zone_spatial_grid_realloc_vector]
+  - name: zone_spatial_grid_transfer_bucket
+    type: code
+    start: 0xE6980
+    vram: 0x1E67B0
+    subsegments:
+      - [0xE6980, asm, zone_spatial_grid_transfer_bucket]
   - name: post_aoe2
     type: bin
-    start: 0xE6490
+    start: 0xE6CE0
   - name: trade_action_helper_217730
     type: code
     start: 0x117910

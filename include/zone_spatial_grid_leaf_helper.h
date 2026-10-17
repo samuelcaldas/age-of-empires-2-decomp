@@ -1,0 +1,8 @@
+#ifndef ZONE_SPATIAL_GRID_LEAF_HELPER_H
+#define ZONE_SPATIAL_GRID_LEAF_HELPER_H
+
+extern "C" {
+void func_001E6540(void *p);
+}
+
+#endif // ZONE_SPATIAL_GRID_LEAF_HELPER_H

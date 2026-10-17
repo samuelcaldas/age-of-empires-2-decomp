@@ -3917,9 +3917,27 @@ segments:
     vram: 0x1E8210
     subsegments:
       - [0xE83E0, asm, zone_spatial_grid_allocate_node]
+  - name: zone_spatial_grid_test_sphere_obstacles
+    type: code
+    start: 0xE84B0
+    vram: 0x1E82E0
+    subsegments:
+      - [0xE84B0, asm, zone_spatial_grid_test_sphere_obstacles]
+  - name: zone_spatial_grid_transfer_to_subcontainer
+    type: code
+    start: 0xE8BF0
+    vram: 0x1E8A20
+    subsegments:
+      - [0xE8BF0, asm, zone_spatial_grid_transfer_to_subcontainer]
+  - name: zone_spatial_grid_find_nearest_quad_intersection
+    type: code
+    start: 0xE8D80
+    vram: 0x1E8BB0
+    subsegments:
+      - [0xE8D80, asm, zone_spatial_grid_find_nearest_quad_intersection]
   - name: post_aoe2
     type: bin
-    start: 0xE84B0
+    start: 0xE8EB0
   - name: trade_action_helper_217730
     type: code
     start: 0x117910

@@ -3827,9 +3827,57 @@ segments:
     vram: 0x1E67B0
     subsegments:
       - [0xE6980, asm, zone_spatial_grid_transfer_bucket]
+  - name: zone_spatial_grid_compact_bucket
+    type: code
+    start: 0xE6CE0
+    vram: 0x1E6B10
+    subsegments:
+      - [0xE6CE0, asm, zone_spatial_grid_compact_bucket]
+  - name: zone_spatial_grid_mark_tile_occupants
+    type: code
+    start: 0xE6E90
+    vram: 0x1E6CC0
+    subsegments:
+      - [0xE6E90, asm, zone_spatial_grid_mark_tile_occupants]
+  - name: zone_spatial_grid_push_buffer1
+    type: code
+    start: 0xE70A0
+    vram: 0x1E6ED0
+    subsegments:
+      - [0xE70A0, asm, zone_spatial_grid_push_buffer1]
+  - name: zone_spatial_grid_expand_buffer2
+    type: code
+    start: 0xE7130
+    vram: 0x1E6F60
+    subsegments:
+      - [0xE7130, asm, zone_spatial_grid_expand_buffer2]
+  - name: zone_spatial_grid_expand_buffer3
+    type: code
+    start: 0xE71A0
+    vram: 0x1E6FD0
+    subsegments:
+      - [0xE71A0, asm, zone_spatial_grid_expand_buffer3]
+  - name: zone_spatial_grid_set_margin_bounds
+    type: code
+    start: 0xE7200
+    vram: 0x1E7030
+    subsegments:
+      - [0xE7200, asm, zone_spatial_grid_set_margin_bounds]
+  - name: zone_spatial_grid_test_point_in_bounds
+    type: code
+    start: 0xE7250
+    vram: 0x1E7080
+    subsegments:
+      - [0xE7250, asm, zone_spatial_grid_test_point_in_bounds]
+  - name: zone_spatial_grid_set_field10
+    type: code
+    start: 0xE72D0
+    vram: 0x1E7100
+    subsegments:
+      - [0xE72D0, asm, zone_spatial_grid_set_field10]
   - name: post_aoe2
     type: bin
-    start: 0xE6CE0
+    start: 0xE72E0
   - name: trade_action_helper_217730
     type: code
     start: 0x117910

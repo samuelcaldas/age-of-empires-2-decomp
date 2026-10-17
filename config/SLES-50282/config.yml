@@ -3371,9 +3371,45 @@ segments:
     vram: 0x1E04F0
     subsegments:
       - [0xE06C0, asm, zone_spatial_entity_get_state_id]
+  - name: zone_spatial_entity_stub_1e0500
+    type: code
+    start: 0xE06D0
+    vram: 0x1E0500
+    subsegments:
+      - [0xE06D0, asm, zone_spatial_entity_stub_1e0500]
+  - name: zone_spatial_entity_update_motion_cycle
+    type: code
+    start: 0xE06E0
+    vram: 0x1E0510
+    subsegments:
+      - [0xE06E0, asm, zone_spatial_entity_update_motion_cycle]
+  - name: zone_spatial_entity_eval_motion_collision
+    type: code
+    start: 0xE2970
+    vram: 0x1E27A0
+    subsegments:
+      - [0xE2970, asm, zone_spatial_entity_eval_motion_collision]
+  - name: zone_spatial_entity_calc_scale_factor_copy
+    type: code
+    start: 0xE2E70
+    vram: 0x1E2CA0
+    subsegments:
+      - [0xE2E70, asm, zone_spatial_entity_calc_scale_factor_copy]
+  - name: zone_spatial_entity_check_vector_equality
+    type: code
+    start: 0xE2EC0
+    vram: 0x1E2CF0
+    subsegments:
+      - [0xE2EC0, asm, zone_spatial_entity_check_vector_equality]
+  - name: zone_spatial_entity_step_collision_avoidance
+    type: code
+    start: 0xE2FF0
+    vram: 0x1E2E20
+    subsegments:
+      - [0xE2FF0, asm, zone_spatial_entity_step_collision_avoidance]
   - name: post_aoe2
     type: bin
-    start: 0xE06D0
+    start: 0xE30F0
   - name: trade_action_helper_217730
     type: code
     start: 0x117910

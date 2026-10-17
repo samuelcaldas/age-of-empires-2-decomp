@@ -1999,10 +1999,16 @@ segments:
     vram: 0x186C20
     subsegments:
       - [0x86E00, asm, render_manager_command]
-  - name: post_base
-    type: bin
+  - name: render_manager_query_dispatch
+    type: code
     start: 0x86FA0
     vram: 0x186DC0
+    subsegments:
+      - [0x86FA0, asm, render_manager_query_dispatch]
+  - name: post_base
+    type: bin
+    start: 0x87030
+    vram: 0x186E50
   - name: zone_path_eval
     type: code
     start: 0xC7A40

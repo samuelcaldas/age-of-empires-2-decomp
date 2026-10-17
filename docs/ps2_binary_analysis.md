@@ -6896,6 +6896,27 @@ This two-function pure C++ slice spans VRAM `0x186C20`–`0x186DC0` and file off
 | `func_00186c20` | `0x186C20` | 388 | **100.00% exact match** (388/388 B) | 12 B |
 | `func_00186db0` | `0x186DB0` | 8 | **100.00% exact match** (8/8 B) | 8 B |
 
+#### 6.328 `RenderManager Query Dispatch and Boolean Stubs Subsystem` (`0x186DC0`–`0x186E50`, `render_manager_query_dispatch.cpp`)
+
+This four-function pure C++ slice spans VRAM `0x186DC0`–`0x186E50` and file offsets `0x86FA0`–`0x87030` (144 bytes total: 112 instruction bytes + 32 bytes padding). The original ELF `PT_LOAD` mapping gives the VRAM/file-offset delta `0xFFE20`. The unit forwards query actions and state evaluations via virtual dispatch and provides boolean capability stubs:
+
+- `func_00186dc0` (`0x186DC0`, 48 instruction bytes, 4 B align padding, 12 B trailing padding): Query forwarder `(self, a1, a2, a3, a4)`. Forwards `(a3, a4)` to `self->MethodFC(a3, a4)` (vtable offset `0xFC`) and returns boolean result via `movz` (`!= 0 ? 1 : 0`).
+- `func_00186e00` (`0x186E00`, 8 instruction bytes, 8 B padding): Leaf boolean stub returning 1 unconditionally (`jr $ra; addiu $v0, $zero, 1`).
+- `func_00186e10` (`0x186E10`, 48 instruction bytes, 0 B padding): Query forwarder `(self)`. Invokes `self->Method100()` (vtable offset `0x100`) and returns boolean result via `movz` (`!= 0 ? 1 : 0`).
+- `func_00186e40` (`0x186E40`, 8 instruction bytes, 8 B padding): Leaf boolean stub returning 1 unconditionally (`jr $ra; addiu $v0, $zero, 1`).
+
+`tests/test_render_manager_query_dispatch.py` exercises four 32-bit native test cases covering the boolean stubs, methodFC parameter forwarding with boolean conversion, and method100 dispatch. `tests/test_render_manager_query_dispatch_matching.py` verifies fresh-compilation bit-exactness across all 112 instruction bytes against original binary `orig/SLES-50282/AOK.ELF`.
+
+#### 6.328.1 RenderManager Query Dispatch Matching Results (112 Code Bytes, 144-Byte Slice)
+
+| Function | VRAM | Instruction bytes | Relocated byte comparison | Padding |
+|---|---:|---:|---|---:|
+| `func_00186dc0` | `0x186DC0` | 48 | **100.00% exact match** (48/48 B) | 16 B |
+| `func_00186e00` | `0x186E00` | 8 | **100.00% exact match** (8/8 B) | 8 B |
+| `func_00186e10` | `0x186E10` | 48 | **100.00% exact match** (48/48 B) | 0 B |
+| `func_00186e40` | `0x186E40` | 8 | **100.00% exact match** (8/8 B) | 8 B |
+
+
 
 
 

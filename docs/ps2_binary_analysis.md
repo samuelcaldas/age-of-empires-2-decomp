@@ -6773,6 +6773,36 @@ This five-function pure C++ slice spans VRAM `0x185E50`–`0x186000` and file of
 | `func_00185f00` | `0x185F00` | 116 | **100.00% exact match** (116/116 B) | 12 B |
 | `func_00185f80` | `0x185F80` | 120 | **100.00% exact match** (120/120 B) | 8 B |
 
+#### 6.322 `RenderManager Subsystem State Queries & Helper Tail Calls` Subsystem (`0x186000`–`0x1861D0`, `render_manager_subsystem_queries.cpp`)
+
+This nine-function pure C++ slice spans VRAM `0x186000`–`0x1861D0` and file offsets `0x861E0`–`0x863B0` (464 bytes total: 392 instruction bytes + 72 bytes padding). The original ELF `PT_LOAD` mapping gives the VRAM/file-offset delta `0xFFE20`. The slice implements frameless tail calls, item buffer array lookup with bounds validation, 9-element subsystem ID linear scan, activation/deactivation toggling with sub-object state dispatch, mode setup with global GP-relative synchronization, and status queries. The unit is registered as `Matching` after fresh MWCC compilation and literal comparison of all 392 relocated instruction bytes.
+
+- `func_00186000` (`0x186000`, 8 instruction bytes, 8 B padding): Tail call forwarder delegating `func_225560(a1)`.
+- `func_00186010` (`0x186010`, 104 instruction bytes, 8 B padding): Item buffer reader. If `self->field_404 != 0 && field_50 > 0 && 0 <= field_98 < field_50`, returns pointer `self->field_404->field_54[field_98]`, otherwise 0.
+- `func_00186080` (`0x186080`, 64 instruction bytes, 0 B padding): Subsystem ID resolver. Loops through 9 entries in `self->field_9CC[i]`, returning index `i` on match with `a1`, or `-1` if not found.
+- `func_001860c0` (`0x1860C0`, 8 instruction bytes, 8 B padding): Tail call query forwarder `j func_225E80(self->field_2C)`.
+- `func_001860d0` (`0x1860D0`, 56 instruction bytes, 8 B padding): Activation handler. If `!self->field_1E4`, dispatches `func_1DB7D0(self->field_1D8)` and sets `self->field_1E4 = 1`.
+- `func_00186110` (`0x186110`, 52 instruction bytes, 12 B padding): Deactivation handler. If `self->field_1E4 != 0`, dispatches `func_1DB7C0(self->field_1D8)` and resets `self->field_1E4 = 0`.
+- `func_00186150` (`0x186150`, 72 instruction bytes, 8 B padding): Subsystem mode dispatcher. Assigns `self->field_1E8 = (self->field_7C != 0) ? a1 : 1`. If `a1 != 0`, invokes `func_1DB7D0(self->field_1D8)` and `func_224300(0)`.
+- `func_001861a0` (`0x1861A0`, 20 instruction bytes, 12 B padding): State coordinator. Stores `self->field_1EC = a1` and conditionally synchronizes global `D_004E8980 = a1` when `a1 != 0`.
+- `func_001861c0` (`0x1861C0`, 8 instruction bytes, 8 B padding): Status tail call forwarder `j func_1DB760(self->field_1D8)`.
+
+`tests/test_render_manager_subsystem_queries.py` exercises four 32-bit native test cases across tail calls, item buffer bounds checking, linear array search, activation state toggling, mode setup, and global synchronization. `tests/test_render_manager_subsystem_queries_matching.py` verifies fresh-compilation bit-exactness against `orig/SLES-50282/AOK.ELF` after `R_MIPS_26` and `R_MIPS_GPREL16` relocation resolution, as well as split boundary alignment and padding.
+
+#### 6.322.1 RenderManager Subsystem State Queries Matching Results (392 Code Bytes, 464-Byte Slice)
+
+| Function | VRAM | Instruction bytes | Relocated byte comparison | Padding |
+|---|---:|---:|---|---:|
+| `func_00186000` | `0x186000` | 8 | **100.00% exact match** (8/8 B) | 8 B |
+| `func_00186010` | `0x186010` | 104 | **100.00% exact match** (104/104 B) | 8 B |
+| `func_00186080` | `0x186080` | 64 | **100.00% exact match** (64/64 B) | 0 B |
+| `func_001860c0` | `0x1860C0` | 8 | **100.00% exact match** (8/8 B) | 8 B |
+| `func_001860d0` | `0x1860D0` | 56 | **100.00% exact match** (56/56 B) | 8 B |
+| `func_00186110` | `0x186110` | 52 | **100.00% exact match** (52/52 B) | 12 B |
+| `func_00186150` | `0x186150` | 72 | **100.00% exact match** (72/72 B) | 8 B |
+| `func_001861a0` | `0x1861A0` | 20 | **100.00% exact match** (20/20 B) | 12 B |
+| `func_001861c0` | `0x1861C0` | 8 | **100.00% exact match** (8/8 B) | 8 B |
+
 #### Zone Terrain and Coordinate Transformation Slices (`0x1CDD00`–`0x1D1430`)
 
 Contiguous decompilation of the Age of Empires II PlayStation 2 terrain and spatial sub-systems along file offsets `0xCDEE0`–`0xD1610` (VRAM `0x1CDD00`–`0x1D1430`, offset mapping `+0xFFE20`):

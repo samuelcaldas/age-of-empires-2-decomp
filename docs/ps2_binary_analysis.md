@@ -6803,6 +6803,36 @@ This nine-function pure C++ slice spans VRAM `0x186000`–`0x1861D0` and file of
 | `func_001861a0` | `0x1861A0` | 20 | **100.00% exact match** (20/20 B) | 12 B |
 | `func_001861c0` | `0x1861C0` | 8 | **100.00% exact match** (8/8 B) | 8 B |
 
+#### 6.323 `RenderManager Window Message Dispatcher (WndProc)` Subsystem (`0x1861D0`–`0x186770`, `render_manager_window_proc.cpp`)
+
+This single-function pure C++ slice spans VRAM `0x1861D0`–`0x186770` and file offsets `0x863B0`–`0x86950` (1440 bytes total: 1432 instruction bytes + 8 bytes zero padding). The original ELF `PT_LOAD` mapping gives the VRAM/file-offset delta `0xFFE20`. The function implements the primary Win32 message procedure (`WndProc`) for the PlayStation 2 release, coordinating input, display refresh, screen transitions, and OS notifications.
+
+- `func_001861d0` (`0x1861D0`, 1432 instruction bytes, 8 B padding): Window message processor `WndProc(self, hwnd, msg, wParam, lParam)`. Queries active screen instance from `func_1F26C0((void *)func_00A80BB0)`, delegating via `Method50(hwnd, msg, wParam, lParam)` and returning immediately if handled (excluding `WM_MOUSEMOVE` 512 and `WM_TIMER` 275). Dispatches standard and game messages:
+  - `WM_MOUSEMOVE` (`512`): Delegates to `self->MethodB0(...)`; on non-zero return, inspects `D_004E897C != 0`, invokes `func_001860d0(self)` when `!self->field_1E8`, resets `D_004E897C = 0`, and falls through to `DefWindowProc`.
+  - `WM_MOUSEWHEEL` (`522`): Calls `self->MethodB4(...)`, returning `ret` on failure.
+  - `WM_KEYDOWN` (`256`) & `WM_SYSKEYDOWN` (`260`): Calls `self->MethodB8(...)`.
+  - `WM_SYSKEYUP` (`261`): If `wParam == 18` (Alt / VK_MENU), invokes `active_screen->MethodF8()`.
+  - `WM_USER` (`1024`): Calls `self->MethodBC(...)`.
+  - `WM_COMMAND` (`273`): Calls `self->MethodC0(...)`.
+  - `WM_PAINT` (`15`): If `hwnd == 1`, calls `self->MethodC8(...)`.
+  - `WM_ACTIVATE` (`6`): Evaluates activation word and sub-parameters against `self->field_30` and `self->field_2C`, updating global activation tracker `D_004E8998`.
+  - `WM_SIZE` (`5`): Validates `self->field_6C->field_58` and invokes `self->MethodD8(...)`.
+  - `WM_PALETTECHANGED` (`785`): Calls `self->MethodDC(...)`.
+  - `WM_QUERYNEWPALETTE` (`783`): Calls `self->MethodE0(...)`.
+  - `WM_CLOSE` (`16`): Calls `self->MethodE4(...)`.
+  - `WM_DESTROY` (`2`): Calls `self->MethodE8(...)`.
+  - Custom Dialog Message `1295`: If active screen matches "Status Screen" (`D_00491A28`), updates subsystem `self->field_1AC` via `func_1908B0` and `func_18BFA0`, and prompts modal dialog "Comm Cancel" (`D_00491A38`) via `func_1FB860` and `func_1F2900`.
+  - Fallback: Unhandled messages (`WM_SETFOCUS` 7, `WM_KILLFOCUS` 8, `WM_KEYUP` 257, `WM_TIMER` 275, default) forward to `func_225510(hwnd, msg, wParam, lParam)` (`DefWindowProc`).
+
+`tests/test_render_manager_window_proc.py` exercises 4 native 32-bit test suites validating active screen message delegation, mouse/keyboard forwarding, user/paint handling, and activation/status screen cancel workflows. `tests/test_render_manager_window_proc_matching.py` verifies byte-exact equivalence across all 1432 instruction bytes after `R_MIPS_26`, `R_MIPS_HI16`, `R_MIPS_LO16`, and `R_MIPS_GPREL16` relocation resolution against original binary `orig/SLES-50282/AOK.ELF`.
+
+#### 6.323.1 RenderManager Window Message Dispatcher Matching Results (1432 Code Bytes, 1440-Byte Slice)
+
+| Function | VRAM | Instruction bytes | Relocated byte comparison | Padding |
+|---|---:|---:|---|---:|
+| `func_001861d0` | `0x1861D0` | 1432 | **100.00% exact match** (1432/1432 B) | 8 B |
+
+
 #### Zone Terrain and Coordinate Transformation Slices (`0x1CDD00`–`0x1D1430`)
 
 Contiguous decompilation of the Age of Empires II PlayStation 2 terrain and spatial sub-systems along file offsets `0xCDEE0`–`0xD1610` (VRAM `0x1CDD00`–`0x1D1430`, offset mapping `+0xFFE20`):

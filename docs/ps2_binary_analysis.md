@@ -6509,19 +6509,41 @@ An independent verification suite (`tests/test_render_manager_query.py`, with 32
 | `func_00184c70` | `0x184C70` | 76 | **100.00% exact match** (76/76 B) | 12 B |
 | `func_00184cc0` | `0x184CC0` | 24 | **100.00% exact match** (24/24 B) | 8 B |
 
-#### 6.307 `RenderManager Message Formatter & Jump Table` Subsystem (`0x184CE0`–`0x184EEC`, `render_manager_messages.cpp`)
+#### 6.307 `RenderManager Message Formatter & Jump Table` Subsystem (`0x184CE0`–`0x184ED0`, `render_manager_messages.cpp`)
 
-This single-function C++ slice spans VRAM `0x184CE0`–`0x184EEC` and file offsets `0x84EC0`–`0x850CC` (524 bytes total). The original ELF `PT_LOAD` mapping gives the VRAM/file-offset delta `0xFFE20`. The slice comprises 524 instruction bytes implementing the master UI string resource resolver with a 24-case jump table at `0x00491990`. Symbol sizes exclude padding. The unit remains registered as `NonMatching`.
+This single-function C++ slice spans VRAM `0x184CE0`–`0x184ED0` and file offsets `0x84EC0`–`0x850B0` (496 bytes total). The original ELF `PT_LOAD` mapping gives the VRAM/file-offset delta `0xFFE20`. The original function has 488 instruction bytes, ending after the return delay slot at `0x184EC4`, followed by eight zero padding bytes. The previously recorded end, `0x184EEC`, incorrectly included 28 bytes of the next function's prologue. The unit remains registered as `NonMatching`; native behavior tests alone do not prove instruction equality.
 
-- `func_00184ce0` (`0x184CE0`, 524 instruction bytes): Master UI string formatter and message resolver. For mode 1, indexes 24-case jump table (`0x00491990`) resolving string IDs (`0x7D2`..`0x7E1`) and dispatching virtual method 10 (`GetString`). For mode 2, invokes `GetString` with direct `msg_id`. For default/unrecognized modes and IDs, clears destination buffer (`dest[0] = 0; dest[max_len - 1] = 0`).
+- `func_00184ce0` (`0x184CE0`, 488 instruction bytes): Master UI string formatter and message resolver. For mode 1, indexes a 24-case jump table at `0x00491990`, resolving string IDs `0x7D2`–`0x7E1` and dispatching virtual slot `+0x28`. Mode 2 forwards `msg_id` to that slot. Unrecognized modes and IDs clear the first and last destination bytes.
 
-An independent verification suite (`tests/test_render_manager_messages.py`, with 32-bit test doubles in `tests/native/render_manager_messages_test.cpp`) validates mode 1 jump table string ID resolution across representative cases, mode 2 direct parameter pass-through, and boundary buffer zeroing.
+`tests/test_render_manager_messages.py` exercises representative resource mappings and buffer clearing with 32-bit native doubles. No relocated byte-equality proof is recorded for this reconstruction.
 
-#### 6.307.1 RenderManager Message Formatter Matching Results (524 Code Bytes, 524-Byte Slice)
+#### 6.307.1 RenderManager Message Formatter Matching Results (488 Code Bytes, 496-Byte Slice)
 
-| Function | VRAM | Instruction bytes | Result | Padding |
+| Function | VRAM | Original instruction bytes | Result | Padding |
 |---|---:|---:|---|---:|
-| `func_00184ce0` | `0x184CE0` | 492 | Structural alignment verified | 32 B |
+| `func_00184ce0` | `0x184CE0` | 488 | NonMatching; corrected ELF boundary | 8 B |
+
+#### 6.308 `RenderManager Stream & Context Factory` Subsystem (`0x184ED0`–`0x185030`, `render_manager_stream.cpp`)
+
+This three-function pure C++ slice spans VRAM `0x184ED0`–`0x185030` and file offsets `0x850B0`–`0x85210` (352 bytes). Its 344 instruction bytes and eight alignment bytes are mapped through the original ELF's `PT_LOAD` segment, not inferred from the previous symbol's declared size. `0x184EEC` is the loader's first `jal`, not a function entry. The unit is registered as `Matching` after fresh MWCC compilation and literal comparison of all 344 relocated instruction bytes.
+
+- `func_00184ed0` (`0x184ED0`, 220 instruction bytes): Opens an integer stream handle through `func_3449B0(self->device)` when the third argument is nonzero. Reads two four-byte headers through `func_226D40`. A positive second header triggers allocation, payload reading, and release of the temporary buffer. Allocation failure closes the stream and returns zero. Otherwise, including nonpositive payload sizes, it reads a distinct four-byte record through `func_226D90`, calls virtual slot `+0x40`, closes the stream, and returns the virtual call's result. It never reuses the released buffer.
+- `func_00184fb0` (`0x184FB0`, 76 instruction bytes): Allocates `0x19F4` (6,644) bytes through `func_100850`, invokes `func_239410` with the caller's parent and a zero flag on success, and returns the allocation. A null allocation skips construction.
+- `func_00185000` (`0x185000`, 48 instruction bytes): Returns zero for a missing device at object offset `+0x24`; otherwise returns `func_3448E0(device)` unchanged, including negative values.
+
+The loader preserves two limitations visible in the original instructions: it does not check read return values, and a zero stream-open flag leaves its local handle undefined. Both direct callers (`jal` at `0x255D50` and `0x2FCBE0`) pass a zero second argument and a third argument of one. The native suite deliberately avoids executing the undefined zero-flag path.
+
+`include/render_manager_stream.h` models fourteen virtual entries before the stream callback. With MWCC's eight-byte vtable header, this emits the original `+0x40` load and `$t9` dispatch. The factory's allocation assignment remains inside its condition to retain the original branch on `$v0` and delay-slot register copy.
+
+`tests/test_render_manager_stream.py` runs eleven 32-bit native cases covering payload lifetime, operation order, nonpositive sizes, true allocation failure, ignored payload-read status, virtual result propagation, parent forwarding, and optional-device status. The strengthened suite failed six cases against the earlier draft before the correction. `tests/test_render_manager_stream_matching.py` separately recompiles current source, checks the pinned original hash, selects each homonymous `.text` section by `st_shndx`, resolves every `R_MIPS_26` call, and requires byte equality. It also guards the corrected split, symbol extents, and padding.
+
+#### 6.308.1 RenderManager Stream & Context Factory Matching Results (344 Code Bytes, 352-Byte Slice)
+
+| Function | VRAM | Instruction bytes | Relocated byte comparison | Padding |
+|---|---:|---:|---|---:|
+| `func_00184ed0` | `0x184ED0` | 220 | **100.00% exact match** (220/220 B) | 4 B |
+| `func_00184fb0` | `0x184FB0` | 76 | **100.00% exact match** (76/76 B) | 4 B |
+| `func_00185000` | `0x185000` | 48 | **100.00% exact match** (48/48 B) | 0 B |
 
 #### Zone Terrain and Coordinate Transformation Slices (`0x1CDD00`–`0x1D1430`)
 

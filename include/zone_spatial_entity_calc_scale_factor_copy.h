@@ -1,0 +1,10 @@
+#ifndef ZONE_SPATIAL_ENTITY_CALC_SCALE_FACTOR_COPY_H
+#define ZONE_SPATIAL_ENTITY_CALC_SCALE_FACTOR_COPY_H
+
+struct SpatialEntity;
+
+extern "C" {
+float func_001E2CA0(SpatialEntity *self);
+}
+
+#endif // ZONE_SPATIAL_ENTITY_CALC_SCALE_FACTOR_COPY_H

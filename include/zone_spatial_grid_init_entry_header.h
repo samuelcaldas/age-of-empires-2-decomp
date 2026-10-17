@@ -1,0 +1,8 @@
+#ifndef ZONE_SPATIAL_GRID_INIT_ENTRY_HEADER_H
+#define ZONE_SPATIAL_GRID_INIT_ENTRY_HEADER_H
+
+extern "C" {
+void *func_001EB900(void *self);
+}
+
+#endif // ZONE_SPATIAL_GRID_INIT_ENTRY_HEADER_H

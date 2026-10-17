@@ -3215,9 +3215,51 @@ segments:
     vram: 0x1DF350
     subsegments:
       - [0xDF520, asm, zone_spatial_entity_adjust_heading_step]
+  - name: zone_spatial_entity_eval_motion_target
+    type: code
+    start: 0xDF5C0
+    vram: 0x1DF3F0
+    subsegments:
+      - [0xDF5C0, asm, zone_spatial_entity_eval_motion_target]
+  - name: zone_spatial_entity_execute_motion_step
+    type: code
+    start: 0xDF710
+    vram: 0x1DF540
+    subsegments:
+      - [0xDF710, asm, zone_spatial_entity_execute_motion_step]
+  - name: zone_spatial_entity_update_motion_target
+    type: code
+    start: 0xDFB50
+    vram: 0x1DF980
+    subsegments:
+      - [0xDFB50, asm, zone_spatial_entity_update_motion_target]
+  - name: zone_spatial_entity_step_target_motion
+    type: code
+    start: 0xDFC40
+    vram: 0x1DFA70
+    subsegments:
+      - [0xDFC40, asm, zone_spatial_entity_step_target_motion]
+  - name: zone_spatial_entity_finalize_motion_step
+    type: code
+    start: 0xDFDE0
+    vram: 0x1DFC10
+    subsegments:
+      - [0xDFDE0, asm, zone_spatial_entity_finalize_motion_step]
+  - name: zone_spatial_entity_rebind_motion_target
+    type: code
+    start: 0xDFE30
+    vram: 0x1DFC60
+    subsegments:
+      - [0xDFE30, asm, zone_spatial_entity_rebind_motion_target]
+  - name: zone_spatial_entity_get_velocity_vector
+    type: code
+    start: 0xDFEF0
+    vram: 0x1DFD20
+    subsegments:
+      - [0xDFEF0, asm, zone_spatial_entity_get_velocity_vector]
   - name: post_aoe2
     type: bin
-    start: 0xDF5C0
+    start: 0xDFF30
   - name: trade_action_helper_217730
     type: code
     start: 0x117910

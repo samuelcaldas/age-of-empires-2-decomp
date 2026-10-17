@@ -6233,6 +6233,24 @@ An independent verification suite (`tests/test_trade_action_stream_nodes.py`, wi
 | `func_00182610` | `0x182610` | 416 | Structural alignment verified | 48 B |
 | `func_001827b0` | `0x1827B0` | 224 | Structural alignment verified | 32 B |
 
+#### 6.297 `Trade Action Stream Render` Subsystem (`0x182890`–`0x182C40`, `trade_action_stream_render.cpp`)
+
+This three-function C++ slice spans VRAM `0x182890`–`0x182C40` and file offsets `0x82A70`–`0x82E20` (944 bytes total). The original ELF `PT_LOAD` mapping gives the VRAM/file-offset delta `0xFFE20`. The slice comprises 944 instruction bytes across three rendering methods of `AspList`. Symbol sizes exclude padding. The unit remains registered as `NonMatching`.
+
+- `func_00182890` (`0x182890`, 352 instruction bytes): Continuous coordinate renderer `AspList::render(float x, float y)`. Iterates linked items, executes `func_00183450` or `func_001839D0`, and unlinks expired nodes, releasing them to pool `0x514E30` via `func_00183210`.
+- `func_001829f0` (`0x1829F0`, 368 instruction bytes): Viewport-clipped renderer `AspList::draw_clipped()`. Dispatches clipping rectangle coordinates `(cx1, cy1, cx2, cy2)` and destination surfaces to `func_00183460` or `func_001839E0`.
+- `func_00182b60` (`0x182B60`, 224 instruction bytes): Direct unclipped renderer `AspList::draw_simple()`. Dispatches items to fast drawing routines `func_00183550` or `func_00183E00`.
+
+An independent verification suite (`tests/test_trade_action_stream_render.py`, with 32-bit test doubles in `tests/native/trade_action_stream_render_test.cpp`) validates continuous render passes, pool node reclamation on zero return, clipped draw traversal, and direct draw dispatch.
+
+#### 6.297.1 Trade Action Stream Render Matching Results (944 Code Bytes, 944-Byte Slice)
+
+| Function | VRAM | Instruction bytes | Result | Padding |
+|---|---:|---:|---|---:|
+| `func_00182890` | `0x182890` | 352 | Structural alignment verified | 16 B |
+| `func_001829f0` | `0x1829F0` | 368 | Structural alignment verified | 12 B |
+| `func_00182b60` | `0x182B60` | 224 | Structural alignment verified | 0 B |
+
 #### Zone Terrain and Coordinate Transformation Slices (`0x1CDD00`–`0x1D1430`)
 
 Contiguous decompilation of the Age of Empires II PlayStation 2 terrain and spatial sub-systems along file offsets `0xCDEE0`–`0xD1610` (VRAM `0x1CDD00`–`0x1D1430`, offset mapping `+0xFFE20`):

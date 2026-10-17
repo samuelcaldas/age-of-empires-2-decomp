@@ -1,0 +1,10 @@
+#ifndef ZONE_SPATIAL_ENTITY_EVAL_MOTION_BOUNDS_SECONDARY_H
+#define ZONE_SPATIAL_ENTITY_EVAL_MOTION_BOUNDS_SECONDARY_H
+
+struct SpatialEntity;
+
+extern "C" {
+int func_001E3840(SpatialEntity *self, void *p1, void *p2, float p3);
+}
+
+#endif // ZONE_SPATIAL_ENTITY_EVAL_MOTION_BOUNDS_SECONDARY_H

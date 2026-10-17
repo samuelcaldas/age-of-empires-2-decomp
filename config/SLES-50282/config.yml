@@ -3479,9 +3479,69 @@ segments:
     vram: 0x1E3720
     subsegments:
       - [0xE38F0, asm, zone_spatial_entity_reset_motion_buffer]
+  - name: zone_spatial_entity_stub_1e3830
+    type: code
+    start: 0xE3A00
+    vram: 0x1E3830
+    subsegments:
+      - [0xE3A00, asm, zone_spatial_entity_stub_1e3830]
+  - name: zone_spatial_entity_eval_motion_bounds_secondary
+    type: code
+    start: 0xE3A10
+    vram: 0x1E3840
+    subsegments:
+      - [0xE3A10, asm, zone_spatial_entity_eval_motion_bounds_secondary]
+  - name: zone_spatial_entity_update_motion_path_full
+    type: code
+    start: 0xE3AE0
+    vram: 0x1E3910
+    subsegments:
+      - [0xE3AE0, asm, zone_spatial_entity_update_motion_path_full]
+  - name: zone_spatial_entity_eval_step_bounds
+    type: code
+    start: 0xE3F00
+    vram: 0x1E3D30
+    subsegments:
+      - [0xE3F00, asm, zone_spatial_entity_eval_step_bounds]
+  - name: zone_spatial_entity_intersect_line_segments
+    type: code
+    start: 0xE4040
+    vram: 0x1E3E70
+    subsegments:
+      - [0xE4040, asm, zone_spatial_entity_intersect_line_segments]
+  - name: zone_spatial_entity_identity_getter
+    type: code
+    start: 0xE4160
+    vram: 0x1E3F90
+    subsegments:
+      - [0xE4160, asm, zone_spatial_entity_identity_getter]
+  - name: zone_spatial_grid_alloc_nodes
+    type: code
+    start: 0xE4170
+    vram: 0x1E3FA0
+    subsegments:
+      - [0xE4170, asm, zone_spatial_grid_alloc_nodes]
+  - name: zone_spatial_grid_init_node_buffer
+    type: code
+    start: 0xE4220
+    vram: 0x1E4050
+    subsegments:
+      - [0xE4220, asm, zone_spatial_grid_init_node_buffer]
+  - name: zone_spatial_grid_free_node_buffer
+    type: code
+    start: 0xE4270
+    vram: 0x1E40A0
+    subsegments:
+      - [0xE4270, asm, zone_spatial_grid_free_node_buffer]
+  - name: zone_spatial_grid_setup_geometry
+    type: code
+    start: 0xE4320
+    vram: 0x1E4150
+    subsegments:
+      - [0xE4320, asm, zone_spatial_grid_setup_geometry]
   - name: post_aoe2
     type: bin
-    start: 0xE3A00
+    start: 0xE43E0
   - name: trade_action_helper_217730
     type: code
     start: 0x117910

@@ -1,0 +1,10 @@
+#ifndef ZONE_SPATIAL_ENTITY_INTERSECT_LINE_SEGMENTS_H
+#define ZONE_SPATIAL_ENTITY_INTERSECT_LINE_SEGMENTS_H
+
+struct SpatialEntity;
+
+extern "C" {
+int func_001E3E70(void *p1, void *p2, void *p3);
+}
+
+#endif // ZONE_SPATIAL_ENTITY_INTERSECT_LINE_SEGMENTS_H

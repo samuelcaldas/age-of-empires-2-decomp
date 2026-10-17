@@ -5067,6 +5067,12 @@ if config.platform == Platform.PS2:
                 ),
                 Object(
                     Matching,
+                    "tactical_ai_handler_340c30",
+                    cflags=config.cflags,
+                    toolchain_version="PS2/mwcc-2.3.1.01",
+                ),
+                Object(
+                    Matching,
                     "tactical_ai_check_340cf0",
                     cflags=config.cflags,
                     toolchain_version="PS2/mwcc-2.3.1.01",

@@ -4345,9 +4345,15 @@ segments:
     vram: 0x3409C0
     subsegments:
       - [0x240BA0, asm, tactical_ai_dispatch_3409c0]
-  - name: bin_340a00_340cf0
+  - name: bin_340a00_340c30
     type: bin
     start: 0x240BE0
+  - name: tactical_ai_handler_340c30
+    type: code
+    start: 0x240E10
+    vram: 0x340C30
+    subsegments:
+      - [0x240E10, asm, tactical_ai_handler_340c30]
   - name: tactical_ai_check_340cf0
     type: code
     start: 0x240ED0

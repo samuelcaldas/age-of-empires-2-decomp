@@ -1,0 +1,8 @@
+#ifndef ZONE_SPATIAL_ENTITY_STUB_1E3830_H
+#define ZONE_SPATIAL_ENTITY_STUB_1E3830_H
+
+extern "C" {
+void func_001E3830(void *p);
+}
+
+#endif // ZONE_SPATIAL_ENTITY_STUB_1E3830_H

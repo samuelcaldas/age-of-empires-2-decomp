@@ -7025,3 +7025,16 @@ All 3 functions achieved bit-level 100.00% matching. Pure C++ with zero assembly
 | `func_00340370` | `0x340370` | 96 B | 96 B | **Matching (100.00%)** | Scalar deleting destructor resetting vtable `__vt__004DF080`, invoking `func_210490`. |
 | `func_003403D0` | `0x3403D0` | 96 B | 96 B | **Matching (100.00%)** | Scalar deleting destructor resetting vtable `__vt__004DF1B0`, invoking `func_216020`. |
 | `func_00340430` | `0x340430` | 96 B | 96 B | **Matching (100.00%)** | Scalar deleting destructor resetting vtable `__vt__004DF2E0`, invoking `func_208E20`. |
+
+#### 6.188 `Tactical AI Sub-pointer Status Checker` Subsystem (`0x340CF0`–`0x340D30`, `tactical_ai_check_340cf0.cpp`)
+
+Located at VRAM `0x340CF0`–`0x340D30` (file offset `0x240ED0`–`0x240F10`, 64 bytes total slice, Metrowerks C++ PS2 MWCC 2.3.1.01):
+- `func_00340CF0` (`0x340CF0`, 64 bytes code, 64 bytes slice): Validates sub-object pointer at offset `+0x838`. If null, returns 1. If non-null, queries status via `func_210010` and returns inverted boolean result (`func_210010(p) ? 0 : 1`).
+
+Achieved bit-level 100.00% matching. Pure C++ with zero assembly (.s). Validated with native regression tests in `tests/native/tactical_ai_check_340cf0_test.cpp` and binary ELF comparison test `tests/test_tactical_ai_check_340cf0_matching.py`.
+
+#### 6.188.1 Tactical AI Sub-pointer Status Checker Matching Results (Pure C++, 64 Bytes)
+
+| Function / Method | VRAM Address | Code Size (Orig) | Slice Size | Match Status | Description |
+|---|---|---|---|---|---|
+| `func_00340CF0` | `0x340CF0` | 64 B | 64 B | **Matching (100.00%)** | Sub-pointer status checker querying `func_210010` on `field_838`. |

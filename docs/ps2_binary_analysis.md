@@ -7038,3 +7038,16 @@ Achieved bit-level 100.00% matching. Pure C++ with zero assembly (.s). Validated
 | Function / Method | VRAM Address | Code Size (Orig) | Slice Size | Match Status | Description |
 |---|---|---|---|---|---|
 | `func_00340CF0` | `0x340CF0` | 64 B | 64 B | **Matching (100.00%)** | Sub-pointer status checker querying `func_210010` on `field_838`. |
+
+#### 6.189 `Tactical AI State Branch Dispatcher` Subsystem (`0x3409C0`–`0x340A00`, `tactical_ai_dispatch_3409c0.cpp`)
+
+Located at VRAM `0x3409C0`–`0x340A00` (file offset `0x240BA0`–`0x240BE0`, 64 bytes total slice, 56 bytes code + 8 bytes zero padding, Metrowerks C++ PS2 MWCC 2.3.1.01):
+- `func_003409C0` (`0x3409C0`, 56 bytes code, 64 bytes slice): Evaluates state integer at offset `+0x858`. If non-zero, delegates to sub-handler `func_340C30` and returns 0. If zero, dispatches alternative handler `func_1F8140` and propagates its return value.
+
+Achieved bit-level 100.00% matching. Pure C++ with zero assembly (.s). Validated with native regression tests in `tests/native/tactical_ai_dispatch_3409c0_test.cpp` and binary ELF comparison test `tests/test_tactical_ai_dispatch_3409c0_matching.py`.
+
+#### 6.189.1 Tactical AI State Branch Dispatcher Matching Results (Pure C++, 64 Bytes)
+
+| Function / Method | VRAM Address | Code Size (Orig) | Slice Size | Match Status | Description |
+|---|---|---|---|---|---|
+| `func_003409C0` | `0x3409C0` | 56 B | 64 B | **Matching (100.00%)** | State branch dispatcher dispatching `func_340C30` or `func_1F8140` based on `field_858`. |

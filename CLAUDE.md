@@ -45,6 +45,41 @@ IDA-exported `splits.json` and `symbols.json` (see `docs/toolchain.md`).
 - `docs/`: game files, toolchain, binary analysis (`docs/ps2_binary_analysis.md`), and decisions (`docs/adr/`).
 - `scripts/agy/`: wrapper for delegating separable tasks to the agy CLI. See `docs/agy_orchestration.md`.
 
+## Mandatory test-driven development
+
+For every new function, behavior change, or bug fix, including delegated work:
+
+1. **Red:** write the smallest behavioral regression test first. Run it against
+   the unchanged implementation and observe the expected assertion failure.
+   Collection errors, missing tools/assets, and compilation failures are blockers,
+   not evidence of a reproduced bug. For a new function, establish the test
+   harness first; record an unavoidable missing-symbol failure separately.
+2. **Green:** implement only the behavior needed to pass that test, then run it.
+   Repeat one behavior at a time; tests written after implementation do not
+   establish TDD evidence.
+3. **Refactor:** simplify with the tests green. For existing behavior, establish
+   passing characterization tests before refactoring; keep them green afterward.
+4. **Regression gate:** run the affected tests and related subsystem tests, then
+   the full available suite before integration. Compare failures with a clean
+   baseline; report every failure, skip, and unavailable prerequisite. A blocked
+   check is not a pass. Fix new failures before declaring the change complete.
+5. **Evidence:** report the exact red and green commands, the expected failing
+   assertion, and final regression results. Require the same evidence from
+   workers and independently verify their diffs and green results.
+
+For decompilation, derive expected behavior from the original binary or verified
+analysis. Native tests must exercise the actual C/C++ implementation and observable
+outputs, state changes, and call order; source-text checks alone are insufficient.
+Preserve exact matching with target-compiler/ELF comparison for affected matched
+functions. Behavioral correctness and binary matching are separate gates; neither
+substitutes for the other. Include relevant boundaries and failure paths.
+
+Keep regression tests with the change. Preserve existing assertions and matching
+expectations; change an expectation only when verified original behavior justifies
+it. Documentation-only changes need static validation, not an artificial red test.
+Before changing code or delegating implementation, read
+[docs/testing.md](docs/testing.md) for execution and completion requirements.
+
 ## Inter-agent communication
 
 Use caveman style for all agent task prompts, messages, status updates, handoffs,

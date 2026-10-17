@@ -2,6 +2,7 @@
 
 Start with the top-level [README](../README.md).
 
+- [testing.md](testing.md): mandatory TDD workflow, Docker test commands, and regression completion evidence
 - [game_files.md](game_files.md): where each original file comes from, how to extract it, and how to verify it
 - [ps2_binary_analysis.md](ps2_binary_analysis.md): disc architecture, Metrowerks compiler, debug strings, and source files discovered in the PS2 binary
 - [ps2_library_map.md](ps2_library_map.md): bounded third-party runtime routines and Sony SDK version markers in the PAL ELF

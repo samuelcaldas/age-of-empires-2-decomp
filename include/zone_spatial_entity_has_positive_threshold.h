@@ -1,0 +1,10 @@
+#ifndef ZONE_SPATIAL_ENTITY_HAS_POSITIVE_THRESHOLD_H
+#define ZONE_SPATIAL_ENTITY_HAS_POSITIVE_THRESHOLD_H
+
+struct SpatialEntity;
+
+extern "C" {
+int func_001DCAF0(SpatialEntity *self);
+}
+
+#endif // ZONE_SPATIAL_ENTITY_HAS_POSITIVE_THRESHOLD_H

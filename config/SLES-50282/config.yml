@@ -2933,9 +2933,63 @@ segments:
     vram: 0x1DC100
     subsegments:
       - [0xDC2D0, asm, zone_spatial_entity_derived_dtor]
+  - name: zone_spatial_entity_set_position
+    type: code
+    start: 0xDC350
+    vram: 0x1DC180
+    subsegments:
+      - [0xDC350, asm, zone_spatial_entity_set_position]
+  - name: zone_spatial_entity_update_motion
+    type: code
+    start: 0xDC4B0
+    vram: 0x1DC2E0
+    subsegments:
+      - [0xDC4B0, asm, zone_spatial_entity_update_motion]
+  - name: zone_spatial_entity_update_spatial
+    type: code
+    start: 0xDC880
+    vram: 0x1DC6B0
+    subsegments:
+      - [0xDC880, asm, zone_spatial_entity_update_spatial]
+  - name: zone_spatial_entity_set_state
+    type: code
+    start: 0xDCBA0
+    vram: 0x1DC9D0
+    subsegments:
+      - [0xDCBA0, asm, zone_spatial_entity_set_state]
+  - name: zone_spatial_entity_update_sub_entity
+    type: code
+    start: 0xDCC00
+    vram: 0x1DCA30
+    subsegments:
+      - [0xDCC00, asm, zone_spatial_entity_update_sub_entity]
+  - name: zone_spatial_entity_stop
+    type: code
+    start: 0xDCC70
+    vram: 0x1DCAA0
+    subsegments:
+      - [0xDCC70, asm, zone_spatial_entity_stop]
+  - name: zone_spatial_entity_has_positive_threshold
+    type: code
+    start: 0xDCCC0
+    vram: 0x1DCAF0
+    subsegments:
+      - [0xDCCC0, asm, zone_spatial_entity_has_positive_threshold]
+  - name: zone_spatial_entity_clear_velocity_threshold
+    type: code
+    start: 0xDCCF0
+    vram: 0x1DCB20
+    subsegments:
+      - [0xDCCF0, asm, zone_spatial_entity_clear_velocity_threshold]
+  - name: zone_spatial_entity_calc_angular_rate
+    type: code
+    start: 0xDCD00
+    vram: 0x1DCB30
+    subsegments:
+      - [0xDCD00, asm, zone_spatial_entity_calc_angular_rate]
   - name: post_aoe2
     type: bin
-    start: 0xDC350
+    start: 0xDCE20
   - name: trade_action_helper_217730
     type: code
     start: 0x117910

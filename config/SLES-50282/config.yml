@@ -3419,9 +3419,57 @@ segments:
     vram: 0x1E2E20
     subsegments:
       - [0xE2FF0, asm, zone_spatial_entity_step_collision_avoidance]
+  - name: zone_spatial_entity_compute_path_vectors
+    type: code
+    start: 0xE30E0
+    vram: 0x1E2F10
+    subsegments:
+      - [0xE30E0, asm, zone_spatial_entity_compute_path_vectors]
+  - name: zone_spatial_entity_eval_motion_path
+    type: code
+    start: 0xE3280
+    vram: 0x1E30B0
+    subsegments:
+      - [0xE3280, asm, zone_spatial_entity_eval_motion_path]
+  - name: zone_spatial_entity_step_waypoint_path
+    type: code
+    start: 0xE3670
+    vram: 0x1E34A0
+    subsegments:
+      - [0xE3670, asm, zone_spatial_entity_step_waypoint_path]
+  - name: zone_spatial_entity_check_motion_flag
+    type: code
+    start: 0xE37D0
+    vram: 0x1E3600
+    subsegments:
+      - [0xE37D0, asm, zone_spatial_entity_check_motion_flag]
+  - name: zone_spatial_entity_dispatch_config_action_ac
+    type: code
+    start: 0xE3830
+    vram: 0x1E3660
+    subsegments:
+      - [0xE3830, asm, zone_spatial_entity_dispatch_config_action_ac]
+  - name: zone_spatial_entity_dispatch_config_action_a8
+    type: code
+    start: 0xE3870
+    vram: 0x1E36A0
+    subsegments:
+      - [0xE3870, asm, zone_spatial_entity_dispatch_config_action_a8]
+  - name: zone_spatial_entity_dispatch_config_action_10
+    type: code
+    start: 0xE38B0
+    vram: 0x1E36E0
+    subsegments:
+      - [0xE38B0, asm, zone_spatial_entity_dispatch_config_action_10]
+  - name: zone_spatial_entity_reset_motion_buffer
+    type: code
+    start: 0xE38F0
+    vram: 0x1E3720
+    subsegments:
+      - [0xE38F0, asm, zone_spatial_entity_reset_motion_buffer]
   - name: post_aoe2
     type: bin
-    start: 0xE30F0
+    start: 0xE3A00
   - name: trade_action_helper_217730
     type: code
     start: 0x117910

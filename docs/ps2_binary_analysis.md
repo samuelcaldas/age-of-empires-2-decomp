@@ -7027,6 +7027,20 @@ Located at VRAM `0x2B76B0`–`0x2B7BB0` (file offset `0x1B7890`–`0x1B7D90`, 1,
 |---|---|---|---|---|---|
 | `func_002B76B0` | `0x2B76B0` | 1,276 B | 1,280 B | NonMatching | Candidate evaluation and list filtering helper. |
 
+#### 6.187b `Trade Action Dual Candidate Evaluator` (`0x2B7BB0`–`0x2B8560`, `trade_action_candidates.cpp`)
+
+Located at VRAM `0x2B7BB0`–`0x2B8560` (file offset `0x1B7D90`–`0x1B8740`, 2,480 bytes total slice, 2,468 bytes code + 12 bytes zero padding, Metrowerks C++ PS2 MWCC 2.3.1.01):
+- `func_002B7BB0` (`0x2B7BB0`, 2,468 bytes code, 2,480 bytes slice): Dual-phase candidate evaluation helper. Conditionally evaluates secondary items list (`offset + 260`) when `a3 == 1`, followed by primary items list (`offset + 212`). Filters candidates by classification 600, target entity 27, and comparisons with `a1` based on mode `a2`.
+- Registered as `NonMatching` in `configure.py`.
+- Verified with 19 native 32-bit tests in Docker dev environment.
+
+#### 6.187b.1 Trade Action Dual Candidates Matching Results (Pure C++, 2,480 Bytes)
+
+| Function / Method | VRAM Address | Code Size (Orig) | Slice Size | Match Status | Description |
+|---|---|---|---|---|---|
+| `func_002B7BB0` | `0x2B7BB0` | 2,468 B | 2,480 B | NonMatching | Dual-phase candidate evaluation and list filtering helper. |
+
+
 #### 6.188 `Tactical AI Destructors` Subsystem (`0x340370`–`0x340490`, `tactical_ai_destructors_340370.cpp`)
 
 Located at VRAM `0x340370`–`0x340490` (file offset `0x240550`–`0x240670`, 288 bytes total, 3 contiguous scalar deleting destructors in Metrowerks C++ PS2 MWCC 2.3.1.01):

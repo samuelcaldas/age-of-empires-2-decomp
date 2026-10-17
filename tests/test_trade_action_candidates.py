@@ -22,6 +22,8 @@ CASES = [
     ("10", "pred_1471a0 == 600 with type != 27 does not flag"),
     ("11", "pred_1471a0 == 600 with missing linked entity flags special candidate"),
     ("12", "existing candidate id is not re-appended but still counts"),
+    ("13", "func_002B7BB0 with secondary list a3 == 1"),
+    ("14", "func_002B7BB0 with primary list only a3 == 0"),
 ]
 
 
@@ -86,6 +88,12 @@ MUTANTS = [
         "return short_at(field4, 14) == 28;",
         "res == 3",
     ),
+    (
+        "secondary_list_condition",
+        "int secondary_count = integer_at(self, 264);",
+        "int secondary_count = 0;",
+        "res == 5",
+    ),
 ]
 
 
@@ -132,7 +140,7 @@ def test_candidates_source_mutants_fail_at_expected_assertion(
     assert compile_result.returncode == 0, (
         f"{name} mutant failed to compile: {compile_result.stderr}"
     )
-    case_num = "3" if "less" in name else "4" if "greater" in name else "9"
+    case_num = "3" if "less" in name else "4" if "greater" in name else "13" if "secondary" in name else "9"
     result = subprocess.run([str(binary), case_num], capture_output=True, text=True)
     assert result.returncode == -6, (
         f"{name} mutant did not terminate via SIGABRT: {result.stderr}"

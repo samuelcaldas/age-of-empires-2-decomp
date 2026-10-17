@@ -26,7 +26,7 @@ void reset_candidates_test_support() {
 extern "C" {
 void *func_00332e60(void *manager, int id) {
     g_332e60_calls++;
-    if (id == 100 || id == 101 || id == 102) {
+    if (id == 100 || id == 101 || id == 102 || id == 200 || id == 201) {
         return g_mock_candidate_entity;
     }
     if (id == 500) {

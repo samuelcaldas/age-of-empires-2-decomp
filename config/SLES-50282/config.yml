@@ -1879,10 +1879,16 @@ segments:
     vram: 0x184CE0
     subsegments:
       - [0x84EC0, asm, render_manager_messages]
+  - name: render_manager_stream
+    type: code
+    start: 0x850B0
+    vram: 0x184ED0
+    subsegments:
+      - [0x850B0, asm, render_manager_stream]
   - name: post_base
     type: bin
-    start: 0x850CC
-    vram: 0x184EEC
+    start: 0x85210
+    vram: 0x185030
   - name: zone_path_eval
     type: code
     start: 0xC7A40

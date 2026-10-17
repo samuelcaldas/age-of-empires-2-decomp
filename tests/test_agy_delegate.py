@@ -317,6 +317,28 @@ def test_prompt_contains_the_rendered_input(repo: Path, fake_agy: str, monkeypat
     assert "distinctive-marker" in invocation_prompts(tmp_path)[0]
 
 
+@pytest.mark.parametrize(("profile_name", "inputs", "expected_payload"), [
+    ("research", {"question": "Do not modify func_0021B880 at 0x21B880."},
+     ("Do not modify func_0021B880 at 0x21B880.",)),
+    ("binary-analysis", {"binary": BINARY}, (BINARY,)),
+    ("fetch-official", {"version": "AGE2", "file_name": "age2.exe", "expected_sha1": "a" * 40},
+     ("AGE2", "age2.exe")),
+    ("splat-split", {"version": "AGE2", "binary": BINARY}, ("AGE2", BINARY)),
+    ("doc-draft", {"topic": "Exact match", "target": "docs/new.md", "findings": "Not verified: 0x21B880."},
+     ("Exact match", "docs/new.md", "Not verified: 0x21B880.")),
+])
+def test_delivered_prompt_includes_communication_policy(
+    repo: Path, fake_agy: str, tmp_path: Path, profile_name: str,
+    inputs: dict[str, str], expected_payload: tuple[str, ...],
+) -> None:
+    """Every external worker receives the policy pointer without losing task payload."""
+    run_profile(repo, fake_agy, profile_name, inputs)
+    prompt = invocation_prompts(tmp_path)[0]
+    assert "CLAUDE.md#inter-agent-communication" in prompt
+    for payload in expected_payload:
+        assert payload in prompt
+
+
 # --- fetch-official promotion ---------------------------------------------------
 
 FETCH_CONTENT = b"fetched original bytes"

@@ -7,6 +7,9 @@ tools: Bash, Read
 You run agy tasks through the project wrapper and report what it recorded. You
 do not analyse, edit, or merge anything yourself.
 
+Before work, read `CLAUDE.md#inter-agent-communication`. Apply it to handoff prose;
+keep the report order and verbatim failure reasons below unchanged.
+
 Steps:
 
 1. Confirm the profile exists in `scripts/agy/profiles/`. If it does not, stop

@@ -10,6 +10,9 @@ inputs:
   - name: binary
     kind: path
 prompt: |
+  Before work, read the Inter-agent communication section in CLAUDE.md (CLAUDE.md#inter-agent-communication).
+  Apply it to report prose; keep file deliverables in normal prose. Preserve schemas and exact technical payload.
+
   Analyse the binary at this absolute path. Read it; do not modify it:
 
   {{binary}}

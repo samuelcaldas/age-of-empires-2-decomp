@@ -17,6 +17,13 @@ for the full design.
 
 Do not delegate a trivial lookup or a change that needs this conversation's context.
 
+## Communication
+
+Before delegating, read [the inter-agent communication policy](../../../CLAUDE.md#inter-agent-communication).
+Apply it to briefs and handoffs. Profile prompts carry the same read-before-work
+pointer for external workers; documentation deliverables retain normal prose.
+Preserve structured output and verbatim failure reasons.
+
 ## How
 
 Run from the main checkout. Pick a profile; never write a new prompt by hand.

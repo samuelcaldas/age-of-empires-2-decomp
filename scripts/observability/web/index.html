@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; connect-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'self'">
+  <title>AoE II · Decompilation observatory</title>
+  <link rel="stylesheet" href="styles.css">
+  <script type="module" src="app.mjs"></script>
+</head>
+<body>
+  <header class="shell masthead">
+    <div><p class="eyebrow">AGE OF EMPIRES II / MATCHING DECOMPILATION</p><h1>Decompilation observatory</h1><p class="subtitle">Verified evidence, not agent activity.</p></div>
+    <button id="theme" type="button" aria-label="Switch light or dark theme">Switch theme</button>
+  </header>
+  <main class="shell">
+    <section id="notice" class="notice" role="status" aria-live="polite">Loading published evidence. No measurement is assumed.</section>
+    <section class="overview" aria-label="Verification overview">
+      <div class="hero"><p class="eyebrow">CURRENT VERIFIED C/C++ · <span id="edition">UNMEASURED</span></p><p id="bytes" class="hero-value">Unavailable</p><p>Exact original-code bytes, integrated into the default branch.</p><p class="caption">Audited lower bound · <span id="enrolled">0</span> enrolled units. Not the whole game's measured total.</p></div>
+      <div class="context"><h2>Measurement boundary</h2><dl><dt>Current status</dt><dd id="state">Unavailable</dd><dt>Global coverage</dt><dd id="percent">Unavailable</dd><dt>Last successful bytes</dt><dd id="historicalBytes">Unavailable</dd></dl><p class="caption">The complete pure-code denominator is unknown. Assembly, partial similarity and unregistered units do not count.</p></div>
+    </section>
+    <section class="metrics" aria-label="Rates and forecast">
+      <article><h2>24-hour net speed</h2><p id="rate24">Unavailable</p><small id="rate24-reason">Requires comparable complete-window evidence.</small></article>
+      <article><h2>7-day net speed</h2><p id="rate7">Unavailable</p><small id="rate7-reason">No extrapolation from partial windows.</small></article>
+      <article><h2>Conditional completion</h2><p id="eta">Unavailable</p><small id="eta-reason">Requires a verified denominator and sufficient history.</small></article>
+    </section>
+    <section class="card" aria-labelledby="history-title">
+      <div class="section-heading"><div><p class="eyebrow">INTEGRATED, AUDITED LOWER BOUND</p><h2 id="history-title">Verified C/C++ bytes over time</h2></div><p class="caption">Latest 500 observations · UTC</p></div>
+      <p id="chart-note" class="caption">No comparable verified measurements yet.</p>
+      <svg id="history-chart" viewBox="0 0 800 260" role="img" aria-label="Verified original-code bytes over observation time" tabindex="0" aria-describedby="chart-tooltip"></svg>
+      <output id="chart-tooltip" class="tooltip" aria-live="polite">Use the pointer or arrow keys to inspect a measurement.</output>
+      <details><summary>Accessible history table</summary><div class="table-scroll"><table><thead><tr><th scope="col">Observed UTC</th><th scope="col">Commit</th><th scope="col">Verified bytes</th><th scope="col">Measurement series</th></tr></thead><tbody id="history-table"></tbody></table></div></details>
+    </section>
+    <section class="card" aria-labelledby="provenance-title"><h2 id="provenance-title">Evidence and provenance</h2><dl class="provenance"><dt>Default branch HEAD</dt><dd id="sourceHead">Unknown</dd><dt>Measured commit</dt><dd id="measured">Unknown</dd><dt>Last verified UTC</dt><dd id="verifiedAt">Unavailable</dd><dt>Independent gates</dt><dd id="gates">Not measured</dd><dt>Observed objdiff inventory</dt><dd id="observed">Not available; never treated as exact C/C++ coverage.</dd><dt>Agent activity</dt><dd>Not configured. Session activity is not evidence of completed decompilation.</dd></dl><p class="caption">Local verification is reported by an authorized publisher. Hosted CI validates metadata; it does not rerun licensed compilers or original binaries. Unit matching does not establish a complete linked executable.</p></section>
+  </main>
+  <footer class="shell"><p>Refreshes published data every 15 seconds; publishing and caches add latency. README images are cached by GitHub. Other editions remain unmeasured until audited adapters are enrolled.</p><p>No original binaries, compiler files or raw logs are published.</p><a href="data/latest.json">Inspect the published JSON</a></footer>
+</body>
+</html>

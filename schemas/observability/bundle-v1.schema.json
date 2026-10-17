@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object", "additionalProperties": false,
+  "required": ["schema_version", "repository", "snapshots", "projection"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "repository": {"const": "samuelcaldas/age-of-empires-2-decomp"},
+    "snapshots": {"type": "array", "maxItems": 20000, "items": {"$ref": "urn:aoe:snapshot:v1"}},
+    "projection": {"$ref": "#/$defs/projection"}
+  },
+  "$defs": {
+    "count": {"type": "integer", "minimum": 0, "maximum": 9007199254740991},
+    "nullableCount": {"anyOf": [{"$ref": "#/$defs/count"}, {"type": "null"}]},
+    "number": {"type": "number", "minimum": -9007199254740991, "maximum": 9007199254740991},
+    "nullableNumber": {"anyOf": [{"$ref": "#/$defs/number"}, {"type": "null"}]},
+    "git": {"type": "string", "pattern": "^([0-9a-f]{40}|[0-9a-f]{64})$"},
+    "digest": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "time": {"type": "string", "format": "date-time", "pattern": "Z$", "maxLength": 32},
+    "nullableTime": {"anyOf": [{"$ref": "#/$defs/time"}, {"type": "null"}]},
+    "reason": {"enum": [null, "NO_EVIDENCE", "HEAD_NOT_VERIFIED", "HISTORY_REWRITTEN", "PRODUCER_CONFLICT", "INSUFFICIENT_HISTORY", "INCOMPARABLE_SERIES", "CLOCK_ANOMALY", "INVALID_MEASUREMENT", "UNKNOWN_DENOMINATOR", "NON_POSITIVE_RATE", "INVALID_DENOMINATOR", "CURRENT_NOT_VERIFIED", "STALE_MEASUREMENT"]},
+    "rate": {
+      "type": "object", "additionalProperties": false,
+      "required": ["bytes_per_hour", "reason", "as_of", "elapsed_hours"],
+      "properties": {"bytes_per_hour": {"$ref": "#/$defs/nullableNumber"}, "reason": {"$ref": "#/$defs/reason"}, "as_of": {"$ref": "#/$defs/nullableTime"}, "elapsed_hours": {"$ref": "#/$defs/nullableNumber"}}
+    },
+    "eta": {
+      "type": "object", "additionalProperties": false,
+      "required": ["central_days", "optimistic_days", "conservative_days", "reason", "daily_rates"],
+      "properties": {"central_days": {"$ref": "#/$defs/nullableNumber"}, "optimistic_days": {"$ref": "#/$defs/nullableNumber"}, "conservative_days": {"$ref": "#/$defs/nullableNumber"}, "reason": {"$ref": "#/$defs/reason"}, "daily_rates": {"type": "array", "maxItems": 20000, "items": {"$ref": "#/$defs/number"}}}
+    },
+    "point": {
+      "type": "object", "additionalProperties": false,
+      "required": ["commit", "sequence", "timestamp", "bytes", "series_id"],
+      "properties": {"commit": {"$ref": "#/$defs/git"}, "sequence": {"$ref": "#/$defs/count"}, "timestamp": {"$ref": "#/$defs/time"}, "bytes": {"$ref": "#/$defs/count"}, "series_id": {"$ref": "#/$defs/digest"}}
+    },
+    "projection": {
+      "type": "object", "additionalProperties": false,
+      "required": ["schema_version", "edition", "state", "reason", "head_commit", "source_head_commit", "measured_commit", "latest_attempt", "last_successful", "verified_cpp_bytes", "last_verified_cpp_bytes", "functions", "global_percent", "denominator", "scope", "enrolled_units", "observed", "branch_attempts", "history", "rates", "eta", "collected_at", "stale", "last_verified_at"],
+      "properties": {
+        "schema_version": {"const": 1},
+        "edition": {"enum": ["SLES-50282", "SLPM-62076", "AGE2_X1_1_0C_EN", "EMPIRES2_2_0A_EN"]},
+        "state": {"enum": ["pending", "running", "verified", "failed", "blocked", "unavailable"]},
+        "reason": {"$ref": "#/$defs/reason"},
+        "head_commit": {"$ref": "#/$defs/git"}, "source_head_commit": {"$ref": "#/$defs/git"},
+        "measured_commit": {"anyOf": [{"$ref": "#/$defs/git"}, {"type": "null"}]},
+        "latest_attempt": {"anyOf": [{"$ref": "urn:aoe:snapshot:v1"}, {"type": "null"}]},
+        "last_successful": {"anyOf": [{"$ref": "urn:aoe:snapshot:v1"}, {"type": "null"}]},
+        "verified_cpp_bytes": {"$ref": "#/$defs/nullableCount"},
+        "last_verified_cpp_bytes": {"$ref": "#/$defs/nullableCount"},
+        "functions": {"$ref": "#/$defs/nullableCount"},
+        "global_percent": {"anyOf": [{"type": "number", "minimum": 0, "maximum": 100}, {"type": "null"}]},
+        "denominator": {"$ref": "urn:aoe:snapshot:v1#/properties/denominator"},
+        "scope": {"const": "audited_lower_bound"}, "enrolled_units": {"$ref": "#/$defs/count"},
+        "observed": {"anyOf": [{"$ref": "urn:aoe:snapshot:v1#/$defs/observed"}, {"type": "null"}]},
+        "branch_attempts": {"$ref": "#/$defs/count"},
+        "history": {"type": "array", "maxItems": 20000, "items": {"$ref": "#/$defs/point"}},
+        "rates": {"type": "object", "additionalProperties": false, "required": ["24h", "7d"], "properties": {"24h": {"$ref": "#/$defs/rate"}, "7d": {"$ref": "#/$defs/rate"}}},
+        "eta": {"$ref": "#/$defs/eta"}, "collected_at": {"$ref": "#/$defs/time"},
+        "stale": {"type": "boolean"}, "last_verified_at": {"$ref": "#/$defs/nullableTime"}
+      }
+    }
+  }
+}

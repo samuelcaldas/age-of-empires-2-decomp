@@ -1,0 +1,48 @@
+:root { color-scheme: light; --surface:#fcfcfb; --panel:#fff; --ink:#0b0b0b; --muted:#52514e; --grid:#e6e5e1; --series:#2a78d6; --wash:#f2f2ef; }
+@media (prefers-color-scheme:dark) { :root:not([data-theme="light"]) { color-scheme:dark; --surface:#1a1a19; --panel:#20201f; --ink:#f0efec; --muted:#c3c2b7; --grid:#3a3a36; --series:#3987e5; --wash:#282826; } }
+:root[data-theme="dark"] { color-scheme:dark; --surface:#1a1a19; --panel:#20201f; --ink:#f0efec; --muted:#c3c2b7; --grid:#3a3a36; --series:#3987e5; --wash:#282826; }
+* { box-sizing:border-box; }
+body { margin:0; background:var(--surface); color:var(--ink); font:16px/1.55 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
+.shell { width:min(1120px,calc(100% - 48px)); margin:auto; }
+.masthead { display:flex; justify-content:space-between; align-items:center; gap:24px; padding:48px 0 32px; }
+h1 { margin:8px 0; font-size:clamp(28px,4vw,42px); line-height:1.15; letter-spacing:-.035em; }
+h2 { margin:0 0 12px; font-size:19px; font-weight:650; }
+p { margin:8px 0; }
+.eyebrow { color:var(--muted); font-size:11px; letter-spacing:.12em; font-weight:650; }
+.subtitle,.caption,small,footer { color:var(--muted); }
+.caption,small { font-size:13px; }
+button { border:1px solid var(--grid); border-radius:7px; padding:10px 14px; background:var(--panel); color:var(--ink); cursor:pointer; white-space:nowrap; }
+button:focus-visible,a:focus-visible,summary:focus-visible,svg:focus-visible { outline:2px solid var(--ink); outline-offset:4px; }
+.notice { padding:15px 18px; border:1px solid var(--grid); border-left:4px solid var(--ink); background:var(--wash); border-radius:5px; margin-bottom:26px; }
+.overview { display:grid; grid-template-columns:1.45fr 1fr; border:1px solid var(--grid); border-radius:10px; background:var(--panel); margin-bottom:20px; }
+.hero,.context { padding:30px; }
+.context { border-left:1px solid var(--grid); }
+.hero-value { font-size:clamp(42px,6vw,64px); font-weight:650; letter-spacing:-.045em; line-height:1.2; margin:16px 0; overflow-wrap:anywhere; }
+.metrics { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-bottom:24px; }
+.metrics article,.card { border:1px solid var(--grid); border-radius:10px; background:var(--panel); padding:24px; }
+.metrics article h2 { font-size:14px; color:var(--muted); font-weight:500; }
+.metrics article>p { font-size:26px; font-weight:600; margin:12px 0; }
+.card { margin-bottom:22px; }
+.section-heading { display:flex; align-items:center; justify-content:space-between; gap:20px; }
+dl { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:14px 0; }
+dt { color:var(--muted); }
+dd { margin:0; overflow-wrap:anywhere; }
+.provenance { grid-template-columns:220px 1fr; }
+#history-chart { width:100%; display:block; min-height:120px; }
+#history-chart text { fill:var(--muted); font:12px system-ui,sans-serif; }
+#history-chart .grid { stroke:var(--grid); stroke-width:1; }
+#history-chart .series { fill:none; stroke:var(--series); stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+#history-chart .point { fill:var(--series); stroke:var(--panel); stroke-width:2; }
+#history-chart .crosshair { stroke:var(--muted); stroke-width:1; }
+#history-chart .direct-label { fill:var(--ink); font-weight:600; }
+.tooltip { display:block; min-height:42px; padding:10px 12px; margin-bottom:12px; background:var(--wash); border-radius:5px; font-size:13px; }
+summary { cursor:pointer; font-size:14px; color:var(--muted); }
+.table-scroll { overflow-x:auto; }
+table { width:100%; border-collapse:collapse; font-size:13px; margin-top:16px; font-variant-numeric:tabular-nums; }
+th,td { padding:10px 12px; border-bottom:1px solid var(--grid); text-align:left; white-space:nowrap; }
+th { color:var(--muted); font-weight:500; }
+a { color:var(--ink); text-underline-offset:3px; }
+footer { padding:12px 0 40px; font-size:12px; }
+@media (max-width:700px) { .shell { width:calc(100% - 28px); } .masthead { align-items:flex-start; padding-top:28px; } .overview,.metrics { grid-template-columns:1fr; } .context { border-left:0; border-top:1px solid var(--grid); } .hero,.context,.card { padding:20px; } .section-heading { display:block; } .provenance { grid-template-columns:1fr; gap:4px; } .provenance dd { margin-bottom:12px; } }
+@media (forced-colors:active) { #history-chart .series,#history-chart .point { stroke:CanvasText; } #history-chart .point { fill:Canvas; } }
+@media print { button { display:none; } .card,.overview { break-inside:avoid; } details { display:block; } }

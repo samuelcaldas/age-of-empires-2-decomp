@@ -7,6 +7,7 @@ import sys
 
 from .arguments import build_parser
 from .commands import enqueue_command, status_command, verify_command, watch_command, work_command
+from .site_cli import export_command, site_command
 
 
 def _dispatch(args):
@@ -18,6 +19,12 @@ def _dispatch(args):
         result = verify_command(args)
         print(json.dumps(result, indent=2))
         return 0 if result["state"] == "verified" else 2
+    if args.command == "export":
+        export_command(args)
+        return 0
+    if args.command == "site":
+        site_command(args)
+        return 0
     handlers = dict(status=status_command, watch=watch_command, work=work_command)
     handlers[args.command](args)
     return 0

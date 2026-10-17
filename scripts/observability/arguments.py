@@ -32,7 +32,7 @@ def build_parser():
     parser = argparse.ArgumentParser(description="Offline-first decompilation evidence")
     parser.add_argument("--repo", default=".")
     commands = parser.add_subparsers(dest="command", required=True)
-    for name in ("status", "enqueue", "verify", "work", "watch"):
+    for name in ("status", "enqueue", "verify", "work", "watch", "export", "site"):
         _add_command(commands, name)
     return parser
 
@@ -50,3 +50,8 @@ def _add_command(commands, name):
         parser.add_argument("--image", default="aoe-observability:verification")
     if name == "work":
         parser.add_argument("--watch", action="store_true")
+    if name == "export":
+        parser.add_argument("--output", default="build/observability/public")
+    if name == "site":
+        parser.add_argument("--input", default="build/observability/public")
+        parser.add_argument("--output", default="build/observability/site")

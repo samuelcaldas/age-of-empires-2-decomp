@@ -1,0 +1,4 @@
+FROM node:24-bookworm-slim
+ENV TZ=America/Sao_Paulo
+WORKDIR /workspace
+CMD ["node", "--test", "tests/observability/test_web.mjs"]

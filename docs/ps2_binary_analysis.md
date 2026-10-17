@@ -6213,6 +6213,26 @@ An independent verification suite (`tests/test_trade_action_stream_list.py`, wit
 | `func_001823e0` | `0x1823E0` | 192 | Structural alignment verified | 0 B |
 | `func_001824a0` | `0x1824A0` | 176 | Structural alignment verified | 0 B |
 
+#### 6.296 `Trade Action Stream Nodes` Subsystem (`0x182550`–`0x182890`, `trade_action_stream_nodes.cpp`)
+
+This four-function C++ slice spans VRAM `0x182550`–`0x182890` and file offsets `0x82730`–`0x82A70` (832 bytes total). The original ELF `PT_LOAD` mapping gives the VRAM/file-offset delta `0xFFE20`. The slice comprises 832 instruction bytes across four node management methods of `AspList`. Symbol sizes exclude padding. The unit remains registered as `NonMatching`.
+
+- `func_00182550` (`0x182550`, 128 instruction bytes): List replay coordinator `AspList::replay()`. Temporarily detaches the item chain, invokes `insert_or_increment()` for each active node, and restores the root pointer.
+- `func_001825d0` (`0x1825D0`, 64 instruction bytes): List assignment helper `AspList::set_items()`. Invokes `clear()` on the existing chain and installs the replacement item pointer.
+- `func_00182610` (`0x182610`, 416 instruction bytes): Node insertion coordinator `AspList::insert_or_increment()`. Performs linear lookup for duplicate textures to increment reference count (`ref_count++`), or allocates a new item from pool `0x514E30` via `func_001831B0` and inserts into the chain sorted by priority (`slt`).
+- `func_001827b0` (`0x1827B0`, 224 instruction bytes): Node removal coordinator `AspList::remove_or_decrement()`. Searches for matching texture, decrements reference count (`ref_count--`), or unlinks node from list and returns item to pool `0x514E30` via `func_00183210`.
+
+An independent verification suite (`tests/test_trade_action_stream_nodes.py`, with 32-bit test doubles in `tests/native/trade_action_stream_nodes_test.cpp`) validates list reassignment, insertion, duplicate ref count increments, decrements, unlinking, and replay.
+
+#### 6.296.1 Trade Action Stream Nodes Matching Results (832 Code Bytes, 832-Byte Slice)
+
+| Function | VRAM | Instruction bytes | Result | Padding |
+|---|---:|---:|---|---:|
+| `func_00182550` | `0x182550` | 128 | Structural alignment verified | 12 B |
+| `func_001825d0` | `0x1825D0` | 64 | Structural alignment verified | 16 B |
+| `func_00182610` | `0x182610` | 416 | Structural alignment verified | 48 B |
+| `func_001827b0` | `0x1827B0` | 224 | Structural alignment verified | 32 B |
+
 #### Zone Terrain and Coordinate Transformation Slices (`0x1CDD00`–`0x1D1430`)
 
 Contiguous decompilation of the Age of Empires II PlayStation 2 terrain and spatial sub-systems along file offsets `0xCDEE0`–`0xD1610` (VRAM `0x1CDD00`–`0x1D1430`, offset mapping `+0xFFE20`):

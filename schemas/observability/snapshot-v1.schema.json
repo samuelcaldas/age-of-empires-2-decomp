@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Locally observed decompilation evidence, version 1",
+  "type": "object", "additionalProperties": false,
+  "required": ["schema_version", "collector_version", "policy_version", "series_id", "edition", "commit", "tree", "producer", "sequence", "attempt_id", "state", "profile", "times", "fingerprints", "scope", "gates", "ranges", "denominator", "observed", "evidence", "errors"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "collector_version": {"const": "1"},
+    "policy_version": {"const": "cpp-exact-v1"},
+    "series_id": {"$ref": "#/$defs/digest"},
+    "edition": {"enum": ["SLES-50282", "SLPM-62076", "AGE2_X1_1_0C_EN", "EMPIRES2_2_0A_EN"]},
+    "commit": {"$ref": "#/$defs/git"}, "tree": {"$ref": "#/$defs/git"},
+    "producer": {"type": "string", "pattern": "^[0-9a-f]{32}$"},
+    "sequence": {"type": "integer", "minimum": 1, "maximum": 9007199254740991},
+    "attempt_id": {"$ref": "#/$defs/digest"},
+    "state": {"enum": ["pending", "running", "verified", "failed", "blocked"]},
+    "profile": {"enum": ["audited"]},
+    "times": {
+      "type": "object", "additionalProperties": false,
+      "required": ["started", "finished", "collected"],
+      "properties": {"started": {"$ref": "#/$defs/time"}, "finished": {"anyOf": [{"$ref": "#/$defs/time"}, {"type": "null"}]}, "collected": {"$ref": "#/$defs/time"}}
+    },
+    "fingerprints": {
+      "type": "object", "additionalProperties": false,
+      "required": ["config", "registry", "inventory", "original", "compiler", "verifier"],
+      "properties": {
+        "config": {"$ref": "#/$defs/digest"}, "registry": {"$ref": "#/$defs/digest"},
+        "inventory": {"$ref": "#/$defs/nullableDigest"},
+        "original": {"anyOf": [{"type": "string", "pattern": "^[0-9a-f]{40}$"}, {"type": "null"}]},
+        "compiler": {"$ref": "#/$defs/nullableDigest"}, "verifier": {"$ref": "#/$defs/digest"}
+      }
+    },
+    "scope": {
+      "type": "object", "additionalProperties": false,
+      "required": ["kind", "complete", "enrolled_units", "observed_units", "integrated", "linked_executable"],
+      "properties": {
+        "kind": {"const": "audited_lower_bound"}, "complete": {"const": false},
+        "enrolled_units": {"$ref": "#/$defs/count"}, "observed_units": {"$ref": "#/$defs/nullableCount"},
+        "integrated": {"type": "boolean"}, "linked_executable": {"$ref": "#/$defs/gate"}
+      }
+    },
+    "gates": {
+      "type": "object", "additionalProperties": false, "required": ["behavior", "matching", "regression"],
+      "properties": {"behavior": {"$ref": "#/$defs/gate"}, "matching": {"$ref": "#/$defs/gate"}, "regression": {"$ref": "#/$defs/gate"}}
+    },
+    "ranges": {
+      "type": "array", "maxItems": 20000,
+      "items": {
+        "type": "object", "additionalProperties": false, "required": ["start", "end", "owner", "function"],
+        "properties": {"start": {"$ref": "#/$defs/count"}, "end": {"$ref": "#/$defs/count"}, "owner": {"type": "string", "pattern": "^[a-z][a-z0-9_]{0,79}$"}, "function": {"type": "boolean"}}
+      }
+    },
+    "denominator": {
+      "type": "object", "additionalProperties": false, "required": ["bytes", "kind", "confidence", "source"],
+      "properties": {
+        "bytes": {"$ref": "#/$defs/nullableCount"},
+        "kind": {"enum": ["unknown", "audited_code", "registered_code", "load_range", "objdiff_inventory"]},
+        "confidence": {"enum": ["unknown", "partial", "verified"]},
+        "source": {"enum": ["unknown", "registry", "elf_load", "objdiff"]}
+      }
+    },
+    "observed": {"anyOf": [{"type": "null"}, {"$ref": "#/$defs/observed"}]},
+    "evidence": {"type": "array", "maxItems": 20000, "items": {"$ref": "#/$defs/digest"}},
+    "errors": {"type": "array", "uniqueItems": true, "maxItems": 32, "items": {"enum": ["MISSING_PREREQUISITE", "SOURCE_NOT_REVIEWED", "ORIGINAL_HASH_MISMATCH", "GATE_FAILED", "GATE_INCOMPLETE", "CHECKOUT_DIRTY", "INPUT_CHANGED", "WORKER_LOST", "VERIFICATION_TIMEOUT", "UNSUPPORTED_EDITION", "INVENTORY_CONFLICT", "REMOTE_MOUNT_UNAVAILABLE", "REPORT_UNVERIFIED"]}}
+  },
+  "$defs": {
+    "count": {"type": "integer", "minimum": 0, "maximum": 9007199254740991},
+    "nullableCount": {"anyOf": [{"$ref": "#/$defs/count"}, {"type": "null"}]},
+    "digest": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "git": {"type": "string", "pattern": "^([0-9a-f]{40}|[0-9a-f]{64})$"},
+    "nullableDigest": {"anyOf": [{"$ref": "#/$defs/digest"}, {"type": "null"}]},
+    "gate": {"enum": ["passed", "failed", "skipped", "unavailable", "not-run"]},
+    "time": {"type": "string", "format": "date-time", "pattern": "Z$", "maxLength": 32},
+    "observed": {
+      "type": "object", "additionalProperties": false,
+      "required": ["total_code", "matched_code", "total_units", "total_functions", "report_digest", "verified"],
+      "properties": {"total_code": {"$ref": "#/$defs/count"}, "matched_code": {"$ref": "#/$defs/count"}, "total_units": {"$ref": "#/$defs/count"}, "total_functions": {"$ref": "#/$defs/count"}, "report_digest": {"$ref": "#/$defs/digest"}, "verified": {"const": false}}
+    }
+  }
+}

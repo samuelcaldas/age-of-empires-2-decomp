@@ -1,0 +1,1 @@
+"""Offline-first decompilation observability."""

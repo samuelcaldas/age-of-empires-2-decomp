@@ -2771,9 +2771,57 @@ segments:
     vram: 0x1DB2C0
     subsegments:
       - [0xDB4A0, asm, zone_spatial_view_deserialize]
+  - name: zone_cursor_controller_ctor
+    type: code
+    start: 0xDB640
+    vram: 0x1DB460
+    subsegments:
+      - [0xDB640, asm, zone_cursor_controller_ctor]
+  - name: zone_cursor_controller_validate
+    type: code
+    start: 0xDB6C0
+    vram: 0x1DB4E0
+    subsegments:
+      - [0xDB6C0, asm, zone_cursor_controller_validate]
+  - name: zone_cursor_controller_load_slp
+    type: code
+    start: 0xDB6E0
+    vram: 0x1DB500
+    subsegments:
+      - [0xDB6E0, asm, zone_cursor_controller_load_slp]
+  - name: zone_cursor_controller_set_field_2c
+    type: code
+    start: 0xDB830
+    vram: 0x1DB650
+    subsegments:
+      - [0xDB830, asm, zone_cursor_controller_set_field_2c]
+  - name: zone_cursor_controller_set_field_30
+    type: code
+    start: 0xDB840
+    vram: 0x1DB660
+    subsegments:
+      - [0xDB840, asm, zone_cursor_controller_set_field_30]
+  - name: zone_cursor_controller_get_field_30
+    type: code
+    start: 0xDB850
+    vram: 0x1DB670
+    subsegments:
+      - [0xDB850, asm, zone_cursor_controller_get_field_30]
+  - name: zone_cursor_controller_set_bounds
+    type: code
+    start: 0xDB860
+    vram: 0x1DB680
+    subsegments:
+      - [0xDB860, asm, zone_cursor_controller_set_bounds]
+  - name: zone_cursor_controller_is_active
+    type: code
+    start: 0xDB880
+    vram: 0x1DB6A0
+    subsegments:
+      - [0xDB880, asm, zone_cursor_controller_is_active]
   - name: post_aoe2
     type: bin
-    start: 0xDB640
+    start: 0xDB890
   - name: trade_action_helper_217730
     type: code
     start: 0x117910

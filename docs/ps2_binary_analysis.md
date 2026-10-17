@@ -6425,6 +6425,20 @@ An independent verification suite (`tests/test_trade_action_stream_factories.py`
 | `func_00184280` | `0x184280` | 100 | **100.00% exact match** (100/100 B) | 12 B |
 | `func_001842f0` | `0x1842F0` | 76 | **100.00% exact match** (76/76 B) | 4 B |
 
+#### 6.303 `RenderManager Core` Subsystem (`0x184340`–`0x1847C0`, `render_manager_core.cpp`)
+
+This single-function C++ slice spans VRAM `0x184340`–`0x1847C0` and file offsets `0x84520`–`0x849A0` (1,152 bytes total). The original ELF `PT_LOAD` mapping gives the VRAM/file-offset delta `0xFFE20`. The slice comprises 1,152 instruction bytes implementing the primary `RenderManager` class constructor. Symbol sizes exclude padding. The unit remains registered as `NonMatching`.
+
+- `func_00184340` (`0x184340`, 1,152 instruction bytes): `RenderManager::RenderManager` constructor. Sets vtable `__vt__13RenderManager` (`0x004D7DB0`), registers singleton `D_004E3180`, zeroes sub-buffers at offsets `+0x9F8` (36 B), `+0x90C` (176 B), and `+0x1044` (20 B) via `func_117CAC`, executes configuration sequence (`func_188250`–`func_188500`), initializes player layer arrays across 9 player slots, clears 30 rasterizer entries of 32 bytes each (`0x53C`–`0x8FC`), binds engine contexts (`D_004E3110`, `D_004E3114`, `D_004E30FC`–`D_004E310C`), sets display parameters (`0x105C = 3`, `D_004E315C = 0x005670C0`), and conditionally invokes virtual method 26 (`+0x68`) on non-zero flag `a2`.
+
+An independent verification suite (`tests/test_render_manager_core.py`, with 32-bit test doubles in `tests/native/render_manager_core_test.cpp`) validates constructor field initialization, memory zeroing, singleton binding, and virtual method 26 callback invocation.
+
+#### 6.303.1 RenderManager Core Matching Results (1,152 Code Bytes, 1,152-Byte Slice)
+
+| Function | VRAM | Instruction bytes | Result | Padding |
+|---|---:|---:|---|---:|
+| `func_00184340` | `0x184340` | 1,148 | Structural alignment verified | 4 B |
+
 #### Zone Terrain and Coordinate Transformation Slices (`0x1CDD00`–`0x1D1430`)
 
 Contiguous decompilation of the Age of Empires II PlayStation 2 terrain and spatial sub-systems along file offsets `0xCDEE0`–`0xD1610` (VRAM `0x1CDD00`–`0x1D1430`, offset mapping `+0xFFE20`):

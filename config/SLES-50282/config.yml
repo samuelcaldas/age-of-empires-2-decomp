@@ -4363,9 +4363,15 @@ segments:
     vram: 0x2B66B0
     subsegments:
       - [0x1B6890, asm, trade_action_dispatcher]
-  - name: post_trade_action_dispatcher
-    type: bin
+  - name: trade_action_candidates
+    type: code
     start: 0x1B7890
+    vram: 0x2B76B0
+    subsegments:
+      - [0x1B7890, asm, trade_action_candidates]
+  - name: post_trade_action_candidates
+    type: bin
+    start: 0x1B7D90
   - name: tactical_ai_player_ops
     type: code
     start: 0x205D70

@@ -6491,6 +6491,24 @@ An independent verification suite (`tests/test_render_manager_methods.py`, with 
 | `func_00184c08` | `0x184C08` | 8 | **100.00% exact match** (8/8 B) | 8 B |
 | `func_00184c18` | `0x184C18` | 8 | **100.00% exact match** (8/8 B) | 8 B |
 
+#### 6.306 `RenderManager Buffer Query & Trampoline` Subsystem (`0x184C28`–`0x184CE0`, `render_manager_query.cpp`)
+
+This three-function C++ slice spans VRAM `0x184C28`–`0x184CE0` and file offsets `0x84E08`–`0x84EC0` (184 bytes total). The original ELF `PT_LOAD` mapping gives the VRAM/file-offset delta `0xFFE20`. The slice comprises 184 instruction bytes implementing buffer query dispatching, string buffer validation, and virtual method 13 tail-call trampolining. Symbol sizes exclude padding. The unit remains registered as `NonMatching`.
+
+- `func_00184c28` (`0x184C28`, 60 instruction bytes): Buffer query dispatcher. Dispatches virtual method 10 (`+0x28`) on `this` passing static buffer `0x00566EC0` (size 512) and returning the buffer pointer.
+- `func_00184c70` (`0x184C70`, 76 instruction bytes): Null-terminated string buffer validator. Queries context via `func_1C1FD0(D_004E3110, dest, size)`, null-terminating on failure and returning `dest`.
+- `func_00184cc0` (`0x184CC0`, 24 instruction bytes): Parameter-forwarding tail-call trampoline to virtual method 13 (`+0x34`).
+
+An independent verification suite (`tests/test_render_manager_query.py`, with 32-bit test doubles in `tests/native/render_manager_query_test.cpp`) validates buffer query dispatch, string validation, and trampoline parameter forwarding.
+
+#### 6.306.1 RenderManager Buffer Query & Trampoline Matching Results (184 Code Bytes, 184-Byte Slice)
+
+| Function | VRAM | Instruction bytes | Result | Padding |
+|---|---:|---:|---|---:|
+| `func_00184c28` | `0x184C28` | 52 | **100.00% exact match** (52/52 B) | 8 B |
+| `func_00184c70` | `0x184C70` | 76 | **100.00% exact match** (76/76 B) | 12 B |
+| `func_00184cc0` | `0x184CC0` | 24 | **100.00% exact match** (24/24 B) | 8 B |
+
 #### Zone Terrain and Coordinate Transformation Slices (`0x1CDD00`–`0x1D1430`)
 
 Contiguous decompilation of the Age of Empires II PlayStation 2 terrain and spatial sub-systems along file offsets `0xCDEE0`–`0xD1610` (VRAM `0x1CDD00`–`0x1D1430`, offset mapping `+0xFFE20`):

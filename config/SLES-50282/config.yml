@@ -4031,9 +4031,45 @@ segments:
     vram: 0x1EB440
     subsegments:
       - [0xEB610, asm, zone_spatial_grid_deserialize_child_entries]
+  - name: zone_spatial_grid_deserialize_child_polymorphic
+    type: code
+    start: 0xEB720
+    vram: 0x1EB550
+    subsegments:
+      - [0xEB720, asm, zone_spatial_grid_deserialize_child_polymorphic]
+  - name: zone_spatial_grid_format_path_string
+    type: code
+    start: 0xEB960
+    vram: 0x1EB790
+    subsegments:
+      - [0xEB960, asm, zone_spatial_grid_format_path_string]
+  - name: zone_spatial_grid_set_string
+    type: code
+    start: 0xEBA20
+    vram: 0x1EB850
+    subsegments:
+      - [0xEBA20, asm, zone_spatial_grid_set_string]
+  - name: zone_spatial_grid_reset_scratch_counter
+    type: code
+    start: 0xEBAA0
+    vram: 0x1EB8D0
+    subsegments:
+      - [0xEBAA0, asm, zone_spatial_grid_reset_scratch_counter]
+  - name: zone_spatial_grid_alloc_scratch_bytes
+    type: code
+    start: 0xEBAB0
+    vram: 0x1EB8E0
+    subsegments:
+      - [0xEBAB0, asm, zone_spatial_grid_alloc_scratch_bytes]
+  - name: zone_spatial_grid_init_entry_header
+    type: code
+    start: 0xEBAD0
+    vram: 0x1EB900
+    subsegments:
+      - [0xEBAD0, asm, zone_spatial_grid_init_entry_header]
   - name: post_aoe2
     type: bin
-    start: 0xEB720
+    start: 0xEBAF0
   - name: trade_action_helper_217730
     type: code
     start: 0x117910

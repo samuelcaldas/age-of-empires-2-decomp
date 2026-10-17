@@ -1,0 +1,8 @@
+#ifndef ZONE_SPATIAL_GRID_DESERIALIZE_CHILD_POLYMORPHIC_H
+#define ZONE_SPATIAL_GRID_DESERIALIZE_CHILD_POLYMORPHIC_H
+
+extern "C" {
+void func_001EB550(void *p0, void *p1, int type_flag, void *p3, void *p4, void *p5);
+}
+
+#endif // ZONE_SPATIAL_GRID_DESERIALIZE_CHILD_POLYMORPHIC_H

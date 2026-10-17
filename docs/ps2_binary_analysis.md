@@ -6439,6 +6439,20 @@ An independent verification suite (`tests/test_render_manager_core.py`, with 32-
 |---|---:|---:|---|---:|
 | `func_00184340` | `0x184340` | 1,148 | Structural alignment verified | 4 B |
 
+#### 6.304 `RenderManager Screen Setup` Subsystem (`0x1847C0`–`0x184A88`, `render_manager_screen.cpp`)
+
+This single-function C++ slice spans VRAM `0x1847C0`–`0x184A88` and file offsets `0x849A0`–`0x84C68` (712 bytes total). The original ELF `PT_LOAD` mapping gives the VRAM/file-offset delta `0xFFE20`. The slice comprises 712 instruction bytes implementing the PS2 PAL screen resolution configuration and rendering pipeline stage validation routine. Symbol sizes exclude padding. The unit remains registered as `NonMatching`.
+
+- `func_001847c0` (`0x1847C0`, 712 instruction bytes): `RenderManager::setup_screen` method. Initializes PAL display dimensions (width 640, height 448 at `ctx->0xB4`/`ctx->0xB8`), viewport scale (`0x9B4 = 2.0f`), mode flags (`ctx->0xA0 = 2`, `ctx->0x8C = 10`, `ctx->0x94 = 10`), evaluates 12 virtual pipeline validation stages (methods `6C`, `134`, `70`, `74`, `78`, `7C`, `90`, `130`, `80`, `84`, `88`, `8C`), maps failure codes to `field_64`, dispatches methods `14`, `98`, and `D8`, initializes frame tick counter via `func_2260C0` (5,000 tick interval), and binds global display parameter `D_004E315C`.
+
+An independent verification suite (`tests/test_render_manager_screen.py`, with 32-bit test doubles in `tests/native/render_manager_screen_test.cpp`) validates display dimension setup, timer registration, and pipeline error code reporting.
+
+#### 6.304.1 RenderManager Screen Setup Matching Results (712 Code Bytes, 712-Byte Slice)
+
+| Function | VRAM | Instruction bytes | Result | Padding |
+|---|---:|---:|---|---:|
+| `func_001847c0` | `0x1847C0` | 708 | Structural alignment verified | 4 B |
+
 #### Zone Terrain and Coordinate Transformation Slices (`0x1CDD00`–`0x1D1430`)
 
 Contiguous decompilation of the Age of Empires II PlayStation 2 terrain and spatial sub-systems along file offsets `0xCDEE0`–`0xD1610` (VRAM `0x1CDD00`–`0x1D1430`, offset mapping `+0xFFE20`):

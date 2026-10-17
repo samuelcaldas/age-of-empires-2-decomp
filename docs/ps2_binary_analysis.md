@@ -248,6 +248,11 @@ Starting at VRAM `0x137810` (file offset `0x379e0`), the binary transitions from
 | `kt_mouse::func_00135B88` | `0x135B88` | **100.0%** (92 / 92 B) | Device table initializer; clamps mode to 1, zeroes state block `D_50A080` (24 B), sets count/handles, and formats block table via `func_001359D0`. |
 | `kt_mouse::func_00135870` | `0x135870` | **100.0%** (268 / 268 B) | `ktMousePostEvent`: Safe event enqueue routine pushing 5 packet parameters into buffer ring slot (`func_00135058`) and advancing write index (`func_00135008`). |
 | `kt_mouse::func_00135BF0` | `0x135BF0` | **100.0%** (368 / 368 B) | `ktMouseProcessEvents`: Main mouse event pump polling device, verifying state via `func_00135A38`/`func_00135AB8`, reading motion, and dispatching events via `func_00135870`. **100% complete module milestone.** |
+| `MapZone::Save` (`func_00137810`) | `0x137810` | **100.0%** (176 / 176 B) | Stream serializer for MapZone writing dimensions, field1C (conditional on D_004E2F24 >= D_004E2A98), world fieldBA0, and tile data. |
+| `MapZone::GetTileFlag` (`func_001378C0`) | `0x1378C0` | **100.0%** (96 / 96 B) | Tile classification querying D_50A5A0[y][x] against world fieldC28 (15) and fieldC24 (128). |
+| `MapZone::ProcessTiles` (`func_00137920`) | `0x137920` | **100.0%** (232 / 232 B) | Tile processor resetting tile 255 values, updating D_50A5A0, notifying world via func_002082B0, and setting world fieldBBC. |
+| `ScreenObj::AspectRatio` | `0x137A20` | **100.0%** (24 / 24 B) | Aspect ratio calculation converting width and height to float quotient. |
+| `GetSightTable` (`func_00137A40`) | `0x137A40` | **100.0%** (92 / 92 B) | Sight table lookup clamping radius to [0, 20] and returning pointer from D_0038FA40 or D_0038FAA0 based on mode. |
 
 ### 6.3.1 KCET Hardware Layer Strings and Symbol Discoveries
 Inspection of `AOK.ELF` in the assertion/rodata pool (`0x490820` - `0x490900`) recovered exact file names and assertions from KCET's peripheral abstraction layer:

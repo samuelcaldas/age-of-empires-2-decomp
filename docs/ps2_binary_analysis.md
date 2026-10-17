@@ -6283,6 +6283,24 @@ An independent verification suite (`tests/test_trade_action_stream_props.py`, wi
 | `func_00183070` | `0x183070` | 112 | Structural alignment verified | 0 B |
 | `func_001830e0` | `0x1830E0` | 100 | Structural alignment verified | 12 B |
 
+#### 6.299 `Trade Action Stream Pool` Subsystem (`0x183150`–`0x183240`, `trade_action_stream_pool.cpp`)
+
+This three-function C++ slice spans VRAM `0x183150`–`0x183240` and file offsets `0x83330`–`0x83420` (240 bytes total). The original ELF `PT_LOAD` mapping gives the VRAM/file-offset delta `0xFFE20`. The slice comprises 240 instruction bytes across three memory pool management functions for the 10,000-node `asp_list` primitive pool (`0x1D4C0` bytes total). Symbol sizes exclude padding. The unit remains registered as `NonMatching`.
+
+- `func_00183150` (`0x183150`, 96 instruction bytes): Memory pool initializer `AspList_Pool::init(pool)`. Zeroes 120,000 bytes (`0x1D4C0`) via `func_00117CAC`, sets freelist head at offset `+0x1D4C0`, and builds the 10,000-element singly-linked free list with 12-byte node stride.
+- `func_001831b0` (`0x1831B0`, 96 instruction bytes): Pool node allocator `AspList_Pool::alloc(pool)`. Pops the leading free node from freelist offset `+0x1D4C0`; if exhausted, invokes diagnostic error handler `func_118de0("asp_list overflow!!!!!")` and returns null.
+- `func_00183210` (`0x183210`, 48 instruction bytes): Pool node deallocator `AspList_Pool::free(pool, item)`. Pushes the released node back onto the singly-linked freelist at offset `+0x1D4C0`.
+
+An independent verification suite (`tests/test_trade_action_stream_pool.py`, with 32-bit test doubles in `tests/native/trade_action_stream_pool_test.cpp`) validates pool initialization, 12-byte node freelist allocation, node reclamation, and overflow diagnostic handling.
+
+#### 6.299.1 Trade Action Stream Pool Matching Results (240 Code Bytes, 240-Byte Slice)
+
+| Function | VRAM | Instruction bytes | Result | Padding |
+|---|---:|---:|---|---:|
+| `func_00183150` | `0x183150` | 96 | **100.00% exact match** (96/96 B) | 0 B |
+| `func_001831b0` | `0x1831B0` | 96 | **100.00% exact match** (96/96 B) | 0 B |
+| `func_00183210` | `0x183210` | 48 | **100.00% exact match** (48/48 B) | 0 B |
+
 #### Zone Terrain and Coordinate Transformation Slices (`0x1CDD00`–`0x1D1430`)
 
 Contiguous decompilation of the Age of Empires II PlayStation 2 terrain and spatial sub-systems along file offsets `0xCDEE0`–`0xD1610` (VRAM `0x1CDD00`–`0x1D1430`, offset mapping `+0xFFE20`):

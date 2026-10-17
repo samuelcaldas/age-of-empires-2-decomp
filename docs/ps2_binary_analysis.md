@@ -6423,3 +6423,16 @@ Contiguous decompilation of the Age of Empires II PlayStation 2 spatial view cam
 | `zone_spatial_view_calc_deflection` | `0xDADF0`–`0xDAEB0` | `0x1DAC10`–`0x1DACC8` | 184 / 192 B | 8 B | NonMatching (97.83%) | View angular deflection evaluator: computes vector angle via `func_3154A0`, clamps to `field_9C * scale`, evaluates cross product with `func_3151E0`, and negates angle if `cross.y <= 0.0f`. |
 | `zone_spatial_view_eval_lengths` | `0xDAEB0`–`0xDB000` | `0x1DACD0`–`0x1DAE18` | 328 / 336 B | 8 B | NonMatching (60.98%) | Relative vector distance evaluator: projects 3 vectors via `func_315110`, evaluates horizontal lengths with `sqrtf`, and returns 0, 1, or 2 based on thresholds and `D_004E2820`. |
 | `zone_spatial_view_scale_add` | `0xDB000`–`0xDB010` | `0x1DAE20`–`0x1DAE2C` | 12 / 16 B | 4 B | **Matching (100.00%)** | Scalar scale-add leaf function: returns `f12 + f14 * f13` via hardware `mul.s` and `add.s` delay slot. |
+
+#### 6.186 `Trade Action Dispatcher & Candidate Coordinator` (`0x2B66B0`–`0x2B76B0`, `trade_action_dispatcher.cpp`)
+
+Located at VRAM `0x2B66B0`–`0x2B76B0` (file offset `0x1B6890`–`0x1B7890`, 4,096 bytes total slice, 4,088 bytes code + 8 bytes zero padding, Metrowerks C++ PS2 MWCC 2.3.1.01):
+- `func_002B66B0` (`0x2B66B0`, 4,088 bytes code, 4,096 bytes slice): Trade action dispatcher coordinating direct entity actions (114, 115, 109, 110, 108, 104, 136) and complex market action 513 with candidate filtering, target buffers, diplomacy adjustments, and candidate loop.
+- Registered as `NonMatching` in `configure.py`.
+- Verified with 16 native 32-bit tests in Docker dev environment.
+
+#### 6.186.1 Trade Action Dispatcher Matching Results (Pure C++, 4,096 Bytes)
+
+| Function / Method | VRAM Address | Code Size (Orig) | Slice Size | Match Status | Description |
+|---|---|---|---|---|---|
+| `func_002B66B0` | `0x2B66B0` | 4,088 B | 4,096 B | NonMatching | Complex trade action dispatcher & target coordinator. |

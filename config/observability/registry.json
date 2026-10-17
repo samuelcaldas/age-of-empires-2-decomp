@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "entries": [
+    {
+      "edition": "SLES-50282",
+      "name": "elevation_mesh_serializer_328020",
+      "sources": [
+        "src/tactical_ai_combat_subsystem_elevation_mesh_serializer.cpp",
+        "include/tactical_ai_combat_subsystem_elevation_mesh_serializer.h"
+      ],
+      "reviewed_digest": "09883d518b2003c2c0971b817b7c4208476f7d5ac266d2cbf2e47246bc0a9d2b",
+      "behavior": ["tests/test_tactical_ai_combat_subsystem_elevation_mesh_serializer.py"],
+      "matching": ["tests/test_tactical_ai_combat_subsystem_elevation_mesh_serializer_matching.py::test_serializer_matches_original_instructions"],
+      "ranges": [
+        {"start": 3309600, "end": 3309824, "owner": "elevation_mesh_serializer_328020", "function": true}
+      ]
+    }
+  ]
+}

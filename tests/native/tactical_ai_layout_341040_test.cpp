@@ -147,6 +147,13 @@ static void test_case_25_to_29_flow() {
     std::printf("PASS test_case_25_to_29_flow\n");
 }
 
+static void test_func_342170() {
+    TacticalObj_341040 obj;
+    std::memset(&obj, 0, sizeof(obj));
+    func_00342170(&obj);
+    std::printf("PASS test_func_342170\n");
+}
+
 int main() {
     test_initial_layout_state();
     test_case_1_flow();
@@ -157,5 +164,6 @@ int main() {
     test_case_17_18_19_flow();
     test_case_20_to_24_flow();
     test_case_25_to_29_flow();
+    test_func_342170();
     return 0;
 }

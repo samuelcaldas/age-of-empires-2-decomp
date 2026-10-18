@@ -79,9 +79,34 @@ static void test_func_342170_mode16_t0_xffff() {
     std::printf("PASS test_func_342170_mode16_t0_xffff\n");
 }
 
+static void test_func_342170_additional_modes() {
+    TacticalObj_341040 obj;
+
+    // Test mode 0
+    std::memset(&obj, 0, sizeof(obj));
+    obj.field_84C = 0;
+    func_00342170(&obj, 0, 16, 0, 0);
+    assert(obj.field_84C == 0);
+
+    // Test mode 1
+    std::memset(&obj, 0, sizeof(obj));
+    obj.field_84C = 1;
+    func_00342170(&obj, 0, 16, 0, 0);
+    assert(obj.field_84C == 1);
+
+    // Test mode 31 with a2 != 1 (early return via func_1FBD30)
+    std::memset(&obj, 0, sizeof(obj));
+    obj.field_84C = 31;
+    func_00342170(&obj, 0, 2, 0, 0);
+    assert(g_func_1fbd30_called > 0);
+
+    std::printf("PASS test_func_342170_additional_modes\n");
+}
+
 int main() {
     test_initial_layout_state();
     test_func_342170_mode16_t0_xffff();
-    std::printf("ALL TACTICAL AI LAYOUT TESTS PASSED WITH MODE 16 ASSERTIONS\n");
+    test_func_342170_additional_modes();
+    std::printf("ALL TACTICAL AI LAYOUT TESTS PASSED WITH ADDITIONAL MODE ASSERTIONS\n");
     return 0;
 }

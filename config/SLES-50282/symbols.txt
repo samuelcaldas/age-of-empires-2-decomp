@@ -2902,3 +2902,6 @@ func_001ED200 = 0x1ED200; // type:func size:0x1D0 absolute:True
 func_001ED3D0 = 0x1ED3D0; // type:func size:0x470 absolute:True
 func_001ED840 = 0x1ED840; // type:func size:0x180 absolute:True
 func_001ED9C0 = 0x1ED9C0; // type:func size:0xD0 absolute:True
+func_001EDA90 = 0x1EDA90; // type:func size:0x4A0 absolute:True
+func_001EDF30 = 0x1EDF30; // type:func size:0x120 absolute:True
+func_001EE050 = 0x1EE050; // type:func size:0x30 absolute:True

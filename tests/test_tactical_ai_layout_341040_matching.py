@@ -71,6 +71,7 @@ def test_tactical_ai_layout_native_runner(tmp_path):
             "g++", "-m32", "-std=c++98", "-Iinclude",
             "tests/native/tactical_ai_layout_341040_test.cpp",
             "src/tactical_ai_layout_341040.cpp",
+            "src/tactical_ai_func_342170.cpp",
             "-o", str(test_bin),
         ],
         cwd=PROJECT_ROOT,

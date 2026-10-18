@@ -9,6 +9,7 @@ static int g_func_339960_called = 0;
 static int g_func_33a730_called = 0;
 static int g_func_33f8b0_called = 0;
 static int g_func_1fbd30_called = 0;
+static int g_last_1fbd30_arg = 0;
 
 class MockSubObj : public TacticalSubObj {
 public:
@@ -40,8 +41,9 @@ void func_33F8B0(void *a0) {
 }
 void func_219BA0(void *a0, int a1) { (void)a0; (void)a1; }
 void func_1FBD30(void *a0, int a1) {
-    (void)a0; (void)a1;
+    (void)a0;
     g_func_1fbd30_called++;
+    g_last_1fbd30_arg = a1;
 }
 void func_11ABBC(void *dst, const char *src) { (void)dst; (void)src; }
 void func_36BD30(void *a0, int a1, int a2, const char *a3, int t0) { (void)a0; (void)a1; (void)a2; (void)a3; (void)t0; }
@@ -103,10 +105,28 @@ static void test_func_342170_additional_modes() {
     std::printf("PASS test_func_342170_additional_modes\n");
 }
 
+static void test_func_342170_mode31_early_return_order() {
+    TacticalObj_341040 obj;
+    std::memset(&obj, 0, sizeof(obj));
+    obj.field_84C = 31;
+    g_func_1fbd30_called = 0;
+    g_last_1fbd30_arg = 0;
+    g_func_339960_called = 0;
+
+    func_00342170(&obj, 0, 55, 0, 0); // a2 = 55 != 1
+    assert(g_func_1fbd30_called == 1);
+    assert(g_last_1fbd30_arg == 55);
+    // Early return must prevent subsequent calls like func_339960
+    assert(g_func_339960_called == 0);
+
+    std::printf("PASS test_func_342170_mode31_early_return_order\n");
+}
+
 int main() {
     test_initial_layout_state();
     test_func_342170_mode16_t0_xffff();
     test_func_342170_additional_modes();
-    std::printf("ALL TACTICAL AI LAYOUT TESTS PASSED WITH ADDITIONAL MODE ASSERTIONS\n");
+    test_func_342170_mode31_early_return_order();
+    std::printf("ALL TACTICAL AI LAYOUT TESTS PASSED WITH DISCRIMINATING ASSERTIONS\n");
     return 0;
 }

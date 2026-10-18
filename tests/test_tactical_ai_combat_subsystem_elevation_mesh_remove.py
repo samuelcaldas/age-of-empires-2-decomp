@@ -14,7 +14,7 @@ MUTATIONS = [
     ("omit_dec", "self->m_table_8[tag]--;", "/* omitted */", "swap_last", "swap last table count decrement failed"),
     ("invert_id", "vertices[i].m_id == id", "vertices[i].m_id != id", "remove_single", "single remove failed"),
     ("wrong_ret", "return i;", "return 0;", "swap_last", "swap last remove failed"),
-    ("wrong_not_found", "return -1;", "return 0;", "not_found", "not found remove failed"),
+    ("wrong_not_found", "    }\n    return -1;", "    }\n    return 0;", "not_found", "not found remove failed"),
 ]
 
 

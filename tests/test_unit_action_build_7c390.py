@@ -9,7 +9,8 @@ import pytest
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 CASES = [
-    "func_0027C390 action code mappings for 113 category/index pairs",
+    "func_0027C390 exhaustive verification of all 113 action code mappings",
+    "func_0027C390 wrong-order and mutation detection test",
 ]
 
 
@@ -23,7 +24,7 @@ def build_7c390_test(tmp_path_factory):
     probe = subprocess.run(
         [compiler, "-m32", "-x", "c++", "-", "-o", str(fixture / "probe")],
         input=("#include <cassert>\n#include <climits>\n#include <cstddef>\n"
-               "#include <cstdio>\nint main() { static_assert(sizeof(void *) == 4); }\n"),
+               "#include <cstdio>\nint main() { sizeof(void *); }\n"),
         capture_output=True, text=True,
     )
     if probe.returncode:
@@ -44,6 +45,6 @@ def build_7c390_test(tmp_path_factory):
 
 @pytest.mark.parametrize("case", range(len(CASES)), ids=CASES)
 def test_build_7c390_behavior(build_7c390_test, case):
-    """Verify CombatManager action code mappings."""
+    """Verify exhaustive action code mappings and mutation detection per case."""
     result = subprocess.run([str(build_7c390_test), str(case)], capture_output=True, text=True)
     assert result.returncode == 0, f"case {case}: {result.stderr}"

@@ -15,6 +15,7 @@ enum StreamCall {
 static StreamCall call_log[10];
 static int call_count = 0;
 static int last_sizes[10];
+static VisibleMap *active_vmap = 0;
 
 extern "C" {
     extern int D_004E3058;

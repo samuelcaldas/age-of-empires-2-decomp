@@ -3,6 +3,7 @@
 import hashlib
 import os
 from pathlib import Path
+import re
 import shlex
 import struct
 import subprocess
@@ -26,6 +27,26 @@ SYMBOLS_MAP = {
     "func_1A5010": 0x1A5010,
     "D_004E3180": 0x4E3180,
 }
+
+EXPECTED_RELOCATIONS = [
+    (0x10, 7, "D_004E2EA0"),    # R_MIPS_GPREL16 global guard
+    (0x30, 4, "func_1A5010"),    # R_MIPS_26 coordinate extraction
+    (0x84, 7, "D_004E3180"),    # R_MIPS_GPREL16 global context notify
+]
+
+
+def verify_symbol_boundary():
+    """Verify original ELF symbol boundary and size from canonical symbols.txt."""
+    symbols_txt = (ROOT / "config/SLES-50282/symbols.txt").read_text()
+    match = re.search(
+        r"func_00329130\s*=\s*(0x[0-9a-fA-F]+);\s*//\s*type:func\s+size:(0x[0-9a-fA-F]+)",
+        symbols_txt,
+    )
+    assert match, "Symbol func_00329130 definition not found in symbols.txt"
+    addr = int(match.group(1), 16)
+    size = int(match.group(2), 16)
+    assert addr == ADDRESS, f"Expected address {hex(ADDRESS)}, got {hex(addr)}"
+    assert size == SIZE, f"Expected size {hex(SIZE)}, got {hex(size)}"
 
 
 def build_object(tmp_path):
@@ -63,22 +84,29 @@ def relocate_entry(data, relocation, symbols):
         raise ValueError(f"Unsupported relocation type: {rel_type}")
 
 
-def relocate_table(elf, section, data):
-    """Resolve all entries in one code relocation table."""
-    symbols = elf.get_section(section["sh_link"])
-    relocations = list(section.iter_relocations())
-    for relocation in relocations:
-        relocate_entry(data, relocation, symbols)
-    return len(relocations)
-
-
 def relocate_function(elf, section_index, data):
-    """Select relocations by section index, handling MWCC .text sections."""
-    count = 0
+    """Select relocations with duplicate rejection and multiset comparison."""
+    seen_offsets = set()
+    seen_multiset = []
     for section in elf.iter_sections():
         if section["sh_type"] == "SHT_REL" and section["sh_info"] == section_index:
-            count += relocate_table(elf, section, data)
-    assert count == 3, f"Expected exactly 3 relocations, found {count}"
+            symbols = elf.get_section(section["sh_link"])
+            for rel in section.iter_relocations():
+                offset = rel["r_offset"]
+                rtype = rel["r_info_type"]
+                sym_name = symbols.get_symbol(rel["r_info_sym"]).name
+                assert 0 <= offset < SIZE, (
+                    f"Relocation offset {hex(offset)} out of range [0, {hex(SIZE)})"
+                )
+                assert offset not in seen_offsets, (
+                    f"Duplicate relocation detected at offset {hex(offset)}"
+                )
+                seen_offsets.add(offset)
+                seen_multiset.append((offset, rtype, sym_name))
+                relocate_entry(data, rel, symbols)
+    assert sorted(seen_multiset) == sorted(EXPECTED_RELOCATIONS), (
+        f"Relocation multiset mismatch: expected {EXPECTED_RELOCATIONS}, got {seen_multiset}"
+    )
 
 
 def function_bytes(path):
@@ -101,6 +129,7 @@ def function_bytes(path):
 )
 def test_mode_query_matches_original_instructions(tmp_path):
     """Require all 180 instruction bytes to match the original ELF binary."""
+    verify_symbol_boundary()
     pinned_hash = (ROOT / "config/SLES-50282/build.sha1").read_text().split()[0]
     assert hashlib.sha1(ORIGINAL.read_bytes()).hexdigest() == pinned_hash
     output = build_object(tmp_path)

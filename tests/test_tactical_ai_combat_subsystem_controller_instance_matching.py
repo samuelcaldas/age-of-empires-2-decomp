@@ -23,11 +23,11 @@ SIZE = 164
 CALLEES = {"func_318340": 0x318340}
 GLOBALS = {"D_004DED20": 0x4DED20}
 
-EXPECTED_RELOCATIONS = {
-    0x0C: (4, "func_318340"),    # R_MIPS_26 call to base constructor
-    0x14: (5, "D_004DED20"),     # R_MIPS_HI16 vtable address upper half
-    0x18: (6, "D_004DED20"),     # R_MIPS_LO16 vtable address lower half
-}
+EXPECTED_RELOCATIONS = [
+    (0x0C, 4, "func_318340"),    # R_MIPS_26 call to base constructor
+    (0x14, 5, "D_004DED20"),     # R_MIPS_HI16 vtable address upper half
+    (0x18, 6, "D_004DED20"),     # R_MIPS_LO16 vtable address lower half
+]
 
 
 def verify_symbol_boundary():
@@ -82,8 +82,9 @@ def relocate_entry(data, rel, symbols):
 
 
 def relocate_section(elf, section_index, data):
-    """Resolve all relocations for target symbol section with strict in-range site verification."""
-    seen = {}
+    """Resolve relocations for target section with duplicate rejection and multiset comparison."""
+    seen_offsets = set()
+    seen_multiset = []
     for section in elf.iter_sections():
         if section["sh_type"] == "SHT_REL" and section["sh_info"] == section_index:
             symbols = elf.get_section(section["sh_link"])
@@ -94,20 +95,14 @@ def relocate_section(elf, section_index, data):
                 assert 0 <= offset < SIZE, (
                     f"Relocation offset {hex(offset)} out of range [0, {hex(SIZE)})"
                 )
-                assert offset in EXPECTED_RELOCATIONS, (
-                    f"Unexpected relocation at offset {hex(offset)}"
+                assert offset not in seen_offsets, (
+                    f"Duplicate relocation detected at offset {hex(offset)}"
                 )
-                exp_type, exp_sym = EXPECTED_RELOCATIONS[offset]
-                assert rtype == exp_type, (
-                    f"Relocation type mismatch at {hex(offset)}: expected {exp_type}, got {rtype}"
-                )
-                assert sym_name == exp_sym, (
-                    f"Relocation symbol mismatch at {hex(offset)}: expected {exp_sym}, got {sym_name}"
-                )
+                seen_offsets.add(offset)
+                seen_multiset.append((offset, rtype, sym_name))
                 relocate_entry(data, rel, symbols)
-                seen[offset] = (rtype, sym_name)
-    assert len(seen) == len(EXPECTED_RELOCATIONS), (
-        f"Expected {len(EXPECTED_RELOCATIONS)} relocations, found {len(seen)}"
+    assert sorted(seen_multiset) == sorted(EXPECTED_RELOCATIONS), (
+        f"Relocation multiset mismatch: expected {EXPECTED_RELOCATIONS}, got {seen_multiset}"
     )
 
 

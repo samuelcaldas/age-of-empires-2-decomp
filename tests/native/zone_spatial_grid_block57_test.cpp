@@ -1,5 +1,6 @@
 #include <cassert>
 #include <cstring>
+#include <cstdlib>
 #include <vector>
 #include <string>
 #include "zone_spatial_grid_node_pool_setup.h"
@@ -74,17 +75,31 @@ void *func_118DE0(int format, int file, int line) {
 }
 
 void func_1F20E0(NodePool *self, int val) {
-    g_helper_calls.push_back({"func_1F20E0", self, val, 0});
+    HelperCallRecord rec;
+    rec.name = "func_1F20E0";
+    rec.self = self;
+    rec.int_arg = val;
+    rec.ptr_arg = 0;
+    g_helper_calls.push_back(rec);
     g_event_timeline.push_back("func_1F20E0");
 }
 
 void func_1F21E0(NodePool *self, void *p1) {
-    g_helper_calls.push_back({"func_1F21E0", self, 0, p1});
+    HelperCallRecord rec;
+    rec.name = "func_1F21E0";
+    rec.self = self;
+    rec.int_arg = 0;
+    rec.ptr_arg = p1;
+    g_helper_calls.push_back(rec);
     g_event_timeline.push_back("func_1F21E0");
 }
 
 void func_117CAC(void *dst, int val, int size) {
-    g_clear_calls_log.push_back({dst, val, size});
+    ClearCallRecord rec;
+    rec.dst = dst;
+    rec.val = val;
+    rec.size = size;
+    g_clear_calls_log.push_back(rec);
     memset(dst, val, size);
 }
 }
@@ -158,10 +173,15 @@ int main() {
 
     assert(g_clear_calls_log.size() == 3);
     assert(g_clear_calls_log[0].dst == (char *)clear_pool1 + 0x10);
+    assert(g_clear_calls_log[0].val == 0);
     assert(g_clear_calls_log[0].size == 0x138800);
+
     assert(g_clear_calls_log[1].dst == (void *)clear_pool1);
+    assert(g_clear_calls_log[1].val == 0);
     assert(g_clear_calls_log[1].size == 8);
+
     assert(g_clear_calls_log[2].dst == (char *)clear_pool1 + 8);
+    assert(g_clear_calls_log[2].val == 0);
     assert(g_clear_calls_log[2].size == 8);
 
     free(entry_buf1);
@@ -183,8 +203,11 @@ int main() {
 
     assert(g_clear_calls_log.size() == 2);
     assert(g_clear_calls_log[0].dst == (char *)clear_pool2 + 0x10);
+    assert(g_clear_calls_log[0].val == 0);
     assert(g_clear_calls_log[0].size == 0x138800);
+
     assert(g_clear_calls_log[1].dst == (void *)clear_pool2);
+    assert(g_clear_calls_log[1].val == 0);
     assert(g_clear_calls_log[1].size == 8);
     // Verify no clear at clear_pool2 + 8 was performed
 

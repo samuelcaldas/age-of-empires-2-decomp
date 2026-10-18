@@ -52,7 +52,7 @@ void *func_21C050(void *obj, int mode) {
 }
 
 void test_trade_action_helper_21DBE0() {
-    // Scenario A: Standard unconditional invocation
+    // Scenario A: Standard unconditional invocation with valid object pointer
     call_records.clear();
     reg_calls = 0;
     mode_calls = 0;
@@ -64,8 +64,6 @@ void test_trade_action_helper_21DBE0() {
     assert(mode_calls == 1);
     assert(call_records.size() == 2);
 
-    // Verify delay-slot semantics: data passed to func_1046D0 is 0 (cleared by paddub delay slot at 0x21DC2C)
-    // Verify retained a1 = 0x1F00 passed to func_21C050 at 0x21DC30
     assert(call_records[0].step == STEP_REG);
     assert(call_records[0].reg_or_mode == 0x1F00);
     assert(call_records[0].data == 0);
@@ -74,6 +72,27 @@ void test_trade_action_helper_21DBE0() {
     assert(call_records[1].step == STEP_MODE);
     assert(call_records[1].reg_or_mode == 0x1F00);
     assert(call_records[1].passed_obj == dummy);
+
+    // Scenario B: Unconditional invocation with null object pointer (obj = 0)
+    // Asserts that even with obj = 0, both calls execute unconditionally with passed_obj == 0
+    call_records.clear();
+    reg_calls = 0;
+    mode_calls = 0;
+
+    void *res2 = func_0021DBE0(0, 10, 42, 3);
+    assert(res2 == 0);
+    assert(reg_calls == 1);
+    assert(mode_calls == 1);
+    assert(call_records.size() == 2);
+
+    assert(call_records[0].step == STEP_REG);
+    assert(call_records[0].reg_or_mode == 0x1F00);
+    assert(call_records[0].data == 0);
+    assert(call_records[0].passed_obj == 0);
+
+    assert(call_records[1].step == STEP_MODE);
+    assert(call_records[1].reg_or_mode == 0x1F00);
+    assert(call_records[1].passed_obj == 0);
 }
 
 int main() {

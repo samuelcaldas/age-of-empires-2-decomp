@@ -1,0 +1,8 @@
+#ifndef ZONE_SPATIAL_GRID_BUFFER_MANAGER_REMOVE_H
+#define ZONE_SPATIAL_GRID_BUFFER_MANAGER_REMOVE_H
+
+extern "C" {
+int func_001ECD10(void *self, void *elem);
+}
+
+#endif // ZONE_SPATIAL_GRID_BUFFER_MANAGER_REMOVE_H

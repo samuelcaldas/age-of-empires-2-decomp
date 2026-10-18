@@ -42,4 +42,27 @@ void func_00343CD0(TacticalObj_341040 *self) { if (!self) return; }
 void func_00343CE0(TacticalObj_341040 *self) { if (!self) return; }
 void func_00343D30(TacticalObj_341040 *self) { if (!self) return; }
 void func_00343D40(TacticalObj_341040 *self) { if (!self) return; }
+
+void func_00343D7C(TacticalObj_341040 *self) { if (!self) return; }
+void func_00343D80(TacticalObj_341040 *self) { if (!self) return; }
+void func_00343DB0(TacticalObj_341040 *self) { if (!self) return; }
+void func_00343DC0(TacticalObj_341040 *self) { if (!self) return; }
+void func_00343DFC(TacticalObj_341040 *self) { if (!self) return; }
+void func_00343E00(TacticalObj_341040 *self) { if (!self) return; }
+void func_00343E3C(TacticalObj_341040 *self) { if (!self) return; }
+void func_00343E40(TacticalObj_341040 *self) { if (!self) return; }
+void func_00343EC0(TacticalObj_341040 *self) { if (!self) return; }
+void func_00343ED0(TacticalObj_341040 *self) { if (!self) return; }
+void func_00343F88(TacticalObj_341040 *self) { if (!self) return; }
+void func_00343F90(TacticalObj_341040 *self) { if (!self) return; }
+void func_00343FDC(TacticalObj_341040 *self) { if (!self) return; }
+void func_00343FE0(TacticalObj_341040 *self) { if (!self) return; }
+void func_0034406C(TacticalObj_341040 *self) { if (!self) return; }
+void func_00344070(TacticalObj_341040 *self) { if (!self) return; }
+void func_00344114(TacticalObj_341040 *self) { if (!self) return; }
+void func_00344120(TacticalObj_341040 *self) { if (!self) return; }
+void func_00344280(TacticalObj_341040 *self) { if (!self) return; }
+void func_00344290(TacticalObj_341040 *self) { if (!self) return; }
+void func_0034442C(TacticalObj_341040 *self) { if (!self) return; }
+void func_00344430(TacticalObj_341040 *self) { if (!self) return; }
 }

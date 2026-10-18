@@ -48,6 +48,29 @@ int main() {
     func_00343D30(&obj);
     func_00343D40(&obj);
 
-    std::printf("PASS test_tactical_ai_slice_343568\n");
+    func_00343D7C(&obj);
+    func_00343D80(&obj);
+    func_00343DB0(&obj);
+    func_00343DC0(&obj);
+    func_00343DFC(&obj);
+    func_00343E00(&obj);
+    func_00343E3C(&obj);
+    func_00343E40(&obj);
+    func_00343EC0(&obj);
+    func_00343ED0(&obj);
+    func_00343F88(&obj);
+    func_00343F90(&obj);
+    func_00343FDC(&obj);
+    func_00343FE0(&obj);
+    func_0034406C(&obj);
+    func_00344070(&obj);
+    func_00344114(&obj);
+    func_00344120(&obj);
+    func_00344280(&obj);
+    func_00344290(&obj);
+    func_0034442C(&obj);
+    func_00344430(&obj);
+
+    std::printf("PASS test_tactical_ai_slice_3444D0\n");
     return 0;
 }

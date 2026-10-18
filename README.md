@@ -12,10 +12,11 @@ The choice of editions and the reasons for it are in
 
 Expected dynamic dashboard (pending GitHub Pages activation): `https://samuelcaldas.github.io/age-of-empires-2-decomp/`
 
-Badges (generated statically; subject to GitHub image cache):
-- Verified C++: `![Verified C++](build/observability/site/badges/bytes.svg)`
-- Verification State: `![State](build/observability/site/badges/state.svg)`
-- Last Verified: `![Last Verified](build/observability/site/badges/verified-at.svg)`
+Badges show the last verified integrated C++ measurement, not the current HEAD. Refresh them after a new successful verification; GitHub may cache images briefly:
+
+![Last verified C++](docs/badges/bytes.svg) ![Current verification](docs/badges/state.svg) ![Last verified UTC](docs/badges/verified-at.svg)
+
+Refresh the tracked badges locally with `.venv/bin/python -m scripts.observability badges`, then commit the generated `docs/badges/*.svg` alongside the change.
 
 This repository does **not** contain any game assets or original binaries. You
 need your own copy of the game.

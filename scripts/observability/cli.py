@@ -5,10 +5,14 @@ import sqlite3
 import subprocess
 import sys
 
+from pathlib import Path
+
 from .arguments import build_parser
 from .commands import enqueue_command, status_command, verify_command, watch_command, work_command
 from .publish_cli import publish_command
+from .site import write_readme_badges
 from .site_cli import export_command, site_command
+from .state import load_projection
 
 
 def _dispatch(args):
@@ -28,6 +32,11 @@ def _dispatch(args):
         return 0
     if args.command == "publish":
         publish_command(args)
+        return 0
+    if args.command == "badges":
+        projection = load_projection(args.repo, args.version)
+        names = write_readme_badges(projection, Path(args.repo) / args.output)
+        print(json.dumps(dict(status="generated", badges=list(names), output=args.output), indent=2))
         return 0
     handlers = dict(status=status_command, watch=watch_command, work=work_command)
     handlers[args.command](args)

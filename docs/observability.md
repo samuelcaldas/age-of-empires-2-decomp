@@ -39,6 +39,18 @@ cp hooks/observability/post-commit.example .git/hooks/post-commit
 chmod +x .git/hooks/post-commit
 ```
 
+## README Badges
+
+The README uses tracked SVGs in `docs/badges/`, so they render without GitHub Pages. The byte badge reports the last successful integrated verification and its measured commit, not the current HEAD. It says `unavailable` when no successful local evidence is available.
+
+After a successful local verification, refresh the badge files and commit them with the verified change:
+
+```bash
+.venv/bin/python -m scripts.observability badges
+```
+
+GitHub may cache rendered SVGs briefly. The badge values update only when the generated files are committed and pushed.
+
 ## Export & Static Site
 
 Generate public artifacts and GitHub Pages assets:

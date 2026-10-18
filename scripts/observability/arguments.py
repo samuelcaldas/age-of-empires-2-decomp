@@ -32,7 +32,7 @@ def build_parser():
     parser = argparse.ArgumentParser(description="Offline-first decompilation evidence")
     parser.add_argument("--repo", default=".")
     commands = parser.add_subparsers(dest="command", required=True)
-    for name in ("status", "enqueue", "verify", "work", "watch", "export", "site", "publish"):
+    for name in ("status", "enqueue", "verify", "work", "watch", "export", "site", "publish", "badges"):
         _add_command(commands, name)
     return parser
 
@@ -59,3 +59,5 @@ def _add_command(commands, name):
         parser.add_argument("--dry-run", action="store_true", default=True)
         parser.add_argument("--apply", action="store_true")
         parser.add_argument("--deploy", action="store_true")
+    if name == "badges":
+        parser.add_argument("--output", default="docs/badges")

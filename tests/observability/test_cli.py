@@ -91,3 +91,11 @@ def test_watch_once_supports_non_tty_no_color(tmp_path):
     assert result.returncode == 0, result.stderr
     assert "unavailable" in result.stdout
     assert "\x1b[" not in result.stdout
+
+
+def test_badges_command_generates_the_readme_image_paths(tmp_path):
+    root = make_repository(tmp_path / "repo")
+    result = invoke(root, "badges", "--output", "docs/badges")
+    assert result.returncode == 0, result.stderr
+    for name in ("bytes.svg", "state.svg", "verified-at.svg"):
+        assert (root / "docs/badges" / name).is_file()

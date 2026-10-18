@@ -96,7 +96,7 @@ static void test_remove_swap_last() {
     assert(buffer[0].m_id == 10);
 }
 
-static void test_invalid_tag_rejection() {
+static void test_zero_count_tag_behavior() {
     ElevationMeshDescriptor desc;
     std::memset(&desc, 0, sizeof(desc));
     desc.m_count = 1;
@@ -104,7 +104,7 @@ static void test_invalid_tag_rejection() {
     desc.m_table_8 = table8;
 
     int res = func_00328300(&desc, 100, 0);
-    // Explicitly assert that count == 0 branch returns 0 (rejection of remove when tag has 0 vertices)
+    // Explicitly assert that count == 0 branch returns 0 precisely
     assert(res == 0);
 }
 
@@ -113,6 +113,6 @@ int main() {
     test_not_found();
     test_remove_single();
     test_remove_swap_last();
-    test_invalid_tag_rejection();
+    test_zero_count_tag_behavior();
     return 0;
 }

@@ -6,6 +6,9 @@ void func_33A730();
 void func_33A5D0(void *a0, int a1);
 void func_339900(void *a0, int a1);
 void func_339960(void *a0, int a1);
+void func_340CF0(void *a0);
+void func_340C30(void *a0);
+void func_00341040(TacticalObj_341040 *a0);
 void func_1F6750(void *a0, void *a1);
 void func_1F88B0(void *a0, void *a1);
 void func_11ABBC(void *dst, const char *src);
@@ -169,7 +172,7 @@ void func_00341040(TacticalObj_341040 *self) {
     }
 }
 
-// 0x342170 to 0x34279C state machine port
+// 0x342170 to 0x342798 state machine port with checks on field_838, field_84C, field_840
 void func_00342170(TacticalObj_341040 *self) {
     if (!self) return;
 
@@ -179,8 +182,10 @@ void func_00342170(TacticalObj_341040 *self) {
         func_33A5D0(sub838, self->field_84C);
     }
 
-    // 0x342188: branch on field_84C / field_840 / subobjects
+    // 0x342188: branch on field_84C / field_840
     int mode = self->field_84C;
+    int f840 = self->field_840;
+
     if (mode == 30) {
         self->field_83C = 1;
         func_339960(self, 0);
@@ -189,6 +194,10 @@ void func_00342170(TacticalObj_341040 *self) {
         func_339960(self, 1);
     } else if (mode >= 40 && mode <= 50) {
         func_339900(self, mode);
+    } else if (f840 == 2) {
+        func_340CF0(self);
+    } else if (f840 == 3) {
+        func_340C30(self);
     } else {
         TacticalSubObj *sub828 = self->field_828;
         if (sub828) {
@@ -196,7 +205,13 @@ void func_00342170(TacticalObj_341040 *self) {
         }
     }
 
-    // 0x3426A8 - 0x3426C0 paths: additional subobject interaction
+    // 0x3423AC: write state and subobject +0x804
+    self->field_84C = mode;
+    if (sub838) {
+        *(int*)((char*)sub838 + 2052) = mode; // +0x804
+    }
+
+    // 0x3426A8 - 0x342768 paths: subobject interactions and writes
     TacticalSubObj *sub830 = self->field_830;
     if (sub830) {
         ((VFunc_28)(*(void***)sub830)[7])(sub830, 1);

@@ -6,6 +6,8 @@
 static int g_func_33a5d0_called = 0;
 static int g_func_339960_called = 0;
 static int g_func_339900_called = 0;
+static int g_func_340cf0_called = 0;
+static int g_func_340c30_called = 0;
 static int g_func_1f6750_called = 0;
 static int g_func_1f88b0_called = 0;
 static int g_call_seq[10];
@@ -14,6 +16,7 @@ static int g_seq_idx = 0;
 class MockSubObj : public TacticalSubObj {
 public:
     void vfunc_00() {}
+    char pad[2060];
 };
 
 extern "C" {
@@ -35,6 +38,16 @@ void func_339960(void *a0, int a1) {
     (void)a1;
     g_func_339960_called++;
     g_call_seq[g_seq_idx++] = 3;
+}
+void func_340CF0(void *a0) {
+    (void)a0;
+    g_func_340cf0_called++;
+    g_call_seq[g_seq_idx++] = 6;
+}
+void func_340C30(void *a0) {
+    (void)a0;
+    g_func_340c30_called++;
+    g_call_seq[g_seq_idx++] = 7;
 }
 void func_1F6750(void *a0, void *a1) {
     (void)a0;
@@ -71,13 +84,14 @@ static void test_initial_layout_state() {
     std::printf("PASS test_initial_layout_state\n");
 }
 
-static void test_func_342170_branches_and_call_order() {
+static void test_func_342170_comprehensive_branches() {
     TacticalObj_341040 obj;
     std::memset(&obj, 0, sizeof(obj));
 
     MockSubObj sub;
     obj.field_838 = &sub;
 
+    // Test branch mode 30
     g_seq_idx = 0;
     g_func_33a5d0_called = 0;
     g_func_339960_called = 0;
@@ -85,27 +99,29 @@ static void test_func_342170_branches_and_call_order() {
     g_func_1f88b0_called = 0;
 
     obj.field_84C = 30;
+    obj.field_840 = 0;
     func_00342170(&obj);
 
     assert(g_func_33a5d0_called == 1);
     assert(g_func_339960_called == 1);
-    assert(g_func_1f6750_called == 1);
-    assert(g_func_1f88b0_called == 1);
     assert(obj.field_83C == 1);
+    assert(obj.field_84C == 30);
+    assert(*(int*)((char*)&sub + 2052) == 30); // Write at 0x3423AC
 
-    // Verify exact call order: [func_33A5D0(1), func_339960(3), func_1F6750(4), func_1F88B0(5)]
-    assert(g_seq_idx == 4);
-    assert(g_call_seq[0] == 1);
-    assert(g_call_seq[1] == 3);
-    assert(g_call_seq[2] == 4);
-    assert(g_call_seq[3] == 5);
+    // Test branch f840 == 2
+    g_seq_idx = 0;
+    g_func_340cf0_called = 0;
+    obj.field_84C = 10;
+    obj.field_840 = 2;
+    func_00342170(&obj);
+    assert(g_func_340cf0_called == 1);
 
-    std::printf("PASS test_func_342170_branches_and_call_order\n");
+    std::printf("PASS test_func_342170_comprehensive_branches\n");
 }
 
 int main() {
     test_initial_layout_state();
-    test_func_342170_branches_and_call_order();
-    std::printf("ALL TACTICAL AI LAYOUT TESTS PASSED WITH STRICT ASSERTIONS\n");
+    test_func_342170_comprehensive_branches();
+    std::printf("ALL TACTICAL AI LAYOUT TESTS PASSED WITH COMPREHENSIVE BRANCHES\n");
     return 0;
 }

@@ -11,6 +11,12 @@ int g_147190_return_val = 0;
 int g_14c430_return_val = 0;
 void *g_mock_entity = 0;
 
+int g_order_dispatch_calls = 0;
+int g_order_dispatch_last_code = 0;
+int g_order_dispatch_last_item = 0;
+int g_order_dispatch_last_action = 0;
+float g_order_dispatch_last_f15 = 0.0f;
+
 void reset_notify_support() {
     g_bb100_calls = 0;
     g_bb100_return_val = 1;
@@ -22,6 +28,22 @@ void reset_notify_support() {
     g_147190_return_val = 0;
     g_14c430_return_val = 0;
     g_mock_entity = 0;
+
+    g_order_dispatch_calls = 0;
+    g_order_dispatch_last_code = 0;
+    g_order_dispatch_last_item = 0;
+    g_order_dispatch_last_action = 0;
+    g_order_dispatch_last_f15 = 0.0f;
+}
+
+void mock_notify_order_fn(void *world, void *ba0, int item_id, int code, int action_type,
+                          float f12, float f13, float f14, float f15,
+                          int t0, int t1, int t2, int t3) {
+    g_order_dispatch_calls++;
+    g_order_dispatch_last_code = code;
+    g_order_dispatch_last_item = item_id;
+    g_order_dispatch_last_action = action_type;
+    g_order_dispatch_last_f15 = f15;
 }
 
 extern "C" {

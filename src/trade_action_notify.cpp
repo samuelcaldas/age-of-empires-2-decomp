@@ -19,57 +19,26 @@ int func_002bb100(void *self, int item_id, int action_type);
 
 namespace trade_action_candidates {
 
-static bool check_pool_membership(void *self, int target_id) {
-    if (!self) {
-        return false;
-    }
-    int count = integer_at(self, 3188);
-    int capacity = integer_at(self, 3196);
-    int *pool = *reinterpret_cast<int **>(bytes(self) + 3184);
-    if (!pool || count <= 0 || capacity <= 0) {
-        return false;
-    }
-    int limit = (count < capacity) ? count : capacity;
-    for (int i = 0; i < limit; ++i) {
-        if (target_id == pool[i]) {
-            return true;
-        }
-    }
-    return false;
+typedef void *(*PredFn)(void *);
+
+static inline int *get_item_pred(void *item) {
+    PredFn fn = *reinterpret_cast<PredFn *>(*reinterpret_cast<char **>(item) + 356);
+    return reinterpret_cast<int *>(fn(item));
 }
 
-static bool check_item_qualifications(void *item) {
-    if (!item) {
-        return false;
-    }
-    void **vtable = *reinterpret_cast<void ***>(item);
-    if (!vtable) {
-        return false;
-    }
-    typedef int (*Predicate)(void *);
-    Predicate pred = reinterpret_cast<Predicate>(*reinterpret_cast<void **>(bytes(vtable) + 356));
-    if (!pred) {
-        return false;
-    }
-    int pred_id = pred(item);
+typedef void (*NotifyOrderFn)(void *world, void *ba0, int item_id, int code, int action_type,
+                              float f12, float f13, float f14, float f15,
+                              int t0, int t1, int t2, int t3);
 
-    int class_id = func_001471a0(pred_id);
-    if (class_id == 600 || class_id == 613 || class_id == 602 || class_id == 618 || class_id == 605) {
-        return true;
-    }
-
-    if (*reinterpret_cast<float *>(bytes(item) + 64) <= 0.0f) {
-        return false;
-    }
-
-    if (func_00147170(pred_id) == 710) {
-        return func_00147190(pred_id) == 100;
-    }
-
-    if (func_00147170(pred_id) != 702) {
-        return func_0014c430(pred_id, 705) != 1;
-    }
-    return false;
+static inline void dispatch_order_notification(void *self, int item_id, int code, int action_type,
+                                               float f12, float f13, float f14, float f15,
+                                               int t0, int t1, int t2, int t3) {
+    void *mgr = *reinterpret_cast<void **>(bytes(self) + 176);
+    void *world = *reinterpret_cast<void **>(bytes(mgr) + 172);
+    void *ba0 = *reinterpret_cast<void **>(bytes(world) + 2976);
+    void *action_mgr = *reinterpret_cast<void **>(bytes(world) + 6960);
+    NotifyOrderFn fn = *reinterpret_cast<NotifyOrderFn *>(bytes(action_mgr) + 56);
+    fn(world, ba0, item_id, code, action_type, f12, f13, f14, f15, t0, t1, t2, t3);
 }
 
 } // namespace trade_action_candidates
@@ -79,43 +48,51 @@ int func_002B9770(void *self, short item_id, int action_type) {
     if (!self) {
         return 0;
     }
-    return func_002B9880(self, static_cast<int>(item_id), action_type);
+    dispatch_order_notification(self, static_cast<int>(item_id), 706, action_type,
+                                -1.0f, -1.0f, -1.0f, -1.0f,
+                                -1, -1, 1, 0);
+    return 1;
 }
 
 int func_002B97D0(void *self, short item_id, int action_type, float param) {
     if (!self) {
         return 0;
     }
-    store_float(self, 3224, param);
-    return func_002B9880(self, static_cast<int>(item_id), action_type);
+    dispatch_order_notification(self, static_cast<int>(item_id), 710, action_type,
+                                -1.0f, -1.0f, 1.0f, param,
+                                -1, -1, 1, 0);
+    return 1;
 }
 
 int func_002B9830(void *self, int a1, int a2, int a3) {
     if (!self) {
         return 0;
     }
-    int count = integer_at(self, 3172);
-    int capacity = integer_at(self, 3180);
-    int *candidate_ids = *reinterpret_cast<int **>(bytes(self) + 3168);
-    int handled = 0;
-    if (!candidate_ids || count <= 0 || capacity <= 0) {
-        return 0;
-    }
-    int limit = (count < capacity) ? count : capacity;
-    for (int i = 0; i < limit; ++i) {
-        int item_id = candidate_ids[i];
-        if (func_002B9880(self, item_id, a1) == 1) {
-            handled++;
-        }
-    }
-    return handled;
+    dispatch_order_notification(self, a1, 724, a3,
+                                -1.0f, -1.0f, -1.0f, -1.0f,
+                                a2, -1, 1, 0);
+    return 1;
 }
 
 int func_002B9880(void *self, int item_id, int action_type) {
     if (!self) {
         return 0;
     }
-    if (check_pool_membership(self, item_id)) {
+
+    int found = 0;
+    int count = integer_at(self, 3188);
+    int capacity = integer_at(self, 3196);
+    int *pool = *reinterpret_cast<int **>(bytes(self) + 3184);
+
+    if (pool && count > 0 && capacity > 0) {
+        for (int i = 0; i < count && i < capacity; ++i) {
+            if (item_id == pool[i]) {
+                found = 1;
+                break;
+            }
+        }
+    }
+    if (found) {
         return 0;
     }
 
@@ -129,22 +106,40 @@ int func_002B9880(void *self, int item_id, int action_type) {
         return 0;
     }
 
-    void **vtable = *reinterpret_cast<void ***>(item);
-    if (!vtable) {
+    int *pred_ptr = get_item_pred(item);
+    if (!pred_ptr) {
         return 0;
     }
 
-    typedef int (*Predicate)(void *);
-    Predicate pred = reinterpret_cast<Predicate>(*reinterpret_cast<void **>(bytes(vtable) + 356));
-    if (!pred || !pred(item)) {
+    int class_id = func_001471a0(*pred_ptr);
+    if (class_id == 600 || class_id == 613) {
+        return 1;
+    }
+    if (class_id == 602 || class_id == 618) {
+        return 1;
+    }
+    if (class_id == 605) {
+        return 1;
+    }
+
+    if (*reinterpret_cast<float *>(bytes(item) + 64) > 0.0f) {
         return 0;
     }
 
-    if (!check_item_qualifications(item)) {
+    int type_id = func_00147170(*get_item_pred(item));
+    if (type_id == 710) {
+        if (func_00147190(*get_item_pred(item)) == 100) {
+            return 0;
+        }
+    } else if (type_id == 702) {
         return 0;
     }
 
-    int res = func_002bb100(self, item_id, action_type);
-    return res != 0 ? 1 : 0;
+    if (func_0014c430(*get_item_pred(item), 705) != 1) {
+        int res = func_002bb100(self, item_id, action_type);
+        return res != 0 ? 1 : 0;
+    }
+
+    return 0;
 }
 }

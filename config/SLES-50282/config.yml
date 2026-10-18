@@ -5290,6 +5290,15 @@ segments:
   - name: post_trade_action_type_checker
     type: bin
     start: 0x1B9340
+  - name: trade_action_notify
+    type: code
+    start: 0x1B9950
+    vram: 0x2B9770
+    subsegments:
+      - [0x1B9950, asm, trade_action_notify]
+  - name: post_trade_action_notify
+    type: bin
+    start: 0x1B9D10
   - name: tactical_ai_player_ops
     type: code
     start: 0x205D70

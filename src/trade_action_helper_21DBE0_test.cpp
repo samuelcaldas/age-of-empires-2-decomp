@@ -66,13 +66,14 @@ void test_trade_action_helper_21DBE0() {
 
     // Strict call order assertion: STEP_REG strictly precedes STEP_MODE
     // Verify delay-slot semantics: data passed to func_1046D0 is 0 (cleared by paddub delay slot at 0x21DC2C)
+    // Verify retained a1 = 0x1F00 passed to func_21C050 at 0x21DC30
     assert(call_records[0].step == STEP_REG);
     assert(call_records[0].reg_or_mode == 0x1F00);
     assert(call_records[0].data == 0);
     assert(call_records[0].passed_obj == dummy);
 
     assert(call_records[1].step == STEP_MODE);
-    assert(call_records[1].reg_or_mode == 3);
+    assert(call_records[1].reg_or_mode == 0x1F00);
     assert(call_records[1].passed_obj == dummy);
 
     // Scenario B: Null pointer safety and side-effect isolation

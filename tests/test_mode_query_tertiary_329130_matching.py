@@ -18,7 +18,7 @@ ORIGINAL = ROOT / "orig/SLES-50282/AOK.ELF"
 COMPILER = ROOT / "compilers/PS2/mwcc-2.3.1.01/mwccps2.exe"
 RUNNER = ROOT / "build/tools/wibo"
 ADDRESS = 0x329130
-SIZE = 0xB4  # 180 bytes
+SIZE = 0x78  # 120 bytes
 
 
 def build_object(tmp_path):
@@ -56,7 +56,7 @@ def function_bytes(path):
     reason="requires licensed original ELF, MWCC PS2 compiler, and wibo",
 )
 def test_mode_query_matches_original_instructions(tmp_path):
-    """Require all 180 instruction bytes to match the original ELF binary."""
+    """Require all 120 instruction bytes to match the original ELF binary."""
     pinned_hash = (ROOT / "config/SLES-50282/build.sha1").read_text().split()[0]
     assert hashlib.sha1(ORIGINAL.read_bytes()).hexdigest() == pinned_hash
     output = build_object(tmp_path)

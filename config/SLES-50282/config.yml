@@ -2077,10 +2077,16 @@ segments:
     vram: 0x188740
     subsegments:
       - [0x88920, asm, render_manager_display_mode]
-  - name: post_base
-    type: bin
+  - name: render_manager_surface
+    type: code
     start: 0x88B80
     vram: 0x1889A0
+    subsegments:
+      - [0x88B80, asm, render_manager_surface]
+  - name: post_base
+    type: bin
+    start: 0x88DE0
+    vram: 0x188C00
   - name: zone_path_eval
     type: code
     start: 0xC7A40

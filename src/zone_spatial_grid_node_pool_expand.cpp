@@ -17,5 +17,18 @@ struct NodePool {
 };
 
 extern "C" void func_001F20E0(NodePool *self, int new_cap) {
-    // Stub implementation to establish test harness
+    if (new_cap >= self->field_13881C) {
+        void **table0 = (void **)func_117CAC(self, 0, 8);
+        void **table1 = (void **)func_117CAC((char *)self + 8, 0, 8);
+        for (int i = 0; i < new_cap; ++i) {
+            table0[i] = 0;
+            table1[i] = 0;
+        }
+        if (self->table_138810 != 0) {
+            func_118de0("!!!err!!!(%s,%d)Zone_Ptrs > PS2_MAX_ZONE_SIZE_M(=%d)\n", "obmanager.cpp", 0x145F, 10000);
+        }
+        self->table_138810 = table0;
+        self->table_138814 = table1;
+        self->field_13881C = new_cap;
+    }
 }

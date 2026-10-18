@@ -15,11 +15,11 @@ struct NodePool {
     int capacity_138834;
 };
 
-extern "C" int func_001F1EE0(NodePool *self, void *p1, int count) {
+extern "C" void func_001F1EE0(NodePool *self, void *p1, int count) {
     self->table_138810 = 0;
     self->table_138814 = 0;
-    self->count_138818 = 0;
     self->field_13881C = 1;
+    self->count_138818 = 0;
     self->field_138820 = 0;
     self->field_138824 = -1;
     self->field_138828 = -1;
@@ -27,12 +27,7 @@ extern "C" int func_001F1EE0(NodePool *self, void *p1, int count) {
     self->field_138830 = 0;
     self->capacity_138834 = count;
 
-    func_118DE0((int)(long)"%s(%d) make SonftOb_ArrayList.\n", (int)(long)"obmanager.cpp", 0x13D6);
-    func_1F20E0(self, self->field_13881C);
+    func_118de0("%s(%d) make SonftOb_ArrayList.\n", "obmanager.cpp", 0x13D6);
+    func_001F20E0(self, self->field_13881C);
     func_1F21E0(self, p1);
-    return 1;
-}
-
-extern "C" int func_001F1ED0(NodePool *self, void *p1, int count) {
-    return func_001F1EE0(self, p1, count);
 }

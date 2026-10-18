@@ -67,13 +67,17 @@ void func_100670(void *ptr) {
     g_last_deleted_ptr = ptr;
 }
 
-void *func_118DE0(int format, int file, int line) {
+void *func_118de0(const char *format, const char *file, int line) {
     g_logger_called++;
-    g_logger_fmt = (const char *)(long)format;
-    g_logger_file = (const char *)(long)file;
+    g_logger_fmt = format;
+    g_logger_file = file;
     g_logger_line = line;
     g_event_timeline.push_back("logger");
     return (void *)0xCAFE;
+}
+
+void *func_118DE0(int format, int file, int line) {
+    return func_118de0((const char *)(long)format, (const char *)(long)file, line);
 }
 
 void func_1F20E0(NodePool *self, int val) {
@@ -84,6 +88,10 @@ void func_1F20E0(NodePool *self, int val) {
     rec.ptr_arg = 0;
     g_helper_calls.push_back(rec);
     g_event_timeline.push_back("func_1F20E0");
+}
+
+void func_001F20E0(NodePool *self, int val) {
+    func_1F20E0(self, val);
 }
 
 void func_1F21E0(NodePool *self, void *p1) {
@@ -124,8 +132,7 @@ int main() {
 
     g_event_timeline.clear();
     g_helper_calls.clear();
-    int res = func_001F1EE0((NodePool *)pool, (void *)0x5678, 5000);
-    assert(res == 1);
+    func_001F1EE0((NodePool *)pool, (void *)0x5678, 5000);
     assert(pool->table_138810 == 0);
     assert(pool->table_138814 == 0);
     assert(pool->count_138818 == 0);

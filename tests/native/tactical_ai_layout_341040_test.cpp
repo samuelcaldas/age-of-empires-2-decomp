@@ -11,8 +11,17 @@ static int g_func_33f8b0_called = 0;
 static int g_func_1fbd30_called = 0;
 static int g_last_1fbd30_arg = 0;
 
+static void* custom_vtable[100];
+static void dummy_vfunc_stub(void *self, ...) { (void)self; }
+
 class MockSubObj : public TacticalSubObj {
 public:
+    MockSubObj() {
+        for (int i = 0; i < 100; i++) {
+            custom_vtable[i] = (void*)&dummy_vfunc_stub;
+        }
+        *(void***)this = custom_vtable;
+    }
     void vfunc_00() {}
     char pad[2060];
 };
@@ -81,20 +90,29 @@ static void test_func_342170_mode16_t0_xffff() {
     std::printf("PASS test_func_342170_mode16_t0_xffff\n");
 }
 
-static void test_func_342170_additional_modes() {
+static void test_func_342170_mode0_mode1_assertions() {
     TacticalObj_341040 obj;
 
-    // Test mode 0
+    // Mode 0: should set field_84C = 0, field_83C = 0, and invoke func_00341040 (incrementing g_func_33a730_called)
     std::memset(&obj, 0, sizeof(obj));
     obj.field_84C = 0;
+    int prev_a730 = g_func_33a730_called;
     func_00342170(&obj, 0, 16, 0, 0);
     assert(obj.field_84C == 0);
+    assert(obj.field_83C == 0);
+    assert(g_func_33a730_called > prev_a730);
 
-    // Test mode 1
+    // Mode 1: should set field_84C = 1
     std::memset(&obj, 0, sizeof(obj));
     obj.field_84C = 1;
     func_00342170(&obj, 0, 16, 0, 0);
     assert(obj.field_84C == 1);
+
+    std::printf("PASS test_func_342170_mode0_mode1_assertions\n");
+}
+
+static void test_func_342170_additional_modes() {
+    TacticalObj_341040 obj;
 
     // Test mode 31 with a2 != 1 (early return via func_1FBD30)
     std::memset(&obj, 0, sizeof(obj));
@@ -122,11 +140,46 @@ static void test_func_342170_mode31_early_return_order() {
     std::printf("PASS test_func_342170_mode31_early_return_order\n");
 }
 
+static void test_func_342170_preceding_calls_order() {
+    TacticalObj_341040 obj;
+    std::memset(&obj, 0, sizeof(obj));
+    obj.field_84C = 0;
+    MockSubObj mock_sub;
+    obj.field_838 = &mock_sub;
+    g_func_33a5d0_called = 0;
+    g_func_339900_called = 0;
+
+    func_00342170(&obj, 0, 16, 0, 0);
+    assert(g_func_33a5d0_called == 1);
+    assert(g_func_339900_called == 1);
+
+    std::printf("PASS test_func_342170_preceding_calls_order\n");
+}
+
+static void test_func_342170_mode31_a2_equals_1() {
+    TacticalObj_341040 obj;
+    std::memset(&obj, 0, sizeof(obj));
+    obj.field_84C = 31;
+    g_func_339960_called = 0;
+    g_func_1fbd30_called = 0;
+
+    func_00342170(&obj, 0, 1, 0, 0); // a2 = 1 -> should not early return, should execute mode 31 switch case
+    assert(g_func_1fbd30_called == 0);
+    assert(g_func_339960_called == 1);
+    assert(obj.field_84C == 31);
+    assert(obj.field_83C == 1);
+
+    std::printf("PASS test_func_342170_mode31_a2_equals_1\n");
+}
+
 int main() {
     test_initial_layout_state();
     test_func_342170_mode16_t0_xffff();
     test_func_342170_additional_modes();
+    test_func_342170_mode0_mode1_assertions();
     test_func_342170_mode31_early_return_order();
-    std::printf("ALL TACTICAL AI LAYOUT TESTS PASSED WITH DISCRIMINATING ASSERTIONS\n");
+    test_func_342170_preceding_calls_order();
+    test_func_342170_mode31_a2_equals_1();
+    std::printf("ALL TACTICAL AI LAYOUT TESTS PASSED WITH ALL DISCRIMINATING ASSERTIONS\n");
     return 0;
 }

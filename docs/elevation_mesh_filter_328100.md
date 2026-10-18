@@ -61,9 +61,9 @@ The focused test run comprises **9 passing tests, zero skips**:
   or negative coordinate count, early return on zero descriptor count, null
   entity safety, active entity filtering, and exact callback parameters.
 - Seven production source mutations independently compiled and verified
-  rejected (zero coord count guard, zero self count guard, inverted active
-  check, omitted null check, corrupted entity ID, corrupted tag, frozen coord
-  advancement).
+  rejected (inverted active check, corrupted entity ID, corrupted tag,
+  frozen coordinate advancement, count guard boundary, mesh count guard
+  boundary, and loop boundary off-by-one).
 - One exact matching test compiling fresh with Ninja/MWCC and checking all 292
   relocated instruction bytes against the pinned ELF binary.
 

@@ -20,7 +20,7 @@ extern "C" void func_001F2010(NodePool *self) {
     if (self->table_138810 != 0) {
         for (int i = 0; i < self->count_138818; ++i) {
             if (self->table_138810[i] != 0) {
-                func_117CAC(&self->field_138810, 0, 8);
+                func_117CAC(&self->table_138810, 0, 8);
             }
         }
     }

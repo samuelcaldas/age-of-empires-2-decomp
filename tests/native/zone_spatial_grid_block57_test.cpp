@@ -9,7 +9,7 @@ static void *g_last_deleted_ptr = 0;
 static int g_func_117CAC_called = 0;
 
 struct NodePool {
-    char pad[0x138835];
+    char pad[0x138840];
 };
 
 extern "C" {
@@ -33,9 +33,9 @@ void func_117CAC(void *dst, int val, int size) {
 
 int main() {
     // Test 1: func_001F1ED0 - node pool setup
-    NodePool pool;
-    memset(&pool, 0, sizeof(pool));
-    int res = func_001F1ED0(&pool, (void *)0x1234, 10000);
+    NodePool *pool = new NodePool();
+    memset(pool, 0, sizeof(NodePool));
+    int res = func_001F1ED0(pool, (void *)0x1234, 10000);
     assert(res == 1);
 
     // Test 2: func_001F1FD0 - deleting destructor
@@ -47,7 +47,8 @@ int main() {
     assert(g_last_deleted_ptr == obj);
 
     // Test 3: func_001F2010 - clear pool
-    func_001F2010(&pool);
+    func_001F2010(pool);
 
+    delete pool;
     return 0;
 }

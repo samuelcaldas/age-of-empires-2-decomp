@@ -6,7 +6,12 @@ struct NodePool {
     void **table_138810;
     void *table_138814;
     int count_138818;
-    char pad_after[0x138834 - 0x13881C];
+    int field_13881C;
+    int field_138820;
+    int field_138824;
+    int field_138828;
+    int field_13882C;
+    int field_138830;
     int capacity_138834;
 };
 

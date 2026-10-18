@@ -3,9 +3,9 @@
 
 struct NodePool {
     char pad_00[0x138810];
-    int field_138810;
-    int field_138814;
-    int field_138818;
+    void *table_138810;
+    void *table_138814;
+    int count_138818;
     int field_13881C;
     int field_138820;
     int field_138824;
@@ -16,9 +16,9 @@ struct NodePool {
 };
 
 extern "C" int func_001F1EE0(NodePool *self, void *p1, int count) {
-    self->field_138810 = 0;
-    self->field_138814 = 0;
-    self->field_138818 = 0;
+    self->table_138810 = 0;
+    self->table_138814 = 0;
+    self->count_138818 = 0;
     self->field_13881C = 1;
     self->field_138820 = 0;
     self->field_138824 = -1;

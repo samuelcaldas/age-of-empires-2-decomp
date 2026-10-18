@@ -37,6 +37,8 @@ checks the actual state assertion at offset `3240`; it does not expect return `2
   - `include/trade_action_candidates_extra.h`
   - `src/trade_action_candidates.cpp`
   - `src/trade_action_candidates_extra.cpp`
+  - `include/trade_action_notify.h`
+  - `src/trade_action_notify.cpp`
 - **Status**: Implemented in pure C++ and verified with 36 native tests (25 core candidate behavior cases, 2 experimental func_002B9140 / plan cases, and 9 source mutation checks).
 
 ## Signatures
@@ -109,3 +111,22 @@ int func_002B90A0(void *self, int target_type, int item_id);
 - Resolves entity `item` via `func_00332e60(manager_entity_root(self), item_id)`.
 - Rejects if `!item` or `!pred(item)`.
 - Returns 1 if `func_001471a0(pred(item)) == target_type`, else 0.
+
+## Experimental trade notification routines
+
+`include/trade_action_notify.h` and `src/trade_action_notify.cpp` declare and implement
+`func_002B9770`, `func_002B97D0`, `func_002B9830`, and `func_002B9880`. The object
+remains **NonMatching**. The following behavior describes the current reconstruction,
+not verified original-game semantics:
+
+- `func_002B9770` forwards an item ID and action type to `func_002B9880`.
+- `func_002B97D0` stores a float at `self + 3224`, then follows the same path.
+- `func_002B9830` reads candidate IDs through the pointer at `self + 3168`, using
+  the count at `self + 3172` and limiting reads by the capacity at `self + 3180`.
+- `func_002B9880` checks the exclusion pool at `self + 3184`, resolves the entity,
+  checks its virtual predicate and qualifications, then dispatches `func_002BB100`.
+
+`tests/test_trade_action_notify.py` compiles the actual C++ source as 32-bit native
+code. Its fixture covers excluded and accepted notifications, candidate-ID forwarding,
+and the batch capacity bound. Native fixture results do not verify the original ELF;
+matching and call-order claims still require binary analysis.

@@ -151,6 +151,22 @@ def test_tactical_ai_func_342170_mwcc_compilation(tmp_path):
             None,
         )
         assert unit is not None, "tactical_ai_func_342170 unit not found in objdiff report"
+
+        # Rigorous gate: incomplete functions must NOT be marked complete
         fuzzy = unit.get("measures", {}).get("fuzzy_match_percent", 0.0)
-        assert fuzzy > 0.0, f"Expected non-zero match percent, got {fuzzy}"
+        is_complete = unit.get("metadata", {}).get("complete", False)
+        if fuzzy < 100.0:
+            assert not is_complete, (
+                f"Function is not 100% matched ({fuzzy}%), must remain NonMatching"
+            )
+        else:
+            assert is_complete, "Function achieved 100% match, should be marked complete"
+
+        # Verify target object symbol exists and has expected slice size (1584 bytes)
+        target_fn = next(
+            (f for f in unit.get("functions", []) if f.get("name") == "func_00342170"),
+            None,
+        )
+        assert target_fn is not None, "func_00342170 symbol missing from target unit"
+        assert int(target_fn.get("size", 0)) == 1584, f"Unexpected function size: {target_fn.get('size')}"
 

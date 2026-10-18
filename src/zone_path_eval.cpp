@@ -83,30 +83,35 @@ int func_001C7850(
         int touches_zone = 0;
         int touches_wild = 0;
 
-        if (p_min_y - 1 >= 0) {
-            for (short cur_x = p_min_x - 1; cur_x <= p_max_x + 1; cur_x++) {
-                MapTile *t = &tile_rows[p_min_y - 1][cur_x];
+        short edge_min_x = p_min_x - 1;
+        short edge_max_x = p_max_x + 1;
+        short edge_max_y = p_max_y + 1;
+        short edge_min_y = p_min_y - 1;
+
+        if (edge_min_y >= 0) {
+            for (short cur_x = edge_min_x; cur_x <= edge_max_x; cur_x++) {
+                MapTile *t = &tile_rows[edge_min_y][cur_x];
                 if (t->m_zone_id == bld->m_required_zone) touches_zone = 1;
                 if (t->m_zone_id == 255) touches_wild = 1;
             }
         }
-        if (p_max_x + 1 < map_w) {
+        if (edge_max_x < map_w) {
             for (short cur_y = p_min_y; cur_y <= p_max_y; cur_y++) {
-                MapTile *t = &tile_rows[cur_y][p_max_x + 1];
+                MapTile *t = &tile_rows[cur_y][edge_max_x];
                 if (t->m_zone_id == bld->m_required_zone) touches_zone = 1;
                 if (t->m_zone_id == 255) touches_wild = 1;
             }
         }
-        if (p_max_y + 1 < map_h) {
-            for (short cur_x = p_max_x + 1; cur_x >= p_min_x - 1; cur_x--) {
-                MapTile *t = &tile_rows[p_max_y + 1][cur_x];
+        if (edge_max_y < map_h) {
+            for (short cur_x = edge_max_x; cur_x >= edge_min_x; cur_x--) {
+                MapTile *t = &tile_rows[edge_max_y][cur_x];
                 if (t->m_zone_id == bld->m_required_zone) touches_zone = 1;
                 if (t->m_zone_id == 255) touches_wild = 1;
             }
         }
-        if (p_min_x - 1 >= 0) {
+        if (edge_min_x >= 0) {
             for (short cur_y = p_max_y; cur_y >= p_min_y; cur_y--) {
-                MapTile *t = &tile_rows[cur_y][p_min_x - 1];
+                MapTile *t = &tile_rows[cur_y][edge_min_x];
                 if (t->m_zone_id == bld->m_required_zone) touches_zone = 1;
                 if (t->m_zone_id == 255) touches_wild = 1;
             }

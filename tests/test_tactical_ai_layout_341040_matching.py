@@ -1,6 +1,7 @@
 """Compare tactical AI screen layout functions 0x341040 and 0x342170 with original PS2 instructions and execute native test suite."""
 
 import hashlib
+import json
 import subprocess
 from pathlib import Path
 
@@ -10,10 +11,12 @@ from elftools.elf.elffile import ELFFile
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 SOURCE_PATH = PROJECT_ROOT / "src/tactical_ai_layout_341040.cpp"
+FUNC_342170_SOURCE_PATH = PROJECT_ROOT / "src/tactical_ai_func_342170.cpp"
 ORIGINAL_PATH = PROJECT_ROOT / "orig/SLES-50282/AOK.ELF"
 COMPILER_PATH = PROJECT_ROOT / "compilers/PS2/mwcc-2.3.1.01/mwccps2.exe"
 WRAPPER_PATH = PROJECT_ROOT / "build/tools/wibo"
 LINKER_PATH = PROJECT_ROOT / "build/mips_binutils/mips-linux-gnu-ld"
+OBJDIFF_PATH = PROJECT_ROOT / "build/tools/objdiff-cli"
 TEXT_ADDRESS = 0x341040
 TEXT_SIZE = 5984  # 4388 + 1584 + padding
 SLICE_SIZE = 5984
@@ -81,3 +84,73 @@ def test_tactical_ai_layout_native_runner(tmp_path):
     )
     res = subprocess.run([str(test_bin)], capture_output=True, text=True, check=True)
     assert "ALL TACTICAL AI LAYOUT TESTS PASSED" in res.stdout
+
+
+def test_tactical_ai_func_342170_mwcc_compilation(tmp_path):
+    """Compile func_00342170 with MWCC PS2 toolchain and verify against sliced object."""
+    require_toolchain()
+    compiled_obj = tmp_path / "tactical_ai_func_342170.o"
+    res = subprocess.run(
+        [
+            str(WRAPPER_PATH),
+            str(COMPILER_PATH),
+            "-c",
+            "-O3",
+            "-inline", "on",
+            "-msext", "on",
+            "-char", "signed",
+            "-sym", "off",
+            "-Iinclude",
+            "-lang=c++",
+            str(FUNC_342170_SOURCE_PATH),
+            "-o", str(compiled_obj),
+        ],
+        cwd=PROJECT_ROOT,
+        capture_output=True,
+        text=True,
+        check=True,
+    )
+    assert compiled_obj.is_file(), "MWCC failed to output object file"
+    assert compiled_obj.stat().st_size > 0, "MWCC produced empty object file"
+
+    # Also build to project base_path for objdiff tracking
+    base_obj = PROJECT_ROOT / "build/SLES-50282/src/tactical_ai_func_342170.o"
+    base_obj.parent.mkdir(parents=True, exist_ok=True)
+    subprocess.run(
+        [
+            str(WRAPPER_PATH),
+            str(COMPILER_PATH),
+            "-c",
+            "-O3",
+            "-inline", "on",
+            "-msext", "on",
+            "-char", "signed",
+            "-sym", "off",
+            "-Iinclude",
+            "-lang=c++",
+            str(FUNC_342170_SOURCE_PATH),
+            "-o", str(base_obj),
+        ],
+        cwd=PROJECT_ROOT,
+        capture_output=True,
+        text=True,
+        check=True,
+    )
+
+    if OBJDIFF_PATH.is_file():
+        rep = subprocess.run(
+            [str(OBJDIFF_PATH), "report", "generate"],
+            cwd=PROJECT_ROOT,
+            capture_output=True,
+            text=True,
+            check=True,
+        )
+        report_data = json.loads(rep.stdout)
+        unit = next(
+            (u for u in report_data.get("units", []) if "tactical_ai_func_342170" in u.get("name", "")),
+            None,
+        )
+        assert unit is not None, "tactical_ai_func_342170 unit not found in objdiff report"
+        fuzzy = unit.get("measures", {}).get("fuzzy_match_percent", 0.0)
+        assert fuzzy > 0.0, f"Expected non-zero match percent, got {fuzzy}"
+

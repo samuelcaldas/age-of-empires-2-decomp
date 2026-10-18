@@ -4719,6 +4719,36 @@ if config.platform == Platform.PS2:
                 ),
                 Object(
                     NonMatching,
+                    "zone_spatial_grid_filter_items",
+                    cflags=config.cflags,
+                    toolchain_version="PS2/mwcc-2.3.1.01",
+                ),
+                Object(
+                    NonMatching,
+                    "zone_spatial_grid_get_instance",
+                    cflags=config.cflags,
+                    toolchain_version="PS2/mwcc-2.3.1.01",
+                ),
+                Object(
+                    NonMatching,
+                    "zone_spatial_grid_reset_query_state",
+                    cflags=config.cflags,
+                    toolchain_version="PS2/mwcc-2.3.1.01",
+                ),
+                Object(
+                    NonMatching,
+                    "zone_spatial_grid_release_or_cleanup",
+                    cflags=config.cflags,
+                    toolchain_version="PS2/mwcc-2.3.1.01",
+                ),
+                Object(
+                    NonMatching,
+                    "zone_spatial_grid_clear_tables",
+                    cflags=config.cflags,
+                    toolchain_version="PS2/mwcc-2.3.1.01",
+                ),
+                Object(
+                    NonMatching,
                     "unit_action_core",
                     cflags=config.cflags,
                     toolchain_version="PS2/mwcc-2.3.1.01",

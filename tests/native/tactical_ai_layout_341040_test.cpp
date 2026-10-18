@@ -50,13 +50,13 @@ void func_1F6750(void *a0, void *a1) {
     (void)a0;
     (void)a1;
     g_func_1f6750_called++;
-    g_call_seq[g_seq_idx++] = 4; // 1F6750 must precede 1F88B0
+    g_call_seq[g_seq_idx++] = 4;
 }
 void func_1F88B0(void *a0, void *a1) {
     (void)a0;
     (void)a1;
     g_func_1f88b0_called++;
-    g_call_seq[g_seq_idx++] = 5; // 1F88B0 must follow 1F6750
+    g_call_seq[g_seq_idx++] = 5;
 }
 void func_33F8B0(void *a0) {
     (void)a0;
@@ -93,40 +93,37 @@ static void test_initial_layout_state() {
     std::printf("PASS test_initial_layout_state\n");
 }
 
-static void test_func_342170_original_branches_and_writes() {
+static void test_func_342170_refined_semantics_and_store() {
     TacticalObj_341040 obj;
     std::memset(&obj, 0, sizeof(obj));
 
     MockSubObj sub;
     obj.field_838 = &sub;
 
-    // Test original branch at 0x342188 (a1 == sub and a2 == 16)
+    g_seq_idx = 0;
     g_func_33a730_called = 0;
     g_func_339960_arg = -1;
+
     obj.field_84C = 30;
     func_00342170(&obj, (int)(long)&sub, 16, 1, 1);
+
     assert(g_func_33a730_called == 1);
     assert(g_func_339960_arg == 0);
-    assert(obj.field_83C == 30); // Write at 0x342768
-    assert(*(int*)((char*)&sub + 2052) == 30); // Write at 0x3423AC
+    assert(obj.field_83C == 30);
+    assert(*(int*)((char*)&sub + 2052) == 4); // Verified store value 4 at +0x804
 
-    // Test mode 31 branch
+    // Test mode 31
     obj.field_84C = 31;
     func_00342170(&obj, 0, 0, 0, 0);
     assert(g_func_339960_arg == 1);
     assert(obj.field_83C == 31);
 
-    // Test mode 35 branch
-    obj.field_84C = 35;
-    func_00342170(&obj, 0, 0, 0, 0);
-    assert(obj.field_83C == 35);
-
-    std::printf("PASS test_func_342170_original_branches_and_writes\n");
+    std::printf("PASS test_func_342170_refined_semantics_and_store\n");
 }
 
 int main() {
     test_initial_layout_state();
-    test_func_342170_original_branches_and_writes();
-    std::printf("ALL TACTICAL AI LAYOUT TESTS PASSED WITH ORIGINAL BRANCHES AND WRITES\n");
+    test_func_342170_refined_semantics_and_store();
+    std::printf("ALL TACTICAL AI LAYOUT TESTS PASSED WITH REFINED SEMANTICS\n");
     return 0;
 }

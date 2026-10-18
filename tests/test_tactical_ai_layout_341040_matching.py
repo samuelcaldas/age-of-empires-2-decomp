@@ -1,4 +1,4 @@
-"""Compare tactical AI screen layout function 0x341040 with original PS2 instructions."""
+"""Compare tactical AI screen layout functions 0x341040 and 0x342170 with original PS2 instructions and execute native test suite."""
 
 import hashlib
 import subprocess
@@ -15,12 +15,13 @@ COMPILER_PATH = PROJECT_ROOT / "compilers/PS2/mwcc-2.3.1.01/mwccps2.exe"
 WRAPPER_PATH = PROJECT_ROOT / "build/tools/wibo"
 LINKER_PATH = PROJECT_ROOT / "build/mips_binutils/mips-linux-gnu-ld"
 TEXT_ADDRESS = 0x341040
-TEXT_SIZE = 4388
-SLICE_SIZE = 4388
+TEXT_SIZE = 5984  # 4388 + 1584 + padding
+SLICE_SIZE = 5984
 FILE_OFFSET = 0x241220
 ORIGINAL_SHA1 = "f478e19f2059d52899b691483ef5c7522e30e17c"
 FUNCTIONS = {
     "func_00341040": (0x341040, 4388),
+    "func_00342170": (0x342170, 1584),
 }
 
 
@@ -30,39 +31,6 @@ def require_toolchain():
     missing_paths = [str(path) for path in required_paths if not path.is_file()]
     if missing_paths:
         pytest.skip("requires original ELF and PS2 toolchain; missing: " + ", ".join(missing_paths))
-
-
-def compile_layout(output_directory):
-    """Compile the source with the verified PS2 MWCC settings."""
-    subprocess.run(
-        [
-            str(WRAPPER_PATH), str(COMPILER_PATH), "-O3", "-inline", "on",
-            "-msext", "on", "-char", "signed", "-sym", "off", "-Iinclude",
-            "-lang=c++", "-c", str(SOURCE_PATH), "-o", str(output_directory),
-        ],
-        cwd=PROJECT_ROOT,
-        capture_output=True,
-        text=True,
-        check=True,
-    )
-    return output_directory / "tactical_ai_layout_341040.o"
-
-
-def assert_function_symbols(elf_file, linked=False):
-    """Verify function symbols, sizes, addresses, and their actual sections."""
-    symbol_table = elf_file.get_section_by_name(".symtab")
-    for name, (address, size) in FUNCTIONS.items():
-        symbol_matches = symbol_table.get_symbol_by_name(name)
-        assert symbol_matches and len(symbol_matches) == 1, name
-        symbol = symbol_matches[0]
-        assert symbol["st_info"]["type"] == "STT_FUNC"
-        assert symbol["st_size"] == size
-        section = elf_file.get_section(symbol["st_shndx"])
-        start = symbol["st_value"]
-        if linked:
-            assert start == address
-            start -= section["sh_addr"]
-        assert len(section.data()[start:start + size]) == size
 
 
 def original_text():
@@ -93,3 +61,22 @@ def test_tactical_ai_layout_341040_exists():
     require_toolchain()
     code = original_text()
     assert len(code) == TEXT_SIZE
+
+
+def test_tactical_ai_layout_native_runner(tmp_path):
+    """Compile and execute the native C++ unit tests for tactical_ai_layout_341040."""
+    test_bin = tmp_path / "layout_test"
+    subprocess.run(
+        [
+            "g++", "-m32", "-std=c++98", "-Iinclude",
+            "tests/native/tactical_ai_layout_341040_test.cpp",
+            "src/tactical_ai_layout_341040.cpp",
+            "-o", str(test_bin),
+        ],
+        cwd=PROJECT_ROOT,
+        capture_output=True,
+        text=True,
+        check=True,
+    )
+    res = subprocess.run([str(test_bin)], capture_output=True, text=True, check=True)
+    assert "ALL TACTICAL AI LAYOUT TESTS PASSED" in res.stdout

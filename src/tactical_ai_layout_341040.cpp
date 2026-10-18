@@ -175,22 +175,20 @@ void func_00341040(TacticalObj_341040 *self) {
     }
 }
 
-// 0x342170 to 0x342798 port with exact signature (self, a1, a2, a3, t0)
+// 0x342170 to 0x342798 port with exact signature and refined 0x3421C0 / 0x342740/0x342744 semantics
 void func_00342170(TacticalObj_341040 *self, int a1, int a2, int a3, int t0) {
     if (!self) return;
 
-    // 0x34217C: check field_838 and call func_33A5D0
+    // 0x34217C - 0x3421C0: check field_838 and call func_33A5D0
     TacticalSubObj *sub838 = self->field_838;
     if (sub838) {
         func_33A5D0(sub838, a1);
     }
 
-    // 0x342188 - 0x342194: compare a1 with field_838 and a2 with 16
     if (a1 == (int)(long)sub838 && a2 == 16) {
         func_33A730();
     }
 
-    // 0x3421AC: use a3
     if (a3 > 0) {
         func_33F8B0(self);
     }
@@ -198,7 +196,6 @@ void func_00342170(TacticalObj_341040 *self, int a1, int a2, int a3, int t0) {
     int mode = self->field_84C;
     int f840 = self->field_840;
 
-    // Jump-table / switch dispatch matching 0x342170 - 0x342798
     switch (mode) {
     case 30:
         self->field_83C = 1;
@@ -228,20 +225,18 @@ void func_00342170(TacticalObj_341040 *self, int a1, int a2, int a3, int t0) {
         break;
     }
 
-    // 0x3423AC: write state and subobject +0x804
+    // 0x3423AC / 0x342744: write state and subobject +0x804 (delay slot store modeling)
     self->field_84C = mode;
     if (sub838) {
-        *(int*)((char*)sub838 + 2052) = mode; // +0x804
+        *(int*)((char*)sub838 + 2052) = 4; // value 4 loaded at 0x342738, stored at 0x342744
     }
 
-    // t0 usage at 0x3425B4, 0x3425FC, 0x342678
     if (t0 == 1) {
         func_219BA0(self, 10);
     } else if (t0 == 2) {
         func_1FBD30(self, 20);
     }
 
-    // Subobject interactions
     TacticalSubObj *sub830 = self->field_830;
     if (sub830) {
         ((VFunc_28)(*(void***)sub830)[7])(sub830, 1);
@@ -252,10 +247,8 @@ void func_00342170(TacticalObj_341040 *self, int a1, int a2, int a3, int t0) {
         ((VFunc_28)(*(void***)sub834)[7])(sub834, 0);
     }
 
-    // 0x342768: write field_83C
     self->field_83C = mode;
 
-    // Strict call order at 0x342738: func_1F6750 then func_1F88B0
     func_1F6750(self, sub838);
     func_1F88B0(self, sub838);
 }

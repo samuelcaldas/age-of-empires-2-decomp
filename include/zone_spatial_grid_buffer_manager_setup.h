@@ -1,0 +1,8 @@
+#ifndef ZONE_SPATIAL_GRID_BUFFER_MANAGER_SETUP_H
+#define ZONE_SPATIAL_GRID_BUFFER_MANAGER_SETUP_H
+
+extern "C" {
+void func_001ECBE0(void *self, void *buffer);
+}
+
+#endif // ZONE_SPATIAL_GRID_BUFFER_MANAGER_SETUP_H

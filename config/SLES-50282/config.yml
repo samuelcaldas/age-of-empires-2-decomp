@@ -4948,6 +4948,12 @@ segments:
     vram: 0x21DF50
     subsegments:
       - [0x11DF50, asm, trade_action_helper_21DF50]
+  - name: trade_action_helper_21E090
+    type: code
+    start: 0x11E090
+    vram: 0x21E090
+    subsegments:
+      - [0x11E090, asm, trade_action_helper_21E090]
   - name: trade_action_helper_21E0D0
     type: code
     start: 0x11E0D0

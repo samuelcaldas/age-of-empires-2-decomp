@@ -4881,6 +4881,24 @@ if config.platform == Platform.PS2:
                 ),
                 Object(
                     NonMatching,
+                    "zone_spatial_grid_test_cell_items",
+                    cflags=config.cflags,
+                    toolchain_version="PS2/mwcc-2.3.1.01",
+                ),
+                Object(
+                    NonMatching,
+                    "zone_spatial_grid_test_cell_raycast",
+                    cflags=config.cflags,
+                    toolchain_version="PS2/mwcc-2.3.1.01",
+                ),
+                Object(
+                    NonMatching,
+                    "zone_spatial_grid_intersect_segments_2d",
+                    cflags=config.cflags,
+                    toolchain_version="PS2/mwcc-2.3.1.01",
+                ),
+                Object(
+                    NonMatching,
                     "unit_action_core",
                     cflags=config.cflags,
                     toolchain_version="PS2/mwcc-2.3.1.01",

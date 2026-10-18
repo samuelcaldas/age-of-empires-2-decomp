@@ -48,14 +48,18 @@ int func_00342170(TacticalObj_341040 *self, int a1, int a2, int a3, int t0) {
 
     if ((TacticalSubObj*)a1 == self->field_834) {
         switch (self->field_84C) {
-        case 14:
-            if (self->field_840 == 2 || (self->field_840 >= 4 && self->field_840 <= 6)) {
-                self->field_84C = 18;
+        case 14: {
+            int m = 18;
+            if (self->field_840 == 2) {
+            } else if ((unsigned)(self->field_840 - 4) < 3) {
+                m = 18;
             } else {
-                self->field_84C = 17;
+                m = 17;
             }
+            self->field_84C = m;
             func_00341040(self);
             return 1;
+        }
         case 15:
             if (self->field_840 == 2 || self->field_840 == 4) {
                 self->field_84C = 18;
@@ -68,14 +72,18 @@ int func_00342170(TacticalObj_341040 *self, int a1, int a2, int a3, int t0) {
                 }
                 return 1;
             }
-        case 20:
-            if (self->field_840 == 2 || (self->field_840 >= 4 && self->field_840 <= 6)) {
-                self->field_84C = 18;
+        case 20: {
+            int m = 18;
+            if (self->field_840 == 2) {
+            } else if ((unsigned)(self->field_840 - 4) < 3) {
+                m = 18;
             } else {
-                self->field_84C = 17;
+                m = 17;
             }
+            self->field_84C = m;
             func_00341040(self);
             return 1;
+        }
         case 18:
         case 21:
         case 22:
@@ -202,7 +210,7 @@ int func_00342170(TacticalObj_341040 *self, int a1, int a2, int a3, int t0) {
             }
             return 1;
         case 14:
-            if (self->field_840 == 2 || (self->field_840 >= 4 && self->field_840 <= 6)) {
+            if (self->field_840 == 2 || (unsigned)(self->field_840 - 4) < 3) {
                 self->field_84C = 12;
                 func_00341040(self);
                 return 1;
@@ -251,7 +259,7 @@ int func_00342170(TacticalObj_341040 *self, int a1, int a2, int a3, int t0) {
             func_00341040(self);
             return 1;
         case 20:
-            if (self->field_840 == 2 || (self->field_840 >= 4 && self->field_840 <= 6)) {
+            if (self->field_840 == 2 || (unsigned)(self->field_840 - 4) < 3) {
                 self->field_84C = 17;
                 func_00341040(self);
                 return 1;

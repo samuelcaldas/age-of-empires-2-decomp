@@ -11,6 +11,9 @@ void func_36ACC0(int a0) { (void)a0; }
 int func_1F6EA0(int a0, int a1) { (void)a0; (void)a1; return 0; }
 void *func_36C000(int a0) { (void)a0; return nullptr; }
 void func_11A498(void *dst, void *src, int a2) { (void)dst; (void)src; (void)a2; }
+char *func_33F820(void *a0) { (void)a0; static char mock_path[] = "host:/test/path"; return mock_path; }
+char *func_33F8A0(void *a0) { (void)a0; static char mock_path[] = "host:/test/path"; return mock_path; }
+int func_11ACD0(const char *s) { (void)s; return 15; }
 
 extern const char aBesles50282age2G[] = "BESLES-50282age2_g??";
 extern const char aBesles50282age2S[] = "BESLES-50282age2_s??";
@@ -24,6 +27,43 @@ static void test_initial_layout_state() {
     // Valid null execution
     func_00341040(&obj);
     std::printf("PASS test_initial_layout_state\n");
+}
+
+static void test_case_1_flow() {
+    TacticalObj_341040 obj;
+    std::memset(&obj, 0, sizeof(obj));
+    obj.field_84C = 1;
+    obj.field_840 = 0;
+    func_00341040(&obj);
+
+    obj.field_840 = 1;
+    func_00341040(&obj);
+    std::printf("PASS test_case_1_flow\n");
+}
+
+static void test_case_2_3_flow() {
+    TacticalObj_341040 obj;
+    std::memset(&obj, 0, sizeof(obj));
+    obj.field_84C = 2;
+    obj.field_840 = 2;
+    func_00341040(&obj);
+
+    obj.field_84C = 3;
+    obj.field_840 = 1;
+    func_00341040(&obj);
+    std::printf("PASS test_case_2_3_flow\n");
+}
+
+static void test_case_4_to_11_flow() {
+    TacticalObj_341040 obj;
+    std::memset(&obj, 0, sizeof(obj));
+
+    for (int c = 4; c <= 11; c++) {
+        obj.field_84C = c;
+        obj.field_840 = 2;
+        func_00341040(&obj);
+    }
+    std::printf("PASS test_case_4_to_11_flow\n");
 }
 
 static void test_case_12_13_flow() {
@@ -109,6 +149,9 @@ static void test_case_25_to_29_flow() {
 
 int main() {
     test_initial_layout_state();
+    test_case_1_flow();
+    test_case_2_3_flow();
+    test_case_4_to_11_flow();
     test_case_12_13_flow();
     test_case_14_15_16_flow();
     test_case_17_18_19_flow();

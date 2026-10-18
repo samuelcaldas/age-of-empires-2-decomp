@@ -8,8 +8,13 @@ ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / "src/mode_query_tertiary_329130.cpp"
 NATIVE_TEST = ROOT / "tests/native/mode_query_tertiary_329130_test.cpp"
 MUTATIONS = [
-    ("invert_active", "if (self->m_active == 0)", "if (self->m_active != 0)", "early_exits", "early exit inactive mode failed"),
-    ("wrong_ret", "return self->m_field_8 + self->m_field_C + self->m_field_10;", "return 0;", "active_query", "active query execution failed"),
+    ("invert_global_guard", "if (!D_004E2EA0)", "if (D_004E2EA0)", "null_global", "null global guard return 0 failed"),
+    ("invert_func_1A5010", "if (func_1A5010(self, a1, a2, &x, &y, &extra))", "if (!func_1A5010(self, a1, a2, &x, &y, &extra))", "active_query", "active query secondary call count failed"),
+    ("corrupt_h_offset", "float h = 0.5f;", "float h = 0.0f;", "active_query", "active query secondary fx coordinate mismatch"),
+    ("corrupt_mask", "res = (unsigned char)mgr->query(0, h + x, h + y);", "res = (int)mgr->query(0, h + x, h + y);", "active_query", "active query return value masking failed"),
+    ("omit_notify", "((GlobalContextNotify *)D_004E3180)->notify(0, 0);", "/* omitted */", "rejected_query", "rejected query must call global notify"),
+    ("corrupt_notify_arg", "((GlobalContextNotify *)D_004E3180)->notify(0, 0);", "((GlobalContextNotify *)D_004E3180)->notify(1, 0);", "rejected_query", "rejected query global notify arg1 mismatch"),
+    ("corrupt_return", "return res;", "return (res == 0);", "active_query", "active query return value masking failed"),
 ]
 
 
@@ -36,7 +41,7 @@ def run_native(binary, arg=None):
 
 
 def test_mode_query_reference_contract(tmp_path):
-    """Check guard clauses, active query execution, and field updates."""
+    """Check guard clauses, active query execution, secondary dispatch, and global notify."""
     binary = tmp_path / "mode_query_test"
     compile_native(SOURCE, binary)
     result = run_native(binary)

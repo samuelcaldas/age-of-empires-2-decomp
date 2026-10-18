@@ -20,6 +20,13 @@ RUNNER = ROOT / "build/tools/wibo"
 ADDRESS = 0x329130
 SIZE = 0xB4  # 180 bytes
 
+GP_VALUE = 0x4EA7C0
+SYMBOLS_MAP = {
+    "D_004E2EA0": 0x4E2EA0,
+    "func_1A5010": 0x1A5010,
+    "D_004E3180": 0x4E3180,
+}
+
 
 def build_object(tmp_path):
     """Build a new object through Ninja with verified MWCC PS2 flags."""
@@ -38,8 +45,44 @@ def build_object(tmp_path):
     return output
 
 
+def relocate_entry(data, relocation, symbols):
+    """Resolve R_MIPS_26 call or R_MIPS_GPREL16 relocations."""
+    name = symbols.get_symbol(relocation["r_info_sym"]).name
+    assert name in SYMBOLS_MAP, f"Unexpected relocation symbol: {name}"
+    target = SYMBOLS_MAP[name]
+    offset = relocation["r_offset"]
+    rel_type = relocation["r_info_type"]
+
+    if rel_type == 4:  # R_MIPS_26
+        word = struct.unpack_from("<I", data, offset)[0]
+        struct.pack_into("<I", data, offset, (word & 0xFC000000) | (target >> 2))
+    elif rel_type == 7:  # R_MIPS_GPREL16
+        gp_offset = (target - GP_VALUE) & 0xFFFF
+        struct.pack_into("<H", data, offset, gp_offset)
+    else:
+        raise ValueError(f"Unsupported relocation type: {rel_type}")
+
+
+def relocate_table(elf, section, data):
+    """Resolve all entries in one code relocation table."""
+    symbols = elf.get_section(section["sh_link"])
+    relocations = list(section.iter_relocations())
+    for relocation in relocations:
+        relocate_entry(data, relocation, symbols)
+    return len(relocations)
+
+
+def relocate_function(elf, section_index, data):
+    """Select relocations by section index, handling MWCC .text sections."""
+    count = 0
+    for section in elf.iter_sections():
+        if section["sh_type"] == "SHT_REL" and section["sh_info"] == section_index:
+            count += relocate_table(elf, section, data)
+    assert count == 3, f"Expected exactly 3 relocations, found {count}"
+
+
 def function_bytes(path):
-    """Extract symbol code and verify exact size."""
+    """Extract symbol code and verify exact size and relocation resolution."""
     with path.open("rb") as stream:
         elf = ELFFile(stream)
         symbols = elf.get_section_by_name(".symtab")
@@ -47,6 +90,7 @@ def function_bytes(path):
         assert symbol["st_size"] == SIZE
         section_index = symbol["st_shndx"]
         data = bytearray(elf.get_section(section_index).data())
+        relocate_function(elf, section_index, data)
         start = symbol["st_value"]
         return bytes(data[start:start + SIZE])
 

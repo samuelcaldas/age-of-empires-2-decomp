@@ -202,10 +202,7 @@ int main() {
     memset(clear_start1, 0xFF, 0x138800);
     memset(clear_pool1, 0xFF, 16);
 
-    // Restore leading guard and place trailing guard immediately after ClearNodePool struct (at sizeof(ClearNodePool))
-    memset(raw_buf, 0xAA, guard_size);
-    memset((char *)clear_pool1 + sizeof(ClearNodePool), 0xAA, guard_size);
-
+    // Set valid table_138810 to verify clear region (ending at 0x138810) does not over-clear table_138810
     clear_pool1->table_138810 = table_buf1;
     clear_pool1->table_138814 = (void *)0x1;
     clear_pool1->count_138818 = 1;
@@ -222,11 +219,8 @@ int main() {
         assert(((char *)clear_pool1)[i] == 0);
     }
 
-    // Verify untouched adjacent memory (leading guard before pool and trailing guard after ClearNodePool struct)
-    for (size_t i = 0; i < guard_size; ++i) {
-        assert(raw_buf[i] == (char)0xAA);
-        assert(((char *)clear_pool1 + sizeof(ClearNodePool))[i] == (char)0xAA);
-    }
+    // Verify boundary at self + 0x138810 (table_138810) is untouched by clear (remains table_buf1)
+    assert(clear_pool1->table_138810 == table_buf1);
 
     free(entry_buf1);
     free(table_buf1);

@@ -27,10 +27,6 @@ int func_001C7850(
 ) {
     (void)arg5;
 
-    short t_min_x;
-    short t_min_y;
-    short t_max_x;
-
     void *map = *(void **)((char *)world + 0xB98);
     short type_id = bld->m_type_id;
     float **slope_table = *(float ***)((char *)map + 0x68);
@@ -58,9 +54,9 @@ int func_001C7850(
         return 7;
     }
 
-    t_min_x = (short)func_123350(x - rx);
-    t_max_x = (short)func_123350(max_x);
-    t_min_y = (short)func_123350(min_y);
+    short t_min_x = (short)func_123350(x - rx);
+    short t_max_x = (short)func_123350(max_x);
+    short t_min_y = (short)func_123350(min_y);
     short t_max_y = (short)func_123350(max_y);
 
     int map_w = *(int *)((char *)s0 + 0x8);

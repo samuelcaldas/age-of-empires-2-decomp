@@ -74,17 +74,30 @@ int main() {
     int res_neg_y = func_001C7850(&bld, world_buf, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10.0f, -5.0f);
     assert(res_neg_y == 7);
 
-    // Behavioral test 4: slope threshold exceeded on boundary tile must return 3
+    // Behavioral test 4: slope threshold exceeded on boundary tile (cur_x == t_min_x || cur_y == t_max_y)
+    // ELF 0x73C..0x778: base_tile is [t_max_y][t_min_x] ([10][9]).
     bld.m_placement_type = 3;
-    grid_tiles[9][9].m_slope_flag = 0;  // base tile slope
-    grid_tiles[9][10].m_slope_flag = 5; // steep slope on boundary exceeding base + 1
+    grid_tiles[10][9].m_slope_flag = 0;  // base tile slope
+    grid_tiles[9][9].m_slope_flag = 5;   // steep slope on boundary tile (cur_x == t_min_x) exceeding base + 1
     int res_slope_fail = func_001C7850(&bld, world_buf, 0, 0, 1, 0, 0, 0, 0, 0, 0, 10.0f, 10.0f);
     assert(res_slope_fail == 3);
 
     // Behavioral test 5: slope within threshold must succeed (not return 3)
-    grid_tiles[9][10].m_slope_flag = 1; // within [base - 1, base + 1]
+    grid_tiles[9][9].m_slope_flag = 1; // within [base - 1, base + 1]
     int res_slope_pass = func_001C7850(&bld, world_buf, 0, 0, 1, 0, 0, 0, 0, 0, 0, 10.0f, 10.0f);
     assert(res_slope_pass == 0);
+
+    // ELF 0x500..0x508: base slope is indexed at tile_rows[t_max_y][t_min_x] (grid_tiles[10][9]).
+    // Set base slope at [10][9] to 4 (valid range [3..5]).
+    // Boundary tiles [9][9] and [10][10] slope 4 must pass.
+    grid_tiles[10][9].m_slope_flag = 4;
+    grid_tiles[9][9].m_slope_flag = 4;
+    grid_tiles[10][10].m_slope_flag = 4;
+    int res_base_max_y = func_001C7850(&bld, world_buf, 0, 0, 1, 0, 0, 0, 0, 0, 0, 10.0f, 10.0f);
+    assert(res_base_max_y == 0);
+    grid_tiles[10][9].m_slope_flag = 0;
+    grid_tiles[9][9].m_slope_flag = 0;
+    grid_tiles[10][10].m_slope_flag = 0;
 
     // ELF 0x1C7E7C..0x1C7EB8: flag1 consults the singleton at +0x1C8. Mode 7 sets the
     // flag without calling func_1378c0. Otherwise only the low byte of the result counts (andi 0xFF).
@@ -110,6 +123,18 @@ int main() {
     assert(res_mode_seven == 0);
     assert(g_zone_query_calls == 0);
     D_004E3180 = 0;
+
+    // Behavioral test 6: Diagonal gate (0x299) at non-equal x/y map coordinates (x=20, y=50).
+    // ELF 0x1C7DD8..0x1C7DFC checks cur_x - t_min_x == cur_y - t_min_y.
+    // Tile (cur_x=19, cur_y=49) is on the diagonal; with impassable slope limit (0.0f),
+    // func_001C7850 must detect the obstruction and return 2.
+    bld.m_id = 0x299;
+    grid_tiles[49][19].m_zone_id = 10;
+    slope_limits[10] = 0.0f;
+    int res_diag_gate = func_001C7850(&bld, world_buf, 0, 0, 0, 0, 0, 0, 0, 0, 0, 20.0f, 50.0f);
+    assert(res_diag_gate == 2);
+    slope_limits[10] = 1.0f;
+    bld.m_id = 0;
 
     return 0;
 }

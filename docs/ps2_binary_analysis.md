@@ -4377,12 +4377,13 @@ Directly beginning the `aoe2` fixed address range (`0x1C7330`–`0x2665B0`) sits
 
 | Measurement (MWCC 2.3.1.01, `-O3 -inline on -msext on -char signed`) | Value |
 |---|---|
-| objdiff fuzzy score | 67.80% |
-| Aligned rows equal / total target instructions (779) | 329 / 779 |
+| objdiff fuzzy score | 72.08% |
+| Aligned rows equal / total target instructions (779) | 328 / 779 |
+| Aligned deletions / replacements | 97 / 49 |
 
-Original-binary facts now followed by the source: `flag1`/`flag2` are loaded with `lbu`, the `func_1378c0` result is masked with `andi 0xFF`, the `D_004E3180` singleton (`+0x1C8 == 7` mode check) is dereferenced without a null check, and tile terrain/slope are narrowed to signed short. Known remaining difference: the target keeps the placement flag in `$fp`, while the emitted code spills it to the stack, so register allocation diverges.
+Original-binary facts now followed by the source: `flag1`/`flag2` loaded with `lbu`, `func_1378c0` masked with `andi 0xFF`, `D_004E3180` dereferenced without null check, tile terrain/slope narrowed to signed short, outer loop `cur_x` with inner loop `cur_y`, base slope tile indexed at `[t_max_y][t_min_x]`, diagonal gate formulas `cur_x - t_min_x == cur_y - t_min_y` and `t_max_x - cur_x == cur_y - t_min_y`, placement type 3 boundary checks `cur_x == t_min_x || cur_y == t_max_y`, and elimination of tile pointer lifetime across `func_1378c0`.
 
-Native regression: `tests/native/zone_path_eval_test.cpp` (bounds, slope, query low-byte, singleton mode 7).
+Native regression: `tests/native/zone_path_eval_test.cpp` (bounds, slope boundary/base, query low-byte, singleton mode 7, diagonal gate obstructions).
 
 #### 6.170 `Zone Path Queries & Position Clamping` Subsystem (`0x1C8490`–`0x1C8C20`, `zone_path_queries.cpp`)
 

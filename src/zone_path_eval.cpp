@@ -126,26 +126,20 @@ int func_001C7850(
 
     int fp_flag = 0;
 
-    int y_min_val = t_min_y;
-    int y_max_val = t_max_y;
-    MapTile *base_tile = &tile_rows[t_min_y][t_min_x];
+    MapTile *base_tile = &tile_rows[t_max_y][t_min_x];
     short base_slope = base_tile->m_slope_flag;
     short min_slope = (short)(base_slope - 1);
     short max_slope = (short)(base_slope + 1);
 
-    for (int cur_y = y_min_val; cur_y <= y_max_val; cur_y++) {
-        int dy = cur_y - t_min_y;
-        int dx = y_min_val - cur_y;
-        for (int cur_x = t_min_x; cur_x <= t_max_x; cur_x++) {
+    for (short cur_x = t_min_x; cur_x <= t_max_x; cur_x++) {
+        for (short cur_y = t_min_y; cur_y <= t_max_y; cur_y++) {
             if (bld->m_id == 0x299 || bld->m_id == 0x29A) {
-                if (cur_x - t_max_y != dy) continue;
+                if (cur_x - t_min_x != cur_y - t_min_y) continue;
             } else if ((unsigned short)(bld->m_id - 0x2A1) < 2) {
-                if (cur_x - t_max_y != dx) continue;
+                if (t_max_x - cur_x != cur_y - t_min_y) continue;
             }
 
-            MapTile *t = &tile_rows[cur_y][cur_x];
-
-            if (slope_limits[t->m_zone_id] <= 0.0f) {
+            if (slope_limits[tile_rows[cur_y][cur_x].m_zone_id] <= 0.0f) {
                 return 2;
             }
 
@@ -161,11 +155,11 @@ int func_001C7850(
             }
 
             if (flag2) {
-                short terrain = t->m_terrain;
-                short slope = t->m_slope_flag;
+                short terrain = tile_rows[cur_y][cur_x].m_terrain;
+                short slope = tile_rows[cur_y][cur_x].m_slope_flag;
 
                 if (bld->m_placement_type == 3) {
-                    if (cur_y == t_min_y || cur_x == t_max_x) {
+                    if (cur_x == t_min_x || cur_y == t_max_y) {
                         if (slope < min_slope || slope > max_slope) return 3;
                     }
                 } else if (bld->m_placement_type == 2) {

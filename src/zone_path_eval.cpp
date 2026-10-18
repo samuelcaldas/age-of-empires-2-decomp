@@ -1,6 +1,8 @@
 #pragma exceptions off
 #include "zone_path_eval.h"
 
+extern void *D_004E3180;
+
 extern "C" {
 int func_123350(float val);
 int func_1378c0(void *map_zone, int x, int y);
@@ -108,13 +110,23 @@ int func_001C7850(
         }
     }
 
+    int y_min_val = t_min_y;
+    int y_max_val = t_max_y;
     MapTile *base_tile = &tile_rows[t_min_y][t_min_x];
     int base_slope = base_tile->m_slope_flag;
     int min_slope = base_slope - 1;
     int max_slope = base_slope + 1;
 
-    for (int cur_y = t_min_y; cur_y <= t_max_y; cur_y++) {
+    for (int cur_y = y_min_val; cur_y <= y_max_val; cur_y++) {
+        int dy = cur_y - t_min_y;
+        int dx = y_min_val - cur_y;
         for (int cur_x = t_min_x; cur_x <= t_max_x; cur_x++) {
+            if (bld->m_id == 0x299 || bld->m_id == 0x29A) {
+                if (cur_x - t_max_y == dy) continue;
+            } else if ((unsigned short)(bld->m_id - 0x2A1) < 2) {
+                if (cur_x - t_max_y == dx) continue;
+            }
+
             MapTile *t = &tile_rows[cur_y][cur_x];
 
             if (slope_limits[t->m_zone_id] <= 0.0f) {
@@ -122,9 +134,13 @@ int func_001C7850(
             }
 
             if (flag1) {
-                void *zone_mgr = *(void **)((char *)world + 0xB94);
-                if (func_1378c0(zone_mgr, cur_x, cur_y) != 0) {
+                if (D_004E3180 != 0 && *(int *)((char *)D_004E3180 + 0x1C8) == 7) {
                     fp_flag = 1;
+                } else {
+                    void *zone_mgr = *(void **)((char *)world + 0xB94);
+                    if (func_1378c0(zone_mgr, cur_x, cur_y) != 0) {
+                        fp_flag = 1;
+                    }
                 }
             }
 
@@ -164,10 +180,6 @@ int func_001C7850(
     if (check_max_x >= map_w) check_max_x = map_w - 1;
     if (check_min_y < 0) check_min_y = 0;
     if (check_max_y >= map_h) check_max_y = map_h - 1;
-
-    if (bld->m_id == 59) {
-        bld->m_field28 = 1.0f;
-    }
 
     for (int cur_y = check_min_y; cur_y <= check_max_y; cur_y++) {
         for (int cur_x = check_min_x; cur_x <= check_max_x; cur_x++) {

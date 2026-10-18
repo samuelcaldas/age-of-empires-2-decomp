@@ -3,6 +3,7 @@
 #include "zone_path_eval.h"
 
 extern "C" {
+void *D_004E3180 = 0;
 int func_123350(float val) {
     return static_cast<int>(val);
 }

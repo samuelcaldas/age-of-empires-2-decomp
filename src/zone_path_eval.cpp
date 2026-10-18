@@ -34,8 +34,6 @@ int func_001C7850(
     float **slope_table = *(float ***)((char *)map + 0x68);
     void *s0 = *(void **)((char *)map + 0x3C);
     float *slope_limits = slope_table[type_id];
-    int map_w = *(int *)((char *)s0 + 0x8);
-    int map_h = *(int *)((char *)s0 + 0xC);
 
     float rx, ry;
     if (use_alt_radius) {
@@ -46,32 +44,38 @@ int func_001C7850(
         ry = bld->m_alt_radius_y;
     }
 
-    float min_x = x - rx;
     float max_x = x + rx - 0.0001f;
-    float min_y = y - ry;
     float max_y = y + ry - 0.0001f;
 
-    if (min_x < 0.0f || max_x >= (float)map_w || min_y < 0.0f || max_y >= (float)map_h) {
+    if (x - rx < 0.0f || max_x >= (float)*(int *)((char *)s0 + 0x8)) {
         return 7;
     }
 
-    t_min_x = (short)func_123350(min_x);
+    float min_y = y - ry;
+    if (min_y < 0.0f || max_y >= (float)*(int *)((char *)s0 + 0xC)) {
+        return 7;
+    }
+
+    t_min_x = (short)func_123350(x - rx);
     t_max_x = (short)func_123350(max_x);
     t_min_y = (short)func_123350(min_y);
     short t_max_y = (short)func_123350(max_y);
 
+    int map_w = *(int *)((char *)s0 + 0x8);
+    int map_h = *(int *)((char *)s0 + 0xC);
+
     short p_min_x, p_max_x, p_min_y, p_max_y;
     if (bld->m_field48 >= 0 || bld->m_field4A >= 0) {
+        short cy = (short)func_123350(y);
         MapTile **tile_rows = *(MapTile ***)((char *)s0 + 0x8E8C);
-        int cy = func_123350(y);
-        int cx = func_123350(x);
+        short cx = (short)func_123350(x);
         MapTile *center_tile = &tile_rows[cy][cx];
         if (center_tile->m_zone_id != bld->m_field48 && center_tile->m_zone_id != bld->m_field4A) {
             return 1;
         }
         p_min_x = (short)func_123350(x);
-        p_min_y = (short)func_123350(y);
         p_max_x = p_min_x;
+        p_min_y = (short)func_123350(y);
         p_max_y = p_min_y;
     } else {
         p_min_x = t_min_x;
@@ -85,10 +89,10 @@ int func_001C7850(
         int touches_zone = 0;
         int touches_wild = 0;
 
-        short edge_min_x = p_min_x - 1;
-        short edge_max_x = p_max_x + 1;
-        short edge_max_y = p_max_y + 1;
-        short edge_min_y = p_min_y - 1;
+        short edge_min_x = (short)(p_min_x - 1);
+        short edge_max_x = (short)(p_max_x + 1);
+        short edge_max_y = (short)(p_max_y + 1);
+        short edge_min_y = (short)(p_min_y - 1);
 
         if (edge_min_y >= 0) {
             for (short cur_x = p_min_x; cur_x <= p_max_x; cur_x++) {

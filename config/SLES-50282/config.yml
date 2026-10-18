@@ -5510,9 +5510,10 @@ segments:
     vram: 0x341040
     subsegments:
       - [0x241220, asm, tactical_ai_layout_341040]
+      - [0x242350, asm, tactical_ai_func_342170]
   - name: post_tactical_ai_layout_341040
     type: bin
-    start: 0x242344
+    start: 0x24299C
   - [0x3e31c0]
 
 

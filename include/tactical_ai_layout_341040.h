@@ -14,7 +14,7 @@ public:
     TacticalSubObj *field_830;
     TacticalSubObj *field_834;
     TacticalSubObj *field_838;
-    char pad_83C[4];
+    int field_83C;
     int field_840;
     void *field_844;
     char pad_848[4];

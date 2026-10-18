@@ -3,6 +3,8 @@
 
 extern "C" {
 void func_33A730();
+void func_33A5D0(void *a0, int a1);
+void func_339960(void *a0, int a1);
 void func_11ABBC(void *dst, const char *src);
 void func_36BD30(void *a0, int a1, int a2, const char *a3, int t0);
 void func_36ACC0(int a0);
@@ -131,90 +133,6 @@ void func_00341040(TacticalObj_341040 *self) {
         }
         break;
     }
-    case 4: {
-        if (sub828) {
-            ((VFunc_104)(*(void***)sub828)[65])(sub828, 0xc3d2);
-        }
-        if (sub830) {
-            ((VFunc_28)(*(void***)sub830)[7])(sub830, 1);
-            ((VFunc_36)(*(void***)sub830)[9])(sub830, 108, 172, 114, 26);
-        }
-        if (sub834) {
-            ((VFunc_28)(*(void***)sub834)[7])(sub834, 0);
-        }
-        break;
-    }
-    case 5: {
-        if (sub828) {
-            ((VFunc_104)(*(void***)sub828)[65])(sub828, 0xc3d4);
-        }
-        if (sub830) {
-            ((VFunc_28)(*(void***)sub830)[7])(sub830, 1);
-            ((VFunc_36)(*(void***)sub830)[9])(sub830, 108, 172, 114, 26);
-        }
-        if (sub834) {
-            ((VFunc_28)(*(void***)sub834)[7])(sub834, 0);
-        }
-        break;
-    }
-    case 6: {
-        if (sub828) {
-            ((VFunc_104)(*(void***)sub828)[65])(sub828, 0xc3d2);
-        }
-        if (sub830) {
-            ((VFunc_28)(*(void***)sub830)[7])(sub830, 1);
-            ((VFunc_36)(*(void***)sub830)[9])(sub830, 108, 172, 114, 26);
-        }
-        if (sub834) {
-            ((VFunc_28)(*(void***)sub834)[7])(sub834, 0);
-        }
-        break;
-    }
-    case 7: {
-        if (sub828) {
-            ((VFunc_104)(*(void***)sub828)[65])(sub828, 0xc3d4);
-        }
-        if (sub830) {
-            ((VFunc_28)(*(void***)sub830)[7])(sub830, 1);
-            ((VFunc_36)(*(void***)sub830)[9])(sub830, 108, 172, 114, 26);
-        }
-        if (sub834) {
-            ((VFunc_28)(*(void***)sub834)[7])(sub834, 0);
-        }
-        break;
-    }
-    case 8: {
-        int code = 9411;
-        if (self->field_840 == 2) {
-            code = 9281;
-        }
-        if (sub828) {
-            ((VFunc_104)(*(void***)sub828)[65])(sub828, code);
-        }
-        break;
-    }
-    case 9: {
-        if (sub828) {
-            ((VFunc_104)(*(void***)sub828)[65])(sub828, 0xc3d2);
-        }
-        break;
-    }
-    case 10: {
-        int code = 9411;
-        if (self->field_840 == 2) {
-            code = 9281;
-        }
-        if (sub828) {
-            ((VFunc_104)(*(void***)sub828)[65])(sub828, code);
-        }
-        break;
-    }
-    case 11: {
-        if (sub828) {
-            ((VFunc_104)(*(void***)sub828)[65])(sub828, 0xc3d4);
-        }
-        break;
-    }
     case 12:
     case 13: {
         if (sub828) {
@@ -232,14 +150,7 @@ void func_00341040(TacticalObj_341040 *self) {
         if (self->vtable) {
             ((VFunc_28)(*(void***)self)[7])(self, 0);
         }
-
-        int s0;
-        if (self->field_84C != 12) {
-            s0 = 1;
-        } else {
-            s0 = 2;
-        }
-
+        int s0 = (self->field_84C != 12) ? 1 : 2;
         char buffer[256];
         if (self->field_840 == 3 || self->field_840 == 4 || self->field_840 != 6) {
             func_11ABBC(buffer, aBesles50282age2G);
@@ -250,211 +161,6 @@ void func_00341040(TacticalObj_341040 *self) {
         func_36ACC0(s0);
         break;
     }
-    case 14: {
-        if (sub828) {
-            ((VFunc_104)(*(void***)sub828)[65])(sub828, 0xc3c0);
-        }
-        int code = 0xc3c9;
-        if (self->field_840 == 2 || (unsigned int)(self->field_840 - 4) < 3) {
-            code = 0xc3c1;
-        }
-        if (sub82C) {
-            ((VFunc_104)(*(void***)sub82C)[65])(sub82C, code);
-        }
-        break;
-    }
-    case 15: {
-        int f840 = self->field_840;
-        if (f840 == 2 || (unsigned int)(f840 - 4) < 3) {
-            if (sub828) {
-                ((VFunc_104)(*(void***)sub828)[65])(sub828, 0xc3c2);
-            }
-            if (sub82C) {
-                ((VFunc_104)(*(void***)sub82C)[65])(sub82C, 0xc3c4);
-            }
-        } else {
-            if (sub82C) {
-                ((VFunc_104)(*(void***)sub82C)[65])(sub82C, 0xc3c2);
-            }
-        }
-        break;
-    }
-    case 16: {
-        if (sub82C) {
-            ((VFunc_104)(*(void***)sub82C)[65])(sub82C, 0xc3c5);
-        }
-        break;
-    }
-    case 17: {
-        if (sub82C) {
-            ((VFunc_104)(*(void***)sub82C)[65])(sub82C, 0xc3c1);
-        }
-        if (sub830) {
-            ((VFunc_28)(*(void***)sub830)[7])(sub830, 1);
-            ((VFunc_36)(*(void***)sub830)[9])(sub830, 108, 172, 114, 26);
-        }
-        if (sub834) {
-            ((VFunc_28)(*(void***)sub834)[7])(sub834, 0);
-        }
-        break;
-    }
-    case 18: {
-        int code = 0xc3ca;
-        if (self->field_840 != 2 && self->field_840 != 4) {
-            if ((unsigned int)(self->field_840 - 5) < 2) {
-                code = 0xc3cb;
-            } else {
-                code = 0xc3d8;
-            }
-        }
-        if (sub82C) {
-            ((VFunc_104)(*(void***)sub82C)[65])(sub82C, code);
-        }
-        break;
-    }
-    case 19: {
-        if (sub828) {
-            ((VFunc_104)(*(void***)sub828)[65])(sub828, 0xc3cf);
-        }
-        char buffer[256];
-        if (self->field_840 == 2) {
-            int r = func_1F6EA0(0, 0xc3d0);
-            void *p = func_36C000(0);
-            func_11A498(buffer, p, (void*)(unsigned int)r);
-        } else {
-            int r = func_1F6EA0(0, 0xc3d1);
-            void *p = func_36C000(1);
-            func_11A498(buffer, p, (void*)(unsigned int)r);
-        }
-        if (sub82C) {
-            ((VFunc_100)(*(void***)sub82C)[64])(sub82C, buffer);
-        }
-        if (sub830) {
-            ((VFunc_28)(*(void***)sub830)[7])(sub830, 1);
-            ((VFunc_36)(*(void***)sub830)[9])(sub830, 108, 172, 114, 26);
-        }
-        if (sub834) {
-            ((VFunc_28)(*(void***)sub834)[7])(sub834, 0);
-        }
-        break;
-    }
-    case 20: {
-        int code = 0xc3c9;
-        if (self->field_840 == 2 || (unsigned int)(self->field_840 - 4) < 3) {
-            code = 0xc3c3;
-        }
-        if (sub82C) {
-            ((VFunc_104)(*(void***)sub82C)[65])(sub82C, code);
-        }
-        break;
-    }
-    case 21: {
-        if (sub828) {
-            ((VFunc_104)(*(void***)sub828)[65])(sub828, 0xc3c6);
-        }
-        int code = 0xc3ca;
-        if (self->field_840 != 2 && self->field_840 != 4) {
-            if ((unsigned int)(self->field_840 - 5) < 2) {
-                code = 0xc3cb;
-            } else {
-                code = 0xc3d8;
-            }
-        }
-        if (sub82C) {
-            ((VFunc_104)(*(void***)sub82C)[65])(sub82C, code);
-        }
-        break;
-    }
-    case 22: {
-        if (sub828) {
-            ((VFunc_104)(*(void***)sub828)[65])(sub828, 0xc3cc);
-        }
-        if (sub82C) {
-            ((VFunc_104)(*(void***)sub82C)[65])(sub82C, 0xc3ca);
-        }
-        break;
-    }
-    case 23: {
-        if (sub828) {
-            ((VFunc_104)(*(void***)sub828)[65])(sub828, 0xc3cd);
-        }
-        if (sub82C) {
-            ((VFunc_104)(*(void***)sub82C)[65])(sub82C, 0xc3ca);
-        }
-        break;
-    }
-    case 24: {
-        if (sub828) {
-            ((VFunc_104)(*(void***)sub828)[65])(sub828, 0xc3ce);
-        }
-        if (sub82C) {
-            ((VFunc_104)(*(void***)sub82C)[65])(sub82C, 0xc3cb);
-        }
-        break;
-    }
-    case 25: {
-        if (sub82C) {
-            ((VFunc_104)(*(void***)sub82C)[65])(sub82C, 0xc3e6);
-        }
-        if (sub830) {
-            ((VFunc_28)(*(void***)sub830)[7])(sub830, 0);
-        }
-        if (sub834) {
-            ((VFunc_28)(*(void***)sub834)[7])(sub834, 0);
-        }
-        break;
-    }
-    case 26: {
-        if (sub82C) {
-            ((VFunc_104)(*(void***)sub82C)[65])(sub82C, 0xc3e7);
-        }
-        if (sub830) {
-            ((VFunc_28)(*(void***)sub830)[7])(sub830, 0);
-        }
-        if (sub834) {
-            ((VFunc_28)(*(void***)sub834)[7])(sub834, 0);
-        }
-        break;
-    }
-    case 27: {
-        if (sub82C) {
-            ((VFunc_104)(*(void***)sub82C)[65])(sub82C, 0xc3e8);
-        }
-        if (sub830) {
-            ((VFunc_28)(*(void***)sub830)[7])(sub830, 1);
-            ((VFunc_36)(*(void***)sub830)[9])(sub830, 108, 172, 114, 26);
-        }
-        if (sub834) {
-            ((VFunc_28)(*(void***)sub834)[7])(sub834, 0);
-        }
-        break;
-    }
-    case 28: {
-        if (sub82C) {
-            ((VFunc_104)(*(void***)sub82C)[65])(sub82C, 0xc3cd);
-        }
-        if (sub830) {
-            ((VFunc_28)(*(void***)sub830)[7])(sub830, 1);
-            ((VFunc_36)(*(void***)sub830)[9])(sub830, 108, 172, 114, 26);
-        }
-        if (sub834) {
-            ((VFunc_28)(*(void***)sub834)[7])(sub834, 0);
-        }
-        break;
-    }
-    case 29: {
-        if (sub82C) {
-            ((VFunc_104)(*(void***)sub82C)[65])(sub82C, 0xc3ce);
-        }
-        if (sub830) {
-            ((VFunc_28)(*(void***)sub830)[7])(sub830, 1);
-            ((VFunc_36)(*(void***)sub830)[9])(sub830, 108, 172, 114, 26);
-        }
-        if (sub834) {
-            ((VFunc_28)(*(void***)sub834)[7])(sub834, 0);
-        }
-        break;
-    }
     default:
         break;
     }
@@ -462,43 +168,16 @@ void func_00341040(TacticalObj_341040 *self) {
 
 void func_00342170(TacticalObj_341040 *self) {
     if (!self) return;
-    TacticalSubObj *sub828 = self->field_828;
-    TacticalSubObj *sub82C = self->field_82C;
-    TacticalSubObj *sub830 = self->field_830;
-    TacticalSubObj *sub834 = self->field_834;
     TacticalSubObj *sub838 = self->field_838;
-
-    switch (self->field_84C) {
-    case 30:
-    case 31:
-    case 32:
-    case 33:
-    case 34:
-    case 35:
-    case 36:
-    case 37:
-    case 38:
-    case 39:
-    case 40:
-    case 41:
-    case 42:
-    case 43:
-    case 44:
-    case 45:
-    case 46:
-    case 47:
-    case 48:
-    case 49:
-    case 50:
-        if (sub828) {
-            ((VFunc_104)(*(void***)sub828)[65])(sub828, 0xc3d5 + self->field_84C - 30);
-        }
-        break;
-    default:
-        if (sub828) {
-            ((VFunc_104)(*(void***)sub828)[65])(sub828, 0);
-        }
-        break;
+    if (sub838) {
+        func_33A5D0(sub838, self->field_84C);
+    }
+    if (self->field_84C == 30) {
+        self->field_83C = 1;
+        func_339960(self, 0);
+    } else if (self->field_84C == 35) {
+        self->field_83C = 2;
+        func_339960(self, 1);
     }
 }
 }

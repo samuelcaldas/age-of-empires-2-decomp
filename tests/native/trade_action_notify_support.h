@@ -21,8 +21,9 @@ extern int g_order_dispatch_last_action;
 extern float g_order_dispatch_last_f15;
 
 void reset_notify_support();
-void mock_notify_order_fn(void *world, void *ba0, int item_id, int code, int action_type,
-                          float f12, float f13, float f14, float f15,
-                          int t0, int t1, int t2, int t3);
+void mock_notify_order_fn(void *world, void *ba0, int item_id, int code,
+                          int t0, int t1, int t2, int t3,
+                          int action_type,
+                          float f12, float f13, float f14, float f15);
 
 #endif

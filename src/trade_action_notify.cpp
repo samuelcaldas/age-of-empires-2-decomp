@@ -73,6 +73,16 @@ struct Entity {
     virtual int *get_id();
 };
 
+static inline int in_exclusion_pool(TradeActionState *self, int item_id) {
+    int count = self->m_count;
+    for (int i = 0; i < count && i < self->m_capacity; ++i) {
+        if (item_id == self->m_pool[i]) {
+            return 1;
+        }
+    }
+    return 0;
+}
+
 } // namespace trade_action_candidates
 
 extern "C" {
@@ -102,17 +112,7 @@ int func_002B9830(void *self, int item_id, int arg2, int action_type, float f12,
 
 int func_002B9880(void *self, int item_id, int action_type) {
     TradeActionState *act = reinterpret_cast<TradeActionState *>(self);
-    bool matched = false;
-    int i = 0;
-    int count = act->m_count;
-    while (i < count && i < act->m_capacity) {
-        if (item_id == act->m_pool[i]) {
-            matched = true;
-            break;
-        }
-        i++;
-    }
-    if (matched) {
+    if (in_exclusion_pool(act, item_id)) {
         return 0;
     }
 

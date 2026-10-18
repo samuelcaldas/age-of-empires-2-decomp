@@ -5,7 +5,7 @@
 #include "unit_action_build_7f880.h"
 
 static int g_func_138A40_called = 0;
-static void *g_last_self = nullptr;
+static void *g_last_self = NULL;
 static int g_last_arg1 = -1;
 
 extern "C" {
@@ -19,9 +19,11 @@ extern "C" {
 static void test_delegation() {
     unsigned char dummy_self[32];
     int test_vals[] = {0, 1, 42, -1, 100, 0x1234};
-    for (int val : test_vals) {
+    const size_t count = sizeof(test_vals) / sizeof(test_vals[0]);
+    for (size_t i = 0; i < count; ++i) {
+        int val = test_vals[i];
         g_func_138A40_called = 0;
-        g_last_self = nullptr;
+        g_last_self = NULL;
         g_last_arg1 = -1;
 
         func_0027F880(dummy_self, val);

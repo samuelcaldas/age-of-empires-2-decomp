@@ -60,10 +60,9 @@ int func_001C7850(
     t_min_y = (short)func_123350(min_y);
     t_max_y = (short)func_123350(max_y);
 
-    MapTile **tile_rows = *(MapTile ***)((char *)s0 + 0x8E8C);
-
     short p_min_x, p_max_x, p_min_y, p_max_y;
     if (bld->m_field48 >= 0 || bld->m_field4A >= 0) {
+        MapTile **tile_rows = *(MapTile ***)((char *)s0 + 0x8E8C);
         int cy = func_123350(y);
         int cx = func_123350(x);
         MapTile *center_tile = &tile_rows[cy][cx];
@@ -81,6 +80,7 @@ int func_001C7850(
         p_max_y = t_max_y;
     }
 
+    MapTile **tile_rows = *(MapTile ***)((char *)s0 + 0x8E8C);
     if (bld->m_required_zone >= 0) {
         int touches_zone = 0;
         int touches_wild = 0;

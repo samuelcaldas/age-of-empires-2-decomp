@@ -172,26 +172,29 @@ void func_00341040(TacticalObj_341040 *self) {
     }
 }
 
-// 0x342170 to 0x342798 state machine port with checks on field_838, field_84C, field_840
-void func_00342170(TacticalObj_341040 *self) {
+// 0x342170 to 0x342798 state machine port with exact signature (self, a1, a2, a3)
+void func_00342170(TacticalObj_341040 *self, int a1, int a2, int a3) {
     if (!self) return;
 
-    // 0x34217C: check field_838 and call func_33A5D0
+    // 0x34217C: check field_838 and call func_33A5D0 with a1
     TacticalSubObj *sub838 = self->field_838;
     if (sub838) {
-        func_33A5D0(sub838, self->field_84C);
+        func_33A5D0(sub838, a1);
     }
 
-    // 0x342188: branch on field_84C / field_840
+    // 0x342188: branch on field_84C, a1, and field_840
     int mode = self->field_84C;
     int f840 = self->field_840;
 
     if (mode == 30) {
         self->field_83C = 1;
-        func_339960(self, 0);
+        func_339960(self, a2);
+    } else if (mode == 31) {
+        self->field_83C = 1;
+        func_339960(self, a2);
     } else if (mode == 35) {
         self->field_83C = 2;
-        func_339960(self, 1);
+        func_339960(self, a3);
     } else if (mode >= 40 && mode <= 50) {
         func_339900(self, mode);
     } else if (f840 == 2) {
@@ -211,6 +214,15 @@ void func_00342170(TacticalObj_341040 *self) {
         *(int*)((char*)sub838 + 2052) = mode; // +0x804
     }
 
+    // 0x342490 - 0x342768: jump-table / switch handling for additional paths
+    switch (mode) {
+    case 60:
+        func_00341040(self);
+        break;
+    default:
+        break;
+    }
+
     // 0x3426A8 - 0x342768 paths: subobject interactions and writes
     TacticalSubObj *sub830 = self->field_830;
     if (sub830) {
@@ -222,6 +234,7 @@ void func_00342170(TacticalObj_341040 *self) {
         ((VFunc_28)(*(void***)sub834)[7])(sub834, 0);
     }
 
+    // 0x342738: specific order for func_1F6750 and func_1F88B0
     func_1F6750(self, sub838);
     func_1F88B0(self, sub838);
 }

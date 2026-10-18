@@ -24,5 +24,5 @@ public:
 
 extern "C" {
 void func_00341040(TacticalObj_341040 *self);
-void func_00342170(TacticalObj_341040 *self);
+void func_00342170(TacticalObj_341040 *self, int a1, int a2, int a3);
 }

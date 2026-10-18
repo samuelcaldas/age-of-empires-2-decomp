@@ -8,6 +8,7 @@
 
 static int g_func_100670_called = 0;
 static void *g_last_deleted_ptr = 0;
+static std::vector<std::string> g_event_timeline;
 
 struct HelperCallRecord {
     std::string name;
@@ -68,15 +69,18 @@ void *func_118DE0(int format, int file, int line) {
     g_logger_fmt = (const char *)(long)format;
     g_logger_file = (const char *)(long)file;
     g_logger_line = line;
+    g_event_timeline.push_back("logger");
     return (void *)0xCAFE;
 }
 
 void func_1F20E0(NodePool *self, int val) {
     g_helper_calls.push_back({"func_1F20E0", self, val, 0});
+    g_event_timeline.push_back("func_1F20E0");
 }
 
 void func_1F21E0(NodePool *self, void *p1) {
     g_helper_calls.push_back({"func_1F21E0", self, 0, p1});
+    g_event_timeline.push_back("func_1F21E0");
 }
 
 void func_117CAC(void *dst, int val, int size) {
@@ -90,12 +94,13 @@ struct NodePool {
 };
 
 int main() {
-    // Test 1: func_001F1ED0 - node pool setup, offsets, helper arguments, and exact logger check
+    // Test 1: func_001F1EE0 - node pool setup, offsets, helper arguments, and exact logger check
     StrictNodePool *pool = new StrictNodePool();
     memset(pool, 0, sizeof(StrictNodePool));
 
+    g_event_timeline.clear();
     g_helper_calls.clear();
-    int res = func_001F1ED0((NodePool *)pool, (void *)0x5678, 5000);
+    int res = func_001F1EE0((NodePool *)pool, (void *)0x5678, 5000);
     assert(res == 1);
     assert(pool->table_138810 == 0);
     assert(pool->table_138814 == 0);
@@ -114,9 +119,13 @@ int main() {
     assert(g_logger_file != 0 && std::string(g_logger_file) == "obmanager.cpp");
     assert(g_logger_line == 0x13D6);
 
-    // Verify helper call order and exact arguments:
-    // - func_1F20E0 gets self and value at self+0x13881C (1)
-    // - func_1F21E0 gets self and p1 (0x5678)
+    // Verify timeline: logger must run BEFORE helpers
+    assert(g_event_timeline.size() == 3);
+    assert(g_event_timeline[0] == "logger");
+    assert(g_event_timeline[1] == "func_1F20E0");
+    assert(g_event_timeline[2] == "func_1F21E0");
+
+    // Verify helper arguments: func_1F20E0 gets self and value at self+0x13881C (1); func_1F21E0 gets self and p1 (0x5678)
     assert(g_helper_calls.size() == 2);
     assert(g_helper_calls[0].name == "func_1F20E0");
     assert(g_helper_calls[0].self == (NodePool *)pool);
@@ -134,7 +143,7 @@ int main() {
     assert(g_func_100670_called == 1);
     assert(g_last_deleted_ptr == obj);
 
-    // Test 3A: func_001F2010 - clear pool with table_138814 non-null (expects self+8 clear)
+    // Test 3A: func_001F2020 - clear pool with table_138814 non-null (expects self+8 clear)
     ClearNodePool *clear_pool1 = new ClearNodePool();
     memset(clear_pool1, 0, sizeof(ClearNodePool));
     void *entry_buf1 = malloc(16);
@@ -145,7 +154,7 @@ int main() {
     clear_pool1->count_138818 = 1;
 
     g_clear_calls_log.clear();
-    func_001F2010((NodePool *)clear_pool1);
+    func_001F2020((NodePool *)clear_pool1);
 
     assert(g_clear_calls_log.size() == 3);
     assert(g_clear_calls_log[0].dst == (char *)clear_pool1 + 0x10);
@@ -159,7 +168,7 @@ int main() {
     free(table_buf1);
     delete clear_pool1;
 
-    // Test 3B: func_001F2010 - clear pool with table_138814 NULL (expects NO self+8 clear)
+    // Test 3B: func_001F2020 - clear pool with table_138814 NULL (expects NO self+8 clear)
     ClearNodePool *clear_pool2 = new ClearNodePool();
     memset(clear_pool2, 0, sizeof(ClearNodePool));
     void *entry_buf2 = malloc(16);
@@ -170,7 +179,7 @@ int main() {
     clear_pool2->count_138818 = 1;
 
     g_clear_calls_log.clear();
-    func_001F2010((NodePool *)clear_pool2);
+    func_001F2020((NodePool *)clear_pool2);
 
     assert(g_clear_calls_log.size() == 2);
     assert(g_clear_calls_log[0].dst == (char *)clear_pool2 + 0x10);

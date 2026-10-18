@@ -3,6 +3,7 @@
 import hashlib
 import os
 from pathlib import Path
+import re
 import shlex
 import struct
 import subprocess
@@ -27,6 +28,28 @@ CALLEES = {
 GLOBALS = {
     "D_004DED20": 0x4DED20,
 }
+
+EXPECTED_RELOCATIONS = {
+    0x1C: (5, "D_004DED20"),     # R_MIPS_HI16 vtable address upper half
+    0x20: (6, "D_004DED20"),     # R_MIPS_LO16 vtable address lower half
+    0x24: (4, "func_32E820"),     # R_MIPS_26 member cleanup
+    0x30: (4, "func_318760"),     # R_MIPS_26 base destructor
+    0x48: (4, "func_100670"),     # R_MIPS_26 operator delete
+}
+
+
+def verify_symbol_boundary():
+    """Verify original ELF symbol boundary and size from canonical symbols.txt."""
+    symbols_txt = (ROOT / "config/SLES-50282/symbols.txt").read_text()
+    match = re.search(
+        r"func_003292A0\s*=\s*(0x[0-9a-fA-F]+);\s*//\s*type:func\s+size:(0x[0-9a-fA-F]+)",
+        symbols_txt,
+    )
+    assert match, "Symbol func_003292A0 definition not found in symbols.txt"
+    addr = int(match.group(1), 16)
+    size = int(match.group(2), 16)
+    assert addr == ADDRESS, f"Expected address {hex(ADDRESS)}, got {hex(addr)}"
+    assert size == SIZE, f"Expected size {hex(SIZE)}, got {hex(size)}"
 
 
 def build_object(tmp_path):
@@ -67,19 +90,37 @@ def relocate_entry(data, rel, symbols):
 
 
 def relocate_section(elf, section_index, data):
-    """Resolve all relocations for target symbol section."""
-    count = 0
+    """Resolve all relocations for target symbol section with strict in-range site verification."""
+    seen = {}
     for section in elf.iter_sections():
         if section["sh_type"] == "SHT_REL" and section["sh_info"] == section_index:
             symbols = elf.get_section(section["sh_link"])
             for rel in section.iter_relocations():
+                offset = rel["r_offset"]
+                rtype = rel["r_info_type"]
+                sym_name = symbols.get_symbol(rel["r_info_sym"]).name
+                assert 0 <= offset < SIZE, (
+                    f"Relocation offset {hex(offset)} out of range [0, {hex(SIZE)})"
+                )
+                assert offset in EXPECTED_RELOCATIONS, (
+                    f"Unexpected relocation at offset {hex(offset)}"
+                )
+                exp_type, exp_sym = EXPECTED_RELOCATIONS[offset]
+                assert rtype == exp_type, (
+                    f"Relocation type mismatch at {hex(offset)}: expected {exp_type}, got {rtype}"
+                )
+                assert sym_name == exp_sym, (
+                    f"Relocation symbol mismatch at {hex(offset)}: expected {exp_sym}, got {sym_name}"
+                )
                 relocate_entry(data, rel, symbols)
-                count += 1
-    assert count >= 4, f"Expected at least 4 relocations, found {count}"
+                seen[offset] = (rtype, sym_name)
+    assert len(seen) == len(EXPECTED_RELOCATIONS), (
+        f"Expected {len(EXPECTED_RELOCATIONS)} relocations, found {len(seen)}"
+    )
 
 
 def function_bytes(path):
-    """Extract symbol code and verify relocation count."""
+    """Extract symbol code and verify relocation count and boundary."""
     with path.open("rb") as stream:
         elf = ELFFile(stream)
         symbols = elf.get_section_by_name(".symtab")
@@ -99,10 +140,11 @@ def function_bytes(path):
 )
 def test_controller_destructor_matches_original_instructions(tmp_path):
     """Verify structural bytecode correspondence against original ELF binary."""
+    verify_symbol_boundary()
     pinned_hash = (ROOT / "config/SLES-50282/build.sha1").read_text().split()[0]
     assert hashlib.sha1(ORIGINAL.read_bytes()).hexdigest() == pinned_hash
     output = build_object(tmp_path)
     with ORIGINAL.open("rb") as stream:
         expected = original_function_bytes(ELFFile(stream), ADDRESS, SIZE)
     actual = function_bytes(output)
-    assert actual == expected, f"Mismatch in instruction bytes for func_003292A0"
+    assert actual == expected, "Mismatch in instruction bytes for func_003292A0"

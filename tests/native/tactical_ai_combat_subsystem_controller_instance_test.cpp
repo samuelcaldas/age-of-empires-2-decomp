@@ -41,11 +41,20 @@ void *D_004DED20[] = { &s_dummy_vtable };
 
 static int s_base_calls = 0;
 static void *s_last_base_self = nullptr;
+static bool s_base_called_before_vtable = false;
+static bool s_base_called_before_fields = false;
 
 extern "C" {
     void *func_318340(void *self) {
         s_base_calls++;
         s_last_base_self = self;
+        auto *inst = (CombatSubsystemControllerInstance *)self;
+        if (inst->m_vtable != (void *)D_004DED20) {
+            s_base_called_before_vtable = true;
+        }
+        if (inst->m_field_DC != 10) {
+            s_base_called_before_fields = true;
+        }
         return self;
     }
 }
@@ -55,37 +64,46 @@ static void test_base_call() {
     std::memset(&inst, 0xAA, sizeof(inst));
     s_base_calls = 0;
     s_last_base_self = nullptr;
+    s_base_called_before_vtable = false;
+    s_base_called_before_fields = false;
 
-    func_003291F0(&inst);
+    CombatSubsystemControllerInstance *res = func_003291F0(&inst);
+    TEST_ASSERT(res == &inst, "constructor must return receiver this pointer");
     TEST_ASSERT(s_base_calls == 1, "base constructor must be called exactly once");
     TEST_ASSERT(s_last_base_self == &inst, "base constructor self parameter mismatch");
+    TEST_ASSERT(s_base_called_before_vtable, "base constructor must be called before vtable installation");
+    TEST_ASSERT(s_base_called_before_fields, "base constructor must be called before field initialization");
 }
 
 static void test_vtable() {
     CombatSubsystemControllerInstance inst;
     std::memset(&inst, 0xAA, sizeof(inst));
-    func_003291F0(&inst);
+    CombatSubsystemControllerInstance *res = func_003291F0(&inst);
+    TEST_ASSERT(res == &inst, "constructor must return receiver this pointer");
     TEST_ASSERT(inst.m_vtable == D_004DED20, "vtable pointer must be set to D_004DED20");
 }
 
 static void test_field_dc() {
     CombatSubsystemControllerInstance inst;
     std::memset(&inst, 0xAA, sizeof(inst));
-    func_003291F0(&inst);
+    CombatSubsystemControllerInstance *res = func_003291F0(&inst);
+    TEST_ASSERT(res == &inst, "constructor must return receiver this pointer");
     TEST_ASSERT(inst.m_field_DC == 10, "field_DC must be initialized to 10");
 }
 
 static void test_field_2398() {
     CombatSubsystemControllerInstance inst;
     std::memset(&inst, 0xAA, sizeof(inst));
-    func_003291F0(&inst);
+    CombatSubsystemControllerInstance *res = func_003291F0(&inst);
+    TEST_ASSERT(res == &inst, "constructor must return receiver this pointer");
     TEST_ASSERT(inst.m_field_2398 == 41, "field_2398 must be initialized to 41");
 }
 
 static void test_scalar_flags() {
     CombatSubsystemControllerInstance inst;
     std::memset(&inst, 0xAA, sizeof(inst));
-    func_003291F0(&inst);
+    CombatSubsystemControllerInstance *res = func_003291F0(&inst);
+    TEST_ASSERT(res == &inst, "constructor must return receiver this pointer");
     TEST_ASSERT(inst.m_field_3408 == 0, "field_3408 must be 0");
     TEST_ASSERT(inst.m_field_340C == 0, "field_340C must be 0");
     TEST_ASSERT(inst.m_field_3410 == 0, "field_3410 must be 0");
@@ -103,7 +121,8 @@ static void test_scalar_flags() {
 static void test_table_entries() {
     CombatSubsystemControllerInstance inst;
     std::memset(&inst, 0xAA, sizeof(inst));
-    func_003291F0(&inst);
+    CombatSubsystemControllerInstance *res = func_003291F0(&inst);
+    TEST_ASSERT(res == &inst, "constructor must return receiver this pointer");
     for (int i = 0; i < 10; ++i) {
         TEST_ASSERT(inst.m_field_3434[i] == 0, "field_3434 array slot must be 0");
         TEST_ASSERT(inst.m_field_345C[i] == -1, "field_345C array slot must be -1");

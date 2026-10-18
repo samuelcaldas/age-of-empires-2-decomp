@@ -11,6 +11,7 @@ NATIVE_TEST = (
 )
 MUTATIONS = [
     ("omit_base_call", "func_318340(self);", "/* omitted */", "base_call", "base constructor must be called exactly once"),
+    ("corrupt_call_order", "func_318340(self);\n    self->m_vtable = D_004DED20;", "self->m_vtable = D_004DED20;\n    func_318340(self);", "base_call", "base constructor must be called before vtable installation"),
     ("corrupt_vtable", "self->m_vtable = D_004DED20;", "self->m_vtable = 0;", "vtable", "vtable pointer must be set to D_004DED20"),
     ("corrupt_field_dc", "self->m_field_DC = 10;", "self->m_field_DC = 0;", "field_dc", "field_DC must be initialized to 10"),
     ("corrupt_field_2398", "self->m_field_2398 = 41;", "self->m_field_2398 = 0;", "field_2398", "field_2398 must be initialized to 41"),

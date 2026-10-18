@@ -2053,10 +2053,22 @@ segments:
     vram: 0x187CA0
     subsegments:
       - [0x87E80, asm, render_manager_config]
-  - name: post_base
-    type: bin
+  - name: render_manager_props
+    type: code
     start: 0x88200
     vram: 0x188020
+    subsegments:
+      - [0x88200, asm, render_manager_props]
+  - name: render_manager_setters
+    type: code
+    start: 0x88440
+    vram: 0x188260
+    subsegments:
+      - [0x88440, asm, render_manager_setters]
+  - name: post_base
+    type: bin
+    start: 0x88770
+    vram: 0x188590
   - name: zone_path_eval
     type: code
     start: 0xC7A40

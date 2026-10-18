@@ -2,19 +2,13 @@
 #include <cstring>
 #include "visible_map.h"
 
-enum StreamCall {
-    CALL_NONE = 0,
-    CALL_READ_WIDTH,
-    CALL_READ_HEIGHT,
-    CALL_READ_BUFFER,
-    CALL_WRITE_WIDTH,
-    CALL_WRITE_HEIGHT,
-    CALL_WRITE_BUFFER
+struct CallRecord {
+    void *ptr;
+    int size;
 };
 
-static StreamCall call_log[10];
+static CallRecord call_log[10];
 static int call_count = 0;
-static int last_sizes[10];
 static VisibleMap *active_vmap = 0;
 
 extern "C" {

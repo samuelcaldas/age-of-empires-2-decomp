@@ -163,16 +163,21 @@ int func_001C7850(
                 short terrain = tile_rows[cur_y][cur_x].m_terrain;
                 short slope = tile_rows[cur_y][cur_x].m_slope_flag;
 
-                if (bld->m_placement_type == 3) {
+                switch (bld->m_placement_type) {
+                case 1:
+                    if (terrain == 0 || terrain == 5 || terrain == 7 || terrain == 6 || terrain == 8) {
+                    } else {
+                        return 2;
+                    }
+                    break;
+                case 2:
+                    if (terrain != 0) return 2;
+                    break;
+                case 3:
                     if (cur_x == t_min_x || cur_y == t_max_y) {
                         if (slope < min_slope || slope > max_slope) return 3;
                     }
-                } else if (bld->m_placement_type == 2) {
-                    if (terrain != 0) return 2;
-                } else if (bld->m_placement_type == 1) {
-                    if (terrain != 0 && terrain != 5 && terrain != 7 && terrain != 6 && terrain != 8) {
-                        return 2;
-                    }
+                    break;
                 }
             }
         }

@@ -4377,11 +4377,11 @@ Directly beginning the `aoe2` fixed address range (`0x1C7330`–`0x2665B0`) sits
 
 | Measurement (MWCC 2.3.1.01, `-O3 -inline on -msext on -char signed`) | Value |
 |---|---|
-| objdiff fuzzy score | 73.09% |
-| Aligned rows equal / total target instructions (779) | 326 / 779 |
-| Aligned deletions / replacements | 81 / 52 |
+| objdiff fuzzy score | 76.87% |
+| Aligned rows equal / total target instructions (779) | 344 / 779 |
+| Aligned deletions / replacements | 68 / 43 |
 
-Original-binary facts now followed by the source: `flag1`/`flag2` loaded with `lbu`, `func_1378c0` masked with `andi 0xFF`, `D_004E3180` dereferenced without null check, tile terrain/slope narrowed to signed short, outer loop `cur_x` with inner loop `cur_y`, base slope tile indexed at `[t_max_y][t_min_x]`, diagonal gate formulas `cur_x - t_min_x == cur_y - t_min_y` and `t_max_x - cur_x == cur_y - t_min_y`, placement type 3 boundary checks `cur_x == t_min_x || cur_y == t_max_y`, elimination of tile pointer lifetime across `func_1378c0`, four perimeter loops iterating between orthogonal edges (`p_min` to `p_max`), wild zone sentinel comparison against `-1`, on-demand `map_w`/`map_h` loads across boundary checks, direct `x - rx` in `$f12` without extra float register allocation, `short` center coordinates `cy`/`cx`, `short` unit iteration loop bounds `cur_y`/`cur_x`, four separate sequential radius positive checks, and nested distance comparisons.
+Original-binary facts now followed by the source: `flag1`/`flag2` loaded with `lbu`, `func_1378c0` masked with `andi 0xFF`, `D_004E3180` dereferenced without null check, tile terrain/slope narrowed to signed short, outer loop `cur_x` with inner loop `cur_y`, base slope tile indexed at `[t_max_y][t_min_x]`, diagonal gate formulas `cur_x - t_min_x == cur_y - t_min_y` and `t_max_x - cur_x == cur_y - t_min_y`, elimination of tile pointer lifetime across `func_1378c0`, `switch (bld->m_placement_type)` with ascending cases 1, 2, 3 matching target dispatch order `0x6B4`..`0x77C`, four perimeter loops iterating between orthogonal edges (`p_min` to `p_max`), wild zone sentinel comparison against `-1`, on-demand `map_w`/`map_h` loads across boundary checks, direct `x - rx` in `$f12` without extra float register allocation, `short` center coordinates `cy`/`cx`, `short` unit iteration loop bounds `cur_y`/`cur_x`, four separate sequential radius positive checks, and nested distance comparisons.
 
 Native regression: `tests/native/zone_path_eval_test.cpp` (bounds, slope boundary/base, query low-byte, singleton mode 7, diagonal gate obstructions, perimeter orthogonal edge contact, unit collision detection & ignore_unit).
 

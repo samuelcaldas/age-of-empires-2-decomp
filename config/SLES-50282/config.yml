@@ -5281,6 +5281,15 @@ segments:
   - name: post_trade_action_distance_candidates
     type: bin
     start: 0x1B9020
+  - name: trade_action_type_checker
+    type: code
+    start: 0x1B9280
+    vram: 0x2B90A0
+    subsegments:
+      - [0x1B9280, asm, trade_action_type_checker]
+  - name: post_trade_action_type_checker
+    type: bin
+    start: 0x1B9340
   - name: tactical_ai_player_ops
     type: code
     start: 0x205D70

@@ -1,4 +1,4 @@
-# `trade_action_candidates` (`func_002B76B0`, `func_002B7BB0`, `func_002B8560`, `func_002B8980`)
+# `trade_action_candidates` (`func_002B76B0`, `func_002B7BB0`, `func_002B8560`, `func_002B8980`, `func_002B90A0`)
 
 ## Overview
 
@@ -7,6 +7,7 @@
   - `func_002B7BB0` (VRAM `0x2B7BB0`–`0x2B8560`, File `0x1B7D90`–`0x1B8740`, 2,468 B code, 12 B padding, 2,480 B slice)
   - `func_002B8560` (VRAM `0x2B8560`–`0x2B8978`, File `0x1B8740`–`0x1B8B60`, 1,044 B code, 4 B padding, 1,048 B slice)
   - `func_002B8980` (VRAM `0x2B8980`–`0x2B8E2C`, File `0x1B8B60`–`0x1B9020`, 1,196 B code, 4 B padding, 1,200 B slice)
+  - `func_002B90A0` (VRAM `0x2B90A0`–`0x2B9134`, File `0x1B9020`–`0x1B90D8`, 144 B code, 40 B padding, 184 B slice)
 - **Source Files**:
   - `include/trade_action_candidates.h`
   - `include/trade_action_candidates_access.h`
@@ -23,6 +24,7 @@ int func_002B76B0(void *self, int a1, int a2, int a3, int t0);
 int func_002B7BB0(void *self, int a1, int a2, int a3);
 int func_002B8560(void *self, int mode);
 int func_002B8980(void *self, int *coords, int mode, int flag);
+int func_002B90A0(void *self, int target_type, int item_id);
 ```
 
 ## Behavior and Architecture
@@ -78,5 +80,10 @@ int func_002B8980(void *self, int *coords, int mode, int flag);
 - **Distance Metric & Best Candidate Tracking**:
   - Checks `(func_002bfcd0(self, short_at(item, 36)) & 0xFF) == 1`.
   - Calls `func_00269190(coords[0], coords[1], item)`.
-  - Tracks candidate with highest score (`dist >= best` for mode 1; `dist > best` for mode 0).
-- **Return Value**: Sub-ID of the optimal candidate, or -1 if none qualify.
+  - Tracks candidate with highest score (`dist <= best` for mode 1; `dist < best` for mode 0).
+- **Return Value**: Sub-ID of optimal candidate, or -1 if none qualify.
+
+### 5. `func_002B90A0` (Entity Type Matcher)
+- Resolves entity `item` via `func_00332e60(manager_entity_root(self), item_id)`.
+- Rejects if `!item` or `!pred(item)`.
+- Returns 1 if `func_001471a0(pred(item)) == target_type`, else 0.

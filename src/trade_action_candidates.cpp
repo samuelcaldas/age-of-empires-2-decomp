@@ -1,7 +1,7 @@
 #pragma exceptions off
 #include "trade_action_candidates_access.h"
-#include "trade_action_candidates_dual.h"
 #include "trade_action_candidates_selector.h"
+#include "trade_action_candidates_dual.h"
 #include "trade_action_candidates_distance.h"
 
 using namespace trade_action_candidates;
@@ -9,7 +9,6 @@ using namespace trade_action_candidates;
 extern "C" {
 int func_001471a0(int entity_id);
 int func_001471c0(int entity_id);
-int func_00147190(int entity_id);
 }
 
 static int get_item_id(void *self, int index) {
@@ -54,21 +53,6 @@ static bool check_classification_predicate(void *self, void *item, int flag_t0) 
     }
     void *field4 = pointer_at(linked_entity, 4);
     return short_at(field4, 14) == 27;
-}
-
-static bool matches_target_score(void *item, int threshold, int mode) {
-    typedef int (*Predicate)(void *);
-    void **vtable = *reinterpret_cast<void ***>(item);
-    Predicate pred = reinterpret_cast<Predicate>(*reinterpret_cast<void **>(bytes(vtable) + 356));
-    int score = func_00147190(pred(item));
-
-    if (mode < 0) {
-        return score < threshold;
-    }
-    if (mode > 0) {
-        return score > threshold;
-    }
-    return score == threshold;
 }
 
 static void append_candidate_id(void *self, int item_id) {
@@ -193,4 +177,20 @@ int func_002B8560(void *self, int mode) {
 
 int func_002B8980(void *self, int *coords, int mode, int flag) {
     return scan_distance_candidates(self, coords, mode, flag);
+}
+
+int func_002B90A0(void *self, int target_type, int item_id) {
+    void *item = func_00332e60(manager_entity_root(self), item_id);
+    if (!item) {
+        return 0;
+    }
+
+    typedef int (*Predicate)(void *);
+    void **vtable = *reinterpret_cast<void ***>(item);
+    Predicate pred = reinterpret_cast<Predicate>(*reinterpret_cast<void **>(bytes(vtable) + 356));
+    if (!pred(item)) {
+        return 0;
+    }
+
+    return func_001471a0(pred(item)) == target_type ? 1 : 0;
 }

@@ -7220,6 +7220,19 @@ Located at VRAM `0x2B8980`–`0x2B8E2C` (file offset `0x1B8B60`–`0x1B9020`, 1,
 |---|---|---|---|---|---|
 | `func_002B8980` | `0x2B8980` | 1,196 B | 1,216 B | NonMatching | Distance-based candidate pool selector and sub-ID resolver. |
 
+#### 6.187e `Trade Action Entity Type Matcher` (`0x2B90A0`–`0x2B9134`, `trade_action_candidates.cpp`)
+
+Located at VRAM `0x2B90A0`–`0x2B9134` (file offset `0x1B9020`–`0x1B90D8`, 184 bytes total slice, 144 bytes code + 40 bytes zero padding, Metrowerks C++ PS2 MWCC 2.3.1.01):
+- `func_002B90A0` (`0x2B90A0`, 144 bytes code, 184 bytes slice): Entity type matcher. Resolves entity via `func_00332e60` using manager entity root, validates virtual predicate at vtable offset 356, and returns 1 if `func_001471a0(pred_result) == target_type`, else 0.
+- Registered as `NonMatching` in `configure.py`.
+- Verified with 32 native 32-bit tests in Docker dev environment.
+
+#### 6.187e.1 Trade Action Entity Type Matcher Matching Results (Pure C++, 184 Bytes)
+
+| Function / Method | VRAM Address | Code Size (Orig) | Slice Size | Match Status | Description |
+|---|---|---|---|---|---|
+| `func_002B90A0` | `0x2B90A0` | 144 B | 184 B | NonMatching | Entity type validator querying classification predicate. |
+
 #### 6.188 `Tactical AI Destructors` Subsystem (`0x340370`–`0x340490`, `tactical_ai_destructors_340370.cpp`)
 
 Located at VRAM `0x340370`–`0x340490` (file offset `0x240550`–`0x240670`, 288 bytes total, 3 contiguous scalar deleting destructors in Metrowerks C++ PS2 MWCC 2.3.1.01):

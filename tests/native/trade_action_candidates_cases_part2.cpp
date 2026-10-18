@@ -61,6 +61,17 @@ static void run_selector_cases(int test_case, char *base, std::vector<char> &ent
         int res = func_002B8980(base, coords, 0, 1);
         assert(res == 42);
         assert(g_269190_calls == 2);
+    } else if (test_case == 22) {
+        g_1471a0_return_val = 55;
+        int res = func_002B90A0(base, 55, 100);
+        assert(res == 1);
+    } else if (test_case == 23) {
+        g_1471a0_return_val = 55;
+        int res = func_002B90A0(base, 56, 100);
+        assert(res == 0);
+    } else if (test_case == 24) {
+        int res = func_002B90A0(base, 55, 999);
+        assert(res == 0);
     }
 }
 

@@ -31,6 +31,9 @@ CASES = [
     ("19", "func_002B8980 returns candidate with best distance"),
     ("20", "func_002B8980 returns -1 when no candidate matches predicate"),
     ("21", "func_002B8980 with flag 1 selects candidate"),
+    ("22", "func_002B90A0 returns 1 on matching target type"),
+    ("23", "func_002B90A0 returns 0 on mismatching target type"),
+    ("24", "func_002B90A0 returns 0 when item lookup fails"),
 ]
 
 
@@ -113,6 +116,12 @@ MUTANTS = [
         "return -1;",
         "res == 42",
     ),
+    (
+        "type_checker_match",
+        "return func_001471a0(pred(item)) == target_type ? 1 : 0;",
+        "return func_001471a0(pred(item)) != target_type ? 1 : 0;",
+        "res == 1",
+    ),
 ]
 
 
@@ -125,7 +134,11 @@ def test_candidates_source_mutants_fail_at_expected_assertion(
     tmp_path, name, original, mutated, diagnostic
 ):
     """Require compiled source mutants to hit their targeted native assertion."""
-    source = PROJECT_ROOT / "src" / "trade_action_candidates.cpp"
+    source = (
+        PROJECT_ROOT / "include" / "trade_action_candidates_dual.h"
+        if "mode_" in name
+        else PROJECT_ROOT / "src" / "trade_action_candidates.cpp"
+    )
     source_name = source.name
     source_text = source.read_text()
     assert source_text.count(original) == 1, (
@@ -144,7 +157,7 @@ def test_candidates_source_mutants_fail_at_expected_assertion(
             "-fno-builtin",
             f"-I{tmp_path}",
             "-Iinclude",
-            str(mutant_source),
+            str(mutant_source) if source.suffix == ".cpp" else "src/trade_action_candidates.cpp",
             "tests/native/trade_action_candidates_test.cpp",
             "tests/native/trade_action_candidates_test_support.cpp",
             "tests/native/trade_action_candidates_cases_part1.cpp",
@@ -165,6 +178,7 @@ def test_candidates_source_mutants_fail_at_expected_assertion(
         else "13" if "secondary" in name
         else "15" if "selector" in name
         else "19" if "distance" in name
+        else "22" if "type_checker" in name
         else "9"
     )
     result = subprocess.run([str(binary), case_num], capture_output=True, text=True)

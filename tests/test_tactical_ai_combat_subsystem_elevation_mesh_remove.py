@@ -10,11 +10,11 @@ NATIVE_TEST = (
     ROOT / "tests/native/tactical_ai_combat_subsystem_elevation_mesh_remove_test.cpp"
 )
 MUTATIONS = [
-    ("omit_swap", "vertices[i] = vertices[last];", "/* omitted */"),
-    ("omit_dec", "self->m_table_8[tag]--;", "/* omitted */"),
-    ("invert_id", "vertices[i].m_id == id", "vertices[i].m_id != id"),
-    ("wrong_ret", "return i;", "return 0;"),
-    ("wrong_not_found", "return -1;", "return 0;"),
+    ("omit_swap", "vertices[i] = vertices[last];", "/* omitted */", "swap_last", "swap last vertex data swap failed"),
+    ("omit_dec", "self->m_table_8[tag]--;", "/* omitted */", "swap_last", "swap last table count decrement failed"),
+    ("invert_id", "vertices[i].m_id == id", "vertices[i].m_id != id", "remove_single", "single remove failed"),
+    ("wrong_ret", "return i;", "return 0;", "swap_last", "swap last remove failed"),
+    ("wrong_not_found", "return -1;", "return 0;", "not_found", "not found remove failed"),
 ]
 
 
@@ -30,10 +30,13 @@ def compile_native(source, binary):
     assert result.returncode == 0, result.stderr
 
 
-def run_native(binary):
-    """Run one fixture process, returning diagnostics and exit status."""
+def run_native(binary, arg=None):
+    """Run one fixture process with optional test argument."""
+    cmd = [str(binary)]
+    if arg:
+        cmd.append(arg)
     return subprocess.run(
-        [str(binary)], capture_output=True, text=True, timeout=10,
+        cmd, capture_output=True, text=True, timeout=10,
     )
 
 
@@ -45,14 +48,15 @@ def test_mesh_remove_reference_contract(tmp_path):
     assert result.returncode == 0, result.stderr
 
 
-@pytest.mark.parametrize("name,original,replacement", MUTATIONS)
-def test_mesh_remove_rejects_mutation(tmp_path, name, original, replacement):
-    """Verify that every production source mutation fails via an explicit assertion check."""
+@pytest.mark.parametrize("name,original,replacement,test_arg,expected_msg", MUTATIONS)
+def test_mesh_remove_rejects_mutation(tmp_path, name, original, replacement, test_arg, expected_msg):
+    """Verify that every production source mutation fails via the specific expected assertion diagnostic."""
     source = SOURCE.read_text()
     assert original in source, f"Missing mutation anchor: {name}"
     mutated = tmp_path / f"{name}.cpp"
     mutated.write_text(source.replace(original, replacement))
     binary = tmp_path / name
     compile_native(mutated, binary)
-    result = run_native(binary)
-    assert result.returncode != 0 and ("Assertion" in result.stderr or "abort" in result.stderr.lower() or result.returncode < 0), f"Mutation not killed by assertion: {name}"
+    result = run_native(binary, test_arg)
+    assert result.returncode != 0, f"Mutation survived without failure: {name}"
+    assert expected_msg in result.stderr, f"Mutation killed by wrong failure or crash instead of expected assertion '{expected_msg}': {name}\nStderr: {result.stderr}"

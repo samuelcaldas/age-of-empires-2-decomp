@@ -2,10 +2,19 @@
 #error "Tests require NDEBUG to be undefined so assertions remain active"
 #endif
 
+#include <cstdio>
+#include <cstdlib>
 #include <cassert>
 #include <cstddef>
 #include <cstring>
 #include "tactical_ai_combat_subsystem_elevation_mesh_filter.h"
+
+#define TEST_ASSERT(cond, msg) do { \
+    if (!(cond)) { \
+        std::fprintf(stderr, "MUTATION_ASSERTION_FAILED: %s\n", msg); \
+        std::exit(1); \
+    } \
+} while(0)
 
 static_assert(sizeof(void *) == 4, "PS2 pointer width");
 static_assert(sizeof(int) == 4, "PS2 int width");
@@ -57,16 +66,16 @@ static void test_early_exits() {
     s_mock_coord_count = 0;
     s_call_count = 0;
     func_00328100(&desc, 0);
-    assert(s_call_count == 0 && "early exit zero coord count failed");
+    TEST_ASSERT(s_call_count == 0, "early exit zero coord count failed");
 
     s_mock_coord_count = -1;
     func_00328100(&desc, 0);
-    assert(s_call_count == 0 && "early exit negative coord count failed");
+    TEST_ASSERT(s_call_count == 0, "early exit negative coord count failed");
 
     s_mock_coord_count = 2;
     desc.m_count = 0;
     func_00328100(&desc, 0);
-    assert(s_call_count == 0 && "early exit zero mesh count failed");
+    TEST_ASSERT(s_call_count == 0, "early exit zero mesh count failed");
 }
 
 static void test_grid_entity_filtering() {
@@ -140,14 +149,14 @@ static void test_grid_entity_filtering() {
 
     func_00328100(&desc, 0);
 
-    assert(s_call_count == 2 && "grid entity filtering call count contract violated");
-    assert(s_calls[0].self == &desc);
-    assert(s_calls[0].id == 101);
-    assert(s_calls[0].tag == 42);
+    TEST_ASSERT(s_call_count == 2, "grid entity filtering call count contract violated");
+    TEST_ASSERT(s_calls[0].self == &desc, "grid entity filtering self pointer mismatch");
+    TEST_ASSERT(s_calls[0].id == 101, "grid entity filtering entity id mismatch");
+    TEST_ASSERT(s_calls[0].tag == 42, "grid entity filtering tag mismatch");
 
-    assert(s_calls[1].self == &desc);
-    assert(s_calls[1].id == 202);
-    assert(s_calls[1].tag == 77);
+    TEST_ASSERT(s_calls[1].self == &desc, "grid entity filtering self pointer mismatch");
+    TEST_ASSERT(s_calls[1].id == 202, "grid entity filtering entity id mismatch");
+    TEST_ASSERT(s_calls[1].tag == 77, "grid entity filtering tag mismatch");
 }
 
 static void test_inactive_entity_rejection() {
@@ -205,12 +214,17 @@ static void test_inactive_entity_rejection() {
 
     func_00328100(&desc, 0);
     // Exactly 1 call (for the active entity), proving inactive entity was rejected and active was accepted
-    assert(s_call_count == 1 && "inactive entity rejection contract failed (inactive entity was not filtered out)");
-    assert(s_calls[0].id == 106);
-    assert(s_calls[0].tag == 42);
+    TEST_ASSERT(s_call_count == 1, "inactive entity rejection contract failed (inactive entity was not filtered out)");
+    TEST_ASSERT(s_calls[0].id == 106, "inactive entity rejection active id mismatch");
+    TEST_ASSERT(s_calls[0].tag == 42, "inactive entity rejection active tag mismatch");
 }
 
-int main() {
+int main(int argc, char **argv) {
+    if (argc > 1) {
+        if (std::strcmp(argv[1], "early_exits") == 0) { test_early_exits(); return 0; }
+        if (std::strcmp(argv[1], "grid_filtering") == 0) { test_grid_entity_filtering(); return 0; }
+        if (std::strcmp(argv[1], "inactive_rejection") == 0) { test_inactive_entity_rejection(); return 0; }
+    }
     test_early_exits();
     test_grid_entity_filtering();
     test_inactive_entity_rejection();

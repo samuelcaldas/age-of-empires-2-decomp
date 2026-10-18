@@ -2,10 +2,19 @@
 #error "Tests require NDEBUG to be undefined so assertions remain active"
 #endif
 
+#include <cstdio>
+#include <cstdlib>
 #include <cassert>
 #include <cstddef>
 #include <cstring>
 #include "tactical_ai_combat_subsystem_elevation_mesh_remove.h"
+
+#define TEST_ASSERT(cond, msg) do { \
+    if (!(cond)) { \
+        std::fprintf(stderr, "MUTATION_ASSERTION_FAILED: %s\n", msg); \
+        std::exit(1); \
+    } \
+} while(0)
 
 static_assert(sizeof(void *) == 4, "PS2 pointer width");
 static_assert(sizeof(int) == 4, "PS2 int width");
@@ -25,13 +34,13 @@ static void test_early_exits() {
     desc.m_count = 0;
 
     int res = func_00328300(&desc, 10, 0);
-    assert(res == -1);
+    TEST_ASSERT(res == -1, "early exit remove count 0 failed");
 
     desc.m_count = 1;
     int table8[2] = {0, 0};
     desc.m_table_8 = table8;
     res = func_00328300(&desc, 10, 0);
-    assert(res == 0);
+    TEST_ASSERT(res == 0, "early exit remove tag count 0 failed");
 }
 
 static void test_not_found() {
@@ -48,8 +57,8 @@ static void test_not_found() {
     desc.m_table_8 = table8;
 
     int res = func_00328300(&desc, 999, 0);
-    assert(res == -1 && "not found remove failed");
-    assert(table8[0] == 1);
+    TEST_ASSERT(res == -1, "not found remove failed");
+    TEST_ASSERT(table8[0] == 1, "not found table count modified");
 }
 
 static void test_remove_single() {
@@ -66,8 +75,8 @@ static void test_remove_single() {
     desc.m_table_8 = table8;
 
     int res = func_00328300(&desc, 55, 0);
-    assert(res == 0 && "single remove failed");
-    assert(table8[0] == 0);
+    TEST_ASSERT(res == 0, "single remove failed");
+    TEST_ASSERT(table8[0] == 0, "single remove table count not decremented");
 }
 
 static void test_remove_swap_last() {
@@ -89,15 +98,15 @@ static void test_remove_swap_last() {
     desc.m_table_8 = table8;
 
     int res = func_00328300(&desc, 20, 0);
-    assert(res == 1 && "swap last remove failed");
-    assert(table8[0] == 2);
-    assert(buffer[1].m_id == 30);
-    assert(buffer[1].m_x == 9);
+    TEST_ASSERT(res == 1, "swap last remove failed");
+    TEST_ASSERT(table8[0] == 2, "swap last table count decrement failed");
+    TEST_ASSERT(buffer[1].m_id == 30, "swap last vertex data swap failed");
+    TEST_ASSERT(buffer[1].m_x == 9, "swap last vertex data swap failed");
 
     res = func_00328300(&desc, 30, 0);
-    assert(res == 1);
-    assert(table8[0] == 1);
-    assert(buffer[0].m_id == 10);
+    TEST_ASSERT(res == 1, "swap last second remove failed");
+    TEST_ASSERT(table8[0] == 1, "swap last second table count update failed");
+    TEST_ASSERT(buffer[0].m_id == 10, "swap last second buffer element corrupted");
 }
 
 static void test_zero_count_tag_behavior() {
@@ -108,8 +117,7 @@ static void test_zero_count_tag_behavior() {
     desc.m_table_8 = table8;
 
     int res = func_00328300(&desc, 100, 0);
-    // Explicitly assert that count == 0 branch returns 0 precisely
-    assert(res == 0);
+    TEST_ASSERT(res == 0, "zero count tag behavior failed");
 }
 
 static void test_nonzero_tag_removal() {
@@ -126,11 +134,19 @@ static void test_nonzero_tag_removal() {
     desc.m_table_8 = table8;
 
     int res = func_00328300(&desc, 77, 1); // nonzero tag index 1
-    assert(res == 0);
-    assert(table8[1] == 0);
+    TEST_ASSERT(res == 0, "nonzero tag removal failed");
+    TEST_ASSERT(table8[1] == 0, "nonzero tag removal count decrement failed");
 }
 
-int main() {
+int main(int argc, char **argv) {
+    if (argc > 1) {
+        if (std::strcmp(argv[1], "early_exits") == 0) { test_early_exits(); return 0; }
+        if (std::strcmp(argv[1], "not_found") == 0) { test_not_found(); return 0; }
+        if (std::strcmp(argv[1], "remove_single") == 0) { test_remove_single(); return 0; }
+        if (std::strcmp(argv[1], "swap_last") == 0) { test_remove_swap_last(); return 0; }
+        if (std::strcmp(argv[1], "zero_count") == 0) { test_zero_count_tag_behavior(); return 0; }
+        if (std::strcmp(argv[1], "nonzero_tag") == 0) { test_nonzero_tag_removal(); return 0; }
+    }
     test_early_exits();
     test_not_found();
     test_remove_single();

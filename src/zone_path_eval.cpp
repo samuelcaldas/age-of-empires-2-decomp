@@ -58,13 +58,25 @@ int func_001C7850(
 
     MapTile **tile_rows = *(MapTile ***)((char *)s0 + 0x8E8C);
 
-    if (bld->m_field48 >= 0) {
-        int cx = func_123350(x);
+    int p_min_x, p_max_x, p_min_y, p_max_y;
+    if (bld->m_field48 >= 0 || bld->m_field4A >= 0) {
         int cy = func_123350(y);
+        int cx = func_123350(x);
         MapTile *center_tile = &tile_rows[cy][cx];
         if (center_tile->m_zone_id != bld->m_field48 && center_tile->m_zone_id != bld->m_field4A) {
             return 1;
         }
+        cx = func_123350(x);
+        cy = func_123350(y);
+        p_min_x = cx;
+        p_max_x = cx;
+        p_min_y = cy;
+        p_max_y = cy;
+    } else {
+        p_min_x = t_min_x;
+        p_max_x = t_max_x;
+        p_min_y = t_min_y;
+        p_max_y = t_max_y;
     }
 
     int fp_flag = 0;
@@ -73,30 +85,30 @@ int func_001C7850(
         int touches_zone = 0;
         int touches_wild = 0;
 
-        for (int cur_x = t_min_x - 1; cur_x <= t_max_x + 1; cur_x++) {
-            if (t_min_y - 1 >= 0) {
-                MapTile *t = &tile_rows[t_min_y - 1][cur_x];
+        if (p_min_y - 1 >= 0) {
+            for (int cur_x = p_min_x - 1; cur_x <= p_max_x + 1; cur_x++) {
+                MapTile *t = &tile_rows[p_min_y - 1][cur_x];
                 if (t->m_zone_id == bld->m_required_zone) touches_zone = 1;
                 if (t->m_zone_id == 255) touches_wild = 1;
             }
         }
-        for (int cur_y = t_min_y; cur_y <= t_max_y; cur_y++) {
-            if (t_max_x + 1 < map_w) {
-                MapTile *t = &tile_rows[cur_y][t_max_x + 1];
+        if (p_max_x + 1 < map_w) {
+            for (int cur_y = p_min_y; cur_y <= p_max_y; cur_y++) {
+                MapTile *t = &tile_rows[cur_y][p_max_x + 1];
                 if (t->m_zone_id == bld->m_required_zone) touches_zone = 1;
                 if (t->m_zone_id == 255) touches_wild = 1;
             }
         }
-        for (int cur_x = t_max_x + 1; cur_x >= t_min_x - 1; cur_x--) {
-            if (t_max_y + 1 < map_h) {
-                MapTile *t = &tile_rows[t_max_y + 1][cur_x];
+        if (p_max_y + 1 < map_h) {
+            for (int cur_x = p_max_x + 1; cur_x >= p_min_x - 1; cur_x--) {
+                MapTile *t = &tile_rows[p_max_y + 1][cur_x];
                 if (t->m_zone_id == bld->m_required_zone) touches_zone = 1;
                 if (t->m_zone_id == 255) touches_wild = 1;
             }
         }
-        for (int cur_y = t_max_y; cur_y >= t_min_y; cur_y--) {
-            if (t_min_x - 1 >= 0) {
-                MapTile *t = &tile_rows[cur_y][t_min_x - 1];
+        if (p_min_x - 1 >= 0) {
+            for (int cur_y = p_max_y; cur_y >= p_min_y; cur_y--) {
+                MapTile *t = &tile_rows[cur_y][p_min_x - 1];
                 if (t->m_zone_id == bld->m_required_zone) touches_zone = 1;
                 if (t->m_zone_id == 255) touches_wild = 1;
             }

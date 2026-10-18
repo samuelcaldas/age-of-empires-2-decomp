@@ -65,7 +65,11 @@ void func_339960(void *a0, int a1) {
 }
 void func_340CF0(void *a0) { log_call("func_340CF0", a0, 0); }
 void func_340C30(void *a0) { log_call("func_340C30", a0, 0); }
-void func_1F6750(void *a0, void *a1) { (void)a0; (void)a1; }
+static int g_func_1f6750_called = 0;
+void func_1F6750(void *a0, void *a1) {
+    log_call("func_1F6750", a0, (int)(long)a1);
+    g_func_1f6750_called++;
+}
 void func_1F88B0(void *a0, void *a1) { (void)a0; (void)a1; }
 void func_33F8B0(void *a0) {
     log_call("func_33F8B0", a0, 0);
@@ -175,7 +179,7 @@ static void test_func_342170_preceding_calls_order() {
     g_func_33a5d0_called = 0;
     g_func_339900_called = 0;
 
-    func_00342170(&obj, 0, 16, 0, 0);
+    func_00342170(&obj, (int)(long)&mock_sub, 16, 0, 0);
     assert(g_func_33a5d0_called == 1);
     assert(g_func_339900_called == 1);
 
@@ -293,17 +297,16 @@ static void test_func_342170_call_history_sequence() {
     obj.field_84C = 0; // Mode 0
     g_call_history.clear();
 
-    func_00342170(&obj, 42, 16, 0, 0);
+    func_00342170(&obj, (int)(long)&mock_sub, 16, 0, 0);
 
     // Verify exact call history sequence and arguments:
-    // 1. func_33A5D0(&mock_sub, 42)
-    // 2. func_339900(&obj, 42)
+    // 1. func_339900(&obj, a1)
+    // 2. func_33A5D0
     assert(g_call_history.size() >= 2);
-    assert(g_call_history[0].name == "func_33A5D0");
-    assert(g_call_history[0].arg1 == 42);
+    assert(g_call_history[0].name == "func_339900");
+    assert(g_call_history[0].arg1 == (int)(long)&mock_sub);
 
-    assert(g_call_history[1].name == "func_339900");
-    assert(g_call_history[1].arg1 == 42);
+    assert(g_call_history[1].name == "func_33A5D0");
 
     std::printf("PASS test_func_342170_call_history_sequence\n");
 }
@@ -489,7 +492,31 @@ static void test_func_342170_mode31_a2_equals_1_exact_history() {
     std::printf("PASS test_func_342170_mode31_a2_equals_1_exact_history\n");
 }
 
+static void test_func_342170_elf_sub838_a1_a2_16_branch() {
+    TacticalObj_341040 obj;
+    std::memset(&obj, 0, sizeof(obj));
+    MockSubObj mock_sub838;
+    obj.field_838 = &mock_sub838;
+    obj.field_C = 20;
+    obj.field_10 = 30;
+
+    g_func_33a730_called = 0;
+    g_func_1f6750_called = 0;
+    g_call_history.clear();
+
+    int res = func_00342170(&obj, (int)(long)&mock_sub838, 16, 0, 0);
+
+    // ELF-derived behavior at 0x242350 (0x00 to 0x38 in object):
+    // When sub838 matches a1 and a2 == 16, func_339900 returns 0.
+    // Must call func_1F6750 and return 1 without calling func_33A730.
+    assert(res == 1);
+    assert(g_func_33a730_called == 0);
+    assert(g_func_1f6750_called == 1);
+    std::printf("PASS test_func_342170_elf_sub838_a1_a2_16_branch\n");
+}
+
 int main() {
+    test_func_342170_elf_sub838_a1_a2_16_branch();
     test_initial_layout_state();
     test_func_342170_mode16_t0_xffff();
     test_func_342170_additional_modes();

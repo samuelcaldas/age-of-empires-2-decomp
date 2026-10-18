@@ -8,7 +8,14 @@
 
 static int g_func_100670_called = 0;
 static void *g_last_deleted_ptr = 0;
-static std::vector<std::string> g_call_order;
+
+struct HelperCallRecord {
+    std::string name;
+    NodePool *self;
+    int int_arg;
+    void *ptr_arg;
+};
+static std::vector<HelperCallRecord> g_helper_calls;
 
 static int g_logger_called = 0;
 static const char *g_logger_fmt = 0;
@@ -65,11 +72,11 @@ void *func_118DE0(int format, int file, int line) {
 }
 
 void func_1F20E0(NodePool *self, int val) {
-    g_call_order.push_back("func_1F20E0");
+    g_helper_calls.push_back({"func_1F20E0", self, val, 0});
 }
 
 void func_1F21E0(NodePool *self, void *p1) {
-    g_call_order.push_back("func_1F21E0");
+    g_helper_calls.push_back({"func_1F21E0", self, 0, p1});
 }
 
 void func_117CAC(void *dst, int val, int size) {
@@ -87,7 +94,7 @@ int main() {
     StrictNodePool *pool = new StrictNodePool();
     memset(pool, 0, sizeof(StrictNodePool));
 
-    g_call_order.clear();
+    g_helper_calls.clear();
     int res = func_001F1ED0((NodePool *)pool, (void *)0x5678, 5000);
     assert(res == 1);
     assert(pool->table_138810 == 0);
@@ -107,10 +114,17 @@ int main() {
     assert(g_logger_file != 0 && std::string(g_logger_file) == "obmanager.cpp");
     assert(g_logger_line == 0x13D6);
 
-    // Verify helper arguments: func_1F20E0 gets self and value at self+0x13881C (1); func_1F21E0 gets self and p1 (0x5678)
-    assert(g_call_order.size() == 2);
-    assert(g_call_order[0] == "func_1F20E0");
-    assert(g_call_order[1] == "func_1F21E0");
+    // Verify helper call order and exact arguments:
+    // - func_1F20E0 gets self and value at self+0x13881C (1)
+    // - func_1F21E0 gets self and p1 (0x5678)
+    assert(g_helper_calls.size() == 2);
+    assert(g_helper_calls[0].name == "func_1F20E0");
+    assert(g_helper_calls[0].self == (NodePool *)pool);
+    assert(g_helper_calls[0].int_arg == 1);
+
+    assert(g_helper_calls[1].name == "func_1F21E0");
+    assert(g_helper_calls[1].self == (NodePool *)pool);
+    assert(g_helper_calls[1].ptr_arg == (void *)0x5678);
 
     // Test 2: func_001F1FD0 - deleting destructor
     g_func_100670_called = 0;

@@ -58,12 +58,12 @@ static const ActionCodeMapping k_expected[113] = {
     {0, 14, 0x4b14},
     {2, 0, 0x4a3e},
     {2, 1, 0x4a3f},
-    {2, 0, 0x4a40},
+    {2, 2, 0x4a40},
     {2, 3, 0x4a41},
     {3, 0, 0x4b0d},
     {3, 1, 0x4b24},
     {3, 2, 0x4a77},
-    {3, 0, 0x4a7b},
+    {3, 3, 0x4a7b},
     {3, 4, 0x4a78},
     {3, 5, 0x4b0a},
     {3, 6, 0x4b25},
@@ -92,7 +92,7 @@ static const ActionCodeMapping k_expected[113] = {
     {5, 1, 0x4a64},
     {5, 2, 0x4a73},
     {5, 3, 0x4a6f},
-    {5, 0, 0x4b50},
+    {5, 5, 0x4b50},
     {5, 4, 0x4b4f},
     {5, 7, 0x4b54},
     {5, 8, 0x4b78},
@@ -126,26 +126,26 @@ static const ActionCodeMapping k_expected[113] = {
     {13, 1, 0x4b7a},
 };
 
-static int g_func_1C1350_called = 0;
+static int g_func_001C1350_called = 0;
 static ActionCodeMapping g_recorded[113];
 
 extern "C" {
-    void func_1C1350(void *, int category, int index, int code) {
-        if (g_func_1C1350_called < 113) {
-            g_recorded[g_func_1C1350_called].category = category;
-            g_recorded[g_func_1C1350_called].index = index;
-            g_recorded[g_func_1C1350_called].code = code;
+    void func_001C1350(void *, int category, int index, int code) {
+        if (g_func_001C1350_called < 113) {
+            g_recorded[g_func_001C1350_called].category = category;
+            g_recorded[g_func_001C1350_called].index = index;
+            g_recorded[g_func_001C1350_called].code = code;
         }
-        g_func_1C1350_called++;
+        g_func_001C1350_called++;
     }
 }
 
 static void test_exhaustive_mappings() {
     unsigned char self[64];
-    g_func_1C1350_called = 0;
+    g_func_001C1350_called = 0;
     func_0027C390(self);
 
-    assert(g_func_1C1350_called == 113);
+    assert(g_func_001C1350_called == 113);
 
     for (int i = 0; i < 113; ++i) {
         assert(g_recorded[i].category == k_expected[i].category);
@@ -155,7 +155,7 @@ static void test_exhaustive_mappings() {
 
     // Verify alias func_27C390
     func_27C390(self);
-    assert(g_func_1C1350_called == 226);
+    assert(g_func_001C1350_called == 226);
 
     printf("PASS test_exhaustive_mappings\n");
 }

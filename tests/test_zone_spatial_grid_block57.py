@@ -5,6 +5,9 @@ import pytest
 def test_zone_spatial_grid_block57_build():
     """Verify that Block 57 objects build and link without errors."""
     import sys
+    for f in [".ninja_log", ".ninja_deps"]:
+        if os.path.exists(f):
+            os.remove(f)
     cfg_res = subprocess.run([sys.executable, "configure.py", "--version", "SLES-50282"], capture_output=True, text=True)
     assert cfg_res.returncode == 0, f"configure failed: {cfg_res.stderr}"
     res = subprocess.run(["ninja"], capture_output=True, text=True)

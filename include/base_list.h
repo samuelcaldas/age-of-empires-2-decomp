@@ -1,7 +1,9 @@
 #ifndef BASE_LIST_H
 #define BASE_LIST_H
 
+#ifndef NULL
 #define NULL 0
+#endif
 
 struct ListNode {
     void *item;

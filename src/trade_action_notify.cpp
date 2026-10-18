@@ -1,5 +1,5 @@
 /*
- * Experimental Trade Action Notification Subsystem (NonMatching / Experimental)
+ * Trade Action Notification Subsystem (Matching)
  * VRAM 0x2B9770 - 0x2B9880
  */
 #pragma exceptions off

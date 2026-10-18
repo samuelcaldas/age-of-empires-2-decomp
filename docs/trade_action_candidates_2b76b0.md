@@ -115,7 +115,7 @@ int func_002B90A0(void *self, int target_type, int item_id);
 ## Trade notification routines (`0x2B9770`–`0x2B9B30`)
 
 - **Slice**: File `0x1B9950`–`0x1B9D10`, VRAM `0x2B9770`–`0x2B9B30` (960 B code and padding).
-- **Status**: **100.0% Matched in target compiler objdiff** (retained as NonMatching in configure.py pending review).
+- **Status**: **100.0% Matched** (verified byte-for-byte with MWCC PS2 2.3.1.01 against SLES-50282 original ELF; promoted to Matching in configure.py).
 - **Matching Coverage (objdiff)**:
   - `func_002B9770`: **100.0% match** (96 B code, 24/24 instructions).
   - `func_002B97D0`: **100.0% match** (96 B code, 24/24 instructions).

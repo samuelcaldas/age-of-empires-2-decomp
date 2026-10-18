@@ -129,4 +129,5 @@ not verified original-game semantics:
 `tests/test_trade_action_notify.py` compiles the actual C++ source as 32-bit native
 code. Its fixture covers excluded and accepted notifications, candidate-ID forwarding,
 and the batch capacity bound. Native fixture results do not verify the original ELF;
-matching and call-order claims still require binary analysis.
+matching, register allocation, MIPS instruction parity, and call-order claims still
+require binary analysis and target-compiler objdiff validation.

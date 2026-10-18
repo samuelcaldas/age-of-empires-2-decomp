@@ -7329,6 +7329,15 @@ Located at VRAM `0x21C990`–`0x21CD10` (file offset `0x11CB70`–`0x11CEF0`, 89
 
 Pure C++ following Object Calisthenics, SOLID, and fail-fast principles. Validated with native regression tests in `tests/native/trade_action_helper_21C990_test.cpp` and pytest runner in `tests/test_trade_action_helper_21C990.py`.
 
+#### 6.195.3 `GIF/GS Packet Builder Line/Poly Rasterizer` Subsystem (`0x21CD20`–`0x21CFB0`, `trade_action_helper_21CD20.cpp`)
+
+Located at VRAM `0x21CD20`–`0x21CFB0` (file offset `0x11CF00`–`0x11D190`, 656 bytes total slice, 640 bytes code + 16 bytes padding, Metrowerks C++ PS2 MWCC 2.3.1.01):
+- `func_0021CD20` (`0x21CD20`, 528 bytes code): Constructs packet object, computes line/poly tag `D_00392B50`, calculates 4-vertex quad/poly coordinates transformed by screen center `(D_00CA158C, D_00CA158E)` and depth `t2`, emits register `0x01` with `a2`, writes 4 transformed vertex XYZ coordinates to register `0x04`, and finalizes with `func_104600`.
+- `func_0021CF30` (`0x21CF30`, 128 bytes code): Wrapper expanding a bounding rectangle `[x, y, w, h]` into 4 quad vertices `(x, y)`, `(x+w, y)`, `(x, y+h)`, `(x+w, y+h)` and delegating to `func_0021CD20` with `t2 = 1`.
+
+Pure C++ following Object Calisthenics, SOLID, and fail-fast principles. Validated with native regression tests in `tests/native/trade_action_helper_21CD20_test.cpp` and pytest runner in `tests/test_trade_action_helper_21CD20.py`.
+
+
 
 
 

@@ -4858,9 +4858,15 @@ segments:
     vram: 0x21C990
     subsegments:
       - [0x11CB70, asm, trade_action_helper_21C990]
-  - name: post_21C990
-    type: bin
+  - name: trade_action_helper_21CD20
+    type: code
     start: 0x11CF00
+    vram: 0x21CD20
+    subsegments:
+      - [0x11CF00, asm, trade_action_helper_21CD20]
+  - name: post_21CD20
+    type: bin
+    start: 0x11D190
   - name: unit_action_core
     type: code
     start: 0x166960

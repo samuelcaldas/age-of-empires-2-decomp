@@ -4,7 +4,10 @@
 extern "C" {
 void func_33A730();
 void func_33A5D0(void *a0, int a1);
+void func_339900(void *a0, int a1);
 void func_339960(void *a0, int a1);
+void func_1F6750(void *a0, void *a1);
+void func_1F88B0(void *a0, void *a1);
 void func_11ABBC(void *dst, const char *src);
 void func_36BD30(void *a0, int a1, int a2, const char *a3, int t0);
 void func_36ACC0(int a0);
@@ -166,18 +169,45 @@ void func_00341040(TacticalObj_341040 *self) {
     }
 }
 
+// 0x342170 to 0x34279C state machine port
 void func_00342170(TacticalObj_341040 *self) {
     if (!self) return;
+
+    // 0x34217C: check field_838 and call func_33A5D0
     TacticalSubObj *sub838 = self->field_838;
     if (sub838) {
         func_33A5D0(sub838, self->field_84C);
     }
-    if (self->field_84C == 30) {
+
+    // 0x342188: branch on field_84C / field_840 / subobjects
+    int mode = self->field_84C;
+    if (mode == 30) {
         self->field_83C = 1;
         func_339960(self, 0);
-    } else if (self->field_84C == 35) {
+    } else if (mode == 35) {
         self->field_83C = 2;
         func_339960(self, 1);
+    } else if (mode >= 40 && mode <= 50) {
+        func_339900(self, mode);
+    } else {
+        TacticalSubObj *sub828 = self->field_828;
+        if (sub828) {
+            ((VFunc_104)(*(void***)sub828)[65])(sub828, 0xc3d5 + mode);
+        }
     }
+
+    // 0x3426A8 - 0x3426C0 paths: additional subobject interaction
+    TacticalSubObj *sub830 = self->field_830;
+    if (sub830) {
+        ((VFunc_28)(*(void***)sub830)[7])(sub830, 1);
+    }
+
+    TacticalSubObj *sub834 = self->field_834;
+    if (sub834) {
+        ((VFunc_28)(*(void***)sub834)[7])(sub834, 0);
+    }
+
+    func_1F6750(self, sub838);
+    func_1F88B0(self, sub838);
 }
 }

@@ -4241,9 +4241,45 @@ segments:
     vram: 0x1EC9F0
     subsegments:
       - [0xECBC0, asm, zone_spatial_grid_link_header_clear]
+  - name: zone_spatial_grid_link_header_remove
+    type: code
+    start: 0xECC10
+    vram: 0x1ECA40
+    subsegments:
+      - [0xECC10, asm, zone_spatial_grid_link_header_remove]
+  - name: zone_spatial_grid_link_header_prepend
+    type: code
+    start: 0xECCC0
+    vram: 0x1ECAF0
+    subsegments:
+      - [0xECCC0, asm, zone_spatial_grid_link_header_prepend]
+  - name: zone_spatial_grid_buffer_manager_init
+    type: code
+    start: 0xECD40
+    vram: 0x1ECB70
+    subsegments:
+      - [0xECD40, asm, zone_spatial_grid_buffer_manager_init]
+  - name: zone_spatial_grid_buffer_manager_destructor
+    type: code
+    start: 0xECD60
+    vram: 0x1ECB90
+    subsegments:
+      - [0xECD60, asm, zone_spatial_grid_buffer_manager_destructor]
+  - name: zone_spatial_grid_buffer_manager_setup
+    type: code
+    start: 0xECDB0
+    vram: 0x1ECBE0
+    subsegments:
+      - [0xECDB0, asm, zone_spatial_grid_buffer_manager_setup]
+  - name: zone_spatial_grid_buffer_manager_insert
+    type: code
+    start: 0xECDD0
+    vram: 0x1ECC00
+    subsegments:
+      - [0xECDD0, asm, zone_spatial_grid_buffer_manager_insert]
   - name: post_aoe2
     type: bin
-    start: 0xECC10
+    start: 0xECEE0
   - name: trade_action_helper_217730
     type: code
     start: 0x117910

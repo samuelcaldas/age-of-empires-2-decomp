@@ -1,0 +1,8 @@
+#ifndef ZONE_SPATIAL_GRID_LINK_HEADER_PREPEND_H
+#define ZONE_SPATIAL_GRID_LINK_HEADER_PREPEND_H
+
+extern "C" {
+void *func_001ECAF0(void *self, void *elem);
+}
+
+#endif // ZONE_SPATIAL_GRID_LINK_HEADER_PREPEND_H

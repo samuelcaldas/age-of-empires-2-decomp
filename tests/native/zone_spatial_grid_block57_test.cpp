@@ -58,6 +58,7 @@ struct ClearNodePool {
     int field_13882C;
     int field_138830;
     int capacity_138834;
+    char trailing_padding[64];
 };
 
 extern "C" {
@@ -202,10 +203,11 @@ int main() {
     memset(clear_start1, 0xFF, 0x138800);
     memset(clear_pool1, 0xFF, 16);
 
-    // Set valid table_138810 to verify clear region (ending at 0x138810) does not over-clear table_138810
+    // Set valid table_138810 and count_138818, and fill trailing padding with 0xAA guard
     clear_pool1->table_138810 = table_buf1;
     clear_pool1->table_138814 = (void *)0x1;
     clear_pool1->count_138818 = 1;
+    memset(clear_pool1->trailing_padding, 0xAA, sizeof(clear_pool1->trailing_padding));
 
     g_clear_calls_log.clear();
     func_001F2020((NodePool *)clear_pool1);
@@ -219,8 +221,14 @@ int main() {
         assert(((char *)clear_pool1)[i] == 0);
     }
 
-    // Verify boundary at self + 0x138810 (table_138810) is untouched by clear (remains table_buf1)
+    // Verify table boundary and count remain valid (untouched by clear ending at 0x138810)
     assert(clear_pool1->table_138810 == table_buf1);
+    assert(clear_pool1->count_138818 == 1);
+
+    // Verify every single byte of trailing padding remains untouched (0xAA)
+    for (size_t i = 0; i < sizeof(clear_pool1->trailing_padding); ++i) {
+        assert(clear_pool1->trailing_padding[i] == (char)0xAA);
+    }
 
     free(entry_buf1);
     free(table_buf1);

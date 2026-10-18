@@ -146,8 +146,56 @@ static void test_grid_entity_filtering() {
     assert(s_calls[1].tag == 77);
 }
 
+static void test_inactive_entity_rejection() {
+    EntityDesc desc_inactive;
+    std::memset(&desc_inactive, 0, sizeof(desc_inactive));
+    desc_inactive.m_active = 0; // inactive entity should be rejected (wrong branch)
+    desc_inactive.m_tag = 99;
+
+    Entity entity_inactive;
+    std::memset(&entity_inactive, 0, sizeof(entity_inactive));
+    entity_inactive.m_desc = &desc_inactive;
+    entity_inactive.m_id = 105;
+
+    Entity *entities_cell0[1] = {&entity_inactive};
+
+    ZoneCell cell0;
+    std::memset(&cell0, 0, sizeof(cell0));
+    cell0.m_entity_count = 1;
+    cell0.m_entities = entities_cell0;
+
+    ZoneCell row0[1] = {cell0};
+    ZoneCell *rows[1] = {row0};
+
+    MapZone zone;
+    std::memset(&zone, 0, sizeof(zone));
+    zone.m_cell_rows = rows;
+
+    GameMgr game_mgr;
+    std::memset(&game_mgr, 0, sizeof(game_mgr));
+    game_mgr.m_map_zone = &zone;
+
+    CombatWorld world;
+    std::memset(&world, 0, sizeof(world));
+    world.m_game_mgr = &game_mgr;
+
+    ElevationMeshDescriptor desc;
+    std::memset(&desc, 0, sizeof(desc));
+    desc.m_world = &world;
+    desc.m_count = 1;
+
+    CellCoord query_coords[1] = {{0, 0}};
+    s_mock_coords = query_coords;
+    s_mock_coord_count = 1;
+    s_call_count = 0;
+
+    func_00328100(&desc, 0);
+    assert(s_call_count == 0); // inactive entity branch rejected
+}
+
 int main() {
     test_early_exits();
     test_grid_entity_filtering();
+    test_inactive_entity_rejection();
     return 0;
 }

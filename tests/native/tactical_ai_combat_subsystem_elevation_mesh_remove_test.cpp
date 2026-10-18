@@ -96,10 +96,22 @@ static void test_remove_swap_last() {
     assert(buffer[0].m_id == 10);
 }
 
+static void test_invalid_tag_rejection() {
+    ElevationMeshDescriptor desc;
+    std::memset(&desc, 0, sizeof(desc));
+    desc.m_count = 1;
+    int table8[1] = {0};
+    desc.m_table_8 = table8;
+
+    int res = func_00328300(&desc, 100, 0);
+    assert(res == 0); // count == 0 branch rejection
+}
+
 int main() {
     test_early_exits();
     test_not_found();
     test_remove_single();
     test_remove_swap_last();
+    test_invalid_tag_rejection();
     return 0;
 }

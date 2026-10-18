@@ -10,6 +10,9 @@ static int g_func_33a730_called = 0;
 static int g_func_33f8b0_called = 0;
 static int g_func_1fbd30_called = 0;
 static int g_last_1fbd30_arg = 0;
+static int g_last_339960_arg = -1;
+static int g_last_219ba0_arg = -1;
+static int g_last_339900_arg = -1;
 
 static void* custom_vtable[100];
 static void dummy_vfunc_stub(void *self, ...) { (void)self; }
@@ -33,12 +36,14 @@ void func_33A5D0(void *a0, int a1) {
     g_func_33a5d0_called++;
 }
 void func_339900(void *a0, int a1) {
-    (void)a0; (void)a1;
+    (void)a0;
     g_func_339900_called++;
+    g_last_339900_arg = a1;
 }
 void func_339960(void *a0, int a1) {
-    (void)a0; (void)a1;
+    (void)a0;
     g_func_339960_called++;
+    g_last_339960_arg = a1;
 }
 void func_340CF0(void *a0) { (void)a0; }
 void func_340C30(void *a0) { (void)a0; }
@@ -48,7 +53,10 @@ void func_33F8B0(void *a0) {
     (void)a0;
     g_func_33f8b0_called++;
 }
-void func_219BA0(void *a0, int a1) { (void)a0; (void)a1; }
+void func_219BA0(void *a0, int a1) {
+    (void)a0;
+    g_last_219ba0_arg = a1;
+}
 void func_1FBD30(void *a0, int a1) {
     (void)a0;
     g_func_1fbd30_called++;
@@ -202,22 +210,36 @@ static void test_func_342170_remaining_modes() {
     // Mode 30
     std::memset(&obj, 0, sizeof(obj));
     obj.field_84C = 30;
+    g_func_339960_called = 0;
+    g_last_339960_arg = -1;
     func_00342170(&obj, 0, 16, 0, 0);
     assert(obj.field_84C == 30);
     assert(obj.field_83C == 1);
+    assert(g_func_339960_called == 1);
+    assert(g_last_339960_arg == 0);
 
     // Mode 35
     std::memset(&obj, 0, sizeof(obj));
     obj.field_84C = 35;
+    g_func_339960_called = 0;
+    g_last_339960_arg = -1;
     func_00342170(&obj, 0, 16, 0, 0);
     assert(obj.field_84C == 35);
     assert(obj.field_83C == 2);
+    assert(g_func_339960_called == 1);
+    assert(g_last_339960_arg == 1);
 
-    // Mode 45 (in range 40-50)
-    std::memset(&obj, 0, sizeof(obj));
-    obj.field_84C = 45;
-    func_00342170(&obj, 0, 16, 0, 0);
-    assert(obj.field_84C == 45);
+    // Modes 40, 45, 50 (in range 40-50)
+    for (int m = 40; m <= 50; m += 5) {
+        std::memset(&obj, 0, sizeof(obj));
+        obj.field_84C = m;
+        g_func_339900_called = 0;
+        g_last_339900_arg = -1;
+        func_00342170(&obj, 0, 16, 0, 0);
+        assert(obj.field_84C == m);
+        assert(g_func_339900_called == 2);
+        assert(g_last_339900_arg == m);
+    }
 
     // Default with field_840 == 2
     std::memset(&obj, 0, sizeof(obj));
@@ -229,14 +251,18 @@ static void test_func_342170_remaining_modes() {
     // t0 == 1 terminal branch
     std::memset(&obj, 0, sizeof(obj));
     obj.field_84C = 1;
+    g_last_219ba0_arg = -1;
     func_00342170(&obj, 0, 16, 0, 1);
     assert(obj.field_84C == 1);
+    assert(g_last_219ba0_arg == 10);
 
     // t0 == 2 terminal branch
     std::memset(&obj, 0, sizeof(obj));
     obj.field_84C = 1;
+    g_last_1fbd30_arg = -1;
     func_00342170(&obj, 0, 16, 0, 2);
     assert(obj.field_84C == 1);
+    assert(g_last_1fbd30_arg == 20);
 
     std::printf("PASS test_func_342170_remaining_modes\n");
 }

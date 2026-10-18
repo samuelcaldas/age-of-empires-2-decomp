@@ -172,6 +172,75 @@ static void test_func_342170_mode31_a2_equals_1() {
     std::printf("PASS test_func_342170_mode31_a2_equals_1\n");
 }
 
+static void test_func_342170_remaining_modes() {
+    TacticalObj_341040 obj;
+
+    // Mode 11
+    std::memset(&obj, 0, sizeof(obj));
+    obj.field_84C = 11;
+    func_00342170(&obj, 0, 16, 0, 0);
+    assert(obj.field_84C == 11);
+
+    // Mode 14
+    std::memset(&obj, 0, sizeof(obj));
+    obj.field_84C = 14;
+    func_00342170(&obj, 0, 16, 0, 0);
+    assert(obj.field_84C == 14);
+
+    // Mode 28
+    std::memset(&obj, 0, sizeof(obj));
+    obj.field_84C = 28;
+    func_00342170(&obj, 0, 16, 0, 0);
+    assert(obj.field_84C == 28);
+
+    // Mode 29
+    std::memset(&obj, 0, sizeof(obj));
+    obj.field_84C = 29;
+    func_00342170(&obj, 0, 16, 0, 0);
+    assert(obj.field_84C == 29);
+
+    // Mode 30
+    std::memset(&obj, 0, sizeof(obj));
+    obj.field_84C = 30;
+    func_00342170(&obj, 0, 16, 0, 0);
+    assert(obj.field_84C == 30);
+    assert(obj.field_83C == 1);
+
+    // Mode 35
+    std::memset(&obj, 0, sizeof(obj));
+    obj.field_84C = 35;
+    func_00342170(&obj, 0, 16, 0, 0);
+    assert(obj.field_84C == 35);
+    assert(obj.field_83C == 2);
+
+    // Mode 45 (in range 40-50)
+    std::memset(&obj, 0, sizeof(obj));
+    obj.field_84C = 45;
+    func_00342170(&obj, 0, 16, 0, 0);
+    assert(obj.field_84C == 45);
+
+    // Default with field_840 == 2
+    std::memset(&obj, 0, sizeof(obj));
+    obj.field_84C = 99;
+    obj.field_840 = 2;
+    func_00342170(&obj, 0, 16, 0, 0);
+    assert(obj.field_84C == 99);
+
+    // t0 == 1 terminal branch
+    std::memset(&obj, 0, sizeof(obj));
+    obj.field_84C = 1;
+    func_00342170(&obj, 0, 16, 0, 1);
+    assert(obj.field_84C == 1);
+
+    // t0 == 2 terminal branch
+    std::memset(&obj, 0, sizeof(obj));
+    obj.field_84C = 1;
+    func_00342170(&obj, 0, 16, 0, 2);
+    assert(obj.field_84C == 1);
+
+    std::printf("PASS test_func_342170_remaining_modes\n");
+}
+
 int main() {
     test_initial_layout_state();
     test_func_342170_mode16_t0_xffff();
@@ -180,6 +249,7 @@ int main() {
     test_func_342170_mode31_early_return_order();
     test_func_342170_preceding_calls_order();
     test_func_342170_mode31_a2_equals_1();
-    std::printf("ALL TACTICAL AI LAYOUT TESTS PASSED WITH ALL DISCRIMINATING ASSERTIONS\n");
+    test_func_342170_remaining_modes();
+    std::printf("ALL TACTICAL AI LAYOUT TESTS PASSED WITH COMPLETE MODE COVERAGE\n");
     return 0;
 }

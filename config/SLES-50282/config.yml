@@ -4295,9 +4295,39 @@ segments:
     vram: 0x1ECC00
     subsegments:
       - [0xECDD0, asm, zone_spatial_grid_buffer_manager_insert]
+  - name: zone_spatial_grid_buffer_manager_remove
+    type: code
+    start: 0xECEE0
+    vram: 0x1ECD10
+    subsegments:
+      - [0xECEE0, asm, zone_spatial_grid_buffer_manager_remove]
+  - name: zone_spatial_grid_buffer_manager_sync_tables
+    type: code
+    start: 0xECFF0
+    vram: 0x1ECE20
+    subsegments:
+      - [0xECFF0, asm, zone_spatial_grid_buffer_manager_sync_tables]
+  - name: zone_spatial_grid_single_list_init
+    type: code
+    start: 0xED1A0
+    vram: 0x1ECFD0
+    subsegments:
+      - [0xED1A0, asm, zone_spatial_grid_single_list_init]
+  - name: zone_spatial_grid_single_list_destructor
+    type: code
+    start: 0xED1B0
+    vram: 0x1ECFE0
+    subsegments:
+      - [0xED1B0, asm, zone_spatial_grid_single_list_destructor]
+  - name: zone_spatial_grid_single_list_prepend
+    type: code
+    start: 0xED230
+    vram: 0x1ED060
+    subsegments:
+      - [0xED230, asm, zone_spatial_grid_single_list_prepend]
   - name: post_aoe2
     type: bin
-    start: 0xECEE0
+    start: 0xED2B0
   - name: trade_action_helper_217730
     type: code
     start: 0x117910

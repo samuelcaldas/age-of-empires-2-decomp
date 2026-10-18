@@ -1,0 +1,8 @@
+#ifndef ZONE_SPATIAL_GRID_SINGLE_LIST_INIT_H
+#define ZONE_SPATIAL_GRID_SINGLE_LIST_INIT_H
+
+extern "C" {
+void *func_001ECFD0(void *self);
+}
+
+#endif // ZONE_SPATIAL_GRID_SINGLE_LIST_INIT_H

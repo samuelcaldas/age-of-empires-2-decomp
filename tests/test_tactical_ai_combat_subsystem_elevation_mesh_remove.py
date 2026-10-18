@@ -15,6 +15,8 @@ MUTATIONS = [
     ("invert_id", "vertices[i].m_id == id", "vertices[i].m_id != id", "remove_single", "single remove failed"),
     ("wrong_ret", "return i;", "return 0;", "swap_last", "swap last remove failed"),
     ("wrong_not_found", "    }\n    return -1;", "    }\n    return 0;", "not_found", "not found remove failed"),
+    ("guard_remove_count", "if (self->m_count == 0) return -1;", "if (true) return -1;", "remove_single", "single remove failed"),
+    ("guard_remove_tag_count", "if (count == 0) return 0;", "if (true) return 0;", "remove_single", "single remove table count not decremented"),
 ]
 
 

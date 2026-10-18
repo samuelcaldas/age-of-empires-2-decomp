@@ -7,13 +7,16 @@ public:
 
 class TacticalObj_341040 {
 public:
-    char pad_0[0x828];
+    TacticalSubObj *vtable;
+    char pad_4[0x824];
     TacticalSubObj *field_828;
     TacticalSubObj *field_82C;
     TacticalSubObj *field_830;
     TacticalSubObj *field_834;
     TacticalSubObj *field_838;
-    char pad_83C[0x28];
+    char pad_83C[0x10];
+    int field_84C;
+    char pad_850[0x14];
 };
 
 extern "C" {

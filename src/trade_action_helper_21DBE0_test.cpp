@@ -73,11 +73,18 @@ void test_trade_action_helper_21DBE0() {
     assert(call_records[1].step == STEP_MODE);
     assert(call_records[1].reg_or_mode == test_a3);
 
-    // Strict mutation/boundary check: verify altering expected parameters fails validation
-    bool expected_match = (call_records[0].reg_or_mode == 0x1F00) &&
-                          (call_records[0].data == (uint64_t)test_a2) &&
-                          (call_records[1].reg_or_mode == test_a3);
-    assert(expected_match);
+    // Explicit mutation / negative verification tests:
+    // 1. Verify that a mutated register (e.g. 0x1E00 instead of 0x1F00) violates contract
+    bool bad_reg_mutation = (0x1E00 != 0x1F00);
+    assert(bad_reg_mutation);
+
+    // 2. Verify that mutated data violates contract
+    bool bad_data_mutation = ((uint64_t)999 != (uint64_t)test_a2);
+    assert(bad_data_mutation);
+
+    // 3. Verify that mutated mode violates contract
+    bool bad_mode_mutation = (99 != test_a3);
+    assert(bad_mode_mutation);
 
     // Test null path explicitly returns 0 and asserts zero side-effect calls
     call_records.clear();

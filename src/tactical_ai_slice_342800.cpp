@@ -24,4 +24,8 @@ void func_00342D54(TacticalObj_341040 *self) { if (!self) return; }
 void func_00342D60(TacticalObj_341040 *self) { if (!self) return; }
 void func_00342DE0(TacticalObj_341040 *self) { if (!self) return; }
 void func_00342DF0(TacticalObj_341040 *self) { if (!self) return; }
+
+void func_00343088(TacticalObj_341040 *self) { if (!self) return; }
+void func_00343090(TacticalObj_341040 *self) { if (!self) return; }
+void func_00343568(TacticalObj_341040 *self) { if (!self) return; }
 }

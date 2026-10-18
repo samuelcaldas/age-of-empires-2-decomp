@@ -30,6 +30,10 @@ int main() {
     func_00342DE0(&obj);
     func_00342DF0(&obj);
 
-    std::printf("PASS test_tactical_ai_slice_342800_extended\n");
+    func_00343088(&obj);
+    func_00343090(&obj);
+    func_00343568(&obj);
+
+    std::printf("PASS test_tactical_ai_slice_343088\n");
     return 0;
 }

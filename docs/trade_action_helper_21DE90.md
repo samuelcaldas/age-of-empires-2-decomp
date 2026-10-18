@@ -64,7 +64,9 @@ consumer has been established; external or indirect use remains unresolved.
 The shared declarations are in [trade_packet.h](../include/trade_packet.h).
 The palette uploader uses that declaration and also has a semantic `void`
 return. Its pre-existing copy and swizzle behavior has characterization coverage;
-this is not a matching claim for the uploader or its callers.
+this is not a matching claim for the uploader or its callers. A separate
+[palette-width regression](trade_action_palette_21B560.md) corrects its existing
+zero-width upload to the original 16-by-16 dimensions.
 
 ## Native regression evidence
 

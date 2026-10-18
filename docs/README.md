@@ -16,6 +16,7 @@ Start with the top-level [README](../README.md).
 - [trade_action_helper_21DCA0.md](trade_action_helper_21DCA0.md): binary analysis, ELF disassembly trace, and native test contracts for trade action helper 0x21DCA0
 - [trade_action_helper_21DD10.md](trade_action_helper_21DD10.md): binary analysis, ELF disassembly trace, and native test contracts for trade action helper 0x21DD10
 - [trade_action_helper_21DE20.md](trade_action_helper_21DE20.md): binary analysis, ELF disassembly trace, and native test contracts for trade action helper 0x21DE20
+- [trade_action_palette_21B560.md](trade_action_palette_21B560.md): original 16-by-16 palette upload arguments and the separate zero-width red/green regression
 - [trade_action_helper_21DE90.md](trade_action_helper_21DE90.md): eight-input packet dispatcher, native chain tests, and complete 192-byte relocated C++ match
 - [trade_action_helper_21DF50.md](trade_action_helper_21DF50.md): nine-input packet builder, ten writer arguments, wrapped arithmetic, and remaining target differences
 - [trade_action_dispatcher_2b66b0.md](trade_action_dispatcher_2b66b0.md): trade action dispatcher slice 0x2B66B0, modular architecture, and 16-case native test validation

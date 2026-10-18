@@ -52,7 +52,7 @@ void func_0021B560(void *palette_obj, const char *palette_data) {
     int t0 = (short)v1;
     int t1 = (short)v0;
 
-    func_0021DE90(0x1F00, 0, 4, D_00C5DF00, t0, t1, 0, 16);
+    func_0021DE90(0x1F00, 0, 4, D_00C5DF00, t0, t1, 16, 16);
 }
 
 int func_0021B4C0(void *palette_obj, int unused, int start_idx, int count, void *src_buf, int trans_idx) {

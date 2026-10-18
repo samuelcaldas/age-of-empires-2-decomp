@@ -60,11 +60,10 @@ int func_00342170(TacticalObj_341040 *self, int a1, int a2, int a3, int t0) {
             func_00341040(self);
             return 1;
         }
-        case 15:
-            if (self->field_840 == 2 || self->field_840 == 4) {
-                self->field_84C = 18;
-                func_00341040(self);
-                return 1;
+        case 15: {
+            int m = 18;
+            if (self->field_840 == 2) {
+            } else if (self->field_840 == 4) {
             } else {
                 func_00340C30(self);
                 if (self->field_844) {
@@ -72,6 +71,10 @@ int func_00342170(TacticalObj_341040 *self, int a1, int a2, int a3, int t0) {
                 }
                 return 1;
             }
+            self->field_84C = m;
+            func_00341040(self);
+            return 1;
+        }
         case 20: {
             int m = 18;
             if (self->field_840 == 2) {

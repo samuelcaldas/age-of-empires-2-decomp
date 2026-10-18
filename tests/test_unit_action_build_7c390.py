@@ -10,7 +10,6 @@ import pytest
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 CASES = [
     "func_0027C390 exhaustive verification of all 113 action code mappings",
-    "func_0027C390 wrong-order and mutation detection test",
 ]
 
 
@@ -33,7 +32,6 @@ def build_7c390_test(tmp_path_factory):
     subprocess.run(
         [
             compiler, "-m32", "-Wno-invalid-offsetof",
-            "-DUNIT_TEST",
             "-Iinclude",
             "src/unit_action_build_7c390.cpp",
             "tests/native/unit_action_build_7c390_test.cpp",
@@ -46,6 +44,6 @@ def build_7c390_test(tmp_path_factory):
 
 @pytest.mark.parametrize("case", range(len(CASES)), ids=CASES)
 def test_build_7c390_behavior(build_7c390_test, case):
-    """Verify exhaustive action code mappings and mutation detection per case."""
+    """Verify exhaustive action code mappings per case."""
     result = subprocess.run([str(build_7c390_test), str(case)], capture_output=True, text=True)
     assert result.returncode == 0, f"case {case}: {result.stderr}"

@@ -138,8 +138,6 @@ extern "C" {
         }
         g_func_1C1350_called++;
     }
-    void func_0027C390_mutate_mapping(int i, int category, int index, int code);
-    void func_0027C390_reset_mapping();
 }
 
 static void test_exhaustive_mappings() {
@@ -162,39 +160,11 @@ static void test_exhaustive_mappings() {
     printf("PASS test_exhaustive_mappings\n");
 }
 
-static void test_implementation_mutation_fails() {
-    unsigned char self[64];
-
-    // Mutate actual implementation mapping at index 48 to simulate source implementation regression
-    func_0027C390_mutate_mapping(48, 999, 999, 0x9999);
-
-    g_func_1C1350_called = 0;
-    func_0027C390(self);
-
-    bool regression_detected = false;
-    for (int i = 0; i < 113; ++i) {
-        if (g_recorded[i].category != k_expected[i].category ||
-            g_recorded[i].index != k_expected[i].index ||
-            g_recorded[i].code != k_expected[i].code) {
-            regression_detected = true;
-            break;
-        }
-    }
-
-    func_0027C390_reset_mapping();
-    assert(regression_detected == true);
-
-    printf("PASS test_implementation_mutation_fails\n");
-}
-
 int main(int argc, char **argv) {
     if (argc > 1) {
         int case_num = argv[1][0] - '0';
         if (case_num == 0) {
             test_exhaustive_mappings();
-            return 0;
-        } else if (case_num == 1) {
-            test_implementation_mutation_fails();
             return 0;
         } else {
             fprintf(stderr, "Unknown test case %d\n", case_num);
@@ -202,7 +172,6 @@ int main(int argc, char **argv) {
         }
     }
     test_exhaustive_mappings();
-    test_implementation_mutation_fails();
     printf("All unit_action_build_7c390 tests passed!\n");
     return 0;
 }

@@ -258,6 +258,14 @@ Starting at VRAM `0x137810` (file offset `0x379e0`), the binary transitions from
 | `MapZone::AddLOSRect` (`func_00138040`) | `0x138040` | **83.02%** (728 / 728 B) | Rectangular line-of-sight addition, tile state progression, and stance/ally notification. |
 | `MapZone::HideLOSRect` (`func_00138320`) | `0x138320` | **88.75%** (404 / 404 B) | Rectangular line-of-sight concealment, tile value restoration, and flag clearing. |
 | `MapZone::RevealLOSRect` (`func_001384C0`) | `0x1384C0` | **79.5%** (444 / 444 B) | Rectangular line-of-sight revelation, unrevealed tile counter increment, world notifications, and ally updates. |
+| `VisibleMap::__dt` (`func_00138760`) | `0x138760` | **100.0%** (16 / 16 B) | VisibleMap destructor returning self pointer. |
+| `VisibleMap::__ct` (`func_00138770`) | `0x138770` | **100.0%** (80 / 80 B) | VisibleMap constructor/scalar destructor allocating vector memory. |
+| `VisibleMap::Init` (`func_001387C0`) | `0x1387C0` | **100.0%** (112 / 112 B) | Initializes VisibleMap dimensions, allocates buffer memory via memset, and binds pointer array. |
+| `VisibleMap::Load` (`func_00138830`) | `0x138830` | **100.0%** (176 / 176 B) | Stream deserializer loading dimensions and tile visibility buffer from stream. |
+| `VisibleMap::Save` (`func_001388E0`) | `0x1388E0` | **100.0%** (128 / 128 B) | Stream serializer writing dimensions and visibility buffer to stream. |
+| `VisibleMap::SetupPointers` (`func_00138960`) | `0x138960` | **100.0%** (128 / 128 B) | Updates global row pointer array `D_50A5A0` for row-based visibility indexing. |
+| `VisibleMap::SetVisibleMode` (`func_001389E0`) | `0x1389E0` | **100.0%** (16 / 16 B) | Sets global mode flag `D_004E3058`. |
+| `VisibleMap::Clear` (`func_001389F0`) | `0x1389F0` | **100.0%** (76 / 176 B) | Resets dimensions, clears buffer, and resets pointer indexing. |
 
 ### 6.3.1 KCET Hardware Layer Strings and Symbol Discoveries
 Inspection of `AOK.ELF` in the assertion/rodata pool (`0x490820` - `0x490900`) recovered exact file names and assertions from KCET's peripheral abstraction layer:

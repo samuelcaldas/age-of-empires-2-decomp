@@ -5218,9 +5218,15 @@ segments:
     vram: 0x27C390
     subsegments:
       - [0x17C570, asm, unit_action_build_7c390]
-  - name: post_unit_action_build_7c390
-    type: bin
+  - name: unit_action_build_7cc80
+    type: code
     start: 0x17CE60
+    vram: 0x27CC80
+    subsegments:
+      - [0x17CE60, asm, unit_action_build_7cc80]
+  - name: post_unit_action_build_7cc80
+    type: bin
+    start: 0x17D4C0
   - name: trade_action_getters3
     type: code
     start: 0x1B6330

@@ -192,14 +192,24 @@ int main() {
     assert(g_clear_calls_log[2].val == 0);
     assert(g_clear_calls_log[2].size == 8);
 
-    // Verify repeated calls maintain zero-filled cleared state
+    // Verify repeated calls maintain zero-filled cleared state after intentional non-zero contamination
+    // Contaminate region at self + 0x10 and header with 0xFF
+    memset((char *)clear_pool1 + 0x10, 0xFF, 256);
+    memset(clear_pool1, 0xFF, 16);
+    clear_pool1->table_138810 = table_buf1;
+    clear_pool1->table_138814 = (void *)0x1;
+    clear_pool1->count_138818 = 1;
+
     g_clear_calls_log.clear();
     func_001F2020((NodePool *)clear_pool1);
     assert(g_clear_calls_log.size() == 3);
-    // Verify pool header fields at self, self+8, and self+0x10 are verified zero
-    for (int i = 0; i < 8; ++i) {
+
+    // Assert bytes at self + 0x10 and header fields are successfully zeroed out by clear
+    for (int i = 0; i < 256; ++i) {
+        assert(((char *)clear_pool1 + 0x10)[i] == 0);
+    }
+    for (int i = 0; i < 16; ++i) {
         assert(((char *)clear_pool1)[i] == 0);
-        assert(((char *)clear_pool1 + 8)[i] == 0);
     }
 
     free(entry_buf1);

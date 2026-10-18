@@ -175,7 +175,7 @@ void func_00341040(TacticalObj_341040 *self) {
     }
 }
 
-// 0x342170 to 0x342798 port with exact signature (self, a1, a2, a3, t0)
+// 0x342170 to 0x342798 state machine port with exact signature (self, a1, a2, a3, t0)
 void func_00342170(TacticalObj_341040 *self, int a1, int a2, int a3, int t0) {
     if (!self) return;
 
@@ -186,9 +186,6 @@ void func_00342170(TacticalObj_341040 *self, int a1, int a2, int a3, int t0) {
     }
 
     // 0x342188 - 0x342194: compare a1 with field_838 and a2 with 16
-    int mode = self->field_84C;
-    int f840 = self->field_840;
-
     if (a1 == (int)(long)sub838 && a2 == 16) {
         func_33A730();
     }
@@ -198,26 +195,37 @@ void func_00342170(TacticalObj_341040 *self, int a1, int a2, int a3, int t0) {
         func_33F8B0(self);
     }
 
-    if (mode == 30) {
+    int mode = self->field_84C;
+    int f840 = self->field_840;
+
+    // Jump-table / switch dispatch matching 0x342170 - 0x342798
+    switch (mode) {
+    case 30:
         self->field_83C = 1;
         func_339960(self, 0);
-    } else if (mode == 31) {
+        break;
+    case 31:
         self->field_83C = 1;
-        func_339960(self, 1); // distinguish mode 30 vs 31
-    } else if (mode == 35) {
+        func_339960(self, 1);
+        break;
+    case 35:
         self->field_83C = 2;
         func_339960(self, 1);
-    } else if (mode >= 40 && mode <= 50) {
-        func_339900(self, mode);
-    } else if (f840 == 2) {
-        func_340CF0(self);
-    } else if (f840 == 3) {
-        func_340C30(self);
-    } else {
-        TacticalSubObj *sub828 = self->field_828;
-        if (sub828) {
-            ((VFunc_104)(*(void***)sub828)[65])(sub828, 0xc3d5 + mode);
+        break;
+    default:
+        if (mode >= 40 && mode <= 50) {
+            func_339900(self, mode);
+        } else if (f840 == 2) {
+            func_340CF0(self);
+        } else if (f840 == 3) {
+            func_340C30(self);
+        } else {
+            TacticalSubObj *sub828 = self->field_828;
+            if (sub828) {
+                ((VFunc_104)(*(void***)sub828)[65])(sub828, 0xc3d5 + mode);
+            }
         }
+        break;
     }
 
     // 0x3423AC: write state and subobject +0x804
@@ -244,6 +252,7 @@ void func_00342170(TacticalObj_341040 *self, int a1, int a2, int a3, int t0) {
         ((VFunc_28)(*(void***)sub834)[7])(sub834, 0);
     }
 
+    // Strict call order at 0x342738: func_1F6750 then func_1F88B0
     func_1F6750(self, sub838);
     func_1F88B0(self, sub838);
 }

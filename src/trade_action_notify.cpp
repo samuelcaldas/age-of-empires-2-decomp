@@ -9,12 +9,12 @@
 using namespace trade_action_candidates;
 
 extern "C" {
-void *func_00332e60(void *manager, int id);
-int func_001471a0(int entity_id);
+void *func_332e60(void *manager, int id);
+int func_001471A0(int entity_id);
 int func_00147170(int entity_id);
 int func_00147190(int entity_id);
-int func_0014c430(int entity_id, int code);
-int func_002bb100(void *self, int item_id, int action_type);
+int func_0014C430(int entity_id, int code);
+int func_2BB100(void *self, int item_id, int action_type);
 }
 
 namespace trade_action_candidates {
@@ -183,19 +183,19 @@ int func_002B9880(void *self, int item_id, int action_type) {
 
     ManagerState *mgr = (ManagerState*)act->m_mgr;
     GroupState *group = (GroupState*)mgr->m_group;
-    Entity *item = (Entity*)func_00332e60(group->m_root, item_id);
+    Entity *item = (Entity*)func_332e60(group->m_root, item_id);
 
     if (!item || !item->get_id()) {
         return 0;
     }
 
-    if (func_001471a0(*item->get_id()) == 600 || func_001471a0(*item->get_id()) == 613) {
+    if (func_001471A0(*item->get_id()) == 600 || func_001471A0(*item->get_id()) == 613) {
         return 1;
     }
-    if (func_001471a0(*item->get_id()) == 602 || func_001471a0(*item->get_id()) == 618) {
+    if (func_001471A0(*item->get_id()) == 602 || func_001471A0(*item->get_id()) == 618) {
         return 1;
     }
-    if (func_001471a0(*item->get_id()) == 605) {
+    if (func_001471A0(*item->get_id()) == 605) {
         return 1;
     }
 
@@ -205,19 +205,21 @@ int func_002B9880(void *self, int item_id, int action_type) {
 
     if (func_00147170(*item->get_id()) == 710) {
         if (func_00147190(*item->get_id()) == 100) {
-            goto reject;
+            goto fail;
         }
     }
+
     if (func_00147170(*item->get_id()) == 702) {
-        goto reject;
+fail:
+        return 0;
     }
 
-    if (func_0014c430(*item->get_id(), 705) != 1) {
-        return func_002bb100(self, item_id, action_type) == 0 ? 0 : 1;
+    if (func_0014C430(*item->get_id(), 705) != 1) {
+        goto dispatch;
     }
-
-reject:
     return 0;
+dispatch:
+    return func_2BB100(self, item_id, action_type) == 0 ? 0 : 1;
 }
 
 }

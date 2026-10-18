@@ -1,3 +1,4 @@
+func_0014C430 = 0x14C430; // type:func absolute:True
 func_00137810 = 0x137810; // type:func MapZone.Save(void*)
 func_001378C0 = 0x1378C0; // type:func MapZone.GetTileFlag(int, int)
 func_00137920 = 0x137920; // type:func MapZone.ProcessTiles()

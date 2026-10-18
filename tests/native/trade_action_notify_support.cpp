@@ -48,13 +48,21 @@ void mock_notify_order_fn(void *world, void *ba0, int item_id, int code,
 }
 
 extern "C" {
-int func_002bb100(void *self, int item_id, int action_type) {
+int func_2BB100(void *self, int item_id, int action_type) {
     g_bb100_calls++;
     return g_bb100_return_val;
 }
 
-int func_001471a0(int entity_id) {
+int func_002bb100(void *self, int item_id, int action_type) {
+    return func_2BB100(self, item_id, action_type);
+}
+
+int func_001471A0(int entity_id) {
     return g_1471a0_return_val;
+}
+
+int func_001471a0(int entity_id) {
+    return func_001471A0(entity_id);
 }
 
 int func_001471c0(int entity_id) {
@@ -69,13 +77,21 @@ int func_00147190(int entity_id) {
     return g_147190_return_val;
 }
 
-int func_0014c430(int entity_id, int code) {
+int func_0014C430(int entity_id, int code) {
     return g_14c430_return_val;
 }
 
-void *func_00332e60(void *manager, int id) {
+int func_0014c430(int entity_id, int code) {
+    return func_0014C430(entity_id, code);
+}
+
+void *func_332e60(void *manager, int id) {
     g_entity_lookup_calls++;
     g_entity_lookup_id = id;
     return g_mock_entity;
+}
+
+void *func_00332e60(void *manager, int id) {
+    return func_332e60(manager, id);
 }
 }

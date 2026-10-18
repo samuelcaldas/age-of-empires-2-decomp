@@ -1,0 +1,8 @@
+#ifndef ZONE_SPATIAL_GRID_DESERIALIZE_ENTITY_FACTORY_H
+#define ZONE_SPATIAL_GRID_DESERIALIZE_ENTITY_FACTORY_H
+
+extern "C" {
+void *func_001EBCD0(void *self, int type, void *stream, void *p3);
+}
+
+#endif // ZONE_SPATIAL_GRID_DESERIALIZE_ENTITY_FACTORY_H

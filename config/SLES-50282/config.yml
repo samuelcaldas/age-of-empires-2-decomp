@@ -4127,9 +4127,39 @@ segments:
     vram: 0x1EBB20
     subsegments:
       - [0xEBCF0, asm, zone_spatial_grid_vector_swap_remove]
+  - name: zone_spatial_grid_deserialize_node_stream
+    type: code
+    start: 0xEBE10
+    vram: 0x1EBC40
+    subsegments:
+      - [0xEBE10, asm, zone_spatial_grid_deserialize_node_stream]
+  - name: zone_spatial_grid_deserialize_entity_factory
+    type: code
+    start: 0xEBEA0
+    vram: 0x1EBCD0
+    subsegments:
+      - [0xEBEA0, asm, zone_spatial_grid_deserialize_entity_factory]
+  - name: zone_spatial_grid_serialize_vector
+    type: code
+    start: 0xEC060
+    vram: 0x1EBE90
+    subsegments:
+      - [0xEC060, asm, zone_spatial_grid_serialize_vector]
+  - name: zone_spatial_grid_vector_update_elements
+    type: code
+    start: 0xEC140
+    vram: 0x1EBF70
+    subsegments:
+      - [0xEC140, asm, zone_spatial_grid_vector_update_elements]
+  - name: zone_spatial_grid_vector_purge_inactive_elements
+    type: code
+    start: 0xEC1B0
+    vram: 0x1EBFE0
+    subsegments:
+      - [0xEC1B0, asm, zone_spatial_grid_vector_purge_inactive_elements]
   - name: post_aoe2
     type: bin
-    start: 0xEBE10
+    start: 0xEC260
   - name: trade_action_helper_217730
     type: code
     start: 0x117910

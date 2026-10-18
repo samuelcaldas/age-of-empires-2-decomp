@@ -48,28 +48,93 @@ struct GroupState {
 };
 
 struct Entity {
-    virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
-    virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
-    virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11();
-    virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15();
-    virtual void v16(); virtual void v17(); virtual void v18(); virtual void v19();
-    virtual void v20(); virtual void v21(); virtual void v22(); virtual void v23();
-    virtual void v24(); virtual void v25(); virtual void v26(); virtual void v27();
-    virtual void v28(); virtual void v29(); virtual void v30(); virtual void v31();
-    virtual void v32(); virtual void v33(); virtual void v34(); virtual void v35();
-    virtual void v36(); virtual void v37(); virtual void v38(); virtual void v39();
-    virtual void v40(); virtual void v41(); virtual void v42(); virtual void v43();
-    virtual void v44(); virtual void v45(); virtual void v46(); virtual void v47();
-    virtual void v48(); virtual void v49(); virtual void v50(); virtual void v51();
-    virtual void v52(); virtual void v53(); virtual void v54(); virtual void v55();
-    virtual void v56(); virtual void v57(); virtual void v58(); virtual void v59();
-    virtual void v60(); virtual void v61(); virtual void v62(); virtual void v63();
-    virtual void v64(); virtual void v65(); virtual void v66(); virtual void v67();
-    virtual void v68(); virtual void v69(); virtual void v70(); virtual void v71();
-    virtual void v72(); virtual void v73(); virtual void v74(); virtual void v75();
-    virtual void v76(); virtual void v77(); virtual void v78(); virtual void v79();
-    virtual void v80(); virtual void v81(); virtual void v82(); virtual void v83();
-    virtual void v84(); virtual void v85(); virtual void v86();
+    virtual void v0();
+    virtual void v1();
+    virtual void v2();
+    virtual void v3();
+    virtual void v4();
+    virtual void v5();
+    virtual void v6();
+    virtual void v7();
+    virtual void v8();
+    virtual void v9();
+    virtual void v10();
+    virtual void v11();
+    virtual void v12();
+    virtual void v13();
+    virtual void v14();
+    virtual void v15();
+    virtual void v16();
+    virtual void v17();
+    virtual void v18();
+    virtual void v19();
+    virtual void v20();
+    virtual void v21();
+    virtual void v22();
+    virtual void v23();
+    virtual void v24();
+    virtual void v25();
+    virtual void v26();
+    virtual void v27();
+    virtual void v28();
+    virtual void v29();
+    virtual void v30();
+    virtual void v31();
+    virtual void v32();
+    virtual void v33();
+    virtual void v34();
+    virtual void v35();
+    virtual void v36();
+    virtual void v37();
+    virtual void v38();
+    virtual void v39();
+    virtual void v40();
+    virtual void v41();
+    virtual void v42();
+    virtual void v43();
+    virtual void v44();
+    virtual void v45();
+    virtual void v46();
+    virtual void v47();
+    virtual void v48();
+    virtual void v49();
+    virtual void v50();
+    virtual void v51();
+    virtual void v52();
+    virtual void v53();
+    virtual void v54();
+    virtual void v55();
+    virtual void v56();
+    virtual void v57();
+    virtual void v58();
+    virtual void v59();
+    virtual void v60();
+    virtual void v61();
+    virtual void v62();
+    virtual void v63();
+    virtual void v64();
+    virtual void v65();
+    virtual void v66();
+    virtual void v67();
+    virtual void v68();
+    virtual void v69();
+    virtual void v70();
+    virtual void v71();
+    virtual void v72();
+    virtual void v73();
+    virtual void v74();
+    virtual void v75();
+    virtual void v76();
+    virtual void v77();
+    virtual void v78();
+    virtual void v79();
+    virtual void v80();
+    virtual void v81();
+    virtual void v82();
+    virtual void v83();
+    virtual void v84();
+    virtual void v85();
+    virtual void v86();
     virtual int *get_id();
 };
 
@@ -111,19 +176,16 @@ int func_002B9830(void *self, int item_id, int arg2, int action_type, float f12,
 }
 
 int func_002B9880(void *self, int item_id, int action_type) {
-    TradeActionState *act = reinterpret_cast<TradeActionState *>(self);
+    TradeActionState *act = (TradeActionState*)self;
     if (in_exclusion_pool(act, item_id)) {
         return 0;
     }
 
-    ManagerState *mgr = reinterpret_cast<ManagerState *>(act->m_mgr);
-    GroupState *group = reinterpret_cast<GroupState *>(mgr->m_group);
-    Entity *item = reinterpret_cast<Entity *>(func_00332e60(group->m_root, item_id));
-    if (!item) {
-        return 0;
-    }
+    ManagerState *mgr = (ManagerState*)act->m_mgr;
+    GroupState *group = (GroupState*)mgr->m_group;
+    Entity *item = (Entity*)func_00332e60(group->m_root, item_id);
 
-    if (!item->get_id()) {
+    if (!item || !item->get_id()) {
         return 0;
     }
 
@@ -137,24 +199,25 @@ int func_002B9880(void *self, int item_id, int action_type) {
         return 1;
     }
 
-    if (!(*reinterpret_cast<float *>(bytes(item) + 64) <= 0.0f)) {
+    if (*(float*)((char*)item + 64) > 0.0f) {
         return 0;
     }
 
     if (func_00147170(*item->get_id()) == 710) {
         if (func_00147190(*item->get_id()) == 100) {
-            return 0;
+            goto reject;
         }
     }
     if (func_00147170(*item->get_id()) == 702) {
-        return 0;
+        goto reject;
     }
 
-    if (func_0014c430(*item->get_id(), 705) == 1) {
-        return 0;
+    if (func_0014c430(*item->get_id(), 705) != 1) {
+        return func_002bb100(self, item_id, action_type) == 0 ? 0 : 1;
     }
 
-    int res = func_002bb100(self, item_id, action_type);
-    return res == 0 ? 0 : 1;
+reject:
+    return 0;
 }
+
 }

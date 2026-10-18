@@ -117,16 +117,17 @@ int func_002B90A0(void *self, int target_type, int item_id);
 - **Slice**: File `0x1B9950`–`0x1B9D10`, VRAM `0x2B9770`–`0x2B9B30` (960 B code and padding).
 - **Status**: **NonMatching / Experimental**.
 - **Matching Coverage (objdiff)**:
-  - `func_002B9830`: **100.0% match** (80 B code, 21/21 instructions).
-  - `func_002B9770`: **95.65% match** (96 B code, 23/24 instructions).
-  - `func_002B9880`: **94.41% match** (688 B code, 160/170 instructions).
-  - Unit `main/trade_action_notify` (`.text`): **85.71% match** (822 / 960 B).
+  - `func_002B9770`: **100.0% match** (96 B code, 24/24 instructions).
+  - `func_002B97D0`: **100.0% match** (96 B code, 24/24 instructions).
+  - `func_002B9830`: **100.0% match** (80 B code, 20/20 instructions).
+  - `func_002B9880`: **94.50% match** (688 B code, 161/170 instructions).
+  - Unit `main/trade_action_notify` (`.text`): **96.03% match** (922 / 960 B).
 
 Disassembly of the original binary ELF (`AOK.ELF`) confirms the following structure:
 
-- `func_002B9770` (0x60 B): resolves manager `+176`, group `+172`, and player ba0 `+2976`. Dispatches action manager order notification through vtable offset 56 (`+6960`) with action code 706 and float parameters `-1.0f`. Returns 1.
-- `func_002B97D0` (0x60 B): dispatches order notification through vtable offset 56 with action code 710, passing float parameters `-1.0f, -1.0f, 1.0f, param`. Returns 1.
-- `func_002B9830` (0x50 B): dispatches order notification through vtable offset 56 with action code 724. Returns 1.
+- `func_002B9770` (0x60 B): resolves manager `+176`, group `+172`, and player ba0 `+2976`. Dispatches action manager order notification through vtable offset 56 (`+6960`) with action code 706 and float parameters `-1.0f`. **100.0% bit-for-bit matched**.
+- `func_002B97D0` (0x60 B): dispatches order notification through vtable offset 56 with action code 710, passing float parameters `-1.0f, -1.0f, 1.0f, param`. **100.0% bit-for-bit matched**.
+- `func_002B9830` (0x50 B): dispatches order notification through vtable offset 56 with action code 724. **100.0% bit-for-bit matched**.
 - `func_002B9880` (0x2B0 B, 676 B code):
   - Inlined candidate exclusion pool helper `in_exclusion_pool` returning int (`self + 3184`, count at `+3188`, capacity at `+3196`).
   - Resolves entity root through `self + 176 -> +172 -> +2968` and looks up entity via `func_00332e60`.
@@ -136,4 +137,4 @@ Disassembly of the original binary ELF (`AOK.ELF`) confirms the following struct
   - Qualification filters: `func_00147170 == 710` with status 100 rejects; `func_00147170 == 702` rejects; `func_0014c430 == 1` rejects.
   - Final dispatch: tail-calls `func_002bb100(self, item_id, action_type)` and normalizes return via `movn` (`res == 0 ? 0 : 1`).
 
-MWCC PS2 compilation yields an 80-byte stack frame (`addiu sp, sp, -80`) with identical saved registers (`ra`, `s3`, `s2`, `s1`, `s0`). The subsystem remains strictly **NonMatching** until 100% bit-for-bit instruction parity and relocation equivalence are achieved for all functions.
+MWCC PS2 compilation yields an 80-byte stack frame (`addiu sp, sp, -80`) with identical saved registers (`ra`, `s3`, `s2`, `s1`, `s0`). The subsystem remains strictly **NonMatching** until 100% bit-for-bit instruction parity and relocation equivalence are achieved for all functions in the unit.

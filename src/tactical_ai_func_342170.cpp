@@ -18,6 +18,12 @@ int func_1F6EA0(void *a0, int a1);
 void func_36ACC0(int a0);
 extern const char D_4D5508[];
 
+
+static inline void set_handler_state(TacticalObj_341040 *self, int code) {
+    void *f844 = self->field_844;
+    func_00340C30(self);
+    *(int*)((char*)f844 + 2052) = code;
+}
 int func_00342170(TacticalObj_341040 *self, int a1, int a2, int a3, int t0) {
     if (self->field_838 != 0 && (TacticalSubObj*)a1 == self->field_838 && a2 == 16) {
         if (!func_339900(self, a1)) {
@@ -64,8 +70,7 @@ int func_00342170(TacticalObj_341040 *self, int a1, int a2, int a3, int t0) {
             if (self->field_840 == 2) {
             } else if (self->field_840 == 4) {
             } else {
-                func_00340C30(self);
-                *(int*)((char*)self->field_844 + 2052) = 12;
+                set_handler_state(self, 12);
                 return 1;
             }
             self->field_84C = m;
@@ -93,13 +98,11 @@ int func_00342170(TacticalObj_341040 *self, int a1, int a2, int a3, int t0) {
         case 2:
         case 4:
         case 7:
-            func_00340C30(self);
-            *(int*)((char*)self->field_844 + 2052) = 2;
+            set_handler_state(self, 2);
             return 1;
         case 3:
             func_33A730();
-            func_00340C30(self);
-            *(int*)((char*)self->field_844 + 2052) = 2;
+            set_handler_state(self, 2);
             return 1;
         case 11:
             self->field_84C = 3;
@@ -121,13 +124,11 @@ int func_00342170(TacticalObj_341040 *self, int a1, int a2, int a3, int t0) {
             func_00341040(self);
             return 1;
         case 1:
-            func_00340C30(self);
-            *(int*)((char*)self->field_844 + 2052) = 5;
+            set_handler_state(self, 5);
             return 1;
         case 2:
         case 4:
-            func_00340C30(self);
-            *(int*)((char*)self->field_844 + 2052) = 7;
+            set_handler_state(self, 7);
             return 1;
         case 3:
             func_33A730();
@@ -145,24 +146,20 @@ int func_00342170(TacticalObj_341040 *self, int a1, int a2, int a3, int t0) {
             return 1;
         case 5:
         case 6:
-            func_00340C30(self);
-            *(int*)((char*)self->field_844 + 2052) = 1;
+            set_handler_state(self, 1);
             return 1;
         case 7:
-            func_00340C30(self);
-            *(int*)((char*)self->field_844 + 2052) = 9;
+            set_handler_state(self, 9);
             return 1;
         case 8:
             if ((unsigned short)t0 == 0xFFFF) {
-                func_00340C30(self);
-                *(int*)((char*)self->field_844 + 2052) = 6;
+                set_handler_state(self, 6);
                 return 1;
             }
             return 0;
         case 9:
             if ((unsigned short)t0 == 0xFFFF) {
-                func_00340C30(self);
-                *(int*)((char*)self->field_844 + 2052) = 3;
+                set_handler_state(self, 3);
                 return 1;
             }
             return 0;
@@ -175,16 +172,14 @@ int func_00342170(TacticalObj_341040 *self, int a1, int a2, int a3, int t0) {
             }
             return 0;
         case 11:
-            func_00340C30(self);
-            *(int*)((char*)self->field_844 + 2052) = 11;
+            set_handler_state(self, 11);
             return 1;
         case 12:
             self->field_84C = 13;
             func_00341040(self);
             return 1;
         case 13:
-            func_00340C30(self);
-            *(int*)((char*)self->field_844 + 2052) = 4;
+            set_handler_state(self, 4);
             return 1;
         case 14:
             if (self->field_840 == 2 || (unsigned)(self->field_840 - 4) < 3) {
@@ -192,8 +187,7 @@ int func_00342170(TacticalObj_341040 *self, int a1, int a2, int a3, int t0) {
                 func_00341040(self);
                 return 1;
             } else {
-                func_00340C30(self);
-                *(int*)((char*)self->field_844 + 2052) = 12;
+                set_handler_state(self, 12);
                 return 1;
             }
         case 15:
@@ -224,8 +218,7 @@ int func_00342170(TacticalObj_341040 *self, int a1, int a2, int a3, int t0) {
         case 22:
         case 23:
         case 24:
-            func_00340C30(self);
-            *(int*)((char*)self->field_844 + 2052) = 3;
+            set_handler_state(self, 3);
             return 1;
         case 19:
             self->field_84C = 20;
@@ -237,17 +230,14 @@ int func_00342170(TacticalObj_341040 *self, int a1, int a2, int a3, int t0) {
                 func_00341040(self);
                 return 1;
             } else {
-                func_00340C30(self);
-                *(int*)((char*)self->field_844 + 2052) = 12;
+                set_handler_state(self, 12);
                 return 1;
             }
         case 25:
-            func_00340C30(self);
-            *(int*)((char*)self->field_844 + 2052) = 3;
+            set_handler_state(self, 3);
             return 1;
         case 26:
-            func_00340C30(self);
-            *(int*)((char*)self->field_844 + 2052) = 6;
+            set_handler_state(self, 6);
             return 1;
         case 27:
             self->field_84C = 12;

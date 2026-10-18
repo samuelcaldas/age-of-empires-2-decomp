@@ -138,6 +138,8 @@ extern "C" {
         }
         g_func_1C1350_called++;
     }
+    void func_0027C390_mutate_mapping(int i, int category, int index, int code);
+    void func_0027C390_reset_mapping();
 }
 
 static void test_exhaustive_mappings() {
@@ -161,16 +163,13 @@ static void test_exhaustive_mappings() {
 }
 
 static void test_implementation_mutation_fails() {
-    // Verify that mutating the implementation mapping table (simulating a regression in s_mappings)
-    // causes test_exhaustive_mappings or strict verification to fail.
-    // We test this by running func_0027C390 with a temporarily modified mapping or checking failure against a mutated expectation.
     unsigned char self[64];
+
+    // Mutate actual implementation mapping at index 48 to simulate source implementation regression
+    func_0027C390_mutate_mapping(48, 999, 999, 0x9999);
+
     g_func_1C1350_called = 0;
     func_0027C390(self);
-
-    // Simulate an implementation output regression (e.g. ordinal 48 mutated)
-    g_recorded[48].category = 999;
-    g_recorded[48].index = 999;
 
     bool regression_detected = false;
     for (int i = 0; i < 113; ++i) {
@@ -181,6 +180,8 @@ static void test_implementation_mutation_fails() {
             break;
         }
     }
+
+    func_0027C390_reset_mapping();
     assert(regression_detected == true);
 
     printf("PASS test_implementation_mutation_fails\n");

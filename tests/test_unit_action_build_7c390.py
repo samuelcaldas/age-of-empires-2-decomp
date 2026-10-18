@@ -33,6 +33,7 @@ def build_7c390_test(tmp_path_factory):
     subprocess.run(
         [
             compiler, "-m32", "-Wno-invalid-offsetof",
+            "-DUNIT_TEST",
             "-Iinclude",
             "src/unit_action_build_7c390.cpp",
             "tests/native/unit_action_build_7c390_test.cpp",

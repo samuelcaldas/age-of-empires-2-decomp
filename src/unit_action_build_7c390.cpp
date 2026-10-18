@@ -127,9 +127,38 @@ static const ActionCodeMapping s_mappings[113] = {
     {13, 1, 0x4b7a},
 };
 
+#ifdef UNIT_TEST
+static ActionCodeMapping s_mutable_mappings[113];
+static bool s_initialized_mutable = false;
+
+extern "C" {
+    void func_0027C390_mutate_mapping(int i, int category, int index, int code) {
+        if (!s_initialized_mutable) {
+            for (int j = 0; j < 113; ++j) {
+                s_mutable_mappings[j] = s_mappings[j];
+            }
+            s_initialized_mutable = true;
+        }
+        if (i >= 0 && i < 113) {
+            s_mutable_mappings[i].category = category;
+            s_mutable_mappings[i].index = index;
+            s_mutable_mappings[i].code = code;
+        }
+    }
+    void func_0027C390_reset_mapping() {
+        s_initialized_mutable = false;
+    }
+}
+#endif
+
 void func_0027C390(void *self) {
+#ifdef UNIT_TEST
+    const ActionCodeMapping *mappings = s_initialized_mutable ? s_mutable_mappings : s_mappings;
+#else
+    const ActionCodeMapping *mappings = s_mappings;
+#endif
     for (int i = 0; i < 113; ++i) {
-        func_1C1350(self, s_mappings[i].category, s_mappings[i].index, s_mappings[i].code);
+        func_1C1350(self, mappings[i].category, mappings[i].index, mappings[i].code);
     }
 }
 

@@ -129,9 +129,9 @@ int func_001C7850(
     int y_min_val = t_min_y;
     int y_max_val = t_max_y;
     MapTile *base_tile = &tile_rows[t_min_y][t_min_x];
-    int base_slope = base_tile->m_slope_flag;
-    int min_slope = base_slope - 1;
-    int max_slope = base_slope + 1;
+    short base_slope = base_tile->m_slope_flag;
+    short min_slope = (short)(base_slope - 1);
+    short max_slope = (short)(base_slope + 1);
 
     for (int cur_y = y_min_val; cur_y <= y_max_val; cur_y++) {
         int dy = cur_y - t_min_y;

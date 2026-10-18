@@ -1,10 +1,9 @@
 #pragma exceptions off
 #include "sub_list.h"
+#include "trade_packet.h"
 
 extern "C" {
 extern char D_00C5DF00[1024];
-
-int func_0021DE90(int a0, int a1, int a2, void *clut_buf, int t0, int t1, int t2, int t3);
 
 int func_0021B440(void *palette_obj, int unused, int start_idx, int count, void *dst_buf) {
     if (dst_buf == 0) {
@@ -30,9 +29,9 @@ int func_0021B440(void *palette_obj, int unused, int start_idx, int count, void 
     return 0;
 }
 
-int func_0021B560(void *palette_obj, const char *palette_data) {
+void func_0021B560(void *palette_obj, const char *palette_data) {
     if (palette_data == 0) {
-        return 0;
+        return;
     }
 
     for (int i = 0; i < 256; i++) {
@@ -53,7 +52,7 @@ int func_0021B560(void *palette_obj, const char *palette_data) {
     int t0 = (short)v1;
     int t1 = (short)v0;
 
-    return func_0021DE90(0x1F00, 0, 4, D_00C5DF00, t0, t1, 0, 16);
+    func_0021DE90(0x1F00, 0, 4, D_00C5DF00, t0, t1, 0, 16);
 }
 
 int func_0021B4C0(void *palette_obj, int unused, int start_idx, int count, void *src_buf, int trans_idx) {

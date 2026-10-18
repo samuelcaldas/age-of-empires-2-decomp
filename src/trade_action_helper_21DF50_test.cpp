@@ -1,100 +1,118 @@
 #include <cassert>
-#include <cstring>
-#include <cstdint>
+#include <cstdlib>
 #include <vector>
+#include "trade_packet.h"
 
-extern "C" {
-void *func_0021DF50(void *obj, int a1, int a2, int a3, int t0, int t1, int t2, int t3, int arg9 = 0);
-void *func_123908(void *arg);
-void *func_1046D0(void *obj, int reg, int arg2, int arg3, int t0, int t1, int t2, int t3);
-void *func_21C050(void *obj, int mode);
-}
-
-struct CallRecord1046D0 {
-    void *obj;
-    int reg;
-    int arg2;
-    int arg3;
-    int t0;
-    int t1;
-    int t2;
-    int t3;
+struct PacketWrite {
+    void *packet;
+    int destination;
+    int format;
+    int pitch;
+    void *pixels;
+    int blocks;
+    int x;
+    int y;
+    int width;
+    int height;
 };
 
-static std::vector<CallRecord1046D0> write_records;
-static int alloc_calls = 0;
-static int mode_calls = 0;
-static int last_mode = 0;
-static char mock_packet[64];
+struct InputCase {
+    int format;
+    int width;
+    int height;
+    int blocks;
+    bool allocate;
+};
 
-extern "C" {
-// Original branch citation: 0x21DFA4 -> func_123908
-void *func_123908(void *arg) {
-    (void)arg;
-    alloc_calls++;
-    return mock_packet;
+static const InputCase INPUTS[] = {
+    {0x14, 10, 20, 7, false},
+    {0x13, 10, 20, 13, false},
+    {2, 10, 20, 25, false},
+    {0, 10, 20, 50, false},
+    {0, 10, 20, 50, true},
+    {0x10014, 0x1000A, 0x20014, 7, false},
+    {0xFF14, 10, 20, 50, false},
+    {0, -20, 10, -49, false},
+    {0, 32767, 32767, -16382, false},
+    {0, -32768, -32768, 0, false},
+    {0x14, -32768, 32767, 1024, false},
+    {0, 0, 20, 0, false},
+    {-1, 10, 20, 50, false}
+};
+
+static std::vector<int> steps;
+static std::vector<PacketWrite> writes;
+static char supplied_packet[64];
+static char allocated_packet[64];
+static void *finalized_packet;
+
+enum Step { ALLOCATE, WRITE, FINALIZE };
+
+extern "C" void *func_123908(void *argument) {
+    assert(argument == 0);
+    steps.push_back(ALLOCATE);
+    return allocated_packet;
 }
 
-// Original branch citation: 0x21E044 -> func_1046D0
-void *func_1046D0(void *obj, int reg, int arg2, int arg3, int t0, int t1, int t2, int t3) {
-    CallRecord1046D0 rec;
-    rec.obj = obj;
-    rec.reg = reg;
-    rec.arg2 = arg2;
-    rec.arg3 = arg3;
-    rec.t0 = t0;
-    rec.t1 = t1;
-    rec.t2 = t2;
-    rec.t3 = t3;
-    write_records.push_back(rec);
-    return obj;
+extern "C" void func_1046D0(void *packet, int destination, int format,
+                             int pitch, void *pixels, int blocks, int x,
+                             int y, int width, int height) {
+    PacketWrite write = {packet, destination, format, pitch, pixels,
+                         blocks, x, y, width, height};
+    writes.push_back(write);
+    steps.push_back(WRITE);
 }
 
-// Original branch citation: 0x21E04C -> func_21C050
-void *func_21C050(void *obj, int mode) {
-    mode_calls++;
-    last_mode = mode;
-    return obj;
-}
+extern "C" void *func_21C050(void *packet) {
+    finalized_packet = packet;
+    steps.push_back(FINALIZE);
+    return packet;
 }
 
-void test_trade_action_helper_21DF50() {
-    write_records.clear();
-    alloc_calls = 0;
-    mode_calls = 0;
-
-    char dummy_obj[32];
-    int a1 = 0x1234;
-    int mode_a2 = 0x14; // divisor = 0x200 (512)
-    int a3 = 0x5678;
-    int t0 = 100;
-    int t1 = 200;
-    int t2 = 300;
-    int t3 = 10;
-    int arg9 = 20;
-
-    // Expected calculation:
-    // prod = (short)t3 * (short)arg9 = 10 * 20 = 200
-    // num = (prod << 4) + divisor - 1 = (200 * 16) + 512 - 1 = 3200 + 511 = 3711
-    // expected_t1 = 3711 / 512 = 7
-    void *res = func_0021DF50(dummy_obj, a1, mode_a2, a3, t0, t1, t2, t3, arg9);
-    assert(res == dummy_obj);
-    assert(alloc_calls == 0); // non-null obj skips func_123908
-    assert(mode_calls == 1);
-    assert(last_mode == 0x1234);
-
-    assert(write_records.size() == 1);
-    assert(write_records[0].obj == dummy_obj);
-    assert(write_records[0].reg == 0x1234);
-    assert(write_records[0].arg2 == 0x14);
-    assert(write_records[0].arg3 == 0x5678);
-    assert(write_records[0].t0 == t0);
-    assert(write_records[0].t1 == 7);
-    assert(write_records[0].t2 == (short)t1);
-    assert(write_records[0].t3 == (short)t2);
+static void assert_order(bool allocated) {
+    if (allocated) {
+        assert(steps.size() == 3);
+        assert(steps[0] == ALLOCATE);
+    }
+    if (!allocated) {
+        assert(steps.size() == 2);
+    }
+    assert(steps[steps.size() - 2] == WRITE);
+    assert(steps[steps.size() - 1] == FINALIZE);
 }
 
-int main() {
-    test_trade_action_helper_21DF50();
+static void assert_write(const InputCase &input, void *packet) {
+    assert(writes.size() == 1);
+    const PacketWrite &write = writes[0];
+    assert(write.packet == packet);
+    assert(write.destination == 0x9234);
+    assert(write.format == (input.format & 0xFF));
+    assert(write.pitch == 0xFEDC);
+    assert(write.pixels == reinterpret_cast<void *>(0x100));
+    assert(write.blocks == input.blocks);
+    assert(write.x == -32768);
+    assert(write.y == -1);
+    assert(write.width == static_cast<short>(input.width));
+    assert(write.height == static_cast<short>(input.height));
+}
+
+static void run_case(const InputCase &input) {
+    void *packet = input.allocate ? 0 : supplied_packet;
+    void *result = func_0021DF50(packet, static_cast<int>(0xABCD9234U), input.format,
+                 0x1234FEDC, reinterpret_cast<void *>(0x100),
+                 0x12348000, 0x4321FFFF, input.width, input.height);
+    void *expected_packet = input.allocate ? allocated_packet : supplied_packet;
+    assert(result == expected_packet);
+    assert_write(input, expected_packet);
+    assert(finalized_packet == expected_packet);
+    assert_order(input.allocate);
+}
+
+int main(int argument_count, char **arguments) {
+    assert(argument_count == 2);
+    int index = std::atoi(arguments[1]);
+    assert(index >= 0);
+    assert(static_cast<unsigned int>(index) < sizeof(INPUTS) / sizeof(INPUTS[0]));
+    run_case(INPUTS[index]);
     return 0;
 }

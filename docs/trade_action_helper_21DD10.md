@@ -1,9 +1,9 @@
 # Trade Action Helper `0x21DD10` (`trade_action_helper_21DD10.cpp`)
 
 ## 1. Overview and ELF Mapping
-- **VRAM Address Range:** `0x21DD10` – `0x21DE10` (Size: `0x100` bytes / 256 bytes; padding to `0x21DE20`: `0x110` bytes / 272 bytes, end-exclusive)
-- **File Offset Range:** `0x11DEF0` – `0x11DFF0` in `orig/SLES-50282/AOK.ELF` (padding to `0x11E000`)
-- **Segment / Section:** `.text` (ELF load delta: `0xFFE20`)
+- **VRAM Address Range:** `[0x21DD10, 0x21DE14)` (size `0x104` / 260 bytes, including the return delay slot); padding continues to `0x21DE20`.
+- **File Offset Range:** `[0x11DEF0, 0x11DFF4)` in `orig/SLES-50282/AOK.ELF`; padding continues to `0x11E000`.
+- **Segment:** File-backed `PT_LOAD`; `file_offset = VRAM - 0xFFE20`. Original payload section names are blank.
 
 ## 2. Binary Analysis & Disassembly Trace
 - **Prologue (`0x21DD10` – `0x21DD24`):**
@@ -41,8 +41,9 @@
     - `a1 = 0x1F00`, `a2 = 0`, `a3 = 4`
     - `t0 = s1_val + 0x80`, `t1 = 2`, `t2 = s2_val`, `t3 = s3_val + 1`
   - `jal 0x1046D0` at `0x21DDE8` with `a0 = s0`.
-- **Fourth Call: Mode Helper (`0x21DDF0` – `0x21DDF4`):**
-  - `jal 0x21C050` with `a0 = s0` (in delay slot) and retained `a1 = 0x1F00`.
+- **Fourth Call: Packet Finalizer (`0x21DDF0` – `0x21DDF4`):**
+  - `jal 0x21C050` with `a0 = s0` in its delay slot. The finalizer consumes only `a0` and explicitly returns the packet. A retained `a1 = 0x1F00` is not guaranteed: the preceding writer can clobber caller-saved registers.
+  - Existing C++ declarations and stubs still model an extra mode argument and omit both writer stack dimensions. Those repairs remain separate work; existing native coverage does not establish the complete real-call ABI.
 - **Epilogue (`0x21DDF8` – `0x21DE10`):**
   - Restores `ra, s3, s2, s1, s0` from stack frame.
   - `jr ra` at `0x21DE0C`.

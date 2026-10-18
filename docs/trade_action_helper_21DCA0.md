@@ -3,8 +3,8 @@
 ## 1. Overview and ELF Mapping
 - **VRAM Address Range:** `0x21DCA0` – `0x21DD08` (Size: `0x68` bytes / 104 bytes; padding to `0x21DD10`: `0x70` bytes / 112 bytes, end-exclusive)
 - **File Offset Range:** `0x11DE80` – `0x11DEE8` in `orig/SLES-50282/AOK.ELF` (padding to `0x11DEF0`)
-- **Segment / Section:** `.text` (ELF load delta: `0xFFE20`)
-- **Caller Site:** `0x224F38` in `orig/SLES-50282/AOK.ELF` passes 3 arguments and immediately overwrites `$v0` at `0x224F48` (`lui $v0, 0x49`), confirming void return.
+- **Segment:** File-backed `PT_LOAD`; `file_offset = VRAM - 0xFFE20`. Original payload section names are blank.
+- **Caller Site:** `0x224F38` passes `a0=s4`, `a1=s5`, and `a2=s6`; the delay slot sets `a1`. After return, the branch at `0x224F40` jumps to `0x22504C`, with `s3=2` in its delay slot. The `lui v0,0x49` at `0x224F48` is skipped, not an immediate return-value overwrite. The shared continuation advances `s0` and `s1`, checks loop state, and eventually restores the frame without using a semantic iterator result. This supports a semantic `void` declaration, not a promise that the helper clears `v0`.
 
 ## 2. Binary Analysis & Disassembly Trace
 - **Prologue (`0x21DCA0` – `0x21DCB4`):**
@@ -25,7 +25,7 @@
   - Callsite sets only `a0` and `a1`:
     - `0x21DCD0`: `jal func_21DC50` (Target `0x21DC50`)
     - Delay slot at `0x21DCD4`: `paddub a0, s3, zero` (Pass current pointer `s3` in `a0`)
-  - Callee `func_0021DC50` consumes only two arguments (`a0`, `a1`), neither reading nor writing `a2/a3` from caller.
+  - Callee `func_0021DC50` consumes only two incoming arguments (`a0`, `a1`). The caller does not establish meaningful `a2/a3` inputs; caller-saved registers may still be clobbered.
   - `0x21DCD8`: `addiu s0, s0, 1` (Increment counter `s0++`)
   - `0x21DCDC`: `addiu s3, s3, 0x400` (Advance pointer by 1024 bytes / `0x400` per item)
 - **Loop Condition & Backward Branch (`0x21DCE0` – `0x21DCE8`):**

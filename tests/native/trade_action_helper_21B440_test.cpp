@@ -1,6 +1,7 @@
 #include <cassert>
 #include <cstring>
 #include <iostream>
+#include "trade_packet.h"
 
 extern "C" char D_00C5DF00[1024] = {0};
 
@@ -11,14 +12,11 @@ static void *last_21de90_buf = nullptr;
 static int last_21de90_t0 = -1;
 static int last_21de90_t1 = -1;
 static int last_21de90_t3 = -1;
-static int mock_21de90_ret = 77;
 
 extern "C" {
 int func_0021B440(void *palette_obj, int unused, int start_idx, int count, void *dst_buf);
 int func_0021B4C0(void *palette_obj, int unused, int start_idx, int count, void *src_buf, int trans_idx);
-int func_0021B560(void *palette_obj, const char *palette_data);
-
-int func_0021DE90(int a0, int a1, int a2, void *clut_buf, int t0, int t1, int t2, int t3) {
+void func_0021DE90(int a0, int a1, int a2, void *clut_buf, int t0, int t1, int t2, int t3) {
     c21de90_calls++;
     last_21de90_a0 = a0;
     last_21de90_a2 = a2;
@@ -26,7 +24,6 @@ int func_0021DE90(int a0, int a1, int a2, void *clut_buf, int t0, int t1, int t2
     last_21de90_t0 = t0;
     last_21de90_t1 = t1;
     last_21de90_t3 = t3;
-    return mock_21de90_ret;
 }
 }
 
@@ -38,7 +35,6 @@ static void reset_mocks() {
     last_21de90_t0 = -1;
     last_21de90_t1 = -1;
     last_21de90_t3 = -1;
-    mock_21de90_ret = 77;
     std::memset(D_00C5DF00, 0, sizeof(D_00C5DF00));
 }
 

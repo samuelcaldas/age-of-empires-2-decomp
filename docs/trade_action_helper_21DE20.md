@@ -1,10 +1,10 @@
 # Trade Action Helper `0x21DE20` (`trade_action_helper_21DE20.cpp`)
 
 ## 1. Overview and ELF Mapping
-- **VRAM Address Range:** `0x21DE20` – `0x21DE84` (Size: `0x64` bytes / 100 bytes; padding to `0x21DE90`: `0x70` bytes / 112 bytes, end-exclusive)
-- **File Offset Range:** `0x11E000` – `0x11E064` in `orig/SLES-50282/AOK.ELF` (padding to `0x11E070`)
-- **Segment / Section:** `.text` (ELF load delta: `0xFFE20`)
-- **Caller Site:** `0x224F68` in `orig/SLES-50282/AOK.ELF` passes 3 arguments and immediately overwrites `$v0` at `0x224F78` (`lui $v0, 0x49`), confirming void return.
+- **VRAM Address Range:** `[0x21DE20, 0x21DE88)` (size `0x68` / 104 bytes, including the return delay slot); padding continues to `0x21DE90`.
+- **File Offset Range:** `[0x11E000, 0x11E068)` in `orig/SLES-50282/AOK.ELF`; padding continues to `0x11E070`.
+- **Segment:** File-backed `PT_LOAD`; `file_offset = VRAM - 0xFFE20`. Original payload section names are blank.
+- **Caller Site:** `0x224F68` passes `a0=s4`, `a1=s5`, and `a2=s6`; the delay slot sets `a1`. After return, the branch at `0x224F70` jumps to `0x22504C`, with `s3=2` in its delay slot. The `lui v0,0x49` at `0x224F78` is skipped. The shared continuation and eventual epilogue do not consume a semantic iterator result. The `void` declaration does not promise a cleared `v0`.
 
 ## 2. Binary Analysis & Disassembly Trace
 - **Prologue (`0x21DE20` – `0x21DE30`):**
@@ -48,3 +48,4 @@
 - Native 32-bit test harness in `src/trade_action_helper_21DE20_test.cpp` verifying iterative invocation, 16-element 0x400 pointer stride boundary crossings, and boundary conditions without uninitialized return values.
 - Automated pytest regression in `tests/test_trade_action_helper_21DE20.py`.
 - Registered as `NonMatching` in `configure.py`.
+- The binary tests `count != 0`, not `count > 0`; a negative-count early return would change behavior. The current signed `idx++` and `count--` implementation has unresolved wraparound undefined behavior. Existing tests do not establish those extreme cases.

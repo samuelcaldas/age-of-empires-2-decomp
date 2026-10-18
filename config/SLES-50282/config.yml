@@ -4585,28 +4585,28 @@ segments:
       - [0xF19E0, asm, zone_spatial_grid_traverse_quadtree_path]
   - name: zone_spatial_grid_node_pool_init
     type: code
-    start: 0xF1CD0
+    start: 0xF20A0
     vram: 0x1F1ED0
     subsegments:
-      - [0xF1CD0, asm, zone_spatial_grid_node_pool_init]
+      - [0xF20A0, asm, zone_spatial_grid_node_pool_init]
   - name: zone_spatial_grid_node_pool_setup
     type: code
-    start: 0xF1CE0
+    start: 0xF20B0
     vram: 0x1F1EE0
     subsegments:
-      - [0xF1CE0, asm, zone_spatial_grid_node_pool_setup]
+      - [0xF20B0, asm, zone_spatial_grid_node_pool_setup]
   - name: zone_spatial_grid_node_pool_destructor
     type: code
-    start: 0xF1DC0
-    vram: 0x1F1FC0
+    start: 0xF21A0
+    vram: 0x1F1FD0
     subsegments:
-      - [0xF1DC0, asm, zone_spatial_grid_node_pool_destructor]
+      - [0xF21A0, asm, zone_spatial_grid_node_pool_destructor]
   - name: zone_spatial_grid_node_pool_clear
     type: code
-    start: 0xF1E10
-    vram: 0x1F2010
+    start: 0xF21F0
+    vram: 0x1F2020
     subsegments:
-      - [0xF1E10, asm, zone_spatial_grid_node_pool_clear]
+      - [0xF21F0, asm, zone_spatial_grid_node_pool_clear]
   - name: post_aoe2
     type: bin
     start: 0xF22C0

@@ -50,9 +50,10 @@ static void test_active_query() {
     s_notify_val = 0;
 
     int res = func_00329130(&ctx, 100, 50);
-    TEST_ASSERT(res == 236, "active query execution failed"); // 100 + 50 + 86
+    TEST_ASSERT(res == 5236, "active query execution failed"); // 100 + 50 + 86 + 5000
     TEST_ASSERT(ctx.m_field_8 == 100, "active query field 8 update failed");
     TEST_ASSERT(ctx.m_field_C == 50, "active query field C update failed");
+    TEST_ASSERT(ctx.m_field_18 == 5000, "active query field 18 update failed");
     TEST_ASSERT(s_notify_count == 1, "manager notification call count failed");
     TEST_ASSERT(s_notify_val == 100, "manager notification argument failed");
 }

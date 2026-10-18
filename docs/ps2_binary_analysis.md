@@ -7061,6 +7061,26 @@ The unit contains four functions:
 | `func_00189860` | `0x189860` | 68 | **100.00% exact match** (68/68 B) | 12 B |
 | `func_001898b0` | `0x1898B0` | 652 | **Control flow & mapping match** (636/652 B, 80% exact) | 4 B |
 
+#### 6.334 RenderManager Display Reset & Status Formatting (`0x189B40`–`0x189C80`, `render_manager_display_reset.cpp`)
+
+`RenderManagerDisplayReset` occupies VRAM `[0x189B40, 0x189C80)` and file offsets
+`[0x89D20, 0x89E60)`: **296 instruction bytes, 320-byte slice (24 B alignment padding)**.
+The unit implements the display surface teardown, activation flag manipulation, and status string
+formatting subsystem for the render manager.
+
+All four functions match **100.00% byte-for-byte**:
+1. `func_00189b40` (`0x189B40`–`0x189B94`, 84 B code, 12 B pad): Display surface teardown method. Releases secondary display surface `field_15EC` and primary surface `field_15F0` via `func_198260` if present, clears `field_10C8 = 0`, and invokes `func_00189bc0(this)`. **Matches 100.00% byte-for-byte.**
+2. `func_00189ba0` (`0x189BA0`–`0x189BBC`, 28 B code, 4 B pad): Display state activation setter. Checks `field_152C` and sets it to 1 if zero. **Matches 100.00% byte-for-byte.**
+3. `func_00189bc0` (`0x189BC0`–`0x189C10`, 80 B code, 0 B pad): Display state reset and sub-object cleanup method. If `field_152C != 0`, clears it to 0, frees sub-object `field_164C` via `func_1A9BF0` if allocated, and invokes `func_193190(this)`. **Matches 100.00% byte-for-byte.**
+4. `func_00189c10` (`0x189C10`–`0x189C78`, 104 B code, 8 B pad): Status string formatter. Queries subsystem string via `func_1910F0()`, detail string via `func_00189c80(this, a1)`, and formats them into member buffer `field_FC5` using format string `D_00491B98` (`"[%d] %s - %s"`). **Matches 100.00% byte-for-byte.**
+
+| Function | VRAM | Instruction bytes | Byte comparison | Padding |
+|---|---:|---:|---|---:|
+| `func_00189b40` | `0x189B40` | 84 | **100.00% exact match** (84/84 B) | 12 B |
+| `func_00189ba0` | `0x189BA0` | 28 | **100.00% exact match** (28/28 B) | 4 B |
+| `func_00189bc0` | `0x189BC0` | 80 | **100.00% exact match** (80/80 B) | 0 B |
+| `func_00189c10` | `0x189C10` | 104 | **100.00% exact match** (104/104 B) | 8 B |
+
 #### Zone Terrain and Coordinate Transformation Slices (`0x1CDD00`–`0x1D1430`)
 
 Contiguous decompilation of the Age of Empires II PlayStation 2 terrain and spatial sub-systems along file offsets `0xCDEE0`–`0xD1610` (VRAM `0x1CDD00`–`0x1D1430`, offset mapping `+0xFFE20`):

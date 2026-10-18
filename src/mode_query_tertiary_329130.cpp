@@ -10,6 +10,8 @@ struct ModeQueryTertiaryContext {
 
 extern "C" {
     int func_00329130(ModeQueryTertiaryContext *self, int param_1, int param_2) {
+        char stack_pad[24];
+        (void)stack_pad;
         if (!self) return -1;
         if (self->m_active == 0) return 0;
 

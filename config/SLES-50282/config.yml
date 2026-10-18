@@ -4205,9 +4205,39 @@ segments:
     vram: 0x1EC560
     subsegments:
       - [0xEC730, asm, zone_spatial_grid_vector_find_by_id]
+  - name: zone_spatial_grid_query_ray_cell
+    type: code
+    start: 0xEC780
+    vram: 0x1EC5B0
+    subsegments:
+      - [0xEC780, asm, zone_spatial_grid_query_ray_cell]
+  - name: zone_spatial_grid_filter_intersecting_obstacles
+    type: code
+    start: 0xEC990
+    vram: 0x1EC7C0
+    subsegments:
+      - [0xEC990, asm, zone_spatial_grid_filter_intersecting_obstacles]
+  - name: zone_spatial_grid_link_header_init
+    type: code
+    start: 0xECB50
+    vram: 0x1EC980
+    subsegments:
+      - [0xECB50, asm, zone_spatial_grid_link_header_init]
+  - name: zone_spatial_grid_link_header_destructor
+    type: code
+    start: 0xECB60
+    vram: 0x1EC990
+    subsegments:
+      - [0xECB60, asm, zone_spatial_grid_link_header_destructor]
+  - name: zone_spatial_grid_link_header_clear
+    type: code
+    start: 0xECBC0
+    vram: 0x1EC9F0
+    subsegments:
+      - [0xECBC0, asm, zone_spatial_grid_link_header_clear]
   - name: post_aoe2
     type: bin
-    start: 0xEC780
+    start: 0xECC10
   - name: trade_action_helper_217730
     type: code
     start: 0x117910

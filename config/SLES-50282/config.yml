@@ -2113,10 +2113,16 @@ segments:
     vram: 0x189260
     subsegments:
       - [0x89440, asm, render_manager_palette_blend]
-  - name: post_base
-    type: bin
+  - name: render_manager_palette_table
+    type: code
     start: 0x89660
     vram: 0x189480
+    subsegments:
+      - [0x89660, asm, render_manager_palette_table]
+  - name: post_base
+    type: bin
+    start: 0x89A10
+    vram: 0x189830
   - name: zone_path_eval
     type: code
     start: 0xC7A40

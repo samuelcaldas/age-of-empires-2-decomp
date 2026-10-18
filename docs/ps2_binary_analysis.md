@@ -7021,6 +7021,25 @@ and validate the production symbol and split boundaries.
 |---|---:|---:|---|---:|
 | `func_00189260` | `0x189260` | 544 | **100.00% exact match** (544/544 B) | 0 B |
 
+#### 6.332 RenderManager Palette Table & Remapping (`0x189480`–`0x189830`, `render_manager_palette_table.cpp`)
+
+`RenderPaletteTable` occupies VRAM `[0x189480, 0x189830)` and file offsets
+`[0x89660, 0x89A10)`: **928 instruction bytes, 944-byte slice (16 B alignment padding)**.
+The unit implements the palette remapping table data structure (`sizeof(RenderPaletteTable) == 0x38`)
+inheriting from `RenderPaletteTableData` (52 bytes data, fields `0x00`–`0x33`) with a virtual method table
+pointer at offset `+0x34` (`0x004D7EE8`).
+
+The unit contains three functions:
+1. `func_00189480` (`0x189480`–`0x1895B8`, 312 B code, 8 B pad): Stream deserialization constructor `RenderPaletteTable(void *stream)`. Deserializes 9 integer headers via `func_226D90`. When `field_0 == 10`, dynamically allocates a 256-byte table via `func_100730`, decodes data from `D_003921F4` into `0x01ED7000` via `func_21BC30`, and copies it via `func_117AF8`. **Matches 100.00% byte-for-byte.**
+2. `func_001895C0` (`0x1895C0`–`0x1897B8`, 504 B code, 8 B pad): Palette blending and remap table constructor `RenderPaletteTable(SubObj6C *sub, int percent, const RenderPaletteColor *color, const unsigned char *palette)`. Copies 256 palette entries from `palette` or unpacks via `func_1AE350`, blends palette via `func_00189260`, allocates a 256-byte lookup buffer, and builds the nearest-color remap table using 3D Euclidean distance squared minimization (`dr*dr + dg*dg + db*db < min_dist`).
+3. `func_001897C0` (`0x1897C0`–`0x189830`, 112 B code, 0 B pad): Virtual scalar deleting destructor `virtual ~RenderPaletteTable()`. Deallocates table buffer via `func_100630` if allocated, and calls `operator delete` (`func_100670`) when `flags > 0`. **Matches 100.00% byte-for-byte.**
+
+| Function | VRAM | Instruction bytes | Byte comparison | Padding |
+|---|---:|---:|---|---:|
+| `func_00189480` | `0x189480` | 312 | **100.00% exact match** (312/312 B) | 8 B |
+| `func_001895C0` | `0x1895C0` | 504 | **Structure & control flow match** (504/504 B, 70% exact) | 8 B |
+| `func_001897C0` | `0x1897C0` | 112 | **100.00% exact match** (112/112 B) | 0 B |
+
 #### Zone Terrain and Coordinate Transformation Slices (`0x1CDD00`–`0x1D1430`)
 
 Contiguous decompilation of the Age of Empires II PlayStation 2 terrain and spatial sub-systems along file offsets `0xCDEE0`–`0xD1610` (VRAM `0x1CDD00`–`0x1D1430`, offset mapping `+0xFFE20`):

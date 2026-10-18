@@ -47,15 +47,15 @@ void test_trade_action_helper_21DCA0() {
     assert(dc50_calls[1].passed_ptr != dummy_pool + 0x200);
 
     // Case 2: Zero count (count = 0) -> no iterations
+    // Binary trace: jumps to epilogue without writing v0; assert no calls executed
     dc50_calls.clear();
-    void *res_zero = func_0021DCA0(dummy_pool, base_idx, 0);
-    assert(res_zero == 0);
+    func_0021DCA0(dummy_pool, base_idx, 0);
     assert(dc50_calls.empty());
 
     // Case 3: Negative count (count = -5) -> no iterations
+    // Binary trace: slt fails, jumps to epilogue without writing v0; assert no calls executed
     dc50_calls.clear();
-    void *res_neg = func_0021DCA0(dummy_pool, base_idx, -5);
-    assert(res_neg == 0);
+    func_0021DCA0(dummy_pool, base_idx, -5);
     assert(dc50_calls.empty());
 
     // Case 4: Single iteration (count = 1)

@@ -20,12 +20,15 @@
   - Delay slot at `0x21DD34`: `sq s0, 16(sp)` (Save s0 to stack).
   - `paddub s0, v0, zero` at `0x21DD38`: Save allocated packet pointer into `s0`.
 - **Bitwise Coordinates Computation (`0x21DD3C` – `0x21DD84`):**
-  - Transforms `s1` (`a0`) and `s3` (`a1`) into packed coordinates:
-    - `a1_masked = s3 & 0x0E`
-    - `bit0 = s3 & 0x01`
+  - Strictly follows MIPS R5900 instruction semantics:
+    - Logical shift right (`srl`) for `s3 >> 6` (machine word `0x00131982`), `s3 >> 1` (machine word `0x00131042`), and `v0 >> 4` (machine word `0x00021102`).
+    - Arithmetic shift right (`sra`) only at `0x21DD44` (`0x00021043`).
+    - `u_a1 = (unsigned int)a1`
+    - `a1_masked = u_a1 & 0x0E`
+    - `bit0 = u_a1 & 0x01`
     - `s1_val = s1 + (((bit0 << 5) + (a1_masked << 6)) & ~0x0F)`
-    - `s2_val = ((s3 >> 6) << 5) + (s3 & 0x10) + (bit0 << 3)`
-    - `s3_val = ((s3 >> 1) & 0x10) + a1_masked`
+    - `s2_val = ((u_a1 >> 6) << 5) + (u_a1 & 0x10) + (bit0 << 3)`
+    - `s3_val = ((u_a1 >> 1) & 0x10) + a1_masked`
 - **Second Call: Packet Write 1 (`0x21DD88` – `0x21DDB8`):**
   - Sets parameters on stack and registers:
     - `0(sp) = 8`, `8(sp) = 1`
@@ -49,6 +52,6 @@
 
 ## 3. C++ Implementation & Verification
 - Implemented in `src/trade_action_helper_21DD10.cpp` adhering strictly to C++98 standards, Object Calisthenics, and SOLID principles.
-- Native 32-bit test harness in `src/trade_action_helper_21DD10_test.cpp` verifying unconditional allocation, dual packet writes with exact bitwise calculations and offsets (`t0 + 0x80`, `t3 + 1`), mode helper invocation, and boundary conditions.
+- Native 32-bit test harness in `src/trade_action_helper_21DD10_test.cpp` verifying unconditional allocation, dual packet writes with exact bitwise calculations, logical right shift (`srl`) semantics for negative inputs (e.g. `a1 = -1`), and offset relationships.
 - Automated pytest regression in `tests/test_trade_action_helper_21DD10.py`.
 - Registered as `NonMatching` in `configure.py`.

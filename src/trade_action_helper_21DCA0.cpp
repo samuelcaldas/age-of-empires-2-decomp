@@ -13,10 +13,11 @@ void *func_0021DC50(void *obj, int a1);
 // - Jumps to loop condition check at 0x21DCE0 with s0 = 0 (loop index) in delay slot.
 // - Loop body at 0x21DCD0: calls 2-argument func_0021DC50(s3, s2 + s0), increments s0++, advances s3 += 0x400.
 // - Loops while s0 < s1.
+// - For count <= 0, branches directly to epilogue without writing v0.
 // - Epilogue at 0x21DCEC - 0x21DD04: restores ra, s3, s2, s1, s0, jr ra, and deallocates stack frame.
 void *func_0021DCA0(void *base, int base_idx, int count) {
     char *ptr = (char *)base;
-    void *last_result = 0;
+    void *last_result;
     for (int i = 0; i < count; ++i) {
         last_result = func_0021DC50(ptr, base_idx + i);
         ptr += 0x400;

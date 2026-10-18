@@ -14,11 +14,12 @@ void *func_21C050(void *obj, int mode);
 // - Call 1 at 0x21DD30: jal func_123908 with a0 = 0 (unconditional allocation).
 // - Stores allocated packet pointer into s0.
 // - Bit manipulation block (0x21DD3C - 0x21DD84) transforming s1 and s3 into s1, s2, s3 coordinates:
-//     a1_masked = s3 & 0x0E
-//     bit0 = s3 & 0x01
+//     Uses logical shift right (srl) operations matching MIPS R5900 instructions.
+//     a1_masked = u_a1 & 0x0E
+//     bit0 = u_a1 & 0x01
 //     s1_val = s1 + (((bit0 << 5) + (a1_masked << 6)) & ~0x0F)
-//     s2_val = ((s3 >> 6) << 5) + (s3 & 0x10) + (bit0 << 3)
-//     s3_val = ((s3 >> 1) & 0x10) + a1_masked
+//     s2_val = ((u_a1 >> 6) << 5) + (u_a1 & 0x10) + (bit0 << 3)
+//     s3_val = ((u_a1 >> 1) & 0x10) + a1_masked
 // - Packet write 1 at 0x21DDB4:
 //     func_1046D0(s0, 0x1F00, 0, 4, s1_val, 2, s2_val, s3_val)
 // - Packet write 2 at 0x21DDE8:
@@ -33,21 +34,22 @@ void *func_0021DD10(int a0, int a1, int a2, int a3, int a4) {
 
     void *packet = func_123908(0);
 
-    int a1_masked = a1 & 0x0E;
-    int v0_calc = ((a1_masked << 5) >> 1) << 2;
-    int bit0 = a1 & 0x01;
-    int v0_combined = (bit0 << 5) + v0_calc;
-    int v0_aligned = (v0_combined >> 4) << 4;
-    int s1_val = a0 + v0_aligned;
+    unsigned int u_a1 = (unsigned int)a1;
+    unsigned int a1_masked = u_a1 & 0x0EU;
+    int v0_calc = (int)(((a1_masked << 5) >> 1) << 2);
+    unsigned int bit0 = u_a1 & 0x01U;
+    unsigned int v0_combined = (bit0 << 5) + (unsigned int)v0_calc;
+    unsigned int v0_aligned = (v0_combined >> 4) << 4;
+    int s1_val = a0 + (int)v0_aligned;
 
-    int v0_bit0_shift = bit0 << 3;
-    int v1_shift6 = a1 >> 6;
-    int a0_bit4 = a1 & 0x10;
-    int v1_scaled = (v1_shift6 << 5) + a0_bit4;
-    int s2_val = v1_scaled + v0_bit0_shift;
+    unsigned int v0_bit0_shift = bit0 << 3;
+    unsigned int v1_shift6 = u_a1 >> 6; // Logical shift matching srl $v1, $s3, 6
+    unsigned int a0_bit4 = u_a1 & 0x10U;
+    unsigned int v1_scaled = (v1_shift6 << 5) + a0_bit4;
+    int s2_val = (int)(v1_scaled + v0_bit0_shift);
 
-    int v0_bit5_shift = (a1 >> 1) & 0x10;
-    int s3_val = v0_bit5_shift + a1_masked;
+    unsigned int v0_bit5_shift = (u_a1 >> 1) & 0x10U; // Logical shift matching srl $v0, $s3, 1
+    int s3_val = (int)(v0_bit5_shift + a1_masked);
 
     volatile int stack_sp_0 = 8;
     volatile int stack_sp_8 = 1;

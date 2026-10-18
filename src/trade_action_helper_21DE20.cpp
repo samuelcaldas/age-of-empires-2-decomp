@@ -10,6 +10,7 @@ void *func_0021DD10(void *obj, int a1);
 // - Prologue at 0x21DE20: addiu sp, sp, -64, saves ra, s2, s1, s0.
 // - Saves a0 into s2 (base pointer), a1 into s1 (base index), a2 into s0 (count).
 // - Jumps to loop condition check at 0x21DE68.
+// - For count == 0, falls through to epilogue without writing v0.
 // - Loop body at 0x21DE44:
 //     func_0021DD10(s2, s1);
 //     s1++;
@@ -22,7 +23,7 @@ void *func_0021DD10(void *obj, int a1);
 void *func_0021DE20(void *base, int base_idx, int count) {
     char *ptr = (char *)base;
     int idx = base_idx;
-    void *last_result = 0;
+    void *last_result;
 
     while (count != 0) {
         last_result = func_0021DD10(ptr, idx);

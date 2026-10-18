@@ -45,9 +45,9 @@ void test_trade_action_helper_21DE20() {
     }
 
     // Case 2: Zero count (count = 0) -> no iterations
+    // Binary trace: jumps to epilogue without writing v0; assert no calls executed
     dd10_calls.clear();
-    void *res_zero = func_0021DE20(dummy_pool, base_idx, 0);
-    assert(res_zero == 0);
+    func_0021DE20(dummy_pool, base_idx, 0);
     assert(dd10_calls.empty());
 
     // Case 3: Multiple 16-element boundaries (count = 35, base_idx = 0)

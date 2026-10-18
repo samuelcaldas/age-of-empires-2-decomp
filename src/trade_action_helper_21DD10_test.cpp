@@ -156,12 +156,6 @@ void test_trade_action_helper_21DD10() {
     assert(mode_calls == 1);
     assert(write_records.size() == 2);
 
-    // a1 = 0x1234 -> a1_masked = 4, bit0 = 0
-    // v0_calc = ((4 << 5) >> 1) << 2 = 256 = 0x100
-    // v0_combined = 0x100, v0_aligned = 0x100
-    // s1_val = 0x200 + 0x100 = 0x300
-    // s2_val = ((0x1234 >> 6) << 5) + (0x1234 & 0x10) + 0 = (0x48 << 5) + 0x10 = 0x900 + 0x10 = 0x910
-    // s3_val = ((0x1234 >> 1) & 0x10) + 4 = 0x10 + 4 = 0x14
     assert(write_records[0].t0 == 0x300);
     assert(write_records[0].t2 == 0x910);
     assert(write_records[0].t3 == 0x14);
@@ -169,6 +163,29 @@ void test_trade_action_helper_21DD10() {
     assert(write_records[1].t0 == 0x300 + 0x80);
     assert(write_records[1].t2 == 0x910);
     assert(write_records[1].t3 == 0x14 + 1);
+
+    // Case 4: Negative input (a0 = 0x1000, a1 = -1)
+    // Verifies logical shift (srl) semantics from ELF:
+    // With srl: v1 = (u_a1 >> 6) = 0x03FFFFFF, s2_val = 0x7FFFFFF8
+    // With arithmetic shift (sra bug): s2_val would be 0xFFFFFFF8
+    step_records.clear();
+    write_records.clear();
+    alloc_calls = 0;
+    mode_calls = 0;
+
+    void *res4 = func_0021DD10(0x1000, -1);
+    assert(res4 == mock_packet);
+    assert(alloc_calls == 1);
+    assert(mode_calls == 1);
+    assert(write_records.size() == 2);
+
+    assert(write_records[0].t0 == 0x13A0);
+    assert(write_records[0].t2 == (int)0x7FFFFFF8);
+    assert(write_records[0].t3 == 0x1E);
+
+    assert(write_records[1].t0 == 0x13A0 + 0x80);
+    assert(write_records[1].t2 == (int)0x7FFFFFF8);
+    assert(write_records[1].t3 == 0x1E + 1);
 }
 
 int main() {

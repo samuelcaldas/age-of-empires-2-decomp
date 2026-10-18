@@ -6,9 +6,8 @@ extern "C" {
 #endif
 
 struct MapTile {
-    unsigned char m_terrain;       // 0x00
-    unsigned char m_elevation;     // 0x01
-    unsigned char m_pad02[3];      // 0x02..0x04
+    unsigned char m_pad00[4];      // 0x00..0x03
+    unsigned char m_terrain;       // 0x04
     unsigned char m_zone_id;       // 0x05
     unsigned char m_slope_flag;    // 0x06
     unsigned char m_pad07[6];      // 0x07..0x0C

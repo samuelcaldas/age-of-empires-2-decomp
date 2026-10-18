@@ -175,7 +175,7 @@ void func_00341040(TacticalObj_341040 *self) {
     }
 }
 
-// 0x342170 to 0x342798 state machine port with exact signature (self, a1, a2, a3, t0)
+// 0x342170 to 0x342798 port with exact signature (self, a1, a2, a3, t0)
 void func_00342170(TacticalObj_341040 *self, int a1, int a2, int a3, int t0) {
     if (!self) return;
 
@@ -251,6 +251,9 @@ void func_00342170(TacticalObj_341040 *self, int a1, int a2, int a3, int t0) {
     if (sub834) {
         ((VFunc_28)(*(void***)sub834)[7])(sub834, 0);
     }
+
+    // 0x342768: write field_83C
+    self->field_83C = mode;
 
     // Strict call order at 0x342738: func_1F6750 then func_1F88B0
     func_1F6750(self, sub838);

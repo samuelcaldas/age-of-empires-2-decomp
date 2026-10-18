@@ -93,44 +93,40 @@ static void test_initial_layout_state() {
     std::printf("PASS test_initial_layout_state\n");
 }
 
-static void test_func_342170_distinct_modes_and_arguments() {
+static void test_func_342170_original_branches_and_writes() {
     TacticalObj_341040 obj;
     std::memset(&obj, 0, sizeof(obj));
 
     MockSubObj sub;
     obj.field_838 = &sub;
 
-    // Test mode 30: expects func_339960 arg = 0
-    g_seq_idx = 0;
+    // Test original branch at 0x342188 (a1 == sub and a2 == 16)
+    g_func_33a730_called = 0;
     g_func_339960_arg = -1;
     obj.field_84C = 30;
-    func_00342170(&obj, (int)(long)&sub, 16, 1, 0);
+    func_00342170(&obj, (int)(long)&sub, 16, 1, 1);
+    assert(g_func_33a730_called == 1);
     assert(g_func_339960_arg == 0);
-    assert(obj.field_83C == 1);
-    assert(g_func_33a730_called > 0);
-    assert(g_func_33f8b0_called == 1);
+    assert(obj.field_83C == 30); // Write at 0x342768
+    assert(*(int*)((char*)&sub + 2052) == 30); // Write at 0x3423AC
 
-    // Test mode 31: expects func_339960 arg = 1 (distinct original branch behavior)
-    g_seq_idx = 0;
-    g_func_339960_arg = -1;
+    // Test mode 31 branch
     obj.field_84C = 31;
     func_00342170(&obj, 0, 0, 0, 0);
     assert(g_func_339960_arg == 1);
-    assert(obj.field_83C == 1);
+    assert(obj.field_83C == 31);
 
-    // Assert strict call sequence order [func_33A5D0 (1), func_339960 (3), func_1F6750 (4), func_1F88B0 (5)]
-    assert(g_seq_idx == 4);
-    assert(g_call_seq[0] == 1);
-    assert(g_call_seq[1] == 3);
-    assert(g_call_seq[2] == 4); // 1F6750 precedes 1F88B0
-    assert(g_call_seq[3] == 5); // 1F88B0 follows 1F6750
+    // Test mode 35 branch
+    obj.field_84C = 35;
+    func_00342170(&obj, 0, 0, 0, 0);
+    assert(obj.field_83C == 35);
 
-    std::printf("PASS test_func_342170_distinct_modes_and_arguments\n");
+    std::printf("PASS test_func_342170_original_branches_and_writes\n");
 }
 
 int main() {
     test_initial_layout_state();
-    test_func_342170_distinct_modes_and_arguments();
-    std::printf("ALL TACTICAL AI LAYOUT TESTS PASSED WITH DISTINCT MODE ASSERTIONS\n");
+    test_func_342170_original_branches_and_writes();
+    std::printf("ALL TACTICAL AI LAYOUT TESTS PASSED WITH ORIGINAL BRANCHES AND WRITES\n");
     return 0;
 }

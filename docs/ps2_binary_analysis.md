@@ -7176,3 +7176,15 @@ Achieved bit-level 100.00% matching. Pure C++ with zero assembly (.s). Validated
 | Function / Method | VRAM Address | Code Size (Orig) | Slice Size | Match Status | Description |
 |---|---|---|---|---|---|
 | `func_00340C30` | `0x340C30` | 180 B | 192 B | **Matching (100.00%)** | Tactical AI state handler and memorycard screen notification dispatcher. |
+
+#### 6.193 `GIF/GS Packet Builder Helpers` Subsystem (`0x21BFD0`–`0x21C410`, `trade_action_helper_21BFD0.cpp`)
+
+Located at VRAM `0x21BFD0`–`0x21C410` (file offset `0x11C1B0`–`0x11C5F0`, 1088 bytes total slice, 1072 bytes code + 16 bytes zero padding, Metrowerks C++ PS2 MWCC 2.3.1.01):
+- `func_0021BFD0` (`0x21BFD0`, 128 bytes code): Constructs packet object, initializes with tag quadword `D_00392B30` (`0x00008000, 0x10000000, 0x0000000E, 0x00000000`), writes register `0x08`, and finalizes.
+- `func_0021C050` (`0x21C050`, 128 bytes code): Constructs packet object, initializes with tag quadword `D_00392B30`, writes register `0x3F` with 0, and finalizes.
+- `func_0021C0D0` (`0x21C0D0`, 256 bytes code): Constructs packet object, packs 5-component bitfield into 64-bit value `a1 | (a2<<2) | (a3<<4) | (t0<<6) | (t1<<32)`, writes to register `0x42`, and finalizes.
+- `func_0021C1D0` (`0x21C1D0`, 256 bytes code): Constructs packet object, packs 5-component bitfield into 64-bit value `a1 | (a2<<2) | (a3<<4) | (t0<<6) | (t1<<32)`, writes to register `0x43`, and finalizes.
+- `func_0021C2D0` (`0x21C2D0`, 304 bytes code): Constructs packet object, packs 8-component bitfield into 64-bit value `a1 | (a2<<1) | (a3<<4) | (t0<<12) | (t1<<14) | (t2<<15) | (t3<<16) | (sp90<<17)`, writes to register `0x48`, and finalizes.
+
+Pure C++ following Object Calisthenics, SOLID, and fail-fast principles. Validated with native regression tests in `tests/native/trade_action_helper_21BFD0_test.cpp` and pytest runner in `tests/test_trade_action_helper_21BFD0.py`.
+

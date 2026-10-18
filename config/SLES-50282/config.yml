@@ -4816,6 +4816,201 @@ segments:
   - name: post_unit_action_resolve
     type: bin
     start: 0x169F60
+  - name: unit_action_build_77a0
+    type: code
+    start: 0x177980
+    vram: 0x2777A0
+    subsegments:
+      - [0x177980, asm, unit_action_build_77a0]
+  - name: unit_action_build_77d50
+    type: code
+    start: 0x177F30
+    vram: 0x277D50
+    subsegments:
+      - [0x177F30, asm, unit_action_build_77d50]
+  - name: unit_action_build_77e50
+    type: code
+    start: 0x178030
+    vram: 0x277E50
+    subsegments:
+      - [0x178030, asm, unit_action_build_77e50]
+  - name: unit_action_build_77f50
+    type: code
+    start: 0x178130
+    vram: 0x277F50
+    subsegments:
+      - [0x178130, asm, unit_action_build_77f50]
+  - name: unit_action_build_77fc0
+    type: code
+    start: 0x1781A0
+    vram: 0x277FC0
+    subsegments:
+      - [0x1781A0, asm, unit_action_build_77fc0]
+  - name: unit_action_build_78270
+    type: code
+    start: 0x178450
+    vram: 0x278270
+    subsegments:
+      - [0x178450, asm, unit_action_build_78270]
+  - name: unit_action_build_784d0
+    type: code
+    start: 0x1786B0
+    vram: 0x2784D0
+    subsegments:
+      - [0x1786B0, asm, unit_action_build_784d0]
+  - name: unit_action_build_78590
+    type: code
+    start: 0x178770
+    vram: 0x278590
+    subsegments:
+      - [0x178770, asm, unit_action_build_78590]
+  - name: unit_action_build_78660
+    type: code
+    start: 0x178830
+    vram: 0x278650
+    subsegments:
+      - [0x178830, asm, unit_action_build_78660]
+  - name: unit_action_build_78700
+    type: code
+    start: 0x1788D0
+    vram: 0x2786F0
+    subsegments:
+      - [0x1788D0, asm, unit_action_build_78700]
+  - name: unit_action_build_78870
+    type: code
+    start: 0x178A50
+    vram: 0x278870
+    subsegments:
+      - [0x178A50, asm, unit_action_build_78870]
+  - name: unit_action_build_789a0
+    type: code
+    start: 0x178B70
+    vram: 0x278990
+    subsegments:
+      - [0x178B70, asm, unit_action_build_789a0]
+  - name: unit_action_build_78d60
+    type: code
+    start: 0x178F30
+    vram: 0x278D50
+    subsegments:
+      - [0x178F30, asm, unit_action_build_78d60]
+  - name: unit_action_build_78ef0
+    type: code
+    start: 0x1790C0
+    vram: 0x278EE0
+    subsegments:
+      - [0x1790C0, asm, unit_action_build_78ef0]
+  - name: unit_action_build_79080
+    type: code
+    start: 0x179240
+    vram: 0x279060
+    subsegments:
+      - [0x179240, asm, unit_action_build_79080]
+  - name: unit_action_build_79110
+    type: code
+    start: 0x1792D0
+    vram: 0x2790F0
+    subsegments:
+      - [0x1792D0, asm, unit_action_build_79110]
+  - name: unit_action_build_79440
+    type: code
+    start: 0x179610
+    vram: 0x279430
+    subsegments:
+      - [0x179610, asm, unit_action_build_79440]
+  - name: unit_action_build_795e0
+    type: code
+    start: 0x1797B0
+    vram: 0x2795D0
+    subsegments:
+      - [0x1797B0, asm, unit_action_build_795e0]
+  - name: unit_action_build_79700
+    type: code
+    start: 0x1798C0
+    vram: 0x2796E0
+    subsegments:
+      - [0x1798C0, asm, unit_action_build_79700]
+  - name: unit_action_build_79930
+    type: code
+    start: 0x179AF0
+    vram: 0x279910
+    subsegments:
+      - [0x179AF0, asm, unit_action_build_79930]
+  - name: unit_action_build_79ba0
+    type: code
+    start: 0x179D60
+    vram: 0x279B80
+    subsegments:
+      - [0x179D60, asm, unit_action_build_79ba0]
+  - name: unit_action_build_79ca0
+    type: code
+    start: 0x179E60
+    vram: 0x279C80
+    subsegments:
+      - [0x179E60, asm, unit_action_build_79ca0]
+  - name: unit_action_build_79d80
+    type: code
+    start: 0x179F40
+    vram: 0x279D60
+    subsegments:
+      - [0x179F40, asm, unit_action_build_79d80]
+  - name: unit_action_build_79f90
+    type: code
+    start: 0x17A150
+    vram: 0x279F70
+    subsegments:
+      - [0x17A150, asm, unit_action_build_79f90]
+  - name: unit_action_build_7a090
+    type: code
+    start: 0x17A250
+    vram: 0x27A070
+    subsegments:
+      - [0x17A250, asm, unit_action_build_7a090]
+  - name: unit_action_build_7a1d0
+    type: code
+    start: 0x17A390
+    vram: 0x27A1B0
+    subsegments:
+      - [0x17A390, asm, unit_action_build_7a1d0]
+  - name: unit_action_build_7a390
+    type: code
+    start: 0x17A550
+    vram: 0x27A370
+    subsegments:
+      - [0x17A550, asm, unit_action_build_7a390]
+  - name: unit_action_build_7a440
+    type: code
+    start: 0x17A5E0
+    vram: 0x27A400
+    subsegments:
+      - [0x17A5E0, asm, unit_action_build_7a440]
+  - name: unit_action_build_7a830
+    type: code
+    start: 0x17A9F0
+    vram: 0x27A810
+    subsegments:
+      - [0x17A9F0, asm, unit_action_build_7a830]
+  - name: unit_action_build_7acb0
+    type: code
+    start: 0x17AE70
+    vram: 0x27AC90
+    subsegments:
+      - [0x17AE70, asm, unit_action_build_7acb0]
+  - name: unit_action_build_7b4d0
+    type: code
+    start: 0x17B690
+    vram: 0x27B4B0
+    subsegments:
+      - [0x17B690, asm, unit_action_build_7b4d0]
+  - name: unit_action_build_7b640
+    type: code
+    start: 0x17B800
+    vram: 0x27B620
+    subsegments:
+      - [0x17B800, asm, unit_action_build_7b640]
+  - name: post_unit_action_build_7b640
+    type: bin
+    start: 0x17B8E0
   - name: trade_action_getters3
     type: code
     start: 0x1B6330

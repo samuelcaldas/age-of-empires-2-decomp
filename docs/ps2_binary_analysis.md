@@ -253,6 +253,8 @@ Starting at VRAM `0x137810` (file offset `0x379e0`), the binary transitions from
 | `MapZone::ProcessTiles` (`func_00137920`) | `0x137920` | **100.0%** (232 / 232 B) | Tile processor resetting tile 255 values, updating D_50A5A0, notifying world via func_002082B0, and setting world fieldBBC. |
 | `ScreenObj::AspectRatio` | `0x137A20` | **100.0%** (24 / 24 B) | Aspect ratio calculation converting width and height to float quotient. |
 | `GetSightTable` (`func_00137A40`) | `0x137A40` | **100.0%** (92 / 92 B) | Sight table lookup clamping radius to [0, 20] and returning pointer from D_0038FA40 or D_0038FAA0 based on mode. |
+| `MapZone::Stub` (`func_00137E90`) | `0x137E90` | **100.0%** (8 / 8 B) | MapZone stub method (`jr ra; nop`). |
+| `MapZone::HideLOS` (`func_00137EA0`) | `0x137EA0` | **61.37%** (404 / 404 B) | Line-of-sight clearing and grid masking against sight radius and mode lookup tables. |
 
 ### 6.3.1 KCET Hardware Layer Strings and Symbol Discoveries
 Inspection of `AOK.ELF` in the assertion/rodata pool (`0x490820` - `0x490900`) recovered exact file names and assertions from KCET's peripheral abstraction layer:

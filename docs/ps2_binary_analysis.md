@@ -7040,6 +7040,27 @@ The unit contains three functions:
 | `func_001895C0` | `0x1895C0` | 504 | **Structure & control flow match** (504/504 B, 70% exact) | 8 B |
 | `func_001897C0` | `0x1897C0` | 112 | **100.00% exact match** (112/112 B) | 0 B |
 
+#### 6.333 RenderManager DirectDraw Error Translation (`0x189830`–`0x189B40`, `render_manager_error.cpp`)
+
+`RenderManagerError` occupies VRAM `[0x189830, 0x189B40)` and file offsets
+`[0x89A10, 0x89D20)`: **756 instruction bytes, 784-byte slice (28 B alignment padding)**.
+The unit implements the DirectDraw / COM HRESULT error translation and dispatch helper
+class (`sizeof(RenderManagerError) == 0x8`), holding a device pointer at `+0x0` and the last
+error code at `+0x4`.
+
+The unit contains four functions:
+1. `func_00189830` (`0x189830`–`0x189840`, 16 B code, 0 B pad): Constructor `RenderManagerError(void *device)`. Stores device at `+0x0` and initializes error code to 0 at `+0x4`. **Matches 100.00% byte-for-byte.**
+2. `func_00189840` (`0x189840`–`0x189854`, 20 B code, 12 B pad): Formatter dispatch method `format_error(int res_id, int arg)`. Tail calls `func_2265E0(this->device, 0x400, res_id, arg)` with `#pragma exceptions off`. **Matches 100.00% byte-for-byte.**
+3. `func_00189860` (`0x189860`–`0x1898A4`, 68 B code, 12 B pad): Scalar deleting destructor `~RenderManagerError()`. Invokes `operator delete` (`func_100670`) when `flags > 0`. **Matches 100.00% byte-for-byte.**
+4. `func_001898b0` (`0x1898B0`–`0x189B3C`, 652 B code, 4 B pad): Error translation routine `translate_error(int hr)`. Translates 50 DirectDraw / COM HRESULT error codes (including `DDERR_SURFACELOST`, `DDERR_INVALIDPARAMS`, `DDERR_GENERIC`, `DDERR_OUTOFMEMORY`, `DDERR_UNSUPPORTED`, `E_NOTIMPL`, `E_FAIL`) into string resource IDs (`0x17B1`, `0x17B4`, `0x17B5`, `0x17B7`, `0x17C2`) and invokes `format_error`. Matches structure, control flow, error code mapping, and arguments (636/652 bytes, 97.5% size match).
+
+| Function | VRAM | Instruction bytes | Byte comparison | Padding |
+|---|---:|---:|---|---:|
+| `func_00189830` | `0x189830` | 16 | **100.00% exact match** (16/16 B) | 0 B |
+| `func_00189840` | `0x189840` | 20 | **100.00% exact match** (20/20 B) | 12 B |
+| `func_00189860` | `0x189860` | 68 | **100.00% exact match** (68/68 B) | 12 B |
+| `func_001898b0` | `0x1898B0` | 652 | **Control flow & mapping match** (636/652 B, 80% exact) | 4 B |
+
 #### Zone Terrain and Coordinate Transformation Slices (`0x1CDD00`–`0x1D1430`)
 
 Contiguous decompilation of the Age of Empires II PlayStation 2 terrain and spatial sub-systems along file offsets `0xCDEE0`–`0xD1610` (VRAM `0x1CDD00`–`0x1D1430`, offset mapping `+0xFFE20`):

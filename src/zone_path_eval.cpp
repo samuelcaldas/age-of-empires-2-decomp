@@ -58,7 +58,7 @@ int func_001C7850(
 
     MapTile **tile_rows = *(MapTile ***)((char *)s0 + 0x8E8C);
 
-    int p_min_x, p_max_x, p_min_y, p_max_y;
+    short p_min_x, p_max_x, p_min_y, p_max_y;
     if (bld->m_field48 >= 0 || bld->m_field4A >= 0) {
         int cy = func_123350(y);
         int cx = func_123350(x);
@@ -66,8 +66,8 @@ int func_001C7850(
         if (center_tile->m_zone_id != bld->m_field48 && center_tile->m_zone_id != bld->m_field4A) {
             return 1;
         }
-        p_min_x = func_123350(x);
-        p_min_y = func_123350(y);
+        p_min_x = (short)func_123350(x);
+        p_min_y = (short)func_123350(y);
         p_max_x = p_min_x;
         p_max_y = p_min_y;
     } else {
@@ -84,28 +84,28 @@ int func_001C7850(
         int touches_wild = 0;
 
         if (p_min_y - 1 >= 0) {
-            for (int cur_x = p_min_x - 1; cur_x <= p_max_x + 1; cur_x++) {
+            for (short cur_x = p_min_x - 1; cur_x <= p_max_x + 1; cur_x++) {
                 MapTile *t = &tile_rows[p_min_y - 1][cur_x];
                 if (t->m_zone_id == bld->m_required_zone) touches_zone = 1;
                 if (t->m_zone_id == 255) touches_wild = 1;
             }
         }
         if (p_max_x + 1 < map_w) {
-            for (int cur_y = p_min_y; cur_y <= p_max_y; cur_y++) {
+            for (short cur_y = p_min_y; cur_y <= p_max_y; cur_y++) {
                 MapTile *t = &tile_rows[cur_y][p_max_x + 1];
                 if (t->m_zone_id == bld->m_required_zone) touches_zone = 1;
                 if (t->m_zone_id == 255) touches_wild = 1;
             }
         }
         if (p_max_y + 1 < map_h) {
-            for (int cur_x = p_max_x + 1; cur_x >= p_min_x - 1; cur_x--) {
+            for (short cur_x = p_max_x + 1; cur_x >= p_min_x - 1; cur_x--) {
                 MapTile *t = &tile_rows[p_max_y + 1][cur_x];
                 if (t->m_zone_id == bld->m_required_zone) touches_zone = 1;
                 if (t->m_zone_id == 255) touches_wild = 1;
             }
         }
         if (p_min_x - 1 >= 0) {
-            for (int cur_y = p_max_y; cur_y >= p_min_y; cur_y--) {
+            for (short cur_y = p_max_y; cur_y >= p_min_y; cur_y--) {
                 MapTile *t = &tile_rows[cur_y][p_min_x - 1];
                 if (t->m_zone_id == bld->m_required_zone) touches_zone = 1;
                 if (t->m_zone_id == 255) touches_wild = 1;

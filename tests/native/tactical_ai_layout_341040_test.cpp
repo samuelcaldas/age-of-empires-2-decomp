@@ -412,7 +412,7 @@ static void test_func_342170_t0_equals_1_exact_history() {
 
 static void test_func_342170_mode40_50_exact_history() {
     TacticalObj_341040 obj;
-    for (int m = 40; m <= 50; m += 5) {
+    for (int m = 40; m <= 50; ++m) {
         std::memset(&obj, 0, sizeof(obj));
         MockSubObj mock_sub;
         obj.field_838 = &mock_sub;

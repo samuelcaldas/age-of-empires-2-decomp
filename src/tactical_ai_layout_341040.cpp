@@ -182,6 +182,60 @@ void func_00341040(TacticalObj_341040 *self) {
         }
         break;
     }
+    case 20: {
+        int code = 0xc3c9;
+        if (self->field_840 == 2 || (unsigned int)(self->field_840 - 4) < 3) {
+            code = 0xc3c3;
+        }
+        if (sub82C) {
+            ((VFunc_104)(*(void***)sub82C)[65])(sub82C, code);
+        }
+        break;
+    }
+    case 21: {
+        if (sub828) {
+            ((VFunc_104)(*(void***)sub828)[65])(sub828, 0xc3c6);
+        }
+        int code = 0xc3ca;
+        if (self->field_840 != 2 && self->field_840 != 4) {
+            if ((unsigned int)(self->field_840 - 5) < 2) {
+                code = 0xc3cb;
+            } else {
+                code = 0xc3d8;
+            }
+        }
+        if (sub82C) {
+            ((VFunc_104)(*(void***)sub82C)[65])(sub82C, code);
+        }
+        break;
+    }
+    case 22: {
+        if (sub828) {
+            ((VFunc_104)(*(void***)sub828)[65])(sub828, 0xc3cc);
+        }
+        if (sub82C) {
+            ((VFunc_104)(*(void***)sub82C)[65])(sub82C, 0xc3ca);
+        }
+        break;
+    }
+    case 23: {
+        if (sub828) {
+            ((VFunc_104)(*(void***)sub828)[65])(sub828, 0xc3cd);
+        }
+        if (sub82C) {
+            ((VFunc_104)(*(void***)sub82C)[65])(sub82C, 0xc3ca);
+        }
+        break;
+    }
+    case 24: {
+        if (sub828) {
+            ((VFunc_104)(*(void***)sub828)[65])(sub828, 0xc3ce);
+        }
+        if (sub82C) {
+            ((VFunc_104)(*(void***)sub82C)[65])(sub82C, 0xc3cb);
+        }
+        break;
+    }
     default:
         break;
     }

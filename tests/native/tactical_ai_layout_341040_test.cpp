@@ -80,10 +80,26 @@ static void test_case_17_18_19_flow() {
     std::printf("PASS test_case_17_18_19_flow\n");
 }
 
+static void test_case_20_to_24_flow() {
+    TacticalObj_341040 obj;
+    std::memset(&obj, 0, sizeof(obj));
+
+    for (int c = 20; c <= 24; c++) {
+        obj.field_84C = c;
+        obj.field_840 = 2;
+        func_00341040(&obj);
+        obj.field_840 = 5;
+        func_00341040(&obj);
+    }
+
+    std::printf("PASS test_case_20_to_24_flow\n");
+}
+
 int main() {
     test_initial_layout_state();
     test_case_12_13_flow();
     test_case_14_15_16_flow();
     test_case_17_18_19_flow();
+    test_case_20_to_24_flow();
     return 0;
 }

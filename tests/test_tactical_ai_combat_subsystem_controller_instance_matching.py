@@ -24,9 +24,9 @@ CALLEES = {"func_318340": 0x318340}
 GLOBALS = {"D_004DED20": 0x4DED20}
 
 EXPECTED_RELOCATIONS = [
-    (0x0C, 4, "func_318340"),    # R_MIPS_26 call to base constructor
-    (0x14, 5, "D_004DED20"),     # R_MIPS_HI16 vtable address upper half
-    (0x18, 6, "D_004DED20"),     # R_MIPS_LO16 vtable address lower half
+    (0x0C, 4, "func_318340", 0x0C000000),    # jal 0 with zero target addend
+    (0x14, 5, "D_004DED20", 0x3C020000),     # lui $v0, 0 with zero imm addend
+    (0x18, 6, "D_004DED20", 0x24420000),     # addiu $v0, $v0, 0 with zero imm addend
 ]
 
 
@@ -61,11 +61,16 @@ def build_object(tmp_path):
     return output
 
 
-def relocate_entry(data, rel, symbols):
-    """Apply R_MIPS_26, R_MIPS_HI16, and R_MIPS_LO16 relocations."""
+def relocate_entry(data, rel, symbols, expected_unpatched):
+    """Apply R_MIPS_26, R_MIPS_HI16, and R_MIPS_LO16 relocations after asserting unpatched instruction."""
     rtype, offset = rel["r_info_type"], rel["r_offset"]
     name = symbols.get_symbol(rel["r_info_sym"]).name
     word = struct.unpack_from("<I", data, offset)[0]
+    assert word == expected_unpatched, (
+        f"Unpatched instruction mismatch at {hex(offset)}: "
+        f"expected {hex(expected_unpatched)}, got {hex(word)}"
+    )
+
     if rtype == 4:
         target = CALLEES[name] + ((word & 0x03FFFFFF) << 2)
         struct.pack_into("<I", data, offset, (word & 0xFC000000) | (target >> 2))
@@ -82,9 +87,10 @@ def relocate_entry(data, rel, symbols):
 
 
 def relocate_section(elf, section_index, data):
-    """Resolve relocations for target section with duplicate rejection and multiset comparison."""
+    """Resolve relocations for target section with duplicate rejection, addend verification, and multiset comparison."""
     seen_offsets = set()
     seen_multiset = []
+    expected_map = {off: (t, s, w) for off, t, s, w in EXPECTED_RELOCATIONS}
     for section in elf.iter_sections():
         if section["sh_type"] == "SHT_REL" and section["sh_info"] == section_index:
             symbols = elf.get_section(section["sh_link"])
@@ -98,9 +104,20 @@ def relocate_section(elf, section_index, data):
                 assert offset not in seen_offsets, (
                     f"Duplicate relocation detected at offset {hex(offset)}"
                 )
+                assert offset in expected_map, (
+                    f"Unexpected relocation at offset {hex(offset)}"
+                )
+                exp_type, exp_sym, exp_word = expected_map[offset]
+                assert rtype == exp_type, (
+                    f"Relocation type mismatch at {hex(offset)}: expected {exp_type}, got {rtype}"
+                )
+                assert sym_name == exp_sym, (
+                    f"Relocation symbol mismatch at {hex(offset)}: expected {exp_sym}, got {sym_name}"
+                )
                 seen_offsets.add(offset)
-                seen_multiset.append((offset, rtype, sym_name))
-                relocate_entry(data, rel, symbols)
+                unpatched = struct.unpack_from("<I", data, offset)[0]
+                seen_multiset.append((offset, rtype, sym_name, unpatched))
+                relocate_entry(data, rel, symbols, exp_word)
     assert sorted(seen_multiset) == sorted(EXPECTED_RELOCATIONS), (
         f"Relocation multiset mismatch: expected {EXPECTED_RELOCATIONS}, got {seen_multiset}"
     )

@@ -29,9 +29,9 @@ SYMBOLS_MAP = {
 }
 
 EXPECTED_RELOCATIONS = [
-    (0x10, 7, "D_004E2EA0"),    # R_MIPS_GPREL16 global guard
-    (0x30, 4, "func_1A5010"),    # R_MIPS_26 coordinate extraction
-    (0x84, 7, "D_004E3180"),    # R_MIPS_GPREL16 global context notify
+    (0x10, 7, "D_004E2EA0", 0x8F820000),    # lw $v0, 0($gp) with zero addend
+    (0x30, 4, "func_1A5010", 0x0C000000),    # jal 0 with zero target addend
+    (0x84, 7, "D_004E3180", 0x8F840000),    # lw $a0, 0($gp) with zero addend
 ]
 
 
@@ -66,16 +66,20 @@ def build_object(tmp_path):
     return output
 
 
-def relocate_entry(data, relocation, symbols):
-    """Resolve R_MIPS_26 call or R_MIPS_GPREL16 relocations."""
+def relocate_entry(data, relocation, symbols, expected_unpatched):
+    """Resolve R_MIPS_26 call or R_MIPS_GPREL16 relocations after asserting unpatched instruction."""
     name = symbols.get_symbol(relocation["r_info_sym"]).name
     assert name in SYMBOLS_MAP, f"Unexpected relocation symbol: {name}"
     target = SYMBOLS_MAP[name]
     offset = relocation["r_offset"]
     rel_type = relocation["r_info_type"]
+    word = struct.unpack_from("<I", data, offset)[0]
+    assert word == expected_unpatched, (
+        f"Unpatched instruction mismatch at {hex(offset)}: "
+        f"expected {hex(expected_unpatched)}, got {hex(word)}"
+    )
 
     if rel_type == 4:  # R_MIPS_26
-        word = struct.unpack_from("<I", data, offset)[0]
         struct.pack_into("<I", data, offset, (word & 0xFC000000) | (target >> 2))
     elif rel_type == 7:  # R_MIPS_GPREL16
         gp_offset = (target - GP_VALUE) & 0xFFFF
@@ -85,9 +89,10 @@ def relocate_entry(data, relocation, symbols):
 
 
 def relocate_function(elf, section_index, data):
-    """Select relocations with duplicate rejection and multiset comparison."""
+    """Select relocations with duplicate rejection, addend verification, and multiset comparison."""
     seen_offsets = set()
     seen_multiset = []
+    expected_map = {off: (t, s, w) for off, t, s, w in EXPECTED_RELOCATIONS}
     for section in elf.iter_sections():
         if section["sh_type"] == "SHT_REL" and section["sh_info"] == section_index:
             symbols = elf.get_section(section["sh_link"])
@@ -101,9 +106,20 @@ def relocate_function(elf, section_index, data):
                 assert offset not in seen_offsets, (
                     f"Duplicate relocation detected at offset {hex(offset)}"
                 )
+                assert offset in expected_map, (
+                    f"Unexpected relocation at offset {hex(offset)}"
+                )
+                exp_type, exp_sym, exp_word = expected_map[offset]
+                assert rtype == exp_type, (
+                    f"Relocation type mismatch at {hex(offset)}: expected {exp_type}, got {rtype}"
+                )
+                assert sym_name == exp_sym, (
+                    f"Relocation symbol mismatch at {hex(offset)}: expected {exp_sym}, got {sym_name}"
+                )
                 seen_offsets.add(offset)
-                seen_multiset.append((offset, rtype, sym_name))
-                relocate_entry(data, rel, symbols)
+                unpatched = struct.unpack_from("<I", data, offset)[0]
+                seen_multiset.append((offset, rtype, sym_name, unpatched))
+                relocate_entry(data, rel, symbols, exp_word)
     assert sorted(seen_multiset) == sorted(EXPECTED_RELOCATIONS), (
         f"Relocation multiset mismatch: expected {EXPECTED_RELOCATIONS}, got {seen_multiset}"
     )

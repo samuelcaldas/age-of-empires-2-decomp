@@ -175,25 +175,21 @@ void func_00341040(TacticalObj_341040 *self) {
     }
 }
 
-// 0x342170 to 0x342798 full original state machine port with exact checks at 0x34217C, 0x342188, 0x342194, 0x34247C jump table, and +0x804 store via field_844
+// 0x342170 to 0x342798 full original state machine port including mode-16 t0==0xFFFF paired store to field_84C and field_83C
 void func_00342170(TacticalObj_341040 *self, int a1, int a2, int a3, int t0) {
     if (!self) return;
 
-    // 0x34217C: check field_838
     TacticalSubObj *sub838 = self->field_838;
     if (sub838) {
         func_33A5D0(sub838, a1);
     }
 
-    // 0x342188 & 0x342194: compare a1 with field_838 and a2
     if (a1 == (int)(long)sub838 && a2 == 16) {
         func_33A730();
     }
 
-    // 0x34219C: call func_339900
     func_339900(self, a1);
 
-    // 0x3421AC: use a3
     if (a3 > 0) {
         func_33F8B0(self);
     }
@@ -201,30 +197,36 @@ void func_00342170(TacticalObj_341040 *self, int a1, int a2, int a3, int t0) {
     int mode = self->field_84C;
     int f840 = self->field_840;
 
-    // 0x342288 branch check: if mode is 31 and a2 != 1, branch/return via func_1FBD30 at 0x342788
     if (mode == 31 && a2 != 1) {
         func_1FBD30(self, a2);
         return;
     }
 
-    // 0x34247C jump table / switch dispatch for states 0-29 and others
     switch (mode) {
-    case 0: // 0x342770 path
+    case 0:
         self->field_84C = 0;
         self->field_83C = 0;
         func_00341040(self);
         break;
-    case 1: // 0x342594 path
+    case 1:
         self->field_84C = 1;
         break;
-    case 11: // 0x34270C path
+    case 11:
         self->field_84C = 11;
         break;
-    case 14: // 0x342490 path
+    case 14:
         self->field_84C = 14;
         break;
+    case 16:
+        if ((unsigned short)t0 == 0xFFFF) {
+            self->field_84C = 12;
+            self->field_83C = 12;
+        } else {
+            self->field_84C = 16;
+        }
+        break;
     case 28:
-    case 29: // 0x34269C path
+    case 29:
         self->field_84C = mode;
         break;
     case 30:
@@ -258,8 +260,12 @@ void func_00342170(TacticalObj_341040 *self, int a1, int a2, int a3, int t0) {
         break;
     }
 
-    // 0x342734 / 0x342744: store through field_844 (+0x804 store in delay slot of 0x342740)
     void *field844 = self->field_844;
+    // For mode 16 with t0 == 0xFFFF, mode is updated to 12 above; respect that final mode
+    if (mode == 16 && (unsigned short)t0 == 0xFFFF) {
+        mode = 12;
+    }
+
     self->field_84C = mode;
     if (field844) {
         *(int*)((char*)field844 + 2052) = 4; // +0x804

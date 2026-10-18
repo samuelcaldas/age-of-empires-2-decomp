@@ -34,6 +34,20 @@ int main() {
     func_00343090(&obj);
     func_00343568(&obj);
 
-    std::printf("PASS test_tactical_ai_slice_343088\n");
+    func_00343570(&obj);
+    func_00343A48(&obj);
+    func_00343A50(&obj);
+    func_00343AB0(&obj);
+    func_00343AE0(&obj);
+    func_00343BC8(&obj);
+    func_00343BD0(&obj);
+    func_00343C68(&obj);
+    func_00343C80(&obj);
+    func_00343CD0(&obj);
+    func_00343CE0(&obj);
+    func_00343D30(&obj);
+    func_00343D40(&obj);
+
+    std::printf("PASS test_tactical_ai_slice_343568\n");
     return 0;
 }

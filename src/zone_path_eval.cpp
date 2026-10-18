@@ -6,7 +6,7 @@ int func_001C7850(void *self, void *arg1, int arg2, int arg3) {
     if (arg2 < 0 || arg3 < 0) {
         return -2;
     }
-    if (self == nullptr) {
+    if (self == 0) {
         // Null self check as parsed in initial entry point structures
         return 0;
     }

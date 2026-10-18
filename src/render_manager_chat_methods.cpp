@@ -45,8 +45,6 @@ int func_001891d0(ChatLog *self, int idx) {
     return self->field_2C[idx];
 }
 
-void func_00189200() {}
-
 void func_00189210() {}
 
 int func_00189220() {

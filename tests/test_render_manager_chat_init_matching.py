@@ -51,3 +51,12 @@ def test_render_manager_chat_init_symbols():
     for name, (address, size) in FUNCTIONS.items():
         pattern = rf"^{name}\s*=\s*0x{address:X};\s*//\s*type:func\s+size:0x{size:02X}\s+absolute:True"
         assert re.search(pattern, symbols_txt, re.MULTILINE), f"Missing or invalid symbol {name}"
+
+
+def test_render_manager_chat_init_callees_registered():
+    """Verify all called external functions are defined in symbols.txt."""
+    from render_manager_chat_init_matching_support import CALLEES
+    symbols_txt = (PROJECT_ROOT / "config/SLES-50282/symbols.txt").read_text()
+    for callee_name in CALLEES:
+        pattern = rf"^{callee_name}\s*="
+        assert re.search(pattern, symbols_txt, re.MULTILINE), f"Callee {callee_name} not found in symbols.txt"

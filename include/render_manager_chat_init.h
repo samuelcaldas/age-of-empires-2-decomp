@@ -13,7 +13,7 @@ struct ChatLog {
 
 extern "C" {
 void *func_117CAC(void *dst, int c, int n);
-void func_189160(ChatLog *self, int idx, int val);
+void func_00189160(ChatLog *self, int idx, int val);
 
 ChatLog *func_00188df0(ChatLog *self, int a1);
 }

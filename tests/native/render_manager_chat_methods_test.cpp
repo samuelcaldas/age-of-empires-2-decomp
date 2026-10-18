@@ -51,7 +51,6 @@ static void test_scalars_and_arrays() {
     assert(func_001891d0(&log, -1) == 0);
     assert(func_001891d0(&log, 10) == 0);
 
-    func_00189200();
     func_00189210();
     assert(func_00189220() == 1);
     log.field_124 = 25;

@@ -20,7 +20,6 @@ void func_00189150(ChatLog *self, int val);
 void func_00189160(ChatLog *self, int idx, int val);
 int func_00189190(ChatLog *self, int idx);
 int func_001891d0(ChatLog *self, int idx);
-void func_00189200();
 void func_00189210();
 int func_00189220();
 int func_00189230(ChatLog *self);

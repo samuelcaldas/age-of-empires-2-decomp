@@ -17,7 +17,7 @@ ChatLog *func_00188df0(ChatLog *self, int a1) {
     self->field_124 = 0;
 
     for (int j = 0; j <= 9; j++) {
-        func_189160(self, j, 0);
+        func_00189160(self, j, 0);
     }
 
     return self;

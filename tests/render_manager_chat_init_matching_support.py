@@ -18,7 +18,7 @@ FUNCTIONS = {
 }
 CALLEES = {
     "func_117CAC": 0x117CAC,
-    "func_189160": 0x189160,
+    "func_00189160": 0x189160,
 }
 
 

@@ -11,7 +11,7 @@ void *func_117CAC(void *dst, int c, int n) {
     return std::memset(dst, c, n);
 }
 
-void func_189160(ChatLog *self, int idx, int val) {
+void func_00189160(ChatLog *self, int idx, int val) {
     (void)self;
     (void)val;
     if (g_189160_calls < 16) {

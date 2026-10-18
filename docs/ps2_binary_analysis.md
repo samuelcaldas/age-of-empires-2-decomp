@@ -6921,6 +6921,48 @@ This four-function pure C++ slice spans VRAM `0x186DC0`–`0x186E50` and file of
 | `func_00186e10` | `0x186E10` | 48 | **100.00% exact match** (48/48 B) | 0 B |
 | `func_00186e40` | `0x186E40` | 8 | **100.00% exact match** (8/8 B) | 8 B |
 
+#### 6.329 `RenderManager Chat Log Initialization` Subsystem (`0x188DF0`–`0x188EA0`, `render_manager_chat_init.cpp`)
+
+Located at VRAM `0x188DF0`–`0x188EA0` (file offset `0x88FD0`–`0x89080`, 176 bytes total slice, 172 code bytes + 4 bytes zero padding, Metrowerks C++ PS2 MWCC 2.3.1.01):
+- `func_00188df0` (`0x188DF0`, 172 bytes code, 176 bytes slice): ChatLog constructor. Zeroes player status arrays at offsets `0x4` and `0x2C` via `func_117CAC`, sets `field_0 = a1`, clears message pointer array `field_54[0..50]` (51 entries) and state flags `field_120`, `field_124`, `field_128`, and calls `func_00189160(self, i, 0)` for indices 0..9. **100.00% exact bit-for-bit match**.
+
+#### 6.329.1 RenderManager Chat Log Initialization Matching Results (172 Code Bytes, 176-Byte Slice)
+
+| Function | VRAM | Instruction bytes | Relocated byte comparison | Padding |
+|---|---:|---:|---|---:|
+| `func_00188df0` | `0x188DF0` | 172 | **100.00% exact match** (172/172 B) | 4 B |
+
+#### 6.330 `RenderManager Chat Log Methods & Accessors` Subsystem (`0x1890A0`–`0x189260`, `render_manager_chat_methods.cpp`)
+
+Located at VRAM `0x1890A0`–`0x189260` (file offset `0x89280`–`0x89440`, 448 bytes total slice, 364 code bytes across 11 functions, Metrowerks C++ PS2 MWCC 2.3.1.01):
+- `func_001890a0` (`0x1890A0`, 56 bytes): Message entry getter with bounds validation (`idx < 0 || idx > 50`).
+- `func_001890e0` (`0x1890E0`, 108 bytes): Buffer cleanup loop freeing non-null message pointers via `func_116F68` and resetting `field_124`.
+- `func_00189150` (`0x189150`, 8 bytes): Setter for `field_0`.
+- `func_00189160` (`0x189160`, 40 bytes): Setter for array `field_4[idx]` with bounds `idx > 0 && idx < 10`.
+- `func_00189190` (`0x189190`, 56 bytes): Getter for array `field_4[idx]` with bounds `idx < 0 || idx > 9`.
+- `func_001891d0` (`0x1891D0`, 56 bytes): Getter for array `field_2C[idx]` with bounds `idx < 0 || idx > 9`.
+- `func_00189210` (`0x189210`, 8 bytes): Void stub.
+- `func_00189220` (`0x189220`, 8 bytes): Boolean stub returning 1.
+- `func_00189230` (`0x189230`, 8 bytes): Getter for `field_124`.
+- `func_00189240` (`0x189240`, 8 bytes): Capacity constant returning 50.
+- `func_00189250` (`0x189250`, 8 bytes): Getter for `field_120`.
+
+#### 6.330.1 RenderManager Chat Log Methods Matching Results (364 Code Bytes, 448-Byte Slice)
+
+| Function | VRAM | Instruction bytes | Relocated byte comparison | Padding |
+|---|---:|---:|---|---:|
+| `func_001890a0` | `0x1890A0` | 56 | **100.00% exact match** (56/56 B) | 8 B |
+| `func_001890e0` | `0x1890E0` | 108 | **100.00% exact match** (108/108 B) | 4 B |
+| `func_00189150` | `0x189150` | 8 | **100.00% exact match** (8/8 B) | 8 B |
+| `func_00189160` | `0x189160` | 40 | **100.00% exact match** (40/40 B) | 8 B |
+| `func_00189190` | `0x189190` | 56 | **100.00% exact match** (56/56 B) | 8 B |
+| `func_001891d0` | `0x1891D0` | 56 | **100.00% exact match** (56/56 B) | 0 B |
+| `func_00189210` | `0x189210` | 8 | **100.00% exact match** (8/8 B) | 8 B |
+| `func_00189220` | `0x189220` | 8 | **100.00% exact match** (8/8 B) | 8 B |
+| `func_00189230` | `0x189230` | 8 | **100.00% exact match** (8/8 B) | 8 B |
+| `func_00189240` | `0x189240` | 8 | **100.00% exact match** (8/8 B) | 8 B |
+| `func_00189250` | `0x189250` | 8 | **100.00% exact match** (8/8 B) | 8 B |
+
 
 
 

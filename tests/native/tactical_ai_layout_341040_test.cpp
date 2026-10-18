@@ -66,11 +66,15 @@ void func_339960(void *a0, int a1) {
     g_func_339960_called++;
     g_last_339960_arg = a1;
 }
-int func_340CF0(void *a0) {
-    log_call("func_340CF0", a0, 0);
+int func_00340CF0(void *a0) {
+    log_call("func_00340CF0", a0, 0);
     return g_func_340cf0_ret;
 }
-void func_340C30(void *a0) { log_call("func_340C30", a0, 0); }
+int func_340CF0(void *a0) { return func_00340CF0(a0); }
+
+void func_00340C30(void *a0) { log_call("func_00340C30", a0, 0); }
+void func_340C30(void *a0) { func_00340C30(a0); }
+
 static int g_func_1f6750_called = 0;
 void func_1F6750(void *a0, void *a1) {
     log_call("func_1F6750", a0, (int)(long)a1);
@@ -81,19 +85,20 @@ void func_33F8B0(void *a0, int a1) {
     log_call("func_33F8B0", a0, a1);
     g_func_33f8b0_called++;
 }
-int func_219BA0(void *a0, int a1 = 0) {
-    log_call("func_219BA0", a0, a1);
+int func_00219BA0(void *a0, int a1 = 0) {
+    log_call("func_00219BA0", a0, a1);
     g_last_219ba0_arg = a1;
     return 10;
 }
+int func_219BA0(void *a0, int a1 = 0) { return func_00219BA0(a0, a1); }
 void func_1FBD30(void *a0, int a1) {
     log_call("func_1FBD30", a0, a1);
     g_func_1fbd30_called++;
     g_last_1fbd30_arg = a1;
 }
+void func_36ACC0(int a0) { log_call("func_36ACC0", NULL, a0); }
 void func_11ABBC(void *dst, const char *src) { (void)dst; (void)src; }
 void func_36BD30(void *a0, int a1, int a2, const char *a3, int t0) { (void)a0; (void)a1; (void)a2; (void)a3; (void)t0; }
-void func_36ACC0(int a0) { (void)a0; }
 int func_1F6EA0(int a0, int a1) { (void)a0; (void)a1; return 0; }
 void *func_36C000(int a0) { (void)a0; return 0; }
 void func_11A498(void *dst, void *src, int a2) { (void)dst; (void)src; (void)a2; }
@@ -104,6 +109,7 @@ int func_11ACD0(const char *s) { (void)s; return 15; }
 extern const char aBesles50282age2G[] = "BESLES-50282age2_g??";
 extern const char aBesles50282age2S[] = "BESLES-50282age2_s??";
 extern const char aDmy[] = "dmy";
+extern const char D_4D5508[] = "";
 }
 
 static void test_initial_layout_state() {

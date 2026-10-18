@@ -104,7 +104,8 @@ static void test_invalid_tag_rejection() {
     desc.m_table_8 = table8;
 
     int res = func_00328300(&desc, 100, 0);
-    assert(res == 0); // count == 0 branch rejection
+    // Explicitly assert that count == 0 branch returns 0 (rejection of remove when tag has 0 vertices)
+    assert(res == 0);
 }
 
 int main() {

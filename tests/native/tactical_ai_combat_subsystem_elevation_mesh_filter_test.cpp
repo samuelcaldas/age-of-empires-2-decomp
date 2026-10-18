@@ -149,19 +149,29 @@ static void test_grid_entity_filtering() {
 static void test_inactive_entity_rejection() {
     EntityDesc desc_inactive;
     std::memset(&desc_inactive, 0, sizeof(desc_inactive));
-    desc_inactive.m_active = 0; // inactive entity should be rejected (wrong branch)
+    desc_inactive.m_active = 0; // inactive entity must be rejected
     desc_inactive.m_tag = 99;
+
+    EntityDesc desc_active;
+    std::memset(&desc_active, 0, sizeof(desc_active));
+    desc_active.m_active = 1; // active entity must be accepted
+    desc_active.m_tag = 42;
 
     Entity entity_inactive;
     std::memset(&entity_inactive, 0, sizeof(entity_inactive));
     entity_inactive.m_desc = &desc_inactive;
     entity_inactive.m_id = 105;
 
-    Entity *entities_cell0[1] = {&entity_inactive};
+    Entity entity_active;
+    std::memset(&entity_active, 0, sizeof(entity_active));
+    entity_active.m_desc = &desc_active;
+    entity_active.m_id = 106;
+
+    Entity *entities_cell0[2] = {&entity_inactive, &entity_active};
 
     ZoneCell cell0;
     std::memset(&cell0, 0, sizeof(cell0));
-    cell0.m_entity_count = 1;
+    cell0.m_entity_count = 2;
     cell0.m_entities = entities_cell0;
 
     ZoneCell row0[1] = {cell0};
@@ -190,7 +200,10 @@ static void test_inactive_entity_rejection() {
     s_call_count = 0;
 
     func_00328100(&desc, 0);
-    assert(s_call_count == 0); // inactive entity branch rejected
+    // Exactly 1 call (for the active entity), proving inactive entity was rejected and active was accepted
+    assert(s_call_count == 1);
+    assert(s_calls[0].id == 106);
+    assert(s_calls[0].tag == 42);
 }
 
 int main() {

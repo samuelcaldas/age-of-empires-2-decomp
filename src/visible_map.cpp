@@ -1,5 +1,4 @@
 #include "visible_map.h"
-#include <cstring>
 
 int D_004E3058 = 0;
 int *D_50A5A0[200];
@@ -34,7 +33,7 @@ void func_001387C0(VisibleMap *self, int width, int height) {
     self->m_height = height;
     D_004E3058 = 0;
     if (self->m_height > 0 && self->m_width > 0) {
-        self->m_buffer = (int*)std::memset(self->m_staticBuf, 0, sizeof(self->m_staticBuf));
+        self->m_buffer = (int*)memset(self->m_staticBuf, 0, sizeof(self->m_staticBuf));
     } else {
         self->m_buffer = 0;
         self->m_width = 0;
@@ -47,7 +46,7 @@ void func_00138830(VisibleMap *self, void *stream) {
     func_226d90(stream, &self->m_width, 4);
     func_226d90(stream, &self->m_height, 4);
     if (self->m_height > 0 && self->m_width > 0) {
-        self->m_buffer = (int*)std::memset(self->m_staticBuf, 0, sizeof(self->m_staticBuf));
+        self->m_buffer = (int*)memset(self->m_staticBuf, 0, sizeof(self->m_staticBuf));
         func_226d90(stream, self->m_buffer, self->m_height * self->m_width * 4);
         return;
     }
@@ -82,7 +81,7 @@ void func_001389F0(VisibleMap *self) {
     self->m_height = 0;
     func_00138960(self);
     if (self->m_buffer) {
-        std::memset(self->m_staticBuf, 0, sizeof(self->m_staticBuf));
+        memset(self->m_staticBuf, 0, sizeof(self->m_staticBuf));
         self->m_buffer = 0;
     }
 }

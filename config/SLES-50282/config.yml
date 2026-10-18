@@ -4924,6 +4924,12 @@ segments:
     vram: 0x21DE30
     subsegments:
       - [0x11DE30, asm, trade_action_helper_21DE30]
+  - name: trade_action_helper_21DE80
+    type: code
+    start: 0x11DE80
+    vram: 0x21DE80
+    subsegments:
+      - [0x11DE80, asm, trade_action_helper_21DE80]
   - name: unit_action_core
     type: code
     start: 0x166960

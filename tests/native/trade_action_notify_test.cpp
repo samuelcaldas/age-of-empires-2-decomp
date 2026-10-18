@@ -15,19 +15,25 @@ int main(int argc, char **argv) {
     std::vector<void *> vtable(100, 0);
     std::vector<void *> action_vtable(20, 0);
 
+    for (int i = 0; i < 20; ++i) {
+        action_vtable[i] = reinterpret_cast<void *>(&mock_notify_order_fn);
+    }
+    for (int i = 0; i < 100; ++i) {
+        vtable[i] = reinterpret_cast<void *>(+[](void *) -> void * {
+            static int s_pred_id = 1;
+            return &s_pred_id;
+        });
+    }
+
     char *base = storage.data();
     *reinterpret_cast<void **>(base + 176) = mgr.data();
     *reinterpret_cast<void **>(mgr.data() + 172) = group.data();
     *reinterpret_cast<void **>(mgr.data() + 0x1f348) = group.data();
     *reinterpret_cast<void **>(group.data() + 2968) = mgr.data();
 
-    action_vtable[14] = reinterpret_cast<void *>(&mock_notify_order_fn);
     *reinterpret_cast<void ***>(group.data() + 6960) = action_vtable.data();
+    *reinterpret_cast<void ***>(group.data()) = action_vtable.data();
 
-    vtable[87] = vtable[356 / 4] = reinterpret_cast<void *>(+[](void *) -> void * {
-        static int s_pred_id = 1;
-        return &s_pred_id;
-    });
     *reinterpret_cast<void ***>(entity.data()) = vtable.data();
     g_mock_entity = entity.data();
 
@@ -42,7 +48,7 @@ int main(int argc, char **argv) {
     assert(g_order_dispatch_last_action == 10);
 
     // 2. Test order notification func_002B97D0 (code 710 with param)
-    res = func_002B97D0(base, 51, 12, 3.14f);
+    res = func_002B97D0(base, 51, 12, 0.0f, 0.0f, 3.14f);
     assert(res == 1);
     assert(g_order_dispatch_calls == 2);
     assert(g_order_dispatch_last_code == 710);
@@ -51,7 +57,7 @@ int main(int argc, char **argv) {
     assert(g_order_dispatch_last_f15 == 3.14f);
 
     // 3. Test order notification func_002B9830 (code 724)
-    res = func_002B9830(base, 52, 1, 15);
+    res = func_002B9830(base, 52, 1, 15, 0.0f, 0.0f, 0.0f, 0.0f);
     assert(res == 1);
     assert(g_order_dispatch_calls == 3);
     assert(g_order_dispatch_last_code == 724);

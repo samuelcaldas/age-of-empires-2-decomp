@@ -1990,6 +1990,7 @@ func_0021DE30 = 0x21DE30; // type:func size:0x50 absolute:True
 func_0021DE80 = 0x21DE80; // type:func size:0x70 absolute:True
 func_0021DEF0 = 0x21DEF0; // type:func size:0x110 absolute:True
 func_0021E000 = 0x21E000; // type:func size:0x70 absolute:True
+func_0021E070 = 0x21E070; // type:func size:0xC0 absolute:True
 D_00392B80 = 0x392B80; // type:u32 size:16 absolute:True
 D_00392B70 = 0x392B70; // type:u32 size:16 absolute:True
 D_00392B60 = 0x392B60; // type:u32 size:16 absolute:True

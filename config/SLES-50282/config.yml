@@ -5230,9 +5230,15 @@ segments:
     vram: 0x27D2E0
     subsegments:
       - [0x17D4C0, asm, unit_action_build_7d2e0]
-  - name: post_unit_action_build_7d2e0
-    type: bin
+  - name: unit_action_build_7da10
+    type: code
     start: 0x17DBF0
+    vram: 0x27DA10
+    subsegments:
+      - [0x17DBF0, asm, unit_action_build_7da10]
+  - name: post_unit_action_build_7da10
+    type: bin
+    start: 0x17E2F0
   - name: trade_action_getters3
     type: code
     start: 0x1B6330

@@ -4067,9 +4067,51 @@ segments:
     vram: 0x1EB900
     subsegments:
       - [0xEBAD0, asm, zone_spatial_grid_init_entry_header]
+  - name: zone_spatial_grid_vector_destructor
+    type: code
+    start: 0xEBAF0
+    vram: 0x1EB920
+    subsegments:
+      - [0xEBAF0, asm, zone_spatial_grid_vector_destructor]
+  - name: zone_spatial_grid_vector_init
+    type: code
+    start: 0xEBB50
+    vram: 0x1EB980
+    subsegments:
+      - [0xEBB50, asm, zone_spatial_grid_vector_init]
+  - name: zone_spatial_grid_vector_reset
+    type: code
+    start: 0xEBBA0
+    vram: 0x1EB9D0
+    subsegments:
+      - [0xEBBA0, asm, zone_spatial_grid_vector_reset]
+  - name: zone_spatial_grid_vector_is_full
+    type: code
+    start: 0xEBBE0
+    vram: 0x1EBA10
+    subsegments:
+      - [0xEBBE0, asm, zone_spatial_grid_vector_is_full]
+  - name: zone_spatial_grid_vector_clear
+    type: code
+    start: 0xEBC00
+    vram: 0x1EBA30
+    subsegments:
+      - [0xEBC00, asm, zone_spatial_grid_vector_clear]
+  - name: zone_spatial_grid_vector_push_back
+    type: code
+    start: 0xEBC80
+    vram: 0x1EBAB0
+    subsegments:
+      - [0xEBC80, asm, zone_spatial_grid_vector_push_back]
+  - name: zone_spatial_grid_vector_swap_remove
+    type: code
+    start: 0xEBCF0
+    vram: 0x1EBB20
+    subsegments:
+      - [0xEBCF0, asm, zone_spatial_grid_vector_swap_remove]
   - name: post_aoe2
     type: bin
-    start: 0xEBAF0
+    start: 0xEBE10
   - name: trade_action_helper_217730
     type: code
     start: 0x117910

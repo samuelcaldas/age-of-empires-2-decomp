@@ -1,0 +1,8 @@
+#ifndef ZONE_SPATIAL_GRID_VECTOR_PUSH_BACK_H
+#define ZONE_SPATIAL_GRID_VECTOR_PUSH_BACK_H
+
+extern "C" {
+int func_001EBAB0(void *self, void *elem);
+}
+
+#endif // ZONE_SPATIAL_GRID_VECTOR_PUSH_BACK_H

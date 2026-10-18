@@ -1,0 +1,8 @@
+#ifndef ZONE_SPATIAL_GRID_VECTOR_IS_FULL_H
+#define ZONE_SPATIAL_GRID_VECTOR_IS_FULL_H
+
+extern "C" {
+int func_001EBA10(void *self);
+}
+
+#endif // ZONE_SPATIAL_GRID_VECTOR_IS_FULL_H

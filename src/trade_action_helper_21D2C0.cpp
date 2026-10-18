@@ -9,6 +9,8 @@ void *func_1046A8(void *obj, int reg, unsigned long long data);
 void *func_104600(void *obj);
 
 extern unsigned int D_00392B70[4];
+extern unsigned int D_00392B80[4];
+extern unsigned int D_00392B90[4];
 extern unsigned short D_00CA158C;
 extern unsigned short D_00CA158E;
 
@@ -67,7 +69,7 @@ static void BuildSpriteTagAlt(unsigned long long *tag, int a2) {
     unsigned long long v0 = 0x116 | (((unsigned long long)(unsigned int)a2) << 6);
     unsigned long long part2 = v0 << 47;
     tag[0] = part1 | part2;
-    tag[1] = ((unsigned long long)D_00392B70[2]) | (((unsigned long long)D_00392B70[3]) << 32);
+    tag[1] = ((unsigned long long)D_00392B80[2]) | (((unsigned long long)D_00392B80[3]) << 32);
 }
 
 void *func_0021D4E0(void *obj, int a1, int a2, int a3, const short *xy_pts, int t0, int t1, int t2, int t3) {

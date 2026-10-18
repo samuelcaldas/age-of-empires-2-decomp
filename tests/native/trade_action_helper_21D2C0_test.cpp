@@ -9,6 +9,7 @@ void *func_0021D2C0(void *obj, int a1, int a2, const short *xy_pts, int t0, int 
 void *func_0021D4E0(void *obj, int a1, int a2, int a3, const short *xy_pts, int t0, int t1, int t2, int t3);
 
 uint32_t D_00392B70[4] = {0x00000000, 0x00000000, 0x0000000E, 0x00000000};
+uint32_t D_00392B80[4] = {0x00000000, 0x00000000, 0x0000000E, 0x00000000};
 uint16_t D_00CA158C = 640;
 uint16_t D_00CA158E = 448;
 
@@ -74,7 +75,6 @@ static void test_func_0021D2C0() {
     assert(g_set_tag_calls == 1);
     assert(g_finalize_calls == 1);
 
-    // writes reg 0x01 with 0x55 + 4 writes to reg 0x04
     assert(g_writes.size() == 5);
     assert(g_writes[0].reg == 0x01);
     assert(g_writes[0].data == 0x55);
@@ -99,10 +99,9 @@ static void test_func_0021D4E0() {
         10, 10, 0, 0
     };
 
-    // t3 = 1 -> writes reg 0x07 with 0x99
     void *ret = func_0021D4E0(my_obj, 0x99, 2, 0x33, pts, 0x34, 0, 2, 1);
     assert(ret == my_obj);
-    assert(g_writes.size() == 6); // reg 0x07 + reg 0x01 + 4*reg 0x04
+    assert(g_writes.size() == 6);
     assert(g_writes[0].reg == 0x07);
     assert(g_writes[0].data == 0x99);
     assert(g_writes[1].reg == 0x01);

@@ -14,8 +14,12 @@ reference object's relocation records. Neither `metadata.complete` nor
 
 The unresolved setup, clear, expand, and add-zone units remain `NonMatching`.
 Their completion flags must not inflate registered completion totals. Init and
-destructor retain their existing registrations; their fresh objdiff results were
-100%, but this change does not independently certify their literal ELF bytes.
+destructor are also registered `NonMatching`. A read-only boundary audit found
+that the configured start addresses and symbols for setup, destructor, and clear
+are `0x10` later than the original entries (`0x1F1ED0`, `0x1F1FC0`, and
+`0x1F2010`). The init slice start `0xF20A0` maps to `0x1F1EC0`, not its declared
+`0x1F1ED0`. Fresh objdiff 100% results for init and destructor therefore do not
+establish that their slices cover the correct original bytes.
 
 ## Clean baseline
 
@@ -50,7 +54,9 @@ The fresh report recorded these fuzzy comparison percentages:
 
 These percentages describe the clean generated reference comparison. They do not
 mean that the unmatched units contain those percentages of verified exact bytes.
-The earlier Block 57 slice labels also require a separate mapping audit.
+Setup also references `func_1F21E0`, while the add-zone symbol is
+`func_001F21E0`; the Block 57 native fixture defines the unpadded spelling, which
+hides that mismatch. Correcting these boundaries and symbols is separate work.
 
 ## Block 59 relocation evidence
 
@@ -96,7 +102,7 @@ On the unchanged review commit, Blocks 57–59 passed all nine focused tests.
 The completion-registration regression test then failed four assertions with
 `assert True is False`, before changing the four registrations. The same four
 cases passed after the correction. The corrected subsystem run passed 13 tests.
-The full available suite passed 2,596 tests in 137.66 seconds, with no failures or
+The full available suite passed 2,609 tests in 132.96 seconds, with no failures or
 skips. These are configuration-behavior and regression results, not substitutes
 for reconstructed C++ behavior coverage or exact binary matching.
 

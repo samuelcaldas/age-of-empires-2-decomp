@@ -8,6 +8,8 @@ import pytest
 
 
 @pytest.mark.parametrize("unit_name", [
+    "zone_spatial_grid_node_pool_init",
+    "zone_spatial_grid_node_pool_destructor",
     "zone_spatial_grid_node_pool_setup",
     "zone_spatial_grid_node_pool_clear",
     "zone_spatial_grid_node_pool_expand",

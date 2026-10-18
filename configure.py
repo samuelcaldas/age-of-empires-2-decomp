@@ -4994,7 +4994,7 @@ if config.platform == Platform.PS2:
                     toolchain_version="PS2/mwcc-2.3.1.01",
                 ),
                 Object(
-                    Matching,
+                    NonMatching,
                     "zone_spatial_grid_node_pool_init",
                     cflags=config.cflags,
                     toolchain_version="PS2/mwcc-2.3.1.01",
@@ -5006,7 +5006,7 @@ if config.platform == Platform.PS2:
                     toolchain_version="PS2/mwcc-2.3.1.01",
                 ),
                 Object(
-                    Matching,
+                    NonMatching,
                     "zone_spatial_grid_node_pool_destructor",
                     cflags=config.cflags,
                     toolchain_version="PS2/mwcc-2.3.1.01",

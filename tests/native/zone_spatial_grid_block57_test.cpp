@@ -203,11 +203,16 @@ int main() {
     memset(clear_start1, 0xFF, 0x138800);
     memset(clear_pool1, 0xFF, 16);
 
-    // Set valid table_138810 and count_138818, and fill trailing padding with 0xAA guard
+    // Set valid metadata fields and fill trailing padding with 0xAA guard
     clear_pool1->table_138810 = table_buf1;
     clear_pool1->table_138814 = (void *)0x1;
     clear_pool1->count_138818 = 1;
+    clear_pool1->field_13881C = 42;
     memset(clear_pool1->trailing_padding, 0xAA, sizeof(clear_pool1->trailing_padding));
+
+    // Snapshot metadata range [self+0x138810, self+0x138838) before clear
+    char metadata_snapshot[0x28];
+    memcpy(metadata_snapshot, (char *)clear_pool1 + 0x138810, 0x28);
 
     g_clear_calls_log.clear();
     func_001F2020((NodePool *)clear_pool1);
@@ -221,9 +226,10 @@ int main() {
         assert(((char *)clear_pool1)[i] == 0);
     }
 
-    // Verify table boundary and count remain valid (untouched by clear ending at 0x138810)
-    assert(clear_pool1->table_138810 == table_buf1);
-    assert(clear_pool1->count_138818 == 1);
+    // Assert every single byte in metadata range [self+0x138810, self+0x138838) matches snapshot (untouched)
+    for (size_t i = 0; i < 0x28; ++i) {
+        assert(((char *)clear_pool1 + 0x138810)[i] == metadata_snapshot[i]);
+    }
 
     // Verify every single byte of trailing padding remains untouched (0xAA)
     for (size_t i = 0; i < sizeof(clear_pool1->trailing_padding); ++i) {

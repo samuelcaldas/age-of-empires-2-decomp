@@ -7300,6 +7300,15 @@ Located at VRAM `0x21C710`–`0x21C990` (file offset `0x11C8F0`–`0x11CB70`, 64
 
 Pure C++ following Object Calisthenics, SOLID, and fail-fast principles. Validated with native regression tests in `tests/native/trade_action_helper_21C710_test.cpp` and pytest runner in `tests/test_trade_action_helper_21C710.py`.
 
+#### 6.195.2 `GIF/GS Packet Builder Textured Quad Rasterizer` Subsystem (`0x21C990`–`0x21CD10`, `trade_action_helper_21C990.cpp`)
+
+Located at VRAM `0x21C990`–`0x21CD10` (file offset `0x11CB70`–`0x11CEF0`, 896 bytes total slice, Metrowerks C++ PS2 MWCC 2.3.1.01):
+- `func_0021C990` (`0x21C990`, 768 bytes code): Constructs packet object, computes sprite tag `D_00392B40`, calculates 4-vertex quad coordinates transformed by screen center `(D_00CA158C, D_00CA158E)` and depth `z`, emits sprite mode register (`0x06` or `0x07`), register `0x01`, and 4 interleaved UV/XYZ vertex registers (`0x03`, `0x04`), and finalizes.
+- `func_0021CC90` (`0x21CC90`, 128 bytes code): Wrapper expanding a bounding rectangle `[x, y, w, h]` into 4 quad vertices `(x, y)`, `(x+w, y)`, `(x, y+h)`, `(x+w, y+h)` and delegating to `func_0021C990`.
+
+Pure C++ following Object Calisthenics, SOLID, and fail-fast principles. Validated with native regression tests in `tests/native/trade_action_helper_21C990_test.cpp` and pytest runner in `tests/test_trade_action_helper_21C990.py`.
+
+
 
 
 

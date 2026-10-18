@@ -1,6 +1,7 @@
 #include <cassert>
 #include <cstring>
 #include <cstdlib>
+#include <cstddef>
 #include <vector>
 #include <string>
 #include "zone_spatial_grid_node_pool_setup.h"
@@ -109,6 +110,13 @@ struct NodePool {
 };
 
 int main() {
+    // ABI offsetof and sizeof assertions
+    assert(sizeof(StrictNodePool) >= 0x138838);
+    assert(offsetof(StrictNodePool, table_138810) == 0x138810);
+    assert(offsetof(StrictNodePool, table_138814) == 0x138814);
+    assert(offsetof(StrictNodePool, count_138818) == 0x138818);
+    assert(offsetof(StrictNodePool, capacity_138834) == 0x138834);
+
     // Test 1: func_001F1EE0 - node pool setup, offsets, helper arguments, and exact logger check
     StrictNodePool *pool = new StrictNodePool();
     memset(pool, 0, sizeof(StrictNodePool));
@@ -183,6 +191,16 @@ int main() {
     assert(g_clear_calls_log[2].dst == (char *)clear_pool1 + 8);
     assert(g_clear_calls_log[2].val == 0);
     assert(g_clear_calls_log[2].size == 8);
+
+    // Verify repeated calls maintain zero-filled cleared state
+    g_clear_calls_log.clear();
+    func_001F2020((NodePool *)clear_pool1);
+    assert(g_clear_calls_log.size() == 3);
+    // Verify pool header fields at self, self+8, and self+0x10 are verified zero
+    for (int i = 0; i < 8; ++i) {
+        assert(((char *)clear_pool1)[i] == 0);
+        assert(((char *)clear_pool1 + 8)[i] == 0);
+    }
 
     free(entry_buf1);
     free(table_buf1);

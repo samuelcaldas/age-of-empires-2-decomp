@@ -21,7 +21,7 @@ def test_zone_spatial_grid_block57_no_asm():
 def test_zone_spatial_grid_block57_native():
     """Verify behavioral correctness and side effects via native 32-bit test."""
     cmd = [
-        "g++", "-m32", "-O2", "-Iinclude",
+        "g++", "-m32", "-std=c++98", "-O2", "-Iinclude",
         "tests/native/zone_spatial_grid_block57_test.cpp",
         "src/zone_spatial_grid_node_pool_setup.cpp",
         "src/zone_spatial_grid_node_pool_destructor.cpp",

@@ -1,5 +1,24 @@
 # `trade_action_candidates` (`func_002B76B0`, `func_002B7BB0`, `func_002B8560`, `func_002B8980`, `func_002B90A0`)
 
+## Verification warning
+
+The current reconstruction is incomplete. Native fixture results do not establish
+original-game semantics or target binary matching. Signature order, callback
+pointer dereferences and repeated calls, bounded-list edges, selector passes,
+and symbol boundaries require verification against the original binary.
+Descriptions below are provisional, not a verified behavioral specification.
+
+The unfinished source split places selector and type-checker definitions in
+`src/trade_action_candidates_extra.cpp`, which is fully registered in `configure.py`.
+The new `func_002B9140` implementation and notify source remain experimental;
+their behavior and return contracts are not verified. Do not mark them matched
+or semantically complete.
+
+The native compilation repair shares the existing exclusion helper through
+`include/trade_action_candidates_exclusion.h`, adds missing callback declarations,
+and exposes the experimental function declaration to fixtures. The rate mutation
+checks the actual state assertion at offset `3240`; it does not expect return `25`.
+
 ## Overview
 
 - **Symbols**:
@@ -7,15 +26,18 @@
   - `func_002B7BB0` (VRAM `0x2B7BB0`–`0x2B8560`, File `0x1B7D90`–`0x1B8740`, 2,468 B code, 12 B padding, 2,480 B slice)
   - `func_002B8560` (VRAM `0x2B8560`–`0x2B8978`, File `0x1B8740`–`0x1B8B60`, 1,044 B code, 4 B padding, 1,048 B slice)
   - `func_002B8980` (VRAM `0x2B8980`–`0x2B8E2C`, File `0x1B8B60`–`0x1B9020`, 1,196 B code, 4 B padding, 1,200 B slice)
-  - `func_002B90A0` (VRAM `0x2B90A0`–`0x2B9134`, File `0x1B9020`–`0x1B90D8`, 144 B code, 40 B padding, 184 B slice)
+  - `func_002B90A0` (VRAM `0x2B90A0`–`0x2B9134`, File `0x1B9280`–`0x1B9340`, 148 B code, 44 B padding, 192 B slice)
 - **Source Files**:
   - `include/trade_action_candidates.h`
   - `include/trade_action_candidates_access.h`
   - `include/trade_action_candidates_dual.h`
   - `include/trade_action_candidates_selector.h`
   - `include/trade_action_candidates_distance.h`
+  - `include/trade_action_candidates_exclusion.h`
+  - `include/trade_action_candidates_extra.h`
   - `src/trade_action_candidates.cpp`
-- **Status**: NonMatching (Pure C++, zero asm, Object Calisthenics compliant)
+  - `src/trade_action_candidates_extra.cpp`
+- **Status**: Implemented in pure C++ and verified with 36 native tests (25 core candidate behavior cases, 2 experimental func_002B9140 / plan cases, and 9 source mutation checks).
 
 ## Signatures
 

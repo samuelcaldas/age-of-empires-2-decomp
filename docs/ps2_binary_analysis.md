@@ -7160,7 +7160,7 @@ Contiguous decompilation of the Age of Empires II PlayStation 2 spatial view cam
 Located at VRAM `0x2B66B0`–`0x2B76B0` (file offset `0x1B6890`–`0x1B7890`, 4,096 bytes total slice, 4,088 bytes code + 8 bytes zero padding, Metrowerks C++ PS2 MWCC 2.3.1.01):
 - `func_002B66B0` (`0x2B66B0`, 4,088 bytes code, 4,096 bytes slice): Trade action dispatcher coordinating direct entity actions (114, 115, 109, 110, 108, 104, 136) and complex market action 513 with candidate filtering, target buffers, diplomacy adjustments, and candidate loop.
 - Registered as `NonMatching` in `configure.py`.
-- Verified with 16 native 32-bit tests in Docker dev environment.
+- Implemented in pure C++ architecture.
 
 #### 6.186.1 Trade Action Dispatcher Matching Results (Pure C++, 4,096 Bytes)
 
@@ -7173,7 +7173,7 @@ Located at VRAM `0x2B66B0`–`0x2B76B0` (file offset `0x1B6890`–`0x1B7890`, 4,
 Located at VRAM `0x2B76B0`–`0x2B7BB0` (file offset `0x1B7890`–`0x1B7D90`, 1,280 bytes total slice, 1,276 bytes code + 4 bytes zero padding, Metrowerks C++ PS2 MWCC 2.3.1.01):
 - `func_002B76B0` (`0x2B76B0`, 1,276 bytes code, 1,280 bytes slice): Candidate evaluation and list filtering helper. Populates candidate IDs into `self + 3168` (count at 3172), filters candidates by classification 600, target entity 27, and comparisons with `a1` based on mode `a2`.
 - Registered as `NonMatching` in `configure.py`.
-- Verified with 16 native 32-bit tests in Docker dev environment.
+- Verified with 36 native 32-bit tests (25 core behavior cases, 2 experimental func_002B9140 / plan cases, and 9 source mutation checks) in Docker dev environment.
 
 #### 6.187.1 Trade Action Candidates Matching Results (Pure C++, 1,280 Bytes)
 
@@ -7186,7 +7186,7 @@ Located at VRAM `0x2B76B0`–`0x2B7BB0` (file offset `0x1B7890`–`0x1B7D90`, 1,
 Located at VRAM `0x2B7BB0`–`0x2B8560` (file offset `0x1B7D90`–`0x1B8740`, 2,480 bytes total slice, 2,468 bytes code + 12 bytes zero padding, Metrowerks C++ PS2 MWCC 2.3.1.01):
 - `func_002B7BB0` (`0x2B7BB0`, 2,468 bytes code, 2,480 bytes slice): Dual-phase candidate evaluation helper. Conditionally evaluates secondary items list (`offset + 260`) when `a3 == 1`, followed by primary items list (`offset + 212`). Filters candidates by classification 600, target entity 27, and comparisons with `a1` based on mode `a2`.
 - Registered as `NonMatching` in `configure.py`.
-- Verified with 19 native 32-bit tests in Docker dev environment.
+- Verified with native 32-bit tests (2 dedicated behavior tests covering func_002B7BB0, part of the 36-case test suite) in Docker dev environment.
 
 #### 6.187b.1 Trade Action Dual Candidates Matching Results (Pure C++, 2,480 Bytes)
 
@@ -7194,44 +7194,44 @@ Located at VRAM `0x2B7BB0`–`0x2B8560` (file offset `0x1B7D90`–`0x1B8740`, 2,
 |---|---|---|---|---|---|
 | `func_002B7BB0` | `0x2B7BB0` | 2,468 B | 2,480 B | NonMatching | Dual-phase candidate evaluation and list filtering helper. |
 
-#### 6.187c `Trade Action Candidate Selector` (`0x2B8560`–`0x2B8978`, `trade_action_candidates.cpp`)
+#### 6.187c `Trade Action Candidate Selector` (`0x2B8560`–`0x2B8978`, `trade_action_candidates_extra.cpp`)
 
-Located at VRAM `0x2B8560`–`0x2B8978` (file offset `0x1B8740`–`0x1B8B60`, 1,056 bytes total slice, 1,044 bytes code + 12 bytes zero padding, Metrowerks C++ PS2 MWCC 2.3.1.01):
-- `func_002B8560` (`0x2B8560`, 1,044 bytes code, 1,056 bytes slice): Iterative candidate pool selector. Iterates through pool array at offset 180, filters through `func_002bf050` and exclusion list at offset 196 based on mode, and returns sub-ID where `(func_002bfcd0(self, sub_id) & 0xFF) == 1`.
+Located at VRAM `0x2B8560`–`0x2B8978` (file offset `0x1B8740`–`0x1B8B60`, 1,048 bytes total slice, 1,044 bytes code + 4 bytes zero padding, Metrowerks C++ PS2 MWCC 2.3.1.01):
+- `func_002B8560` (`0x2B8560`, 1,044 bytes code, 1,048 bytes slice): Iterative candidate pool selector. Iterates through pool array at offset 180, filters through `func_002bf050` and exclusion list at offset 196 based on mode, and returns sub-ID where `(func_002bfcd0(self, sub_id) & 0xFF) == 1`.
 - Registered as `NonMatching` in `configure.py`.
-- Verified with 24 native 32-bit tests in Docker dev environment.
+- Verified with native 32-bit tests (part of the 36-case suite) in Docker dev environment.
 
-#### 6.187c.1 Trade Action Candidate Selector Matching Results (Pure C++, 1,056 Bytes)
+#### 6.187c.1 Trade Action Candidate Selector Matching Results (Pure C++, 1,048 Bytes)
 
 | Function / Method | VRAM Address | Code Size (Orig) | Slice Size | Match Status | Description |
 |---|---|---|---|---|---|
-| `func_002B8560` | `0x2B8560` | 1,044 B | 1,056 B | NonMatching | Candidate pool selector and sub-ID resolver. |
+| `func_002B8560` | `0x2B8560` | 1,044 B | 1,048 B | NonMatching | Candidate pool selector and sub-ID resolver. |
 
-#### 6.187d `Trade Action Distance Candidate Selector` (`0x2B8980`–`0x2B8E2C`, `trade_action_candidates.cpp`)
+#### 6.187d `Trade Action Distance Candidate Selector` (`0x2B8980`–`0x2B8E2C`, `trade_action_candidates_extra.cpp`)
 
-Located at VRAM `0x2B8980`–`0x2B8E2C` (file offset `0x1B8B60`–`0x1B9020`, 1,216 bytes total slice, 1,196 bytes code + 20 bytes zero padding, Metrowerks C++ PS2 MWCC 2.3.1.01):
-- `func_002B8980` (`0x2B8980`, 1,196 bytes code, 1,216 bytes slice): Distance-based candidate selector. Iterates through pool array at offset 180, filters through `func_002bf050` and pool exclusion list at offset 196 based on mode, and tracks optimal candidate based on 2D Euclidean distance via `func_00269190`.
+Located at VRAM `0x2B8980`–`0x2B8E2C` (file offset `0x1B8B60`–`0x1B9020`, 1,200 bytes total slice, 1,196 bytes code + 4 bytes zero padding, Metrowerks C++ PS2 MWCC 2.3.1.01):
+- `func_002B8980` (`0x2B8980`, 1,196 bytes code, 1,200 bytes slice): Distance-based candidate selector. Iterates through pool array at offset 180, filters through `func_002bf050` and pool exclusion list at offset 196 based on mode, and tracks optimal candidate based on 2D Euclidean distance via `func_00269190`.
 - Registered as `NonMatching` in `configure.py`.
-- Verified with 28 native 32-bit tests in Docker dev environment.
+- Verified with native 32-bit tests (part of the 36-case suite) in Docker dev environment.
 
-#### 6.187d.1 Trade Action Distance Candidate Selector Matching Results (Pure C++, 1,216 Bytes)
+#### 6.187d.1 Trade Action Distance Candidate Selector Matching Results (Pure C++, 1,200 Bytes)
 
 | Function / Method | VRAM Address | Code Size (Orig) | Slice Size | Match Status | Description |
 |---|---|---|---|---|---|
-| `func_002B8980` | `0x2B8980` | 1,196 B | 1,216 B | NonMatching | Distance-based candidate pool selector and sub-ID resolver. |
+| `func_002B8980` | `0x2B8980` | 1,196 B | 1,200 B | NonMatching | Distance-based candidate pool selector and sub-ID resolver. |
 
-#### 6.187e `Trade Action Entity Type Matcher` (`0x2B90A0`–`0x2B9134`, `trade_action_candidates.cpp`)
+#### 6.187e `Trade Action Entity Type Matcher` (`0x2B90A0`–`0x2B9134`, `trade_action_candidates_extra.cpp`)
 
-Located at VRAM `0x2B90A0`–`0x2B9134` (file offset `0x1B9020`–`0x1B90D8`, 184 bytes total slice, 144 bytes code + 40 bytes zero padding, Metrowerks C++ PS2 MWCC 2.3.1.01):
-- `func_002B90A0` (`0x2B90A0`, 144 bytes code, 184 bytes slice): Entity type matcher. Resolves entity via `func_00332e60` using manager entity root, validates virtual predicate at vtable offset 356, and returns 1 if `func_001471a0(pred_result) == target_type`, else 0.
+Located at VRAM `0x2B90A0`–`0x2B9134` (file offset `0x1B9280`–`0x1B9340`, 192 bytes total slice, 148 bytes code + 44 bytes zero padding, Metrowerks C++ PS2 MWCC 2.3.1.01):
+- `func_002B90A0` (`0x2B90A0`, 148 bytes code, 192 bytes slice): Entity type matcher. Resolves entity via `func_00332e60` using manager entity root, validates virtual predicate at vtable offset 356, and returns 1 if `func_001471a0(pred_result) == target_type`, else 0.
 - Registered as `NonMatching` in `configure.py`.
-- Verified with 32 native 32-bit tests in Docker dev environment.
+- Verified with 3 behavior cases covering func_002B90A0 (part of the 36-case suite including mutations) in Docker dev environment.
 
-#### 6.187e.1 Trade Action Entity Type Matcher Matching Results (Pure C++, 184 Bytes)
+#### 6.187e.1 Trade Action Entity Type Matcher Matching Results (Pure C++, 192 Bytes)
 
 | Function / Method | VRAM Address | Code Size (Orig) | Slice Size | Match Status | Description |
 |---|---|---|---|---|---|
-| `func_002B90A0` | `0x2B90A0` | 144 B | 184 B | NonMatching | Entity type validator querying classification predicate. |
+| `func_002B90A0` | `0x2B90A0` | 148 B | 192 B | NonMatching | Entity type validator querying classification predicate. |
 
 #### 6.188 `Tactical AI Destructors` Subsystem (`0x340370`–`0x340490`, `tactical_ai_destructors_340370.cpp`)
 

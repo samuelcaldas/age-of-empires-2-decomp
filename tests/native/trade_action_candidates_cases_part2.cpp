@@ -72,6 +72,24 @@ static void run_selector_cases(int test_case, char *base, std::vector<char> &ent
     } else if (test_case == 24) {
         int res = func_002B90A0(base, 55, 999);
         assert(res == 0);
+    } else if (test_case == 25) {
+        *reinterpret_cast<int *>(base + 3092) = 0;
+        *reinterpret_cast<int *>(base + 3096) = 100;
+        *reinterpret_cast<int *>(base + 2612) = 25;
+        *reinterpret_cast<int *>(base + 2608) = 25;
+        *reinterpret_cast<int *>(base + 2616) = 25;
+        *reinterpret_cast<int *>(base + 2604) = 25;
+        int res = func_002B9140(base);
+        assert(res == 0);
+        assert(*reinterpret_cast<int *>(base + 3240) == 25);
+    } else if (test_case == 26) {
+        *reinterpret_cast<int *>(base + 3092) = 1;
+        *reinterpret_cast<int *>(base + 356) = 100;
+        *reinterpret_cast<int *>(base + 360) = 1;
+        g_1471a0_return_val = 609;
+        int res = func_002B9140(base);
+        assert(res == 0);
+        assert(*reinterpret_cast<int *>(base + 3220) == 1);
     }
 }
 

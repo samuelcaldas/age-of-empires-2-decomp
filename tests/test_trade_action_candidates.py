@@ -34,6 +34,8 @@ CASES = [
     ("22", "func_002B90A0 returns 1 on matching target type"),
     ("23", "func_002B90A0 returns 0 on mismatching target type"),
     ("24", "func_002B90A0 returns 0 when item lookup fails"),
+    ("25", "func_002B9140 computes rate distribution successfully"),
+    ("26", "func_002B9140 counts matching candidate plan items"),
 ]
 
 
@@ -51,6 +53,7 @@ def candidates_test_binary(tmp_path_factory):
             "-fno-builtin",
             "-Iinclude",
             "src/trade_action_candidates.cpp",
+            "src/trade_action_candidates_extra.cpp",
             "tests/native/trade_action_candidates_test.cpp",
             "tests/native/trade_action_candidates_test_support.cpp",
             "tests/native/trade_action_candidates_cases_part1.cpp",
@@ -122,6 +125,18 @@ MUTANTS = [
         "return func_001471a0(pred(item)) != target_type ? 1 : 0;",
         "res == 1",
     ),
+    (
+        "rate_adjustment_diff",
+        "int diff = integer_at(self, 3096) - sum;",
+        "int diff = 0;",
+        "*reinterpret_cast<int *>(base + 3240) == 25",
+    ),
+    (
+        "reset_candidate_count",
+        "if (a3 == 1) {\n        store_integer(self, 3172, 0);\n    }",
+        "if (a3 == 1) {\n        /* noop */\n    }",
+        "*reinterpret_cast<int *>(base + 3172) == 3",
+    ),
 ]
 
 
@@ -137,6 +152,8 @@ def test_candidates_source_mutants_fail_at_expected_assertion(
     source = (
         PROJECT_ROOT / "include" / "trade_action_candidates_dual.h"
         if "mode_" in name
+        else PROJECT_ROOT / "src" / "trade_action_candidates_extra.cpp"
+        if "rate_" in name or "selector_" in name or "distance_" in name or "type_" in name
         else PROJECT_ROOT / "src" / "trade_action_candidates.cpp"
     )
     source_name = source.name
@@ -157,7 +174,8 @@ def test_candidates_source_mutants_fail_at_expected_assertion(
             "-fno-builtin",
             f"-I{tmp_path}",
             "-Iinclude",
-            str(mutant_source) if source.suffix == ".cpp" else "src/trade_action_candidates.cpp",
+            str(mutant_source) if source.name == "trade_action_candidates.cpp" else "src/trade_action_candidates.cpp",
+            str(mutant_source) if source.name == "trade_action_candidates_extra.cpp" else "src/trade_action_candidates_extra.cpp",
             "tests/native/trade_action_candidates_test.cpp",
             "tests/native/trade_action_candidates_test_support.cpp",
             "tests/native/trade_action_candidates_cases_part1.cpp",
@@ -173,12 +191,14 @@ def test_candidates_source_mutants_fail_at_expected_assertion(
         f"{name} mutant failed to compile: {compile_result.stderr}"
     )
     case_num = (
-        "3" if "less" in name
+        "0" if "reset" in name
+        else "3" if "less" in name
         else "4" if "greater" in name
         else "13" if "secondary" in name
         else "15" if "selector" in name
         else "19" if "distance" in name
         else "22" if "type_checker" in name
+        else "25" if "rate" in name
         else "9"
     )
     result = subprocess.run([str(binary), case_num], capture_output=True, text=True)

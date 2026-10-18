@@ -2,6 +2,7 @@
 #define TRADE_ACTION_CANDIDATES_TEST_SUPPORT_H
 
 #include "trade_action_candidates.h"
+#include "trade_action_candidates_extra.h"
 
 static_assert(sizeof(void *) == 4, "candidates fixtures require 32-bit pointers");
 
@@ -18,6 +19,9 @@ extern int g_2bfcd0_calls;
 extern int g_2bfcd0_return_val;
 extern int g_269190_calls;
 extern float g_269190_return_val;
+extern int g_144d10_calls;
+extern int g_1880d0_calls;
+extern int g_1880d0_return_val;
 
 void reset_candidates_test_support();
 

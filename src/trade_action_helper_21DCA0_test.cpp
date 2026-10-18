@@ -4,7 +4,7 @@
 #include <vector>
 
 extern "C" {
-void *func_0021DCA0(void *base, int base_idx, int count);
+void func_0021DCA0(void *base, int base_idx, int count);
 void *func_0021DC50(void *obj, int a1);
 }
 
@@ -28,14 +28,13 @@ void *func_0021DC50(void *obj, int a1) {
 }
 
 void test_trade_action_helper_21DCA0() {
-    // Case 1: Standard iteration with count = 4
+    // Case 1: Standard iteration with count = 4 (caller 0x224F38 ignores return value; void return)
     dc50_calls.clear();
     char dummy_pool[4096];
     int base_idx = 100;
     int count = 4;
 
-    void *res = func_0021DCA0(dummy_pool, base_idx, count);
-    assert(res == dummy_pool + (3 * 0x400));
+    func_0021DCA0(dummy_pool, base_idx, count);
     assert(dc50_calls.size() == 4);
 
     for (int i = 0; i < count; ++i) {
@@ -60,8 +59,7 @@ void test_trade_action_helper_21DCA0() {
 
     // Case 4: Single iteration (count = 1)
     dc50_calls.clear();
-    void *res_one = func_0021DCA0(dummy_pool, 55, 1);
-    assert(res_one == dummy_pool);
+    func_0021DCA0(dummy_pool, 55, 1);
     assert(dc50_calls.size() == 1);
     assert(dc50_calls[0].passed_ptr == dummy_pool);
     assert(dc50_calls[0].passed_idx == 55);

@@ -4,7 +4,7 @@
 - **VRAM Address Range:** `0x21DCA0` – `0x21DD08` (Size: `0x68` bytes / 104 bytes; padding to `0x21DD10`: `0x70` bytes / 112 bytes, end-exclusive)
 - **File Offset Range:** `0x11DE80` – `0x11DEE8` in `orig/SLES-50282/AOK.ELF` (padding to `0x11DEF0`)
 - **Segment / Section:** `.text` (ELF load delta: `0xFFE20`)
-- **Caller Site:** `0x224F38` in `orig/SLES-50282/AOK.ELF` passes 3 arguments: `a0` (base pointer), `a1` (base index), `a2` (count).
+- **Caller Site:** `0x224F38` in `orig/SLES-50282/AOK.ELF` passes 3 arguments and immediately overwrites `$v0` at `0x224F48` (`lui $v0, 0x49`), confirming void return.
 
 ## 2. Binary Analysis & Disassembly Trace
 - **Prologue (`0x21DCA0` – `0x21DCB4`):**
@@ -32,6 +32,8 @@
   - `0x21DCE0`: `slt v1, s0, s1` (Check if `s0 < s1`)
   - `0x21DCE4`: `bnez v1, 0x21DCD0` (Branch back to `jal func_21DC50` if true)
   - Delay slot at `0x21DCE8`: `addu a1, s2, s0` (Compute `a1 = s2 + s0` for next iteration)
+- **For count <= 0:**
+  - Jumps directly to epilogue without writing `$v0`.
 - **Epilogue (`0x21DCEC` – `0x21DD04`):**
   - `lq ra, 64(sp)` (Restore ra)
   - `lq s3, 48(sp)` (Restore s3)
@@ -44,8 +46,8 @@
   - 2 `nop` instructions (8 bytes) aligning to 16-byte boundary for `0x21DD10`.
 
 ## 3. C++ Implementation & Verification
-- Implemented in `src/trade_action_helper_21DCA0.cpp` adhering strictly to C++98 standards, Object Calisthenics, and SOLID principles.
-- Models exact two-argument invocation `func_0021DC50(ptr, base_idx + i)` without hardcoding dummy trailing `(0, 0)` arguments that would disrupt caller register state.
+- Implemented in `src/trade_action_helper_21DCA0.cpp` as `void func_0021DCA0(void *base, int base_idx, int count)` adhering strictly to C++98 standards, Object Calisthenics, and SOLID principles.
+- Models exact two-argument invocation `func_0021DC50(ptr, base_idx + i)` without uninitialized return variables or dummy trailing arguments.
 - Native 32-bit test harness in `src/trade_action_helper_21DCA0_test.cpp` verifying sequential invocations, exact stride pointer arithmetic (`0x400` per step), index incrementing (`base_idx + i`), and zero/negative boundary termination.
 - Automated pytest regression in `tests/test_trade_action_helper_21DCA0.py`.
 - Registered as `NonMatching` in `configure.py`.

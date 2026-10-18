@@ -6,7 +6,7 @@ void *func_0021DC50(void *obj, int a1);
 
 // Original VRAM 0x21DCA0 - 0x21DD08 (Size: 0x68 bytes; padding to 0x21DD10: 0x70 bytes)
 // File Offset: 0x11DE80 - 0x11DEE8 in orig/SLES-50282/AOK.ELF
-// Callsite at 0x224F38 passes 3 arguments: a0 (base), a1 (base_idx), a2 (count).
+// Callsite at 0x224F38 passes 3 arguments and ignores return value (void return).
 // ELF Disassembly Trace:
 // - Prologue at 0x21DCA0: addiu sp, sp, -80, saves ra, s3, s2, s1, s0.
 // - Saves a0 into s3 (base pointer), a1 into s2 (base index), a2 into s1 (count).
@@ -15,13 +15,11 @@ void *func_0021DC50(void *obj, int a1);
 // - Loops while s0 < s1.
 // - For count <= 0, branches directly to epilogue without writing v0.
 // - Epilogue at 0x21DCEC - 0x21DD04: restores ra, s3, s2, s1, s0, jr ra, and deallocates stack frame.
-void *func_0021DCA0(void *base, int base_idx, int count) {
+void func_0021DCA0(void *base, int base_idx, int count) {
     char *ptr = (char *)base;
-    void *last_result;
     for (int i = 0; i < count; ++i) {
-        last_result = func_0021DC50(ptr, base_idx + i);
+        func_0021DC50(ptr, base_idx + i);
         ptr += 0x400;
     }
-    return last_result;
 }
 }

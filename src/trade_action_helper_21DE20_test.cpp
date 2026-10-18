@@ -4,7 +4,7 @@
 #include <vector>
 
 extern "C" {
-void *func_0021DE20(void *base, int base_idx, int count);
+void func_0021DE20(void *base, int base_idx, int count);
 void *func_0021DD10(void *obj, int a1);
 }
 
@@ -27,14 +27,13 @@ void *func_0021DD10(void *obj, int a1) {
 }
 
 void test_trade_action_helper_21DE20() {
-    // Case 1: Standard loop crossing 16-element boundary
+    // Case 1: Standard loop crossing 16-element boundary (caller 0x224F68 ignores return value; void return)
     dd10_calls.clear();
     char dummy_pool[8192];
     int base_idx = 10;
     int count = 20;
 
-    void *res1 = func_0021DE20(dummy_pool, base_idx, count);
-    assert(res1 == dummy_pool + 0x400);
+    func_0021DE20(dummy_pool, base_idx, count);
     assert(dd10_calls.size() == (size_t)count);
 
     for (int i = 0; i < count; ++i) {
@@ -55,8 +54,7 @@ void test_trade_action_helper_21DE20() {
     // 16..31: dummy_pool + 0x400
     // 32..34: dummy_pool + 0x800
     dd10_calls.clear();
-    void *res_multi = func_0021DE20(dummy_pool, 0, 35);
-    assert(res_multi == dummy_pool + 0x800);
+    func_0021DE20(dummy_pool, 0, 35);
     assert(dd10_calls.size() == 35);
 
     for (int i = 0; i < 35; ++i) {
@@ -74,8 +72,7 @@ void test_trade_action_helper_21DE20() {
 
     // Case 4: Single iteration (count = 1)
     dd10_calls.clear();
-    void *res_one = func_0021DE20(dummy_pool, 5, 1);
-    assert(res_one == dummy_pool);
+    func_0021DE20(dummy_pool, 5, 1);
     assert(dd10_calls.size() == 1);
     assert(dd10_calls[0].passed_idx == 5);
     assert(dd10_calls[0].passed_ptr == dummy_pool);

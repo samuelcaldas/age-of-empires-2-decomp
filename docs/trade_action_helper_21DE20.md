@@ -4,6 +4,7 @@
 - **VRAM Address Range:** `0x21DE20` – `0x21DE84` (Size: `0x64` bytes / 100 bytes; padding to `0x21DE90`: `0x70` bytes / 112 bytes, end-exclusive)
 - **File Offset Range:** `0x11E000` – `0x11E064` in `orig/SLES-50282/AOK.ELF` (padding to `0x11E070`)
 - **Segment / Section:** `.text` (ELF load delta: `0xFFE20`)
+- **Caller Site:** `0x224F68` in `orig/SLES-50282/AOK.ELF` passes 3 arguments and immediately overwrites `$v0` at `0x224F78` (`lui $v0, 0x49`), confirming void return.
 
 ## 2. Binary Analysis & Disassembly Trace
 - **Prologue (`0x21DE20` – `0x21DE30`):**
@@ -31,6 +32,7 @@
 - **Loop Test (`0x21DE68` – `0x21DE6C`):**
   - `0x21DE68`: `bnez s0, 0x21DE44` (Loop back to 0x21DE44 while `s0 != 0`)
   - Delay slot at `0x21DE6C`: `paddub a0, s2, zero`
+  - For count == 0: falls through directly to epilogue without writing `$v0`.
 - **Epilogue (`0x21DE70` – `0x21DE84`):**
   - `lq ra, 48(sp)` (Restore ra)
   - `lq s2, 32(sp)` (Restore s2)
@@ -42,7 +44,7 @@
   - 2 `nop` instructions (8 bytes) aligning to 16-byte boundary for `0x21DE90`.
 
 ## 3. C++ Implementation & Verification
-- Implemented in `src/trade_action_helper_21DE20.cpp` adhering strictly to C++98 standards, Object Calisthenics, and SOLID principles.
-- Native 32-bit test harness in `src/trade_action_helper_21DE20_test.cpp` verifying iterative invocation, 16-element 0x400 pointer stride boundary crossings, and boundary conditions.
+- Implemented in `src/trade_action_helper_21DE20.cpp` as `void func_0021DE20(void *base, int base_idx, int count)` adhering strictly to C++98 standards, Object Calisthenics, and SOLID principles.
+- Native 32-bit test harness in `src/trade_action_helper_21DE20_test.cpp` verifying iterative invocation, 16-element 0x400 pointer stride boundary crossings, and boundary conditions without uninitialized return values.
 - Automated pytest regression in `tests/test_trade_action_helper_21DE20.py`.
 - Registered as `NonMatching` in `configure.py`.

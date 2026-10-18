@@ -16,6 +16,7 @@ Start with the top-level [README](../README.md).
 - [trade_action_helper_21DCA0.md](trade_action_helper_21DCA0.md): binary analysis, ELF disassembly trace, and native test contracts for trade action helper 0x21DCA0
 - [trade_action_helper_21DD10.md](trade_action_helper_21DD10.md): binary analysis, ELF disassembly trace, and native test contracts for trade action helper 0x21DD10
 - [trade_action_helper_21DE20.md](trade_action_helper_21DE20.md): binary analysis, ELF disassembly trace, and native test contracts for trade action helper 0x21DE20
+- [trade_action_helper_21DE90.md](trade_action_helper_21DE90.md): binary analysis, ELF disassembly trace, and native test contracts for trade action helper 0x21DE90
 - [trade_action_dispatcher_2b66b0.md](trade_action_dispatcher_2b66b0.md): trade action dispatcher slice 0x2B66B0, modular architecture, and 16-case native test validation
 - [trade_action_candidates_2b76b0.md](trade_action_candidates_2b76b0.md): trade action candidate evaluator slices 0x2B76B0, 0x2B7BB0, 0x2B8560 & 0x2B8980, distance pool resolution, and 28-case native test validation
 - [ps2_binary_analysis.md](ps2_binary_analysis.md#61901-trade-action-helper-0x2184d0-0x218820-end-exclusive-trade_action_helper_2184d0cpp): adjacent helper `0x2184D0` slice, division-trap repair, and verification

@@ -7281,3 +7281,16 @@ Pure C++ following Object Calisthenics, SOLID, and fail-fast principles. Validat
 
 
 
+
+#### 6.195 `Tactical AI Action Message Handler` Subsystem (`0x340D70`–`0x341040`, `tactical_ai_action_handler_340d70.cpp`)
+
+Located at VRAM `0x340D70`–`0x341040` (file offset `0x240F50`–`0x241220`, 720 bytes total slice, 712 bytes code + 8 bytes padding, Metrowerks C++ PS2 MWCC 2.3.1.01):
+- `func_00340D70` (`0x340D70`, 712 bytes code, 720 bytes slice): Evaluates object active state in `field_840`. If -1, exits immediately with 0. Processes action message commands (255, 18, 17, 16, 14, 13, 10, 12, 11) using internal state machine transitions on `field_84C`, handles virtual notification dispatch at offset `0xD0` (`vfunc_d0`), timer refresh via `func_2261c0()`, and state-change notification to helper functions `func_21A1C0` and `func_341040`.
+
+Implemented in pure C++ with native unit tests in `tests/native/tactical_ai_action_handler_340d70_test.cpp` and binary verification in `tests/test_tactical_ai_action_handler_340d70_matching.py`.
+
+#### 6.195.1 Tactical AI Action Message Handler Results (Pure C++, 720 Bytes)
+
+| Function / Method | VRAM Address | Code Size (Orig) | Slice Size | Match Status | Description |
+|---|---|---|---|---|---|
+| `func_00340D70` | `0x340D70` | 712 B | 720 B | **Decompiled (Pure C++)** | Tactical AI action state transition handler and virtual notification dispatcher. |

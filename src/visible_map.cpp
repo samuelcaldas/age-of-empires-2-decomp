@@ -1,4 +1,5 @@
 #include "visible_map.h"
+#include <cstring>
 
 int D_004E3058 = 0;
 int *D_50A5A0[200];

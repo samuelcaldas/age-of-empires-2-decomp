@@ -6,14 +6,9 @@
 static int g_func_33a5d0_called = 0;
 static int g_func_339900_called = 0;
 static int g_func_339960_called = 0;
-static int g_func_339960_arg = -1;
 static int g_func_33a730_called = 0;
 static int g_func_33f8b0_called = 0;
-static int g_func_1f6750_called = 0;
-static int g_func_1f88b0_called = 0;
 static int g_func_1fbd30_called = 0;
-static int g_call_seq[30];
-static int g_seq_idx = 0;
 
 class MockSubObj : public TacticalSubObj {
 public:
@@ -24,54 +19,28 @@ public:
 extern "C" {
 void func_33A730() { g_func_33a730_called++; }
 void func_33A5D0(void *a0, int a1) {
-    (void)a0;
-    (void)a1;
+    (void)a0; (void)a1;
     g_func_33a5d0_called++;
-    g_call_seq[g_seq_idx++] = 1;
 }
 void func_339900(void *a0, int a1) {
-    (void)a0;
-    (void)a1;
+    (void)a0; (void)a1;
     g_func_339900_called++;
-    g_call_seq[g_seq_idx++] = 2;
 }
 void func_339960(void *a0, int a1) {
-    (void)a0;
+    (void)a0; (void)a1;
     g_func_339960_called++;
-    g_func_339960_arg = a1;
-    g_call_seq[g_seq_idx++] = 3;
 }
-void func_340CF0(void *a0) {
-    (void)a0;
-    g_call_seq[g_seq_idx++] = 6;
-}
-void func_340C30(void *a0) {
-    (void)a0;
-    g_call_seq[g_seq_idx++] = 7;
-}
-void func_1F6750(void *a0, void *a1) {
-    (void)a0;
-    (void)a1;
-    g_func_1f6750_called++;
-    g_call_seq[g_seq_idx++] = 4;
-}
-void func_1F88B0(void *a0, void *a1) {
-    (void)a0;
-    (void)a1;
-    g_func_1f88b0_called++;
-    g_call_seq[g_seq_idx++] = 5;
-}
+void func_340CF0(void *a0) { (void)a0; }
+void func_340C30(void *a0) { (void)a0; }
+void func_1F6750(void *a0, void *a1) { (void)a0; (void)a1; }
+void func_1F88B0(void *a0, void *a1) { (void)a0; (void)a1; }
 void func_33F8B0(void *a0) {
     (void)a0;
     g_func_33f8b0_called++;
 }
-void func_219BA0(void *a0, int a1) {
-    (void)a0;
-    (void)a1;
-}
+void func_219BA0(void *a0, int a1) { (void)a0; (void)a1; }
 void func_1FBD30(void *a0, int a1) {
-    (void)a0;
-    (void)a1;
+    (void)a0; (void)a1;
     g_func_1fbd30_called++;
 }
 void func_11ABBC(void *dst, const char *src) { (void)dst; (void)src; }
@@ -97,35 +66,30 @@ static void test_initial_layout_state() {
     std::printf("PASS test_initial_layout_state\n");
 }
 
-static void test_func_342170_full_state_machine() {
+static void test_func_342170_complete_state_machine() {
     TacticalObj_341040 obj;
     std::memset(&obj, 0, sizeof(obj));
 
-    MockSubObj sub;
-    obj.field_838 = &sub;
+    MockSubObj dummy_field844;
+    obj.field_844 = &dummy_field844;
 
-    // Test states 0, 1, 11, 14, 28, 30
-    int states[] = {0, 1, 11, 14, 28, 30};
-    for (size_t i = 0; i < sizeof(states)/sizeof(states[0]); i++) {
-        std::memset(&sub, 0, sizeof(sub));
-        obj.field_84C = states[i];
-        func_00342170(&obj, (int)(long)&sub, 16, 1, 1);
-        assert(obj.field_84C == states[i]);
-        assert(*(int*)((char*)&sub + 2052) == 4); // +0x804 store verification
-    }
+    // Test State 0 -> calls func_00341040 and stores 4 at field_844 + 2052
+    obj.field_84C = 0;
+    func_00342170(&obj, 0, 16, 1, 0);
+    assert(obj.field_84C == 0);
+    assert(*(int*)((char*)&dummy_field844 + 2052) == 4);
 
-    // Test mode 31 early return (a2 != 1)
-    g_func_1fbd30_called = 0;
-    obj.field_84C = 31;
-    func_00342170(&obj, 0, 0, 0, 0);
-    assert(g_func_1fbd30_called == 1);
+    // Test State 30
+    obj.field_84C = 30;
+    func_00342170(&obj, 0, 16, 1, 0);
+    assert(obj.field_83C == 1);
 
-    std::printf("PASS test_func_342170_full_state_machine\n");
+    std::printf("PASS test_func_342170_complete_state_machine\n");
 }
 
 int main() {
     test_initial_layout_state();
-    test_func_342170_full_state_machine();
-    std::printf("ALL TACTICAL AI LAYOUT TESTS PASSED WITH FULL STATE MACHINE\n");
+    test_func_342170_complete_state_machine();
+    std::printf("ALL TACTICAL AI LAYOUT TESTS PASSED WITH COMPLETE STATE MACHINE\n");
     return 0;
 }

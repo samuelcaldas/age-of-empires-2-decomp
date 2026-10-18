@@ -7199,4 +7199,15 @@ Located at VRAM `0x21C410`–`0x21C710` (file offset `0x11C5F0`–`0x11C8F0`, 76
 
 Pure C++ following Object Calisthenics, SOLID, and fail-fast principles. Validated with native regression tests in `tests/native/trade_action_helper_21C410_test.cpp` and pytest runner in `tests/test_trade_action_helper_21C410.py`.
 
+#### 6.195 `GIF/GS Packet Builder Extended Setters` Subsystem (`0x21C710`–`0x21C990`, `trade_action_helper_21C710.cpp`)
+
+Located at VRAM `0x21C710`–`0x21C990` (file offset `0x11C8F0`–`0x11CB70`, 640 bytes total slice, Metrowerks C++ PS2 MWCC 2.3.1.01):
+- `func_0021C710` (`0x21C710`, 128 bytes code): Constructs packet object, initializes with tag quadword `D_00392B30` (`0x00008000, 0x10000000, 0x0000000E, 0x00000000`), writes register `0x14` directly with `a1`, and finalizes.
+- `func_0021C790` (`0x21C790`, 128 bytes code): Constructs packet object, initializes with tag quadword `D_00392B30`, writes register `0x16` directly with `a1`, and finalizes.
+- `func_0021C810` (`0x21C810`, 192 bytes code): Constructs packet object, packs 3-component bitfield into 64-bit value `a1 | (a2<<15) | ((u64)a3<<32)`, writes to register `0x3B`, and finalizes.
+- `func_0021C8D0` (`0x21C8D0`, 192 bytes code): Constructs packet object, packs 3-component bitfield into 64-bit value `a1 | (a2<<24) | ((u64)a3<<32)`, writes to register `0x4F`, and finalizes.
+
+Pure C++ following Object Calisthenics, SOLID, and fail-fast principles. Validated with native regression tests in `tests/native/trade_action_helper_21C710_test.cpp` and pytest runner in `tests/test_trade_action_helper_21C710.py`.
+
+
 

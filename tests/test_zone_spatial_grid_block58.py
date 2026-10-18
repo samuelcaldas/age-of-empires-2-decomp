@@ -34,5 +34,9 @@ def test_zone_spatial_grid_block58_native():
     compile_res = subprocess.run(cmd, capture_output=True, text=True)
     assert compile_res.returncode == 0, f"Compilation failed: {compile_res.stderr}"
 
-    run_res = subprocess.run(["./tests/native/zone_spatial_grid_block58_test"], capture_output=True, text=True)
-    assert run_res.returncode == 0, f"Native test failed: {run_res.stderr}"
+    try:
+        run_res = subprocess.run(["./tests/native/zone_spatial_grid_block58_test"], capture_output=True, text=True)
+        assert run_res.returncode == 0, f"Native test failed: {run_res.stderr}"
+    finally:
+        if os.path.exists("tests/native/zone_spatial_grid_block58_test"):
+            os.remove("tests/native/zone_spatial_grid_block58_test")

@@ -7,9 +7,12 @@ void *D_004E3180 = 0;
 int func_123350(float val) {
     return static_cast<int>(val);
 }
+int g_zone_query_result = 0;
+int g_zone_query_calls = 0;
 int func_1378c0(void *map_zone, int x, int y) {
     (void)map_zone; (void)x; (void)y;
-    return 0;
+    ++g_zone_query_calls;
+    return g_zone_query_result;
 }
 float func_3675D0(void *unit) {
     (void)unit;
@@ -82,6 +85,31 @@ int main() {
     grid_tiles[9][10].m_slope_flag = 1; // within [base - 1, base + 1]
     int res_slope_pass = func_001C7850(&bld, world_buf, 0, 0, 1, 0, 0, 0, 0, 0, 0, 10.0f, 10.0f);
     assert(res_slope_pass == 0);
+
+    // ELF 0x1C7E7C..0x1C7EB8: flag1 consults the singleton at +0x1C8. Mode 7 sets the
+    // flag without calling func_1378c0. Otherwise only the low byte of the result counts (andi 0xFF).
+    bld.m_placement_type = 0;
+    char singleton_buf[0x200];
+    std::memset(singleton_buf, 0, sizeof(singleton_buf));
+    D_004E3180 = singleton_buf;
+
+    g_zone_query_result = 0x100;
+    int res_query_high_bits_only = func_001C7850(&bld, world_buf, 0, 1, 0, 0, 0, 0, 0, 0, 0, 10.0f, 10.0f);
+    assert(res_query_high_bits_only == 5);
+
+    g_zone_query_result = 1;
+    g_zone_query_calls = 0;
+    int res_query_hit = func_001C7850(&bld, world_buf, 0, 1, 0, 0, 0, 0, 0, 0, 0, 10.0f, 10.0f);
+    assert(res_query_hit == 0);
+    assert(g_zone_query_calls == 4);
+
+    *reinterpret_cast<int *>(singleton_buf + 0x1C8) = 7;
+    g_zone_query_result = 0;
+    g_zone_query_calls = 0;
+    int res_mode_seven = func_001C7850(&bld, world_buf, 0, 1, 0, 0, 0, 0, 0, 0, 0, 10.0f, 10.0f);
+    assert(res_mode_seven == 0);
+    assert(g_zone_query_calls == 0);
+    D_004E3180 = 0;
 
     return 0;
 }

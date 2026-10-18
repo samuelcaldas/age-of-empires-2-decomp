@@ -5,19 +5,19 @@ extern void *D_004E3180;
 
 extern "C" {
 int func_123350(float val);
-int func_1378c0(void *map_zone, int x, int y);
+unsigned char func_1378c0(void *map_zone, int x, int y);
 float func_3675D0(void *unit);
 
 int func_001C7850(
     BuildingMaster *bld,
     void *world,
     int *out_id,
-    char flag1,
-    char flag2,
+    unsigned char flag1,
+    unsigned char flag2,
     int arg5,
     int use_alt_radius,
-    char flag3,
-    char arg9,
+    unsigned char flag3,
+    unsigned char arg9,
     int arg10,
     Unit *ignore_unit,
     float x,
@@ -150,7 +150,7 @@ int func_001C7850(
             }
 
             if (flag1) {
-                if (D_004E3180 != 0 && *(int *)((char *)D_004E3180 + 0x1C8) == 7) {
+                if (*(int *)((char *)D_004E3180 + 0x1C8) == 7) {
                     fp_flag = 1;
                 } else {
                     void *zone_mgr = *(void **)((char *)world + 0xB94);
@@ -161,8 +161,8 @@ int func_001C7850(
             }
 
             if (flag2) {
-                int terrain = t->m_terrain;
-                int slope = t->m_slope_flag;
+                short terrain = t->m_terrain;
+                short slope = t->m_slope_flag;
 
                 if (bld->m_placement_type == 3) {
                     if (cur_y == t_min_y || cur_x == t_max_x) {

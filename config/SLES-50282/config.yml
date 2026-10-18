@@ -4571,9 +4571,27 @@ segments:
     vram: 0x1F11A0
     subsegments:
       - [0xF1370, asm, zone_spatial_grid_eval_edge_hit]
+  - name: zone_spatial_grid_scan_cell_nodes
+    type: code
+    start: 0xF1700
+    vram: 0x1F1530
+    subsegments:
+      - [0xF1700, asm, zone_spatial_grid_scan_cell_nodes]
+  - name: zone_spatial_grid_traverse_quadtree_path
+    type: code
+    start: 0xF19E0
+    vram: 0x1F1810
+    subsegments:
+      - [0xF19E0, asm, zone_spatial_grid_traverse_quadtree_path]
+  - name: zone_spatial_grid_node_pool_init
+    type: code
+    start: 0xF20A0
+    vram: 0x1F1ED0
+    subsegments:
+      - [0xF20A0, asm, zone_spatial_grid_node_pool_init]
   - name: post_aoe2
     type: bin
-    start: 0xF1700
+    start: 0xF20B0
   - name: trade_action_helper_217730
     type: code
     start: 0x117910

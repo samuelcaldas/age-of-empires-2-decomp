@@ -2970,6 +2970,9 @@ func_001F0630 = 0x1F0630; // type:func size:0x3F0 absolute:True
 func_001F0A20 = 0x1F0A20; // type:func size:0x3F0 absolute:True
 func_001F0E10 = 0x1F0E10; // type:func size:0x390 absolute:True
 func_001F11A0 = 0x1F11A0; // type:func size:0x390 absolute:True
+func_001F1530 = 0x1F1530; // type:func size:0x2E0 absolute:True
+func_001F1810 = 0x1F1810; // type:func size:0x6C0 absolute:True
+func_001F1ED0 = 0x1F1ED0; // type:func size:0x10 absolute:True
 
 // --- ActionBuild & CombatManager Subsystem (Milestones 104-135, 16,224 bytes contiguous) ---
 func_2777A0 = 0x2777A0; // type:func size:0x5B0 absolute:True

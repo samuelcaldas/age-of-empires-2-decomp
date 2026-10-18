@@ -4371,11 +4371,18 @@ An independent test suite (`tests/test_trade_action_stream_decoders12.py`) first
 Directly beginning the `aoe2` fixed address range (`0x1C7330`–`0x2665B0`) sits the core spatial obstruction and building placement validator `func_001C7850` (`0x1C7850`–`0x1C8480`, 3,120 bytes in Metrowerks C++ PS2 MWCC 2.3.1.01). It validates spatial bounding box coordinates, perimeter zone adjacency, slope elevation gradients, and unit radius collisions:
 - `func_001C7850` (`0x1C7850`, 3,120 bytes): Evaluates map dimensions, converts floating-point coordinates to integer tile coordinates (`func_123350`), tests 4-sided perimeter connectivity against `bld->m_required_zone`, checks tile slope gradient against building type limits (`map + 0x68`), performs special Mill/Farm adjacency logic (`0x3B`), and queries unit collision radii (`func_3675D0`) for obstruction detection.
 
-#### 6.169.1 Zone Path Evaluator Matching Results (Pure C++, 3,120 Bytes)
+#### 6.169.1 Zone Path Evaluator Status (Pure C++, `NonMatching`)
 
-| Function / Method | VRAM Address | Match Status | Description |
-|---|---|---|---|
-| `func_001C7850` | `0x1C7850` | **44.58%** (3,116 / 3,120 B) | Building placement obstruction and spatial perimeter validator. |
+`func_001C7850` is 0xC2C (3,116) bytes; the object `.text` is 0xC30 (3,120) bytes including four alignment bytes. It is registered `NonMatching`. The objdiff fuzzy score is a similarity measure, not a count of matching bytes, and no relocation-resolved byte comparison against the original ELF has been made.
+
+| Measurement (MWCC 2.3.1.01, `-O3 -inline on -msext on -char signed`) | Value |
+|---|---|
+| objdiff fuzzy score | 67.80% |
+| Aligned rows equal / total target instructions (779) | 329 / 779 |
+
+Original-binary facts now followed by the source: `flag1`/`flag2` are loaded with `lbu`, the `func_1378c0` result is masked with `andi 0xFF`, the `D_004E3180` singleton (`+0x1C8 == 7` mode check) is dereferenced without a null check, and tile terrain/slope are narrowed to signed short. Known remaining difference: the target keeps the placement flag in `$fp`, while the emitted code spills it to the stack, so register allocation diverges.
+
+Native regression: `tests/native/zone_path_eval_test.cpp` (bounds, slope, query low-byte, singleton mode 7).
 
 #### 6.170 `Zone Path Queries & Position Clamping` Subsystem (`0x1C8490`–`0x1C8C20`, `zone_path_queries.cpp`)
 

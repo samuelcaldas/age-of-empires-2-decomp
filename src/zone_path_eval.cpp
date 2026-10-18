@@ -81,8 +81,6 @@ int func_001C7850(
         p_max_y = t_max_y;
     }
 
-    int fp_flag = 0;
-
     if (bld->m_required_zone >= 0) {
         int touches_zone = 0;
         int touches_wild = 0;
@@ -125,6 +123,8 @@ int func_001C7850(
             return 1;
         }
     }
+
+    int fp_flag = 0;
 
     int y_min_val = t_min_y;
     int y_max_val = t_max_y;

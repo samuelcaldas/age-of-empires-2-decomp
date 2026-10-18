@@ -462,5 +462,43 @@ void func_00341040(TacticalObj_341040 *self) {
 
 void func_00342170(TacticalObj_341040 *self) {
     if (!self) return;
+    TacticalSubObj *sub828 = self->field_828;
+    TacticalSubObj *sub82C = self->field_82C;
+    TacticalSubObj *sub830 = self->field_830;
+    TacticalSubObj *sub834 = self->field_834;
+    TacticalSubObj *sub838 = self->field_838;
+
+    switch (self->field_84C) {
+    case 30:
+    case 31:
+    case 32:
+    case 33:
+    case 34:
+    case 35:
+    case 36:
+    case 37:
+    case 38:
+    case 39:
+    case 40:
+    case 41:
+    case 42:
+    case 43:
+    case 44:
+    case 45:
+    case 46:
+    case 47:
+    case 48:
+    case 49:
+    case 50:
+        if (sub828) {
+            ((VFunc_104)(*(void***)sub828)[65])(sub828, 0xc3d5 + self->field_84C - 30);
+        }
+        break;
+    default:
+        if (sub828) {
+            ((VFunc_104)(*(void***)sub828)[65])(sub828, 0);
+        }
+        break;
+    }
 }
 }

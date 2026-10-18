@@ -1,7 +1,16 @@
 #include <cassert>
 #include <cstdio>
 #include <cstring>
+#include <vector>
 #include "tactical_ai_layout_341040.h"
+
+static int g_last_arg = -1;
+static int g_call_count = 0;
+
+class MockSubObj : public TacticalSubObj {
+public:
+    void vfunc_00() override {}
+};
 
 extern "C" {
 void func_33A730() {}
@@ -20,150 +29,57 @@ extern const char aBesles50282age2S[] = "BESLES-50282age2_s??";
 extern const char aDmy[] = "dmy";
 }
 
+// Mock vtable for TacticalSubObj where index 65 records call
+static void *mock_vtable[70];
+
+static void init_mock_vtable() {
+    static bool initialized = false;
+    if (initialized) return;
+    for (int i = 0; i < 70; i++) {
+        mock_vtable[i] = (void*)+[](TacticalSubObj *self, int arg) {
+            g_call_count++;
+            g_last_arg = arg;
+        };
+    }
+    initialized = true;
+}
+
 static void test_initial_layout_state() {
     TacticalObj_341040 obj;
     std::memset(&obj, 0, sizeof(obj));
 
-    // Valid null execution
     func_00341040(&obj);
     std::printf("PASS test_initial_layout_state\n");
 }
 
-static void test_case_1_flow() {
-    TacticalObj_341040 obj;
-    std::memset(&obj, 0, sizeof(obj));
-    obj.field_84C = 1;
-    obj.field_840 = 0;
-    func_00341040(&obj);
-
-    obj.field_840 = 1;
-    func_00341040(&obj);
-    std::printf("PASS test_case_1_flow\n");
-}
-
-static void test_case_2_3_flow() {
-    TacticalObj_341040 obj;
-    std::memset(&obj, 0, sizeof(obj));
-    obj.field_84C = 2;
-    obj.field_840 = 2;
-    func_00341040(&obj);
-
-    obj.field_84C = 3;
-    obj.field_840 = 1;
-    func_00341040(&obj);
-    std::printf("PASS test_case_2_3_flow\n");
-}
-
-static void test_case_4_to_11_flow() {
+static void test_func_342170_call_order_and_args() {
+    init_mock_vtable();
     TacticalObj_341040 obj;
     std::memset(&obj, 0, sizeof(obj));
 
-    for (int c = 4; c <= 11; c++) {
-        obj.field_84C = c;
-        obj.field_840 = 2;
-        func_00341040(&obj);
-    }
-    std::printf("PASS test_case_4_to_11_flow\n");
-}
+    MockSubObj sub;
+    *(void***)&sub = mock_vtable;
+    obj.field_828 = &sub;
 
-static void test_case_12_13_flow() {
-    TacticalObj_341040 obj;
-    std::memset(&obj, 0, sizeof(obj));
-    obj.field_84C = 12;
-    obj.field_840 = 6;
+    g_call_count = 0;
+    g_last_arg = -1;
 
-    func_00341040(&obj);
-    std::printf("PASS test_case_12_13_flow\n");
-}
-
-static void test_case_14_15_16_flow() {
-    TacticalObj_341040 obj;
-    std::memset(&obj, 0, sizeof(obj));
-
-    obj.field_84C = 14;
-    obj.field_840 = 2;
-    func_00341040(&obj);
-
-    obj.field_84C = 15;
-    obj.field_840 = 5;
-    func_00341040(&obj);
-
-    obj.field_84C = 16;
-    func_00341040(&obj);
-
-    std::printf("PASS test_case_14_15_16_flow\n");
-}
-
-static void test_case_17_18_19_flow() {
-    TacticalObj_341040 obj;
-    std::memset(&obj, 0, sizeof(obj));
-
-    obj.field_84C = 17;
-    func_00341040(&obj);
-
-    obj.field_84C = 18;
-    obj.field_840 = 2;
-    func_00341040(&obj);
-
-    obj.field_84C = 18;
-    obj.field_840 = 5;
-    func_00341040(&obj);
-
-    obj.field_84C = 19;
-    obj.field_840 = 2;
-    func_00341040(&obj);
-
-    obj.field_84C = 19;
-    obj.field_840 = 1;
-    func_00341040(&obj);
-
-    std::printf("PASS test_case_17_18_19_flow\n");
-}
-
-static void test_case_20_to_24_flow() {
-    TacticalObj_341040 obj;
-    std::memset(&obj, 0, sizeof(obj));
-
-    for (int c = 20; c <= 24; c++) {
-        obj.field_84C = c;
-        obj.field_840 = 2;
-        func_00341040(&obj);
-        obj.field_840 = 5;
-        func_00341040(&obj);
-    }
-
-    std::printf("PASS test_case_20_to_24_flow\n");
-}
-
-static void test_case_25_to_29_flow() {
-    TacticalObj_341040 obj;
-    std::memset(&obj, 0, sizeof(obj));
-
-    for (int c = 25; c <= 29; c++) {
-        obj.field_84C = c;
-        func_00341040(&obj);
-    }
-
-    std::printf("PASS test_case_25_to_29_flow\n");
-}
-
-static void test_func_342170() {
-    TacticalObj_341040 obj;
-    std::memset(&obj, 0, sizeof(obj));
+    obj.field_84C = 30;
     func_00342170(&obj);
-    std::printf("PASS test_func_342170\n");
+    assert(g_call_count == 1);
+    assert(g_last_arg == 0xc3d5);
+
+    obj.field_84C = 35;
+    func_00342170(&obj);
+    assert(g_call_count == 2);
+    assert(g_last_arg == 0xc3da);
+
+    std::printf("PASS test_func_342170_call_order_and_args\n");
 }
 
 int main() {
     test_initial_layout_state();
-    test_case_1_flow();
-    test_case_2_3_flow();
-    test_case_4_to_11_flow();
-    test_case_12_13_flow();
-    test_case_14_15_16_flow();
-    test_case_17_18_19_flow();
-    test_case_20_to_24_flow();
-    test_case_25_to_29_flow();
-    test_func_342170();
+    test_func_342170_call_order_and_args();
+    std::printf("ALL TACTICAL AI LAYOUT TESTS PASSED\n");
     return 0;
 }

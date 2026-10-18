@@ -7,12 +7,8 @@ struct ModeQueryTertiaryContext {
     int m_field_8;
     int m_field_C;
     int m_field_10;
-    int m_field_14;
-    int m_field_18;
-    int m_field_1C;
     int m_active;
     void *m_manager;
-    void *m_aux_manager;
 };
 
 extern "C" {

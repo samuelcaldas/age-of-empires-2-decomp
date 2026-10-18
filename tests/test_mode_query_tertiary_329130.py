@@ -9,7 +9,7 @@ SOURCE = ROOT / "src/mode_query_tertiary_329130.cpp"
 NATIVE_TEST = ROOT / "tests/native/mode_query_tertiary_329130_test.cpp"
 MUTATIONS = [
     ("invert_active", "if (self->m_active == 0)", "if (self->m_active != 0)", "early_exits", "early exit inactive mode failed"),
-    ("wrong_ret", "return self->m_field_1C;", "return 0;", "active_query", "active query execution failed"),
+    ("wrong_ret", "return self->m_field_8 + self->m_field_C + self->m_field_10;", "return 0;", "active_query", "active query execution failed"),
 ]
 
 

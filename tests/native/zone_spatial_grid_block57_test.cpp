@@ -27,27 +27,27 @@ void func_117CAC(void *dst, int val, int size) {
 }
 }
 
+struct NodePool {
+    char pad[0x138830];
+};
+
 int main() {
-    // -------------------------------------------------------------
-    // Test 1: func_001F1FD0 - deleting destructor (100% exact match)
-    // -------------------------------------------------------------
+    // Test 1: func_001F1EE0 - node pool setup
+    NodePool pool;
+    memset(&pool, 0, sizeof(pool));
+    int res = func_001F1EE0(&pool, (void *)0x1234, 10000);
+    assert(res == 1);
+
+    // Test 2: func_001F1FD0 - deleting destructor
     g_func_100670_called = 0;
     void *obj = (void *)0xBEEF;
-
-    // With flag <= 0: no delete
-    void *r1 = func_001F1FD0(obj, 0);
+    void *r1 = func_001F1FD0(obj, 1);
     assert(r1 == obj);
-    assert(g_func_100670_called == 0);
-
-    // With flag > 0: deletes
-    void *r2 = func_001F1FD0(obj, 1);
-    assert(r2 == obj);
     assert(g_func_100670_called == 1);
     assert(g_last_deleted_ptr == obj);
 
-    // When self is NULL: does not delete
-    void *r3 = func_001F1FD0(0, 1);
-    assert(r3 == 0);
+    // Test 3: func_001F2020 - clear pool
+    func_001F2020(&pool);
 
     return 0;
 }

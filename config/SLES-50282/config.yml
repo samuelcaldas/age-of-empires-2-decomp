@@ -4960,6 +4960,12 @@ segments:
     vram: 0x21E0D0
     subsegments:
       - [0x11E0D0, asm, trade_action_helper_21E0D0]
+  - name: trade_action_helper_21E1C0
+    type: code
+    start: 0x11E1C0
+    vram: 0x21E1C0
+    subsegments:
+      - [0x11E1C0, asm, trade_action_helper_21E1C0]
   - name: unit_action_core
     type: code
     start: 0x166960

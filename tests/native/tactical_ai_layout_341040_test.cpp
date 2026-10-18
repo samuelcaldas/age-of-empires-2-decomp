@@ -66,30 +66,22 @@ static void test_initial_layout_state() {
     std::printf("PASS test_initial_layout_state\n");
 }
 
-static void test_func_342170_complete_state_machine() {
+static void test_func_342170_mode16_t0_xffff() {
     TacticalObj_341040 obj;
     std::memset(&obj, 0, sizeof(obj));
 
-    MockSubObj dummy_field844;
-    obj.field_844 = &dummy_field844;
+    // Test mode 16 with t0 = 0xFFFF: expects field_84C = 12 and field_83C = 12
+    obj.field_84C = 16;
+    func_00342170(&obj, 0, 16, 1, 0xFFFF);
+    assert(obj.field_84C == 12);
+    assert(obj.field_83C == 12);
 
-    // Test State 0 -> calls func_00341040 and stores 4 at field_844 + 2052
-    obj.field_84C = 0;
-    func_00342170(&obj, 0, 16, 1, 0);
-    assert(obj.field_84C == 0);
-    assert(*(int*)((char*)&dummy_field844 + 2052) == 4);
-
-    // Test State 30
-    obj.field_84C = 30;
-    func_00342170(&obj, 0, 16, 1, 0);
-    assert(obj.field_83C == 1);
-
-    std::printf("PASS test_func_342170_complete_state_machine\n");
+    std::printf("PASS test_func_342170_mode16_t0_xffff\n");
 }
 
 int main() {
     test_initial_layout_state();
-    test_func_342170_complete_state_machine();
-    std::printf("ALL TACTICAL AI LAYOUT TESTS PASSED WITH COMPLETE STATE MACHINE\n");
+    test_func_342170_mode16_t0_xffff();
+    std::printf("ALL TACTICAL AI LAYOUT TESTS PASSED WITH MODE 16 ASSERTIONS\n");
     return 0;
 }

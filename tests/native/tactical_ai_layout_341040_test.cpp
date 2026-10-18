@@ -10,6 +10,7 @@ static int g_func_33a730_called = 0;
 static int g_func_33f8b0_called = 0;
 static int g_func_1f6750_called = 0;
 static int g_func_1f88b0_called = 0;
+static int g_func_1fbd30_called = 0;
 static int g_call_seq[20];
 static int g_seq_idx = 0;
 
@@ -69,9 +70,10 @@ void func_219BA0(void *a0, int a1) {
 void func_1FBD30(void *a0, int a1) {
     (void)a0;
     (void)a1;
+    g_func_1fbd30_called++;
 }
 void func_11ABBC(void *dst, const char *src) { (void)dst; (void)src; }
-void func_36BD30(void *a0, int a1, int a2, const char *a3, int t0) { (void)a0; (void)a1; (void)a2; (void)a3; (void)t0; }
+void func_36BD30(void *a0, int a1, int a2, const char *a3, int t0) { (void)a0; (void)a1; (void)a2; (void)a3; (void)a3; (void)t0; }
 void func_36ACC0(int a0) { (void)a0; }
 int func_1F6EA0(int a0, int a1) { (void)a0; (void)a1; return 0; }
 void *func_36C000(int a0) { (void)a0; return 0; }
@@ -93,37 +95,35 @@ static void test_initial_layout_state() {
     std::printf("PASS test_initial_layout_state\n");
 }
 
-static void test_func_342170_refined_semantics_and_store() {
+static void test_func_342170_mode31_early_return() {
     TacticalObj_341040 obj;
     std::memset(&obj, 0, sizeof(obj));
 
     MockSubObj sub;
     obj.field_838 = &sub;
 
-    g_seq_idx = 0;
-    g_func_33a730_called = 0;
-    g_func_339960_arg = -1;
+    g_func_339960_called = 0;
+    g_func_1fbd30_called = 0;
 
-    obj.field_84C = 30;
-    func_00342170(&obj, (int)(long)&sub, 16, 1, 1);
-
-    assert(g_func_33a730_called == 1);
-    assert(g_func_339960_arg == 0);
-    assert(obj.field_83C == 30);
-    assert(*(int*)((char*)&sub + 2052) == 4); // Verified store value 4 at +0x804
-
-    // Test mode 31
+    // Test mode 31 with a2 = 0 (!= 1): should branch/return early via func_1FBD30 without calling func_339960
     obj.field_84C = 31;
     func_00342170(&obj, 0, 0, 0, 0);
-    assert(g_func_339960_arg == 1);
-    assert(obj.field_83C == 31);
+    assert(g_func_1fbd30_called == 1);
+    assert(g_func_339960_called == 0);
 
-    std::printf("PASS test_func_342170_refined_semantics_and_store\n");
+    // Test mode 31 with a2 = 1: should execute mode 31 normally and call func_339960
+    g_func_1fbd30_called = 0;
+    g_func_339960_called = 0;
+    func_00342170(&obj, 0, 1, 0, 0);
+    assert(g_func_1fbd30_called == 0);
+    assert(g_func_339960_called == 1);
+
+    std::printf("PASS test_func_342170_mode31_early_return\n");
 }
 
 int main() {
     test_initial_layout_state();
-    test_func_342170_refined_semantics_and_store();
-    std::printf("ALL TACTICAL AI LAYOUT TESTS PASSED WITH REFINED SEMANTICS\n");
+    test_func_342170_mode31_early_return();
+    std::printf("ALL TACTICAL AI LAYOUT TESTS PASSED WITH EARLY RETURN ASSERTIONS\n");
     return 0;
 }

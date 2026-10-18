@@ -175,11 +175,10 @@ void func_00341040(TacticalObj_341040 *self) {
     }
 }
 
-// 0x342170 to 0x342798 port with exact signature and refined 0x3421C0 / 0x342740/0x342744 semantics
+// 0x342170 to 0x342798 port with exact signature and corrected 0x342288 branch on a2 != 1
 void func_00342170(TacticalObj_341040 *self, int a1, int a2, int a3, int t0) {
     if (!self) return;
 
-    // 0x34217C - 0x3421C0: check field_838 and call func_33A5D0
     TacticalSubObj *sub838 = self->field_838;
     if (sub838) {
         func_33A5D0(sub838, a1);
@@ -195,6 +194,12 @@ void func_00342170(TacticalObj_341040 *self, int a1, int a2, int a3, int t0) {
 
     int mode = self->field_84C;
     int f840 = self->field_840;
+
+    // 0x342288 branch check: if mode is 31 and a2 != 1, branch/return via func_1FBD30
+    if (mode == 31 && a2 != 1) {
+        func_1FBD30(self, a2);
+        return;
+    }
 
     switch (mode) {
     case 30:
@@ -225,10 +230,9 @@ void func_00342170(TacticalObj_341040 *self, int a1, int a2, int a3, int t0) {
         break;
     }
 
-    // 0x3423AC / 0x342744: write state and subobject +0x804 (delay slot store modeling)
     self->field_84C = mode;
     if (sub838) {
-        *(int*)((char*)sub838 + 2052) = 4; // value 4 loaded at 0x342738, stored at 0x342744
+        *(int*)((char*)sub838 + 2052) = 4; // value 4 stored at 0x342744
     }
 
     if (t0 == 1) {

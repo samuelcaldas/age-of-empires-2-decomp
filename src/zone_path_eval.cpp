@@ -8,8 +8,6 @@ int func_123350(float val);
 unsigned char func_1378c0(void *map_zone, int x, int y);
 float func_3675D0(void *unit);
 
-#define GET_TILE(y, x) (*(MapTile ***)((char *)s0 + 0x8E8C))[y][x]
-
 int func_001C7850(
     BuildingMaster *bld,
     void *world,
@@ -65,8 +63,9 @@ int func_001C7850(
     short p_min_x, p_max_x, p_min_y, p_max_y;
     if (bld->m_field48 >= 0 || bld->m_field4A >= 0) {
         short cy = (short)func_123350(y);
+        MapTile **tile_rows = *(MapTile ***)((char *)s0 + 0x8E8C);
         short cx = (short)func_123350(x);
-        MapTile *center_tile = &GET_TILE(cy, cx);
+        MapTile *center_tile = &tile_rows[cy][cx];
         if (center_tile->m_zone_id != bld->m_field48 && center_tile->m_zone_id != bld->m_field4A) {
             return 1;
         }
@@ -82,6 +81,7 @@ int func_001C7850(
     }
 
     if (bld->m_required_zone >= 0) {
+        MapTile **tile_rows = *(MapTile ***)((char *)s0 + 0x8E8C);
         int touches_zone = 0;
         int touches_wild = 0;
 
@@ -91,29 +91,29 @@ int func_001C7850(
         short edge_min_y = (short)(p_min_y - 1);
 
         if (edge_min_y >= 0) {
+            MapTile *row = tile_rows[edge_min_y];
             for (short cur_x = p_min_x; cur_x <= p_max_x; cur_x++) {
-                MapTile *t = &GET_TILE(edge_min_y, cur_x);
-                if (t->m_zone_id == bld->m_required_zone) touches_zone = 1;
-                if (t->m_zone_id == -1) touches_wild = 1;
+                if (row[cur_x].m_zone_id == bld->m_required_zone) touches_zone = 1;
+                if (row[cur_x].m_zone_id == -1) touches_wild = 1;
             }
         }
         if (edge_max_x < map_w) {
             for (short cur_y = p_min_y; cur_y <= p_max_y; cur_y++) {
-                MapTile *t = &GET_TILE(cur_y, edge_max_x);
+                MapTile *t = &tile_rows[cur_y][edge_max_x];
                 if (t->m_zone_id == bld->m_required_zone) touches_zone = 1;
                 if (t->m_zone_id == -1) touches_wild = 1;
             }
         }
         if (edge_max_y < map_h) {
+            MapTile *row = tile_rows[edge_max_y];
             for (short cur_x = p_max_x; cur_x >= p_min_x; cur_x--) {
-                MapTile *t = &GET_TILE(edge_max_y, cur_x);
-                if (t->m_zone_id == bld->m_required_zone) touches_zone = 1;
-                if (t->m_zone_id == -1) touches_wild = 1;
+                if (row[cur_x].m_zone_id == bld->m_required_zone) touches_zone = 1;
+                if (row[cur_x].m_zone_id == -1) touches_wild = 1;
             }
         }
         if (edge_min_x >= 0) {
             for (short cur_y = p_max_y; cur_y >= p_min_y; cur_y--) {
-                MapTile *t = &GET_TILE(cur_y, edge_min_x);
+                MapTile *t = &tile_rows[cur_y][edge_min_x];
                 if (t->m_zone_id == bld->m_required_zone) touches_zone = 1;
                 if (t->m_zone_id == -1) touches_wild = 1;
             }
@@ -124,9 +124,10 @@ int func_001C7850(
         }
     }
 
+    MapTile **tile_rows = *(MapTile ***)((char *)s0 + 0x8E8C);
     int fp_flag = 0;
 
-    MapTile *base_tile = &GET_TILE(t_max_y, t_min_x);
+    MapTile *base_tile = &tile_rows[t_max_y][t_min_x];
     short base_slope = base_tile->m_slope_flag;
     short min_slope = (short)(base_slope - 1);
     short max_slope = (short)(base_slope + 1);
@@ -139,7 +140,7 @@ int func_001C7850(
                 if (t_max_x - cur_x != cur_y - t_min_y) continue;
             }
 
-            if (slope_limits[GET_TILE(cur_y, cur_x).m_zone_id] <= 0.0f) {
+            if (slope_limits[tile_rows[cur_y][cur_x].m_zone_id] <= 0.0f) {
                 return 2;
             }
 
@@ -155,8 +156,8 @@ int func_001C7850(
             }
 
             if (flag2) {
-                short terrain = GET_TILE(cur_y, cur_x).m_terrain;
-                short slope = GET_TILE(cur_y, cur_x).m_slope_flag;
+                short terrain = tile_rows[cur_y][cur_x].m_terrain;
+                short slope = tile_rows[cur_y][cur_x].m_slope_flag;
 
                 switch (bld->m_placement_type) {
                 case 1:
@@ -216,7 +217,7 @@ int func_001C7850(
     }
 
     for (short cur_y = check_min_y; cur_y <= check_max_y; cur_y++) {
-        MapTile *t = &GET_TILE(cur_y, check_min_x);
+        MapTile *t = &tile_rows[cur_y][check_min_x];
         for (short cur_x = check_min_x; cur_x <= check_max_x; cur_x++, t++) {
             for (int i = 0; i < t->m_unit_count; i++) {
                 Unit *u = (Unit *)t->m_unit_array[i];

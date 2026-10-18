@@ -4902,10 +4902,10 @@ segments:
       - [0x11D700, asm, trade_action_helper_21D700]
   - name: trade_action_helper_21D980
     type: code
-    start: 0x11D980
-    vram: 0x21D980
+    start: 0x11D9A0
+    vram: 0x21D9A0
     subsegments:
-      - [0x11D980, asm, trade_action_helper_21D980]
+      - [0x11D9A0, asm, trade_action_helper_21D980]
   - name: trade_action_helper_21DBE0
     type: code
     start: 0x11DBE0

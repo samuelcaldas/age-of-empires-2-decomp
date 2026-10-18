@@ -136,5 +136,20 @@ int main() {
     slope_limits[10] = 1.0f;
     bld.m_id = 0;
 
+    // Behavioral test 7: Perimeter zone adjacency requires orthogonal edge contact (p_min..p_max),
+    // not diagonal corner contact. ELF 0x274..0x2E8 iterates cur_x from p_min_x to p_max_x,
+    // excluding corner (edge_min_x, edge_min_y).
+    bld.m_required_zone = 5;
+    grid_tiles[8][8].m_zone_id = 5; // corner tile (8, 8)
+    int res_corner_only = func_001C7850(&bld, world_buf, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10.0f, 10.0f);
+    assert(res_corner_only == 1);
+
+    grid_tiles[8][9].m_zone_id = 5; // edge tile (8, 9)
+    int res_edge_touch = func_001C7850(&bld, world_buf, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10.0f, 10.0f);
+    assert(res_edge_touch == 0);
+    grid_tiles[8][8].m_zone_id = 0;
+    grid_tiles[8][9].m_zone_id = 0;
+    bld.m_required_zone = -1;
+
     return 0;
 }

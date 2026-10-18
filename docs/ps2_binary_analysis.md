@@ -4377,13 +4377,13 @@ Directly beginning the `aoe2` fixed address range (`0x1C7330`–`0x2665B0`) sits
 
 | Measurement (MWCC 2.3.1.01, `-O3 -inline on -msext on -char signed`) | Value |
 |---|---|
-| objdiff fuzzy score | 72.08% |
-| Aligned rows equal / total target instructions (779) | 328 / 779 |
-| Aligned deletions / replacements | 97 / 49 |
+| objdiff fuzzy score | 72.09% |
+| Aligned rows equal / total target instructions (779) | 335 / 779 |
+| Aligned deletions / replacements | 95 / 45 |
 
-Original-binary facts now followed by the source: `flag1`/`flag2` loaded with `lbu`, `func_1378c0` masked with `andi 0xFF`, `D_004E3180` dereferenced without null check, tile terrain/slope narrowed to signed short, outer loop `cur_x` with inner loop `cur_y`, base slope tile indexed at `[t_max_y][t_min_x]`, diagonal gate formulas `cur_x - t_min_x == cur_y - t_min_y` and `t_max_x - cur_x == cur_y - t_min_y`, placement type 3 boundary checks `cur_x == t_min_x || cur_y == t_max_y`, and elimination of tile pointer lifetime across `func_1378c0`.
+Original-binary facts now followed by the source: `flag1`/`flag2` loaded with `lbu`, `func_1378c0` masked with `andi 0xFF`, `D_004E3180` dereferenced without null check, tile terrain/slope narrowed to signed short, outer loop `cur_x` with inner loop `cur_y`, base slope tile indexed at `[t_max_y][t_min_x]`, diagonal gate formulas `cur_x - t_min_x == cur_y - t_min_y` and `t_max_x - cur_x == cur_y - t_min_y`, placement type 3 boundary checks `cur_x == t_min_x || cur_y == t_max_y`, elimination of tile pointer lifetime across `func_1378c0`, four perimeter loops iterating between orthogonal edges (`p_min` to `p_max`), and wild zone sentinel comparison against `-1`.
 
-Native regression: `tests/native/zone_path_eval_test.cpp` (bounds, slope boundary/base, query low-byte, singleton mode 7, diagonal gate obstructions).
+Native regression: `tests/native/zone_path_eval_test.cpp` (bounds, slope boundary/base, query low-byte, singleton mode 7, diagonal gate obstructions, perimeter orthogonal edge contact).
 
 #### 6.170 `Zone Path Queries & Position Clamping` Subsystem (`0x1C8490`–`0x1C8C20`, `zone_path_queries.cpp`)
 

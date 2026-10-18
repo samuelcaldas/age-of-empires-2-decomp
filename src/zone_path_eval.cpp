@@ -80,8 +80,8 @@ int func_001C7850(
         p_max_y = t_max_y;
     }
 
-    MapTile **tile_rows = *(MapTile ***)((char *)s0 + 0x8E8C);
     if (bld->m_required_zone >= 0) {
+        MapTile **tile_rows = *(MapTile ***)((char *)s0 + 0x8E8C);
         int touches_zone = 0;
         int touches_wild = 0;
 
@@ -91,31 +91,31 @@ int func_001C7850(
         short edge_min_y = p_min_y - 1;
 
         if (edge_min_y >= 0) {
-            for (short cur_x = edge_min_x; cur_x <= edge_max_x; cur_x++) {
+            for (short cur_x = p_min_x; cur_x <= p_max_x; cur_x++) {
                 MapTile *t = &tile_rows[edge_min_y][cur_x];
                 if (t->m_zone_id == bld->m_required_zone) touches_zone = 1;
-                if (t->m_zone_id == 255) touches_wild = 1;
+                if (t->m_zone_id == -1) touches_wild = 1;
             }
         }
         if (edge_max_x < map_w) {
             for (short cur_y = p_min_y; cur_y <= p_max_y; cur_y++) {
                 MapTile *t = &tile_rows[cur_y][edge_max_x];
                 if (t->m_zone_id == bld->m_required_zone) touches_zone = 1;
-                if (t->m_zone_id == 255) touches_wild = 1;
+                if (t->m_zone_id == -1) touches_wild = 1;
             }
         }
         if (edge_max_y < map_h) {
-            for (short cur_x = edge_max_x; cur_x >= edge_min_x; cur_x--) {
+            for (short cur_x = p_max_x; cur_x >= p_min_x; cur_x--) {
                 MapTile *t = &tile_rows[edge_max_y][cur_x];
                 if (t->m_zone_id == bld->m_required_zone) touches_zone = 1;
-                if (t->m_zone_id == 255) touches_wild = 1;
+                if (t->m_zone_id == -1) touches_wild = 1;
             }
         }
         if (edge_min_x >= 0) {
             for (short cur_y = p_max_y; cur_y >= p_min_y; cur_y--) {
                 MapTile *t = &tile_rows[cur_y][edge_min_x];
                 if (t->m_zone_id == bld->m_required_zone) touches_zone = 1;
-                if (t->m_zone_id == 255) touches_wild = 1;
+                if (t->m_zone_id == -1) touches_wild = 1;
             }
         }
 
@@ -124,6 +124,7 @@ int func_001C7850(
         }
     }
 
+    MapTile **tile_rows = *(MapTile ***)((char *)s0 + 0x8E8C);
     int fp_flag = 0;
 
     MapTile *base_tile = &tile_rows[t_max_y][t_min_x];

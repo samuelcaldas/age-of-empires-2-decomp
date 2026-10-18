@@ -16,7 +16,7 @@ MUTATIONS = [
     ("freeze_coords", "i < count; i++, coords++", "i < count; i++", "grid_filtering", "grid entity filtering entity id mismatch"),
     ("guard_count", "if (count <= 0) return;", "if (true) return;", "grid_filtering", "grid entity filtering call count contract violated"),
     ("guard_mesh_count", "if (self->m_count == 0)", "if (self->m_count != 0)", "early_exits", "early exit zero mesh count failed"),
-    ("guard_coord_count", "if (count <= 0)", "if (count > 0)", "early_exits", "early exit negative coord count failed"),
+    ("off_by_one_loop", "i < count", "i <= count", "grid_filtering", "grid entity filtering call count contract violated"),
 ]
 
 
@@ -32,7 +32,7 @@ def compile_native(source, binary):
     assert result.returncode == 0, result.stderr
 
 
-def run_native(binary, arg=None):
+def run_native(binary, arg=Null if "Null" in globals() else None):
     """Run one fixture process with optional test argument."""
     cmd = [str(binary)]
     if arg:
@@ -61,4 +61,4 @@ def test_mesh_filter_rejects_mutation(tmp_path, name, original, replacement, tes
     compile_native(mutated, binary)
     result = run_native(binary, test_arg)
     assert result.returncode != 0, f"Mutation survived without failure: {name}"
-    assert expected_msg in result.stderr or "runtime error:" in result.stderr, f"Mutation killed by wrong failure or crash instead of expected assertion '{expected_msg}': {name}\nStderr: {result.stderr}"
+    assert expected_msg in result.stderr, f"Mutation killed by wrong failure or crash instead of expected assertion '{expected_msg}': {name}\nStderr: {result.stderr}"

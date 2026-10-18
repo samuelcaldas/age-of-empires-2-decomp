@@ -59,9 +59,44 @@ extern "C" {
 }
 
 static void test_early_exits() {
+    EntityDesc desc_active;
+    std::memset(&desc_active, 0, sizeof(desc_active));
+    desc_active.m_active = 1;
+    desc_active.m_tag = 10;
+
+    Entity entity;
+    std::memset(&entity, 0, sizeof(entity));
+    entity.m_desc = &desc_active;
+    entity.m_id = 99;
+
+    Entity *entities[1] = {&entity};
+    ZoneCell cell0;
+    std::memset(&cell0, 0, sizeof(cell0));
+    cell0.m_entity_count = 1;
+    cell0.m_entities = entities;
+
+    ZoneCell row0[1] = {cell0};
+    ZoneCell *rows[1] = {row0};
+
+    MapZone zone;
+    std::memset(&zone, 0, sizeof(zone));
+    zone.m_cell_rows = rows;
+
+    GameMgr game_mgr;
+    std::memset(&game_mgr, 0, sizeof(game_mgr));
+    game_mgr.m_map_zone = &zone;
+
+    CombatWorld world;
+    std::memset(&world, 0, sizeof(world));
+    world.m_game_mgr = &game_mgr;
+
     ElevationMeshDescriptor desc;
     std::memset(&desc, 0, sizeof(desc));
+    desc.m_world = &world;
     desc.m_count = 5;
+
+    CellCoord query_coords[1] = {{0, 0}};
+    s_mock_coords = query_coords;
 
     s_mock_coord_count = 0;
     s_call_count = 0;
@@ -69,11 +104,13 @@ static void test_early_exits() {
     TEST_ASSERT(s_call_count == 0, "early exit zero coord count failed");
 
     s_mock_coord_count = -1;
+    s_call_count = 0;
     func_00328100(&desc, 0);
     TEST_ASSERT(s_call_count == 0, "early exit negative coord count failed");
 
-    s_mock_coord_count = 2;
+    s_mock_coord_count = 1;
     desc.m_count = 0;
+    s_call_count = 0;
     func_00328100(&desc, 0);
     TEST_ASSERT(s_call_count == 0, "early exit zero mesh count failed");
 }

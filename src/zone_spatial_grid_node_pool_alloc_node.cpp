@@ -17,6 +17,25 @@ struct NodePool {
 };
 
 extern "C" void *func_001F2320(NodePool *self) {
-    // Stub implementation to establish test harness
-    return 0;
+    if (self->field_138830 == 0) {
+        func_1F21E0(self, self->capacity_138834);
+    }
+    if (self->field_138820 != 0) {
+        void *node = self->field_138820;
+        self->field_138820 = *(void **)((char *)node + 12);
+        self->field_138830--;
+        return node;
+    }
+    char *node = (char *)self->table_138810[self->field_138824];
+    node += self->field_138828 * 64;
+    self->field_138830--;
+    self->field_138828++;
+    if (self->field_138828 == (int)(long)self->table_138814[self->field_138824]) {
+        self->field_138824++;
+        self->field_138828 = 0;
+        if (self->field_138824 == self->count_138818) {
+            self->field_138824 = -1;
+        }
+    }
+    return node;
 }

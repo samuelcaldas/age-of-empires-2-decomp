@@ -7,6 +7,7 @@
 #include "zone_spatial_grid_node_pool_alloc_node.h"
 
 static int g_func_1F21E0_called = 0;
+static void *g_func_1F21E0_arg_self = 0;
 static int g_func_1F21E0_arg_num_items = 0;
 
 struct StrictNodePool {
@@ -27,6 +28,7 @@ struct StrictNodePool {
 extern "C" {
 void func_1F21E0(NodePool *self, int num_items) {
     g_func_1F21E0_called++;
+    g_func_1F21E0_arg_self = self;
     g_func_1F21E0_arg_num_items = num_items;
     StrictNodePool *p = (StrictNodePool *)self;
     p->field_138830 += num_items;
@@ -34,7 +36,7 @@ void func_1F21E0(NodePool *self, int num_items) {
 }
 
 int main() {
-    // ABI verification
+    // ABI layout verification
     assert(sizeof(StrictNodePool) >= 0x138838);
     assert(offsetof(StrictNodePool, buffer_10) == 0x10);
     assert(offsetof(StrictNodePool, table_138810) == 0x138810);
@@ -51,21 +53,43 @@ int main() {
     StrictNodePool *pool = new StrictNodePool();
     memset(pool, 0, sizeof(StrictNodePool));
 
-    // Case 1: Empty pool triggers func_1F21E0 expansion call
+    // Case 1: Empty pool triggers expansion helper call
     pool->field_138830 = 0;
     pool->capacity_138834 = 500;
-    g_func_1F21E0_called = 0;
+    pool->field_138824 = 0;
+    pool->field_138828 = 0;
+    pool->count_138818 = 1;
 
+    char empty_mock_zone[64 * 4];
+    memset(empty_mock_zone, 0xEE, sizeof(empty_mock_zone));
+    void *empty_table0[1];
+    void *empty_table1[1];
+    empty_table0[0] = empty_mock_zone;
+    empty_table1[0] = (void *)4;
+    pool->table_138810 = empty_table0;
+    pool->table_138814 = empty_table1;
+
+    g_func_1F21E0_called = 0;
+    g_func_1F21E0_arg_self = 0;
+    g_func_1F21E0_arg_num_items = 0;
+
+    void *expanded_node = func_001F2320((NodePool *)pool);
+    assert(g_func_1F21E0_called == 1);
+    assert(g_func_1F21E0_arg_self == (void *)pool);
+    assert(g_func_1F21E0_arg_num_items == 500);
+    assert(expanded_node == (void *)empty_mock_zone);
+    assert(pool->field_138830 == 499); // 500 added by mock, 1 consumed
+    assert(pool->field_138828 == 1);
+
+    // Case 2: Pop from free-list when field_138820 is non-null
     void *recycled_node1[8];
     void *recycled_node2[8];
     memset(recycled_node1, 0, sizeof(recycled_node1));
     memset(recycled_node2, 0, sizeof(recycled_node2));
-    // Link recycled_node1 -> recycled_node2 at offset +12
     *(void **)((char *)recycled_node1 + 12) = (void *)recycled_node2;
     pool->field_138820 = recycled_node1;
     pool->field_138830 = 2;
 
-    // Pop from free list
     void *got1 = func_001F2320((NodePool *)pool);
     assert(got1 == (void *)recycled_node1);
     assert(pool->field_138820 == (void *)recycled_node2);
@@ -76,31 +100,53 @@ int main() {
     assert(pool->field_138820 == 0);
     assert(pool->field_138830 == 0);
 
-    // Case 2: Carving from active zone when free list is empty
-    char mock_zone[64 * 4];
-    memset(mock_zone, 0xAA, sizeof(mock_zone));
-    void *mock_table0[2];
-    void *mock_table1[2];
-    mock_table0[0] = mock_zone;
-    mock_table1[0] = (void *)2; // 2 nodes in zone 0
-    pool->table_138810 = mock_table0;
-    pool->table_138814 = mock_table1;
-    pool->count_138818 = 1;
-    pool->field_138820 = 0;
-    pool->field_138824 = 0;
-    pool->field_138828 = 0;
-    pool->field_138830 = 2;
+    // Case 3: Multi-zone transition across zones
+    char mock_zone0[64 * 2];
+    char mock_zone1[64 * 2];
+    memset(mock_zone0, 0x11, sizeof(mock_zone0));
+    memset(mock_zone1, 0x22, sizeof(mock_zone1));
 
-    void *carved0 = func_001F2320((NodePool *)pool);
-    assert(carved0 == (void *)mock_zone);
-    assert(pool->field_138828 == 1);
+    void *multi_table0[2];
+    void *multi_table1[2];
+    multi_table0[0] = mock_zone0;
+    multi_table0[1] = mock_zone1;
+    multi_table1[0] = (void *)2; // 2 nodes in zone 0
+    multi_table1[1] = (void *)2; // 2 nodes in zone 1
+
+    pool->table_138810 = multi_table0;
+    pool->table_138814 = multi_table1;
+    pool->count_138818 = 2; // 2 zones total
+    pool->field_138820 = 0;
+    pool->field_138824 = 0; // start in zone 0
+    pool->field_138828 = 0;
+    pool->field_138830 = 4;
+
+    // Allocate first node from zone 0
+    void *z0_n0 = func_001F2320((NodePool *)pool);
+    assert(z0_n0 == (void *)mock_zone0);
     assert(pool->field_138824 == 0);
+    assert(pool->field_138828 == 1);
+    assert(pool->field_138830 == 3);
+
+    // Allocate second node from zone 0 -> exhausts zone 0, transitions to zone 1
+    void *z0_n1 = func_001F2320((NodePool *)pool);
+    assert(z0_n1 == (void *)(mock_zone0 + 64));
+    assert(pool->field_138824 == 1); // advanced to zone 1
+    assert(pool->field_138828 == 0); // reset node index to 0
+    assert(pool->field_138830 == 2);
+
+    // Allocate first node from zone 1
+    void *z1_n0 = func_001F2320((NodePool *)pool);
+    assert(z1_n0 == (void *)mock_zone1);
+    assert(pool->field_138824 == 1);
+    assert(pool->field_138828 == 1);
     assert(pool->field_138830 == 1);
 
-    void *carved1 = func_001F2320((NodePool *)pool);
-    assert(carved1 == (void *)(mock_zone + 64));
+    // Allocate second node from zone 1 -> exhausts zone 1, field_138824 becomes -1
+    void *z1_n1 = func_001F2320((NodePool *)pool);
+    assert(z1_n1 == (void *)(mock_zone1 + 64));
+    assert(pool->field_138824 == -1); // reached count_138818 (2 == 2), reset to -1
     assert(pool->field_138828 == 0);
-    assert(pool->field_138824 == -1); // exhausted zone 0 (0 == count_138818 - 1)
     assert(pool->field_138830 == 0);
 
     delete pool;

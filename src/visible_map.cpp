@@ -1,12 +1,18 @@
 #include "visible_map.h"
 
+int D_004E3058 = 0;
+int *D_50A5A0[200];
+
 extern "C" {
-    extern int D_004E3058;
-    extern int *D_50A5A0[];
-    void __vec_ctor(void *ptr);
-    void *memset(void *dst, int val, unsigned int size);
-    void func_226d90(void *stream, void *dst, int size);
-    void func_226f70(void *stream, void *src, int size);
+    void __vec_ctor(void *ptr) { (void)ptr; }
+    void *memset(void *dst, int val, int size);
+    void *memcpy(void *dst, const void *src, int size);
+    void func_226d90(void *stream, void *dst, int size) {
+        memcpy(dst, stream, size);
+    }
+    void func_226f70(void *stream, void *src, int size) {
+        memcpy(stream, src, size);
+    }
 }
 
 void* func_00138760(void *self) {

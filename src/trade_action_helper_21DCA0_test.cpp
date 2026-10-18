@@ -1,43 +1,68 @@
 #include <cassert>
 #include <cstring>
 #include <cstdint>
+#include <vector>
 
 extern "C" {
-void *func_0021DCA0(void *obj, int a1, int a2, int a3);
-void *func_0021DC50(void *obj, int a1, int a2, int a3);
+void *func_0021DCA0(void *base, int base_idx, int count, int a3 = 0);
+void *func_0021DC50(void *obj, int a1, int a2 = 0, int a3 = 0);
 }
 
-static int dc50_calls = 0;
-static int last_a1 = 0;
-static int last_a2 = 0;
+struct CallRecord {
+    void *passed_ptr;
+    int passed_idx;
+};
+
+static std::vector<CallRecord> dc50_calls;
 
 extern "C" {
 // Original branch citation: 0x21DCD0 -> func_0021DC50
 void *func_0021DC50(void *obj, int a1, int a2, int a3) {
-    dc50_calls++;
-    last_a1 = a1;
-    last_a2 = a2;
+    (void)a2;
+    (void)a3;
+    CallRecord rec;
+    rec.passed_ptr = obj;
+    rec.passed_idx = a1;
+    dc50_calls.push_back(rec);
     return obj;
 }
 }
 
 void test_trade_action_helper_21DCA0() {
-    dc50_calls = 0;
-    char dummy[32];
-    int test_a1 = 10;
-    int test_a2 = 20;
-    int test_a3 = 5;
+    // Case 1: Standard iteration with count = 4
+    dc50_calls.clear();
+    char dummy_pool[4096];
+    int base_idx = 100;
+    int count = 4;
 
-    // Call func_0021DCA0 (Original VRAM 0x21DCA0)
-    void *res = func_0021DCA0(dummy, test_a1, test_a2, test_a3);
-    assert(res == dummy);
-    assert(dc50_calls == 1);
-    assert(last_a1 == test_a1 + 1);
-    assert(last_a2 == test_a2 + 1);
+    void *res = func_0021DCA0(dummy_pool, base_idx, count);
+    assert(res == dummy_pool + (3 * 0x400));
+    assert(dc50_calls.size() == 4);
 
-    // Mutation test: ensure +0 instead of +1 fails assertion
-    bool wrong_increment = (last_a1 == test_a1);
-    assert(!wrong_increment);
+    for (int i = 0; i < count; ++i) {
+        assert(dc50_calls[i].passed_ptr == dummy_pool + (i * 0x400));
+        assert(dc50_calls[i].passed_idx == base_idx + i);
+    }
+
+    // Case 2: Zero count (count = 0) -> no iterations
+    dc50_calls.clear();
+    void *res_zero = func_0021DCA0(dummy_pool, base_idx, 0);
+    assert(res_zero == 0);
+    assert(dc50_calls.empty());
+
+    // Case 3: Negative count (count = -5) -> no iterations
+    dc50_calls.clear();
+    void *res_neg = func_0021DCA0(dummy_pool, base_idx, -5);
+    assert(res_neg == 0);
+    assert(dc50_calls.empty());
+
+    // Case 4: Single iteration (count = 1)
+    dc50_calls.clear();
+    void *res_one = func_0021DCA0(dummy_pool, 55, 1);
+    assert(res_one == dummy_pool);
+    assert(dc50_calls.size() == 1);
+    assert(dc50_calls[0].passed_ptr == dummy_pool);
+    assert(dc50_calls[0].passed_idx == 55);
 }
 
 int main() {

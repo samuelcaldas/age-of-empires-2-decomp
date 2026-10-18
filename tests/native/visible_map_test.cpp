@@ -2,6 +2,20 @@
 #include <cstring>
 #include "visible_map.h"
 
+enum StreamCall {
+    CALL_NONE = 0,
+    CALL_READ_WIDTH,
+    CALL_READ_HEIGHT,
+    CALL_READ_BUFFER,
+    CALL_WRITE_WIDTH,
+    CALL_WRITE_HEIGHT,
+    CALL_WRITE_BUFFER
+};
+
+static StreamCall call_log[10];
+static int call_count = 0;
+static int last_sizes[10];
+
 extern "C" {
     extern int D_004E3058;
     extern int *D_50A5A0[200];

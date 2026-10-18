@@ -308,6 +308,108 @@ static void test_func_342170_call_history_sequence() {
     std::printf("PASS test_func_342170_call_history_sequence\n");
 }
 
+static void test_func_342170_mode0_exact_history() {
+    TacticalObj_341040 obj;
+    std::memset(&obj, 0, sizeof(obj));
+    MockSubObj mock_sub;
+    obj.field_838 = &mock_sub;
+    obj.field_84C = 0;
+    g_call_history.clear();
+
+    func_00342170(&obj, 100, 16, 0, 0);
+
+    assert(g_call_history.size() == 3);
+    assert(g_call_history[0].name == "func_33A5D0");
+    assert(g_call_history[0].self == &mock_sub);
+    assert(g_call_history[0].arg1 == 100);
+
+    assert(g_call_history[1].name == "func_339900");
+    assert(g_call_history[1].self == &obj);
+    assert(g_call_history[1].arg1 == 100);
+
+    assert(g_call_history[2].name == "func_33A730");
+
+    std::printf("PASS test_func_342170_mode0_exact_history\n");
+}
+
+static void test_func_342170_mode31_early_return_exact_history() {
+    TacticalObj_341040 obj;
+    std::memset(&obj, 0, sizeof(obj));
+    MockSubObj mock_sub;
+    obj.field_838 = &mock_sub;
+    obj.field_84C = 31;
+    g_call_history.clear();
+
+    func_00342170(&obj, 77, 55, 0, 0); // a2 = 55 != 1 -> early return
+
+    assert(g_call_history.size() == 3);
+    assert(g_call_history[0].name == "func_33A5D0");
+    assert(g_call_history[0].self == &mock_sub);
+    assert(g_call_history[0].arg1 == 77);
+
+    assert(g_call_history[1].name == "func_339900");
+    assert(g_call_history[1].self == &obj);
+    assert(g_call_history[1].arg1 == 77);
+
+    assert(g_call_history[2].name == "func_1FBD30");
+    assert(g_call_history[2].self == &obj);
+    assert(g_call_history[2].arg1 == 55);
+
+    std::printf("PASS test_func_342170_mode31_early_return_exact_history\n");
+}
+
+static void test_func_342170_mode45_exact_history() {
+    TacticalObj_341040 obj;
+    std::memset(&obj, 0, sizeof(obj));
+    MockSubObj mock_sub;
+    obj.field_838 = &mock_sub;
+    obj.field_84C = 45;
+    g_call_history.clear();
+
+    func_00342170(&obj, 123, 16, 0, 0);
+
+    assert(g_call_history.size() == 3);
+    assert(g_call_history[0].name == "func_33A5D0");
+    assert(g_call_history[0].self == &mock_sub);
+    assert(g_call_history[0].arg1 == 123);
+
+    assert(g_call_history[1].name == "func_339900");
+    assert(g_call_history[1].self == &obj);
+    assert(g_call_history[1].arg1 == 123);
+
+    assert(g_call_history[2].name == "func_339900");
+    assert(g_call_history[2].self == &obj);
+    assert(g_call_history[2].arg1 == 45);
+
+    std::printf("PASS test_func_342170_mode45_exact_history\n");
+}
+
+static void test_func_342170_t0_equals_1_exact_history() {
+    TacticalObj_341040 obj;
+    std::memset(&obj, 0, sizeof(obj));
+    MockSubObj mock_sub;
+    obj.field_838 = &mock_sub;
+    obj.field_84C = 1;
+    g_call_history.clear();
+
+    func_00342170(&obj, 88, 16, 0, 1); // t0 = 1
+
+    assert(g_call_history.size() == 3);
+    assert(g_call_history[0].name == "func_33A5D0");
+    assert(g_call_history[0].self == &mock_sub);
+    assert(g_call_history[0].arg1 == 88);
+
+    assert(g_call_history[1].name == "func_339900");
+    assert(g_call_history[1].self == &obj);
+    assert(g_call_history[1].arg1 == 88);
+
+    assert(g_call_history[2].name == "func_219BA0");
+    assert(g_call_history[2].self == &obj);
+    assert(g_call_history[2].arg1 == 10);
+
+    std::printf("PASS test_func_342170_t0_equals_1_exact_history\n");
+}
+
 int main() {
     test_initial_layout_state();
     test_func_342170_mode16_t0_xffff();
@@ -318,6 +420,10 @@ int main() {
     test_func_342170_mode31_a2_equals_1();
     test_func_342170_remaining_modes();
     test_func_342170_call_history_sequence();
-    std::printf("ALL TACTICAL AI LAYOUT TESTS PASSED WITH PER-CALL HISTORY SEQUENCE ASSERTIONS\n");
+    test_func_342170_mode0_exact_history();
+    test_func_342170_mode31_early_return_exact_history();
+    test_func_342170_mode45_exact_history();
+    test_func_342170_t0_equals_1_exact_history();
+    std::printf("ALL TACTICAL AI LAYOUT TESTS PASSED WITH EXACT PER-CALL HISTORY ASSERTIONS\n");
     return 0;
 }

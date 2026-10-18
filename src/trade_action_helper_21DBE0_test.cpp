@@ -52,7 +52,7 @@ void *func_21C050(void *obj, int mode) {
 }
 
 void test_trade_action_helper_21DBE0() {
-    // Scenario A: Standard invocation
+    // Scenario A: Standard unconditional invocation
     call_records.clear();
     reg_calls = 0;
     mode_calls = 0;
@@ -64,7 +64,6 @@ void test_trade_action_helper_21DBE0() {
     assert(mode_calls == 1);
     assert(call_records.size() == 2);
 
-    // Strict call order assertion: STEP_REG strictly precedes STEP_MODE
     // Verify delay-slot semantics: data passed to func_1046D0 is 0 (cleared by paddub delay slot at 0x21DC2C)
     // Verify retained a1 = 0x1F00 passed to func_21C050 at 0x21DC30
     assert(call_records[0].step == STEP_REG);
@@ -75,16 +74,6 @@ void test_trade_action_helper_21DBE0() {
     assert(call_records[1].step == STEP_MODE);
     assert(call_records[1].reg_or_mode == 0x1F00);
     assert(call_records[1].passed_obj == dummy);
-
-    // Scenario B: Null pointer safety and side-effect isolation
-    call_records.clear();
-    reg_calls = 0;
-    mode_calls = 0;
-    void *null_res = func_0021DBE0(0, 10, 42, 3);
-    assert(null_res == 0);
-    assert(reg_calls == 0);
-    assert(mode_calls == 0);
-    assert(call_records.empty());
 }
 
 int main() {

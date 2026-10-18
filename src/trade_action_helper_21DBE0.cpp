@@ -10,13 +10,9 @@ void *func_21C050(void *obj, int mode);
 // - Prologue at 0x21DBE0: addiu sp, sp, -48, saves ra (32(sp)) and s0 (16(sp)).
 // - Local stack setup & register loading (0x21DBEC - 0x21DC24): loads 0x1F00 into a1 at 0x21DC14.
 // - Call 1 at 0x21DC28 (jal 0x1046D0): delay slot at 0x21DC2C clears a2 (paddub a2, zero, zero), passing data = 0.
-// - Call 2 at 0x21DC30 (jal 0x21C050): passes obj (a0) and retained a1 = 0x1F00.
+// - Call 2 at 0x21DC30 (jal 0x21C050): passes obj (a0) and retained a1 = 0x1F00 (unconditional execution, no null check).
 // - Epilogue at 0x21DC38 - 0x21DC44: restores ra, s0, jr ra, and deallocates stack frame in delay slot.
 void *func_0021DBE0(void *obj, int a1, int a2, int a3) {
-    if (obj == 0) {
-        return 0;
-    }
-
     // Local work variables modeling stack frame spills
     volatile int local_sp_0 = 16;
     volatile int local_sp_8 = 16;

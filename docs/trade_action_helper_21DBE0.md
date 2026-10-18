@@ -14,8 +14,9 @@
   - Initializes local work variables on stack (`0(sp)`, `8(sp)`).
   - Prepares argument registers (`a1 = 0x1F00`, values derived from `a2`).
 - **Function Calls (`0x21DC28` & `0x21DC30`):**
-  - `jal 0x1046D0` (at `0x21DC28`, machine word `0x0C0411B4`): Invokes register write helper with target register `0x1F00` and data `a2`.
-  - `jal 0x21C050` (at `0x21DC30`, machine word `0x0C087014`): Invokes mode update helper with mode `a3`.
+  - `jal 0x1046D0` (at `0x21DC28`, machine word `0x0C0411B4`): Invokes register write helper with target register `0x1F00` and `a2 = 0` (cleared by delay-slot instruction at `0x21DC2C`).
+  - `jal 0x21C050` (at `0x21DC30`, machine word `0x0C087014`): Invokes mode update helper with retained `a1 = 0x1F00`.
+  - Unconditional execution (no null pointer early return check).
 - **Epilogue (`0x21DC38` – `0x21DC44`):**
   - `ld ra, 32(sp)` (Restore return address)
   - `ld s0, 16(sp)` (Restore s0)
@@ -23,7 +24,7 @@
   - `addiu sp, sp, 48` (Delay slot at `0x21DC44`: deallocate stack frame)
 
 ## 3. C++ Implementation & Verification
-- Implemented in `src/trade_action_helper_21DBE0.cpp` following strict C++98 purity, Object Calisthenics, SOLID, and fail-fast principles.
-- Tested via native 32-bit test harness (`src/trade_action_helper_21DBE0_test.cpp`) covering multiple distinct invocation scenarios (standard arguments, variant argument forwarding, and null-pointer safety with strict side-effect isolation).
+- Implemented in `src/trade_action_helper_21DBE0.cpp` following strict C++98 purity, Object Calisthenics, SOLID, and fail-fast principles (unconditional execution matching binary trace).
+- Tested via native 32-bit test harness (`src/trade_action_helper_21DBE0_test.cpp`) verifying delay-slot `a2 = 0` behavior and retained `a1 = 0x1F00` forwarding.
 - Validated via automated pytest suite (`tests/test_trade_action_helper_21DBE0.py`).
 - Registered as `NonMatching` in `configure.py` pending licensed Metrowerks compiler availability for exact byte-matching verification (`objdiff`).

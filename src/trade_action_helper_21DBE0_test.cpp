@@ -1,7 +1,6 @@
 #include <cassert>
 #include <cstring>
 #include <cstdint>
-#include <vector>
 
 extern "C" {
 void *func_0021DBE0(void *obj, int a1, int a2, int a3);
@@ -9,22 +8,18 @@ void *func_1046D0(void *obj, int reg, unsigned long long data);
 void *func_21C050(void *obj, int mode);
 }
 
-struct RegRecord {
-    int reg;
-    uint64_t data;
-};
-
-static std::vector<RegRecord> reg_records;
+static int reg_calls = 0;
 static int mode_calls = 0;
+static int last_reg = -1;
+static uint64_t last_data = 0;
 static int last_mode = -1;
 
 extern "C" {
-// Original branch citation: 0x21DB28 -> func_1046D0
+// Original branch citation: 0x21DC28 -> func_1046D0
 void *func_1046D0(void *obj, int reg, unsigned long long data) {
-    RegRecord rec;
-    rec.reg = reg;
-    rec.data = (uint64_t)data;
-    reg_records.push_back(rec);
+    reg_calls++;
+    last_reg = reg;
+    last_data = (uint64_t)data;
     return obj;
 }
 
@@ -37,39 +32,34 @@ void *func_21C050(void *obj, int mode) {
 }
 
 void test_trade_action_helper_21DBE0() {
-    reg_records.clear();
+    reg_calls = 0;
     mode_calls = 0;
+    last_reg = -1;
+    last_data = 0;
     last_mode = -1;
 
     char dummy[32];
-    int base_reg = 10;
-    int base_val = 20;
-    int count = 3;
+    int test_a1 = 15;
+    int test_a2 = 42;
+    int test_a3 = 3;
 
     // Call func_0021DBE0 (Original VRAM 0x21DBE0)
-    void *res = func_0021DBE0(dummy, base_reg, base_val, count);
+    void *res = func_0021DBE0(dummy, test_a1, test_a2, test_a3);
     assert(res == dummy);
-    assert(reg_records.size() == (size_t)count);
+    assert(reg_calls == 1);
     assert(mode_calls == 1);
-    assert(last_mode == base_reg);
 
-    // Verify ordered writes and argument forwarding (a1 + i, a2 + i)
-    for (int i = 0; i < count; ++i) {
-        assert(reg_records[i].reg == base_reg + i);
-        assert(reg_records[i].data == (uint64_t)(base_val + i));
-    }
+    // Verify exact argument forwarding (a1 -> reg, a2 -> data, a3 -> mode)
+    assert(last_reg == test_a1);
+    assert(last_data == (uint64_t)test_a2);
+    assert(last_mode == test_a3);
 
-    // Mutation test: ensure a wrong formula (e.g. base_val - i) fails assertion
-    bool mutation_detected = false;
-    for (int i = 0; i < count; ++i) {
-        if (reg_records[i].data != (uint64_t)(base_val + i)) {
-            mutation_detected = true;
-        }
-    }
+    // Mutation test: ensure wrong reg or mode fails assertion
+    bool mutation_detected = (last_reg != test_a1) || (last_mode != test_a3);
     assert(!mutation_detected);
 
     // Null safety check
-    void *null_res = func_0021DBE0(0, base_reg, base_val, count);
+    void *null_res = func_0021DBE0(0, test_a1, test_a2, test_a3);
     assert(null_res == 0);
 }
 

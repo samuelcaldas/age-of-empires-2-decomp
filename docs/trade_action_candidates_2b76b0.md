@@ -1,4 +1,4 @@
-# `trade_action_candidates` (`func_002B76B0`, `func_002B7BB0`, `func_002B8560`)
+# `trade_action_candidates` (`func_002B76B0`, `func_002B7BB0`, `func_002B8560`, `func_002B8980`)
 
 ## Overview
 
@@ -6,11 +6,13 @@
   - `func_002B76B0` (VRAM `0x2B76B0`–`0x2B7BB0`, File `0x1B7890`–`0x1B7D90`, 1,276 B code, 4 B padding, 1,280 B slice)
   - `func_002B7BB0` (VRAM `0x2B7BB0`–`0x2B8560`, File `0x1B7D90`–`0x1B8740`, 2,468 B code, 12 B padding, 2,480 B slice)
   - `func_002B8560` (VRAM `0x2B8560`–`0x2B8978`, File `0x1B8740`–`0x1B8B60`, 1,044 B code, 4 B padding, 1,048 B slice)
+  - `func_002B8980` (VRAM `0x2B8980`–`0x2B8E2C`, File `0x1B8B60`–`0x1B9020`, 1,196 B code, 4 B padding, 1,200 B slice)
 - **Source Files**:
   - `include/trade_action_candidates.h`
   - `include/trade_action_candidates_access.h`
   - `include/trade_action_candidates_dual.h`
   - `include/trade_action_candidates_selector.h`
+  - `include/trade_action_candidates_distance.h`
   - `src/trade_action_candidates.cpp`
 - **Status**: NonMatching (Pure C++, zero asm, Object Calisthenics compliant)
 
@@ -20,6 +22,7 @@
 int func_002B76B0(void *self, int a1, int a2, int a3, int t0);
 int func_002B7BB0(void *self, int a1, int a2, int a3);
 int func_002B8560(void *self, int mode);
+int func_002B8980(void *self, int *coords, int mode, int flag);
 ```
 
 ## Behavior and Architecture
@@ -67,3 +70,13 @@ int func_002B8560(void *self, int mode);
   - Evaluates `(func_002bfcd0(self, short_at(item, 36)) & 0xFF) == 1`.
   - If matched, immediately returns `short_at(item, 36)`.
 - **Return Value**: Returns matched candidate's sub-ID (or -1 if no candidate qualifies).
+
+### 4. `func_002B8980` (Distance-based Candidate Pool Selector)
+- **Scan Loop**: Iterates through pool array at `pointer_at(self, 180)` bounded by count at `self + 184`.
+- **Entity & Predicate Validation**: Resolves each item through `func_00332e60(manager_entity_root(self), item_id)` and checks virtual predicate `vtable[356/4]`.
+- **Mode Predicate Filter**: Same mode checks as `func_002B8560` via `func_002bf050` and pool exclusion.
+- **Distance Metric & Best Candidate Tracking**:
+  - Checks `(func_002bfcd0(self, short_at(item, 36)) & 0xFF) == 1`.
+  - Calls `func_00269190(coords[0], coords[1], item)`.
+  - Tracks candidate with highest score (`dist >= best` for mode 1; `dist > best` for mode 0).
+- **Return Value**: Sub-ID of the optimal candidate, or -1 if none qualify.

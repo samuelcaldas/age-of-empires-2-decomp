@@ -4,8 +4,10 @@
 #include "trade_action_candidates_access.h"
 
 extern "C" {
+void *func_00332e60(void *manager, int id);
 int func_002bf050(void *self, int item_id);
 int func_002bfcd0(void *self, short sub_id);
+float func_00269190(float x, float y, void *item);
 }
 
 namespace trade_action_candidates {
@@ -41,6 +43,41 @@ inline bool check_mode_predicate(void *self, int item_id, int mode) {
         }
     }
     return true;
+}
+
+inline bool is_better_distance(float dist, float best_dist, int flag) {
+    if (flag == 1) {
+        return dist <= best_dist;
+    }
+    if (flag == 0) {
+        return dist < best_dist;
+    }
+    return false;
+}
+
+inline void evaluate_distance_candidate(void *self, int item_id, void *item, int *coords, int mode, int flag,
+                                       short &best_sub_id, float &best_dist) {
+    if (!check_mode_predicate(self, item_id, mode)) {
+        return;
+    }
+    if ((func_002bfcd0(self, short_at(item, 36)) & 0xFF) != 1) {
+        return;
+    }
+
+    float x = static_cast<float>(coords[0]);
+    float y = static_cast<float>(coords[1]);
+    float dist = func_00269190(x, y, item);
+
+    if (best_sub_id == -1) {
+        best_sub_id = short_at(item, 36);
+        best_dist = dist;
+        return;
+    }
+
+    if (is_better_distance(dist, best_dist, flag)) {
+        best_sub_id = short_at(item, 36);
+        best_dist = dist;
+    }
 }
 
 } // namespace trade_action_candidates

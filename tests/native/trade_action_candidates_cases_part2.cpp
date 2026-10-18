@@ -42,6 +42,25 @@ static void run_selector_cases(int test_case, char *base, std::vector<char> &ent
         g_2bfcd0_return_val = 1;
         int res = func_002B8560(base, 0);
         assert(res == -1);
+    } else if (test_case == 19) {
+        int coords[2] = {100, 200};
+        g_2bfcd0_return_val = 1;
+        g_269190_return_val = 50.0f;
+        int res = func_002B8980(base, coords, 0, 0);
+        assert(res == 42);
+        assert(g_269190_calls == 2);
+    } else if (test_case == 20) {
+        int coords[2] = {100, 200};
+        g_2bfcd0_return_val = 0;
+        int res = func_002B8980(base, coords, 0, 0);
+        assert(res == -1);
+    } else if (test_case == 21) {
+        int coords[2] = {100, 200};
+        g_2bfcd0_return_val = 1;
+        g_269190_return_val = 50.0f;
+        int res = func_002B8980(base, coords, 0, 1);
+        assert(res == 42);
+        assert(g_269190_calls == 2);
     }
 }
 

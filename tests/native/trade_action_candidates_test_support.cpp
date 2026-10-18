@@ -11,6 +11,8 @@ int g_2bf050_calls = 0;
 int g_2bf050_return_val = 0;
 int g_2bfcd0_calls = 0;
 int g_2bfcd0_return_val = 0;
+int g_269190_calls = 0;
+float g_269190_return_val = 0.0f;
 
 void *g_mock_candidate_entity = 0;
 void *g_mock_linked_entity = 0;
@@ -27,6 +29,8 @@ void reset_candidates_test_support() {
     g_2bf050_return_val = 0;
     g_2bfcd0_calls = 0;
     g_2bfcd0_return_val = 0;
+    g_269190_calls = 0;
+    g_269190_return_val = 0.0f;
     g_mock_candidate_entity = 0;
     g_mock_linked_entity = 0;
 }
@@ -66,5 +70,10 @@ int func_002bf050(void *self, int item_id) {
 int func_002bfcd0(void *self, short sub_id) {
     g_2bfcd0_calls++;
     return g_2bfcd0_return_val;
+}
+
+float func_00269190(float x, float y, void *item) {
+    g_269190_calls++;
+    return g_269190_return_val;
 }
 }

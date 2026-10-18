@@ -4475,9 +4475,15 @@ segments:
     vram: 0x1EE900
     subsegments:
       - [0xEEAD0, asm, zone_spatial_grid_set_collision_margin]
+  - name: zone_spatial_grid_execute_query
+    type: code
+    start: 0xEEAF0
+    vram: 0x1EE920
+    subsegments:
+      - [0xEEAF0, asm, zone_spatial_grid_execute_query]
   - name: post_aoe2
     type: bin
-    start: 0xEEAF0
+    start: 0xEF080
   - name: trade_action_helper_217730
     type: code
     start: 0x117910

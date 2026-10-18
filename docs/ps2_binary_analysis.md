@@ -6958,7 +6958,7 @@ Located at VRAM `0x1890A0`–`0x189260` (file offset `0x89280`–`0x89440`, 448 
 | `func_00189150` | `0x189150` | 8 | **100.00% exact match** (8/8 B) | 8 B |
 | `func_00189160` | `0x189160` | 40 | **100.00% exact match** (40/40 B) | 8 B |
 | `func_00189190` | `0x189190` | 56 | **100.00% exact match** (56/56 B) | 8 B |
-| `func_001891d0` | `0x1891D0` | 56 | **100.00% exact match** (56/56 B) | 0 B |
+| `func_001891d0` | `0x1891D0` | 56 | **100.00% exact match** (56/56 B) | 8 B |
 | `func_00189210` | `0x189210` | 8 | **100.00% exact match** (8/8 B) | 8 B |
 | `func_00189220` | `0x189220` | 8 | **100.00% exact match** (8/8 B) | 8 B |
 | `func_00189230` | `0x189230` | 8 | **100.00% exact match** (8/8 B) | 8 B |
@@ -6971,6 +6971,50 @@ Located at VRAM `0x1890A0`–`0x189260` (file offset `0x89280`–`0x89440`, 448 
 
 
 
+
+#### 6.331 RenderManager Palette Blending (`0x189260`–`0x189480`, `render_manager_palette_blend.cpp`)
+
+`func_00189260` occupies VRAM `[0x189260, 0x189480)` and file offsets
+`[0x89440, 0x89660)`: **544 instruction bytes, no padding**. The complete range
+includes `jr $ra` at `0x189478` and its stack-restoring delay slot at `0x18947C`.
+Fresh MWCC PS2 2.3.1.01 compilation matches all 544 original bytes exactly.
+
+The routine processes 256 four-byte RGBA palette entries. Its third argument is
+a four-byte color passed by value in `$a2`; the color's alpha is ignored. Entries
+matching either excluded index are copied byte by byte. For other entries:
+
+1. Two bubble-sort passes order the source RGB components from largest to smallest.
+2. Brightness is `maximum + (((255 - maximum) * (middle + minimum)) >> 9)`.
+3. Each channel's target is `color_component * brightness / 255`.
+4. Each output is `source_component + (target - source_component) * percent / 100`.
+5. The original alpha byte is copied after the RGB writes.
+
+Both divisions are signed and truncate toward zero. The routine does not clamp
+the percentage or output components; conversion to an unsigned byte wraps.
+The caller supplies valid 1024-byte buffers. In-place processing preserves the
+original reads and writes; the source is not declared `restrict`.
+
+The original leaf function uses `$ra` as a blue-component pointer, explaining its
+saved return address despite having no calls. Its frame is `0x90` bytes, the
+packed color spill is at `sp + 0x7C`, and the three sorting integers occupy
+`sp + 0x80` through `sp + 0x88`. `#pragma exceptions off`,
+`#pragma divbyzerocheck on`, and `#pragma inline_depth(8)` retain the leaf body,
+explicit division-trap sequences, and small helper inlining. The two sorting
+passes remain in one inline scope: separating them into additional helpers
+changes MWCC register allocation and loses literal matching.
+
+`tests/test_render_manager_palette_blend.py` compiles the production C++ with
+32-bit native fixtures. Hand-derived expected values cover percentage endpoints,
+signed truncation, extrapolation and byte wrapping, six RGB permutations, black
+and white entries, excluded indices, alpha preservation, full-buffer canaries,
+and in-place aliasing. The matching tests select the function using its ELF
+symbol's `st_shndx`, reject unexpected leaf relocations, require the full `0x220`
+size, compare every byte against the SHA-1-pinned original through `PT_LOAD`,
+and validate the production symbol and split boundaries.
+
+| Function | VRAM | Instruction bytes | Byte comparison | Padding |
+|---|---:|---:|---|---:|
+| `func_00189260` | `0x189260` | 544 | **100.00% exact match** (544/544 B) | 0 B |
 
 #### Zone Terrain and Coordinate Transformation Slices (`0x1CDD00`–`0x1D1430`)
 

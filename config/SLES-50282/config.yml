@@ -4908,64 +4908,64 @@ segments:
       - [0x11D9A0, asm, trade_action_helper_21D980]
   - name: trade_action_helper_21DBE0
     type: code
-    start: 0x11DBE0
+    start: 0x11DDC0
     vram: 0x21DBE0
     subsegments:
-      - [0x11DBE0, asm, trade_action_helper_21DBE0]
+      - [0x11DDC0, asm, trade_action_helper_21DBE0]
   - name: trade_action_helper_21DC50
     type: code
-    start: 0x11DC50
+    start: 0x11DE30
     vram: 0x21DC50
     subsegments:
-      - [0x11DC50, asm, trade_action_helper_21DC50]
+      - [0x11DE30, asm, trade_action_helper_21DC50]
   - name: trade_action_helper_21DCA0
     type: code
-    start: 0x11DCA0
+    start: 0x11DE80
     vram: 0x21DCA0
     subsegments:
-      - [0x11DCA0, asm, trade_action_helper_21DCA0]
+      - [0x11DE80, asm, trade_action_helper_21DCA0]
   - name: trade_action_helper_21DD10
     type: code
-    start: 0x11DD10
+    start: 0x11DEF0
     vram: 0x21DD10
     subsegments:
-      - [0x11DD10, asm, trade_action_helper_21DD10]
+      - [0x11DEF0, asm, trade_action_helper_21DD10]
   - name: trade_action_helper_21DE20
     type: code
-    start: 0x11DE20
+    start: 0x11E000
     vram: 0x21DE20
     subsegments:
-      - [0x11DE20, asm, trade_action_helper_21DE20]
+      - [0x11E000, asm, trade_action_helper_21DE20]
   - name: trade_action_helper_21DE90
     type: code
-    start: 0x11DE90
+    start: 0x11E070
     vram: 0x21DE90
     subsegments:
-      - [0x11DE90, asm, trade_action_helper_21DE90]
+      - [0x11E070, asm, trade_action_helper_21DE90]
   - name: trade_action_helper_21DF50
     type: code
-    start: 0x11DF50
+    start: 0x11E130
     vram: 0x21DF50
     subsegments:
-      - [0x11DF50, asm, trade_action_helper_21DF50]
+      - [0x11E130, asm, trade_action_helper_21DF50]
   - name: trade_action_helper_21E090
     type: code
-    start: 0x11E090
+    start: 0x11E270
     vram: 0x21E090
     subsegments:
-      - [0x11E090, asm, trade_action_helper_21E090]
+      - [0x11E270, asm, trade_action_helper_21E090]
   - name: trade_action_helper_21E0D0
     type: code
-    start: 0x11E0D0
+    start: 0x11E2B0
     vram: 0x21E0D0
     subsegments:
-      - [0x11E0D0, asm, trade_action_helper_21E0D0]
+      - [0x11E2B0, asm, trade_action_helper_21E0D0]
   - name: trade_action_helper_21E1C0
     type: code
-    start: 0x11E1C0
+    start: 0x11E3A0
     vram: 0x21E1C0
     subsegments:
-      - [0x11E1C0, asm, trade_action_helper_21E1C0]
+      - [0x11E3A0, asm, trade_action_helper_21E1C0]
   - name: unit_action_core
     type: code
     start: 0x166960

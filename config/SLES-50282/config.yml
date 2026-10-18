@@ -4499,9 +4499,15 @@ segments:
     vram: 0x1EF410
     subsegments:
       - [0xEF5E0, asm, zone_spatial_grid_intersect_segments_2d]
+  - name: zone_spatial_grid_trace_ray_tiles
+    type: code
+    start: 0xEF630
+    vram: 0x1EF460
+    subsegments:
+      - [0xEF630, asm, zone_spatial_grid_trace_ray_tiles]
   - name: post_aoe2
     type: bin
-    start: 0xEF630
+    start: 0xEFAE0
   - name: trade_action_helper_217730
     type: code
     start: 0x117910

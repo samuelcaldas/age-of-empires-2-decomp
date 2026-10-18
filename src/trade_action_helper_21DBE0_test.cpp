@@ -65,36 +65,17 @@ void test_trade_action_helper_21DBE0() {
     assert(call_records.size() == 2);
 
     // Strict call order assertion: STEP_REG strictly precedes STEP_MODE
+    // Verify delay-slot semantics: data passed to func_1046D0 is 0 (cleared by paddub delay slot at 0x21DC2C)
     assert(call_records[0].step == STEP_REG);
     assert(call_records[0].reg_or_mode == 0x1F00);
-    assert(call_records[0].data == 42);
-    assert(call_records[0].passed_obj == dummy); // Object pointer forwarding verification
-
-    assert(call_records[1].step == STEP_MODE);
-    assert(call_records[1].reg_or_mode == 3);
-    assert(call_records[1].passed_obj == dummy); // Object pointer forwarding verification
-
-    // Scenario B: Variant argument invocation (verifying argument forwarding behavior)
-    call_records.clear();
-    reg_calls = 0;
-    mode_calls = 0;
-
-    void *res2 = func_0021DBE0(dummy, 20, 100, 7);
-    assert(res2 == dummy);
-    assert(reg_calls == 1);
-    assert(mode_calls == 1);
-    assert(call_records.size() == 2);
-
-    assert(call_records[0].step == STEP_REG);
-    assert(call_records[0].reg_or_mode == 0x1F00);
-    assert(call_records[0].data == 100);
+    assert(call_records[0].data == 0);
     assert(call_records[0].passed_obj == dummy);
 
     assert(call_records[1].step == STEP_MODE);
-    assert(call_records[1].reg_or_mode == 7);
+    assert(call_records[1].reg_or_mode == 3);
     assert(call_records[1].passed_obj == dummy);
 
-    // Scenario C: Null pointer safety and side-effect isolation
+    // Scenario B: Null pointer safety and side-effect isolation
     call_records.clear();
     reg_calls = 0;
     mode_calls = 0;

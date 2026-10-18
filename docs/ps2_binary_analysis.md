@@ -7188,3 +7188,15 @@ Located at VRAM `0x21BFD0`–`0x21C410` (file offset `0x11C1B0`–`0x11C5F0`, 10
 
 Pure C++ following Object Calisthenics, SOLID, and fail-fast principles. Validated with native regression tests in `tests/native/trade_action_helper_21BFD0_test.cpp` and pytest runner in `tests/test_trade_action_helper_21BFD0.py`.
 
+#### 6.194 `GIF/GS Packet Builder Register Setters` Subsystem (`0x21C410`–`0x21C710`, `trade_action_helper_21C410.cpp`)
+
+Located at VRAM `0x21C410`–`0x21C710` (file offset `0x11C5F0`–`0x11C8F0`, 768 bytes total slice, Metrowerks C++ PS2 MWCC 2.3.1.01):
+- `func_0021C410` (`0x21C410`, 144 bytes code): Constructs packet object, initializes with tag quadword `D_00392B30` (`0x00008000, 0x10000000, 0x0000000E, 0x00000000`), converts `a1` with zero-extension to 64-bit, writes to register `0x4A`, and finalizes.
+- `func_0021C4A0` (`0x21C4A0`, 144 bytes code): Constructs packet object, initializes with tag quadword `D_00392B30`, converts `a1` with zero-extension to 64-bit, writes to register `0x4B`, and finalizes.
+- `func_0021C530` (`0x21C530`, 224 bytes code): Constructs packet object, packs 4-component bitfield into 64-bit value `a1 | (a2<<16) | (a3<<24) | ((u64)t0<<32)`, writes to register `0x4D`, and finalizes.
+- `func_0021C610` (`0x21C610`, 128 bytes code): Constructs packet object, initializes with tag quadword `D_00392B30`, writes register `0x48` directly with `a1`, and finalizes.
+- `func_0021C690` (`0x21C690`, 128 bytes code): Constructs packet object, initializes with tag quadword `D_00392B30`, writes register `0x41` directly with `a1`, and finalizes.
+
+Pure C++ following Object Calisthenics, SOLID, and fail-fast principles. Validated with native regression tests in `tests/native/trade_action_helper_21C410_test.cpp` and pytest runner in `tests/test_trade_action_helper_21C410.py`.
+
+

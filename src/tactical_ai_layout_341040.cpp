@@ -236,6 +236,69 @@ void func_00341040(TacticalObj_341040 *self) {
         }
         break;
     }
+    case 25: {
+        if (sub82C) {
+            ((VFunc_104)(*(void***)sub82C)[65])(sub82C, 0xc3e6);
+        }
+        if (sub830) {
+            ((VFunc_28)(*(void***)sub830)[7])(sub830, 0);
+        }
+        if (sub834) {
+            ((VFunc_28)(*(void***)sub834)[7])(sub834, 0);
+        }
+        break;
+    }
+    case 26: {
+        if (sub82C) {
+            ((VFunc_104)(*(void***)sub82C)[65])(sub82C, 0xc3e7);
+        }
+        if (sub830) {
+            ((VFunc_28)(*(void***)sub830)[7])(sub830, 0);
+        }
+        if (sub834) {
+            ((VFunc_28)(*(void***)sub834)[7])(sub834, 0);
+        }
+        break;
+    }
+    case 27: {
+        if (sub82C) {
+            ((VFunc_104)(*(void***)sub82C)[65])(sub82C, 0xc3e8);
+        }
+        if (sub830) {
+            ((VFunc_28)(*(void***)sub830)[7])(sub830, 1);
+            ((VFunc_36)(*(void***)sub830)[9])(sub830, 108, 172, 114, 26);
+        }
+        if (sub834) {
+            ((VFunc_28)(*(void***)sub834)[7])(sub834, 0);
+        }
+        break;
+    }
+    case 28: {
+        if (sub82C) {
+            ((VFunc_104)(*(void***)sub82C)[65])(sub82C, 0xc3cd);
+        }
+        if (sub830) {
+            ((VFunc_28)(*(void***)sub830)[7])(sub830, 1);
+            ((VFunc_36)(*(void***)sub830)[9])(sub830, 108, 172, 114, 26);
+        }
+        if (sub834) {
+            ((VFunc_28)(*(void***)sub834)[7])(sub834, 0);
+        }
+        break;
+    }
+    case 29: {
+        if (sub82C) {
+            ((VFunc_104)(*(void***)sub82C)[65])(sub82C, 0xc3ce);
+        }
+        if (sub830) {
+            ((VFunc_28)(*(void***)sub830)[7])(sub830, 1);
+            ((VFunc_36)(*(void***)sub830)[9])(sub830, 108, 172, 114, 26);
+        }
+        if (sub834) {
+            ((VFunc_28)(*(void***)sub834)[7])(sub834, 0);
+        }
+        break;
+    }
     default:
         break;
     }

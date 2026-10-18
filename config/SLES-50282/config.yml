@@ -4523,9 +4523,21 @@ segments:
     vram: 0x1F02A0
     subsegments:
       - [0xF0470, asm, zone_spatial_grid_record_raycast_hit]
+  - name: zone_spatial_grid_test_ray_box
+    type: code
+    start: 0xF0510
+    vram: 0x1F0340
+    subsegments:
+      - [0xF0510, asm, zone_spatial_grid_test_ray_box]
+  - name: zone_spatial_grid_intersect_ray_edge
+    type: code
+    start: 0xF0710
+    vram: 0x1F0540
+    subsegments:
+      - [0xF0710, asm, zone_spatial_grid_intersect_ray_edge]
   - name: post_aoe2
     type: bin
-    start: 0xF0510
+    start: 0xF0800
   - name: trade_action_helper_217730
     type: code
     start: 0x117910

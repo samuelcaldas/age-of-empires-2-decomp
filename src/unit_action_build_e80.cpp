@@ -100,7 +100,7 @@ int func_00272E80(void *self, void *target, int flag1,
     void *owner = *(void **)((char *)self + 0x8);
 #endif
 
-    if (*(void **)((char *)owner + 0xBA0) == nullptr) {
+    if (*(void **)((char *)owner + 0xBA0) == 0) {
         short type = *(short *)((char *)proto + 0xE);
         if (!is_excluded_filter_type(type)) {
             func_0026AD30(self, 0x80);

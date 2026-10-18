@@ -1,5 +1,4 @@
 #pragma exceptions off
-#include <cmath>
 #include "unit_action_build_a30.h"
 
 float func_00271A30(void *self, float target_x, float target_y,
@@ -25,7 +24,7 @@ float func_00271A30(void *self, float target_x, float target_y,
     if (dx < 0.0f) dx = 0.0f;
     if (dy < 0.0f) dy = 0.0f;
 
-    float dist = std::sqrt(dx * dx + dy * dy);
+    float dist = func_1234E0(dx * dx + dy * dy);
     if (dist < 0.1f) {
         dist = 0.1f;
     }

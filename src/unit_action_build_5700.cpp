@@ -28,7 +28,7 @@ static bool check_special_siege_attack(void *self, void *target, void *proto) {
 }
 
 int func_275700(void *self, void *target, void *arg2, float damage_mult) {
-    if (target == nullptr) {
+    if (target == 0) {
         return 0;
     }
 

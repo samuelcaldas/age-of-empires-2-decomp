@@ -1,5 +1,4 @@
 #pragma exceptions off
-#include <cmath>
 #include "unit_action_build_7450.h"
 
 extern "C" {
@@ -31,8 +30,8 @@ static bool compute_ray_steps(float dx, float dy, float &step_x, float &step_y, 
     if (dx == 0.0f && dy == 0.0f) {
         return false;
     }
-    float adx = std::abs(dx);
-    float ady = std::abs(dy);
+    float adx = ((dx < 0.0f) ? -dx : dx);
+    float ady = ((dy < 0.0f) ? -dy : dy);
     float max_delta = (ady <= adx) ? adx : ady;
     int rounded = func_123350(max_delta);
     steps = func_114308(rounded) << 1;
@@ -42,8 +41,8 @@ static bool compute_ray_steps(float dx, float dy, float &step_x, float &step_y, 
 }
 
 static void setup_offsets(float step_x, float step_y, int &ox1, int &oy1, int &ox2, int &oy2) {
-    float ax = std::abs(step_x);
-    float ay = std::abs(step_y);
+    float ax = ((step_x < 0.0f) ? -step_x : step_x);
+    float ay = ((step_y < 0.0f) ? -step_y : step_y);
     if (ax <= ay) {
         ox1 = 0; oy1 = -1;
         ox2 = 1; oy2 = 0;

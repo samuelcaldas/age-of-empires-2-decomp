@@ -18,7 +18,7 @@ extern "C" {
 void func_002795E0(void *self, void *target) {
     void *action_mgr = *(void **)((char *)self + UNIT_ACTION_OFFSET);
     func_138D10(action_mgr);
-    void *task = func_366DA0(nullptr);
+    void *task = func_366DA0(0);
     if (task == 0) return;
     func_365740(task, self, target);
     func_139430(action_mgr, task);

@@ -33,7 +33,7 @@ static void write_initial_fields(void *self, void *stream) {
 
 static void write_target_object(void *self, void *stream) {
     void *c8 = *(void **)((char *)self + 0xC8);
-    if (c8 != nullptr) {
+    if (c8 != 0) {
         int one_val = 1;
         func_00226F70(stream, &one_val, 4);
         void *obj = *(void **)c8;

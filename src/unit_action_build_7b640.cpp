@@ -34,7 +34,7 @@ void *func_0027B6B0(void *self) {
             return (void *)entry;
         }
     }
-    return nullptr;
+    return 0;
 }
 
 // Backward-compatible aliases

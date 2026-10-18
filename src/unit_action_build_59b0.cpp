@@ -11,7 +11,7 @@ void func_2759B0(void *self, short *out_rate, short *out_range) {
 #endif
 
     void *entries = *(void **)((char *)proto + 0xEC);
-    if (entries != nullptr) {
+    if (entries != 0) {
         short count = *(short *)((char *)proto + 0xEA);
         for (int i = 0; i < count; ++i) {
             char *entry = (char *)entries + i * 4;

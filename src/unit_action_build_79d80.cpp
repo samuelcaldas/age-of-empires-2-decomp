@@ -49,7 +49,7 @@ static int order_packed_move(void *self, void *target) {
 }
 
 static int dispatch_siege_repack_task(void *self) {
-    void *task = func_366D40(nullptr);
+    void *task = func_366D40(0);
     if (task == 0) return 0;
     func_35FAC0(task, self, -1);
     void **vtbl = *(void ***)self;
@@ -59,7 +59,7 @@ static int dispatch_siege_repack_task(void *self) {
 }
 
 static int dispatch_siege_unpack_task(void *self, void *target) {
-    void *task = func_366D90(nullptr);
+    void *task = func_366D90(0);
     if (task == 0) return 0;
     float sx = *(float *)((char *)self + 0x44);
     float sy = *(float *)((char *)self + 0x48);

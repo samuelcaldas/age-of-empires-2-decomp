@@ -31,7 +31,7 @@ static bool is_busy_packing(void *self) {
 }
 
 static int dispatch_pack_task(void *self) {
-    void *task = func_366D40(nullptr);
+    void *task = func_366D40(0);
     if (task == 0) return 0;
     func_35FAC0(task, self, -1);
     void **vtbl = *(void ***)self;
@@ -41,11 +41,11 @@ static int dispatch_pack_task(void *self) {
 }
 
 static int dispatch_unpack_task(void *self) {
-    void *task = func_366D90(nullptr);
+    void *task = func_366D90(0);
     if (task == 0) return 0;
     float sx = *(float *)((char *)self + 0x44);
     float sy = *(float *)((char *)self + 0x48);
-    func_364E20(task, self, nullptr, -1, sx, sy);
+    func_364E20(task, self, 0, -1, sx, sy);
     void **vtbl = *(void ***)self;
     SetTaskFn set_task = (SetTaskFn)vtbl[196];
     set_task(self, task);

@@ -463,6 +463,32 @@ static void test_func_342170_t0_equals_2_exact_history() {
     std::printf("PASS test_func_342170_t0_equals_2_exact_history\n");
 }
 
+static void test_func_342170_mode31_a2_equals_1_exact_history() {
+    TacticalObj_341040 obj;
+    std::memset(&obj, 0, sizeof(obj));
+    MockSubObj mock_sub;
+    obj.field_838 = &mock_sub;
+    obj.field_84C = 31;
+    g_call_history.clear();
+
+    func_00342170(&obj, 111, 1, 0, 0); // a2 = 1 -> mode 31 switch case, calls func_339960(self, 1)
+
+    assert(g_call_history.size() == 3);
+    assert(g_call_history[0].name == "func_33A5D0");
+    assert(g_call_history[0].self == &mock_sub);
+    assert(g_call_history[0].arg1 == 111);
+
+    assert(g_call_history[1].name == "func_339900");
+    assert(g_call_history[1].self == &obj);
+    assert(g_call_history[1].arg1 == 111);
+
+    assert(g_call_history[2].name == "func_339960");
+    assert(g_call_history[2].self == &obj);
+    assert(g_call_history[2].arg1 == 1);
+
+    std::printf("PASS test_func_342170_mode31_a2_equals_1_exact_history\n");
+}
+
 int main() {
     test_initial_layout_state();
     test_func_342170_mode16_t0_xffff();
@@ -479,6 +505,7 @@ int main() {
     test_func_342170_t0_equals_1_exact_history();
     test_func_342170_mode40_50_exact_history();
     test_func_342170_t0_equals_2_exact_history();
+    test_func_342170_mode31_a2_equals_1_exact_history();
     std::printf("ALL TACTICAL AI LAYOUT TESTS PASSED WITH COMPLETE EXACT HISTORY ASSERTIONS\n");
     return 0;
 }

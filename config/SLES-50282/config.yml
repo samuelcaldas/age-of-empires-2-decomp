@@ -4619,9 +4619,15 @@ segments:
     vram: 0x1F21E0
     subsegments:
       - [0xF23C0, asm, zone_spatial_grid_node_pool_add_zone]
+  - name: zone_spatial_grid_node_pool_alloc_node
+    type: code
+    start: 0xF2500
+    vram: 0x1F2320
+    subsegments:
+      - [0xF2500, asm, zone_spatial_grid_node_pool_alloc_node]
   - name: post_aoe2
     type: bin
-    start: 0xF2500
+    start: 0xF2680
   - name: trade_action_helper_217730
     type: code
     start: 0x117910

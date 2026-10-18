@@ -256,6 +256,8 @@ Starting at VRAM `0x137810` (file offset `0x379e0`), the binary transitions from
 | `MapZone::Stub` (`func_00137E90`) | `0x137E90` | **100.0%** (8 / 8 B) | MapZone stub method (`jr ra; nop`). |
 | `MapZone::HideLOS` (`func_00137EA0`) | `0x137EA0` | **61.37%** (404 / 404 B) | Line-of-sight clearing and grid masking against sight radius and mode lookup tables. |
 | `MapZone::AddLOSRect` (`func_00138040`) | `0x138040` | **83.02%** (728 / 728 B) | Rectangular line-of-sight addition, tile state progression, and stance/ally notification. |
+| `MapZone::HideLOSRect` (`func_00138320`) | `0x138320` | **88.75%** (404 / 404 B) | Rectangular line-of-sight concealment, tile value restoration, and flag clearing. |
+| `MapZone::RevealLOSRect` (`func_001384C0`) | `0x1384C0` | **79.5%** (444 / 444 B) | Rectangular line-of-sight revelation, unrevealed tile counter increment, world notifications, and ally updates. |
 
 ### 6.3.1 KCET Hardware Layer Strings and Symbol Discoveries
 Inspection of `AOK.ELF` in the assertion/rodata pool (`0x490820` - `0x490900`) recovered exact file names and assertions from KCET's peripheral abstraction layer:

@@ -174,15 +174,19 @@ int func_001C7850(
         return 5;
     }
 
-    int check_min_x = func_123350(x - 8.0f);
-    int check_min_y = func_123350(y - 8.0f);
-    int check_max_x = func_123350(x + 8.0f);
-    int check_max_y = func_123350(y + 8.0f);
+    if (rx <= 0.0f && ry <= 0.0f) {
+        return 0;
+    }
+
+    short check_min_x = (short)func_123350(x - 8.0f);
+    short check_min_y = (short)func_123350(y - 8.0f);
+    short check_max_x = (short)func_123350(x + 8.0f);
+    short check_max_y = (short)func_123350(y + 8.0f);
 
     if (check_min_x < 0) check_min_x = 0;
-    if (check_max_x >= map_w) check_max_x = map_w - 1;
+    if (check_max_x >= map_w) check_max_x = (short)(map_w - 1);
     if (check_min_y < 0) check_min_y = 0;
-    if (check_max_y >= map_h) check_max_y = map_h - 1;
+    if (check_max_y >= map_h) check_max_y = (short)(map_h - 1);
 
     if (bld->m_id == 0x3B) {
         bld->m_field28 = 1.0f;

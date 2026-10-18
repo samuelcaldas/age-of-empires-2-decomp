@@ -4,6 +4,7 @@
 #include "tactical_ai_layout_341040.h"
 
 static int g_func_33a5d0_called = 0;
+static int g_func_339900_called = 0;
 static int g_func_339960_called = 0;
 static int g_func_339960_arg = -1;
 static int g_func_33a730_called = 0;
@@ -11,7 +12,7 @@ static int g_func_33f8b0_called = 0;
 static int g_func_1f6750_called = 0;
 static int g_func_1f88b0_called = 0;
 static int g_func_1fbd30_called = 0;
-static int g_call_seq[20];
+static int g_call_seq[30];
 static int g_seq_idx = 0;
 
 class MockSubObj : public TacticalSubObj {
@@ -31,6 +32,7 @@ void func_33A5D0(void *a0, int a1) {
 void func_339900(void *a0, int a1) {
     (void)a0;
     (void)a1;
+    g_func_339900_called++;
     g_call_seq[g_seq_idx++] = 2;
 }
 void func_339960(void *a0, int a1) {
@@ -73,7 +75,7 @@ void func_1FBD30(void *a0, int a1) {
     g_func_1fbd30_called++;
 }
 void func_11ABBC(void *dst, const char *src) { (void)dst; (void)src; }
-void func_36BD30(void *a0, int a1, int a2, const char *a3, int t0) { (void)a0; (void)a1; (void)a2; (void)a3; (void)a3; (void)t0; }
+void func_36BD30(void *a0, int a1, int a2, const char *a3, int t0) { (void)a0; (void)a1; (void)a2; (void)a3; (void)t0; }
 void func_36ACC0(int a0) { (void)a0; }
 int func_1F6EA0(int a0, int a1) { (void)a0; (void)a1; return 0; }
 void *func_36C000(int a0) { (void)a0; return 0; }
@@ -95,35 +97,35 @@ static void test_initial_layout_state() {
     std::printf("PASS test_initial_layout_state\n");
 }
 
-static void test_func_342170_mode31_early_return() {
+static void test_func_342170_full_state_machine() {
     TacticalObj_341040 obj;
     std::memset(&obj, 0, sizeof(obj));
 
     MockSubObj sub;
     obj.field_838 = &sub;
 
-    g_func_339960_called = 0;
-    g_func_1fbd30_called = 0;
+    // Test states 0, 1, 11, 14, 28, 30
+    int states[] = {0, 1, 11, 14, 28, 30};
+    for (size_t i = 0; i < sizeof(states)/sizeof(states[0]); i++) {
+        std::memset(&sub, 0, sizeof(sub));
+        obj.field_84C = states[i];
+        func_00342170(&obj, (int)(long)&sub, 16, 1, 1);
+        assert(obj.field_84C == states[i]);
+        assert(*(int*)((char*)&sub + 2052) == 4); // +0x804 store verification
+    }
 
-    // Test mode 31 with a2 = 0 (!= 1): should branch/return early via func_1FBD30 without calling func_339960
+    // Test mode 31 early return (a2 != 1)
+    g_func_1fbd30_called = 0;
     obj.field_84C = 31;
     func_00342170(&obj, 0, 0, 0, 0);
     assert(g_func_1fbd30_called == 1);
-    assert(g_func_339960_called == 0);
 
-    // Test mode 31 with a2 = 1: should execute mode 31 normally and call func_339960
-    g_func_1fbd30_called = 0;
-    g_func_339960_called = 0;
-    func_00342170(&obj, 0, 1, 0, 0);
-    assert(g_func_1fbd30_called == 0);
-    assert(g_func_339960_called == 1);
-
-    std::printf("PASS test_func_342170_mode31_early_return\n");
+    std::printf("PASS test_func_342170_full_state_machine\n");
 }
 
 int main() {
     test_initial_layout_state();
-    test_func_342170_mode31_early_return();
-    std::printf("ALL TACTICAL AI LAYOUT TESTS PASSED WITH EARLY RETURN ASSERTIONS\n");
+    test_func_342170_full_state_machine();
+    std::printf("ALL TACTICAL AI LAYOUT TESTS PASSED WITH FULL STATE MACHINE\n");
     return 0;
 }

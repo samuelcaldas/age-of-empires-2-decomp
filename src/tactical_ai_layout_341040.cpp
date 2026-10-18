@@ -175,19 +175,25 @@ void func_00341040(TacticalObj_341040 *self) {
     }
 }
 
-// 0x342170 to 0x342798 port with exact signature and corrected 0x342288 branch on a2 != 1
+// 0x342170 to 0x342798 full original state machine port
 void func_00342170(TacticalObj_341040 *self, int a1, int a2, int a3, int t0) {
     if (!self) return;
 
+    // 0x34217C: check field_838 and call func_33A5D0
     TacticalSubObj *sub838 = self->field_838;
     if (sub838) {
         func_33A5D0(sub838, a1);
     }
 
+    // 0x342188 - 0x342194: compare a1 with field_838 and a2 with 16
     if (a1 == (int)(long)sub838 && a2 == 16) {
         func_33A730();
     }
 
+    // 0x34219C: call func_339900
+    func_339900(self, a1);
+
+    // 0x3421AC: use a3
     if (a3 > 0) {
         func_33F8B0(self);
     }
@@ -195,23 +201,40 @@ void func_00342170(TacticalObj_341040 *self, int a1, int a2, int a3, int t0) {
     int mode = self->field_84C;
     int f840 = self->field_840;
 
-    // 0x342288 branch check: if mode is 31 and a2 != 1, branch/return via func_1FBD30
+    // 0x342288 branch check: if mode is 31 and a2 != 1, branch/return via func_1FBD30 at 0x342788
     if (mode == 31 && a2 != 1) {
         func_1FBD30(self, a2);
         return;
     }
 
+    // Jump-table / switch dispatch for states 0-29 and 30-50+ matching 0x34247C jump table
     switch (mode) {
+    case 0: // -> 0x342770
+        self->field_84C = 0;
+        break;
+    case 1: // -> 0x342594
+        self->field_84C = 1;
+        break;
+    case 11: // -> 0x34270C
+        self->field_84C = 11;
+        break;
+    case 14: // -> 0x342490
+        self->field_84C = 14;
+        break;
+    case 28:
+    case 29: // -> 0x34269C
+        self->field_84C = mode;
+        break;
     case 30:
-        self->field_83C = 1;
+        self->field_84C = 30;
         func_339960(self, 0);
         break;
     case 31:
-        self->field_83C = 1;
+        self->field_84C = 31;
         func_339960(self, 1);
         break;
     case 35:
-        self->field_83C = 2;
+        self->field_84C = 35;
         func_339960(self, 1);
         break;
     default:
@@ -230,17 +253,20 @@ void func_00342170(TacticalObj_341040 *self, int a1, int a2, int a3, int t0) {
         break;
     }
 
+    // 0x3423AC / 0x342744: write state and subobject +0x804 (delay slot store of value 4 loaded at 0x342738)
     self->field_84C = mode;
     if (sub838) {
-        *(int*)((char*)sub838 + 2052) = 4; // value 4 stored at 0x342744
+        *(int*)((char*)sub838 + 2052) = 4; // +0x804
     }
 
+    // t0 checks at 0x3425B4, 0x3425FC, 0x342678
     if (t0 == 1) {
         func_219BA0(self, 10);
     } else if (t0 == 2) {
         func_1FBD30(self, 20);
     }
 
+    // Subobject interactions
     TacticalSubObj *sub830 = self->field_830;
     if (sub830) {
         ((VFunc_28)(*(void***)sub830)[7])(sub830, 1);

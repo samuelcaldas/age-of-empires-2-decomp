@@ -86,35 +86,20 @@ void func_33A730() {
 }
 static int g_func_339900_ret = 0;
 static int g_func_340cf0_ret = 0;
-void func_33A5D0(void *a0, int a1, ...) {
+void func_33A5D0(int a0, int a1, int a2, int a3, int a4, int a5) {
     g_func_33a5d0_called++;
-    va_list ap;
-    va_start(ap, a1);
-    int a2 = va_arg(ap, int);
-    int a3 = va_arg(ap, int);
-    int a4 = va_arg(ap, int);
-    int a5 = va_arg(ap, int);
-    va_end(ap);
-    log_call("func_33A5D0", a0, (int)(long)a0, a1, a2, a3, a4, a5);
+    log_call("func_33A5D0", NULL, a0, a1, a2, a3, a4, a5);
 }
-int func_339900(void *a0, int a1) {
-    log_call("func_339900", a0, a1);
+int func_339900(TacticalObj_341040 *self, int a1) {
+    log_call("func_339900", self, a1);
     g_func_339900_called++;
     g_last_339900_arg = a1;
     return g_func_339900_ret;
 }
-void func_339960(void *a0, int a1, ...) {
+void func_339960(int a0, int a1, int a2, int a3, int a4, int a5, int a6) {
     g_func_339960_called++;
     g_last_339960_arg = a1;
-    va_list ap;
-    va_start(ap, a1);
-    int a2 = va_arg(ap, int);
-    int a3 = va_arg(ap, int);
-    int a4 = va_arg(ap, int);
-    int a5 = va_arg(ap, int);
-    int a6 = va_arg(ap, int);
-    va_end(ap);
-    log_call("func_339960", a0, (int)(long)a0, a1, a2, a3, a4, a5, a6);
+    log_call("func_339960", NULL, a0, a1, a2, a3, a4, a5, a6);
 }
 int func_00340CF0(void *a0) {
     log_call("func_00340CF0", a0, 0);
@@ -908,9 +893,9 @@ static void test_func_342170_t0_equals_1_exact_history() {
     std::printf("PASS test_func_342170_t0_equals_1_exact_history\n");
 }
 
-static void test_func_342170_mode40_50_exact_history() {
+static void test_func_342170_mode30_50_exact_history() {
     TacticalObj_341040 obj;
-    for (int m = 40; m <= 50; ++m) {
+    for (int m = 30; m <= 50; ++m) {
         std::memset(&obj, 0, sizeof(obj));
         MockSubObj mock_sub830;
         MockSubObj mock_sub834;
@@ -932,7 +917,7 @@ static void test_func_342170_mode40_50_exact_history() {
         assert(g_call_history[0].self == NULL);
         assert(g_call_history[0].arg1 == 0);
     }
-    std::printf("PASS test_func_342170_mode40_50_exact_history\n");
+    std::printf("PASS test_func_342170_mode30_50_exact_history\n");
 }
 
 static void test_func_342170_t0_equals_2_exact_history() {
@@ -1124,7 +1109,7 @@ int main() {
     test_func_342170_mode31_early_return_exact_history();
     test_func_342170_mode45_exact_history();
     test_func_342170_t0_equals_1_exact_history();
-    test_func_342170_mode40_50_exact_history();
+    test_func_342170_mode30_50_exact_history();
     test_func_342170_t0_equals_2_exact_history();
     test_func_342170_mode31_a2_equals_1_exact_history();
     std::printf("ALL TACTICAL AI LAYOUT TESTS PASSED WITH COMPLETE EXACT HISTORY ASSERTIONS\n");

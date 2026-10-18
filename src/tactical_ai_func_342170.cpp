@@ -3,16 +3,16 @@
 
 extern "C" {
 void func_33A730();
-void func_33A5D0(void *a0, int a1, ...);
-int func_339900(void *a0, int a1, ...);
-void func_339960(void *a0, int a1, ...);
+void func_33A5D0(int a0, int a1, int a2, int a3, int t0, int t1);
+int func_339900(TacticalObj_341040 *self, int a1);
+void func_339960(int a0, int a1, int a2, int a3, int t0, int t1, int t2);
 int func_00340CF0(void *a0);
 void func_00340C30(void *a0);
 void func_00341040(TacticalObj_341040 *a0);
 void func_1F6750(void *a0, void *a1);
 void func_1F88B0(void *a0, void *a1);
-void func_33F8B0(void *a0, ...);
-int func_00219BA0(void *a0, ...);
+void func_33F8B0(void *a0, int a1);
+int func_00219BA0(void *a0);
 int func_1FBD30(void *a0, int a1);
 int func_1F6EA0(void *a0, int a1);
 void func_36ACC0(int a0);
@@ -42,7 +42,11 @@ int func_00342170(TacticalObj_341040 *self, int a1, int a2, int a3, int t0) {
         }
     }
 
-    if (a2 == 1 && (TacticalSubObj*)a1 == self->field_834) {
+    if (a2 != 1) {
+        return func_1FBD30(self, a1);
+    }
+
+    if ((TacticalSubObj*)a1 == self->field_834) {
         switch (self->field_84C) {
         case 11:
             self->field_84C = 3;
@@ -104,9 +108,7 @@ int func_00342170(TacticalObj_341040 *self, int a1, int a2, int a3, int t0) {
             func_00341040(self);
             return 1;
         }
-    }
-
-    if (a2 == 1 && (TacticalSubObj*)a1 == self->field_830) {
+    } else if ((TacticalSubObj*)a1 == self->field_830) {
         int mode = self->field_84C;
         if ((unsigned int)mode >= 30) {
             func_00341040(self);

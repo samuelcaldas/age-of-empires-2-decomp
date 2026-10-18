@@ -6518,9 +6518,9 @@ An independent verification suite (`tests/test_render_manager_query.py`, with 32
 
 This single-function C++ slice spans VRAM `0x184CE0`–`0x184ED0` and file offsets `0x84EC0`–`0x850B0` (496 bytes total). The original ELF `PT_LOAD` mapping gives the VRAM/file-offset delta `0xFFE20`. The original function has 488 instruction bytes, ending after the return delay slot at `0x184EC4`, followed by eight zero padding bytes. The previously recorded end, `0x184EEC`, incorrectly included 28 bytes of the next function's prologue. The unit remains registered as `NonMatching`; native behavior tests alone do not prove instruction equality.
 
-- `func_00184ce0` (`0x184CE0`, 488 instruction bytes): Master UI string formatter and message resolver. For mode 1, indexes a 24-case jump table at `0x00491990`, resolving string IDs `0x7D2`–`0x7E1` and dispatching virtual slot `+0x28`. Mode 2 forwards `msg_id` to that slot. Unrecognized modes and IDs clear the first and last destination bytes.
+- `func_00184ce0` (`0x184CE0`, 488 instruction bytes): Master UI string formatter and message resolver returning `char *` (`dest`). Pre-clears `dest[0] = 0` in branch delay slot. For mode 1, indexes a 24-case jump table at `0x00491990`, resolving string IDs `0x7D2`–`0x7E1` and dispatching virtual slot `+0x28` (`ScreenManager::GetString`). Mode 2 forwards `msg_id` to that slot. Unrecognized modes and fallback paths write null-terminator `dest[max_len - 1] = 0` and return `dest`.
 
-`tests/test_render_manager_messages.py` exercises representative resource mappings and buffer clearing with 32-bit native doubles. No relocated byte-equality proof is recorded for this reconstruction.
+`tests/test_render_manager_messages.py` exercises representative resource mappings, pre-callback clearing, return pointer identity, and buffer termination with 32-bit native doubles. No relocated byte-equality proof is recorded for this reconstruction.
 
 #### 6.307.1 RenderManager Message Formatter Matching Results (488 Code Bytes, 496-Byte Slice)
 

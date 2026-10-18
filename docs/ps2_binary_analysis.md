@@ -7095,6 +7095,19 @@ Located at VRAM `0x2B8560`–`0x2B8978` (file offset `0x1B8740`–`0x1B8B60`, 1,
 |---|---|---|---|---|---|
 | `func_002B8560` | `0x2B8560` | 1,044 B | 1,056 B | NonMatching | Candidate pool selector and sub-ID resolver. |
 
+#### 6.187d `Trade Action Distance Candidate Selector` (`0x2B8980`–`0x2B8E2C`, `trade_action_candidates.cpp`)
+
+Located at VRAM `0x2B8980`–`0x2B8E2C` (file offset `0x1B8B60`–`0x1B9020`, 1,216 bytes total slice, 1,196 bytes code + 20 bytes zero padding, Metrowerks C++ PS2 MWCC 2.3.1.01):
+- `func_002B8980` (`0x2B8980`, 1,196 bytes code, 1,216 bytes slice): Distance-based candidate selector. Iterates through pool array at offset 180, filters through `func_002bf050` and pool exclusion list at offset 196 based on mode, and tracks optimal candidate based on 2D Euclidean distance via `func_00269190`.
+- Registered as `NonMatching` in `configure.py`.
+- Verified with 28 native 32-bit tests in Docker dev environment.
+
+#### 6.187d.1 Trade Action Distance Candidate Selector Matching Results (Pure C++, 1,216 Bytes)
+
+| Function / Method | VRAM Address | Code Size (Orig) | Slice Size | Match Status | Description |
+|---|---|---|---|---|---|
+| `func_002B8980` | `0x2B8980` | 1,196 B | 1,216 B | NonMatching | Distance-based candidate pool selector and sub-ID resolver. |
+
 #### 6.188 `Tactical AI Destructors` Subsystem (`0x340370`–`0x340490`, `tactical_ai_destructors_340370.cpp`)
 
 Located at VRAM `0x340370`–`0x340490` (file offset `0x240550`–`0x240670`, 288 bytes total, 3 contiguous scalar deleting destructors in Metrowerks C++ PS2 MWCC 2.3.1.01):

@@ -28,6 +28,9 @@ CASES = [
     ("16", "func_002B8560 returns -1 when predicate returns 0"),
     ("17", "func_002B8560 returns -1 when func_002bf050 returns non-zero"),
     ("18", "func_002B8560 returns -1 when candidate is in pool exclusion"),
+    ("19", "func_002B8980 returns candidate with best distance"),
+    ("20", "func_002B8980 returns -1 when no candidate matches predicate"),
+    ("21", "func_002B8980 with flag 1 selects candidate"),
 ]
 
 
@@ -104,6 +107,12 @@ MUTANTS = [
         "if ((func_002bfcd0(self, sub_id) & 0xFF) == 2) {",
         "res == 42",
     ),
+    (
+        "distance_candidate_condition",
+        "return scan_distance_candidates(self, coords, mode, flag);",
+        "return -1;",
+        "res == 42",
+    ),
 ]
 
 
@@ -155,6 +164,7 @@ def test_candidates_source_mutants_fail_at_expected_assertion(
         else "4" if "greater" in name
         else "13" if "secondary" in name
         else "15" if "selector" in name
+        else "19" if "distance" in name
         else "9"
     )
     result = subprocess.run([str(binary), case_num], capture_output=True, text=True)

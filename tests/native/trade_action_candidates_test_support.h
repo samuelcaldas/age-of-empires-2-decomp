@@ -16,6 +16,8 @@ extern int g_2bf050_calls;
 extern int g_2bf050_return_val;
 extern int g_2bfcd0_calls;
 extern int g_2bfcd0_return_val;
+extern int g_269190_calls;
+extern float g_269190_return_val;
 
 void reset_candidates_test_support();
 

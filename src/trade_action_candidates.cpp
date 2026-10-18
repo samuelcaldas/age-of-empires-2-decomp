@@ -2,11 +2,11 @@
 #include "trade_action_candidates_access.h"
 #include "trade_action_candidates_dual.h"
 #include "trade_action_candidates_selector.h"
+#include "trade_action_candidates_distance.h"
 
 using namespace trade_action_candidates;
 
 extern "C" {
-void *func_00332e60(void *manager, int id);
 int func_001471a0(int entity_id);
 int func_001471c0(int entity_id);
 int func_00147190(int entity_id);
@@ -189,4 +189,8 @@ int func_002B8560(void *self, int mode) {
         }
     }
     return -1;
+}
+
+int func_002B8980(void *self, int *coords, int mode, int flag) {
+    return scan_distance_candidates(self, coords, mode, flag);
 }

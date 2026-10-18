@@ -35,7 +35,7 @@ void func_00273870(void *self, int param_id, float val) {
 }
 
 static void update_active_proto_attachment(void *self, void *old_proto, void *new_proto) {
-    if (*(void **)((char *)old_proto + 0x164) == nullptr) {
+    if (*(void **)((char *)old_proto + 0x164) == 0) {
         return;
     }
 
@@ -71,7 +71,7 @@ static void check_building_cleanup(void *self, void *old_proto, void *new_proto)
     }
 
     void *c8 = *(void **)((char *)self + 0xC8);
-    if (c8 != nullptr) {
+    if (c8 != 0) {
         func_0014C7F0(*(void **)c8, 0);
     }
 }

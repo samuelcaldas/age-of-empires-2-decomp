@@ -54,7 +54,7 @@ static bool is_target_allied(void *self, void *target) {
 
 static bool handle_trebuchet_approach(void *self, void *target, short proto_type, int eligible) {
     if (proto_type == 0x36 && eligible == 0) {
-        void *task = func_366D40(nullptr);
+        void *task = func_366D40(0);
         if (task == 0) return true;
         func_35FAC0(task, self, -1);
         void **vtbl = *(void ***)self;
@@ -67,7 +67,7 @@ static bool handle_trebuchet_approach(void *self, void *target, short proto_type
 
 static bool handle_trebuchet_unpack_attack(void *self, void *target, short proto_type, int eligible) {
     if (proto_type == 0x33 && eligible == 0) {
-        void *task = func_366D90(nullptr);
+        void *task = func_366D90(0);
         if (task == 0) return true;
         float self_x = *(float *)((char *)self + 0x44);
         float self_y = *(float *)((char *)self + 0x48);

@@ -7,6 +7,10 @@
 #include <cstring>
 #include "unit_action_build_a30.h"
 
+extern "C" float func_1234E0(float val) {
+    return std::sqrt(val);
+}
+
 static void setup_hierarchy(unsigned char *self, unsigned char *proto,
                             unsigned char *owner, unsigned char *mgr,
                             unsigned char *cfg) {

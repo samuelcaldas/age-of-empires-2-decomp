@@ -5,7 +5,7 @@
 void func_00271730(ActionRebind *self, void *stream) {
     int token = -1;
     void *field = *(void **)((char *)self + 356);
-    if (field != nullptr) {
+    if (field != 0) {
         token = *(short *)((char *)field + 52);
     }
     int local_data = 0;

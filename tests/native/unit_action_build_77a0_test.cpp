@@ -16,6 +16,9 @@ extern "C" {
     int func_1AAB30() {
         return 0; // 0 roll -> 100% accuracy check pass
     }
+    float func_1234E0(float val) {
+        return std::sqrt(val);
+    }
 }
 
 static float mock_calculate_damage(void *, void *) {

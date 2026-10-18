@@ -1,11 +1,11 @@
 #pragma exceptions off
-#include <cmath>
 #include "unit_action_build_77a0.h"
 
 extern "C" {
     int func_123350(float val);
     int func_367560(void *entity);
     int func_1AAB30();
+    float func_1234E0(float val);
 }
 
 typedef float (*CalculateDamageFn)(void *self, void *entity);
@@ -86,8 +86,8 @@ static bool check_proto_type_match(void *self, void *entity, void *target_entity
 static float compute_distance_sq(void *entity, float center_x, float center_y) {
     float entity_x = *(float *)((char *)entity + 0x44);
     float entity_y = *(float *)((char *)entity + 0x48);
-    float dx = std::abs(entity_x - center_x);
-    float dy = std::abs(entity_y - center_y);
+    float dx = ((entity_x > center_x) ? (entity_x - center_x) : (center_x - entity_x));
+    float dy = ((entity_y > center_y) ? (entity_y - center_y) : (center_y - entity_y));
     void *entity_proto = *(void **)((char *)entity + ENTITY_PROTO_OFFSET);
     float radius_x = *(float *)((char *)entity_proto + 0x20);
     float radius_y = *(float *)((char *)entity_proto + 0x24);
@@ -119,7 +119,7 @@ static float calculate_damage(void *self, void *entity, void *target_entity,
     float damage = calc_fn(self, entity);
     void *self_proto = *(void **)((char *)self + SELF_PROTO_OFFSET);
     if (*(short *)((char *)self_proto + 0x104) < 0 && !should_skip_falloff(self, entity, target_entity)) {
-        float distance = std::sqrt(dist_sq);
+        float distance = func_1234E0(dist_sq);
         damage *= (blast_radius - distance) / blast_radius;
     }
     short type = *(short *)((char *)self_proto + 0x8);

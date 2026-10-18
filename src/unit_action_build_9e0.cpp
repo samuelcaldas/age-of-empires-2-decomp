@@ -6,7 +6,7 @@ short func_002719E0(void *self, int index) {
         return -1;
     }
     void *elem = *(void **)((char *)self + 0x134 + index * sizeof(void *));
-    if (elem == nullptr) {
+    if (elem == 0) {
         return -1;
     }
     return *(short *)((char *)elem + 0x24);

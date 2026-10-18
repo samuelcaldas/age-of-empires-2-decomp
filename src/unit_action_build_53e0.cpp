@@ -25,7 +25,7 @@ void func_802753E0(void *self, void *target, int zero,
     int tile_y = func_123350(pos_y);
     func_8033D530(target, tile_y);
 
-    if (target != nullptr) {
+    if (target != 0) {
         void **vtbl = *(void ***)target;
         VtableUpdateMethod update_fn = (VtableUpdateMethod)vtbl[4];
         update_fn(target);

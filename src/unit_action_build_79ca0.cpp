@@ -35,7 +35,7 @@ static void resume_with_coordinates(void *self) {
     if (sx <= -1.0f || sy <= -1.0f) return;
     void **vtbl = *(void ***)self;
     ResumeOrderFn resume_order = (ResumeOrderFn)vtbl[192];
-    resume_order(self, nullptr, 1, -1, sx, sy, 0.0f);
+    resume_order(self, 0, 1, -1, sx, sy, 0.0f);
 }
 
 void func_00279CA0(void *self) {

@@ -68,7 +68,7 @@ static int create_new_drop_task(void *self, void *drop_site) {
     EvaluatePathFn eval_path = (EvaluatePathFn)vtbl[198];
     void *path_item = eval_path(self, drop_site, -1, dx, dy, dz);
     if (path_item == 0) return 0;
-    void *new_task = func_366D60(nullptr);
+    void *new_task = func_366D60(0);
     if (new_task == 0) return 0;
     func_361370(new_task, self, path_item, drop_site);
     void *action_mgr = *(void **)((char *)self + UNIT_ACTION_OFFSET);

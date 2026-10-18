@@ -1,38 +1,84 @@
 #include <cassert>
 #include <cstring>
 #include <cstdint>
+#include <vector>
 
 extern "C" {
-void *func_0021DE20(void *obj, int a1, int a2, int a3, int a4);
-void *func_0021DD10(void *obj, int a1, int a2, int a3, int a4);
+void *func_0021DE20(void *base, int base_idx, int count);
+void *func_0021DD10(void *obj, int a1);
 }
 
-static int dd10_calls = 0;
-static int last_a2 = 0;
+struct CallRecord {
+    void *passed_ptr;
+    int passed_idx;
+};
+
+static std::vector<CallRecord> dd10_calls;
 
 extern "C" {
 // Original branch citation: 0x21DE48 -> func_0021DD10
-void *func_0021DD10(void *obj, int a1, int a2, int a3, int a4) {
-    dd10_calls++;
-    last_a2 = a2;
+void *func_0021DD10(void *obj, int a1) {
+    CallRecord rec;
+    rec.passed_ptr = obj;
+    rec.passed_idx = a1;
+    dd10_calls.push_back(rec);
     return obj;
 }
 }
 
 void test_trade_action_helper_21DE20() {
-    dd10_calls = 0;
-    char dummy[32];
-    int test_a2 = 10;
+    // Case 1: Standard loop crossing 16-element boundary
+    dd10_calls.clear();
+    char dummy_pool[8192];
+    int base_idx = 10;
+    int count = 20;
 
-    // Call func_0021DE20 (Original VRAM 0x21DE20)
-    void *res = func_0021DE20(dummy, 1, test_a2, 3, 2);
-    assert(res == dummy);
-    assert(dd10_calls == 1);
-    assert(last_a2 == test_a2 + 5);
+    void *res1 = func_0021DE20(dummy_pool, base_idx, count);
+    assert(res1 == dummy_pool + 0x400);
+    assert(dd10_calls.size() == (size_t)count);
 
-    // Mutation test: ensure wrong offset (e.g. +4) fails assertion
-    bool wrong_offset = (last_a2 == test_a2 + 4);
-    assert(!wrong_offset);
+    for (int i = 0; i < count; ++i) {
+        int expected_idx = base_idx + i;
+        void *expected_ptr = (expected_idx < 16) ? (void *)dummy_pool : (void *)(dummy_pool + 0x400);
+        assert(dd10_calls[i].passed_idx == expected_idx);
+        assert(dd10_calls[i].passed_ptr == expected_ptr);
+    }
+
+    // Case 2: Zero count (count = 0) -> no iterations
+    dd10_calls.clear();
+    void *res_zero = func_0021DE20(dummy_pool, base_idx, 0);
+    assert(res_zero == 0);
+    assert(dd10_calls.empty());
+
+    // Case 3: Multiple 16-element boundaries (count = 35, base_idx = 0)
+    // 0..15: dummy_pool
+    // 16..31: dummy_pool + 0x400
+    // 32..34: dummy_pool + 0x800
+    dd10_calls.clear();
+    void *res_multi = func_0021DE20(dummy_pool, 0, 35);
+    assert(res_multi == dummy_pool + 0x800);
+    assert(dd10_calls.size() == 35);
+
+    for (int i = 0; i < 35; ++i) {
+        void *expected_ptr;
+        if (i < 16) {
+            expected_ptr = dummy_pool;
+        } else if (i < 32) {
+            expected_ptr = dummy_pool + 0x400;
+        } else {
+            expected_ptr = dummy_pool + 0x800;
+        }
+        assert(dd10_calls[i].passed_idx == i);
+        assert(dd10_calls[i].passed_ptr == expected_ptr);
+    }
+
+    // Case 4: Single iteration (count = 1)
+    dd10_calls.clear();
+    void *res_one = func_0021DE20(dummy_pool, 5, 1);
+    assert(res_one == dummy_pool);
+    assert(dd10_calls.size() == 1);
+    assert(dd10_calls[0].passed_idx == 5);
+    assert(dd10_calls[0].passed_ptr == dummy_pool);
 }
 
 int main() {

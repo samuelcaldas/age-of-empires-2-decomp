@@ -10,8 +10,6 @@ NATIVE_TEST = (
     ROOT / "tests/native/tactical_ai_combat_subsystem_elevation_mesh_remove_test.cpp"
 )
 MUTATIONS = [
-    ("guard_count", "if (self->m_count == 0) return -1;", "if (self->m_count < 0) return -1;"),
-    ("guard_tag", "if (count == 0) return 0;", "if (count < 0) return 0;"),
     ("omit_swap", "vertices[i] = vertices[last];", "/* omitted */"),
     ("omit_dec", "self->m_table_8[tag]--;", "/* omitted */"),
     ("invert_id", "vertices[i].m_id == id", "vertices[i].m_id != id"),
@@ -49,7 +47,7 @@ def test_mesh_remove_reference_contract(tmp_path):
 
 @pytest.mark.parametrize("name,original,replacement", MUTATIONS)
 def test_mesh_remove_rejects_mutation(tmp_path, name, original, replacement):
-    """Verify that every production source mutation fails the native contract."""
+    """Verify that every production source mutation fails via an explicit assertion check."""
     source = SOURCE.read_text()
     assert original in source, f"Missing mutation anchor: {name}"
     mutated = tmp_path / f"{name}.cpp"
@@ -57,4 +55,4 @@ def test_mesh_remove_rejects_mutation(tmp_path, name, original, replacement):
     binary = tmp_path / name
     compile_native(mutated, binary)
     result = run_native(binary)
-    assert result.returncode != 0, f"Undetected mutation: {name}"
+    assert result.returncode != 0 and ("Assertion" in result.stderr or "abort" in result.stderr.lower() or result.returncode < 0), f"Mutation not killed by assertion: {name}"

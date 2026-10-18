@@ -57,16 +57,16 @@ static void test_early_exits() {
     s_mock_coord_count = 0;
     s_call_count = 0;
     func_00328100(&desc, 0);
-    assert(s_call_count == 0);
+    assert(s_call_count == 0 && "early exit zero coord count failed");
 
     s_mock_coord_count = -1;
     func_00328100(&desc, 0);
-    assert(s_call_count == 0);
+    assert(s_call_count == 0 && "early exit negative coord count failed");
 
     s_mock_coord_count = 2;
     desc.m_count = 0;
     func_00328100(&desc, 0);
-    assert(s_call_count == 0);
+    assert(s_call_count == 0 && "early exit zero mesh count failed");
 }
 
 static void test_grid_entity_filtering() {
@@ -140,7 +140,7 @@ static void test_grid_entity_filtering() {
 
     func_00328100(&desc, 0);
 
-    assert(s_call_count == 2);
+    assert(s_call_count == 2 && "grid entity filtering call count contract violated");
     assert(s_calls[0].self == &desc);
     assert(s_calls[0].id == 101);
     assert(s_calls[0].tag == 42);
@@ -205,7 +205,7 @@ static void test_inactive_entity_rejection() {
 
     func_00328100(&desc, 0);
     // Exactly 1 call (for the active entity), proving inactive entity was rejected and active was accepted
-    assert(s_call_count == 1);
+    assert(s_call_count == 1 && "inactive entity rejection contract failed (inactive entity was not filtered out)");
     assert(s_calls[0].id == 106);
     assert(s_calls[0].tag == 42);
 }

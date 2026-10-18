@@ -19,12 +19,116 @@ int func_002bb100(void *self, int item_id, int action_type);
 
 namespace trade_action_candidates {
 
-typedef void *(*PredFn)(void *);
+struct TradeActionState {
+    char pad_0[176];
+    void *m_mgr;
+    char pad_180[3184 - 180];
+    int *m_pool;
+    int m_count;
+    int m_pad_3192;
+    int m_capacity;
+};
 
-static inline int *get_item_pred(void *item) {
-    PredFn fn = *reinterpret_cast<PredFn *>(*reinterpret_cast<char **>(item) + 356);
-    return reinterpret_cast<int *>(fn(item));
-}
+struct ManagerState {
+    char pad_0[172];
+    void *m_group;
+};
+
+struct GroupState {
+    char pad_0[2968];
+    void *m_root;
+};
+
+struct Entity {
+    virtual void v0();
+    virtual void v1();
+    virtual void v2();
+    virtual void v3();
+    virtual void v4();
+    virtual void v5();
+    virtual void v6();
+    virtual void v7();
+    virtual void v8();
+    virtual void v9();
+    virtual void v10();
+    virtual void v11();
+    virtual void v12();
+    virtual void v13();
+    virtual void v14();
+    virtual void v15();
+    virtual void v16();
+    virtual void v17();
+    virtual void v18();
+    virtual void v19();
+    virtual void v20();
+    virtual void v21();
+    virtual void v22();
+    virtual void v23();
+    virtual void v24();
+    virtual void v25();
+    virtual void v26();
+    virtual void v27();
+    virtual void v28();
+    virtual void v29();
+    virtual void v30();
+    virtual void v31();
+    virtual void v32();
+    virtual void v33();
+    virtual void v34();
+    virtual void v35();
+    virtual void v36();
+    virtual void v37();
+    virtual void v38();
+    virtual void v39();
+    virtual void v40();
+    virtual void v41();
+    virtual void v42();
+    virtual void v43();
+    virtual void v44();
+    virtual void v45();
+    virtual void v46();
+    virtual void v47();
+    virtual void v48();
+    virtual void v49();
+    virtual void v50();
+    virtual void v51();
+    virtual void v52();
+    virtual void v53();
+    virtual void v54();
+    virtual void v55();
+    virtual void v56();
+    virtual void v57();
+    virtual void v58();
+    virtual void v59();
+    virtual void v60();
+    virtual void v61();
+    virtual void v62();
+    virtual void v63();
+    virtual void v64();
+    virtual void v65();
+    virtual void v66();
+    virtual void v67();
+    virtual void v68();
+    virtual void v69();
+    virtual void v70();
+    virtual void v71();
+    virtual void v72();
+    virtual void v73();
+    virtual void v74();
+    virtual void v75();
+    virtual void v76();
+    virtual void v77();
+    virtual void v78();
+    virtual void v79();
+    virtual void v80();
+    virtual void v81();
+    virtual void v82();
+    virtual void v83();
+    virtual void v84();
+    virtual void v85();
+    virtual void v86();
+    virtual int *get_id();
+};
 
 typedef void (*NotifyOrderFn)(void *world, void *ba0, int item_id, int code,
                               int t0, int t1, int t2, int t3,
@@ -74,37 +178,39 @@ int func_002B9830(void *self, int a1, int a2, int a3) {
 }
 
 int func_002B9880(void *self, int item_id, int action_type) {
-    int found = 0;
-    for (int i = 0; i < integer_at(self, 3188) && i < integer_at(self, 3196); i++) {
-        if (item_id == (*reinterpret_cast<int **>(bytes(self) + 3184))[i]) {
-            found = 1;
+    TradeActionState *act = reinterpret_cast<TradeActionState *>(self);
+    bool matched = false;
+    int i = 0;
+    int count = act->m_count;
+    while (i < count && i < act->m_capacity) {
+        if (item_id == act->m_pool[i]) {
+            matched = true;
             break;
         }
+        i++;
     }
-    if (found) {
+    if (matched) {
         return 0;
     }
 
-    void *mgr = *reinterpret_cast<void **>(bytes(self) + 176);
-    void *group = *reinterpret_cast<void **>(bytes(mgr) + 172);
-    void *root = *reinterpret_cast<void **>(bytes(group) + 2968);
-
-    void *item = func_00332e60(root, item_id);
+    ManagerState *mgr = reinterpret_cast<ManagerState *>(act->m_mgr);
+    GroupState *group = reinterpret_cast<GroupState *>(mgr->m_group);
+    Entity *item = reinterpret_cast<Entity *>(func_00332e60(group->m_root, item_id));
     if (!item) {
         return 0;
     }
 
-    if (!get_item_pred(item)) {
+    if (!item->get_id()) {
         return 0;
     }
 
-    if (func_001471a0(*get_item_pred(item)) == 600 || func_001471a0(*get_item_pred(item)) == 613) {
+    if (func_001471a0(*item->get_id()) == 600 || func_001471a0(*item->get_id()) == 613) {
         return 1;
     }
-    if (func_001471a0(*get_item_pred(item)) == 602 || func_001471a0(*get_item_pred(item)) == 618) {
+    if (func_001471a0(*item->get_id()) == 602 || func_001471a0(*item->get_id()) == 618) {
         return 1;
     }
-    if (func_001471a0(*get_item_pred(item)) == 605) {
+    if (func_001471a0(*item->get_id()) == 605) {
         return 1;
     }
 
@@ -112,19 +218,20 @@ int func_002B9880(void *self, int item_id, int action_type) {
         return 0;
     }
 
-    if (func_00147170(*get_item_pred(item)) == 710) {
-        if (func_00147190(*get_item_pred(item)) == 100) {
+    if (func_00147170(*item->get_id()) == 710) {
+        if (func_00147190(*item->get_id()) == 100) {
             return 0;
         }
-    } else if (func_00147170(*get_item_pred(item)) == 702) {
+    }
+    if (func_00147170(*item->get_id()) == 702) {
         return 0;
     }
 
-    if (func_0014c430(*get_item_pred(item), 705) != 1) {
-        int res = func_002bb100(self, item_id, action_type);
-        return res != 0 ? 1 : 0;
+    if (func_0014c430(*item->get_id(), 705) == 1) {
+        return 0;
     }
 
-    return 0;
+    int res = func_002bb100(self, item_id, action_type);
+    return res == 0 ? 0 : 1;
 }
 }

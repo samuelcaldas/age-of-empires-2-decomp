@@ -24,7 +24,7 @@ int main(int argc, char **argv) {
     action_vtable[14] = reinterpret_cast<void *>(&mock_notify_order_fn);
     *reinterpret_cast<void ***>(group.data() + 6960) = action_vtable.data();
 
-    vtable[356 / 4] = reinterpret_cast<void *>(+[](void *) -> void * {
+    vtable[87] = vtable[356 / 4] = reinterpret_cast<void *>(+[](void *) -> void * {
         static int s_pred_id = 1;
         return &s_pred_id;
     });

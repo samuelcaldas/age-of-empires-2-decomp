@@ -55,6 +55,8 @@ def test_dispatch_matches_complete_original_function(tmp_path):
     renamed = tmp_path / "dispatch-renamed.o"
     indices = rename_text_sections(candidate, renamed)
     assert indices == [function["st_shndx"]], "unexpected private executable sections"
+    executable = [i for i, s in enumerate(compiled.iter_sections()) if s["sh_flags"] & 0x4]
+    assert executable == [function["st_shndx"]], "unexpected non-.text executable section"
     definitions = "".join(f"{name} = {address:#x};\n" for name, address in EXTERNALS.items())
     script = tmp_path / "dispatch.ld"
     script.write_text(definitions + "_gp = 0x4EA7C0;\n"

@@ -7,27 +7,24 @@ struct NodePool {
     int field_138804;
     int field_138808;
     int field_13880C;
-    int field_138810;
-    int field_138814;
-    int field_138818;
-    int field_13881C;
+    void *table_138810;
+    void *table_138814;
+    int count_138818;
+    int flag_13881C;
     int field_138820;
-    int field_138824;
+    char pad_after[0x138834 - 0x138824];
+    int capacity_138834;
 };
 
-extern "C" int func_001F1EE0(NodePool *self, void *p1, int count) {
-    self->field_138810 = 0;
-    self->field_138814 = 0;
-    self->field_138808 = 1;
-    self->field_138818 = 0;
+extern "C" int func_001F1ED0(NodePool *self, void *p1, int count) {
+    self->table_138810 = 0;
+    self->table_138814 = 0;
+    self->flag_13881C = 1;
+    self->count_138818 = 0;
     self->field_138820 = 0;
-    self->field_138824 = -1;
-    self->field_13881C = -1;
-    self->field_138800 = 0;
-    self->field_138804 = 0;
-    self->field_13880C = count;
+    self->capacity_138834 = count;
 
-    func_118DE0(0x13D6); // allocation call (return discarded)
+    func_118DE0((int)(long)"obmanager.cpp");
     func_1F20E0(self);
     func_1F21E0(self);
     return 1;

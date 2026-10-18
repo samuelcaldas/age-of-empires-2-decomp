@@ -8,6 +8,10 @@ static int g_func_100670_called = 0;
 static void *g_last_deleted_ptr = 0;
 static int g_func_117CAC_called = 0;
 
+struct NodePool {
+    char pad[0x138835];
+};
+
 extern "C" {
 void func_100670(void *ptr) {
     g_func_100670_called++;
@@ -27,15 +31,11 @@ void func_117CAC(void *dst, int val, int size) {
 }
 }
 
-struct NodePool {
-    char pad[0x138830];
-};
-
 int main() {
-    // Test 1: func_001F1EE0 - node pool setup
+    // Test 1: func_001F1ED0 - node pool setup
     NodePool pool;
     memset(&pool, 0, sizeof(pool));
-    int res = func_001F1EE0(&pool, (void *)0x1234, 10000);
+    int res = func_001F1ED0(&pool, (void *)0x1234, 10000);
     assert(res == 1);
 
     // Test 2: func_001F1FD0 - deleting destructor
@@ -46,8 +46,8 @@ int main() {
     assert(g_func_100670_called == 1);
     assert(g_last_deleted_ptr == obj);
 
-    // Test 3: func_001F2020 - clear pool
-    func_001F2020(&pool);
+    // Test 3: func_001F2010 - clear pool
+    func_001F2010(&pool);
 
     return 0;
 }

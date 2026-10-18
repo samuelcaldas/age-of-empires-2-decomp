@@ -4,7 +4,7 @@
 struct NodePool;
 
 extern "C" {
-int func_001F1EE0(NodePool *self, void *p1, int count);
+int func_001F1ED0(NodePool *self, void *p1, int count);
 void *func_118DE0(int size);
 void func_1F20E0(NodePool *self);
 void func_1F21E0(NodePool *self);

@@ -20,6 +20,9 @@ extern int D_4E35DC;
 extern const char D_490AE0[];
 }
 
+// Dummy definition for native testing linkage of D_490AE0 string
+extern "C" const char D_490AE0[] = "Tori(bird) ha Sonzai shitewa ikenai!!\n";
+
 void* BaseList::CreateItem(void *stream, short type) {
     void *item;
 

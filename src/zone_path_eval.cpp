@@ -25,9 +25,9 @@ int func_001C7850(
 ) {
     (void)arg5;
 
-    short t_max_x;
-    short t_max_y;
+    short t_min_x;
     short t_min_y;
+    short t_max_x;
 
     void *map = *(void **)((char *)world + 0xB98);
     short type_id = bld->m_type_id;
@@ -55,10 +55,10 @@ int func_001C7850(
         return 7;
     }
 
-    short t_min_x = (short)func_123350(min_x);
+    t_min_x = (short)func_123350(min_x);
     t_max_x = (short)func_123350(max_x);
     t_min_y = (short)func_123350(min_y);
-    t_max_y = (short)func_123350(max_y);
+    short t_max_y = (short)func_123350(max_y);
 
     short p_min_x, p_max_x, p_min_y, p_max_y;
     if (bld->m_field48 >= 0 || bld->m_field4A >= 0) {

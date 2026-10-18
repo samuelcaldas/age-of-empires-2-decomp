@@ -25,11 +25,15 @@ int func_001C7850(
 ) {
     (void)arg5;
 
-    void *map = *(void **)((char *)world + 0xB98);
-    float **slope_table = *(float ***)((char *)map + 0x68);
-    float *slope_limits = slope_table[bld->m_type_id];
+    short t_max_x;
+    short t_max_y;
+    short t_min_y;
 
+    void *map = *(void **)((char *)world + 0xB98);
+    short type_id = bld->m_type_id;
+    float **slope_table = *(float ***)((char *)map + 0x68);
     void *s0 = *(void **)((char *)map + 0x3C);
+    float *slope_limits = slope_table[type_id];
     int map_w = *(int *)((char *)s0 + 0x8);
     int map_h = *(int *)((char *)s0 + 0xC);
 
@@ -52,9 +56,9 @@ int func_001C7850(
     }
 
     short t_min_x = (short)func_123350(min_x);
-    short t_max_x = (short)func_123350(max_x);
-    short t_min_y = (short)func_123350(min_y);
-    short t_max_y = (short)func_123350(max_y);
+    t_max_x = (short)func_123350(max_x);
+    t_min_y = (short)func_123350(min_y);
+    t_max_y = (short)func_123350(max_y);
 
     MapTile **tile_rows = *(MapTile ***)((char *)s0 + 0x8E8C);
 

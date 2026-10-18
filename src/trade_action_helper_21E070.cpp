@@ -3,8 +3,8 @@
 
 extern "C" {
 void *func_0021E070(void *obj, void *arg1, void *arg2, void *arg3, void *arg4) {
-    if (obj == nullptr) {
-        return nullptr;
+    if (obj == 0) {
+        return 0;
     }
     volatile void **p = (volatile void **)obj;
     p[0] = arg1;

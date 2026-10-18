@@ -4,6 +4,7 @@
 - **VRAM Address Range:** `0x21DCA0` – `0x21DD08` (Size: `0x68` bytes / 104 bytes; padding to `0x21DD10`: `0x70` bytes / 112 bytes, end-exclusive)
 - **File Offset Range:** `0x11DE80` – `0x11DEE8` in `orig/SLES-50282/AOK.ELF` (padding to `0x11DEF0`)
 - **Segment / Section:** `.text` (ELF load delta: `0xFFE20`)
+- **Caller Site:** `0x224F38` in `orig/SLES-50282/AOK.ELF` passes 3 arguments: `a0` (base pointer), `a1` (base index), `a2` (count).
 
 ## 2. Binary Analysis & Disassembly Trace
 - **Prologue (`0x21DCA0` – `0x21DCB4`):**
@@ -21,8 +22,10 @@
   - `b 0x21DCE0` (Branch forward to loop condition check)
   - Delay slot at `0x21DCC8`: `paddub s0, zero, zero` (Initialize loop counter `s0 = 0`)
 - **Loop Body (`0x21DCCC` – `0x21DCDC`):**
-  - `0x21DCD0`: `jal func_21DC50` (Target `0x21DC50`)
-  - Delay slot at `0x21DCD4`: `paddub a0, s3, zero` (Pass current pointer `s3` in `a0`)
+  - Callsite sets only `a0` and `a1`:
+    - `0x21DCD0`: `jal func_21DC50` (Target `0x21DC50`)
+    - Delay slot at `0x21DCD4`: `paddub a0, s3, zero` (Pass current pointer `s3` in `a0`)
+  - Callee `func_0021DC50` consumes only two arguments (`a0`, `a1`), neither reading nor writing `a2/a3` from caller.
   - `0x21DCD8`: `addiu s0, s0, 1` (Increment counter `s0++`)
   - `0x21DCDC`: `addiu s3, s3, 0x400` (Advance pointer by 1024 bytes / `0x400` per item)
 - **Loop Condition & Backward Branch (`0x21DCE0` – `0x21DCE8`):**
@@ -42,6 +45,7 @@
 
 ## 3. C++ Implementation & Verification
 - Implemented in `src/trade_action_helper_21DCA0.cpp` adhering strictly to C++98 standards, Object Calisthenics, and SOLID principles.
+- Models exact two-argument invocation `func_0021DC50(ptr, base_idx + i)` without hardcoding dummy trailing `(0, 0)` arguments that would disrupt caller register state.
 - Native 32-bit test harness in `src/trade_action_helper_21DCA0_test.cpp` verifying sequential invocations, exact stride pointer arithmetic (`0x400` per step), index incrementing (`base_idx + i`), and zero/negative boundary termination.
 - Automated pytest regression in `tests/test_trade_action_helper_21DCA0.py`.
 - Registered as `NonMatching` in `configure.py`.

@@ -4,8 +4,8 @@
 #include <vector>
 
 extern "C" {
-void *func_0021DCA0(void *base, int base_idx, int count, int a3 = 0);
-void *func_0021DC50(void *obj, int a1, int a2 = 0, int a3 = 0);
+void *func_0021DCA0(void *base, int base_idx, int count);
+void *func_0021DC50(void *obj, int a1);
 }
 
 struct CallRecord {
@@ -17,9 +17,8 @@ static std::vector<CallRecord> dc50_calls;
 
 extern "C" {
 // Original branch citation: 0x21DCD0 -> func_0021DC50
-void *func_0021DC50(void *obj, int a1, int a2, int a3) {
-    (void)a2;
-    (void)a3;
+// Confirmed: 2-argument call consuming a0 (ptr) and a1 (idx) without touching a2/a3
+void *func_0021DC50(void *obj, int a1) {
     CallRecord rec;
     rec.passed_ptr = obj;
     rec.passed_idx = a1;
@@ -43,6 +42,9 @@ void test_trade_action_helper_21DCA0() {
         assert(dc50_calls[i].passed_ptr == dummy_pool + (i * 0x400));
         assert(dc50_calls[i].passed_idx == base_idx + i);
     }
+
+    // Mutation test: ensure stride != 0x400 would violate contract
+    assert(dc50_calls[1].passed_ptr != dummy_pool + 0x200);
 
     // Case 2: Zero count (count = 0) -> no iterations
     dc50_calls.clear();

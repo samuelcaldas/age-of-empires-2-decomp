@@ -138,9 +138,9 @@ int func_001C7850(
         int dx = y_min_val - cur_y;
         for (int cur_x = t_min_x; cur_x <= t_max_x; cur_x++) {
             if (bld->m_id == 0x299 || bld->m_id == 0x29A) {
-                if (cur_x - t_max_y == dy) continue;
+                if (cur_x - t_max_y != dy) continue;
             } else if ((unsigned short)(bld->m_id - 0x2A1) < 2) {
-                if (cur_x - t_max_y == dx) continue;
+                if (cur_x - t_max_y != dx) continue;
             }
 
             MapTile *t = &tile_rows[cur_y][cur_x];

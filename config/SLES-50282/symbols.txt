@@ -2808,3 +2808,6 @@ func_001EBCD0 = 0x1EBCD0; // type:func size:0x1B8 absolute:True
 func_001EBE90 = 0x1EBE90; // type:func size:0xDC absolute:True
 func_001EBF70 = 0x1EBF70; // type:func size:0x64 absolute:True
 func_001EBFE0 = 0x1EBFE0; // type:func size:0xAC absolute:True
+func_001EC090 = 0x1EC090; // type:func size:0x2C4 absolute:True
+func_001EC360 = 0x1EC360; // type:func size:0x1F8 absolute:True
+func_001EC560 = 0x1EC560; // type:func size:0x4C absolute:True

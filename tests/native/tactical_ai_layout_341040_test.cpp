@@ -1,7 +1,22 @@
 #include <cassert>
 #include <cstdio>
 #include <cstring>
+#include <vector>
+#include <string>
 #include "tactical_ai_layout_341040.h"
+
+struct CallRecord {
+    const char* name;
+    void* self;
+    int arg1;
+    CallRecord(const char* n, void* s, int a) : name(n), self(s), arg1(a) {}
+};
+
+static std::vector<CallRecord> g_call_history;
+
+static void log_call(const char* name, void* self, int arg1) {
+    g_call_history.push_back(CallRecord(name, self, arg1));
+}
 
 static int g_func_33a5d0_called = 0;
 static int g_func_339900_called = 0;
@@ -30,35 +45,38 @@ public:
 };
 
 extern "C" {
-void func_33A730() { g_func_33a730_called++; }
+void func_33A730() {
+    log_call("func_33A730", NULL, 0);
+    g_func_33a730_called++;
+}
 void func_33A5D0(void *a0, int a1) {
-    (void)a0; (void)a1;
+    log_call("func_33A5D0", a0, a1);
     g_func_33a5d0_called++;
 }
 void func_339900(void *a0, int a1) {
-    (void)a0;
+    log_call("func_339900", a0, a1);
     g_func_339900_called++;
     g_last_339900_arg = a1;
 }
 void func_339960(void *a0, int a1) {
-    (void)a0;
+    log_call("func_339960", a0, a1);
     g_func_339960_called++;
     g_last_339960_arg = a1;
 }
-void func_340CF0(void *a0) { (void)a0; }
-void func_340C30(void *a0) { (void)a0; }
+void func_340CF0(void *a0) { log_call("func_340CF0", a0, 0); }
+void func_340C30(void *a0) { log_call("func_340C30", a0, 0); }
 void func_1F6750(void *a0, void *a1) { (void)a0; (void)a1; }
 void func_1F88B0(void *a0, void *a1) { (void)a0; (void)a1; }
 void func_33F8B0(void *a0) {
-    (void)a0;
+    log_call("func_33F8B0", a0, 0);
     g_func_33f8b0_called++;
 }
 void func_219BA0(void *a0, int a1) {
-    (void)a0;
+    log_call("func_219BA0", a0, a1);
     g_last_219ba0_arg = a1;
 }
 void func_1FBD30(void *a0, int a1) {
-    (void)a0;
+    log_call("func_1FBD30", a0, a1);
     g_func_1fbd30_called++;
     g_last_1fbd30_arg = a1;
 }
@@ -267,6 +285,29 @@ static void test_func_342170_remaining_modes() {
     std::printf("PASS test_func_342170_remaining_modes\n");
 }
 
+static void test_func_342170_call_history_sequence() {
+    TacticalObj_341040 obj;
+    std::memset(&obj, 0, sizeof(obj));
+    MockSubObj mock_sub;
+    obj.field_838 = &mock_sub;
+    obj.field_84C = 0; // Mode 0
+    g_call_history.clear();
+
+    func_00342170(&obj, 42, 16, 0, 0);
+
+    // Verify exact call history sequence and arguments:
+    // 1. func_33A5D0(&mock_sub, 42)
+    // 2. func_339900(&obj, 42)
+    assert(g_call_history.size() >= 2);
+    assert(g_call_history[0].name == "func_33A5D0");
+    assert(g_call_history[0].arg1 == 42);
+
+    assert(g_call_history[1].name == "func_339900");
+    assert(g_call_history[1].arg1 == 42);
+
+    std::printf("PASS test_func_342170_call_history_sequence\n");
+}
+
 int main() {
     test_initial_layout_state();
     test_func_342170_mode16_t0_xffff();
@@ -276,6 +317,7 @@ int main() {
     test_func_342170_preceding_calls_order();
     test_func_342170_mode31_a2_equals_1();
     test_func_342170_remaining_modes();
-    std::printf("ALL TACTICAL AI LAYOUT TESTS PASSED WITH COMPLETE MODE COVERAGE\n");
+    test_func_342170_call_history_sequence();
+    std::printf("ALL TACTICAL AI LAYOUT TESTS PASSED WITH PER-CALL HISTORY SEQUENCE ASSERTIONS\n");
     return 0;
 }

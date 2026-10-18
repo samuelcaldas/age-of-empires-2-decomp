@@ -3148,3 +3148,5 @@ func_27C390 = 0x27C390; // type:func absolute:True
 func_0027CC80 = 0x27CC80; // type:func size:0x660 absolute:True
 func_27CC80 = 0x27CC80; // type:func absolute:True
 func_001C0F90 = 0x1C0F90; // type:func absolute:True
+func_0027D2E0 = 0x27D2E0; // type:func size:0x730 absolute:True
+func_27D2E0 = 0x27D2E0; // type:func absolute:True

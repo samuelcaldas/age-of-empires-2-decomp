@@ -151,5 +151,43 @@ int main() {
     grid_tiles[8][9].m_zone_id = 0;
     bld.m_required_zone = -1;
 
+    // Behavioral test 8: Unit collision detection and out_id assignment.
+    // ELF 0x9D4..0xB78: loops units on tiles in check_radius; when distance matches,
+    // writes u->m_id to out_id and returns 6. With ignore_unit, collision is bypassed.
+    UnitMaster master;
+    std::memset(&master, 0, sizeof(master));
+    master.m_id = 100;
+    master.m_flag40 = 0;
+    master.m_radius_x = 0.5f;
+    master.m_radius_y = 0.5f;
+
+    Unit obstructing_unit;
+    std::memset(&obstructing_unit, 0, sizeof(obstructing_unit));
+    obstructing_unit.m_id = 42;
+    obstructing_unit.m_unit_type = 2; // < 7
+    obstructing_unit.m_master = &master;
+    obstructing_unit.m_x = 10.2f;
+    obstructing_unit.m_y = 10.2f;
+
+    void *unit_list[1] = { &obstructing_unit };
+    grid_tiles[10][10].m_unit_count = 1;
+    grid_tiles[10][10].m_unit_array = unit_list;
+
+    int out_id = 0;
+    bld.m_field28 = 1.0f;
+    // Call with arg9=1 to enable collision check
+    int res_collision = func_001C7850(&bld, world_buf, &out_id, 0, 0, 0, 0, 0, 1, 0, 0, 10.0f, 10.0f);
+    assert(res_collision == 6);
+    assert(out_id == 42);
+
+    // With ignore_unit, collision is skipped
+    out_id = 0;
+    int res_ignored = func_001C7850(&bld, world_buf, &out_id, 0, 0, 0, 0, 0, 1, 0, &obstructing_unit, 10.0f, 10.0f);
+    assert(res_ignored == 0);
+    assert(out_id == 0);
+
+    grid_tiles[10][10].m_unit_count = 0;
+    grid_tiles[10][10].m_unit_array = 0;
+
     return 0;
 }

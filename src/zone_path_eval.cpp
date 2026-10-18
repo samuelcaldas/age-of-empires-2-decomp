@@ -215,9 +215,9 @@ int func_001C7850(
         return 0;
     }
 
-    for (int cur_y = check_min_y; cur_y <= check_max_y; cur_y++) {
+    for (short cur_y = check_min_y; cur_y <= check_max_y; cur_y++) {
         MapTile *t = &tile_rows[cur_y][check_min_x];
-        for (int cur_x = check_min_x; cur_x <= check_max_x; cur_x++, t++) {
+        for (short cur_x = check_min_x; cur_x <= check_max_x; cur_x++, t++) {
             for (int i = 0; i < t->m_unit_count; i++) {
                 Unit *u = (Unit *)t->m_unit_array[i];
                 if (u == ignore_unit) continue;
@@ -235,20 +235,23 @@ int func_001C7850(
                             u_rad = 1.0f;
                         }
 
-                        if (u_rx <= 0.0f || u_ry <= 0.0f || u_rad <= 0.0f || check_radius <= 0.0f) {
-                            continue;
-                        }
+                        if (u_rx <= 0.0f) continue;
+                        if (u_ry <= 0.0f) continue;
+                        if (u_rad <= 0.0f) continue;
+                        if (check_radius <= 0.0f) continue;
 
                         float dist_y = u->m_y - y;
                         float dist_x = u->m_x - x;
                         if (dist_y < 0.0f) dist_y = -dist_y;
                         if (dist_x < 0.0f) dist_x = -dist_x;
 
-                        if (dist_x < rx + u_rx && dist_y < ry + u_ry) {
-                            if (out_id) {
-                                *out_id = u->m_id;
+                        if (dist_x < rx + u_rx) {
+                            if (dist_y < ry + u_ry) {
+                                if (out_id) {
+                                    *out_id = u->m_id;
+                                }
+                                return 6;
                             }
-                            return 6;
                         }
                     }
                 }

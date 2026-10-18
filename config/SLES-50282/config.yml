@@ -4361,9 +4361,45 @@ segments:
     vram: 0x1ED200
     subsegments:
       - [0xED3D0, asm, zone_spatial_grid_clear_tables]
+  - name: zone_spatial_grid_init_tables
+    type: code
+    start: 0xED5A0
+    vram: 0x1ED3D0
+    subsegments:
+      - [0xED5A0, asm, zone_spatial_grid_init_tables]
+  - name: zone_spatial_grid_cleanup_tables
+    type: code
+    start: 0xEDA10
+    vram: 0x1ED840
+    subsegments:
+      - [0xEDA10, asm, zone_spatial_grid_cleanup_tables]
+  - name: zone_spatial_grid_sync_terrain_types
+    type: code
+    start: 0xEDB90
+    vram: 0x1ED9C0
+    subsegments:
+      - [0xEDB90, asm, zone_spatial_grid_sync_terrain_types]
+  - name: zone_spatial_grid_query_bounds
+    type: code
+    start: 0xEDC60
+    vram: 0x1EDA90
+    subsegments:
+      - [0xEDC60, asm, zone_spatial_grid_query_bounds]
+  - name: zone_spatial_grid_update_bounds_margin
+    type: code
+    start: 0xEE100
+    vram: 0x1EDF30
+    subsegments:
+      - [0xEE100, asm, zone_spatial_grid_update_bounds_margin]
+  - name: zone_spatial_grid_set_entity_flags
+    type: code
+    start: 0xEE220
+    vram: 0x1EE050
+    subsegments:
+      - [0xEE220, asm, zone_spatial_grid_set_entity_flags]
   - name: post_aoe2
     type: bin
-    start: 0xED5A0
+    start: 0xEE250
   - name: trade_action_helper_217730
     type: code
     start: 0x117910

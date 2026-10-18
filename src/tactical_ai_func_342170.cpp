@@ -15,8 +15,8 @@ void func_33F8B0(void *a0);
 void func_219BA0(void *a0, int a1);
 void func_1FBD30(void *a0, int a1);
 
-void func_00342170(TacticalObj_341040 *self, int a1, int a2, int a3, int t0) {
-    if (!self) return;
+int func_00342170(TacticalObj_341040 *self, int a1, int a2, int a3, int t0) {
+    if (!self) return 0;
 
     TacticalSubObj *sub838 = self->field_838;
     if (sub838) {
@@ -38,7 +38,7 @@ void func_00342170(TacticalObj_341040 *self, int a1, int a2, int a3, int t0) {
 
     if (mode == 31 && a2 != 1) {
         func_1FBD30(self, a2);
-        return;
+        return 0;
     }
 
     switch (mode) {
@@ -129,5 +129,6 @@ void func_00342170(TacticalObj_341040 *self, int a1, int a2, int a3, int t0) {
     }
 
     self->field_84C = mode;
+    return 0;
 }
 }

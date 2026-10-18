@@ -1,3 +1,7 @@
+#ifdef NDEBUG
+#error "Tests require NDEBUG to be undefined so assertions remain active"
+#endif
+
 #include <cassert>
 #include <cstddef>
 #include <cstring>
@@ -108,11 +112,30 @@ static void test_zero_count_tag_behavior() {
     assert(res == 0);
 }
 
+static void test_nonzero_tag_removal() {
+    MeshVertex buffer[2];
+    std::memset(buffer, 0, sizeof(buffer));
+    buffer[0].m_id = 77;
+    void *table0[2] = {0, buffer};
+    int table8[2] = {0, 1};
+
+    ElevationMeshDescriptor desc;
+    std::memset(&desc, 0, sizeof(desc));
+    desc.m_count = 2;
+    desc.m_table_0 = table0;
+    desc.m_table_8 = table8;
+
+    int res = func_00328300(&desc, 77, 1); // nonzero tag index 1
+    assert(res == 0);
+    assert(table8[1] == 0);
+}
+
 int main() {
     test_early_exits();
     test_not_found();
     test_remove_single();
     test_remove_swap_last();
     test_zero_count_tag_behavior();
+    test_nonzero_tag_removal();
     return 0;
 }

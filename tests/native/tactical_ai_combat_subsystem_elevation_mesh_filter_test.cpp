@@ -1,3 +1,7 @@
+#ifdef NDEBUG
+#error "Tests require NDEBUG to be undefined so assertions remain active"
+#endif
+
 #include <cassert>
 #include <cstddef>
 #include <cstring>

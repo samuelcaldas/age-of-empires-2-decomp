@@ -2089,10 +2089,28 @@ segments:
     vram: 0x188C00
     subsegments:
       - [0x88DE0, asm, render_manager_draw_buffer]
-  - name: post_base
-    type: bin
+  - name: render_manager_chat_init
+    type: code
     start: 0x88FD0
     vram: 0x188DF0
+    subsegments:
+      - [0x88FD0, asm, render_manager_chat_init]
+  - name: render_manager_chat_msg
+    type: code
+    start: 0x89080
+    vram: 0x188EA0
+    subsegments:
+      - [0x89080, asm, render_manager_chat_msg]
+  - name: render_manager_chat_methods
+    type: code
+    start: 0x89280
+    vram: 0x1890A0
+    subsegments:
+      - [0x89280, asm, render_manager_chat_methods]
+  - name: post_base
+    type: bin
+    start: 0x89440
+    vram: 0x189260
   - name: zone_path_eval
     type: code
     start: 0xC7A40

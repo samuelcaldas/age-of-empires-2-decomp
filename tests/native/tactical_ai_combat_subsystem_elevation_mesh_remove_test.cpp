@@ -48,7 +48,7 @@ static void test_not_found() {
     desc.m_table_8 = table8;
 
     int res = func_00328300(&desc, 999, 0);
-    assert(res == -1);
+    assert(res == -1 && "not found remove failed");
     assert(table8[0] == 1);
 }
 
@@ -66,7 +66,7 @@ static void test_remove_single() {
     desc.m_table_8 = table8;
 
     int res = func_00328300(&desc, 55, 0);
-    assert(res == 0);
+    assert(res == 0 && "single remove failed");
     assert(table8[0] == 0);
 }
 
@@ -89,7 +89,7 @@ static void test_remove_swap_last() {
     desc.m_table_8 = table8;
 
     int res = func_00328300(&desc, 20, 0);
-    assert(res == 1);
+    assert(res == 1 && "swap last remove failed");
     assert(table8[0] == 2);
     assert(buffer[1].m_id == 30);
     assert(buffer[1].m_x == 9);

@@ -167,7 +167,12 @@ int main() {
     assert(g_last_deleted_ptr == obj);
 
     // Test 3A: func_001F2020 - clear pool with table_138814 non-null (expects self+8 clear)
-    ClearNodePool *clear_pool1 = new ClearNodePool();
+    const size_t guard_size = 64;
+    const size_t total_buf_size = guard_size + sizeof(ClearNodePool) + 0x1000;
+    char *raw_buf = (char *)malloc(total_buf_size);
+    memset(raw_buf, 0xAA, total_buf_size); // Fill with sentinel 0xAA
+
+    ClearNodePool *clear_pool1 = (ClearNodePool *)(raw_buf + guard_size);
     memset(clear_pool1, 0, sizeof(ClearNodePool));
     void *entry_buf1 = malloc(16);
     void **table_buf1 = (void **)malloc(sizeof(void *));
@@ -192,10 +197,13 @@ int main() {
     assert(g_clear_calls_log[2].val == 0);
     assert(g_clear_calls_log[2].size == 8);
 
-    // Verify repeated calls maintain zero-filled cleared state after intentional non-zero contamination
-    // Contaminate region at self + 0x10 and header with 0xFF
-    memset((char *)clear_pool1 + 0x10, 0xFF, 256);
+    // Verify repeated calls maintain zero-filled cleared state after intentional full-region contamination
+    // Contaminate full 0x138800-byte clear region and header with 0xFF, keeping guard zones 0xAA
+    char *clear_start1 = (char *)clear_pool1 + 0x10;
+    memset(clear_start1, 0xFF, 0x138800);
     memset(clear_pool1, 0xFF, 16);
+    memset(raw_buf, 0xAA, guard_size); // restore guard before pool
+
     clear_pool1->table_138810 = table_buf1;
     clear_pool1->table_138814 = (void *)0x1;
     clear_pool1->count_138818 = 1;
@@ -204,17 +212,29 @@ int main() {
     func_001F2020((NodePool *)clear_pool1);
     assert(g_clear_calls_log.size() == 3);
 
-    // Assert bytes at self + 0x10 and header fields are successfully zeroed out by clear
-    for (int i = 0; i < 256; ++i) {
-        assert(((char *)clear_pool1 + 0x10)[i] == 0);
+    // Assert full boundary, representative trailing bytes, and middle checkpoints of 0x138800 region are zeroed out
+    for (int i = 0; i < 64; ++i) {
+        assert(clear_start1[i] == 0);
+    }
+    for (size_t off = 0x1000; off < 0x138800; off += 0x8000) {
+        assert(clear_start1[off] == 0);
+        assert(clear_start1[off + 1] == 0);
+    }
+    for (size_t off = 0x1387E0; off < 0x138800; ++off) {
+        assert(clear_start1[off] == 0);
     }
     for (int i = 0; i < 16; ++i) {
         assert(((char *)clear_pool1)[i] == 0);
     }
 
+    // Verify untouched adjacent memory (guards) remain 0xAA
+    for (size_t i = 0; i < guard_size; ++i) {
+        assert(raw_buf[i] == (char)0xAA);
+    }
+
     free(entry_buf1);
     free(table_buf1);
-    delete clear_pool1;
+    free(raw_buf);
 
     // Test 3B: func_001F2020 - clear pool with table_138814 NULL (expects NO self+8 clear)
     ClearNodePool *clear_pool2 = new ClearNodePool();

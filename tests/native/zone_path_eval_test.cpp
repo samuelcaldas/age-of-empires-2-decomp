@@ -2,8 +2,8 @@
 #include "zone_path_eval.h"
 
 int main() {
-    // Red phase test asserting initial behavior / call
+    // Behavioral Red test: null self validation should return -1 (fail-fast)
     int res = func_001C7850(nullptr, nullptr, 0, 0);
-    assert(res == 0);
+    assert(res == -1);
     return 0;
 }

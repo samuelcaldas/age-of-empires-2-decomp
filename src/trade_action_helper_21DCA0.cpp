@@ -2,14 +2,11 @@
 #include "sub_list.h"
 
 extern "C" {
-void *func_0021DCA0(void *obj, void *arg1, void *arg2, void *arg3) {
-    if (obj == 0) {
-        return 0;
-    }
-    volatile void **p = (volatile void **)obj;
-    p[0] = arg1;
-    p[1] = arg2;
-    p[2] = arg3;
-    return obj;
+void *func_0021DC50(void *obj, int a1, int a2, int a3);
+
+// Original VRAM 0x21DCA0 - 0x21DD10
+// Calls func_0021DC50 (at 0x21dcd0)
+void *func_0021DCA0(void *obj, int a1, int a2, int a3) {
+    return func_0021DC50(obj, a1 + 1, a2 + 1, a3);
 }
 }

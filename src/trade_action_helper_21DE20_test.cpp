@@ -3,23 +3,28 @@
 #include <cstdint>
 
 extern "C" {
-void *func_0021DE20(void *obj, void *arg1, void *arg2, void *arg3);
+void *func_0021DE20(void *obj, int a1, int a2, int a3, int a4);
+void *func_0021DD10(void *obj, int a1, int a2, int a3, int a4);
+}
+
+static int dd10_calls = 0;
+static int last_a2 = 0;
+
+extern "C" {
+void *func_0021DD10(void *obj, int a1, int a2, int a3, int a4) {
+    dd10_calls++;
+    last_a2 = a2;
+    return obj;
+}
 }
 
 void test_trade_action_helper_21DE20() {
-    void *dummy_obj[4] = {0, 0, 0, 0};
-    void *arg_a = (void *)0x777;
-    void *arg_b = (void *)0x888;
-    void *arg_c = (void *)0x999;
-
-    void *res = func_0021DE20(dummy_obj, arg_a, arg_b, arg_c);
-    assert(res == dummy_obj);
-    assert(dummy_obj[0] == arg_a);
-    assert(dummy_obj[1] == arg_b);
-    assert(dummy_obj[2] == arg_c);
-
-    void *null_res = func_0021DE20(0, arg_a, arg_b, arg_c);
-    assert(null_res == 0);
+    dd10_calls = 0;
+    char dummy[32];
+    void *res = func_0021DE20(dummy, 1, 10, 3, 2);
+    assert(res == dummy);
+    assert(dd10_calls == 1);
+    assert(last_a2 == 15);
 }
 
 int main() {

@@ -31,6 +31,7 @@ struct RegRecord {
 
 static std::vector<CallStep> call_order;
 static std::vector<RegRecord> reg_records;
+static std::vector<uint64_t> tag_values;
 static int alloc_calls = 0;
 static int setup_calls = 0;
 static int tag_calls = 0;
@@ -57,12 +58,18 @@ void *func_1045E8(void *obj, void *tag) {
     tag_calls++;
     call_order.push_back(STEP_TAG);
     assert(tag != 0);
+    uint64_t *t_ptr = (uint64_t *)tag;
+    tag_values.push_back(t_ptr[0]);
+    tag_values.push_back(t_ptr[1]);
     return obj;
 }
 
 void *func_1046A8(void *obj, int reg, unsigned long long data) {
     call_order.push_back(STEP_REG);
-    reg_records.push_back({reg, (uint64_t)data});
+    RegRecord rec;
+    rec.reg = reg;
+    rec.data = (uint64_t)data;
+    reg_records.push_back(rec);
     return obj;
 }
 
@@ -73,9 +80,10 @@ void *func_104600(void *obj) {
 }
 }
 
-void test_trade_action_helper_21D980() {
+void test_trade_action_helper_21D980_mode1() {
     call_order.clear();
     reg_records.clear();
+    tag_values.clear();
     alloc_calls = 0;
     setup_calls = 0;
     tag_calls = 0;
@@ -100,13 +108,21 @@ void test_trade_action_helper_21D980() {
     assert(call_order[2] == STEP_TAG);
     assert(call_order.back() == STEP_FINALIZE);
 
+    // Verify tag contents explicitly
+    assert(tag_values.size() == 2);
+    assert(tag_values[1] == (0x1111ULL | ((uint64_t)0x2222ULL << 32)));
+
     bool found_mode_07 = false;
     bool found_param_01 = false;
     int coord_writes = 0;
-    for (const auto &rec : reg_records) {
+    for (size_t i = 0; i < reg_records.size(); ++i) {
+        RegRecord rec = reg_records[i];
         if (rec.reg == 0x07) {
             found_mode_07 = true;
             assert(rec.data == 42);
+        } else if (rec.reg == 0x06) {
+            // Should NOT be found when t3 == 1
+            assert(false);
         } else if (rec.reg == 0x01) {
             found_param_01 = true;
             assert(rec.data == 100);
@@ -121,7 +137,39 @@ void test_trade_action_helper_21D980() {
     assert(coord_writes == 4);
 }
 
+void test_trade_action_helper_21D980_mode0() {
+    call_order.clear();
+    reg_records.clear();
+    tag_values.clear();
+    alloc_calls = 0;
+    setup_calls = 0;
+    tag_calls = 0;
+    finalize_calls = 0;
+
+    D_00CA158C = 640;
+    D_00CA158E = 480;
+    D_00392B80[2] = 0x3333;
+    D_00392B80[3] = 0x4444;
+
+    short pts[16] = {0,0, 10,0, 10,10, 0,10};
+    void *res = func_0021D980(0, 43, 2, 101, pts, 5, 6, 7, 0);
+    assert(res != 0);
+
+    bool found_mode_06 = false;
+    for (size_t i = 0; i < reg_records.size(); ++i) {
+        RegRecord rec = reg_records[i];
+        if (rec.reg == 0x06) {
+            found_mode_06 = true;
+            assert(rec.data == 43);
+        } else if (rec.reg == 0x07) {
+            assert(false);
+        }
+    }
+    assert(found_mode_06);
+}
+
 int main() {
-    test_trade_action_helper_21D980();
+    test_trade_action_helper_21D980_mode1();
+    test_trade_action_helper_21D980_mode0();
     return 0;
 }

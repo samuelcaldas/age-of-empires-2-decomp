@@ -3,23 +3,31 @@
 #include <cstdint>
 
 extern "C" {
-void *func_0021DCA0(void *obj, void *arg1, void *arg2, void *arg3);
+void *func_0021DCA0(void *obj, int a1, int a2, int a3);
+void *func_0021DC50(void *obj, int a1, int a2, int a3);
+}
+
+static int dc50_calls = 0;
+static int last_a1 = 0;
+static int last_a2 = 0;
+
+extern "C" {
+void *func_0021DC50(void *obj, int a1, int a2, int a3) {
+    dc50_calls++;
+    last_a1 = a1;
+    last_a2 = a2;
+    return obj;
+}
 }
 
 void test_trade_action_helper_21DCA0() {
-    void *dummy_obj[4] = {0, 0, 0, 0};
-    void *arg_a = (void *)0x1234;
-    void *arg_b = (void *)0x5678;
-    void *arg_c = (void *)0x9ABC;
-
-    void *res = func_0021DCA0(dummy_obj, arg_a, arg_b, arg_c);
-    assert(res == dummy_obj);
-    assert(dummy_obj[0] == arg_a);
-    assert(dummy_obj[1] == arg_b);
-    assert(dummy_obj[2] == arg_c);
-
-    void *null_res = func_0021DCA0(0, arg_a, arg_b, arg_c);
-    assert(null_res == 0);
+    dc50_calls = 0;
+    char dummy[32];
+    void *res = func_0021DCA0(dummy, 10, 20, 5);
+    assert(res == dummy);
+    assert(dc50_calls == 1);
+    assert(last_a1 == 11);
+    assert(last_a2 == 21);
 }
 
 int main() {

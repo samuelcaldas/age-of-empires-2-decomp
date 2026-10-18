@@ -19,19 +19,19 @@ static void *EnsurePacketObject(void *obj) {
     return func_123908(0);
 }
 
-static void BuildSpriteTag02(unsigned long long *tag, int a2) {
-    unsigned long long part1 = 0x8000ULL | (0x20004000ULL << 32);
-    unsigned long long v0 = 0x216 | (((unsigned long long)(unsigned int)a2) << 6);
+static void BuildSpriteTag98(unsigned long long *tag, int a2) {
+    unsigned long long part1 = 0x8000ULL | (0x10004000ULL << 32);
+    unsigned long long v0 = 0x116 | (((unsigned long long)(unsigned int)a2) << 6);
     unsigned long long part2 = v0 << 47;
     tag[0] = part1 | part2;
     tag[1] = ((unsigned long long)D_00392B80[2]) | (((unsigned long long)D_00392B80[3]) << 32);
 }
 
-void *func_0021D970(void *obj, int a1, int a2, int a3, const short *xy_pts, int t0, int t1, int t2, int t3) {
+void *func_0021D980(void *obj, int a1, int a2, int a3, const short *xy_pts, int t0, int t1, int t2, int t3) {
     void *packet = EnsurePacketObject(obj);
 
     unsigned long long tag[2];
-    BuildSpriteTag02(tag, a2);
+    BuildSpriteTag98(tag, a2);
 
     int center_x = (int)D_00CA158C;
     int center_y = (int)D_00CA158E;

@@ -4,7 +4,7 @@
 #include <vector>
 
 extern "C" {
-void *func_0021D970(void *obj, int a1, int a2, int a3, const short *xy_pts, int t0, int t1, int t2, int t3);
+void *func_0021D980(void *obj, int a1, int a2, int a3, const short *xy_pts, int t0, int t1, int t2, int t3);
 void *func_123908(void *);
 void *func_104448(void *obj, int a1, int a2, int a3);
 void *func_1045E8(void *obj, void *tag);
@@ -56,7 +56,7 @@ void *func_104448(void *obj, int a1, int a2, int a3) {
 void *func_1045E8(void *obj, void *tag) {
     tag_calls++;
     call_order.push_back(STEP_TAG);
-    assert(tag != nullptr);
+    assert(tag != 0);
     return obj;
 }
 
@@ -73,7 +73,7 @@ void *func_104600(void *obj) {
 }
 }
 
-void test_trade_action_helper_21D970() {
+void test_trade_action_helper_21D980() {
     call_order.clear();
     reg_records.clear();
     alloc_calls = 0;
@@ -87,10 +87,8 @@ void test_trade_action_helper_21D970() {
     D_00392B80[3] = 0x2222;
 
     short pts[16] = {0,0, 10,0, 10,10, 0,10};
-    void *res = func_0021D970(nullptr, 42, 1, 100, pts, 5, 6, 7, 1);
-    assert(res != nullptr);
-
-    // Verify callback counts and order
+    void *res = func_0021D980(0, 42, 1, 100, pts, 5, 6, 7, 1);
+    assert(res != 0);
     assert(alloc_calls == 1);
     assert(setup_calls == 1);
     assert(tag_calls == 1);
@@ -102,7 +100,6 @@ void test_trade_action_helper_21D970() {
     assert(call_order[2] == STEP_TAG);
     assert(call_order.back() == STEP_FINALIZE);
 
-    // Verify register writes (mode selector 0x07, texture/param 0x01, and 4 XYZ vertex coordinates)
     bool found_mode_07 = false;
     bool found_param_01 = false;
     int coord_writes = 0;
@@ -115,7 +112,6 @@ void test_trade_action_helper_21D970() {
             assert(rec.data == 100);
         } else if (rec.reg == 0x04) {
             coord_writes++;
-            // Check z component stored in upper 32 bits (t0 = 5)
             uint32_t z_val = (uint32_t)(rec.data >> 32);
             assert(z_val == 5);
         }
@@ -126,6 +122,6 @@ void test_trade_action_helper_21D970() {
 }
 
 int main() {
-    test_trade_action_helper_21D970();
+    test_trade_action_helper_21D980();
     return 0;
 }

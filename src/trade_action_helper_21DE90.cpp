@@ -2,7 +2,7 @@
 #include "sub_list.h"
 
 extern "C" {
-void *func_0021E070(void *obj, void *arg1, void *arg2, void *arg3, void *arg4) {
+void *func_0021DE90(void *obj, void *arg1, void *arg2, void *arg3, void *arg4) {
     if (obj == 0) {
         return 0;
     }

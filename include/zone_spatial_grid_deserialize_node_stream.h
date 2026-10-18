@@ -1,0 +1,8 @@
+#ifndef ZONE_SPATIAL_GRID_DESERIALIZE_NODE_STREAM_H
+#define ZONE_SPATIAL_GRID_DESERIALIZE_NODE_STREAM_H
+
+extern "C" {
+void func_001EBC40(void *self, void *stream, void *p2);
+}
+
+#endif // ZONE_SPATIAL_GRID_DESERIALIZE_NODE_STREAM_H

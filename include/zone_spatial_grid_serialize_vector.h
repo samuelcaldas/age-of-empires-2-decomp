@@ -1,0 +1,8 @@
+#ifndef ZONE_SPATIAL_GRID_SERIALIZE_VECTOR_H
+#define ZONE_SPATIAL_GRID_SERIALIZE_VECTOR_H
+
+extern "C" {
+void func_001EBE90(void *self, void *stream);
+}
+
+#endif // ZONE_SPATIAL_GRID_SERIALIZE_VECTOR_H

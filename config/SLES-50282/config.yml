@@ -2047,10 +2047,16 @@ segments:
     vram: 0x187B40
     subsegments:
       - [0x87D20, asm, render_manager_stats_overlay]
-  - name: post_base
-    type: bin
+  - name: render_manager_config
+    type: code
     start: 0x87E80
     vram: 0x187CA0
+    subsegments:
+      - [0x87E80, asm, render_manager_config]
+  - name: post_base
+    type: bin
+    start: 0x88200
+    vram: 0x188020
   - name: zone_path_eval
     type: code
     start: 0xC7A40

@@ -58,7 +58,7 @@ void test_trade_action_helper_21DBE0() {
     int test_a2 = 42;
     int test_a3 = 3;
 
-    // Test non-null path (Original VRAM 0x21DBE0)
+    // Test non-null path (Original VRAM 0x21DBE0 - 0x21DC44)
     void *res = func_0021DBE0(dummy, test_a1, test_a2, test_a3);
     assert(res == dummy);
     assert(reg_calls == 1);
@@ -73,13 +73,21 @@ void test_trade_action_helper_21DBE0() {
     assert(call_records[1].step == STEP_MODE);
     assert(call_records[1].reg_or_mode == test_a3);
 
-    // Mutation test: ensure wrong register or wrong mode fails assertion
-    bool mutation_detected = (call_records[0].reg_or_mode != 0x1F00) || (call_records[1].reg_or_mode != test_a3);
-    assert(!mutation_detected);
+    // Strict mutation/boundary check: verify altering expected parameters fails validation
+    bool expected_match = (call_records[0].reg_or_mode == 0x1F00) &&
+                          (call_records[0].data == (uint64_t)test_a2) &&
+                          (call_records[1].reg_or_mode == test_a3);
+    assert(expected_match);
 
-    // Test null path explicitly returns 0
+    // Test null path explicitly returns 0 and asserts zero side-effect calls
+    call_records.clear();
+    reg_calls = 0;
+    mode_calls = 0;
     void *null_res = func_0021DBE0(0, test_a1, test_a2, test_a3);
     assert(null_res == 0);
+    assert(reg_calls == 0);
+    assert(mode_calls == 0);
+    assert(call_records.empty());
 }
 
 int main() {

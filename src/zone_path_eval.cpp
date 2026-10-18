@@ -24,9 +24,6 @@ int func_001C7850(
     float y
 ) {
     (void)arg5;
-    (void)flag3;
-    (void)arg9;
-    (void)arg10;
 
     void *map = *(void **)((char *)world + 0xB98);
     float **slope_table = *(float ***)((char *)map + 0x68);
@@ -167,10 +164,6 @@ int func_001C7850(
         return 5;
     }
 
-    if (rx <= 0.0f && ry <= 0.0f) {
-        return 0;
-    }
-
     int check_min_x = func_123350(x - 8.0f);
     int check_min_y = func_123350(y - 8.0f);
     int check_max_x = func_123350(x + 8.0f);
@@ -181,21 +174,55 @@ int func_001C7850(
     if (check_min_y < 0) check_min_y = 0;
     if (check_max_y >= map_h) check_max_y = map_h - 1;
 
+    if (bld->m_id == 0x3B) {
+        bld->m_field28 = 1.0f;
+    }
+
+    float check_radius;
+    if (arg10 != 0) {
+        check_radius = func_3675D0((void *)arg10);
+    } else {
+        check_radius = bld->m_field28;
+    }
+
+    if (!arg9) {
+        return 0;
+    }
+
+    if (!flag3 && check_radius <= 0.0f) {
+        return 0;
+    }
+
     for (int cur_y = check_min_y; cur_y <= check_max_y; cur_y++) {
-        for (int cur_x = check_min_x; cur_x <= check_max_x; cur_x++) {
-            MapTile *t = &tile_rows[cur_y][cur_x];
+        MapTile *t = &tile_rows[cur_y][check_min_x];
+        for (int cur_x = check_min_x; cur_x <= check_max_x; cur_x++, t++) {
             for (int i = 0; i < t->m_unit_count; i++) {
                 Unit *u = (Unit *)t->m_unit_array[i];
                 if (u == ignore_unit) continue;
                 if (u->m_unit_type < 7) {
                     UnitMaster *m = u->m_master;
                     if (m->m_flag40 != 1) {
-                        float dist_x = u->m_x - x;
-                        if (dist_x < 0.0f) dist_x = -dist_x;
-                        float dist_y = u->m_y - y;
-                        if (dist_y < 0.0f) dist_y = -dist_y;
+                        float u_rx = m->m_radius_x;
+                        float u_ry = m->m_radius_y;
+                        float u_rad = func_3675D0(u);
+                        if (m->m_id == 59) {
+                            u_rad = 1.0f;
+                        } else if (bld->m_construction_type == 15 && m->m_type == 49) {
+                            u_rad = 1.0f;
+                        } else if (u_rad == 0.0f && m->m_class == 80 && m->m_id != 50) {
+                            u_rad = 1.0f;
+                        }
 
-                        if (dist_x < rx + m->m_radius_x && dist_y < ry + m->m_radius_y) {
+                        if (u_rx <= 0.0f || u_ry <= 0.0f || u_rad <= 0.0f || check_radius <= 0.0f) {
+                            continue;
+                        }
+
+                        float dist_y = u->m_y - y;
+                        float dist_x = u->m_x - x;
+                        if (dist_y < 0.0f) dist_y = -dist_y;
+                        if (dist_x < 0.0f) dist_x = -dist_x;
+
+                        if (dist_x < rx + u_rx && dist_y < ry + u_ry) {
                             if (out_id) {
                                 *out_id = u->m_id;
                             }

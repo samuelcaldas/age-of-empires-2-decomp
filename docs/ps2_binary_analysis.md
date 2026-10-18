@@ -6991,8 +6991,13 @@ matching either excluded index are copied byte by byte. For other entries:
 
 Both divisions are signed and truncate toward zero. The routine does not clamp
 the percentage or output components; conversion to an unsigned byte wraps.
-The caller supplies valid 1024-byte buffers. In-place processing preserves the
-original reads and writes; the source is not declared `restrict`.
+The C++ reconstruction requires each `(target - source) * percent` product to
+fit a 32-bit signed integer. Percentages in `[-8421504, 8421504]` satisfy this
+requirement for every palette; larger magnitudes can cause signed-overflow
+undefined behavior in native builds. Byte wrapping describes the final conversion,
+not overflowing intermediate products. No range check is added to the original
+arithmetic. The caller supplies valid 1024-byte buffers. In-place processing
+preserves the original reads and writes; the source is not declared `restrict`.
 
 The original leaf function uses `$ra` as a blue-component pointer, explaining its
 saved return address despite having no calls. Its frame is `0x90` bytes, the

@@ -30,18 +30,16 @@ int func_0021B440(void *palette_obj, int unused, int start_idx, int count, void 
 }
 
 void func_0021B560(void *palette_obj, const char *palette_data) {
-    if (palette_data == 0) {
-        return;
-    }
-
-    for (int i = 0; i < 256; i++) {
-        int swizzled_idx = ((i >> 5) << 5) | (((i >> 4) & 1) << 3) | (((i >> 3) & 1) << 4) | (i & 7);
-        const char *src = palette_data + i * 4;
-        char *dst = D_00C5DF00 + swizzled_idx * 4;
-        dst[0] = src[0];
-        dst[1] = src[1];
-        dst[2] = src[2];
-        dst[3] = src[3];
+    if (palette_data != 0) {
+        for (int i = 0; i < 256; i++) {
+            int swizzled_idx = ((i >> 5) << 5) | (((i >> 4) & 1) << 3) | (((i >> 3) & 1) << 4) | (i & 7);
+            const char *src = palette_data + i * 4;
+            char *dst = D_00C5DF00 + swizzled_idx * 4;
+            dst[0] = src[0];
+            dst[1] = src[1];
+            dst[2] = src[2];
+            dst[3] = src[3];
+        }
     }
 
     unsigned short clut_offset = *(unsigned short *)((char *)palette_obj + 2);

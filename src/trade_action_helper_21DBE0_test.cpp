@@ -18,6 +18,7 @@ struct CallRecord {
     CallStep step;
     int reg_or_mode;
     uint64_t data;
+    void *passed_obj;
 };
 
 static std::vector<CallRecord> call_records;
@@ -32,6 +33,7 @@ void *func_1046D0(void *obj, int reg, unsigned long long data) {
     rec.step = STEP_REG;
     rec.reg_or_mode = reg;
     rec.data = (uint64_t)data;
+    rec.passed_obj = obj;
     call_records.push_back(rec);
     return obj;
 }
@@ -43,6 +45,7 @@ void *func_21C050(void *obj, int mode) {
     rec.step = STEP_MODE;
     rec.reg_or_mode = mode;
     rec.data = 0;
+    rec.passed_obj = obj;
     call_records.push_back(rec);
     return obj;
 }
@@ -60,9 +63,16 @@ void test_trade_action_helper_21DBE0() {
     assert(reg_calls == 1);
     assert(mode_calls == 1);
     assert(call_records.size() == 2);
+
+    // Strict call order assertion: STEP_REG strictly precedes STEP_MODE
+    assert(call_records[0].step == STEP_REG);
     assert(call_records[0].reg_or_mode == 0x1F00);
     assert(call_records[0].data == 42);
+    assert(call_records[0].passed_obj == dummy); // Object pointer forwarding verification
+
+    assert(call_records[1].step == STEP_MODE);
     assert(call_records[1].reg_or_mode == 3);
+    assert(call_records[1].passed_obj == dummy); // Object pointer forwarding verification
 
     // Scenario B: Variant argument invocation (verifying argument forwarding behavior)
     call_records.clear();
@@ -74,9 +84,15 @@ void test_trade_action_helper_21DBE0() {
     assert(reg_calls == 1);
     assert(mode_calls == 1);
     assert(call_records.size() == 2);
+
+    assert(call_records[0].step == STEP_REG);
     assert(call_records[0].reg_or_mode == 0x1F00);
     assert(call_records[0].data == 100);
+    assert(call_records[0].passed_obj == dummy);
+
+    assert(call_records[1].step == STEP_MODE);
     assert(call_records[1].reg_or_mode == 7);
+    assert(call_records[1].passed_obj == dummy);
 
     // Scenario C: Null pointer safety and side-effect isolation
     call_records.clear();

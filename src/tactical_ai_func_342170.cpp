@@ -57,8 +57,7 @@ int func_00342170(TacticalObj_341040 *self, int a1, int a2, int a3, int t0) {
                 m = 17;
             }
             self->field_84C = m;
-            func_00341040(self);
-            return 1;
+            break;
         }
         case 15: {
             int m = 18;
@@ -72,8 +71,7 @@ int func_00342170(TacticalObj_341040 *self, int a1, int a2, int a3, int t0) {
                 return 1;
             }
             self->field_84C = m;
-            func_00341040(self);
-            return 1;
+            break;
         }
         case 20: {
             int m = 18;
@@ -84,8 +82,7 @@ int func_00342170(TacticalObj_341040 *self, int a1, int a2, int a3, int t0) {
                 m = 17;
             }
             self->field_84C = m;
-            func_00341040(self);
-            return 1;
+            break;
         }
         case 18:
         case 21:
@@ -93,8 +90,7 @@ int func_00342170(TacticalObj_341040 *self, int a1, int a2, int a3, int t0) {
         case 23:
         case 24:
             self->field_84C = 12;
-            func_00341040(self);
-            return 1;
+            break;
         case 1:
         case 2:
         case 4:
@@ -113,12 +109,12 @@ int func_00342170(TacticalObj_341040 *self, int a1, int a2, int a3, int t0) {
             return 1;
         case 11:
             self->field_84C = 3;
-            func_00341040(self);
-            return 1;
+            break;
         default:
-            func_00341040(self);
-            return 1;
+            break;
         }
+        func_00341040(self);
+        return 1;
     } else if ((TacticalSubObj*)a1 == self->field_830) {
         int mode = self->field_84C;
         if ((unsigned int)mode >= 30) {

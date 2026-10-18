@@ -8,7 +8,7 @@ A fresh MWCC PS2 2.3.1.01 build matches instruction bytes against the original E
 
 - Target: PS2 PAL `SLES-50282`, original `AOK.ELF` SHA-1
   `f478e19f2059d52899b691483ef5c7522e30e17c`.
-- Function: VRAM `[0x329130, 0x3291A8)`, size 120 bytes (`0x78`).
+- Function: VRAM `[0x329130, 0x3291E4)`, size 180 bytes (`0xB4`).
 - Stack frame: 64 bytes (`addiu $sp, $sp, -0x40`), saving registers.
 
 ## Observable behavior

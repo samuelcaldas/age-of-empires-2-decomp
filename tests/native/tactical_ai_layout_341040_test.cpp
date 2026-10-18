@@ -196,6 +196,8 @@ static void test_func_342170_preceding_calls_order() {
 static void test_func_342170_mode31_a2_equals_1() {
     TacticalObj_341040 obj;
     std::memset(&obj, 0, sizeof(obj));
+    MockSubObj mock_sub834;
+    obj.field_834 = &mock_sub834;
     obj.field_84C = 31;
     g_func_339960_called = 0;
     g_func_1fbd30_called = 0;
@@ -546,9 +548,30 @@ static void test_func_342170_elf_sub838_func_339900_nonzero_branch() {
     std::printf("PASS test_func_342170_elf_sub838_func_339900_nonzero_branch\n");
 }
 
+static void test_func_342170_elf_field_834_mode11_branch() {
+    TacticalObj_341040 obj;
+    std::memset(&obj, 0, sizeof(obj));
+    MockSubObj mock_sub834;
+    obj.field_834 = &mock_sub834;
+    obj.field_84C = 11; // Mode 11
+
+    g_call_history.clear();
+
+    // a2 = 1, a1 = self->field_834
+    int res = func_00342170(&obj, (int)(long)&mock_sub834, 1, 0, 0);
+
+    // ELF-derived behavior at 0x242484 (0x134 in object):
+    // When a2 == 1 and a1 matches field_834 and field_84C == 11:
+    // transitions field_84C = 3, calls func_00341040, and returns 1.
+    assert(res == 1);
+    assert(obj.field_84C == 3);
+    std::printf("PASS test_func_342170_elf_field_834_mode11_branch\n");
+}
+
 int main() {
     test_func_342170_elf_sub838_a1_a2_16_branch();
     test_func_342170_elf_sub838_func_339900_nonzero_branch();
+    test_func_342170_elf_field_834_mode11_branch();
     test_initial_layout_state();
     test_func_342170_mode16_t0_xffff();
     test_func_342170_additional_modes();

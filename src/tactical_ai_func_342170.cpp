@@ -43,6 +43,70 @@ int func_00342170(TacticalObj_341040 *self, int a1, int a2, int a3, int t0) {
         }
     }
 
+    if (a2 == 1 && (TacticalSubObj*)a1 == self->field_834) {
+        switch (self->field_84C) {
+        case 11:
+            self->field_84C = 3;
+            func_00341040(self);
+            return 1;
+        case 3:
+            func_33A730();
+            func_340C30(self);
+            if (self->field_844) {
+                *(int*)((char*)self->field_844 + 2052) = 2;
+            }
+            return 1;
+        case 1:
+        case 2:
+        case 4:
+        case 7:
+            func_340C30(self);
+            if (self->field_844) {
+                *(int*)((char*)self->field_844 + 2052) = 2;
+            }
+            return 1;
+        case 18:
+        case 21:
+        case 22:
+        case 23:
+        case 24:
+            self->field_84C = 12;
+            func_00341040(self);
+            return 1;
+        case 20:
+            if (self->field_840 == 2 || (self->field_840 >= 4 && self->field_840 <= 6)) {
+                self->field_84C = 18;
+            } else {
+                self->field_84C = 17;
+            }
+            func_00341040(self);
+            return 1;
+        case 15:
+            if (self->field_840 == 2 || self->field_840 == 4) {
+                self->field_84C = 18;
+                func_00341040(self);
+                return 1;
+            } else {
+                func_340C30(self);
+                if (self->field_844) {
+                    *(int*)((char*)self->field_844 + 2052) = 12;
+                }
+                return 1;
+            }
+        case 14:
+            if (self->field_840 == 2 || (self->field_840 >= 4 && self->field_840 <= 6)) {
+                self->field_84C = 18;
+            } else {
+                self->field_84C = 17;
+            }
+            func_00341040(self);
+            return 1;
+        default:
+            func_00341040(self);
+            return 1;
+        }
+    }
+
     if (sub838) {
         func_33A5D0(sub838, a1);
     }

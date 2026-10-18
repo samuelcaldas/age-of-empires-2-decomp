@@ -4397,9 +4397,27 @@ segments:
     vram: 0x1EE050
     subsegments:
       - [0xEE220, asm, zone_spatial_grid_set_entity_flags]
+  - name: zone_spatial_grid_clear_active_markers
+    type: code
+    start: 0xEE250
+    vram: 0x1EE080
+    subsegments:
+      - [0xEE250, asm, zone_spatial_grid_clear_active_markers]
+  - name: zone_spatial_grid_insert_marker_node
+    type: code
+    start: 0xEE310
+    vram: 0x1EE140
+    subsegments:
+      - [0xEE310, asm, zone_spatial_grid_insert_marker_node]
+  - name: zone_spatial_grid_mark_bounds_region
+    type: code
+    start: 0xEE530
+    vram: 0x1EE360
+    subsegments:
+      - [0xEE530, asm, zone_spatial_grid_mark_bounds_region]
   - name: post_aoe2
     type: bin
-    start: 0xEE250
+    start: 0xEE720
   - name: trade_action_helper_217730
     type: code
     start: 0x117910

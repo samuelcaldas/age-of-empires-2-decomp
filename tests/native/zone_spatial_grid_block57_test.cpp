@@ -83,15 +83,22 @@ struct NodePool {
 };
 
 int main() {
-    // Test 1: func_001F1ED0 - node pool setup, offsets, helper order, and exact logger check
+    // Test 1: func_001F1ED0 - node pool setup, offsets, helper arguments, and exact logger check
     StrictNodePool *pool = new StrictNodePool();
     memset(pool, 0, sizeof(StrictNodePool));
 
     g_call_order.clear();
     int res = func_001F1ED0((NodePool *)pool, (void *)0x5678, 5000);
     assert(res == 1);
+    assert(pool->table_138810 == 0);
+    assert(pool->table_138814 == 0);
     assert(pool->count_138818 == 0);
     assert(pool->field_13881C == 1);
+    assert(pool->field_138820 == 0);
+    assert(pool->field_138824 == -1);
+    assert(pool->field_138828 == -1);
+    assert(pool->field_13882C == 0);
+    assert(pool->field_138830 == 0);
     assert(pool->capacity_138834 == 5000);
 
     // Verify exact logger arguments: format string, file, line, in order
@@ -100,7 +107,7 @@ int main() {
     assert(g_logger_file != 0 && std::string(g_logger_file) == "obmanager.cpp");
     assert(g_logger_line == 0x13D6);
 
-    // Verify helper call order: func_1F20E0 then func_1F21E0
+    // Verify helper arguments: func_1F20E0 gets self and value at self+0x13881C (1); func_1F21E0 gets self and p1 (0x5678)
     assert(g_call_order.size() == 2);
     assert(g_call_order[0] == "func_1F20E0");
     assert(g_call_order[1] == "func_1F21E0");
@@ -113,38 +120,54 @@ int main() {
     assert(g_func_100670_called == 1);
     assert(g_last_deleted_ptr == obj);
 
-    // Test 3: func_001F2010 - clear pool with non-null entry table entries and strict call logging
-    ClearNodePool *clear_pool = new ClearNodePool();
-    memset(clear_pool, 0, sizeof(ClearNodePool));
-
+    // Test 3A: func_001F2010 - clear pool with table_138814 non-null (expects self+8 clear)
+    ClearNodePool *clear_pool1 = new ClearNodePool();
+    memset(clear_pool1, 0, sizeof(ClearNodePool));
     void *entry_buf1 = malloc(16);
-    void *entry_buf2 = malloc(16);
-    void *table_buf[2] = { entry_buf1, entry_buf2 };
-    clear_pool->table_138810 = table_buf;
-    clear_pool->table_138814 = (void *)0x1;
-    clear_pool->count_138818 = 2;
+    void **table_buf1 = (void **)malloc(sizeof(void *));
+    table_buf1[0] = entry_buf1;
+    clear_pool1->table_138810 = table_buf1;
+    clear_pool1->table_138814 = (void *)0x1;
+    clear_pool1->count_138818 = 1;
 
     g_clear_calls_log.clear();
-    func_001F2010((NodePool *)clear_pool);
+    func_001F2010((NodePool *)clear_pool1);
 
-    // Expecting:
-    // - clear (char*)clear_pool + 0x10 (0x138800 bytes) for entry 0
-    // - clear (char*)clear_pool + 0x10 (0x138800 bytes) for entry 1
-    // - clear clear_pool (8 bytes)
-    // - clear (char*)clear_pool + 8 (8 bytes)
-    assert(g_clear_calls_log.size() >= 4);
-    assert(g_clear_calls_log[0].dst == (char *)clear_pool + 0x10);
+    assert(g_clear_calls_log.size() == 3);
+    assert(g_clear_calls_log[0].dst == (char *)clear_pool1 + 0x10);
     assert(g_clear_calls_log[0].size == 0x138800);
-    assert(g_clear_calls_log[1].dst == (char *)clear_pool + 0x10);
-    assert(g_clear_calls_log[1].size == 0x138800);
-    assert(g_clear_calls_log[2].dst == (void *)clear_pool);
+    assert(g_clear_calls_log[1].dst == (void *)clear_pool1);
+    assert(g_clear_calls_log[1].size == 8);
+    assert(g_clear_calls_log[2].dst == (char *)clear_pool1 + 8);
     assert(g_clear_calls_log[2].size == 8);
-    assert(g_clear_calls_log[3].dst == (char *)clear_pool + 8);
-    assert(g_clear_calls_log[3].size == 8);
 
     free(entry_buf1);
+    free(table_buf1);
+    delete clear_pool1;
+
+    // Test 3B: func_001F2010 - clear pool with table_138814 NULL (expects NO self+8 clear)
+    ClearNodePool *clear_pool2 = new ClearNodePool();
+    memset(clear_pool2, 0, sizeof(ClearNodePool));
+    void *entry_buf2 = malloc(16);
+    void **table_buf2 = (void **)malloc(sizeof(void *));
+    table_buf2[0] = entry_buf2;
+    clear_pool2->table_138810 = table_buf2;
+    clear_pool2->table_138814 = 0; // NULL!
+    clear_pool2->count_138818 = 1;
+
+    g_clear_calls_log.clear();
+    func_001F2010((NodePool *)clear_pool2);
+
+    assert(g_clear_calls_log.size() == 2);
+    assert(g_clear_calls_log[0].dst == (char *)clear_pool2 + 0x10);
+    assert(g_clear_calls_log[0].size == 0x138800);
+    assert(g_clear_calls_log[1].dst == (void *)clear_pool2);
+    assert(g_clear_calls_log[1].size == 8);
+    // Verify no clear at clear_pool2 + 8 was performed
+
     free(entry_buf2);
+    free(table_buf2);
+    delete clear_pool2;
     delete pool;
-    delete clear_pool;
     return 0;
 }

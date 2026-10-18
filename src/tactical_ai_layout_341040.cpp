@@ -251,7 +251,7 @@ void func_00342170(TacticalObj_341040 *self, int a1, int a2, int a3, int t0) {
         ((VFunc_28)(*(void***)sub834)[7])(sub834, 0);
     }
 
-    self->field_83C = mode;
+    self->field_84C = mode;
 
     func_1F6750(self, sub838);
     func_1F88B0(self, sub838);

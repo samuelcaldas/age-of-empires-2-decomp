@@ -128,10 +128,15 @@ static void test_func_342170_mode16_t0_xffff() {
 
     // Test mode 16 with t0 = 0xFFFF: expects field_84C = 12 and field_83C = 12
     obj.field_84C = 16;
+    g_call_history.clear();
     int res = func_00342170(&obj, (int)(long)&mock_sub830, 1, 1, 0xFFFF);
     assert(res == 1);
     assert(obj.field_84C == 12);
     assert(obj.field_83C == 12);
+    assert(g_call_history.size() == 2);
+    assert(g_call_history[0].name == "func_33A730");
+    assert(g_call_history[1].name == "func_36ACC0");
+    assert(g_call_history[1].arg1 == 2);
 
     std::printf("PASS test_func_342170_mode16_t0_xffff\n");
 }
@@ -222,74 +227,513 @@ static void test_func_342170_mode31_a2_equals_1() {
     std::printf("PASS test_func_342170_mode31_a2_equals_1\n");
 }
 
-static void test_func_342170_remaining_modes() {
+static void test_func_342170_field_834_all_modes() {
+    TacticalObj_341040 obj;
+    MockSubObj mock_sub834;
+    MockSubObj mock_field844;
+
+    // Mode 11: field_84C transitions to 3, calls func_00341040 -> func_33A730
+    std::memset(&obj, 0, sizeof(obj));
+    obj.field_834 = &mock_sub834;
+    obj.field_84C = 11;
+    g_call_history.clear();
+    int res = func_00342170(&obj, (int)(long)&mock_sub834, 1, 0, 0);
+    assert(res == 1);
+    assert(obj.field_84C == 3);
+    assert(g_call_history.size() == 1);
+    assert(g_call_history[0].name == "func_33A730");
+
+    // Mode 3: calls func_33A730, calls func_00340C30, writes *(field_844+2052) = 2
+    std::memset(&obj, 0, sizeof(obj));
+    obj.field_834 = &mock_sub834;
+    obj.field_844 = &mock_field844;
+    obj.field_84C = 3;
+    g_call_history.clear();
+    res = func_00342170(&obj, (int)(long)&mock_sub834, 1, 0, 0);
+    assert(res == 1);
+    assert(g_call_history.size() == 2);
+    assert(g_call_history[0].name == "func_33A730");
+    assert(g_call_history[1].name == "func_00340C30");
+    assert(g_call_history[1].self == &obj);
+    assert(*(int*)((char*)obj.field_844 + 2052) == 2);
+
+    // Modes 1, 2, 4, 7: calls func_00340C30, writes *(field_844+2052) = 2
+    int modes_1_2_4_7[] = {1, 2, 4, 7};
+    for (int i = 0; i < 4; ++i) {
+        std::memset(&obj, 0, sizeof(obj));
+        obj.field_834 = &mock_sub834;
+        obj.field_844 = &mock_field844;
+        obj.field_84C = modes_1_2_4_7[i];
+        g_call_history.clear();
+        res = func_00342170(&obj, (int)(long)&mock_sub834, 1, 0, 0);
+        assert(res == 1);
+        assert(g_call_history.size() == 1);
+        assert(g_call_history[0].name == "func_00340C30");
+        assert(g_call_history[0].self == &obj);
+        assert(*(int*)((char*)obj.field_844 + 2052) == 2);
+    }
+
+    // Modes 18, 21, 22, 23, 24: field_84C transitions to 12, calls func_00341040
+    int modes_18_24[] = {18, 21, 22, 23, 24};
+    for (int i = 0; i < 5; ++i) {
+        std::memset(&obj, 0, sizeof(obj));
+        obj.field_834 = &mock_sub834;
+        obj.field_84C = modes_18_24[i];
+        g_call_history.clear();
+        res = func_00342170(&obj, (int)(long)&mock_sub834, 1, 0, 0);
+        assert(res == 1);
+        assert(obj.field_84C == 12);
+        assert(g_call_history.size() == 2);
+        assert(g_call_history[0].name == "func_33A730");
+        assert(g_call_history[1].name == "func_36ACC0");
+        assert(g_call_history[1].arg1 == 2);
+    }
+
+    // Mode 20 with field_840 == 2: transitions to 18
+    std::memset(&obj, 0, sizeof(obj));
+    obj.field_834 = &mock_sub834;
+    obj.field_84C = 20;
+    obj.field_840 = 2;
+    g_call_history.clear();
+    res = func_00342170(&obj, (int)(long)&mock_sub834, 1, 0, 0);
+    assert(res == 1);
+    assert(obj.field_84C == 18);
+    assert(g_call_history.size() == 1);
+    assert(g_call_history[0].name == "func_33A730");
+
+    // Mode 20 with field_840 == 1: transitions to 17
+    std::memset(&obj, 0, sizeof(obj));
+    obj.field_834 = &mock_sub834;
+    obj.field_84C = 20;
+    obj.field_840 = 1;
+    g_call_history.clear();
+    res = func_00342170(&obj, (int)(long)&mock_sub834, 1, 0, 0);
+    assert(res == 1);
+    assert(obj.field_84C == 17);
+    assert(g_call_history.size() == 1);
+    assert(g_call_history[0].name == "func_33A730");
+
+    // Mode 15 with field_840 == 2: transitions to 18
+    std::memset(&obj, 0, sizeof(obj));
+    obj.field_834 = &mock_sub834;
+    obj.field_84C = 15;
+    obj.field_840 = 2;
+    g_call_history.clear();
+    res = func_00342170(&obj, (int)(long)&mock_sub834, 1, 0, 0);
+    assert(res == 1);
+    assert(obj.field_84C == 18);
+    assert(g_call_history.size() == 1);
+    assert(g_call_history[0].name == "func_33A730");
+
+    // Mode 15 with field_840 == 1: calls func_00340C30, writes 12
+    std::memset(&obj, 0, sizeof(obj));
+    obj.field_834 = &mock_sub834;
+    obj.field_844 = &mock_field844;
+    obj.field_84C = 15;
+    obj.field_840 = 1;
+    g_call_history.clear();
+    res = func_00342170(&obj, (int)(long)&mock_sub834, 1, 0, 0);
+    assert(res == 1);
+    assert(g_call_history.size() == 1);
+    assert(g_call_history[0].name == "func_00340C30");
+    assert(*(int*)((char*)obj.field_844 + 2052) == 12);
+
+    // Mode 14 with field_840 == 2: transitions to 18
+    std::memset(&obj, 0, sizeof(obj));
+    obj.field_834 = &mock_sub834;
+    obj.field_84C = 14;
+    obj.field_840 = 2;
+    g_call_history.clear();
+    res = func_00342170(&obj, (int)(long)&mock_sub834, 1, 0, 0);
+    assert(res == 1);
+    assert(obj.field_84C == 18);
+    assert(g_call_history.size() == 1);
+    assert(g_call_history[0].name == "func_33A730");
+
+    // Mode 14 with field_840 == 1: transitions to 17
+    std::memset(&obj, 0, sizeof(obj));
+    obj.field_834 = &mock_sub834;
+    obj.field_84C = 14;
+    obj.field_840 = 1;
+    g_call_history.clear();
+    res = func_00342170(&obj, (int)(long)&mock_sub834, 1, 0, 0);
+    assert(res == 1);
+    assert(obj.field_84C == 17);
+    assert(g_call_history.size() == 1);
+    assert(g_call_history[0].name == "func_33A730");
+
+    std::printf("PASS test_func_342170_field_834_all_modes\n");
+}
+
+static void test_func_342170_field_830_all_modes() {
     TacticalObj_341040 obj;
     MockSubObj mock_sub830;
     MockSubObj mock_field844;
 
-    // Mode 11 via jump table (field_830)
+    // Mode 0: calls func_00341040 -> func_33A730
+    std::memset(&obj, 0, sizeof(obj));
+    obj.field_830 = &mock_sub830;
+    obj.field_84C = 0;
+    g_call_history.clear();
+    int res = func_00342170(&obj, (int)(long)&mock_sub830, 1, 0, 0);
+    assert(res == 1);
+    assert(g_call_history.size() == 1);
+    assert(g_call_history[0].name == "func_33A730");
+
+    // Mode 1: calls func_00340C30, writes 5
+    std::memset(&obj, 0, sizeof(obj));
+    obj.field_830 = &mock_sub830;
+    obj.field_844 = &mock_field844;
+    obj.field_84C = 1;
+    g_call_history.clear();
+    res = func_00342170(&obj, (int)(long)&mock_sub830, 1, 0, 0);
+    assert(res == 1);
+    assert(g_call_history.size() == 1);
+    assert(g_call_history[0].name == "func_00340C30");
+    assert(*(int*)((char*)obj.field_844 + 2052) == 5);
+
+    // Modes 2, 4: calls func_00340C30, writes 7
+    int modes_2_4[] = {2, 4};
+    for (int i = 0; i < 2; ++i) {
+        std::memset(&obj, 0, sizeof(obj));
+        obj.field_830 = &mock_sub830;
+        obj.field_844 = &mock_field844;
+        obj.field_84C = modes_2_4[i];
+        g_call_history.clear();
+        res = func_00342170(&obj, (int)(long)&mock_sub830, 1, 0, 0);
+        assert(res == 1);
+        assert(g_call_history.size() == 1);
+        assert(g_call_history[0].name == "func_00340C30");
+        assert(*(int*)((char*)obj.field_844 + 2052) == 7);
+    }
+
+    // Modes 5, 6: calls func_00340C30, writes 1
+    int modes_5_6[] = {5, 6};
+    for (int i = 0; i < 2; ++i) {
+        std::memset(&obj, 0, sizeof(obj));
+        obj.field_830 = &mock_sub830;
+        obj.field_844 = &mock_field844;
+        obj.field_84C = modes_5_6[i];
+        g_call_history.clear();
+        res = func_00342170(&obj, (int)(long)&mock_sub830, 1, 0, 0);
+        assert(res == 1);
+        assert(g_call_history.size() == 1);
+        assert(g_call_history[0].name == "func_00340C30");
+        assert(*(int*)((char*)obj.field_844 + 2052) == 1);
+    }
+
+    // Mode 7: calls func_00340C30, writes 9
+    std::memset(&obj, 0, sizeof(obj));
+    obj.field_830 = &mock_sub830;
+    obj.field_844 = &mock_field844;
+    obj.field_84C = 7;
+    g_call_history.clear();
+    res = func_00342170(&obj, (int)(long)&mock_sub830, 1, 0, 0);
+    assert(res == 1);
+    assert(g_call_history.size() == 1);
+    assert(g_call_history[0].name == "func_00340C30");
+    assert(*(int*)((char*)obj.field_844 + 2052) == 9);
+
+    // Mode 8: t0!=0xFFFF returns 0, t0==0xFFFF writes 6
+    std::memset(&obj, 0, sizeof(obj));
+    obj.field_830 = &mock_sub830;
+    obj.field_844 = &mock_field844;
+    obj.field_84C = 8;
+    g_call_history.clear();
+    res = func_00342170(&obj, (int)(long)&mock_sub830, 1, 0, 0);
+    assert(res == 0);
+    assert(g_call_history.size() == 0);
+
+    res = func_00342170(&obj, (int)(long)&mock_sub830, 1, 0, 0xFFFF);
+    assert(res == 1);
+    assert(g_call_history.size() == 1);
+    assert(g_call_history[0].name == "func_00340C30");
+    assert(*(int*)((char*)obj.field_844 + 2052) == 6);
+
+    // Mode 9: t0!=0xFFFF returns 0, t0==0xFFFF writes 3
+    std::memset(&obj, 0, sizeof(obj));
+    obj.field_830 = &mock_sub830;
+    obj.field_844 = &mock_field844;
+    obj.field_84C = 9;
+    g_call_history.clear();
+    res = func_00342170(&obj, (int)(long)&mock_sub830, 1, 0, 0);
+    assert(res == 0);
+    assert(g_call_history.size() == 0);
+
+    res = func_00342170(&obj, (int)(long)&mock_sub830, 1, 0, 0xFFFF);
+    assert(res == 1);
+    assert(g_call_history.size() == 1);
+    assert(g_call_history[0].name == "func_00340C30");
+    assert(*(int*)((char*)obj.field_844 + 2052) == 3);
+
+    // Mode 10: t0!=0xFFFF returns 0, t0==0xFFFF sets 84C=12, 83C=12
+    std::memset(&obj, 0, sizeof(obj));
+    obj.field_830 = &mock_sub830;
+    obj.field_84C = 10;
+    g_call_history.clear();
+    res = func_00342170(&obj, (int)(long)&mock_sub830, 1, 0, 0);
+    assert(res == 0);
+    assert(g_call_history.size() == 0);
+
+    res = func_00342170(&obj, (int)(long)&mock_sub830, 1, 0, 0xFFFF);
+    assert(res == 1);
+    assert(obj.field_84C == 12);
+    assert(obj.field_83C == 12);
+    assert(g_call_history.size() == 2);
+    assert(g_call_history[0].name == "func_33A730");
+    assert(g_call_history[1].name == "func_36ACC0");
+    assert(g_call_history[1].arg1 == 2);
+
+    // Mode 11: calls func_00340C30, writes 11
     std::memset(&obj, 0, sizeof(obj));
     obj.field_830 = &mock_sub830;
     obj.field_844 = &mock_field844;
     obj.field_84C = 11;
-    int res = func_00342170(&obj, (int)(long)&mock_sub830, 1, 0, 0);
+    g_call_history.clear();
+    res = func_00342170(&obj, (int)(long)&mock_sub830, 1, 0, 0);
     assert(res == 1);
+    assert(g_call_history.size() == 1);
+    assert(g_call_history[0].name == "func_00340C30");
     assert(*(int*)((char*)obj.field_844 + 2052) == 11);
 
-    // Mode 14 via jump table with field_840 == 2
-    std::memset(&obj, 0, sizeof(obj));
-    obj.field_830 = &mock_sub830;
-    obj.field_84C = 14;
-    obj.field_840 = 2;
-    res = func_00342170(&obj, (int)(long)&mock_sub830, 1, 0, 0);
-    assert(res == 1);
-    assert(obj.field_84C == 12);
-
-    // Mode 28 via jump table: sets field_84C = field_850
-    std::memset(&obj, 0, sizeof(obj));
-    obj.field_830 = &mock_sub830;
-    obj.field_84C = 28;
-    obj.field_850 = 42;
-    res = func_00342170(&obj, (int)(long)&mock_sub830, 1, 0, 0);
-    assert(res == 1);
-    assert(obj.field_84C == 42);
-
-    // Mode 29 via jump table: sets field_84C = field_850
-    std::memset(&obj, 0, sizeof(obj));
-    obj.field_830 = &mock_sub830;
-    obj.field_84C = 29;
-    obj.field_850 = 99;
-    res = func_00342170(&obj, (int)(long)&mock_sub830, 1, 0, 0);
-    assert(res == 1);
-    assert(obj.field_84C == 99);
-
-    // Mode 12 via jump table: sets field_84C = 13
+    // Mode 12: sets field_84C = 13, calls func_00341040
     std::memset(&obj, 0, sizeof(obj));
     obj.field_830 = &mock_sub830;
     obj.field_84C = 12;
+    g_call_history.clear();
     res = func_00342170(&obj, (int)(long)&mock_sub830, 1, 0, 0);
     assert(res == 1);
     assert(obj.field_84C == 13);
+    assert(g_call_history.size() == 2);
+    assert(g_call_history[0].name == "func_33A730");
+    assert(g_call_history[1].name == "func_36ACC0");
+    assert(g_call_history[1].arg1 == 1);
 
-    // Mode 13 via jump table: sets field_844 + 2052 = 4
+    // Mode 13: calls func_00340C30, writes 4
     std::memset(&obj, 0, sizeof(obj));
     obj.field_830 = &mock_sub830;
     obj.field_844 = &mock_field844;
     obj.field_84C = 13;
+    g_call_history.clear();
     res = func_00342170(&obj, (int)(long)&mock_sub830, 1, 0, 0);
     assert(res == 1);
+    assert(g_call_history.size() == 1);
+    assert(g_call_history[0].name == "func_00340C30");
     assert(*(int*)((char*)obj.field_844 + 2052) == 4);
 
-    // Mode >= 30 via jump table: invokes func_00341040
+    // Mode 14 with field_840 == 2: sets field_84C = 12
+    std::memset(&obj, 0, sizeof(obj));
+    obj.field_830 = &mock_sub830;
+    obj.field_84C = 14;
+    obj.field_840 = 2;
+    g_call_history.clear();
+    res = func_00342170(&obj, (int)(long)&mock_sub830, 1, 0, 0);
+    assert(res == 1);
+    assert(obj.field_84C == 12);
+    assert(g_call_history.size() == 2);
+    assert(g_call_history[0].name == "func_33A730");
+    assert(g_call_history[1].name == "func_36ACC0");
+    assert(g_call_history[1].arg1 == 2);
+
+    // Mode 14 with field_840 == 1: writes 12
+    std::memset(&obj, 0, sizeof(obj));
+    obj.field_830 = &mock_sub830;
+    obj.field_844 = &mock_field844;
+    obj.field_84C = 14;
+    obj.field_840 = 1;
+    g_call_history.clear();
+    res = func_00342170(&obj, (int)(long)&mock_sub830, 1, 0, 0);
+    assert(res == 1);
+    assert(g_call_history.size() == 1);
+    assert(g_call_history[0].name == "func_00340C30");
+    assert(*(int*)((char*)obj.field_844 + 2052) == 12);
+
+    // Mode 15 with field_840 == 2: calls func_36ACC0(7), sets field_84C = 16
+    std::memset(&obj, 0, sizeof(obj));
+    obj.field_830 = &mock_sub830;
+    obj.field_84C = 15;
+    obj.field_840 = 2;
+    g_call_history.clear();
+    res = func_00342170(&obj, (int)(long)&mock_sub830, 1, 0, 0);
+    assert(res == 1);
+    assert(obj.field_84C == 16);
+    assert(g_call_history.size() == 2);
+    assert(g_call_history[0].name == "func_36ACC0");
+    assert(g_call_history[0].arg1 == 7);
+    assert(g_call_history[1].name == "func_33A730");
+
+    // Mode 15 with field_840 == 1: sets field_84C = 17
+    std::memset(&obj, 0, sizeof(obj));
+    obj.field_830 = &mock_sub830;
+    obj.field_84C = 15;
+    obj.field_840 = 1;
+    g_call_history.clear();
+    res = func_00342170(&obj, (int)(long)&mock_sub830, 1, 0, 0);
+    assert(res == 1);
+    assert(obj.field_84C == 17);
+    assert(g_call_history.size() == 1);
+    assert(g_call_history[0].name == "func_33A730");
+
+    // Mode 16: t0!=0xFFFF returns 0, t0==0xFFFF sets 84C=12, 83C=12
+    std::memset(&obj, 0, sizeof(obj));
+    obj.field_830 = &mock_sub830;
+    obj.field_84C = 16;
+    g_call_history.clear();
+    res = func_00342170(&obj, (int)(long)&mock_sub830, 1, 0, 0);
+    assert(res == 0);
+    assert(g_call_history.size() == 0);
+
+    res = func_00342170(&obj, (int)(long)&mock_sub830, 1, 0, 0xFFFF);
+    assert(res == 1);
+    assert(obj.field_84C == 12);
+    assert(obj.field_83C == 12);
+    assert(g_call_history.size() == 2);
+    assert(g_call_history[0].name == "func_33A730");
+    assert(g_call_history[1].name == "func_36ACC0");
+    assert(g_call_history[1].arg1 == 2);
+
+    // Mode 17: sets field_84C = 12
+    std::memset(&obj, 0, sizeof(obj));
+    obj.field_830 = &mock_sub830;
+    obj.field_84C = 17;
+    g_call_history.clear();
+    res = func_00342170(&obj, (int)(long)&mock_sub830, 1, 0, 0);
+    assert(res == 1);
+    assert(obj.field_84C == 12);
+    assert(g_call_history.size() == 2);
+    assert(g_call_history[0].name == "func_33A730");
+    assert(g_call_history[1].name == "func_36ACC0");
+    assert(g_call_history[1].arg1 == 2);
+
+    // Modes 18, 21, 22, 23, 24: calls func_00340C30, writes 3
+    int modes_18_24[] = {18, 21, 22, 23, 24};
+    for (int i = 0; i < 5; ++i) {
+        std::memset(&obj, 0, sizeof(obj));
+        obj.field_830 = &mock_sub830;
+        obj.field_844 = &mock_field844;
+        obj.field_84C = modes_18_24[i];
+        g_call_history.clear();
+        res = func_00342170(&obj, (int)(long)&mock_sub830, 1, 0, 0);
+        assert(res == 1);
+        assert(g_call_history.size() == 1);
+        assert(g_call_history[0].name == "func_00340C30");
+        assert(*(int*)((char*)obj.field_844 + 2052) == 3);
+    }
+
+    // Mode 19: sets field_84C = 20
+    std::memset(&obj, 0, sizeof(obj));
+    obj.field_830 = &mock_sub830;
+    obj.field_84C = 19;
+    g_call_history.clear();
+    res = func_00342170(&obj, (int)(long)&mock_sub830, 1, 0, 0);
+    assert(res == 1);
+    assert(obj.field_84C == 20);
+    assert(g_call_history.size() == 1);
+    assert(g_call_history[0].name == "func_33A730");
+
+    // Mode 20 with field_840 == 2: sets field_84C = 17
+    std::memset(&obj, 0, sizeof(obj));
+    obj.field_830 = &mock_sub830;
+    obj.field_84C = 20;
+    obj.field_840 = 2;
+    g_call_history.clear();
+    res = func_00342170(&obj, (int)(long)&mock_sub830, 1, 0, 0);
+    assert(res == 1);
+    assert(obj.field_84C == 17);
+    assert(g_call_history.size() == 1);
+    assert(g_call_history[0].name == "func_33A730");
+
+    // Mode 20 with field_840 == 1: writes 12
+    std::memset(&obj, 0, sizeof(obj));
+    obj.field_830 = &mock_sub830;
+    obj.field_844 = &mock_field844;
+    obj.field_84C = 20;
+    obj.field_840 = 1;
+    g_call_history.clear();
+    res = func_00342170(&obj, (int)(long)&mock_sub830, 1, 0, 0);
+    assert(res == 1);
+    assert(g_call_history.size() == 1);
+    assert(g_call_history[0].name == "func_00340C30");
+    assert(*(int*)((char*)obj.field_844 + 2052) == 12);
+
+    // Mode 25: writes 3
+    std::memset(&obj, 0, sizeof(obj));
+    obj.field_830 = &mock_sub830;
+    obj.field_844 = &mock_field844;
+    obj.field_84C = 25;
+    g_call_history.clear();
+    res = func_00342170(&obj, (int)(long)&mock_sub830, 1, 0, 0);
+    assert(res == 1);
+    assert(g_call_history.size() == 1);
+    assert(g_call_history[0].name == "func_00340C30");
+    assert(*(int*)((char*)obj.field_844 + 2052) == 3);
+
+    // Mode 26: writes 6
+    std::memset(&obj, 0, sizeof(obj));
+    obj.field_830 = &mock_sub830;
+    obj.field_844 = &mock_field844;
+    obj.field_84C = 26;
+    g_call_history.clear();
+    res = func_00342170(&obj, (int)(long)&mock_sub830, 1, 0, 0);
+    assert(res == 1);
+    assert(g_call_history.size() == 1);
+    assert(g_call_history[0].name == "func_00340C30");
+    assert(*(int*)((char*)obj.field_844 + 2052) == 6);
+
+    // Mode 27: sets field_84C = 12, field_83C = 12
+    std::memset(&obj, 0, sizeof(obj));
+    obj.field_830 = &mock_sub830;
+    obj.field_84C = 27;
+    g_call_history.clear();
+    res = func_00342170(&obj, (int)(long)&mock_sub830, 1, 0, 0);
+    assert(res == 1);
+    assert(obj.field_84C == 12);
+    assert(obj.field_83C == 12);
+    assert(g_call_history.size() == 2);
+    assert(g_call_history[0].name == "func_33A730");
+    assert(g_call_history[1].name == "func_36ACC0");
+    assert(g_call_history[1].arg1 == 2);
+
+    // Mode 28: sets field_84C = field_850 (55)
+    std::memset(&obj, 0, sizeof(obj));
+    obj.field_830 = &mock_sub830;
+    obj.field_84C = 28;
+    obj.field_850 = 55;
+    g_call_history.clear();
+    res = func_00342170(&obj, (int)(long)&mock_sub830, 1, 0, 0);
+    assert(res == 1);
+    assert(obj.field_84C == 55);
+    assert(g_call_history.size() == 1);
+    assert(g_call_history[0].name == "func_33A730");
+
+    // Mode 29: sets field_84C = field_850 (88)
+    std::memset(&obj, 0, sizeof(obj));
+    obj.field_830 = &mock_sub830;
+    obj.field_84C = 29;
+    obj.field_850 = 88;
+    g_call_history.clear();
+    res = func_00342170(&obj, (int)(long)&mock_sub830, 1, 0, 0);
+    assert(res == 1);
+    assert(obj.field_84C == 88);
+    assert(g_call_history.size() == 1);
+    assert(g_call_history[0].name == "func_33A730");
+
+    // Modes 30 through 50: invokes func_00341040, asserts exact history and state
     for (int m = 30; m <= 50; ++m) {
         std::memset(&obj, 0, sizeof(obj));
         obj.field_830 = &mock_sub830;
         obj.field_84C = m;
+        g_call_history.clear();
         res = func_00342170(&obj, (int)(long)&mock_sub830, 1, 0, 0);
         assert(res == 1);
+        assert(obj.field_84C == m);
+        assert(g_call_history.size() == 1);
+        assert(g_call_history[0].name == "func_33A730");
+        assert(g_call_history[0].self == NULL);
+        assert(g_call_history[0].arg1 == 0);
     }
 
-    std::printf("PASS test_func_342170_remaining_modes\n");
+    std::printf("PASS test_func_342170_field_830_all_modes\n");
 }
 
 static void test_func_342170_call_history_sequence() {
@@ -410,8 +854,10 @@ static void test_func_342170_t0_equals_2_exact_history() {
     assert(res == 1);
     assert(obj.field_84C == 12);
     assert(obj.field_83C == 12);
-    assert(g_call_history.size() >= 1);
+    assert(g_call_history.size() == 2);
     assert(g_call_history[0].name == "func_33A730");
+    assert(g_call_history[1].name == "func_36ACC0");
+    assert(g_call_history[1].arg1 == 2);
 
     std::printf("PASS test_func_342170_t0_equals_2_exact_history\n");
 }
@@ -533,7 +979,8 @@ int main() {
     test_func_342170_mode31_early_return_order();
     test_func_342170_preceding_calls_order();
     test_func_342170_mode31_a2_equals_1();
-    test_func_342170_remaining_modes();
+    test_func_342170_field_834_all_modes();
+    test_func_342170_field_830_all_modes();
     test_func_342170_call_history_sequence();
     test_func_342170_mode0_exact_history();
     test_func_342170_mode31_early_return_exact_history();

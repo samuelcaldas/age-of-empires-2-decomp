@@ -1,5 +1,4 @@
 #pragma exceptions off
-#include <cstring>
 #include "unit_action_build_7b4d0.h"
 
 extern "C" {

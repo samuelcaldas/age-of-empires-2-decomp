@@ -1,9 +1,9 @@
 #pragma exceptions off
-#include <cstring>
 #include "unit_action_build_7a1d0.h"
 
 extern "C" {
-    void *func_117CAC(void *dest, int val, size_t size);
+    void *memcpy(void *dest, const void *src, unsigned int n);
+    void *func_117CAC(void *dest, int val, unsigned int size);
     int func_123350(float val);
     void func_27A810(void *self, int param);
 }

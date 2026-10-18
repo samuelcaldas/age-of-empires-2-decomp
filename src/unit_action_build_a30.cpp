@@ -1,6 +1,10 @@
 #pragma exceptions off
 #include "unit_action_build_a30.h"
 
+extern "C" {
+    float func_1234E0(float val);
+}
+
 float func_00271A30(void *self, float target_x, float target_y,
                     float speed_factor, float rate_factor) {
     float origin_x = *(float *)((char *)self + 0x44);

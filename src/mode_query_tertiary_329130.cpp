@@ -4,12 +4,8 @@ struct ModeQueryTertiaryContext {
     int m_field_8;
     int m_field_C;
     int m_field_10;
-    int m_field_14;
-    int m_field_18;
-    int m_field_1C;
     int m_active;
     void *m_manager;
-    void *m_aux_manager;
 };
 
 extern "C" {
@@ -17,11 +13,15 @@ extern "C" {
         if (!self) return -1;
         if (self->m_active == 0) return 0;
 
-        self->m_field_8 = param_1;
-        self->m_field_C = param_2;
+        self->m_field_0 = param_1;
+        self->m_field_4 = param_2;
+        self->m_field_8 = param_1 + param_2;
+        self->m_field_C = param_1 - param_2;
         self->m_field_10 = param_1 ^ param_2;
-        self->m_field_14 = param_1 + param_2;
-        self->m_field_18 = param_1 * param_2;
+        int temp = param_1 * param_2;
+        self->m_field_0 += temp;
+        int temp2 = param_1 - param_2;
+        self->m_field_4 += temp2;
 
         if (self->m_manager) {
             typedef int (*ManagerNotifyFn)(void *manager, int val, int extra);
@@ -31,15 +31,6 @@ extern "C" {
             }
         }
 
-        if (self->m_aux_manager) {
-            typedef void (*AuxFn)(void *aux, int val);
-            AuxFn aux_fn = *(AuxFn *)((char *)self->m_aux_manager + 0x28);
-            if (aux_fn) {
-                aux_fn(self->m_aux_manager, self->m_field_14);
-            }
-        }
-
-        self->m_field_1C = self->m_field_8 + self->m_field_C + self->m_field_10 + self->m_field_18;
-        return self->m_field_1C;
+        return self->m_field_8 + self->m_field_C + self->m_field_10;
     }
 }

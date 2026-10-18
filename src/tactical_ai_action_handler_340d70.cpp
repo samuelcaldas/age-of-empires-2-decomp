@@ -23,12 +23,12 @@ int func_00340D70(TacticalObj_340D70 *self, int cmd, int arg2) {
     if (cmd == 10) goto L_10;
     if (cmd == 12) goto L_12;
     if (cmd == 11) goto L_11;
-    goto L_default;
+    goto L_not_11;
 
 L_11:
     self->field_84C = 12;
     self->field_83C = 12;
-    goto L_default;
+    goto L_fb0;
 
 L_12:
 L_10:
@@ -39,15 +39,15 @@ L_10:
             return 1;
         }
     }
-    goto L_default;
+    goto L_fb0;
 
 L_13:
     self->field_84C = 15;
-    goto L_default;
+    goto L_fb0;
 
 L_14:
     self->field_84C = 19;
-    goto L_default;
+    goto L_fb0;
 
 L_16:
 L_17:
@@ -60,7 +60,7 @@ L_17:
     } else {
         self->field_84C = 21;
     }
-    goto L_default;
+    goto L_fb0;
 
 L_18:
     if (s0 == 9) {
@@ -88,18 +88,21 @@ L_255:
     self->vfunc_1c(1);
     return 0;
 
-L_default:
-    if (cmd != 11 && cmd != 17) {
-        if ((unsigned int)(s0 - 8) < 2) {
-            self->field_850 = self->field_84C;
-            if (s0 == 9) {
-                self->field_84C = 28;
-            } else {
-                self->field_84C = 29;
-            }
+L_fb0:
+    if (cmd == 11) goto L_skip_850;
+L_not_11:
+    if (cmd == 17) goto L_skip_850;
+
+    if ((unsigned int)(s0 - 8) < 2) {
+        self->field_850 = self->field_84C;
+        if (s0 == 9) {
+            self->field_84C = 28;
+        } else {
+            self->field_84C = 29;
         }
     }
 
+L_skip_850:
     if (s0 != self->field_84C) {
         if (s0 == 9) {
             func_21A1C0(self);

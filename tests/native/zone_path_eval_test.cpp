@@ -31,9 +31,6 @@ int main() {
     bld.m_field4A = -1;
 
     // Setup mock map structure
-    // world + 0xB98 -> map
-    // map + 0x68 -> slope_table (slope_table[0] -> slope_limits)
-    // map + 0x3C -> s0 (s0 + 0x8: map_w, s0 + 0xC: map_h)
     char world_buf[0xC00];
     std::memset(world_buf, 0, sizeof(world_buf));
 
@@ -44,10 +41,19 @@ int main() {
     for (int i = 0; i < 256; ++i) slope_limits[i] = 1.0f;
     float *slope_table[1] = { slope_limits };
 
-    int s0_buf[0x2500];
+    char s0_buf[0x9000];
     std::memset(s0_buf, 0, sizeof(s0_buf));
-    s0_buf[2] = 100; // map_w at offset 0x8
-    s0_buf[3] = 100; // map_h at offset 0xC
+    *reinterpret_cast<int *>(s0_buf + 0x8) = 100; // map_w
+    *reinterpret_cast<int *>(s0_buf + 0xC) = 100; // map_h
+
+    // Setup grid tiles
+    static MapTile grid_tiles[100][100];
+    std::memset(grid_tiles, 0, sizeof(grid_tiles));
+    static MapTile *tile_rows[100];
+    for (int r = 0; r < 100; ++r) {
+        tile_rows[r] = grid_tiles[r];
+    }
+    *reinterpret_cast<MapTile ***>(s0_buf + 0x8E8C) = tile_rows;
 
     *reinterpret_cast<void **>(world_buf + 0xB98) = map_buf;
     *reinterpret_cast<void **>(map_buf + 0x68) = slope_table;
@@ -64,6 +70,18 @@ int main() {
     // Behavioral test 3: negative y coordinate out of bounds must return 7
     int res_neg_y = func_001C7850(&bld, world_buf, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10.0f, -5.0f);
     assert(res_neg_y == 7);
+
+    // Behavioral test 4: slope threshold exceeded on boundary tile must return 3
+    bld.m_placement_type = 3;
+    grid_tiles[9][9].m_slope_flag = 0;  // base tile slope
+    grid_tiles[9][10].m_slope_flag = 5; // steep slope on boundary exceeding base + 1
+    int res_slope_fail = func_001C7850(&bld, world_buf, 0, 0, 1, 0, 0, 0, 0, 0, 0, 10.0f, 10.0f);
+    assert(res_slope_fail == 3);
+
+    // Behavioral test 5: slope within threshold must succeed (not return 3)
+    grid_tiles[9][10].m_slope_flag = 1; // within [base - 1, base + 1]
+    int res_slope_pass = func_001C7850(&bld, world_buf, 0, 0, 1, 0, 0, 0, 0, 0, 0, 10.0f, 10.0f);
+    assert(res_slope_pass == 0);
 
     return 0;
 }

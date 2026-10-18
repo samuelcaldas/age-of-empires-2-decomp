@@ -66,12 +66,10 @@ int func_001C7850(
         if (center_tile->m_zone_id != bld->m_field48 && center_tile->m_zone_id != bld->m_field4A) {
             return 1;
         }
-        cx = func_123350(x);
-        cy = func_123350(y);
-        p_min_x = cx;
-        p_max_x = cx;
-        p_min_y = cy;
-        p_max_y = cy;
+        p_min_x = func_123350(x);
+        p_min_y = func_123350(y);
+        p_max_x = p_min_x;
+        p_max_y = p_min_y;
     } else {
         p_min_x = t_min_x;
         p_max_x = t_max_x;

@@ -17,6 +17,15 @@ int main() {
 }
 """
 
+MARKERS = [
+    "VISIBLE_MAP_TEST_0_INIT_PASSED",
+    "VISIBLE_MAP_TEST_1_CLEAR_PASSED",
+    "VISIBLE_MAP_TEST_2_NONPOSITIVE_PASSED",
+    "VISIBLE_MAP_TEST_3_MODE_PASSED",
+    "VISIBLE_MAP_TEST_4_GUARDS_PASSED",
+    "VISIBLE_MAP_TEST_5_LOAD_SAVE_PASSED",
+]
+
 
 @pytest.fixture(scope="module")
 def visible_map_test(tmp_path_factory):

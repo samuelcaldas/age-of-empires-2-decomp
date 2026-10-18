@@ -2559,6 +2559,12 @@ if config.platform == Platform.PS2:
                 ),
                 Object(
                     NonMatching,
+                    "trade_action_helper_21D700",
+                    cflags=config.cflags,
+                    toolchain_version="PS2/mwcc-2.3.1.01",
+                ),
+                Object(
+                    NonMatching,
                     "zone_path_eval",
                     cflags=config.cflags,
                     toolchain_version="PS2/mwcc-2.3.1.01",

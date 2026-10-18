@@ -49,48 +49,40 @@ void *func_21C050(void *obj, int mode) {
 }
 
 void test_trade_action_helper_21DBE0() {
+    // Scenario A: Standard invocation
     call_records.clear();
     reg_calls = 0;
     mode_calls = 0;
 
     char dummy[32];
-    int test_a1 = 10;
-    int test_a2 = 42;
-    int test_a3 = 3;
-
-    // Test non-null path (Original VRAM 0x21DBE0 - 0x21DC44)
-    void *res = func_0021DBE0(dummy, test_a1, test_a2, test_a3);
-    assert(res == dummy);
+    void *res1 = func_0021DBE0(dummy, 10, 42, 3);
+    assert(res1 == dummy);
     assert(reg_calls == 1);
     assert(mode_calls == 1);
-
-    // Verify exact call order: func_1046D0 (reg 0x1F00, data test_a2) -> func_21C050 (mode test_a3)
     assert(call_records.size() == 2);
-    assert(call_records[0].step == STEP_REG);
     assert(call_records[0].reg_or_mode == 0x1F00);
-    assert(call_records[0].data == (uint64_t)test_a2);
+    assert(call_records[0].data == 42);
+    assert(call_records[1].reg_or_mode == 3);
 
-    assert(call_records[1].step == STEP_MODE);
-    assert(call_records[1].reg_or_mode == test_a3);
-
-    // Explicit mutation / negative verification tests:
-    // 1. Verify that a mutated register (e.g. 0x1E00 instead of 0x1F00) violates contract
-    bool bad_reg_mutation = (0x1E00 != 0x1F00);
-    assert(bad_reg_mutation);
-
-    // 2. Verify that mutated data violates contract
-    bool bad_data_mutation = ((uint64_t)999 != (uint64_t)test_a2);
-    assert(bad_data_mutation);
-
-    // 3. Verify that mutated mode violates contract
-    bool bad_mode_mutation = (99 != test_a3);
-    assert(bad_mode_mutation);
-
-    // Test null path explicitly returns 0 and asserts zero side-effect calls
+    // Scenario B: Variant argument invocation (verifying argument forwarding behavior)
     call_records.clear();
     reg_calls = 0;
     mode_calls = 0;
-    void *null_res = func_0021DBE0(0, test_a1, test_a2, test_a3);
+
+    void *res2 = func_0021DBE0(dummy, 20, 100, 7);
+    assert(res2 == dummy);
+    assert(reg_calls == 1);
+    assert(mode_calls == 1);
+    assert(call_records.size() == 2);
+    assert(call_records[0].reg_or_mode == 0x1F00);
+    assert(call_records[0].data == 100);
+    assert(call_records[1].reg_or_mode == 7);
+
+    // Scenario C: Null pointer safety and side-effect isolation
+    call_records.clear();
+    reg_calls = 0;
+    mode_calls = 0;
+    void *null_res = func_0021DBE0(0, 10, 42, 3);
     assert(null_res == 0);
     assert(reg_calls == 0);
     assert(mode_calls == 0);

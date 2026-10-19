@@ -127,10 +127,9 @@ int func_001C7860(
         }
     }
 
-    MapTile **tile_rows = s0->m_tile_rows;
     int fp_flag = 0;
 
-    MapTile *base_tile = &tile_rows[t_max_y][t_min_x];
+    MapTile *base_tile = &s0->m_tile_rows[t_max_y][t_min_x];
     short base_slope = base_tile->m_slope_flag;
     short min_slope = (short)(base_slope - 1);
     short max_slope = (short)(base_slope + 1);
@@ -143,7 +142,7 @@ int func_001C7860(
                 if (t_max_x - cur_x != cur_y - t_min_y) continue;
             }
 
-            if (slope_limits[tile_rows[cur_y][cur_x].m_zone_id] <= 0.05f) {
+            if (slope_limits[s0->m_tile_rows[cur_y][cur_x].m_zone_id] <= 0.05f) {
                 return 2;
             }
 
@@ -160,8 +159,8 @@ int func_001C7860(
             }
 
             if (flag2) {
-                short terrain = tile_rows[cur_y][cur_x].m_terrain;
-                short slope = tile_rows[cur_y][cur_x].m_slope_flag;
+                short terrain = s0->m_tile_rows[cur_y][cur_x].m_terrain;
+                short slope = s0->m_tile_rows[cur_y][cur_x].m_slope_flag;
 
                 switch (bld_var->m_placement_type) {
                 case 1:

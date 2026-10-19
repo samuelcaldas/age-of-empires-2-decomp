@@ -53,6 +53,7 @@ Start with the top-level [README](../README.md).
 - [controller_selection_box_clear_32e460.md](controller_selection_box_clear_32e460.md): pure-C++ controller selection box clear at `0x32E460`, 76-byte exact MWCC match, box reset contracts, and real mutation tests
 - [controller_entity_bind_32e4b0.md](controller_entity_bind_32e4b0.md): pure-C++ controller entity bind at `0x32E4B0`, 256/208-byte NonMatching diagnostic (52 aligned bytes, 6 relocations, NonMatching), entity bind contracts, and real mutation tests
 - [controller_coord_clamp_32e580.md](controller_coord_clamp_32e580.md): pure-C++ controller coordinate clamp at `0x32E580`, 168/192-byte NonMatching diagnostic (73 aligned bytes, NonMatching), coordinate clamping contracts, and real mutation tests
+- [controller_decrement_by_id_32e640.md](controller_decrement_by_id_32e640.md): pure-C++ controller decrement by ID at `0x32E640`, 100-byte exact MWCC match, table decrement contracts, and real mutation tests
 - [mode_update_328930.md](mode_update_328930.md): pure-C++ mode update at `0x328930`, 480-byte MWCC structural match, vtable dispatch contracts, and real mutation tests
 - [mode_handler_328b10.md](mode_handler_328b10.md): pure-C++ mode handler at `0x328B10`, 292-byte MWCC structural match, state reset contracts, and real mutation tests
 - [trade_action_route_finish.md](trade_action_route_finish.md): exact route-buffer reconstruction, corrected ELF mapping, and regression validation

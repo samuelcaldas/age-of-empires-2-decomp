@@ -4379,14 +4379,14 @@ The pinned original ELF (`SHA-1 f478e19f2059d52899b691483ef5c7522e30e17c`) has a
 
 | Measurement (MWCC 2.3.1.01, `-O3 -inline on -msext on -char signed`) | Value |
 |---|---|
-| objdiff fuzzy score | 86.96% |
-| Aligned rows equal / total target instructions (779) | 453 / 779 |
-| Aligned deletions / replacements | 34 / 17 |
-| Aligned insertions / arg mismatches | 39 / 275 |
+| objdiff fuzzy score | 87.69% |
+| Aligned rows equal / total target instructions (779) | 457 / 779 |
+| Aligned deletions / replacements | 32 / 16 |
+| Aligned insertions / arg mismatches | 36 / 274 |
 
 The current C++ reconstruction scans footprint tiles with outer `cur_x` and inner `cur_y`, reads the base slope from `s0->m_tile_rows[t_max_y][t_min_x]`, indexes `s0->m_tile_rows` directly in both perimeter and footprint loops, excludes perimeter corners from required-zone adjacency, and reloads the unit master after the radius callback. It uses a typed `MapContext` with width at `+0x8`, height at `+0xC`, and tile rows at `+0x8E8C`. These source-level choices do not prove matching register allocation, delay slots, pointer reloads, or stack-slot identities. Earlier claims of exact register and stack alignment are withdrawn.
 
-Direct indexing of `s0->m_tile_rows` across the footprint loop eliminated the hoisted `tile_rows` variable, raising fuzzy similarity to 86.96% (453 EQUAL rows, deletions reduced to 34, replacements to 17). At function offset `0`, the emitted instruction is `addiu sp,sp,-400` (`0x27BDFE70`), while the original uses `addiu sp,sp,-432` (`0x27BDFE50`). Entry parameter moves, coordinate spills, table accesses across callbacks, and instruction scheduling also remain divergent. The reconstructed caller ABI is not independently verified. Aligned `EQUAL` rows are not necessarily same-offset linked bytes and must not be multiplied into a verified matching-byte count.
+Refactoring the center-zone test into a guard clause (`if (center_tile->m_zone_id != field48 && center_tile->m_zone_id != bld_var->m_field4A) return 1;`) matched the original fallthrough-return layout, raising fuzzy similarity to 87.69% (457 EQUAL rows, deletions reduced to 32, replacements to 16, insertions to 36). At function offset `0`, the emitted instruction is `addiu sp,sp,-400` (`0x27BDFE70`), while the original uses `addiu sp,sp,-432` (`0x27BDFE50`). Entry parameter moves, coordinate spills, table accesses across callbacks, and instruction scheduling also remain divergent. The reconstructed caller ABI is not independently verified. Aligned `EQUAL` rows are not necessarily same-offset linked bytes and must not be multiplied into a verified matching-byte count.
 
 The original `.reginfo` word at file offset `0x3E326C` is `c0 a7 4e 00`, establishing `_gp = 0x4EA7C0`. The load at `0x1C7904` reads `0.001f` (`6f 12 83 3a`) from `0x4E2810`; subtractions at `0x1C7910` and `0x1C7918` apply it to both upper bounds. The load at `0x1C7E34` reads `0.05f` (`cd cc 4c 3d`) from `0x4E2804`. The ordered `c.le.s` at `0x1C7E68` sends equality and smaller values to the status-2 path. Earlier instruction addresses inferred from the misconfigured `0x1C7850` entry were 16 bytes low.
 

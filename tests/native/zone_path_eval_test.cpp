@@ -83,6 +83,25 @@ int main() {
     int res_neg_y = func_001C7860(&bld, world_buf, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10.0f, -5.0f);
     assert(res_neg_y == 7);
 
+    // Characterization: center-tile zone constraint (field48 / field4A)
+    bld.m_field48 = 15;
+    grid_tiles[10][10].m_zone_id = 0;
+    int res_center_mismatch = func_001C7860(&bld, world_buf, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10.0f, 10.0f);
+    assert(res_center_mismatch == 1);
+
+    grid_tiles[10][10].m_zone_id = 15;
+    int res_center_match_48 = func_001C7860(&bld, world_buf, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10.0f, 10.0f);
+    assert(res_center_match_48 == 0);
+
+    bld.m_field48 = -1;
+    bld.m_field4A = 25;
+    grid_tiles[10][10].m_zone_id = 25;
+    int res_center_match_4a = func_001C7860(&bld, world_buf, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10.0f, 10.0f);
+    assert(res_center_match_4a == 0);
+
+    grid_tiles[10][10].m_zone_id = 0;
+    bld.m_field4A = -1;
+
     // Behavioral test 4: slope threshold exceeded on boundary tile (cur_x == t_min_x || cur_y == t_max_y)
     // ELF 0x73C..0x778: base_tile is [t_max_y][t_min_x] ([10][9]).
     bld.m_placement_type = 3;

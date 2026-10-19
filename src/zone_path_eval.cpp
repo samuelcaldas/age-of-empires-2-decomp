@@ -69,14 +69,13 @@ int func_001C7860(
         MapTile *center_row = s0->m_tile_rows[cy];
         short cx = (short)func_123350(x);
         MapTile *center_tile = &center_row[cx];
-        if (center_tile->m_zone_id == field48 || center_tile->m_zone_id == bld_var->m_field4A) {
-            p_min_x = (short)func_123350(x);
-            p_max_x = p_min_x;
-            p_min_y = (short)func_123350(y);
-            p_max_y = p_min_y;
-        } else {
+        if (center_tile->m_zone_id != field48 && center_tile->m_zone_id != bld_var->m_field4A) {
             return 1;
         }
+        p_min_x = (short)func_123350(x);
+        p_max_x = p_min_x;
+        p_min_y = (short)func_123350(y);
+        p_max_y = p_min_y;
     } else {
         p_min_x = t_min_x;
         p_max_y = t_max_y;

@@ -117,8 +117,7 @@ int func_00342170(TacticalObj_341040 *self, int a1, int a2, int a3, int t0) {
         case 14:
             if (self->field_840 == 2 || (unsigned)(self->field_840 - 4) < 3) {
                 self->field_84C = 12;
-                func_00341040(self);
-                return 1;
+                break;
             } else {
                 set_handler_state(self, 12);
                 return 1;
@@ -127,26 +126,21 @@ int func_00342170(TacticalObj_341040 *self, int a1, int a2, int a3, int t0) {
             if (self->field_840 == 2 || self->field_840 == 4) {
                 func_36ACC0(7);
                 self->field_84C = 16;
-                func_00341040(self);
-                return 1;
+                break;
             } else {
                 self->field_84C = 17;
-                func_00341040(self);
-                return 1;
+                break;
             }
         case 17:
             self->field_84C = 12;
-            func_00341040(self);
-            return 1;
+            break;
         case 19:
             self->field_84C = 20;
-            func_00341040(self);
-            return 1;
+            break;
         case 20:
             if (self->field_840 == 2 || (unsigned)(self->field_840 - 4) < 3) {
                 self->field_84C = 17;
-                func_00341040(self);
-                return 1;
+                break;
             } else {
                 set_handler_state(self, 12);
                 return 1;
@@ -196,15 +190,13 @@ int func_00342170(TacticalObj_341040 *self, int a1, int a2, int a3, int t0) {
             if ((unsigned short)t0 == 0xFFFF) {
                 self->field_84C = 12;
                 self->field_83C = 12;
-                func_00341040(self);
-                return 1;
+                break;
             }
             return 0;
         case 28:
         case 29:
             self->field_84C = self->field_850;
-            func_00341040(self);
-            return 1;
+            break;
         case 3:
             func_33A730();
             if (self->field_838) {
@@ -217,15 +209,13 @@ int func_00342170(TacticalObj_341040 *self, int a1, int a2, int a3, int t0) {
                 func_33F8B0(self->field_844, r);
                 self->field_84C = 11;
             }
-            func_00341040(self);
-            return 1;
+            break;
         case 11:
             set_handler_state(self, 11);
             return 1;
         case 12:
             self->field_84C = 13;
-            func_00341040(self);
-            return 1;
+            break;
         case 13:
             set_handler_state(self, 4);
             return 1;
@@ -233,20 +223,19 @@ int func_00342170(TacticalObj_341040 *self, int a1, int a2, int a3, int t0) {
             if ((unsigned short)t0 == 0xFFFF) {
                 self->field_84C = 12;
                 self->field_83C = 12;
-                func_00341040(self);
-                return 1;
+                break;
             }
             return 0;
         case 27:
             self->field_84C = 12;
             self->field_83C = 12;
-            func_00341040(self);
-            return 1;
+            break;
         case 0:
         default:
-            func_00341040(self);
-            return 1;
+            break;
         }
+        func_00341040(self);
+        return 1;
     }
 
     return func_1FBD30(self, a1);

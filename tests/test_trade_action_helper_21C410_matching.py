@@ -7,6 +7,7 @@ import runpy
 import subprocess
 
 from elftools.elf.elffile import ELFFile
+from elftools.elf.relocation import RelocationSection
 import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -66,6 +67,20 @@ def test_helper_21c410_relocation_resolved_comparison(tmp_path):
         fn_sym = unique_symbol(table, name)
         assert fn_sym["st_size"] in (size, size + 12), f"{name} size mismatch: got {fn_sym['st_size']}, expected {size}"
         expected_indices.append(fn_sym["st_shndx"])
+
+    # Verify exact count and types of all 35 relocations across functions
+    total_relocs = 0
+    reloc_sections = [s for s in compiled.iter_sections() if isinstance(s, RelocationSection) and s["sh_info"] in expected_indices]
+    assert len(reloc_sections) == len(FUNCTIONS), f"expected {len(FUNCTIONS)} reloc sections, got {len(reloc_sections)}"
+    for sec in reloc_sections:
+        assert sec.num_relocations() == 7, f"expected 7 relocs in {sec.name}, got {sec.num_relocations()}"
+        total_relocs += sec.num_relocations()
+        relocs = list(sec.iter_relocations())
+        types = [r["r_info_type"] for r in relocs]
+        assert types.count(4) == 5, f"expected 5 R_MIPS_26 in {sec.name}"
+        assert types.count(5) == 1, f"expected 1 R_MIPS_HI16 in {sec.name}"
+        assert types.count(6) == 1, f"expected 1 R_MIPS_LO16 in {sec.name}"
+    assert total_relocs == 35, f"expected 35 total relocations, got {total_relocs}"
 
     undefined = {s.name for s in table.iter_symbols()
                  if s.name and s["st_shndx"] == "SHN_UNDEF"}

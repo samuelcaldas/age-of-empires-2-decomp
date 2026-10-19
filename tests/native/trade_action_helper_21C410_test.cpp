@@ -2,10 +2,13 @@
 #include <cstdint>
 #include <cstring>
 #include <iostream>
+#include <vector>
 
 struct u128 {
     uint32_t words[4];
 };
+
+static std::vector<int> g_call_order;
 
 extern "C" {
 void *func_0021C410(void *obj, int a1);
@@ -20,6 +23,7 @@ static int g_alloc_calls = 0;
 static char g_allocated_buf[256];
 void *func_123908(void *unused) {
     g_alloc_calls++;
+    g_call_order.push_back(0);
     return g_allocated_buf;
 }
 
@@ -30,6 +34,7 @@ void *func_104448(void *obj, int a1, int a2, int a3) {
     g_init_a1 = a1;
     g_init_a2 = a2;
     g_init_a3 = a3;
+    g_call_order.push_back(1);
     return obj;
 }
 
@@ -38,6 +43,7 @@ static u128 g_last_tag;
 void *func_1045E8(void *obj, u128 tag) {
     g_set_tag_calls++;
     g_last_tag = tag;
+    g_call_order.push_back(2);
     return obj;
 }
 
@@ -48,12 +54,14 @@ void *func_1046A8(void *obj, int reg, uint64_t data) {
     g_reg_write_calls++;
     g_last_reg = reg;
     g_last_data = data;
+    g_call_order.push_back(3);
     return obj;
 }
 
 static int g_finalize_calls = 0;
 void *func_104600(void *obj) {
     g_finalize_calls++;
+    g_call_order.push_back(4);
     return obj;
 }
 }
@@ -64,10 +72,10 @@ static void test_func_0021C410() {
     g_set_tag_calls = 0;
     g_reg_write_calls = 0;
     g_finalize_calls = 0;
+    g_call_order.clear();
     std::memset(&g_last_tag, 0, sizeof(g_last_tag));
 
     char my_obj[64];
-    // a1 with high bit set to verify sign-extension per original dsra32
     int val = (int)0x80001234;
     void *ret = func_0021C410(my_obj, val);
     assert(ret == my_obj);
@@ -83,13 +91,16 @@ static void test_func_0021C410() {
     assert(g_last_reg == 0x4A);
     assert(g_last_data == 0x80001234ULL);
     assert(g_finalize_calls == 1);
+    assert(g_call_order == std::vector<int>({1, 2, 3, 4}));
 
     // Test with null object -> triggers allocation
+    g_call_order.clear();
     ret = func_0021C410(nullptr, 0x5678);
     assert(ret == g_allocated_buf);
     assert(g_alloc_calls == 1);
     assert(g_last_reg == 0x4A);
     assert(g_last_data == 0x5678ULL);
+    assert(g_call_order == std::vector<int>({0, 1, 2, 3, 4}));
 
     std::cout << "PASS: test_func_0021C410" << std::endl;
 }
@@ -100,6 +111,7 @@ static void test_func_0021C4A0() {
     g_set_tag_calls = 0;
     g_reg_write_calls = 0;
     g_finalize_calls = 0;
+    g_call_order.clear();
     std::memset(&g_last_tag, 0, sizeof(g_last_tag));
 
     char my_obj[64];
@@ -118,6 +130,7 @@ static void test_func_0021C4A0() {
     assert(g_last_reg == 0x4B);
     assert(g_last_data == 0xFFEEDDCCULL);
     assert(g_finalize_calls == 1);
+    assert(g_call_order == std::vector<int>({1, 2, 3, 4}));
 
     std::cout << "PASS: test_func_0021C4A0" << std::endl;
 }
@@ -128,11 +141,10 @@ static void test_func_0021C530() {
     g_set_tag_calls = 0;
     g_reg_write_calls = 0;
     g_finalize_calls = 0;
+    g_call_order.clear();
     std::memset(&g_last_tag, 0, sizeof(g_last_tag));
 
     char my_obj[64];
-    // a1=0x12, a2=0x34, a3=0x56, t0=0x78
-    // expected: 0x12 | (0x34 << 16) | (0x56 << 24) | ((uint64_t)0x78 << 32)
     void *ret = func_0021C530(my_obj, 0x12, 0x34, 0x56, 0x78);
     assert(ret == my_obj);
     assert(g_alloc_calls == 0);
@@ -152,11 +164,14 @@ static void test_func_0021C530() {
                       | (((uint64_t)(uint32_t)0x78) << 32);
     assert(g_last_data == expected);
     assert(g_finalize_calls == 1);
+    assert(g_call_order == std::vector<int>({1, 2, 3, 4}));
 
     // Null object allocation test
+    g_call_order.clear();
     ret = func_0021C530(nullptr, 1, 2, 3, 4);
     assert(ret == g_allocated_buf);
     assert(g_alloc_calls == 1);
+    assert(g_call_order == std::vector<int>({0, 1, 2, 3, 4}));
 
     std::cout << "PASS: test_func_0021C530" << std::endl;
 }
@@ -167,6 +182,7 @@ static void test_func_0021C610() {
     g_set_tag_calls = 0;
     g_reg_write_calls = 0;
     g_finalize_calls = 0;
+    g_call_order.clear();
     std::memset(&g_last_tag, 0, sizeof(g_last_tag));
 
     char my_obj[64];
@@ -184,6 +200,7 @@ static void test_func_0021C610() {
     assert(g_last_reg == 0x48);
     assert(g_last_data == 0x99);
     assert(g_finalize_calls == 1);
+    assert(g_call_order == std::vector<int>({1, 2, 3, 4}));
 
     std::cout << "PASS: test_func_0021C610" << std::endl;
 }
@@ -194,6 +211,7 @@ static void test_func_0021C690() {
     g_set_tag_calls = 0;
     g_reg_write_calls = 0;
     g_finalize_calls = 0;
+    g_call_order.clear();
     std::memset(&g_last_tag, 0, sizeof(g_last_tag));
 
     char my_obj[64];
@@ -211,6 +229,7 @@ static void test_func_0021C690() {
     assert(g_last_reg == 0x41);
     assert(g_last_data == 0x42);
     assert(g_finalize_calls == 1);
+    assert(g_call_order == std::vector<int>({1, 2, 3, 4}));
 
     std::cout << "PASS: test_func_0021C690" << std::endl;
 }

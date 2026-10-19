@@ -175,4 +175,3 @@ def test_tactical_ai_func_342170_mwcc_compilation(tmp_path):
         # Exact matching gate for future promotion
         assert fn_size == 1584, f"Target function size mismatch on promotion: {fn_size} != 1584"
         assert fuzzy == 100.0, f"Expected 100.0% matching on promotion, got {fuzzy}%"
-

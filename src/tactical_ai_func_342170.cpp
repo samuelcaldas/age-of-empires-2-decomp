@@ -114,67 +114,6 @@ int func_00342170(TacticalObj_341040 *self, int a1, int a2, int a3, int t0) {
         return 1;
     } else if ((TacticalSubObj*)a1 == self->field_830) {
         switch (self->field_84C) {
-        case 0:
-            func_00341040(self);
-            return 1;
-        case 1:
-            set_handler_state(self, 5);
-            return 1;
-        case 2:
-        case 4:
-            set_handler_state(self, 7);
-            return 1;
-        case 3:
-            func_33A730();
-            if (self->field_838) {
-                if (!func_00340CF0(self)) {
-                    int code = func_1F6EA0(self, 0xc356);
-                    typedef void (*VFunc76)(void *self, int c);
-                    ((VFunc76)(*(void***)self->field_838)[76])(self->field_838, code);
-                }
-                int r = func_00219BA0(self->field_838);
-                func_33F8B0(self->field_844, r);
-                self->field_84C = 11;
-            }
-            func_00341040(self);
-            return 1;
-        case 5:
-        case 6:
-            set_handler_state(self, 1);
-            return 1;
-        case 7:
-            set_handler_state(self, 9);
-            return 1;
-        case 8:
-            if ((unsigned short)t0 == 0xFFFF) {
-                set_handler_state(self, 6);
-                return 1;
-            }
-            return 0;
-        case 9:
-            if ((unsigned short)t0 == 0xFFFF) {
-                set_handler_state(self, 3);
-                return 1;
-            }
-            return 0;
-        case 10:
-            if ((unsigned short)t0 == 0xFFFF) {
-                self->field_84C = 12;
-                self->field_83C = 12;
-                func_00341040(self);
-                return 1;
-            }
-            return 0;
-        case 11:
-            set_handler_state(self, 11);
-            return 1;
-        case 12:
-            self->field_84C = 13;
-            func_00341040(self);
-            return 1;
-        case 13:
-            set_handler_state(self, 4);
-            return 1;
         case 14:
             if (self->field_840 == 2 || (unsigned)(self->field_840 - 4) < 3) {
                 self->field_84C = 12;
@@ -195,24 +134,9 @@ int func_00342170(TacticalObj_341040 *self, int a1, int a2, int a3, int t0) {
                 func_00341040(self);
                 return 1;
             }
-        case 16:
-            if ((unsigned short)t0 == 0xFFFF) {
-                self->field_84C = 12;
-                self->field_83C = 12;
-                func_00341040(self);
-                return 1;
-            }
-            return 0;
         case 17:
             self->field_84C = 12;
             func_00341040(self);
-            return 1;
-        case 18:
-        case 21:
-        case 22:
-        case 23:
-        case 24:
-            set_handler_state(self, 3);
             return 1;
         case 19:
             self->field_84C = 20;
@@ -227,22 +151,98 @@ int func_00342170(TacticalObj_341040 *self, int a1, int a2, int a3, int t0) {
                 set_handler_state(self, 12);
                 return 1;
             }
-        case 25:
+        case 18:
+        case 21:
+        case 22:
+        case 23:
+        case 24:
             set_handler_state(self, 3);
             return 1;
+        case 1:
+            set_handler_state(self, 5);
+            return 1;
+        case 8:
+            if ((unsigned short)t0 == 0xFFFF) {
+                set_handler_state(self, 6);
+                return 1;
+            }
+            return 0;
         case 26:
             set_handler_state(self, 6);
             return 1;
-        case 27:
-            self->field_84C = 12;
-            self->field_83C = 12;
-            func_00341040(self);
+        case 2:
+        case 4:
+            set_handler_state(self, 7);
             return 1;
+        case 9:
+            if ((unsigned short)t0 == 0xFFFF) {
+                set_handler_state(self, 3);
+                return 1;
+            }
+            return 0;
+        case 25:
+            set_handler_state(self, 3);
+            return 1;
+        case 5:
+            set_handler_state(self, 1);
+            return 1;
+        case 6:
+            set_handler_state(self, 1);
+            return 1;
+        case 7:
+            set_handler_state(self, 9);
+            return 1;
+        case 10:
+            if ((unsigned short)t0 == 0xFFFF) {
+                self->field_84C = 12;
+                self->field_83C = 12;
+                func_00341040(self);
+                return 1;
+            }
+            return 0;
         case 28:
         case 29:
             self->field_84C = self->field_850;
             func_00341040(self);
             return 1;
+        case 3:
+            func_33A730();
+            if (self->field_838) {
+                if (!func_00340CF0(self)) {
+                    int code = func_1F6EA0(self, 0xc356);
+                    typedef void (*VFunc76)(void *self, int c);
+                    ((VFunc76)(*(void***)self->field_838)[76])(self->field_838, code);
+                }
+                int r = func_00219BA0(self->field_838);
+                func_33F8B0(self->field_844, r);
+                self->field_84C = 11;
+            }
+            func_00341040(self);
+            return 1;
+        case 11:
+            set_handler_state(self, 11);
+            return 1;
+        case 12:
+            self->field_84C = 13;
+            func_00341040(self);
+            return 1;
+        case 13:
+            set_handler_state(self, 4);
+            return 1;
+        case 16:
+            if ((unsigned short)t0 == 0xFFFF) {
+                self->field_84C = 12;
+                self->field_83C = 12;
+                func_00341040(self);
+                return 1;
+            }
+            return 0;
+        case 27:
+            self->field_84C = 12;
+            self->field_83C = 12;
+            func_00341040(self);
+            return 1;
+        case 0:
         default:
             func_00341040(self);
             return 1;

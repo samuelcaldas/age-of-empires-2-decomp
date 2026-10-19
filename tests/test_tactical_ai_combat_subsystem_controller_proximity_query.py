@@ -11,6 +11,9 @@ NATIVE_TEST = (
 )
 MUTATIONS = [
     ("corrupt_out_status_zero", "*out_status = 0;", "*out_status = 1;", "zero_return", "out_status must be zeroed on entry"),
+    ("corrupt_null_self_guard", "if (self == 0) {\n        return 0;\n    }", "if (self == 0) {\n        return 1;\n    }", "null_self", "null self must return 0 safely"),
+    ("corrupt_null_vtable_guard", "if (self->m_vtable == 0) {\n        return 0;\n    }", "if (self->m_vtable == 0) {\n        return 1;\n    }", "null_vtable", "null vtable must return 0 safely"),
+    ("corrupt_null_func120_guard", "if (self->m_vtable->func_120 == 0) {\n        return 0;\n    }", "if (self->m_vtable->func_120 == 0) {\n        return 1;\n    }", "null_func120", "null func_120 must return 0 safely"),
     ("corrupt_func120_gate", "if (res == 0)", "if (res != 0)", "zero_return", "func_120 zero return must return 0"),
     ("corrupt_func120_arg_a3", "10, 30, 15, 4, 1", "11, 30, 15, 4, 1", "zero_return", "func_120 a3 mismatch (10)"),
     ("corrupt_func120_arg_t0", "10, 30, 15, 4, 1", "10, 31, 15, 4, 1", "zero_return", "func_120 t0 mismatch (30)"),
@@ -45,7 +48,7 @@ def run_native(binary, arg=None):
 
 
 def test_controller_proximity_query_reference_contract(tmp_path):
-    """Check ABI arguments, out_status zeroing, func_120 dispatch, and hit return."""
+    """Check ABI arguments, out_status zeroing, guards, func_120 dispatch, and hit return."""
     binary = tmp_path / "ctrl_prox_query_test"
     compile_native(SOURCE, binary)
     result = run_native(binary)

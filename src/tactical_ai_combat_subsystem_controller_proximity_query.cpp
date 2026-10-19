@@ -10,7 +10,15 @@ int func_0032DA90(CombatSubsystemControllerInstance *self, int x, int y, int *ou
         *out_status = 0;
     }
 
-    if (self == 0 || self->m_vtable == 0 || self->m_vtable->func_120 == 0) {
+    if (self == 0) {
+        return 0;
+    }
+
+    if (self->m_vtable == 0) {
+        return 0;
+    }
+
+    if (self->m_vtable->func_120 == 0) {
         return 0;
     }
 

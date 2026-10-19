@@ -2,10 +2,10 @@
 
 `func_0032DA90` is reproduced in pure C++ in
 `src/tactical_ai_combat_subsystem_controller_proximity_query.cpp`.
-A fresh MWCC PS2 2.3.1.01 build produces a 148-byte partial candidate sequence
-(-1456 bytes from 1604-byte target code extent, 28 of 1604 bytes matching, 1576 byte differences;
-classified strictly as NonMatching), scoping 8 ABI parameter registers, `out_status` zeroing on entry,
-`func_120` virtual dispatch with `(10, 30, 15, 4, 1)`, and early exit gate routing.
+A fresh MWCC PS2 2.3.1.01 build produces a 148-byte candidate prefix matching 28 of 148 candidate-prefix
+bytes against the original binary prefix, with 1,456 bytes unimplemented remainder of the 1,604 target bytes
+(classified strictly as NonMatching), scoping 8 ABI parameter registers, `out_status` zeroing on entry,
+null-self / null-vtable / null-pointer safety guards, `func_120` virtual dispatch with `(10, 30, 15, 4, 1)`, and early exit gate routing.
 Remaining complex inner proximity grid scans and entity slot traversals are unmodeled in this partial slice.
 
 ## Reference boundaries and layout
@@ -81,9 +81,9 @@ The full 1,604-byte original binary function contains 2 relocations (both `R_MIP
    - Result: All 3 fixtures passing cleanly (`zero_return`, `null_status`, `hit_return`), exit code 0 under UBSan.
    - Verified 9 production-source mutations independently compiled and killed via diagnostic matching in `tests/test_tactical_ai_combat_subsystem_controller_proximity_query.py`.
 3. **Refactor & Matching Diagnostics:**
-   - Built with verified MWCC PS2 flags: candidate code size 148 bytes (-1456 bytes from 1604-byte target).
+   - Built with verified MWCC PS2 flags: candidate code size 148 bytes (1,456 bytes unimplemented remainder of 1,604 target bytes).
    - Relocations resolved: 0 compiled relocations mapped and verified with multiset check.
-   - Classified strictly as **NonMatching** (28 matching bytes, 1576 byte differences).
+   - Classified strictly as **NonMatching** (28 of 148 candidate-prefix matching bytes against original prefix).
    - The matching test serves as a structural correspondence diagnostic asserting >=25 matching bytes rather than an exact matching claim.
 
 ## Reproducible verification

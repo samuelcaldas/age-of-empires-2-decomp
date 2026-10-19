@@ -112,5 +112,10 @@ def test_controller_proximity_query_matches_original_instructions(tmp_path):
     with ORIGINAL.open("rb") as stream:
         expected = original_function_bytes(ELFFile(stream), ADDRESS, SIZE)
     actual = function_bytes(output)
-    matching = sum(a == b for a, b in zip(actual, expected))
-    assert matching >= 25, f"Expected matching bytes >= 25, got {matching}/{SIZE}"
+    prefix_len = len(actual)
+    matching = sum(a == b for a, b in zip(actual, expected[:prefix_len]))
+    unimplemented_remainder = SIZE - prefix_len
+    assert matching >= 25, (
+        f"Expected matching prefix bytes >= 25, got {matching}/{prefix_len} "
+        f"({unimplemented_remainder} bytes unimplemented remainder of {SIZE})"
+    )

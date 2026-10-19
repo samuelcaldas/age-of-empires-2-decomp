@@ -101,6 +101,60 @@ static void test_null_out_status() {
     TEST_ASSERT(s_func120_calls == 1, "func_120 must be called once with null out_status");
 }
 
+static void test_null_self_guard() {
+    reset_mocks();
+    int status = 0x888;
+    int ret = func_0032DA90(nullptr, 10, 20, &status, 1, 2, 3, 4);
+
+    TEST_ASSERT(ret == 0, "null self must return 0 safely");
+    TEST_ASSERT(status == 0, "null self must still zero out_status");
+    TEST_ASSERT(s_func120_calls == 0, "null self must suppress func_120 call");
+}
+
+static void test_null_vtable_guard() {
+    reset_mocks();
+    CombatSubsystemControllerInstance inst;
+    std::memset(&inst, 0, sizeof(inst));
+    inst.m_vtable = nullptr;
+
+    int status = 0x777;
+    int ret = func_0032DA90(&inst, 10, 20, &status, 1, 2, 3, 4);
+
+    TEST_ASSERT(ret == 0, "null vtable must return 0 safely");
+    TEST_ASSERT(status == 0, "null vtable must still zero out_status");
+    TEST_ASSERT(s_func120_calls == 0, "null vtable must suppress func_120 call");
+}
+
+static void test_null_func120_guard() {
+    reset_mocks();
+    CombatSubsystemControllerInstance inst;
+    std::memset(&inst, 0, sizeof(inst));
+    s_vtable.func_120 = nullptr;
+    inst.m_vtable = &s_vtable;
+
+    int status = 0x666;
+    int ret = func_0032DA90(&inst, 10, 20, &status, 1, 2, 3, 4);
+
+    TEST_ASSERT(ret == 0, "null func_120 must return 0 safely");
+    TEST_ASSERT(status == 0, "null func_120 must still zero out_status");
+    TEST_ASSERT(s_func120_calls == 0, "null func_120 must suppress call");
+}
+
+static void test_trailing_abi_args_ignored() {
+    reset_mocks();
+    CombatSubsystemControllerInstance inst;
+    std::memset(&inst, 0, sizeof(inst));
+    inst.m_vtable = &s_vtable;
+
+    int status = 0x555;
+    // Pass arbitrary nonzero trailing ABI parameters
+    int ret = func_0032DA90(&inst, 50, 60, &status, 0x12345678, 0x76543210, 0x00FF00FF, 0x55AA55AA);
+
+    TEST_ASSERT(ret == 0, "trailing ABI args must not alter return value");
+    TEST_ASSERT(status == 0, "trailing ABI args must not alter out_status");
+    TEST_ASSERT(s_func120_calls == 1, "trailing ABI args must not affect func_120 call count");
+}
+
 static void test_func120_hit_return() {
     reset_mocks();
     CombatSubsystemControllerInstance inst;
@@ -119,10 +173,18 @@ int main(int argc, char **argv) {
     if (argc > 1) {
         if (std::strcmp(argv[1], "zero_return") == 0) { test_func120_zero_return(); return 0; }
         if (std::strcmp(argv[1], "null_status") == 0) { test_null_out_status(); return 0; }
+        if (std::strcmp(argv[1], "null_self") == 0) { test_null_self_guard(); return 0; }
+        if (std::strcmp(argv[1], "null_vtable") == 0) { test_null_vtable_guard(); return 0; }
+        if (std::strcmp(argv[1], "null_func120") == 0) { test_null_func120_guard(); return 0; }
+        if (std::strcmp(argv[1], "trailing_args") == 0) { test_trailing_abi_args_ignored(); return 0; }
         if (std::strcmp(argv[1], "hit_return") == 0) { test_func120_hit_return(); return 0; }
     }
     test_func120_zero_return();
     test_null_out_status();
+    test_null_self_guard();
+    test_null_vtable_guard();
+    test_null_func120_guard();
+    test_trailing_abi_args_ignored();
     test_func120_hit_return();
     return 0;
 }

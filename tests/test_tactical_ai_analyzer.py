@@ -1,7 +1,7 @@
 """Native regressions for tactical_ai_analyzer (`0x143440`–`0x143860`).
 
 Reconciled function extents:
-- func_143440: [0x143440, 0x143858) (0x418 code), padding [0x143858, 0x143860) (8 B NOP)
+- func_143440: [0x143440, 0x14385C) (1052 B code), padding [0x14385C, 0x143860) (4 B NOP)
 """
 
 from pathlib import Path

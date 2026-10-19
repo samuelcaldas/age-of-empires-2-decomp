@@ -7,6 +7,12 @@ struct MasterInfo {
     float ry;
 };
 
+struct ZoneLayout {
+    char pad_00[0x8EB2];
+    short f_8EB2;
+    short f_8EB4;
+};
+
 extern "C" {
 
 void func_001C8490(void *obj, char val);

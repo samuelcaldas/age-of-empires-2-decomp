@@ -138,9 +138,9 @@ int func_001C8780(
     float f20 = master->rx + (x - (float)func_123350(x));
     float f21 = master->ry + (y - (float)func_123350(y));
 
-    void *ctx = *(void **)((char *)map + 0x3C);
-    short half_w = *(short *)((char *)ctx + 0x8EB4);
-    short half_h = *(short *)((char *)ctx + 0x8EB2);
+    ZoneLayout *zm = *(ZoneLayout **)((char *)map + 0x3C);
+    short half_w = zm->f_8EB4;
+    short half_h = zm->f_8EB2;
 
     // Corner 0 (+rx, +ry)
     *out0 = (short)func_123350((float)half_w * (f21 + f20));

@@ -20,9 +20,8 @@ extern const char D_4D5508[];
 
 
 static inline void set_handler_state(TacticalObj_341040 *self, int code) {
-    void *f844 = self->field_844;
+    *(int*)((char*)self->field_844 + 2052) = code;
     func_00340C30(self);
-    *(int*)((char*)f844 + 2052) = code;
 }
 int func_00342170(TacticalObj_341040 *self, int a1, int a2, int a3, int t0) {
     if (self->field_838 != 0 && (TacticalSubObj*)a1 == self->field_838 && a2 == 16) {

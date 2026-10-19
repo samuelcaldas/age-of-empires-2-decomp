@@ -107,7 +107,18 @@ int func_00340CF0(void *a0) {
 }
 int func_340CF0(void *a0) { return func_00340CF0(a0); }
 
-void func_00340C30(void *a0) { log_call("func_00340C30", a0, 0); }
+static int g_f844_val_during_func_340c30 = -1;
+
+void func_00340C30(void *a0) {
+    log_call("func_00340C30", a0, 0);
+    g_f844_val_during_func_340c30 = -1;
+    if (a0) {
+        TacticalObj_341040 *obj = (TacticalObj_341040*)a0;
+        if (obj->field_844) {
+            g_f844_val_during_func_340c30 = *(int*)((char*)obj->field_844 + 2052);
+        }
+    }
+}
 void func_340C30(void *a0) { func_00340C30(a0); }
 
 static int g_func_1f6750_called = 0;
@@ -1171,7 +1182,30 @@ static void test_func_341040_field_840_value_2_routes_to_age2S() {
     std::printf("PASS test_func_341040_field_840_value_2_routes_to_age2S\n");
 }
 
+static void test_func_342170_f844_mutation_precedes_func_340c30() {
+    TacticalObj_341040 obj;
+    MockSubObj mock_sub834;
+    char mock_field844[2056];
+    std::memset(&obj, 0, sizeof(obj));
+    std::memset(mock_field844, 0, sizeof(mock_field844));
+    obj.field_834 = &mock_sub834;
+    obj.field_844 = &mock_field844;
+    obj.field_84C = 1; // Routes to set_handler_state(self, 2)
+    g_call_history.clear();
+    g_f844_val_during_func_340c30 = -1;
+
+    int res = func_00342170(&obj, (int)(long)&mock_sub834, 1, 0, 0);
+    assert(res == 1);
+    assert(g_call_history.size() == 1);
+    assert(g_call_history[0].name == "func_00340C30");
+    // Verified PS2 disassembly at 0x3423b0-0x3423c0:
+    // field_844+2052 mutation executes before or in the branch/call delay slot of func_00340C30
+    assert(g_f844_val_during_func_340c30 == 2);
+    std::printf("PASS test_func_342170_f844_mutation_precedes_func_340c30\n");
+}
+
 int main() {
+    test_func_342170_f844_mutation_precedes_func_340c30();
     test_func_341040_field_840_value_2_routes_to_age2S();
     test_func_342170_elf_sub838_a1_a2_16_branch();
     test_func_342170_elf_sub838_func_339900_nonzero_branch();

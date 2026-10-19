@@ -6,14 +6,40 @@ Uses ONLY standard library (struct, hashlib). No pyelftools or external deps req
 import hashlib
 import struct
 import sys
+from pathlib import Path
 
 EXPECTED_GPREL_COUNT = 39
 EXPECTED_JAL_COUNT = 49
 EXPECTED_SLICE_SHA1 = "ea9ac5f57ee1be4cac7f25b8a76965ef0b065bd5"
 
 GP_VAL = 0x4EA7C0
-D_4E35DC_VAL = 0x4E35DC
-GPREL_ADDEND = (D_4E35DC_VAL - GP_VAL) & 0xFFFF  # -0x71E4 = 0x8E1C
+
+
+def load_symbols_map(symbols_path="config/SLES-50282/symbols.txt"):
+    """
+    Parse symbol addresses from symbols.txt into a dictionary.
+    Does NOT infer addresses from symbol names.
+    """
+    sym_map = {
+        "func_138F90": 0x138F90,  # Base fallback if not in symbols.txt
+    }
+    path = Path(symbols_path)
+    if path.is_file():
+        with open(path, "r", encoding="latin1") as f:
+            for line in f:
+                line = line.strip()
+                if not line or line.startswith("//"):
+                    continue
+                code_part = line.split("//")[0].strip()
+                if "=" in code_part:
+                    name_part, val_part = code_part.split("=", 1)
+                    name = name_part.strip()
+                    val_str = val_part.strip().rstrip(";")
+                    try:
+                        sym_map[name] = int(val_str, 0)
+                    except ValueError:
+                        pass
+    return sym_map
 
 
 def assert_relocation_counts(gprel_count, jal_count):
@@ -59,14 +85,17 @@ def validate_table_entry_divisibility(symtab_size, sym_entsize, reloc_size, relo
         )
 
 
-def validate_and_apply_relocation(r_offset, r_type, sym_name, compiled_bytes, func_size=None):
+def validate_and_apply_relocation(r_offset, r_type, sym_name, compiled_bytes, func_size=None, symbols_map=None):
     """
     Validate relocation alignment, boundary, type, site opcode, registers,
-    in-situ addend/target, and apply resolved value.
-    Raises ValueError on any unexpected property.
+    in-situ addend/target, look up symbol address from symbols_map,
+    compute relocation addend, and apply resolved value.
+    Raises ValueError on any unexpected property or unmapped symbol.
     """
     if func_size is None:
         func_size = len(compiled_bytes)
+    if symbols_map is None:
+        symbols_map = load_symbols_map()
 
     # 1. Alignment check: MIPS instructions must be 4-byte aligned
     if r_offset % 4 != 0:
@@ -80,7 +109,12 @@ def validate_and_apply_relocation(r_offset, r_type, sym_name, compiled_bytes, fu
             f"Relocation site exceeds code boundary at {r_offset:#06x} (code size {func_size})"
         )
 
-    # 3. Type-specific validation
+    # 3. Lookup symbol value in symbols map
+    if sym_name not in symbols_map:
+        raise ValueError(f"Symbol {sym_name} not defined in symbols map")
+    sym_value = symbols_map[sym_name]
+
+    # 4. Type-specific validation
     if r_type == 7:  # R_MIPS_GPREL16
         if sym_name != "D_4E35DC":
             raise ValueError(
@@ -98,8 +132,9 @@ def validate_and_apply_relocation(r_offset, r_type, sym_name, compiled_bytes, fu
             raise ValueError(
                 f"Non-zero in-situ addend at GPREL16 site {r_offset:#06x}: got {in_situ_addend:#06x}, expected 0x0"
             )
-        # Apply addend
-        w_applied = (w & 0xFFFF0000) | GPREL_ADDEND
+        # Compute addend from symbol value: (sym_value - GP_VAL) & 0xFFFF
+        computed_addend = (sym_value - GP_VAL) & 0xFFFF
+        w_applied = (w & 0xFFFF0000) | computed_addend
         struct.pack_into('<I', compiled_bytes, r_offset, w_applied)
         return "GPREL16"
 
@@ -121,9 +156,8 @@ def validate_and_apply_relocation(r_offset, r_type, sym_name, compiled_bytes, fu
             raise ValueError(
                 f"Non-zero in-situ target field at JAL site {r_offset:#06x}: got {in_situ_target:#010x}, expected 0x0"
             )
-        # Apply target address derived from symbol name
-        target_addr = int(sym_name.split('_')[1], 16)
-        jal_target_field = (target_addr >> 2) & 0x03FFFFFF
+        # Compute target field from symbol value
+        jal_target_field = (sym_value >> 2) & 0x03FFFFFF
         w_applied = 0x0C000000 | jal_target_field
         struct.pack_into('<I', compiled_bytes, r_offset, w_applied)
         return "JAL"
@@ -242,35 +276,34 @@ def parse_elf_sections(path):
     return parse_elf_sections_from_bytes(data)
 
 
-def main():
-    src_obj_path = 'build/SLES-50282/src/unit_action_build_7ff20.o'
-    orig_elf_path = 'orig/SLES-50282/AOK.ELF'
-    orig_file_offset = 0x180100
-    func_size = 1860  # 0x744 bytes = 465 instructions
+def verify_linked_bytes(src_obj_path='build/SLES-50282/src/unit_action_build_7ff20.o',
+                        orig_elf_path='orig/SLES-50282/AOK.ELF',
+                        orig_file_offset=0x180100,
+                        func_size=1860,
+                        symbols_override=None):
+    """
+    Perform full relocation-aware byte equality verification.
+    Returns (orig_sha1, resolved_sha1, gprel_count, jal_count).
+    Raises ValueError on any discrepancy.
+    """
+    symbols_map = symbols_override if symbols_override is not None else load_symbols_map()
 
     # 1. Read original binary slice
     with open(orig_elf_path, 'rb') as f:
         f.seek(orig_file_offset)
         orig_bytes = f.read(func_size)
     if len(orig_bytes) != func_size:
-        print(f"ERROR: Truncated read from {orig_elf_path}: got {len(orig_bytes)}, expected {func_size}", file=sys.stderr)
-        sys.exit(1)
+        raise ValueError(f"Truncated read from {orig_elf_path}: got {len(orig_bytes)}, expected {func_size}")
     orig_sha1 = hashlib.sha1(orig_bytes).hexdigest()
 
     # 2. Parse compiled ET_REL object
-    try:
-        raw_obj, secs, get_sym_name = parse_elf_sections(src_obj_path)
-    except ValueError as err:
-        print(f"ELF PARSER ERROR: {err}", file=sys.stderr)
-        sys.exit(1)
-
+    raw_obj, secs, get_sym_name = parse_elf_sections(src_obj_path)
     text_sec = secs['.text']
     rel_text_sec = secs['.rel.text']
     symtab_sec = secs['.symtab']
 
     if text_sec['size'] < func_size:
-        print(f"ERROR: .text section size ({text_sec['size']}) smaller than function size ({func_size})", file=sys.stderr)
-        sys.exit(1)
+        raise ValueError(f".text section size ({text_sec['size']}) smaller than function size ({func_size})")
 
     # Read .text bytes
     compiled_bytes = bytearray(raw_obj[text_sec['offset']:text_sec['offset'] + func_size])
@@ -278,14 +311,10 @@ def main():
     # Validate symbol and relocation entry size divisibility
     sym_entsize = symtab_sec['entsize'] if symtab_sec['entsize'] >= 16 else 16
     rel_entsize = rel_text_sec['entsize'] if rel_text_sec['entsize'] >= 8 else 8
-    try:
-        validate_table_entry_divisibility(
-            symtab_sec['size'], sym_entsize,
-            rel_text_sec['size'], rel_entsize
-        )
-    except ValueError as err:
-        print(f"TABLE DIVISIBILITY ERROR: {err}", file=sys.stderr)
-        sys.exit(1)
+    validate_table_entry_divisibility(
+        symtab_sec['size'], sym_entsize,
+        rel_text_sec['size'], rel_entsize
+    )
 
     # Parse symbols from .symtab
     symbols = []
@@ -294,14 +323,9 @@ def main():
     for i in range(sym_count):
         off = symtab_sec['offset'] + i * sym_entsize
         if off + 16 > len(raw_obj):
-            print(f"ERROR: Symbol {i} extends beyond file bounds", file=sys.stderr)
-            sys.exit(1)
+            raise ValueError(f"Symbol {i} extends beyond file bounds")
         st_name, st_value, st_size, st_info, st_other, st_shndx = struct.unpack_from('<IIIBBH', raw_obj, off)
-        try:
-            sym_name = get_sym_name(st_name)
-        except ValueError as err:
-            print(f"SYMBOL TABLE ERROR at index {i}: {err}", file=sys.stderr)
-            sys.exit(1)
+        sym_name = get_sym_name(st_name)
         symbols.append((sym_name, st_value))
 
     # Parse relocations from .rel.text
@@ -312,57 +336,35 @@ def main():
     for i in range(reloc_count):
         off = rel_text_sec['offset'] + i * rel_entsize
         if off + 8 > len(raw_obj):
-            print(f"ERROR: Relocation {i} extends beyond file bounds", file=sys.stderr)
-            sys.exit(1)
+            raise ValueError(f"Relocation {i} extends beyond file bounds")
         r_offset, r_info = struct.unpack_from('<II', raw_obj, off)
         r_type = r_info & 0xFF
         r_sym_idx = r_info >> 8
 
         if r_sym_idx >= len(symbols):
-            print(f"RELOCATION ERROR: symbol index {r_sym_idx} out of range ({len(symbols)})", file=sys.stderr)
-            sys.exit(1)
+            raise ValueError(f"Symbol index {r_sym_idx} out of range ({len(symbols)})")
 
         sym_name, _ = symbols[r_sym_idx]
 
         if r_offset >= func_size:
             continue
 
-        try:
-            rel_kind = validate_and_apply_relocation(r_offset, r_type, sym_name, compiled_bytes, func_size)
-            if rel_kind == "GPREL16":
-                gprel_count += 1
-            elif rel_kind == "JAL":
-                jal_count += 1
-        except ValueError as err:
-            print(f"RELOCATION VALIDATION ERROR: {err}", file=sys.stderr)
-            sys.exit(1)
+        rel_kind = validate_and_apply_relocation(
+            r_offset, r_type, sym_name, compiled_bytes, func_size, symbols_map=symbols_map
+        )
+        if rel_kind == "GPREL16":
+            gprel_count += 1
+        elif rel_kind == "JAL":
+            jal_count += 1
 
     # Enforce exact relocation counts
-    try:
-        assert_relocation_counts(gprel_count, jal_count)
-    except ValueError as err:
-        print(f"RELOCATION COUNT ENFORCEMENT ERROR: {err}", file=sys.stderr)
-        sys.exit(1)
+    assert_relocation_counts(gprel_count, jal_count)
 
     resolved_bytes = bytes(compiled_bytes)
     resolved_sha1 = hashlib.sha1(resolved_bytes).hexdigest()
 
     # Enforce pinned hashes
-    try:
-        assert_slice_hashes(orig_sha1, resolved_sha1)
-    except ValueError as err:
-        print(f"HASH ENFORCEMENT ERROR: {err}", file=sys.stderr)
-        sys.exit(1)
-
-    print("=== Milestone 149 (func_0027FF20) Relocation-Resolved Byte Equality Verification ===")
-    print(f"Target ELF:              {orig_elf_path}")
-    print(f"File Offset:             {orig_file_offset:#08x} (VRAM 0x27FF20)")
-    print(f"Length:                  {func_size} bytes ({func_size // 4} instructions)")
-    print(f"Original ELF slice SHA1: {orig_sha1} (enforced exact: {EXPECTED_SLICE_SHA1})")
-    print(f"Resolved code slice SHA1:{resolved_sha1} (enforced exact: {EXPECTED_SLICE_SHA1})")
-    print(f"GPREL16 resolved sites:  {gprel_count} (enforced exact: {EXPECTED_GPREL_COUNT}, addend = -0x71E4 / 0x8E1C)")
-    print(f"JAL (R_MIPS_26) resolved:{jal_count} (enforced exact: {EXPECTED_JAL_COUNT})")
-    print()
+    assert_slice_hashes(orig_sha1, resolved_sha1)
 
     # Byte by byte comparison
     mismatches = []
@@ -371,14 +373,40 @@ def main():
             mismatches.append(idx)
 
     if mismatches:
-        print(f"FAILED: {len(mismatches)} mismatched bytes!")
-        for m in mismatches[:10]:
-            print(f"  Byte offset {m:#06x}: orig={orig_bytes[m]:#04x} resolved={resolved_bytes[m]:#04x}")
+        raise ValueError(f"Byte mismatch at {len(mismatches)} positions! First at {mismatches[0]:#06x}")
+
+    return orig_sha1, resolved_sha1, gprel_count, jal_count
+
+
+def main():
+    src_obj_path = 'build/SLES-50282/src/unit_action_build_7ff20.o'
+    orig_elf_path = 'orig/SLES-50282/AOK.ELF'
+    orig_file_offset = 0x180100
+    func_size = 1860  # 0x744 bytes = 465 instructions
+
+    try:
+        orig_sha1, resolved_sha1, gprel_count, jal_count = verify_linked_bytes(
+            src_obj_path=src_obj_path,
+            orig_elf_path=orig_elf_path,
+            orig_file_offset=orig_file_offset,
+            func_size=func_size
+        )
+    except ValueError as err:
+        print(f"VERIFICATION FAILURE: {err}", file=sys.stderr)
         sys.exit(1)
-    else:
-        print("RESULT: EXACT MATCH! 1860 / 1860 bytes identical (100.00% byte equality).")
-        print("All 465 instructions match bit-for-bit against orig/SLES-50282/AOK.ELF.")
-        sys.exit(0)
+
+    print("=== Milestone 149 (func_0027FF20) Relocation-Resolved Byte Equality Verification ===")
+    print(f"Target ELF:              {orig_elf_path}")
+    print(f"File Offset:             {orig_file_offset:#08x} (VRAM 0x27FF20)")
+    print(f"Length:                  {func_size} bytes ({func_size // 4} instructions)")
+    print(f"Original ELF slice SHA1: {orig_sha1} (enforced exact: {EXPECTED_SLICE_SHA1})")
+    print(f"Resolved code slice SHA1:{resolved_sha1} (enforced exact: {EXPECTED_SLICE_SHA1})")
+    print(f"GPREL16 resolved sites:  {gprel_count} (enforced exact: {EXPECTED_GPREL_COUNT})")
+    print(f"JAL (R_MIPS_26) resolved:{jal_count} (enforced exact: {EXPECTED_JAL_COUNT})")
+    print()
+    print("RESULT: EXACT MATCH! 1860 / 1860 bytes identical (100.00% byte equality).")
+    print("All 465 instructions match bit-for-bit against orig/SLES-50282/AOK.ELF.")
+    sys.exit(0)
 
 
 if __name__ == '__main__':

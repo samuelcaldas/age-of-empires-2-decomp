@@ -11,6 +11,7 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 CASES = [
     "func_0027FF20 action factory dispatch with arg2",
     "func_0027FF20 action factory dispatch with floats",
+    "func_0027FF20 null factory return handling",
     "func_0027FF20 fallback delegation to BaseList::CreateAction",
     "func_27FF20 alias verification",
 ]

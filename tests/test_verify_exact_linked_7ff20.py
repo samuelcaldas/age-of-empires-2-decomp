@@ -324,6 +324,52 @@ sys.exit(1)
     assert result.returncode == 42, f"Failed to reject non-multiple relocation table size: stderr={result.stderr}"
 
 
+def test_verifier_loads_symbols_from_symbols_txt():
+    """Verifier must load and validate symbol values from config/SLES-50282/symbols.txt."""
+    result = subprocess.run(
+        [sys.executable, "-c", """
+import sys
+from tools import verify_exact_linked_7ff20
+
+sym_map = verify_exact_linked_7ff20.load_symbols_map()
+assert "D_4E35DC" in sym_map, "D_4E35DC missing from symbols map"
+assert sym_map["D_4E35DC"] == 0x4E35DC, f"Wrong D_4E35DC value: {sym_map['D_4E35DC']:#x}"
+assert "func_366C60" in sym_map, "func_366C60 missing from symbols map"
+assert sym_map["func_366C60"] == 0x366C60, f"Wrong func_366C60 value: {sym_map['func_366C60']:#x}"
+sys.exit(42)
+"""],
+        cwd=REPO_ROOT,
+        capture_output=True,
+        text=True,
+    )
+    assert result.returncode == 42, f"Failed to load symbols map: stderr={result.stderr}"
+
+
+def test_verifier_rejects_mutated_symbol_value():
+    """Verifier must fail if a symbol in the symbols map has a wrong/mutated address."""
+    result = subprocess.run(
+        [sys.executable, "-c", """
+import sys
+from tools import verify_exact_linked_7ff20
+
+# Override func_366C60 with wrong address 0x123456
+sym_map = verify_exact_linked_7ff20.load_symbols_map()
+sym_map["func_366C60"] = 0x123456
+try:
+    verify_exact_linked_7ff20.verify_linked_bytes(symbols_override=sym_map)
+    sys.exit(0) # Should not succeed
+except ValueError as e:
+    if "Byte mismatch" in str(e) or "mismatch" in str(e):
+        sys.exit(42) # Expected failure
+sys.exit(1)
+"""],
+        cwd=REPO_ROOT,
+        capture_output=True,
+        text=True,
+    )
+    assert result.returncode == 42, f"Failed to reject mutated symbol value: stderr={result.stderr}"
+
+
 def test_verifier_succeeds_with_exact_counts():
     """Verifier must succeed with exact counts (39 GPREL16, 49 JAL) and output exact match."""
     result = subprocess.run(
@@ -351,6 +397,8 @@ if __name__ == '__main__':
         test_verifier_enforces_pinned_hashes,
         test_verifier_rejects_non_multiple_symbol_table_size,
         test_verifier_rejects_non_multiple_relocation_table_size,
+        test_verifier_loads_symbols_from_symbols_txt,
+        test_verifier_rejects_mutated_symbol_value,
         test_verifier_succeeds_with_exact_counts,
     ]
     print(f"Running {len(tests)} verifier enforcement tests...")

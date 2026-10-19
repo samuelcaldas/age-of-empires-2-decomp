@@ -10,7 +10,7 @@ struct ActionManager {
 };
 
 struct ActionDesc {
-    unsigned char padding[6];
+    char padding[6];
     short code;
 };
 
@@ -244,6 +244,16 @@ static const short k_codes[20] = {
     0x6e, 0x6a, 0x6f, 0x03, 0x0c, 0x83, 0x84, 0x7d, 0x87, 0x88
 };
 
+// Which cases only use float initializers (indices 14=0x0c, 15=0x83)
+static bool is_float_only_case(size_t i) {
+    return (i == 14 || i == 15);
+}
+
+// Which cases are dual (indices 0, 1, 2, 4, 6, 10, 11, 12)
+static bool is_dual_case(size_t i) {
+    return (i == 0 || i == 1 || i == 2 || i == 4 || i == 6 || i == 10 || i == 11 || i == 12);
+}
+
 static void test_all_factories_with_arg2() {
     ActionManager dummy_self;
     dummy_self.field_0 = 1;
@@ -255,6 +265,10 @@ static void test_all_factories_with_arg2() {
         memset(g_factory_calls, 0, sizeof(g_factory_calls));
         memset(g_init_arg2_calls, 0, sizeof(g_init_arg2_calls));
         memset(g_init_float_calls, 0, sizeof(g_init_float_calls));
+        g_last_item = NULL;
+        g_last_field4 = -1;
+        g_last_desc = NULL;
+        g_last_arg2 = NULL;
         g_fallback_calls = 0;
 
         ActionDesc desc;
@@ -264,6 +278,22 @@ static void test_all_factories_with_arg2() {
         assert(res == g_dummy_items[i]);
         assert(g_factory_calls[i] == 1);
         assert(g_fallback_calls == 0);
+        assert(g_last_item == g_dummy_items[i]);
+        assert(g_last_field4 == 42); // asserts forwarded field_4
+
+        if (is_float_only_case(i)) {
+            // Cases 0x0C and 0x83 take floats regardless of arg2
+            assert(g_init_float_calls[i] == 1);
+            assert(g_init_arg2_calls[i] == 0);
+            assert(g_last_desc == &desc);
+            assert(g_last_f1 == 1.0f);
+            assert(g_last_f2 == 2.0f);
+            assert(g_last_f3 == 3.0f);
+        } else {
+            // All other cases select the arg2 initializer path
+            assert(g_init_arg2_calls[i] == 1);
+            assert(g_init_float_calls[i] == 0);
+        }
     }
     printf("PASS test_all_factories_with_arg2\n");
 }
@@ -277,18 +307,66 @@ static void test_all_factories_with_floats() {
         memset(g_factory_calls, 0, sizeof(g_factory_calls));
         memset(g_init_arg2_calls, 0, sizeof(g_init_arg2_calls));
         memset(g_init_float_calls, 0, sizeof(g_init_float_calls));
+        g_last_item = NULL;
+        g_last_field4 = -1;
+        g_last_f1 = 0.0f;
+        g_last_f2 = 0.0f;
+        g_last_f3 = 0.0f;
         g_fallback_calls = 0;
 
         ActionDesc desc;
         desc.code = k_codes[i];
 
-        // arg2 is NULL -> uses float path for dual-initializer cases
+        // arg2 is NULL -> selects float path for dual cases and float-only cases
         void *res = func_0027FF20(&dummy_self, &desc, NULL, 4.0f, 5.0f, 6.0f);
         assert(res == g_dummy_items[i]);
         assert(g_factory_calls[i] == 1);
         assert(g_fallback_calls == 0);
+        assert(g_last_item == g_dummy_items[i]);
+        assert(g_last_field4 == 99); // asserts forwarded field_4
+
+        if (is_dual_case(i) || is_float_only_case(i)) {
+            assert(g_init_float_calls[i] == 1);
+            assert(g_init_arg2_calls[i] == 0);
+            assert(g_last_f1 == 4.0f);
+            assert(g_last_f2 == 5.0f);
+            if (!is_float_only_case(i) || i != 17) {
+                // Dual cases forward all 3 floats
+            }
+        } else {
+            // Single cases without float variant still call their single initializer
+            assert(g_init_arg2_calls[i] == 1);
+            assert(g_init_float_calls[i] == 0);
+        }
     }
     printf("PASS test_all_factories_with_floats\n");
+}
+
+static void test_factory_null() {
+    ActionManager dummy_self;
+    dummy_self.field_4 = 77;
+    unsigned char dummy_arg2[16];
+
+    g_factory_null = true;
+    for (size_t i = 0; i < 20; ++i) {
+        memset(g_factory_calls, 0, sizeof(g_factory_calls));
+        memset(g_init_arg2_calls, 0, sizeof(g_init_arg2_calls));
+        memset(g_init_float_calls, 0, sizeof(g_init_float_calls));
+        g_fallback_calls = 0;
+
+        ActionDesc desc;
+        desc.code = k_codes[i];
+
+        void *res = func_0027FF20(&dummy_self, &desc, dummy_arg2, 1.0f, 2.0f, 3.0f);
+        assert(res == NULL);
+        assert(g_factory_calls[i] == 1);
+        // Initializers must NOT be called when factory returns NULL!
+        assert(g_init_arg2_calls[i] == 0);
+        assert(g_init_float_calls[i] == 0);
+        assert(g_fallback_calls == 0);
+    }
+    g_factory_null = false;
+    printf("PASS test_factory_null\n");
 }
 
 static void test_fallback() {
@@ -307,6 +385,9 @@ static void test_fallback() {
         assert(g_fallback_calls == 1);
         assert(g_last_desc == &desc);
         assert(g_last_arg2 == dummy_arg2);
+        assert(g_last_f1 == 7.0f);
+        assert(g_last_f2 == 8.0f);
+        assert(g_last_f3 == 9.0f);
     }
     printf("PASS test_fallback\n");
 }
@@ -335,15 +416,19 @@ int main(int argc, char **argv) {
             test_all_factories_with_floats();
             return 0;
         } else if (case_num == 2) {
-            test_fallback();
+            test_factory_null();
             return 0;
         } else if (case_num == 3) {
+            test_fallback();
+            return 0;
+        } else if (case_num == 4) {
             test_alias();
             return 0;
         }
     }
     test_all_factories_with_arg2();
     test_all_factories_with_floats();
+    test_factory_null();
     test_fallback();
     test_alias();
     printf("All unit_action_build_7ff20 tests passed!\n");

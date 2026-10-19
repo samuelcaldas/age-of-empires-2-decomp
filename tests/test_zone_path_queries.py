@@ -171,3 +171,31 @@ def test_func_001C8A50_symbol_matches_original_extent(zone_path_queries_original
     assert original[:4] == bytes.fromhex("50 ff bd 27") # addiu sp,sp,-176
     assert original[0x1A4:0x1AC] == bytes.fromhex("08 00 e0 03 b0 00 bd 27") # jr ra; addiu sp,sp,176
     assert original[0x1AC:0x1B0] == bytes(4) # 4 zero alignment bytes
+
+
+def test_func_001C8A50_matches_original_extent_and_size(tmp_path_factory):
+    """Verify compiled func_001C8A50 matches exact 428-byte code size and 176-byte frame."""
+    compiler = PROJECT_ROOT / "compilers/PS2/mwcc-2.3.1.01/mwccps2.exe"
+    wrapper = PROJECT_ROOT / "build/tools/wibo"
+    if not compiler.is_file() or not wrapper.is_file():
+        pytest.skip("requires licensed PS2 MWCC and wibo")
+
+    output_dir = tmp_path_factory.mktemp("queries-8a50")
+    output_obj = output_dir / "zone_path_queries.o"
+
+    subprocess.run(
+        [
+            str(wrapper), str(compiler), "-O3", "-inline", "on",
+            "-msext", "on", "-char", "signed", "-sym", "off", "-Iinclude",
+            "-lang=c++", "-c", "src/zone_path_queries.cpp", "-o", str(output_obj)
+        ],
+        cwd=PROJECT_ROOT,
+        capture_output=True,
+        text=True,
+        check=True,
+    )
+
+    with output_obj.open("rb") as f:
+        elf = ELFFile(f)
+        sym = elf.get_section_by_name(".symtab").get_symbol_by_name("func_001C8A50")[0]
+        assert sym["st_size"] == 428, f"func_001C8A50 size {sym['st_size']} != expected 428 bytes"

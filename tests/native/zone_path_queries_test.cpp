@@ -67,10 +67,10 @@ int func_262570(
     void *internal_obj,
     int a5,
     int a6,
-    int py1,
-    int target1,
-    int py2,
-    int target2,
+    long long py1,
+    long long target1,
+    long long py2,
+    long long target2,
     int mode,
     float *px,
     int ten
@@ -79,10 +79,10 @@ int func_262570(
     g_args_262570.internal_obj = internal_obj;
     g_args_262570.a5 = a5;
     g_args_262570.a6 = a6;
-    g_args_262570.py1 = py1;
-    g_args_262570.target1 = target1;
-    g_args_262570.py2 = py2;
-    g_args_262570.target2 = target2;
+    g_args_262570.py1 = static_cast<int>(py1);
+    g_args_262570.target1 = static_cast<int>(target1);
+    g_args_262570.py2 = static_cast<int>(py2);
+    g_args_262570.target2 = static_cast<int>(target2);
     g_args_262570.mode = mode;
     g_args_262570.px = px;
     g_args_262570.ten = ten;

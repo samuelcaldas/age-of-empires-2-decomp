@@ -12,6 +12,14 @@ int func_122690(int a0, int a1 = 0);
 int func_122118(int a0, int a1 = 0);
 int func_122748(int a0);
 
+int func_262570(void *a0, int a1, int a2, int a3, int a4, int a5, int a6);
+int func_001D0350(void *a0, short *out_x, short *out_y, float x, float y);
+int func_326F60(void *a0, int a1, int a2, short c1, short c2, short c3, short c4, short c5);
+
+extern void *D_004E3180;
+extern void *D_4E3400;
+extern void *D_4E3408;
+
 void func_001C8490(void *obj, char val) {
     if (!*(unsigned char *)((char *)obj + 0x43)) {
         *(char *)((char *)obj + 0x42) = val;
@@ -130,7 +138,49 @@ int func_001C8780(
 
     return 1;
 }
-void func_001C8A50() {}
+void func_001C8A50(
+    void *self,
+    float *p_x,
+    float *p_y,
+    void *target_info,
+    int mode,
+    int a5,
+    int a6,
+    int a7
+) {
+    (void)a7;
+    void *internal_obj = *(void **)((char *)self + 0x10);
+    if (!internal_obj) {
+        return;
+    }
+
+    int ok = func_262570(internal_obj, (int)p_x, (int)p_y, (int)target_info, mode, a5, a6);
+    if (!ok) {
+        return;
+    }
+
+    float rx = *(float *)((char *)self + 0x94);
+    float ry = *(float *)((char *)self + 0x98);
+
+    void *sub_mgr = *(void **)((char *)D_004E3180 + 0x404);
+    void *ctx = *(void **)((char *)sub_mgr + 0x3C);
+
+    short c1_x, c1_y;
+    short c2_x, c2_y;
+    short c3_x, c3_y;
+    short c4_x, c4_y;
+
+    // Corner 1: (+rx, -ry)
+    func_001D0350(ctx, &c1_x, &c1_y, rx, -ry);
+    // Corner 2: (+rx, +ry)
+    func_001D0350(ctx, &c2_x, &c2_y, rx, ry);
+    // Corner 3: (-rx, +ry)
+    func_001D0350(ctx, &c3_x, &c3_y, -rx, ry);
+    // Corner 4: (-rx, -ry)
+    func_001D0350(ctx, &c4_x, &c4_y, -rx, -ry);
+
+    func_326F60(D_4E3408, (int)D_4E3400, 0, c1_x, c1_y, c2_x, c2_y, c3_x);
+}
 
 void *func_001C8C00(void *self) {
     return *(void **)((char *)self + 0x84);

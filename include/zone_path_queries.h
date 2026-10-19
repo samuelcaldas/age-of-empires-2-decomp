@@ -25,7 +25,16 @@ int func_001C8780(
     float x,
     float y
 );
-void func_001C8A50();
+void func_001C8A50(
+    void *self,
+    float *p_x = 0,
+    float *p_y = 0,
+    void *target_info = 0,
+    int mode = 0,
+    int a5 = 0,
+    int a6 = 0,
+    int a7 = 0
+);
 void *func_001C8C00(void *self);
 void *func_001C8C10(void *self);
 

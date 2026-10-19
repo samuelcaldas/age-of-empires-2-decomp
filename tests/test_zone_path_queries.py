@@ -87,3 +87,19 @@ def test_func_001C8780_symbol_matches_original_extent(zone_path_queries_original
     assert original[:4] == bytes.fromhex("40 ff bd 27") # addiu sp,sp,-192
     assert original[0x2C4:0x2CC] == bytes.fromhex("01 00 02 24 08 00 e0 03") # addiu v0,zero,1; jr ra
     assert original[0x2CC:0x2D0] == bytes.fromhex("c0 00 bd 27") # addiu sp,sp,192
+
+
+def test_func_001C8A50_symbol_matches_original_extent(zone_path_queries_original):
+    """Verify func_001C8A50 extent: 428 bytes code + 4 padding at 0x1C8A50..0x1C8C00."""
+    symbols = (PROJECT_ROOT / "config/SLES-50282/symbols.txt").read_text()
+    record = re.search(r"^(func_001C8A50) = (0x[0-9A-Fa-f]+);.*size:(0x[0-9A-Fa-f]+)",
+                       symbols, re.MULTILINE)
+    assert record is not None, "func_001C8A50 symbol record is missing"
+    name, address, size = record.groups()
+    assert (name, int(address, 16), int(size, 16)) == ("func_001C8A50", 0x1C8A50, 0x1B0)
+    stream = zone_path_queries_original.stream
+    stream.seek(0xC8C30)
+    original = stream.read(0x1B0)
+    assert original[:4] == bytes.fromhex("50 ff bd 27") # addiu sp,sp,-176
+    assert original[0x1A4:0x1AC] == bytes.fromhex("08 00 e0 03 b0 00 bd 27") # jr ra; addiu sp,sp,176
+    assert original[0x1AC:0x1B0] == bytes(4) # 4 zero alignment bytes

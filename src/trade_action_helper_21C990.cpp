@@ -31,8 +31,8 @@ void *func_0021C990(void *obj, unsigned long a1, int a2, int a3, const short *uv
     int h = (int)uv_rect[2] << 4;
     int center_x = (int)D_00CA158C[0];
     int v = (int)uv_rect[1] << 4;
-    int w = (int)uv_rect[3] << 4;
     int u = (int)uv_rect[0] << 4;
+    int w = (int)uv_rect[3] << 4;
     int center_y = (int)D_00CA158E[0];
 
     int base_x = (0x800 - (center_x >> 1)) << 4;

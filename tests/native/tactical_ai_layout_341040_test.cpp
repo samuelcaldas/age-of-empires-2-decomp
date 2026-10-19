@@ -132,7 +132,11 @@ void func_1FBD30(void *a0, int a1) {
     g_last_1fbd30_arg = a1;
 }
 void func_36ACC0(int a0) { log_call("func_36ACC0", NULL, a0); }
-void func_11ABBC(void *dst, const char *src) { (void)dst; (void)src; }
+static const char* g_last_11abbc_src = NULL;
+void func_11ABBC(void *dst, const char *src) {
+    (void)dst;
+    g_last_11abbc_src = src;
+}
 void func_36BD30(void *a0, int a1, int a2, const char *a3, int t0) { (void)a0; (void)a1; (void)a2; (void)a3; (void)t0; }
 int func_1F6EA0(int a0, int a1) {
     log_call("func_1F6EA0", (void*)(long)a0, a1);
@@ -1149,7 +1153,26 @@ static void test_func_342170_elf_jump_table_modes_branch() {
     std::printf("PASS test_func_342170_elf_jump_table_modes_branch\n");
 }
 
+static void test_func_341040_field_840_value_2_routes_to_age2S() {
+    TacticalObj_341040 obj;
+    std::memset(&obj, 0, sizeof(obj));
+    obj.field_84C = 12; // Mode 12 in func_00341040
+    obj.field_840 = 2;  // Value 2: not 3, not 4, not 6 -> must select aBesles50282age2S
+    g_last_11abbc_src = NULL;
+    g_call_history.clear();
+
+    func_00341040(&obj);
+
+    // Verified disassembly at 0x3411e4-0x341224:
+    // field_840 == 3, 4, 6 selects aBesles50282age2G
+    // All other values (including 2) must select aBesles50282age2S
+    assert(g_last_11abbc_src != NULL);
+    assert(g_last_11abbc_src == aBesles50282age2S);
+    std::printf("PASS test_func_341040_field_840_value_2_routes_to_age2S\n");
+}
+
 int main() {
+    test_func_341040_field_840_value_2_routes_to_age2S();
     test_func_342170_elf_sub838_a1_a2_16_branch();
     test_func_342170_elf_sub838_func_339900_nonzero_branch();
     test_func_342170_elf_field_834_mode11_branch();

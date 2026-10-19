@@ -161,7 +161,7 @@ void func_00341040(TacticalObj_341040 *self) {
         }
         int s0 = (self->field_84C != 12) ? 1 : 2;
         char buffer[256];
-        if (self->field_840 == 3 || self->field_840 == 4 || self->field_840 != 6) {
+        if (self->field_840 == 3 || self->field_840 == 4 || self->field_840 == 6) {
             func_11ABBC(buffer, aBesles50282age2G);
         } else {
             func_11ABBC(buffer, aBesles50282age2S);

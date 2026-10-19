@@ -92,6 +92,7 @@ extern "C" {
     static int s_26b0a0_called = 0;
     static void *s_26b0a0_last_table = 0;
     static char *s_26b0a0_last_name = 0;
+    static char s_26b0a0_last_name_buf[256] = { 0 };
     static int s_26b0a0_last_argument = 0;
     static Candidate s_cand_ret;
     static int s_cand_found = 1;
@@ -100,6 +101,12 @@ extern "C" {
         record_parser_call(PARSER_FIND_ACTION);
         s_26b0a0_last_table = table;
         s_26b0a0_last_name = name;
+        if (name) {
+            strncpy(s_26b0a0_last_name_buf, name, sizeof(s_26b0a0_last_name_buf) - 1);
+            s_26b0a0_last_name_buf[sizeof(s_26b0a0_last_name_buf) - 1] = '\0';
+        } else {
+            s_26b0a0_last_name_buf[0] = '\0';
+        }
         s_26b0a0_last_argument = a2;
         s_26b0a0_called++;
         if (!s_cand_found) return 0;
@@ -169,6 +176,7 @@ static void reset_mocks() {
     s_parser_call_count = 0;
     s_26b0a0_last_table = 0;
     s_26b0a0_last_name = 0;
+    s_26b0a0_last_name_buf[0] = '\0';
     s_26b0a0_last_argument = 0;
     s_13c650_last_action = 0;
     s_142980_called = 0;
@@ -419,7 +427,7 @@ static void assert_param_loop_eof_order() {
 static void assert_param_loop_eof_action(TacticalAI2 *self) {
     assert(s_26b0a0_last_table == &self->field_34);
     assert(s_26b0a0_last_name == self->field_1A0);
-    assert(strcmp(s_26b0a0_last_name, "action") == 0);
+    assert(strcmp(s_26b0a0_last_name_buf, "action") == 0);
     assert(s_26b0a0_last_argument == 0);
     assert(s_13c650_last_action == &self->field_18[5]);
     assert(self->field_4C[0].type == 1);
@@ -453,9 +461,58 @@ static void test_tactical_ai_parser_param_loop_eof() {
     printf("TACTICAL_AI_PARSER_TEST_9_PARAM_LOOP_EOF_PASSED\n");
 }
 
+static void configure_invalid_param_type_strict() {
+    s_142980_statuses[0] = 2;
+    s_142980_types[0] = 1;
+    s_142980_tokens[0] = "action";
+    s_142980_statuses[1] = 2;
+    s_142980_types[1] = 3; // ')' invalid parameter type (neither 1 nor 4)
+    s_142980_tokens[1] = ")";
+    s_param_count = 1;
+}
+
+static void assert_invalid_param_type_order() {
+    assert(s_parser_call_count == 5);
+    assert(s_parser_calls[0] == PARSER_SCAN_TOKEN);
+    assert(s_parser_calls[1] == PARSER_FIND_ACTION);
+    assert(s_parser_calls[2] == PARSER_COUNT_PARAMETERS);
+    assert(s_parser_calls[3] == PARSER_SCAN_TOKEN);
+    assert(s_parser_calls[4] == PARSER_REPORT_ERROR);
+    assert(s_142980_called == 2);
+    assert(s_26b0a0_called == 1);
+    assert(s_13c650_called == 1);
+}
+
+static void assert_invalid_param_type_error(TacticalAI2 *self) {
+    assert(s_144340_called == 1);
+    assert(s_144340_last_self == self);
+    assert(s_144340_last_code == 0xC);
+    assert(s_144340_last_param == 0);
+    assert(s_1410e0_called == 0);
+    assert(s_114378_called == 0);
+    assert(s_142730_called == 0);
+    assert(s_1427a0_called == 0);
+}
+
+static void test_tactical_ai_parser_invalid_param_type_strict() {
+    reset_mocks();
+    configure_invalid_param_type_strict();
+    TacticalAI2 ai;
+    memset(&ai, 0, sizeof(ai));
+    Obj12 actions[10];
+    memset(actions, 0, sizeof(actions));
+    ai.field_18 = actions;
+    int result = func_00142D10(&ai);
+    assert(result == 0);
+    assert_invalid_param_type_order();
+    assert_param_loop_eof_action(&ai);
+    assert_invalid_param_type_error(&ai);
+    printf("TACTICAL_AI_PARSER_TEST_10_INVALID_PARAM_TYPE_STRICT_PASSED\n");
+}
+
 int main(int argc, char **argv) {
     if (argc < 2) {
-        fprintf(stderr, "Error: test mode selector argument required (0-9)\n");
+        fprintf(stderr, "Error: test mode selector argument required (0-10)\n");
         return 1;
     }
     char *endptr = 0;
@@ -475,6 +532,7 @@ int main(int argc, char **argv) {
     else if (mode == 7) test_tactical_ai_parser_closing_fail();
     else if (mode == 8) test_tactical_ai_parser_layout();
     else if (mode == 9) test_tactical_ai_parser_param_loop_eof();
+    else if (mode == 10) test_tactical_ai_parser_invalid_param_type_strict();
     else {
         fprintf(stderr, "Error: invalid test mode %d\n", mode);
         return 1;

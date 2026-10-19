@@ -2772,6 +2772,54 @@ docker --context docker-dev run --rm \
   The successful direct check omitted that unnecessary flag. These invocation
   failures are not behavioral Red evidence.
 
+#### Parameter token-type validation characterization (2026-10-19)
+
+The native driver now also includes mode `10`, a separate strict
+post-implementation characterization of the parameter token-type validation
+branch at `0x142E6C` (`field_19C != 1 && field_19C != 4`). Existing mode `4`
+remains preserved.
+
+The test fixture configures a valid action with one required parameter, followed
+by an invalid parameter token (type `3`, `")"`). Assertions require this exact
+five-event call sequence:
+
+1. `func_142980(self)` scans the action keyword (`PARSER_SCAN_TOKEN`).
+2. `func_26B0A0(&self->field_34, self->field_1A0, 0)` resolves the action definition (`PARSER_FIND_ACTION`).
+3. `func_0013C650(&self->field_18[5])` queries required parameter count (`PARSER_COUNT_PARAMETERS`).
+4. `func_142980(self)` scans the parameter token (`PARSER_SCAN_TOKEN`).
+5. `func_144340(self, 0xC, 0)` reports syntax error code `0xC` (`12`) (`PARSER_REPORT_ERROR`).
+
+The parser must return `0`. Conversion (`func_114378`), interning
+(`func_001410E0`), symbol lookup (`func_00142730`), and closing-delimiter
+(`func_001427A0`) helpers must remain uncalled.
+
+The original ELF audit identifies these argument, error, and return instructions
+at `0x142E4C`–`0x142E78` (file offsets `0x4302C`–`0x43058`):
+
+| VRAM | Bytes | Instruction | Description |
+|---|---|---|---|
+| `0x142E4C` | `9c 01 63 8e` | `lw $v1, 0x19C($s3)` | Load token type from `self->field_19C` |
+| `0x142E50` | `01 00 02 24` | `addiu $v0, $zero, 0x1` | Immediate 1 (identifier/numeric) |
+| `0x142E54` | `0a 00 62 10` | `beq $v1, $v0, 0x142E80` | Branch to numeric/symbol handling |
+| `0x142E58` | `04 00 02 24` | `addiu $v0, $zero, 0x4` | Delay slot: immediate 4 |
+| `0x142E5C` | `04 00 02 24` | `addiu $v0, $zero, 0x4` | Immediate 4 (string literal) |
+| `0x142E60` | `06 00 62 10` | `beq $v1, $v0, 0x142E7C` | Branch to string handling |
+| `0x142E64` | `0c 00 05 24` | `addiu $a1, $zero, 0xC` | Delay slot: error code `0xC` (`12`) |
+| `0x142E68` | `28 26 60 72` | `paddub $a0, $s3, $zero` | Argument 1: `$a0 = self` |
+| `0x142E6C` | `d0 10 05 0c` | `jal func_144340` | Call error handler callback |
+| `0x142E70` | `28 36 00 70` | `paddub $a2, $zero, $zero` | Delay slot: Argument 3: `$a2 = 0` |
+| `0x142E74` | `61 00 00 10` | `b 0x142FFC` | Branch to epilogue |
+| `0x142E78` | `28 16 00 70` | `paddub $v0, $zero, $zero` | Delay slot: return value `$v0 = 0` |
+
+Validation in `docker-dev` (`aoe-tests:verification`):
+- `python -m pytest -q -ra tests/test_tactical_ai_parser.py`: **14 passed in 0.59s**.
+- Native mode `10`: printed `TACTICAL_AI_PARSER_TEST_10_INVALID_PARAM_TYPE_STRICT_PASSED` and exited `0`.
+- Python static validation: `python -m flake8 configure.py tests/test_tactical_ai_parser.py` exited `0`.
+
+No production behavior changed. This is characterization against current
+production code; no historical Red is claimed. The slice remains **NonMatching**.
+Unrelated node-item files remain untouched.
+
 No production behavior changed. This is characterization, not evidence of
 historical test-first development. Broader subsystem and full-suite gates were
 not run for this bounded check; no integration occurred. Target-compiler

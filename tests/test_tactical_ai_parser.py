@@ -23,6 +23,7 @@ CASES = [
     "tactical_ai_parser closing fail",
     "tactical_ai_parser layout",
     "tactical_ai_parser param loop eof",
+    "tactical_ai_parser invalid param type strict",
 ]
 
 MARKERS = [
@@ -36,6 +37,7 @@ MARKERS = [
     "TACTICAL_AI_PARSER_TEST_7_CLOSING_FAIL_PASSED",
     "TACTICAL_AI_PARSER_TEST_8_LAYOUT_PASSED",
     "TACTICAL_AI_PARSER_TEST_9_PARAM_LOOP_EOF_PASSED",
+    "TACTICAL_AI_PARSER_TEST_10_INVALID_PARAM_TYPE_STRICT_PASSED",
 ]
 
 

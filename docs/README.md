@@ -15,6 +15,7 @@ Start with the top-level [README](../README.md).
 - [ps2_zone_spatial_grid_constructor.md](ps2_zone_spatial_grid_constructor.md): Block 62 spatial grid constructor verification, 172-byte exact match, and vtable initialization
 - [ps2_zone_spatial_grid_destructor.md](ps2_zone_spatial_grid_destructor.md): Block 63 spatial grid destructor verification, 292-byte extent, and 8-relocation analysis
 - [ps2_zone_spatial_grid_getters.md](ps2_zone_spatial_grid_getters.md): ZoneSpatialGrid accessors (func_001F26C0–func_001F26F0), 32-byte code matching, and zero-relocation leaf analysis
+- [ps2_zone_spatial_grid_lookup.md](ps2_zone_spatial_grid_lookup.md): ZoneSpatialGrid lookup wrapper (func_001F2700), 48-byte exact match, and single R_MIPS_26 relocation resolution
 - [elevation_mesh_serializer_328020.md](elevation_mesh_serializer_328020.md): pure-C++ serializer at `0x328020`, 224-byte exact MWCC match, ordered-write contracts, and real mutation tests
 - [elevation_mesh_filter_328100.md](elevation_mesh_filter_328100.md): pure-C++ query filter at `0x328100`, 292-byte exact MWCC match, grid entity contracts, and real mutation tests
 - [elevation_mesh_vertex_328230.md](elevation_mesh_vertex_328230.md): pure-C++ vertex append at `0x328230`, 196-byte 96.94% MWCC match, vertex buffer contracts, and real mutation tests

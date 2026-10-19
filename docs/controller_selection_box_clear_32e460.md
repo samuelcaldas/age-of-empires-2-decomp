@@ -4,7 +4,7 @@
 `src/tactical_ai_combat_subsystem_controller_selection_box_clear.cpp`.
 A fresh MWCC PS2 2.3.1.01 build achieves an **exact 100.00% bit-for-bit match (76 of 76 bytes)**,
 resolving the `sub_31A720` call and self virtual method dispatch `self->func_28(1)` (offset 40, 0x28).
-Per standing repository policy, it remains registered as NonMatching pending independent review clearance and promotion.
+Promoted to **Matching** in `configure.py` following independent review clearance and 100.00% exact bit-for-bit compiler/link verification.
 
 ## Reference boundaries and layout
 

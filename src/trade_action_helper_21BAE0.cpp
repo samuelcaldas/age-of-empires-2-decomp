@@ -15,32 +15,35 @@ int func_0021BB20(void *palette_obj, int start_idx, int count, void *src_buf) {
     return count;
 }
 
-static unsigned int CalcColorDistanceSq(int r, int g, int b, const unsigned char *entry) {
-    int dr = r - (int)entry[0];
-    int dg = g - (int)entry[1];
-    int db = b - (int)entry[2];
-    return (unsigned int)(dr * dr + dg * dg + db * db);
-}
-
 int func_0021BB60(void *palette_obj, int target_color) {
-    int target_r = target_color & 0xFF;
-    int target_g = (target_color >> 8) & 0xFF;
-    int target_b = (target_color >> 16) & 0xFF;
+    struct PaletteEntry {
+        unsigned char red;
+        unsigned char green;
+        unsigned char blue;
+        unsigned char alpha;
+    };
 
-    unsigned char palette_buffer[256 * 4];
-    func_0021B440(palette_obj, 0, 0, 256, palette_buffer);
+    unsigned int best_dist = (unsigned int)-1;
+    int r = target_color & 0xFF;
+    int g = ((unsigned int)target_color >> 8) & 0xFF;
+    int b = ((unsigned int)target_color >> 16) & 0xFF;
 
-    unsigned int best_distance = 0xFFFFFFFF;
-    int best_index = 0;
+    PaletteEntry buf[256];
+    func_0021B440(palette_obj, 0, 0, 256, buf);
 
-    for (int i = 0; i < 256; ++i) {
-        unsigned int distance = CalcColorDistanceSq(target_r, target_g, target_b, &palette_buffer[i * 4]);
-        if (distance < best_distance) {
-            best_distance = distance;
-            best_index = i;
+    int best_idx = 0;
+
+    for (int i = 0; i < 256; i++) {
+        int dg = g - buf[i].green;
+        int dr = r - buf[i].red;
+        int db = b - buf[i].blue;
+        unsigned int dist = (dr * dr + dg * dg) + db * db;
+        if (dist < best_dist) {
+            best_dist = dist;
+            best_idx = i;
         }
     }
 
-    return best_index;
+    return best_idx;
 }
 }

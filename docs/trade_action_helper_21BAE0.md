@@ -1,11 +1,10 @@
 # Trade action helper `0x21BAE0` subsystem
 
 `src/trade_action_helper_21BAE0.cpp` reconstructs the three functions in slice
-`[0x21BAE0, 0x21BC30)` in pure C++. Two functions achieve **100.00% exact
-byte-for-byte matching** against the original PlayStation 2 PAL binary, and the
-third achieves **92.54% matching** (unit total 95.28% fuzzy match across 316
+`[0x21BAE0, 0x21BC30)` in pure C++. All three functions achieve **100.00% exact
+byte-for-byte matching** against the original PlayStation 2 PAL binary (316
 code bytes). In accordance with project policy, its `configure.py` registration
-remains **NonMatching** pending complete matching of all functions.
+remains **NonMatching** pending review.
 
 ## Architecture and function contracts
 
@@ -15,7 +14,7 @@ The unit implements palette copy, palette update, and nearest color matching:
 |---|---|---|---|---|
 | `func_0021BAE0` | `[0x21BAE0, 0x21BB18)` | 56 B (`0x38`) | Palette copy delegation to `func_0021B440(palette_obj, 0, start_idx, count, dst_buf)` | **100.00%** |
 | `func_0021BB20` | `[0x21BB20, 0x21BB5C)` | 60 B (`0x3C`) | Palette set delegation to `func_0021B4C0(palette_obj, 0, start_idx, count, src_buf, 0xFF)` | **100.00%** |
-| `func_0021BB60` | `[0x21BB60, 0x21BC28)` | 200 B (`0xC8`) | Nearest palette color search using 3D Euclidean distance squared minimization (`dr*dr + dg*dg + db*db`) | **92.54%** |
+| `func_0021BB60` | `[0x21BB60, 0x21BC28)` | 200 B (`0xC8`) | Nearest palette color search using 3D Euclidean distance squared minimization (`dr*dr + dg*dg + db*db`) | **100.00%** |
 
 ## Binary mapping and raw evidence
 
@@ -48,7 +47,8 @@ It compiles `src/trade_action_helper_21BAE0.cpp` with MWCC PS2 2.3.1.01 using:
 It resolves call relocations to `func_0021B440` and `func_0021B4C0`.
 - All 56 bytes of `func_0021BAE0` match 100.00% byte-for-byte.
 - All 60 bytes of `func_0021BB20` match 100.00% byte-for-byte.
-- All 200 bytes of `func_0021BB60` are verified structurally and match 92.54%.
+- All 200 bytes of `func_0021BB60` match 100.00% byte-for-byte.
+Total: all 316 code bytes match byte-for-byte with zero diffs. Objdiff reports **100.0%** matching for the entire unit.
 
 ## Native tests
 

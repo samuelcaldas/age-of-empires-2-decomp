@@ -16,28 +16,21 @@ int func_0021BB20(void *palette_obj, int start_idx, int count, void *src_buf) {
 }
 
 int func_0021BB60(void *palette_obj, int target_color) {
-    struct PaletteEntry {
-        unsigned char red;
-        unsigned char green;
-        unsigned char blue;
-        unsigned char alpha;
-    };
-
     unsigned int best_dist = (unsigned int)-1;
     int r = target_color & 0xFF;
     int g = ((unsigned int)target_color >> 8) & 0xFF;
     int b = ((unsigned int)target_color >> 16) & 0xFF;
 
-    PaletteEntry buf[256];
+    unsigned char buf[1024];
     func_0021B440(palette_obj, 0, 0, 256, buf);
 
     int best_idx = 0;
 
     for (int i = 0; i < 256; i++) {
-        int dg = g - buf[i].green;
-        int dr = r - buf[i].red;
-        int db = b - buf[i].blue;
-        unsigned int dist = (dr * dr + dg * dg) + db * db;
+        const unsigned char *entry = &buf[i * 4];
+        unsigned int dist = (r - entry[0]) * (r - entry[0]);
+        dist += (g - entry[1]) * (g - entry[1]);
+        dist += (b - entry[2]) * (b - entry[2]);
         if (dist < best_dist) {
             best_dist = dist;
             best_idx = i;

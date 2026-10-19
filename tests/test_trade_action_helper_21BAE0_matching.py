@@ -83,8 +83,8 @@ def test_helper_21bae0_matches_complete_original_functions(tmp_path):
     symbols = result.get_section_by_name(".symtab")
     assert not [s.name for s in symbols.iter_symbols() if s.name and s["st_shndx"] == "SHN_UNDEF"]
 
-    # Verify exact byte matches for func_0021BAE0 (56 B) and func_0021BB20 (60 B)
-    for name, vram, size in FUNCTIONS[:2]:
+    # Verify exact byte matches for all three functions across all 316 code bytes
+    for name, vram, size in FUNCTIONS:
         loads = [seg for seg in reference.iter_segments()
                  if seg["p_type"] == "PT_LOAD" and seg["p_vaddr"] <= vram
                  and vram + size <= seg["p_vaddr"] + seg["p_filesz"]]

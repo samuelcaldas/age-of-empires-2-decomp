@@ -73,7 +73,7 @@ struct BuildingMaster {
 };
 
 #ifdef __cplusplus
-int func_001C7850(
+int func_001C7860(
     struct BuildingMaster *bld,
     void *world,
     int *out_id,
@@ -89,7 +89,7 @@ int func_001C7850(
     float y = 0.0f
 );
 #else
-int func_001C7850(
+int func_001C7860(
     struct BuildingMaster *bld,
     void *world,
     int *out_id,

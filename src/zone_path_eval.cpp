@@ -8,7 +8,7 @@ int func_123350(float val);
 unsigned char func_1378c0(void *map_zone, int x, int y);
 float func_3675D0(void *unit);
 
-int func_001C7850(
+int func_001C7860(
     BuildingMaster *bld,
     void *world,
     int *out_id,
@@ -47,8 +47,8 @@ int func_001C7850(
 
     float min_x = x - rx;
     float min_y = y - ry;
-    float max_x = (x + rx) - 0.0001f;
-    float max_y = (y + ry) - 0.0001f;
+    float max_x = (x + rx) - 0.001f;
+    float max_y = (y + ry) - 0.001f;
 
     int map_w = s0->m_width;
     int map_h = s0->m_height;
@@ -143,7 +143,7 @@ int func_001C7850(
                 if (t_max_x - cur_x != cur_y - t_min_y) continue;
             }
 
-            if (slope_limits[tile_rows[cur_y][cur_x].m_zone_id] <= 0.0f) {
+            if (slope_limits[tile_rows[cur_y][cur_x].m_zone_id] <= 0.05f) {
                 return 2;
             }
 

@@ -78,8 +78,9 @@ The full 1,604-byte original binary function contains 2 relocations (both `R_MIP
        tests/native/tactical_ai_combat_subsystem_controller_proximity_query_test.cpp -o build/test_prox_query_green \
        && ./build/test_prox_query_green
      ```
-   - Result: All 3 fixtures passing cleanly (`zero_return`, `null_status`, `hit_return`), exit code 0 under UBSan.
-   - Verified 9 production-source mutations independently compiled and killed via diagnostic matching in `tests/test_tactical_ai_combat_subsystem_controller_proximity_query.py`.
+   - Result: All 7 fixtures passing cleanly (`zero_return`, `null_status`, `null_self`, `null_vtable`, `null_func120`, `trailing_args`, `hit_return`), exit code 0 under UBSan.
+   - Defensive null guards are included for harness isolation and memory safety under native tests, not claimed as verified original binary behavior.
+   - Verified 12 production-source mutations independently compiled and killed via diagnostic matching in `tests/test_tactical_ai_combat_subsystem_controller_proximity_query.py`.
 3. **Refactor & Matching Diagnostics:**
    - Built with verified MWCC PS2 flags: candidate code size 148 bytes (1,456 bytes unimplemented remainder of 1,604 target bytes).
    - Relocations resolved: 0 compiled relocations mapped and verified with multiset check.
@@ -96,11 +97,11 @@ python -m pytest -q \
   tests/test_tactical_ai_combat_subsystem_controller_proximity_query_matching.py
 ```
 
-The focused test run comprises **11 total tests** (10 behavioral tests in `test_tactical_ai_combat_subsystem_controller_proximity_query.py` and 1 structural matching diagnostic test in `test_tactical_ai_combat_subsystem_controller_proximity_query_matching.py`):
-- One 32-bit native contract test with UBSan validating 8 ABI arguments, out_status zeroing, func_120 virtual dispatch,
+The focused test run comprises **14 total tests** (13 behavioral tests in `test_tactical_ai_combat_subsystem_controller_proximity_query.py` and 1 structural matching diagnostic test in `test_tactical_ai_combat_subsystem_controller_proximity_query_matching.py`):
+- One 32-bit native contract test with UBSan validating 8 ABI arguments, out_status zeroing, null guards, trailing argument safety, func_120 virtual dispatch,
   and hit return value.
-- Nine production source mutations independently compiled and verified
-  rejected (out_status zero, func_120 gate, 5 virtual arguments, out_status hit update, hit return value).
+- Twelve production source mutations independently compiled and verified
+  rejected (out_status zero, null-self guard, null-vtable guard, null-func120 guard, func_120 gate, 5 virtual arguments, out_status hit update, hit return value).
 - One structural correspondence diagnostic test compiling fresh with Ninja/MWCC and verifying
   relocation-aware bytecode alignment against the pinned ELF binary (skipped when compiler/wibo are unprovisioned).
 

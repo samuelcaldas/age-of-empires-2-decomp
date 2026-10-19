@@ -158,6 +158,11 @@ static void test_final_sub260e50_param_encoding() {
     TEST_ASSERT(s_last_260e50_param == 0, "param for 2961 with a2==0 must be 0");
     TEST_ASSERT(s_last_260e50_a3 == -1, "sub_260E50 a3 mismatch");
 
+    TEST_ASSERT(s_call_order.size() >= 3, "must have at least 3 calls in sequence");
+    TEST_ASSERT(std::strcmp(s_call_order[0], "func_0032E820") == 0, "first call must be cleanup func_0032E820");
+    TEST_ASSERT(std::strcmp(s_call_order[1], "func_0032E640") == 0, "second call must be func_0032E640");
+    TEST_ASSERT(std::strcmp(s_call_order[2], "sub_260E50") == 0, "third call must be sub_260E50");
+
     // Case 2: action_id == 2962, a2 == 0 -> param must be 1 (bit 0 set)
     reset_mocks();
     std::memset(&inst, 0, sizeof(inst));

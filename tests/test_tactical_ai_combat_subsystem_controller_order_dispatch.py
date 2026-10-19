@@ -22,6 +22,7 @@ MUTATIONS = [
     ("corrupt_param_a2_or", "param |= a2;", "param = a2;", "param_encoding", "param for 2962 with a2!=0 must be 5"),
     ("corrupt_param_mask", "param & 0xFF", "param & 0x0F", "param_encoding", "param with a2==0x120 must mask to 0x20"),
     ("corrupt_receiver", "sub_260E50(self->m_sub12c->m_sub_target,", "sub_260E50(nullptr,", "param_encoding", "sub_260E50 receiver mismatch"),
+    ("corrupt_call_order", "func_0032E640(self, 2);\n\n    int param = 0;\n    if (action_id == 2962) {\n        param = 1;\n    }\n    if (a2 != 0) {\n        param |= a2;\n    }\n\n    void *ret_slot = 0;\n    if (self->m_sub12c != 0) {\n        ret_slot = sub_260E50(self->m_sub12c->m_sub_target, action_id, 0, param & 0xFF, a3);\n    }", "int param = 0;\n    if (action_id == 2962) {\n        param = 1;\n    }\n    if (a2 != 0) {\n        param |= a2;\n    }\n\n    void *ret_slot = 0;\n    if (self->m_sub12c != 0) {\n        ret_slot = sub_260E50(self->m_sub12c->m_sub_target, action_id, 0, param & 0xFF, a3);\n    }\n\n    func_0032E640(self, 2);", "param_encoding", "second call must be func_0032E640"),
 ]
 
 

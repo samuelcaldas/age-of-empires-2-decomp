@@ -24,6 +24,7 @@ CASES = [
     "tactical_ai_parser layout",
     "tactical_ai_parser param loop eof",
     "tactical_ai_parser invalid param type strict",
+    "tactical_ai_parser string intern fail strict",
 ]
 
 MARKERS = [
@@ -38,6 +39,7 @@ MARKERS = [
     "TACTICAL_AI_PARSER_TEST_8_LAYOUT_PASSED",
     "TACTICAL_AI_PARSER_TEST_9_PARAM_LOOP_EOF_PASSED",
     "TACTICAL_AI_PARSER_TEST_10_INVALID_PARAM_TYPE_STRICT_PASSED",
+    "TACTICAL_AI_PARSER_TEST_11_STRING_INTERN_FAIL_STRICT_PASSED",
 ]
 
 

@@ -43,6 +43,7 @@ enum ParserCall {
     PARSER_SCAN_TOKEN,
     PARSER_FIND_ACTION,
     PARSER_COUNT_PARAMETERS,
+    PARSER_INTERN_STRING,
     PARSER_REPORT_ERROR
 };
 
@@ -126,11 +127,22 @@ extern "C" {
     }
 
     static int s_1410e0_called = 0;
+    static void *s_1410e0_last_self = 0;
+    static char *s_1410e0_last_str = 0;
+    static char s_1410e0_last_str_buf[256] = { 0 };
     static int s_1410e0_ret = 77;
 
     int func_001410E0(void *self, char *str) {
-        (void)self; (void)str;
+        record_parser_call(PARSER_INTERN_STRING);
         s_1410e0_called++;
+        s_1410e0_last_self = self;
+        s_1410e0_last_str = str;
+        if (str) {
+            strncpy(s_1410e0_last_str_buf, str, sizeof(s_1410e0_last_str_buf) - 1);
+            s_1410e0_last_str_buf[sizeof(s_1410e0_last_str_buf) - 1] = '\0';
+        } else {
+            s_1410e0_last_str_buf[0] = '\0';
+        }
         return s_1410e0_ret;
     }
 
@@ -190,6 +202,9 @@ static void reset_mocks() {
     s_13c650_called = 0;
     s_param_count = 3;
     s_1410e0_called = 0;
+    s_1410e0_last_self = 0;
+    s_1410e0_last_str = 0;
+    s_1410e0_last_str_buf[0] = '\0';
     s_1410e0_ret = 77;
     s_114378_called = 0;
     s_142730_called = 0;
@@ -510,9 +525,65 @@ static void test_tactical_ai_parser_invalid_param_type_strict() {
     printf("TACTICAL_AI_PARSER_TEST_10_INVALID_PARAM_TYPE_STRICT_PASSED\n");
 }
 
+static void configure_string_intern_fail_strict() {
+    s_142980_statuses[0] = 2;
+    s_142980_types[0] = 1;
+    s_142980_tokens[0] = "action";
+    s_142980_statuses[1] = 2;
+    s_142980_types[1] = 4; // quoted string token
+    s_142980_tokens[1] = "str";
+    s_param_count = 1;
+    s_1410e0_ret = -1; // intern failure
+}
+
+static void assert_string_intern_fail_order() {
+    assert(s_parser_call_count == 6);
+    assert(s_parser_calls[0] == PARSER_SCAN_TOKEN);
+    assert(s_parser_calls[1] == PARSER_FIND_ACTION);
+    assert(s_parser_calls[2] == PARSER_COUNT_PARAMETERS);
+    assert(s_parser_calls[3] == PARSER_SCAN_TOKEN);
+    assert(s_parser_calls[4] == PARSER_INTERN_STRING);
+    assert(s_parser_calls[5] == PARSER_REPORT_ERROR);
+    assert(s_142980_called == 2);
+    assert(s_26b0a0_called == 1);
+    assert(s_13c650_called == 1);
+    assert(s_1410e0_called == 1);
+}
+
+static void assert_string_intern_fail_error(TacticalAI2 *self) {
+    assert(s_1410e0_last_self == self);
+    assert(s_1410e0_last_str == self->field_1A0);
+    assert(strcmp(s_1410e0_last_str_buf, "str") == 0);
+    assert(s_144340_called == 1);
+    assert(s_144340_last_self == self);
+    assert(s_144340_last_code == 0x15);
+    assert(s_144340_last_param == 0);
+    assert(s_114378_called == 0);
+    assert(s_142730_called == 0);
+    assert(s_1427a0_called == 0);
+}
+
+static void test_tactical_ai_parser_string_intern_fail_strict() {
+    reset_mocks();
+    configure_string_intern_fail_strict();
+    TacticalAI2 ai;
+    memset(&ai, 0, sizeof(ai));
+    Obj12 actions[10];
+    memset(actions, 0, sizeof(actions));
+    ai.field_18 = actions;
+    ai.field_198 = 1; // enable string interning
+    int result = func_00142D10(&ai);
+    assert(result == 0);
+    assert_string_intern_fail_order();
+    assert_param_loop_eof_action(&ai);
+    assert_string_intern_fail_error(&ai);
+    assert(ai.field_4C[0].a1 == 0); // parameter store skipped
+    printf("TACTICAL_AI_PARSER_TEST_11_STRING_INTERN_FAIL_STRICT_PASSED\n");
+}
+
 int main(int argc, char **argv) {
     if (argc < 2) {
-        fprintf(stderr, "Error: test mode selector argument required (0-10)\n");
+        fprintf(stderr, "Error: test mode selector argument required (0-11)\n");
         return 1;
     }
     char *endptr = 0;
@@ -533,6 +604,7 @@ int main(int argc, char **argv) {
     else if (mode == 8) test_tactical_ai_parser_layout();
     else if (mode == 9) test_tactical_ai_parser_param_loop_eof();
     else if (mode == 10) test_tactical_ai_parser_invalid_param_type_strict();
+    else if (mode == 11) test_tactical_ai_parser_string_intern_fail_strict();
     else {
         fprintf(stderr, "Error: invalid test mode %d\n", mode);
         return 1;

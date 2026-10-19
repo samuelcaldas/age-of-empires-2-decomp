@@ -2816,16 +2816,56 @@ Validation in `docker-dev` (`aoe-tests:verification`):
 - Native mode `10`: printed `TACTICAL_AI_PARSER_TEST_10_INVALID_PARAM_TYPE_STRICT_PASSED` and exited `0`.
 - Python static validation: `python -m flake8 configure.py tests/test_tactical_ai_parser.py` exited `0`.
 
+#### String-intern failure characterization (2026-10-19)
+
+The native driver now also includes mode `11`, a separate strict
+post-implementation characterization of the string-interning failure branch at
+`0x142EB4` (`func_1410E0 == -1`). Existing mode `5` remains preserved.
+
+The test fixture configures string interning enabled (`field_198 = 1`), an action
+with one required parameter, and a quoted string parameter token (type `4`, `"str"`).
+The string intern mock returns `-1`. Assertions require this exact six-event call sequence:
+
+1. `func_142980(self)` scans the action keyword (`PARSER_SCAN_TOKEN`).
+2. `func_26B0A0(&self->field_34, self->field_1A0, 0)` resolves the action definition (`PARSER_FIND_ACTION`).
+3. `func_0013C650(&self->field_18[5])` queries required parameter count (`PARSER_COUNT_PARAMETERS`).
+4. `func_142980(self)` scans the string parameter token (`PARSER_SCAN_TOKEN`).
+5. `func_001410E0(self, self->field_1A0)` attempts string interning and returns `-1` (`PARSER_INTERN_STRING`).
+6. `func_144340(self, 0x15, 0)` reports syntax error code `0x15` (`21`) (`PARSER_REPORT_ERROR`).
+
+The parser returns `0`. Downstream numeric conversion (`func_114378`), symbol
+lookup (`func_00142730`), closing delimiter (`func_001427A0`), and parameter field
+assignment into `field_4C[0].a1` must remain uncalled.
+
+The original ELF audit identifies these argument, error, and return instructions
+at `0x142E88`–`0x142EC0` (file offsets `0x43068`–`0x430A0`):
+
+| VRAM | Bytes | Instruction | Description |
+|---|---|---|---|
+| `0x142E88` | `98 01 62 8e` | `lw $v0, 0x198($s3)` | Load `self->field_198` |
+| `0x142E8C` | `0d 00 40 10` | `beqz $v0, 0x142EC4` | If 0, bypass interning and set val = 0 |
+| `0x142E90` | `28 16 00 70` | `paddub $v0, $zero, $zero` | Delay slot: default val = 0 |
+| `0x142E94` | `a0 01 65 26` | `addiu $a1, $s3, 0x1A0` | Argument 2: `$a1 = &self->field_1A0` |
+| `0x142E98` | `38 04 05 0c` | `jal func_1410E0` | Call string interning helper |
+| `0x142E9C` | `28 26 60 72` | `paddub $a0, $s3, $zero` | Delay slot: Argument 1: `$a0 = self` |
+| `0x142EA0` | `ff ff 03 24` | `addiu $v1, $zero, -0x1` | Immediate constant -1 in `$v1` |
+| `0x142EA4` | `2a 00 43 14` | `bne $v0, $v1, 0x142F50` | Branch to store if return != -1 |
+| `0x142EA8` | `03 00 03 24` | `addiu $v1, $zero, 0x3` | Delay slot |
+| `0x142EAC` | `15 00 05 24` | `addiu $a1, $zero, 0x15` | Argument 2: error code `0x15` (`21`) |
+| `0x142EB0` | `28 26 60 72` | `paddub $a0, $s3, $zero` | Argument 1: `$a0 = self` |
+| `0x142EB4` | `d0 10 05 0c` | `jal func_144340` | Call error handler callback |
+| `0x142EB8` | `28 36 00 70` | `paddub $a2, $zero, $zero` | Delay slot: Argument 3: `$a2 = 0` |
+| `0x142EBC` | `4f 00 00 10` | `b 0x142FFC` | Branch to epilogue |
+| `0x142EC0` | `28 16 00 70` | `paddub $v0, $zero, $zero` | Delay slot: return value `$v0 = 0` |
+
+Validation in `docker-dev` (`aoe-tests:verification`):
+- `python -m pytest -q -ra tests/test_tactical_ai_parser.py`: **15 passed in 0.46s**.
+- Native mode `11`: printed `TACTICAL_AI_PARSER_TEST_11_STRING_INTERN_FAIL_STRICT_PASSED` and exited `0`.
+- Python static validation: `python -m flake8 configure.py tests/test_tactical_ai_parser.py` exited `0`.
+
 No production behavior changed. This is characterization against current
 production code; no historical Red is claimed. The slice remains **NonMatching**.
 Unrelated node-item files remain untouched.
-
-No production behavior changed. This is characterization, not evidence of
-historical test-first development. Broader subsystem and full-suite gates were
-not run for this bounded check; no integration occurred. Target-compiler
-matching was not run. The slice remains **NonMatching**; this check does not
-revalidate the historical percentages above. Unrelated node-item files remain
-unchanged.
 
 ### 6.77 Tactical / Spatial AI Recursive Rule Expression and Condition Compiler (`0x143020`–`0x143440`, `tactical_ai_compiler.cpp`)
 

@@ -28,7 +28,7 @@ int func_001C7850(
     void *map = *(void **)((char *)world + 0xB98);
     short type_id = bld->m_type_id;
     float **slope_table = *(float ***)((char *)map + 0x68);
-    void *s0 = *(void **)((char *)map + 0x3C);
+    MapContext *s0 = *(MapContext **)((char *)map + 0x3C);
     float *slope_limits = slope_table[type_id];
 
     float rx, ry;
@@ -43,12 +43,12 @@ int func_001C7850(
     float max_x = x + rx - 0.0001f;
     float max_y = y + ry - 0.0001f;
 
-    if (x - rx < 0.0f || max_x >= (float)*(int *)((char *)s0 + 0x8)) {
+    if (x - rx < 0.0f || max_x >= (float)s0->m_width) {
         return 7;
     }
 
     float min_y = y - ry;
-    if (min_y < 0.0f || max_y >= (float)*(int *)((char *)s0 + 0xC)) {
+    if (min_y < 0.0f || max_y >= (float)s0->m_height) {
         return 7;
     }
 
@@ -57,13 +57,13 @@ int func_001C7850(
     short t_min_y = (short)func_123350(min_y);
     short t_max_y = (short)func_123350(max_y);
 
-    int map_w = *(int *)((char *)s0 + 0x8);
-    int map_h = *(int *)((char *)s0 + 0xC);
+    int map_w = s0->m_width;
+    int map_h = s0->m_height;
 
     short p_min_x, p_max_x, p_min_y, p_max_y;
     if (bld->m_field48 >= 0 || bld->m_field4A >= 0) {
         short cy = (short)func_123350(y);
-        MapTile **tile_rows = *(MapTile ***)((char *)s0 + 0x8E8C);
+        MapTile **tile_rows = s0->m_tile_rows;
         short cx = (short)func_123350(x);
         MapTile *center_tile = &tile_rows[cy][cx];
         if (center_tile->m_zone_id != bld->m_field48 && center_tile->m_zone_id != bld->m_field4A) {
@@ -81,7 +81,7 @@ int func_001C7850(
     }
 
     if (bld->m_required_zone >= 0) {
-        MapTile **tile_rows = *(MapTile ***)((char *)s0 + 0x8E8C);
+        MapTile **tile_rows = s0->m_tile_rows;
         int touches_zone = 0;
         int touches_wild = 0;
 
@@ -124,7 +124,7 @@ int func_001C7850(
         }
     }
 
-    MapTile **tile_rows = *(MapTile ***)((char *)s0 + 0x8E8C);
+    MapTile **tile_rows = s0->m_tile_rows;
     int fp_flag = 0;
 
     MapTile *base_tile = &tile_rows[t_max_y][t_min_x];

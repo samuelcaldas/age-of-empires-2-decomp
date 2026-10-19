@@ -17,6 +17,14 @@ struct MapTile {
     unsigned char m_pad18[4];      // 0x18..0x1B
 };
 
+struct MapContext {
+    char m_pad00[8];               // 0x00..0x07
+    int m_width;                   // 0x08
+    int m_height;                  // 0x0C
+    char m_pad10[0x8E7C];          // 0x10..0x8E8B
+    struct MapTile **m_tile_rows;  // 0x8E8C
+};
+
 struct UnitMaster {
     unsigned char m_class;         // 0x00
     char m_pad01[7];

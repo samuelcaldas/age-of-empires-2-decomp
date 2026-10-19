@@ -1,15 +1,15 @@
-"""Native and original-ELF regressions for zone_path_queries (func_001C8780)."""
+"""Native and original-ELF regressions for zone_path_queries."""
 
 from io import BytesIO
 from pathlib import Path
 import hashlib
 import re
 import shutil
+import struct
 import subprocess
 
 from elftools.elf.elffile import ELFFile
 import pytest
-import yaml
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
@@ -71,6 +71,74 @@ def zone_path_queries_original():
     digest = hashlib.sha1(original)
     assert digest.hexdigest() == expected
     return ELFFile(BytesIO(original))
+
+
+def test_func_001C84B0_symbol_matches_original_extent(zone_path_queries_original):
+    """Verify func_001C84B0 extent: 708 bytes code + 12 padding at 0x1C84B0..0x1C8780."""
+    symbols = (PROJECT_ROOT / "config/SLES-50282/symbols.txt").read_text()
+    record = re.search(r"^(func_001C84B0) = (0x[0-9A-Fa-f]+);.*size:(0x[0-9A-Fa-f]+)",
+                       symbols, re.MULTILINE)
+    assert record is not None, "func_001C84B0 symbol record is missing"
+    name, address, size = record.groups()
+    assert (name, int(address, 16), int(size, 16)) == ("func_001C84B0", 0x1C84B0, 0x2D0)
+    stream = zone_path_queries_original.stream
+    stream.seek(0xC8690)
+    original = stream.read(0x2D0)
+    assert original[:4] == bytes.fromhex("b0 ff bd 27") # addiu sp,sp,-80
+    assert original[0x2BC:0x2C4] == bytes.fromhex("08 00 e0 03 50 00 bd 27") # jr ra; addiu sp,sp,80
+    assert original[0x2C4:0x2D0] == bytes(12) # 12 zero alignment bytes
+
+
+def test_func_001C84B0_matches_original_instructions(tmp_path_factory):
+    """Verify func_001C84B0 matches original instruction bytes 100% bit-for-bit."""
+    compiler = PROJECT_ROOT / "compilers/PS2/mwcc-2.3.1.01/mwccps2.exe"
+    wrapper = PROJECT_ROOT / "build/tools/wibo"
+    original_path = PROJECT_ROOT / "orig/SLES-50282/AOK.ELF"
+    if not compiler.is_file() or not wrapper.is_file() or not original_path.is_file():
+        pytest.skip("requires licensed PS2 MWCC, wibo, and original ELF")
+
+    output_dir = tmp_path_factory.mktemp("queries-matching")
+    output_obj = output_dir / "zone_path_queries.o"
+
+    subprocess.run(
+        [
+            str(wrapper), str(compiler), "-O3", "-inline", "on",
+            "-msext", "on", "-char", "signed", "-sym", "off", "-Iinclude",
+            "-lang=c++", "-c", "src/zone_path_queries.cpp", "-o", str(output_obj)
+        ],
+        cwd=PROJECT_ROOT,
+        capture_output=True,
+        text=True,
+        check=True,
+    )
+
+    with output_obj.open("rb") as f:
+        elf = ELFFile(f)
+        sym = elf.get_section_by_name(".symtab").get_symbol_by_name("func_001C84B0")[0]
+        sec_idx = sym["st_shndx"]
+        sec = elf.get_section(sec_idx)
+        compiled = bytearray(sec.data())
+
+        for rel_sec in elf.iter_sections():
+            if rel_sec["sh_type"] == "SHT_REL" and rel_sec["sh_info"] == sec_idx:
+                symtab = elf.get_section(rel_sec["sh_link"])
+                for rel in rel_sec.iter_relocations():
+                    s_name = symtab.get_symbol(rel["r_info_sym"]).name
+                    r_type = rel["r_info_type"]
+                    off = rel["r_offset"]
+                    if r_type == 4: # R_MIPS_26
+                        target = 0x123350 if s_name == "func_123350" else 0
+                        w = struct.unpack_from("<I", compiled, off)[0]
+                        relocated = (w & 0xFC000000) | ((target >> 2) & 0x03FFFFFF)
+                        struct.pack_into("<I", compiled, off, relocated)
+                    elif r_type in (7, 8): # R_MIPS_GPREL16 / R_MIPS_LITERAL
+                        struct.pack_into("<h", compiled, off, 0x4E280C - 0x4EA7C0)
+
+    original_bytes = original_path.read_bytes()
+    orig_offset = 0x1C84B0 - 0x100000 + 0x1E0
+    orig_code = original_bytes[orig_offset:orig_offset + 708]
+
+    assert bytes(compiled[sym["st_value"]:sym["st_value"] + 708]) == orig_code
 
 
 def test_func_001C8780_symbol_matches_original_extent(zone_path_queries_original):

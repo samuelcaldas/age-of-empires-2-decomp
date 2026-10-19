@@ -65,14 +65,12 @@ int func_001C84B0(MasterInfo *master, float *p_x, float *p_y, void *map, int sna
     int map_w = *(int *)((char *)s0 + 0x8);
     int map_h = *(int *)((char *)s0 + 0xC);
 
-    float rx = master->rx;
-    float min_bound_x = *p_x - rx;
+    float min_bound_x = *p_x - master->rx;
+    float max_bound_x = *p_x + master->rx;
+    float min_bound_y = *p_y - master->ry;
+    float max_bound_y = *p_y + master->ry;
     float max_x = (float)map_w - 0.00001f;
-    float ry = master->ry;
-    float min_bound_y = *p_y - ry;
     float max_y = (float)map_h - 0.00001f;
-    float max_bound_x = *p_x + rx;
-    float max_bound_y = *p_y + ry;
 
     if (min_bound_x < 0.0f) {
         *p_x = *p_x - min_bound_x;

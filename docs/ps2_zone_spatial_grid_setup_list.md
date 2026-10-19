@@ -61,7 +61,7 @@ The implementation followed mandatory test-driven development through two isolat
    - **Red command:** `docker --context docker-dev run --rm --network host -v $(pwd):/workspace -w /workspace aoe-tests:verification pytest -p no:cacheprovider -q -ra -k "test_native_setup_list_behavior" tests/test_zone_spatial_grid_setup_list.py`
    - **Observable failure:** `AssertionError: Native test failed with code -6 (SIGABRT): setup_list_test: /workspace/tests/native/zone_spatial_grid_setup_list_test.cpp:84: int main(): Assertion 'res2 == 1' failed.`.
    - **Green change:** Added `self->field_14->elem = 0; self->field_14->next = self->field_14; self->field_14->prev = self->field_14; self->field_AB0 = 1; return 1;`.
-   - **Green result:** All 7 native test assertions and 6 mutation checks passed (7 passed in 1.48s: 1 native runner covering 2 test cases + 6 mutation tests).
+   - **Green result:** 1 native behavioral runner covering 2 test cases (allocation failure and success initialization) + 6 mutation checks passed (total 7 pytest items passed in 1.48s).
 
 - **Mutation sensitivity:** 6 distinct mutations confirmed sensitive across allocation checks,
   element zeroing, next/prev self-referential initialization, status flag `field_AB0`, and return values.

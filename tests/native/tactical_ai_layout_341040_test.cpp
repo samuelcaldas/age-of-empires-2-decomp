@@ -142,7 +142,15 @@ void func_1FBD30(void *a0, int a1) {
     g_func_1fbd30_called++;
     g_last_1fbd30_arg = a1;
 }
-void func_36ACC0(int a0) { log_call("func_36ACC0", NULL, a0); }
+static int g_field_84c_during_func_36acc0 = -1;
+static TacticalObj_341040 *g_active_test_obj = NULL;
+
+void func_36ACC0(int a0) {
+    log_call("func_36ACC0", NULL, a0);
+    if (g_active_test_obj) {
+        g_field_84c_during_func_36acc0 = g_active_test_obj->field_84C;
+    }
+}
 static const char* g_last_11abbc_src = NULL;
 void func_11ABBC(void *dst, const char *src) {
     (void)dst;
@@ -1204,7 +1212,32 @@ static void test_func_342170_f844_mutation_precedes_func_340c30() {
     std::printf("PASS test_func_342170_f844_mutation_precedes_func_340c30\n");
 }
 
+static void test_func_342170_field_830_mode15_mutation_precedes_func_36acc0() {
+    TacticalObj_341040 obj;
+    MockSubObj mock_sub830;
+    std::memset(&obj, 0, sizeof(obj));
+    obj.field_830 = &mock_sub830;
+    obj.field_84C = 15;
+    obj.field_840 = 2; // in-bounds: 2 or 4 -> routes to field_84C = 16, func_36ACC0(7)
+    g_call_history.clear();
+    g_active_test_obj = &obj;
+    g_field_84c_during_func_36acc0 = -1;
+
+    int res = func_00342170(&obj, (int)(long)&mock_sub830, 1, 0, 0);
+    assert(res == 1);
+    assert(g_call_history.size() == 2);
+    assert(g_call_history[0].name == "func_36ACC0");
+    assert(g_call_history[0].arg1 == 7);
+    assert(g_call_history[1].name == "func_33A730");
+    // Verified PS2 disassembly 0x3424fc-0x34250c (inst 384-394):
+    // field_84C = 16 mutation executes before or in the call delay slot of func_36ACC0
+    assert(g_field_84c_during_func_36acc0 == 16);
+    g_active_test_obj = NULL;
+    std::printf("PASS test_func_342170_field_830_mode15_mutation_precedes_func_36acc0\n");
+}
+
 int main() {
+    test_func_342170_field_830_mode15_mutation_precedes_func_36acc0();
     test_func_342170_f844_mutation_precedes_func_340c30();
     test_func_341040_field_840_value_2_routes_to_age2S();
     test_func_342170_elf_sub838_a1_a2_16_branch();

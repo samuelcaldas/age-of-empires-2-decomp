@@ -47,45 +47,31 @@ int func_00342170(TacticalObj_341040 *self, int a1, int a2, int a3, int t0) {
         }
     }
 
-    if (a2 != 1) {
-        return func_1FBD30(self, a1);
-    }
-
-    if ((TacticalSubObj*)a1 == self->field_834) {
-        switch (self->field_84C) {
-        case 14: {
-            int m = 18;
-            if (self->field_840 == 2) {
-            } else if ((unsigned)(self->field_840 - 4) < 3) {
-                m = 18;
-            } else {
-                m = 17;
-            }
-            self->field_84C = m;
-            break;
-        }
-        case 15: {
-            int m = 18;
-            if (self->field_840 == 2) {
-            } else if (self->field_840 == 4) {
-            } else {
-                set_handler_state(self, 12);
-                return 1;
-            }
-            self->field_84C = m;
-            break;
-        }
-        case 20: {
-            int m = 18;
-            if (self->field_840 == 2) {
-            } else if ((unsigned)(self->field_840 - 4) < 3) {
-                m = 18;
-            } else {
-                m = 17;
-            }
-            self->field_84C = m;
-            break;
-        }
+    if (a2 == 1) {
+        if ((TacticalSubObj*)a1 == self->field_834) {
+            switch (self->field_84C) {
+            case 14:
+                if (self->field_840 == 2 || (unsigned)(self->field_840 - 4) < 3) {
+                    self->field_84C = 18;
+                } else {
+                    self->field_84C = 17;
+                }
+                break;
+            case 15:
+                if (self->field_840 == 2 || self->field_840 == 4) {
+                    self->field_84C = 18;
+                    break;
+                } else {
+                    set_handler_state(self, 12);
+                    return 1;
+                }
+            case 20:
+                if (self->field_840 == 2 || (unsigned)(self->field_840 - 4) < 3) {
+                    self->field_84C = 18;
+                } else {
+                    self->field_84C = 17;
+                }
+                break;
         case 18:
         case 21:
         case 22:
@@ -123,8 +109,8 @@ int func_00342170(TacticalObj_341040 *self, int a1, int a2, int a3, int t0) {
             }
         case 15:
             if (self->field_840 == 2 || self->field_840 == 4) {
-                func_36ACC0(7);
                 self->field_84C = 16;
+                func_36ACC0(7);
                 break;
             } else {
                 self->field_84C = 17;
@@ -235,6 +221,7 @@ int func_00342170(TacticalObj_341040 *self, int a1, int a2, int a3, int t0) {
         }
         func_00341040(self);
         return 1;
+    }
     }
 
     return func_1FBD30(self, a1);

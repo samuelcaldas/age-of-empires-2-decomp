@@ -220,8 +220,9 @@ int func_001C7850(
     }
 
     for (short cur_y = check_min_y; cur_y <= check_max_y; cur_y++) {
-        MapTile *t = &tile_rows[cur_y][check_min_x];
+        MapTile *t = &s0->m_tile_rows[cur_y][check_min_x];
         for (cur_x = check_min_x; cur_x <= check_max_x; cur_x++, t++) {
+            if (t->m_unit_count == 0) continue;
             for (int i = 0; i < t->m_unit_count; i++) {
                 Unit *u = (Unit *)t->m_unit_array[i];
                 if (u == ignore_unit) continue;
@@ -231,6 +232,7 @@ int func_001C7850(
                         float u_rx = m->m_radius_x;
                         float u_ry = m->m_radius_y;
                         float u_rad = func_3675D0(u);
+                        m = u->m_master; // reload m after function call
                         if (m->m_id == 59) {
                             u_rad = 1.0f;
                         } else if (bld_var->m_construction_type == 15 && m->m_type == 49) {

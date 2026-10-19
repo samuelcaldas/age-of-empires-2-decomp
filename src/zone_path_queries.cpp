@@ -30,13 +30,14 @@ int func_001D0350(
     short *out_y,
     float x,
     float y,
+    float z = 0.0f,
     int a5 = 0,
     int a6 = 0
 );
 int func_326F60(
     void *a0,
     int a1,
-    int a2,
+    long long a2,
     short c1_x,
     short c1_y,
     short c2_x,
@@ -186,14 +187,16 @@ void func_001C8A50(
         return;
     }
 
+    long long ext_target = (int)target_info;
+
     func_262570(
         internal_obj,
         a5,
         a6,
         (int)p_y,
-        (int)target_info,
+        ext_target,
         (int)p_y,
-        (int)target_info,
+        ext_target,
         mode,
         p_x,
         10
@@ -205,6 +208,7 @@ void func_001C8A50(
 
     float rx = *(float *)((char *)self + 0x94);
     float ry = *(float *)((char *)self + 0x98);
+    float neg_ry = -ry;
 
     void *sub_mgr = *(void **)((char *)D_004E3180 + 0x404);
     void *ctx = *(void **)((char *)sub_mgr + 0x3C);
@@ -214,19 +218,16 @@ void func_001C8A50(
     short c3_x, c3_y;
     short c4_x, c4_y;
 
-    // Corner 1: (+rx, -ry)
-    func_001D0350(ctx, &c1_x, &c1_y, rx, -ry, (int)p_y, (int)target_info);
-    // Corner 2: (+rx, +ry)
-    func_001D0350(ctx, &c2_x, &c2_y, rx, ry, (int)p_y, (int)target_info);
-    // Corner 3: (-rx, +ry)
-    func_001D0350(ctx, &c3_x, &c3_y, -rx, ry, (int)p_y, (int)target_info);
-    // Corner 4: (-rx, -ry)
-    func_001D0350(ctx, &c4_x, &c4_y, -rx, -ry, (int)p_y, (int)target_info);
+    func_001D0350(ctx, &c1_x, &c1_y, rx, neg_ry, 0.0f, (int)p_y, (int)target_info);
+    func_001D0350(ctx, &c2_x, &c2_y, rx, ry, 0.0f, (int)p_y, (int)target_info);
+    rx = -rx;
+    func_001D0350(ctx, &c3_x, &c3_y, rx, ry, 0.0f, (int)p_y, (int)target_info);
+    func_001D0350(ctx, &c4_x, &c4_y, rx, neg_ry, 0.0f, (int)p_y, (int)target_info);
 
     func_326F60(
         D_4E3408,
         1,
-        (int)target_info,
+        ext_target,
         c1_x,
         c1_y,
         c2_x,

@@ -99,9 +99,11 @@ int func_001D0350(
     short *out_y,
     float x,
     float y,
+    float z,
     int py,
     int target_info
 ) {
+    (void)z;
     if (g_calls_1d0350 < 4) {
         g_ctx_1d0350[g_calls_1d0350] = ctx;
         g_coords_1d0350[g_calls_1d0350][0] = x;
@@ -120,7 +122,7 @@ Func326F60Args g_args_326f60;
 int func_326F60(
     void *obj,
     int one,
-    int target_info,
+    long long target_info,
     short c1_x,
     short c1_y,
     short c2_x,
@@ -136,7 +138,7 @@ int func_326F60(
     ++g_calls_326f60;
     g_args_326f60.obj = obj;
     g_args_326f60.one = one;
-    g_args_326f60.target_info = target_info;
+    g_args_326f60.target_info = static_cast<int>(target_info);
     g_args_326f60.c1_x = c1_x;
     g_args_326f60.c1_y = c1_y;
     g_args_326f60.c2_x = c2_x;

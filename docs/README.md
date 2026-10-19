@@ -12,6 +12,7 @@ Start with the top-level [README](../README.md).
 - [ps2_node_pool_verification.md](ps2_node_pool_verification.md): corrected node-pool completion status, clean comparison metrics, and unresolved relocation provenance
 - [ps2_node_pool_alloc_node.md](ps2_node_pool_alloc_node.md): Block 60 node allocation verification, 376-byte literal match, and relocation analysis
 - [ps2_node_pool_free_node.md](ps2_node_pool_free_node.md): Block 61 node free verification, 60-byte exact match, and leaf function analysis
+- [ps2_zone_spatial_grid_constructor.md](ps2_zone_spatial_grid_constructor.md): Block 62 spatial grid constructor verification, 172-byte exact match, and vtable initialization
 - [elevation_mesh_serializer_328020.md](elevation_mesh_serializer_328020.md): pure-C++ serializer at `0x328020`, 224-byte exact MWCC match, ordered-write contracts, and real mutation tests
 - [elevation_mesh_filter_328100.md](elevation_mesh_filter_328100.md): pure-C++ query filter at `0x328100`, 292-byte exact MWCC match, grid entity contracts, and real mutation tests
 - [elevation_mesh_vertex_328230.md](elevation_mesh_vertex_328230.md): pure-C++ vertex append at `0x328230`, 196-byte 96.94% MWCC match, vertex buffer contracts, and real mutation tests

@@ -30,6 +30,8 @@ struct StrictSpatialGrid {
 };
 
 extern "C" {
+void *D_004D9AD0[16] = { (void *)0x4D9AD0 };
+
 void func_001F2DA0(ZoneSpatialGrid *self) {
     g_func_001F2DA0_called++;
     g_func_001F2DA0_arg_self = self;
@@ -65,7 +67,7 @@ int main() {
 
     // Constructor contract assertions
     assert(ret == (ZoneSpatialGrid *)grid);
-    assert(grid->vtable_00 == (void *)0x4D9AD0);
+    assert(grid->vtable_00 == (void *)D_004D9AD0);
     assert(grid->field_04 == 0);
     assert(grid->field_08 == 0);
     assert(grid->field_0C == 0);

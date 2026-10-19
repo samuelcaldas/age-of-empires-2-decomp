@@ -15,15 +15,19 @@ struct TacticalAI2 {
 extern "C" {
     char D_48E100[258] = { 0 };
 
+    static int s_call_seq = 0;
     static int s_1aab30_called = 0;
+    static int s_1aab30_seq = 0;
     static int s_1aab30_ret = 0;
 
     int func_1AAB30(void) {
         s_1aab30_called++;
+        s_1aab30_seq = ++s_call_seq;
         return s_1aab30_ret;
     }
 
     static int s_142980_called = 0;
+    static int s_142980_seq = 0;
     static int s_142980_statuses[16] = { 2 };
     static int s_142980_types[16] = { 4 };
     static const char *s_142980_tokens[16] = { "script.per" };
@@ -32,6 +36,9 @@ extern "C" {
     int func_142980(void *self) {
         TacticalAI2 *ai = (TacticalAI2*)self;
         s_142980_called++;
+        if (s_142980_called == 1) {
+            s_142980_seq = ++s_call_seq;
+        }
         int s = s_142980_statuses[s_142980_idx % 16];
         ai->field_19C = s_142980_types[s_142980_idx % 16];
         if (s_142980_tokens[s_142980_idx % 16]) {
@@ -100,9 +107,12 @@ static void init_ctype_table() {
 }
 
 static void reset_mocks() {
+    s_call_seq = 0;
     s_1aab30_called = 0;
+    s_1aab30_seq = 0;
     s_1aab30_ret = 0;
     s_142980_called = 0;
+    s_142980_seq = 0;
     s_142980_idx = 0;
     s_144340_called = 0;
     s_144340_last_code = 0;
@@ -129,6 +139,8 @@ static void test_tactical_ai_random_state0_file() {
 
     int res = func_143AD0(&ai);
 
+    assert(s_1aab30_seq == 1); // ELF: func_1AAB30 (RNG) called first to establish target_weight
+    assert(s_142980_seq == 2); // ELF: func_142980 (scanner) called second
     assert(res == 1);
     assert(s_1427a0_called == 1);
     assert(s_1441b0_called == 1);

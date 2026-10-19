@@ -4,13 +4,13 @@
 
 extern "C" {
 
-struct MasterInfo {
-    char pad[0x20];
-    float rx;
-    float ry;
-};
-
 int func_123350(float val);
+int func_1234E0(float val);
+int func_122058(int a0, int a1);
+int func_1220B0(int a0, int a1);
+int func_122690(int a0, int a1 = 0);
+int func_122118(int a0, int a1 = 0);
+int func_122748(int a0);
 
 void func_001C8490(void *obj, char val) {
     if (!*(unsigned char *)((char *)obj + 0x43)) {
@@ -80,7 +80,56 @@ int func_001C84B0(MasterInfo *master, float *p_x, float *p_y, void *map, int sna
     return 1;
 }
 
-void func_001C8780() {}
+int func_001C8780(
+    MasterInfo *master,
+    void *map,
+    short *out0,
+    short *out1,
+    short *out2,
+    short *out3,
+    short *out4,
+    short *out5,
+    short *out6,
+    short *out7,
+    float x,
+    float y
+) {
+    float f20 = master->rx + (x - (float)func_123350(x));
+    float f21 = master->ry + (y - (float)func_123350(y));
+
+    void *ctx = *(void **)((char *)map + 0x3C);
+    short half_w = *(short *)((char *)ctx + 0x8EB4);
+    short half_h = *(short *)((char *)ctx + 0x8EB2);
+
+    // Corner 0 (+rx, +ry)
+    *out0 = (short)func_123350((float)half_w * (f21 + f20));
+    int s2 = func_122058(0x3FF00000, func_1234E0(f21));
+    int s7 = func_1220B0(s2, func_1234E0(f20));
+    *out1 = (short)func_122748(func_122118(func_122690(half_h, s7)));
+
+    // Corner 1 (-rx, +ry)
+    f20 -= 2.0f * master->rx;
+    *out2 = (short)func_123350((float)half_w * (f21 + f20));
+    int s4 = func_122690(half_h);
+    int step1 = func_1220B0(s2, func_1234E0(f20));
+    *out3 = (short)func_122748(func_122118(s4, step1));
+
+    // Corner 2 (-rx, -ry)
+    f21 -= 2.0f * master->ry;
+    *out4 = (short)func_123350((float)half_w * (f21 + f20));
+    s2 = func_122058(0x3FF00000, func_1234E0(f21));
+    int s3 = func_1220B0(s2, func_1234E0(f20));
+    *out5 = (short)func_122748(func_122118(func_122690(half_h, s3)));
+
+    // Corner 3 (+rx, -ry)
+    f20 += 2.0f * master->rx;
+    *out6 = (short)func_123350((float)half_w * (f21 + f20));
+    int s0_val = func_122690(half_h);
+    int step3 = func_1220B0(s2, func_1234E0(f20));
+    *out7 = (short)func_122748(func_122118(s0_val, step3));
+
+    return 1;
+}
 void func_001C8A50() {}
 
 void *func_001C8C00(void *self) {

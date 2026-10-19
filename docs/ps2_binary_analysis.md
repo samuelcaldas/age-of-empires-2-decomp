@@ -4413,7 +4413,7 @@ Following the core placement validator sits the spatial queries, tile snapping, 
 
 - `func_001C8490` (`0x1C8490`, 24 bytes code + 8 bytes padding): Status byte updater conditionally writing to `0x42` based on flag `0x43`. **100.0% objdiff match** in pure C++.
 - `func_001C84B0` (`0x1C84B0`, 708 bytes code + 12 bytes padding): Map boundary clamping and grid-snapping validator (`func_123350`) adjusting entity coordinates to half-tile or full-tile centers. **98.13% objdiff fuzzy match**, not exact byte equality.
-- `func_001C8780` (`0x1C8780`, 720-byte original function): Spatial ray-casting and tile coordinate query routine. Empty stub; behavior remains unimplemented.
+- `func_001C8780` (`0x1C8780`, 720-byte original function, 180 instructions): Four-corner entity bounding-box grid projection and tile coordinate evaluator. Projects all four corners (`+rx,+ry`, `-rx,+ry`, `-rx,-ry`, `+rx,-ry`) across 30 JAL helper calls (`func_123350`, `func_1234e0`, `func_1220b0`, `func_122690`, `func_122118`, `func_122748`), populating eight `short*` output pointers and returning status 1. **79.92% objdiff fuzzy match** in pure C++ (94 EQUAL rows, 63 argument mismatches).
 - `func_001C8A50` (`0x1C8A50`, 428 bytes original code + 4 bytes padding): MapZone coordinate projection and ray validator dispatching `func_262570` and `func_1D0350`. Empty stub; behavior remains unimplemented.
 - `func_001C8C00` (`0x1C8C00`, 8 bytes code + 8 bytes padding): Fast atomic accessor returning pointer at offset `0x84`. **100.0% objdiff match** in pure C++.
 - `func_001C8C10` (`0x1C8C10`, 8 bytes code + 8 bytes padding): Fast atomic accessor returning pointer at offset `0x88`. **100.0% objdiff match** in pure C++.
@@ -4426,10 +4426,12 @@ The percentages below are fresh objdiff metrics, not ratios of exactly matched b
 |---|---|---|---|
 | `func_001C8490` | `0x1C8490` | **100.0%** (24 B code) | Conditional byte state updater. |
 | `func_001C84B0` | `0x1C84B0` | **98.13% fuzzy** (708 B code) | Map boundary clamping and tile-snapping coordinator. |
-| `func_001C8780` | `0x1C8780` | Stub (0.78%) | Spatial ray-casting (corpo vazio / a implementar). |
+| `func_001C8780` | `0x1C8780` | **79.92% fuzzy** (720 B code) | Four-corner bounding-box grid projection and coordinate evaluator. |
 | `func_001C8A50` | `0x1C8A50` | Stub (1.31%) | Corner projection validator (corpo vazio / a implementar). |
 | `func_001C8C00` | `0x1C8C00` | **100.0%** (8 / 8 B) | Atomic pointer accessor for offset 0x84. |
 | `func_001C8C10` | `0x1C8C10` | **100.0%** (8 / 8 B) | Atomic pointer accessor for offset 0x88. |
+
+Regression evidence (2026-10-19): `tests/test_zone_path_queries.py` and `tests/native/zone_path_queries_test.cpp` verify `func_001C8780`. Initial behavioral test failed Red against the empty stub returning 0 (`Assertion ret == 1 failed`); implementing the 4-corner projection and output writes restored Green (**2 passed**). All 7 focused and subsystem tests (`tests/test_zone_path_queries.py`, `tests/test_zone_path_eval.py`, `tests/test_zone_spatial_entity_collision.py`, `tests/test_zone_spatial_grid_aabb.py`) passed in `docker-dev`. Registered as `NonMatching`.
 
 #### 6.170.2 `Zone Raycast Query` Atomic Unit (`0x1C8C20`–`0x1C8CA0`, `zone_raycast_query.cpp`)
 

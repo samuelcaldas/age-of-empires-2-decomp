@@ -44,7 +44,7 @@ Start with the top-level [README](../README.md).
 - [controller_pulse_reset_32c480.md](controller_pulse_reset_32c480.md): pure-C++ controller pulse reset at `0x32C480`, 120-byte exact MWCC match, pulse deactivation contracts, and real mutation tests
 - [controller_render_profiler_32c500.md](controller_render_profiler_32c500.md): pure-C++ controller render profiler at `0x32C500`, 232/232-byte NonMatching diagnostic (132 aligned/100 diff), render metrics contracts, and real mutation tests
 - [controller_stub_32c5f0.md](controller_stub_32c5f0.md): pure-C++ controller stub at `0x32C5F0`, 8-byte exact MWCC match, leaf no-op contracts, and real mutation tests
-- [controller_formation_action_32c600.md](controller_formation_action_32c600.md): pure-C++ controller formation action at `0x32C600`, 1428-byte MWCC structural match, formation contracts, and real mutation tests
+- [controller_formation_action_32c600.md](controller_formation_action_32c600.md): pure-C++ controller formation action at `0x32C600`, 204/1428-byte NonMatching diagnostic (30 aligned/1398 diff), formation contracts, and real mutation tests
 - [controller_target_action_32cba0.md](controller_target_action_32cba0.md): pure-C++ controller target action coordinator at `0x32CBA0`, 2132-byte MWCC structural match, combat order contracts, and real mutation tests
 - [controller_pick_query_32d400.md](controller_pick_query_32d400.md): pure-C++ controller pick query at `0x32D400`, 1672-byte MWCC structural match, pick raycast contracts, and real mutation tests
 - [controller_proximity_query_32da90.md](controller_proximity_query_32da90.md): pure-C++ controller proximity query at `0x32DA90`, 1600-byte MWCC structural match, proximity selection contracts, and real mutation tests

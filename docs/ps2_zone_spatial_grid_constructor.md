@@ -71,4 +71,3 @@ Relocation table:
 - Focused Block 62 module (`test_zone_spatial_grid_block62.py`): 2 passed in 0.19s.
 - Full available repository test suite in `docker-dev`: 2,620 passed in 143.18s with zero failures and zero skips.
 - Static checks: Clean under `flake8`, Markdown link validation, and `git diff --check`.
-

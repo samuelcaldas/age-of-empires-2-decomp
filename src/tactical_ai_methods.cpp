@@ -15,6 +15,7 @@ struct TacticalAI2Methods {
     char pad_1E[0x34 - 0x1E];
     char m_field34[8];
     void **m_field3C;
+    int m_field40;
     char m_field44[0x25C];
     int m_field2A0;
     int m_field2A4;

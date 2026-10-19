@@ -1,4 +1,4 @@
-"""Tests for tools/verify_exact_linked.py ensuring strict relocation count and site validation enforcement."""
+"""Tests for tools/verify_exact_linked.py ensuring strict relocation count, site, ELF, and hash validation enforcement."""
 
 import subprocess
 import sys
@@ -58,7 +58,7 @@ from tools import verify_exact_linked
 code = bytearray(b'\\x00' * 16)
 try:
     verify_exact_linked.validate_and_apply_relocation(
-        r_offset=0, r_type=2, sym_name="D_4E35DC", compiled_bytes=code
+        r_offset=0, r_type=2, sym_name="D_4E35DC", compiled_bytes=code, func_size=16
     )
     sys.exit(0)
 except ValueError as e:
@@ -84,7 +84,7 @@ from tools import verify_exact_linked
 code = bytearray(b'\\x00' * 16)
 try:
     verify_exact_linked.validate_and_apply_relocation(
-        r_offset=0, r_type=7, sym_name="D_4E35DC", compiled_bytes=code
+        r_offset=0, r_type=7, sym_name="D_4E35DC", compiled_bytes=code, func_size=16
     )
     sys.exit(0)
 except ValueError as e:
@@ -110,7 +110,7 @@ from tools import verify_exact_linked
 code = bytearray(struct.pack('<I', 0x27840005) + b'\\x00' * 12)
 try:
     verify_exact_linked.validate_and_apply_relocation(
-        r_offset=0, r_type=7, sym_name="D_4E35DC", compiled_bytes=code
+        r_offset=0, r_type=7, sym_name="D_4E35DC", compiled_bytes=code, func_size=16
     )
     sys.exit(0)
 except ValueError as e:
@@ -136,7 +136,7 @@ from tools import verify_exact_linked
 code = bytearray(struct.pack('<I', 0x00000000) + b'\\x00' * 12)
 try:
     verify_exact_linked.validate_and_apply_relocation(
-        r_offset=0, r_type=4, sym_name="func_366C60", compiled_bytes=code
+        r_offset=0, r_type=4, sym_name="func_366C60", compiled_bytes=code, func_size=16
     )
     sys.exit(0)
 except ValueError as e:
@@ -162,7 +162,7 @@ from tools import verify_exact_linked
 code = bytearray(struct.pack('<I', 0x0C000001) + b'\\x00' * 12)
 try:
     verify_exact_linked.validate_and_apply_relocation(
-        r_offset=0, r_type=4, sym_name="func_366C60", compiled_bytes=code
+        r_offset=0, r_type=4, sym_name="func_366C60", compiled_bytes=code, func_size=16
     )
     sys.exit(0)
 except ValueError as e:
@@ -175,6 +175,103 @@ sys.exit(1)
         text=True,
     )
     assert result.returncode == 42, f"Failed to reject non-zero JAL target field: stderr={result.stderr}"
+
+
+def test_verifier_rejects_unaligned_relocation_offset():
+    """Verifier must reject unaligned relocation offsets (e.g. offset not divisible by 4)."""
+    result = subprocess.run(
+        [sys.executable, "-c", """
+import sys
+from tools import verify_exact_linked
+
+code = bytearray(b'\\x00' * 16)
+try:
+    verify_exact_linked.validate_and_apply_relocation(
+        r_offset=3, r_type=7, sym_name="D_4E35DC", compiled_bytes=code, func_size=16
+    )
+    sys.exit(0)
+except ValueError as e:
+    if "Unaligned relocation offset" in str(e):
+        sys.exit(42)
+sys.exit(1)
+"""],
+        cwd=REPO_ROOT,
+        capture_output=True,
+        text=True,
+    )
+    assert result.returncode == 42, f"Failed to reject unaligned relocation offset: stderr={result.stderr}"
+
+
+def test_verifier_rejects_truncated_relocation_offset():
+    """Verifier must reject relocation sites that extend beyond code boundary."""
+    result = subprocess.run(
+        [sys.executable, "-c", """
+import sys
+from tools import verify_exact_linked
+
+code = bytearray(b'\\x00' * 16)
+try:
+    verify_exact_linked.validate_and_apply_relocation(
+        r_offset=16, r_type=7, sym_name="D_4E35DC", compiled_bytes=code, func_size=16
+    )
+    sys.exit(0)
+except ValueError as e:
+    if "Relocation site exceeds code boundary" in str(e):
+        sys.exit(42)
+sys.exit(1)
+"""],
+        cwd=REPO_ROOT,
+        capture_output=True,
+        text=True,
+    )
+    assert result.returncode == 42, f"Failed to reject truncated relocation site: stderr={result.stderr}"
+
+
+def test_verifier_rejects_malformed_elf_header():
+    """Verifier must reject malformed ELF with invalid magic or truncated headers."""
+    result = subprocess.run(
+        [sys.executable, "-c", """
+import sys
+from tools import verify_exact_linked
+
+try:
+    verify_exact_linked.validate_elf_bytes(b'NOT_AN_ELF_HEADER_AT_ALL')
+    sys.exit(0)
+except ValueError as e:
+    if "Invalid ELF" in str(e):
+        sys.exit(42)
+sys.exit(1)
+"""],
+        cwd=REPO_ROOT,
+        capture_output=True,
+        text=True,
+    )
+    assert result.returncode == 42, f"Failed to reject malformed ELF header: stderr={result.stderr}"
+
+
+def test_verifier_enforces_pinned_hashes():
+    """Verifier must reject mismatched original or resolved code slice SHA1 hashes."""
+    result = subprocess.run(
+        [sys.executable, "-c", """
+import sys
+from tools import verify_exact_linked
+
+try:
+    verify_exact_linked.assert_slice_hashes(
+        orig_sha1="wrong_hash_00000000000000000000000000000000",
+        resolved_sha1=verify_exact_linked.EXPECTED_SLICE_SHA1
+    )
+    sys.exit(0)
+except ValueError as e:
+    if "Original slice SHA1 mismatch" in str(e):
+        sys.exit(42)
+sys.exit(1)
+"""],
+        cwd=REPO_ROOT,
+        capture_output=True,
+        text=True,
+    )
+    assert result.returncode == 42, f"Failed to reject wrong slice hash: stderr={result.stderr}"
 
 
 def test_verifier_succeeds_with_exact_counts():
@@ -198,6 +295,10 @@ if __name__ == '__main__':
         test_verifier_rejects_corrupted_gprel_addend,
         test_verifier_rejects_corrupted_jal_opcode,
         test_verifier_rejects_corrupted_jal_target_field,
+        test_verifier_rejects_unaligned_relocation_offset,
+        test_verifier_rejects_truncated_relocation_offset,
+        test_verifier_rejects_malformed_elf_header,
+        test_verifier_enforces_pinned_hashes,
         test_verifier_succeeds_with_exact_counts,
     ]
     print(f"Running {len(tests)} verifier enforcement tests...")

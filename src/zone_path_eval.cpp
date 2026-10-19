@@ -54,12 +54,14 @@ int func_001C7850(
     float max_x = x + rx - 0.0001f;
     float max_y = y + ry - 0.0001f;
 
-    if (x - rx < 0.0f || max_x >= (float)s0->m_width) {
+    int map_w = s0->m_width;
+    if (x - rx < 0.0f || max_x >= (float)map_w) {
         return 7;
     }
 
     float min_y = y - ry;
-    if (min_y < 0.0f || max_y >= (float)s0->m_height) {
+    int map_h = s0->m_height;
+    if (min_y < 0.0f || max_y >= (float)map_h) {
         return 7;
     }
 
@@ -67,9 +69,6 @@ int func_001C7850(
     t_max_x = (short)func_123350(max_x);
     t_min_y = (short)func_123350(min_y);
     short t_max_y = (short)func_123350(max_y);
-
-    int map_w = s0->m_width;
-    int map_h = s0->m_height;
 
     short p_min_x, p_max_x, p_min_y, p_max_y;
     if (bld_var->m_field48 >= 0 || bld_var->m_field4A >= 0) {

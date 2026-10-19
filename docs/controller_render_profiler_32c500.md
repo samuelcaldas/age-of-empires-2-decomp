@@ -99,8 +99,9 @@ virtual callbacks `func_30(0)` and `func_34()` vs `func_31AAB0`, and profiling m
        tests/native/tactical_ai_combat_subsystem_controller_render_profiler_test.cpp -o build/test_render_profiler_green \
        && ./build/test_render_profiler_green
      ```
-   - Result: All 2 fixtures passing cleanly (`null_target`, `active_target`), exit code 0 under UBSan.
-   - Verified 9 production-source mutations independently compiled and killed via diagnostic matching in `tests/test_tactical_ai_combat_subsystem_controller_render_profiler.py`.
+   - Result: All 3 fixtures passing cleanly (`null_target`, `active_target`, `null_12c`), exit code 0 under UBSan.
+   - Verified both branch paths independently: `m_field_12C != nullptr && m_target == nullptr` (`test_null_target_branch`) and `m_field_12C == nullptr && m_target != nullptr` (`test_null_field_12c_active_target`), proving both dispatch `func_30(0)`, `func_1ABD90`, and `func_34()`.
+   - Verified 10 production-source mutations independently compiled and killed via diagnostic matching in `tests/test_tactical_ai_combat_subsystem_controller_render_profiler.py`.
 3. **Refactor & Matching Diagnostics:**
    - Built with verified MWCC PS2 flags: candidate code size 232 bytes (matching target code extent 232/232 bytes).
    - Relocations resolved: all 15 relocations (7 GPREL16, 8 JAL) resolved with duplicate-rejecting exact multiset check.
@@ -117,11 +118,11 @@ python -m pytest -q \
   tests/test_tactical_ai_combat_subsystem_controller_render_profiler_matching.py
 ```
 
-The focused test run comprises **11 total tests** (10 behavioral tests in `test_tactical_ai_combat_subsystem_controller_render_profiler.py` and 1 structural matching diagnostic test in `test_tactical_ai_combat_subsystem_controller_render_profiler_matching.py`):
-- One 32-bit native contract test with UBSan validating null target branch, active target branch,
+The focused test run comprises **12 total tests** (11 behavioral tests in `test_tactical_ai_combat_subsystem_controller_render_profiler.py` and 1 structural matching diagnostic test in `test_tactical_ai_combat_subsystem_controller_render_profiler_matching.py`):
+- One 32-bit native contract test with UBSan validating null target branch, active target branch, null field_12C branch,
   metric channels 6 and 12, delta calculations, and 10-call / 8-call ordered callback sequencing.
-- Nine production source mutations independently compiled and verified
-  rejected (channel 6 delta, channel 12 delta, func_30 call arguments, func_1ABD90 receiver, func_1ABD90 flag, func_34 call, func_31AAB0 call, func_184BB0 call, branch condition inversion).
+- Ten production source mutations independently compiled and verified
+  rejected (channel 6 delta, channel 12 delta, func_30 call arguments, func_1ABD90 receiver, func_1ABD90 flag, func_34 call, func_31AAB0 call, func_184BB0 call, branch condition inversion, null field 12C branch bypass).
 - One structural correspondence diagnostic test compiling fresh with Ninja/MWCC and verifying
   relocation-aware bytecode alignment against the pinned ELF binary (skipped when compiler/wibo are unprovisioned).
 

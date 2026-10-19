@@ -222,12 +222,38 @@ static void test_active_target_branch() {
     TEST_ASSERT(std::strcmp(s_call_order[7], "func_184B60") == 0, "call 7 mismatch");
 }
 
+static void test_null_field_12c_active_target() {
+    reset_mocks();
+    CombatSubsystemControllerInstance inst;
+    std::memset(&inst, 0, sizeof(inst));
+    inst.m_vtable = &s_vtable;
+    inst.m_field_20 = (void*)0x87654321;
+    inst.m_field_10B = 0xA5;
+
+    TargetObj target;
+    inst.m_field_12C = nullptr; // null field 12C
+    inst.m_target = &target;    // non-null target
+
+    func_0032C500(&inst);
+    TEST_ASSERT(s_v30_calls == 1, "null field_12C must dispatch func_30");
+    TEST_ASSERT(s_last_v30_self == &inst, "func_30 self mismatch");
+    TEST_ASSERT(s_last_v30_a1 == 0, "func_30 a1 must be 0");
+    TEST_ASSERT(s_1abd90_calls == 1, "null field_12C must dispatch func_1ABD90");
+    TEST_ASSERT(s_last_1abd90_a0 == (void*)0x87654321, "func_1ABD90 a0 mismatch");
+    TEST_ASSERT(s_last_1abd90_a1 == &inst.m_field_24, "func_1ABD90 a1 mismatch");
+    TEST_ASSERT(s_last_1abd90_a2 == 0xA5, "func_1ABD90 a2 mismatch");
+    TEST_ASSERT(s_v34_calls == 1, "null field_12C must dispatch func_34");
+    TEST_ASSERT(s_31aab0_calls == 0, "null field_12C must suppress func_31AAB0");
+}
+
 int main(int argc, char **argv) {
     if (argc > 1) {
         if (std::strcmp(argv[1], "null_target") == 0) { test_null_target_branch(); return 0; }
         if (std::strcmp(argv[1], "active_target") == 0) { test_active_target_branch(); return 0; }
+        if (std::strcmp(argv[1], "null_12c") == 0) { test_null_field_12c_active_target(); return 0; }
     }
     test_null_target_branch();
     test_active_target_branch();
+    test_null_field_12c_active_target();
     return 0;
 }

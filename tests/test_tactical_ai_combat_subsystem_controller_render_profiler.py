@@ -19,6 +19,7 @@ MUTATIONS = [
     ("corrupt_31aab0_call", "func_31AAB0(self);", "/* omitted */", "active_target", "must call func_31AAB0 once"),
     ("corrupt_184bb0_call", "func_184BB0(D_004E3180);", "/* omitted */", "null_target", "must call func_184BB0 once"),
     ("corrupt_branch_condition", "if (self->m_field_12C == 0 || self->m_target == 0)", "if (self->m_field_12C == 0 && self->m_target == 0)", "null_target", "must call func_30 once"),
+    ("corrupt_null_12c_branch", "if (self->m_field_12C == 0 || self->m_target == 0)", "if (self->m_target == 0)", "null_12c", "null field_12C must dispatch func_30"),
 ]
 
 

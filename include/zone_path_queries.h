@@ -33,7 +33,8 @@ void func_001C8A50(
     int mode = 0,
     int a5 = 0,
     int a6 = 0,
-    int a7 = 0
+    int a7 = 0,
+    unsigned char a8 = 0
 );
 void *func_001C8C00(void *self);
 void *func_001C8C10(void *self);

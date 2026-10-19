@@ -2,6 +2,36 @@
 #include <cstring>
 #include "zone_path_queries.h"
 
+struct Func262570Args {
+    void *internal_obj;
+    int a5;
+    int a6;
+    int py1;
+    int target1;
+    int py2;
+    int target2;
+    int mode;
+    float *px;
+    int ten;
+};
+
+struct Func326F60Args {
+    void *obj;
+    int one;
+    int target_info;
+    short c1_x;
+    short c1_y;
+    short c2_x;
+    short c2_y;
+    short c3_x;
+    short c3_y;
+    short c4_x;
+    short c4_y;
+    int eleven;
+    unsigned char flag;
+    int d4e3400;
+};
+
 extern "C" {
 int func_123350(float val) {
     return static_cast<int>(val);
@@ -32,38 +62,98 @@ int func_122748(int a0) {
 }
 
 int g_calls_262570 = 0;
-int g_result_262570 = 1;
-int func_262570(void *a0, int a1, int a2, int a3, int a4, int a5, int a6) {
-    (void)a0; (void)a1; (void)a2; (void)a3; (void)a4; (void)a5; (void)a6;
+Func262570Args g_args_262570;
+int func_262570(
+    void *internal_obj,
+    int a5,
+    int a6,
+    int py1,
+    int target1,
+    int py2,
+    int target2,
+    int mode,
+    float *px,
+    int ten
+) {
     ++g_calls_262570;
-    return g_result_262570;
+    g_args_262570.internal_obj = internal_obj;
+    g_args_262570.a5 = a5;
+    g_args_262570.a6 = a6;
+    g_args_262570.py1 = py1;
+    g_args_262570.target1 = target1;
+    g_args_262570.py2 = py2;
+    g_args_262570.target2 = target2;
+    g_args_262570.mode = mode;
+    g_args_262570.px = px;
+    g_args_262570.ten = ten;
+    return 1;
 }
 
 int g_calls_1d0350 = 0;
 float g_coords_1d0350[4][2];
-int func_001D0350(void *a0, short *out_x, short *out_y, float x, float y) {
-    (void)a0;
+void *g_ctx_1d0350[4];
+int g_extra_1d0350[4][2];
+int func_001D0350(
+    void *ctx,
+    short *out_x,
+    short *out_y,
+    float x,
+    float y,
+    int py,
+    int target_info
+) {
     if (g_calls_1d0350 < 4) {
+        g_ctx_1d0350[g_calls_1d0350] = ctx;
         g_coords_1d0350[g_calls_1d0350][0] = x;
         g_coords_1d0350[g_calls_1d0350][1] = y;
+        g_extra_1d0350[g_calls_1d0350][0] = py;
+        g_extra_1d0350[g_calls_1d0350][1] = target_info;
     }
-    if (out_x) *out_x = 10;
-    if (out_y) *out_y = 20;
+    if (out_x) *out_x = static_cast<short>(10 + g_calls_1d0350 * 2);
+    if (out_y) *out_y = static_cast<short>(20 + g_calls_1d0350 * 2);
     ++g_calls_1d0350;
     return 1;
 }
 
 int g_calls_326f60 = 0;
-int func_326F60(void *a0, int a1, int a2, short c1, short c2, short c3, short c4, short c5) {
-    (void)a0; (void)a1; (void)a2;
-    (void)c1; (void)c2; (void)c3; (void)c4; (void)c5;
+Func326F60Args g_args_326f60;
+int func_326F60(
+    void *obj,
+    int one,
+    int target_info,
+    short c1_x,
+    short c1_y,
+    short c2_x,
+    short c2_y,
+    short c3_x,
+    short c3_y,
+    short c4_x,
+    short c4_y,
+    int eleven,
+    unsigned char flag,
+    int d4e3400
+) {
     ++g_calls_326f60;
+    g_args_326f60.obj = obj;
+    g_args_326f60.one = one;
+    g_args_326f60.target_info = target_info;
+    g_args_326f60.c1_x = c1_x;
+    g_args_326f60.c1_y = c1_y;
+    g_args_326f60.c2_x = c2_x;
+    g_args_326f60.c2_y = c2_y;
+    g_args_326f60.c3_x = c3_x;
+    g_args_326f60.c3_y = c3_y;
+    g_args_326f60.c4_x = c4_x;
+    g_args_326f60.c4_y = c4_y;
+    g_args_326f60.eleven = eleven;
+    g_args_326f60.flag = flag;
+    g_args_326f60.d4e3400 = d4e3400;
     return 1;
 }
 
-void *D_004E3180 = 0;
-void *D_4E3400 = 0;
-void *D_4E3408 = 0;
+void *D_004E3180 = reinterpret_cast<void *>(0x4E3180);
+void *D_4E3400 = reinterpret_cast<void *>(0x4E3400);
+void *D_4E3408 = reinterpret_cast<void *>(0x4E3408);
 }
 
 int main() {
@@ -127,36 +217,71 @@ int main() {
     assert(g_calls_1d0350 == 0);
     assert(g_calls_326f60 == 0);
 
-    // Test 2: *(this + 0x10) != 0, but func_262570 returns 0 (ray validation fail) -> early return
+    // Test 2: *(this + 0x10) != 0, but a7 == 0 -> calls func_262570, then early return
     *reinterpret_cast<void **>(zone_buf + 0x10) = internal_obj;
-    g_result_262570 = 0;
     g_calls_262570 = 0;
     g_calls_1d0350 = 0;
     g_calls_326f60 = 0;
-    func_001C8A50(zone_buf);
+    float test_x = 5.0f;
+    float test_y = 7.0f;
+    void *target_info_val = reinterpret_cast<void *>(0x12345);
+
+    func_001C8A50(zone_buf, &test_x, &test_y, target_info_val, 1, 2, 3, 0, 77);
     assert(g_calls_262570 == 1);
     assert(g_calls_1d0350 == 0);
     assert(g_calls_326f60 == 0);
+    // Verify argument forwarding to func_262570
+    assert(g_args_262570.internal_obj == internal_obj);
+    assert(g_args_262570.a5 == 2);
+    assert(g_args_262570.a6 == 3);
+    assert(g_args_262570.py1 == reinterpret_cast<int>(&test_y));
+    assert(g_args_262570.target1 == reinterpret_cast<int>(target_info_val));
+    assert(g_args_262570.py2 == reinterpret_cast<int>(&test_y));
+    assert(g_args_262570.target2 == reinterpret_cast<int>(target_info_val));
+    assert(g_args_262570.mode == 1);
+    assert(g_args_262570.px == &test_x);
+    assert(g_args_262570.ten == 10);
 
-    // Test 3: *(this + 0x10) != 0 and func_262570 returns 1 -> projects 4 corners and calls rasterizer
-    g_result_262570 = 1;
+    // Test 3: *(this + 0x10) != 0 and a7 != 0 -> projects all 4 corners and calls rasterizer
     g_calls_262570 = 0;
     g_calls_1d0350 = 0;
     g_calls_326f60 = 0;
     *reinterpret_cast<float *>(zone_buf + 0x94) = 2.0f; // rx
     *reinterpret_cast<float *>(zone_buf + 0x98) = 3.0f; // ry
 
-    func_001C8A50(zone_buf);
+    func_001C8A50(zone_buf, &test_x, &test_y, target_info_val, 1, 2, 3, 1, 77);
     assert(g_calls_262570 == 1);
     // Verified original makes exactly 4 calls to func_001D0350 for the 4 corners
     assert(g_calls_1d0350 == 4);
     assert(g_calls_326f60 == 1);
 
-    // Verified 4-corner coordinate order: (+rx, -ry), (+rx, +ry), (-rx, +ry), (-rx, -ry)
+    // Verified 4-corner coordinate sequence and extra argument forwarding to func_001D0350
     assert(g_coords_1d0350[0][0] == 2.0f && g_coords_1d0350[0][1] == -3.0f);
     assert(g_coords_1d0350[1][0] == 2.0f && g_coords_1d0350[1][1] == 3.0f);
     assert(g_coords_1d0350[2][0] == -2.0f && g_coords_1d0350[2][1] == 3.0f);
     assert(g_coords_1d0350[3][0] == -2.0f && g_coords_1d0350[3][1] == -3.0f);
+
+    for (int i = 0; i < 4; ++i) {
+        assert(g_ctx_1d0350[i] == ctx_buf);
+        assert(g_extra_1d0350[i][0] == reinterpret_cast<int>(&test_y));
+        assert(g_extra_1d0350[i][1] == reinterpret_cast<int>(target_info_val));
+    }
+
+    // Verify all 14 arguments passed to func_326F60, including all 4 corners!
+    assert(g_args_326f60.obj == D_4E3408);
+    assert(g_args_326f60.one == 1);
+    assert(g_args_326f60.target_info == reinterpret_cast<int>(target_info_val));
+    assert(g_args_326f60.c1_x == 10);
+    assert(g_args_326f60.c1_y == 20);
+    assert(g_args_326f60.c2_x == 12);
+    assert(g_args_326f60.c2_y == 22);
+    assert(g_args_326f60.c3_x == 14);
+    assert(g_args_326f60.c3_y == 24); // Corner 3 y forwarded on stack!
+    assert(g_args_326f60.c4_x == 16); // Corner 4 x forwarded on stack!
+    assert(g_args_326f60.c4_y == 26); // Corner 4 y forwarded on stack!
+    assert(g_args_326f60.eleven == 11);
+    assert(g_args_326f60.flag == 77);
+    assert(g_args_326f60.d4e3400 == reinterpret_cast<int>(D_4E3400));
 
     return 0;
 }

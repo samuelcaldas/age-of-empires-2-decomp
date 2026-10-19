@@ -280,7 +280,6 @@ from tools import verify_exact_linked
 with open("build/SLES-50282/src/unit_action_build_7f890.o", "rb") as f:
     data = bytearray(f.read())
 
-# Overwrite e_shentsize at offset 0x2e with 32 (< 40)
 struct.pack_into('<H', data, 0x2e, 32)
 try:
     verify_exact_linked.validate_elf_bytes(data)
@@ -307,17 +306,13 @@ from tools import verify_exact_linked
 with open("build/SLES-50282/src/unit_action_build_7f890.o", "rb") as f:
     data = bytearray(f.read())
 
-# Corrupt .symtab section's sh_link to 999
-# First find .symtab section offset in section header table
 e_shoff = struct.unpack_from('<I', data, 0x20)[0]
 e_shentsize = struct.unpack_from('<H', data, 0x2e)[0]
 e_shnum = struct.unpack_from('<H', data, 0x30)[0]
-# Find which section has sh_type == 2 (SHT_SYMTAB)
 for i in range(e_shnum):
     off = e_shoff + i * e_shentsize
     sh_type = struct.unpack_from('<I', data, off + 4)[0]
     if sh_type == 2: # SHT_SYMTAB
-        # sh_link is at offset + 24 (6th uint32)
         struct.pack_into('<I', data, off + 24, 999)
         break
 
@@ -334,6 +329,60 @@ sys.exit(1)
         text=True,
     )
     assert result.returncode == 42, f"Failed to reject invalid .symtab sh_link: stderr={result.stderr}"
+
+
+def test_verifier_rejects_non_multiple_symbol_table_size():
+    """Verifier must reject symbol table whose size is not an exact multiple of entry size."""
+    result = subprocess.run(
+        [sys.executable, "-c", """
+import sys
+from tools import verify_exact_linked
+
+try:
+    verify_exact_linked.validate_table_entry_divisibility(
+        symtab_size=16 * 10 + 5, # non-multiple of 16
+        sym_entsize=16,
+        reloc_size=8 * 10,
+        reloc_entsize=8
+    )
+    sys.exit(0)
+except ValueError as e:
+    if "Symbol table size" in str(e) and "not cleanly divisible" in str(e):
+        sys.exit(42)
+sys.exit(1)
+"""],
+        cwd=REPO_ROOT,
+        capture_output=True,
+        text=True,
+    )
+    assert result.returncode == 42, f"Failed to reject non-multiple symbol table size: stderr={result.stderr}"
+
+
+def test_verifier_rejects_non_multiple_relocation_table_size():
+    """Verifier must reject relocation table whose size is not an exact multiple of entry size."""
+    result = subprocess.run(
+        [sys.executable, "-c", """
+import sys
+from tools import verify_exact_linked
+
+try:
+    verify_exact_linked.validate_table_entry_divisibility(
+        symtab_size=16 * 10,
+        sym_entsize=16,
+        reloc_size=8 * 10 + 3, # non-multiple of 8
+        reloc_entsize=8
+    )
+    sys.exit(0)
+except ValueError as e:
+    if "Relocation table size" in str(e) and "not cleanly divisible" in str(e):
+        sys.exit(42)
+sys.exit(1)
+"""],
+        cwd=REPO_ROOT,
+        capture_output=True,
+        text=True,
+    )
+    assert result.returncode == 42, f"Failed to reject non-multiple relocation table size: stderr={result.stderr}"
 
 
 def test_verifier_succeeds_with_exact_counts():
@@ -363,6 +412,8 @@ if __name__ == '__main__':
         test_verifier_enforces_pinned_hashes,
         test_verifier_rejects_short_e_shentsize,
         test_verifier_rejects_invalid_symtab_sh_link,
+        test_verifier_rejects_non_multiple_symbol_table_size,
+        test_verifier_rejects_non_multiple_relocation_table_size,
         test_verifier_succeeds_with_exact_counts,
     ]
     print(f"Running {len(tests)} verifier enforcement tests...")

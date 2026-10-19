@@ -40,6 +40,25 @@ def assert_slice_hashes(orig_sha1, resolved_sha1):
         )
 
 
+def validate_table_entry_divisibility(symtab_size, sym_entsize, reloc_size, reloc_entsize):
+    """
+    Validate that symbol and relocation table sizes are cleanly divisible by entry size.
+    Raises ValueError on non-positive entry size or trailing/partial bytes.
+    """
+    if sym_entsize <= 0:
+        raise ValueError(f"Invalid symbol entry size: {sym_entsize}")
+    if symtab_size % sym_entsize != 0:
+        raise ValueError(
+            f"Symbol table size ({symtab_size}) not cleanly divisible by entry size ({sym_entsize}): {symtab_size % sym_entsize} trailing bytes"
+        )
+    if reloc_entsize <= 0:
+        raise ValueError(f"Invalid relocation entry size: {reloc_entsize}")
+    if reloc_size % reloc_entsize != 0:
+        raise ValueError(
+            f"Relocation table size ({reloc_size}) not cleanly divisible by entry size ({reloc_entsize}): {reloc_size % reloc_entsize} trailing bytes"
+        )
+
+
 def validate_and_apply_relocation(r_offset, r_type, sym_name, compiled_bytes, func_size=None):
     """
     Validate relocation alignment, boundary, type, site opcode, registers,
@@ -256,12 +275,20 @@ def main():
     # Read .text bytes
     compiled_bytes = bytearray(raw_obj[text_sec['offset']:text_sec['offset'] + func_size])
 
+    # Validate symbol and relocation entry size divisibility
+    sym_entsize = symtab_sec['entsize'] if symtab_sec['entsize'] >= 16 else 16
+    rel_entsize = rel_text_sec['entsize'] if rel_text_sec['entsize'] >= 8 else 8
+    try:
+        validate_table_entry_divisibility(
+            symtab_sec['size'], sym_entsize,
+            rel_text_sec['size'], rel_entsize
+        )
+    except ValueError as err:
+        print(f"TABLE DIVISIBILITY ERROR: {err}", file=sys.stderr)
+        sys.exit(1)
+
     # Parse symbols from .symtab
     symbols = []
-    if symtab_sec['entsize'] != 0 and symtab_sec['entsize'] < 16:
-        print(f"ERROR: Invalid symbol table entry size: {symtab_sec['entsize']}", file=sys.stderr)
-        sys.exit(1)
-    sym_entsize = symtab_sec['entsize'] if symtab_sec['entsize'] >= 16 else 16
     sym_count = symtab_sec['size'] // sym_entsize
 
     for i in range(sym_count):
@@ -278,11 +305,6 @@ def main():
         symbols.append((sym_name, st_value))
 
     # Parse relocations from .rel.text
-    # Elf32_Rel: r_offset (4B), r_info (4B)
-    if rel_text_sec['entsize'] != 0 and rel_text_sec['entsize'] < 8:
-        print(f"ERROR: Invalid relocation table entry size: {rel_text_sec['entsize']}", file=sys.stderr)
-        sys.exit(1)
-    rel_entsize = rel_text_sec['entsize'] if rel_text_sec['entsize'] >= 8 else 8
     reloc_count = rel_text_sec['size'] // rel_entsize
     gprel_count = 0
     jal_count = 0

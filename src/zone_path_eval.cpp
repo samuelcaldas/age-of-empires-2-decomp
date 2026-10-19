@@ -39,6 +39,9 @@ int func_001C7850(
     bld_var = bld;
     float *slope_limits = slope_table[type_id];
 
+    // Take address of world to force stack allocation
+    void * const *world_ptr = &world;
+
     float rx, ry;
     if (use_alt_radius) {
         rx = bld_var->m_radius_x;
@@ -156,7 +159,7 @@ int func_001C7850(
                 if (*(int *)((char *)D_004E3180 + 0x1C8) == 7) {
                     fp_flag = 1;
                 } else {
-                    void *zone_mgr = *(void **)((char *)world + 0xB94);
+                    void *zone_mgr = *(void **)((char *)*world_ptr + 0xB94);
                     if (func_1378c0(zone_mgr, cur_x, cur_y) != 0) {
                         fp_flag = 1;
                     }

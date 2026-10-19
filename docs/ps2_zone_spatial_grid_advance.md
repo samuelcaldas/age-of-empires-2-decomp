@@ -53,14 +53,15 @@ Virtual method dispatch at `+0x50`: `vtable[55]` (`0xDC`) invoked as `method_DC(
 - **Green test:** `build/advance-green.log` confirmed native pass (2 passed in 0.25s)
   under C++98 `-m32` verifying both null guards, vtable slot 55 invocation (arg=1),
   setters `func_001F2AB0`/`func_001F2AC0`, `field_0C` update, and return codes (0/1).
-- **Provenance gate:** `tests/test_zone_spatial_grid_advance_provenance.py` (6 passed)
+- **Provenance gate:** `tests/test_zone_spatial_grid_advance_provenance.py` (15 passed)
   verifies fresh compilation under `wibo` using `compilers/PS2/mwcc-2.3.1.01/mwccps2.exe`, followed by exact
   literal instruction matching across all 140 bytes (`literal_match: true`), 3 direct
   `R_MIPS_26` function relocations, matching resolved SHA-256 hash
   (`7334e37f68281872d4a6a87b951d09b2869cc348d41ce3057e95f081835a213e`),
   separate verification of original ELF 4-byte trailing NOP alignment padding
   (`original_padding_verified: true`, `0x1F2CAC`..`0x1F2CB0`) strictly outside the
-  140-byte function matching gate, corrupted instruction rejection against a passing baseline,
-  unpinned ELF rejection, and CLI zero-exit contract.
-- **Configuration policy:** Registered as `NonMatching` in `configure.py` per standing
-  policy pending peer review; `config.yml` and `symbols.txt` remain untouched.
+  140-byte function matching gate, rejection of corrupted instructions against a passing baseline,
+  unpinned ELF rejection, rejection of 7 relocation manifest mutations, rejection of non-zero implicit
+  addends, rejection of non-executable sections, rejection of defined relocation symbols, and CLI zero-exit contract.
+- **Configuration policy:** Promoted to `Matching` in `configure.py` following verification
+  clearance; `config.yml` and `symbols.txt` remain untouched.

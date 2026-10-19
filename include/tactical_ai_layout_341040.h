@@ -76,6 +76,9 @@ public:
     virtual void vfunc_71() {}
     virtual void vfunc_72() {}
     virtual void vfunc_73() {}
+    // In Metrowerks CodeWarrior PS2, vtable offsets 0x00 and 0x04 hold offset-to-top and RTTI metadata.
+    // Thus vfunc_00 begins at offset 0x08, and the 75th method in class declaration order lands at
+    // byte offset 0x130 (304 bytes / 76*4), matching AOK.ELF opcode 0x8f390130 (lw t9, 304(t9)).
     virtual void vfunc_76(int p) { (void)p; }
 };
 

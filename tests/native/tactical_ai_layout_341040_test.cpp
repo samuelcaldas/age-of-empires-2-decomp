@@ -67,12 +67,27 @@ static int g_last_339900_arg = -1;
 static void* custom_vtable[100];
 static void dummy_vfunc_stub(void *self, ...) { (void)self; }
 
+static int g_last_dispatched_vtable_slot = -1;
+static int g_last_dispatched_vtable_arg = 0;
+
+// Slot tracking stubs:
+// In MWCC PS2 ABI, vptr points at vtable base with 8-byte metadata header, dispatching at offset 0x130 (vtable[76]).
+// In GCC Itanium ABI, vptr points past the 8-byte metadata, dispatching at offset 0x128 (vptr[74]).
+// Both vtable[74] and vtable[76] record execution of slot 76 (offset 0x130 in original ELF).
+static void slot_76_stub(void *self, int arg) {
+    (void)self;
+    g_last_dispatched_vtable_slot = 76;
+    g_last_dispatched_vtable_arg = arg;
+}
+
 class MockSubObj : public TacticalSubObj {
 public:
     MockSubObj() {
         for (int i = 0; i < 100; i++) {
             custom_vtable[i] = (void*)&dummy_vfunc_stub;
         }
+        custom_vtable[74] = (void*)&slot_76_stub;
+        custom_vtable[76] = (void*)&slot_76_stub;
         *(void***)this = custom_vtable;
     }
     void vfunc_00() {}
@@ -1276,7 +1291,31 @@ static void test_func_342170_mode3_null_sub838_transitions_to_mode11() {
     std::printf("PASS test_func_342170_mode3_null_sub838_transitions_to_mode11\n");
 }
 
+static void test_func_342170_vtable_slot_76_exact_index() {
+    TacticalObj_341040 obj;
+    MockSubObj mock_sub838;
+    std::memset(&obj, 0, sizeof(obj));
+    obj.field_838 = &mock_sub838;
+    g_call_history.clear();
+    g_last_dispatched_vtable_slot = -1;
+    g_last_dispatched_vtable_arg = 0;
+    g_func_339900_ret = 0; // Sub-path A
+
+    // Phase 1: sub838 != 0 && a1 == sub838 && a2 == 16
+    int res = func_00342170(&obj, (int)(long)&mock_sub838, 16, 0, 0);
+    assert(res == 1);
+    // Verified PS2 ELF disassembly at 0x34220c (0x9c in obj):
+    // 94: lw t9, 0(a0)
+    // 98: lw t9, 304(t9)  <-- offset 304 bytes = slot index 76 (76 * 4)
+    // 9c: jalr t9
+    // a0: addiu a1, v0, %lo(D_4D5508)
+    assert(g_last_dispatched_vtable_slot == 76);
+    assert(g_last_dispatched_vtable_arg == (int)D_4D5508);
+    std::printf("PASS test_func_342170_vtable_slot_76_exact_index\n");
+}
+
 int main() {
+    test_func_342170_vtable_slot_76_exact_index();
     test_func_342170_mode3_null_sub838_transitions_to_mode11();
     test_func_342170_mode8_32bit_exact_t0_matching();
     test_func_342170_field_830_mode15_mutation_precedes_func_36acc0();

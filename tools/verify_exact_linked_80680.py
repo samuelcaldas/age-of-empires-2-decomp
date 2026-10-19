@@ -116,7 +116,7 @@ def validate_and_apply_relocation(r_offset, r_type, sym_name, compiled_bytes, fu
     """
     Validate relocation alignment, boundary, type, site opcode, registers,
     in-situ addend/target, look up symbol address from symbols_map,
-    compute relocation addend, and apply resolved value.
+    compute relocation addend, validate JAL 256MB region, and apply resolved value.
     Raises ValueError on any unexpected property or unmapped symbol.
     """
     if func_size is None:
@@ -175,6 +175,14 @@ def validate_and_apply_relocation(r_offset, r_type, sym_name, compiled_bytes, fu
             raise ValueError(
                 f"Non-zero in-situ target field at JAL site {r_offset:#06x}: got {in_situ_target:#010x}, expected 0x0"
             )
+
+        # Validate JAL 256MB region constraint (VRAM base is 0x280680)
+        call_site_vram = 0x280680 + r_offset
+        if (sym_value & 0xF0000000) != ((call_site_vram + 4) & 0xF0000000):
+            raise ValueError(
+                f"JAL target {sym_value:#010x} out of 256MB region for call site at {call_site_vram:#010x}"
+            )
+
         jal_target_field = (sym_value >> 2) & 0x03FFFFFF
         w_applied = 0x0C000000 | jal_target_field
         struct.pack_into('<I', compiled_bytes, r_offset, w_applied)
@@ -187,7 +195,7 @@ def validate_and_apply_relocation(r_offset, r_type, sym_name, compiled_bytes, fu
 
 
 def validate_elf_bytes(data):
-    """Validate ELF32 structure, magic, section entry size, and header bounds."""
+    """Validate ELF32 structure, magic, type, machine, section entry size, and header bounds."""
     if len(data) < 52:
         raise ValueError(f"Invalid ELF: file size ({len(data)} bytes) smaller than ELF32 header (52 bytes)")
     if data[:4] != b'\x7fELF':
@@ -196,6 +204,13 @@ def validate_elf_bytes(data):
         raise ValueError(f"Invalid ELF class: {data[4]}, expected ELFCLASS32 (1)")
     if data[5] != 1:  # ELFDATA2LSB (little-endian)
         raise ValueError(f"Invalid ELF endianness: {data[5]}, expected 2LSB (1)")
+
+    e_type = struct.unpack_from('<H', data, 0x10)[0]
+    e_machine = struct.unpack_from('<H', data, 0x12)[0]
+    if e_type != 1:  # ET_REL
+        raise ValueError(f"Invalid ELF type: {e_type}, expected ET_REL (1)")
+    if e_machine != 8:  # EM_MIPS
+        raise ValueError(f"Invalid ELF machine: {e_machine}, expected EM_MIPS (8)")
 
     e_shoff = struct.unpack_from('<I', data, 0x20)[0]
     e_shentsize = struct.unpack_from('<H', data, 0x2e)[0]
@@ -301,6 +316,7 @@ def verify_linked_bytes(src_obj_path='build/SLES-50282/src/unit_action_build_806
     Perform full relocation-aware byte equality verification for func_00280680.
     Asserts func_00280680 symbol starts at offset 0 of .text and has size 236.
     Validates preserved JALR slots at 0x48 and 0x98.
+    Rejects any relocation outside [0, func_size).
     Returns (orig_sha1, resolved_sha1, gprel_count, jal_count).
     Raises ValueError on any discrepancy.
     """
@@ -318,12 +334,13 @@ def verify_linked_bytes(src_obj_path='build/SLES-50282/src/unit_action_build_806
     raw_obj, secs, get_sym_name = parse_elf_sections(src_obj_path)
     text_sec = secs['.text']
     text_sec_idx = text_sec['index']
+    symtab_sec = secs['.symtab']
+    symtab_sec_idx = symtab_sec['index']
 
     if text_sec['size'] < func_size:
         raise ValueError(f".text section size ({text_sec['size']}) smaller than function size ({func_size})")
 
     # 3. Assert function symbol starts at offset 0 and has size 236 in .text
-    symtab_sec = secs['.symtab']
     sym_entsize = symtab_sec['entsize'] if symtab_sec['entsize'] >= 16 else 16
     sym_count = symtab_sec['size'] // sym_entsize
     found_symbol = False
@@ -357,6 +374,13 @@ def verify_linked_bytes(src_obj_path='build/SLES-50282/src/unit_action_build_806
     if '.rel.text' in secs:
         rel_text_sec = secs['.rel.text']
         rel_entsize = rel_text_sec['entsize'] if rel_text_sec['entsize'] >= 8 else 8
+
+        # Validate section associations (sh_info must point to .text, sh_link to .symtab)
+        if rel_text_sec['info'] != text_sec_idx:
+            raise ValueError(f".rel.text sh_info ({rel_text_sec['info']}) does not target .text index ({text_sec_idx})")
+        if rel_text_sec['link'] != symtab_sec_idx:
+            raise ValueError(f".rel.text sh_link ({rel_text_sec['link']}) does not target .symtab index ({symtab_sec_idx})")
+
         validate_table_entry_divisibility(
             symtab_sec['size'], sym_entsize,
             rel_text_sec['size'], rel_entsize
@@ -381,8 +405,9 @@ def verify_linked_bytes(src_obj_path='build/SLES-50282/src/unit_action_build_806
 
             sym_name, _ = symbols[r_sym_idx]
 
+            # Reject out-of-bounds relocations rather than silently skipping
             if r_offset >= func_size:
-                continue
+                raise ValueError(f"Relocation offset {r_offset:#06x} extends beyond function size ({func_size})")
 
             rel_kind = validate_and_apply_relocation(
                 r_offset, r_type, sym_name, compiled_bytes, func_size, symbols_map=symbols_map

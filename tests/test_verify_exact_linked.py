@@ -80,7 +80,6 @@ def test_verifier_rejects_corrupted_gprel_opcode():
 import sys, struct
 from tools import verify_exact_linked
 
-# Put a nop instead of addiu $a0, $gp, 0
 code = bytearray(b'\\x00' * 16)
 try:
     verify_exact_linked.validate_and_apply_relocation(
@@ -106,7 +105,6 @@ def test_verifier_rejects_corrupted_gprel_addend():
 import sys, struct
 from tools import verify_exact_linked
 
-# addiu $a0, $gp, 0x0005 (non-zero addend)
 code = bytearray(struct.pack('<I', 0x27840005) + b'\\x00' * 12)
 try:
     verify_exact_linked.validate_and_apply_relocation(
@@ -132,7 +130,6 @@ def test_verifier_rejects_corrupted_jal_opcode():
 import sys, struct
 from tools import verify_exact_linked
 
-# Put a non-JAL instruction
 code = bytearray(struct.pack('<I', 0x00000000) + b'\\x00' * 12)
 try:
     verify_exact_linked.validate_and_apply_relocation(
@@ -158,7 +155,6 @@ def test_verifier_rejects_corrupted_jal_target_field():
 import sys, struct
 from tools import verify_exact_linked
 
-# jal 0x0000001 (non-zero target field)
 code = bytearray(struct.pack('<I', 0x0C000001) + b'\\x00' * 12)
 try:
     verify_exact_linked.validate_and_apply_relocation(
@@ -274,6 +270,72 @@ sys.exit(1)
     assert result.returncode == 42, f"Failed to reject wrong slice hash: stderr={result.stderr}"
 
 
+def test_verifier_rejects_short_e_shentsize():
+    """Verifier must reject ELF with e_shentsize < 40 (standard Elf32_Shdr size)."""
+    result = subprocess.run(
+        [sys.executable, "-c", """
+import sys, struct
+from tools import verify_exact_linked
+
+with open("build/SLES-50282/src/unit_action_build_7f890.o", "rb") as f:
+    data = bytearray(f.read())
+
+# Overwrite e_shentsize at offset 0x2e with 32 (< 40)
+struct.pack_into('<H', data, 0x2e, 32)
+try:
+    verify_exact_linked.validate_elf_bytes(data)
+    sys.exit(0)
+except ValueError as e:
+    if "Invalid section header entry size" in str(e):
+        sys.exit(42)
+sys.exit(1)
+"""],
+        cwd=REPO_ROOT,
+        capture_output=True,
+        text=True,
+    )
+    assert result.returncode == 42, f"Failed to reject short e_shentsize: stderr={result.stderr}"
+
+
+def test_verifier_rejects_invalid_symtab_sh_link():
+    """Verifier must reject ELF where .symtab section has an out-of-range sh_link."""
+    result = subprocess.run(
+        [sys.executable, "-c", """
+import sys, struct
+from tools import verify_exact_linked
+
+with open("build/SLES-50282/src/unit_action_build_7f890.o", "rb") as f:
+    data = bytearray(f.read())
+
+# Corrupt .symtab section's sh_link to 999
+# First find .symtab section offset in section header table
+e_shoff = struct.unpack_from('<I', data, 0x20)[0]
+e_shentsize = struct.unpack_from('<H', data, 0x2e)[0]
+e_shnum = struct.unpack_from('<H', data, 0x30)[0]
+# Find which section has sh_type == 2 (SHT_SYMTAB)
+for i in range(e_shnum):
+    off = e_shoff + i * e_shentsize
+    sh_type = struct.unpack_from('<I', data, off + 4)[0]
+    if sh_type == 2: # SHT_SYMTAB
+        # sh_link is at offset + 24 (6th uint32)
+        struct.pack_into('<I', data, off + 24, 999)
+        break
+
+try:
+    verify_exact_linked.parse_elf_sections_from_bytes(data)
+    sys.exit(0)
+except ValueError as e:
+    if "Invalid .symtab sh_link" in str(e):
+        sys.exit(42)
+sys.exit(1)
+"""],
+        cwd=REPO_ROOT,
+        capture_output=True,
+        text=True,
+    )
+    assert result.returncode == 42, f"Failed to reject invalid .symtab sh_link: stderr={result.stderr}"
+
+
 def test_verifier_succeeds_with_exact_counts():
     """Verifier must succeed with exact counts (49 GPREL16, 51 JAL) and output exact match."""
     result = subprocess.run(
@@ -299,6 +361,8 @@ if __name__ == '__main__':
         test_verifier_rejects_truncated_relocation_offset,
         test_verifier_rejects_malformed_elf_header,
         test_verifier_enforces_pinned_hashes,
+        test_verifier_rejects_short_e_shentsize,
+        test_verifier_rejects_invalid_symtab_sh_link,
         test_verifier_succeeds_with_exact_counts,
     ]
     print(f"Running {len(tests)} verifier enforcement tests...")

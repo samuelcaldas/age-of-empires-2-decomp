@@ -116,7 +116,7 @@ def validate_and_apply_relocation(r_offset, r_type, sym_name, compiled_bytes, fu
 
 
 def validate_elf_bytes(data):
-    """Validate ELF32 structure, magic, and header bounds."""
+    """Validate ELF32 structure, magic, section entry size, and header bounds."""
     if len(data) < 52:
         raise ValueError(f"Invalid ELF: file size ({len(data)} bytes) smaller than ELF32 header (52 bytes)")
     if data[:4] != b'\x7fELF':
@@ -131,6 +131,11 @@ def validate_elf_bytes(data):
     e_shnum = struct.unpack_from('<H', data, 0x30)[0]
     e_shstrndx = struct.unpack_from('<H', data, 0x32)[0]
 
+    # In ELF32, section header entries must be at least 40 bytes (sizeof(Elf32_Shdr))
+    if e_shentsize < 40:
+        raise ValueError(f"Invalid section header entry size: {e_shentsize}, expected at least 40")
+    if e_shnum == 0:
+        raise ValueError("Invalid ELF: zero section headers")
     if e_shoff + e_shnum * e_shentsize > len(data):
         raise ValueError(
             f"Section header table extends beyond file: offset={e_shoff}, size={e_shnum * e_shentsize}, file_size={len(data)}"
@@ -141,10 +146,8 @@ def validate_elf_bytes(data):
         )
 
 
-def parse_elf_sections(path):
-    with open(path, 'rb') as f:
-        data = f.read()
-
+def parse_elf_sections_from_bytes(data):
+    """Parse sections, symbols, and string tables from in-memory ELF bytearray."""
     validate_elf_bytes(data)
 
     e_shoff = struct.unpack_from('<I', data, 0x20)[0]
@@ -177,9 +180,13 @@ def parse_elf_sections(path):
     # Section names
     shstr = sections[e_shstrndx]
     shstr_off = shstr['offset']
-    shstr_end = shstr_off + shstr['size']
+    shstr_size = shstr['size']
+    if shstr_off + shstr_size > len(data):
+        raise ValueError(f"Section name string table extends beyond file bounds: {shstr_off + shstr_size} > {len(data)}")
 
     def get_str(strtab_off, strtab_size, idx):
+        if strtab_off + strtab_size > len(data):
+            raise ValueError(f"String table extends beyond file bounds: {strtab_off + strtab_size} > {len(data)}")
         start = strtab_off + idx
         if start >= strtab_off + strtab_size:
             raise ValueError(f"String index {idx} out of string table bounds (size {strtab_size})")
@@ -190,15 +197,30 @@ def parse_elf_sections(path):
 
     sec_by_name = {}
     for i, s in enumerate(sections):
-        s['name'] = get_str(shstr_off, shstr['size'], s['name_idx'])
+        s['name'] = get_str(shstr_off, shstr_size, s['name_idx'])
         sec_by_name[s['name']] = s
 
     for required in ['.text', '.rel.text', '.symtab']:
         if required not in sec_by_name:
-            raise ValueError(f"Missing required section {required} in ELF {path}")
+            raise ValueError(f"Missing required section {required} in ELF")
 
-    symtab_link = sections[sec_by_name['.symtab']['link']]
+    symtab_sh_link = sec_by_name['.symtab']['link']
+    if symtab_sh_link >= len(sections):
+        raise ValueError(f"Invalid .symtab sh_link index: {symtab_sh_link} >= {len(sections)}")
+
+    symtab_link = sections[symtab_sh_link]
+    if symtab_link['type'] != 3:  # SHT_STRTAB
+        raise ValueError(f"Expected .symtab sh_link to point to SHT_STRTAB (type 3), got type {symtab_link['type']}")
+    if symtab_link['offset'] + symtab_link['size'] > len(data):
+        raise ValueError("Symbol string table extends beyond file bounds")
+
     return data, sec_by_name, lambda idx: get_str(symtab_link['offset'], symtab_link['size'], idx)
+
+
+def parse_elf_sections(path):
+    with open(path, 'rb') as f:
+        data = f.read()
+    return parse_elf_sections_from_bytes(data)
 
 
 def main():
@@ -236,10 +258,17 @@ def main():
 
     # Parse symbols from .symtab
     symbols = []
-    sym_entsize = symtab_sec['entsize'] if symtab_sec['entsize'] > 0 else 16
+    if symtab_sec['entsize'] != 0 and symtab_sec['entsize'] < 16:
+        print(f"ERROR: Invalid symbol table entry size: {symtab_sec['entsize']}", file=sys.stderr)
+        sys.exit(1)
+    sym_entsize = symtab_sec['entsize'] if symtab_sec['entsize'] >= 16 else 16
     sym_count = symtab_sec['size'] // sym_entsize
+
     for i in range(sym_count):
         off = symtab_sec['offset'] + i * sym_entsize
+        if off + 16 > len(raw_obj):
+            print(f"ERROR: Symbol {i} extends beyond file bounds", file=sys.stderr)
+            sys.exit(1)
         st_name, st_value, st_size, st_info, st_other, st_shndx = struct.unpack_from('<IIIBBH', raw_obj, off)
         try:
             sym_name = get_sym_name(st_name)
@@ -250,13 +279,19 @@ def main():
 
     # Parse relocations from .rel.text
     # Elf32_Rel: r_offset (4B), r_info (4B)
-    rel_entsize = rel_text_sec['entsize'] if rel_text_sec['entsize'] > 0 else 8
+    if rel_text_sec['entsize'] != 0 and rel_text_sec['entsize'] < 8:
+        print(f"ERROR: Invalid relocation table entry size: {rel_text_sec['entsize']}", file=sys.stderr)
+        sys.exit(1)
+    rel_entsize = rel_text_sec['entsize'] if rel_text_sec['entsize'] >= 8 else 8
     reloc_count = rel_text_sec['size'] // rel_entsize
     gprel_count = 0
     jal_count = 0
 
     for i in range(reloc_count):
         off = rel_text_sec['offset'] + i * rel_entsize
+        if off + 8 > len(raw_obj):
+            print(f"ERROR: Relocation {i} extends beyond file bounds", file=sys.stderr)
+            sys.exit(1)
         r_offset, r_info = struct.unpack_from('<II', raw_obj, off)
         r_type = r_info & 0xFF
         r_sym_idx = r_info >> 8

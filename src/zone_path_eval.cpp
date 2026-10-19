@@ -48,8 +48,8 @@ int func_001C7850(
     }
 
     float min_x = x - rx;
-    float max_x = (x + rx) - 0.0001f;
     float min_y = y - ry;
+    float max_x = (x + rx) - 0.0001f;
     float max_y = (y + ry) - 0.0001f;
 
     int map_w = s0->m_width;

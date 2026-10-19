@@ -19,6 +19,10 @@ MUTATIONS = [
     ("corrupt_e580_call", "func_0032E580(self, buf);", "/* omitted */", "success", "must call func_0032E580 once"),
     ("corrupt_order_2961_action", "func_0032E6B0(self, 2961,", "func_0032E6B0(self, 2962,", "success", "func_0032E6B0 a1 must be 2961"),
     ("corrupt_mgr_call", "D_004E3180->m_vtable->func_18(D_004E3180, 0, 0);", "/* omitted */", "success", "must call manager func_18 once"),
+    ("corrupt_mgr_slot", "D_004E3180->m_vtable->func_18(", "D_004E3180->m_vtable->func_14(", "success", "must not call adjacent manager vtable slots"),
+    ("corrupt_mgr_a1", "D_004E3180->m_vtable->func_18(D_004E3180, 0, 0);", "D_004E3180->m_vtable->func_18(D_004E3180, 1, 0);", "success", "manager a1 must be 0"),
+    ("corrupt_mgr_a2", "D_004E3180->m_vtable->func_18(D_004E3180, 0, 0);", "D_004E3180->m_vtable->func_18(D_004E3180, 0, 1);", "success", "manager a2 must be 0"),
+    ("corrupt_mgr_receiver", "D_004E3180->m_vtable->func_18(D_004E3180, 0, 0);", "D_004E3180->m_vtable->func_18(nullptr, 0, 0);", "success", "manager receiver mismatch"),
 ]
 
 

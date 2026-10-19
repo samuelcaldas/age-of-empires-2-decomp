@@ -2,8 +2,10 @@
 #define TACTICAL_AI_COMBAT_SUBSYSTEM_CONTROLLER_TERRAIN_ACTION_H
 
 struct SystemManagerVtable {
-    char pad00[0x18];
-    void (*func_18)(void *self, int a1, int a2);
+    char pad00[0x14];
+    void (*func_14)(void *self, int a1, int a2);
+    void (*func_18)(void *self, int a1, int a2); // slot 6, offset 0x18 (24 bytes)
+    void (*func_1C)(void *self, int a1, int a2);
 };
 
 struct SystemManager {

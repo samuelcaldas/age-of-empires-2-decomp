@@ -52,6 +52,11 @@ static int s_last_32e6b0_a3 = -1;
 static int s_last_32e6b0_t0 = -1;
 
 static int s_mgr_func18_calls = 0;
+static void *s_last_mgr_self = nullptr;
+static int s_last_mgr_a1 = -1;
+static int s_last_mgr_a2 = -1;
+
+static int s_mgr_wrong_slot_calls = 0;
 
 static std::vector<const char*> s_call_order;
 
@@ -78,11 +83,19 @@ static int mock_func_180(void *self, int sp92, ...) {
 }
 
 static void mock_mgr_func_18(void *self, int a1, int a2) {
+    s_mgr_func18_calls++;
+    s_last_mgr_self = self;
+    s_last_mgr_a1 = a1;
+    s_last_mgr_a2 = a2;
+    s_call_order.push_back("mgr_func_18");
+}
+
+static void mock_mgr_wrong_slot(void *self, int a1, int a2) {
     (void)self;
     (void)a1;
     (void)a2;
-    s_mgr_func18_calls++;
-    s_call_order.push_back("mgr_func_18");
+    s_mgr_wrong_slot_calls++;
+    s_call_order.push_back("mgr_wrong_slot");
 }
 
 extern "C" {
@@ -163,10 +176,18 @@ static void reset_mocks() {
     s_last_32e6b0_t0 = -1;
 
     s_mgr_func18_calls = 0;
+    s_last_mgr_self = nullptr;
+    s_last_mgr_a1 = -1;
+    s_last_mgr_a2 = -1;
+    s_mgr_wrong_slot_calls = 0;
+
     s_call_order.clear();
 
     std::memset(&s_mgr_vtable, 0, sizeof(s_mgr_vtable));
+    s_mgr_vtable.func_14 = mock_mgr_wrong_slot;
     s_mgr_vtable.func_18 = mock_mgr_func_18;
+    s_mgr_vtable.func_1C = mock_mgr_wrong_slot;
+
     std::memset(&s_mgr, 0, sizeof(s_mgr));
     s_mgr.m_vtable = &s_mgr_vtable;
 
@@ -237,7 +258,11 @@ static void test_pick_query_50() {
     TEST_ASSERT(s_last_32d400_y == 22, "func_0032D400 y mismatch");
     TEST_ASSERT(s_32e580_calls == 0, "pick query 50 must suppress func_0032E580");
     TEST_ASSERT(s_32e6b0_calls == 0, "pick query 50 must suppress func_0032E6B0");
+    TEST_ASSERT(s_mgr_wrong_slot_calls == 0, "must not call adjacent manager vtable slots");
     TEST_ASSERT(s_mgr_func18_calls == 1, "pick query 50 must notify manager");
+    TEST_ASSERT(s_last_mgr_self == D_004E3180, "manager receiver mismatch");
+    TEST_ASSERT(s_last_mgr_a1 == 0, "manager a1 must be 0");
+    TEST_ASSERT(s_last_mgr_a2 == 0, "manager a2 must be 0");
 }
 
 static void test_success_path() {
@@ -264,7 +289,11 @@ static void test_success_path() {
     TEST_ASSERT(s_last_32e6b0_a2 == 0, "func_0032E6B0 a2 must be 0");
     TEST_ASSERT(s_last_32e6b0_a3 == -1, "func_0032E6B0 a3 must be -1");
     TEST_ASSERT(s_last_32e6b0_t0 == 1, "func_0032E6B0 t0 must be 1");
+    TEST_ASSERT(s_mgr_wrong_slot_calls == 0, "must not call adjacent manager vtable slots");
     TEST_ASSERT(s_mgr_func18_calls == 1, "must call manager func_18 once");
+    TEST_ASSERT(s_last_mgr_self == D_004E3180, "manager receiver mismatch");
+    TEST_ASSERT(s_last_mgr_a1 == 0, "manager a1 must be 0");
+    TEST_ASSERT(s_last_mgr_a2 == 0, "manager a2 must be 0");
 }
 
 int main(int argc, char **argv) {

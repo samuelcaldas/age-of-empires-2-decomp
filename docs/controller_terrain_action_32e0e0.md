@@ -90,7 +90,7 @@ The full 316-byte original binary function contains 6 relocations:
        && ./build/test_terrain_action_green
      ```
    - Result: All 4 fixtures passing cleanly (`gate_zero`, `target_zero`, `pick_50`, `success`), exit code 0 under UBSan.
-   - Verified 9 production-source mutations independently compiled and killed via diagnostic matching in `tests/test_tactical_ai_combat_subsystem_controller_terrain_action.py`.
+   - Verified 13 production-source mutations independently compiled and killed via diagnostic matching in `tests/test_tactical_ai_combat_subsystem_controller_terrain_action.py`.
 3. **Refactor & Matching Diagnostics:**
    - Built with verified MWCC PS2 flags: candidate code size 392 bytes (+76 bytes from 316-byte target).
    - Relocations resolved: all 6 compiled relocations mapped and resolved with exact multiset check.
@@ -107,11 +107,11 @@ python -m pytest -q \
   tests/test_tactical_ai_combat_subsystem_controller_terrain_action_matching.py
 ```
 
-The focused test run comprises **11 total tests** (10 behavioral tests in `test_tactical_ai_combat_subsystem_controller_terrain_action.py` and 1 structural matching diagnostic test in `test_tactical_ai_combat_subsystem_controller_terrain_action_matching.py`):
+The focused test run comprises **15 total tests** (14 behavioral tests in `test_tactical_ai_combat_subsystem_controller_terrain_action.py` and 1 structural matching diagnostic test in `test_tactical_ai_combat_subsystem_controller_terrain_action_matching.py`):
 - One 32-bit native contract test with UBSan validating cleanup dispatch, D_004E2EA0 gate, target method 168, pick query 50,
-  buffer forwarding, target method 180, order 2961, and manager method at offset 0x18.
-- Nine production source mutations independently compiled and verified
-  rejected (cleanup call, D_004E2EA0 gate, target method 168 check, pick query mode 42, pick query flag 1, pick 50 check, buffer forwarding, order 2961 action, manager notification call).
+  buffer forwarding, target method 180, order 2961, and manager receiver D_004E3180, arguments (0, 0), and method at offset 0x18 (24 bytes, slot 6) distinguished from adjacent slots.
+- Thirteen production source mutations independently compiled and verified
+  rejected (cleanup call, D_004E2EA0 gate, target method 168 check, pick query mode 42, pick query flag 1, pick 50 check, buffer forwarding, order 2961 action, manager notification call, manager slot 5 rejection, manager a1 arg, manager a2 arg, manager receiver check).
 - One structural correspondence diagnostic test compiling fresh with Ninja/MWCC and verifying
   relocation-aware bytecode alignment against the pinned ELF binary (skipped when compiler/wibo are unprovisioned).
 

@@ -61,7 +61,6 @@ static int g_func_33f8b0_called = 0;
 static int g_func_1fbd30_called = 0;
 static int g_last_1fbd30_arg = 0;
 static int g_last_339960_arg = -1;
-static int g_last_219ba0_arg = -1;
 static int g_last_339900_arg = -1;
 
 static void* custom_vtable[100];
@@ -153,16 +152,24 @@ void func_33F8B0(void *a0, int a1) {
     log_call("func_33F8B0", a0, a1);
     g_func_33f8b0_called++;
 }
-int func_00219BA0(void *a0, int a1 = 0) {
-    log_call("func_00219BA0", a0, a1);
-    g_last_219ba0_arg = a1;
+int func_00219BA0(void *a0) {
+    log_call("func_00219BA0", a0, 0);
     return 10;
 }
-int func_219BA0(void *a0, int a1 = 0) { return func_00219BA0(a0, a1); }
-void func_1FBD30(void *a0, int a1) {
+int func_219BA0(void *a0, int a1 = 0) { (void)a1; return func_00219BA0(a0); }
+static int g_last_1fbd30_a2 = 0;
+static int g_last_1fbd30_a3 = 0;
+static int g_last_1fbd30_t0 = 0;
+static int g_func_1fbd30_result = 0;
+
+int func_1FBD30(void *a0, int a1, int a2, int a3, int t0) {
     log_call("func_1FBD30", a0, a1);
     g_func_1fbd30_called++;
     g_last_1fbd30_arg = a1;
+    g_last_1fbd30_a2 = a2;
+    g_last_1fbd30_a3 = a3;
+    g_last_1fbd30_t0 = t0;
+    return g_func_1fbd30_result;
 }
 static int g_field_84c_during_func_36acc0 = -1;
 static TacticalObj_341040 *g_active_test_obj = NULL;
@@ -179,12 +186,12 @@ void func_11ABBC(void *dst, const char *src) {
     g_last_11abbc_src = src;
 }
 void func_36BD30(void *a0, int a1, int a2, const char *a3, int t0) { (void)a0; (void)a1; (void)a2; (void)a3; (void)t0; }
-int func_1F6EA0(int a0, int a1) {
-    log_call("func_1F6EA0", (void*)(long)a0, a1);
+int func_1F6EA0(void *a0, int a1) {
+    log_call("func_1F6EA0", a0, a1);
     return 0;
 }
 void *func_36C000(int a0) { (void)a0; return 0; }
-void func_11A498(void *dst, void *src, int a2) { (void)dst; (void)src; (void)a2; }
+void func_11A498(void *dst, void *src, void *a2) { (void)dst; (void)src; (void)a2; }
 char *func_33F820(void *a0) { (void)a0; static char mock_path[] = "host:/test/path"; return mock_path; }
 char *func_33F8A0(void *a0) { (void)a0; static char mock_path[] = "host:/test/path"; return mock_path; }
 int func_11ACD0(const char *s) { (void)s; return 15; }
@@ -1321,7 +1328,63 @@ static void test_func_342170_vtable_slot_76_exact_index() {
     std::printf("PASS test_func_342170_vtable_slot_76_exact_index\n");
 }
 
+static void assert_fallback_arguments(TacticalObj_341040 *self, int a1, int a2, int a3, int t0) {
+    assert(g_call_history.size() == 1);
+    assert(std::strcmp(g_call_history[0].name, "func_1FBD30") == 0);
+    assert(g_call_history[0].self == self);
+    assert(g_last_1fbd30_arg == a1);
+    assert(g_last_1fbd30_a2 == a2);
+    assert(g_last_1fbd30_a3 == a3);
+    assert(g_last_1fbd30_t0 == t0);
+}
+
+static void check_fallback_forwarding(TacticalObj_341040 &obj, int a1, int a2, int a3, int t0) {
+    TacticalObj_341040 original = obj;
+    int previous_calls = g_func_1fbd30_called;
+    g_call_history.clear();
+    int result = func_00342170(&obj, a1, a2, a3, t0);
+    assert_fallback_arguments(&obj, a1, a2, a3, t0);
+    assert(result == g_func_1fbd30_result);
+    assert(g_func_1fbd30_called == previous_calls + 1);
+    assert(std::memcmp(&obj, &original, sizeof(obj)) == 0);
+}
+
+static void test_func_342170_fallback_passes_all_5_arguments() {
+    TacticalObj_341040 obj;
+    std::memset(&obj, 0, sizeof(obj));
+    obj.field_84C = 77;
+    g_func_1fbd30_result = 73;
+    check_fallback_forwarding(obj, 101, 99, -103, -104);
+    g_func_1fbd30_result = 0;
+    std::printf("PASS test_func_342170_fallback_passes_all_5_arguments\n");
+}
+
+static void test_func_342170_unmatched_sender_fallback() {
+    TacticalObj_341040 obj;
+    MockSubObj child;
+    std::memset(&obj, 0, sizeof(obj));
+    obj.field_830 = &child;
+    obj.field_834 = &child;
+    obj.field_838 = &child;
+    g_func_1fbd30_result = -37;
+    check_fallback_forwarding(obj, 101, 1, 0x7fffffff, (-2147483647 - 1));
+    g_func_1fbd30_result = 0;
+    std::printf("PASS test_func_342170_unmatched_sender_fallback\n");
+}
+
+static void test_func_342170_sub838_wrong_action_fallback() {
+    TacticalObj_341040 obj;
+    MockSubObj child;
+    std::memset(&obj, 0, sizeof(obj));
+    obj.field_838 = &child;
+    check_fallback_forwarding(obj, (int)(long)&child, 99, 0, 0);
+    std::printf("PASS test_func_342170_sub838_wrong_action_fallback\n");
+}
+
 int main() {
+    test_func_342170_fallback_passes_all_5_arguments();
+    test_func_342170_unmatched_sender_fallback();
+    test_func_342170_sub838_wrong_action_fallback();
     test_func_342170_vtable_slot_76_exact_index();
     test_func_342170_mode3_null_sub838_transitions_to_mode11();
     test_func_342170_mode8_32bit_exact_t0_matching();

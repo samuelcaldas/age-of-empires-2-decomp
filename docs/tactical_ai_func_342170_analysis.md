@@ -68,7 +68,7 @@
 
 ```mips
  114:	24090001 	li	t1,1
- 118:	14c9013f 	bne	a2,t1,618            # if (a2 != 1) return func_1FBD30(self, a1)
+ 118:	14c9013f 	bne	a2,t1,618            # if (a2 != 1) return func_1FBD30(self, a1, a2, a3, t0)
  11c:	72002628 	paddub	a0,s0,zero
  120:	8e020834 	lw	v0,2100(s0)          # v0 = self->field_834
  124:	14a20070 	bne	a1,v0,2e8            # if (a1 != field_834) goto Phase 3
@@ -94,7 +94,7 @@ When `a2 == 1` and `a1 == self->field_834`:
 
 ```mips
  2e8:	8e020830 	lw	v0,2096(s0)          # v0 = self->field_830
- 2ec:	14a200c9 	bne	a1,v0,614            # if (a1 != field_830) return func_1FBD30(self, a1)
+ 2ec:	14a200c9 	bne	a1,v0,614            # if (a1 != field_830) return func_1FBD30(self, a1, a2, a3, t0)
  2f0:	00000000 	nop
  2f4:	8e02084c 	lw	v0,2124(s0)          # v0 = self->field_84C (mode)
  2f8:	2c41001e 	sltiu	at,v0,30             # unsigned mode < 30
@@ -142,4 +142,38 @@ When `a2 == 1` and `a1 == self->field_834`:
 - In `func_00341040`, resets `sub830 + 552` and `sub834 + 552` to 0, invokes `func_33A730()`, and preserves `field_84C`.
 
 ### Phase 4: Fallthrough
-- If `a2 != 1` or `a1` does not match `field_834` or `field_830`: calls `func_1FBD30(self, a1)` and returns the resulting status code.
+- If `a2 != 1` or `a1` does not match `field_834` or `field_830`: calls `func_1FBD30(self, a1, a2, a3, t0)` and returns the resulting status code.
+- The fallback edges restore `$a0` from `$s0` at `0x34228C` or `0x342784` without changing `$a1`, `$a2`, `$a3`, or `$t0`.
+- `0x342788: 0x0C07EF4C` calls `func_1FBD30`; the epilogue preserves its `$v0` result.
+- The callee saves all five inputs at `0x1FBD4C–0x1FBD60`. Its path at `0x1FBE80–0x1FBE94` forwards them to `func_1F6460`.
+
+## 4. Resolved-byte verification
+
+`tests/test_tactical_ai_func_342170_resolved_matching.py` compiles the actual C++ into a temporary object with the flags above. It verifies the candidate function's own `st_size == 0x630` and selects its section through `st_shndx`, not the first section named `.text`.
+
+GNU MIPS ld resolves the calls and data references at their verified original addresses. It places the generated function at `0x342170` and its generated `.rodata` table at `0x4D55F0`. No original instructions or table entries are copied into the candidate. The test compares all 1,584 function bytes and all 120 table bytes against the SHA-1-verified original ELF through its `PT_LOAD` mappings.
+
+The compiler also emits an eight-byte inline virtual-method body in a separate `.text` section. That body is outside this function's scoped byte comparison. The gate does not claim a match for `func_00341040` or a complete executable.
+
+On 2026-10-19, the resolved gate and its rejection tests passed in the private `docker-dev` verification container: **33 passed**. Each of the 30 table destinations was independently corrupted and rejected. A wrong fallback address was rejected after successful linking; an undefined fallback symbol failed linking. The previous committed source was also rejected because its compiled function size differed from `0x630`.
+
+The separate objdiff diagnostic reports `100.00%`. That score is not the byte-equality gate. Registration remains **NonMatching** pending full regression checks and independent promotion review. The branch remains unmerged.
+
+## 5. Native fallback regression
+
+The 32-bit native harness executes the actual C++ handler. It checks all five forwarded values, receiver identity, exactly one fallback call, unchanged handler fields, and propagation of zero, positive, and negative return values across three fallback paths.
+
+The earlier two-argument caller/five-argument stub Red run had an undefined call boundary and is not TDD evidence. A replacement Red run restored the legacy two-argument call after harness preparation: one shared five-argument declaration temporarily supplied zero defaults for omitted values. The callback returned `int`, so the missing-argument observation was defined. It failed at `g_last_1fbd30_a2 == a2`. Explicitly forwarding all five values made the same native command pass. The temporary defaults were then removed.
+
+Both Phase 1 branches passed characterization tests before and after sharing their `return 1`. The native pytest runner also enables `-flto -Werror=lto-type-mismatch`. This caught inherited callback declaration mismatches on the committed baseline; the corrected shared declarations and stubs pass the stricter gate.
+
+The replacement Red and Green commands ran inside `aoe-tests:verification` through `docker --context docker-dev`, with the checkout mounted at `/workspace`:
+
+```sh
+# Red: after signature-safe harness preparation, before explicit forwarding.
+g++ -m32 -std=c++98 -Iinclude tests/native/tactical_ai_layout_341040_test.cpp src/tactical_ai_layout_341040.cpp src/tactical_ai_func_342170.cpp -o /tmp/tactical-ai-red && /tmp/tactical-ai-red
+# Green: after explicit five-argument forwarding.
+g++ -m32 -std=c++98 -Iinclude tests/native/tactical_ai_layout_341040_test.cpp src/tactical_ai_layout_341040.cpp src/tactical_ai_func_342170.cpp -o /tmp/tactical-ai-green && /tmp/tactical-ai-green
+```
+
+Red exited 134 at `g_last_1fbd30_a2 == a2`. Green passed all 29 cases then present. After adding two fallback-path characterizations and sharing the return, the stricter LTO command passed all 31 native cases. The focused resolved command is `python -m pytest -q -ra tests/test_tactical_ai_func_342170_resolved_matching.py`; original ELF and licensed compiler symlink targets must be privately mounted read-only.

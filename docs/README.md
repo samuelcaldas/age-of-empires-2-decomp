@@ -82,6 +82,7 @@ Start with the top-level [README](../README.md).
 - [trade_action_route_finish.md](trade_action_route_finish.md): exact route-buffer reconstruction, corrected ELF mapping, and regression validation
 - [trade_action_helpers_217840.md](trade_action_helpers_217840.md): eight independent trade-action setters, callback behavior, and native regression coverage
 - [trade_action_helper_218350.md](trade_action_helper_218350.md): reconstructed helper, exact original code/padding boundary, isolated build comparison, and seven-case native contracts
+- [tactical_ai_func_342170_analysis.md](tactical_ai_func_342170_analysis.md): tactical event-handler state machine, native fallback contracts, and resolved function/jump-table verification
 - [trade_action_dispatcher_2b66b0.md](trade_action_dispatcher_2b66b0.md): trade action dispatcher slice 0x2B66B0, modular architecture, and 16-case native test validation
 - [trade_action_candidates_2b76b0.md](trade_action_candidates_2b76b0.md): trade action candidate evaluator slices 0x2B76B0, 0x2B7BB0, 0x2B8560, 0x2B8980 & 0x2B90A0, type checking, and 36-case native test validation (27 behavior, 9 mutation)
 - [ps2_binary_analysis.md](ps2_binary_analysis.md#61901-trade-action-helper-0x2184d0-0x218820-end-exclusive-trade_action_helper_2184d0cpp): adjacent helper `0x2184D0` slice, division-trap repair, and verification

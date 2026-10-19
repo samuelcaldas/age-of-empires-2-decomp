@@ -106,4 +106,7 @@ public:
 extern "C" {
 void func_00341040(TacticalObj_341040 *self);
 int func_00342170(TacticalObj_341040 *self, int a1, int a2, int a3, int t0);
+int func_00219BA0(void *self);
+int func_1F6EA0(void *self, int code);
+int func_1FBD30(void *self, int a1, int a2, int a3, int t0);
 }

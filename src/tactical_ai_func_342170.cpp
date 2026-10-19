@@ -12,9 +12,6 @@ void func_00341040(TacticalObj_341040 *a0);
 void func_1F6750(void *a0, void *a1);
 void func_1F88B0(void *a0, void *a1);
 void func_33F8B0(void *a0, int a1);
-int func_00219BA0(void *a0);
-int func_1FBD30(void *a0, int a1);
-int func_1F6EA0(void *a0, int a1);
 void func_36ACC0(int a0);
 extern const char D_4D5508[];
 
@@ -30,7 +27,6 @@ int func_00342170(TacticalObj_341040 *self, int a1, int a2, int a3, int t0) {
             func_339960(0, self->field_C + 100, self->field_10 + 97, 168, 22, 8, 6);
             func_1F6750(self, self->field_838);
             self->field_838->vfunc_76((int)D_4D5508);
-            return 1;
         } else {
             func_33A730();
             if (!func_00340CF0(self)) {
@@ -41,8 +37,8 @@ int func_00342170(TacticalObj_341040 *self, int a1, int a2, int a3, int t0) {
             func_33F8B0(self->field_844, r2);
             self->field_84C = 11;
             func_00341040(self);
-            return 1;
         }
+        return 1;
     }
 
     if (a2 == 1) {
@@ -214,6 +210,6 @@ int func_00342170(TacticalObj_341040 *self, int a1, int a2, int a3, int t0) {
     }
     }
 
-    return func_1FBD30(self, a1);
+    return func_1FBD30(self, a1, a2, a3, t0);
 }
 }

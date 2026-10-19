@@ -71,7 +71,7 @@ def test_tactical_ai_layout_native_runner(tmp_path):
     test_bin = tmp_path / "layout_test"
     subprocess.run(
         [
-            "g++", "-m32", "-std=c++98", "-Iinclude",
+            "g++", "-m32", "-std=c++98", "-flto", "-Werror=lto-type-mismatch", "-Iinclude",
             "tests/native/tactical_ai_layout_341040_test.cpp",
             "src/tactical_ai_layout_341040.cpp",
             "src/tactical_ai_func_342170.cpp",
@@ -87,10 +87,10 @@ def test_tactical_ai_layout_native_runner(tmp_path):
 
 
 def test_tactical_ai_func_342170_mwcc_compilation(tmp_path):
-    """Compile func_00342170 with MWCC PS2 toolchain and verify against sliced object."""
+    """Compile func_00342170 and report diagnostics without granting matching clearance."""
     require_toolchain()
     compiled_obj = tmp_path / "tactical_ai_func_342170.o"
-    res = subprocess.run(
+    subprocess.run(
         [
             str(WRAPPER_PATH),
             str(COMPILER_PATH),
@@ -169,9 +169,9 @@ def test_tactical_ai_func_342170_mwcc_compilation(tmp_path):
         # Incomplete functions report diagnostics and skip matching clearance
         if fuzzy < 100.0 or not is_complete:
             pytest.skip(
-                f"func_00342170 remains NonMatching (diagnostic score: {fuzzy:.2f}%, size: {fn_size}/1584), translation in progress"
+                f"func_00342170 remains NonMatching (diagnostic score: {fuzzy:.2f}%, size: {fn_size}/1584); promotion pending, resolved-byte gate is separate"
             )
 
-        # Exact matching gate for future promotion
+        # Diagnostic prerequisites only; the separate resolved-byte test checks exact equality.
         assert fn_size == 1584, f"Target function size mismatch on promotion: {fn_size} != 1584"
         assert fuzzy == 100.0, f"Expected 100.0% matching on promotion, got {fuzzy}%"

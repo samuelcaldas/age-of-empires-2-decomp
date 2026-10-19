@@ -66,8 +66,7 @@ int func_001C7850(
     short field48 = bld_var->m_field48;
     if (field48 >= 0 || bld_var->m_field4A >= 0) {
         short cy = (short)func_123350(y);
-        MapTile **tile_rows = s0->m_tile_rows;
-        MapTile *center_row = tile_rows[cy];
+        MapTile *center_row = s0->m_tile_rows[cy];
         short cx = (short)func_123350(x);
         MapTile *center_tile = &center_row[cx];
         if (center_tile->m_zone_id == field48 || center_tile->m_zone_id == bld_var->m_field4A) {
@@ -86,7 +85,6 @@ int func_001C7850(
     }
 
     if (bld_var->m_required_zone >= 0) {
-        MapTile **tile_rows = s0->m_tile_rows;
         int touches_zone = 0;
         int touches_wild = 0;
 
@@ -96,7 +94,7 @@ int func_001C7850(
         short edge_min_y = (short)(p_min_y - 1);
 
         if (edge_min_y >= 0) {
-            MapTile *row = tile_rows[edge_min_y];
+            MapTile *row = s0->m_tile_rows[edge_min_y];
             for (cur_x = p_min_x; cur_x <= p_max_x; cur_x++) {
                 if (row[cur_x].m_zone_id == bld_var->m_required_zone) touches_zone = 1;
                 if (row[cur_x].m_zone_id == -1) touches_wild = 1;
@@ -104,21 +102,21 @@ int func_001C7850(
         }
         if (edge_max_x < map_w) {
             for (short cur_y = p_min_y; cur_y <= p_max_y; cur_y++) {
-                MapTile *t = &tile_rows[cur_y][edge_max_x];
+                MapTile *t = &s0->m_tile_rows[cur_y][edge_max_x];
                 if (t->m_zone_id == bld_var->m_required_zone) touches_zone = 1;
                 if (t->m_zone_id == -1) touches_wild = 1;
             }
         }
         if (edge_max_y < map_h) {
             for (cur_x = p_max_x; cur_x >= p_min_x; cur_x--) {
-                MapTile *t = &tile_rows[edge_max_y][cur_x];
+                MapTile *t = &s0->m_tile_rows[edge_max_y][cur_x];
                 if (t->m_zone_id == bld_var->m_required_zone) touches_zone = 1;
                 if (t->m_zone_id == -1) touches_wild = 1;
             }
         }
         if (edge_min_x >= 0) {
             for (short cur_y = p_max_y; cur_y >= p_min_y; cur_y--) {
-                MapTile *t = &tile_rows[cur_y][edge_min_x];
+                MapTile *t = &s0->m_tile_rows[cur_y][edge_min_x];
                 if (t->m_zone_id == bld_var->m_required_zone) touches_zone = 1;
                 if (t->m_zone_id == -1) touches_wild = 1;
             }

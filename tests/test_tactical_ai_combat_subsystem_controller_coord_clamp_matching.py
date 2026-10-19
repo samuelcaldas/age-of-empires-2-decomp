@@ -19,8 +19,8 @@ ORIGINAL = ROOT / "orig/SLES-50282/AOK.ELF"
 COMPILER = ROOT / "compilers/PS2/mwcc-2.3.1.01/mwccps2.exe"
 RUNNER = ROOT / "build/tools/wibo"
 ADDRESS = 0x32E580
-# Canonical symbols.txt records 0x60 (96 bytes) for func_0032E580 and 0x60 for func_0032E5E0;
-# true combined function extent reaches 0x32E640 (192 bytes) with sole return jr $ra at 0x32E638.
+# Canonical symbols.txt records func_0032E580 as 0xC0 (192 bytes);
+# 0x32E5E0 is an interior address within this single function, with sole return jr $ra at 0x32E638.
 SIZE = 192
 SYMBOLS_TXT_SIZE = 0xC0
 
@@ -28,7 +28,7 @@ EXPECTED_COMPILED_RELOCATIONS = []
 
 
 def verify_symbol_boundary():
-    """Verify original ELF symbol boundary and document the 192-byte combined function extent."""
+    """Verify original ELF symbol boundary for canonical 192-byte func_0032E580."""
     symbols_txt = (ROOT / "config/SLES-50282/symbols.txt").read_text()
     match = re.search(
         r"func_0032E580\s*=\s*(0x[0-9a-fA-F]+);\s*//\s*type:func\s+size:(0x[0-9a-fA-F]+)",

@@ -13,6 +13,7 @@ CASES = [
     ("1", "func_0021BC30 direct read without staging"),
     ("2", "func_0021BC30 staging mode with intra-sector offset"),
     ("3", "func_0021BC30 skip read when debug flag set"),
+    ("4", "func_0021BC30 count zero default size and multi-sector offset"),
 ]
 
 

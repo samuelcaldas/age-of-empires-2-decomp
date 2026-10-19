@@ -124,12 +124,39 @@ static void test_func_0021BC30_skip_when_debug_flag() {
     std::cout << "PASS: test_func_0021BC30_skip_when_debug_flag" << std::endl;
 }
 
+static void test_func_0021BC30_count_zero_and_offset() {
+    g_cd_reads = 0;
+    g_memcpy_calls = 0;
+    D_004E32E0 = 0;
+
+    // stream base = 50. offset = 4500 (offset >> 11 = 2 sectors, intra = 4500 & 0x7FF = 404).
+    // count = 0 (defaults to stream.total_size = 8192).
+    // Total rounded = (8192 + 404) = 8596 -> rounded up to 10240 (5 sectors).
+    StreamInfo stream = {8192, 50};
+    char dest[8192];
+    std::memset(dest, 0, sizeof(dest));
+
+    int res = func_0021BC30(&stream, dest, 4500, 0, 0);
+    assert(res == 1);
+    assert(g_cd_reads == 1);
+    assert(g_last_lba == (50 + 2) + 0xC350);
+    assert(g_last_num_sectors == 5);
+    assert(g_last_target_buffer == D_01E98000);
+    assert(g_memcpy_calls == 1);
+
+    // Verify first copied byte came from offset 404 in staging buffer
+    assert(dest[0] == (char)((404 + 1) & 0xFF));
+
+    std::cout << "PASS: test_func_0021BC30_count_zero_and_offset" << std::endl;
+}
+
 int main(int argc, char **argv) {
     if (argc < 2) {
         test_helpers();
         test_func_0021BC30_direct();
         test_func_0021BC30_staging();
         test_func_0021BC30_skip_when_debug_flag();
+        test_func_0021BC30_count_zero_and_offset();
         return 0;
     }
     if (argv[1][0] == '0') {
@@ -140,6 +167,8 @@ int main(int argc, char **argv) {
         test_func_0021BC30_staging();
     } else if (argv[1][0] == '3') {
         test_func_0021BC30_skip_when_debug_flag();
+    } else if (argv[1][0] == '4') {
+        test_func_0021BC30_count_zero_and_offset();
     }
     return 0;
 }

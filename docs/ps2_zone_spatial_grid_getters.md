@@ -26,12 +26,17 @@ All four functions are leaf functions with zero relocations.
 
 ## Contiguity & boundary proofs
 
-- **Preceding boundary:** Block 63 destructor (`func_001F2590`) ends at `0x1F26B4`
-  followed by 12 bytes of padding to `0x1F26C0` (file offset `0xF28A0`).
-  `0x1F26C0 - 0x1F26C0 = 0` gap/overlap.
-- **Following boundary:** `func_001F2700` starts at `0x1F2700` (file offset `0xF28E0`)
-  with prologue `addiu $sp, $sp, -16; sd $ra, 0($sp); jal 0x1F2E00`.
-  `0x1F2700 - 0x1F2700 = 0` gap/overlap.
+- **Preceding boundary (Block 63 Destructor):**
+  - Code extent: `0x1F2590`–`0x1F26B4` (file offsets `0xF2770`–`0xF2894`, 292 instruction bytes).
+  - Delay slot: `0x1F26B0` (`addiu $sp, $sp, 96`).
+  - Alignment padding: `0x1F26B4`–`0x1F26C0` (file offsets `0xF2894`–`0xF28A0`, 12 bytes of `nop` padding).
+  - Aligned slice boundary: ends at `0x1F26C0` (file offset `0xF28A0`).
+  - Getter slice boundary: begins at `0x1F26C0` (file offset `0xF28A0`).
+  - Contiguity: exactly 0 unmapped gap bytes and 0 overlapping bytes between the destructor slice and the getter slice.
+- **Following boundary (`func_001F2700`):**
+  - Getter slice extent: code ends at `0x1F26F8` with 8 bytes of `nop` padding to `0x1F2700` (file offset `0xF28E0`).
+  - `func_001F2700` starts at `0x1F2700` (file offset `0xF28E0`) with prologue `addiu $sp, $sp, -16; sd $ra, 0($sp); jal 0x1F2E00`.
+  - Contiguity: `0x1F2700 - 0x1F2700 = 0` gap/overlap.
 
 ## Verification & TDD evidence
 
@@ -45,3 +50,9 @@ All four functions are leaf functions with zero relocations.
 - **Relocation analysis:** Verified 0 relocations across all 4 functions.
 - **Configuration policy:** Registered as `NonMatching` pending merge; `config.yml`
   and `symbols.txt` remain untouched.
+- **Test suite count reconciliation:**
+  - Initial baseline: 2,613 tests.
+  - Post-Block 61/62: 2,620 tests (+7 tests).
+  - Post-Block 63: 2,646 tests (+26 tests across 4 modules: block63, state, list, provenance).
+  - Post-Getters: 2,653 tests (+7 tests: 2 native + 5 provenance).
+  - Zero failures and zero skips across all 2,653 tests.

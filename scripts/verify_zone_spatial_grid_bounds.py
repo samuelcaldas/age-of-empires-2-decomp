@@ -12,6 +12,7 @@ from elftools.elf.elffile import ELFFile
 FUNCTION_NAME = "func_001F2AD0"
 FUNCTION_ADDRESS = 0x1F2AD0
 CODE_SIZE = 0xF4  # 244 bytes, excluding 12 bytes of alignment padding
+PADDING_SIZE = 0x0C  # 12 bytes of trailing NOP alignment padding to 0x1F2BD0
 ORIGINAL_SHA1 = "f478e19f2059d52899b691483ef5c7522e30e17c"
 SYMBOL_ADDRESSES = {
     "func_001F6CC0": 0x1F6CC0,
@@ -144,13 +145,17 @@ def verify(source_path, original_path):
     """Verify func_001F2AD0 compiled bytes against original binary."""
     original = _original_elf(original_path)
     expected = _read_address(original, FUNCTION_ADDRESS, CODE_SIZE)
+    expected_pad = _read_address(original, FUNCTION_ADDRESS + CODE_SIZE, PADDING_SIZE)
     code, records = _compiled_function(source_path)
     # Check match against expected extent
     matched = (len(code) == CODE_SIZE and code == expected)
+    padding_matched = (len(expected_pad) == PADDING_SIZE and expected_pad == b"\x00" * PADDING_SIZE)
     return {
         "code_bytes": len(code),
         "expected_code_bytes": CODE_SIZE,
         "literal_match": matched,
+        "padding_bytes": PADDING_SIZE,
+        "padding_verified": padding_matched,
         "source_relocations": records,
         "relocation_count": len(records),
         "resolved_sha256": hashlib.sha256(code[:CODE_SIZE]).hexdigest(),

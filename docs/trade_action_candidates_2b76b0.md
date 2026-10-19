@@ -10,9 +10,9 @@ Descriptions below are provisional, not a verified behavioral specification.
 
 The unfinished source split places selector and type-checker definitions in
 `src/trade_action_candidates_extra.cpp`, which is fully registered in `configure.py`.
-The new `func_002B9140` implementation and notify source remain experimental;
-their behavior and return contracts are not verified. Do not mark them matched
-or semantically complete.
+The extracted `func_002B9140` implementation in `src/trade_action_plan_evaluator.cpp`
+remains experimental (**NonMatching**); its full rate distribution and evaluation
+semantics are under active matching refinement.
 
 The native compilation repair shares the existing exclusion helper through
 `include/trade_action_candidates_exclusion.h`, adds missing callback declarations,
@@ -27,6 +27,7 @@ checks the actual state assertion at offset `3240`; it does not expect return `2
   - `func_002B8560` (VRAM `0x2B8560`–`0x2B8978`, File `0x1B8740`–`0x1B8B60`, 1,044 B code, 4 B padding, 1,048 B slice)
   - `func_002B8980` (VRAM `0x2B8980`–`0x2B8E2C`, File `0x1B8B60`–`0x1B9020`, 1,196 B code, 4 B padding, 1,200 B slice)
   - `func_002B90A0` (VRAM `0x2B90A0`–`0x2B9134`, File `0x1B9280`–`0x1B9340`, 148 B code, 44 B padding, 192 B slice)
+  - `func_002B9140` (VRAM `0x2B9140`–`0x2B9770`, File `0x1B9320`–`0x1B9950`, 1,580 B code, 4 B padding, 1,584 B slice)
 - **Source Files**:
   - `include/trade_action_candidates.h`
   - `include/trade_action_candidates_access.h`
@@ -37,9 +38,11 @@ checks the actual state assertion at offset `3240`; it does not expect return `2
   - `include/trade_action_candidates_extra.h`
   - `src/trade_action_candidates.cpp`
   - `src/trade_action_candidates_extra.cpp`
+  - `include/trade_action_plan_evaluator.h`
+  - `src/trade_action_plan_evaluator.cpp`
   - `include/trade_action_notify.h`
   - `src/trade_action_notify.cpp`
-- **Status**: Implemented in pure C++ and verified with 37 native tests (25 core candidate behavior cases, 2 experimental func_002B9140 / plan cases, 1 trade notification suite, and 9 source mutation checks).
+- **Status**: Implemented in pure C++ and verified with 38 native tests (25 core candidate behavior cases, 2 plan cases, 1 trade notification suite, 1 trade plan evaluator suite, and 9 source mutation checks).
 
 ## Signatures
 
@@ -49,6 +52,7 @@ int func_002B7BB0(void *self, int a1, int a2, int a3);
 int func_002B8560(void *self, int mode);
 int func_002B8980(void *self, int *coords, int mode, int flag);
 int func_002B90A0(void *self, int target_type, int item_id);
+int func_002B9140(void *self);
 ```
 
 ## Behavior and Architecture
@@ -57,12 +61,12 @@ int func_002B90A0(void *self, int target_type, int item_id);
 - **`a3 == 1` Initialization**: Resets matched count at `self + 3172` to 0 when flag `a3 == 1`.
 - **Candidate Scan Loop**: Iterates through `s1` from 0 to `integer_at(self, 216)` (bounded items list).
 - **Index Guard**: Accesses array `pointer_at(self, 212)` with bounded index `(s1 < integer_at(self, 224) - 1) ? s1 : 0`.
-- **Entity Lookup**: Calls `func_00332e60(manager_entity_root(self), item_id)`.
+- **Entity Lookup**: Calls `func_332e60(manager_entity_root(self), item_id)`.
 - **Predicate Validation**: Invokes virtual predicate at vtable offset 356 (`vtable[89]`). Rejects if null/false.
 - **Exclusion List**: Checks if candidate ID is present in exclusion list at `self + 3184` (count at 3188, cap at 3196). Rejects if found.
 - **Special Entity Classification**:
-  - Calls `func_001471a0(pred_result)`. If returns -1, marks special flag `s3 = 1`.
-  - If `t0 != 0` and `func_001471a0` returns 600:
+  - Calls `func_001471A0(pred_result)`. If returns -1, marks special flag `s3 = 1`.
+  - If `t0 != 0` and `func_001471A0` returns 600:
     - Resolves linked entity via `func_001471c0` and looks up in `manager_group_root`.
     - If linked entity is null or entity type at `field4 + 14` is 27, marks special flag `s3 = 1`.
 - **Score Threshold Matching**:
@@ -88,7 +92,7 @@ int func_002B90A0(void *self, int target_type, int item_id);
 
 ### 3. `func_002B8560` (Candidate Pool Selector)
 - **Scan Loop**: Iterates through item pool array at `pointer_at(self, 180)` bounded by count at `self + 184`.
-- **Entity Validation**: Resolves each item through `func_00332e60(manager_entity_root(self), item_id)` and verifies virtual predicate `vtable[356/4]`.
+- **Entity Validation**: Resolves each item through `func_332e60(manager_entity_root(self), item_id)` and verifies virtual predicate `vtable[356/4]`.
 - **Mode Predicate Filter**:
   - For `mode == 0` or `mode == 3`: requires `func_002bf050(self, item_id) == 0`.
   - For `mode == 0` or `mode == 1`: requires item not present in exclusion list at `self + 196` (count at 200, capacity at 208).
@@ -99,7 +103,7 @@ int func_002B90A0(void *self, int target_type, int item_id);
 
 ### 4. `func_002B8980` (Distance-based Candidate Pool Selector)
 - **Scan Loop**: Iterates through pool array at `pointer_at(self, 180)` bounded by count at `self + 184`.
-- **Entity & Predicate Validation**: Resolves each item through `func_00332e60(manager_entity_root(self), item_id)` and checks virtual predicate `vtable[356/4]`.
+- **Entity & Predicate Validation**: Resolves each item through `func_332e60(manager_entity_root(self), item_id)` and checks virtual predicate `vtable[356/4]`.
 - **Mode Predicate Filter**: Same mode checks as `func_002B8560` via `func_002bf050` and pool exclusion.
 - **Distance Metric & Best Candidate Tracking**:
   - Checks `(func_002bfcd0(self, short_at(item, 36)) & 0xFF) == 1`.
@@ -108,9 +112,16 @@ int func_002B90A0(void *self, int target_type, int item_id);
 - **Return Value**: Sub-ID of optimal candidate, or -1 if none qualify.
 
 ### 5. `func_002B90A0` (Entity Type Matcher)
-- Resolves entity `item` via `func_00332e60(manager_entity_root(self), item_id)`.
+- Resolves entity `item` via `func_332e60(manager_entity_root(self), item_id)`.
 - Rejects if `!item` or `!pred(item)`.
-- Returns 1 if `func_001471a0(pred(item)) == target_type`, else 0.
+- Returns 1 if `func_001471A0(pred(item)) == target_type`, else 0.
+
+### 6. `func_002B9140` (Trade Action Plan Evaluator)
+- **Slice**: File `0x1B9320`–`0x1B9950`, VRAM `0x2B9140`–`0x2B9770` (1,584 B code and padding).
+- **Status**: **NonMatching / Experimental** (6.98% initial objdiff baseline).
+- Evaluates plan items list bounded by `integer_at(self, 3092)` (each item 24 bytes).
+- Queries entity via `func_00144d10(self->field_176, item_id)` and virtual predicate `item->get_id()`.
+- Calculates rate distribution slots across 4 categories and sorts rate indices at `self + 3200..3212`.
 
 ## Trade notification routines (`0x2B9770`–`0x2B9B30`)
 
@@ -137,4 +148,4 @@ Disassembly of the original binary ELF (`AOK.ELF`) confirms the following struct
   - Qualification filters: `func_00147170 == 710` with status 100 branches to reject block; `func_00147170 == 702` branches to reject block; `func_0014C430 != 1` branches to dispatch block.
   - Final dispatch: tail-calls `func_2BB100(self, item_id, action_type)` and normalizes return via `movn` (`res == 0 ? 0 : 1`).
 
-All 4 routines achieve 100.0% byte-for-byte matching with Metrowerks PS2 compiler (MWCC 2.3.1.01).
+All 4 notification routines achieve 100.0% byte-for-byte matching with Metrowerks PS2 compiler (MWCC 2.3.1.01).

@@ -5287,9 +5287,12 @@ segments:
     vram: 0x2B90A0
     subsegments:
       - [0x1B9280, asm, trade_action_type_checker]
-  - name: post_trade_action_type_checker
-    type: bin
-    start: 0x1B9340
+  - name: trade_action_plan_evaluator
+    type: code
+    start: 0x1B9320
+    vram: 0x2B9140
+    subsegments:
+      - [0x1B9320, asm, trade_action_plan_evaluator]
   - name: trade_action_notify
     type: code
     start: 0x1B9950

@@ -1,4 +1,4 @@
-# `trade_action_candidates` (`func_002B76B0`, `func_002B7BB0`, `func_002B8560`, `func_002B8980`, `func_002B90A0`)
+# `trade_action_candidates` (`func_002B76B0`, `func_002B7BB0`, `func_002B8560`, `func_002B8980`, `func_002B90A0`, `func_002B9140`)
 
 ## Verification warning
 
@@ -12,7 +12,7 @@ The unfinished source split places selector and type-checker definitions in
 `src/trade_action_candidates_extra.cpp`, which is fully registered in `configure.py`.
 The extracted `func_002B9140` implementation in `src/trade_action_plan_evaluator.cpp`
 remains experimental (**NonMatching**); its full rate distribution and evaluation
-semantics are under active matching refinement.
+semantics reached **80.97% match** under active refinement.
 
 The native compilation repair shares the existing exclusion helper through
 `include/trade_action_candidates_exclusion.h`, adds missing callback declarations,
@@ -118,9 +118,9 @@ int func_002B9140(void *self);
 
 ### 6. `func_002B9140` (Trade Action Plan Evaluator)
 - **Slice**: File `0x1B9320`–`0x1B9950`, VRAM `0x2B9140`–`0x2B9770` (1,584 B code and padding).
-- **Status**: **NonMatching / Experimental** (6.98% initial objdiff baseline).
-- Evaluates plan items list bounded by `integer_at(self, 3092)` (each item 24 bytes).
-- Queries entity via `func_00144d10(self->field_176, item_id)` and virtual predicate `item->get_id()`.
+- **Status**: **NonMatching / Experimental** (**80.97% match** on `func_002B9140`).
+- Evaluates plan items list bounded by `self->m_limit` (3092) (each item 24 bytes).
+- Queries entity via `func_00144d10(self->m_mgr, item_id)` and virtual predicate `item->get_id()`.
 - Calculates rate distribution slots across 4 categories and sorts rate indices at `self + 3200..3212`.
 
 ## Trade notification routines (`0x2B9770`–`0x2B9B30`)

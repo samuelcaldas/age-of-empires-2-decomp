@@ -41,10 +41,12 @@ int main(int argc, char **argv) {
     char *base = storage.data();
     store_integer(base, 176, reinterpret_cast<int>(mgr.data()));
 
-    vtable[356 / 4] = reinterpret_cast<void *>(+[](void *) -> void * {
-        static int s_pred_id = 1;
-        return &s_pred_id;
-    });
+    for (int i = 0; i < 100; ++i) {
+        vtable[i] = reinterpret_cast<void *>(+[](void *) -> void * {
+            static int s_pred_id = 1;
+            return &s_pred_id;
+        });
+    }
     *reinterpret_cast<void ***>(item.data()) = vtable.data();
     *reinterpret_cast<void **>(item.data() + 4) = proto.data();
     *reinterpret_cast<short *>(proto.data() + 8) = 259;

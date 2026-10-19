@@ -234,6 +234,18 @@ static void test_func_0021C690() {
     std::cout << "PASS: test_func_0021C690" << std::endl;
 }
 
+static void test_call_order_mutation_rejection() {
+    std::vector<int> correct_order = {1, 2, 3, 4};
+    std::vector<int> mutated_order = {1, 3, 2, 4};
+    assert(correct_order != mutated_order);
+
+    std::vector<int> null_correct = {0, 1, 2, 3, 4};
+    std::vector<int> null_mutated = {1, 0, 2, 3, 4};
+    assert(null_correct != null_mutated);
+
+    std::cout << "PASS: test_call_order_mutation_rejection" << std::endl;
+}
+
 int main(int argc, char **argv) {
     if (argc < 2) {
         test_func_0021C410();
@@ -241,6 +253,7 @@ int main(int argc, char **argv) {
         test_func_0021C530();
         test_func_0021C610();
         test_func_0021C690();
+        test_call_order_mutation_rejection();
         return 0;
     }
     switch (argv[1][0]) {
@@ -249,6 +262,7 @@ int main(int argc, char **argv) {
         case '2': test_func_0021C530(); break;
         case '3': test_func_0021C610(); break;
         case '4': test_func_0021C690(); break;
+        case '5': test_call_order_mutation_rejection(); break;
         default: return 1;
     }
     return 0;

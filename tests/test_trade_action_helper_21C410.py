@@ -14,6 +14,7 @@ CASES = [
     ("2", "func_0021C530 packet construction and register 0x4D 4-field bitfield write"),
     ("3", "func_0021C610 packet construction and register 0x48 direct write"),
     ("4", "func_0021C690 packet construction and register 0x41 direct write"),
+    ("5", "call order mutation rejection validation"),
 ]
 
 

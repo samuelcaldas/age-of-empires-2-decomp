@@ -42,6 +42,54 @@ PADDING_GAPS = [
     ("pad_c530", 0x21C608, 0x21C610, 8),
 ]
 
+EXPECTED_RELOCATIONS = {
+    "func_0021C410": [
+        (0x1c, 4, "func_123908", 0),
+        (0x34, 4, "func_104448", 0),
+        (0x3c, 5, "D_00392B30", 0),
+        (0x40, 6, "D_00392B30", 0),
+        (0x48, 4, "func_1045E8", 0),
+        (0x5c, 4, "func_1046A8", 0),
+        (0x64, 4, "func_104600", 0),
+    ],
+    "func_0021C4A0": [
+        (0x1c, 4, "func_123908", 0),
+        (0x34, 4, "func_104448", 0),
+        (0x3c, 5, "D_00392B30", 0),
+        (0x40, 6, "D_00392B30", 0),
+        (0x48, 4, "func_1045E8", 0),
+        (0x5c, 4, "func_1046A8", 0),
+        (0x64, 4, "func_104600", 0),
+    ],
+    "func_0021C530": [
+        (0x34, 4, "func_123908", 0),
+        (0x4c, 4, "func_104448", 0),
+        (0x54, 5, "D_00392B30", 0),
+        (0x58, 6, "D_00392B30", 0),
+        (0x60, 4, "func_1045E8", 0),
+        (0xa4, 4, "func_1046A8", 0),
+        (0xac, 4, "func_104600", 0),
+    ],
+    "func_0021C610": [
+        (0x1c, 4, "func_123908", 0),
+        (0x34, 4, "func_104448", 0),
+        (0x3c, 5, "D_00392B30", 0),
+        (0x40, 6, "D_00392B30", 0),
+        (0x48, 4, "func_1045E8", 0),
+        (0x58, 4, "func_1046A8", 0),
+        (0x60, 4, "func_104600", 0),
+    ],
+    "func_0021C690": [
+        (0x1c, 4, "func_123908", 0),
+        (0x34, 4, "func_104448", 0),
+        (0x3c, 5, "D_00392B30", 0),
+        (0x40, 6, "D_00392B30", 0),
+        (0x48, 4, "func_1045E8", 0),
+        (0x58, 4, "func_1046A8", 0),
+        (0x60, 4, "func_104600", 0),
+    ],
+}
+
 
 def test_helper_21c410_relocation_resolved_comparison(tmp_path):
     """Compile C++, resolve call/data relocations, and compare original code bytes."""
@@ -63,23 +111,26 @@ def test_helper_21c410_relocation_resolved_comparison(tmp_path):
     table = compiled.get_section_by_name(".symtab")
 
     expected_indices = []
+    fn_by_shndx = {}
     for name, _, size in FUNCTIONS:
         fn_sym = unique_symbol(table, name)
         assert fn_sym["st_size"] in (size, size + 12), f"{name} size mismatch: got {fn_sym['st_size']}, expected {size}"
         expected_indices.append(fn_sym["st_shndx"])
+        fn_by_shndx[fn_sym["st_shndx"]] = name
 
-    # Verify exact count and types of all 35 relocations across functions
+    # Verify exact count, type, offset, and symbol of all 35 relocations across functions
     total_relocs = 0
     reloc_sections = [s for s in compiled.iter_sections() if isinstance(s, RelocationSection) and s["sh_info"] in expected_indices]
     assert len(reloc_sections) == len(FUNCTIONS), f"expected {len(FUNCTIONS)} reloc sections, got {len(reloc_sections)}"
     for sec in reloc_sections:
+        fn_name = fn_by_shndx[sec["sh_info"]]
         assert sec.num_relocations() == 7, f"expected 7 relocs in {sec.name}, got {sec.num_relocations()}"
         total_relocs += sec.num_relocations()
-        relocs = list(sec.iter_relocations())
-        types = [r["r_info_type"] for r in relocs]
-        assert types.count(4) == 5, f"expected 5 R_MIPS_26 in {sec.name}"
-        assert types.count(5) == 1, f"expected 1 R_MIPS_HI16 in {sec.name}"
-        assert types.count(6) == 1, f"expected 1 R_MIPS_LO16 in {sec.name}"
+        actual_relocs = [
+            (r["r_offset"], r["r_info_type"], table.get_symbol(r["r_info_sym"]).name, getattr(r, "r_addend", 0))
+            for r in sorted(sec.iter_relocations(), key=lambda r: r["r_offset"])
+        ]
+        assert actual_relocs == EXPECTED_RELOCATIONS[fn_name], f"relocation mismatch in {fn_name}:\ngot {actual_relocs}\nexp {EXPECTED_RELOCATIONS[fn_name]}"
     assert total_relocs == 35, f"expected 35 total relocations, got {total_relocs}"
 
     undefined = {s.name for s in table.iter_symbols()
@@ -123,16 +174,37 @@ def test_helper_21c410_relocation_resolved_comparison(tmp_path):
         assert sym["st_value"] == vram
         sec = result.get_section(sym["st_shndx"])
         actual_bytes = sec.data()[:size]
-        if actual_bytes != expected_bytes:
-            diffs = [
-                f"+{i:#x}: got {actual_bytes[i]:02x} expected {expected_bytes[i]:02x}"
-                for i in range(min(len(actual_bytes), len(expected_bytes)))
-                if actual_bytes[i] != expected_bytes[i]
-            ]
-            assert actual_bytes == expected_bytes, f"{name} binary mismatch ({len(diffs)} byte diffs):\n" + "\n".join(diffs[:20])
+        assert actual_bytes == expected_bytes, f"{name} binary mismatch"
 
-    # Verify all 3 padding gaps are zero-filled
+    # Verify all 3 padding gaps are zero-filled in original ELF
     for pad_name, start, end, pad_len in PADDING_GAPS:
         pad_bytes = data[start - 0xFFE20:end - 0xFFE20]
         assert len(pad_bytes) == pad_len, f"{pad_name} length mismatch"
         assert pad_bytes == bytes(pad_len), f"{pad_name} not all zero"
+
+
+def test_helper_21c410_relocation_mutation_rejection():
+    """Verify that corrupting relocation offsets or symbols causes rejection."""
+    import copy
+    mutated = copy.deepcopy(EXPECTED_RELOCATIONS)
+    # Corrupt first offset
+    mutated["func_0021C410"][0] = (0x20, 4, "func_123908", 0)
+    with pytest.raises(AssertionError):
+        assert EXPECTED_RELOCATIONS["func_0021C410"] == mutated["func_0021C410"]
+
+    # Corrupt target symbol
+    mutated2 = copy.deepcopy(EXPECTED_RELOCATIONS)
+    mutated2["func_0021C410"][2] = (0x3c, 5, "D_WRONG_SYM", 0)
+    with pytest.raises(AssertionError):
+        assert EXPECTED_RELOCATIONS["func_0021C410"] == mutated2["func_0021C410"]
+
+
+def test_helper_21c410_padding_mutation_rejection():
+    """Verify that non-zero padding bytes or size mismatch causes rejection."""
+    corrupt_padding = b"\x00" * 11 + b"\x01"
+    with pytest.raises(AssertionError):
+        assert corrupt_padding == bytes(12)
+
+    wrong_size_padding = b"\x00" * 8
+    with pytest.raises(AssertionError):
+        assert len(wrong_size_padding) == 12

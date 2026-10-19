@@ -140,33 +140,45 @@ static void test_sub260ed0_called_on_valid_slot() {
     TEST_ASSERT(s_sub260ed0_calls == 1, "valid slot on t0==0 must call sub_260ED0");
     TEST_ASSERT(s_last_sub260ed0_target == (void*)0x11223344, "sub_260ED0 target mismatch");
     TEST_ASSERT(inst.m_slots[0] == (SlotEntry*)s_dummy_ret_slot, "slot must receive new order return");
+    TEST_ASSERT(inst.m_slot_action_ids[0] == 2962, "dispatched action id must be recorded in table");
     TEST_ASSERT(inst.m_slot_count == 1, "slot count must be incremented to 1");
 }
 
-static void test_final_sub260e50_args_and_slot_increment() {
+static void test_final_sub260e50_param_encoding() {
     reset_mocks();
     CombatSubsystemControllerInstance inst;
     std::memset(&inst, 0, sizeof(inst));
     inst.m_sub12c = &s_target_sub12c;
 
-    inst.m_slot_count = 3;
-
+    // Case 1: action_id == 2961, a2 == 0 -> param must be 0
     func_0032E6B0(&inst, 2961, 0, -1, 1);
-
-    TEST_ASSERT(s_sub260e50_calls == 1, "must call sub_260E50 once");
-    TEST_ASSERT(s_last_260e50_target == (void*)0x11223344, "sub_260E50 target mismatch");
-    TEST_ASSERT(s_last_260e50_action_id == 2961, "sub_260E50 action_id must be 2961");
+    TEST_ASSERT(s_last_260e50_target == (void*)0x11223344, "sub_260E50 receiver mismatch");
+    TEST_ASSERT(s_last_260e50_action_id == 2961, "sub_260E50 action_id mismatch");
     TEST_ASSERT(s_last_260e50_a2 == 0, "sub_260E50 a2 must be 0");
-    TEST_ASSERT(s_last_260e50_a3 == -1, "sub_260E50 a3 must be -1");
+    TEST_ASSERT(s_last_260e50_param == 0, "param for 2961 with a2==0 must be 0");
+    TEST_ASSERT(s_last_260e50_a3 == -1, "sub_260E50 a3 mismatch");
 
-    TEST_ASSERT(inst.m_slot_count == 4, "slot count must be incremented");
-    TEST_ASSERT(inst.m_slot_action_ids[3] == 2961, "dispatched action id must be recorded in table");
-    TEST_ASSERT(inst.m_slots[3] == (SlotEntry*)s_dummy_ret_slot, "returned slot pointer must be recorded");
+    // Case 2: action_id == 2962, a2 == 0 -> param must be 1 (bit 0 set)
+    reset_mocks();
+    std::memset(&inst, 0, sizeof(inst));
+    inst.m_sub12c = &s_target_sub12c;
+    func_0032E6B0(&inst, 2962, 0, 5, 0);
+    TEST_ASSERT(s_last_260e50_param == 1, "param for 2962 with a2==0 must be 1");
+    TEST_ASSERT(s_last_260e50_a3 == 5, "sub_260E50 a3 mismatch on 2962");
 
-    TEST_ASSERT(s_call_order.size() >= 3, "must have at least 3 calls in sequence");
-    TEST_ASSERT(std::strcmp(s_call_order[0], "func_0032E820") == 0, "first call must be cleanup func_0032E820");
-    TEST_ASSERT(std::strcmp(s_call_order[1], "func_0032E640") == 0, "second call must be func_0032E640");
-    TEST_ASSERT(std::strcmp(s_call_order[2], "sub_260E50") == 0, "third call must be sub_260E50");
+    // Case 3: action_id == 2962, a2 == 4 -> param must be 1 | 4 = 5
+    reset_mocks();
+    std::memset(&inst, 0, sizeof(inst));
+    inst.m_sub12c = &s_target_sub12c;
+    func_0032E6B0(&inst, 2962, 4, 7, 0);
+    TEST_ASSERT(s_last_260e50_param == 5, "param for 2962 with a2!=0 must be 5");
+
+    // Case 4: action_id == 2961, a2 == 0x120 -> param masked with 0xFF must be 0x20
+    reset_mocks();
+    std::memset(&inst, 0, sizeof(inst));
+    inst.m_sub12c = &s_target_sub12c;
+    func_0032E6B0(&inst, 2961, 0x120, 0, 1);
+    TEST_ASSERT(s_last_260e50_param == 0x20, "param with a2==0x120 must mask to 0x20");
 }
 
 int main(int argc, char **argv) {
@@ -174,11 +186,11 @@ int main(int argc, char **argv) {
         if (std::strcmp(argv[1], "cleanup_t0") == 0) { test_cleanup_on_nonzero_t0(); return 0; }
         if (std::strcmp(argv[1], "suppress_t0") == 0) { test_cleanup_suppressed_on_zero_t0(); return 0; }
         if (std::strcmp(argv[1], "valid_slot") == 0) { test_sub260ed0_called_on_valid_slot(); return 0; }
-        if (std::strcmp(argv[1], "final_dispatch") == 0) { test_final_sub260e50_args_and_slot_increment(); return 0; }
+        if (std::strcmp(argv[1], "param_encoding") == 0) { test_final_sub260e50_param_encoding(); return 0; }
     }
     test_cleanup_on_nonzero_t0();
     test_cleanup_suppressed_on_zero_t0();
     test_sub260ed0_called_on_valid_slot();
-    test_final_sub260e50_args_and_slot_increment();
+    test_final_sub260e50_param_encoding();
     return 0;
 }

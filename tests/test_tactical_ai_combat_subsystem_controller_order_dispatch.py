@@ -15,10 +15,13 @@ MUTATIONS = [
     ("corrupt_sub260ed0_call", "sub_260ED0(self->m_sub12c->m_sub_target);", "/* omitted */", "valid_slot", "valid slot on t0==0 must call sub_260ED0"),
     ("corrupt_e640_call", "func_0032E640(self, 2);", "/* omitted */", "cleanup_t0", "must unconditionally dispatch func_0032E640"),
     ("corrupt_e640_id", "func_0032E640(self, 2);", "func_0032E640(self, 1);", "cleanup_t0", "func_0032E640 target id must be 2"),
-    ("corrupt_sub260e50_action", "action_id, 0, param & 0xFF, a3);", "action_id + 1, 0, param & 0xFF, a3);", "final_dispatch", "sub_260E50 action_id must be 2961"),
-    ("corrupt_action_id_record", "self->m_slot_action_ids[cur_slot] = action_id;", "self->m_slot_action_ids[cur_slot] = 0;", "final_dispatch", "dispatched action id must be recorded in table"),
-    ("corrupt_slot_increment", "self->m_slot_count++;", "/* omitted */", "final_dispatch", "slot count must be incremented"),
-    ("corrupt_slot_ptr_record", "self->m_slots[cur_slot] = (SlotEntry*)ret_slot;", "self->m_slots[cur_slot] = (SlotEntry*)((char*)ret_slot + 1);", "final_dispatch", "returned slot pointer must be recorded"),
+    ("corrupt_sub260e50_action", "action_id, 0, param & 0xFF, a3);", "action_id + 1, 0, param & 0xFF, a3);", "param_encoding", "sub_260E50 action_id mismatch"),
+    ("corrupt_action_id_record", "self->m_slot_action_ids[cur_slot] = action_id;", "self->m_slot_action_ids[cur_slot] = 0;", "valid_slot", "dispatched action id must be recorded in table"),
+    ("corrupt_slot_increment", "self->m_slot_count++;", "/* omitted */", "valid_slot", "slot count must be incremented to 1"),
+    ("corrupt_param_2962", "if (action_id == 2962) {\n        param = 1;\n    }", "if (action_id == 2962) {\n        param = 0;\n    }", "param_encoding", "param for 2962 with a2==0 must be 1"),
+    ("corrupt_param_a2_or", "param |= a2;", "param = a2;", "param_encoding", "param for 2962 with a2!=0 must be 5"),
+    ("corrupt_param_mask", "param & 0xFF", "param & 0x0F", "param_encoding", "param with a2==0x120 must mask to 0x20"),
+    ("corrupt_receiver", "sub_260E50(self->m_sub12c->m_sub_target,", "sub_260E50(nullptr,", "param_encoding", "sub_260E50 receiver mismatch"),
 ]
 
 

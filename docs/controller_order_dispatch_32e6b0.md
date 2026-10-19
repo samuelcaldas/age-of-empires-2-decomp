@@ -70,8 +70,8 @@ The full 368-byte original binary function contains 4 relocations (all `R_MIPS_2
    - Step 3 Green: Implemented `t0 == 0` slot validation and `sub_260ED0`. Re-run failed `MUTATION_ASSERTION_FAILED: must call sub_260E50 once` (exit code 1).
    - Step 4 Green: Implemented `sub_260E50` call. Re-run failed `MUTATION_ASSERTION_FAILED: slot count must be incremented` (exit code 1).
    - Step 5 Green: Implemented slot recording and `m_slot_count++`.
-   - Result: All 4 fixtures passing cleanly (`cleanup_t0`, `suppress_t0`, `valid_slot`, `final_dispatch`), exit code 0 under UBSan.
-   - Verified 9 production-source mutations independently compiled and killed via diagnostic matching in `tests/test_tactical_ai_combat_subsystem_controller_order_dispatch.py`.
+   - Result: All 4 fixtures passing cleanly (`cleanup_t0`, `suppress_t0`, `valid_slot`, `param_encoding`), exit code 0 under UBSan.
+   - Verified 12 production-source mutations independently compiled and killed via diagnostic matching in `tests/test_tactical_ai_combat_subsystem_controller_order_dispatch.py`.
 2. **Refactor & Matching Diagnostics:**
    - Built with verified MWCC PS2 flags: candidate code size 360 bytes (-8 bytes from 368-byte target).
    - Relocations resolved: all 4 compiled relocations mapped and verified with multiset check.
@@ -88,11 +88,11 @@ python -m pytest -q \
   tests/test_tactical_ai_combat_subsystem_controller_order_dispatch_matching.py
 ```
 
-The focused test run comprises **11 total tests** (10 behavioral tests in `test_tactical_ai_combat_subsystem_controller_order_dispatch.py` and 1 structural matching diagnostic test in `test_tactical_ai_combat_subsystem_controller_order_dispatch_matching.py`):
+The focused test run comprises **14 total tests** (13 behavioral tests in `test_tactical_ai_combat_subsystem_controller_order_dispatch.py` and 1 structural matching diagnostic test in `test_tactical_ai_combat_subsystem_controller_order_dispatch_matching.py`):
 - One 32-bit native contract test with UBSan validating t0!=0 cleanup, t0==0 cleanup suppression, valid slot sub_260ED0,
-  unconditional func_0032E640(self, 2), final sub_260E50 arguments, and slot count increment.
-- Nine production source mutations independently compiled and verified
-  rejected (cleanup check, t0 zero check, sub_260ED0 call, func_0032E640 call, func_0032E640 id, sub_260E50 action arg, action id recording, slot increment, slot pointer recording).
+  unconditional func_0032E640(self, 2), final sub_260E50 receiver/action_id/param encoding/a3, slot count increment, and action_id recording.
+- Twelve production source mutations independently compiled and verified
+  rejected (cleanup check, t0 zero check, sub_260ED0 call, func_0032E640 call, func_0032E640 id, sub_260E50 action arg, action id recording, slot increment, param 2962 bit, param a2 OR, param 0xFF mask, receiver check).
 - One structural correspondence diagnostic test compiling fresh with Ninja/MWCC and verifying
   relocation-aware bytecode alignment against the pinned ELF binary (skipped when compiler/wibo are unprovisioned).
 

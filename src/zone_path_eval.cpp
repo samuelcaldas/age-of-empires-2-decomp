@@ -77,8 +77,8 @@ int func_001C7860(
         p_min_y = (short)func_123350(y);
         p_max_y = p_min_y;
     } else {
-        p_min_x = t_min_x;
         p_max_y = t_max_y;
+        p_min_x = t_min_x;
         p_max_x = t_max_x;
         p_min_y = t_min_y;
     }

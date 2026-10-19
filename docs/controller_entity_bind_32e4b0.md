@@ -20,8 +20,8 @@ and fallback delegation `sub_1F6EF0(self, x, y, out_name, a4)`.
 - Predecessor continuity: directly preceded by `func_0032E460` ending at `0x32E4AC` (`0x0022E68C`).
   Between `0x32E4AC` and `0x32E4B0`: exactly 4 bytes alignment padding `nop` (`0x00000000`).
   Zero overlap.
-- Successor continuity: directly followed by `func_0032E580` starting at `0x32E580` (`0x0022E760`),
-  size `0x60` (96 bytes).
+- Successor continuity: directly followed by the combined 192-byte coordinate clamp function `func_0032E580`/`func_0032E5E0` starting at `0x32E580` (`0x0022E760`),
+  spanning `[0x32E580, 0x32E640)` and ending at sole epilogue `jr $ra` at `0x32E638`.
   Between `0x32E580` and `0x32E580`: exactly 0 bytes padding (immediate successor).
   Zero unclassified bytes, zero overlap.
 - Stack frame: 128 bytes (`addiu $sp, $sp, -128` = `0x27BDFF80` at `0x32E4B0`), saving `$ra` (80), `$s4` (64),

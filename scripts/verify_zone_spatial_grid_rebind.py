@@ -184,9 +184,9 @@ def verify(source_path, original_path):
     expected = _read_address(original, FUNCTION_ADDRESS, CODE_SIZE)
     expected_pad = _read_address(original, FUNCTION_ADDRESS + CODE_SIZE, PADDING_SIZE)
     code, records = _compiled_function(source_path)
-    matched = (len(code) == CODE_SIZE and code == expected
-               and _manifest_matches(records))
     padding_matched = (len(expected_pad) == PADDING_SIZE and expected_pad == b"\x00" * PADDING_SIZE)
+    matched = (len(code) == CODE_SIZE and code == expected
+               and _manifest_matches(records) and padding_matched)
     return {
         "code_bytes": len(code),
         "expected_code_bytes": CODE_SIZE,

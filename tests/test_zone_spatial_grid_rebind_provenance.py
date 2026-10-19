@@ -81,6 +81,23 @@ def test_source_instruction_difference_rejects_literal_match(
     assert result["literal_match"] is False
 
 
+def test_corrupted_padding_rejects_literal_match(private_inputs, monkeypatch):
+    """Reject literal_match when trailing alignment padding is invalid."""
+    source, original = private_inputs
+    import scripts.verify_zone_spatial_grid_rebind as vmod
+    orig_read = vmod._read_address
+
+    def fake_read(elf, address, size):
+        if address == vmod.FUNCTION_ADDRESS + vmod.CODE_SIZE:
+            return b"\x01" * size
+        return orig_read(elf, address, size)
+
+    monkeypatch.setattr(vmod, "_read_address", fake_read)
+    result = vmod.verify(source, original)
+    assert result["original_padding_verified"] is False
+    assert result["literal_match"] is False
+
+
 def test_unpinned_original_is_rejected(private_inputs, tmp_path):
     """Reject original executable that fails pinned SHA-1 check."""
     source, _ = private_inputs

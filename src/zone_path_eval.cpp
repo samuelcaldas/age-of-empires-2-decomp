@@ -151,7 +151,8 @@ int func_001C7850(
                 if (*(int *)((char *)D_004E3180 + 0x1C8) == 7) {
                     fp_flag = 1;
                 } else {
-                    void *zone_mgr = *(void **)((char *)world + 0xB94);
+                    void *world_val = *(void * volatile *)&world;
+                    void *zone_mgr = *(void **)((char *)world_val + 0xB94);
                     if (func_1378c0(zone_mgr, cur_x, cur_y) != 0) {
                         fp_flag = 1;
                     }

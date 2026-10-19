@@ -7114,6 +7114,19 @@ All four functions match **100.00% byte-for-byte**:
 | `func_00189bc0` | `0x189BC0` | 80 | **100.00% exact match** (80/80 B) | 0 B |
 | `func_00189c10` | `0x189C10` | 104 | **100.00% exact match** (104/104 B) | 8 B |
 
+#### 6.335 RenderManager Status Detail Query (`0x189C80`–`0x189E00`, `render_manager_status.cpp`)
+
+`RenderManagerStatus` occupies VRAM `[0x189C80, 0x189E00)` and file offsets
+`[0x89E60, 0x89FE0)`: **376 instruction bytes, 384-byte slice (8 B alignment padding)**.
+The unit implements the detail status string evaluator queried by `func_00189c10`.
+
+Function matches **100.00% byte-for-byte**:
+1. `func_00189c80` (`0x189C80`–`0x189DF8`, 376 B code, 8 B pad): Render manager layer status evaluator. Validates layer state via `func_00191050(self, a1)` (reporting line 1201), `func_00190FF0(self, a1)` (reporting line 1202), layer type boundary `*(int*)((char*)self + 0x2038 + a1 * 4) >= 4` (reporting line 1203), and layer count limit `self->field_10C8` (reporting line 1204 / 1200 via `ErrorManager::LogError` slot 8 on `D_004E3180`), formatting `"ERROR"` (`D_491BA8`) into buffer `D_568560` on error state. Emitted by MWCC PS2 2.3.1.01 with `-O3 -inline on` and matches **100.00% byte-for-byte** across all 94 instructions.
+
+| Function | VRAM | Instruction bytes | Byte comparison | Padding |
+|---|---:|---:|---|---:|
+| `func_00189c80` | `0x189C80` | 376 | **100.00% exact match** (376/376 B) | 8 B |
+
 #### Zone Terrain and Coordinate Transformation Slices (`0x1CDD00`–`0x1D1430`)
 
 Contiguous decompilation of the Age of Empires II PlayStation 2 terrain and spatial sub-systems along file offsets `0xCDEE0`–`0xD1610` (VRAM `0x1CDD00`–`0x1D1430`, offset mapping `+0xFFE20`):

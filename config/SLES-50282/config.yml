@@ -2137,6 +2137,9 @@ segments:
     vram: 0x189C80
     subsegments:
       - [0x89E60, c, render_manager_status]
+  - name: post_render_manager_status
+    type: bin
+    start: 0x89FE0
   - name: zone_path_eval
     type: code
     start: 0xC7A40

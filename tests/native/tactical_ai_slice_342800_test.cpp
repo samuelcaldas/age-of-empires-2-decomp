@@ -1,3 +1,6 @@
+// Smoke and linkage test driver for tactical_ai_slice_342800 stub symbols.
+// NOTE: Stub functions are empty; this test verifies 32-bit compilation and clean linkage only.
+// Behavioral regression coverage will be established when implementing actual slice behavior under TDD.
 #include <cassert>
 #include <cstdio>
 #include <cstring>
@@ -71,6 +74,6 @@ int main() {
     func_0034442C(&obj);
     func_00344430(&obj);
 
-    std::printf("PASS test_tactical_ai_slice_3444D0\n");
+    std::printf("PASS smoke_test_tactical_ai_slice_342800_stubs\n");
     return 0;
 }

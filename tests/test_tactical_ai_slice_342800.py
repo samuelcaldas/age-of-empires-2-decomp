@@ -1,4 +1,9 @@
-"""Native behavioral regressions for tactical_ai_slice_342800."""
+"""Native compilation and linkage smoke test for tactical_ai_slice_342800 stubs.
+
+NOTE: Stub functions in tactical_ai_slice_342800 are currently no-ops.
+This test verifies 32-bit compilation and clean linkage only. Behavioral regression
+evidence will be added when implementing actual slice logic under TDD.
+"""
 
 import shutil
 import subprocess
@@ -20,7 +25,7 @@ int main() {
 
 @pytest.fixture(scope="module")
 def tactical_ai_slice_342800_binary(tmp_path_factory):
-    """Compile tactical_ai_slice_342800 stub with native test driver."""
+    """Compile tactical_ai_slice_342800 stub with native smoke test driver."""
     compiler = shutil.which("g++")
     if compiler is None:
         pytest.skip("tactical_ai_slice_342800 regressions require g++")
@@ -54,7 +59,7 @@ def tactical_ai_slice_342800_binary(tmp_path_factory):
     return binary
 
 
-def test_tactical_ai_slice_342800_native_runner(tactical_ai_slice_342800_binary):
-    """Verify all tactical_ai_slice_342800 stub entrypoints execute without fault."""
+def test_tactical_ai_slice_342800_smoke_runner(tactical_ai_slice_342800_binary):
+    """Verify tactical_ai_slice_342800 stub entrypoints link and execute cleanly (smoke only)."""
     res = subprocess.run([str(tactical_ai_slice_342800_binary)], capture_output=True, text=True, check=True)
-    assert "PASS test_tactical_ai_slice_3444D0" in res.stdout
+    assert "PASS smoke_test_tactical_ai_slice_342800_stubs" in res.stdout

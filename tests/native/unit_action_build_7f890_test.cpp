@@ -4,7 +4,7 @@
 #include <cstring>
 #include "unit_action_build_7f890.h"
 
-struct ActionArg {
+struct ActionManager {
     int field_0;
     int field_4;
 };
@@ -16,7 +16,7 @@ extern "C" {
 
 static int g_factory_calls[25] = {0};
 static int g_init_calls[25] = {0};
-static void *g_init_self = NULL;
+static void *g_init_arg1 = NULL;
 static int g_init_field4 = -1;
 static int g_func_138D50_called = 0;
 
@@ -30,9 +30,9 @@ static bool g_factory_null = false;
         if (g_factory_null) return NULL; \
         return g_dummy_items[i]; \
     } \
-    extern "C" void init_name(void *item, void *self, int field_4) { \
+    extern "C" void init_name(void *item, void *arg1, int field_4) { \
         g_init_calls[i]++; \
-        g_init_self = self; \
+        g_init_arg1 = arg1; \
         g_init_field4 = field_4; \
     }
 
@@ -53,9 +53,9 @@ extern "C" void *func_366D50(void *) {
     if (g_factory_null) return NULL;
     return g_dummy_items[12];
 }
-extern "C" void func_360000(void *item, void *self, int field_4, int arg4) {
+extern "C" void func_360000(void *item, void *arg1, int field_4, int arg4) {
     g_init_calls[12]++;
-    g_init_self = self;
+    g_init_arg1 = arg1;
     g_init_field4 = field_4;
     assert(arg4 == 1);
 }
@@ -87,24 +87,24 @@ static const short k_codes[25] = {
 };
 
 static void test_all_factories() {
-    unsigned char dummy_self[32];
-    ActionArg arg;
-    arg.field_0 = 10;
-    arg.field_4 = 42;
+    ActionManager dummy_self;
+    dummy_self.field_0 = 10;
+    dummy_self.field_4 = 42;
+    unsigned char dummy_arg[16];
 
     g_factory_null = false;
     for (size_t i = 0; i < 25; ++i) {
         memset(g_factory_calls, 0, sizeof(g_factory_calls));
         memset(g_init_calls, 0, sizeof(g_init_calls));
-        g_init_self = NULL;
+        g_init_arg1 = NULL;
         g_init_field4 = -1;
         g_func_138D50_called = 0;
 
-        void *res = func_0027F890(dummy_self, &arg, k_codes[i]);
+        void *res = func_0027F890(&dummy_self, dummy_arg, k_codes[i]);
         assert(res == g_dummy_items[i]);
         assert(g_factory_calls[i] == 1);
         assert(g_init_calls[i] == 1);
-        assert(g_init_self == dummy_self);
+        assert(g_init_arg1 == dummy_arg);
         assert(g_init_field4 == 42);
         assert(g_func_138D50_called == 0);
     }
@@ -112,15 +112,15 @@ static void test_all_factories() {
 }
 
 static void test_factory_null() {
-    unsigned char dummy_self[32];
-    ActionArg arg;
-    arg.field_4 = 99;
+    ActionManager dummy_self;
+    dummy_self.field_4 = 99;
+    unsigned char dummy_arg[16];
     g_factory_null = true;
 
     for (size_t i = 0; i < 25; ++i) {
         memset(g_factory_calls, 0, sizeof(g_factory_calls));
         memset(g_init_calls, 0, sizeof(g_init_calls));
-        void *res = func_0027F890(dummy_self, &arg, k_codes[i]);
+        void *res = func_0027F890(&dummy_self, dummy_arg, k_codes[i]);
         assert(res == NULL);
         assert(g_factory_calls[i] == 1);
         assert(g_init_calls[i] == 0);
@@ -130,15 +130,14 @@ static void test_factory_null() {
 }
 
 static void test_fallback() {
-    unsigned char dummy_self[32];
-    ActionArg arg;
-    arg.field_4 = 100;
+    ActionManager dummy_self;
+    unsigned char dummy_arg[16];
     short unhandled[] = {0, 1, 2, 4, 0x10, 0x50, 0x100, -1};
     const size_t count = sizeof(unhandled) / sizeof(unhandled[0]);
 
     for (size_t i = 0; i < count; ++i) {
         g_func_138D50_called = 0;
-        void *res = func_0027F890(dummy_self, &arg, unhandled[i]);
+        void *res = func_0027F890(&dummy_self, dummy_arg, unhandled[i]);
         assert(res == g_dummy_fallback);
         assert(g_func_138D50_called == 1);
     }
@@ -146,11 +145,11 @@ static void test_fallback() {
 }
 
 static void test_alias() {
-    unsigned char dummy_self[32];
-    ActionArg arg;
-    arg.field_4 = 77;
+    ActionManager dummy_self;
+    dummy_self.field_4 = 77;
+    unsigned char dummy_arg[16];
     memset(g_factory_calls, 0, sizeof(g_factory_calls));
-    void *res = func_27F890(dummy_self, &arg, 0x65);
+    void *res = func_27F890(&dummy_self, dummy_arg, 0x65);
     assert(res == g_dummy_items[0]);
     assert(g_factory_calls[0] == 1);
     printf("PASS test_alias\n");

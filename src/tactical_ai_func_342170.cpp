@@ -159,6 +159,8 @@ int func_00342170(TacticalObj_341040 *self, int a1, int a2, int a3, int t0) {
             set_handler_state(self, 3);
             return 1;
         case 5:
+            set_handler_state(self, 1);
+            return 1;
         case 6:
             set_handler_state(self, 1);
             return 1;
@@ -186,8 +188,8 @@ int func_00342170(TacticalObj_341040 *self, int a1, int a2, int a3, int t0) {
                 }
                 int r = func_00219BA0(self->field_838);
                 func_33F8B0(self->field_844, r);
-                self->field_84C = 11;
             }
+            self->field_84C = 11;
             break;
         case 11:
             set_handler_state(self, 11);

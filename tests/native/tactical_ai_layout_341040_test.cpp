@@ -1259,7 +1259,25 @@ static void test_func_342170_mode8_32bit_exact_t0_matching() {
     std::printf("PASS test_func_342170_mode8_32bit_exact_t0_matching\n");
 }
 
+static void test_func_342170_mode3_null_sub838_transitions_to_mode11() {
+    TacticalObj_341040 obj;
+    MockSubObj mock_sub830;
+    std::memset(&obj, 0, sizeof(obj));
+    obj.field_830 = &mock_sub830;
+    obj.field_838 = NULL;
+    obj.field_84C = 3; // Mode 3
+    g_call_history.clear();
+
+    int res = func_00342170(&obj, (int)(long)&mock_sub830, 1, 0, 0);
+    assert(res == 1);
+    // In original PS2 ELF at 0x3426b4 (0x544):
+    // 544: beqz v0, 594 (if !field_838 goto 594: field_84C = 11)
+    assert(obj.field_84C == 11);
+    std::printf("PASS test_func_342170_mode3_null_sub838_transitions_to_mode11\n");
+}
+
 int main() {
+    test_func_342170_mode3_null_sub838_transitions_to_mode11();
     test_func_342170_mode8_32bit_exact_t0_matching();
     test_func_342170_field_830_mode15_mutation_precedes_func_36acc0();
     test_func_342170_f844_mutation_precedes_func_340c30();

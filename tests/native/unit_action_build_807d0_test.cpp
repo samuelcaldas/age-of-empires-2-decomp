@@ -192,7 +192,7 @@ static void test_single_match_vs_all_matches() {
     assert(g_callback_calls.size() == 1);
     assert(g_callback_calls[0].id == 1);
 
-    // Test code -201 (broadcast all: must iterate all matches)
+    // Test code -201 (broadcast all: must iterate all matches in order)
     setup_tables(5, 99);
     g_table2_mock.bytes[1] = 0;
     g_table2_mock.bytes[2] = 0;
@@ -203,6 +203,53 @@ static void test_single_match_vs_all_matches() {
     assert(g_callback_calls[0].id == 1);
     assert(g_callback_calls[1].id == 2);
     assert(g_callback_calls[2].id == 3);
+
+    // Test code -202 (broadcast func_202B10 != 0 in order)
+    setup_tables(5, 99);
+    int **item_ptrs = (int **)g_table1_mock.items;
+    *item_ptrs[1] = 1;
+    *item_ptrs[2] = 0;
+    *item_ptrs[3] = 1;
+    *item_ptrs[4] = 1;
+    func_002807D0(-202, test_callback, &dummy);
+    assert(g_callback_calls.size() == 3);
+    assert(g_callback_calls[0].id == 1);
+    assert(g_callback_calls[1].id == 3);
+    assert(g_callback_calls[2].id == 4);
+
+    // Test code -203 (broadcast func_205920 == 3 in order)
+    setup_tables(5, 99);
+    g_table2_mock.bytes[1] = 3;
+    g_table2_mock.bytes[2] = 0;
+    g_table2_mock.bytes[3] = 3;
+    g_table2_mock.bytes[4] = 0;
+    func_002807D0(-203, test_callback, &dummy);
+    assert(g_callback_calls.size() == 2);
+    assert(g_callback_calls[0].id == 1);
+    assert(g_callback_calls[1].id == 3);
+
+    // Test code -204 (broadcast func_202B10 == 0 in order)
+    setup_tables(5, 99);
+    *item_ptrs[1] = 1;
+    *item_ptrs[2] = 0;
+    *item_ptrs[3] = 0;
+    *item_ptrs[4] = 1;
+    func_002807D0(-204, test_callback, &dummy);
+    assert(g_callback_calls.size() == 2);
+    assert(g_callback_calls[0].id == 2);
+    assert(g_callback_calls[1].id == 3);
+
+    // Test code -205 (broadcast func_205920 == 1 in order)
+    setup_tables(5, 99);
+    g_table2_mock.bytes[1] = 1;
+    g_table2_mock.bytes[2] = 1;
+    g_table2_mock.bytes[3] = 0;
+    g_table2_mock.bytes[4] = 1;
+    func_002807D0(-205, test_callback, &dummy);
+    assert(g_callback_calls.size() == 3);
+    assert(g_callback_calls[0].id == 1);
+    assert(g_callback_calls[1].id == 2);
+    assert(g_callback_calls[2].id == 4);
 
     std::printf("PASS test_single_match_vs_all_matches\n");
 }

@@ -93,10 +93,10 @@ int func_001C7860(
         short edge_min_y = (short)(p_min_y - 1);
 
         if (edge_min_y >= 0) {
-            MapTile *row = s0->m_tile_rows[edge_min_y];
             for (cur_x = p_min_x; cur_x <= p_max_x; cur_x++) {
-                if (row[cur_x].m_zone_id == bld_var->m_required_zone) touches_zone = 1;
-                if (row[cur_x].m_zone_id == -1) touches_wild = 1;
+                MapTile *t = &s0->m_tile_rows[edge_min_y][cur_x];
+                if (t->m_zone_id == bld_var->m_required_zone) touches_zone = 1;
+                if (t->m_zone_id == -1) touches_wild = 1;
             }
         }
         if (edge_max_x < map_w) {

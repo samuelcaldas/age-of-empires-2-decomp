@@ -254,6 +254,11 @@ static bool is_dual_case(size_t i) {
     return (i == 0 || i == 1 || i == 2 || i == 4 || i == 6 || i == 10 || i == 11 || i == 12);
 }
 
+// Which cases accept and forward arg2 in arg2-mode
+static bool takes_arg2_in_arg2_mode(size_t i) {
+    return (is_dual_case(i) || i == 8 || i == 9 || i == 13 || i == 16 || i == 17 || i == 18 || i == 19);
+}
+
 static void test_all_factories_with_arg2() {
     ActionManager dummy_self;
     dummy_self.field_0 = 1;
@@ -269,6 +274,9 @@ static void test_all_factories_with_arg2() {
         g_last_field4 = -1;
         g_last_desc = NULL;
         g_last_arg2 = NULL;
+        g_last_f1 = 0.0f;
+        g_last_f2 = 0.0f;
+        g_last_f3 = 0.0f;
         g_fallback_calls = 0;
 
         ActionDesc desc;
@@ -293,6 +301,14 @@ static void test_all_factories_with_arg2() {
             // All other cases select the arg2 initializer path
             assert(g_init_arg2_calls[i] == 1);
             assert(g_init_float_calls[i] == 0);
+            if (takes_arg2_in_arg2_mode(i)) {
+                assert(g_last_arg2 == dummy_arg2); // asserts forwarded arg2
+            }
+            if (i == 17) {
+                // Case 0x7D forwards arg2 AND f1, f2
+                assert(g_last_f1 == 1.0f);
+                assert(g_last_f2 == 2.0f);
+            }
         }
     }
     printf("PASS test_all_factories_with_arg2\n");
@@ -309,6 +325,8 @@ static void test_all_factories_with_floats() {
         memset(g_init_float_calls, 0, sizeof(g_init_float_calls));
         g_last_item = NULL;
         g_last_field4 = -1;
+        g_last_desc = NULL;
+        g_last_arg2 = (void *)0xdead;
         g_last_f1 = 0.0f;
         g_last_f2 = 0.0f;
         g_last_f3 = 0.0f;
@@ -328,15 +346,22 @@ static void test_all_factories_with_floats() {
         if (is_dual_case(i) || is_float_only_case(i)) {
             assert(g_init_float_calls[i] == 1);
             assert(g_init_arg2_calls[i] == 0);
-            assert(g_last_f1 == 4.0f);
-            assert(g_last_f2 == 5.0f);
-            if (!is_float_only_case(i) || i != 17) {
-                // Dual cases forward all 3 floats
-            }
+            assert(g_last_desc == &desc);
+            assert(g_last_f1 == 4.0f); // first float
+            assert(g_last_f2 == 5.0f); // second float
+            assert(g_last_f3 == 6.0f); // third float explicitly asserted!
         } else {
             // Single cases without float variant still call their single initializer
             assert(g_init_arg2_calls[i] == 1);
             assert(g_init_float_calls[i] == 0);
+            if (takes_arg2_in_arg2_mode(i)) {
+                assert(g_last_arg2 == NULL);
+            }
+            if (i == 17) {
+                // Case 0x7D forwards both float arguments f1 and f2 even with arg2=NULL
+                assert(g_last_f1 == 4.0f);
+                assert(g_last_f2 == 5.0f);
+            }
         }
     }
     printf("PASS test_all_factories_with_floats\n");

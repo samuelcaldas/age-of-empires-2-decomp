@@ -25,7 +25,8 @@ checks the actual state assertion at offset `3240`; it does not expect return `2
   - `func_002B76B0` (VRAM `0x2B76B0`–`0x2B7BB0`, File `0x1B7890`–`0x1B7D90`, 1,276 B code, 4 B padding, 1,280 B slice)
   - `func_002B7BB0` (VRAM `0x2B7BB0`–`0x2B8560`, File `0x1B7D90`–`0x1B8740`, 2,468 B code, 12 B padding, 2,480 B slice)
   - `func_002B8560` (VRAM `0x2B8560`–`0x2B8978`, File `0x1B8740`–`0x1B8B60`, 1,044 B code, 4 B padding, 1,048 B slice)
-  - `func_002B8980` (VRAM `0x2B8980`–`0x2B8E2C`, File `0x1B8B60`–`0x1B9020`, 1,196 B code, 4 B padding, 1,200 B slice)
+  - `func_002B8980` (VRAM `0x2B8980`–`0x2B8E2C`, File `0x1B8B60`–`0x1B9010`, 1,196 B code, 4 B padding, 1,200 B slice)
+  - `func_002B8E30` (VRAM `0x2B8E30`–`0x2B9098`, File `0x1B9010`–`0x1B9278`, 616 B code, 8 B padding, 624 B slice)
   - `func_002B90A0` (VRAM `0x2B90A0`–`0x2B9130`, File `0x1B9280`–`0x1B9310`, 144 B code)
   - `func_002B9130` (VRAM `0x2B9130`–`0x2B9138`, File `0x1B9310`–`0x1B9318`, 8 B stub, 8 B padding, 160 B slice)
   - `func_002B9140` (VRAM `0x2B9140`–`0x2B9770`, File `0x1B9320`–`0x1B9950`, 1,580 B code, 4 B padding, 1,584 B slice)
@@ -39,13 +40,15 @@ checks the actual state assertion at offset `3240`; it does not expect return `2
   - `include/trade_action_candidates_extra.h`
   - `src/trade_action_candidates.cpp`
   - `src/trade_action_candidates_extra.cpp`
+  - `include/post_trade_action_distance_candidates.h`
+  - `src/post_trade_action_distance_candidates.cpp`
   - `include/trade_action_type_checker.h`
   - `src/trade_action_type_checker.cpp`
   - `include/trade_action_plan_evaluator.h`
   - `src/trade_action_plan_evaluator.cpp`
   - `include/trade_action_notify.h`
   - `src/trade_action_notify.cpp`
-- **Status**: Implemented in pure C++ and verified with 39 native tests (25 core candidate behavior cases, 2 plan cases, 1 trade notification suite, 1 trade plan evaluator suite, 1 trade type checker suite, and 9 source mutation checks).
+- **Status**: Implemented in pure C++ and verified with 48 native tests (25 core candidate behavior cases, 2 plan cases, 1 trade notification suite, 1 trade plan evaluator suite, 1 trade type checker suite, 1 distance pool selector suite, 2 verifier test suites, and 9 source mutation checks).
 
 ## Signatures
 
@@ -113,6 +116,30 @@ int func_002B9140(void *self);
   - Calls `func_00269190(coords[0], coords[1], item)`.
   - Tracks candidate with highest score (`dist <= best` for mode 1; `dist < best` for mode 0).
 - **Return Value**: Sub-ID of optimal candidate, or -1 if none qualify.
+
+### 4b. `func_002B8E30` (Post Distance Candidates Pool Selector)
+- **Slice**: File `0x1B9010`–`0x1B9280`, VRAM `0x2B8E30`–`0x2B90A0` (616 B code, 8 B padding, 624 B slice).
+- **Status**: **100.0% Matched** (verified byte-for-byte with MWCC PS2 2.3.1.01 against SLES-50282 original ELF; 624/624 bytes identical; kept NonMatching in configure.py pending promotion clearance).
+- **Scan Loop**: Iterates through item pool array at `self + 180` bounded by count at `self + 184` using capacity guard at `self + 192`.
+- **Filters**:
+  - Rejects if in exclusion pool at `self + 3184` (count at `+3188`, capacity at `+3196`).
+  - Resolves item via `func_332e60(group->m_root, item_id)` through manager `+176 -> +172 -> +2968`.
+  - Validates virtual predicate via `item->get_id()`.
+  - Rejects if proto field8 at `item + 4 -> +8` is 259 or 214.
+  - Rejects if health `*(float*)(item + 64) > 7.0f`.
+  - Rejects if action code from `func_00147170(*item->get_id())` is 702, 718, 700, or 717.
+- **Distance Metric & Selection**:
+  - Calls `func_00269190((float)coords[0], (float)coords[1], *(float*)(item + 76), item)`.
+  - Tracks candidate with minimal distance (`best_dist <= dist` skips).
+  - Returns optimal candidate's sub-ID `*(short*)(item + 36)`, or -1 if none qualify.
+
+#### TDD Red-Before-Implementation Chronology (`func_002B8E30`)
+- **Red Baseline Command**: `.venv/bin/pytest tests/test_post_trade_action_distance_candidates.py`
+- **Failing Assertion**: `AssertionError: test failed ... post-trade-action-distance-candidates-test: tests/native/post_trade_action_distance_candidates_test.cpp:93: int main(int, char**): Assertion 'res1 == 42' failed. Returncode -6 (SIGABRT) != 0`
+- **Green Implementation**: Pure C++ implementation in `src/post_trade_action_distance_candidates.cpp` verifying pool iteration, exclusion, proto, health, action codes, and distance selection.
+- **Green Result**: `5 passed` in `tests/test_post_trade_action_distance_candidates.py`.
+- **Durable Mutation Gate**: Parameterized mutants (`corrupted_default_return`, `corrupted_health_threshold`, `corrupted_proto_check`, `inverted_distance_selection`) continuously assert expected failure modes.
+- **Verifier Hardening**: `tests/test_verify_post_trade_action_distance_candidates.py` validates 624/624 byte match and asserts negative padding rejection, corrupted padding rejection, and slice truncation rejection.
 
 ### 5. `func_002B90A0` and `func_002B9130` (Trade Action Type Checker)
 - **Slice**: File `0x1B9280`–`0x1B9320`, VRAM `0x2B90A0`–`0x2B9140` (160 B code and padding).

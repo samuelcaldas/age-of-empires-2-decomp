@@ -5279,8 +5279,11 @@ segments:
     subsegments:
       - [0x1B8B60, asm, trade_action_distance_candidates]
   - name: post_trade_action_distance_candidates
-    type: bin
-    start: 0x1B9020
+    type: code
+    start: 0x1B9010
+    vram: 0x2B8E30
+    subsegments:
+      - [0x1B9010, asm, post_trade_action_distance_candidates]
   - name: trade_action_type_checker
     type: code
     start: 0x1B9280

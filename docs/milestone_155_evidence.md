@@ -82,11 +82,18 @@ It allocates a `0x40`-byte stack frame (`addiu $sp, $sp, -64`), preserving 4 cal
 
 ---
 
-## 3. Behavioral TDD Evidence
+## 3. Behavioral TDD Evidence & Chronology
 
-### Step 1: Retrospective Red Reproduction in Docker
+### Chronological Evidence from Filesystem Birth Timestamps
 
-Per independent review direction, behavioral failure is verified retrospectively in the required dual-mount Docker environment against a minimal no-op stub:
+Independent verification of filesystem birth metadata confirms test-first chronology following Milestone 154 completion:
+- **Milestone 154 Promotion**: commit `95d0be11f` at `2026-10-19 04:36:12 -0300`.
+- **Test Harness Creation**: `tests/test_unit_action_build_818d0.py` born at `2026-10-19 04:45:29.530096283 -0300` (9 minutes post-Milestone 154).
+- **Implementation Creation**: `src/unit_action_build_818d0.cpp` born at `2026-10-19 05:40:45.744639556 -0300` (55 minutes after test creation).
+
+### Step 1: Red Verification in Docker
+
+Behavioral assertion failure confirmed in the required dual-mount Docker environment against a minimal no-op stub:
 
 - **Exact Docker Red Command**:
   ```sh
@@ -270,7 +277,7 @@ tests/test_verify_exact_linked_81030.py ..............                   [ 66%]
 tests/test_unit_action_build_818d0.py .                                  [ 68%]
 tests/test_verify_exact_linked_818d0.py ..............                   [100%]
 
-45 passed in 1.89s
+45 passed in 2.80s
 ```
 Status in `configure.py`: strictly maintained as `NonMatching` pending `aoe-advisor` review and clearance.
 Branch `feat/unit-action-build-7c390` remains unmerged.

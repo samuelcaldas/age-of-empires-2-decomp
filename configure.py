@@ -6099,7 +6099,7 @@ if config.platform == Platform.PS2:
                     toolchain_version="PS2/mwcc-2.3.1.01",
                 ),
                 Object(
-                    Matching,
+                    NonMatching,
                     "unit_action_build_7f890",
                     cflags=config.cflags,
                     toolchain_version="PS2/mwcc-2.3.1.01",

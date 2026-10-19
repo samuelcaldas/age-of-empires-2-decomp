@@ -12,7 +12,7 @@ The unfinished source split places selector and type-checker definitions in
 `src/trade_action_candidates_extra.cpp`, which is fully registered in `configure.py`.
 The extracted `func_002B9140` implementation in `src/trade_action_plan_evaluator.cpp`
 remains experimental (**NonMatching**); its full rate distribution and evaluation
-semantics reached **80.97% match** under active refinement.
+semantics reached **93.30% match** (within 4 instructions of the original binary).
 
 The native compilation repair shares the existing exclusion helper through
 `include/trade_action_candidates_exclusion.h`, adds missing callback declarations,
@@ -118,10 +118,10 @@ int func_002B9140(void *self);
 
 ### 6. `func_002B9140` (Trade Action Plan Evaluator)
 - **Slice**: File `0x1B9320`–`0x1B9950`, VRAM `0x2B9140`–`0x2B9770` (1,584 B code and padding).
-- **Status**: **NonMatching / Experimental** (**80.97% match** on `func_002B9140`).
+- **Status**: **NonMatching / Experimental** (**93.30% match** on `func_002B9140`, 4 instructions delta).
 - Evaluates plan items list bounded by `self->m_limit` (3092) (each item 24 bytes).
 - Queries entity via `func_00144d10(self->m_mgr, item_id)` and virtual predicate `item->get_id()`.
-- Calculates rate distribution slots across 4 categories and sorts rate indices at `self + 3200..3212`.
+- Calculates rate distribution slots across 4 categories and sorts rate indices at `self + 3200..3212` via inlined selection sort.
 
 ## Trade notification routines (`0x2B9770`–`0x2B9B30`)
 

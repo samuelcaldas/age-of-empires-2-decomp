@@ -3,8 +3,8 @@
 `src/trade_action_helper_21BAE0.cpp` reconstructs the three functions in slice
 `[0x21BAE0, 0x21BC30)` in pure C++. All three functions achieve **100.00% exact
 byte-for-byte matching** against the original PlayStation 2 PAL binary (316
-code bytes). In accordance with project policy, its `configure.py` registration
-remains **NonMatching** pending review.
+code bytes). Following independent review and validation, its `configure.py`
+registration is promoted to **Matching**.
 
 ## Architecture and function contracts
 

@@ -7385,3 +7385,39 @@ Validated with 12 native contract and mutation tests in `tests/test_tactical_ai_
 | Function / Method | VRAM Address | Code Size (Orig) | Slice Size | Match Status | Description |
 |---|---|---|---|---|---|
 | `func_0032C320` | `0x32C320` | 252 B | 256 B | **Decompiled (Pure C++)** | Controller pulse evaluator with divbyzero unsigned division and view/manager dispatch. |
+
+#### 6.197 `Combat Subsystem Controller Initialization Function` (`0x32E8C0`–`0x32EC80`)
+
+Located at VRAM `0x32E8C0`–`0x32EC78` (file offset `0x22EAA0`–`0x22EE58`, 952 code bytes / 238 instructions, plus 8 bytes trailing alignment padding up to `0x32EC80`, Metrowerks C++ PS2 MWCC 2.3.1.01):
+
+- **Canonical Extent**: VRAM `[0x0032E8C0, 0x0032EC78)` (952 bytes, `0x3B8`, 238 instructions).
+- **Epilogue Region**: Starts at `0x0032EC44` (`+0x384`).
+- **Return Jump**: `jr $ra` at `0x0032EC70` (`+0x3B0`, opcode `0x03E00008`).
+- **Delay Slot**: `addiu $sp, $sp, 48` at `0x0032EC74` (`+0x3B4`, opcode `0x27BD0030`, stack teardown).
+- **Trailing Alignment Padding**: Exactly 8 bytes (2 NOP instructions: `0x00000000 0x00000000`) at `[0x32EC78, 0x32EC80)`.
+- **Predecessor Continuity**: Immediately preceded by `func_0032E820` ending at `0x32E8C0` (0 bytes padding).
+- **Successor Continuity**: Immediately followed by successor routine starting at `0x32EC80` (prologue `0x27BDFFB0`). Zero unclassified bytes.
+- **Stack Frame**: 48 bytes (`addiu $sp, $sp, -48` at `0x32E8C0`). Saved callee registers: `sq $ra, 16($sp)` and `sq $s0, 0($sp)`.
+- **ABI / Calling Convention**: MIPS EE ABI member function constructor/initialization pattern. `$a0` receives `this` instance pointer (stored to `44($sp)`). Returns instance pointer in `$v0` loaded from `44($sp)`.
+- **Direct JAL Target Addresses (Byte-derived, stripped ELF)**:
+  The function encodes exactly 15 direct JAL invocations. Because `AOK.ELF` is stripped, all callee symbols and high-level semantics remain explicitly unverified:
+  1. `+0x0A8` (`0x0032E968`): `jal 0x001FD400`
+  2. `+0x11C` (`0x0032E9DC`): `jal 0x001FCB60`
+  3. `+0x124` (`0x0032E9E4`): `jal 0x001B0510`
+  4. `+0x12C` (`0x0032E9EC`): `jal 0x00100850`
+  5. `+0x140` (`0x0032EA00`): `jal 0x001D7AA0`
+  6. `+0x14C` (`0x0032EA0C`): `jal 0x001AFB70`
+  7. `+0x164` (`0x0032EA24`): `jal 0x00100850`
+  8. `+0x174` (`0x0032EA34`): `jal 0x001A1860`
+  9. `+0x248` (`0x0032EB08`): `jal 0x002261C0`
+  10. `+0x334` (`0x0032EBF4`): `jal 0x00100850`
+  11. `+0x348` (`0x0032EC08`): `jal 0x00260950`
+  12. `+0x358` (`0x0032EC18`): `jal 0x003336C0`
+  13. `+0x360` (`0x0032EC20`): `jal 0x003338A0`
+  14. `+0x394` (`0x0032EC54`): `jal 0x00366F90`
+  15. `+0x39C` (`0x0032EC5C`): `jal 0x002C2C20`
+- **Data References & Stripped-ELF Uncertainty**:
+  - `+0x008` / `+0x014`: Direct byte-level address calculation loading `0x004EEE70` into `$a1`.
+  - `+0x118`: GP-relative store `sw $zero, 0x8D58($gp)` (effective GP offset `-0x72A8`).
+  - `+0x1C4`: GP-relative store `sw $v0, 0x8D4C($gp)` (effective GP offset `-0x72B4`).
+  - Because `AOK.ELF` is stripped, data references and callee names cannot be confirmed from symbol tables and are tracked purely by direct VRAM address. No implementation is established.

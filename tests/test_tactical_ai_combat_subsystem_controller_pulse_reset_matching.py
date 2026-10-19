@@ -114,17 +114,20 @@ def relocate_section(elf, section_index, data):
 
 
 def function_bytes(path):
-    """Extract symbol code and verify relocation count."""
+    """Extract symbol code and verify relocation count and exact symbol size."""
     with path.open("rb") as stream:
         elf = ELFFile(stream)
         symbols = elf.get_section_by_name(".symtab")
         symbol = symbols.get_symbol_by_name("func_0032C480")[0]
         sym_size = symbol["st_size"]
+        assert sym_size == SIZE, f"Expected candidate symbol size {SIZE}, got {sym_size}"
         section_index = symbol["st_shndx"]
         data = bytearray(elf.get_section(section_index).data())
         relocate_section(elf, section_index, data)
         start = symbol["st_value"]
-        return bytes(data[start:start + sym_size])
+        actual_bytes = bytes(data[start:start + sym_size])
+        assert len(actual_bytes) == SIZE, f"Expected candidate length {SIZE}, got {len(actual_bytes)}"
+        return actual_bytes
 
 
 @pytest.mark.skipif(

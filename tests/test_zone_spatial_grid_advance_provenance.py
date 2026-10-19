@@ -237,3 +237,51 @@ def test_non_executable_section_is_rejected(private_inputs, tmp_path):
     corrupted.write_bytes(data)
     with pytest.raises(ValueError, match="section must be executable code"):
         verify(corrupted, original)
+
+
+def test_non_mips_machine_is_rejected(private_inputs, tmp_path):
+    """Require source ELF e_machine to be EM_MIPS."""
+    source, original = private_inputs
+    data = bytearray(source.read_bytes())
+    # e_machine offset in 32-bit ELF is 18 (0x12)
+    struct.pack_into("<H", data, 0x12, 3)  # EM_386
+    corrupted = tmp_path / "x86.o"
+    corrupted.write_bytes(data)
+    with pytest.raises(ValueError, match="Source ELF machine must be EM_MIPS"):
+        verify(corrupted, original)
+
+
+def test_symbol_extent_exceeding_section_is_rejected(private_inputs, tmp_path):
+    """Require symbol size to fit completely within the owning section."""
+    source, original = private_inputs
+    data = bytearray(source.read_bytes())
+    elf = ELFFile(BytesIO(data))
+    symtab = elf.get_section_by_name(".symtab")
+    sym_idx = [i for i, s in enumerate(symtab.iter_symbols())
+               if s.name == "func_001F2C20"][0]
+    # st_size is at offset 8 in 32-bit Elf_Sym
+    size_pos = symtab["sh_offset"] + sym_idx * symtab["sh_entsize"] + 8
+    struct.pack_into("<I", data, size_pos, 0x90)  # 144 bytes > 140 section size
+    corrupted = tmp_path / "oversize_sym.o"
+    corrupted.write_bytes(data)
+    with pytest.raises(ValueError, match="symbol extent exceeds section size"):
+        verify(corrupted, original)
+
+
+def test_permuted_relocation_order_is_accepted(private_inputs, tmp_path):
+    """Normalize and accept valid relocation records regardless of table order."""
+    source, original = private_inputs
+    data = bytearray(source.read_bytes())
+    elf = ELFFile(BytesIO(data))
+    function = elf.get_section_by_name(".symtab").get_symbol_by_name("func_001F2C20")[0]
+    _, section = _relocation_section(elf, function)
+    start = section["sh_offset"]
+    # Swap first two 8-byte relocation entries
+    entry0 = data[start:start + 8]
+    entry1 = data[start + 8:start + 16]
+    data[start:start + 8] = entry1
+    data[start + 8:start + 16] = entry0
+    permuted = tmp_path / "permuted.o"
+    permuted.write_bytes(data)
+    result = verify(permuted, original)
+    assert result["literal_match"] is True

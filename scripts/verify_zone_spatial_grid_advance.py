@@ -125,26 +125,44 @@ def _patch_word(code, record):
 
 
 def _manifest_matches(records):
-    actual = tuple((entry["offset"], entry["type"], entry["address"])
-                   for entry in records)
-    return actual == EXPECTED_RELOCATIONS
+    actual = tuple(sorted((entry["offset"], entry["type"], entry["address"])
+                          for entry in records))
+    expected = tuple(sorted(EXPECTED_RELOCATIONS))
+    return actual == expected
 
 
 def _resolve(code, records):
     if not _manifest_matches(records):
         return bytes(code)
     result = bytearray(code)
-    for entry in records:
+    for entry in sorted(records, key=lambda r: r["offset"]):
         _patch_word(result, entry)
     return bytes(result)
 
 
+def _validate_elf_header(elf):
+    header = elf.header
+    if header["e_ident"]["EI_CLASS"] != "ELFCLASS32":
+        raise ValueError("Source ELF must be 32-bit (ELFCLASS32)")
+    if header["e_ident"]["EI_DATA"] != "ELFDATA2LSB":
+        raise ValueError("Source ELF must be little-endian (ELFDATA2LSB)")
+    if header["e_type"] != "ET_REL":
+        raise ValueError("Source ELF must be relocatable (ET_REL)")
+    if header["e_machine"] != "EM_MIPS":
+        raise ValueError("Source ELF machine must be EM_MIPS")
+
+
 def _compiled_function(path):
     elf = ELFFile(BytesIO(Path(path).read_bytes()))
+    _validate_elf_header(elf)
     function = _function(elf)
     section = elf.get_section(function["st_shndx"])
     start = function["st_value"]
-    code = section.data()[start:start + function["st_size"]]
+    size = function["st_size"]
+    sec_data = section.data()
+    if start + size > len(sec_data):
+        raise ValueError(f"{FUNCTION_NAME} symbol extent exceeds section size")
+    code = sec_data[start:start + size]
     records = _source_records(elf, function)
     return _resolve(code, records), records
 

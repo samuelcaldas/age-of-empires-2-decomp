@@ -113,13 +113,7 @@ int func_00342170(TacticalObj_341040 *self, int a1, int a2, int a3, int t0) {
         func_00341040(self);
         return 1;
     } else if ((TacticalSubObj*)a1 == self->field_830) {
-        int mode = self->field_84C;
-        if ((unsigned int)mode >= 30) {
-            func_00341040(self);
-            return 1;
-        }
-
-        switch (mode) {
+        switch (self->field_84C) {
         case 0:
             func_00341040(self);
             return 1;
@@ -250,7 +244,8 @@ int func_00342170(TacticalObj_341040 *self, int a1, int a2, int a3, int t0) {
             func_00341040(self);
             return 1;
         default:
-            break;
+            func_00341040(self);
+            return 1;
         }
     }
 

@@ -259,6 +259,11 @@ static bool takes_arg2_in_arg2_mode(size_t i) {
     return (is_dual_case(i) || i == 8 || i == 9 || i == 13 || i == 16 || i == 17 || i == 18 || i == 19);
 }
 
+// Which cases accept and forward action_desc in arg2-mode
+static bool takes_desc_in_arg2_mode(size_t i) {
+    return (is_dual_case(i) || i == 7 || i == 8 || i == 9 || i == 13 || i == 16 || i == 19);
+}
+
 static void test_all_factories_with_arg2() {
     ActionManager dummy_self;
     dummy_self.field_0 = 1;
@@ -301,6 +306,9 @@ static void test_all_factories_with_arg2() {
             // All other cases select the arg2 initializer path
             assert(g_init_arg2_calls[i] == 1);
             assert(g_init_float_calls[i] == 0);
+            if (takes_desc_in_arg2_mode(i)) {
+                assert(g_last_desc == &desc); // asserts forwarded descriptor (including case 0x79)
+            }
             if (takes_arg2_in_arg2_mode(i)) {
                 assert(g_last_arg2 == dummy_arg2); // asserts forwarded arg2
             }

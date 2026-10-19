@@ -26,7 +26,7 @@ struct TacticalAI2 {
     int m_item_count;
     TacticalItem m_items[10];
     int m_stack_count;
-    int m_stack[1];
+    int m_stack[50];
 };
 
 extern "C" {

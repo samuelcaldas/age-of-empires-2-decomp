@@ -28,8 +28,14 @@ int func_001C7850(
     int * const *out_id_ptr = &out_id;
 
     MapContext *s0;
-    short cur_x;
+    short field48;
+    MapTile *center_row;
+    int map_w;
+    int map_h;
     BuildingMaster *bld_var;
+    short t_max_y;
+    short cur_x;
+    int fp_flag;
 
     void *map = *(void **)((char *)world + 0xB98);
     s0 = *(MapContext **)((char *)map + 0x3C);
@@ -50,13 +56,13 @@ int func_001C7850(
     float max_x = x + rx - 0.0001f;
     float max_y = y + ry - 0.0001f;
 
-    int map_w = s0->m_width;
+    map_w = s0->m_width;
     if (x - rx < 0.0f || max_x >= (float)map_w) {
         return 7;
     }
 
     float min_y = y - ry;
-    int map_h = s0->m_height;
+    map_h = s0->m_height;
     if (min_y < 0.0f || max_y >= (float)map_h) {
         return 7;
     }
@@ -64,14 +70,14 @@ int func_001C7850(
     short t_min_x = (short)func_123350(x - rx);
     short t_max_x = (short)func_123350(max_x);
     short t_min_y = (short)func_123350(min_y);
-    short t_max_y = (short)func_123350(max_y);
+    t_max_y = (short)func_123350(max_y);
 
     short p_min_x, p_max_x, p_min_y, p_max_y;
-    short field48 = bld_var->m_field48;
+    field48 = bld_var->m_field48;
     if (field48 >= 0 || bld_var->m_field4A >= 0) {
         short cy = (short)func_123350(y);
         MapTile **tile_rows = s0->m_tile_rows;
-        MapTile *center_row = tile_rows[cy];
+        center_row = tile_rows[cy];
         short cx = (short)func_123350(x);
         MapTile *center_tile = &center_row[cx];
         if (center_tile->m_zone_id == field48 || center_tile->m_zone_id == bld_var->m_field4A) {
@@ -134,7 +140,7 @@ int func_001C7850(
     }
 
     MapTile **tile_rows = s0->m_tile_rows;
-    int fp_flag = 0;
+    fp_flag = 0;
 
     MapTile *base_tile = &tile_rows[t_max_y][t_min_x];
     short base_slope = base_tile->m_slope_flag;

@@ -44,10 +44,13 @@ The single direct function call relocation matches the authentic ELF site:
 
 - **Red test:** `build/reset-arg2-red.log` captured observable assertion failure
   (`Assertion last_f6cc0_item2 == &item1 failed`) with exit status `-6` (SIGABRT)
-  when mutating second argument or call order.
-- **Green test:** `build/reset-arg2-green.log` confirmed native pass (2 passed in 0.23s)
-  under C++98 `-m32` verifying first argument (`field_10`), second argument (`field_0C`),
-  call ordering (prior to `field_0C` update), and final state.
+  when mutating the second argument. `build/reset-order-red.log` captured observable
+  assertion failure (`Assertion field_0c_at_call_time == &item1 failed`) with exit status `-6`
+  when mutating call ordering to overwrite `field_0C` before the callback.
+- **Green test:** `build/reset-order-green.log` confirmed native pass (2 passed in 0.29s)
+  under C++98 `-m32` verifying exact typed `SpatialItem *` variadic argument retrieval,
+  first argument (`field_10`), second argument (`field_0C`), call ordering (prior to `field_0C`
+  update), and final reset state.
 - **Provenance gate:** `tests/test_zone_spatial_grid_reset_provenance.py` (6 passed)
   verifies fresh compilation with `mwccps2.exe` v2.3.1.01 under `wibo`, 100% exact
   literal instruction matching across all 68 bytes (`literal_match: true`), 1 direct

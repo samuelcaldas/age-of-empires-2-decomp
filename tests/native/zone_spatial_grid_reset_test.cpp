@@ -21,9 +21,9 @@ struct GridResetLayout {
 };
 
 static std::vector<int> call_log;
-static void *last_f6cc0_item1 = 0;
-static void *last_f6cc0_item2 = 0;
-static void *field_0c_at_call_time = 0;
+static SpatialItem *last_f6cc0_item1 = 0;
+static SpatialItem *last_f6cc0_item2 = 0;
+static MockItem *field_0c_at_call_time = 0;
 static GridResetLayout *observed_grid = 0;
 
 extern "C" {
@@ -32,7 +32,7 @@ void func_001F6CC0(SpatialItem *item, ...) {
     last_f6cc0_item1 = item;
     va_list args;
     va_start(args, item);
-    last_f6cc0_item2 = va_arg(args, void *);
+    last_f6cc0_item2 = va_arg(args, SpatialItem *);
     va_end(args);
     if (observed_grid) {
         field_0c_at_call_time = observed_grid->field_0C;
@@ -68,8 +68,8 @@ int main() {
     assert(grid.field_0C == &item2);
     assert(call_log.size() == 1);
     assert(call_log[0] == 1);
-    assert(last_f6cc0_item1 == &item2);
-    assert(last_f6cc0_item2 == &item1);
+    assert(last_f6cc0_item1 == reinterpret_cast<SpatialItem *>(&item2));
+    assert(last_f6cc0_item2 == reinterpret_cast<SpatialItem *>(&item1));
     assert(field_0c_at_call_time == &item1); // call order: must be called before field_0C is updated
 
     // Test Case 2: field_0C == field_10 (already reset)

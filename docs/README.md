@@ -42,7 +42,7 @@ Start with the top-level [README](../README.md).
 - [controller_pulse_32c320.md](controller_pulse_32c320.md): pure-C++ controller pulse evaluator at `0x32C320`, 252/252-byte NonMatching diagnostic (78 aligned/174 diff), pulse contracts, and real mutation tests
 - [controller_child_sync_32c420.md](controller_child_sync_32c420.md): pure-C++ controller child sync at `0x32C420`, 84/88-byte NonMatching diagnostic (32 aligned/56 diff), child view contracts, and real mutation tests
 - [controller_pulse_reset_32c480.md](controller_pulse_reset_32c480.md): pure-C++ controller pulse reset at `0x32C480`, 120-byte exact MWCC match, pulse deactivation contracts, and real mutation tests
-- [controller_render_profiler_32c500.md](controller_render_profiler_32c500.md): pure-C++ controller render profiler at `0x32C500`, 232-byte exact MWCC match, render metrics contracts, and real mutation tests
+- [controller_render_profiler_32c500.md](controller_render_profiler_32c500.md): pure-C++ controller render profiler at `0x32C500`, 232/232-byte NonMatching diagnostic (132 aligned/100 diff), render metrics contracts, and real mutation tests
 - [controller_stub_32c5f0.md](controller_stub_32c5f0.md): pure-C++ controller stub at `0x32C5F0`, 8-byte exact MWCC match, leaf no-op contracts, and real mutation tests
 - [controller_formation_action_32c600.md](controller_formation_action_32c600.md): pure-C++ controller formation action at `0x32C600`, 1428-byte MWCC structural match, formation contracts, and real mutation tests
 - [controller_target_action_32cba0.md](controller_target_action_32cba0.md): pure-C++ controller target action coordinator at `0x32CBA0`, 2132-byte MWCC structural match, combat order contracts, and real mutation tests

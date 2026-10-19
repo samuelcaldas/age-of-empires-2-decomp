@@ -4,7 +4,7 @@
 Verifies bit-for-bit byte equality of compiled unit_action_build_818d0.o
 against orig/SLES-50282/AOK.ELF at VRAM 0x2818D0 (file offset 0x181AB0).
 Enforces exact per-site relocation manifest, per-symbol counts, opcodes, addends,
-validates the 11-entry .rodata jump table and func_2818D0 tail-call alias.
+validates the 11-entry .rodata jump table and the 8-byte func_2818D0 leaf tail-call alias.
 Uses strictly Python 3 standard library (struct, hashlib, sys, pathlib).
 """
 
@@ -196,6 +196,57 @@ def assert_relocation_addend(r_type, sym_vram, expected_addend, unlinked_word, r
             )
 
 
+def assert_alias_symbol_and_code(symbols, sections, obj_bytes, sym_map):
+    alias_sym = next((s for s in symbols if s["name"] == "func_2818D0"), None)
+    if alias_sym is None:
+        raise ValueError("func_2818D0 alias symbol not found in symbol table")
+    if alias_sym["value"] != 0:
+        raise ValueError(f"func_2818D0 alias value mismatch: expected 0, got {alias_sym['value']}")
+    if alias_sym["size"] != 8:
+        raise ValueError(f"func_2818D0 alias size mismatch: expected 8, got {alias_sym['size']}")
+
+    alias_shndx = alias_sym["shndx"]
+    alias_sec = sections[alias_shndx]
+    if alias_sec["name"] != ".text":
+        raise ValueError(f"func_2818D0 alias section name mismatch: expected .text, got {alias_sec['name']}")
+    if alias_sec["size"] != 8:
+        raise ValueError(f"func_2818D0 alias section size mismatch: expected 8, got {alias_sec['size']}")
+
+    # Find relocation section for alias section
+    rel_alias_sec = next((s for s in sections if s and s.get("name") == ".rel.text" and s.get("info") == alias_shndx), None)
+    if rel_alias_sec is None:
+        raise ValueError(f"Missing .rel.text section for alias section {alias_shndx}")
+    if rel_alias_sec["size"] != 8:  # 1 relocation
+        raise ValueError(f"Alias relocation table size mismatch: expected 8, got {rel_alias_sec['size']}")
+
+    rel_bytes = obj_bytes[rel_alias_sec["offset"] : rel_alias_sec["offset"] + 8]
+    r_offset, r_info = struct.unpack("<II", rel_bytes)
+    r_sym = r_info >> 8
+    r_type = r_info & 0xFF
+    if r_offset != 0:
+        raise ValueError(f"Alias relocation offset mismatch: expected 0, got {r_offset}")
+    if r_type != 4:  # R_MIPS_26
+        raise ValueError(f"Alias relocation type mismatch: expected 4 (R_MIPS_26), got {r_type}")
+
+    target_sym = symbols[r_sym]
+    if target_sym["name"] != "func_002818D0":
+        raise ValueError(f"Alias relocation target mismatch: expected func_002818D0, got {target_sym['name']}")
+
+    # Validate unlinked instruction words
+    alias_code = bytearray(obj_bytes[alias_sec["offset"] : alias_sec["offset"] + 8])
+    w0_unlinked = struct.unpack("<I", alias_code[0:4])[0]
+    w1_unlinked = struct.unpack("<I", alias_code[4:8])[0]
+    if w0_unlinked != 0x08000000:
+        raise ValueError(f"Alias unlinked word 0 mismatch: expected 0x08000000 (j), got 0x{w0_unlinked:08X}")
+    if w1_unlinked != 0x00000000:
+        raise ValueError(f"Alias unlinked word 1 mismatch: expected 0x00000000 (nop), got 0x{w1_unlinked:08X}")
+
+    target_vram = sym_map["func_002818D0"]
+    expected_w0_resolved = (2 << 26) | ((target_vram >> 2) & 0x03FFFFFF)
+    if expected_w0_resolved != 0x080A0634:
+        raise ValueError(f"Unexpected resolved alias target: expected 0x080A0634, got 0x{expected_w0_resolved:08X}")
+
+
 def verify_linked_bytes(symbols_override=None):
     if not ORIG_ELF_PATH.exists():
         raise FileNotFoundError(f"Missing original binary: {ORIG_ELF_PATH}")
@@ -314,7 +365,7 @@ def verify_linked_bytes(symbols_override=None):
         })
 
     # Validate func_002818D0 symbol
-    func_sym = next((s for s in symbols if s["name"] in ["func_002818D0", "func_2818D0"]), None)
+    func_sym = next((s for s in symbols if s["name"] == "func_002818D0"), None)
     if func_sym is None:
         raise ValueError("func_002818D0 symbol not found in symbol table")
     if func_sym["value"] != 0:
@@ -326,6 +377,9 @@ def verify_linked_bytes(symbols_override=None):
 
     # Load symbols map
     sym_map = symbols_override if symbols_override is not None else load_symbols_map()
+
+    # Validate func_2818D0 alias relationship and target
+    assert_alias_symbol_and_code(symbols, sections, obj_bytes, sym_map)
 
     # Read .text code slice
     text_sec = sections[text_sec_idx]
@@ -461,6 +515,7 @@ def verify_linked_bytes(symbols_override=None):
     print(f"File Offset:             0x{FUNC_FILE_OFFSET:06X} (VRAM 0x{FUNC_VRAM:06X})")
     print(f"Length:                  {FUNC_BYTE_LEN} bytes ({FUNC_BYTE_LEN//4} instructions)")
     print(f"Symbol {func_sym['name']}:  validated at .text offset 0, size {FUNC_BYTE_LEN}")
+    print(f"Alias func_2818D0:       validated at homonymous .text section, size 8, j func_002818D0")
     print(f"Original ELF slice SHA1: {orig_sha1} (enforced exact: {EXPECTED_SLICE_SHA1})")
     print(f"Resolved code slice SHA1:{resolved_sha1} (enforced exact: {EXPECTED_SLICE_SHA1})")
     print(f"GPREL16 resolved sites:  {gprel_count} (enforced exact: {EXPECTED_GPREL_COUNT})")

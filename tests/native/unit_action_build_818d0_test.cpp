@@ -172,10 +172,27 @@ static void test_param_boundaries() {
 static void test_alias() {
     setup_mocks();
     int dummy = 0x9999;
+
+    // Test delegation through alias
     func_2818D0(-101, &dummy);
     assert(g_delegations.size() == 1);
     assert(g_delegations[0].code == -101);
     assert(g_delegations[0].param == &dummy);
+
+    // Test direct bitmask clear path through alias
+    g_table2_mock.active_id = 2;
+    int p = 12;
+    func_2818D0(4, (void *)(size_t)p);
+    assert(D_00D8F45F[(2 << 8) + p] == (0xFF & ~(1 << 3)));
+
+    // Test jumptable lookup path through alias
+    g_func_141470_ret = 42;
+    D_00D90160[0].field_0 = 7;
+    D_00D90160[0].field_4 = 42;
+    int p2 = 25;
+    func_2818D0(101, (void *)(size_t)p2);
+    assert(D_00D8F45F[(2 << 8) + p2] == (0xFF & ~(1 << 6)));
+
     std::printf("PASS test_alias\n");
 }
 

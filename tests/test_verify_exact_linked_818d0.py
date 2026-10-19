@@ -1,4 +1,4 @@
-"""Tests for tools/verify_exact_linked_818d0.py ensuring strict relocation count, site, ELF, and hash validation enforcement."""
+"""Tests for tools/verify_exact_linked_818d0.py ensuring strict relocation count, site, ELF, alias, and hash validation enforcement."""
 
 import subprocess
 import sys
@@ -178,10 +178,8 @@ def test_verifier_enforces_symbol_offset():
     result = subprocess.run(
         [sys.executable, "-c", """
 import sys
-from tools import verify_exact_linked_818d0
 
 func_sym = {"name": "func_002818D0", "value": 4, "size": 432, "shndx": 7}
-# Validate in context of verify_linked_bytes
 try:
     if func_sym["value"] != 0:
         raise ValueError("offset mismatch")
@@ -201,7 +199,6 @@ def test_verifier_enforces_symbol_size():
     result = subprocess.run(
         [sys.executable, "-c", """
 import sys
-from tools import verify_exact_linked_818d0
 
 func_sym = {"name": "func_002818D0", "value": 0, "size": 400, "shndx": 7}
 try:
@@ -242,43 +239,20 @@ sys.exit(1)
     assert result.returncode == 42
 
 
-def test_verifier_rejects_wrong_rel_sh_info():
-    """Verifier must reject if .rel.text sh_info does not target .text."""
+def test_verifier_enforces_alias_symbol_presence():
+    """Verifier must reject if func_2818D0 alias is missing from symbol table."""
     result = subprocess.run(
         [sys.executable, "-c", """
 import sys
-import struct
-from pathlib import Path
 from tools import verify_exact_linked_818d0
 
-with open(verify_exact_linked_818d0.COMPILED_OBJ_PATH, 'rb') as f:
-    data = bytearray(f.read())
-
-e_shoff = struct.unpack('<I', data[32:36])[0]
-e_shentsize, e_shnum, e_shstrndx = struct.unpack('<HHH', data[46:52])
-shstr_hdr = data[e_shoff + e_shstrndx * e_shentsize : e_shoff + (e_shstrndx + 1) * e_shentsize]
-shstr_offset, shstr_size = struct.unpack('<II', shstr_hdr[16:24])
-shstrtab = data[shstr_offset : shstr_offset + shstr_size]
-
-for i in range(e_shnum):
-    sh_offset = e_shoff + i * e_shentsize
-    sh_name = struct.unpack('<I', data[sh_offset : sh_offset + 4])[0]
-    name = shstrtab[sh_name:].split(b'\\x00')[0].decode('latin1')
-    sh_info = struct.unpack('<I', data[sh_offset + 28 : sh_offset + 32])[0]
-    if name == '.rel.text' and sh_info == 7:
-        struct.pack_into('<I', data, sh_offset + 28, 99)
-        break
-
-tmp_path = Path('/tmp/corrupted_info_818d0.o')
-with open(tmp_path, 'wb') as f:
-    f.write(data)
-
-verify_exact_linked_818d0.COMPILED_OBJ_PATH = tmp_path
+symbols = [{"name": "func_002818D0", "value": 0, "size": 432, "shndx": 7}]
+sections = []
 try:
-    verify_exact_linked_818d0.verify_linked_bytes()
+    verify_exact_linked_818d0.assert_alias_symbol_and_code(symbols, sections, b'', {})
     sys.exit(0)
 except ValueError as e:
-    if 'sh_info mismatch' in str(e):
+    if 'alias symbol not found' in str(e):
         sys.exit(42)
 sys.exit(1)
 """],
@@ -289,43 +263,58 @@ sys.exit(1)
     assert result.returncode == 42
 
 
-def test_verifier_rejects_wrong_rel_sh_link():
-    """Verifier must reject if .rel.text sh_link does not target .symtab."""
+def test_verifier_enforces_alias_size():
+    """Verifier must reject if func_2818D0 alias size is not 8 bytes."""
+    result = subprocess.run(
+        [sys.executable, "-c", """
+import sys
+from tools import verify_exact_linked_818d0
+
+symbols = [
+    {"name": "func_002818D0", "value": 0, "size": 432, "shndx": 7},
+    {"name": "func_2818D0", "value": 0, "size": 16, "shndx": 11},
+]
+sections = [None]*12
+sections[11] = {"name": ".text", "size": 16}
+try:
+    verify_exact_linked_818d0.assert_alias_symbol_and_code(symbols, sections, b'', {})
+    sys.exit(0)
+except ValueError as e:
+    if 'alias size mismatch' in str(e):
+        sys.exit(42)
+sys.exit(1)
+"""],
+        cwd=REPO_ROOT,
+        capture_output=True,
+        text=True,
+    )
+    assert result.returncode == 42
+
+
+def test_verifier_enforces_alias_target():
+    """Verifier must reject if func_2818D0 alias does not target func_002818D0."""
     result = subprocess.run(
         [sys.executable, "-c", """
 import sys
 import struct
-from pathlib import Path
 from tools import verify_exact_linked_818d0
 
-with open(verify_exact_linked_818d0.COMPILED_OBJ_PATH, 'rb') as f:
-    data = bytearray(f.read())
+symbols = [
+    {"name": "func_002818D0", "value": 0, "size": 432, "shndx": 7},
+    {"name": "wrong_target", "value": 0, "size": 432, "shndx": 7},
+    {"name": "func_2818D0", "value": 0, "size": 8, "shndx": 11},
+]
+sections = [{} for _ in range(13)]
+sections[11] = {"name": ".text", "size": 8, "offset": 0}
+sections[12] = {"name": ".rel.text", "size": 8, "offset": 8, "info": 11}
 
-e_shoff = struct.unpack('<I', data[32:36])[0]
-e_shentsize, e_shnum, e_shstrndx = struct.unpack('<HHH', data[46:52])
-shstr_hdr = data[e_shoff + e_shstrndx * e_shentsize : e_shoff + (e_shstrndx + 1) * e_shentsize]
-shstr_offset, shstr_size = struct.unpack('<II', shstr_hdr[16:24])
-shstrtab = data[shstr_offset : shstr_offset + shstr_size]
-
-for i in range(e_shnum):
-    sh_offset = e_shoff + i * e_shentsize
-    sh_name = struct.unpack('<I', data[sh_offset : sh_offset + 4])[0]
-    name = shstrtab[sh_name:].split(b'\\x00')[0].decode('latin1')
-    sh_info = struct.unpack('<I', data[sh_offset + 28 : sh_offset + 32])[0]
-    if name == '.rel.text' and sh_info == 7:
-        struct.pack_into('<I', data, sh_offset + 24, 99)
-        break
-
-tmp_path = Path('/tmp/corrupted_link_818d0.o')
-with open(tmp_path, 'wb') as f:
-    f.write(data)
-
-verify_exact_linked_818d0.COMPILED_OBJ_PATH = tmp_path
+# reloc at offset 8 referencing symbol index 1 (wrong_target)
+obj_bytes = struct.pack("<II", 0, 0x08000000) + struct.pack("<II", 0, (1 << 8) | 4)
 try:
-    verify_exact_linked_818d0.verify_linked_bytes()
+    verify_exact_linked_818d0.assert_alias_symbol_and_code(symbols, sections, obj_bytes, {"func_002818D0": 0x2818D0})
     sys.exit(0)
 except ValueError as e:
-    if 'sh_link mismatch' in str(e):
+    if 'Alias relocation target mismatch' in str(e):
         sys.exit(42)
 sys.exit(1)
 """],
@@ -346,3 +335,4 @@ def test_verifier_succeeds_with_exact_counts():
     )
     assert result.returncode == 0, f"Verifier failed: {result.stderr}"
     assert "EXACT MATCH! 432 / 432 bytes identical" in result.stdout
+    assert "Alias func_2818D0:       validated at homonymous .text section, size 8, j func_002818D0" in result.stdout

@@ -55,15 +55,30 @@ It allocates a `0x40`-byte stack frame (`addiu $sp, $sp, -64`), preserving 4 cal
    - Clears bit `(code_or_id - 1)`:
      ```cpp
      int mask = ~(1 << (code_or_id - 1));
-     D_00D8F45F[offset] &= mask;
+     D_00D8F45F[(active_id << 8) + p] &= mask;
      ```
 
-4. **Alias Symbol `func_2818D0`**:
-   - Emits 8-byte leaf tail call:
-     ```asm
-     j func_002818D0
-     nop
+4. **Alias Symbol `func_2818D0` Evidence**:
+   - **Original Binary Identification**:
+     In `config/SLES-50282/symbols.txt`:
+     ```text
+     func_002818D0 = 0x2818D0; // type:func size:0x1B0 absolute:True
+     func_2818D0 = 0x2818D0; // type:func absolute:True
      ```
+     Both symbols map to the identical entry address `0x2818D0`.
+   - **Compiled Object Verification**:
+     In `build/SLES-50282/src/unit_action_build_818d0.o`:
+     - Section 11 is a homonymous `.text` section of 8 bytes containing symbol `func_2818D0` (symbol 11, size 8, `st_shndx = 11`, `st_value = 0`).
+     - Unlinked instruction words:
+       `0x00: 0x08000000` (MIPS `j` opcode 2)
+       `0x04: 0x00000000` (`nop`)
+     - Section 12 is `.rel.text` linked to Section 11 (`sh_info = 11`), with 1 relocation:
+       `offset = 0`, `type = 4 (R_MIPS_26)`, `symbol = func_002818D0`.
+     - Resolved linked instructions with target `func_002818D0` at `0x2818D0`:
+       `target = (0x2818D0 >> 2) & 0x03FFFFFF = 0x0A0634`
+       `0x00: 0x080A0634` (`j 0x2818D0`)
+       `0x04: 0x00000000` (`nop`)
+     - Emits pure leaf tail-call forwarding without stack frame allocation (`#pragma exceptions off`).
 
 ---
 
@@ -71,31 +86,66 @@ It allocates a `0x40`-byte stack frame (`addiu $sp, $sp, -64`), preserving 4 cal
 
 ### Step 1: Red (Observed Assertion Failure on Test Double)
 
-- **Test Suite**: `tests/native/unit_action_build_818d0_test.cpp`
-- **Initial Test Run Failure**:
-  ```text
-  Assertion `g_delegations.size() == 1' failed.
-  assert -6 == 0
-  FAILED tests/test_unit_action_build_818d0.py::test_build_818d0_behavior
+- **Exact Red Command**:
+  ```sh
+  .venv/bin/pytest tests/test_unit_action_build_818d0.py
   ```
-- **Evidence**: Verified failure against mock harness before code adjustments.
+- **Observed Assertion Failure Log**:
+  ```text
+  ============================= test session starts ==============================
+  platform linux -- Python 3.14.4, pytest-9.1.1, pluggy-1.6.0
+  rootdir: /home/samuelcaldas/source/repos/aoe/.worktrees/unit-action-targets
+  collected 1 item
+
+  tests/test_unit_action_build_818d0.py F                                  [100%]
+
+  =================================== FAILURES ===================================
+  __________________________ test_build_818d0_behavior ___________________________
+
+  native_binary = PosixPath('/tmp/pytest-of-samuelcaldas/pytest-698/bin0/unit_action_build_818d0_test')
+
+      def test_build_818d0_behavior(native_binary):
+          """Run native behavioral test suite for func_002818D0."""
+          res = subprocess.run([str(native_binary)], capture_output=True, text=True)
+  >       assert res.returncode == 0, f"Test failed: {res.stderr}\n{res.stdout}"
+  E       AssertionError: Test failed: unit_action_build_818d0_test: /home/samuelcaldas/source/repos/aoe/.worktrees/unit-action-targets/tests/native/unit_action_build_818d0_test.cpp:67: void test_delegation_path(): Assertion `g_delegations.size() == 1' failed.
+  E         
+  E         
+  E       assert -6 == 0
+  E        +  where -6 = CompletedProcess(args=['/tmp/pytest-of-samuelcaldas/pytest-698/bin0/unit_action_build_818d0_test'], returncode=-6, stdout='', stderr='unit_action_build_818d0_test: /home/samuelcaldas/source/repos/aoe/.worktrees/unit-action-targets/tests/native/unit_action_build_818d0_test.cpp:67: void test_delegation_path(): Assertion `g_delegations.size() == 1\' failed.\n').returncode
+
+  tests/test_unit_action_build_818d0.py:34: AssertionError
+  =========================== short test summary info ============================
+  FAILED tests/test_unit_action_build_818d0.py::test_build_818d0_behavior - AssertionError: Test failed
+  ============================== 1 failed in 1.33s ===============================
+  ```
 
 ### Step 2: Green (Implemented Pure C++ Behavior)
 
-- **Implementation**: `src/unit_action_build_818d0.cpp`
-- **Test Result**:
-  ```text
-  tests/test_unit_action_build_818d0.py . [100%]
-  1 passed in 0.21s
+- **Exact Green Command**:
+  ```sh
+  .venv/bin/pytest tests/test_unit_action_build_818d0.py
   ```
-- **All Behavioral Assertions Pass**:
-  - Delegation of all boundary and intermediate negative codes `[-205, -100]`.
+- **Observed Green Result**:
+  ```text
+  ============================= test session starts ==============================
+  platform linux -- Python 3.14.4, pytest-9.1.1, pluggy-1.6.0
+  rootdir: /home/samuelcaldas/source/repos/aoe/.worktrees/unit-action-targets
+  collected 1 item
+
+  tests/test_unit_action_build_818d0.py .                                  [100%]
+
+  ============================== 1 passed in 0.21s ===============================
+  ```
+- **Behavioral Coverage**:
+  - Delegation of all boundary and intermediate negative query codes `[-205, -100]` with exact arguments `(code_or_id, func_002818D0, param)`.
   - Rejection of out-of-range negative codes (`-99`, `-206`).
   - Validation of all 11 jump table cases (101 to 111).
   - Validation of BSS structure field mismatch and match gating.
   - Validation of bitmask clearance for direct IDs (1 to 100) and mapped IDs.
   - Parameter boundaries: `p <= 0` (no op), `p == 1` (clears bit), `p == 256` (clears bit), `p > 256` (no op).
-  - Active ID row stride: `(active_id << 8)`.
+  - Active ID row stride: `(active_id << 8) + p`.
+  - Full delegation, direct bitmask, and mapped bitmask coverage verified through alias `func_2818D0`.
 
 ---
 
@@ -118,7 +168,7 @@ It allocates a `0x40`-byte stack frame (`addiu $sp, $sp, -64`), preserving 4 cal
 
 ## 5. Relocation Manifest & Resolution
 
-14 relocation sites in Section 7 (`.text`), 11 relocation sites in Section 5 (`.rodata`), 1 relocation site in Section 11 (`.text` alias).
+14 relocation sites in Section 7 (`.text`), 11 relocation sites in Section 5 (`.rodata`), 1 relocation site in Section 12 for Section 11 (`.text` alias).
 
 ### Section 7 Relocation Manifest
 
@@ -165,6 +215,7 @@ Target ELF:              orig/SLES-50282/AOK.ELF
 File Offset:             0x181AB0 (VRAM 0x2818D0)
 Length:                  432 bytes (108 instructions)
 Symbol func_002818D0:  validated at .text offset 0, size 432
+Alias func_2818D0:       validated at homonymous .text section, size 8, j func_002818D0
 Original ELF slice SHA1: c22ee798b95b114d8ba50e6b1c47c257248e5c87 (enforced exact: c22ee798b95b114d8ba50e6b1c47c257248e5c87)
 Resolved code slice SHA1:c22ee798b95b114d8ba50e6b1c47c257248e5c87 (enforced exact: c22ee798b95b114d8ba50e6b1c47c257248e5c87)
 GPREL16 resolved sites:  2 (enforced exact: 2)
@@ -198,15 +249,15 @@ RESULT: EXACT MATCH! 2208 / 2208 bytes identical (100.00% byte equality).
 === Milestone 155 (func_002818D0) Relocation-Resolved Byte Equality Verification ===
 RESULT: EXACT MATCH! 432 / 432 bytes identical (100.00% byte equality).
 
-collected 44 items
+collected 45 items
 tests/test_unit_action_build_807d0.py .                                  [  2%]
-tests/test_verify_exact_linked_807d0.py ..............                   [ 34%]
-tests/test_unit_action_build_81030.py .                                  [ 36%]
-tests/test_verify_exact_linked_81030.py ..............                   [ 68%]
-tests/test_unit_action_build_818d0.py .                                  [ 70%]
-tests/test_verify_exact_linked_818d0.py .............                    [100%]
+tests/test_verify_exact_linked_807d0.py ..............                   [ 33%]
+tests/test_unit_action_build_81030.py .                                  [ 35%]
+tests/test_verify_exact_linked_81030.py ..............                   [ 66%]
+tests/test_unit_action_build_818d0.py .                                  [ 68%]
+tests/test_verify_exact_linked_818d0.py ..............                   [100%]
 
-44 passed in 2.14s
+45 passed in 2.18s
 ```
 Status in `configure.py`: strictly maintained as `NonMatching` pending `aoe-advisor` review and clearance.
 Branch `feat/unit-action-build-7c390` remains unmerged.

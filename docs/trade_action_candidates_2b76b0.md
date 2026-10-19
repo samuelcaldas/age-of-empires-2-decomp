@@ -116,7 +116,7 @@ int func_002B9140(void *self);
 
 ### 5. `func_002B90A0` and `func_002B9130` (Trade Action Type Checker)
 - **Slice**: File `0x1B9280`–`0x1B9320`, VRAM `0x2B90A0`–`0x2B9140` (160 B code and padding).
-- **Status**: **100.0% Matched** (verified byte-for-byte with MWCC PS2 2.3.1.01 against SLES-50282 original ELF; 160/160 bytes identical; kept NonMatching in configure.py pending promotion clearance).
+- **Status**: **100.0% Matched** (verified byte-for-byte with MWCC PS2 2.3.1.01 against SLES-50282 original ELF; 160/160 bytes identical; promoted to Matching in configure.py).
 - `func_002B90A0` (144 B): resolves entity `item` via `func_332e60(group->m_root, item_id)` through manager `+176 -> +127816 -> +2968`. Rejects if `!item` or `!pred(item)`. Returns 1 if `func_001471A0(pred(item)) == target_type`, else 0.
 - `func_002B9130` (8 B stub): `jr ra; nop`, followed by 8 B padding zeroes.
 

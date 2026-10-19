@@ -53,21 +53,46 @@ Implicit addends at both relocation sites are verified to be zero (`0x0C000000`)
 
 ## Verification & TDD evidence
 
-- **Red test:** Captured observable assertion failure (`Assertion res1 == 0 failed`)
-  with exit status `-6` (SIGABRT) on initial stub returning `-1`.
-- **Green test:** Confirmed native pass under C++98 `-m32` verifying both null guards,
-  node unlinking, counter decrement, conditional virtual method 0 invocation (arg=1),
-  memory deallocation via `func_00116F68`, and return codes (0/1).
+### Step-by-Step TDD Progression (Granular Red/Green Cycles)
+
+The implementation followed mandatory test-driven development through four isolated, observable cycles executed in `docker-dev`:
+
+1. **Step 1 — Null element guard (`elem == NULL`):**
+   - **Red command:** `docker --context docker-dev run --rm --network host -v $(pwd):/workspace -w /workspace aoe-tests:verification pytest -p no:cacheprovider -q -ra tests/test_zone_spatial_grid_unbind.py`
+   - **Observable failure:** `AssertionError: Native test failed with code -6 (SIGABRT): unbind_test: /workspace/tests/native/zone_spatial_grid_unbind_test.cpp:86: int main(): Assertion 'res1 == 0' failed.` on stub returning `-1`.
+   - **Green change:** Implemented `if (elem == 0) return 0;`.
+   - **Green result:** Case 1 passed; Case 2 failed as expected.
+
+2. **Step 2 — Lookup failure guard (`node == NULL`):**
+   - **Red command:** `docker --context docker-dev run --rm --network host -v $(pwd):/workspace -w /workspace aoe-tests:verification pytest -p no:cacheprovider -q -ra -k "test_native_unbind_behavior" tests/test_zone_spatial_grid_unbind.py`
+   - **Observable failure:** `AssertionError: Native test failed with code -6 (SIGABRT): unbind_test: /workspace/tests/native/zone_spatial_grid_unbind_test.cpp:96: int main(): Assertion 'res2 == 0' failed.`.
+   - **Green change:** Added `ListNode *node = func_001F2E00(self, elem); if (node == 0) return 0;`.
+   - **Green result:** Cases 1 and 2 passed; Case 3 failed as expected.
+
+3. **Step 3 — Node unlinking and deallocation (`node->elem == NULL`):**
+   - **Red command:** `docker --context docker-dev run --rm --network host -v $(pwd):/workspace -w /workspace aoe-tests:verification pytest -p no:cacheprovider -q -ra -k "test_native_unbind_behavior" tests/test_zone_spatial_grid_unbind.py`
+   - **Observable failure:** `AssertionError: Native test failed with code -6 (SIGABRT): unbind_test: /workspace/tests/native/zone_spatial_grid_unbind_test.cpp:128: int main(): Assertion 'res3 == 1' failed.`.
+   - **Green change:** Implemented `self->field_18--; node->next->prev = node->prev; node->prev->next = node->next; func_00116F68(node); return 1;`.
+   - **Green result:** Cases 1, 2, and 3 passed across interior, head, tail, and self-loop topologies; Case 4 failed as expected.
+
+4. **Step 4 — Virtual callback dispatch (`node->elem != NULL`):**
+   - **Red command:** `docker --context docker-dev run --rm --network host -v $(pwd):/workspace -w /workspace aoe-tests:verification pytest -p no:cacheprovider -q -ra -k "test_native_unbind_behavior" tests/test_zone_spatial_grid_unbind.py`
+   - **Observable failure:** `AssertionError: Native test failed with code -6 (SIGABRT): unbind_test: /workspace/tests/native/zone_spatial_grid_unbind_test.cpp:159: int main(): Assertion 'observed_method_self == &item' failed.`.
+   - **Green change:** Added `if (node->elem != 0) { node->elem->method_08(1); }` before node deallocation.
+   - **Green result:** Confirmed all 12 native behavioral tests and 11 mutation tests pass (12 passed in 2.99s).
+
 - **Mutation sensitivity:** 11 distinct mutations confirmed sensitive across null guards,
   counter decrement, pointer unlinking, method call presence, argument value, free call,
   and return value.
-- **Provenance gate:** `tests/test_zone_spatial_grid_unbind_provenance.py` (15 passed)
+- **Provenance gate:** `tests/test_zone_spatial_grid_unbind_provenance.py` (18 passed in 0.54s)
   verifies fresh compilation under `wibo` using `compilers/PS2/mwcc-2.3.1.01/mwccps2.exe`,
   followed by exact literal instruction matching across all 160 bytes (`literal_match: true`),
   2 direct `R_MIPS_26` function relocations, matching resolved SHA-256 hash
   (`f3c4b868b0011e7cfab87bec4548d963487ce44f6222e30a897d39d76e7a7ea9`),
   corrupted instruction rejection against a passing baseline, unpinned ELF rejection,
   rejection of 7 relocation manifest mutations, rejection of non-zero implicit addends,
-  rejection of non-executable sections, rejection of defined relocation symbols, and CLI zero-exit contract.
+  rejection of non-executable sections, rejection of defined relocation symbols,
+  rejection of non-MIPS ELF machine headers, rejection of oversized symbols,
+  acceptance of permuted relocation records, and CLI zero-exit contract.
 - **Configuration policy:** Registered as `NonMatching` in `configure.py` per standing
   policy pending peer review; `config.yml` and `symbols.txt` remain untouched.

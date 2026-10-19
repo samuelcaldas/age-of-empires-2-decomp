@@ -55,7 +55,7 @@ Start with the top-level [README](../README.md).
 - [controller_coord_clamp_32e580.md](controller_coord_clamp_32e580.md): pure-C++ controller coordinate clamp at `0x32E580`, 168/192-byte NonMatching diagnostic (73 aligned bytes, NonMatching), coordinate clamping contracts, and real mutation tests
 - [controller_decrement_by_id_32e640.md](controller_decrement_by_id_32e640.md): pure-C++ controller decrement by ID at `0x32E640`, 100-byte exact MWCC match, table decrement contracts, and real mutation tests
 - [controller_order_dispatch_32e6b0.md](controller_order_dispatch_32e6b0.md): pure-C++ controller order dispatch at `0x32E6B0`, 360/368-byte NonMatching diagnostic (94 aligned bytes, 4 relocations, NonMatching), order routing contracts, and real mutation tests
-- [controller_cleanup_32e820.md](controller_cleanup_32e820.md): pure-C++ controller slot cleanup at `0x32E820`, 172/160-byte NonMatching diagnostic (39 matching prefix bytes, 1 relocation, NonMatching), 10-slot traversal contracts, and real mutation tests
+- [controller_cleanup_32e820.md](controller_cleanup_32e820.md): pure-C++ controller slot cleanup at `0x32E820`, 160-byte exact MWCC match, 10-slot traversal contracts, and real mutation tests
 - [mode_update_328930.md](mode_update_328930.md): pure-C++ mode update at `0x328930`, 480-byte MWCC structural match, vtable dispatch contracts, and real mutation tests
 - [mode_handler_328b10.md](mode_handler_328b10.md): pure-C++ mode handler at `0x328B10`, 292-byte MWCC structural match, state reset contracts, and real mutation tests
 - [trade_action_route_finish.md](trade_action_route_finish.md): exact route-buffer reconstruction, corrected ELF mapping, and regression validation

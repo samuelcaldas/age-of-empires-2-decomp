@@ -10,8 +10,8 @@ NATIVE_TEST = (
     ROOT / "tests/native/tactical_ai_combat_subsystem_controller_cleanup_test.cpp"
 )
 MUTATIONS = [
-    ("corrupt_null_guard",      "if (self == 0)",                    "if (self != 0)",
-     None,         "matching active slot must call sub_260ED0"),
+    ("corrupt_loop_start",      "int i = 0;",                        "int i = 1;",
+     "matching_slot", "matching active slot must call sub_260ED0"),
     ("corrupt_flag_bit",        "(entry->flag & 4) == 4",            "(entry->flag & 2) == 2",
      "matching_slot", "matching active slot must call sub_260ED0"),
     ("corrupt_action_id_cmp",
@@ -31,14 +31,10 @@ MUTATIONS = [
      "(unsigned short)sub->action_id == (unsigned)self->m_slot_action_ids[i]",
      "signed_id",  "signed negative action_id must sign-extend and match"),
     ("clear_before_callback",
-     """                if (self->m_sub12c != 0) {
-                    sub_260ED0(self->m_sub12c->m_sub_target);
-                }
+     """                sub_260ED0(self->m_sub12c->m_sub_target);
                 self->m_slots[i] = 0;""",
      """                self->m_slots[i] = 0;
-                if (self->m_sub12c != 0) {
-                    sub_260ED0(self->m_sub12c->m_sub_target);
-                }""",
+                sub_260ED0(self->m_sub12c->m_sub_target);""",
      "matching_slot", "slot must remain intact during callback"),
     ("omit_slot_count_reset",   "self->m_slot_count = 0;",          "/* omitted */;",
      "slot_count_reset", "m_slot_count must be reset to 0 after cleanup"),
@@ -73,6 +69,24 @@ def test_controller_cleanup_reference_contract(tmp_path):
     compile_native(SOURCE, binary)
     result = run_native(binary)
     assert result.returncode == 0, result.stderr
+
+
+def test_null_self_behavioral_red(tmp_path):
+    """Verify that null self triggers UBSan death, distinguishing ELF no-guard behavior from synthetic guard."""
+    binary = tmp_path / "ctrl_cleanup_null_self_test"
+    compile_native(SOURCE, binary)
+    result = run_native(binary, "null_self_death")
+    assert result.returncode != 0, "Original binary has no null-self check; must trigger UBSan termination"
+    assert "runtime error: member access within null pointer" in result.stderr
+
+
+def test_matched_null_sub12c_behavioral_red(tmp_path):
+    """Verify that matched slot with null m_sub12c triggers UBSan death, distinguishing ELF no-guard behavior from synthetic guard."""
+    binary = tmp_path / "ctrl_cleanup_null_sub12c_test"
+    compile_native(SOURCE, binary)
+    result = run_native(binary, "null_sub12c_death")
+    assert result.returncode != 0, "Original binary has no m_sub12c null check; must trigger UBSan termination"
+    assert "runtime error: member access within null pointer" in result.stderr
 
 
 @pytest.mark.parametrize("name,original,replacement,test_arg,expected_msg", MUTATIONS)

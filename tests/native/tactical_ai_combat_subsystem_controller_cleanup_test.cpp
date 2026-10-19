@@ -153,6 +153,26 @@ static void test_slot_count_reset_to_zero() {
     TEST_ASSERT(inst.m_slot_count == 0, "m_slot_count must be reset to 0 after cleanup");
 }
 
+static void test_null_self_death() {
+    // Original binary has no null-self guard: passing nullptr causes undefined behavior.
+    // Under UBSan, this must terminate with member access runtime error.
+    func_0032E820(nullptr);
+}
+
+static void test_matched_null_sub12c_death() {
+    // Original binary has no m_sub12c null check: on matching slot, unconditionally dereferences 120($v0).
+    // Under UBSan, a null m_sub12c pointer must terminate with member access runtime error.
+    reset_mocks();
+    CombatSubsystemControllerInstance inst;
+    std::memset(&inst, 0, sizeof(inst));
+    inst.m_sub12c = nullptr;
+
+    inst.m_slots[0] = &s_slot_entry;
+    inst.m_slot_action_ids[0] = 100;
+
+    func_0032E820(&inst);
+}
+
 int main(int argc, char **argv) {
     if (argc > 1) {
         if (std::strcmp(argv[1], "matching_slot") == 0) { test_matching_active_slot_callback_and_clearing(); return 0; }
@@ -160,6 +180,8 @@ int main(int argc, char **argv) {
         if (std::strcmp(argv[1], "slot_9") == 0) { test_all_ten_slots_traversed(); return 0; }
         if (std::strcmp(argv[1], "null_sub") == 0) { test_null_sub_skips_callback(); return 0; }
         if (std::strcmp(argv[1], "slot_count_reset") == 0) { test_slot_count_reset_to_zero(); return 0; }
+        if (std::strcmp(argv[1], "null_self_death") == 0) { test_null_self_death(); return 0; }
+        if (std::strcmp(argv[1], "null_sub12c_death") == 0) { test_matched_null_sub12c_death(); return 0; }
     }
     test_matching_active_slot_callback_and_clearing();
     test_signed_action_id_sign_extension();

@@ -2,11 +2,9 @@
 
 `func_0032E820` is reproduced in pure C++ in
 `src/tactical_ai_combat_subsystem_controller_cleanup.cpp`.
-A fresh MWCC PS2 2.3.1.01 build produces a 172-byte candidate sequence
-(+12 bytes from 160-byte target code extent, 39 matching prefix bytes,
-1 relocation resolved; classified strictly as NonMatching),
-iterating over all 10 slots, dispatching `sub_260ED0` for each active
-matching slot, clearing each matching slot, and resetting `m_slot_count` to 0.
+A fresh MWCC PS2 2.3.1.01 build produces an exact **160/160 instruction bytes match (100.00%)**
+and 1 relocation resolved (`R_MIPS_26` to `sub_260ED0` at offset `+0x068`).
+Classified as NonMatching pending independent reviewer confirmation.
 
 ## Reference boundaries and layout
 
@@ -28,29 +26,30 @@ matching slot, clearing each matching slot, and resetting `m_slot_count` to 0.
 
 ### Compiled candidate relocations (1 relocation)
 
-1. `+0x074`: `R_MIPS_26` to `sub_260ED0` (addend 0)
+1. `+0x068`: `R_MIPS_26` to `sub_260ED0` (addend 0)
 
 ### Full ELF function relocations (1 relocation)
 
 1. `+0x068`: `R_MIPS_26` to `sub_260ED0`
 
-Relocation type and callee match. Relocation offset differs by 12 bytes
-(consistent with the +8 byte size difference plus 4-byte instruction order shift
-in the null-check / register-save interleaving in the prologue).
+Exact match on relocation offset, type, and callee.
 
 ## Observable behavior
 
-1. Null guard: if `self == 0`, return immediately.
-2. Loop over `i` in `[0, 10)`:
+1. Loop over `i` in `[0, 10)`:
    - Load `entry = m_slots[i]`.
    - Skip if `entry == 0`.
    - Skip if `(entry->flag & 4) != 4`.
    - Load `sub = entry->m_sub`.
    - Skip if `sub == 0`.
    - Skip if `(int)sub->action_id != m_slot_action_ids[i]` (signed 16→32 comparison).
-   - If `m_sub12c != 0`: dispatch `sub_260ED0(m_sub12c->m_sub_target)`.
+   - Unconditionally dispatch `sub_260ED0(m_sub12c->m_sub_target)` (delay slot loads `120($v0)`).
    - Clear `m_slots[i] = 0` after callback returns.
-3. Reset slot count: set `m_slot_count = 0`.
+2. Reset slot count: set `m_slot_count = 0`.
+
+Note: Null inputs are undefined behavior in the original binary (no-guard design) and
+are not claimed as supported API contracts. Subprocess tests verify UBSan death upon
+null dereference to confirm absence of synthetic guards.
 
 ## TDD Chronology and Verification Evidence
 
@@ -61,30 +60,34 @@ in the null-check / register-save interleaving in the prologue).
    - Step 2 Green: replaced single slot[0] check with `for (int i = 0; i < 10; i++)` loop.
    - Step 3: Added `test_null_sub_skips_callback` fixture.
    - Step 4 Red: prospective Red `MUTATION_ASSERTION_FAILED: m_slot_count must be reset to 0 after cleanup` (exit 1). `aoe-advisor` authorized `self->m_slot_count = 0`.
-   - Step 4 Green: added `self->m_slot_count = 0;` after loop. All 5 fixtures pass, exit 0 under UBSan.
+   - Step 4 Green: added `self->m_slot_count = 0;` after loop.
+   - Step 5 ELF Audit & Red: disassembled `AOK.ELF` `func_0032E820`. Verified zero instructions test `self == 0` or `self->m_sub12c == 0` (delay slot loads `120($v0)` unconditionally). Added behavioral Red death tests `test_null_self_behavioral_red` and `test_matched_null_sub12c_behavioral_red`; observed both fail on defensive source (exited 0 instead of UBSan death).
+   - Step 5 Green: removed synthetic `self == 0` and `self->m_sub12c != 0` guards. Both behavioral Red death tests turned green.
    - Verified 10 production-source mutations killed by named assertion, confirmed by
      `tests/test_tactical_ai_combat_subsystem_controller_cleanup.py` (10/10 killed).
 2. **Matching Diagnostics:**
-   - Built with verified MWCC PS2 flags: candidate 172 bytes (+12 from 160-byte target).
-   - 39 matching prefix bytes; divergence at +0x10 due to null-check/sq-store scheduling.
-   - Exact instruction match `sw $zero, 0x3484($s2)` (`0xae403484`) at offset +0x90 in candidate (+0x84 in target).
-   - Classified strictly as **NonMatching**.
+   - Built with verified MWCC PS2 flags: candidate 160 bytes (exact 160-byte target extent).
+   - Exactly **160/160 bytes match (100.00%)** bit-for-bit against pinned ELF.
+   - Verified by `tests/test_tactical_ai_combat_subsystem_controller_cleanup_matching.py`.
+   - Retained as **NonMatching** per reviewer directive until formal peer review clearance.
 
 ## Reproducible verification
 
 Run in the `docker-dev` verification image:
 
 ```sh
-python3 -m pytest -q tests/test_tactical_ai_combat_subsystem_controller_cleanup.py
+python3 -m pytest -q \
+  tests/test_tactical_ai_combat_subsystem_controller_cleanup.py \
+  tests/test_tactical_ai_combat_subsystem_controller_cleanup_matching.py
 ```
 
-The focused test run comprises **11 total tests** (1 behavioral reference contract +
-10 production-source mutations):
-- One 32-bit native contract test under UBSan: null-self guard, 10-slot traversal,
-  signed action-id sign-extension, callback receiver, slot intact during callback, slot cleared after,
-  and m_slot_count reset to 0.
-- Ten production-source mutations killed by named assertion: null_guard_invert, flag_bit_wrong,
+The focused test run comprises **14 total tests** (13 in behavioral suite + 1 exact matching test):
+- One 32-bit native contract test under UBSan: 10-slot traversal, signed action-id sign-extension,
+  callback receiver, slot intact during callback, slot cleared after, and m_slot_count reset to 0.
+- Ten production-source mutations killed by named assertion: corrupt_loop_start, flag_bit_wrong,
   action_id_compare_bad, omit_sub260ed0_call, omit_slot_clear, loop_limit_1, loop_limit_9,
   signed_compare_wrong, clear_before_callback, omit_slot_count_reset.
+- Two behavioral death tests confirming absence of synthetic guards via UBSan termination.
+- One 100.00% exact bit-for-bit matching test (160/160 bytes) with Ninja/MWCC.
 
 The WIP/BIN boundary and registered object list remain unchanged (NonMatching).

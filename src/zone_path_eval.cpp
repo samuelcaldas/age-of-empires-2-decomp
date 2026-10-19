@@ -165,11 +165,11 @@ int func_001C7860(
                 case 1:
                     if (terrain == 0 || terrain == 5 || terrain == 7 || terrain == 6 || terrain == 8) {
                     } else {
-                        return 2;
+                        return 3;
                     }
                     break;
                 case 2:
-                    if (terrain != 0) return 2;
+                    if (terrain != 0) return 3;
                     break;
                 case 3:
                     if (cur_x == t_min_x || cur_y == t_max_y) {

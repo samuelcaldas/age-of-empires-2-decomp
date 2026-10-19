@@ -115,6 +115,21 @@ int main() {
     int res_slope_pass = func_001C7860(&bld, world_buf, 0, 0, 1, 0, 0, 0, 0, 0, 0, 10.0f, 10.0f);
     assert(res_slope_pass == 0);
 
+    // Behavioral test: placement_type 1 on invalid terrain returns 3 (ELF 0x1C7F6C)
+    bld.m_placement_type = 1;
+    grid_tiles[9][9].m_terrain = 1;
+    int res_type1_fail = func_001C7860(&bld, world_buf, 0, 0, 1, 0, 0, 0, 0, 0, 0, 10.0f, 10.0f);
+    assert(res_type1_fail == 3);
+    grid_tiles[9][9].m_terrain = 0;
+
+    // Behavioral test: placement_type 2 on non-zero terrain returns 3 (ELF 0x1C7F84)
+    bld.m_placement_type = 2;
+    grid_tiles[9][9].m_terrain = 1;
+    int res_type2_fail = func_001C7860(&bld, world_buf, 0, 0, 1, 0, 0, 0, 0, 0, 0, 10.0f, 10.0f);
+    assert(res_type2_fail == 3);
+    grid_tiles[9][9].m_terrain = 0;
+    bld.m_placement_type = 0;
+
     // ELF 0x500..0x508: base slope is indexed at tile_rows[t_max_y][t_min_x] (grid_tiles[10][9]).
     // Set base slope at [10][9] to 4 (valid range [3..5]).
     // Boundary tiles [9][9] and [10][10] slope 4 must pass.

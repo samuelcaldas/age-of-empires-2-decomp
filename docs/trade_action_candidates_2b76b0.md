@@ -120,6 +120,14 @@ int func_002B9140(void *self);
 - `func_002B90A0` (144 B): resolves entity `item` via `func_332e60(group->m_root, item_id)` through manager `+176 -> +127816 -> +2968`. Rejects if `!item` or `!pred(item)`. Returns 1 if `func_001471A0(pred(item)) == target_type`, else 0.
 - `func_002B9130` (8 B stub): `jr ra; nop`, followed by 8 B padding zeroes.
 
+#### TDD Red-Before-Implementation Chronology
+- **Red Baseline Command**: `.venv/bin/pytest tests/test_trade_action_type_checker.py`
+- **Failing Assertion**: `AssertionError: type checker failed ... trade-action-type-checker-test: tests/native/trade_action_type_checker_test.cpp:46: int main(int, char**): Assertion 'res1 == 1' failed. Returncode -6 (SIGABRT) != 0`
+- **Green Implementation**: Pure C++ implementation in `src/trade_action_type_checker.cpp`, verified with argument forwarding (`item_id`, `root`, `entity_id`).
+- **Green Result**: `4 passed` in `tests/test_trade_action_type_checker.py`.
+- **Durable Mutation Gate**: Automated parameterized mutants (`inverted_return`, `corrupted_root`, `corrupted_item_id`) in `test_trade_action_type_checker.py` continuously exercise and verify expected assertion failure modes.
+- **Verifier Hardening**: `tests/test_verify_trade_action_type_checker.py` validates normal 160/160 match and asserts negative padding rejection and target slice truncation handling.
+
 ### 6. `func_002B9140` (Trade Action Plan Evaluator)
 - **Slice**: File `0x1B9320`–`0x1B9950`, VRAM `0x2B9140`–`0x2B9770` (1,584 B code and padding).
 - **Status**: **NonMatching / Experimental** (**98.75% match** on `func_002B9140`, 396/397 instructions matched).

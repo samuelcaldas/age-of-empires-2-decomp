@@ -31,8 +31,8 @@ SYMBOL_TARGETS = {
     "func_001471A0": 0x1471A0,
 }
 
-def verify():
-    if not ELF_PATH or not ELF_PATH.exists():
+def verify(expected_slice_len=160, elf_override_bytes=None, inject_extra_code=0):
+    if (not elf_override_bytes) and (not ELF_PATH or not ELF_PATH.exists()):
         print(f"ERROR: Original ELF not found at {ELF_PATH}")
         return 1
     if not COMPILER or not COMPILER.exists():
@@ -62,8 +62,12 @@ def verify():
 
     with open(obj_path, "rb") as f:
         obj_data = f.read()
-    with open(ELF_PATH, "rb") as f:
-        elf_data = f.read()
+
+    if elf_override_bytes is not None:
+        elf_data = elf_override_bytes
+    else:
+        with open(ELF_PATH, "rb") as f:
+            elf_data = f.read()
 
     # 2. Parse ELF Header
     e_shoff, e_shentsize, e_shnum, e_shstrndx = struct.unpack_from("<IIHH", obj_data, 32)[:4]
@@ -177,18 +181,21 @@ def verify():
         print(f"    -> resolved {sym_name} at 0x{target_addr:X}: opcode {jal_opcode:#010x}")
 
     # 6. Verify Slice Composition and Alignment
-    code_bytes = len(bytes_90a0) + len(bytes_9130)
-    expected_slice_len = 160
+    code_bytes = len(bytes_90a0) + len(bytes_9130) + inject_extra_code
     padding_needed = expected_slice_len - code_bytes
-    print(f"Code size: {code_bytes} bytes ({len(bytes_90a0)} + {len(bytes_9130)})")
-    print(f"Padding to 160 bytes: {padding_needed} bytes")
+    print(f"Code size: {code_bytes} bytes ({len(bytes_90a0)} + {len(bytes_9130)} + {inject_extra_code})")
+    print(f"Padding to {expected_slice_len} bytes: {padding_needed} bytes")
 
     if padding_needed < 0:
         print(f"ERROR: code bytes ({code_bytes}) exceed slice length ({expected_slice_len}), negative padding {padding_needed}")
         return 1
 
-    # Verify that original ELF at padding offset contains exact zeroes
     target_slice = elf_data[0x1B9280:0x1B9280 + expected_slice_len]
+    if len(target_slice) != expected_slice_len:
+        print(f"ERROR: target slice length {len(target_slice)} != {expected_slice_len}")
+        return 1
+
+    # Verify that original ELF at padding offset contains exact zeroes
     elf_padding = target_slice[code_bytes:expected_slice_len]
     if elf_padding != b"\x00" * padding_needed:
         print(f"ERROR: original ELF padding at 0x{0x1B9280 + code_bytes:X} contains non-zero bytes: {elf_padding}")
@@ -198,9 +205,6 @@ def verify():
 
     if len(compiled_slice) != expected_slice_len:
         print(f"ERROR: compiled slice length {len(compiled_slice)} != {expected_slice_len}")
-        return 1
-    if len(target_slice) != expected_slice_len:
-        print(f"ERROR: target slice length {len(target_slice)} != {expected_slice_len}")
         return 1
 
     # 7. Byte-for-byte comparison

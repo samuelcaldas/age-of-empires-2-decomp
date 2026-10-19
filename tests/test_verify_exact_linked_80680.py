@@ -233,31 +233,65 @@ from tools import verify_exact_linked_80680
 with open("build/SLES-50282/src/unit_action_build_80680.o", "rb") as f:
     data = bytearray(f.read())
 
-# Find .rel.text section in section headers and corrupt sh_info (at offset + 28)
+raw, secs, _ = verify_exact_linked_80680.parse_elf_sections_from_bytes(data)
+rel_sec_idx = secs['.rel.text']['index']
+
+# Offset of .rel.text section header in section header table
 e_shoff = struct.unpack_from('<I', data, 0x20)[0]
 e_shentsize = struct.unpack_from('<H', data, 0x2e)[0]
-e_shnum = struct.unpack_from('<H', data, 0x30)[0]
-for i in range(e_shnum):
-    off = e_shoff + i * e_shentsize
-    sh_type = struct.unpack_from('<I', data, off + 4)[0]
-    if sh_type == 9: # SHT_REL
-        struct.pack_into('<I', data, off + 28, 99) # corrupt sh_info
-        break
+rel_shdr_off = e_shoff + rel_sec_idx * e_shentsize
+
+# Overwrite sh_info (at offset + 28) with 99 (invalid text section target)
+struct.pack_into('<I', data, rel_shdr_off + 28, 99)
 
 try:
     verify_exact_linked_80680.parse_elf_sections_from_bytes(data)
-    # verify_linked_bytes will validate sh_info
     sys.exit(0)
-except ValueError:
-    sys.exit(42)
-sys.exit(0)
+except ValueError as e:
+    if "does not target .text index" in str(e):
+        sys.exit(42)
+sys.exit(1)
 """],
         cwd=REPO_ROOT,
         capture_output=True,
         text=True,
     )
-    # Will fail until implemented in verifier
-    assert result.returncode in (0, 42)
+    assert result.returncode == 42, f"Failed to reject wrong .rel.text sh_info: stderr={result.stderr}"
+
+
+def test_verifier_rejects_wrong_rel_sh_link():
+    """Verifier must reject ELF where .rel.text sh_link does not target .symtab index."""
+    result = subprocess.run(
+        [sys.executable, "-c", """
+import sys, struct
+from tools import verify_exact_linked_80680
+
+with open("build/SLES-50282/src/unit_action_build_80680.o", "rb") as f:
+    data = bytearray(f.read())
+
+raw, secs, _ = verify_exact_linked_80680.parse_elf_sections_from_bytes(data)
+rel_sec_idx = secs['.rel.text']['index']
+
+e_shoff = struct.unpack_from('<I', data, 0x20)[0]
+e_shentsize = struct.unpack_from('<H', data, 0x2e)[0]
+rel_shdr_off = e_shoff + rel_sec_idx * e_shentsize
+
+# Overwrite sh_link (at offset + 24) with 99 (invalid symtab target)
+struct.pack_into('<I', data, rel_shdr_off + 24, 99)
+
+try:
+    verify_exact_linked_80680.parse_elf_sections_from_bytes(data)
+    sys.exit(0)
+except ValueError as e:
+    if "does not target .symtab index" in str(e):
+        sys.exit(42)
+sys.exit(1)
+"""],
+        cwd=REPO_ROOT,
+        capture_output=True,
+        text=True,
+    )
+    assert result.returncode == 42, f"Failed to reject wrong .rel.text sh_link: stderr={result.stderr}"
 
 
 def test_verifier_succeeds_with_exact_counts():
@@ -284,6 +318,7 @@ if __name__ == '__main__':
         test_verifier_rejects_out_of_bounds_relocation,
         test_verifier_rejects_wrong_elf_machine,
         test_verifier_rejects_wrong_rel_sh_info,
+        test_verifier_rejects_wrong_rel_sh_link,
         test_verifier_succeeds_with_exact_counts,
     ]
     print(f"Running {len(tests)} verifier enforcement tests...")

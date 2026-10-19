@@ -187,4 +187,8 @@ Durable record of behavioral derivation, TDD chronology, disassembly analysis, a
 - **Symbol Validation**: asserts `func_00280680` resides in `.text`, starts at offset 0, and has size 236.
 - **JAL 256MB Region**: asserts `(sym_value & 0xF0000000) == ((call_site_vram + 4) & 0xF0000000)`.
 - **Table Divisibility**: enforces `symtab_size % 16 == 0` and `reloc_size % 8 == 0`.
-- **All 11 verifier enforcement tests** pass via `/usr/bin/python3 tests/test_verify_exact_linked_80680.py`.
+- **Relocation Associations Test**: `test_verifier_rejects_wrong_rel_sh_info` and `test_verifier_rejects_wrong_rel_sh_link` specifically mutate `.rel.text` header fields and strictly require controlled exit code 42 rejection.
+- **Verifier Enforcement Tests**: All 12 verifier enforcement test functions pass via `/usr/bin/python3 tests/test_verify_exact_linked_80680.py`.
+- **Focused Test Suite (16 Total Tests)**: `python -m pytest -v tests/test_unit_action_build_80680.py tests/test_verify_exact_linked_80680.py` passes 16/16 tests in 0.72s in Docker with parent repo dual bind mount (4 behavioral + 12 verifier).
+- **Subsystem Build Suite**: `tests/test_unit_action_build_*.py` passes 217/217 tests in 19.77s.
+- **Broader unit_action Subsystem**: `tests/test_unit_action*.py` passes 297/297 tests in 23.19s with zero failures and zero skips.

@@ -288,6 +288,17 @@ def parse_elf_sections_from_bytes(data):
         if required not in sec_by_name:
             raise ValueError(f"Missing required section {required} in ELF")
 
+    if '.rel.text' in sec_by_name:
+        rel_sec = sec_by_name['.rel.text']
+        if rel_sec['info'] != sec_by_name['.text']['index']:
+            raise ValueError(
+                f".rel.text sh_info ({rel_sec['info']}) does not target .text index ({sec_by_name['.text']['index']})"
+            )
+        if '.symtab' in sec_by_name and rel_sec['link'] != sec_by_name['.symtab']['index']:
+            raise ValueError(
+                f".rel.text sh_link ({rel_sec['link']}) does not target .symtab index ({sec_by_name['.symtab']['index']})"
+            )
+
     symtab_sh_link = sec_by_name['.symtab']['link']
     if symtab_sh_link >= len(sections):
         raise ValueError(f"Invalid .symtab sh_link index: {symtab_sh_link} >= {len(sections)}")

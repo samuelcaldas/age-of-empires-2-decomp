@@ -22,6 +22,7 @@ CASES = [
     "tactical_ai_parser symbol lookup fail",
     "tactical_ai_parser closing fail",
     "tactical_ai_parser layout",
+    "tactical_ai_parser param loop eof",
 ]
 
 MARKERS = [
@@ -34,6 +35,7 @@ MARKERS = [
     "TACTICAL_AI_PARSER_TEST_6_SYMBOL_LOOKUP_FAIL_PASSED",
     "TACTICAL_AI_PARSER_TEST_7_CLOSING_FAIL_PASSED",
     "TACTICAL_AI_PARSER_TEST_8_LAYOUT_PASSED",
+    "TACTICAL_AI_PARSER_TEST_9_PARAM_LOOP_EOF_PASSED",
 ]
 
 

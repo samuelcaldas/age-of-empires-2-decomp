@@ -2709,6 +2709,76 @@ Directly following candidate state queries sits the rule statement parser and pa
 |---|---|---|---|
 | `func_00142D10` (`TacticalAI2::ParseRuleBlock`) | `0x142D10` | **91.54%** (776 / 776 B) | Complete tactical AI rule statement and parameter parser in pure C++. |
 
+#### Parameter-loop EOF characterization (2026-10-19)
+
+The native driver now includes mode `9`, a post-implementation characterization
+of the existing EOF branch at `0x142E38`. It links the unchanged
+[production parser](../src/tactical_ai_parser.cpp) with
+[test doubles](../tests/native/tactical_ai_parser_test.cpp). The
+[pytest wrapper](../tests/test_tactical_ai_parser.py) retains modes `0`–`8` and
+adds only this behavior case.
+
+The fixture selects action index `5` with one required parameter. The initial
+scanner returns an action identifier; the parameter scanner returns status `1`.
+Assertions require this exact helper order:
+
+1. `func_142980(self)` scans the action.
+2. `func_26B0A0(&self->field_34, self->field_1A0, 0)` resolves the action.
+3. `func_0013C650(&self->field_18[5])` returns the parameter count.
+4. `func_142980(self)` reaches parameter EOF.
+5. `func_144340(self, 0x1A, 0)` reports the error exactly once.
+
+The parser must return `0`. Numeric conversion, string interning, symbol lookup,
+and closing-delimiter helpers must not run. The test also checks the selected
+node's type and action index.
+
+The original ELF audit identifies these argument and return instructions.
+Bytes are listed in file order, not as host-endian instruction words:
+
+| VRAM | Bytes | Instruction |
+|---|---|---|
+| `0x142E30` | `1a 00 05 24` | `addiu $a1, $zero, 0x1A` |
+| `0x142E34` | `28 26 60 72` | `paddub $a0, $s3, $zero` |
+| `0x142E38` | `d0 10 05 0c` | `jal func_144340` |
+| `0x142E3C` | `28 36 00 70` | `paddub $a2, $zero, $zero` (call delay slot) |
+| `0x142E40` | `28 16 00 70` | `paddub $v0, $zero, $zero` |
+
+Validation used `docker-dev`, image `aoe-tests:verification`, with working
+directory `/workspace`:
+
+```sh
+docker --context docker-dev run --rm \
+  -e TZ=America/Sao_Paulo \
+  --mount "type=bind,source=$(pwd),target=/workspace" \
+  aoe-tests:verification \
+  python -m pytest -q -ra tests/test_tactical_ai_parser.py
+```
+
+- Before the test-only change: **12 passed in 0.22s**.
+- After the change: **13 passed in 0.25s**, with no failures or skips.
+- Final focused rerun: **13 passed in 0.33s**, with no failures or skips.
+- Python static validation: the same Docker image running
+  `python -m flake8 configure.py tests/test_tactical_ai_parser.py` exited `0`.
+- Documentation static validation: `git diff --check` passed, and all three
+  added local Markdown links resolved inside the Docker test environment.
+- Direct native validation used `g++ -m32 -std=c++98 -Iinclude
+  src/tactical_ai_parser.cpp tests/native/tactical_ai_parser_test.cpp
+  -o /tmp/tactical-ai-parser-test`, then `/tmp/tactical-ai-parser-test 9`,
+  inside that Docker image. It printed
+  `TACTICAL_AI_PARSER_TEST_9_PARAM_LOOP_EOF_PASSED` and exited `0`.
+- Two earlier direct-check attempts used the malformed flag
+  `-Wno-invalid offsetof`; both exited `1` with
+  `/usr/bin/ld: cannot find offsetof: No such file or directory`.
+  The successful direct check omitted that unnecessary flag. These invocation
+  failures are not behavioral Red evidence.
+
+No production behavior changed. This is characterization, not evidence of
+historical test-first development. Broader subsystem and full-suite gates were
+not run for this bounded check; no integration occurred. Target-compiler
+matching was not run. The slice remains **NonMatching**; this check does not
+revalidate the historical percentages above. Unrelated node-item files remain
+unchanged.
+
 ### 6.77 Tactical / Spatial AI Recursive Rule Expression and Condition Compiler (`0x143020`–`0x143440`, `tactical_ai_compiler.cpp`)
 
 Directly following rule block statement parsing sits the recursive condition and compound expression compiler (`TacticalAI2`, `0x143020`–`0x143440`, 1044 bytes of code, 1056-byte slice, Metrowerks MWCCPS2 2.3.1.01):
@@ -2799,6 +2869,27 @@ Directly following preprocessor directives sits the randomized script loader (`T
 | Function / Method | VRAM Address | Match Status | Description |
 |---|---|---|---|
 | `func_143AD0` (`TacticalAI2::LoadRandomScript`) | `0x143AD0` | **82.85%** (812 / 812 B) | Weighted random script selection parser in pure C++. |
+
+#### Signed-remainder audit evidence (2026-10-19)
+
+The original ELF uses signed `div`, not `divu`, for the random threshold.
+These audited bytes establish `(func_1AAB30() % 100) + 1` and the RNG call
+before the first scanner call. Bytes are listed in file order:
+
+| VRAM | Bytes | Instruction |
+|---|---|---|
+| `0x143AF4` | `cc aa 06 0c` | `jal func_1AAB30` |
+| `0x143AFC` | `64 00 03 24` | `addiu $v1, $zero, 0x64` |
+| `0x143B00` | `1a 00 43 00` | `div $zero, $v0, $v1` |
+| `0x143B10` | `10 10 00 00` | `mfhi $v0` |
+| `0x143B14` | `01 00 51 24` | `addiu $s1, $v0, 0x1` |
+| `0x143B18` | `60 0a 05 0c` | `jal func_142980` |
+| `0x143B1C` | `28 26 a0 72` | `paddub $a0, $s5, $zero` (call delay slot) |
+
+This records binary-analysis evidence only. It adds no random-loader test or
+production change and makes no historical Red claim. Native helper-order
+checks do not establish target binary matching. The slice remains
+**NonMatching**; the historical percentage above was not revalidated.
 
 ### 6.81 Tactical / Spatial AI Canonical Rule Statement Parser (`0x143E00`–`0x144050`, `tactical_ai_defrule.cpp`)
 

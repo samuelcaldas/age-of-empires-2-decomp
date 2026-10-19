@@ -39,6 +39,21 @@ struct TacticalAI2 {
     char field_1A0[0x100];
 };
 
+enum ParserCall {
+    PARSER_SCAN_TOKEN,
+    PARSER_FIND_ACTION,
+    PARSER_COUNT_PARAMETERS,
+    PARSER_REPORT_ERROR
+};
+
+static ParserCall s_parser_calls[16];
+static size_t s_parser_call_count = 0;
+
+static void record_parser_call(ParserCall call) {
+    assert(s_parser_call_count < sizeof(s_parser_calls) / sizeof(s_parser_calls[0]));
+    s_parser_calls[s_parser_call_count++] = call;
+}
+
 extern "C" {
     char D_48E100[258] = { 0 };
 
@@ -50,6 +65,7 @@ extern "C" {
 
     int func_142980(void *self) {
         TacticalAI2 *ai = (TacticalAI2*)self;
+        record_parser_call(PARSER_SCAN_TOKEN);
         s_142980_called++;
         int s = s_142980_statuses[s_142980_idx % 8];
         ai->field_19C = s_142980_types[s_142980_idx % 8];
@@ -66,6 +82,7 @@ extern "C" {
     static void *s_144340_last_param = 0;
 
     void func_144340(void *self, int code, void *param) {
+        record_parser_call(PARSER_REPORT_ERROR);
         s_144340_called++;
         s_144340_last_self = self;
         s_144340_last_code = code;
@@ -73,11 +90,17 @@ extern "C" {
     }
 
     static int s_26b0a0_called = 0;
+    static void *s_26b0a0_last_table = 0;
+    static char *s_26b0a0_last_name = 0;
+    static int s_26b0a0_last_argument = 0;
     static Candidate s_cand_ret;
     static int s_cand_found = 1;
 
     void *func_26B0A0(void *table, char *name, int a2) {
-        (void)table; (void)name; (void)a2;
+        record_parser_call(PARSER_FIND_ACTION);
+        s_26b0a0_last_table = table;
+        s_26b0a0_last_name = name;
+        s_26b0a0_last_argument = a2;
         s_26b0a0_called++;
         if (!s_cand_found) return 0;
         s_cand_ret.field_2 = 5; // node index 5
@@ -85,10 +108,12 @@ extern "C" {
     }
 
     static int s_13c650_called = 0;
+    static void *s_13c650_last_action = 0;
     static int s_param_count = 3;
 
     int func_0013C650(void *action) {
-        (void)action;
+        record_parser_call(PARSER_COUNT_PARAMETERS);
+        s_13c650_last_action = action;
         s_13c650_called++;
         return s_param_count;
     }
@@ -141,6 +166,11 @@ static void init_ctype_table() {
 }
 
 static void reset_mocks() {
+    s_parser_call_count = 0;
+    s_26b0a0_last_table = 0;
+    s_26b0a0_last_name = 0;
+    s_26b0a0_last_argument = 0;
+    s_13c650_last_action = 0;
     s_142980_called = 0;
     s_142980_idx = 0;
     s_144340_called = 0;
@@ -364,9 +394,68 @@ static void test_tactical_ai_parser_layout() {
     printf("TACTICAL_AI_PARSER_TEST_8_LAYOUT_PASSED\n");
 }
 
+static void configure_param_loop_eof() {
+    s_142980_statuses[0] = 2;
+    s_142980_types[0] = 1;
+    s_142980_tokens[0] = "action";
+    s_142980_statuses[1] = 1;
+    s_142980_types[1] = 0;
+    s_142980_tokens[1] = 0;
+    s_param_count = 1;
+}
+
+static void assert_param_loop_eof_order() {
+    assert(s_parser_call_count == 5);
+    assert(s_parser_calls[0] == PARSER_SCAN_TOKEN);
+    assert(s_parser_calls[1] == PARSER_FIND_ACTION);
+    assert(s_parser_calls[2] == PARSER_COUNT_PARAMETERS);
+    assert(s_parser_calls[3] == PARSER_SCAN_TOKEN);
+    assert(s_parser_calls[4] == PARSER_REPORT_ERROR);
+    assert(s_142980_called == 2);
+    assert(s_26b0a0_called == 1);
+    assert(s_13c650_called == 1);
+}
+
+static void assert_param_loop_eof_action(TacticalAI2 *self) {
+    assert(s_26b0a0_last_table == &self->field_34);
+    assert(s_26b0a0_last_name == self->field_1A0);
+    assert(strcmp(s_26b0a0_last_name, "action") == 0);
+    assert(s_26b0a0_last_argument == 0);
+    assert(s_13c650_last_action == &self->field_18[5]);
+    assert(self->field_4C[0].type == 1);
+    assert(self->field_4C[0].op_or_node == 5);
+}
+
+static void assert_param_loop_eof_error(TacticalAI2 *self) {
+    assert(s_144340_called == 1);
+    assert(s_144340_last_self == self);
+    assert(s_144340_last_code == 0x1A);
+    assert(s_144340_last_param == 0);
+    assert(s_1410e0_called == 0);
+    assert(s_114378_called == 0);
+    assert(s_142730_called == 0);
+    assert(s_1427a0_called == 0);
+}
+
+static void test_tactical_ai_parser_param_loop_eof() {
+    reset_mocks();
+    configure_param_loop_eof();
+    TacticalAI2 ai;
+    memset(&ai, 0, sizeof(ai));
+    Obj12 actions[10];
+    memset(actions, 0, sizeof(actions));
+    ai.field_18 = actions;
+    int result = func_00142D10(&ai);
+    assert(result == 0);
+    assert_param_loop_eof_order();
+    assert_param_loop_eof_action(&ai);
+    assert_param_loop_eof_error(&ai);
+    printf("TACTICAL_AI_PARSER_TEST_9_PARAM_LOOP_EOF_PASSED\n");
+}
+
 int main(int argc, char **argv) {
     if (argc < 2) {
-        fprintf(stderr, "Error: test mode selector argument required (0-8)\n");
+        fprintf(stderr, "Error: test mode selector argument required (0-9)\n");
         return 1;
     }
     char *endptr = 0;
@@ -385,6 +474,7 @@ int main(int argc, char **argv) {
     else if (mode == 6) test_tactical_ai_parser_symbol_lookup_fail();
     else if (mode == 7) test_tactical_ai_parser_closing_fail();
     else if (mode == 8) test_tactical_ai_parser_layout();
+    else if (mode == 9) test_tactical_ai_parser_param_loop_eof();
     else {
         fprintf(stderr, "Error: invalid test mode %d\n", mode);
         return 1;

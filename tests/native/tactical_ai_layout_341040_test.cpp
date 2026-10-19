@@ -920,6 +920,65 @@ static void test_func_342170_mode30_50_exact_history() {
     std::printf("PASS test_func_342170_mode30_50_exact_history\n");
 }
 
+static void test_func_342170_field_830_negative_and_boundary_modes() {
+    TacticalObj_341040 obj;
+    MockSubObj mock_sub830;
+    MockSubObj mock_sub834;
+
+    // Test exact boundary at mode 30 (unsigned 30 >= 30, dispatches to default func_00341040)
+    std::memset(&obj, 0, sizeof(obj));
+    obj.field_830 = &mock_sub830;
+    obj.field_834 = &mock_sub834;
+    *(int*)((char*)&mock_sub830 + 552) = 300;
+    *(int*)((char*)&mock_sub834 + 552) = 301;
+    obj.field_84C = 30;
+    g_call_history.clear();
+
+    int res = func_00342170(&obj, (int)(long)&mock_sub830, 1, 0, 0);
+    assert(res == 1);
+    assert(obj.field_84C == 30);
+    assert(*(int*)((char*)obj.field_830 + 552) == 0);
+    assert(*(int*)((char*)obj.field_834 + 552) == 0);
+    assert(g_call_history.size() == 1);
+    assert(g_call_history[0].name == "func_33A730");
+
+    // Test negative mode -1: sltiu at, v0, 30 evaluates 0xFFFFFFFF >= 30 -> safely dispatches to default
+    std::memset(&obj, 0, sizeof(obj));
+    obj.field_830 = &mock_sub830;
+    obj.field_834 = &mock_sub834;
+    *(int*)((char*)&mock_sub830 + 552) = 111;
+    *(int*)((char*)&mock_sub834 + 552) = 222;
+    obj.field_84C = -1;
+    g_call_history.clear();
+
+    res = func_00342170(&obj, (int)(long)&mock_sub830, 1, 0, 0);
+    assert(res == 1);
+    assert(obj.field_84C == -1);
+    assert(*(int*)((char*)obj.field_830 + 552) == 0);
+    assert(*(int*)((char*)obj.field_834 + 552) == 0);
+    assert(g_call_history.size() == 1);
+    assert(g_call_history[0].name == "func_33A730");
+
+    // Test negative mode -100: safely dispatches to default
+    std::memset(&obj, 0, sizeof(obj));
+    obj.field_830 = &mock_sub830;
+    obj.field_834 = &mock_sub834;
+    *(int*)((char*)&mock_sub830 + 552) = 333;
+    *(int*)((char*)&mock_sub834 + 552) = 444;
+    obj.field_84C = -100;
+    g_call_history.clear();
+
+    res = func_00342170(&obj, (int)(long)&mock_sub830, 1, 0, 0);
+    assert(res == 1);
+    assert(obj.field_84C == -100);
+    assert(*(int*)((char*)obj.field_830 + 552) == 0);
+    assert(*(int*)((char*)obj.field_834 + 552) == 0);
+    assert(g_call_history.size() == 1);
+    assert(g_call_history[0].name == "func_33A730");
+
+    std::printf("PASS test_func_342170_field_830_negative_and_boundary_modes\n");
+}
+
 static void test_func_342170_t0_equals_2_exact_history() {
     TacticalObj_341040 obj;
     std::memset(&obj, 0, sizeof(obj));
@@ -1110,6 +1169,7 @@ int main() {
     test_func_342170_mode45_exact_history();
     test_func_342170_t0_equals_1_exact_history();
     test_func_342170_mode30_50_exact_history();
+    test_func_342170_field_830_negative_and_boundary_modes();
     test_func_342170_t0_equals_2_exact_history();
     test_func_342170_mode31_a2_equals_1_exact_history();
     std::printf("ALL TACTICAL AI LAYOUT TESTS PASSED WITH COMPLETE EXACT HISTORY ASSERTIONS\n");

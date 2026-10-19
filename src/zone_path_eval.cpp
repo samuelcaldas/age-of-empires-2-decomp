@@ -25,8 +25,6 @@ int func_001C7850(
 ) {
     (void)arg5;
 
-    int * const *out_id_ptr = &out_id;
-
     MapContext *s0;
     short cur_x;
     BuildingMaster *bld_var;
@@ -255,8 +253,8 @@ int func_001C7850(
 
                         if (dist_x < rx + u_rx) {
                             if (dist_y < ry + u_ry) {
-                                if (*out_id_ptr) {
-                                    **out_id_ptr = u->m_id;
+                                if (out_id) {
+                                    *out_id = u->m_id;
                                 }
                                 return 6;
                             }

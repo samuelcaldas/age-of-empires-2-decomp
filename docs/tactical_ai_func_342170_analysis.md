@@ -116,7 +116,8 @@ When `a2 == 1` and `a1 == self->field_834`:
 | 1 | `0x00342594` | `*(field_844 + 2052) = 5; func_00340C30(self); return 1;` |
 | 2, 4 | `0x003425e0` | `*(field_844 + 2052) = 7; func_00340C30(self); return 1;` |
 | 3 | `0x003426a8` | Calls `func_33A730`, sub838 handlers, sets `field_84C = 11`, `func_00341040(self); return 1;` |
-| 5, 6 | `0x0034262c` | `*(field_844 + 2052) = 1; func_00340C30(self); return 1;` |
+| 5 | `0x0034262c` | `*(field_844 + 2052) = 1; func_00340C30(self); return 1;` |
+| 6 | `0x00342644` | `*(field_844 + 2052) = 1; func_00340C30(self); return 1;` |
 | 7 | `0x0034265c` | `*(field_844 + 2052) = 9; func_00340C30(self); return 1;` |
 | 8 | `0x003425b0` | If `t0 == 0xFFFF`: falls through to mode 26 (`*(field_844 + 2052) = 6; func_00340C30; return 1;`); else return 0 |
 | 9 | `0x003425fc` | If `t0 == 0xFFFF`: falls through to mode 25 (`*(field_844 + 2052) = 3; func_00340C30; return 1;`); else return 0 |

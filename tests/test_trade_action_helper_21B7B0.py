@@ -11,6 +11,7 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 CASES = [
     ("0", "func_0021B7B0 palette slot allocation and upload"),
     ("1", "func_0021B830 viewport slot allocation and saturation"),
+    ("2", "func_0021B830 skips occupied viewports and saturates"),
 ]
 
 

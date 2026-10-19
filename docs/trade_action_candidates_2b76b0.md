@@ -118,10 +118,17 @@ int func_002B9140(void *self);
 
 ### 6. `func_002B9140` (Trade Action Plan Evaluator)
 - **Slice**: File `0x1B9320`–`0x1B9950`, VRAM `0x2B9140`–`0x2B9770` (1,584 B code and padding).
-- **Status**: **NonMatching / Experimental** (**98.75% match** on `func_002B9140`, 396/397 instructions matched, single opcode delta `blezl` vs `blez`).
+- **Status**: **NonMatching / Experimental** (**98.75% match** on `func_002B9140`, 396/397 instructions matched).
 - Evaluates plan items list bounded by `self->m_limit` (3092) (each item 24 bytes).
 - Queries entity via `func_00144d10(self->m_mgr, item_id)` and virtual predicate `item->get_id()`.
 - Calculates rate distribution slots across 4 categories and sorts rate indices at `self + 3200..3212` via inlined selection sort.
+
+#### Matching Blocker Analysis: `blezl` vs `blez` at `0x2B957C`
+- **Target**: `0x2B957C: 58600048 blezl v1, 0x2B96A0` (`paddub a0, zero, zero` in delay slot).
+- **Candidate**: `+0x43C: 18600048 blez v1, 0x560` (`paddub a0, zero, zero` in delay slot).
+- Both instructions share exact branch offset `0x0048` (+72 words) jumping to index sorting initialization loop at `0x2B96A0`, and share exact hoisted delay-slot instruction `paddub a0, zero, zero` (`a0 = 0`).
+- **Semantic Equivalence**: On taken path (`diff <= 0`), delay slot initializes `a0 = 0` in both. On fall-through path (`diff > 0`), `blezl` squashes `a0 = 0` while `blez` executes it; however, `a0` is never read in the rate adjustment block and is unconditionally re-initialized (`paddub a0, zero, zero`) at `0x2B969C` before the loop. Behavioral semantics are 100% equivalent.
+- **Compiler Heuristic**: MWCC 2.3.1.01 emits `blezl` only when branch-likely heuristics are triggered (e.g. synthetic compound conditionals such as `diff > 0 && sum2 >= 0`), but clean C++ (`int diff = self->m_total - sum2; if (diff > 0)`) emits `blez`. To avoid artificial semantic distortion or assembly injection, the routine remains strictly **NonMatching** with a 396/397 instruction diagnostic alignment.
 
 ## Trade notification routines (`0x2B9770`–`0x2B9B30`)
 

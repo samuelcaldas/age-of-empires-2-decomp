@@ -9,6 +9,9 @@ import sys
 
 EXPECTED_RELOC_COUNT = 0
 EXPECTED_SLICE_SHA1 = "dc1d3b01ab39f0712b323222c1b4832039664e82"
+TARGET_SYMBOL = "func_00280670"
+EXPECTED_SYMBOL_OFFSET = 0
+EXPECTED_SYMBOL_SIZE = 8
 
 
 def assert_relocation_counts(reloc_count):
@@ -28,6 +31,26 @@ def assert_slice_hashes(orig_sha1, resolved_sha1):
     if resolved_sha1 != EXPECTED_SLICE_SHA1:
         raise ValueError(
             f"Resolved slice SHA1 mismatch: got {resolved_sha1}, expected {EXPECTED_SLICE_SHA1}"
+        )
+
+
+def assert_function_symbol(sym_name, st_value, st_size, st_shndx, text_sec_idx):
+    """Enforce that function symbol starts at offset 0 of .text and has size 8."""
+    if sym_name != TARGET_SYMBOL:
+        raise ValueError(
+            f"Symbol name mismatch: got {sym_name}, expected {TARGET_SYMBOL}"
+        )
+    if st_value != EXPECTED_SYMBOL_OFFSET:
+        raise ValueError(
+            f"Symbol {sym_name} offset mismatch: got {st_value}, expected {EXPECTED_SYMBOL_OFFSET}"
+        )
+    if st_size != EXPECTED_SYMBOL_SIZE:
+        raise ValueError(
+            f"Symbol {sym_name} size mismatch: got {st_size}, expected {EXPECTED_SYMBOL_SIZE}"
+        )
+    if st_shndx != text_sec_idx:
+        raise ValueError(
+            f"Symbol {sym_name} section mismatch: got {st_shndx}, expected {text_sec_idx}"
         )
 
 
@@ -62,7 +85,7 @@ def validate_elf_bytes(data):
 
 
 def parse_elf_sections_from_bytes(data):
-    """Parse sections from in-memory ELF bytearray."""
+    """Parse sections and symbol table from in-memory ELF bytearray."""
     validate_elf_bytes(data)
 
     e_shoff = struct.unpack_from('<I', data, 0x20)[0]
@@ -82,6 +105,7 @@ def parse_elf_sections_from_bytes(data):
             )
 
         sections.append({
+            'index': i,
             'name_idx': sh_name,
             'type': sh_type,
             'offset': sh_offset,
@@ -112,7 +136,15 @@ def parse_elf_sections_from_bytes(data):
     if '.text' not in sec_by_name:
         raise ValueError("Missing required section .text in ELF")
 
-    return data, sec_by_name
+    get_sym_name = None
+    if '.symtab' in sec_by_name:
+        symtab_sec = sec_by_name['.symtab']
+        symtab_sh_link = symtab_sec['link']
+        if symtab_sh_link < len(sections):
+            sym_strtab = sections[symtab_sh_link]
+            get_sym_name = lambda idx: get_str(sym_strtab['offset'], sym_strtab['size'], idx)
+
+    return data, sec_by_name, get_sym_name
 
 
 def parse_elf_sections(path):
@@ -127,6 +159,7 @@ def verify_linked_bytes(src_obj_path='build/SLES-50282/src/unit_action_build_806
                         func_size=8):
     """
     Perform byte equality verification for func_00280670 (8 bytes, 0 relocations).
+    Asserts func_00280670 symbol starts at offset 0 of .text and has size 8.
     Returns (orig_sha1, resolved_sha1, reloc_count).
     Raises ValueError on any discrepancy.
     """
@@ -139,13 +172,35 @@ def verify_linked_bytes(src_obj_path='build/SLES-50282/src/unit_action_build_806
     orig_sha1 = hashlib.sha1(orig_bytes).hexdigest()
 
     # 2. Parse compiled ET_REL object
-    raw_obj, secs = parse_elf_sections(src_obj_path)
+    raw_obj, secs, get_sym_name = parse_elf_sections(src_obj_path)
     text_sec = secs['.text']
+    text_sec_idx = text_sec['index']
 
     if text_sec['size'] < func_size:
         raise ValueError(f".text section size ({text_sec['size']}) smaller than function size ({func_size})")
 
-    # Read .text bytes
+    # 3. Assert function symbol starts at offset 0 and has size 8 in .text
+    if '.symtab' not in secs or get_sym_name is None:
+        raise ValueError("Missing required .symtab section in ELF object")
+
+    symtab_sec = secs['.symtab']
+    sym_entsize = symtab_sec['entsize'] if symtab_sec['entsize'] >= 16 else 16
+    sym_count = symtab_sec['size'] // sym_entsize
+    found_symbol = False
+
+    for i in range(sym_count):
+        off = symtab_sec['offset'] + i * sym_entsize
+        st_name, st_value, st_size, st_info, st_other, st_shndx = struct.unpack_from('<IIIBBH', raw_obj, off)
+        sym_name = get_sym_name(st_name)
+        if sym_name == TARGET_SYMBOL:
+            assert_function_symbol(sym_name, st_value, st_size, st_shndx, text_sec_idx)
+            found_symbol = True
+            break
+
+    if not found_symbol:
+        raise ValueError(f"Required function symbol {TARGET_SYMBOL} not found in .symtab")
+
+    # Read .text bytes starting from symbol offset (0) for symbol size (8)
     compiled_bytes = bytearray(raw_obj[text_sec['offset']:text_sec['offset'] + func_size])
 
     # Check relocations
@@ -199,6 +254,7 @@ def main():
     print(f"Target ELF:              {orig_elf_path}")
     print(f"File Offset:             {orig_file_offset:#08x} (VRAM 0x280670)")
     print(f"Length:                  {func_size} bytes ({func_size // 4} instructions)")
+    print(f"Symbol {TARGET_SYMBOL}:  validated in .text at offset {EXPECTED_SYMBOL_OFFSET}, size {EXPECTED_SYMBOL_SIZE}")
     print(f"Original ELF slice SHA1: {orig_sha1} (enforced exact: {EXPECTED_SLICE_SHA1})")
     print(f"Resolved code slice SHA1:{resolved_sha1} (enforced exact: {EXPECTED_SLICE_SHA1})")
     print(f"Relocations:             {reloc_count} (enforced exact: {EXPECTED_RELOC_COUNT})")

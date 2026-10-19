@@ -76,15 +76,15 @@
 
 When `a2 == 1` and `a1 == self->field_834`:
 - **Mode 11**: `self->field_84C = 3; func_00341040(self); return 1;`
-- **Mode 3**: `func_33A730(); func_00340C30(self); *(int*)(field_844 + 2052) = 2; return 1;`
-- **Modes 1, 2, 4, 7**: `func_00340C30(self); *(int*)(field_844 + 2052) = 2; return 1;`
+- **Mode 3**: `func_33A730(); *(int*)(field_844 + 2052) = 2; func_00340C30(self); return 1;`
+- **Modes 1, 2, 4, 7**: `*(int*)(field_844 + 2052) = 2; func_00340C30(self); return 1;`
 - **Modes 18, 21, 22, 23, 24**: `self->field_84C = 12; func_00341040(self); return 1;`
 - **Mode 20**:
   - `field_840` boundary check: if `field_840 == 2 || (unsigned)(field_840 - 4) < 3` (values 2, 4, 5, 6): sets `field_84C = 18; func_00341040(self); return 1;`
   - Otherwise (values 1, 3, 7+): sets `field_84C = 17; func_00341040(self); return 1;`
 - **Mode 15**:
   - `field_840` boundary check: if `field_840 == 2 || field_840 == 4`: sets `field_84C = 18; func_00341040(self); return 1;`
-  - Otherwise: calls `func_00340C30(self); *(int*)(field_844 + 2052) = 12; return 1;`
+  - Otherwise: calls `*(int*)(field_844 + 2052) = 12; func_00340C30(self); return 1;`
 - **Mode 14**:
   - `field_840` boundary check: if `field_840 == 2 || (unsigned)(field_840 - 4) < 3` (values 2, 4, 5, 6): sets `field_84C = 18; func_00341040(self); return 1;`
   - Otherwise: sets `field_84C = 17; func_00341040(self); return 1;`
@@ -113,26 +113,26 @@ When `a2 == 1` and `a1 == self->field_834`:
 | Mode | Target Address | Behavior / Outcome |
 |------|---------------|-------------------|
 | 0 | `0x00342770` | `func_00341040(self); return 1;` |
-| 1 | `0x00342594` | `func_00340C30(self); *(field_844 + 2052) = 5; return 1;` |
-| 2, 4 | `0x003425e0` | `func_00340C30(self); *(field_844 + 2052) = 7; return 1;` |
+| 1 | `0x00342594` | `*(field_844 + 2052) = 5; func_00340C30(self); return 1;` |
+| 2, 4 | `0x003425e0` | `*(field_844 + 2052) = 7; func_00340C30(self); return 1;` |
 | 3 | `0x003426a8` | Calls `func_33A730`, sub838 handlers, sets `field_84C = 11`, `func_00341040(self); return 1;` |
-| 5, 6 | `0x0034262c` | `func_00340C30(self); *(field_844 + 2052) = 1; return 1;` |
-| 7 | `0x0034265c` | `func_00340C30(self); *(field_844 + 2052) = 9; return 1;` |
-| 8 | `0x003425b0` | If `(unsigned short)t0 == 0xFFFF`: `func_00340C30`, `*(field_844 + 2052) = 6`, return 1; else return 0 |
-| 9 | `0x003425fc` | If `(unsigned short)t0 == 0xFFFF`: `func_00340C30`, `*(field_844 + 2052) = 3`, return 1; else return 0 |
-| 10 | `0x00342678` | If `(unsigned short)t0 == 0xFFFF`: `field_84C = 12; field_83C = 12; func_00341040`, return 1; else return 0 |
-| 11 | `0x0034270c` | `func_00340C30(self); *(field_844 + 2052) = 11; return 1;` |
+| 5, 6 | `0x0034262c` | `*(field_844 + 2052) = 1; func_00340C30(self); return 1;` |
+| 7 | `0x0034265c` | `*(field_844 + 2052) = 9; func_00340C30(self); return 1;` |
+| 8 | `0x003425b0` | If `t0 == 0xFFFF`: falls through to mode 26 (`*(field_844 + 2052) = 6; func_00340C30; return 1;`); else return 0 |
+| 9 | `0x003425fc` | If `t0 == 0xFFFF`: falls through to mode 25 (`*(field_844 + 2052) = 3; func_00340C30; return 1;`); else return 0 |
+| 10 | `0x00342678` | If `t0 == 0xFFFF`: `field_84C = 12; field_83C = 12; func_00341040`, return 1; else return 0 |
+| 11 | `0x0034270c` | `*(field_844 + 2052) = 11; func_00340C30(self); return 1;` |
 | 12 | `0x00342728` | `self->field_84C = 13; func_00341040(self); return 1;` |
-| 13 | `0x00342734` | `func_00340C30(self); *(field_844 + 2052) = 4; return 1;` |
-| 14 | `0x00342490` | If `field_840 in {2, 4, 5, 6}`: `field_84C = 12; func_00341040`, return 1; else `func_00340C30`, `*(field_844 + 2052) = 12`, return 1 |
-| 15 | `0x003424d8` | If `field_840 in {2, 4}`: `func_36ACC0(7); field_84C = 16; func_00341040`, return 1; else `field_84C = 17; func_00341040`, return 1 |
-| 16 | `0x00342750` | If `(unsigned short)t0 == 0xFFFF`: `field_84C = 12; field_83C = 12; func_00341040`, return 1; else return 0 |
+| 13 | `0x00342734` | `*(field_844 + 2052) = 4; func_00340C30(self); return 1;` |
+| 14 | `0x00342490` | If `field_840 in {2, 4, 5, 6}`: `field_84C = 12; func_00341040`, return 1; else `*(field_844 + 2052) = 12; func_00340C30`, return 1 |
+| 15 | `0x003424d8` | If `field_840 in {2, 4}`: `field_84C = 16; func_36ACC0(7); func_00341040`, return 1; else `field_84C = 17; func_00341040`, return 1 |
+| 16 | `0x00342750` | If `t0 == 0xFFFF`: falls through to mode 27 (`field_84C = 12; field_83C = 12; func_00341040; return 1;`); else return 0 |
 | 17 | `0x00342518` | `self->field_84C = 12; func_00341040(self); return 1;` |
-| 18, 21-24 | `0x00342578` | `func_00340C30(self); *(field_844 + 2052) = 3; return 1;` |
+| 18, 21-24 | `0x00342578` | `*(field_844 + 2052) = 3; func_00340C30(self); return 1;` |
 | 19 | `0x00342524` | `self->field_84C = 20; func_00341040(self); return 1;` |
-| 20 | `0x00342530` | If `field_840 in {2, 4, 5, 6}`: `field_84C = 17; func_00341040`, return 1; else `func_00340C30`, `*(field_844 + 2052) = 12`, return 1 |
-| 25 | `0x00342610` | `func_00340C30(self); *(field_844 + 2052) = 3; return 1;` |
-| 26 | `0x003425c4` | `func_00340C30(self); *(field_844 + 2052) = 6; return 1;` |
+| 20 | `0x00342530` | If `field_840 in {2, 4, 5, 6}`: `field_84C = 17; func_00341040`, return 1; else `*(field_844 + 2052) = 12; func_00340C30`, return 1 |
+| 25 | `0x00342610` | `*(field_844 + 2052) = 3; func_00340C30(self); return 1;` |
+| 26 | `0x003425c4` | `*(field_844 + 2052) = 6; func_00340C30(self); return 1;` |
 | 27 | `0x00342764` | `self->field_84C = 12; self->field_83C = 12; func_00341040(self); return 1;` |
 | 28, 29 | `0x0034269c` | `self->field_84C = self->field_850; func_00341040(self); return 1;` |
 

@@ -141,11 +141,9 @@ int func_00342170(TacticalObj_341040 *self, int a1, int a2, int a3, int t0) {
             set_handler_state(self, 5);
             return 1;
         case 8:
-            if ((unsigned short)t0 == 0xFFFF) {
-                set_handler_state(self, 6);
-                return 1;
+            if (t0 != 0xFFFF) {
+                return 0;
             }
-            return 0;
         case 26:
             set_handler_state(self, 6);
             return 1;
@@ -154,17 +152,13 @@ int func_00342170(TacticalObj_341040 *self, int a1, int a2, int a3, int t0) {
             set_handler_state(self, 7);
             return 1;
         case 9:
-            if ((unsigned short)t0 == 0xFFFF) {
-                set_handler_state(self, 3);
-                return 1;
+            if (t0 != 0xFFFF) {
+                return 0;
             }
-            return 0;
         case 25:
             set_handler_state(self, 3);
             return 1;
         case 5:
-            set_handler_state(self, 1);
-            return 1;
         case 6:
             set_handler_state(self, 1);
             return 1;
@@ -172,12 +166,12 @@ int func_00342170(TacticalObj_341040 *self, int a1, int a2, int a3, int t0) {
             set_handler_state(self, 9);
             return 1;
         case 10:
-            if ((unsigned short)t0 == 0xFFFF) {
-                self->field_84C = 12;
-                self->field_83C = 12;
-                break;
+            if (t0 != 0xFFFF) {
+                return 0;
             }
-            return 0;
+            self->field_84C = 12;
+            self->field_83C = 12;
+            break;
         case 28:
         case 29:
             self->field_84C = self->field_850;
@@ -205,12 +199,9 @@ int func_00342170(TacticalObj_341040 *self, int a1, int a2, int a3, int t0) {
             set_handler_state(self, 4);
             return 1;
         case 16:
-            if ((unsigned short)t0 == 0xFFFF) {
-                self->field_84C = 12;
-                self->field_83C = 12;
-                break;
+            if (t0 != 0xFFFF) {
+                return 0;
             }
-            return 0;
         case 27:
             self->field_84C = 12;
             self->field_83C = 12;

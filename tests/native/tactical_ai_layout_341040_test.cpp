@@ -1236,7 +1236,31 @@ static void test_func_342170_field_830_mode15_mutation_precedes_func_36acc0() {
     std::printf("PASS test_func_342170_field_830_mode15_mutation_precedes_func_36acc0\n");
 }
 
+static void test_func_342170_mode8_32bit_exact_t0_matching() {
+    TacticalObj_341040 obj;
+    MockSubObj mock_sub830;
+    char mock_field844[2056];
+    std::memset(&obj, 0, sizeof(obj));
+    std::memset(mock_field844, 0, sizeof(mock_field844));
+    obj.field_830 = &mock_sub830;
+    obj.field_844 = &mock_field844;
+    obj.field_84C = 8; // Mode 8
+    g_call_history.clear();
+
+    // In original PS2 ELF at 0x242790 (0x440):
+    // 440: li v0, 0xffff
+    // 444: beq t0, v0, 454
+    // 44c: b 620 (return 0)
+    // Full 32-bit comparison: t0 = 0x1000FFFF must NOT match 0x0000FFFF, must return 0 without mutating state
+    int res = func_00342170(&obj, (int)(long)&mock_sub830, 1, 0, 0x1000FFFF);
+    assert(res == 0);
+    assert(g_call_history.size() == 0);
+    assert(*(int*)((char*)obj.field_844 + 2052) == 0);
+    std::printf("PASS test_func_342170_mode8_32bit_exact_t0_matching\n");
+}
+
 int main() {
+    test_func_342170_mode8_32bit_exact_t0_matching();
     test_func_342170_field_830_mode15_mutation_precedes_func_36acc0();
     test_func_342170_f844_mutation_precedes_func_340c30();
     test_func_341040_field_840_value_2_routes_to_age2S();

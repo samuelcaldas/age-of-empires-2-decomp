@@ -1,9 +1,8 @@
-"""Tests for tools/verify_exact_linked.py ensuring strict relocation count enforcement."""
+"""Tests for tools/verify_exact_linked.py ensuring strict relocation count and site validation enforcement."""
 
 import subprocess
 import sys
 from pathlib import Path
-import pytest
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 VERIFIER_SCRIPT = REPO_ROOT / "tools" / "verify_exact_linked.py"
@@ -16,18 +15,17 @@ def test_verifier_rejects_wrong_gprel_count():
 import sys
 from tools import verify_exact_linked
 
-# Call verify_relocations or verify with wrong count
 try:
     verify_exact_linked.assert_relocation_counts(gprel_count=48, jal_count=51)
-    sys.exit(0) # Should not succeed
-except (AssertionError, ValueError) as e:
-    sys.exit(42) # Expected failure
+    sys.exit(0)
+except (AssertionError, ValueError):
+    sys.exit(42)
 """],
         cwd=REPO_ROOT,
         capture_output=True,
         text=True,
     )
-    assert result.returncode == 42, f"Verifier failed to reject wrong GPREL count: returncode={result.returncode}, stderr={result.stderr}"
+    assert result.returncode == 42
 
 
 def test_verifier_rejects_wrong_jal_count():
@@ -40,14 +38,143 @@ from tools import verify_exact_linked
 try:
     verify_exact_linked.assert_relocation_counts(gprel_count=49, jal_count=50)
     sys.exit(0)
-except (AssertionError, ValueError) as e:
+except (AssertionError, ValueError):
     sys.exit(42)
 """],
         cwd=REPO_ROOT,
         capture_output=True,
         text=True,
     )
-    assert result.returncode == 42, f"Verifier failed to reject wrong JAL count: returncode={result.returncode}, stderr={result.stderr}"
+    assert result.returncode == 42
+
+
+def test_verifier_rejects_unsupported_relocation_type():
+    """Verifier must raise ValueError on any in-range relocation type other than R_MIPS_GPREL16 or R_MIPS_26."""
+    result = subprocess.run(
+        [sys.executable, "-c", """
+import sys
+from tools import verify_exact_linked
+
+code = bytearray(b'\\x00' * 16)
+try:
+    verify_exact_linked.validate_and_apply_relocation(
+        r_offset=0, r_type=2, sym_name="D_4E35DC", compiled_bytes=code
+    )
+    sys.exit(0)
+except ValueError as e:
+    if "Unsupported in-range relocation type" in str(e):
+        sys.exit(42)
+sys.exit(1)
+"""],
+        cwd=REPO_ROOT,
+        capture_output=True,
+        text=True,
+    )
+    assert result.returncode == 42, f"Failed to reject unsupported relocation type: stderr={result.stderr}"
+
+
+def test_verifier_rejects_corrupted_gprel_opcode():
+    """Verifier must validate that instruction at GPREL16 site is addiu $a0, $gp, 0."""
+    result = subprocess.run(
+        [sys.executable, "-c", """
+import sys, struct
+from tools import verify_exact_linked
+
+# Put a nop instead of addiu $a0, $gp, 0
+code = bytearray(b'\\x00' * 16)
+try:
+    verify_exact_linked.validate_and_apply_relocation(
+        r_offset=0, r_type=7, sym_name="D_4E35DC", compiled_bytes=code
+    )
+    sys.exit(0)
+except ValueError as e:
+    if "Invalid opcode/register at GPREL16 site" in str(e):
+        sys.exit(42)
+sys.exit(1)
+"""],
+        cwd=REPO_ROOT,
+        capture_output=True,
+        text=True,
+    )
+    assert result.returncode == 42, f"Failed to reject corrupted GPREL opcode: stderr={result.stderr}"
+
+
+def test_verifier_rejects_corrupted_gprel_addend():
+    """Verifier must validate that in-situ addend at GPREL16 site is zero."""
+    result = subprocess.run(
+        [sys.executable, "-c", """
+import sys, struct
+from tools import verify_exact_linked
+
+# addiu $a0, $gp, 0x0005 (non-zero addend)
+code = bytearray(struct.pack('<I', 0x27840005) + b'\\x00' * 12)
+try:
+    verify_exact_linked.validate_and_apply_relocation(
+        r_offset=0, r_type=7, sym_name="D_4E35DC", compiled_bytes=code
+    )
+    sys.exit(0)
+except ValueError as e:
+    if "Non-zero in-situ addend at GPREL16 site" in str(e):
+        sys.exit(42)
+sys.exit(1)
+"""],
+        cwd=REPO_ROOT,
+        capture_output=True,
+        text=True,
+    )
+    assert result.returncode == 42, f"Failed to reject non-zero GPREL addend: stderr={result.stderr}"
+
+
+def test_verifier_rejects_corrupted_jal_opcode():
+    """Verifier must validate that instruction at JAL site is jal 0x0."""
+    result = subprocess.run(
+        [sys.executable, "-c", """
+import sys, struct
+from tools import verify_exact_linked
+
+# Put a non-JAL instruction
+code = bytearray(struct.pack('<I', 0x00000000) + b'\\x00' * 12)
+try:
+    verify_exact_linked.validate_and_apply_relocation(
+        r_offset=0, r_type=4, sym_name="func_366C60", compiled_bytes=code
+    )
+    sys.exit(0)
+except ValueError as e:
+    if "Invalid opcode at JAL site" in str(e):
+        sys.exit(42)
+sys.exit(1)
+"""],
+        cwd=REPO_ROOT,
+        capture_output=True,
+        text=True,
+    )
+    assert result.returncode == 42, f"Failed to reject corrupted JAL opcode: stderr={result.stderr}"
+
+
+def test_verifier_rejects_corrupted_jal_target_field():
+    """Verifier must validate that in-situ target field at JAL site is zero."""
+    result = subprocess.run(
+        [sys.executable, "-c", """
+import sys, struct
+from tools import verify_exact_linked
+
+# jal 0x0000001 (non-zero target field)
+code = bytearray(struct.pack('<I', 0x0C000001) + b'\\x00' * 12)
+try:
+    verify_exact_linked.validate_and_apply_relocation(
+        r_offset=0, r_type=4, sym_name="func_366C60", compiled_bytes=code
+    )
+    sys.exit(0)
+except ValueError as e:
+    if "Non-zero in-situ target field at JAL site" in str(e):
+        sys.exit(42)
+sys.exit(1)
+"""],
+        cwd=REPO_ROOT,
+        capture_output=True,
+        text=True,
+    )
+    assert result.returncode == 42, f"Failed to reject non-zero JAL target field: stderr={result.stderr}"
 
 
 def test_verifier_succeeds_with_exact_counts():
@@ -59,6 +186,22 @@ def test_verifier_succeeds_with_exact_counts():
         text=True,
     )
     assert result.returncode == 0, f"Verifier failed: {result.stderr}"
-    assert "GPREL16 resolved sites:  49 (enforced exact: 49)" in result.stdout or "GPREL16 resolved sites:  49" in result.stdout
-    assert "JAL (R_MIPS_26) resolved:51 (enforced exact: 51)" in result.stdout or "JAL (R_MIPS_26) resolved:51" in result.stdout
     assert "EXACT MATCH! 1672 / 1672 bytes identical" in result.stdout
+
+
+if __name__ == '__main__':
+    tests = [
+        test_verifier_rejects_wrong_gprel_count,
+        test_verifier_rejects_wrong_jal_count,
+        test_verifier_rejects_unsupported_relocation_type,
+        test_verifier_rejects_corrupted_gprel_opcode,
+        test_verifier_rejects_corrupted_gprel_addend,
+        test_verifier_rejects_corrupted_jal_opcode,
+        test_verifier_rejects_corrupted_jal_target_field,
+        test_verifier_succeeds_with_exact_counts,
+    ]
+    print(f"Running {len(tests)} verifier enforcement tests...")
+    for t in tests:
+        t()
+        print(f"  PASS: {t.__name__}")
+    print(f"All {len(tests)} tests passed successfully!")

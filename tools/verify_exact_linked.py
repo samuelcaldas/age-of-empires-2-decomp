@@ -10,6 +10,11 @@ import sys
 EXPECTED_GPREL_COUNT = 49
 EXPECTED_JAL_COUNT = 51
 
+GP_VAL = 0x4EA7C0
+D_4E35DC_VAL = 0x4E35DC
+GPREL_ADDEND = (D_4E35DC_VAL - GP_VAL) & 0xFFFF  # -0x71E4 = 0x8E1C
+
+
 def assert_relocation_counts(gprel_count, jal_count):
     """Enforce exact relocation counts; raises ValueError if any count differs."""
     if gprel_count != EXPECTED_GPREL_COUNT:
@@ -20,6 +25,65 @@ def assert_relocation_counts(gprel_count, jal_count):
         raise ValueError(
             f"JAL relocation count mismatch: got {jal_count}, expected exact {EXPECTED_JAL_COUNT}"
         )
+
+
+def validate_and_apply_relocation(r_offset, r_type, sym_name, compiled_bytes):
+    """
+    Validate relocation type, site opcode, registers, in-situ addend/target,
+    and apply resolved value. Raises ValueError on any unexpected property.
+    """
+    if r_type == 7:  # R_MIPS_GPREL16
+        if sym_name != "D_4E35DC":
+            raise ValueError(
+                f"Unexpected GPREL16 symbol at {r_offset:#06x}: got {sym_name}, expected D_4E35DC"
+            )
+        w = struct.unpack_from('<I', compiled_bytes, r_offset)[0]
+        # Must be addiu $a0, $gp, 0 (0x27840000)
+        if (w & 0xFFFF0000) != 0x27840000:
+            raise ValueError(
+                f"Invalid opcode/register at GPREL16 site {r_offset:#06x}: got {w:#010x}, expected addiu $a0, $gp, 0 (0x27840000)"
+            )
+        # In-situ addend must be zero
+        in_situ_addend = w & 0xFFFF
+        if in_situ_addend != 0:
+            raise ValueError(
+                f"Non-zero in-situ addend at GPREL16 site {r_offset:#06x}: got {in_situ_addend:#06x}, expected 0x0"
+            )
+        # Apply addend
+        w_applied = (w & 0xFFFF0000) | GPREL_ADDEND
+        struct.pack_into('<I', compiled_bytes, r_offset, w_applied)
+        return "GPREL16"
+
+    elif r_type == 4:  # R_MIPS_26
+        if not sym_name.startswith("func_"):
+            raise ValueError(
+                f"Unexpected JAL symbol at {r_offset:#06x}: got {sym_name}, expected func_XXXXXX"
+            )
+        w = struct.unpack_from('<I', compiled_bytes, r_offset)[0]
+        # Must be jal opcode (op=3, 0x0C000000)
+        op = (w >> 26) & 0x3F
+        if op != 3:
+            raise ValueError(
+                f"Invalid opcode at JAL site {r_offset:#06x}: got {w:#010x} (op={op}), expected jal (op=3)"
+            )
+        # In-situ target field must be zero
+        in_situ_target = w & 0x03FFFFFF
+        if in_situ_target != 0:
+            raise ValueError(
+                f"Non-zero in-situ target field at JAL site {r_offset:#06x}: got {in_situ_target:#010x}, expected 0x0"
+            )
+        # Apply target address derived from symbol name
+        target_addr = int(sym_name.split('_')[1], 16)
+        jal_target_field = (target_addr >> 2) & 0x03FFFFFF
+        w_applied = 0x0C000000 | jal_target_field
+        struct.pack_into('<I', compiled_bytes, r_offset, w_applied)
+        return "JAL"
+
+    else:
+        raise ValueError(
+            f"Unsupported in-range relocation type {r_type} at offset {r_offset:#06x}"
+        )
+
 
 def parse_elf_sections(path):
     with open(path, 'rb') as f:
@@ -62,11 +126,12 @@ def parse_elf_sections(path):
 
     return data, sec_by_name, lambda idx: get_str(sections[sec_by_name['.symtab']['link']]['offset'], idx)
 
+
 def main():
     src_obj_path = 'build/SLES-50282/src/unit_action_build_7f890.o'
     orig_elf_path = 'orig/SLES-50282/AOK.ELF'
     orig_file_offset = 0x17FA70
-    func_size = 1672 # 0x688 bytes = 418 instructions
+    func_size = 1672  # 0x688 bytes = 418 instructions
 
     # 1. Read original binary slice
     with open(orig_elf_path, 'rb') as f:
@@ -98,11 +163,6 @@ def main():
     gprel_count = 0
     jal_count = 0
 
-    # Constants for linking against SLES-50282:
-    GP_VAL = 0x4EA7C0
-    D_4E35DC_VAL = 0x4E35DC
-    GPREL_ADDEND = (D_4E35DC_VAL - GP_VAL) & 0xFFFF # -0x71E4 = 0x8E1C
-
     for i in range(reloc_count):
         off = rel_text_sec['offset'] + i * rel_text_sec['entsize']
         r_offset, r_info = struct.unpack_from('<II', raw_obj, off)
@@ -113,22 +173,15 @@ def main():
         if r_offset >= func_size:
             continue
 
-        if r_type == 7: # R_MIPS_GPREL16
-            assert sym_name == 'D_4E35DC', f"Unexpected GPREL sym: {sym_name}"
-            w = struct.unpack_from('<I', compiled_bytes, r_offset)[0]
-            # addend applies to low 16 bits
-            w_applied = (w & 0xFFFF0000) | GPREL_ADDEND
-            struct.pack_into('<I', compiled_bytes, r_offset, w_applied)
-            gprel_count += 1
-
-        elif r_type == 4: # R_MIPS_26 (JAL)
-            # Address is derived from symbol name (func_XXXXXX -> 0xXXXXXX)
-            assert sym_name.startswith('func_'), f"Unexpected JAL sym: {sym_name}"
-            target_addr = int(sym_name.split('_')[1], 16)
-            jal_target_field = (target_addr >> 2) & 0x03FFFFFF
-            w = 0x0C000000 | jal_target_field
-            struct.pack_into('<I', compiled_bytes, r_offset, w)
-            jal_count += 1
+        try:
+            rel_kind = validate_and_apply_relocation(r_offset, r_type, sym_name, compiled_bytes)
+            if rel_kind == "GPREL16":
+                gprel_count += 1
+            elif rel_kind == "JAL":
+                jal_count += 1
+        except ValueError as err:
+            print(f"RELOCATION VALIDATION ERROR: {err}", file=sys.stderr)
+            sys.exit(1)
 
     # Enforce exact relocation counts
     try:
@@ -165,6 +218,7 @@ def main():
         print("RESULT: EXACT MATCH! 1672 / 1672 bytes identical (100.00% byte equality).")
         print("All 418 instructions match bit-for-bit against orig/SLES-50282/AOK.ELF.")
         sys.exit(0)
+
 
 if __name__ == '__main__':
     main()

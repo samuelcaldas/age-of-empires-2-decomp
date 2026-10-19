@@ -129,7 +129,8 @@ The independently confirmed exact code-byte comparison does not depend on them.
 The added call-order and rejection checks also do not establish Red-before-source
 chronology for the earlier production change.
 
-The original behavioral Red run failed the tag-word assertion against unchanged
-production. Its local log is `build/abi-21c410-red.log`; `build/` is ignored, so that
-log is not committed evidence. Current gate commands and results must be reported
-separately from that historical Red run.
+The original behavioral Red run recorded six failures against unchanged production
+(five native tag assertions and one matcher size failure where `st_size` was 76
+instead of expected 132). Its local log is `build/abi-21c410-red.log`; `build/` is
+ignored, so that log is not committed evidence. Current gate commands and results
+must be reported separately from that historical Red run.

@@ -7417,7 +7417,7 @@ Located at VRAM `0x32E8C0`–`0x32EC78` (file offset `0x22EAA0`–`0x22EE58`, 95
   14. `+0x394` (`0x0032EC54`): `jal 0x00366F90`
   15. `+0x39C` (`0x0032EC5C`): `jal 0x002C2C20`
 - **Data References & Stripped-ELF Uncertainty**:
-  - `+0x008` / `+0x014`: Direct byte-level address calculation loading `0x004EEE70` into `$a1`.
-  - `+0x118`: GP-relative store `sw $zero, 0x8D58($gp)` (effective GP offset `-0x72A8`).
-  - `+0x1C4`: GP-relative store `sw $v0, 0x8D4C($gp)` (effective GP offset `-0x72B4`).
+  - `+0x008` / `+0x014`: Direct byte-level address calculation `lui $v0, 0x4E` followed by `addiu $a1, $v0, -4496` (`0xEE70`), computing `0x004DEE70` into `$a1` (sign-extension of `0xEE70` subtracts `0x1190` from `0x004E0000`).
+  - `+0x118`: GP-relative store `sw $zero, 0x8D58($gp)` (raw immediate `0x8D58` sign-extends to `-0x72A8` / `-29352`).
+  - `+0x1C4`: GP-relative store `sw $v0, 0x8D4C($gp)` (raw immediate `0x8D4C` sign-extends to `-0x72B4` / `-29364`).
   - Because `AOK.ELF` is stripped, data references and callee names cannot be confirmed from symbol tables and are tracked purely by direct VRAM address. No implementation is established.

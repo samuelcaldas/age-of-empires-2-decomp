@@ -141,7 +141,7 @@ int func_001C7850(
         for (short cur_y = t_min_y; cur_y <= t_max_y; cur_y++) {
             if (bld_var->m_id == 0x299 || bld_var->m_id == 0x29A) {
                 if (cur_x - t_min_x != cur_y - t_min_y) continue;
-            } else if ((unsigned short)(bld_var->m_id - 0x2A1) < 2) {
+            } else if ((unsigned int)(bld_var->m_id - 0x2A1) < 2) {
                 if (t_max_x - cur_x != cur_y - t_min_y) continue;
             }
 

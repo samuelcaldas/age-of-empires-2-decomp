@@ -19,6 +19,7 @@ Start with the top-level [README](../README.md).
 - [trade_action_palette_21B560.md](trade_action_palette_21B560.md): original 16-by-16 palette upload arguments and the separate zero-width red/green regression
 - [trade_action_helper_21B640.md](trade_action_helper_21B640.md): 6-slot viewport/palette allocation pool, 344-byte 100% C++ match, and native regression tests
 - [trade_action_helper_21B7B0.md](trade_action_helper_21B7B0.md): palette and viewport allocation helpers, 196-byte 100% C++ match, and native regression tests
+- [trade_action_helper_21B880.md](trade_action_helper_21B880.md): viewport descriptor allocator and configurator, 97.85% C++ match, and native regression tests
 - [trade_action_helper_21DE90.md](trade_action_helper_21DE90.md): eight-input packet dispatcher, native chain tests, and complete 192-byte relocated C++ match
 - [trade_action_helper_21DF50.md](trade_action_helper_21DF50.md): nine-input packet builder, ten writer arguments, wrapped arithmetic, and remaining target differences
 - [trade_action_dispatcher_2b66b0.md](trade_action_dispatcher_2b66b0.md): trade action dispatcher slice 0x2B66B0, modular architecture, and 16-case native test validation

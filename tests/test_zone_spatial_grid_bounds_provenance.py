@@ -60,7 +60,7 @@ def test_source_reproduces_original_instruction_bytes(private_inputs):
     assert result["code_bytes"] == 244
     assert result["expected_code_bytes"] == 244
     assert result["padding_bytes"] == 12
-    assert result["padding_verified"] is True
+    assert result["original_padding_verified"] is True
     assert result["relocation_count"] == 4
     assert result["literal_match"] is True
     assert result["resolved_sha256"] == result["original_sha256"]
@@ -101,7 +101,7 @@ def test_cli_exits_on_verify(private_inputs):
     assert result["code_bytes"] == 244
     assert result["expected_code_bytes"] == 244
     assert result["padding_bytes"] == 12
-    assert result["padding_verified"] is True
+    assert result["original_padding_verified"] is True
     assert result["relocation_count"] == 4
     assert result["literal_match"] is True
 

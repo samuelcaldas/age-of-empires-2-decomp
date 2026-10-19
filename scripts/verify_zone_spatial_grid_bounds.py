@@ -147,15 +147,16 @@ def verify(source_path, original_path):
     expected = _read_address(original, FUNCTION_ADDRESS, CODE_SIZE)
     expected_pad = _read_address(original, FUNCTION_ADDRESS + CODE_SIZE, PADDING_SIZE)
     code, records = _compiled_function(source_path)
-    # Check match against expected extent
+    # Check match against expected extent (244 bytes)
     matched = (len(code) == CODE_SIZE and code == expected)
-    padding_matched = (len(expected_pad) == PADDING_SIZE and expected_pad == b"\x00" * PADDING_SIZE)
+    # Separately verify original ELF trailing 12-byte NOP alignment padding outside function gate
+    original_padding_matched = (len(expected_pad) == PADDING_SIZE and expected_pad == b"\x00" * PADDING_SIZE)
     return {
         "code_bytes": len(code),
         "expected_code_bytes": CODE_SIZE,
         "literal_match": matched,
         "padding_bytes": PADDING_SIZE,
-        "padding_verified": padding_matched,
+        "original_padding_verified": original_padding_matched,
         "source_relocations": records,
         "relocation_count": len(records),
         "resolved_sha256": hashlib.sha256(code[:CODE_SIZE]).hexdigest(),

@@ -57,8 +57,10 @@ Virtual method dispatch at `+0xD8`: `vtable[55]` (`0xDC`) invoked as `method_DC(
   literal instruction matching across all 244 bytes (`literal_match: true`), 4 direct
   `R_MIPS_26` function relocations, matching resolved SHA-256 hash
   (`bfca2700233b7b56a59a8a9c086ec4112f0573df62c55991696d30c6f33dcbb5`),
-  corrupted instruction rejection against a passing baseline, unpinned ELF rejection,
-  and CLI zero-exit contract.
+  separate verification of original ELF 12-byte trailing NOP alignment padding
+  (`original_padding_verified: true`, `0x1F2BC4`..`0x1F2BD0`) strictly outside the
+  244-byte function matching gate, corrupted instruction rejection against a passing baseline,
+  unpinned ELF rejection, and CLI zero-exit contract.
 - **Focused test suite:** 198 passed in 38.90s (`pytest tests/test_zone_spatial_grid*.py`).
 - **Full regression suite:** 2,715 passed in 137.74s (`pytest -q`), 0 failures, 0 regressions.
 - **Configuration policy:** Registered as `NonMatching` in `configure.py` pending

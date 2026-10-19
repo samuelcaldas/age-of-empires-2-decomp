@@ -183,6 +183,10 @@ def verify():
     print(f"Code size: {code_bytes} bytes ({len(bytes_90a0)} + {len(bytes_9130)})")
     print(f"Padding to 160 bytes: {padding_needed} bytes")
 
+    if padding_needed < 0:
+        print(f"ERROR: code bytes ({code_bytes}) exceed slice length ({expected_slice_len}), negative padding {padding_needed}")
+        return 1
+
     # Verify that original ELF at padding offset contains exact zeroes
     target_slice = elf_data[0x1B9280:0x1B9280 + expected_slice_len]
     elf_padding = target_slice[code_bytes:expected_slice_len]
@@ -191,6 +195,13 @@ def verify():
         return 1
 
     compiled_slice = bytes_90a0 + bytes_9130 + b"\x00" * padding_needed
+
+    if len(compiled_slice) != expected_slice_len:
+        print(f"ERROR: compiled slice length {len(compiled_slice)} != {expected_slice_len}")
+        return 1
+    if len(target_slice) != expected_slice_len:
+        print(f"ERROR: target slice length {len(target_slice)} != {expected_slice_len}")
+        return 1
 
     # 7. Byte-for-byte comparison
     diffs = []

@@ -3,7 +3,8 @@
 
 Verifies bit-for-bit byte equality of compiled unit_action_build_807d0.o
 against orig/SLES-50282/AOK.ELF at VRAM 0x2807D0 (file offset 0x1809B0).
-Resolves all 45 GPREL16 and 22 JAL relocations and validates 16 JALR call sites.
+Enforces exact per-site relocation manifest, per-symbol counts, opcodes, addends,
+and validates all 16 JALR call sites.
 Uses strictly Python 3 standard library (struct, hashlib, sys, pathlib).
 """
 
@@ -27,10 +28,87 @@ EXPECTED_JAL_COUNT = 22
 EXPECTED_JALR_COUNT = 16
 EXPECTED_SLICE_SHA1 = "420dcf16176fa46ccf90d1d7fcd7b16eb807254f"
 
+EXPECTED_PER_SYMBOL_COUNTS = {
+    "D_4E3418": 31,
+    "D_4E3420": 14,
+    "func_202B10": 10,
+    "func_205920": 12,
+}
+
 EXPECTED_JALR_OFFSETS = [
     0x12C, 0x188, 0x22C, 0x2B8, 0x344, 0x3A4, 0x40C, 0x4B8,
     0x54C, 0x5E0, 0x640, 0x6B4, 0x708, 0x760, 0x7C0, 0x814
 ]
+
+EXPECTED_RELOCATIONS = {
+    0x0F0: (7, "D_4E3418"),
+    0x0F4: (7, "D_4E3420"),
+    0x104: (4, "func_205920"),
+    0x140: (7, "D_4E3418"),
+    0x164: (7, "D_4E3418"),
+    0x174: (4, "func_202B10"),
+    0x19C: (7, "D_4E3418"),
+    0x1C0: (7, "D_4E3418"),
+    0x1C4: (7, "D_4E3420"),
+    0x1E4: (4, "func_202B10"),
+    0x200: (7, "D_4E3420"),
+    0x204: (4, "func_205920"),
+    0x240: (7, "D_4E3418"),
+    0x264: (7, "D_4E3418"),
+    0x278: (4, "func_202B10"),
+    0x288: (7, "D_4E3420"),
+    0x28C: (4, "func_205920"),
+    0x2CC: (7, "D_4E3418"),
+    0x2F0: (7, "D_4E3418"),
+    0x304: (4, "func_202B10"),
+    0x314: (7, "D_4E3420"),
+    0x318: (4, "func_205920"),
+    0x358: (7, "D_4E3418"),
+    0x37C: (7, "D_4E3418"),
+    0x380: (7, "D_4E3420"),
+    0x384: (4, "func_205920"),
+    0x3B8: (7, "D_4E3418"),
+    0x3DC: (7, "D_4E3418"),
+    0x3EC: (4, "func_202B10"),
+    0x420: (7, "D_4E3418"),
+    0x444: (7, "D_4E3418"),
+    0x448: (7, "D_4E3420"),
+    0x468: (4, "func_202B10"),
+    0x48C: (7, "D_4E3420"),
+    0x490: (4, "func_205920"),
+    0x4CC: (7, "D_4E3418"),
+    0x4F0: (7, "D_4E3418"),
+    0x504: (4, "func_202B10"),
+    0x51C: (7, "D_4E3420"),
+    0x520: (4, "func_205920"),
+    0x560: (7, "D_4E3418"),
+    0x584: (7, "D_4E3418"),
+    0x598: (4, "func_202B10"),
+    0x5B0: (7, "D_4E3420"),
+    0x5B4: (4, "func_205920"),
+    0x5F4: (7, "D_4E3418"),
+    0x618: (7, "D_4E3418"),
+    0x61C: (7, "D_4E3420"),
+    0x620: (4, "func_205920"),
+    0x654: (7, "D_4E3418"),
+    0x678: (7, "D_4E3418"),
+    0x67C: (7, "D_4E3420"),
+    0x68C: (4, "func_205920"),
+    0x6C0: (7, "D_4E3418"),
+    0x6E4: (7, "D_4E3418"),
+    0x6F4: (4, "func_202B10"),
+    0x714: (7, "D_4E3418"),
+    0x738: (7, "D_4E3418"),
+    0x73C: (7, "D_4E3420"),
+    0x740: (4, "func_205920"),
+    0x76C: (7, "D_4E3418"),
+    0x790: (7, "D_4E3418"),
+    0x7A0: (4, "func_202B10"),
+    0x7CC: (7, "D_4E3418"),
+    0x7F0: (7, "D_4E3420"),
+    0x7F4: (4, "func_205920"),
+    0x820: (7, "D_4E3418"),
+}
 
 
 def load_symbols_map():
@@ -90,6 +168,52 @@ def assert_relocation_counts(gprel_count, jal_count, jalr_count):
         raise ValueError(
             f"JALR count mismatch: got {jalr_count}, expected {EXPECTED_JALR_COUNT}"
         )
+
+
+def assert_per_symbol_counts(counts_dict):
+    for sym, expected_count in EXPECTED_PER_SYMBOL_COUNTS.items():
+        actual_count = counts_dict.get(sym, 0)
+        if actual_count != expected_count:
+            raise ValueError(
+                f"Per-symbol count mismatch for {sym}: expected {expected_count}, got {actual_count}"
+            )
+
+
+def assert_relocation_site(r_offset, r_type, target_name):
+    if r_offset not in EXPECTED_RELOCATIONS:
+        raise ValueError(f"Unexpected relocation at offset 0x{r_offset:03X} (symbol {target_name})")
+    expected_type, expected_name = EXPECTED_RELOCATIONS[r_offset]
+    if r_type != expected_type:
+        raise ValueError(
+            f"Relocation type mismatch at 0x{r_offset:03X}: expected {expected_type}, got {r_type}"
+        )
+    if target_name != expected_name:
+        raise ValueError(
+            f"Relocation symbol mismatch at 0x{r_offset:03X}: expected {expected_name}, got {target_name}"
+        )
+
+
+def assert_relocation_addend(r_type, sym_vram, unlinked_word, resolved_word):
+    if r_type == 7:  # R_MIPS_GPREL16
+        unlinked_addend = unlinked_word & 0xFFFF
+        if unlinked_addend != 0:
+            raise ValueError(f"Non-zero unlinked GPREL16 addend: 0x{unlinked_addend:04X}")
+        expected_imm = (sym_vram - GP_VALUE) & 0xFFFF
+        resolved_imm = resolved_word & 0xFFFF
+        if resolved_imm != expected_imm:
+            raise ValueError(
+                f"Resolved GPREL16 addend mismatch: expected 0x{expected_imm:04X}, got 0x{resolved_imm:04X}"
+            )
+    elif r_type == 4:  # R_MIPS_26
+        unlinked_target = unlinked_word & 0x03FFFFFF
+        if unlinked_target != 0:
+            raise ValueError(f"Non-zero unlinked JAL target field: 0x{unlinked_target:07X}")
+        expected_target = (sym_vram >> 2) & 0x03FFFFFF
+        resolved_target = resolved_word & 0x03FFFFFF
+        if resolved_target != expected_target:
+            raise ValueError(
+                f"Resolved JAL target mismatch: expected 0x{expected_target:07X}, got 0x{resolved_target:07X}"
+            )
 
 
 def assert_function_symbol(sym_name, st_value, st_size, st_shndx, text_sec_idx):
@@ -243,6 +367,8 @@ def verify_linked_bytes(symbols_override=None):
     # Read and resolve relocations
     gprel_count = 0
     jal_count = 0
+    per_sym_counts = {}
+    visited_offsets = set()
     num_relocs = rel_sec["size"] // 8
 
     for i in range(num_relocs):
@@ -262,16 +388,25 @@ def verify_linked_bytes(symbols_override=None):
         target_name = target_sym["name"]
         call_site_vram = FUNC_VRAM + r_offset
 
+        assert_relocation_site(r_offset, r_type, target_name)
+        visited_offsets.add(r_offset)
+
+        if target_name not in per_sym_counts:
+            per_sym_counts[target_name] = 0
+        per_sym_counts[target_name] += 1
+
+        unlinked_word = struct.unpack("<I", code_slice[r_offset : r_offset + 4])[0]
+
         if r_type == 7:  # R_MIPS_GPREL16
             if target_name not in sym_map:
                 raise ValueError(f"Unmapped GPREL16 symbol: {target_name}")
             sym_vram = sym_map[target_name]
             imm = (sym_vram - GP_VALUE) & 0xFFFF
-            inst_word = struct.unpack("<I", code_slice[r_offset : r_offset + 4])[0]
-            opcode = inst_word >> 26
+            opcode = unlinked_word >> 26
             if opcode != 35:  # lw
                 raise ValueError(f"Expected lw (35) opcode for GPREL16, got {opcode}")
-            resolved_word = (inst_word & 0xFFFF0000) | imm
+            resolved_word = (unlinked_word & 0xFFFF0000) | imm
+            assert_relocation_addend(r_type, sym_vram, unlinked_word, resolved_word)
             code_slice[r_offset : r_offset + 4] = struct.pack("<I", resolved_word)
             gprel_count += 1
 
@@ -279,13 +414,13 @@ def verify_linked_bytes(symbols_override=None):
             if target_name not in sym_map:
                 raise ValueError(f"Unmapped JAL symbol: {target_name}")
             sym_vram = sym_map[target_name]
-            inst_word = struct.unpack("<I", code_slice[r_offset : r_offset + 4])[0]
-            opcode = inst_word >> 26
+            opcode = unlinked_word >> 26
             if opcode != 3:  # jal
                 raise ValueError(f"Expected jal (3) opcode for R_MIPS_26, got {opcode}")
             if (sym_vram & 0xF0000000) != ((call_site_vram + 4) & 0xF0000000):
                 raise ValueError(f"JAL target 0x{sym_vram:X} outside 256MB region of site 0x{call_site_vram:X}")
             resolved_word = (3 << 26) | ((sym_vram >> 2) & 0x03FFFFFF)
+            assert_relocation_addend(r_type, sym_vram, unlinked_word, resolved_word)
             code_slice[r_offset : r_offset + 4] = struct.pack("<I", resolved_word)
             jal_count += 1
 
@@ -293,6 +428,11 @@ def verify_linked_bytes(symbols_override=None):
             raise ValueError(f"Unsupported relocation type {r_type} at offset 0x{r_offset:X}")
 
     assert_relocation_counts(gprel_count, jal_count, jalr_count)
+    assert_per_symbol_counts(per_sym_counts)
+
+    if visited_offsets != set(EXPECTED_RELOCATIONS.keys()):
+        missing = set(EXPECTED_RELOCATIONS.keys()) - visited_offsets
+        raise ValueError(f"Missing expected relocation sites: {[hex(x) for x in missing]}")
 
     orig_sha1 = hashlib.sha1(orig_bytes).hexdigest()
     resolved_sha1 = hashlib.sha1(code_slice).hexdigest()
@@ -319,7 +459,11 @@ def verify_linked_bytes(symbols_override=None):
     print(f"Original ELF slice SHA1: {orig_sha1} (enforced exact: {EXPECTED_SLICE_SHA1})")
     print(f"Resolved code slice SHA1:{resolved_sha1} (enforced exact: {EXPECTED_SLICE_SHA1})")
     print(f"GPREL16 resolved sites:  {gprel_count} (enforced exact: {EXPECTED_GPREL_COUNT})")
+    print(f"  - D_4E3418:            {per_sym_counts['D_4E3418']} (enforced exact: 31)")
+    print(f"  - D_4E3420:            {per_sym_counts['D_4E3420']} (enforced exact: 14)")
     print(f"JAL resolved sites:      {jal_count} (enforced exact: {EXPECTED_JAL_COUNT})")
+    print(f"  - func_202B10:         {per_sym_counts['func_202B10']} (enforced exact: 10)")
+    print(f"  - func_205920:         {per_sym_counts['func_205920']} (enforced exact: 12)")
     print(f"JALR call sites:         {jalr_count} (enforced exact: {EXPECTED_JALR_COUNT})")
     print(f"\nRESULT: EXACT MATCH! {FUNC_BYTE_LEN} / {FUNC_BYTE_LEN} bytes identical (100.00% byte equality).")
     print(f"All {FUNC_BYTE_LEN//4} instructions match bit-for-bit against {ORIG_ELF_PATH.relative_to(REPO_ROOT)}.")

@@ -28,6 +28,105 @@ except (AssertionError, ValueError):
     assert result.returncode == 42
 
 
+def test_verifier_rejects_wrong_per_symbol_counts():
+    """Verifier must enforce 31 D_4E3418, 14 D_4E3420, 10 func_202B10, and 12 func_205920."""
+    result = subprocess.run(
+        [sys.executable, "-c", """
+import sys
+from tools import verify_exact_linked_807d0
+
+bad_counts = {
+    'D_4E3418': 30, # expected 31
+    'D_4E3420': 14,
+    'func_202B10': 10,
+    'func_205920': 12,
+}
+try:
+    verify_exact_linked_807d0.assert_per_symbol_counts(bad_counts)
+    sys.exit(0)
+except ValueError as e:
+    if 'Per-symbol count mismatch' in str(e):
+        sys.exit(42)
+sys.exit(1)
+"""],
+        cwd=REPO_ROOT,
+        capture_output=True,
+        text=True,
+    )
+    assert result.returncode == 42
+
+
+def test_verifier_rejects_unexpected_relocation_site():
+    """Verifier must reject any relocation at an offset not in EXPECTED_RELOCATIONS."""
+    result = subprocess.run(
+        [sys.executable, "-c", """
+import sys
+from tools import verify_exact_linked_807d0
+
+try:
+    # 0x0F8 is not an expected relocation offset
+    verify_exact_linked_807d0.assert_relocation_site(r_offset=0x0F8, r_type=7, target_name='D_4E3418')
+    sys.exit(0)
+except ValueError as e:
+    if 'Unexpected relocation' in str(e):
+        sys.exit(42)
+sys.exit(1)
+"""],
+        cwd=REPO_ROOT,
+        capture_output=True,
+        text=True,
+    )
+    assert result.returncode == 42
+
+
+def test_verifier_rejects_wrong_relocation_symbol():
+    """Verifier must reject if a relocation site references a different symbol."""
+    result = subprocess.run(
+        [sys.executable, "-c", """
+import sys
+from tools import verify_exact_linked_807d0
+
+try:
+    # 0x0F0 expects D_4E3418, not D_4E3420
+    verify_exact_linked_807d0.assert_relocation_site(r_offset=0x0F0, r_type=7, target_name='D_4E3420')
+    sys.exit(0)
+except ValueError as e:
+    if 'symbol mismatch' in str(e):
+        sys.exit(42)
+sys.exit(1)
+"""],
+        cwd=REPO_ROOT,
+        capture_output=True,
+        text=True,
+    )
+    assert result.returncode == 42
+
+
+def test_verifier_rejects_non_zero_unlinked_addend():
+    """Verifier must reject non-zero unlinked addends in ET_REL."""
+    result = subprocess.run(
+        [sys.executable, "-c", """
+import sys
+from tools import verify_exact_linked_807d0
+
+try:
+    # Non-zero low 16 bits in unlinked instruction
+    verify_exact_linked_807d0.assert_relocation_addend(
+        r_type=7, sym_vram=0x4E3418, unlinked_word=0x8F830004, resolved_word=0x8F838C58
+    )
+    sys.exit(0)
+except ValueError as e:
+    if 'Non-zero unlinked' in str(e):
+        sys.exit(42)
+sys.exit(1)
+"""],
+        cwd=REPO_ROOT,
+        capture_output=True,
+        text=True,
+    )
+    assert result.returncode == 42
+
+
 def test_verifier_enforces_pinned_hashes():
     """Verifier must reject mismatched original or resolved code slice SHA1 hashes."""
     result = subprocess.run(
@@ -167,9 +266,10 @@ shstrtab = data[shstr_offset : shstr_offset + shstr_size]
 
 for i in range(e_shnum):
     sh_offset = e_shoff + i * e_shentsize
-    sh_name, sh_type = struct.unpack('<II', data[sh_offset : sh_offset + 8])
+    sh_name = struct.unpack('<I', data[sh_offset : sh_offset + 4])[0]
     name = shstrtab[sh_name:].split(b'\\x00')[0].decode('latin1')
-    if name == '.rel.text':
+    sh_info = struct.unpack('<I', data[sh_offset + 28 : sh_offset + 32])[0]
+    if name == '.rel.text' and sh_info == 5:
         # Corrupt sh_info (offset 28 within section header)
         struct.pack_into('<I', data, sh_offset + 28, 99)
         break
@@ -215,9 +315,10 @@ shstrtab = data[shstr_offset : shstr_offset + shstr_size]
 
 for i in range(e_shnum):
     sh_offset = e_shoff + i * e_shentsize
-    sh_name, sh_type = struct.unpack('<II', data[sh_offset : sh_offset + 8])
+    sh_name = struct.unpack('<I', data[sh_offset : sh_offset + 4])[0]
     name = shstrtab[sh_name:].split(b'\\x00')[0].decode('latin1')
-    if name == '.rel.text':
+    sh_info = struct.unpack('<I', data[sh_offset + 28 : sh_offset + 32])[0]
+    if name == '.rel.text' and sh_info == 5:
         # Corrupt sh_link (offset 24 within section header)
         struct.pack_into('<I', data, sh_offset + 24, 99)
         break
@@ -296,20 +397,3 @@ def test_verifier_succeeds_with_exact_counts():
     )
     assert result.returncode == 0, f"Verifier failed: {result.stderr}"
     assert "EXACT MATCH! 2132 / 2132 bytes identical" in result.stdout
-
-
-if __name__ == "__main__":
-    tests = [
-        test_verifier_rejects_wrong_reloc_counts,
-        test_verifier_enforces_pinned_hashes,
-        test_verifier_rejects_malformed_elf_header,
-        test_verifier_enforces_symbol_offset,
-        test_verifier_enforces_symbol_size,
-        test_verifier_rejects_mutated_symbol_value,
-        test_verifier_succeeds_with_exact_counts,
-    ]
-    print(f"Running {len(tests)} verifier enforcement tests...")
-    for t in tests:
-        t()
-        print(f"  PASS: {t.__name__}")
-    print(f"All {len(tests)} tests passed successfully!")

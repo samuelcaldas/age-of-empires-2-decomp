@@ -114,7 +114,11 @@ Durable record of behavioral derivation, TDD chronology, disassembly analysis, a
   Original ELF slice SHA1: 420dcf16176fa46ccf90d1d7fcd7b16eb807254f (enforced exact: 420dcf16176fa46ccf90d1d7fcd7b16eb807254f)
   Resolved code slice SHA1:420dcf16176fa46ccf90d1d7fcd7b16eb807254f (enforced exact: 420dcf16176fa46ccf90d1d7fcd7b16eb807254f)
   GPREL16 resolved sites:  45 (enforced exact: 45)
+    - D_4E3418:            31 (enforced exact: 31)
+    - D_4E3420:            14 (enforced exact: 14)
   JAL resolved sites:      22 (enforced exact: 22)
+    - func_202B10:         10 (enforced exact: 10)
+    - func_205920:         12 (enforced exact: 12)
   JALR call sites:         16 (enforced exact: 16)
 
   RESULT: EXACT MATCH! 2132 / 2132 bytes identical (100.00% byte equality).
@@ -124,9 +128,12 @@ Durable record of behavioral derivation, TDD chronology, disassembly analysis, a
 ### Verifier Hardening Controls
 
 - **ELF32 Type & Machine**: strictly validates `e_type == ET_REL (1)` and `e_machine == EM_MIPS (8)`.
+- **Per-Site Manifest**: validates all 67 relocation records against an exact offset-to-symbol-and-type table.
+- **Per-Symbol Counts**: strictly enforces 31 D_4E3418, 14 D_4E3420, 10 func_202B10, 12 func_205920.
+- **Addend Validation**: asserts unlinked low-16/low-26 bits are zero and resolved addends match expected offsets/targets.
 - **Relocation Section Associations**: validates `.rel.text` `sh_info == .text` and `sh_link == .symtab`.
 - **Out-of-Bounds Rejection**: rejects any relocation record with `r_offset >= 2132`.
 - **Symbol Validation**: asserts `func_002807D0` resides in `.text`, starts at offset 0, and has size 2132.
 - **JAL 256MB Region**: asserts `(sym_vram & 0xF0000000) == ((call_site_vram + 4) & 0xF0000000)`.
 - **Table Divisibility**: enforces `symtab_size % 16 == 0` and `reloc_size % 8 == 0`.
-- **All 11 verifier enforcement tests** pass via `.venv/bin/pytest -v tests/test_verify_exact_linked_807d0.py`.
+- **All 14 verifier enforcement tests** pass via `.venv/bin/pytest -v tests/test_verify_exact_linked_807d0.py` (15 focused tests total).

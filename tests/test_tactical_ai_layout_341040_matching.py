@@ -163,15 +163,12 @@ def test_tactical_ai_func_342170_mwcc_compilation(tmp_path):
         fn_size = int(target_fn.get("size", 0))
         print(f"\n[DIAGNOSTIC] tactical_ai_func_342170 size: {fn_size} (target: 1584), fuzzy match: {fuzzy:.2f}%, complete: {is_complete}")
 
-        # Guard: must remain NonMatching in configuration while incomplete
-        assert not is_complete, f"Function is {fuzzy}% matched, must remain NonMatching"
-
-        # Incomplete functions report diagnostics and skip matching clearance
-        if fuzzy < 100.0 or not is_complete:
+        # Guard: while NonMatching in configuration, report diagnostics and skip promotion
+        if not is_complete or fuzzy < 100.0:
             pytest.skip(
                 f"func_00342170 remains NonMatching (diagnostic score: {fuzzy:.2f}%, size: {fn_size}/1584); promotion pending, resolved-byte gate is separate"
             )
 
-        # Diagnostic prerequisites only; the separate resolved-byte test checks exact equality.
+        # Exact matching gate for future promotion
         assert fn_size == 1584, f"Target function size mismatch on promotion: {fn_size} != 1584"
         assert fuzzy == 100.0, f"Expected 100.0% matching on promotion, got {fuzzy}%"

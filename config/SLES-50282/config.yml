@@ -5302,9 +5302,15 @@ segments:
     vram: 0x2818D0
     subsegments:
       - [0x181AB0, asm, unit_action_build_818d0]
-  - name: post_unit_action_build_818d0
-    type: bin
+  - name: unit_action_build_81a80
+    type: code
     start: 0x181C60
+    vram: 0x281A80
+    subsegments:
+      - [0x181C60, asm, unit_action_build_81a80]
+  - name: post_unit_action_build_81a80
+    type: bin
+    start: 0x181C70
   - name: trade_action_getters3
     type: code
     start: 0x1B6330

@@ -70,11 +70,17 @@ static void dummy_vfunc_stub(void *self, ...) { (void)self; }
 static int g_last_dispatched_vtable_slot = -1;
 static int g_last_dispatched_vtable_arg = 0;
 
-// Slot tracking stubs:
-// In MWCC PS2 ABI, vptr points at vtable base with 8-byte metadata header, dispatching at offset 0x130 (vtable[76]).
-// In GCC Itanium ABI, vptr points past the 8-byte metadata, dispatching at offset 0x128 (vptr[74]).
-// Both vtable[74] and vtable[76] record execution of slot 76 (offset 0x130 in original ELF).
-static void slot_76_stub(void *self, int arg) {
+static void slot_74_wrong_stub(void *self, int arg) {
+    (void)self; (void)arg;
+    g_last_dispatched_vtable_slot = 74;
+}
+
+static void slot_75_wrong_stub(void *self, int arg) {
+    (void)self; (void)arg;
+    g_last_dispatched_vtable_slot = 75;
+}
+
+static void slot_76_correct_stub(void *self, int arg) {
     (void)self;
     g_last_dispatched_vtable_slot = 76;
     g_last_dispatched_vtable_arg = arg;
@@ -86,9 +92,10 @@ public:
         for (int i = 0; i < 100; i++) {
             custom_vtable[i] = (void*)&dummy_vfunc_stub;
         }
-        custom_vtable[74] = (void*)&slot_76_stub;
-        custom_vtable[76] = (void*)&slot_76_stub;
-        *(void***)this = custom_vtable;
+        custom_vtable[74] = (void*)&slot_74_wrong_stub;
+        custom_vtable[75] = (void*)&slot_75_wrong_stub;
+        custom_vtable[76] = (void*)&slot_76_correct_stub;
+        *(void***)this = &custom_vtable[2]; // Itanium ABI vptr points past 2 header words
     }
     void vfunc_00() {}
     char pad[2060];

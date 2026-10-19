@@ -1,0 +1,17 @@
+Validated symbol func_002B8E30: section=5, size=616 bytes
+Parsing 6 relocations in section .rel.text:
+  Relocation [0]: offset=0xe4, type=4 (R_MIPS_26), target=func_332e60
+    -> resolved func_332e60 at 0x332E60: opcode 0x0c0ccb98
+  Relocation [1]: offset=0x160, type=4 (R_MIPS_26), target=func_00147170
+    -> resolved func_00147170 at 0x147170: opcode 0x0c051c5c
+  Relocation [2]: offset=0x184, type=4 (R_MIPS_26), target=func_00147170
+    -> resolved func_00147170 at 0x147170: opcode 0x0c051c5c
+  Relocation [3]: offset=0x1a8, type=4 (R_MIPS_26), target=func_00147170
+    -> resolved func_00147170 at 0x147170: opcode 0x0c051c5c
+  Relocation [4]: offset=0x1cc, type=4 (R_MIPS_26), target=func_00147170
+    -> resolved func_00147170 at 0x147170: opcode 0x0c051c5c
+  Relocation [5]: offset=0x1f4, type=4 (R_MIPS_26), target=func_00269190
+    -> resolved func_00269190 at 0x269190: opcode 0x0c09a464
+Code size: 616 bytes (616 + 0)
+Padding to 624 bytes: 8 bytes
+SUCCESS: Exact 100.0% byte-for-byte match (624/624 bytes identical)!

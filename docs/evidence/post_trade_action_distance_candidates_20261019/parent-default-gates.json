@@ -1,0 +1,106 @@
+{
+  "snapshot": "parent-default",
+  "python": "3.14.7",
+  "packages": {
+    "pytest": "9.1.1",
+    "splat64": "0.50.1",
+    "spimdisasm": "1.42.4",
+    "jsonschema": "4.26.0",
+    "rich": "14.3.4"
+  },
+  "original_sha1": "f478e19f2059d52899b691483ef5c7522e30e17c",
+  "steps": [
+    {
+      "stage": "configure",
+      "command": [
+        "/opt/venv/bin/python",
+        "configure.py",
+        "--version",
+        "SLES-50282",
+        "--compilers",
+        "/workspace/compilers",
+        "--binutils",
+        "/workspace/build/mips_binutils",
+        "--wrapper",
+        "/workspace/build/tools/wibo",
+        "--objdiff",
+        "/workspace/build/tools/objdiff-cli"
+      ],
+      "started_utc": "2026-10-19T08:50:14.325258+00:00",
+      "returncode": 0,
+      "finished_utc": "2026-10-19T08:50:14.839681+00:00"
+    },
+    {
+      "stage": "ninja",
+      "command": [
+        "ninja",
+        "-j",
+        "2"
+      ],
+      "started_utc": "2026-10-19T08:50:14.839885+00:00",
+      "returncode": 0,
+      "finished_utc": "2026-10-19T08:50:28.128811+00:00"
+    },
+    {
+      "stage": "route-object",
+      "command": [
+        "ninja",
+        "-j",
+        "2",
+        "build/SLES-50282/src/trade_action_route_finish.o"
+      ],
+      "started_utc": "2026-10-19T08:50:28.128938+00:00",
+      "returncode": 0,
+      "finished_utc": "2026-10-19T08:50:28.144519+00:00"
+    },
+    {
+      "stage": "subsystem",
+      "command": [
+        "/opt/venv/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "-ra",
+        "tests/test_trade_action_candidates.py",
+        "tests/test_trade_action_dispatcher.py",
+        "tests/test_trade_action_getters6.py",
+        "tests/test_trade_action_getters7.py",
+        "tests/test_trade_action_notify.py",
+        "tests/test_trade_action_plan_evaluator.py",
+        "tests/test_trade_action_type_checker.py",
+        "tests/test_trade_action_route_finish.py",
+        "tests/test_trade_action_staging.py",
+        "tests/test_verify_trade_action_type_checker.py"
+      ],
+      "started_utc": "2026-10-19T08:50:28.144630+00:00",
+      "returncode": 0,
+      "finished_utc": "2026-10-19T08:50:46.688777+00:00"
+    },
+    {
+      "stage": "full",
+      "command": [
+        "/opt/venv/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "-ra",
+        "--junitxml=/evidence/parent-default-full.xml"
+      ],
+      "started_utc": "2026-10-19T08:50:46.688919+00:00",
+      "returncode": 0,
+      "finished_utc": "2026-10-19T08:52:53.267365+00:00"
+    },
+    {
+      "stage": "flake8",
+      "command": [
+        "/opt/venv/bin/python",
+        "-m",
+        "flake8",
+        "configure.py"
+      ],
+      "started_utc": "2026-10-19T08:52:53.267517+00:00",
+      "returncode": 0,
+      "finished_utc": "2026-10-19T08:52:53.781801+00:00"
+    }
+  ]
+}

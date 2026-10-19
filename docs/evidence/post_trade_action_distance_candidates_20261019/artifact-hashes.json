@@ -1,0 +1,57 @@
+{
+  "normalization": "Remove trailing spaces and tabs from terminal-text lines; retain final-newline presence.",
+  "artifacts": {
+    "candidate-default-full.txt": {
+      "raw_sha256": "1ef5ba69f009dd5a167f252090f9f2df72820ffe971e2c37eb688ac6217ab8c2",
+      "exported_sha256": "1ef5ba69f009dd5a167f252090f9f2df72820ffe971e2c37eb688ac6217ab8c2"
+    },
+    "candidate-default-subsystem.txt": {
+      "raw_sha256": "331f0349710dab0ee152aed6055a0c4783ba7815457acdfd6b547b8807e48097",
+      "exported_sha256": "331f0349710dab0ee152aed6055a0c4783ba7815457acdfd6b547b8807e48097"
+    },
+    "checker-match.txt": {
+      "raw_sha256": "67fe487f0a4867cb706c37208894cdf9b8e5bb27d30b89514233f9560f79fb30",
+      "exported_sha256": "67fe487f0a4867cb706c37208894cdf9b8e5bb27d30b89514233f9560f79fb30"
+    },
+    "distance-match.txt": {
+      "raw_sha256": "2eb710bf8ead811fbb1a86a7dadf3fd039ace0c11be7156df814cbfa292a83a7",
+      "exported_sha256": "2eb710bf8ead811fbb1a86a7dadf3fd039ace0c11be7156df814cbfa292a83a7"
+    },
+    "focused.txt": {
+      "raw_sha256": "5649fdd5e2e63236931136491b9906adfc2aa6899f4ab0bdb0e00e25555b809a",
+      "exported_sha256": "5649fdd5e2e63236931136491b9906adfc2aa6899f4ab0bdb0e00e25555b809a"
+    },
+    "gates-default.py.txt": {
+      "raw_sha256": "6c14278f57342508268cd89a78edb9967ad7a2eb6a1242fc6759a4f6a043e787",
+      "exported_sha256": "6c14278f57342508268cd89a78edb9967ad7a2eb6a1242fc6759a4f6a043e787"
+    },
+    "green.txt": {
+      "raw_sha256": "b4eb7be9000651a3e89c6a77e8b346d05d1d706d620aa6f8193e574a39b3ced1",
+      "exported_sha256": "b4eb7be9000651a3e89c6a77e8b346d05d1d706d620aa6f8193e574a39b3ced1"
+    },
+    "historical-host-red.txt": {
+      "raw_sha256": "2ce0b41ef14d334507303ca3be8d031d977a1c9b7e8f4fadbaf913457ceb27e8",
+      "exported_sha256": "6367ce493fbb2216a72db4aa0c5044d130afef131a274027d87cd56952e3faaf"
+    },
+    "parent-default-full.txt": {
+      "raw_sha256": "e0ef2964d1e934a895bd0b9dc3c6733eba75c088d5b1e861455b010301fa1d15",
+      "exported_sha256": "e0ef2964d1e934a895bd0b9dc3c6733eba75c088d5b1e861455b010301fa1d15"
+    },
+    "parent-default-subsystem.txt": {
+      "raw_sha256": "642582b0efaa9015e35f45d5f1225dd8cd034e948b9c9ea19fae8efafe53afbf",
+      "exported_sha256": "642582b0efaa9015e35f45d5f1225dd8cd034e948b9c9ea19fae8efafe53afbf"
+    },
+    "parent-link-check.txt": {
+      "raw_sha256": "f691875f0ca7d92796e81351358bef13ab218b85835c547bb1159db42fe64278",
+      "exported_sha256": "f691875f0ca7d92796e81351358bef13ab218b85835c547bb1159db42fe64278"
+    },
+    "red.txt": {
+      "raw_sha256": "c76081063c2b7a1322c7e383f8eb4e10a389ca97f872665fffafdfde9d2b8b38",
+      "exported_sha256": "d01b83d4ac7c9e7a8c38936e525554ef6349fba38cdeaa1ec69dc0d727418cc7"
+    },
+    "replay.py.txt": {
+      "raw_sha256": "2a455829bd6c6235d9b78387978a82ea0c010a7d3ae5fee1bc61ce891d735df9",
+      "exported_sha256": "2a455829bd6c6235d9b78387978a82ea0c010a7d3ae5fee1bc61ce891d735df9"
+    }
+  }
+}

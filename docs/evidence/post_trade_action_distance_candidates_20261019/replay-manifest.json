@@ -1,0 +1,89 @@
+{
+  "parent_sha": "1ebe519ec4b15af59e9043a2bb758e83804b30e0",
+  "candidate_sha": "1b1e7acccc5dea13a7702143c82660551c8869ce",
+  "classification": "Retrospective placeholder reproduction; not historical test-first proof",
+  "parent_dedicated_source_exists": false,
+  "harness_overlay": {
+    "include/post_trade_action_distance_candidates.h": "d630cc3fecda2319619d5f64c6d2e7507f42621d6dfda9770efa738d38b0647d",
+    "tests/test_post_trade_action_distance_candidates.py": "5acf0fabcb37263fbccfef02a96166413732b1e711a1e2705343f7af31173943",
+    "tests/native/post_trade_action_distance_candidates_test.cpp": "0c2811b290b620ac822938c441b2ddceade481592556a48e24c2599dd574d118",
+    "tests/test_verify_post_trade_action_distance_candidates.py": "58968e8717844e67fc6bd217cb71ee307c9502d6f812fd2611da886451e04204",
+    "tools/verify_post_trade_action_distance_candidates.py": "dce35ca9c56f780f482a5f697dd885766995d797df2ab868a8ed688eda42a9c6"
+  },
+  "events": [
+    {
+      "name": "red",
+      "started_utc": "2026-10-19T08:43:34.868753+00:00",
+      "command": [
+        "/opt/venv/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "-ra",
+        "tests/test_post_trade_action_distance_candidates.py::test_distance_candidates_behavior"
+      ],
+      "cwd": "/workspace",
+      "source_sha256": "46ca091080631f96398059c94b5c77a10907fd4e9fcd793af7847bcb5abf8819",
+      "returncode": 1,
+      "finished_utc": "2026-10-19T08:43:35.669327+00:00"
+    },
+    {
+      "name": "green",
+      "started_utc": "2026-10-19T08:43:35.669525+00:00",
+      "command": [
+        "/opt/venv/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "-ra",
+        "tests/test_post_trade_action_distance_candidates.py::test_distance_candidates_behavior"
+      ],
+      "cwd": "/workspace",
+      "source_sha256": "d5d792420c0325c4c95776e03427792026cec86829aba9c1320512c7d04f0167",
+      "returncode": 0,
+      "finished_utc": "2026-10-19T08:43:36.362972+00:00"
+    },
+    {
+      "name": "focused",
+      "started_utc": "2026-10-19T08:43:36.363074+00:00",
+      "command": [
+        "/opt/venv/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "-ra",
+        "tests/test_post_trade_action_distance_candidates.py",
+        "tests/test_verify_post_trade_action_distance_candidates.py"
+      ],
+      "cwd": "/workspace",
+      "source_sha256": "d5d792420c0325c4c95776e03427792026cec86829aba9c1320512c7d04f0167",
+      "returncode": 0,
+      "finished_utc": "2026-10-19T08:43:38.746962+00:00"
+    },
+    {
+      "name": "distance-match",
+      "started_utc": "2026-10-19T08:43:38.747071+00:00",
+      "command": [
+        "/opt/venv/bin/python",
+        "tools/verify_post_trade_action_distance_candidates.py"
+      ],
+      "cwd": "/workspace",
+      "source_sha256": "d5d792420c0325c4c95776e03427792026cec86829aba9c1320512c7d04f0167",
+      "returncode": 0,
+      "finished_utc": "2026-10-19T08:43:38.784406+00:00"
+    },
+    {
+      "name": "checker-match",
+      "started_utc": "2026-10-19T08:43:38.784521+00:00",
+      "command": [
+        "/opt/venv/bin/python",
+        "tools/verify_trade_action_type_checker.py"
+      ],
+      "cwd": "/workspace",
+      "source_sha256": "d5d792420c0325c4c95776e03427792026cec86829aba9c1320512c7d04f0167",
+      "returncode": 0,
+      "finished_utc": "2026-10-19T08:43:38.820508+00:00"
+    }
+  ],
+  "placeholder_sha256": "46ca091080631f96398059c94b5c77a10907fd4e9fcd793af7847bcb5abf8819"
+}

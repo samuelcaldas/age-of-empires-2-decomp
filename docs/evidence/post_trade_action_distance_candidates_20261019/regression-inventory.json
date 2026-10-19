@@ -1,0 +1,351 @@
+{
+  "image_id": "sha256:29a25db120e80393f910e686823843eea0383a02d34e0a33990ae9edaeb7b4b4",
+  "parent_sha": "1ebe519ec4b15af59e9043a2bb758e83804b30e0",
+  "candidate_sha": "1b1e7acccc5dea13a7702143c82660551c8869ce",
+  "snapshots": {
+    "parent": {
+      "counts": {
+        "tests": 2601,
+        "failures": 30,
+        "errors": 0,
+        "skipped": 4,
+        "passed": 2567
+      },
+      "elapsed_seconds": 156.146,
+      "xml_sha256": "b33e6df7524531e698c0a09389de1d1ed06bd5d98f15a9fd928c355d9b4ff3e0",
+      "failures": [
+        {
+          "junit_id": "tests.test_zone_spatial_grid_block27::test_zone_spatial_grid_block27_build",
+          "message": "AssertionError: ninja build failed: ninja: error: rebuilding 'build.ninja': subcommand failed\n  \nassert 1 == 0\n +  where 1 = CompletedProcess(args=['ninja'], returncode=1, stdout='[1/1] RUN configure.py\\nFAILED: build.ninja objdiff.json \\n\"/op...ath\\' where it is not associated with a value\\n', stderr=\"ninja: error: rebuilding 'build.ninja': subcommand failed\\n\").returncode"
+        },
+        {
+          "junit_id": "tests.test_zone_spatial_grid_block28::test_zone_spatial_grid_block28_build",
+          "message": "AssertionError: ninja build failed: ninja: error: rebuilding 'build.ninja': subcommand failed\n  \nassert 1 == 0\n +  where 1 = CompletedProcess(args=['ninja'], returncode=1, stdout='[1/1] RUN configure.py\\nFAILED: build.ninja objdiff.json \\n\"/op...ath\\' where it is not associated with a value\\n', stderr=\"ninja: error: rebuilding 'build.ninja': subcommand failed\\n\").returncode"
+        },
+        {
+          "junit_id": "tests.test_zone_spatial_grid_block29::test_zone_spatial_grid_block29_build",
+          "message": "AssertionError: ninja build failed: ninja: error: rebuilding 'build.ninja': subcommand failed\n  \nassert 1 == 0\n +  where 1 = CompletedProcess(args=['ninja'], returncode=1, stdout='[1/1] RUN configure.py\\nFAILED: build.ninja objdiff.json \\n\"/op...ath\\' where it is not associated with a value\\n', stderr=\"ninja: error: rebuilding 'build.ninja': subcommand failed\\n\").returncode"
+        },
+        {
+          "junit_id": "tests.test_zone_spatial_grid_block30::test_zone_spatial_grid_block30_build",
+          "message": "AssertionError: ninja build failed: ninja: error: rebuilding 'build.ninja': subcommand failed\n  \nassert 1 == 0\n +  where 1 = CompletedProcess(args=['ninja'], returncode=1, stdout='[1/1] RUN configure.py\\nFAILED: build.ninja objdiff.json \\n\"/op...ath\\' where it is not associated with a value\\n', stderr=\"ninja: error: rebuilding 'build.ninja': subcommand failed\\n\").returncode"
+        },
+        {
+          "junit_id": "tests.test_zone_spatial_grid_block31::test_zone_spatial_grid_block31_build",
+          "message": "AssertionError: ninja build failed: ninja: error: rebuilding 'build.ninja': subcommand failed\n  \nassert 1 == 0\n +  where 1 = CompletedProcess(args=['ninja'], returncode=1, stdout='[1/1] RUN configure.py\\nFAILED: build.ninja objdiff.json \\n\"/op...ath\\' where it is not associated with a value\\n', stderr=\"ninja: error: rebuilding 'build.ninja': subcommand failed\\n\").returncode"
+        },
+        {
+          "junit_id": "tests.test_zone_spatial_grid_block32::test_zone_spatial_grid_block32_build",
+          "message": "AssertionError: ninja build failed: ninja: error: rebuilding 'build.ninja': subcommand failed\n  \nassert 1 == 0\n +  where 1 = CompletedProcess(args=['ninja'], returncode=1, stdout='[1/1] RUN configure.py\\nFAILED: build.ninja objdiff.json \\n\"/op...ath\\' where it is not associated with a value\\n', stderr=\"ninja: error: rebuilding 'build.ninja': subcommand failed\\n\").returncode"
+        },
+        {
+          "junit_id": "tests.test_zone_spatial_grid_block33::test_zone_spatial_grid_block33_build",
+          "message": "AssertionError: ninja build failed: ninja: error: rebuilding 'build.ninja': subcommand failed\n  \nassert 1 == 0\n +  where 1 = CompletedProcess(args=['ninja'], returncode=1, stdout='[1/1] RUN configure.py\\nFAILED: build.ninja objdiff.json \\n\"/op...ath\\' where it is not associated with a value\\n', stderr=\"ninja: error: rebuilding 'build.ninja': subcommand failed\\n\").returncode"
+        },
+        {
+          "junit_id": "tests.test_zone_spatial_grid_block34::test_zone_spatial_grid_block34_build",
+          "message": "AssertionError: ninja build failed: ninja: error: rebuilding 'build.ninja': subcommand failed\n  \nassert 1 == 0\n +  where 1 = CompletedProcess(args=['ninja'], returncode=1, stdout='[1/1] RUN configure.py\\nFAILED: build.ninja objdiff.json \\n\"/op...ath\\' where it is not associated with a value\\n', stderr=\"ninja: error: rebuilding 'build.ninja': subcommand failed\\n\").returncode"
+        },
+        {
+          "junit_id": "tests.test_zone_spatial_grid_block35::test_zone_spatial_grid_block35_build",
+          "message": "AssertionError: ninja build failed: ninja: error: rebuilding 'build.ninja': subcommand failed\n  \nassert 1 == 0\n +  where 1 = CompletedProcess(args=['ninja'], returncode=1, stdout='[1/1] RUN configure.py\\nFAILED: build.ninja objdiff.json \\n\"/op...ath\\' where it is not associated with a value\\n', stderr=\"ninja: error: rebuilding 'build.ninja': subcommand failed\\n\").returncode"
+        },
+        {
+          "junit_id": "tests.test_zone_spatial_grid_block36::test_zone_spatial_grid_block36_build",
+          "message": "AssertionError: ninja build failed: ninja: error: rebuilding 'build.ninja': subcommand failed\n  \nassert 1 == 0\n +  where 1 = CompletedProcess(args=['ninja'], returncode=1, stdout='[1/1] RUN configure.py\\nFAILED: build.ninja objdiff.json \\n\"/op...ath\\' where it is not associated with a value\\n', stderr=\"ninja: error: rebuilding 'build.ninja': subcommand failed\\n\").returncode"
+        },
+        {
+          "junit_id": "tests.test_zone_spatial_grid_block37::test_zone_spatial_grid_block37_build",
+          "message": "AssertionError: ninja build failed: ninja: error: rebuilding 'build.ninja': subcommand failed\n  \nassert 1 == 0\n +  where 1 = CompletedProcess(args=['ninja'], returncode=1, stdout='[1/1] RUN configure.py\\nFAILED: build.ninja objdiff.json \\n\"/op...ath\\' where it is not associated with a value\\n', stderr=\"ninja: error: rebuilding 'build.ninja': subcommand failed\\n\").returncode"
+        },
+        {
+          "junit_id": "tests.test_zone_spatial_grid_block38::test_zone_spatial_grid_block38_build",
+          "message": "AssertionError: ninja build failed: ninja: error: rebuilding 'build.ninja': subcommand failed\n  \nassert 1 == 0\n +  where 1 = CompletedProcess(args=['ninja'], returncode=1, stdout='[1/1] RUN configure.py\\nFAILED: build.ninja objdiff.json \\n\"/op...ath\\' where it is not associated with a value\\n', stderr=\"ninja: error: rebuilding 'build.ninja': subcommand failed\\n\").returncode"
+        },
+        {
+          "junit_id": "tests.test_zone_spatial_grid_block39::test_zone_spatial_grid_block39_build",
+          "message": "AssertionError: ninja build failed: ninja: error: rebuilding 'build.ninja': subcommand failed\n  \nassert 1 == 0\n +  where 1 = CompletedProcess(args=['ninja'], returncode=1, stdout='[1/1] RUN configure.py\\nFAILED: build.ninja objdiff.json \\n\"/op...ath\\' where it is not associated with a value\\n', stderr=\"ninja: error: rebuilding 'build.ninja': subcommand failed\\n\").returncode"
+        },
+        {
+          "junit_id": "tests.test_zone_spatial_grid_block40::test_zone_spatial_grid_block40_build",
+          "message": "AssertionError: ninja build failed: ninja: error: rebuilding 'build.ninja': subcommand failed\n  \nassert 1 == 0\n +  where 1 = CompletedProcess(args=['ninja'], returncode=1, stdout='[1/1] RUN configure.py\\nFAILED: build.ninja objdiff.json \\n\"/op...ath\\' where it is not associated with a value\\n', stderr=\"ninja: error: rebuilding 'build.ninja': subcommand failed\\n\").returncode"
+        },
+        {
+          "junit_id": "tests.test_zone_spatial_grid_block41::test_zone_spatial_grid_block41_build",
+          "message": "AssertionError: ninja build failed: ninja: error: rebuilding 'build.ninja': subcommand failed\n  \nassert 1 == 0\n +  where 1 = CompletedProcess(args=['ninja'], returncode=1, stdout='[1/1] RUN configure.py\\nFAILED: build.ninja objdiff.json \\n\"/op...ath\\' where it is not associated with a value\\n', stderr=\"ninja: error: rebuilding 'build.ninja': subcommand failed\\n\").returncode"
+        },
+        {
+          "junit_id": "tests.test_zone_spatial_grid_block42::test_zone_spatial_grid_block42_build",
+          "message": "AssertionError: ninja build failed: ninja: error: rebuilding 'build.ninja': subcommand failed\n  \nassert 1 == 0\n +  where 1 = CompletedProcess(args=['ninja'], returncode=1, stdout='[1/1] RUN configure.py\\nFAILED: build.ninja objdiff.json \\n\"/op...ath\\' where it is not associated with a value\\n', stderr=\"ninja: error: rebuilding 'build.ninja': subcommand failed\\n\").returncode"
+        },
+        {
+          "junit_id": "tests.test_zone_spatial_grid_block43::test_zone_spatial_grid_block43_build",
+          "message": "AssertionError: ninja build failed: ninja: error: rebuilding 'build.ninja': subcommand failed\n  \nassert 1 == 0\n +  where 1 = CompletedProcess(args=['ninja'], returncode=1, stdout='[1/1] RUN configure.py\\nFAILED: build.ninja objdiff.json \\n\"/op...ath\\' where it is not associated with a value\\n', stderr=\"ninja: error: rebuilding 'build.ninja': subcommand failed\\n\").returncode"
+        },
+        {
+          "junit_id": "tests.test_zone_spatial_grid_block44::test_zone_spatial_grid_block44_build",
+          "message": "AssertionError: ninja build failed: ninja: error: rebuilding 'build.ninja': subcommand failed\n  \nassert 1 == 0\n +  where 1 = CompletedProcess(args=['ninja'], returncode=1, stdout='[1/1] RUN configure.py\\nFAILED: build.ninja objdiff.json \\n\"/op...ath\\' where it is not associated with a value\\n', stderr=\"ninja: error: rebuilding 'build.ninja': subcommand failed\\n\").returncode"
+        },
+        {
+          "junit_id": "tests.test_zone_spatial_grid_block45::test_zone_spatial_grid_block45_build",
+          "message": "AssertionError: ninja build failed: ninja: error: rebuilding 'build.ninja': subcommand failed\n  \nassert 1 == 0\n +  where 1 = CompletedProcess(args=['ninja'], returncode=1, stdout='[1/1] RUN configure.py\\nFAILED: build.ninja objdiff.json \\n\"/op...ath\\' where it is not associated with a value\\n', stderr=\"ninja: error: rebuilding 'build.ninja': subcommand failed\\n\").returncode"
+        },
+        {
+          "junit_id": "tests.test_zone_spatial_grid_block46::test_zone_spatial_grid_block46_build",
+          "message": "AssertionError: ninja build failed: ninja: error: rebuilding 'build.ninja': subcommand failed\n  \nassert 1 == 0\n +  where 1 = CompletedProcess(args=['ninja'], returncode=1, stdout='[1/1] RUN configure.py\\nFAILED: build.ninja objdiff.json \\n\"/op...ath\\' where it is not associated with a value\\n', stderr=\"ninja: error: rebuilding 'build.ninja': subcommand failed\\n\").returncode"
+        },
+        {
+          "junit_id": "tests.test_zone_spatial_grid_block47::test_zone_spatial_grid_block47_build",
+          "message": "AssertionError: ninja build failed: ninja: error: rebuilding 'build.ninja': subcommand failed\n  \nassert 1 == 0\n +  where 1 = CompletedProcess(args=['ninja'], returncode=1, stdout='[1/1] RUN configure.py\\nFAILED: build.ninja objdiff.json \\n\"/op...ath\\' where it is not associated with a value\\n', stderr=\"ninja: error: rebuilding 'build.ninja': subcommand failed\\n\").returncode"
+        },
+        {
+          "junit_id": "tests.test_zone_spatial_grid_block48::test_zone_spatial_grid_block48_build",
+          "message": "AssertionError: ninja build failed: ninja: error: rebuilding 'build.ninja': subcommand failed\n  \nassert 1 == 0\n +  where 1 = CompletedProcess(args=['ninja'], returncode=1, stdout='[1/1] RUN configure.py\\nFAILED: build.ninja objdiff.json \\n\"/op...ath\\' where it is not associated with a value\\n', stderr=\"ninja: error: rebuilding 'build.ninja': subcommand failed\\n\").returncode"
+        },
+        {
+          "junit_id": "tests.test_zone_spatial_grid_block49::test_zone_spatial_grid_block49_build",
+          "message": "AssertionError: ninja build failed: ninja: error: rebuilding 'build.ninja': subcommand failed\n  \nassert 1 == 0\n +  where 1 = CompletedProcess(args=['ninja'], returncode=1, stdout='[1/1] RUN configure.py\\nFAILED: build.ninja objdiff.json \\n\"/op...ath\\' where it is not associated with a value\\n', stderr=\"ninja: error: rebuilding 'build.ninja': subcommand failed\\n\").returncode"
+        },
+        {
+          "junit_id": "tests.test_zone_spatial_grid_block50::test_zone_spatial_grid_block50_build",
+          "message": "AssertionError: ninja build failed: ninja: error: rebuilding 'build.ninja': subcommand failed\n  \nassert 1 == 0\n +  where 1 = CompletedProcess(args=['ninja'], returncode=1, stdout='[1/1] RUN configure.py\\nFAILED: build.ninja objdiff.json \\n\"/op...ath\\' where it is not associated with a value\\n', stderr=\"ninja: error: rebuilding 'build.ninja': subcommand failed\\n\").returncode"
+        },
+        {
+          "junit_id": "tests.test_zone_spatial_grid_block51::test_zone_spatial_grid_block51_build",
+          "message": "AssertionError: ninja build failed: ninja: error: rebuilding 'build.ninja': subcommand failed\n  \nassert 1 == 0\n +  where 1 = CompletedProcess(args=['ninja'], returncode=1, stdout='[1/1] RUN configure.py\\nFAILED: build.ninja objdiff.json \\n\"/op...ath\\' where it is not associated with a value\\n', stderr=\"ninja: error: rebuilding 'build.ninja': subcommand failed\\n\").returncode"
+        },
+        {
+          "junit_id": "tests.test_zone_spatial_grid_block52::test_zone_spatial_grid_block52_build",
+          "message": "AssertionError: ninja build failed: ninja: error: rebuilding 'build.ninja': subcommand failed\n  \nassert 1 == 0\n +  where 1 = CompletedProcess(args=['ninja'], returncode=1, stdout='[1/1] RUN configure.py\\nFAILED: build.ninja objdiff.json \\n\"/op...ath\\' where it is not associated with a value\\n', stderr=\"ninja: error: rebuilding 'build.ninja': subcommand failed\\n\").returncode"
+        },
+        {
+          "junit_id": "tests.test_zone_spatial_grid_block53::test_zone_spatial_grid_block53_build",
+          "message": "AssertionError: ninja build failed: ninja: error: rebuilding 'build.ninja': subcommand failed\n  \nassert 1 == 0\n +  where 1 = CompletedProcess(args=['ninja'], returncode=1, stdout='[1/1] RUN configure.py\\nFAILED: build.ninja objdiff.json \\n\"/op...ath\\' where it is not associated with a value\\n', stderr=\"ninja: error: rebuilding 'build.ninja': subcommand failed\\n\").returncode"
+        },
+        {
+          "junit_id": "tests.test_zone_spatial_grid_block54::test_zone_spatial_grid_block54_build",
+          "message": "AssertionError: ninja build failed: ninja: error: rebuilding 'build.ninja': subcommand failed\n  \nassert 1 == 0\n +  where 1 = CompletedProcess(args=['ninja'], returncode=1, stdout='[1/1] RUN configure.py\\nFAILED: build.ninja objdiff.json \\n\"/op...ath\\' where it is not associated with a value\\n', stderr=\"ninja: error: rebuilding 'build.ninja': subcommand failed\\n\").returncode"
+        },
+        {
+          "junit_id": "tests.test_zone_spatial_grid_block55::test_zone_spatial_grid_block55_build",
+          "message": "AssertionError: ninja build failed: ninja: error: rebuilding 'build.ninja': subcommand failed\n  \nassert 1 == 0\n +  where 1 = CompletedProcess(args=['ninja'], returncode=1, stdout='[1/1] RUN configure.py\\nFAILED: build.ninja objdiff.json \\n\"/op...ath\\' where it is not associated with a value\\n', stderr=\"ninja: error: rebuilding 'build.ninja': subcommand failed\\n\").returncode"
+        },
+        {
+          "junit_id": "tests.test_zone_spatial_grid_block56::test_zone_spatial_grid_block56_build",
+          "message": "AssertionError: ninja build failed: ninja: error: rebuilding 'build.ninja': subcommand failed\n  \nassert 1 == 0\n +  where 1 = CompletedProcess(args=['ninja'], returncode=1, stdout='[1/1] RUN configure.py\\nFAILED: build.ninja objdiff.json \\n\"/op...ath\\' where it is not associated with a value\\n', stderr=\"ninja: error: rebuilding 'build.ninja': subcommand failed\\n\").returncode"
+        }
+      ],
+      "skipped": [
+        {
+          "junit_id": "tests.test_ps2_route_finish_matching::test_route_function_matches_original_bytes[func_001508F0]",
+          "reason": "requires licensed original ELF and a freshly built MWCC object"
+        },
+        {
+          "junit_id": "tests.test_ps2_route_finish_matching::test_route_function_matches_original_bytes[func_00150920]",
+          "reason": "requires licensed original ELF and a freshly built MWCC object"
+        },
+        {
+          "junit_id": "tests.test_ps2_route_finish_matching::test_route_function_matches_original_bytes[func_00150CC0]",
+          "reason": "requires licensed original ELF and a freshly built MWCC object"
+        },
+        {
+          "junit_id": "tests.test_ps2_route_finish_matching::test_route_function_matches_original_bytes[func_00150CE0]",
+          "reason": "requires licensed original ELF and a freshly built MWCC object"
+        }
+      ]
+    },
+    "candidate": {
+      "counts": {
+        "tests": 2610,
+        "failures": 30,
+        "errors": 0,
+        "skipped": 4,
+        "passed": 2576
+      },
+      "elapsed_seconds": 157.53,
+      "xml_sha256": "aead841bf32f6dd879f10eb758d1ed355e0b42bee562978ea6c832413b2894fd",
+      "failures": [
+        {
+          "junit_id": "tests.test_zone_spatial_grid_block27::test_zone_spatial_grid_block27_build",
+          "message": "AssertionError: ninja build failed: ninja: error: rebuilding 'build.ninja': subcommand failed\n  \nassert 1 == 0\n +  where 1 = CompletedProcess(args=['ninja'], returncode=1, stdout='[1/1] RUN configure.py\\nFAILED: build.ninja objdiff.json \\n\"/op...ath\\' where it is not associated with a value\\n', stderr=\"ninja: error: rebuilding 'build.ninja': subcommand failed\\n\").returncode"
+        },
+        {
+          "junit_id": "tests.test_zone_spatial_grid_block28::test_zone_spatial_grid_block28_build",
+          "message": "AssertionError: ninja build failed: ninja: error: rebuilding 'build.ninja': subcommand failed\n  \nassert 1 == 0\n +  where 1 = CompletedProcess(args=['ninja'], returncode=1, stdout='[1/1] RUN configure.py\\nFAILED: build.ninja objdiff.json \\n\"/op...ath\\' where it is not associated with a value\\n', stderr=\"ninja: error: rebuilding 'build.ninja': subcommand failed\\n\").returncode"
+        },
+        {
+          "junit_id": "tests.test_zone_spatial_grid_block29::test_zone_spatial_grid_block29_build",
+          "message": "AssertionError: ninja build failed: ninja: error: rebuilding 'build.ninja': subcommand failed\n  \nassert 1 == 0\n +  where 1 = CompletedProcess(args=['ninja'], returncode=1, stdout='[1/1] RUN configure.py\\nFAILED: build.ninja objdiff.json \\n\"/op...ath\\' where it is not associated with a value\\n', stderr=\"ninja: error: rebuilding 'build.ninja': subcommand failed\\n\").returncode"
+        },
+        {
+          "junit_id": "tests.test_zone_spatial_grid_block30::test_zone_spatial_grid_block30_build",
+          "message": "AssertionError: ninja build failed: ninja: error: rebuilding 'build.ninja': subcommand failed\n  \nassert 1 == 0\n +  where 1 = CompletedProcess(args=['ninja'], returncode=1, stdout='[1/1] RUN configure.py\\nFAILED: build.ninja objdiff.json \\n\"/op...ath\\' where it is not associated with a value\\n', stderr=\"ninja: error: rebuilding 'build.ninja': subcommand failed\\n\").returncode"
+        },
+        {
+          "junit_id": "tests.test_zone_spatial_grid_block31::test_zone_spatial_grid_block31_build",
+          "message": "AssertionError: ninja build failed: ninja: error: rebuilding 'build.ninja': subcommand failed\n  \nassert 1 == 0\n +  where 1 = CompletedProcess(args=['ninja'], returncode=1, stdout='[1/1] RUN configure.py\\nFAILED: build.ninja objdiff.json \\n\"/op...ath\\' where it is not associated with a value\\n', stderr=\"ninja: error: rebuilding 'build.ninja': subcommand failed\\n\").returncode"
+        },
+        {
+          "junit_id": "tests.test_zone_spatial_grid_block32::test_zone_spatial_grid_block32_build",
+          "message": "AssertionError: ninja build failed: ninja: error: rebuilding 'build.ninja': subcommand failed\n  \nassert 1 == 0\n +  where 1 = CompletedProcess(args=['ninja'], returncode=1, stdout='[1/1] RUN configure.py\\nFAILED: build.ninja objdiff.json \\n\"/op...ath\\' where it is not associated with a value\\n', stderr=\"ninja: error: rebuilding 'build.ninja': subcommand failed\\n\").returncode"
+        },
+        {
+          "junit_id": "tests.test_zone_spatial_grid_block33::test_zone_spatial_grid_block33_build",
+          "message": "AssertionError: ninja build failed: ninja: error: rebuilding 'build.ninja': subcommand failed\n  \nassert 1 == 0\n +  where 1 = CompletedProcess(args=['ninja'], returncode=1, stdout='[1/1] RUN configure.py\\nFAILED: build.ninja objdiff.json \\n\"/op...ath\\' where it is not associated with a value\\n', stderr=\"ninja: error: rebuilding 'build.ninja': subcommand failed\\n\").returncode"
+        },
+        {
+          "junit_id": "tests.test_zone_spatial_grid_block34::test_zone_spatial_grid_block34_build",
+          "message": "AssertionError: ninja build failed: ninja: error: rebuilding 'build.ninja': subcommand failed\n  \nassert 1 == 0\n +  where 1 = CompletedProcess(args=['ninja'], returncode=1, stdout='[1/1] RUN configure.py\\nFAILED: build.ninja objdiff.json \\n\"/op...ath\\' where it is not associated with a value\\n', stderr=\"ninja: error: rebuilding 'build.ninja': subcommand failed\\n\").returncode"
+        },
+        {
+          "junit_id": "tests.test_zone_spatial_grid_block35::test_zone_spatial_grid_block35_build",
+          "message": "AssertionError: ninja build failed: ninja: error: rebuilding 'build.ninja': subcommand failed\n  \nassert 1 == 0\n +  where 1 = CompletedProcess(args=['ninja'], returncode=1, stdout='[1/1] RUN configure.py\\nFAILED: build.ninja objdiff.json \\n\"/op...ath\\' where it is not associated with a value\\n', stderr=\"ninja: error: rebuilding 'build.ninja': subcommand failed\\n\").returncode"
+        },
+        {
+          "junit_id": "tests.test_zone_spatial_grid_block36::test_zone_spatial_grid_block36_build",
+          "message": "AssertionError: ninja build failed: ninja: error: rebuilding 'build.ninja': subcommand failed\n  \nassert 1 == 0\n +  where 1 = CompletedProcess(args=['ninja'], returncode=1, stdout='[1/1] RUN configure.py\\nFAILED: build.ninja objdiff.json \\n\"/op...ath\\' where it is not associated with a value\\n', stderr=\"ninja: error: rebuilding 'build.ninja': subcommand failed\\n\").returncode"
+        },
+        {
+          "junit_id": "tests.test_zone_spatial_grid_block37::test_zone_spatial_grid_block37_build",
+          "message": "AssertionError: ninja build failed: ninja: error: rebuilding 'build.ninja': subcommand failed\n  \nassert 1 == 0\n +  where 1 = CompletedProcess(args=['ninja'], returncode=1, stdout='[1/1] RUN configure.py\\nFAILED: build.ninja objdiff.json \\n\"/op...ath\\' where it is not associated with a value\\n', stderr=\"ninja: error: rebuilding 'build.ninja': subcommand failed\\n\").returncode"
+        },
+        {
+          "junit_id": "tests.test_zone_spatial_grid_block38::test_zone_spatial_grid_block38_build",
+          "message": "AssertionError: ninja build failed: ninja: error: rebuilding 'build.ninja': subcommand failed\n  \nassert 1 == 0\n +  where 1 = CompletedProcess(args=['ninja'], returncode=1, stdout='[1/1] RUN configure.py\\nFAILED: build.ninja objdiff.json \\n\"/op...ath\\' where it is not associated with a value\\n', stderr=\"ninja: error: rebuilding 'build.ninja': subcommand failed\\n\").returncode"
+        },
+        {
+          "junit_id": "tests.test_zone_spatial_grid_block39::test_zone_spatial_grid_block39_build",
+          "message": "AssertionError: ninja build failed: ninja: error: rebuilding 'build.ninja': subcommand failed\n  \nassert 1 == 0\n +  where 1 = CompletedProcess(args=['ninja'], returncode=1, stdout='[1/1] RUN configure.py\\nFAILED: build.ninja objdiff.json \\n\"/op...ath\\' where it is not associated with a value\\n', stderr=\"ninja: error: rebuilding 'build.ninja': subcommand failed\\n\").returncode"
+        },
+        {
+          "junit_id": "tests.test_zone_spatial_grid_block40::test_zone_spatial_grid_block40_build",
+          "message": "AssertionError: ninja build failed: ninja: error: rebuilding 'build.ninja': subcommand failed\n  \nassert 1 == 0\n +  where 1 = CompletedProcess(args=['ninja'], returncode=1, stdout='[1/1] RUN configure.py\\nFAILED: build.ninja objdiff.json \\n\"/op...ath\\' where it is not associated with a value\\n', stderr=\"ninja: error: rebuilding 'build.ninja': subcommand failed\\n\").returncode"
+        },
+        {
+          "junit_id": "tests.test_zone_spatial_grid_block41::test_zone_spatial_grid_block41_build",
+          "message": "AssertionError: ninja build failed: ninja: error: rebuilding 'build.ninja': subcommand failed\n  \nassert 1 == 0\n +  where 1 = CompletedProcess(args=['ninja'], returncode=1, stdout='[1/1] RUN configure.py\\nFAILED: build.ninja objdiff.json \\n\"/op...ath\\' where it is not associated with a value\\n', stderr=\"ninja: error: rebuilding 'build.ninja': subcommand failed\\n\").returncode"
+        },
+        {
+          "junit_id": "tests.test_zone_spatial_grid_block42::test_zone_spatial_grid_block42_build",
+          "message": "AssertionError: ninja build failed: ninja: error: rebuilding 'build.ninja': subcommand failed\n  \nassert 1 == 0\n +  where 1 = CompletedProcess(args=['ninja'], returncode=1, stdout='[1/1] RUN configure.py\\nFAILED: build.ninja objdiff.json \\n\"/op...ath\\' where it is not associated with a value\\n', stderr=\"ninja: error: rebuilding 'build.ninja': subcommand failed\\n\").returncode"
+        },
+        {
+          "junit_id": "tests.test_zone_spatial_grid_block43::test_zone_spatial_grid_block43_build",
+          "message": "AssertionError: ninja build failed: ninja: error: rebuilding 'build.ninja': subcommand failed\n  \nassert 1 == 0\n +  where 1 = CompletedProcess(args=['ninja'], returncode=1, stdout='[1/1] RUN configure.py\\nFAILED: build.ninja objdiff.json \\n\"/op...ath\\' where it is not associated with a value\\n', stderr=\"ninja: error: rebuilding 'build.ninja': subcommand failed\\n\").returncode"
+        },
+        {
+          "junit_id": "tests.test_zone_spatial_grid_block44::test_zone_spatial_grid_block44_build",
+          "message": "AssertionError: ninja build failed: ninja: error: rebuilding 'build.ninja': subcommand failed\n  \nassert 1 == 0\n +  where 1 = CompletedProcess(args=['ninja'], returncode=1, stdout='[1/1] RUN configure.py\\nFAILED: build.ninja objdiff.json \\n\"/op...ath\\' where it is not associated with a value\\n', stderr=\"ninja: error: rebuilding 'build.ninja': subcommand failed\\n\").returncode"
+        },
+        {
+          "junit_id": "tests.test_zone_spatial_grid_block45::test_zone_spatial_grid_block45_build",
+          "message": "AssertionError: ninja build failed: ninja: error: rebuilding 'build.ninja': subcommand failed\n  \nassert 1 == 0\n +  where 1 = CompletedProcess(args=['ninja'], returncode=1, stdout='[1/1] RUN configure.py\\nFAILED: build.ninja objdiff.json \\n\"/op...ath\\' where it is not associated with a value\\n', stderr=\"ninja: error: rebuilding 'build.ninja': subcommand failed\\n\").returncode"
+        },
+        {
+          "junit_id": "tests.test_zone_spatial_grid_block46::test_zone_spatial_grid_block46_build",
+          "message": "AssertionError: ninja build failed: ninja: error: rebuilding 'build.ninja': subcommand failed\n  \nassert 1 == 0\n +  where 1 = CompletedProcess(args=['ninja'], returncode=1, stdout='[1/1] RUN configure.py\\nFAILED: build.ninja objdiff.json \\n\"/op...ath\\' where it is not associated with a value\\n', stderr=\"ninja: error: rebuilding 'build.ninja': subcommand failed\\n\").returncode"
+        },
+        {
+          "junit_id": "tests.test_zone_spatial_grid_block47::test_zone_spatial_grid_block47_build",
+          "message": "AssertionError: ninja build failed: ninja: error: rebuilding 'build.ninja': subcommand failed\n  \nassert 1 == 0\n +  where 1 = CompletedProcess(args=['ninja'], returncode=1, stdout='[1/1] RUN configure.py\\nFAILED: build.ninja objdiff.json \\n\"/op...ath\\' where it is not associated with a value\\n', stderr=\"ninja: error: rebuilding 'build.ninja': subcommand failed\\n\").returncode"
+        },
+        {
+          "junit_id": "tests.test_zone_spatial_grid_block48::test_zone_spatial_grid_block48_build",
+          "message": "AssertionError: ninja build failed: ninja: error: rebuilding 'build.ninja': subcommand failed\n  \nassert 1 == 0\n +  where 1 = CompletedProcess(args=['ninja'], returncode=1, stdout='[1/1] RUN configure.py\\nFAILED: build.ninja objdiff.json \\n\"/op...ath\\' where it is not associated with a value\\n', stderr=\"ninja: error: rebuilding 'build.ninja': subcommand failed\\n\").returncode"
+        },
+        {
+          "junit_id": "tests.test_zone_spatial_grid_block49::test_zone_spatial_grid_block49_build",
+          "message": "AssertionError: ninja build failed: ninja: error: rebuilding 'build.ninja': subcommand failed\n  \nassert 1 == 0\n +  where 1 = CompletedProcess(args=['ninja'], returncode=1, stdout='[1/1] RUN configure.py\\nFAILED: build.ninja objdiff.json \\n\"/op...ath\\' where it is not associated with a value\\n', stderr=\"ninja: error: rebuilding 'build.ninja': subcommand failed\\n\").returncode"
+        },
+        {
+          "junit_id": "tests.test_zone_spatial_grid_block50::test_zone_spatial_grid_block50_build",
+          "message": "AssertionError: ninja build failed: ninja: error: rebuilding 'build.ninja': subcommand failed\n  \nassert 1 == 0\n +  where 1 = CompletedProcess(args=['ninja'], returncode=1, stdout='[1/1] RUN configure.py\\nFAILED: build.ninja objdiff.json \\n\"/op...ath\\' where it is not associated with a value\\n', stderr=\"ninja: error: rebuilding 'build.ninja': subcommand failed\\n\").returncode"
+        },
+        {
+          "junit_id": "tests.test_zone_spatial_grid_block51::test_zone_spatial_grid_block51_build",
+          "message": "AssertionError: ninja build failed: ninja: error: rebuilding 'build.ninja': subcommand failed\n  \nassert 1 == 0\n +  where 1 = CompletedProcess(args=['ninja'], returncode=1, stdout='[1/1] RUN configure.py\\nFAILED: build.ninja objdiff.json \\n\"/op...ath\\' where it is not associated with a value\\n', stderr=\"ninja: error: rebuilding 'build.ninja': subcommand failed\\n\").returncode"
+        },
+        {
+          "junit_id": "tests.test_zone_spatial_grid_block52::test_zone_spatial_grid_block52_build",
+          "message": "AssertionError: ninja build failed: ninja: error: rebuilding 'build.ninja': subcommand failed\n  \nassert 1 == 0\n +  where 1 = CompletedProcess(args=['ninja'], returncode=1, stdout='[1/1] RUN configure.py\\nFAILED: build.ninja objdiff.json \\n\"/op...ath\\' where it is not associated with a value\\n', stderr=\"ninja: error: rebuilding 'build.ninja': subcommand failed\\n\").returncode"
+        },
+        {
+          "junit_id": "tests.test_zone_spatial_grid_block53::test_zone_spatial_grid_block53_build",
+          "message": "AssertionError: ninja build failed: ninja: error: rebuilding 'build.ninja': subcommand failed\n  \nassert 1 == 0\n +  where 1 = CompletedProcess(args=['ninja'], returncode=1, stdout='[1/1] RUN configure.py\\nFAILED: build.ninja objdiff.json \\n\"/op...ath\\' where it is not associated with a value\\n', stderr=\"ninja: error: rebuilding 'build.ninja': subcommand failed\\n\").returncode"
+        },
+        {
+          "junit_id": "tests.test_zone_spatial_grid_block54::test_zone_spatial_grid_block54_build",
+          "message": "AssertionError: ninja build failed: ninja: error: rebuilding 'build.ninja': subcommand failed\n  \nassert 1 == 0\n +  where 1 = CompletedProcess(args=['ninja'], returncode=1, stdout='[1/1] RUN configure.py\\nFAILED: build.ninja objdiff.json \\n\"/op...ath\\' where it is not associated with a value\\n', stderr=\"ninja: error: rebuilding 'build.ninja': subcommand failed\\n\").returncode"
+        },
+        {
+          "junit_id": "tests.test_zone_spatial_grid_block55::test_zone_spatial_grid_block55_build",
+          "message": "AssertionError: ninja build failed: ninja: error: rebuilding 'build.ninja': subcommand failed\n  \nassert 1 == 0\n +  where 1 = CompletedProcess(args=['ninja'], returncode=1, stdout='[1/1] RUN configure.py\\nFAILED: build.ninja objdiff.json \\n\"/op...ath\\' where it is not associated with a value\\n', stderr=\"ninja: error: rebuilding 'build.ninja': subcommand failed\\n\").returncode"
+        },
+        {
+          "junit_id": "tests.test_zone_spatial_grid_block56::test_zone_spatial_grid_block56_build",
+          "message": "AssertionError: ninja build failed: ninja: error: rebuilding 'build.ninja': subcommand failed\n  \nassert 1 == 0\n +  where 1 = CompletedProcess(args=['ninja'], returncode=1, stdout='[1/1] RUN configure.py\\nFAILED: build.ninja objdiff.json \\n\"/op...ath\\' where it is not associated with a value\\n', stderr=\"ninja: error: rebuilding 'build.ninja': subcommand failed\\n\").returncode"
+        }
+      ],
+      "skipped": [
+        {
+          "junit_id": "tests.test_ps2_route_finish_matching::test_route_function_matches_original_bytes[func_001508F0]",
+          "reason": "requires licensed original ELF and a freshly built MWCC object"
+        },
+        {
+          "junit_id": "tests.test_ps2_route_finish_matching::test_route_function_matches_original_bytes[func_00150920]",
+          "reason": "requires licensed original ELF and a freshly built MWCC object"
+        },
+        {
+          "junit_id": "tests.test_ps2_route_finish_matching::test_route_function_matches_original_bytes[func_00150CC0]",
+          "reason": "requires licensed original ELF and a freshly built MWCC object"
+        },
+        {
+          "junit_id": "tests.test_ps2_route_finish_matching::test_route_function_matches_original_bytes[func_00150CE0]",
+          "reason": "requires licensed original ELF and a freshly built MWCC object"
+        }
+      ]
+    },
+    "parent-default": {
+      "counts": {
+        "tests": 2601,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 2601
+      },
+      "elapsed_seconds": 125.905,
+      "xml_sha256": "052a5fd4ac7cb9b2f5a06141c473b5fc951980187614de1cb1f5b56fa75865dc",
+      "failures": [],
+      "skipped": []
+    },
+    "candidate-default": {
+      "counts": {
+        "tests": 2610,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 2610
+      },
+      "elapsed_seconds": 127.339,
+      "xml_sha256": "6c9085f51c7539203d6e650664146c06a1b15764d172e2374aeb7c0f16d2791d",
+      "failures": [],
+      "skipped": []
+    }
+  },
+  "final_comparison": {
+    "common_test_count": 2601,
+    "removed_tests": [],
+    "added_tests": [
+      "tests.test_post_trade_action_distance_candidates::test_distance_candidates_behavior",
+      "tests.test_post_trade_action_distance_candidates::test_distance_candidates_mutants_fail[corrupted_default_return-int best_item = -1;-int best_item = 999;-Assertion `res1 == 42' failed]",
+      "tests.test_post_trade_action_distance_candidates::test_distance_candidates_mutants_fail[corrupted_health_threshold-> 7.0f-> 99.0f-Assertion `res4 == -1' failed]",
+      "tests.test_post_trade_action_distance_candidates::test_distance_candidates_mutants_fail[corrupted_proto_check-field8 == 259-field8 == 9999-Assertion `res3 == -1' failed]",
+      "tests.test_post_trade_action_distance_candidates::test_distance_candidates_mutants_fail[inverted_distance_selection-best_dist <= dist-dist <= best_dist-Assertion `res6 == 77' failed]",
+      "tests.test_verify_post_trade_action_distance_candidates::test_verify_post_trade_action_distance_candidates_passes",
+      "tests.test_verify_post_trade_action_distance_candidates::test_verify_rejects_corrupted_padding",
+      "tests.test_verify_post_trade_action_distance_candidates::test_verify_rejects_negative_padding",
+      "tests.test_verify_post_trade_action_distance_candidates::test_verify_rejects_wrong_target_slice_length"
+    ],
+    "changed_status": []
+  }
+}

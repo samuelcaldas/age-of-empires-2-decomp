@@ -119,7 +119,7 @@ int func_002B9140(void *self);
 
 ### 4b. `func_002B8E30` (Post Distance Candidates Pool Selector)
 - **Slice**: File `0x1B9010`–`0x1B9280`, VRAM `0x2B8E30`–`0x2B90A0` (616 B code, 8 B padding, 624 B slice).
-- **Status**: **100.0% Matched** (verified byte-for-byte with MWCC PS2 2.3.1.01 against SLES-50282 original ELF; 624/624 bytes identical; kept NonMatching in configure.py pending promotion clearance).
+- **Status**: **NonMatching** in `configure.py`. MWCC PS2 2.3.1.01 produces **624/624 identical bytes** against the SLES-50282 original ELF, but historical test-first chronology is not established.
 - **Scan Loop**: Iterates through item pool array at `self + 180` bounded by count at `self + 184` using capacity guard at `self + 192`.
 - **Filters**:
   - Rejects if in exclusion pool at `self + 3184` (count at `+3188`, capacity at `+3196`).
@@ -133,13 +133,28 @@ int func_002B9140(void *self);
   - Tracks candidate with minimal distance (`best_dist <= dist` skips).
   - Returns optimal candidate's sub-ID `*(short*)(item + 36)`, or -1 if none qualify.
 
-#### TDD Red-Before-Implementation Chronology (`func_002B8E30`)
-- **Red Baseline Command**: `.venv/bin/pytest tests/test_post_trade_action_distance_candidates.py`
-- **Failing Assertion**: `AssertionError: test failed ... post-trade-action-distance-candidates-test: tests/native/post_trade_action_distance_candidates_test.cpp:93: int main(int, char**): Assertion 'res1 == 42' failed. Returncode -6 (SIGABRT) != 0`
-- **Green Implementation**: Pure C++ implementation in `src/post_trade_action_distance_candidates.cpp` verifying pool iteration, exclusion, proto, health, action codes, and distance selection.
-- **Green Result**: `5 passed` in `tests/test_post_trade_action_distance_candidates.py`.
-- **Durable Mutation Gate**: Parameterized mutants (`corrupted_default_return`, `corrupted_health_threshold`, `corrupted_proto_check`, `inverted_distance_selection`) continuously assert expected failure modes.
-- **Verifier Hardening**: `tests/test_verify_post_trade_action_distance_candidates.py` validates 624/624 byte match and asserts negative padding rejection, corrupted padding rejection, and slice truncation rejection.
+#### Verification evidence and outstanding process gap (`func_002B8E30`)
+
+The historical `.venv/bin/pytest tests/test_post_trade_action_distance_candidates.py`
+run failed the native assertion `res1 == 42` with exit `-6`, then passed after
+replacing the repository placeholder. That run used the host, not Docker, and
+scratch implementations already existed. It does **not** establish historical
+Red-before-implementation chronology.
+
+On 2026-10-19, a separate parent archive received the candidate harness and an
+explicit temporary `return -1` placeholder. Docker reproduced the assertion
+failure, then passed the identical test after installing the committed candidate.
+The actual parent has no C/C++ definition; its missing-symbol link failure is
+recorded separately and does not count as behavioral Red.
+
+The Docker focused suite passed **9 tests**: five native/mutation tests and four
+verifier tests. Independent target compilation still matched **624/624 bytes**,
+including all six resolved calls and eight zero-padding bytes. These results do
+not repair the historical process gap or authorize promotion. The object remains
+**NonMatching** pending coordinator review.
+
+Exact commands, timestamped source hashes, logs, limitations, and parent/candidate
+regression results are in the [Docker evidence packet](evidence/post_trade_action_distance_candidates_20261019/README.md).
 
 ### 5. `func_002B90A0` and `func_002B9130` (Trade Action Type Checker)
 - **Slice**: File `0x1B9280`–`0x1B9320`, VRAM `0x2B90A0`–`0x2B9140` (160 B code and padding).

@@ -1,0 +1,85 @@
+"""Record a retrospective Docker-only placeholder Red and candidate Green."""
+
+from datetime import datetime, timezone
+import hashlib
+import json
+from pathlib import Path
+import shutil
+import subprocess
+import sys
+
+workspace = Path('/workspace')
+candidate = Path('/candidate')
+logs = Path('/evidence')
+source_relative = Path('src/post_trade_action_distance_candidates.cpp')
+files = [
+    Path('include/post_trade_action_distance_candidates.h'),
+    Path('tests/test_post_trade_action_distance_candidates.py'),
+    Path('tests/native/post_trade_action_distance_candidates_test.cpp'),
+    Path('tests/test_verify_post_trade_action_distance_candidates.py'),
+    Path('tools/verify_post_trade_action_distance_candidates.py'),
+]
+assert not (workspace / source_relative).exists(), 'Expected no dedicated parent implementation'
+manifest = {
+    'parent_sha': '1ebe519ec4b15af59e9043a2bb758e83804b30e0',
+    'candidate_sha': '1b1e7acccc5dea13a7702143c82660551c8869ce',
+    'classification': 'Retrospective placeholder reproduction; not historical test-first proof',
+    'parent_dedicated_source_exists': False,
+    'harness_overlay': {},
+    'events': [],
+}
+for relative in files:
+    destination = workspace / relative
+    assert not destination.exists(), f'Parent unexpectedly contains {relative}'
+    shutil.copyfile(candidate / relative, destination)
+    manifest['harness_overlay'][str(relative)] = hashlib.sha256(destination.read_bytes()).hexdigest()
+placeholder = (
+    '#pragma exceptions off\n'
+    '#include "post_trade_action_distance_candidates.h"\n\n'
+    'extern "C" int func_002B8E30(TradeActionState *self, int *coords) {\n'
+    '    return -1;\n'
+    '}\n'
+)
+(workspace / source_relative).write_text(placeholder)
+(logs / 'placeholder.cpp.txt').write_text(placeholder)
+manifest['placeholder_sha256'] = hashlib.sha256(placeholder.encode()).hexdigest()
+focused = [sys.executable, '-m', 'pytest', '-q', '-ra',
+           'tests/test_post_trade_action_distance_candidates.py::test_distance_candidates_behavior']
+steps = [
+    ('red', focused, 1),
+    ('green', focused, 0),
+    ('focused', [sys.executable, '-m', 'pytest', '-q', '-ra',
+                 'tests/test_post_trade_action_distance_candidates.py',
+                 'tests/test_verify_post_trade_action_distance_candidates.py'], 0),
+    ('distance-match', [sys.executable, 'tools/verify_post_trade_action_distance_candidates.py'], 0),
+    ('checker-match', [sys.executable, 'tools/verify_trade_action_type_checker.py'], 0),
+]
+for name, command, expected_returncode in steps:
+    if name == 'green':
+        shutil.copyfile(candidate / source_relative, workspace / source_relative)
+    event = {
+        'name': name,
+        'started_utc': datetime.now(timezone.utc).isoformat(),
+        'command': command,
+        'cwd': str(workspace),
+        'source_sha256': hashlib.sha256((workspace / source_relative).read_bytes()).hexdigest(),
+    }
+    result = subprocess.run(command, cwd=workspace, capture_output=True, text=True)
+    output = result.stdout + result.stderr
+    (logs / f'{name}.txt').write_text(output)
+    event['returncode'] = result.returncode
+    event['finished_utc'] = datetime.now(timezone.utc).isoformat()
+    manifest['events'].append(event)
+    (logs / 'replay-manifest.json').write_text(json.dumps(manifest, indent=2) + '\n')
+    print(f'{name}: exit={result.returncode}; log=/evidence/{name}.txt', flush=True)
+    assert result.returncode == expected_returncode, output
+    if name == 'red':
+        assert "Assertion `res1 == 42' failed" in output, output
+        assert 'returncode=-6' in output or 'returncode == 0' in output, output
+    if name == 'focused':
+        assert '9 passed' in output, output
+    if name == 'distance-match':
+        assert '624/624 bytes identical' in output, output
+    if name == 'checker-match':
+        assert '160/160 bytes identical' in output, output
+print('Retrospective reproduction complete. Historical test-first chronology remains unproved.', flush=True)

@@ -1,0 +1,10 @@
+Validated symbol func_002B90A0: section=5, size=144 bytes
+Validated symbol func_002B9130: section=9, size=8 bytes
+Parsing 2 relocations in section .rel.text:
+  Relocation [0]: offset=0x24, type=4 (R_MIPS_26), target=func_332e60
+    -> resolved func_332e60 at 0x332E60: opcode 0x0c0ccb98
+  Relocation [1]: offset=0x60, type=4 (R_MIPS_26), target=func_001471A0
+    -> resolved func_001471A0 at 0x1471A0: opcode 0x0c051c68
+Code size: 152 bytes (144 + 8 + 0)
+Padding to 160 bytes: 8 bytes
+SUCCESS: Exact 100.0% byte-for-byte match (160/160 bytes identical)!

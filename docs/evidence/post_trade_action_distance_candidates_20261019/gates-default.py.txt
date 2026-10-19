@@ -1,0 +1,68 @@
+"""Record isolated snapshot gates using the documented default progress setting."""
+
+from datetime import datetime, timezone
+import hashlib
+import importlib.metadata
+import json
+from pathlib import Path
+import platform
+import subprocess
+import sys
+
+name = sys.argv[1]
+logs = Path('/evidence')
+workspace = Path('/workspace')
+manifest = {
+    'snapshot': name,
+    'python': platform.python_version(),
+    'packages': {package: importlib.metadata.version(package) for package in
+                 ['pytest', 'splat64', 'spimdisasm', 'jsonschema', 'rich']},
+    'original_sha1': hashlib.sha1((workspace / 'orig/SLES-50282/AOK.ELF').read_bytes()).hexdigest(),
+    'steps': [],
+}
+subsystem = [
+    'tests/test_trade_action_candidates.py',
+    'tests/test_trade_action_dispatcher.py',
+    'tests/test_trade_action_getters6.py',
+    'tests/test_trade_action_getters7.py',
+    'tests/test_trade_action_notify.py',
+    'tests/test_trade_action_plan_evaluator.py',
+    'tests/test_trade_action_type_checker.py',
+    'tests/test_post_trade_action_distance_candidates.py',
+    'tests/test_trade_action_route_finish.py',
+    'tests/test_trade_action_staging.py',
+    'tests/test_verify_trade_action_type_checker.py',
+    'tests/test_verify_post_trade_action_distance_candidates.py',
+]
+commands = [
+    ('configure', [sys.executable, 'configure.py', '--version', 'SLES-50282',
+                   '--compilers', '/workspace/compilers',
+                   '--binutils', '/workspace/build/mips_binutils',
+                   '--wrapper', '/workspace/build/tools/wibo',
+                   '--objdiff', '/workspace/build/tools/objdiff-cli']),
+    ('ninja', ['ninja', '-j', '2']),
+    ('route-object', ['ninja', '-j', '2', 'build/SLES-50282/src/trade_action_route_finish.o']),
+    ('subsystem', [sys.executable, '-m', 'pytest', '-q', '-ra',
+                    *[path for path in subsystem if (workspace / path).is_file()]]),
+    ('full', [sys.executable, '-m', 'pytest', '-q', '-ra',
+               f'--junitxml=/evidence/{name}-full.xml']),
+    ('flake8', [sys.executable, '-m', 'flake8', 'configure.py']),
+]
+for stage, command in commands:
+    event = {'stage': stage, 'command': command,
+             'started_utc': datetime.now(timezone.utc).isoformat()}
+    with (logs / f'{name}-{stage}.txt').open('w') as output:
+        try:
+            result = subprocess.run(command, cwd=workspace, stdout=output,
+                                    stderr=subprocess.STDOUT, timeout=600)
+            event['returncode'] = result.returncode
+        except subprocess.TimeoutExpired:
+            event['returncode'] = None
+            event['timeout_seconds'] = 600
+            output.write('\nBLOCKED: command exceeded 600 seconds.\n')
+    event['finished_utc'] = datetime.now(timezone.utc).isoformat()
+    manifest['steps'].append(event)
+    (logs / f'{name}-gates.json').write_text(json.dumps(manifest, indent=2) + '\n')
+    print(f"{name} {stage}: exit={event['returncode']}; log={name}-{stage}.txt", flush=True)
+    if stage == 'configure' and event['returncode'] != 0:
+        raise SystemExit('Configure failed; snapshot gate blocked before test execution.')

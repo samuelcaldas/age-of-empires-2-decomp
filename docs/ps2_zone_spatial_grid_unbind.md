@@ -73,13 +73,13 @@ The implementation followed mandatory test-driven development through four isola
    - **Red command:** `docker --context docker-dev run --rm --network host -v $(pwd):/workspace -w /workspace aoe-tests:verification pytest -p no:cacheprovider -q -ra -k "test_native_unbind_behavior" tests/test_zone_spatial_grid_unbind.py`
    - **Observable failure:** `AssertionError: Native test failed with code -6 (SIGABRT): unbind_test: /workspace/tests/native/zone_spatial_grid_unbind_test.cpp:128: int main(): Assertion 'res3 == 1' failed.`.
    - **Green change:** Implemented `self->field_18--; node->next->prev = node->prev; node->prev->next = node->next; func_00116F68(node); return 1;`.
-   - **Green result:** Cases 1, 2, and 3 passed across interior, head, tail, and self-loop topologies; Case 4 failed as expected.
+   - **Green result:** Cases 1, 2, and 3 passed (interior unlinking with NULL elem); execution then proceeded to Case 4 and aborted on missing callback.
 
 4. **Step 4 — Virtual callback dispatch (`node->elem != NULL`):**
    - **Red command:** `docker --context docker-dev run --rm --network host -v $(pwd):/workspace -w /workspace aoe-tests:verification pytest -p no:cacheprovider -q -ra -k "test_native_unbind_behavior" tests/test_zone_spatial_grid_unbind.py`
    - **Observable failure:** `AssertionError: Native test failed with code -6 (SIGABRT): unbind_test: /workspace/tests/native/zone_spatial_grid_unbind_test.cpp:159: int main(): Assertion 'observed_method_self == &item' failed.`.
    - **Green change:** Added `if (node->elem != 0) { node->elem->method_08(1); }` before node deallocation.
-   - **Green result:** Confirmed all 12 native behavioral tests and 11 mutation tests pass (12 passed in 2.99s).
+   - **Green result:** Complete test binary passed all 7 test cases (including subsequent head, tail, and self-loop unlinking), and all 11 mutation tests passed (total 12 pytest items passed in 2.99s: 1 native runner covering 7 test cases + 11 mutation checks).
 
 - **Mutation sensitivity:** 11 distinct mutations confirmed sensitive across null guards,
   counter decrement, pointer unlinking, method call presence, argument value, free call,

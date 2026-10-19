@@ -131,11 +131,39 @@ static void test_func_0021BB60() {
     std::cout << "PASS: test_func_0021BB60" << std::endl;
 }
 
+static void test_func_0021BB60_alpha_mask() {
+    g_call_count_21B440 = 0;
+    std::memset(g_mock_palette, 0, sizeof(g_mock_palette));
+
+    // Entry 77 has color R=0x12, G=0x34, B=0x56, A=0x00
+    g_mock_palette[77 * 4 + 0] = 0x12;
+    g_mock_palette[77 * 4 + 1] = 0x34;
+    g_mock_palette[77 * 4 + 2] = 0x56;
+    g_mock_palette[77 * 4 + 3] = 0x00;
+
+    // Entry 88 has color R=0x14, G=0x36, B=0x58, A=0xFF
+    g_mock_palette[88 * 4 + 0] = 0x14;
+    g_mock_palette[88 * 4 + 1] = 0x36;
+    g_mock_palette[88 * 4 + 2] = 0x58;
+    g_mock_palette[88 * 4 + 3] = 0xFF;
+
+    char dummy_obj[16];
+    // Target color with high bits set: 0xFF563412 (R=0x12, G=0x34, B=0x56, Alpha=0xFF)
+    int target_color = (int)0xFF563412;
+
+    int best = func_0021BB60(dummy_obj, target_color);
+    assert(best == 77);
+    assert(g_call_count_21B440 == 1);
+
+    std::cout << "PASS: test_func_0021BB60_alpha_mask" << std::endl;
+}
+
 int main(int argc, char **argv) {
     if (argc < 2) {
         test_func_0021BAE0();
         test_func_0021BB20();
         test_func_0021BB60();
+        test_func_0021BB60_alpha_mask();
         return 0;
     }
     if (argv[1][0] == '0') {
@@ -144,6 +172,8 @@ int main(int argc, char **argv) {
         test_func_0021BB20();
     } else if (argv[1][0] == '2') {
         test_func_0021BB60();
+    } else if (argv[1][0] == '3') {
+        test_func_0021BB60_alpha_mask();
     }
     return 0;
 }

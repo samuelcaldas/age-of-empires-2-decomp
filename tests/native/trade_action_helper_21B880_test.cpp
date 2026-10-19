@@ -72,8 +72,8 @@ static void test_func_0021B880_basic() {
     // Verify manager pointer written to offset 24
     assert(*(void **)(vp_buf + 24) == manager);
 
-    // Verify bytes per pixel = 32 >> 3 = 4 at offset 64
-    assert(*(int *)(vp_buf + 64) == 4);
+    // Verify row pitch = (((width + 3) & ~3) * bpp) >> 3 = (200 * 32) >> 3 = 800 at offset 64
+    assert(*(int *)(vp_buf + 64) == 800);
 
     std::cout << "PASS: test_func_0021B880_basic" << std::endl;
 }
@@ -118,6 +118,9 @@ static void test_func_0021B880_fullscreen() {
 
     // Verify manager + 1056 receives viewport pointer
     assert(*(void **)(manager + 1056) == vp_buf);
+
+    // Verify row pitch = (640 * 8) >> 3 = 640 at offset 64
+    assert(*(int *)(vp_buf + 64) == 640);
 
     std::cout << "PASS: test_func_0021B880_fullscreen" << std::endl;
 }

@@ -11,6 +11,7 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 CASES = [
     ("0", "func_0021B640 constructor and func_0021B730 global manager setup"),
     ("1", "func_0021B760 sequential slot allocation and saturation"),
+    ("2", "func_0021B760 skips non-zero slots and handles unsigned status"),
 ]
 
 

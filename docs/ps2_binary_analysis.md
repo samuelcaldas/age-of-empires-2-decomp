@@ -7337,6 +7337,31 @@ Located at VRAM `0x21CD20`–`0x21CFB0` (file offset `0x11CF00`–`0x11D190`, 65
 
 Pure C++ following Object Calisthenics, SOLID, and fail-fast principles. Validated with native regression tests in `tests/native/trade_action_helper_21CD20_test.cpp` and pytest runner in `tests/test_trade_action_helper_21CD20.py`.
 
+#### 6.195.4 `GIF/GS Packet Builder Texture Rect Quad Rasterizer` Subsystem (`0x21CFB0`–`0x21D2C0`, `trade_action_helper_21CFB0.cpp`)
+
+Located at VRAM `0x21CFB0`–`0x21D2C0` (file offset `0x11D190`–`0x11D4A0`, 784 bytes total slice, Metrowerks C++ PS2 MWCC 2.3.1.01):
+- `func_0021CFB0` (`0x21CFB0`, 784 bytes code): Constructs packet object, computes sprite tag `D_00392B60`, calculates 4-vertex quad coordinates from bounding box rectangle `[x0, y0, x1, y1]` transformed by screen center `(D_00CA158C, D_00CA158E)` and depth `z`, emits sprite mode register (`0x06` or `0x07`), register `0x01`, and 4 interleaved UV/XYZ vertex registers (`0x03`, `0x04`) from texture UV rectangle `[u0, v0, u1, v1]`, and finalizes with `func_104600`.
+
+Pure C++ following Object Calisthenics, SOLID, and fail-fast principles. Validated with native regression tests in `tests/native/trade_action_helper_21CFB0_test.cpp` and pytest runner in `tests/test_trade_action_helper_21CFB0.py`.
+
+#### 6.195.5 `GIF/GS Packet Builder Sprite Line Rasterizer` Subsystem (`0x21D2C0`–`0x21D4E0`, `trade_action_helper_21D2C0.cpp`)
+
+Located at VRAM `0x21D2C0`–`0x21D4E0` (file offset `0x11D4A0`–`0x11D6C0`, 544 bytes total slice, 512 bytes code + 32 bytes padding, Metrowerks C++ PS2 MWCC 2.3.1.01):
+- `func_0021D2C0` (`0x21D2C0`, 512 bytes code): Constructs packet object, computes sprite tag `D_00392B70`, calculates 4-vertex quad coordinates transformed by screen center `(D_00CA158C, D_00CA158E)` and depth `t2`, emits register `0x01` with `a2`, writes 4 transformed vertex XYZ coordinates to register `0x04`, and finalizes with `func_104600`.
+- `func_0021D4E0` (`0x21D4E0`, 512 bytes code): Extended sprite builder supporting sprite mode selector `0x06` vs `0x07` via `t3`.
+
+Pure C++ following Object Calisthenics, SOLID, and fail-fast principles. Validated with native regression tests in `tests/native/trade_action_helper_21D2C0_test.cpp` and pytest runner in `tests/test_trade_action_helper_21D2C0.py`.
+
+#### 6.195.6 `GIF/GS Packet Builder Sprite Alt Rasterizer` Subsystem (`0x21D700`–`0x21D970`, `trade_action_helper_21D700.cpp`)
+
+Located at VRAM `0x21D700`–`0x21D970` (file offset `0x11D700`–`0x11D970`, 624 bytes total slice, Metrowerks C++ PS2 MWCC 2.3.1.01):
+- `func_0021D700` (`0x21D700`, 624 bytes code): Constructs packet object, computes sprite tag `D_00392B80`, calculates 4-vertex quad coordinates transformed by screen center `(D_00CA158C, D_00CA158E)` and depth `t2`, emits sprite mode register (`0x06` or `0x07`) via `t3`, register `0x01` with `a3`, writes 4 transformed vertex XYZ coordinates to register `0x04`, and finalizes with `func_104600`.
+
+Pure C++ following Object Calisthenics, SOLID, and fail-fast principles. Validated with native regression tests in `tests/native/trade_action_helper_21D700_test.cpp` and pytest runner in `tests/test_trade_action_helper_21D700.py`.
+
+
+
+
 
 
 

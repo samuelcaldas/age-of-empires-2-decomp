@@ -1,44 +1,46 @@
 #include <cassert>
 #include <cstring>
 #include <iostream>
+#include "trade_packet.h"
 
 extern "C" char D_00C5DF00[1024] = {0};
 
 static int c21de90_calls = 0;
 static int last_21de90_a0 = -1;
+static int last_21de90_a1 = -1;
 static int last_21de90_a2 = -1;
 static void *last_21de90_buf = nullptr;
 static int last_21de90_t0 = -1;
 static int last_21de90_t1 = -1;
+static int last_21de90_t2 = -1;
 static int last_21de90_t3 = -1;
-static int mock_21de90_ret = 77;
 
 extern "C" {
 int func_0021B440(void *palette_obj, int unused, int start_idx, int count, void *dst_buf);
 int func_0021B4C0(void *palette_obj, int unused, int start_idx, int count, void *src_buf, int trans_idx);
-int func_0021B560(void *palette_obj, const char *palette_data);
-
-int func_0021DE90(int a0, int a1, int a2, void *clut_buf, int t0, int t1, int t2, int t3) {
+void func_0021DE90(int a0, int a1, int a2, void *clut_buf, int t0, int t1, int t2, int t3) {
     c21de90_calls++;
     last_21de90_a0 = a0;
+    last_21de90_a1 = a1;
     last_21de90_a2 = a2;
     last_21de90_buf = clut_buf;
     last_21de90_t0 = t0;
     last_21de90_t1 = t1;
+    last_21de90_t2 = t2;
     last_21de90_t3 = t3;
-    return mock_21de90_ret;
 }
 }
 
 static void reset_mocks() {
     c21de90_calls = 0;
     last_21de90_a0 = -1;
+    last_21de90_a1 = -1;
     last_21de90_a2 = -1;
     last_21de90_buf = nullptr;
     last_21de90_t0 = -1;
     last_21de90_t1 = -1;
+    last_21de90_t2 = -1;
     last_21de90_t3 = -1;
-    mock_21de90_ret = 77;
     std::memset(D_00C5DF00, 0, sizeof(D_00C5DF00));
 }
 
@@ -103,6 +105,7 @@ void test_case_set_palette_and_alpha() {
     assert(last_21de90_a0 == 0x1F00);
     assert(last_21de90_a2 == 4);
     assert(last_21de90_buf == D_00C5DF00);
+    assert(last_21de90_t2 == 16);
     assert(last_21de90_t3 == 16);
 }
 
@@ -120,6 +123,8 @@ void test_case_swizzle_formula() {
     *(unsigned short *)(pal_obj + 2) = 0;
 
     func_0021B560(pal_obj, (char *)palette_buf);
+    assert(last_21de90_t2 == 16);
+    assert(last_21de90_t3 == 16);
 
     // For index 8 (binary 00001000):
     // bit 3 is 1, bit 4 is 0.
@@ -134,12 +139,36 @@ void test_case_swizzle_formula() {
     assert(val_at_8 == 16);
 }
 
+void test_case_null_palette_data_upload() {
+    reset_mocks();
+    std::memset(D_00C5DF00, 0x5A, sizeof(D_00C5DF00));
+
+    unsigned char pal_obj[0x20];
+    std::memset(pal_obj, 0, sizeof(pal_obj));
+    *(unsigned short *)(pal_obj + 2) = 0x20; // clut_offset = 0x20
+
+    func_0021B560(pal_obj, nullptr);
+
+    assert(c21de90_calls == 1);
+    assert(last_21de90_a0 == 0x1F00);
+    assert(last_21de90_a1 == 0);
+    assert(last_21de90_a2 == 4);
+    assert(last_21de90_buf == D_00C5DF00);
+    assert(last_21de90_t2 == 16);
+    assert(last_21de90_t3 == 16);
+    // Verify D_00C5DF00 was not modified by swizzling
+    for (size_t i = 0; i < sizeof(D_00C5DF00); i++) {
+        assert(static_cast<unsigned char>(D_00C5DF00[i]) == 0x5A);
+    }
+}
+
 int main(int argc, char **argv) {
     if (argc != 2) return 1;
     int c = std::stoi(argv[1]);
     if (c == 0) test_case_copy_palette();
     else if (c == 1) test_case_set_palette_and_alpha();
     else if (c == 2) test_case_swizzle_formula();
+    else if (c == 3) test_case_null_palette_data_upload();
     else return 1;
     std::cout << "PASS\n";
     return 0;

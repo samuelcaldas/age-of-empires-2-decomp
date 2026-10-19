@@ -8,6 +8,8 @@ void func_0021BFB0();
 
 char D_00C5E300[256];
 void *D_004E32E4 = nullptr;
+extern const char D_492C70[] = "palette";
+extern const char D_492C78[] = "mcursors";
 
 static int g_alloc_size = 0;
 static void *g_mock_allocated = nullptr;
@@ -26,12 +28,14 @@ void func_2F61F0(void *obj, void *cfg, int arg) {
 }
 
 static int g_reset_streams_calls = 0;
+static void *g_d004e32e4_during_stream_reset = nullptr;
 void func_00219F60() {
     g_reset_streams_calls++;
+    g_d004e32e4_during_stream_reset = D_004E32E4;
 }
 
 static int g_virtual_call_count = 0;
-static void MockVirtualMethod3(void *self) {
+static void MockVirtualMethod1(void *self) {
     g_virtual_call_count++;
 }
 }
@@ -40,11 +44,12 @@ static void test_func_0021BDF0_success() {
     g_alloc_size = 0;
     g_ctor_obj = nullptr;
     g_reset_streams_calls = 0;
+    g_d004e32e4_during_stream_reset = nullptr;
     D_004E32E4 = nullptr;
     std::memset(D_00C5E300, 0, sizeof(D_00C5E300));
 
-    // Prepare mock object with vtable
-    void *vtable[5] = {nullptr, nullptr, nullptr, (void *)MockVirtualMethod3, nullptr};
+    // Prepare mock object with vtable where slot 1 (offset 4) is func1
+    void *vtable[3] = {nullptr, (void *)MockVirtualMethod1, nullptr};
     void *mock_obj[4] = {vtable, nullptr, nullptr, nullptr};
     g_mock_allocated = mock_obj;
 
@@ -55,6 +60,7 @@ static void test_func_0021BDF0_success() {
     assert(g_ctor_cfg == D_00C5E300);
     assert(g_ctor_arg == 1);
     assert(g_reset_streams_calls == 1);
+    assert(g_d004e32e4_during_stream_reset == mock_obj);
     assert(D_004E32E4 == mock_obj);
 
     // Verify key fields in D_00C5E300
@@ -68,7 +74,7 @@ static void test_func_0021BDF0_success() {
     assert(*(int *)(D_00C5E300 + 0xA4) == 640);
     assert(*(int *)(D_00C5E300 + 0xA8) == 448);
 
-    // Test func_0021BFB0 dispatch
+    // Test func_0021BFB0 dispatch calls slot 1 (offset 4)
     g_virtual_call_count = 0;
     func_0021BFB0();
     assert(g_virtual_call_count == 1);

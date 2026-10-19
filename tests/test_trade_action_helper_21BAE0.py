@@ -12,6 +12,7 @@ CASES = [
     ("0", "func_0021BAE0 palette copy delegation"),
     ("1", "func_0021BB20 palette set delegation with alpha 0xFF"),
     ("2", "func_0021BB60 nearest palette color search"),
+    ("3", "func_0021BB60 ignores high alpha byte in target color"),
 ]
 
 

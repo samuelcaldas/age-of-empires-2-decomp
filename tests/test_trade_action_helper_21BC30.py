@@ -13,6 +13,10 @@ CASES = [
     ("1", "func_0021BC30 direct read without staging"),
     ("2", "func_0021BC30 staging mode with intra-sector offset"),
     ("3", "func_0021BC30 skip read when debug flag set"),
+    ("4", "func_0021BC30 count zero default size and multi-sector offset"),
+    ("5", "func_0021BC30 just-over sector size forces staging and copies all bytes"),
+    ("6", "func_0021BC30 exact sector with unaligned offset copies all bytes"),
+    ("7", "func_0021BC30 multi-chunk 1MiB staging boundary copies full payload"),
 ]
 
 

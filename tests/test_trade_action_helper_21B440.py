@@ -12,6 +12,7 @@ CASES = [
     ("0", "func_0021B440 copy palette entries to buffer"),
     ("1", "func_0021B4C0 set palette entries with transparent alpha and upload"),
     ("2", "func_0021B560 PS2 GS CLUT bit 3/4 swizzling verification"),
+    ("3", "func_0021B560 null palette data dispatches without swizzling"),
 ]
 
 

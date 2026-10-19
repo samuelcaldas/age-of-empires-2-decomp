@@ -92,11 +92,35 @@ void test_case_alloc_slot() {
     assert(slot_fail == nullptr);
 }
 
+void test_case_skip_occupied_slot() {
+    reset_mocks();
+    unsigned char obj[0x420];
+    std::memset(obj, 0xFF, sizeof(obj));
+
+    // Slots 0, 1, 2 are busy (non-zero)
+    // Slot 3 is free (0x0000)
+    *(unsigned short *)(obj + 0x3F0 + 0 * 8) = 0x8000;
+    *(unsigned short *)(obj + 0x3F0 + 1 * 8) = 0x0002;
+    *(unsigned short *)(obj + 0x3F0 + 2 * 8) = 0xFFFF;
+    *(unsigned short *)(obj + 0x3F0 + 3 * 8) = 0x0000;
+    *(unsigned short *)(obj + 0x3F0 + 4 * 8) = 0x0001;
+    *(unsigned short *)(obj + 0x3F0 + 5 * 8) = 0x0001;
+
+    void *slot = func_0021B760(obj);
+    assert(slot == obj + 0x3F0 + 3 * 8);
+    assert(*(unsigned short *)slot == 1);
+
+    // Now slot 3 is also busy, so next allocation must fail
+    void *slot_fail = func_0021B760(obj);
+    assert(slot_fail == nullptr);
+}
+
 int main(int argc, char **argv) {
     if (argc != 2) return 1;
     int c = std::stoi(argv[1]);
     if (c == 0) test_case_constructor_and_reset();
     else if (c == 1) test_case_alloc_slot();
+    else if (c == 2) test_case_skip_occupied_slot();
     else return 1;
     std::cout << "PASS\n";
     return 0;

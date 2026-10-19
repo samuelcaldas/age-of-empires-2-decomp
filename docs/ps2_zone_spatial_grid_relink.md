@@ -65,5 +65,8 @@ All 8 relocations match authentic ELF sites and targets exactly:
   verifies fresh compilation with `mwccps2.exe` v2.3.1.01 under `wibo`, literal byte
   matching against authentic `AOK.ELF`, 8-relocation manifest enforcement, corrupted
   instruction rejection, and CLI contract.
-- **Configuration policy:** Registered as `NonMatching` pending review; `config.yml`
+- **Configuration policy:** Registered as `Matching`; `config.yml`
   and `symbols.txt` remain untouched.
+- **Test coverage note:** The conditional unbind branch `if (func_001F6C90(newItem) == elem) func_001F6CA0(newItem, 0);`
+  is verified via exact instruction matching (all 292 bytes and 8 relocations proven identical);
+  noted as a minor non-blocking behavioral test omission.

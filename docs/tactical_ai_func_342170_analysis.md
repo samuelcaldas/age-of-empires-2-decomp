@@ -191,4 +191,4 @@ Binary inspection of the 576-byte slice contiguous to `func_00342170` identified
 
 All five phantom symbols were removed. Splat split boundaries in `config.yml` remain at `0x242980` to preserve the build graph until implementation is completed.
 
-Following independent review and compiler-linked verification (92/92, 124/124, and 96/96 bit-for-bit bytes matched, respectively), `func_00342820`, `func_00342880`, and `func_00342900` have been classified as `Matching` in `configure.py`. `func_003427A0`, `func_00342810`, and `func_00342960` remain `NonMatching`.
+Following independent review and compiler-linked verification (92/92, 124/124, 96/96, and 124/124 bit-for-bit bytes matched, respectively), `func_00342820`, `func_00342880`, `func_00342900`, and `func_00342960` have been classified as `Matching` in `configure.py`. `func_003427A0` and `func_00342810` remain `NonMatching`.

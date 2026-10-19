@@ -6112,6 +6112,12 @@ if config.platform == Platform.PS2:
                     cflags=config.cflags,
                     toolchain_version="PS2/mwcc-2.3.1.01",
                 ),
+                Object(
+                    Matching,
+                    "tactical_ai_combat_subsystem_controller_decrement_by_id",
+                    cflags=config.cflags,
+                    toolchain_version="PS2/mwcc-2.3.1.01",
+                ),
             ],
 
         },

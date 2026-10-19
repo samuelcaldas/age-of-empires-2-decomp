@@ -5,7 +5,7 @@
 A fresh MWCC PS2 2.3.1.01 build achieves an **exact 100.00% bit-for-bit match (100 of 100 bytes)**,
 traversing a contiguous 20-byte struct table at `self->m_table` with `m_count` entries,
 testing `active == 1` and `id == target_id`, and subtracting `decrement` from `count`.
-Per standing repository policy, it remains registered as NonMatching pending independent review clearance and promotion.
+Promoted to **Matching** in `configure.py` following independent review clearance and 100.00% exact bit-for-bit compiler/link verification.
 
 ## Reference boundaries and layout
 

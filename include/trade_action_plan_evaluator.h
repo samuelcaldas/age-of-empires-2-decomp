@@ -2,7 +2,7 @@
 #define TRADE_ACTION_PLAN_EVALUATOR_H
 
 extern "C" {
-int func_002B9140(void *self);
+void func_002B9140(void *self);
 }
 
 #endif // TRADE_ACTION_PLAN_EVALUATOR_H

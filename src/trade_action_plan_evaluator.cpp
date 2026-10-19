@@ -65,7 +65,7 @@ struct Entity {
     virtual void v52();
     virtual void v53();
     virtual void v54();
-    virtual void v55();
+    virtual void *v55();
     virtual void v56();
     virtual void v57();
     virtual void v58();
@@ -123,10 +123,7 @@ struct TradeActionState {
     int m_capacity;               // 3196
     int m_indices[4];             // 3200
     int m_slots[4];               // 3216
-    int m_val_3232;               // 3232
-    int m_val_3236;               // 3236
-    int m_val_3240;               // 3240
-    int m_val_3244;               // 3244
+    int m_rates[4];               // 3232
     char pad_3248[3316 - 3248];
     int m_field_3316;             // 3316
 };
@@ -139,7 +136,7 @@ struct PlanItem {
     int m_field_372;              // 372
 };
 
-static inline int in_pool(TradeActionState *self, int item_id) {
+static inline int in_pool(TradeActionState *self, const int &item_id) {
     int count = self->m_count;
     for (int i = 0; i < count && i < self->m_capacity; ++i) {
         if (item_id == self->m_pool[i]) {
@@ -149,48 +146,48 @@ static inline int in_pool(TradeActionState *self, int item_id) {
     return 0;
 }
 
-extern "C" int func_002B9140(TradeActionState *self) {
+extern "C" void func_002B9140(TradeActionState *self) {
+    int matched_count = 0;
     for (int i = 0; i < 4; ++i) {
         self->m_slots[i] = 0;
     }
-
-    int matched_count = 0;
-    int limit = self->m_limit;
-    for (int idx = 0; idx < limit; ++idx) {
-        PlanItem *pi = (PlanItem*)((char*)self + idx * 24);
-        Entity *item = (Entity*)func_00144d10(self->m_mgr, pi->m_id);
+    Entity *item;
+    int type;
+    int slot;
+    PlanItem *pi;
+    int idx;
+    for (idx = 0; idx < self->m_limit; ++idx) {
+        pi = (PlanItem*)((char*)self + idx * 24);
+        item = (Entity*)func_00144d10(self->m_mgr, pi->m_id);
         if (!item || !item->get_id()) {
             continue;
         }
-        int type = func_001471a0(*item->get_id());
-        int slot = pi->m_slot;
+        type = func_001471a0(*item->get_id());
+        slot = pi->m_slot;
+        int *slot_ptr = &pi->m_slot;
         pi->m_field_372 = func_001471c0(*item->get_id());
 
         if (func_001880d0(D_004E3180) == 1) {
             if (type == 609) {
                 short field8 = *(short*)(*(char**)((char*)item + 4) + 8);
                 if ((field8 == 259 || field8 == 214) && slot) {
-                    if (in_pool(self, *(short*)((char*)item + 36))) {
-                        pi->m_slot = 0;
-                        slot = 0;
+                    if (!in_pool(self, *(short*)((char*)item + 36))) {
+                        *slot_ptr = 0;
                     }
                 }
             }
             short field8 = *(short*)(*(char**)((char*)item + 4) + 8);
             if (field8 == 118 || field8 == 212) {
-                typedef void *(*SubPred)(void *);
-                SubPred sub_pred = *(SubPred*)(*(char**)item + 220);
-                void *sub_res = sub_pred(item);
-                if (sub_res && *(short*)(*(char**)sub_res + 8) == 50 && slot) {
-                    pi->m_slot = 0;
-                    slot = 0;
+                void *sub_res = item->v55();
+                if (sub_res && *(short*)(*(char**)((char*)sub_res + 4) + 8) == 50 && slot) {
+                    *slot_ptr = 0;
                 }
             }
         }
 
         if (slot >= 0 && slot < 4) {
+            matched_count++;
             if (type == 609) {
-                matched_count++;
                 self->m_slots[slot]++;
             } else if (type == 613) {
                 self->m_slots[slot]++;
@@ -200,34 +197,33 @@ extern "C" int func_002B9140(TradeActionState *self) {
         }
     }
 
-    int *rates = &self->m_val_3232;
     for (int i = 0; i < 4; ++i) {
-        rates[i] = 0;
+        self->m_rates[i] = 0;
     }
     self->m_field_3316 = 0;
 
     float f20 = (float)matched_count;
-    self->m_val_3240 = func_00123350(0.5f + (f20 * (float)(self->m_val_2612 + self->m_val_2768)) / 100.0f);
-    self->m_val_3244 = func_00123350(0.5f + (f20 * (float)(self->m_val_2608 + self->m_val_2772)) / 100.0f);
-    self->m_val_3236 = func_00123350(0.5f + (f20 * (float)(self->m_val_2616 + self->m_val_2764)) / 100.0f);
-    self->m_val_3232 = func_00123350(0.5f + (f20 * (float)(self->m_val_2604 + self->m_val_2760)) / 100.0f);
+    self->m_rates[2] = func_00123350(0.5f + (f20 * (float)(self->m_val_2612 + self->m_val_2768)) / 100.0f);
+    self->m_rates[3] = func_00123350(0.5f + (f20 * (float)(self->m_val_2608 + self->m_val_2772)) / 100.0f);
+    self->m_rates[1] = func_00123350(0.5f + (f20 * (float)(self->m_val_2616 + self->m_val_2764)) / 100.0f);
+    self->m_rates[0] = func_00123350(0.5f + (f20 * (float)(self->m_val_2604 + self->m_val_2760)) / 100.0f);
 
     int sum1 = 0;
     for (int i = 0; i < 4; ++i) {
-        sum1 += rates[i];
+        sum1 += self->m_rates[i];
     }
     int sum2 = 0;
     for (int i = 0; i < 4; ++i) {
-        sum2 += rates[i];
+        sum2 += self->m_rates[i];
     }
 
     int diff = self->m_total - sum2;
     if (diff > 0) {
         float f_diff = (float)diff;
-        self->m_val_3240 += func_00123350(0.5f + (f_diff * (float)(self->m_val_2612 + self->m_val_2768)) / 100.0f);
-        self->m_val_3244 += func_00123350(0.5f + (f_diff * (float)(self->m_val_2608 + self->m_val_2772)) / 100.0f);
-        self->m_val_3236 += func_00123350(0.5f + (f_diff * (float)(self->m_val_2616 + self->m_val_2764)) / 100.0f);
-        self->m_val_3232 += func_00123350(0.5f + (f_diff * (float)(self->m_val_2604 + self->m_val_2760)) / 100.0f);
+        self->m_rates[2] += func_00123350(0.5f + (f_diff * (float)(self->m_val_2612 + self->m_val_2768)) / 100.0f);
+        self->m_rates[3] += func_00123350(0.5f + (f_diff * (float)(self->m_val_2608 + self->m_val_2772)) / 100.0f);
+        self->m_rates[1] += func_00123350(0.5f + (f_diff * (float)(self->m_val_2616 + self->m_val_2764)) / 100.0f);
+        self->m_rates[0] += func_00123350(0.5f + (f_diff * (float)(self->m_val_2604 + self->m_val_2760)) / 100.0f);
     }
 
     for (int i = 0; i < 4; ++i) {
@@ -238,13 +234,11 @@ extern "C" int func_002B9140(TradeActionState *self) {
         for (int j = i; j < 4; ++j) {
             int idx_i = self->m_indices[i];
             int idx_j = self->m_indices[j];
-            int *rates = &self->m_val_3232;
-            if (rates[idx_i] < rates[idx_j]) {
+            if (self->m_rates[idx_i] < self->m_rates[idx_j]) {
                 self->m_indices[i] = idx_j;
                 self->m_indices[j] = idx_i;
             }
         }
     }
 
-    return 0;
 }

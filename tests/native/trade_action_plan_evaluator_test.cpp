@@ -73,6 +73,33 @@ int main(int argc, char **argv) {
 
     // Assert that item matched type 609 at slot 2
     assert(integer_at(base, 3216 + 2 * 4) == 1);
+    // Assert that slot in item memory was reset to 0 because item was not in pool
+    assert(integer_at(base, 360) == 0);
+
+    // Test case 2: item is in pool -> slot should NOT be reset
+    int pool_data[2] = {10, 20};
+    store_integer(base, 3184, reinterpret_cast<int>(pool_data));
+    store_integer(base, 3188, 2); // count = 2
+    store_integer(base, 3196, 5); // capacity = 5
+    store_integer(base, 360, 3);  // slot = 3
+
+    func_002B9140(base);
+    assert(integer_at(base, 360) == 3); // slot preserved
+    assert(integer_at(base, 3216 + 3 * 4) == 1);
+
+    // Test case 3: verify selection sort in m_indices (3200..3212)
+    // Indices must be sorted descending by rate (m_rates at 3232..3244)
+    int idx0 = integer_at(base, 3200);
+    int idx1 = integer_at(base, 3204);
+    int idx2 = integer_at(base, 3208);
+    int idx3 = integer_at(base, 3212);
+    int rate0 = integer_at(base, 3232 + idx0 * 4);
+    int rate1 = integer_at(base, 3232 + idx1 * 4);
+    int rate2 = integer_at(base, 3232 + idx2 * 4);
+    int rate3 = integer_at(base, 3232 + idx3 * 4);
+    assert(rate0 >= rate1);
+    assert(rate1 >= rate2);
+    assert(rate2 >= rate3);
 
     std::cout << "TRADE ACTION PLAN EVALUATOR TEST PASSED\n";
     return 0;

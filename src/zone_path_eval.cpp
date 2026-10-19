@@ -53,21 +53,19 @@ int func_001C7850(
         ry = bld_var->m_alt_radius_y;
     }
 
-    float max_x = x + rx - 0.0001f;
-    float max_y = y + ry - 0.0001f;
+    float min_x = x - rx;
+    float max_x = (x + rx) - 0.0001f;
+    float min_y = y - ry;
+    float max_y = (y + ry) - 0.0001f;
 
     map_w = s0->m_width;
-    if (x - rx < 0.0f || max_x >= (float)map_w) {
-        return 7;
-    }
-
-    float min_y = y - ry;
     map_h = s0->m_height;
-    if (min_y < 0.0f || max_y >= (float)map_h) {
+
+    if (min_x < 0.0f || max_x >= (float)map_w || min_y < 0.0f || max_y >= (float)map_h) {
         return 7;
     }
 
-    short t_min_x = (short)func_123350(x - rx);
+    short t_min_x = (short)func_123350(min_x);
     short t_max_x = (short)func_123350(max_x);
     short t_min_y = (short)func_123350(min_y);
     t_max_y = (short)func_123350(max_y);

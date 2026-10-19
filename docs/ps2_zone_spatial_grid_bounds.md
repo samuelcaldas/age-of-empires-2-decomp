@@ -50,10 +50,16 @@ Virtual method dispatch at `+0xD8`: `vtable[55]` (`0xDC`) invoked as `method_DC(
 
 - **Red test:** `build/bounds-red.log` captured observable assertion failure
   (`Assertion grid.field_0C == &item1 failed`) with exit status `-6` (SIGABRT).
-- **Green test:** `build/bounds-green.log` confirmed native pass (2 passed in 0.24s)
+- **Green test:** `build/bounds-green.log` confirmed native pass (2 passed in 0.23s)
   under C++98 `-m32`.
 - **Provenance gate:** `tests/test_zone_spatial_grid_bounds_provenance.py` (6 passed)
-  verifies fresh compilation with `mwccps2.exe` v2.3.1.01 under `wibo`, 4 relocations,
-  corrupted instruction rejection, and CLI contract.
-- **Configuration policy:** Registered as `NonMatching` pending exact instruction
-  scheduling resolution; `config.yml` and `symbols.txt` remain untouched.
+  verifies fresh compilation with `mwccps2.exe` v2.3.1.01 under `wibo`, 100% exact
+  literal instruction matching across all 244 bytes (`literal_match: true`), 4 direct
+  `R_MIPS_26` function relocations, matching resolved SHA-256 hash
+  (`bfca2700233b7b56a59a8a9c086ec4112f0573df62c55991696d30c6f33dcbb5`),
+  corrupted instruction rejection against a passing baseline, unpinned ELF rejection,
+  and CLI zero-exit contract.
+- **Focused test suite:** 198 passed in 38.90s (`pytest tests/test_zone_spatial_grid*.py`).
+- **Full regression suite:** 2,715 passed in 137.74s (`pytest -q`), 0 failures, 0 regressions.
+- **Configuration policy:** Registered as `NonMatching` in `configure.py` pending
+  peer review and promotion approval; `config.yml` and `symbols.txt` remain untouched.

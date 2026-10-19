@@ -43,30 +43,32 @@ struct ZoneSpatialGrid {
 
 extern "C" void func_001F2AD0(ZoneSpatialGrid *self, SpatialItem *elem) {
     if (self->field_0C != 0 && elem != 0) {
-        func_001F6CC0(elem);
+        func_001F6CC0(elem, self->field_0C);
     }
-    if (self->field_0C == 0) {
-        if (self->field_1C != 0) {
-            if (self->field_1C->field_40 != 0) {
-                func_001F6750(self->field_1C->field_40);
-            }
+    SpatialItem *cur = self->field_0C;
+    if (cur == 0) {
+        if (self->field_1C != 0 && self->field_1C->field_40 != 0) {
+            func_001F6750(self->field_1C->field_40, self->field_1C);
+            self->field_1C = 0;
+            goto next_step;
         }
     } else {
-        if (self->field_0C->field_8C == 0) {
-            if (self->field_0C->field_40 != 0) {
-                func_001F6750(self->field_0C->field_40);
-            }
+        if (cur->field_8C == 0 && cur->field_40 != 0) {
+            func_001F6750(cur->field_40, self->field_1C);
         }
     }
     self->field_1C = 0;
+next_step:
     self->field_0C = elem;
-    if (self->field_0C != 0 && self->field_0C != self->field_10) {
-        if (self->field_0C->field_40 != 0) {
-            self->field_1C = self->field_0C->field_40->field_3C;
-            func_001F6750(self->field_0C->field_40, self->field_0C);
-        } else {
-            self->field_1C = 0;
-            self->field_0C->method_DC(1);
+    cur = self->field_0C;
+    if (cur != 0 && cur != self->field_10) {
+        SpatialHandle *handle = cur->field_40;
+        if (handle != 0) {
+            self->field_1C = handle->field_3C;
+            func_001F6750(handle, self->field_0C);
+            return;
         }
+        self->field_1C = 0;
+        self->field_0C->method_DC(1);
     }
 }

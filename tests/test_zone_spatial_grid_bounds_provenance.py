@@ -54,14 +54,14 @@ def _corrupt_instruction(source, destination, offset=0):
 
 
 def test_source_reproduces_original_instruction_bytes(private_inputs):
-    """Check code bytes and relocation count."""
+    """Require all 244 original bytes, not merely equal function lengths."""
     source, original = private_inputs
     result = verify(source, original)
-    assert result["code_bytes"] > 0
+    assert result["code_bytes"] == 244
     assert result["expected_code_bytes"] == 244
     assert result["relocation_count"] == 4
-    if result["literal_match"]:
-        assert result["resolved_sha256"] == result["original_sha256"]
+    assert result["literal_match"] is True
+    assert result["resolved_sha256"] == result["original_sha256"]
 
 
 def test_source_instruction_difference_rejects_literal_match(
@@ -69,6 +69,8 @@ def test_source_instruction_difference_rejects_literal_match(
 ):
     """Expose a changed source instruction rather than masking it."""
     source, original = private_inputs
+    baseline = verify(source, original)
+    assert baseline["literal_match"] is True, "Baseline must match before testing mutation"
     corrupted = _corrupt_instruction(source, tmp_path / "source.o", 0x14)
     result = verify(corrupted, original)
     assert result["literal_match"] is False
@@ -84,7 +86,7 @@ def test_unpinned_original_is_rejected(private_inputs, tmp_path):
 
 
 def test_cli_exits_on_verify(private_inputs):
-    """Emit auditable JSON via CLI."""
+    """Emit auditable JSON via CLI and exit 0 on literal match."""
     source, original = private_inputs
     completed = subprocess.run(
         [sys.executable, "-m",
@@ -92,10 +94,12 @@ def test_cli_exits_on_verify(private_inputs):
          "--source", str(source), "--original", str(original)],
         capture_output=True, text=True, cwd=ROOT,
     )
+    assert completed.returncode == 0, completed.stderr
     result = json.loads(completed.stdout)
-    assert result["code_bytes"] > 0
+    assert result["code_bytes"] == 244
     assert result["expected_code_bytes"] == 244
     assert result["relocation_count"] == 4
+    assert result["literal_match"] is True
 
 
 def test_unexpected_relocation_manifest_is_handled(

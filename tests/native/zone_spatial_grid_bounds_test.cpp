@@ -44,7 +44,7 @@ static void item_slot_55(void * /*self*/, int val) {
 static ItemMethod mock_vtable[60];
 
 extern "C" {
-void func_001F6CC0(SpatialItem *elem) {
+void func_001F6CC0(SpatialItem *elem, ...) {
     call_log.push_back(1);
     last_f6cc0_elem = elem;
 }

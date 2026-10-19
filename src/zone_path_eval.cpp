@@ -212,15 +212,8 @@ int func_001C7860(
         check_radius = bld_var->m_field28;
     }
 
-    if (!arg9) {
-        return 0;
-    }
-
-    if (!flag3 && check_radius <= 0.0f) {
-        return 0;
-    }
-
-    for (short cur_y = check_min_y; cur_y <= check_max_y; cur_y++) {
+    if (arg9 && (flag3 || check_radius > 0.0f)) {
+        for (short cur_y = check_min_y; cur_y <= check_max_y; cur_y++) {
         MapTile *t = &s0->m_tile_rows[cur_y][check_min_x];
         for (cur_x = check_min_x; cur_x <= check_max_x; cur_x++, t++) {
             if (t->m_unit_count == 0) continue;
@@ -264,6 +257,7 @@ int func_001C7860(
                 }
             }
         }
+    }
     }
 
     return 0;

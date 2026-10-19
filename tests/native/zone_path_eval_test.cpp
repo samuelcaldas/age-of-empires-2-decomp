@@ -195,6 +195,20 @@ int main() {
     assert(res_ignored == 0);
     assert(out_id == 0);
 
+    // With zero check_radius and flag3=0, collision check is bypassed
+    bld.m_field28 = 0.0f;
+    out_id = 0;
+    int res_zero_radius = func_001C7860(&bld, world_buf, &out_id, 0, 0, 0, 0, 0, 1, 0, 0, 10.0f, 10.0f);
+    assert(res_zero_radius == 0);
+    assert(out_id == 0);
+
+    // With zero check_radius and flag3=1, inner loop check (check_radius <= 0.0f) also bypasses collision
+    out_id = 0;
+    int res_flag3_zero_radius = func_001C7860(&bld, world_buf, &out_id, 0, 0, 0, 0, 1, 1, 0, 0, 10.0f, 10.0f);
+    assert(res_flag3_zero_radius == 0);
+    assert(out_id == 0);
+    bld.m_field28 = 1.0f;
+
     grid_tiles[10][10].m_unit_count = 0;
     grid_tiles[10][10].m_unit_array = 0;
 

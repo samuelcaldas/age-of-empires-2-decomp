@@ -4379,14 +4379,14 @@ The pinned original ELF (`SHA-1 f478e19f2059d52899b691483ef5c7522e30e17c`) has a
 
 | Measurement (MWCC 2.3.1.01, `-O3 -inline on -msext on -char signed`) | Value |
 |---|---|
-| objdiff fuzzy score | 84.89% |
-| Aligned rows equal / total target instructions (779) | 445 / 779 |
-| Aligned deletions / replacements | 41 / 21 |
-| Aligned insertions / arg mismatches | 46 / 272 |
+| objdiff fuzzy score | 85.57% |
+| Aligned rows equal / total target instructions (779) | 447 / 779 |
+| Aligned deletions / replacements | 41 / 19 |
+| Aligned insertions / arg mismatches | 42 / 272 |
 
 The current C++ reconstruction scans footprint tiles with outer `cur_x` and inner `cur_y`, reads the base slope from `[t_max_y][t_min_x]`, excludes perimeter corners from required-zone adjacency, and reloads the unit master after the radius callback. It uses a typed `MapContext` with width at `+0x8`, height at `+0xC`, and tile rows at `+0x8E8C`. These source-level choices do not prove matching register allocation, delay slots, pointer reloads, or stack-slot identities. Earlier claims of exact register and stack alignment are withdrawn.
 
-A fresh build inside `docker-dev` emits a 3,136-byte function, versus the original 3,116 bytes. The `0.05f` threshold and `0.001f` footprint-margin corrections leave the refreshed diagnostic score and row counts above unchanged. The reference object's symbol was renamed for this comparison without changing its instructions. At function offset `0`, the emitted instruction is `addiu sp,sp,-416` (`0x27BDFE60`), while the original uses `addiu sp,sp,-432` (`0x27BDFE50`). Entry parameter moves, coordinate spills, table accesses across callbacks, and instruction scheduling also remain divergent. The reconstructed caller ABI is not independently verified. Aligned `EQUAL` rows are not necessarily same-offset linked bytes and must not be multiplied into a verified matching-byte count.
+A fresh build inside `docker-dev` emits a 3,120-byte function object, matching the 3,120-byte aligned original slice (`0xC30`). Refactoring the collision early returns into `if (arg9 && (flag3 || check_radius > 0.0f))` eliminated four inserted epilogue-branch instructions, reducing compiled code length from 3,136 to 3,120 bytes and raising fuzzy similarity from 84.89% to 85.57% (447 EQUAL rows). At function offset `0`, the emitted instruction remains `addiu sp,sp,-416` (`0x27BDFE60`), while the original uses `addiu sp,sp,-432` (`0x27BDFE50`). Entry parameter moves, coordinate spills, table accesses across callbacks, and instruction scheduling also remain divergent. The reconstructed caller ABI is not independently verified. Aligned `EQUAL` rows are not necessarily same-offset linked bytes and must not be multiplied into a verified matching-byte count.
 
 The original `.reginfo` word at file offset `0x3E326C` is `c0 a7 4e 00`, establishing `_gp = 0x4EA7C0`. The load at `0x1C7904` reads `0.001f` (`6f 12 83 3a`) from `0x4E2810`; subtractions at `0x1C7910` and `0x1C7918` apply it to both upper bounds. The load at `0x1C7E34` reads `0.05f` (`cd cc 4c 3d`) from `0x4E2804`. The ordered `c.le.s` at `0x1C7E68` sends equality and smaller values to the status-2 path. Earlier instruction addresses inferred from the misconfigured `0x1C7850` entry were 16 bytes low.
 

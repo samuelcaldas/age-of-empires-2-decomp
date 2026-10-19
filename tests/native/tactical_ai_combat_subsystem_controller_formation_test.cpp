@@ -166,14 +166,51 @@ static void test_formation_success() {
     TEST_ASSERT(std::strcmp(s_call_order[1], "func_0032E580") == 0, "call 1 mismatch");
 }
 
+static void test_formation_active_target_events() {
+    reset_mocks();
+    CombatSubsystemControllerInstance inst;
+    std::memset(&inst, 0, sizeof(inst));
+
+    TargetObj target;
+    inst.m_target = &target;
+
+    D_004E2EA0 = 1;
+    s_32d400_ret = 51; // hit 51
+
+    int ret = func_0032C600(&inst, 11, 22, 5); // formation mode 5
+    TEST_ASSERT(ret == 1, "active target must return 1");
+    TEST_ASSERT(s_32d400_calls == 1, "must call func_0032D400 once");
+    TEST_ASSERT(s_32e580_calls == 1, "must call func_0032E580 once");
+    TEST_ASSERT(s_186010_calls == 1, "must call func_186010 once");
+    TEST_ASSERT(s_1aab30_calls == 1, "must call func_1AAB30 once");
+    TEST_ASSERT(s_26a680_calls == 1, "must call func_26A680 once");
+    TEST_ASSERT(s_1830e0_calls == 1, "must call func_1830E0 once");
+    TEST_ASSERT(s_262fa0_calls == 1, "must call func_262FA0 once");
+    TEST_ASSERT(s_332e60_calls == 1, "must call func_332E60 once");
+
+    // Exact ordered callback sequencing:
+    // func_0032D400 -> func_0032E580 -> func_186010 -> func_1AAB30 -> func_26A680 -> func_1830E0 -> func_262FA0 -> func_332E60
+    TEST_ASSERT(s_call_order.size() == 8, "active target call order size mismatch");
+    TEST_ASSERT(std::strcmp(s_call_order[0], "func_0032D400") == 0, "call 0 mismatch");
+    TEST_ASSERT(std::strcmp(s_call_order[1], "func_0032E580") == 0, "call 1 mismatch");
+    TEST_ASSERT(std::strcmp(s_call_order[2], "func_186010") == 0, "call 2 mismatch");
+    TEST_ASSERT(std::strcmp(s_call_order[3], "func_1AAB30") == 0, "call 3 mismatch");
+    TEST_ASSERT(std::strcmp(s_call_order[4], "func_26A680") == 0, "call 4 mismatch");
+    TEST_ASSERT(std::strcmp(s_call_order[5], "func_1830E0") == 0, "call 5 mismatch");
+    TEST_ASSERT(std::strcmp(s_call_order[6], "func_262FA0") == 0, "call 6 mismatch");
+    TEST_ASSERT(std::strcmp(s_call_order[7], "func_332E60") == 0, "call 7 mismatch");
+}
+
 int main(int argc, char **argv) {
     if (argc > 1) {
         if (std::strcmp(argv[1], "gate_zero") == 0) { test_gate_d004e2ea0_zero(); return 0; }
         if (std::strcmp(argv[1], "d400_miss") == 0) { test_d32d400_miss(); return 0; }
         if (std::strcmp(argv[1], "success") == 0) { test_formation_success(); return 0; }
+        if (std::strcmp(argv[1], "target_events") == 0) { test_formation_active_target_events(); return 0; }
     }
     test_gate_d004e2ea0_zero();
     test_d32d400_miss();
     test_formation_success();
+    test_formation_active_target_events();
     return 0;
 }

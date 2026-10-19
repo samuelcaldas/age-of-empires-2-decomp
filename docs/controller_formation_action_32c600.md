@@ -2,11 +2,11 @@
 
 `func_0032C600` is reproduced in pure C++ in
 `src/tactical_ai_combat_subsystem_controller_formation.cpp`.
-A fresh MWCC PS2 2.3.1.01 build produces a 204-byte instruction sequence
+A fresh MWCC PS2 2.3.1.01 build produces a 204-byte partial candidate sequence
 (-1224 bytes from 1428-byte target code extent, 30 of 1428 bytes matching, 1398 byte differences;
-classified strictly as NonMatching), matching stack frame (-0xB0 = 176 bytes), callee-saved registers and `$ra`,
-entry gate validation `D_004E2EA0`, raycast validation `func_0032D400`, buffer forwarding to `func_0032E580`,
-and formation coordinator event dispatching.
+classified strictly as NonMatching), scoping the primary entry gate `D_004E2EA0`, raycast validation `func_0032D400`,
+buffer forwarding `func_0032E580`, manager mode query `func_186010`, and target event dispatching.
+Full formation coordinator sub-branches (including view callbacks and secondary formation queries) are unmodeled in this partial slice.
 
 ## Reference boundaries and layout
 
@@ -28,8 +28,23 @@ and formation coordinator event dispatching.
   callee-saved registers `$s0`–`$s5` via quadword stores `sq`.
   Epilogue: `jr $ra` at `0x32CB8C` (+0x58C) and delay slot stack teardown `addiu $sp, $sp, 176` at `0x32CB90` (+0x590).
 
-## Relocation manifest (25 relocations)
+## Relocation manifest
 
+### Compiled candidate relocations (10 relocations)
+The 204-byte candidate object resolves exactly 10 relocations with a duplicate-rejecting multiset check:
+1. `+0x010`: `R_MIPS_GPREL16` to `D_004E2EA0`
+2. `+0x040`: `R_MIPS_26` to `func_0032D400`
+3. `+0x060`: `R_MIPS_26` to `func_0032E580`
+4. `+0x068`: `R_MIPS_GPREL16` to `D_004E3180`
+5. `+0x074`: `R_MIPS_26` to `func_186010`
+6. `+0x088`: `R_MIPS_26` to `func_1AAB30`
+7. `+0x090`: `R_MIPS_26` to `func_26A680`
+8. `+0x09C`: `R_MIPS_26` to `func_1830E0`
+9. `+0x0A4`: `R_MIPS_26` to `func_262FA0`
+10. `+0x0AC`: `R_MIPS_26` to `func_332E60`
+
+### Full ELF function relocations (25 relocations)
+The full 1,428-byte original binary function contains 25 relocations:
 - 11 `R_MIPS_GPREL16` relocations:
   - `+0x020`: `D_004E2EA0` (addend -31,008)
   - `+0x080`, `+0x0B8`, `+0x0C0`, `+0x104`, `+0x174`, `+0x1C4`, `+0x2EC`, `+0x3D8`, `+0x484`, `+0x4BC`: `D_004E3180` (addend -30,272)
@@ -43,16 +58,19 @@ and formation coordinator event dispatching.
   - `+0x41C`: `func_262FA0`
   - `+0x49C`: `func_332E60`
 
-## Observable behavior
+## Observable behavior (Implemented Partial Scope)
 
 1. Entry gate check: query `D_004E2EA0`. If 0, return 0 immediately.
 2. Raycast query: dispatch `func_0032D400(self, 40, 0, x, y, buf, 0, 1)`.
    - If return value != 51, return 0.
 3. Success path: dispatch `func_0032E580(self, buf)`.
-4. Formation coordinator execution:
-   - Evaluates formation queries across `func_186010`.
-   - Dispatches spatial audio notifications `func_1AAB30` and `func_26A680`.
-   - Dispatches visual placement updates `func_1830E0`, `func_262FA0`, and `func_332E60`.
+4. Target event dispatch (when `m_target != nullptr`):
+   - Dispatch `func_186010(D_004E3180, a3)`.
+   - Dispatch `func_1AAB30(self->m_target, a3)`.
+   - Dispatch `func_26A680(self->m_target)`.
+   - Dispatch `func_1830E0(self->m_target, a3)`.
+   - Dispatch `func_262FA0(self->m_target)`.
+   - Dispatch `func_332E60(self->m_target)`.
 5. Return 1.
 
 ## TDD Chronology and Verification Evidence
@@ -78,7 +96,7 @@ and formation coordinator event dispatching.
    - Exact observed failing assertion:
      `MUTATION_ASSERTION_FAILED: D_004E2EA0==0 must return 0` (exit code 1).
 2. **Green Stage:**
-   - Implemented pure C++ formation coordinator in `src/tactical_ai_combat_subsystem_controller_formation.cpp`.
+   - Implemented pure C++ partial formation coordinator in `src/tactical_ai_combat_subsystem_controller_formation.cpp`.
    - Command:
      ```sh
      g++ -std=c++11 -O2 -m32 -fno-builtin -Wall -Wextra -Werror -fsanitize=undefined \
@@ -86,11 +104,12 @@ and formation coordinator event dispatching.
        tests/native/tactical_ai_combat_subsystem_controller_formation_test.cpp -o build/test_formation_green \
        && ./build/test_formation_green
      ```
-   - Result: All 3 fixtures passing cleanly (`gate_zero`, `d400_miss`, `success`), exit code 0 under UBSan.
-   - Verified 7 production-source mutations independently compiled and killed via diagnostic matching in `tests/test_tactical_ai_combat_subsystem_controller_formation.py`.
+   - Result: All 4 fixtures passing cleanly (`gate_zero`, `d400_miss`, `success`, `target_events`), exit code 0 under UBSan.
+   - Active target fixture asserts exact 8-call ordered sequencing: `func_0032D400` -> `func_0032E580` -> `func_186010` -> `func_1AAB30` -> `func_26A680` -> `func_1830E0` -> `func_262FA0` -> `func_332E60`.
+   - Verified 13 production-source mutations independently compiled and killed via diagnostic matching in `tests/test_tactical_ai_combat_subsystem_controller_formation.py`.
 3. **Refactor & Matching Diagnostics:**
    - Built with verified MWCC PS2 flags: candidate code size 204 bytes (-1224 bytes from 1428-byte target).
-   - Relocations resolved: all 25 relocations (11 GPREL16, 14 JAL) mapped and resolved.
+   - Relocations resolved: all 10 compiled relocations mapped and resolved with exact multiset check.
    - Classified strictly as **NonMatching** (30 matching bytes, 1398 byte differences).
    - The matching test serves as a structural correspondence diagnostic asserting >=25 matching bytes rather than an exact matching claim.
 
@@ -104,11 +123,11 @@ python -m pytest -q \
   tests/test_tactical_ai_combat_subsystem_controller_formation_matching.py
 ```
 
-The focused test run comprises **9 total tests** (8 behavioral tests in `test_tactical_ai_combat_subsystem_controller_formation.py` and 1 structural matching diagnostic test in `test_tactical_ai_combat_subsystem_controller_formation_matching.py`):
+The focused test run comprises **15 total tests** (14 behavioral tests in `test_tactical_ai_combat_subsystem_controller_formation.py` and 1 structural matching diagnostic test in `test_tactical_ai_combat_subsystem_controller_formation_matching.py`):
 - One 32-bit native contract test with UBSan validating D_004E2EA0 entry gate, func_0032D400 raycast gate,
-  stack buffer forwarding identity, and success return value.
-- Seven production source mutations independently compiled and verified
-  rejected (entry gate inversion, entry gate return, raycast gate check, D400 a1 argument, D400 a2 argument, E580 dispatch, success return value).
+  stack buffer forwarding identity, success return value, and 8-call ordered callback sequencing on active target.
+- Thirteen production source mutations independently compiled and verified
+  rejected (entry gate inversion, entry gate return, raycast gate check, D400 a1 argument, D400 a2 argument, E580 dispatch, success return value, func_186010 call, func_1AAB30 call, func_26A680 call, func_1830E0 call, func_262FA0 call, func_332E60 call).
 - One structural correspondence diagnostic test compiling fresh with Ninja/MWCC and verifying
   relocation-aware bytecode alignment against the pinned ELF binary (skipped when compiler/wibo are unprovisioned).
 

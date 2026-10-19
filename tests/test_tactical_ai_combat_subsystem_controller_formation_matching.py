@@ -37,6 +37,19 @@ GLOBALS = {
     "D_004E2EA0": 0x4E2EA0,
 }
 
+EXPECTED_COMPILED_RELOCATIONS = [
+    (0x010, 7, "D_004E2EA0"),
+    (0x040, 4, "func_0032D400"),
+    (0x060, 4, "func_0032E580"),
+    (0x068, 7, "D_004E3180"),
+    (0x074, 4, "func_186010"),
+    (0x088, 4, "func_1AAB30"),
+    (0x090, 4, "func_26A680"),
+    (0x09C, 4, "func_1830E0"),
+    (0x0A4, 4, "func_262FA0"),
+    (0x0AC, 4, "func_332E60"),
+]
+
 
 def verify_symbol_boundary():
     """Verify original ELF symbol boundary and size from canonical symbols.txt."""
@@ -87,15 +100,28 @@ def relocate_entry(data, rel, symbols):
 
 
 def relocate_section(elf, section_index, data):
-    """Resolve all relocations for target symbol section."""
-    count = 0
+    """Resolve relocations for target section with duplicate rejection and exact multiset comparison."""
+    seen_offsets = set()
+    seen_multiset = []
     for section in elf.iter_sections():
         if section["sh_type"] == "SHT_REL" and section["sh_info"] == section_index:
             symbols = elf.get_section(section["sh_link"])
             for rel in section.iter_relocations():
+                offset = rel["r_offset"]
+                rtype = rel["r_info_type"]
+                sym_name = symbols.get_symbol(rel["r_info_sym"]).name
+                assert 0 <= offset < SIZE, (
+                    f"Relocation offset {hex(offset)} out of range [0, {hex(SIZE)})"
+                )
+                assert offset not in seen_offsets, (
+                    f"Duplicate relocation detected at offset {hex(offset)}"
+                )
+                seen_offsets.add(offset)
+                seen_multiset.append((offset, rtype, sym_name))
                 relocate_entry(data, rel, symbols)
-                count += 1
-    assert count >= 1, f"Expected at least 1 relocation, found {count}"
+    assert sorted(seen_multiset) == sorted(EXPECTED_COMPILED_RELOCATIONS), (
+        f"Relocation multiset mismatch: expected {EXPECTED_COMPILED_RELOCATIONS}, got {seen_multiset}"
+    )
 
 
 def function_bytes(path):

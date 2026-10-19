@@ -15,16 +15,15 @@ ROOT = Path(__file__).resolve().parents[1]
 ELF_PROOF = runpy.run_path(str(ROOT / "tests/verify_trade_action_helper_2184D0_elf.py"))
 rename_text_sections = ELF_PROOF["rename_text_sections"]
 unique_symbol = ELF_PROOF["unique_symbol"]
-WRAPPER = ROOT / "build/tools/wibo"
-LINKER = ROOT / "build/mips_binutils/mips-linux-gnu-ld"
 
 
 def resolve_original_elf():
     for p in [
         ROOT / "orig/SLES-50282/AOK.ELF",
-        Path("/home/samuelcaldas/source/repos/aoe/orig/SLES-50282/AOK.ELF"),
-        Path("/orig/SLES-50282/AOK.ELF"),
         Path("/workspace/orig/SLES-50282/AOK.ELF"),
+        Path("/home/samuelcaldas/source/repos/aoe/orig/SLES-50282/AOK.ELF"),
+        Path("/home/samuelcaldas/source/repos/aoe/.worktrees/trade-action-217930/orig/SLES-50282/AOK.ELF"),
+        Path("/orig/SLES-50282/AOK.ELF"),
     ]:
         if p.is_file():
             return p
@@ -34,17 +33,44 @@ def resolve_original_elf():
 def resolve_compiler():
     for p in [
         ROOT / "compilers/PS2/mwcc-2.3.1.01/mwccps2.exe",
-        Path("/home/samuelcaldas/source/repos/aoe/compilers/PS2/mwcc-2.3.1.01/mwccps2.exe"),
-        Path("/compilers/PS2/mwcc-2.3.1.01/mwccps2.exe"),
         Path("/workspace/compilers/PS2/mwcc-2.3.1.01/mwccps2.exe"),
+        Path("/home/samuelcaldas/source/repos/aoe/compilers/PS2/mwcc-2.3.1.01/mwccps2.exe"),
+        Path("/home/samuelcaldas/source/repos/aoe/.worktrees/trade-action-217930/compilers/PS2/mwcc-2.3.1.01/mwccps2.exe"),
+        Path("/compilers/PS2/mwcc-2.3.1.01/mwccps2.exe"),
     ]:
         if p.is_file():
             return p
     return ROOT / "compilers/PS2/mwcc-2.3.1.01/mwccps2.exe"
 
 
+def resolve_wrapper():
+    for p in [
+        ROOT / "build/tools/wibo",
+        Path("/workspace/build/tools/wibo"),
+        Path("/home/samuelcaldas/source/repos/aoe/.worktrees/trade-action-217930/build/tools/wibo"),
+        Path("/home/samuelcaldas/source/repos/aoe/build/tools/wibo"),
+    ]:
+        if p.is_file():
+            return p
+    return ROOT / "build/tools/wibo"
+
+
+def resolve_linker():
+    for p in [
+        ROOT / "build/mips_binutils/mips-linux-gnu-ld",
+        Path("/workspace/build/mips_binutils/mips-linux-gnu-ld"),
+        Path("/home/samuelcaldas/source/repos/aoe/.worktrees/trade-action-217930/build/mips_binutils/mips-linux-gnu-ld"),
+        Path("/home/samuelcaldas/source/repos/aoe/build/mips_binutils/mips-linux-gnu-ld"),
+    ]:
+        if p.is_file():
+            return p
+    return ROOT / "build/mips_binutils/mips-linux-gnu-ld"
+
+
 ORIGINAL = resolve_original_elf()
 COMPILER = resolve_compiler()
+WRAPPER = resolve_wrapper()
+LINKER = resolve_linker()
 
 FUNCTIONS = [
     ("func_0021C710", 0x21C710, 128),  # 0x80 code bytes, 0 pad
@@ -67,7 +93,7 @@ PADDING_GAPS = [
     ("pad_c8d0", 0x21C98C, 0x21C990, 4),
 ]
 
-EXPECTED_RELOCATIONS = {
+EXPECTED_CODE_RELOCATIONS = {
     "func_0021C710": [
         (0x1C, 4, "func_123908", 0),
         (0x34, 4, "func_104448", 0),
@@ -106,22 +132,48 @@ EXPECTED_RELOCATIONS = {
     ],
 }
 
+EXPECTED_METADATA_RELOCATIONS = {
+    "func_0021C710": [(0x4, 2, "func_0021C710", 0)],
+    "func_0021C790": [(0x4, 2, "func_0021C790", 0)],
+    "func_0021C810": [(0x4, 2, "func_0021C810", 0)],
+    "func_0021C8D0": [(0x4, 2, "func_0021C8D0", 0)],
+}
 
-def verify_relocation_manifest(compiled, table, expected_indices, fn_by_shndx, expected_manifest):
+
+def verify_relocation_manifest(compiled, table, expected_indices, fn_by_shndx, expected_code_manifest, expected_meta_manifest=None):
     """Verify that every section's relocations match the manifest exactly."""
-    reloc_sections = [s for s in compiled.iter_sections() if isinstance(s, RelocationSection) and s["sh_info"] in expected_indices]
-    assert len(reloc_sections) == len(FUNCTIONS), f"expected {len(FUNCTIONS)} reloc sections, got {len(reloc_sections)}"
-    total_relocs = 0
-    for sec in reloc_sections:
+    all_reloc_sections = [s for s in compiled.iter_sections() if isinstance(s, RelocationSection)]
+    code_relocs = [s for s in all_reloc_sections if s["sh_info"] in expected_indices]
+    assert len(code_relocs) == len(FUNCTIONS), f"expected {len(FUNCTIONS)} code reloc sections, got {len(code_relocs)}"
+
+    total_code_relocs = 0
+    for sec in code_relocs:
         fn_name = fn_by_shndx[sec["sh_info"]]
         assert sec.num_relocations() == 7, f"expected 7 relocs in {sec.name}, got {sec.num_relocations()}"
-        total_relocs += sec.num_relocations()
+        total_code_relocs += sec.num_relocations()
         actual_relocs = [
             (r["r_offset"], r["r_info_type"], table.get_symbol(r["r_info_sym"]).name, getattr(r, "r_addend", 0))
             for r in sorted(sec.iter_relocations(), key=lambda r: r["r_offset"])
         ]
-        assert actual_relocs == expected_manifest[fn_name], f"relocation mismatch in {fn_name}"
-    assert total_relocs == 28, f"expected 28 total relocations, got {total_relocs}"
+        assert actual_relocs == expected_code_manifest[fn_name], f"code relocation mismatch in {fn_name}"
+    assert total_code_relocs == 28, f"expected 28 total code relocations, got {total_code_relocs}"
+
+    if expected_meta_manifest is not None:
+        meta_relocs = [s for s in all_reloc_sections if s.name == ".rel.mwcats"]
+        assert len(meta_relocs) == len(FUNCTIONS), f"expected {len(FUNCTIONS)} meta reloc sections, got {len(meta_relocs)}"
+        total_meta_relocs = 0
+        fn_names = [name for name, _, _ in FUNCTIONS]
+        for idx, sec in enumerate(meta_relocs):
+            fn_name = fn_names[idx]
+            assert sec.num_relocations() == 1, f"expected 1 meta reloc in {sec.name}, got {sec.num_relocations()}"
+            total_meta_relocs += sec.num_relocations()
+            actual_meta = [
+                (r["r_offset"], r["r_info_type"], table.get_symbol(r["r_info_sym"]).name, getattr(r, "r_addend", 0))
+                for r in sec.iter_relocations()
+            ]
+            assert actual_meta == expected_meta_manifest[fn_name], f"metadata relocation mismatch in {fn_name}"
+        assert total_meta_relocs == 4, f"expected 4 total metadata relocations, got {total_meta_relocs}"
+        assert len(all_reloc_sections) == 8, f"expected exactly 8 relocation sections, got {len(all_reloc_sections)}"
 
 
 def verify_padding_gaps(elf_data, padding_gaps):
@@ -159,8 +211,8 @@ def test_helper_21c710_relocation_resolved_comparison(tmp_path):
         expected_indices.append(fn_sym["st_shndx"])
         fn_by_shndx[fn_sym["st_shndx"]] = name
 
-    # Relocation manifest verification
-    verify_relocation_manifest(compiled, table, expected_indices, fn_by_shndx, EXPECTED_RELOCATIONS)
+    # Relocation manifest verification for both code (28) and metadata (4)
+    verify_relocation_manifest(compiled, table, expected_indices, fn_by_shndx, EXPECTED_CODE_RELOCATIONS, EXPECTED_METADATA_RELOCATIONS)
 
     undefined = {s.name for s in table.iter_symbols()
                  if s.name and s["st_shndx"] == "SHN_UNDEF"}
@@ -210,7 +262,7 @@ def test_helper_21c710_relocation_resolved_comparison(tmp_path):
 
 
 def test_helper_21c710_relocation_manifest_rejection(tmp_path):
-    """Verify that corrupting expected relocation manifest causes rejection."""
+    """Verify that corrupting expected code or metadata relocation manifest causes rejection."""
     missing = [str(path) for path in (COMPILER, WRAPPER) if not path.is_file()]
     if missing:
         pytest.skip("compiler unavailable")
@@ -231,11 +283,20 @@ def test_helper_21c710_relocation_manifest_rejection(tmp_path):
         fn_by_shndx[fn_sym["st_shndx"]] = name
 
     import copy
-    mutated_offset = copy.deepcopy(EXPECTED_RELOCATIONS)
-    mutated_offset["func_0021C710"][0] = (0x24, 4, "func_123908", 0)
+
+    # Code relocation offset mutation
+    mutated_code = copy.deepcopy(EXPECTED_CODE_RELOCATIONS)
+    mutated_code["func_0021C710"][0] = (0x24, 4, "func_123908", 0)
     with pytest.raises(AssertionError) as exc_info:
-        verify_relocation_manifest(compiled, table, expected_indices, fn_by_shndx, mutated_offset)
-    assert "relocation mismatch in func_0021C710" in str(exc_info.value)
+        verify_relocation_manifest(compiled, table, expected_indices, fn_by_shndx, mutated_code, EXPECTED_METADATA_RELOCATIONS)
+    assert "code relocation mismatch in func_0021C710" in str(exc_info.value)
+
+    # Metadata relocation symbol mutation
+    mutated_meta = copy.deepcopy(EXPECTED_METADATA_RELOCATIONS)
+    mutated_meta["func_0021C790"] = [(0x4, 2, "D_WRONG_SYM", 0)]
+    with pytest.raises(AssertionError) as exc_info:
+        verify_relocation_manifest(compiled, table, expected_indices, fn_by_shndx, EXPECTED_CODE_RELOCATIONS, mutated_meta)
+    assert "metadata relocation mismatch in func_0021C790" in str(exc_info.value)
 
 
 def test_helper_21c710_padding_rejection():

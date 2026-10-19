@@ -51,16 +51,16 @@ yielding `file_offset = VRAM - 0xFFE20`.
 
 ## Relocations
 
-The compiled relocatable object emits 28 code relocations in `.rel.text`:
+The compiled relocatable object emits 32 relocations across 8 relocation sections:
 
-- 20 call relocations (`R_MIPS_26`): `func_123908` (x4), `func_104448` (x4), `func_1045E8` (x4), `func_1046A8` (x4), `func_104600` (x4).
-- 8 absolute data relocation records (`R_MIPS_HI16` / `R_MIPS_LO16`): four pairs for `D_00392B30`.
+- 20 call relocations in `.rel.text` (`R_MIPS_26`): `func_123908` (x4), `func_104448` (x4), `func_1045E8` (x4), `func_1046A8` (x4), `func_104600` (x4).
+- 8 absolute data relocation records in `.rel.text` (`R_MIPS_HI16` / `R_MIPS_LO16`): four pairs for `D_00392B30`.
+- 4 metadata relocations in `.rel.mwcats` (`R_MIPS_32`): each at offset `0x4` referencing the function's own symbol.
 - 0 GP accesses.
-- 4 `.rel.mwcats` metadata relocations (`R_MIPS_32`).
 
 All decoded instruction-encoded `SHT_REL` addends are zero.
 
-## Exact target comparison
+## Exact target comparison and environment
 
 The dedicated matching test is preserved in
 `tests/test_trade_action_helper_21C710_matching.py`. It compiles the actual source
@@ -72,6 +72,20 @@ It resolves calls to `func_123908` (`0x123908`), `func_104448` (`0x104448`),
 and data references to `D_00392B30` (`0x392B30`). Each function's code bytes match
 its original range exactly.
 
+### Docker verification execution
+To ensure that symlinked compiler directories resolve without skips, run the
+container with dual bind mounts exposing both the worktree and the parent repository:
+
+```sh
+docker --context docker-dev run --rm --network host --user $(id -u):$(id -g) \
+  -v /home/samuelcaldas/source/repos/aoe/.worktrees/trade-action-217930:/workspace \
+  -v /home/samuelcaldas/source/repos/aoe:/home/samuelcaldas/source/repos/aoe:ro \
+  -w /workspace \
+  -e TZ=America/Sao_Paulo -e PYTHONPATH=/workspace \
+  aoe4-verification-final:20261018 \
+  /opt/venv/bin/pytest tests/test_trade_action_helper_21C710.py tests/test_trade_action_helper_21C710_matching.py -v
+```
+
 ## Native tests and TDD evidence
 
 Native regressions in `tests/test_trade_action_helper_21C710.py` and
@@ -82,19 +96,34 @@ Native regressions in `tests/test_trade_action_helper_21C710.py` and
 4. `func_0021C8D0`: existing/null packet paths, 3-component bitfield packing, and register `0x4F` write.
 
 ### Red evidence
-The Red baseline command:
+The Red baseline command executed against unchanged production source:
 ```sh
 pytest tests/test_trade_action_helper_21C710.py tests/test_trade_action_helper_21C710_matching.py -v
 ```
-Failed against unchanged production source with 6 failures:
+Failed with 6 failures and 1 pass:
 - 4 native tag assertion failures: `Assertion g_last_tag.words[0] == 0x00008000 failed` across all 4 functions.
 - 1 matcher size failure: `func_0021C710 size mismatch: got 76, expected 128`.
 - 1 matcher manifest failure: `expected 7 relocs in .rel.text, got 3`.
-Logged at `build/abi-21c710-red.log`.
+- 1 pass on initial original padding check.
+Logged locally in `build/abi-21c710-red.log`. Note: `build/` is in `.gitignore`,
+so local log files are untracked artifacts.
 
 ### Green evidence
-After updating `src/trade_action_helper_21C710.cpp`, all 7 tests passed:
+After implementing `src/trade_action_helper_21C710.cpp`, all 7 tests passed with zero skips:
 ```sh
-============================== 7 passed in 0.72s ===============================
+============================== 7 passed in 0.63s ===============================
 ```
-Logged at `build/abi-21c710-green.log`.
+Logged locally in `build/abi-21c710-green.log`.
+
+## Mutation testing scope and caveats
+
+Tests in `tests/test_trade_action_helper_21C710_matching.py` verify rejection
+of corrupt manifests and padding:
+- Code relocation mutation: altering an expected call relocation offset (e.g. `0x1C` -> `0x24`)
+  raises `AssertionError: code relocation mismatch in func_0021C710`.
+- Metadata relocation mutation: altering an expected `.rel.mwcats` symbol (e.g. to `D_WRONG_SYM`)
+  raises `AssertionError: metadata relocation mismatch in func_0021C790`.
+- Padding mutation: injecting a non-zero byte into `pad_c810`
+  raises `AssertionError: pad_c810 not all zero`.
+Caveat: these tests validate the strictness of the verification manifest and
+boundary checks against corrupted inputs.

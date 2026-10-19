@@ -1,4 +1,11 @@
-"""Native regressions for tactical_ai_query (`0x141250`–`0x141500`)."""
+"""Native regressions for tactical_ai_query (`0x141250`–`0x141500`).
+
+Reconciled function extents:
+- func_00141250: [0x141250, 0x141364), padding [0x141364, 0x141370)
+- func_00141370: [0x141370, 0x141464), padding [0x141464, 0x141470)
+- func_00141470: [0x141470, 0x141494) (36 B code), padding [0x141494, 0x1414A0) (12 B NOP)
+- func_001414A0: [0x1414A0, 0x1414FC), padding [0x1414FC, 0x141500)
+"""
 
 from pathlib import Path
 import shutil

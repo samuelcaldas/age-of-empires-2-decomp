@@ -91,6 +91,9 @@ int func_262570(
 
 int g_calls_1d0350 = 0;
 float g_coords_1d0350[4][2];
+float g_z_1d0350[4];
+short *g_out_x_ptrs_1d0350[4];
+short *g_out_y_ptrs_1d0350[4];
 void *g_ctx_1d0350[4];
 int g_extra_1d0350[4][2];
 int func_001D0350(
@@ -103,11 +106,13 @@ int func_001D0350(
     int py,
     int target_info
 ) {
-    (void)z;
     if (g_calls_1d0350 < 4) {
         g_ctx_1d0350[g_calls_1d0350] = ctx;
         g_coords_1d0350[g_calls_1d0350][0] = x;
         g_coords_1d0350[g_calls_1d0350][1] = y;
+        g_z_1d0350[g_calls_1d0350] = z;
+        g_out_x_ptrs_1d0350[g_calls_1d0350] = out_x;
+        g_out_y_ptrs_1d0350[g_calls_1d0350] = out_y;
         g_extra_1d0350[g_calls_1d0350][0] = py;
         g_extra_1d0350[g_calls_1d0350][1] = target_info;
     }
@@ -265,8 +270,20 @@ int main() {
 
     for (int i = 0; i < 4; ++i) {
         assert(g_ctx_1d0350[i] == ctx_buf);
+        assert(g_z_1d0350[i] == 0.0f);
+        assert(g_out_x_ptrs_1d0350[i] != nullptr);
+        assert(g_out_y_ptrs_1d0350[i] != nullptr);
+        assert(g_out_x_ptrs_1d0350[i] != g_out_y_ptrs_1d0350[i]);
         assert(g_extra_1d0350[i][0] == reinterpret_cast<int>(&test_y));
         assert(g_extra_1d0350[i][1] == reinterpret_cast<int>(target_info_val));
+    }
+
+    // Verify all 4 corner output pointer pairs point to distinct addresses
+    for (int i = 0; i < 4; ++i) {
+        for (int j = i + 1; j < 4; ++j) {
+            assert(g_out_x_ptrs_1d0350[i] != g_out_x_ptrs_1d0350[j]);
+            assert(g_out_y_ptrs_1d0350[i] != g_out_y_ptrs_1d0350[j]);
+        }
     }
 
     // Verify all 14 arguments passed to func_326F60, including all 4 corners!

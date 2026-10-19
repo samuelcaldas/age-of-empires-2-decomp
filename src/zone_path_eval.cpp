@@ -110,10 +110,10 @@ int func_001C7850(
             }
         }
         if (edge_max_y < map_h) {
-            MapTile *row = tile_rows[edge_max_y];
             for (cur_x = p_max_x; cur_x >= p_min_x; cur_x--) {
-                if (row[cur_x].m_zone_id == bld_var->m_required_zone) touches_zone = 1;
-                if (row[cur_x].m_zone_id == -1) touches_wild = 1;
+                MapTile *t = &tile_rows[edge_max_y][cur_x];
+                if (t->m_zone_id == bld_var->m_required_zone) touches_zone = 1;
+                if (t->m_zone_id == -1) touches_wild = 1;
             }
         }
         if (edge_min_x >= 0) {

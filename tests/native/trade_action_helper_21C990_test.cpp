@@ -198,7 +198,21 @@ static void test_func_0021CC90() {
     assert(g_writes[1].reg == 0x01);
     assert(g_writes[1].data == 0x33ULL);
 
-    // Verify 4 transformed vertex writes in 0x04 correspond to rect expansion
+    // Verify all 4 UV register writes (reg 0x03)
+    // u=5<<4=80, v=10<<4=160, h=15<<4=240, w=20<<4=320
+    assert(g_writes[2].reg == 0x03);
+    assert(g_writes[2].data == (80ULL | (160ULL << 16)));
+
+    assert(g_writes[4].reg == 0x03);
+    assert(g_writes[4].data == (320ULL | (160ULL << 16)));
+
+    assert(g_writes[6].reg == 0x03);
+    assert(g_writes[6].data == (80ULL | (480ULL << 16)));
+
+    assert(g_writes[8].reg == 0x03);
+    assert(g_writes[8].data == (320ULL | (480ULL << 16)));
+
+    // Verify all 4 transformed vertex writes in 0x04 correspond to rect expansion
     // pt0: (50, 60), pt1: (150, 60), pt2: (50, 140), pt3: (150, 140)
     // base_x = 27648, base_y = 29184, depth_offset = (-5) << 3 = -40
     // x0 = (50 << 4) + 27648 - 40 = 800 + 27648 - 40 = 28408
@@ -207,11 +221,28 @@ static void test_func_0021CC90() {
     assert(g_writes[3].reg == 0x04);
     assert(g_writes[3].data == exp_xyz0);
 
+    // pt1 (middle corner 1: x+w, y): x1 = 30008, y1 = 30104
+    uint64_t exp_xyz1 = (0x77ULL << 32) | (30008ULL & 0xFFFF) | ((30104ULL & 0xFFFF) << 16);
+    assert(g_writes[5].reg == 0x04);
+    assert(g_writes[5].data == exp_xyz1);
+
+    // pt2 (middle corner 2: x, y+h): x2 = 28408, y2 = 31384
+    uint64_t exp_xyz2 = (0x77ULL << 32) | (28408ULL & 0xFFFF) | ((31384ULL & 0xFFFF) << 16);
+    assert(g_writes[7].reg == 0x04);
+    assert(g_writes[7].data == exp_xyz2);
+
     // pt3: x3 = (150 << 4) + 27648 - 40 = 2400 + 27648 - 40 = 30008
     // y3 = (140 << 4) + 29184 - 40 = 2240 + 29184 - 40 = 31384
     uint64_t exp_xyz3 = (0x77ULL << 32) | (30008ULL & 0xFFFF) | ((31384ULL & 0xFFFF) << 16);
     assert(g_writes[9].reg == 0x04);
     assert(g_writes[9].data == exp_xyz3);
+
+    // Verify all forwarded lifecycle hooks
+    assert(g_alloc_calls == 0);
+    assert(g_init_calls == 1);
+    assert(g_init_a1 == 0 && g_init_a2 == 0 && g_init_a3 == 0);
+    assert(g_set_tag_calls == 1);
+    assert(g_finalize_calls == 1);
 
     std::cout << "PASS: test_func_0021CC90" << std::endl;
 }

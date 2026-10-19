@@ -25,22 +25,18 @@ int func_001C7850(
 ) {
     (void)arg5;
 
+    int * const *out_id_ptr = &out_id;
+
     MapContext *s0;
-    short t_min_x;
-    short t_max_x;
-    short t_min_y;
     short cur_x;
     BuildingMaster *bld_var;
 
     void *map = *(void **)((char *)world + 0xB98);
+    s0 = *(MapContext **)((char *)map + 0x3C);
     short type_id = bld->m_type_id;
     float **slope_table = *(float ***)((char *)map + 0x68);
-    s0 = *(MapContext **)((char *)map + 0x3C);
     bld_var = bld;
     float *slope_limits = slope_table[type_id];
-
-    // Take address of world to force stack allocation
-    void * const *world_ptr = &world;
 
     float rx, ry;
     if (use_alt_radius) {
@@ -65,18 +61,20 @@ int func_001C7850(
         return 7;
     }
 
-    t_min_x = (short)func_123350(x - rx);
-    t_max_x = (short)func_123350(max_x);
-    t_min_y = (short)func_123350(min_y);
+    short t_min_x = (short)func_123350(x - rx);
+    short t_max_x = (short)func_123350(max_x);
+    short t_min_y = (short)func_123350(min_y);
     short t_max_y = (short)func_123350(max_y);
 
     short p_min_x, p_max_x, p_min_y, p_max_y;
-    if (bld_var->m_field48 >= 0 || bld_var->m_field4A >= 0) {
+    short field48 = bld_var->m_field48;
+    if (field48 >= 0 || bld_var->m_field4A >= 0) {
         short cy = (short)func_123350(y);
         MapTile **tile_rows = s0->m_tile_rows;
+        MapTile *center_row = tile_rows[cy];
         short cx = (short)func_123350(x);
-        MapTile *center_tile = &tile_rows[cy][cx];
-        if (center_tile->m_zone_id == bld_var->m_field48 || center_tile->m_zone_id == bld_var->m_field4A) {
+        MapTile *center_tile = &center_row[cx];
+        if (center_tile->m_zone_id == field48 || center_tile->m_zone_id == bld_var->m_field4A) {
             p_min_x = (short)func_123350(x);
             p_max_x = p_min_x;
             p_min_y = (short)func_123350(y);
@@ -159,7 +157,7 @@ int func_001C7850(
                 if (*(int *)((char *)D_004E3180 + 0x1C8) == 7) {
                     fp_flag = 1;
                 } else {
-                    void *zone_mgr = *(void **)((char *)*world_ptr + 0xB94);
+                    void *zone_mgr = *(void **)((char *)world + 0xB94);
                     if (func_1378c0(zone_mgr, cur_x, cur_y) != 0) {
                         fp_flag = 1;
                     }
@@ -259,8 +257,8 @@ int func_001C7850(
 
                         if (dist_x < rx + u_rx) {
                             if (dist_y < ry + u_ry) {
-                                if (out_id) {
-                                    *out_id = u->m_id;
+                                if (*out_id_ptr) {
+                                    **out_id_ptr = u->m_id;
                                 }
                                 return 6;
                             }

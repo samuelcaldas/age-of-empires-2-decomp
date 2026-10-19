@@ -7354,3 +7354,34 @@ Implemented in pure C++ with native unit tests in `tests/native/tactical_ai_acti
 | Function / Method | VRAM Address | Code Size (Orig) | Slice Size | Match Status | Description |
 |---|---|---|---|---|---|
 | `func_00340D70` | `0x340D70` | 712 B | 720 B | **Decompiled (Pure C++)** | Tactical AI action state transition handler and virtual notification dispatcher. |
+
+#### 6.196 `Combat Subsystem Controller Pulse Evaluator` (`0x32C320`–`0x32C420`, `tactical_ai_combat_subsystem_controller_pulse.cpp`)
+
+Located at VRAM `0x32C320`–`0x32C420` (file offset `0x22C500`–`0x22C600`, 256 bytes symbol extent, 252 bytes code + 4 bytes padding nop, Metrowerks C++ PS2 MWCC 2.3.1.01):
+- `func_0032C320` (`0x32C320`, 252 bytes code, 256 bytes slice): Evaluates controller pulse cycle:
+  - Calls `func_00323860(self)` to obtain return value `ret`. If non-zero and `self->m_view != nullptr`, dispatches view notification `self->m_view->func_28(1)` via vtable slot `0x28` (`0x32C358`).
+  - Guards: early exit returning `ret` if `self->m_field_341C == 0`, `func_1880D0(D_004E3180) == 0`, or `self->m_field_190 != 2`.
+  - **ELF-Derived Division & Comparison Signedness**:
+    - Queries denominator `den = func_184C10(D_004E3180)`. If zero, clamped to 1 (`addiu $s2, $zero, 1` at `0x32C3A4`).
+    - Queries numerator `num = func_184BD0(D_004E3180, 1)`.
+    - At `0x32C3B4`–`0x32C3C0`, the original binary emits:
+      ```text
+      0x32C3B4: bne $s2, $zero, +2       ; branch if denominator non-zero
+      0x32C3B8: divu $zero, $v0, $s2     ; unsigned hardware division
+      0x32C3BC: break 0, 7               ; trap 7 on division by zero
+      0x32C3C0: mflo $v0                 ; extract unsigned quotient
+      0x32C3C4: sltiu $at, $v0, 81       ; unsigned comparison: quotient < 81
+      0x32C3C8: bne $at, $zero, 0x32C400 ; early exit if quotient < 81
+      ```
+    - The use of opcode `divu` (`0x0000001B`) and comparison `sltiu` (`0x2C410051`) establishes that both division and threshold evaluation are strictly unsigned (`(unsigned int)num / (unsigned int)den < 81`).
+    - The `bne; divu; break 0, 7; mflo` sequence matches `#pragma divbyzerocheck on` in MWCC PS2.
+  - State updates: sets `self->m_field_3424 = 1`, validates `func_185DC0(D_004E3180) == 0`, dispatches `func_185F00(D_004E3180, 1, 1)`, and sets `self->m_field_3420 = 1`.
+  - Returns `ret`.
+
+Validated with 12 native contract and mutation tests in `tests/test_tactical_ai_combat_subsystem_controller_pulse.py` and 11-relocation matching diagnostic in `tests/test_tactical_ai_combat_subsystem_controller_pulse_matching.py`.
+
+#### 6.196.1 Combat Subsystem Controller Pulse Evaluator Results (Pure C++, 256 Bytes)
+
+| Function / Method | VRAM Address | Code Size (Orig) | Slice Size | Match Status | Description |
+|---|---|---|---|---|---|
+| `func_0032C320` | `0x32C320` | 252 B | 256 B | **Decompiled (Pure C++)** | Controller pulse evaluator with divbyzero unsigned division and view/manager dispatch. |

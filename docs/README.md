@@ -34,13 +34,13 @@ Start with the top-level [README](../README.md).
 - [profile_timer_channel13_329f00.md](profile_timer_channel13_329f00.md): pure-C++ profiling timer channel 13 at `0x329F00`, 156-byte exact MWCC match, channel 13 metrics contracts, and real mutation tests
 - [controller_event_dispatch_329fa0.md](controller_event_dispatch_329fa0.md): pure-C++ controller event dispatch at `0x329FA0`, 192-byte MWCC structural match, event contracts, and real mutation tests
 - [controller_action_32a060.md](controller_action_32a060.md): pure-C++ controller action dispatcher at `0x32A060`, 2192-byte MWCC structural match, action contracts, and real mutation tests
-- [controller_event_handler_32a8f0.md](controller_event_handler_32a8f0.md): pure-C++ controller event handler at `0x32A8F0`, 472-byte MWCC structural match, status routing contracts, and real mutation tests
+- [controller_event_32a8f0.md](controller_event_32a8f0.md): pure-C++ controller event dispatcher at `0x32A8F0`, 472-byte MWCC structural match, status routing contracts, and real mutation tests
 - [controller_selection_32aad0.md](controller_selection_32aad0.md): pure-C++ controller selection processor at `0x32AAD0`, 4616-byte MWCC structural match, selection contracts, and real mutation tests
-- [controller_camera_dispatch_32bce0.md](controller_camera_dispatch_32bce0.md): pure-C++ controller camera dispatch at `0x32BCE0`, 360-byte MWCC structural match, camera contracts, and real mutation tests
-- [controller_coord_dispatch_32be50.md](controller_coord_dispatch_32be50.md): pure-C++ controller coordinate dispatch at `0x32BE50`, 288-byte MWCC structural match, coordinate contracts, and real mutation tests
-- [controller_context_action_32bf70.md](controller_context_action_32bf70.md): pure-C++ controller context action dispatcher at `0x32BF70`, 944-byte MWCC structural match, context contracts, and real mutation tests
-- [controller_pulse_32c320.md](controller_pulse_32c320.md): pure-C++ controller pulse evaluator at `0x32C320`, 256-byte MWCC structural match, pulse contracts, and real mutation tests
-- [controller_child_sync_32c420.md](controller_child_sync_32c420.md): pure-C++ controller child sync at `0x32C420`, 88-byte exact MWCC match, child view contracts, and real mutation tests
+- [controller_camera_32bce0.md](controller_camera_32bce0.md): pure-C++ controller camera dispatch at `0x32BCE0`, 344/360-byte NonMatching diagnostic (122 aligned/222 diff), camera contracts, and real mutation tests
+- [controller_coord_32be50.md](controller_coord_32be50.md): pure-C++ controller coordinate dispatch at `0x32BE50`, 260/288-byte NonMatching diagnostic (73 aligned/215 diff), coordinate contracts, and real mutation tests
+- [controller_context_32bf70.md](controller_context_32bf70.md): pure-C++ controller context action dispatcher at `0x32BF70`, 832/940-byte NonMatching diagnostic (174 aligned/766 diff), context contracts, and real mutation tests
+- [controller_pulse_32c320.md](controller_pulse_32c320.md): pure-C++ controller pulse evaluator at `0x32C320`, 252/252-byte NonMatching diagnostic (78 aligned/174 diff), pulse contracts, and real mutation tests
+- [controller_child_sync_32c420.md](controller_child_sync_32c420.md): pure-C++ controller child sync at `0x32C420`, 84/88-byte NonMatching diagnostic (32 aligned/56 diff), child view contracts, and real mutation tests
 - [controller_pulse_reset_32c480.md](controller_pulse_reset_32c480.md): pure-C++ controller pulse reset at `0x32C480`, 120-byte exact MWCC match, pulse deactivation contracts, and real mutation tests
 - [controller_render_profiler_32c500.md](controller_render_profiler_32c500.md): pure-C++ controller render profiler at `0x32C500`, 232-byte exact MWCC match, render metrics contracts, and real mutation tests
 - [controller_stub_32c5f0.md](controller_stub_32c5f0.md): pure-C++ controller stub at `0x32C5F0`, 8-byte exact MWCC match, leaf no-op contracts, and real mutation tests

@@ -82,19 +82,26 @@ It allocates a `0x40`-byte stack frame (`addiu $sp, $sp, -64`), preserving 4 cal
 
 ---
 
-## 3. Durable Behavioral TDD Chronology
+## 3. Behavioral TDD Evidence
 
-### Step 1: Red (Observed Assertion Failure on Test Double)
+### Step 1: Retrospective Red Reproduction in Docker
 
-- **Exact Red Command**:
+Per independent review direction, behavioral failure is verified retrospectively in the required dual-mount Docker environment against a minimal no-op stub:
+
+- **Exact Docker Red Command**:
   ```sh
-  .venv/bin/pytest tests/test_unit_action_build_818d0.py
+  docker --context docker-dev run --rm \
+    -v /home/samuelcaldas/source/repos/aoe/.worktrees/unit-action-targets:/workspace \
+    -v /home/samuelcaldas/source/repos/aoe:/home/samuelcaldas/source/repos/aoe:ro \
+    -w /workspace aoe-tests:verification \
+    pytest tests/test_unit_action_build_818d0.py
   ```
-- **Observed Assertion Failure Log**:
+
+- **Observed Assertion Failure Output**:
   ```text
   ============================= test session starts ==============================
-  platform linux -- Python 3.14.4, pytest-9.1.1, pluggy-1.6.0
-  rootdir: /home/samuelcaldas/source/repos/aoe/.worktrees/unit-action-targets
+  platform linux -- Python 3.14.7, pytest-9.1.1, pluggy-1.7.0
+  rootdir: /workspace
   collected 1 item
 
   tests/test_unit_action_build_818d0.py F                                  [100%]
@@ -102,41 +109,47 @@ It allocates a `0x40`-byte stack frame (`addiu $sp, $sp, -64`), preserving 4 cal
   =================================== FAILURES ===================================
   __________________________ test_build_818d0_behavior ___________________________
 
-  native_binary = PosixPath('/tmp/pytest-of-samuelcaldas/pytest-698/bin0/unit_action_build_818d0_test')
+  native_binary = PosixPath('/tmp/pytest-of-root/pytest-0/bin0/unit_action_build_818d0_test')
 
       def test_build_818d0_behavior(native_binary):
           """Run native behavioral test suite for func_002818D0."""
           res = subprocess.run([str(native_binary)], capture_output=True, text=True)
   >       assert res.returncode == 0, f"Test failed: {res.stderr}\n{res.stdout}"
-  E       AssertionError: Test failed: unit_action_build_818d0_test: /home/samuelcaldas/source/repos/aoe/.worktrees/unit-action-targets/tests/native/unit_action_build_818d0_test.cpp:67: void test_delegation_path(): Assertion `g_delegations.size() == 1' failed.
-  E         
-  E         
+  E       AssertionError: Test failed: unit_action_build_818d0_test: /workspace/tests/native/unit_action_build_818d0_test.cpp:67: void test_delegation_path(): Assertion `g_delegations.size() == 1' failed.
+  E
+  E
   E       assert -6 == 0
-  E        +  where -6 = CompletedProcess(args=['/tmp/pytest-of-samuelcaldas/pytest-698/bin0/unit_action_build_818d0_test'], returncode=-6, stdout='', stderr='unit_action_build_818d0_test: /home/samuelcaldas/source/repos/aoe/.worktrees/unit-action-targets/tests/native/unit_action_build_818d0_test.cpp:67: void test_delegation_path(): Assertion `g_delegations.size() == 1\' failed.\n').returncode
+  E        +  where -6 = CompletedProcess(args=['/tmp/pytest-of-root/pytest-0/bin0/unit_action_build_818d0_test'], returncode=-6, stdout='', stderr='unit_action_build_818d0_test: /workspace/tests/native/unit_action_build_818d0_test.cpp:67: void test_delegation_path(): Assertion `g_delegations.size() == 1\' failed.\n').returncode
 
   tests/test_unit_action_build_818d0.py:34: AssertionError
   =========================== short test summary info ============================
   FAILED tests/test_unit_action_build_818d0.py::test_build_818d0_behavior - AssertionError: Test failed
-  ============================== 1 failed in 1.33s ===============================
+  ============================== 1 failed in 0.51s ===============================
   ```
 
-### Step 2: Green (Implemented Pure C++ Behavior)
+### Step 2: Green Execution in Docker
 
-- **Exact Green Command**:
+- **Exact Docker Green Command**:
   ```sh
-  .venv/bin/pytest tests/test_unit_action_build_818d0.py
+  docker --context docker-dev run --rm \
+    -v /home/samuelcaldas/source/repos/aoe/.worktrees/unit-action-targets:/workspace \
+    -v /home/samuelcaldas/source/repos/aoe:/home/samuelcaldas/source/repos/aoe:ro \
+    -w /workspace aoe-tests:verification \
+    pytest tests/test_unit_action_build_818d0.py
   ```
+
 - **Observed Green Result**:
   ```text
   ============================= test session starts ==============================
-  platform linux -- Python 3.14.4, pytest-9.1.1, pluggy-1.6.0
-  rootdir: /home/samuelcaldas/source/repos/aoe/.worktrees/unit-action-targets
+  platform linux -- Python 3.14.7, pytest-9.1.1, pluggy-1.7.0
+  rootdir: /workspace
   collected 1 item
 
   tests/test_unit_action_build_818d0.py .                                  [100%]
 
-  ============================== 1 passed in 0.21s ===============================
+  ============================== 1 passed in 0.48s ===============================
   ```
+
 - **Behavioral Coverage**:
   - Delegation of all boundary and intermediate negative query codes `[-205, -100]` with exact arguments `(code_or_id, func_002818D0, param)`.
   - Rejection of out-of-range negative codes (`-99`, `-206`).
@@ -257,7 +270,7 @@ tests/test_verify_exact_linked_81030.py ..............                   [ 66%]
 tests/test_unit_action_build_818d0.py .                                  [ 68%]
 tests/test_verify_exact_linked_818d0.py ..............                   [100%]
 
-45 passed in 2.18s
+45 passed in 1.89s
 ```
 Status in `configure.py`: strictly maintained as `NonMatching` pending `aoe-advisor` review and clearance.
 Branch `feat/unit-action-build-7c390` remains unmerged.

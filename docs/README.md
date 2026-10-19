@@ -20,6 +20,7 @@ Start with the top-level [README](../README.md).
 - [ps2_zone_spatial_grid_remove.md](ps2_zone_spatial_grid_remove.md): ZoneSpatialGrid entity removal (func_001F2820), 116-byte exact match, sentinel list unlinking, and 2-relocation analysis
 - [ps2_zone_spatial_grid_clear.md](ps2_zone_spatial_grid_clear.md): ZoneSpatialGrid field unbind/clear (func_001F28A0), 88-byte exact match, multi-field zeroing, and zero-relocation leaf analysis
 - [ps2_zone_spatial_grid_update.md](ps2_zone_spatial_grid_update.md): ZoneSpatialGrid spatial update (func_001F2900), 124-byte exact match, entity lookup, and 3-relocation analysis
+- [ps2_zone_spatial_grid_relink.md](ps2_zone_spatial_grid_relink.md): ZoneSpatialGrid spatial re-link (func_001F2980), 292-byte exact match, 8-relocation manifest (6 JAL + 2 GPREL16), and 3-vtable call dispatch
 - [elevation_mesh_serializer_328020.md](elevation_mesh_serializer_328020.md): pure-C++ serializer at `0x328020`, 224-byte exact MWCC match, ordered-write contracts, and real mutation tests
 - [elevation_mesh_filter_328100.md](elevation_mesh_filter_328100.md): pure-C++ query filter at `0x328100`, 292-byte exact MWCC match, grid entity contracts, and real mutation tests
 - [elevation_mesh_vertex_328230.md](elevation_mesh_vertex_328230.md): pure-C++ vertex append at `0x328230`, 196-byte 96.94% MWCC match, vertex buffer contracts, and real mutation tests

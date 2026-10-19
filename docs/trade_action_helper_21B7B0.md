@@ -2,9 +2,9 @@
 
 `src/trade_action_helper_21B7B0.cpp` reconstructs the two functions in slice
 `[0x21B7B0, 0x21B880)` in pure C++. Both functions achieve **100.00% exact
-byte-for-byte matching** against the original PlayStation 2 PAL binary. In
-accordance with project policy, its `configure.py` registration remains
-**NonMatching** pending review.
+byte-for-byte matching** against the original PlayStation 2 PAL binary. Following
+independent review and validation, its `configure.py` registration is promoted to
+**Matching**.
 
 ## Architecture and function contracts
 

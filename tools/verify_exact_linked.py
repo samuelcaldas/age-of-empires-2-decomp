@@ -7,6 +7,20 @@ import hashlib
 import struct
 import sys
 
+EXPECTED_GPREL_COUNT = 49
+EXPECTED_JAL_COUNT = 51
+
+def assert_relocation_counts(gprel_count, jal_count):
+    """Enforce exact relocation counts; raises ValueError if any count differs."""
+    if gprel_count != EXPECTED_GPREL_COUNT:
+        raise ValueError(
+            f"GPREL16 relocation count mismatch: got {gprel_count}, expected exact {EXPECTED_GPREL_COUNT}"
+        )
+    if jal_count != EXPECTED_JAL_COUNT:
+        raise ValueError(
+            f"JAL relocation count mismatch: got {jal_count}, expected exact {EXPECTED_JAL_COUNT}"
+        )
+
 def parse_elf_sections(path):
     with open(path, 'rb') as f:
         data = f.read()
@@ -116,6 +130,13 @@ def main():
             struct.pack_into('<I', compiled_bytes, r_offset, w)
             jal_count += 1
 
+    # Enforce exact relocation counts
+    try:
+        assert_relocation_counts(gprel_count, jal_count)
+    except ValueError as err:
+        print(f"RELOCATION COUNT ENFORCEMENT ERROR: {err}", file=sys.stderr)
+        sys.exit(1)
+
     resolved_bytes = bytes(compiled_bytes)
     resolved_sha1 = hashlib.sha1(resolved_bytes).hexdigest()
 
@@ -125,8 +146,8 @@ def main():
     print(f"Length:                  {func_size} bytes ({func_size // 4} instructions)")
     print(f"Original ELF slice SHA1: {orig_sha1}")
     print(f"Resolved code slice SHA1:{resolved_sha1}")
-    print(f"GPREL16 resolved sites:  {gprel_count} (expected 49, addend = -0x71E4 / 0x8E1C)")
-    print(f"JAL (R_MIPS_26) resolved:{jal_count} (expected 51)")
+    print(f"GPREL16 resolved sites:  {gprel_count} (enforced exact: {EXPECTED_GPREL_COUNT}, addend = -0x71E4 / 0x8E1C)")
+    print(f"JAL (R_MIPS_26) resolved:{jal_count} (enforced exact: {EXPECTED_JAL_COUNT})")
     print()
 
     # Byte by byte comparison

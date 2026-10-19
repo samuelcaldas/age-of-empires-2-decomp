@@ -81,6 +81,22 @@ Native regression tests in `tests/test_trade_action_helper_21C410.py` and
 3. `func_0021C530`: register `0x4D` 4-component bitfield pack and write.
 4. `func_0021C610`: register `0x48` write directly with `a1`.
 5. `func_0021C690`: register `0x41` write directly with `a1`.
+6. Call-order validation and mutation rejection across all routines.
+
+## Mutation testing scope and caveats
+
+Mutation rejection tests in `tests/test_trade_action_helper_21C410_matching.py` and
+`tests/native/trade_action_helper_21C410_test.cpp` exercise the verification gates:
+- Relocation mutations: altering expected relocation offsets (e.g. `0x1C` -> `0x24`),
+  target symbols (e.g. `D_00392B30` -> `D_WRONG_SYM`), or relocation types
+  proves that `verify_relocation_manifest` strictly rejects mismatched object files.
+- Padding mutations: injecting non-zero bytes or altering gap lengths proves that
+  padding verification rejects corrupt binary boundaries.
+- Call-order mutations: permutations of the dispatch sequence prove that the
+  call-order validator rejects out-of-order execution.
+Caveat: these mutation tests validate the strictness of the verification and
+matcher assertions rather than exhaustively exercising all theoretical compiler
+optimization alternatives.
 
 Durable Red evidence is recorded in `build/abi-21c410-red.log`.
 All native and matching cases pass in green testing.

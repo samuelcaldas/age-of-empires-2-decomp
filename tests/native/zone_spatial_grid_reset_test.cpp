@@ -1,4 +1,5 @@
 #include <cassert>
+#include <cstdarg>
 #include <cstddef>
 #include <cstring>
 #include <vector>
@@ -22,11 +23,20 @@ struct GridResetLayout {
 static std::vector<int> call_log;
 static void *last_f6cc0_item1 = 0;
 static void *last_f6cc0_item2 = 0;
+static void *field_0c_at_call_time = 0;
+static GridResetLayout *observed_grid = 0;
 
 extern "C" {
 void func_001F6CC0(SpatialItem *item, ...) {
     call_log.push_back(1);
     last_f6cc0_item1 = item;
+    va_list args;
+    va_start(args, item);
+    last_f6cc0_item2 = va_arg(args, void *);
+    va_end(args);
+    if (observed_grid) {
+        field_0c_at_call_time = observed_grid->field_0C;
+    }
 }
 }
 
@@ -47,15 +57,20 @@ int main() {
     ZoneSpatialGrid *grid_ptr = reinterpret_cast<ZoneSpatialGrid *>(&grid);
 
     // Test Case 1: field_0C != 0 and field_0C != field_10
-    // Must call func_001F6CC0(field_10, field_0C) and reset field_0C = field_10
+    // Must call func_001F6CC0(field_10, field_0C) before field_0C is reset
+    observed_grid = &grid;
     call_log.clear();
     last_f6cc0_item1 = 0;
+    last_f6cc0_item2 = 0;
+    field_0c_at_call_time = 0;
     func_001F2BD0(grid_ptr);
 
     assert(grid.field_0C == &item2);
     assert(call_log.size() == 1);
     assert(call_log[0] == 1);
     assert(last_f6cc0_item1 == &item2);
+    assert(last_f6cc0_item2 == &item1);
+    assert(field_0c_at_call_time == &item1); // call order: must be called before field_0C is updated
 
     // Test Case 2: field_0C == field_10 (already reset)
     // No call to func_001F6CC0, field_0C remains field_10

@@ -29,15 +29,13 @@ int func_00342170(TacticalObj_341040 *self, int a1, int a2, int a3, int t0) {
             func_33A5D0(0, 0, 0, 1, 0, 0);
             func_339960(0, self->field_C + 100, self->field_10 + 97, 168, 22, 8, 6);
             func_1F6750(self, self->field_838);
-            typedef void (*VFunc76)(void *self, const void *data);
-            ((VFunc76)(*(void***)self->field_838)[76])(self->field_838, D_4D5508);
+            self->field_838->vfunc_76((int)D_4D5508);
             return 1;
         } else {
             func_33A730();
             if (!func_00340CF0(self)) {
                 int r = func_1F6EA0(self, 0xc356);
-                typedef void (*VFunc76)(void *self, int code);
-                ((VFunc76)(*(void***)self->field_838)[76])(self->field_838, r);
+                self->field_838->vfunc_76(r);
             }
             int r2 = func_00219BA0(self->field_838);
             func_33F8B0(self->field_844, r2);
@@ -183,8 +181,7 @@ int func_00342170(TacticalObj_341040 *self, int a1, int a2, int a3, int t0) {
             if (self->field_838) {
                 if (!func_00340CF0(self)) {
                     int code = func_1F6EA0(self, 0xc356);
-                    typedef void (*VFunc76)(void *self, int c);
-                    ((VFunc76)(*(void***)self->field_838)[76])(self->field_838, code);
+                    self->field_838->vfunc_76(code);
                 }
                 int r = func_00219BA0(self->field_838);
                 func_33F8B0(self->field_844, r);

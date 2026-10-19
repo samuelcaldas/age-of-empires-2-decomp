@@ -99,6 +99,23 @@ def test_helper_21bc30_relocation_resolved_comparison(tmp_path):
         sec = result.get_section(sym["st_shndx"])
         assert sec.data()[:size] == expected_bytes, f"{name} binary mismatch"
 
-    # Verify func_0021BC30 code size and section bounds
+    # Verify func_0021BC30 code size and guarded byte diagnostic
     sym_bc30 = unique_symbol(symbols, "func_0021BC30")
-    assert sym_bc30["st_size"] in (396, 404)
+    assert sym_bc30["st_size"] == 396
+    sec_bc30 = result.get_section(sym_bc30["st_shndx"]).data()
+    offset_bc30 = 0x21BC30 - 0xFFE20
+    target_bc30 = data[offset_bc30:offset_bc30 + 404]
+    overlap_words = sum(
+        sec_bc30[i:i + 4] == target_bc30[i:i + 4]
+        for i in range(0, min(len(sec_bc30), len(target_bc30)), 4)
+    )
+    # Direct unaligned word overlap is 11 words; sequence alignment (objdiff) reports 78.11%
+    assert overlap_words == 11, f"unexpected unaligned word overlap: {overlap_words}"
+
+    # Verify original padding boundaries across slice
+    pad_bc30 = data[0x21BDC4 - 0xFFE20:0x21BDD0 - 0xFFE20]
+    assert pad_bc30 == bytes(12), "expected 12 zero padding bytes after func_0021BC30"
+    pad_bdd0 = data[0x21BDDC - 0xFFE20:0x21BDE0 - 0xFFE20]
+    assert pad_bdd0 == bytes(4), "expected 4 zero padding bytes after func_0021BDD0"
+    pad_bde0 = data[0x21BDE8 - 0xFFE20:0x21BDF0 - 0xFFE20]
+    assert pad_bde0 == bytes(8), "expected 8 zero padding bytes after func_0021BDE0"

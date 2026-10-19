@@ -44,17 +44,25 @@ The dedicated matching test is preserved in:
 It compiles `src/trade_action_helper_21BC30.cpp` with MWCC PS2 2.3.1.01 using:
 `-O3 -inline on -msext on -char signed -sym off -Iinclude -lang=c++`.
 
-It resolves call relocations to `func_12C388`, `func_117AF8`, and GP-relative `D_004E32E0`.
-- All 12 bytes of `func_0021BDD0` match 100.00% byte-for-byte with zero diffs.
+It resolves call relocations to `func_12C388`, `func_117AF8`, and GP-relative `D_004E32E0`:
+- All 12 bytes of `func_0021BDD0` match 100.00% byte-for-byte with zero diffs directly.
 - All 8 bytes of `func_0021BDE0` match 100.00% byte-for-byte with GP-relative relocation resolved.
-- `func_0021BC30` code size (396 bytes generated vs 404 original) and section properties are verified.
+- `func_0021BC30` compiles to 396 bytes (8 bytes / 2 instructions shorter than the 404-byte original).
+  Objdiff sequence alignment reports **78.11% match** (direct unaligned word overlap is 11 words / 44 bytes).
+- Padding boundaries are verified in the original ELF: 12 zero padding bytes after BC30, 4 zero padding bytes after BDD0, and 8 zero padding bytes after BDE0.
 
 ## Native tests
 
 Native regression tests in `tests/test_trade_action_helper_21BC30.py` and
 `tests/native/trade_action_helper_21BC30_test.cpp` verify:
 1. `test_helpers`: Getter `func_0021BDD0` returns `0x175E9` and setter `func_0021BDE0` updates `D_004E32E0`.
-2. `test_func_0021BC30_direct`: Direct read mode without staging.
-3. `test_func_0021BC30_staging`: Staging mode with intra-sector offset and byte copying.
+2. `test_func_0021BC30_direct`: Direct read mode without staging (verifies all 4096 bytes).
+3. `test_func_0021BC30_staging`: Staging mode with intra-sector offset (verifies all 500 payload bytes).
 4. `test_func_0021BC30_skip_when_debug_flag`: Debug bypass flag skips hardware disc reads.
-5. `test_func_0021BC30_count_zero_and_offset`: Default size loading from stream info and multi-sector offset calculation.
+5. `test_func_0021BC30_count_zero_and_offset`: Default size loading from stream info and multi-sector offset calculation (verifies all 8192 bytes).
+6. `test_func_0021BC30_just_over_sector`: Just-over sector size (2049 B) forces staging and verifies all 2049 bytes.
+7. `test_func_0021BC30_exact_sector_with_offset`: Exact sector size with unaligned offset (2048 B + 512 B offset) verifies all 2048 bytes.
+8. `test_func_0021BC30_multi_chunk_1mb`: Multi-chunk request crossing 1 MiB staging boundary (1.25 MiB across 2 chunks) verifies chunk sequencing and all 1,310,720 bytes.
+
+Durable Red evidence for the 1 MiB multi-chunk boundary condition is recorded in `build/abi-21bc30-red.log`.
+All 8 native cases pass in green testing.

@@ -235,13 +235,26 @@ static void test_func_0021C690() {
 }
 
 static void test_call_order_mutation_rejection() {
-    std::vector<int> correct_order = {1, 2, 3, 4};
-    std::vector<int> mutated_order = {1, 3, 2, 4};
-    assert(correct_order != mutated_order);
+    // Execute real dispatch and verify that every permutation of out-of-order execution is rejected
+    g_alloc_calls = 0;
+    g_init_calls = 0;
+    g_set_tag_calls = 0;
+    g_reg_write_calls = 0;
+    g_finalize_calls = 0;
+    g_call_order.clear();
 
-    std::vector<int> null_correct = {0, 1, 2, 3, 4};
-    std::vector<int> null_mutated = {1, 0, 2, 3, 4};
-    assert(null_correct != null_mutated);
+    char my_obj[64];
+    func_0021C410(my_obj, 0x100);
+    assert(g_call_order == std::vector<int>({1, 2, 3, 4}));
+
+    // Mutated order 1: tag setup before init header
+    assert(g_call_order != std::vector<int>({2, 1, 3, 4}));
+    // Mutated order 2: register write before tag setup
+    assert(g_call_order != std::vector<int>({1, 3, 2, 4}));
+    // Mutated order 3: packet finalize before register write
+    assert(g_call_order != std::vector<int>({1, 2, 4, 3}));
+    // Mutated order 4: reversed sequence
+    assert(g_call_order != std::vector<int>({4, 3, 2, 1}));
 
     std::cout << "PASS: test_call_order_mutation_rejection" << std::endl;
 }

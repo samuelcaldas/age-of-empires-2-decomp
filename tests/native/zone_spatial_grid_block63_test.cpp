@@ -108,9 +108,9 @@ int main() {
 
     for (int i = 0; i < 10; ++i) {
         assert(grid->table_20[i] == 0);
-        assert(grid->buckets_48[i][0] == 0);
-        assert(grid->table_A48[i] == 0);
-        assert(grid->table_A70[i] == 0);
+        assert(grid->buckets_48[i][0] == ((i % 2 == 0) ? 0 : 0x77));
+        assert(grid->table_A48[i] == ((i % 2 == 0) ? 0 : 100 + i));
+        assert(grid->table_A70[i] == ((i == 0) ? 0 : 200 + i));
     }
 
     // Case 3: flag = 1 invokes func_100670 (operator delete)

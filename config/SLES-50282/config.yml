@@ -5290,9 +5290,15 @@ segments:
     vram: 0x2807D0
     subsegments:
       - [0x1809B0, asm, unit_action_build_807d0]
-  - name: post_unit_action_build_807d0
-    type: bin
+  - name: unit_action_build_81030
+    type: code
     start: 0x181210
+    vram: 0x281030
+    subsegments:
+      - [0x181210, asm, unit_action_build_81030]
+  - name: post_unit_action_build_81030
+    type: bin
+    start: 0x181AB0
   - name: trade_action_getters3
     type: code
     start: 0x1B6330

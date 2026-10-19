@@ -142,16 +142,29 @@ static void test_null_sub_skips_callback() {
     TEST_ASSERT(inst.m_slots[0] == &s_null_sub_entry, "null m_sub slot must not be cleared");
 }
 
+static void test_slot_count_reset_to_zero() {
+    reset_mocks();
+    CombatSubsystemControllerInstance inst;
+    std::memset(&inst, 0, sizeof(inst));
+    inst.m_slot_count = 5;
+
+    func_0032E820(&inst);
+
+    TEST_ASSERT(inst.m_slot_count == 0, "m_slot_count must be reset to 0 after cleanup");
+}
+
 int main(int argc, char **argv) {
     if (argc > 1) {
         if (std::strcmp(argv[1], "matching_slot") == 0) { test_matching_active_slot_callback_and_clearing(); return 0; }
         if (std::strcmp(argv[1], "signed_id") == 0) { test_signed_action_id_sign_extension(); return 0; }
         if (std::strcmp(argv[1], "slot_9") == 0) { test_all_ten_slots_traversed(); return 0; }
         if (std::strcmp(argv[1], "null_sub") == 0) { test_null_sub_skips_callback(); return 0; }
+        if (std::strcmp(argv[1], "slot_count_reset") == 0) { test_slot_count_reset_to_zero(); return 0; }
     }
     test_matching_active_slot_callback_and_clearing();
     test_signed_action_id_sign_extension();
     test_all_ten_slots_traversed();
     test_null_sub_skips_callback();
+    test_slot_count_reset_to_zero();
     return 0;
 }

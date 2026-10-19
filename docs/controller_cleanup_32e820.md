@@ -2,11 +2,11 @@
 
 `func_0032E820` is reproduced in pure C++ in
 `src/tactical_ai_combat_subsystem_controller_cleanup.cpp`.
-A fresh MWCC PS2 2.3.1.01 build produces a 168-byte candidate sequence
-(+8 bytes from 160-byte target code extent, 39 matching prefix bytes,
+A fresh MWCC PS2 2.3.1.01 build produces a 172-byte candidate sequence
+(+12 bytes from 160-byte target code extent, 39 matching prefix bytes,
 1 relocation resolved; classified strictly as NonMatching),
 iterating over all 10 slots, dispatching `sub_260ED0` for each active
-matching slot, then clearing it.
+matching slot, clearing each matching slot, and resetting `m_slot_count` to 0.
 
 ## Reference boundaries and layout
 
@@ -50,6 +50,7 @@ in the null-check / register-save interleaving in the prologue).
    - Skip if `(int)sub->action_id != m_slot_action_ids[i]` (signed 16→32 comparison).
    - If `m_sub12c != 0`: dispatch `sub_260ED0(m_sub12c->m_sub_target)`.
    - Clear `m_slots[i] = 0` after callback returns.
+3. Reset slot count: set `m_slot_count = 0`.
 
 ## TDD Chronology and Verification Evidence
 
@@ -58,12 +59,15 @@ in the null-check / register-save interleaving in the prologue).
    - Step 1 Green: slot[0] single-check. All three fixtures: slot[0] callback, signed id, and slot[9] ran.
    - Step 2 Red: `MUTATION_ASSERTION_FAILED: slot 9 must be traversed and cleared on match` (exit 1). `aoe-advisor` authorized loop expansion.
    - Step 2 Green: replaced single slot[0] check with `for (int i = 0; i < 10; i++)` loop.
-   - Step 3: Added `test_null_sub_skips_callback` fixture. All 4 fixtures pass, exit 0 under UBSan.
-   - Verified 9 production-source mutations via assertion string + 1 via UBSan crash (null-sub
-     deref), for 10/10 total kills, confirmed by `tests/test_tactical_ai_combat_subsystem_controller_cleanup.py`.
+   - Step 3: Added `test_null_sub_skips_callback` fixture.
+   - Step 4 Red: prospective Red `MUTATION_ASSERTION_FAILED: m_slot_count must be reset to 0 after cleanup` (exit 1). `aoe-advisor` authorized `self->m_slot_count = 0`.
+   - Step 4 Green: added `self->m_slot_count = 0;` after loop. All 5 fixtures pass, exit 0 under UBSan.
+   - Verified 10 production-source mutations killed by named assertion, confirmed by
+     `tests/test_tactical_ai_combat_subsystem_controller_cleanup.py` (10/10 killed).
 2. **Matching Diagnostics:**
-   - Built with verified MWCC PS2 flags: candidate 168 bytes (+8 from 160-byte target).
+   - Built with verified MWCC PS2 flags: candidate 172 bytes (+12 from 160-byte target).
    - 39 matching prefix bytes; divergence at +0x10 due to null-check/sq-store scheduling.
+   - Exact instruction match `sw $zero, 0x3484($s2)` (`0xae403484`) at offset +0x90 in candidate (+0x84 in target).
    - Classified strictly as **NonMatching**.
 
 ## Reproducible verification
@@ -74,13 +78,13 @@ Run in the `docker-dev` verification image:
 python3 -m pytest -q tests/test_tactical_ai_combat_subsystem_controller_cleanup.py
 ```
 
-The focused test run comprises **10 total tests** (1 behavioral reference contract +
-9 production-source mutations verified by assertion + null-sub mutation killed by UBSan):
+The focused test run comprises **11 total tests** (1 behavioral reference contract +
+10 production-source mutations):
 - One 32-bit native contract test under UBSan: null-self guard, 10-slot traversal,
-  signed action-id sign-extension, callback receiver, slot intact during callback, slot cleared after.
-- Nine production-source mutations killed by named assertion: null_guard_invert, flag_bit_wrong,
+  signed action-id sign-extension, callback receiver, slot intact during callback, slot cleared after,
+  and m_slot_count reset to 0.
+- Ten production-source mutations killed by named assertion: null_guard_invert, flag_bit_wrong,
   action_id_compare_bad, omit_sub260ed0_call, omit_slot_clear, loop_limit_1, loop_limit_9,
-  signed_compare_wrong, clear_before_callback.
-- Sub-null-check mutation killed by UBSan null-pointer dereference (not named assertion).
+  signed_compare_wrong, clear_before_callback, omit_slot_count_reset.
 
 The WIP/BIN boundary and registered object list remain unchanged (NonMatching).

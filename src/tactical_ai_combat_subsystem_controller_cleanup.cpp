@@ -17,4 +17,6 @@ void func_0032E820(CombatSubsystemControllerInstance *self) {
             }
         }
     }
+
+    self->m_slot_count = 0;
 }

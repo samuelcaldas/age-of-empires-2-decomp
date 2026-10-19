@@ -40,6 +40,8 @@ MUTATIONS = [
                     sub_260ED0(self->m_sub12c->m_sub_target);
                 }""",
      "matching_slot", "slot must remain intact during callback"),
+    ("omit_slot_count_reset",   "self->m_slot_count = 0;",          "/* omitted */;",
+     "slot_count_reset", "m_slot_count must be reset to 0 after cleanup"),
 ]
 
 

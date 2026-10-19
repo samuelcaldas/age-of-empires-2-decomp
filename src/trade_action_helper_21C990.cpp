@@ -43,8 +43,8 @@ void *func_0021C990(void *obj, unsigned long a1, int a2, int a3, const short *uv
     int ys[4];
     for (int i = 0; i < 4; ++i) {
         const short *pt = xy_pts + (i * 4);
-        xs[i] = (pt[0] << 4) + base_x + depth_offset;
-        ys[i] = (pt[1] << 4) + base_y + depth_offset;
+        xs[i] = base_x + (pt[0] << 4) + depth_offset;
+        ys[i] = base_y + (pt[1] << 4) + depth_offset;
     }
 
     func_104448(obj, 0, 0, 0);

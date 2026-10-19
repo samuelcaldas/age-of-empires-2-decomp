@@ -12,6 +12,7 @@ CASES = [
     ("0", "func_0021C990 packet construction and quad vertices/UV register writes"),
     ("1", "func_0021C990 null object allocation and sprite mode reg 0x06"),
     ("2", "func_0021CC90 rect expansion wrapper and delegation to func_0021C990"),
+    ("3", "func_0021C990 boundary and signed/negative coordinate handling"),
 ]
 
 

@@ -247,11 +247,48 @@ static void test_func_0021CC90() {
     std::cout << "PASS: test_func_0021CC90" << std::endl;
 }
 
+static void test_func_0021C990_boundaries_and_signed() {
+    g_alloc_calls = 0;
+    g_init_calls = 0;
+    g_set_tag_calls = 0;
+    g_writes.clear();
+    g_finalize_calls = 0;
+
+    char my_obj[64];
+    short uv[4] = {0, 0, 100, 100};
+    // Extreme/boundary signed coordinates: negative and large screen coordinates
+    short pts[16] = {
+        -500, -300, 0, 0,
+        1500, -300, 0, 0,
+        -500, 1200, 0, 0,
+        1500, 1200, 0, 0
+    };
+
+    // z = 100 -> depth_offset = (-100) << 3 = -800
+    // base_x = 27648, base_y = 29184
+    func_0021C990(my_obj, 0x10, 0, 0x20, uv, pts, 0x80, 0, 100);
+
+    // pt0: x0 = (-500 << 4) + 27648 - 800 = -8000 + 27648 - 800 = 18848
+    //      y0 = (-300 << 4) + 29184 - 800 = -4800 + 29184 - 800 = 23584
+    uint64_t exp_xyz0 = (0x80ULL << 32) | (18848ULL & 0xFFFF) | ((23584ULL & 0xFFFF) << 16);
+    assert(g_writes[3].reg == 0x04);
+    assert(g_writes[3].data == exp_xyz0);
+
+    // pt3: x3 = (1500 << 4) + 27648 - 800 = 24000 + 27648 - 800 = 50848
+    //      y3 = (1200 << 4) + 29184 - 800 = 19200 + 29184 - 800 = 47584
+    uint64_t exp_xyz3 = (0x80ULL << 32) | (50848ULL & 0xFFFF) | ((47584ULL & 0xFFFF) << 16);
+    assert(g_writes[9].reg == 0x04);
+    assert(g_writes[9].data == exp_xyz3);
+
+    std::cout << "PASS: test_func_0021C990_boundaries_and_signed" << std::endl;
+}
+
 int main(int argc, char **argv) {
     if (argc < 2) {
         test_func_0021C990_existing_obj();
         test_func_0021C990_null_obj_and_mode0();
         test_func_0021CC90();
+        test_func_0021C990_boundaries_and_signed();
         return 0;
     }
     if (argv[1][0] == '0') {
@@ -260,6 +297,8 @@ int main(int argc, char **argv) {
         test_func_0021C990_null_obj_and_mode0();
     } else if (argv[1][0] == '2') {
         test_func_0021CC90();
+    } else if (argv[1][0] == '3') {
+        test_func_0021C990_boundaries_and_signed();
     }
     return 0;
 }

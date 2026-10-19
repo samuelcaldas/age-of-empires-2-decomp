@@ -63,5 +63,5 @@ Virtual method dispatch at `+0xD8`: `vtable[55]` (`0xDC`) invoked as `method_DC(
   unpinned ELF rejection, and CLI zero-exit contract.
 - **Focused test suite:** 198 passed in 38.90s (`pytest tests/test_zone_spatial_grid*.py`).
 - **Full regression suite:** 2,715 passed in 137.74s (`pytest -q`), 0 failures, 0 regressions.
-- **Configuration policy:** Registered as `NonMatching` in `configure.py` pending
-  peer review and promotion approval; `config.yml` and `symbols.txt` remain untouched.
+- **Configuration policy:** Promoted to `Matching` in `configure.py` following
+  independent review verification and coordinator approval; `config.yml` and `symbols.txt` remain untouched.

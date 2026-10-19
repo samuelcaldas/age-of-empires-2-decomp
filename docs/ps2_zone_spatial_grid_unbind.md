@@ -94,5 +94,5 @@ The implementation followed mandatory test-driven development through four isola
   rejection of non-executable sections, rejection of defined relocation symbols,
   rejection of non-MIPS ELF machine headers, rejection of oversized symbols,
   acceptance of permuted relocation records, and CLI zero-exit contract.
-- **Configuration policy:** Registered as `NonMatching` in `configure.py` per standing
-  policy pending peer review; `config.yml` and `symbols.txt` remain untouched.
+- **Configuration policy:** Promoted to `Matching` in `configure.py` following verification
+  clearance; `config.yml` and `symbols.txt` remain untouched.

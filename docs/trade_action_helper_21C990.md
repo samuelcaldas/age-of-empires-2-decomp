@@ -3,8 +3,8 @@
 `src/trade_action_helper_21C990.cpp` reconstructs the two functions in slice
 `[0x21C990, 0x21CD20)` in pure C++. `func_0021CC90` achieves **100.00% exact
 byte-for-byte matching** against the original PlayStation 2 PAL binary across all
-132 code bytes. `func_0021C990` achieves **77.37% matching** (147 / 190 words matching,
-43 instruction differences remaining) with all 21 relocation sites aligned to the exact
+132 code bytes. `func_0021C990` achieves **77.89% matching** (148 / 190 words matching,
+42 instruction differences remaining) with all 21 relocation sites aligned to the exact
 target offsets. In accordance with coordinator directives, `configure.py` registration
 remains **NonMatching** pending complete matching across both functions.
 
@@ -33,7 +33,7 @@ The unit implements Graphics Synthesizer (GS) textured quad packet rasterization
 
 | Function | VRAM range | Code size | Description | Matching |
 |---|---|---|---|---|
-| `func_0021C990` | `[0x21C990, 0x21CC88)` | 760 B (`0x2F8`) | Textured quad GS packet rasterizer | **77.37%** (147/190 words) |
+| `func_0021C990` | `[0x21C990, 0x21CC88)` | 760 B (`0x2F8`) | Textured quad GS packet rasterizer | **77.89%** (148/190 words) |
 | `func_0021CC90` | `[0x21CC90, 0x21CD14)` | 132 B (`0x84`) | Bounding rect expansion quad wrapper | **100.00%** (132/132 bytes) |
 
 ## Binary mapping and raw evidence
@@ -82,7 +82,7 @@ Logged at `build/abi-21c990-red.log`.
 
 ### Current matching status
 - `func_0021CC90`: **100.00% exact match** across all 132 code bytes.
-- `func_0021C990`: **77.37% match** (147/190 words matching, 43 word differences remaining).
+- `func_0021C990`: **77.89% match** (148/190 words matching, 42 word differences remaining).
 - All 3 native tests pass.
 - Relocation manifest rejection and padding rejection tests pass.
 - Registration kept as **NonMatching** in `configure.py`.

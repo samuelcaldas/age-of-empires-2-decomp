@@ -57,28 +57,28 @@ void *func_0021C990(void *obj, unsigned long a1, int a2, int a3, const short *uv
     }
     func_1046A8(obj, 0x01, a3);
 
-    unsigned long long uv0 = ((unsigned long long)u) | (((unsigned long long)v) << 16);
+    unsigned long long uv0 = (((unsigned long long)v) << 16) | ((unsigned long long)u);
     func_1046A8(obj, 0x03, uv0);
 
     unsigned long long z_upper = ((unsigned long long)(unsigned int)(t2 & 0xFFFF)) << 32;
-    unsigned long long xyz0 = (((unsigned long long)(unsigned int)ys[0]) << 16) | ((unsigned long long)(unsigned int)xs[0]) | z_upper;
+    unsigned long long xyz0 = (((unsigned long long)ys[0]) << 16) | ((unsigned long long)xs[0]) | z_upper;
     func_1046A8(obj, 0x04, xyz0);
 
     int u1 = u + h;
     unsigned long long uv1 = (((unsigned long long)v) << 16) | ((unsigned long long)u1);
     func_1046A8(obj, 0x03, uv1);
-    unsigned long long xyz1 = (((unsigned long long)(unsigned int)ys[1]) << 16) | ((unsigned long long)(unsigned int)xs[1]) | z_upper;
+    unsigned long long xyz1 = (((unsigned long long)ys[1]) << 16) | ((unsigned long long)xs[1]) | z_upper;
     func_1046A8(obj, 0x04, xyz1);
 
     int v2 = v + w;
-    unsigned long long uv2 = ((unsigned long long)u) | (((unsigned long long)v2) << 16);
+    unsigned long long uv2 = (((unsigned long long)v2) << 16) | ((unsigned long long)u);
     func_1046A8(obj, 0x03, uv2);
-    unsigned long long xyz2 = (((unsigned long long)(unsigned int)ys[2]) << 16) | ((unsigned long long)(unsigned int)xs[2]) | z_upper;
+    unsigned long long xyz2 = (((unsigned long long)ys[2]) << 16) | ((unsigned long long)xs[2]) | z_upper;
     func_1046A8(obj, 0x04, xyz2);
 
-    unsigned long long uv3 = ((unsigned long long)u1) | (((unsigned long long)v2) << 16);
+    unsigned long long uv3 = (((unsigned long long)v2) << 16) | ((unsigned long long)u1);
     func_1046A8(obj, 0x03, uv3);
-    unsigned long long xyz3 = (((unsigned long long)(unsigned int)ys[3]) << 16) | ((unsigned long long)(unsigned int)xs[3]) | z_upper;
+    unsigned long long xyz3 = (((unsigned long long)ys[3]) << 16) | ((unsigned long long)xs[3]) | z_upper;
     func_1046A8(obj, 0x04, xyz3);
 
     func_104600(obj);

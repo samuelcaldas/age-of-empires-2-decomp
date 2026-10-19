@@ -5221,7 +5221,7 @@ if config.platform == Platform.PS2:
                 Object(
                     NonMatching,
                     "trade_action_type_checker",
-                    source="trade_action_candidates_extra.cpp",
+                    source="trade_action_type_checker.cpp",
                     cflags=config.cflags,
                     toolchain_version="PS2/mwcc-2.3.1.01",
                 ),

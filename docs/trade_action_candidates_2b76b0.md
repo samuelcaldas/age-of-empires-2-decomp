@@ -26,7 +26,8 @@ checks the actual state assertion at offset `3240`; it does not expect return `2
   - `func_002B7BB0` (VRAM `0x2B7BB0`–`0x2B8560`, File `0x1B7D90`–`0x1B8740`, 2,468 B code, 12 B padding, 2,480 B slice)
   - `func_002B8560` (VRAM `0x2B8560`–`0x2B8978`, File `0x1B8740`–`0x1B8B60`, 1,044 B code, 4 B padding, 1,048 B slice)
   - `func_002B8980` (VRAM `0x2B8980`–`0x2B8E2C`, File `0x1B8B60`–`0x1B9020`, 1,196 B code, 4 B padding, 1,200 B slice)
-  - `func_002B90A0` (VRAM `0x2B90A0`–`0x2B9134`, File `0x1B9280`–`0x1B9340`, 148 B code, 44 B padding, 192 B slice)
+  - `func_002B90A0` (VRAM `0x2B90A0`–`0x2B9130`, File `0x1B9280`–`0x1B9310`, 144 B code)
+  - `func_002B9130` (VRAM `0x2B9130`–`0x2B9138`, File `0x1B9310`–`0x1B9318`, 8 B stub, 8 B padding, 160 B slice)
   - `func_002B9140` (VRAM `0x2B9140`–`0x2B9770`, File `0x1B9320`–`0x1B9950`, 1,580 B code, 4 B padding, 1,584 B slice)
 - **Source Files**:
   - `include/trade_action_candidates.h`
@@ -38,11 +39,13 @@ checks the actual state assertion at offset `3240`; it does not expect return `2
   - `include/trade_action_candidates_extra.h`
   - `src/trade_action_candidates.cpp`
   - `src/trade_action_candidates_extra.cpp`
+  - `include/trade_action_type_checker.h`
+  - `src/trade_action_type_checker.cpp`
   - `include/trade_action_plan_evaluator.h`
   - `src/trade_action_plan_evaluator.cpp`
   - `include/trade_action_notify.h`
   - `src/trade_action_notify.cpp`
-- **Status**: Implemented in pure C++ and verified with 38 native tests (25 core candidate behavior cases, 2 plan cases, 1 trade notification suite, 1 trade plan evaluator suite, and 9 source mutation checks).
+- **Status**: Implemented in pure C++ and verified with 39 native tests (25 core candidate behavior cases, 2 plan cases, 1 trade notification suite, 1 trade plan evaluator suite, 1 trade type checker suite, and 9 source mutation checks).
 
 ## Signatures
 
@@ -111,10 +114,11 @@ int func_002B9140(void *self);
   - Tracks candidate with highest score (`dist <= best` for mode 1; `dist < best` for mode 0).
 - **Return Value**: Sub-ID of optimal candidate, or -1 if none qualify.
 
-### 5. `func_002B90A0` (Entity Type Matcher)
-- Resolves entity `item` via `func_332e60(manager_entity_root(self), item_id)`.
-- Rejects if `!item` or `!pred(item)`.
-- Returns 1 if `func_001471A0(pred(item)) == target_type`, else 0.
+### 5. `func_002B90A0` and `func_002B9130` (Trade Action Type Checker)
+- **Slice**: File `0x1B9280`–`0x1B9320`, VRAM `0x2B90A0`–`0x2B9140` (160 B code and padding).
+- **Status**: **100.0% Matched** (verified byte-for-byte with MWCC PS2 2.3.1.01 against SLES-50282 original ELF; 160/160 bytes identical; kept NonMatching in configure.py pending promotion clearance).
+- `func_002B90A0` (144 B): resolves entity `item` via `func_332e60(group->m_root, item_id)` through manager `+176 -> +127816 -> +2968`. Rejects if `!item` or `!pred(item)`. Returns 1 if `func_001471A0(pred(item)) == target_type`, else 0.
+- `func_002B9130` (8 B stub): `jr ra; nop`, followed by 8 B padding zeroes.
 
 ### 6. `func_002B9140` (Trade Action Plan Evaluator)
 - **Slice**: File `0x1B9320`–`0x1B9950`, VRAM `0x2B9140`–`0x2B9770` (1,584 B code and padding).

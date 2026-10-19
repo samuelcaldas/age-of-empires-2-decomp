@@ -60,5 +60,5 @@ The single direct function call relocation matches the authentic ELF site:
   (`original_padding_verified: true`, `0x1F2C14`..`0x1F2C20`) strictly outside the
   68-byte function matching gate, corrupted instruction rejection against a passing baseline,
   unpinned ELF rejection, and CLI zero-exit contract.
-- **Configuration policy:** Registered as `NonMatching` in `configure.py` per standing
-  policy pending peer review; `config.yml` and `symbols.txt` remain untouched.
+- **Configuration policy:** Promoted to `Matching` in `configure.py` following
+  independent review verification and coordinator approval; `config.yml` and `symbols.txt` remain untouched.

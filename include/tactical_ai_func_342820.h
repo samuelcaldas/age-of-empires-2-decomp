@@ -5,7 +5,7 @@ struct TacticalItem_342820 {
     int field_10;       // 0x10
     int field_14;       // 0x14
     int field_18;       // 0x18
-    char field_1C[7];   // 0x1C - 0x22
+    unsigned char field_1C[7]; // 0x1C - 0x22
     char pad_23;        // 0x23
     int field_24;       // 0x24 - 0x27
 };

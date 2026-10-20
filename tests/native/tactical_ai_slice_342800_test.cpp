@@ -6,6 +6,12 @@
 #include <cstring>
 #include "tactical_ai_slice_342800.h"
 
+extern "C" {
+const char *func_00188DB0(void *info) { (void)info; return ""; }
+int func_11AA78(const char *s1, const char *s2) { return std::strcmp(s1, s2); }
+int func_00188DC0(void *info) { (void)info; return 0; }
+}
+
 int main() {
     TacticalObj_341040 obj;
     std::memset(&obj, 0, sizeof(obj));
@@ -19,7 +25,9 @@ int main() {
 
     func_0034295C(&obj);
     func_003429D8(&obj);
-    func_003429E0(&obj);
+    char dummy_item[40];
+    std::memset(dummy_item, 0, sizeof(dummy_item));
+    func_003429E0((TacticalItem_342820*)dummy_item, NULL, 0);
     func_00342AAC(&obj);
     func_00342B30(&obj);
     func_00342B54(&obj);

@@ -76,7 +76,7 @@ static void test_func_342900_positive_branch_clears_and_sets_mode() {
     assert(item.field_18 == 0);
     assert(item.field_1C[0] == 2);
     // Remaining bytes of field_1C must remain untouched (0xAA)
-    assert(item.field_1C[1] == (char)0xAA);
+    assert(item.field_1C[1] == 0xAA);
 
     std::printf("PASS test_func_342900_positive_branch_clears_and_sets_mode\n");
 }
@@ -96,7 +96,7 @@ static void test_func_342900_nonpositive_branch_leaves_fields_untouched() {
     // Since field_14 <= 0, fields +16, +24, +28 are NOT modified
     assert(item.field_10 == (int)0x55555555);
     assert(item.field_18 == (int)0x55555555);
-    assert(item.field_1C[0] == (char)0x55);
+    assert(item.field_1C[0] == 0x55);
 
     std::printf("PASS test_func_342900_nonpositive_branch_leaves_fields_untouched\n");
 }
@@ -115,7 +115,7 @@ static void test_func_342900_negative_branch_leaves_fields_untouched() {
 
     assert(item.field_10 == (int)0x77777777);
     assert(item.field_18 == (int)0x77777777);
-    assert(item.field_1C[0] == (char)0x77);
+    assert(item.field_1C[0] == 0x77);
 
     std::printf("PASS test_func_342900_negative_branch_leaves_fields_untouched\n");
 }

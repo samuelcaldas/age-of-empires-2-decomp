@@ -210,3 +210,22 @@ Disassembly of the original binary ELF (`AOK.ELF`) confirms the following struct
   - Final dispatch: tail-calls `func_2BB100(self, item_id, action_type)` and normalizes return via `movn` (`res == 0 ? 0 : 1`).
 
 All 4 notification routines achieve 100.0% byte-for-byte matching with Metrowerks PS2 compiler (MWCC 2.3.1.01).
+
+## Post-trade action plan step (`0x2B9B30`–`0x2BA160`)
+
+- **Slice**: File `0x1B9D10`–`0x1BA340`, VRAM `0x2B9B30`–`0x2BA160` (1,576 B code, 8 B padding, 1,584 B slice).
+- **Status**: **NonMatching** (strictly kept NonMatching; config and symbol files untouched).
+- **Callers**: Single incoming direct caller at VRAM `0x2B24C0` (file `0x1B26A0`), passing `self`, `item_id`, and `mode`.
+- **Relocations**: 20 direct JALs (resolved targets: `func_332e60`, `func_002261C0`, `func_001471A0` (10 sites), `func_002C1920` (2 sites), `func_00147170` (2 sites), `func_00147190` (1 site), `func_002BAA20` (3 sites)) and 14 virtual calls through slot 356 (`Entity::get_id`).
+- **TDD Characterization**:
+  - 15-case behavioral test suite covering missing item/entity, null predicate, action 600/602/618 qualification, positive health, action 702/710 qualification, rate checks with `& 0xFF` low-byte masking, dispatcher invocation, field resets, 4-category score computation & bubble sort, and final fallback dispatch.
+  - 5 durable mutation tests asserting runtime failure on mutant code changes.
+  - 9/9 focused Docker tests pass, and 17 trade subsystem tests pass with zero regressions.
+- **Prologue & Loop Setup Refactors**:
+  - The stack frame is exactly 208 bytes (`addiu sp, sp, -208`, `27bdff30`) with 11 `sd` stores and 4 `sw zero` stores initializing `stack_arr[4]` at `sp+160..172`.
+  - Refactoring the limit loop to `const int limit = self->m_limit; while (idx < limit)` targets the early load at `+0x3C`, producing an exact match for `8c830c14` (`lw v1, 3092(a0)`), achieving 16/16 words matched in `[+0x00, +0x40)`.
+  - Moving the record computation after helper calls via `*(int*)((char*)self + idx * 24 + 376) = func_002261C0(item);` keeps `idx` alive across calls, forcing allocation to callee-saved `$s1`. This aligns `paddub s5, a2, zero` at `+0x40`, `paddub s6, a0, zero` at `+0x44`, `paddub s1, zero, zero` at `+0x4C`, and the loop indexing at `+0x50`..`+0x74`.
+  - Binding the loop condition dereference to a local variable `int val = *(int*)((char*)self + idx * 24 + 356); if (val == item_id) break;` causes MWCC to evaluate `$v0` first, emitting exact target instruction `10450006` (`beq v0, a1, +6`) at `+0x64` (reconciling `rs=2, rt=5`).
+  - Cluster `[+0x40, +0x78)` is now 14/14 words matched (100% bit-for-bit identical, delta: +1 word / +4 bytes).
+  - First 120 bytes (`[+0x00, +0x78)`) now achieve 30/30 words matched (100.0% bit-for-bit identical), and overall diagnostic byte match increases to 25.95%. Frame size delta: 0 (retained 208 bytes).
+  - Note: These matching figures reflect session compiler/verifier runs with mounted private ELF/compiler tools; independent reviewer environment lacked ELF/compiler mounts (evaluating 6 passed, 3 skipped). Binary parity remains provisional; the routine is strictly NonMatching.

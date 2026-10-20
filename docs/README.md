@@ -11,6 +11,25 @@ Start with the top-level [README](../README.md).
 - [toolchain.md](toolchain.md): compilers, how to identify them from the binaries, and what is still unverified
 - [ps2_node_pool_verification.md](ps2_node_pool_verification.md): corrected node-pool completion status, clean comparison metrics, and unresolved relocation provenance
 - [ps2_node_pool_alloc_node.md](ps2_node_pool_alloc_node.md): Block 60 node allocation verification, 376-byte literal match, and relocation analysis
+- [ps2_node_pool_free_node.md](ps2_node_pool_free_node.md): Block 61 node free verification, 60-byte exact match, and leaf function analysis
+- [ps2_zone_spatial_grid_constructor.md](ps2_zone_spatial_grid_constructor.md): Block 62 spatial grid constructor verification, 172-byte exact match, and vtable initialization
+- [ps2_zone_spatial_grid_destructor.md](ps2_zone_spatial_grid_destructor.md): Block 63 spatial grid destructor verification, 292-byte extent, and 8-relocation analysis
+- [ps2_zone_spatial_grid_getters.md](ps2_zone_spatial_grid_getters.md): ZoneSpatialGrid accessors (func_001F26C0–func_001F26F0), 32-byte code matching, and zero-relocation leaf analysis
+- [ps2_zone_spatial_grid_lookup.md](ps2_zone_spatial_grid_lookup.md): ZoneSpatialGrid lookup wrapper (func_001F2700), 48-byte exact match, and single R_MIPS_26 relocation resolution
+- [ps2_zone_spatial_grid_insert.md](ps2_zone_spatial_grid_insert.md): ZoneSpatialGrid entity insertion (func_001F2730), 228-byte exact match, circular doubly-linked sentinel splicing, and 5-relocation analysis
+- [ps2_zone_spatial_grid_remove.md](ps2_zone_spatial_grid_remove.md): ZoneSpatialGrid entity removal (func_001F2820), 116-byte exact match, sentinel list unlinking, and 2-relocation analysis
+- [ps2_zone_spatial_grid_clear.md](ps2_zone_spatial_grid_clear.md): ZoneSpatialGrid field unbind/clear (func_001F28A0), 88-byte exact match, multi-field zeroing, and zero-relocation leaf analysis
+- [ps2_zone_spatial_grid_update.md](ps2_zone_spatial_grid_update.md): ZoneSpatialGrid spatial update (func_001F2900), 124-byte exact match, entity lookup, and 3-relocation analysis
+- [ps2_zone_spatial_grid_relink.md](ps2_zone_spatial_grid_relink.md): ZoneSpatialGrid spatial re-link (func_001F2980), 292-byte exact match, 8-relocation manifest (6 JAL + 2 GPREL16), and 3-vtable call dispatch
+- [ps2_zone_spatial_grid_setters.md](ps2_zone_spatial_grid_setters.md): ZoneSpatialGrid field setters (func_001F2AB0 & func_001F2AC0), 16-byte exact match, and zero-relocation leaf analysis
+- [ps2_zone_spatial_grid_bounds.md](ps2_zone_spatial_grid_bounds.md): ZoneSpatialGrid bounding volume update (func_001F2AD0), 244-byte code extent, 4 JAL relocations, and vtable[55] dispatch analysis
+- [ps2_zone_spatial_grid_reset.md](ps2_zone_spatial_grid_reset.md): ZoneSpatialGrid occupant reset (func_001F2BD0), 68-byte exact match, and single R_MIPS_26 relocation resolution
+- [ps2_zone_spatial_grid_advance.md](ps2_zone_spatial_grid_advance.md): ZoneSpatialGrid occupant advance (func_001F2C20), 140-byte exact match, 3 R_MIPS_26 relocations, and vtable[55] dispatch analysis
+- [ps2_zone_spatial_grid_unbind.md](ps2_zone_spatial_grid_unbind.md): ZoneSpatialGrid occupant unbind (func_001F2CB0), 160-byte exact match, 2 R_MIPS_26 relocations, and vtable[2] dispatch analysis
+- [ps2_zone_spatial_grid_contains.md](ps2_zone_spatial_grid_contains.md): ZoneSpatialGrid occupant contains (func_001F2D50), 76-byte exact match, 2 R_MIPS_26 relocations, and handle lookup analysis
+- [ps2_zone_spatial_grid_setup_list.md](ps2_zone_spatial_grid_setup_list.md): ZoneSpatialGrid sentinel list setup (func_001F2DA0), 96-byte exact match, single R_MIPS_26 relocation, and circular sentinel initialization
+- [ps2_zone_spatial_grid_lookup_node.md](ps2_zone_spatial_grid_lookup_node.md): ZoneSpatialGrid sentinel lookup node (func_001F2E00), 176-byte exact match, 4 R_MIPS_26 relocations, and backward sentinel traversal
+- [ps2_zone_spatial_grid_rebind.md](ps2_zone_spatial_grid_rebind.md): ZoneSpatialGrid occupant rebind (func_001F2EB0), 204-byte exact match, 5 relocations, and manager notification
 - [elevation_mesh_serializer_328020.md](elevation_mesh_serializer_328020.md): pure-C++ serializer at `0x328020`, 224-byte exact MWCC match, ordered-write contracts, and real mutation tests
 - [elevation_mesh_filter_328100.md](elevation_mesh_filter_328100.md): pure-C++ query filter at `0x328100`, 292-byte exact MWCC match, grid entity contracts, and real mutation tests
 - [elevation_mesh_vertex_328230.md](elevation_mesh_vertex_328230.md): pure-C++ vertex append at `0x328230`, 196-byte 96.94% MWCC match, vertex buffer contracts, and real mutation tests

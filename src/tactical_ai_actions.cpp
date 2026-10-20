@@ -5,8 +5,8 @@ void *memset(void *s, int c, unsigned int n);
 void *func_100730(int size);
 void func_26AD90(void *ptr, int id);
 void func_145680(void *ptr);
-void *func_001407B0(void *self, int a1, int a2, int a3);
-void *func_001409B0(void *self);
+void *func_001407B0(void *self, int a1, int a2, int a3, int t0);
+void *func_001409B0(void *self, void *stream);
 extern char D_4D7768[];
 }
 
@@ -46,7 +46,7 @@ extern "C" {
 
 TacticalAI2 *func_00141D40(TacticalAI2 *self, int a1, int a2, int a3, int t0) {
     (void)&self;
-    func_001407B0(self, a1, a2, a3);
+    func_001407B0(self, a1, a2, a3, t0);
     self->m_vtable = D_4D7768;
     func_26AD90(&self->field_34, 0x3F5);
     func_145680(&self->field_44);
@@ -81,9 +81,9 @@ TacticalAI2 *func_00141D40(TacticalAI2 *self, int a1, int a2, int a3, int t0) {
     return self;
 }
 
-TacticalAI2 *func_00141EC0(TacticalAI2 *self) {
+TacticalAI2 *func_00141EC0(TacticalAI2 *self, void *stream) {
     (void)&self;
-    func_001409B0(self);
+    func_001409B0(self, stream);
     self->m_vtable = D_4D7768;
     func_26AD90(&self->field_34, 0x3F5);
     func_145680(&self->field_44);

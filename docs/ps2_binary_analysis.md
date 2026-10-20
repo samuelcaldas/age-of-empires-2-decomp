@@ -256,6 +256,8 @@ Starting at VRAM `0x137810` (file offset `0x379e0`), the binary transitions from
 | `MapZone::Stub` (`func_00137E90`) | `0x137E90` | **100.0%** (8 / 8 B) | MapZone stub method (`jr ra; nop`). |
 | `MapZone::HideLOS` (`func_00137EA0`) | `0x137EA0` | **61.37%** (404 / 404 B) | Line-of-sight clearing and grid masking against sight radius and mode lookup tables. |
 | `MapZone::AddLOSRect` (`func_00138040`) | `0x138040` | **83.02%** (728 / 728 B) | Rectangular line-of-sight addition, tile state progression, and stance/ally notification. |
+| `MapZone::HideLOSRect` (`func_00138320`) | `0x138320` | **88.75%** (404 / 404 B) | Rectangular line-of-sight concealment, tile value restoration, and flag clearing. |
+| `MapZone::RevealLOSRect` (`func_001384C0`) | `0x1384C0` | **79.5%** (444 / 444 B) | Rectangular line-of-sight revelation, unrevealed tile counter increment, world notifications, and ally updates. |
 
 ### 6.3.1 KCET Hardware Layer Strings and Symbol Discoveries
 Inspection of `AOK.ELF` in the assertion/rodata pool (`0x490820` - `0x490900`) recovered exact file names and assertions from KCET's peripheral abstraction layer:
@@ -2707,6 +2709,164 @@ Directly following candidate state queries sits the rule statement parser and pa
 |---|---|---|---|
 | `func_00142D10` (`TacticalAI2::ParseRuleBlock`) | `0x142D10` | **91.54%** (776 / 776 B) | Complete tactical AI rule statement and parameter parser in pure C++. |
 
+#### Parameter-loop EOF characterization (2026-10-19)
+
+The native driver now includes mode `9`, a post-implementation characterization
+of the existing EOF branch at `0x142E38`. It links the unchanged
+[production parser](../src/tactical_ai_parser.cpp) with
+[test doubles](../tests/native/tactical_ai_parser_test.cpp). The
+[pytest wrapper](../tests/test_tactical_ai_parser.py) retains modes `0`–`8` and
+adds only this behavior case.
+
+The fixture selects action index `5` with one required parameter. The initial
+scanner returns an action identifier; the parameter scanner returns status `1`.
+Assertions require this exact helper order:
+
+1. `func_142980(self)` scans the action.
+2. `func_26B0A0(&self->field_34, self->field_1A0, 0)` resolves the action.
+3. `func_0013C650(&self->field_18[5])` returns the parameter count.
+4. `func_142980(self)` reaches parameter EOF.
+5. `func_144340(self, 0x1A, 0)` reports the error exactly once.
+
+The parser must return `0`. Numeric conversion, string interning, symbol lookup,
+and closing-delimiter helpers must not run. The test also checks the selected
+node's type and action index.
+
+The original ELF audit identifies these argument and return instructions.
+Bytes are listed in file order, not as host-endian instruction words:
+
+| VRAM | Bytes | Instruction |
+|---|---|---|
+| `0x142E30` | `1a 00 05 24` | `addiu $a1, $zero, 0x1A` |
+| `0x142E34` | `28 26 60 72` | `paddub $a0, $s3, $zero` |
+| `0x142E38` | `d0 10 05 0c` | `jal func_144340` |
+| `0x142E3C` | `28 36 00 70` | `paddub $a2, $zero, $zero` (call delay slot) |
+| `0x142E40` | `28 16 00 70` | `paddub $v0, $zero, $zero` |
+
+Validation used `docker-dev`, image `aoe-tests:verification`, with working
+directory `/workspace`:
+
+```sh
+docker --context docker-dev run --rm \
+  -e TZ=America/Sao_Paulo \
+  --mount "type=bind,source=$(pwd),target=/workspace" \
+  aoe-tests:verification \
+  python -m pytest -q -ra tests/test_tactical_ai_parser.py
+```
+
+- Before the test-only change: **12 passed in 0.22s**.
+- After the change: **13 passed in 0.25s**, with no failures or skips.
+- Final focused rerun: **13 passed in 0.33s**, with no failures or skips.
+- Python static validation: the same Docker image running
+  `python -m flake8 configure.py tests/test_tactical_ai_parser.py` exited `0`.
+- Documentation static validation: `git diff --check` passed, and all three
+  added local Markdown links resolved inside the Docker test environment.
+- Direct native validation used `g++ -m32 -std=c++98 -Iinclude
+  src/tactical_ai_parser.cpp tests/native/tactical_ai_parser_test.cpp
+  -o /tmp/tactical-ai-parser-test`, then `/tmp/tactical-ai-parser-test 9`,
+  inside that Docker image. It printed
+  `TACTICAL_AI_PARSER_TEST_9_PARAM_LOOP_EOF_PASSED` and exited `0`.
+- Two earlier direct-check attempts used the malformed flag
+  `-Wno-invalid offsetof`; both exited `1` with
+  `/usr/bin/ld: cannot find offsetof: No such file or directory`.
+  The successful direct check omitted that unnecessary flag. These invocation
+  failures are not behavioral Red evidence.
+
+#### Parameter token-type validation characterization (2026-10-19)
+
+The native driver now also includes mode `10`, a separate strict
+post-implementation characterization of the parameter token-type validation
+branch at `0x142E6C` (`field_19C != 1 && field_19C != 4`). Existing mode `4`
+remains preserved.
+
+The test fixture configures a valid action with one required parameter, followed
+by an invalid parameter token (type `3`, `")"`). Assertions require this exact
+five-event call sequence:
+
+1. `func_142980(self)` scans the action keyword (`PARSER_SCAN_TOKEN`).
+2. `func_26B0A0(&self->field_34, self->field_1A0, 0)` resolves the action definition (`PARSER_FIND_ACTION`).
+3. `func_0013C650(&self->field_18[5])` queries required parameter count (`PARSER_COUNT_PARAMETERS`).
+4. `func_142980(self)` scans the parameter token (`PARSER_SCAN_TOKEN`).
+5. `func_144340(self, 0xC, 0)` reports syntax error code `0xC` (`12`) (`PARSER_REPORT_ERROR`).
+
+The parser must return `0`. Conversion (`func_114378`), interning
+(`func_001410E0`), symbol lookup (`func_00142730`), and closing-delimiter
+(`func_001427A0`) helpers must remain uncalled.
+
+The original ELF audit identifies these argument, error, and return instructions
+at `0x142E4C`–`0x142E78` (file offsets `0x4302C`–`0x43058`):
+
+| VRAM | Bytes | Instruction | Description |
+|---|---|---|---|
+| `0x142E4C` | `9c 01 63 8e` | `lw $v1, 0x19C($s3)` | Load token type from `self->field_19C` |
+| `0x142E50` | `01 00 02 24` | `addiu $v0, $zero, 0x1` | Immediate 1 (identifier/numeric) |
+| `0x142E54` | `0a 00 62 10` | `beq $v1, $v0, 0x142E80` | Branch to numeric/symbol handling |
+| `0x142E58` | `04 00 02 24` | `addiu $v0, $zero, 0x4` | Delay slot: immediate 4 |
+| `0x142E5C` | `04 00 02 24` | `addiu $v0, $zero, 0x4` | Immediate 4 (string literal) |
+| `0x142E60` | `06 00 62 10` | `beq $v1, $v0, 0x142E7C` | Branch to string handling |
+| `0x142E64` | `0c 00 05 24` | `addiu $a1, $zero, 0xC` | Delay slot: error code `0xC` (`12`) |
+| `0x142E68` | `28 26 60 72` | `paddub $a0, $s3, $zero` | Argument 1: `$a0 = self` |
+| `0x142E6C` | `d0 10 05 0c` | `jal func_144340` | Call error handler callback |
+| `0x142E70` | `28 36 00 70` | `paddub $a2, $zero, $zero` | Delay slot: Argument 3: `$a2 = 0` |
+| `0x142E74` | `61 00 00 10` | `b 0x142FFC` | Branch to epilogue |
+| `0x142E78` | `28 16 00 70` | `paddub $v0, $zero, $zero` | Delay slot: return value `$v0 = 0` |
+
+Validation in `docker-dev` (`aoe-tests:verification`):
+- `python -m pytest -q -ra tests/test_tactical_ai_parser.py`: **14 passed in 0.59s**.
+- Native mode `10`: printed `TACTICAL_AI_PARSER_TEST_10_INVALID_PARAM_TYPE_STRICT_PASSED` and exited `0`.
+- Python static validation: `python -m flake8 configure.py tests/test_tactical_ai_parser.py` exited `0`.
+
+#### String-intern failure characterization (2026-10-19)
+
+The native driver now also includes mode `11`, a separate strict
+post-implementation characterization of the string-interning failure branch at
+`0x142EB4` (`func_1410E0 == -1`). Existing mode `5` remains preserved.
+
+The test fixture configures string interning enabled (`field_198 = 1`), an action
+with one required parameter, and a quoted string parameter token (type `4`, `"str"`).
+The string intern mock returns `-1`. Assertions require this exact six-event call sequence:
+
+1. `func_142980(self)` scans the action keyword (`PARSER_SCAN_TOKEN`).
+2. `func_26B0A0(&self->field_34, self->field_1A0, 0)` resolves the action definition (`PARSER_FIND_ACTION`).
+3. `func_0013C650(&self->field_18[5])` queries required parameter count (`PARSER_COUNT_PARAMETERS`).
+4. `func_142980(self)` scans the string parameter token (`PARSER_SCAN_TOKEN`).
+5. `func_001410E0(self, self->field_1A0)` attempts string interning and returns `-1` (`PARSER_INTERN_STRING`).
+6. `func_144340(self, 0x15, 0)` reports syntax error code `0x15` (`21`) (`PARSER_REPORT_ERROR`).
+
+The parser returns `0`. Downstream numeric conversion (`func_114378`), symbol
+lookup (`func_00142730`), closing delimiter (`func_001427A0`), and parameter field
+assignment into `field_4C[0].a1` must remain uncalled.
+
+The original ELF audit identifies these argument, error, and return instructions
+at `0x142E88`–`0x142EC0` (file offsets `0x43068`–`0x430A0`):
+
+| VRAM | Bytes | Instruction | Description |
+|---|---|---|---|
+| `0x142E88` | `98 01 62 8e` | `lw $v0, 0x198($s3)` | Load `self->field_198` |
+| `0x142E8C` | `0d 00 40 10` | `beqz $v0, 0x142EC4` | If 0, bypass interning and set val = 0 |
+| `0x142E90` | `28 16 00 70` | `paddub $v0, $zero, $zero` | Delay slot: default val = 0 |
+| `0x142E94` | `a0 01 65 26` | `addiu $a1, $s3, 0x1A0` | Argument 2: `$a1 = &self->field_1A0` |
+| `0x142E98` | `38 04 05 0c` | `jal func_1410E0` | Call string interning helper |
+| `0x142E9C` | `28 26 60 72` | `paddub $a0, $s3, $zero` | Delay slot: Argument 1: `$a0 = self` |
+| `0x142EA0` | `ff ff 03 24` | `addiu $v1, $zero, -0x1` | Immediate constant -1 in `$v1` |
+| `0x142EA4` | `2a 00 43 14` | `bne $v0, $v1, 0x142F50` | Branch to store if return != -1 |
+| `0x142EA8` | `03 00 03 24` | `addiu $v1, $zero, 0x3` | Delay slot |
+| `0x142EAC` | `15 00 05 24` | `addiu $a1, $zero, 0x15` | Argument 2: error code `0x15` (`21`) |
+| `0x142EB0` | `28 26 60 72` | `paddub $a0, $s3, $zero` | Argument 1: `$a0 = self` |
+| `0x142EB4` | `d0 10 05 0c` | `jal func_144340` | Call error handler callback |
+| `0x142EB8` | `28 36 00 70` | `paddub $a2, $zero, $zero` | Delay slot: Argument 3: `$a2 = 0` |
+| `0x142EBC` | `4f 00 00 10` | `b 0x142FFC` | Branch to epilogue |
+| `0x142EC0` | `28 16 00 70` | `paddub $v0, $zero, $zero` | Delay slot: return value `$v0 = 0` |
+
+Validation in `docker-dev` (`aoe-tests:verification`):
+- `python -m pytest -q -ra tests/test_tactical_ai_parser.py`: **15 passed in 0.46s**.
+- Native mode `11`: printed `TACTICAL_AI_PARSER_TEST_11_STRING_INTERN_FAIL_STRICT_PASSED` and exited `0`.
+- Python static validation: `python -m flake8 configure.py tests/test_tactical_ai_parser.py` exited `0`.
+
+No production behavior changed. This is characterization against current
+production code; no historical Red is claimed. The slice remains **NonMatching**.
+Unrelated node-item files remain untouched.
+
 ### 6.77 Tactical / Spatial AI Recursive Rule Expression and Condition Compiler (`0x143020`–`0x143440`, `tactical_ai_compiler.cpp`)
 
 Directly following rule block statement parsing sits the recursive condition and compound expression compiler (`TacticalAI2`, `0x143020`–`0x143440`, 1044 bytes of code, 1056-byte slice, Metrowerks MWCCPS2 2.3.1.01):
@@ -2797,6 +2957,27 @@ Directly following preprocessor directives sits the randomized script loader (`T
 | Function / Method | VRAM Address | Match Status | Description |
 |---|---|---|---|
 | `func_143AD0` (`TacticalAI2::LoadRandomScript`) | `0x143AD0` | **82.85%** (812 / 812 B) | Weighted random script selection parser in pure C++. |
+
+#### Signed-remainder audit evidence (2026-10-19)
+
+The original ELF uses signed `div`, not `divu`, for the random threshold.
+These audited bytes establish `(func_1AAB30() % 100) + 1` and the RNG call
+before the first scanner call. Bytes are listed in file order:
+
+| VRAM | Bytes | Instruction |
+|---|---|---|
+| `0x143AF4` | `cc aa 06 0c` | `jal func_1AAB30` |
+| `0x143AFC` | `64 00 03 24` | `addiu $v1, $zero, 0x64` |
+| `0x143B00` | `1a 00 43 00` | `div $zero, $v0, $v1` |
+| `0x143B10` | `10 10 00 00` | `mfhi $v0` |
+| `0x143B14` | `01 00 51 24` | `addiu $s1, $v0, 0x1` |
+| `0x143B18` | `60 0a 05 0c` | `jal func_142980` |
+| `0x143B1C` | `28 26 a0 72` | `paddub $a0, $s5, $zero` (call delay slot) |
+
+This records binary-analysis evidence only. It adds no random-loader test or
+production change and makes no historical Red claim. Native helper-order
+checks do not establish target binary matching. The slice remains
+**NonMatching**; the historical percentage above was not revalidated.
 
 ### 6.81 Tactical / Spatial AI Canonical Rule Statement Parser (`0x143E00`–`0x144050`, `tactical_ai_defrule.cpp`)
 

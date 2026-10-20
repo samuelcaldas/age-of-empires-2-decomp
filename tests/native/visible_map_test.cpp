@@ -2,6 +2,15 @@
 #include <cstring>
 #include "visible_map.h"
 
+struct CallRecord {
+    void *ptr;
+    int size;
+};
+
+static CallRecord call_log[10];
+static int call_count = 0;
+static VisibleMap *active_vmap = 0;
+
 extern "C" {
     extern int D_004E3058;
     extern int *D_50A5A0[200];

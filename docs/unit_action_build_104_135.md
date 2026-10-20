@@ -73,6 +73,11 @@ It consists of **43 contiguous functions** totaling **16,224 bytes** implemented
    - Periodic tactical zone evaluation and 8-sector threat analysis (`0x27AC90`, 2,080B).
    - Event buffer compaction (`0x27B4B0`, 368B).
    - Event count getter (`0x27B620`), coordinate query with flag guard (`0x27B630`), and 36-slot pool zero-marker allocator (`0x27B6B0`).
+4. **Action Codes & Registrations (`0x27B700`–`0x27CC80`):**
+   - Event queue item insertion and dispatch (`0x27B700`).
+   - Event list traversal, queries, and pruning (`0x27B810`, `0x27B950`).
+   - Action manager table initialization and 114 category/index registrations (`0x27BC50`).
+   - Exhaustive action code mapping across 113 category/index pairs (`0x27C390`).
 
 ## Verification
 

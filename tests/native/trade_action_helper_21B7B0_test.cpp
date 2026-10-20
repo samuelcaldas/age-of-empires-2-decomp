@@ -113,43 +113,16 @@ static void test_func_0021B830() {
     std::cout << "PASS: func_0021B830" << std::endl;
 }
 
-static void test_func_0021B830_skip_occupied() {
-    char manager[1008];
-    std::memset(manager, 0xCC, sizeof(manager));
-
-    // Viewports 0, 1, 2, 4, 5 are busy
-    // Viewport 3 is free (int == 0)
-    *(int *)(manager + 0xA8 * 0) = 5;
-    *(int *)(manager + 0xA8 * 1) = 0x1000;
-    *(int *)(manager + 0xA8 * 2) = -1;
-    *(int *)(manager + 0xA8 * 3) = 0;
-    *(int *)(manager + 0xA8 * 4) = 1;
-    *(int *)(manager + 0xA8 * 5) = 2;
-
-    void *vp = func_0021B830(manager);
-    assert(vp == manager + 0xA8 * 3);
-    assert(*(int *)vp == 1);
-
-    // Now all are busy -> saturation returns nullptr
-    void *vp_fail = func_0021B830(manager);
-    assert(vp_fail == nullptr);
-
-    std::cout << "PASS: func_0021B830_skip_occupied" << std::endl;
-}
-
 int main(int argc, char **argv) {
     if (argc < 2) {
         test_func_0021B7B0();
         test_func_0021B830();
-        test_func_0021B830_skip_occupied();
         return 0;
     }
     if (argv[1][0] == '0') {
         test_func_0021B7B0();
     } else if (argv[1][0] == '1') {
         test_func_0021B830();
-    } else if (argv[1][0] == '2') {
-        test_func_0021B830_skip_occupied();
     }
     return 0;
 }

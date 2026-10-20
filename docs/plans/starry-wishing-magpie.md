@@ -1,146 +1,185 @@
-# Decompilation Observability Implementation Plan
+# Global Decompilation Progress Watcher — Implementation Plan
 
 ## Context
 
-Approved 2026-10-17 in this conversation. The original untracked copy in the shared main checkout disappeared during concurrent work; this worktree-owned execution copy preserves its decisions, completed-task briefs and remaining acceptance requirements. The full specification is the user's `/plan` request. Do not change decompiled functions or contact/reconfigure aoe1–aoe8/aoe-advisor.
+The current observability tool verifies enrolled C/C++ slices and shows local status, but it has no global task feed or complete per-edition code denominator. It cannot yet truthfully show whole-edition percentages or a reliable finish estimate. This follow-on plan extends the already-merged observability system; it does not replace or revert that implementation.
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:executing-plans task-by-task. Track progress in this plan's ignored SDD ledger.
+The user requested a real-time global watcher for agent progress, percentage decompiled, and ETA from history. The user chose **four separate edition views**, with no combined cross-edition percentage: PC Conquerors 1.0c, PC AoK 2.0a, PS2 PAL SLES-50282, and PS2 NTSC-J SLPM-62076.
 
-**Goal:** One offline-first source of commit-bound metrics for local JSON artifacts, tmux, static GitHub Pages and README SVGs.
+**Goal:** Provide a near-real-time view of explicit agent task states and verified decompilation progress per edition, enabling whole-edition percentage and ETA only after denominator/history audit gates pass.
 
-**Architecture:** Audited pure-C++ ranges and independent behavioral/exact-matching checks produce immutable evidence; a common-Git-directory SQLite queue/store supports all worktrees. One projection handles ancestry, history/rates/ETA and every display. A strict allowlisted exporter separates local verification from opt-in GitHub publication.
+**Architecture:** Extend the common-Git-directory SQLite store with a privacy-minimal, append-only task event stream. Add audited target-specific executable inventories and one projection that feeds JSON, terminal/tmux, and the static dashboard. Only exact C/C++ ranges with passing behavior evidence, bound to the same target/source tree and verified in the integrated first-parent history, count as decompiled. ETA uses comparable daily integrated byte deltas, not agent/commit counts.
 
-**Tech Stack:** Python 3.14 Docker test image, argparse/sqlite3, jsonschema>=4,<5, Rich>=13,<15, HTML/CSS/JS/SVG, Node built-in tests, GitHub Actions/Pages.
+**Tech stack:** Existing Python 3.14 CLI, SQLite, JSON Schema, Rich, static HTML/CSS/JavaScript/SVG, Node tests, and `docker-dev`.
 
-**Spec:** Full user request and approved plan in the conversation, 2026-10-17. This recovery is a location change, not additional authorization or scope.
+**Spec:** User request and edition-scope decision from 2026-10-18. This file replaces the previous plan text at this path; all existing observability code remains as-is.
+
+> **For agentic workers:** REQUIRED SUB-SKILL: Use `superpowers:executing-plans` task-by-task after approval. Follow repository Red–Green–Refactor rules and record evidence in an ignored task ledger.
 
 ## Global constraints
 
-- Preserve other contributors' dirty primary checkout, source/instruction/documentation changes and untracked docs/testing.md. Work only here, sync/rebase only when this worktree is clean, no PRs. No global settings/hooks, no original/compiler/dump/object commits.
-- Builds/tests use docker-dev with TZ=America/Sao_Paulo; artifacts use UTC. Follow observed-assertion Red–Green–Refactor and docs/testing.md baseline/regression rules. Missing prerequisites/imports are blockers, not RED evidence.
-- No GitHub writes, metrics-branch creation, Pages activation/deploy, commit-status writes or hook installation without subsequent explicit authorization. Demonstrate dry-run; publishing defaults to offline/no side effects.
-- Origin is https://github.com/samuelcaldas/age-of-empires-2-decomp.git, main. Expected Pages path /age-of-empires-2-decomp/ is not a verified deployment. No runner installation, original/compiler upload, hosted matching claim or LLM polling.
-- Only fresh exact original-code ranges from reviewed pure-C/C++ count. Exclude .s, asm in .cpp, manual instruction encodings, stubs, padding/data, ambiguous eligibility and duplicate/overlapping claims. Unknown global denominator means no global percent/ETA. LOAD size 4,075,488 is not a pure-code total.
-- Distinguish branch/integrated, observed objdiff/verified ranges, behavioral/binary/full-suite gates, last attempt/last success, and unit matching/complete linked executable.
-- Initial enrollment is one real serializer verifier: [0x328020,0x328100), 224 bytes, using existing native/mutation tests and exact matching test without altering them. Other objdiff units remain observed/unverified; the official metric is an audited lower bound, not exhaustive coverage.
-- Do not edit upstream tools/project.py or import configure.py. Reuse its report format, not status flags/fuzzy percentages as proof. Follow existing atomic/hash/lock patterns without coupling to scripts/agy.
-- New focused Python modules <200 lines; avoid broad generic managers. Store private logs separately; public schema recursively forbids extra fields and unrestricted diagnostics/paths.
+- Preserve the primary checkout and other contributors' changes, including untracked `docs/plans/purring-exploring-ritchie.md`; implement only in a dedicated isolated worktree. Sync only from a clean worktree. Never open a PR; do not push without a separate explicit request.
+- Run builds/tests in `docker-dev`, with `TZ=America/Sao_Paulo`; use UTC for stored timestamps. Follow `docs/testing.md` TDD, baseline, regression, and static-check requirements. Missing dependencies are blockers, not RED evidence.
+- No edits to decompiled functions or existing matching assertions. Do not edit upstream `tools/project.py` or import side-effectful `configure.py`.
+- Report four edition metrics separately. Do not sum/average editions or deduplicate cross-edition shared code into a synthetic project percentage.
+- The verified numerator is the unique union of exact-original C/C++ ranges with passing behavior and matching gates on the same source tree, integrated into that edition's target branch. Assembly, hand-coded instructions, stubs, semantic-only work, staged work, data, padding, third-party code without an explicit inclusion ruling, ambiguous ranges, and duplicates do not count.
+- A whole-edition percentage requires a pinned target binary and a reviewed, complete in-scope code inventory. Unknown/unclassified code means global percentage and whole-edition ETA are unavailable. A partial audited-scope percentage must name that scope and must not be called whole-game progress.
+- Task telemetry is opt-in and explicit. Do not infer active/completed work from sessions, worktrees, branches, commits, prompts, transcripts, or agy records. Never store prompts, transcripts, raw logs, raw session IDs, private paths, or unrestricted descriptions.
+- The first release shares telemetry only among worktrees using the same `.git-common-dir`. Separate clones/machines require a later authenticated transport; do not imply global network aggregation.
+- Public exports contain per-edition aggregates and bounded reason codes by default, never agent aliases or raw task events. No Pages configuration/deployment, public branch, hooks, CI permissions expansion, credentials, runner, or other remote writes without separate authorization.
+- Preserve existing store data using additive versioned SQLite migrations. Keep new Python modules focused and below 200 lines.
 
-## Review Focus
+## Current baseline and denominator blockers
 
-1. A failed newer attempt shows its own state and older success identity/age, never stale green as current.
-2. Late old results, retries, merges and backfill cannot double count or roll latest backward.
-3. Skips/xfails/missing phases/empty collection/process exit 0 alone cannot certify ranges.
-4. Missing tools/mounts, racing inputs and dirty source claims are explicit blockers, not zero coverage or fake RED/GREEN evidence.
-5. Public data is untrusted: schema limits, path/symlink defenses, no HTML/SVG injection or remote commands from payloads.
+- `scripts/observability/state.py::read_state()` reads snapshots/events/unfinished verification requests from `<git-common-dir>/observability/metrics.sqlite`; it is shared across worktrees of one clone only.
+- `scripts/observability/projection.py::build_projection()` filters verified snapshots to the target first-parent history and unions registered exact ranges. `scripts/observability/history.py` calculates rates from comparable verified history only.
+- `scripts/observability/verification.py` requires reviewed C++ eligibility and separate behavior/matching gates. The existing registry contains one 224-byte PAL serializer slice at `0x328020`, not a whole-target inventory.
+- No general agent-task lifecycle telemetry exists. Session presence, native tests, branch names, source file sizes, or commit-message byte claims are not completion evidence.
+- Current whole-target denominator blockers: PC Conquerors may use `age2_x1.icd`, not its pinned `age2_x1.exe` loader; AoK 2.0a has no pinned binary hash; the PAL ELF is stripped and its 4,075,488-byte LOAD range is not a code denominator; NTSC-J has no verified hash and only a placeholder split configuration.
+- An edition may show bytes and a partial audited-scope ratio while these blockers remain, but its whole-edition percent/ETA must remain null with the blocker displayed.
 
-## Shared interfaces and policies
+## Review focus
 
-Implemented under scripts/observability/: strict model/schema/ranges/source policy; Git identity/staging; SQLite database/store/queue; registry, private pytest plugin, input fingerprints, Docker executor, snapshot/collector and observed objdiff adapter. Store is <git-common-dir>/observability; snapshots are immutable and materialized atomically, private diagnostics separate. Worktrees share producer ID/attempt sequence and exclusive leased claims with fencing. No fixed temporary filename.
+1. Loader/binary ambiguity, unknown ranges, or incomplete inventory never produces a whole-edition percent/ETA (Task 1 tests).
+2. Missing/expired heartbeat becomes stale/unknown, never active or completed (Tasks 2–3 tests).
+3. A native/behavior pass without exact matching, or matching against a different tree, contributes zero verified bytes (Tasks 3–4 tests).
+4. Branch names, merge commits, retries, squash/cherry-picks, and out-of-order events never double-count or falsely mark integration (Tasks 2 and 4 tests).
+5. Missing daily observations, changed inventory/policy, stale state, or non-positive velocity yields an unavailable ETA, not zero work or an invented date (Task 5 tests).
 
-Use build_projection(snapshots, graph, now) for all arithmetic. Graph includes first-parent main history, current HEAD and approved epoch/anchor; timestamps are observation time, not commit order. Branch commits are nonofficial and their matching does not certify a later merge tree. Keep latest_attempt, latest_successful_measurement, head_commit and measured_commit separate. Failed measurements have null coverage; old success is explicitly historical. Reject rewritten history until explicit epoch reset; no automatic cross-producer ordering by clock.
+## Metric and event contracts
 
-Rates use comparable net unique-byte deltas across complete 24-hour/7-day windows, endpoints within one-hour observation tolerance and actual elapsed time. Preserve regressions; no commit counts/agent counts/double deliveries. Binary/policy/scope/denominator changes start another series. Registry expansion for existing source is backfill: remeasure comparable baseline or mark delta incomparable.
+### Per-edition metrics
 
-ETA needs a verified pure-code denominator, positive comparable rate and >=3 independent daily deltas. Remaining / median positive rate gives central; max/min positive rates give optimistic/conservative. Expose zero/negative days, actual period and scenario limitations; no fake confidence interval. Otherwise return explicit unavailable reasons. Current full-game ETA remains unavailable.
+For each target show separately:
 
-Planned commands: python -m scripts.observability enqueue --commit HEAD --version SLES-50282; verify --commit HEAD --version SLES-50282 --profile audited; work --watch --interval 5; status [--json]; watch --interval 5 [--no-color]; export --output build/observability/public; site --input build/observability/public --output build/observability/site; publish --dry-run (also default), and future-authorized publish --apply [--deploy]. Hooks enqueue offline only, never build/network/fail a commit; provide an example, do not install/overwrite existing hooks. Forced retries create a new attempt, not duplicate coverage. Agent telemetry is unknown/not configured in v1.
+- `verified_cpp_bytes`: unique, exact-matched, behavior-checked, integrated C/C++ bytes.
+- `audited_code_bytes`: complete reviewed denominator for the named inventory revision.
+- `whole_edition_percent`: `verified_cpp_bytes / audited_code_bytes * 100`, null unless binary identity and the complete in-scope inventory are approved.
+- `audited_scope_percent`: optional partial ratio only with a clearly identified closed scope; never labeled whole-edition progress.
+- `unknown_code_bytes`, reviewed excluded categories, inventory completeness/revision, binary hash and last audit.
+- Task activity and staged bytes as separate panels; they never increase verified coverage.
 
-## Tasks
+The inventory classifies non-overlapping ranges as `game_engine`, `platform`, `third_party`, `loader`, `data`, `padding`, or `unknown`. Its policy explicitly states which code classes are in-scope. Third-party/runtime bytes are not silently discarded. Any unresolved executable range prevents claiming a complete edition denominator.
 
-For each task write and observe the behavioral RED before minimal GREEN/refactor; record exact tests and all deviations in the ignored ledger. Run focused/related tests and the full available suite before final integration; compare failures with unchanged baseline. Commit only owned files at verified milestones.
+### Agent task events
 
-### Task 1 — Strict contracts, audited ranges and source eligibility
+Add schema-validated append-only events with: unique event ID, task/attempt IDs, configured local pseudonymous agent alias, edition, declared function/range reference, state, per-agent sequence, UTC timestamp, branch/base/candidate commit and tree when applicable, evidence refs, and bounded blocker code. Never store free-form prompts or test diagnostics.
 
-**Files:** schemas/observability, model.py/ranges.py/source_policy.py, requirements.txt; tests/observability/test_contracts.py/test_ranges.py/test_source_policy.py.
-**Interfaces:** validate_snapshot(data, public=True); union_code_bytes(ranges); function_count(ranges); classify_source(entry, checkout); reviewed closure digests.
-- [ ] RED/GREEN strict schema/unsafe values, [100,140)+[120,160)=60 unique bytes, zero/one/many and invalid intervals, duplicate functions and conflicting ownership.
-- [ ] RED/GREEN source suffix is not proof; asm/header/macro/manual directives excluded; changed review/unknown include/path escape blocked.
-- [ ] Finish focused tests/lint and milestone commit. See existing task-1 brief/ledger for exact observed evidence.
+State transitions: `queued`, `working`, `testing`, `behavior_passed`, `matching_passed`, `awaiting_integration`, `staged`, `integrated`, `blocked`, and `stale`. Behavior and matching gates stay distinct. Candidate-source changes invalidate earlier evidence. Integration requires first-parent target ancestry or an explicit, reviewed squash/cherry-pick tree mapping; branch naming alone is not integration.
 
-### Task 2 — Worktree-shared store, attempt states and durable queue
+Agents opt into the CLI protocol with `task start`, periodic `task heartbeat`, `task state`, and `task list`. Heartbeats default to 60 seconds and expire after five minutes; expiry means `stale/unknown`. A heartbeat reports activity only, not code progress. Existing sessions without published events remain unknown until they opt in.
 
-**Files:** database.py/store.py/queue.py/identity.py/atomic.py and matching tests.
-**Interfaces:** MetricsStore.enqueue/claim/complete/append_event/record_snapshot/read_events/read_snapshots; resolve_repository; write_atomic.
-- [ ] RED/GREEN temporary repos/worktrees and multiprocessing: shared idempotent queue, monotonic sequences, exclusive claims, lease expiry recovery/fencing.
-- [ ] RED/GREEN immutable snapshots, invalid records rejected, late completion preserved, interrupted atomic writes preserve old data and clean temporaries.
-- [ ] Finish focused tests/lint and milestone commit. See task-2 brief/ledger.
+### Velocity and ETA
 
-### Task 3 — Real verification adapter and pilot enrollment
+Store one successful daily coverage observation per edition and comparison series. A no-change day is zero only when the observer recorded a successful current-tree observation; a missing observation is a gap. The comparison series binds binary SHA, inventory revision, target edition, verifier and policy revisions.
 
-**Files:** verification.py/pytest_plugin.py/objdiff.py/registry.py/snapshot.py/collector.py/staging.py/execution_inputs.py/docker_executor.py, config/observability/registry.json, .dockerignore and tests.
-**Interfaces:** collect_gate_results; assess_evidence; verify_revision(claim, executor, store); read_objdiff_report; immutable source capture and content/input fingerprints.
-- [ ] RED/GREEN stale report/config flags/native-only/fuzzy/process success never certify exact bytes; all required node phases, original/tool/config/tree identities and source reviews must hold.
-- [ ] RED/GREEN dirty/racing source and unavailable mounts/prerequisites blocked, assertions failed, partial/unregistered inventory diagnostic only. Public diagnostics are fixed codes.
-- [ ] Enroll serializer unchanged. Privately mount original/compiler/wibo read-only; do not embed them in images. Keep source/config/test children read-only while allowing isolated Ninja root metadata (documented observed integration ruling).
-- [ ] Run actual pilot through docker-dev or record precise blocker. Preserve previous failed attempts. Finish tests/lint/commit and record real outcome. See task-3 brief/ledger.
+Require 14 complete comparable day-over-day deltas, current target/inventory validity, and fresh data for any ETA. Central ETA is remaining audited bytes divided by median daily net verified-byte rate. Show an observed scenario range only when its rates are positive, with sample window/count; it is observed variation, not a confidence interval. Include zero and negative deltas. No positive median, denominator gaps, stale data, or incompatible series means ETA unavailable. Distinguish ETA for the closed enrolled scope from ETA for the whole edition.
 
-### Task 4 — One projection, history, velocity and ETA
+Historical backfill is allowed only from exact-match/behavior evidence tied to the historical source tree and binary. Git messages, nominal commit counts, source-file sizes, and tests existing in a commit do not prove historical matching or throughput.
 
-**Files:** history.py/projection.py; tests/observability/test_history.py/test_projection.py.
-**Interfaces:** build_projection(snapshots, graph, now); window_rate(history, hours); estimate_completion(history, denominator), schema-backed reason results.
-- [ ] RED: out-of-order completions preserve newer first-parent commit; branch+merge and retries never double count; newer failure displays previous success as historical only.
-- [ ] RED: rewrite blocks continuation, changed binary/policy/denominator/scope breaks series, registry backfill is not delivery, removals retain negative net deltas.
-- [ ] RED: 100 bytes /24h =100/24 bytes/hour; duplicate observations unchanged; incomplete 24h/7d unavailable; cover one-hour tolerance, negative/zero and clock anomalies.
-- [ ] RED: daily rates100,200,300 and600 remaining yield central3d/optimistic2d/conservative6d; unknown denominator or insufficient/invalid data gives no ETA.
-- [ ] GREEN/refactor one projection with ancestry and explicit series; all contract/store/history tests and serialization round trips pass; commit.
+## Existing interfaces to reuse
 
-### Task 5 — CLI, hook example and persistent terminal
+- `scripts/observability/store.py`, `database.py`, and `queue.py`: transactional shared SQLite state, leases, fencing, immutable verification snapshots.
+- `scripts/observability/state.py::read_state()` and `load_projection()`: read-only local projection; extend with versioned task events and all-edition loading.
+- `scripts/observability/projection.py::build_projection()`, `scripts/observability/ranges.py::union_code_bytes()`, and `scripts/observability/history.py`: preserve range union, first-parent integration, comparable rates, and unavailable reasons.
+- `scripts/observability/verification.py` and `config/observability/registry.json`: source review and independently verified exact evidence, never infer from objdiff status flags.
+- `scripts/observability/terminal.py` and `scripts/observability/web/*`: present the same projection, with no UI-side percentage/rate arithmetic.
 
-**Files:** __main__.py/cli.py/terminal.py, hooks/observability/post-commit.example; test_cli.py/test_terminal.py/test_hook.py.
-**Interfaces:** CLI uses store/projection; render_terminal(projection,width,color) renders only; watch read-only, work explicit executor.
-- [ ] RED: commands, invalid inputs/intervals, absent repo, offline/JSON mode, HEAD vs measured, no inferred telemetry.
-- [ ] RED: hook enqueue idempotent/offline and nonblocking; missing tool/store failures cannot fail commits; existing hooks not modified.
-- [ ] RED: resize, NO_COLOR/non-TTY, empty/stale state, refresh failure, Ctrl+C safe.
-- [ ] GREEN: implement documented commands, optional forced retry, five-second default refresh and worker. No automatic publication.
-- [ ] Demonstrate one worker and watcher in a new owned tmux session, preserve other sessions; report missing prerequisites. Run suite/lint, commit.
+## Implementation tasks
 
-### Task 6 — Allowlisted export, static site and SVG badges
+Follow Red–Green–Refactor for each behavior; run focused tests, related tests, full available suite, lint, and doc-link checks. Record command output. Keep the existing pilot and original assertions intact.
 
-**Files:** publication.py pure export, site.py, web/index.html/styles.css/app.mjs/view_model.mjs; test_export.py/test_site.py/test_web.mjs, Dockerfile.web.
-**Interfaces:** make_public_bundle(snapshots,projection); build_site(bundle_dir,output_dir) -> exact file/digest manifest. Revalidate public schema.
-- [ ] Invoke dataviz before chart/indicator implementation.
-- [ ] RED: no raw logs/private paths/source/object/unknown extensions/symlinks/traversal in export; escape SVG/HTML, no script injection.
-- [ ] RED: terminal/JSON/site/SVG agree on bytes/status/commit; unknown percent not0%; synthetic examples not live data.
-- [ ] RED Node tests: relative /age-of-empires-2-decomp/ paths, nulls/malformed fetch/stale state/text-safe DOM; UI does not recompute rates.
-- [ ] GREEN accessible light/dark static site, relative URLs, no backend/CDN/badge service; data/latest.json and bounded history; SVG bytes/state/measurement time+identity.
-- [ ] Poll Pages15s with explicit error/stale/cache behavior; badge dates honest about static/cache lag. Local subpath HTTP/browser smoke; all screenshots in .playwright-mcp; report unavailable browser check honestly. Run suites/lint/commit.
+### Task 1 — Edition inventory and denominator readiness
 
-### Task 7 — Opt-in GitHub transport and trusted Pages workflow
+**Files:** new `schemas/observability/target-inventory-v1.schema.json`, `config/observability/targets/<edition>.json`, `scripts/observability/inventory.py`; `tests/observability/test_inventory.py`.
 
-**Files:** github.py/publication.py; .github/workflows/observability-ci.yml/observability-pages.yml; test_publication.py/test_workflows.py.
-**Interfaces:** plan_publication(bundle,repository) pure/offline; apply_publication(plan,transport,deploy) only explicit apply. Test with injected transport and disposable local bare remotes, no GitHub writes.
-- [ ] RED: omitted flags/dry-run no network/writes; wrong repo, unpushed commit, invalid manifest/payload or epoch rejected; no credentials exported.
-- [ ] GREEN dedicated decomp-metrics branch contains only sanitized immutable snapshots and canonical projection. Use temp isolated repo, bounded optimistic FF append/retry, no force push, no main metrics commits. Same ID/different content conflicts.
-- [ ] RED/GREEN concurrent publishers and old results: preserve all records, recompute latest by trusted source first-parent graph and producer sequence, not arrival/time; prevent rollback; do not trust payload integration flags.
-- [ ] --apply appends only; explicit --apply --deploy dispatches trusted default-branch Pages workflow. Retry dispatch without duplicate append. No real outward action during implementation.
-- [ ] CI source push: read-only synthetic/schema/web checks, no originals/compilers/hosted matching/untrusted commands.
-- [ ] Pages workflow_dispatch deploy boolean defaults false; fetch current metrics only as data with trusted source tooling, validate schema/manifest/source graph/projection/size, build/upload allowlisted artifact. Pin official actions immutably.
-- [ ] Entire Pages fetch/build/deploy workflow in one concurrency group cancel-in-progress:false; re-read canonical metrics after acquiring it. Pending site refresh coalescing never drops verification/history. Preserve FF ledger/ancestry invariants; rewrites block. Only deploy job pages:write/id-token:write plus github-pages environment; reads contents:read. Never execute metrics-branch code.
-- [ ] Optional separately enabled commit status decomp/local-verification with minimal permissions, local-provenance label and non-green failed/blocked results; no privileges for untrusted forks.
-- [ ] Tests triggers/permissions/deploy=false/forged payload/out-of-order/dry-run receipts. Run suites/lint/commit.
+- [ ] Define an inventory manifest with pinned original identity/hash, source binary path, segment hashes, disjoint address ranges, classification, inclusion decision, evidence, review identity, revision, completeness status, and unknown byte total.
+- [ ] Test overlap/gap detection, unknown executable ranges, data/padding separation, wrong binary hash, unsupported target, and reject the 4,075,488-byte PAL LOAD range as a code denominator.
+- [ ] Establish readiness gates for each edition: resolve Conquerors `.exe` vs `.icd`; pin AoK 2.0a original; classify PAL code/data/library/loader ranges; pin NTSC-J and replace placeholder inventory. Do not manufacture completion; an unaudited target stays unavailable.
+- [ ] Keep the 224-byte serializer enrollment as a verified lower-bound fixture; do not expand the registry based on task telemetry.
 
-### Task 8 — Documentation, baseline and E2E acceptance
+### Task 2 — Additive task event store and state machine
 
-**Files:** docs/observability.md, narrow README.md/docs/README.md edits and owned test/config refinements. Do not commit/modify another contributor's untracked docs/testing.md.
-- [ ] Document trust/enrollment/denominator/freshness/history/epochs/shared store/private Docker prerequisites and remote bind-mount visibility.
-- [ ] Replace stale bootstrap README with factual explanation, expected dashboard/SVG links marked pending activation, image cache/latency.
-- [ ] Exact local/tmux commands, optional safe hook instructions and explicit publication activation. Manual GitHub Pages source/Actions permissions/environment/token setup; no runner install.
-- [ ] Compare complete suite with unchanged isolated baseline under same prerequisites. Fix new failures, report every failure/skip and no weakened assertions.
-- [ ] E2E: empty store unavailable; pure exact unique ranges consistent across outputs; actual pilot or blocker; shared concurrent queue+interruption+leases; newer failed attempt vs historical success; no duplicate/rollback on retries/merges/backfill; unknown denominator/sparse history no ETA; offline tmux/subpath site; dry-run/local bare remotes no GitHub mutations; full/static/docs results recorded.
-- [ ] Fresh whole-branch reviewer; fix Important/Critical with observed RED/GREEN and suite, ledger Minor deferrals and all rulings. Do not merge into dirty main or publish without authorization.
+**Files:** `database.py`, `store.py`, new `task_events.py`; task-event schema; `tests/observability/test_task_store.py`.
+
+- [ ] Add a schema-versioned migration and append-only task event table without rewriting prior snapshots.
+- [ ] Test concurrent writers from two worktrees sharing one common dir, event ID replay, per-agent sequence ordering, transaction rollback, restart, stale heartbeat expiry, and read-only inspection.
+- [ ] Test legal/illegal state transitions; expiry produces stale/unknown, not done; no free text, raw logs, prompt text, session IDs, or absolute paths enter public records.
+- [ ] Keep producer/task actor aliases explicitly configured and local; independent repositories are not silently merged.
+
+### Task 3 — Opt-in task CLI and evidence-bound lifecycle
+
+**Files:** `arguments.py`, `cli.py`, `task_events.py`, `CLAUDE.md`, `docs/observability.md`; `test_task_cli.py`, `test_task_lifecycle.py`.
+
+- [ ] Add `task start --task-id --agent --edition --range --branch --base`, `task heartbeat --task-id`, `task state --task-id --state`, and `task list [--edition]`.
+- [ ] Require task ranges to exist in the target inventory or be explicitly marked `unknown/proposed`; proposed ranges can show active activity but never increase coverage.
+- [ ] Test malformed/overlapping/out-of-target ranges, event replay, invalid state changes, stale work, candidate SHA changes invalidating gate results, and blocked/staged states.
+- [ ] Require the existing verifier to produce behavior and exact-match evidence bound to the same source tree; the task CLI cannot declare itself verified/integrated.
+- [ ] Document adoption for future agents. Do not auto-message or scrape current sessions; tasks without events remain unknown.
+
+### Task 4 — Four-edition global projection and inventory-safe percentage
+
+**Files:** new `global_projection.py`, extend `projection.py` and `state.py`; `test_global_projection.py`.
+
+- [ ] Load four separate target histories and inventories. Preserve current per-edition code/status and target-ready reasons.
+- [ ] Count numerator from unique exact verified address ranges only after behavior and matching pass on the same pinned target; require integrated first-parent ancestry or reviewed tree mapping.
+- [ ] Tests prove branch/staged/semantic-only/assembly/nonmatching/failed/duplicate/overlapping work contributes zero; four editions never pool or deduplicate each other's code.
+- [ ] Return whole-edition percent only for complete audited inventories. If only an enrolled scope is closed, show a separate labeled scoped ratio and whole-edition unavailable reason.
+- [ ] Handle instrumented lower-bound output, unknown ranges, inventory revision changes, stale refs, rewrites, squash mapping, and in-flight failed attempts without stale-green behavior.
+
+### Task 5 — Daily historical observations, velocity, and ETA
+
+**Files:** extend `history.py` and `global_projection.py`; daily rollup storage; `test_global_history.py`.
+
+- [ ] Record at most one successful observation per UTC day and `(edition, binary SHA, inventory revision, policy revision)`. Distinguish observed zero delta from missing daily data.
+- [ ] Test backfill rejection without tree/hash-bound evidence, changes of scope/binary, regressions, zero days, missing days, duplicate daily writes, and clock anomalies.
+- [ ] Require 14 complete comparable daily deltas, closed denominator, positive median throughput, and fresh observation for ETA. Use median for central estimate; label any range as observed scenario variation, never as statistical confidence.
+- [ ] Show scoped ETA separately from whole-edition ETA. If the inventory is incomplete, only the scoped ETA may be available.
+- [ ] Do not infer velocity from commits/day, agent task counts, code-file sizes, heartbeats, or historical commit-message claims.
+
+### Task 6 — Global CLI/tmux and static dashboard
+
+**Files:** `arguments.py`, `cli.py`, `terminal.py`, `site.py`, `web/index.html`, `web/app.mjs`, `web/view_model.mjs`, `web/chart.mjs`; Python/Node tests.
+
+- [ ] Add `status --all-editions [--json]` and `watch --all-editions --interval 5`. Poll the local shared store every five seconds and render four independent edition cards.
+- [ ] Show audited denominator/completeness, verified exact bytes/percent, current target HEAD vs measured commit, active/stale task states, last update, daily speed, and scoped/full ETA with explicit unavailable reasons.
+- [ ] Agent aliases/tasks show locally only; public Pages payload defaults to aggregate per-edition counts and metrics with no task aliases, raw event data, logs or private paths.
+- [ ] Test JSON/terminal/site parity, NO_COLOR/resize/Ctrl+C, empty/stale/unavailable DB, two-worktree events, subpath URLs, malformed hostile payloads, accessibility/table fallback, no task-driven percentage, and no UI-side calculations.
+- [ ] Keep Pages activation, public event publication, GitHub settings, and network deployment behind existing explicit authorization boundaries. Fix workflow fail-closed behavior before any later deployment.
+
+### Task 7 — Adoption, docs, and rollout gate
+
+**Files:** `docs/observability.md`, `docs/README.md`, `README.md`, `CLAUDE.md`; integration tests.
+
+- [ ] Document each per-edition target status, binary/inventory blockers, verified-vs-task distinction, local clone sharing, event schema, TTL, ETA sample threshold, and commands for tmux.
+- [ ] Run end-to-end with synthetic targets and the actual unchanged serializer exact-matching fixture. Synthetic data is always labeled fixture; never claim it is live.
+- [ ] Run observability Python tests, Node tests, `flake8`, changed Markdown link checks, and the full available test suite in `docker-dev`; report all failures/skips/prerequisites against an unchanged baseline.
+- [ ] Test migration on a copy of the existing DB and concurrent event production/read from multiple worktrees. Preserve local root untracked files and all other agents' work.
+- [ ] Default output with all four incomplete inventories must show four unavailable whole-edition percentages and ETAs, verified bytes lower-bound, visible readiness blockers, and explicit active/stale task status.
+- [ ] No GitHub push, Pages activation/deployment, global config, hook installation, or live event publication during implementation without separate authorization.
 
 ## Verification commands
 
-Use the private standard image aoe-observability:verification; build tests/Dockerfile through docker-dev. Bridge outbound networking timed out; host-network builds have been tested working, without host config changes. Remote daemon sees this worktree path; otherwise populate a dedicated private Docker volume, never assume client-local bind visibility.
+Run only after plan approval and in an isolated worktree. Verify the checkout is mounted at the same path on the `docker-dev` daemon; use a private volume if not. Follow `docs/testing.md`.
 
-- Focused RED/GREEN: docker --context docker-dev exec aoe-observability-tests python3 -m pytest -q -ra tests/observability/<test-file-or-node>
-- Feature: same command with tests/observability.
-- Lint: same container python3 -m flake8 scripts/observability tests/observability.
-- Final full suite in newly built standard image: python -m pytest -q -ra, compare untouched baseline with identical assets.
-- Web: private Node24 Docker stage, node --test tests/observability/test_web.mjs.
-- git diff --check and changed Markdown link validation. Keep outputs in this plan's ignored workspace, not public payloads.
+```sh
+docker --context docker-dev run --rm \
+  -e TZ=America/Sao_Paulo \
+  --mount "type=bind,source=$(pwd),target=/workspace" \
+  aoe-tests:verification python -m pytest -q -ra tests/observability
 
-## Rollout boundary
+docker --context docker-dev run --rm \
+  -e TZ=America/Sao_Paulo \
+  --mount "type=bind,source=$(pwd),target=/workspace" \
+  aoe-tests:verification python -m flake8 scripts/observability tests/observability
 
-Deliver code, tests, local artifacts/tmux/site demos, CI definitions and dry-run proof only. No GitHub push, metrics-branch creation, Pages deployment/activation, status write, hook installation or automatic network publication is authorized. The initial verified224-byte pilot is a truthful lower bound, not an exhaustive re-audit of all existing decompilation.
+docker --context docker-dev run --rm \
+  --mount "type=bind,source=$(pwd),target=/workspace" \
+  -w /workspace node:24-bookworm-slim node --test tests/observability/test_web.mjs
+```
+
+Verify daily series behavior with a frozen clock, event concurrency/migration on temporary Git repos/worktrees, consistent per-edition JSON/terminal/web output, `git diff --check`, and changed Markdown links. Do not run/modify other agents' tmux sessions.
+
+## Honest rollout policy
+
+The initial useful release can show opt-in active/stale tasks and the existing 224-byte verified lower bound. This is not a whole-game percentage. Whole-edition percentages remain unavailable until each target is pinned and its complete in-scope code denominator is audited. ETA remains unavailable until 14 comparable complete daily deltas exist under the same edition, binary, inventory and policy. Never replace these unavailable states with a guessed percentage/date.

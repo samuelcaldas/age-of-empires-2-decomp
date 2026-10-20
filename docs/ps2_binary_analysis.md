@@ -7354,3 +7354,70 @@ Implemented in pure C++ with native unit tests in `tests/native/tactical_ai_acti
 | Function / Method | VRAM Address | Code Size (Orig) | Slice Size | Match Status | Description |
 |---|---|---|---|---|---|
 | `func_00340D70` | `0x340D70` | 712 B | 720 B | **Decompiled (Pure C++)** | Tactical AI action state transition handler and virtual notification dispatcher. |
+
+#### 6.196 `Combat Subsystem Controller Pulse Evaluator` (`0x32C320`–`0x32C420`, `tactical_ai_combat_subsystem_controller_pulse.cpp`)
+
+Located at VRAM `0x32C320`–`0x32C420` (file offset `0x22C500`–`0x22C600`, 256 bytes symbol extent, 252 bytes code + 4 bytes padding nop, Metrowerks C++ PS2 MWCC 2.3.1.01):
+- `func_0032C320` (`0x32C320`, 252 bytes code, 256 bytes slice): Evaluates controller pulse cycle:
+  - Calls `func_00323860(self)` to obtain return value `ret`. If non-zero and `self->m_view != nullptr`, dispatches view notification `self->m_view->func_28(1)` via vtable slot `0x28` (`0x32C358`).
+  - Guards: early exit returning `ret` if `self->m_field_341C == 0`, `func_1880D0(D_004E3180) == 0`, or `self->m_field_190 != 2`.
+  - **ELF-Derived Division & Comparison Signedness**:
+    - Queries denominator `den = func_184C10(D_004E3180)`. If zero, clamped to 1 (`addiu $s2, $zero, 1` at `0x32C3A4`).
+    - Queries numerator `num = func_184BD0(D_004E3180, 1)`.
+    - At `0x32C3B4`–`0x32C3C0`, the original binary emits:
+      ```text
+      0x32C3B4: bne $s2, $zero, +2       ; branch if denominator non-zero
+      0x32C3B8: divu $zero, $v0, $s2     ; unsigned hardware division
+      0x32C3BC: break 0, 7               ; trap 7 on division by zero
+      0x32C3C0: mflo $v0                 ; extract unsigned quotient
+      0x32C3C4: sltiu $at, $v0, 81       ; unsigned comparison: quotient < 81
+      0x32C3C8: bne $at, $zero, 0x32C400 ; early exit if quotient < 81
+      ```
+    - The use of opcode `divu` (`0x0000001B`) and comparison `sltiu` (`0x2C410051`) establishes that both division and threshold evaluation are strictly unsigned (`(unsigned int)num / (unsigned int)den < 81`).
+    - The `bne; divu; break 0, 7; mflo` sequence matches `#pragma divbyzerocheck on` in MWCC PS2.
+  - State updates: sets `self->m_field_3424 = 1`, validates `func_185DC0(D_004E3180) == 0`, dispatches `func_185F00(D_004E3180, 1, 1)`, and sets `self->m_field_3420 = 1`.
+  - Returns `ret`.
+
+Validated with 12 native contract and mutation tests in `tests/test_tactical_ai_combat_subsystem_controller_pulse.py` and 11-relocation matching diagnostic in `tests/test_tactical_ai_combat_subsystem_controller_pulse_matching.py`.
+
+#### 6.196.1 Combat Subsystem Controller Pulse Evaluator Results (Pure C++, 256 Bytes)
+
+| Function / Method | VRAM Address | Code Size (Orig) | Slice Size | Match Status | Description |
+|---|---|---|---|---|---|
+| `func_0032C320` | `0x32C320` | 252 B | 256 B | **Decompiled (Pure C++)** | Controller pulse evaluator with divbyzero unsigned division and view/manager dispatch. |
+
+#### 6.197 `Combat Subsystem Controller Initialization Function` (`0x32E8C0`–`0x32EC80`)
+
+Located at VRAM `0x32E8C0`–`0x32EC78` (file offset `0x22EAA0`–`0x22EE58`, 952 code bytes / 238 instructions, plus 8 bytes trailing alignment padding up to `0x32EC80`, Metrowerks C++ PS2 MWCC 2.3.1.01):
+
+- **Canonical Extent**: VRAM `[0x0032E8C0, 0x0032EC78)` (952 bytes, `0x3B8`, 238 instructions).
+- **Epilogue Region**: Starts at `0x0032EC44` (`+0x384`).
+- **Return Jump**: `jr $ra` at `0x0032EC70` (`+0x3B0`, opcode `0x03E00008`).
+- **Delay Slot**: `addiu $sp, $sp, 48` at `0x0032EC74` (`+0x3B4`, opcode `0x27BD0030`, stack teardown).
+- **Trailing Alignment Padding**: Exactly 8 bytes (2 NOP instructions: `0x00000000 0x00000000`) at `[0x32EC78, 0x32EC80)`.
+- **Predecessor Continuity**: Immediately preceded by `func_0032E820` ending at `0x32E8C0` (0 bytes padding).
+- **Successor Continuity**: Immediately followed by successor routine starting at `0x32EC80` (prologue `0x27BDFFB0`). Zero unclassified bytes.
+- **Stack Frame**: 48 bytes (`addiu $sp, $sp, -48` at `0x32E8C0`). Saved callee registers: `sq $ra, 16($sp)` and `sq $s0, 0($sp)`.
+- **ABI / Calling Convention**: MIPS EE ABI member function constructor/initialization pattern. `$a0` receives `this` instance pointer (stored to `44($sp)`). Returns instance pointer in `$v0` loaded from `44($sp)`.
+- **Direct JAL Target Addresses (Byte-derived, stripped ELF)**:
+  The function encodes exactly 15 direct JAL invocations. Because `AOK.ELF` is stripped, all callee symbols and high-level semantics remain explicitly unverified:
+  1. `+0x0A8` (`0x0032E968`): `jal 0x001FD400`
+  2. `+0x11C` (`0x0032E9DC`): `jal 0x001FCB60`
+  3. `+0x124` (`0x0032E9E4`): `jal 0x001B0510`
+  4. `+0x12C` (`0x0032E9EC`): `jal 0x00100850`
+  5. `+0x140` (`0x0032EA00`): `jal 0x001D7AA0`
+  6. `+0x14C` (`0x0032EA0C`): `jal 0x001AFB70`
+  7. `+0x164` (`0x0032EA24`): `jal 0x00100850`
+  8. `+0x174` (`0x0032EA34`): `jal 0x001A1860`
+  9. `+0x248` (`0x0032EB08`): `jal 0x002261C0`
+  10. `+0x334` (`0x0032EBF4`): `jal 0x00100850`
+  11. `+0x348` (`0x0032EC08`): `jal 0x00260950`
+  12. `+0x358` (`0x0032EC18`): `jal 0x003336C0`
+  13. `+0x360` (`0x0032EC20`): `jal 0x003338A0`
+  14. `+0x394` (`0x0032EC54`): `jal 0x00366F90`
+  15. `+0x39C` (`0x0032EC5C`): `jal 0x002C2C20`
+- **Data References & Stripped-ELF Uncertainty**:
+  - `+0x008` / `+0x014`: Direct byte-level address calculation `lui $v0, 0x4E` followed by `addiu $a1, $v0, -4496` (`0xEE70`), computing `0x004DEE70` into `$a1` (sign-extension of `0xEE70` subtracts `0x1190` from `0x004E0000`).
+  - `+0x118`: GP-relative store `sw $zero, 0x8D58($gp)` (raw immediate `0x8D58` sign-extends to `-0x72A8` / `-29352`).
+  - `+0x1C4`: GP-relative store `sw $v0, 0x8D4C($gp)` (raw immediate `0x8D4C` sign-extends to `-0x72B4` / `-29364`).
+  - Because `AOK.ELF` is stripped, data references and callee names cannot be confirmed from symbol tables and are tracked purely by direct VRAM address. No implementation is established.

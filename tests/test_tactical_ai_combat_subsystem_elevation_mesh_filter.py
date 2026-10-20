@@ -10,13 +10,13 @@ NATIVE_TEST = (
     ROOT / "tests/native/tactical_ai_combat_subsystem_elevation_mesh_filter_test.cpp"
 )
 MUTATIONS = [
-    ("coord_count_zero", "if (count <= 0) return;", "if (count < 0) return;"),
-    ("self_count_zero", "if (self->m_count == 0) return;", "if (self->m_count < 0) return;"),
-    ("invert_active", "if (desc->m_active)", "if (!desc->m_active)"),
-    ("omit_null_entity", "if (entity) {", "if (true) {"),
-    ("corrupt_id", "entity->m_id", "static_cast<short>(0)"),
-    ("corrupt_tag", "desc->m_tag", "static_cast<unsigned char>(0)"),
-    ("freeze_coords", "i < count; i++, coords++", "i < count; i++"),
+    ("invert_active", "if (desc->m_active)", "if (!desc->m_active)", "inactive_rejection", "inactive entity rejection active id mismatch"),
+    ("corrupt_id", "entity->m_id", "static_cast<short>(0)", "grid_filtering", "grid entity filtering entity id mismatch"),
+    ("corrupt_tag", "desc->m_tag", "static_cast<unsigned char>(0)", "grid_filtering", "grid entity filtering tag mismatch"),
+    ("freeze_coords", "i < count; i++, coords++", "i < count; i++", "grid_filtering", "grid entity filtering entity id mismatch"),
+    ("guard_count", "if (count <= 0) return;", "if (true) return;", "grid_filtering", "grid entity filtering call count contract violated"),
+    ("guard_mesh_count", "if (self->m_count == 0)", "if (self->m_count != 0)", "early_exits", "early exit zero mesh count failed"),
+    ("off_by_one_loop", "i < count", "i <= count", "grid_filtering", "grid entity filtering call count contract violated"),
 ]
 
 
@@ -32,10 +32,13 @@ def compile_native(source, binary):
     assert result.returncode == 0, result.stderr
 
 
-def run_native(binary):
-    """Run one fixture process, returning diagnostics and exit status."""
+def run_native(binary, arg=Null if "Null" in globals() else None):
+    """Run one fixture process with optional test argument."""
+    cmd = [str(binary)]
+    if arg:
+        cmd.append(arg)
     return subprocess.run(
-        [str(binary)], capture_output=True, text=True, timeout=10,
+        cmd, capture_output=True, text=True, timeout=10,
     )
 
 
@@ -47,14 +50,15 @@ def test_mesh_filter_reference_contract(tmp_path):
     assert result.returncode == 0, result.stderr
 
 
-@pytest.mark.parametrize("name,original,replacement", MUTATIONS)
-def test_mesh_filter_rejects_mutation(tmp_path, name, original, replacement):
-    """Verify that every production source mutation fails the native contract."""
+@pytest.mark.parametrize("name,original,replacement,test_arg,expected_msg", MUTATIONS)
+def test_mesh_filter_rejects_mutation(tmp_path, name, original, replacement, test_arg, expected_msg):
+    """Verify that every production source mutation fails via the specific expected assertion diagnostic."""
     source = SOURCE.read_text()
     assert original in source, f"Missing mutation anchor: {name}"
     mutated = tmp_path / f"{name}.cpp"
     mutated.write_text(source.replace(original, replacement))
     binary = tmp_path / name
     compile_native(mutated, binary)
-    result = run_native(binary)
-    assert result.returncode != 0, f"Undetected mutation: {name}"
+    result = run_native(binary, test_arg)
+    assert result.returncode != 0, f"Mutation survived without failure: {name}"
+    assert expected_msg in result.stderr, f"Mutation killed by wrong failure or crash instead of expected assertion '{expected_msg}': {name}\nStderr: {result.stderr}"

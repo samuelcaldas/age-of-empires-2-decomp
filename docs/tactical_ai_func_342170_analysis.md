@@ -1,0 +1,194 @@
+# Tactical AI Function 0x342170 Binary Analysis and State Machine
+
+## 1. Function Overview
+
+- **Symbol**: `func_00342170`
+- **VRAM Address**: `0x00342170`
+- **File Offset**: `0x00242350` (`orig/SLES-50282/AOK.ELF`)
+- **Size**: 1584 bytes (`0x630`)
+- **Binary Checksum (SHA-1)**: `f478e19f2059d52899b691483ef5c7522e30e17c`
+- **Target Platform**: PlayStation 2 (Emotion Engine MIPS R5900, Little Endian)
+- **Toolchain**: Metrowerks CodeWarrior PS2 (`mwccps2.exe` 2.3.1.01) with flags:
+  `-O3 -inline on -msext on -char signed -sym off -Iinclude -lang=c++`
+
+## 2. Register Allocation and Stack Frame
+
+- Stack frame allocation: `addiu sp, sp, -32` (32 bytes).
+- Preserved registers:
+  - `sq ra, 16(sp)`
+  - `sq s0, 0(sp)` (holds `this` / `self` pointer throughout execution).
+- Function arguments:
+  - `$a0`: `TacticalObj_341040 *self`
+  - `$a1`: `int a1` (widget / subobject ID to match against child widgets)
+  - `$a2`: `int a2` (event action / code, checked against 16 and 1)
+  - `$a3`: `int a3`
+  - `$t0`: `int t0` (parameter used in modes 8, 9, 10, 16 for `0xFFFF` flag)
+
+## 3. Disassembly and Control Flow Structure
+
+### Phase 1: Subobject `field_838` Pre-Dispatch (`0x00 - 0x114`)
+
+```mips
+   0:	27bdffe0 	addiu	sp,sp,-32
+   4:	7fbf0010 	sq	ra,16(sp)
+   8:	7fb00000 	sq	s0,0(sp)
+   c:	8c820838 	lw	v0,2104(a0)          # v0 = self->field_838
+  10:	10400040 	beqz	v0,114               # if (!field_838) goto Phase 2
+  14:	70808628 	paddub	s0,a0,zero           # s0 = self
+  18:	14a2003f 	bne	a1,v0,118            # if (a1 != (int)field_838) goto Phase 2
+  1c:	24090001 	li	t1,1
+  20:	24020010 	li	v0,16
+  24:	14c2003b 	bne	a2,v0,114            # if (a2 != 16) goto Phase 2
+  28:	00000000 	nop
+  2c:	0c000000 	jal	func_339900          # jal func_339900(self, a1)
+  30:	00000000 	nop
+  34:	1440001d 	bnez	v0,ac                # if (v0 != 0) goto Sub-path B
+```
+
+#### Sub-path A: `func_339900` returns 0 (`0x3C - 0xA8`)
+- Calls `func_33A5D0(0, 0, 0, 1, 0, 0)`
+- Computes screen coordinates: `a1 = self->field_C + 100`, `a2 = self->field_10 + 97`
+- Calls `func_339960(0, a1, a2, 168, 22, 8, 6)`
+- Calls `func_1F6750(self, self->field_838)`
+- Executes virtual method 76 on `self->field_838`: `((VFunc76)(*self->field_838)[76])(field_838, D_4D5508)`
+- Epilogue branch to return `1`.
+
+#### Sub-path B: `func_339900` returns non-zero (`0xAC - 0x110`)
+- Calls `func_33A730()`
+- Calls `func_00340CF0(self)`. If zero:
+  - Calls `func_1F6EA0(self, 0xc356)`
+  - Executes virtual method 76 on `self->field_838` with return code
+- Calls `func_00219BA0(self->field_838)`
+- Calls `func_33F8B0(self->field_844, ret_219ba0)`
+- Stores state `self->field_84C = 11`
+- Calls `func_00341040(self)`
+- Epilogue branch to return `1`.
+
+### Phase 2: Action Gate & `field_834` Subobject Dispatch Table (`0x114 - 0x228`)
+
+```mips
+ 114:	24090001 	li	t1,1
+ 118:	14c9013f 	bne	a2,t1,618            # if (a2 != 1) return func_1FBD30(self, a1, a2, a3, t0)
+ 11c:	72002628 	paddub	a0,s0,zero
+ 120:	8e020834 	lw	v0,2100(s0)          # v0 = self->field_834
+ 124:	14a20070 	bne	a1,v0,2e8            # if (a1 != field_834) goto Phase 3
+```
+
+When `a2 == 1` and `a1 == self->field_834`:
+- **Mode 11**: `self->field_84C = 3; func_00341040(self); return 1;`
+- **Mode 3**: `func_33A730(); *(int*)(field_844 + 2052) = 2; func_00340C30(self); return 1;`
+- **Modes 1, 2, 4, 7**: `*(int*)(field_844 + 2052) = 2; func_00340C30(self); return 1;`
+- **Modes 18, 21, 22, 23, 24**: `self->field_84C = 12; func_00341040(self); return 1;`
+- **Mode 20**:
+  - `field_840` boundary check: if `field_840 == 2 || (unsigned)(field_840 - 4) < 3` (values 2, 4, 5, 6): sets `field_84C = 18; func_00341040(self); return 1;`
+  - Otherwise (values 1, 3, 7+): sets `field_84C = 17; func_00341040(self); return 1;`
+- **Mode 15**:
+  - `field_840` boundary check: if `field_840 == 2 || field_840 == 4`: sets `field_84C = 18; func_00341040(self); return 1;`
+  - Otherwise: calls `*(int*)(field_844 + 2052) = 12; func_00340C30(self); return 1;`
+- **Mode 14**:
+  - `field_840` boundary check: if `field_840 == 2 || (unsigned)(field_840 - 4) < 3` (values 2, 4, 5, 6): sets `field_84C = 18; func_00341040(self); return 1;`
+  - Otherwise: sets `field_84C = 17; func_00341040(self); return 1;`
+- **Default**: calls `func_00341040(self); return 1;`
+
+### Phase 3: `field_830` Jump-Table Dispatch Table (`0x228 - 0x62C`)
+
+```mips
+ 2e8:	8e020830 	lw	v0,2096(s0)          # v0 = self->field_830
+ 2ec:	14a200c9 	bne	a1,v0,614            # if (a1 != field_830) return func_1FBD30(self, a1, a2, a3, t0)
+ 2f0:	00000000 	nop
+ 2f4:	8e02084c 	lw	v0,2124(s0)          # v0 = self->field_84C (mode)
+ 2f8:	2c41001e 	sltiu	at,v0,30             # unsigned mode < 30
+ 2fc:	102000c1 	beqz	at,604               # if (mode >= 30) call func_00341040 and return 1
+ 300:	72002628 	paddub	a0,s0,zero
+ 304:	3c03004d 	lui	v1,%hi(jtbl_4D55F0)  # 0x004D55F0 jump table base
+ 308:	246355f0 	addiu	v1,v1,%lo(jtbl_4D55F0)
+ 30c:	00021080 	sll	v0,v0,0x2            # mode * 4
+ 310:	00431021 	addu	v0,v0,v1
+ 314:	8c420000 	lw	v0,0(v0)             # v0 = jtbl_4D55F0[mode]
+ 318:	00400008 	jr	v0                   # Indirect jump register
+```
+
+#### Jump Table Targets (`0x4D55F0`, 30 entries for modes 0..29)
+
+| Mode | Target Address | Behavior / Outcome |
+|------|---------------|-------------------|
+| 0 | `0x00342770` | `func_00341040(self); return 1;` |
+| 1 | `0x00342594` | `*(field_844 + 2052) = 5; func_00340C30(self); return 1;` |
+| 2, 4 | `0x003425e0` | `*(field_844 + 2052) = 7; func_00340C30(self); return 1;` |
+| 3 | `0x003426a8` | Calls `func_33A730`, sub838 handlers, sets `field_84C = 11`, `func_00341040(self); return 1;` |
+| 5 | `0x0034262c` | `*(field_844 + 2052) = 1; func_00340C30(self); return 1;` |
+| 6 | `0x00342644` | `*(field_844 + 2052) = 1; func_00340C30(self); return 1;` |
+| 7 | `0x0034265c` | `*(field_844 + 2052) = 9; func_00340C30(self); return 1;` |
+| 8 | `0x003425b0` | If `t0 == 0xFFFF`: falls through to mode 26 (`*(field_844 + 2052) = 6; func_00340C30; return 1;`); else return 0 |
+| 9 | `0x003425fc` | If `t0 == 0xFFFF`: falls through to mode 25 (`*(field_844 + 2052) = 3; func_00340C30; return 1;`); else return 0 |
+| 10 | `0x00342678` | If `t0 == 0xFFFF`: `field_84C = 12; field_83C = 12; func_00341040`, return 1; else return 0 |
+| 11 | `0x0034270c` | `*(field_844 + 2052) = 11; func_00340C30(self); return 1;` |
+| 12 | `0x00342728` | `self->field_84C = 13; func_00341040(self); return 1;` |
+| 13 | `0x00342734` | `*(field_844 + 2052) = 4; func_00340C30(self); return 1;` |
+| 14 | `0x00342490` | If `field_840 in {2, 4, 5, 6}`: `field_84C = 12; func_00341040`, return 1; else `*(field_844 + 2052) = 12; func_00340C30`, return 1 |
+| 15 | `0x003424d8` | If `field_840 in {2, 4}`: `field_84C = 16; func_36ACC0(7); func_00341040`, return 1; else `field_84C = 17; func_00341040`, return 1 |
+| 16 | `0x00342750` | If `t0 == 0xFFFF`: falls through to mode 27 (`field_84C = 12; field_83C = 12; func_00341040; return 1;`); else return 0 |
+| 17 | `0x00342518` | `self->field_84C = 12; func_00341040(self); return 1;` |
+| 18, 21-24 | `0x00342578` | `*(field_844 + 2052) = 3; func_00340C30(self); return 1;` |
+| 19 | `0x00342524` | `self->field_84C = 20; func_00341040(self); return 1;` |
+| 20 | `0x00342530` | If `field_840 in {2, 4, 5, 6}`: `field_84C = 17; func_00341040`, return 1; else `*(field_844 + 2052) = 12; func_00340C30`, return 1 |
+| 25 | `0x00342610` | `*(field_844 + 2052) = 3; func_00340C30(self); return 1;` |
+| 26 | `0x003425c4` | `*(field_844 + 2052) = 6; func_00340C30(self); return 1;` |
+| 27 | `0x00342764` | `self->field_84C = 12; self->field_83C = 12; func_00341040(self); return 1;` |
+| 28, 29 | `0x0034269c` | `self->field_84C = self->field_850; func_00341040(self); return 1;` |
+
+#### Modes 30 through 50
+- When `mode >= 30`: jumps to `0x00342770` (`func_00341040(self); return 1;`).
+- In `func_00341040`, resets `sub830 + 552` and `sub834 + 552` to 0, invokes `func_33A730()`, and preserves `field_84C`.
+
+### Phase 4: Fallthrough
+- If `a2 != 1` or `a1` does not match `field_834` or `field_830`: calls `func_1FBD30(self, a1, a2, a3, t0)` and returns the resulting status code.
+- The fallback edges restore `$a0` from `$s0` at `0x34228C` or `0x342784` without changing `$a1`, `$a2`, `$a3`, or `$t0`.
+- `0x342788: 0x0C07EF4C` calls `func_1FBD30`; the epilogue preserves its `$v0` result.
+- The callee saves all five inputs at `0x1FBD4C–0x1FBD60`. Its path at `0x1FBE80–0x1FBE94` forwards them to `func_1F6460`.
+
+## 4. Resolved-byte verification
+
+`tests/test_tactical_ai_func_342170_resolved_matching.py` compiles the actual C++ into a temporary object with the flags above. It verifies the candidate function's own `st_size == 0x630` and selects its section through `st_shndx`, not the first section named `.text`.
+
+GNU MIPS ld resolves the calls and data references at their verified original addresses. It places the generated function at `0x342170` and its generated `.rodata` table at `0x4D55F0`. No original instructions or table entries are copied into the candidate. The test compares all 1,584 function bytes and all 120 table bytes against the SHA-1-verified original ELF through its `PT_LOAD` mappings.
+
+The compiler also emits an eight-byte inline virtual-method body in a separate `.text` section. That body is outside this function's scoped byte comparison. The gate does not claim a match for `func_00341040` or a complete executable.
+
+On 2026-10-19, the resolved gate and its rejection tests passed in the private `docker-dev` verification container: **33 passed**. Each of the 30 table destinations was independently corrupted and rejected. A wrong fallback address was rejected after successful linking; an undefined fallback symbol failed linking. The previous committed source was also rejected because its compiled function size differed from `0x630`.
+
+The separate objdiff diagnostic reports `100.00%`. That score is not the byte-equality gate. Registration remains **NonMatching** pending full regression checks and independent promotion review. The branch remains unmerged.
+
+## 5. Native fallback regression
+
+The 32-bit native harness executes the actual C++ handler. It checks all five forwarded values, receiver identity, exactly one fallback call, unchanged handler fields, and propagation of zero, positive, and negative return values across three fallback paths.
+
+The earlier two-argument caller/five-argument stub Red run had an undefined call boundary and is not TDD evidence. A replacement Red run restored the legacy two-argument call after harness preparation: one shared five-argument declaration temporarily supplied zero defaults for omitted values. The callback returned `int`, so the missing-argument observation was defined. It failed at `g_last_1fbd30_a2 == a2`. Explicitly forwarding all five values made the same native command pass. The temporary defaults were then removed.
+
+Both Phase 1 branches passed characterization tests before and after sharing their `return 1`. The native pytest runner also enables `-flto -Werror=lto-type-mismatch`. This caught inherited callback declaration mismatches on the committed baseline; the corrected shared declarations and stubs pass the stricter gate.
+
+The replacement Red and Green commands ran inside `aoe-tests:verification` through `docker --context docker-dev`, with the checkout mounted at `/workspace`:
+
+```sh
+# Red: after signature-safe harness preparation, before explicit forwarding.
+g++ -m32 -std=c++98 -Iinclude tests/native/tactical_ai_layout_341040_test.cpp src/tactical_ai_layout_341040.cpp src/tactical_ai_func_342170.cpp -o /tmp/tactical-ai-red && /tmp/tactical-ai-red
+# Green: after explicit five-argument forwarding.
+g++ -m32 -std=c++98 -Iinclude tests/native/tactical_ai_layout_341040_test.cpp src/tactical_ai_layout_341040.cpp src/tactical_ai_func_342170.cpp -o /tmp/tactical-ai-green && /tmp/tactical-ai-green
+```
+
+Red exited 134 at `g_last_1fbd30_a2 == a2`. Green passed all 29 cases then present. After adding two fallback-path characterizations and sharing the return, the stricter LTO command passed all 31 native cases. The focused resolved command is `python -m pytest -q -ra tests/test_tactical_ai_func_342170_resolved_matching.py`; original ELF and licensed compiler symlink targets must be privately mounted read-only.
+
+## 6. Contiguous Symbol Extents and Metadata Reconciliation (0x003427A0–0x003429E0)
+
+Binary inspection of the 576-byte slice contiguous to `func_00342170` identified five phantom symbols generated by disassembler delay-slot truncation (`func_00342808`, `func_00342878`, `func_003428F8`, `func_0034295C`, `func_003429D8`). Under Stage 1 metadata reconciliation, `config/SLES-50282/symbols.txt` was corrected with true compiled extents derived directly from MIPS `jr $ra` return delay slots:
+
+- `func_003427A0`: `[0x003427A0, 0x0034280C)`, size `0x6C` (108 bytes, 27 instrs). Padding `[0x0034280C, 0x00342810)`, 4 bytes NOP. Total span: 112 bytes (`0x70`).
+- `func_00342810`: `[0x00342810, 0x00342818)`, size `0x08` (8 bytes, 2 instrs). Padding `[0x00342818, 0x00342820)`, 8 bytes NOP. Total span: 16 bytes (`0x10`).
+- `func_00342820`: `[0x00342820, 0x0034287C)`, size `0x5C` (92 bytes, 23 instrs). Padding `[0x0034287C, 0x00342880)`, 4 bytes NOP. Total span: 96 bytes (`0x60`).
+- `func_00342880`: `[0x00342880, 0x003428FC)`, size `0x7C` (124 bytes, 31 instrs). Padding `[0x003428FC, 0x00342900)`, 4 bytes NOP. Total span: 128 bytes (`0x80`).
+- `func_00342900`: `[0x00342900, 0x00342960)`, size `0x60` (96 bytes, 24 instrs). Padding: none (0 bytes). Total span: 96 bytes (`0x60`).
+- `func_00342960`: `[0x00342960, 0x003429DC)`, size `0x7C` (124 bytes, 31 instrs). Padding `[0x003429DC, 0x003429E0)`, 4 bytes NOP. Total span: 128 bytes (`0x80`).
+
+All five phantom symbols were removed. Splat split boundaries in `config.yml` remain at `0x242980` to preserve the build graph until implementation is completed.
+
+Following independent review and compiler-linked verification (92/92, 124/124, 96/96, and 124/124 bit-for-bit bytes matched, respectively), `func_00342820`, `func_00342880`, `func_00342900`, and `func_00342960` have been classified as `Matching` in `configure.py`. `func_003427A0` and `func_00342810` remain `NonMatching`.

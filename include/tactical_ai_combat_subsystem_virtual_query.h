@@ -1,0 +1,9 @@
+#ifndef TACTICAL_AI_COMBAT_SUBSYSTEM_VIRTUAL_QUERY_H
+#define TACTICAL_AI_COMBAT_SUBSYSTEM_VIRTUAL_QUERY_H
+
+struct TacticalCombatSubsystem {
+    virtual int func_0032F2B0();
+    virtual int func_0032F860();
+};
+
+#endif // TACTICAL_AI_COMBAT_SUBSYSTEM_VIRTUAL_QUERY_H

@@ -5279,8 +5279,32 @@ segments:
     subsegments:
       - [0x1B8B60, asm, trade_action_distance_candidates]
   - name: post_trade_action_distance_candidates
+    type: code
+    start: 0x1B9010
+    vram: 0x2B8E30
+    subsegments:
+      - [0x1B9010, asm, post_trade_action_distance_candidates]
+  - name: trade_action_type_checker
+    type: code
+    start: 0x1B9280
+    vram: 0x2B90A0
+    subsegments:
+      - [0x1B9280, asm, trade_action_type_checker]
+  - name: trade_action_plan_evaluator
+    type: code
+    start: 0x1B9320
+    vram: 0x2B9140
+    subsegments:
+      - [0x1B9320, asm, trade_action_plan_evaluator]
+  - name: trade_action_notify
+    type: code
+    start: 0x1B9950
+    vram: 0x2B9770
+    subsegments:
+      - [0x1B9950, asm, trade_action_notify]
+  - name: post_trade_action_notify
     type: bin
-    start: 0x1B9020
+    start: 0x1B9D10
   - name: tactical_ai_player_ops
     type: code
     start: 0x205D70

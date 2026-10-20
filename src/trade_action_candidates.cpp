@@ -1,7 +1,8 @@
 #pragma exceptions off
 #include "trade_action_candidates_access.h"
-#include "trade_action_candidates_dual.h"
+#include "trade_action_candidates_exclusion.h"
 #include "trade_action_candidates_selector.h"
+#include "trade_action_candidates_dual.h"
 #include "trade_action_candidates_distance.h"
 
 using namespace trade_action_candidates;
@@ -9,7 +10,6 @@ using namespace trade_action_candidates;
 extern "C" {
 int func_001471a0(int entity_id);
 int func_001471c0(int entity_id);
-int func_00147190(int entity_id);
 }
 
 static int get_item_id(void *self, int index) {
@@ -19,17 +19,6 @@ static int get_item_id(void *self, int index) {
     return item_ids[access_index];
 }
 
-static bool is_excluded(void *self, int item_id) {
-    int count = integer_at(self, 3188);
-    int capacity = integer_at(self, 3196);
-    int *excluded_ids = *reinterpret_cast<int **>(bytes(self) + 3184);
-    for (int i = 0; i < count && i < capacity; ++i) {
-        if (item_id == excluded_ids[i]) {
-            return true;
-        }
-    }
-    return false;
-}
 
 static bool check_classification_predicate(void *self, void *item, int flag_t0) {
     typedef int (*Predicate)(void *);
@@ -54,21 +43,6 @@ static bool check_classification_predicate(void *self, void *item, int flag_t0) 
     }
     void *field4 = pointer_at(linked_entity, 4);
     return short_at(field4, 14) == 27;
-}
-
-static bool matches_target_score(void *item, int threshold, int mode) {
-    typedef int (*Predicate)(void *);
-    void **vtable = *reinterpret_cast<void ***>(item);
-    Predicate pred = reinterpret_cast<Predicate>(*reinterpret_cast<void **>(bytes(vtable) + 356));
-    int score = func_00147190(pred(item));
-
-    if (mode < 0) {
-        return score < threshold;
-    }
-    if (mode > 0) {
-        return score > threshold;
-    }
-    return score == threshold;
 }
 
 static void append_candidate_id(void *self, int item_id) {
@@ -161,36 +135,4 @@ int func_002B7BB0(void *self, int a1, int a2, int a3) {
         evaluate_candidate(self, index, a1, a2, 0, matched_count);
     }
     return matched_count;
-}
-
-int func_002B8560(void *self, int mode) {
-    int total_items = integer_at(self, 184);
-    for (int index = 0; index < total_items; ++index) {
-        int item_id = get_pool_item_id(self, index);
-        void *item = func_00332e60(manager_entity_root(self), item_id);
-        if (!item) {
-            continue;
-        }
-
-        typedef int (*Predicate)(void *);
-        void **vtable = *reinterpret_cast<void ***>(item);
-        Predicate pred = reinterpret_cast<Predicate>(*reinterpret_cast<void **>(bytes(vtable) + 356));
-        if (!pred(item)) {
-            continue;
-        }
-
-        if (!check_mode_predicate(self, item_id, mode)) {
-            continue;
-        }
-
-        short sub_id = short_at(item, 36);
-        if ((func_002bfcd0(self, sub_id) & 0xFF) == 1) {
-            return sub_id;
-        }
-    }
-    return -1;
-}
-
-int func_002B8980(void *self, int *coords, int mode, int flag) {
-    return scan_distance_candidates(self, coords, mode, flag);
 }

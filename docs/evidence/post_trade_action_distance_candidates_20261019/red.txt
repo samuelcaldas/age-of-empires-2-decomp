@@ -1,0 +1,26 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+______________________ test_distance_candidates_behavior _______________________
+
+distance_candidates_binary = PosixPath('/tmp/pytest-of-unknown/pytest-0/dist_cand0/post-trade-action-distance-candidates-test')
+
+    def test_distance_candidates_behavior(distance_candidates_binary):
+        result = subprocess.run(
+            [str(distance_candidates_binary)],
+            capture_output=True,
+            text=True,
+        )
+>       assert result.returncode == 0, f"test failed:\nstdout:\n{result.stdout}\nstderr:\n{result.stderr}"
+E       AssertionError: test failed:
+E         stdout:
+E
+E         stderr:
+E         post-trade-action-distance-candidates-test: tests/native/post_trade_action_distance_candidates_test.cpp:94: int main(int, char**): Assertion `res1 == 42' failed.
+E
+E       assert -6 == 0
+E        +  where -6 = CompletedProcess(args=['/tmp/pytest-of-unknown/pytest-0/dist_cand0/post-trade-action-distance-candidates-test'], retur...sts/native/post_trade_action_distance_candidates_test.cpp:94: int main(int, char**): Assertion `res1 == 42' failed.\n").returncode
+
+tests/test_post_trade_action_distance_candidates.py:43: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_post_trade_action_distance_candidates.py::test_distance_candidates_behavior
+1 failed in 0.49s

@@ -50,8 +50,10 @@ void run_candidates_cases_part1(int test_case, std::vector<char> &storage) {
 
     if (test_case == 0) {
         *reinterpret_cast<int *>(base + 3172) = 5;
+        g_147190_return_val = 10;
         int res = func_002B76B0(base, 10, 0, 1, 0);
-        assert(*reinterpret_cast<int *>(base + 3172) == 0 || res >= 0);
+        assert(res == 3);
+        assert(*reinterpret_cast<int *>(base + 3172) == 3);
     } else if (test_case == 1) {
         *reinterpret_cast<int *>(base + 216) = 0;
         int res = func_002B76B0(base, 10, 0, 0, 0);

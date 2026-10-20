@@ -1,0 +1,10 @@
+/usr/bin/ld: /tmp/ccPxZA2z.o: in function `main':
+post_trade_action_distance_candidates_test.cpp:(.text+0x5ff): undefined reference to `func_002B8E30'
+/usr/bin/ld: post_trade_action_distance_candidates_test.cpp:(.text+0x65c): undefined reference to `func_002B8E30'
+/usr/bin/ld: post_trade_action_distance_candidates_test.cpp:(.text+0x6c9): undefined reference to `func_002B8E30'
+/usr/bin/ld: post_trade_action_distance_candidates_test.cpp:(.text+0x721): undefined reference to `func_002B8E30'
+/usr/bin/ld: post_trade_action_distance_candidates_test.cpp:(.text+0x792): undefined reference to `func_002B8E30'
+/usr/bin/ld: /tmp/ccPxZA2z.o:post_trade_action_distance_candidates_test.cpp:(.text+0x855): more undefined references to `func_002B8E30' follow
+collect2: error: ld returned 1 exit status
+
+Recorded parent link exit: 1 (missing symbol; not behavioral Red).

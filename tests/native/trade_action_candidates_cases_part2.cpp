@@ -61,6 +61,35 @@ static void run_selector_cases(int test_case, char *base, std::vector<char> &ent
         int res = func_002B8980(base, coords, 0, 1);
         assert(res == 42);
         assert(g_269190_calls == 2);
+    } else if (test_case == 22) {
+        g_1471a0_return_val = 55;
+        int res = func_002B90A0(base, 55, 100);
+        assert(res == 1);
+    } else if (test_case == 23) {
+        g_1471a0_return_val = 55;
+        int res = func_002B90A0(base, 56, 100);
+        assert(res == 0);
+    } else if (test_case == 24) {
+        int res = func_002B90A0(base, 55, 999);
+        assert(res == 0);
+    } else if (test_case == 25) {
+        *reinterpret_cast<int *>(base + 3092) = 0;
+        *reinterpret_cast<int *>(base + 3096) = 100;
+        *reinterpret_cast<int *>(base + 2612) = 25;
+        *reinterpret_cast<int *>(base + 2608) = 25;
+        *reinterpret_cast<int *>(base + 2616) = 25;
+        *reinterpret_cast<int *>(base + 2604) = 25;
+        int res = func_002B9140(base);
+        assert(res == 0);
+        assert(*reinterpret_cast<int *>(base + 3240) == 25);
+    } else if (test_case == 26) {
+        *reinterpret_cast<int *>(base + 3092) = 1;
+        *reinterpret_cast<int *>(base + 356) = 100;
+        *reinterpret_cast<int *>(base + 360) = 1;
+        g_1471a0_return_val = 609;
+        int res = func_002B9140(base);
+        assert(res == 0);
+        assert(*reinterpret_cast<int *>(base + 3220) == 1);
     }
 }
 

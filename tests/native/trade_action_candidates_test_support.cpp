@@ -13,9 +13,13 @@ int g_2bfcd0_calls = 0;
 int g_2bfcd0_return_val = 0;
 int g_269190_calls = 0;
 float g_269190_return_val = 0.0f;
+int g_144d10_calls = 0;
+int g_1880d0_calls = 0;
+int g_1880d0_return_val = 0;
 
 void *g_mock_candidate_entity = 0;
 void *g_mock_linked_entity = 0;
+void *D_004E3180 = 0;
 
 void reset_candidates_test_support() {
     g_1471a0_calls = 0;
@@ -31,6 +35,9 @@ void reset_candidates_test_support() {
     g_2bfcd0_return_val = 0;
     g_269190_calls = 0;
     g_269190_return_val = 0.0f;
+    g_144d10_calls = 0;
+    g_1880d0_calls = 0;
+    g_1880d0_return_val = 0;
     g_mock_candidate_entity = 0;
     g_mock_linked_entity = 0;
 }
@@ -75,5 +82,19 @@ int func_002bfcd0(void *self, short sub_id) {
 float func_00269190(float x, float y, void *item) {
     g_269190_calls++;
     return g_269190_return_val;
+}
+
+void *func_00144d10(void *mgr, int idx) {
+    g_144d10_calls++;
+    return g_mock_candidate_entity;
+}
+
+int func_001880d0(void *gp_obj) {
+    g_1880d0_calls++;
+    return g_1880d0_return_val;
+}
+
+int func_00123350(float val) {
+    return static_cast<int>(val);
 }
 }

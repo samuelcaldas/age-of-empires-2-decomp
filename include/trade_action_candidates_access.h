@@ -25,6 +25,10 @@ inline void store_integer(void *object, int offset, int value) {
     *reinterpret_cast<int *>(bytes(object) + offset) = value;
 }
 
+inline void store_float(void *object, int offset, float value) {
+    *reinterpret_cast<float *>(bytes(object) + offset) = value;
+}
+
 inline void *manager_entity_root(void *self) {
     void *mgr = pointer_at(self, 176);
     void *root = pointer_at(mgr, 0x1f348);

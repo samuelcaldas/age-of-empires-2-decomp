@@ -8,6 +8,7 @@ void *func_00332e60(void *manager, int id);
 int func_002bf050(void *self, int item_id);
 int func_002bfcd0(void *self, short sub_id);
 float func_00269190(float x, float y, void *item);
+int func_00147190(int entity_id);
 }
 
 namespace trade_action_candidates {

@@ -12,6 +12,21 @@ inline int get_secondary_item_id(void *self, int index) {
     return item_ids[access_index];
 }
 
+inline bool matches_target_score(void *item, int threshold, int mode) {
+    typedef int (*Predicate)(void *);
+    void **vtable = *reinterpret_cast<void ***>(item);
+    Predicate pred = reinterpret_cast<Predicate>(*reinterpret_cast<void **>(bytes(vtable) + 356));
+    int score = func_00147190(pred(item));
+
+    if (mode < 0) {
+        return score < threshold;
+    }
+    if (mode > 0) {
+        return score > threshold;
+    }
+    return score == threshold;
+}
+
 } // namespace trade_action_candidates
 
 #endif // TRADE_ACTION_CANDIDATES_DUAL_H

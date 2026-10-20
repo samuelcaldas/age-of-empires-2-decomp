@@ -54,10 +54,16 @@ extern "C" void func_001C98A0(void *self, int width, int height) {
     }
 
     // --- Clamp new width and height to max 200 (0xC8) ---
-    int new_width = (width < 200) ? width : 200;
-    zm->width = new_width;
-    int new_height = (height < 200) ? height : 200;
-    zm->height = new_height;
+    if (width < 200) {
+        zm->width = width;
+    } else {
+        zm->width = 200;
+    }
+    if (height < 200) {
+        zm->height = height;
+    } else {
+        zm->height = 200;
+    }
 
     // --- Clear/reset internal grid state fields ---
     // sw zero, -0x7170(at) → offset 0x10000-0x7170 = 0x8E90

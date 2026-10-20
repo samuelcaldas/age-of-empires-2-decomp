@@ -2020,8 +2020,8 @@ def generate_objdiff_config(
     }
 
     # decomp.me compiler name mapping
-    # TODO add PS2 versions
     COMPILER_MAP = {
+        "PS2/mwcc-2.3.1.01": "mwcc_ps2_231",
         "GC/1.0": "mwcc_233_144",
         "GC/1.1": "mwcc_233_159",
         "GC/1.1p1": "mwcc_233_159p1",

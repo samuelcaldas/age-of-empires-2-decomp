@@ -4,11 +4,58 @@ Start with the top-level [README](../README.md).
 
 - [testing.md](testing.md): mandatory TDD workflow, Docker test commands, and regression completion evidence
 - [game_files.md](game_files.md): where each original file comes from, how to extract it, and how to verify it
+- [tactical_ai_combat_subsystem_directplay_count_338a10.md](tactical_ai_combat_subsystem_directplay_count_338a10.md): pure-C++ message-count query at `0x338A10`, exact 16-byte match, and native mutation tests
+- [tactical_ai_combat_subsystem_directplay_name_338970.md](tactical_ai_combat_subsystem_directplay_name_338970.md): pure-C++ player-name query at `0x338970`, exact 148-byte match, and size/error contracts
 - [ps2_binary_analysis.md](ps2_binary_analysis.md): disc architecture, Metrowerks compiler, debug strings, and source files discovered in the PS2 binary
 - [ps2_library_map.md](ps2_library_map.md): bounded third-party runtime routines and Sony SDK version markers in the PAL ELF
 - [toolchain.md](toolchain.md): compilers, how to identify them from the binaries, and what is still unverified
 - [elevation_mesh_serializer_328020.md](elevation_mesh_serializer_328020.md): pure-C++ serializer at `0x328020`, 224-byte exact MWCC match, ordered-write contracts, and real mutation tests
 - [elevation_mesh_filter_328100.md](elevation_mesh_filter_328100.md): pure-C++ query filter at `0x328100`, 292-byte exact MWCC match, grid entity contracts, and real mutation tests
+- [elevation_mesh_vertex_328230.md](elevation_mesh_vertex_328230.md): pure-C++ vertex append at `0x328230`, 196-byte 96.94% MWCC match, vertex buffer contracts, and real mutation tests
+- [elevation_mesh_remove_328300.md](elevation_mesh_remove_328300.md): pure-C++ vertex remove at `0x328300`, 188-byte exact MWCC match, swap-with-last contracts, and real mutation tests
+- [elevation_mesh_nearest_3283c0.md](elevation_mesh_nearest_3283c0.md): pure-C++ nearest vertex search at `0x3283C0`, 524-byte 94.08% MWCC match, distance search contracts, and real mutation tests
+- [elevation_mesh_instance_3285d0.md](elevation_mesh_instance_3285d0.md): pure-C++ instance constructor at `0x3285D0`, 56-byte exact MWCC match, vtable contracts, and real mutation tests
+- [elevation_mesh_dispatch_328610.md](elevation_mesh_dispatch_328610.md): pure-C++ gated dispatch at `0x328610`, 164-byte exact MWCC match, validation contracts, and real mutation tests
+- [mode_filter_3286c0.md](mode_filter_3286c0.md): pure-C++ mode filter at `0x3286C0`, 348-byte MWCC structural match, mode dispatch contracts, and real mutation tests
+- [mode_dispatch_328820.md](mode_dispatch_328820.md): pure-C++ mode dispatch at `0x328820`, 272-byte MWCC structural match, active state contracts, and real mutation tests
+- [mode_dispatch_secondary_328c40.md](mode_dispatch_secondary_328c40.md): pure-C++ secondary mode dispatch at `0x328C40`, 272-byte MWCC structural match, duplicate handler contracts, and real mutation tests
+- [mode_processor_328d50.md](mode_processor_328d50.md): pure-C++ mode processor at `0x328D50`, 556-byte MWCC structural match, coordinate placement contracts, and real mutation tests
+- [profile_timer_328f80.md](profile_timer_328f80.md): pure-C++ profiling timer wrapper at `0x328F80`, 80-byte exact MWCC match, channel 7 metrics contracts, and real mutation tests
+- [mode_query_328fd0.md](mode_query_328fd0.md): pure-C++ virtual query at `0x328FD0`, 156-byte MWCC structural match, feature flag contracts, and real mutation tests
+- [mode_query_secondary_329070.md](mode_query_secondary_329070.md): pure-C++ secondary virtual query at `0x329070`, 180-byte MWCC structural match, manager notification contracts, and real mutation tests
+- [mode_query_tertiary_329130.md](mode_query_tertiary_329130.md): pure-C++ tertiary virtual query at `0x329130`, 180-byte MWCC structural match, manager notification contracts, and real mutation tests
+- [controller_instance_3291f0.md](controller_instance_3291f0.md): pure-C++ controller instance constructor at `0x3291F0`, 164-byte exact MWCC match, vtable contracts, and real mutation tests
+- [controller_destructor_3292a0.md](controller_destructor_3292a0.md): pure-C++ controller instance destructor at `0x3292A0`, 104-byte exact MWCC match, delete dispatch contracts, and real mutation tests
+- [controller_update_329310.md](controller_update_329310.md): pure-C++ controller update at `0x329310`, 60-byte exact MWCC match, virtual dispatch contracts, and real mutation tests
+- [controller_mode_329350.md](controller_mode_329350.md): pure-C++ controller mode setter at `0x329350`, 256-byte MWCC structural match, threshold contracts, and real mutation tests
+- [controller_lock_329450.md](controller_lock_329450.md): pure-C++ controller lock setter at `0x329450`, 256-byte MWCC structural match, threshold contracts, and real mutation tests
+- [controller_processor_329550.md](controller_processor_329550.md): pure-C++ controller processor at `0x329550`, 1172-byte MWCC structural match, edge-scrolling contracts, and real mutation tests
+- [controller_manual_3299f0.md](controller_manual_3299f0.md): pure-C++ controller manual motion processor at `0x3299F0`, 1292-byte MWCC structural match, D-pad contracts, and real mutation tests
+- [profile_timer_channel13_329f00.md](profile_timer_channel13_329f00.md): pure-C++ profiling timer channel 13 at `0x329F00`, 156-byte exact MWCC match, channel 13 metrics contracts, and real mutation tests
+- [controller_event_dispatch_329fa0.md](controller_event_dispatch_329fa0.md): pure-C++ controller event dispatch at `0x329FA0`, 192-byte MWCC structural match, event contracts, and real mutation tests
+- [controller_action_32a060.md](controller_action_32a060.md): pure-C++ controller action dispatcher at `0x32A060`, 2192-byte MWCC structural match, action contracts, and real mutation tests
+- [controller_event_handler_32a8f0.md](controller_event_handler_32a8f0.md): pure-C++ controller event handler at `0x32A8F0`, 472-byte MWCC structural match, status routing contracts, and real mutation tests
+- [controller_selection_32aad0.md](controller_selection_32aad0.md): pure-C++ controller selection processor at `0x32AAD0`, 4616-byte MWCC structural match, selection contracts, and real mutation tests
+- [controller_camera_dispatch_32bce0.md](controller_camera_dispatch_32bce0.md): pure-C++ controller camera dispatch at `0x32BCE0`, 360-byte MWCC structural match, camera contracts, and real mutation tests
+- [controller_coord_dispatch_32be50.md](controller_coord_dispatch_32be50.md): pure-C++ controller coordinate dispatch at `0x32BE50`, 288-byte MWCC structural match, coordinate contracts, and real mutation tests
+- [controller_context_action_32bf70.md](controller_context_action_32bf70.md): pure-C++ controller context action dispatcher at `0x32BF70`, 944-byte MWCC structural match, context contracts, and real mutation tests
+- [controller_pulse_32c320.md](controller_pulse_32c320.md): pure-C++ controller pulse evaluator at `0x32C320`, 256-byte MWCC structural match, pulse contracts, and real mutation tests
+- [controller_child_sync_32c420.md](controller_child_sync_32c420.md): pure-C++ controller child sync at `0x32C420`, 88-byte exact MWCC match, child view contracts, and real mutation tests
+- [controller_pulse_reset_32c480.md](controller_pulse_reset_32c480.md): pure-C++ controller pulse reset at `0x32C480`, 120-byte exact MWCC match, pulse deactivation contracts, and real mutation tests
+- [controller_render_profiler_32c500.md](controller_render_profiler_32c500.md): pure-C++ controller render profiler at `0x32C500`, 232-byte exact MWCC match, render metrics contracts, and real mutation tests
+- [controller_stub_32c5f0.md](controller_stub_32c5f0.md): pure-C++ controller stub at `0x32C5F0`, 8-byte exact MWCC match, leaf no-op contracts, and real mutation tests
+- [controller_formation_action_32c600.md](controller_formation_action_32c600.md): pure-C++ controller formation action at `0x32C600`, 1428-byte MWCC structural match, formation contracts, and real mutation tests
+- [controller_target_action_32cba0.md](controller_target_action_32cba0.md): pure-C++ controller target action coordinator at `0x32CBA0`, 2132-byte MWCC structural match, combat order contracts, and real mutation tests
+- [controller_pick_query_32d400.md](controller_pick_query_32d400.md): pure-C++ controller pick query at `0x32D400`, 1672-byte MWCC structural match, pick raycast contracts, and real mutation tests
+- [controller_proximity_query_32da90.md](controller_proximity_query_32da90.md): pure-C++ controller proximity query at `0x32DA90`, 1600-byte MWCC structural match, proximity selection contracts, and real mutation tests
+- [controller_terrain_action_32e0e0.md](controller_terrain_action_32e0e0.md): pure-C++ controller terrain action at `0x32E0E0`, 312-byte MWCC structural match, terrain raycast contracts, and real mutation tests
+- [controller_command_router_32e220.md](controller_command_router_32e220.md): pure-C++ controller command router at `0x32E220`, 568-byte MWCC structural match, command routing contracts, and real mutation tests
+- [controller_selection_box_clear_32e460.md](controller_selection_box_clear_32e460.md): pure-C++ controller selection box clear at `0x32E460`, 76-byte exact MWCC match, box reset contracts, and real mutation tests
+- [controller_entity_bind_32e4b0.md](controller_entity_bind_32e4b0.md): pure-C++ controller entity bind at `0x32E4B0`, 208-byte MWCC structural match, entity bind contracts, and real mutation tests
+- [controller_coord_clamp_32e580.md](controller_coord_clamp_32e580.md): pure-C++ controller coordinate clamp at `0x32E580`, 96-byte MWCC structural match, coordinate clamping contracts, and real mutation tests
+- [controller_decrement_by_id_32e640.md](controller_decrement_by_id_32e640.md): pure-C++ controller decrement by ID at `0x32E640`, 100-byte exact MWCC match, table decrement contracts, and real mutation tests
+- [mode_update_328930.md](mode_update_328930.md): pure-C++ mode update at `0x328930`, 480-byte MWCC structural match, vtable dispatch contracts, and real mutation tests
+- [mode_handler_328b10.md](mode_handler_328b10.md): pure-C++ mode handler at `0x328B10`, 292-byte MWCC structural match, state reset contracts, and real mutation tests
 - [trade_action_route_finish.md](trade_action_route_finish.md): exact route-buffer reconstruction, corrected ELF mapping, and regression validation
 - [trade_action_helpers_217840.md](trade_action_helpers_217840.md): eight independent trade-action setters, callback behavior, and native regression coverage
 - [trade_action_helper_218350.md](trade_action_helper_218350.md): reconstructed helper, exact original code/padding boundary, isolated build comparison, and seven-case native contracts

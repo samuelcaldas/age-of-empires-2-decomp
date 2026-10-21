@@ -8,7 +8,14 @@ struct NetworkJoinSession {
 };
 
 extern "C" {
-    int func_00338FA0(void **player_id, void **player_record,
+    /**
+     * Create a local player record and announce it when this peer is not host.
+     * @param direct_play DirectPlay state object.
+     * @param player_record Receives the created player record.
+     * @param session Supplies the player and session names.
+     * @return Zero after setup.
+     */
+    int func_00338FA0(void *direct_play, void **player_record,
                       const NetworkJoinSession *session);
 }
 

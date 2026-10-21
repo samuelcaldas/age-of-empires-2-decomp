@@ -39,8 +39,15 @@ matching test asserts the candidate relocation count and type manifest: seven
 `R_MIPS_GPREL16`. All undefined names resolve to explicitly supplied targets.
 The strict resolver pairs each `HI16` destination register with the matching
 `LO16` base register, rejects overlaps or missing pairs, and confirms every one
-of the candidate's 524 bytes against the original ELF without masks. The four
-original alignment bytes remain a separate zero-padding assertion.
+of the candidate's 524 bytes against the original ELF without masks. Candidate
+relocation counts are asserted, but the stripped original ELF has no relocation
+manifest for comparison. The four original alignment bytes remain a separate
+zero-padding assertion.
+
+The generated reference and C++ objects both report a 524-byte function symbol.
+Objdiff reports 99.21%, with argument-only relocation and global labels differing
+between reference assembly and the typed C++ object. The strict relocated-byte
+test, not this symbolic objdiff score, establishes the byte comparison.
 
 The previous 528-byte/46-relocation expectation came from an earlier candidate,
 not from original ELF metadata. One earlier 528-byte source variant differed at

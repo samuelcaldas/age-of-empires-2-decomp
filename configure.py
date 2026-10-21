@@ -6322,6 +6322,12 @@ if config.platform == Platform.PS2:
                 ),
                 Object(
                     Matching,
+                    "network_receiver_337B30",
+                    cflags=config.cflags,
+                    toolchain_version="PS2/mwcc-2.3.1.01",
+                ),
+                Object(
+                    Matching,
                     "network_transport_init_337d40",
                     cflags=config.cflags,
                     toolchain_version="PS2/mwcc-2.3.1.01",

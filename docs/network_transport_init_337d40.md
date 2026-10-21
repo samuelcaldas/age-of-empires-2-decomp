@@ -78,9 +78,10 @@ bytes` only for equality. Metadata relocation sections are not instruction bytes
 | SLPM-62076 | Not measured | Not compared | Not verified | `orig/SLPM-62076/AOK.ELF` absent |
 
 The PAL object is registered in `configure.py` and the SLES-50282 split and
-symbol files. The receiver remains an external target symbol, not a registered
-object. The semaphore alias at `0x4E3564` is not separately registered because
-`D_004E3560` already spans both words. NTSC-J remains unverified.
+symbol files. The receiver is now registered separately after its 524-byte
+instruction stream and four alignment bytes. The semaphore alias at `0x4E3564`
+is not separately registered because `D_004E3560` already spans both words.
+NTSC-J remains unverified.
 
 ## Regression gates
 
@@ -102,73 +103,63 @@ previously matched send wrapper. A Docker skip does not establish matching.
 Changed Python tests pass `flake8`. `git diff --check` passes. No artificial RED
 is claimed for documentation, formatting, or binary comparison assertions.
 
-Full-suite command:
+The full-suite comparison used the Docker verification image with each isolated
+worktree mounted at `/workspace`; the original ELF, licensed compiler directory,
+and shared tool directory were mounted read-only at their existing absolute
+paths. Both runs configured the PS2 split and built the same nine verifier-object
+prerequisites before invoking `python -m pytest -q -ra -p no:cacheprovider tests`.
 
-```sh
-docker --context docker-dev run --rm --mount "type=bind,source=$(pwd),target=/workspace" aoe-tests:verification python -m pytest -q -ra
-```
+| Worktree | Passed | Failed | Skipped | Errors | Duration |
+|---|---:|---:|---:|---:|---:|
+| Clean `main` baseline (`41ccda2ad`) | 4,355 | 36 | 31 | 7 | 314.07 s |
+| `network-layer-match` after receiver registration | 4,447 | 35 | 10 | 7 | 272.34 s |
 
-Final result: **2,862 passed, 77 failed, 1,512 skipped, 7 errors** (270.08 s).
-A separate `git archive f6306576a` extraction under `build/t02-baseline`, with
-unchanged tracked sources and the same unavailable private prerequisites, gave
-**2,839 passed, 78 failed, 1,511 skipped, 7 errors** (270.98 s). Its command used
-the same container/mount, adding `-w /workspace/build/t02-baseline` before the
-image name. Comparing every failure/error summary entry found no new entries;
-the only removed entry was the original transport-init return regression.
-The additional skip is this candidate's private-input matching test.
+Failure/error IDs are identical except for one baseline-only failure:
+`tests/test_tactical_ai_layout_341040_matching.py::test_tactical_ai_func_342170_mwcc_compilation`.
+The feature branch has no new failure/error ID. Skip counts differ because the
+feature branch includes additional network tests and private-input tests that the
+baseline does not contain. These results are not green; they only show no new
+failure/error identifier in the paired runs.
 
-All remaining failure/error groups occur in both runs:
-
-| Test module(s), under `tests/` | Failures | Errors |
-|---|---:|---:|
-| `test_tactical_ai_node_item.py` | 1 | 0 |
-| `test_verify_exact_linked.py` | 3 | 0 |
-| `test_verify_exact_linked_7ff20.py` | 2 | 0 |
-| `test_verify_exact_linked_80670.py` | 1 | 0 |
-| `test_verify_exact_linked_80680.py` | 5 | 0 |
-| `test_verify_exact_linked_80770.py` | 2 | 0 |
-| `test_verify_exact_linked_807d0.py` | 5 | 0 |
-| `test_verify_exact_linked_81030.py` | 5 | 0 |
-| `test_verify_exact_linked_818d0.py` | 2 | 0 |
-| `test_verify_exact_linked_81a80.py` | 2 | 0 |
-| `test_verify_post_trade_action_distance_candidates.py` | 4 | 0 |
-| `test_verify_trade_action_type_checker.py` | 4 | 0 |
-| `test_zone_spatial_grid_block27.py` through `test_zone_spatial_grid_block58.py` | 32 (one each) | 0 |
-| `test_zone_spatial_grid_block59.py` | 7 | 0 |
-| `test_zone_spatial_grid_block60.py` | 2 | 0 |
-| `test_item_creator.py` | 0 | 6 |
-| `test_visible_map.py` | 0 | 1 |
-
-These include the pre-existing tactical-node constructor assertion, verifier
-checks blocked by missing original ELF/prebuilt objects, spatial-grid builds
-blocked by missing `build.ninja` or original ELF, node-pool registration
-assertions, and native compilation errors in item creator/visible map. The
-private-input skips include original ELF, MWCC, wibo, GNU linker, and prebuilt
-objects unavailable inside Docker. These failures/skips are not passes and were
-not repaired or excluded by this change. PAL registration does not make the
-full regression gate clean; the NTSC-J version remains unverified.
+Shared failures: `test_zone_spatial_grid_block27.py` through
+`test_zone_spatial_grid_block60.py` (34 failures) and one constructor assertion
+in `test_tactical_ai_node_item.py`. Shared errors: six native subprocess errors
+in `test_item_creator.py` and one in `test_visible_map.py`. The worktrees kept
+separate build outputs. These baseline failures and errors were not repaired or
+excluded. PAL matching does not complete the full network lifecycle; NTSC-J
+remains unverified.
 
 ## Integration validation
 
-After PAL registration, the Docker command
-`python -m pytest -q -ra tests/test_network_*.py` passed all 59 network tests.
-The strict registered-function and initializer native tests passed all 30 cases.
-The registered-function suite includes seven exact matches. The initializer
-remains 920/920 bytes, with 107 resolved relocations and zero padding at
-`0x3380D8..0x3380E0`.
+The network-only suite passed: `python -m pytest -q -ra tests/test_network_*.py`
+reported **70 passed**. The registered exact-function gate reports eight C++
+functions. It verifies the receiver's 524 executable bytes, its 54 candidate
+relocations, four zero alignment bytes, and the next prologue. The initializer
+remains 920/920 bytes with 107 candidate relocations resolved.
 
-The PAL configure command completed, and generated assembly and object files for
-the initializer appeared. A dry run of
-`ninja -n build/SLES-50282/src/network_transport_init_337d40.o` repeatedly showed
-only splitter/configure regeneration steps. Ninja regenerated the build file,
-which contains the initializer object target, but did not show the object command
-in the same dry run. This build dry-run gate remains blocked.
+`configure.py --version SLES-50282 --compilers compilers` and the PAL split
+completed. Ninja built the receiver reference object and initializer reference
+object; the corresponding C++ base objects were current. A subsequent dry run of
+both object pairs reported `ninja: no work to do`.
 
-The full Docker suite returned 4,386 passed, 85 failed, 10 skipped, and 7 errors.
-Raw output is in ignored `tmp/network-init-integration/full-docker-current.log`.
-The nine-object baseline log at `/tmp/m337840/baseline_nine_objects_full.log`
-returned 4,355 passed, 36 failed, 31 skipped, and 7 errors. Failure/error ID
-comparison found 49 current-only IDs and no removed IDs. The baseline is not
-comparable: it lacks the controller/elevation matching checks present in the
-current run, despite the requested object prerequisites being present. Do not
-claim a clean full-suite gate or attribute those mismatches to this initializer.
+Paired Docker full-suite runs used isolated clean-main and feature worktrees. Both
+runs mounted the same original ELF, licensed compilers and build tools read-only.
+They first prepared the same nine verifier prerequisites, then ran
+`python -m pytest -q -ra -p no:cacheprovider tests`.
+
+| Worktree | Passed | Failed | Skipped | Errors | Duration |
+|---|---:|---:|---:|---:|---:|
+| Clean `main` baseline (`41ccda2ad`) | 4,355 | 36 | 31 | 7 | 314.07 s |
+| `network-layer-match` after receiver registration | 4,447 | 35 | 10 | 7 | 272.34 s |
+
+Failure/error IDs are identical except for one baseline-only failure:
+`tests/test_tactical_ai_layout_341040_matching.py::test_tactical_ai_func_342170_mwcc_compilation`.
+The feature branch has no new failure/error ID. Skip counts differ because the
+feature branch adds network matching tests that use the private inputs. The full
+suite remains red; this comparison does not make its failures passes.
+
+`flake8` passes for modified Python tests. `git diff --check` passes. Five local
+Markdown links in `docs/README.md` were already broken on `main`; the changed
+network-document links resolve. NTSC-J remains unverified. Overall Task 1 remains
+blocked by unmatched session response, join and remaining lifecycle functions,
+plus open end-to-end contract questions.

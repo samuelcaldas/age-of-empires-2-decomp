@@ -13,6 +13,9 @@ from test_network_transport_init_337d40_matching import (
     EXTERNALS as INIT_EXTERNALS,
     RELOCATIONS as INIT_RELOCATIONS,
 )
+from test_network_receiver_337B30_matching import (
+    EXTERNALS as RECEIVER_EXTERNALS,
+)
 
 
 FUNCTIONS = (
@@ -30,6 +33,8 @@ FUNCTIONS = (
      QUEUE_EXTERNALS),
     ("src/network_transport_init_337d40.cpp", "func_00337D40", 0x337D40, 920,
      INIT_RELOCATIONS, INIT_EXTERNALS),
+    ("src/network_receiver_337B30.cpp", "func_00337B30", 0x337B30, 524, 54,
+     RECEIVER_EXTERNALS),
 )
 
 
@@ -49,6 +54,27 @@ def test_registered_network_function_exact(tmp_path, source, name, address, size
         assert_initializer_manifest(output)
         padding = support.original_bytes(original, 0x3380D8, 8)
         assert padding == bytes(8), f"initializer padding is not zero: {padding.hex()}"
+    if name == "func_00337B30":
+        assert_receiver_manifest(output)
+        padding = support.original_bytes(original, 0x337D3C, 4)
+        assert padding == bytes(4), f"receiver alignment is not zero: {padding.hex()}"
+        next_entry = support.original_bytes(original, 0x337D40, 12)
+        assert next_entry == bytes.fromhex("a0ffbd273000bf7f2000b27f")
+
+
+def assert_receiver_manifest(object_path):
+    """Require all receiver relocation forms resolved by the exact test."""
+    with object_path.open("rb") as stream:
+        elf = ELFFile(stream)
+        symbol = elf.get_section_by_name(".symtab").get_symbol_by_name("func_00337B30")[0]
+        section_index = symbol["st_shndx"]
+        types = Counter(
+            relocation["r_info_type"]
+            for section in elf.iter_sections()
+            if section["sh_type"] == "SHT_REL" and section["sh_info"] == section_index
+            for relocation in section.iter_relocations()
+        )
+    assert types == {4: 7, 5: 11, 6: 11, 7: 25}
 
 
 def assert_initializer_manifest(object_path):

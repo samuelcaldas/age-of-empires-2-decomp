@@ -20,16 +20,18 @@ FUNCTION_NAME, START_ADDRESS, FUNCTION_SIZE = "func_00337840", 0x337840, 0x88
 GP = 0x4EA7C0
 RELOCATION_COUNT = 12
 EXTERNAL_SYMBOLS = {
-    "func_00104d40": 0x104D40,
-    "func_00104d60": 0x104D60,
-    "func_00118de0": 0x118DE0,
-    "func_00388d60": 0x388D60,
+    "func_104D40": 0x104D40,
+    "func_104D60": 0x104D60,
+    "func_118de0": 0x118DE0,
+    "func_388D60": 0x388D60,
     "D_004E3538": 0x4E3538,
     "D_004E3560": 0x4E3560,
+    "D_004D1EB0": 0x4D1EB0,
+    "D_004D1ED0": 0x4D1ED0,
 }
-LITERALS = {
-    b"err! il_sendto()\n\0": 0x4D1EB0,
-    b"err! sceILsockSend()\n\0": 0x4D1ED0,
+STRINGS = {
+    0x4D1EB0: b"err! il_sendto()\n\0",
+    0x4D1ED0: b"err! sceILsockSend()\n\0",
 }
 R_MIPS_26, R_MIPS_HI16, R_MIPS_LO16, R_MIPS_GPREL16 = 4, 5, 6, 7
 
@@ -74,19 +76,11 @@ def compile_object(directory):
     return output
 
 
-def symbol_address(elf, symbol, image):
-    """Resolve externals by name and literals by content checked against the original."""
-    if symbol["st_shndx"] == "SHN_UNDEF":
-        assert symbol.name in EXTERNAL_SYMBOLS, f"unexpected external {symbol.name}"
-        return EXTERNAL_SYMBOLS[symbol.name]
-    section = elf.get_section(symbol["st_shndx"])
-    assert section.name == ".data", f"unexpected local symbol section {section.name}"
-    start = symbol["st_value"]
-    content = bytes(section.data()[start:start + symbol["st_size"]])
-    assert content in LITERALS, f"unexpected literal {content!r}"
-    address = LITERALS[content]
-    assert virtual_bytes(image, address, len(content)) == content
-    return address
+def symbol_address(symbol):
+    """Resolve every relocation target by name; local symbols are not expected."""
+    assert symbol["st_shndx"] == "SHN_UNDEF", f"unexpected local symbol {symbol.name}"
+    assert symbol.name in EXTERNAL_SYMBOLS, f"unexpected external {symbol.name}"
+    return EXTERNAL_SYMBOLS[symbol.name]
 
 
 def apply_relocations(elf, section_index, code, image):
@@ -103,7 +97,7 @@ def apply_relocations(elf, section_index, code, image):
     for relocation in relocations:
         offset, kind = relocation["r_offset"], relocation["r_info_type"]
         symbol = symbols.get_symbol(relocation["r_info_sym"])
-        target = symbol_address(elf, symbol, image)
+        target = symbol_address(symbol)
         word = struct.unpack_from("<I", code, offset)[0]
         if kind == R_MIPS_26:
             value = target + ((word & 0x3FFFFFF) << 2)
@@ -158,6 +152,12 @@ def test_send_checked_matches_original_bytes(relocated_code, original_image):
     difference = next((index for index, pair in enumerate(zip(relocated_code, expected))
                        if pair[0] != pair[1]), None)
     assert difference is None, f"instruction bytes differ at {START_ADDRESS + difference:#x}"
+
+
+@pytest.mark.parametrize("address,content", sorted(STRINGS.items()))
+def test_log_strings_exist_in_original(original_image, address, content):
+    """The extern log strings resolve to these exact original bytes."""
+    assert virtual_bytes(original_image, address, len(content)) == content
 
 
 def test_send_checked_is_followed_by_alignment_padding(original_image):

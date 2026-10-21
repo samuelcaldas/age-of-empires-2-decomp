@@ -42,11 +42,25 @@ All of the following comes from the original `SLES-50282` ELF:
   flags, the log strings, and all three return paths, including the 492/493
   boundary.
 - `tests/test_network_send_checked_337840_matching.py` compiles the source with
-  MWCC 2.3.1.01, resolves all 12 relocations (four `R_MIPS_26` targets, two
-  `HI16`/`LO16` literal pairs, and three `GPREL16` loads with
-  `_gp = 0x4EA7C0`), and compares all 136 bytes with the original without masks.
-  String literals are resolved by content, and the test checks that the original
-  holds the same bytes at the expected address.
+  MWCC 2.3.1.01, resolves all 12 relocations (four `R_MIPS_26` calls, two
+  `HI16`/`LO16` string pairs, and three `GPREL16` loads with `_gp = 0x4EA7C0`),
+  and compares all 136 bytes with the original without masks. It also checks
+  that the original holds both log strings at `0x4D1EB0` and `0x4D1ED0`.
+
+## Registration
+
+The unit is registered as `Matching`, with its own `config.yml` code segment
+(file offset `0x237A20`, 0x90 bytes including the alignment) and the remainder
+of the old `post_aoe4` range split off as `bin_3378d0_340370`. The callees use
+the splitter's names (`func_104D60`, `func_104D40`, `func_388D60`, and
+`func_118de0`). The strings and the two globals are `symbols.txt` entries, so
+the reference assembly and the C++ object name them identically.
+
+`objdiff-cli diff` reports 99.91% for the function. The only differences are
+the three `$gp` loads: the split configuration does not set a `gp` value, so
+the reference assembly keeps raw offsets where the C++ object has `GPREL16`
+relocations. Other `Matching` units that read globals through `$gp` show the
+same difference. The relocation-resolving byte test above is the exact check.
 
 ## Source shape
 

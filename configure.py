@@ -6286,6 +6286,12 @@ if config.platform == Platform.PS2:
                 ),
                 Object(
                     Matching,
+                    "network_send_checked_337840",
+                    cflags=config.cflags,
+                    toolchain_version="PS2/mwcc-2.3.1.01",
+                ),
+                Object(
+                    Matching,
                     "tactical_ai_destructors_340370",
                     cflags=config.cflags,
                     toolchain_version="PS2/mwcc-2.3.1.01",

@@ -17,14 +17,16 @@ static int send_flags;
 static const char *log_format;
 
 extern "C" {
-    int func_00104d60(int handle) { (void)handle; call_log[call_count++] = CALL_SYNC_ENTER; return 0; }
-    int func_00104d40(int handle) { (void)handle; call_log[call_count++] = CALL_SYNC_LEAVE; return 0; }
-    int func_00118de0(const char *format, ...) {
+    extern const char D_004D1EB0[] = "err! il_sendto()\n";
+    extern const char D_004D1ED0[] = "err! sceILsockSend()\n";
+    int func_104D60(int handle) { (void)handle; call_log[call_count++] = CALL_SYNC_ENTER; return 0; }
+    int func_104D40(int handle) { (void)handle; call_log[call_count++] = CALL_SYNC_LEAVE; return 0; }
+    int func_118de0(const char *format, ...) {
         log_format = format;
         call_log[call_count++] = CALL_LOG;
         return 0;
     }
-    int func_00388d60(int handle, const void *buf, int len, int flags) {
+    int func_388D60(int handle, const void *buf, int len, int flags) {
         call_log[call_count++] = CALL_SEND;
         send_handle = handle;
         send_buf = buf;

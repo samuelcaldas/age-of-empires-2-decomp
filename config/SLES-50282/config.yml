@@ -5468,6 +5468,15 @@ segments:
   - name: post_aoe4
     type: bin
     start: 0x207D60
+  - name: network_send_checked_337840
+    type: code
+    start: 0x237A20
+    vram: 0x337840
+    subsegments:
+      - [0x237A20, asm, network_send_checked_337840]
+  - name: bin_3378d0_340370
+    type: bin
+    start: 0x237AB0
   - name: tactical_ai_destructors_340370
     type: code
     start: 0x240550

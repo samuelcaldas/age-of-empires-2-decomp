@@ -9,6 +9,7 @@ Start with the top-level [README](../README.md).
 - [network_init_accessors.md](network_init_accessors.md): network reset loop and two state accessors, exact C++ matches with asserted relocation counts
 - [network_send_checked_337840.md](network_send_checked_337840.md): checked 492-byte datagram send at `0x337840`, exact 136-byte match with all 12 relocations, and native call-order tests
 - [network_session_dispatch_3378d0.md](network_session_dispatch_3378d0.md): session message dispatch at `0x3378D0`, exact 276-byte match with all relocations, and native state/call-order tests
+- [network_transport_init_337d40.md](network_transport_init_337d40.md): PAL transport initializer at `0x337D40`, 920-byte exact match with all 107 relocations and 23 native cases
 - [network_buffer_enqueue_338470.md](network_buffer_enqueue_338470.md): DirectPlay buffer enqueue at `0x338470`, 2048-byte threshold, native mutation tests, and matching status
 - [ps2_binary_analysis.md](ps2_binary_analysis.md): disc architecture, Metrowerks compiler, debug strings, and source files discovered in the PS2 binary
 - [ps2_library_map.md](ps2_library_map.md): bounded third-party runtime routines and Sony SDK version markers in the PAL ELF

@@ -77,9 +77,10 @@ bytes` only for equality. Metadata relocation sections are not instruction bytes
 | SLES-50282 | 920/920 | 920/920, unmasked | 107/107 resolved; 29 explicit external names | Isolated function comparison; no full project link |
 | SLPM-62076 | Not measured | Not compared | Not verified | `orig/SLPM-62076/AOK.ELF` absent |
 
-The object and symbol remain unregistered. `configure.py`, symbol lists, original
-binaries, SDK files, compiler binaries, and generated code were not changed.
-The missing NTSC-J original prevents a cross-version completion claim.
+The PAL object is registered in `configure.py` and the SLES-50282 split and
+symbol files. The receiver remains an external target symbol, not a registered
+object. The semaphore alias at `0x4E3564` is not separately registered because
+`D_004E3560` already spans both words. NTSC-J remains unverified.
 
 ## Regression gates
 
@@ -144,5 +145,5 @@ blocked by missing `build.ninja` or original ELF, node-pool registration
 assertions, and native compilation errors in item creator/visible map. The
 private-input skips include original ELF, MWCC, wibo, GNU linker, and prebuilt
 objects unavailable inside Docker. These failures/skips are not passes and were
-not repaired or excluded by this change. Full integration remains blocked;
-the candidate remains unregistered and is not promoted to project `Matching`.
+not repaired or excluded by this change. PAL registration does not make the
+full regression gate clean; the NTSC-J version remains unverified.

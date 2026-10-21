@@ -5498,9 +5498,18 @@ segments:
     vram: 0x3378D0
     subsegments:
       - [0x237AB0, asm, network_session_dispatch_3378d0]
-  - name: bin_3379f0_338470
+  - name: bin_3379f0_337d40
     type: bin
     start: 0x237BD0
+  - name: network_transport_init_337d40
+    type: code
+    start: 0x237F20
+    vram: 0x337D40
+    subsegments:
+      - [0x237F20, asm, network_transport_init_337d40]
+  - name: bin_3380e0_338470
+    type: bin
+    start: 0x2382C0
   - name: network_buffer_enqueue_338470
     type: code
     start: 0x238650

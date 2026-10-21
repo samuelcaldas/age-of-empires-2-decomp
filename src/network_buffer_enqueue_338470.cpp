@@ -8,7 +8,7 @@ extern "C" {
     extern const char D_004D2150[];
     int func_104D60(int semaphore);
     int func_104D40(int semaphore);
-    int func_117af8(void *destination, const void *source, int size);
+    int func_117AF8(void *destination, const void *source, int size);
     int func_118de0(const char *format, ...);
 }
 
@@ -38,7 +38,7 @@ void *func_00338470(void *state, const void *payload, int size) {
         fields[845] = 0;
     }
     buffer += fields[845];
-    func_117af8(buffer, payload, size);
+    func_117AF8(buffer, payload, size);
     ++fields[843];
     fields[846] = fields[845];
     size = (size + 3) & -4;

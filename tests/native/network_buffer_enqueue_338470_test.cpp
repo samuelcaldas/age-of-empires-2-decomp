@@ -30,7 +30,7 @@ extern "C" {
         calls[call_count++] = CALL_SIGNAL;
         return 0;
     }
-    int func_117af8(void *destination, const void *source, int size) {
+    int func_117AF8(void *destination, const void *source, int size) {
         copy_destination = destination;
         copy_source = source;
         copy_length = size;

@@ -12,7 +12,7 @@ extern "C" {
     extern const char D_004D1F10[];
     extern const char D_004D1F18[];
     int func_117a64(const char *left, const char *right, int count);
-    void func_117af8(void *destination, const void *source, int count);
+    void func_117AF8(void *destination, const void *source, int count);
     int func_003385C0(void *destination, const char *message, int value, int flags);
 }
 
@@ -31,7 +31,7 @@ int func_003378D0(const char *message) {
     }
     if (func_117a64(message, D_004D1F10, 6) == 0 ||
         func_117a64(message, D_004D1F18, 7) == 0) {
-        func_117af8(D_0108AFA0, message, 512);
+        func_117AF8(D_0108AFA0, message, 512);
         return 1;
     }
     func_003385C0(D_01087ED0, message, *(const int *)(message + 12), 0);

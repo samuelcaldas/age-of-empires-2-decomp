@@ -13,7 +13,7 @@ extern "C" {
     extern char D_0108AFA0[512];
     extern char D_01087ED0[];
     int func_117a64(const char *left, const char *right, int count);
-    void func_117af8(void *destination, const void *source, int count);
+    void func_117AF8(void *destination, const void *source, int count);
     int func_003385C0(void *destination, const char *message, int value, int flags);
 }
 
@@ -37,7 +37,7 @@ extern "C" {
         calls[call_count++] = CALL_COMPARE;
         return std::strncmp(left, right, count);
     }
-    void func_117af8(void *destination, const void *source, int count) {
+    void func_117AF8(void *destination, const void *source, int count) {
         calls[call_count++] = CALL_COPY;
         std::memcpy(destination, source, count);
     }

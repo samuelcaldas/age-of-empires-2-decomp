@@ -147,3 +147,28 @@ private-input skips include original ELF, MWCC, wibo, GNU linker, and prebuilt
 objects unavailable inside Docker. These failures/skips are not passes and were
 not repaired or excluded by this change. PAL registration does not make the
 full regression gate clean; the NTSC-J version remains unverified.
+
+## Integration validation
+
+After PAL registration, the Docker command
+`python -m pytest -q -ra tests/test_network_*.py` passed all 59 network tests.
+The strict registered-function and initializer native tests passed all 30 cases.
+The registered-function suite includes seven exact matches. The initializer
+remains 920/920 bytes, with 107 resolved relocations and zero padding at
+`0x3380D8..0x3380E0`.
+
+The PAL configure command completed, and generated assembly and object files for
+the initializer appeared. A dry run of
+`ninja -n build/SLES-50282/src/network_transport_init_337d40.o` repeatedly showed
+only splitter/configure regeneration steps. Ninja regenerated the build file,
+which contains the initializer object target, but did not show the object command
+in the same dry run. This build dry-run gate remains blocked.
+
+The full Docker suite returned 4,386 passed, 85 failed, 10 skipped, and 7 errors.
+Raw output is in ignored `tmp/network-init-integration/full-docker-current.log`.
+The nine-object baseline log at `/tmp/m337840/baseline_nine_objects_full.log`
+returned 4,355 passed, 36 failed, 31 skipped, and 7 errors. Failure/error ID
+comparison found 49 current-only IDs and no removed IDs. The baseline is not
+comparable: it lacks the controller/elevation matching checks present in the
+current run, despite the requested object prerequisites being present. Do not
+claim a clean full-suite gate or attribute those mismatches to this initializer.

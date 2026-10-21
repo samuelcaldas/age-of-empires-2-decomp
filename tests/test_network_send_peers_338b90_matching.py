@@ -8,7 +8,7 @@ import network_match_support as match
 SOURCE=ROOT/"src/network_send_peers_338b90.cpp"
 ADDRESS=0x338B90
 SIZE=196
-RELOCATIONS=1
+RELOCATIONS=2
 EXTERNALS=['func_003383B0=0x3383B0']
 PADDING=12
 def test_exact_match():

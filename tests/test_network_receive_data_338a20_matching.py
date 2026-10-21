@@ -8,7 +8,7 @@ import network_match_support as match
 SOURCE=ROOT/"src/network_receive_data_338a20.cpp"
 ADDRESS=0x338A20
 SIZE=368
-RELOCATIONS=4
+RELOCATIONS=11
 EXTERNALS=['func_104D60=0x104D60', 'func_104D40=0x104D40', 'func_117AF8=0x117AF8', 'D_004E3564=0x4E3564']
 PADDING=0
 def test_exact_match():

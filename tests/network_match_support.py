@@ -105,11 +105,14 @@ def apply_relocations(elf, section_index, code, base_address, externals, expecte
             assert (value & 0xF0000000) == ((base_address + offset) & 0xF0000000)
             word = (word & 0xFC000000) | ((value >> 2) & 0x3FFFFFF)
         elif kind == R_MIPS_HI16:
-            high[symbol.name] = offset
+            key = (symbol.name, (word >> 16) & 31)
+            assert key not in high, f"overlapping HI16 for {symbol.name}"
+            high[key] = offset
             continue
         elif kind == R_MIPS_LO16:
-            assert symbol.name in high, f"LO16 without HI16 for {symbol.name}"
-            high_offset = high.pop(symbol.name)
+            key = (symbol.name, (word >> 21) & 31)
+            assert key in high, f"LO16 without HI16 for {symbol.name}"
+            high_offset = high.pop(key)
             high_word = struct.unpack_from("<I", code, high_offset)[0]
             value = target + ((high_word & 0xFFFF) << 16) + signed16(word)
             carried = (high_word & 0xFFFF0000) | (((value + 0x8000) >> 16) & 0xFFFF)

@@ -11,6 +11,8 @@ Start with the top-level [README](../README.md).
 - [network_session_dispatch_3378d0.md](network_session_dispatch_3378d0.md): session message dispatch at `0x3378D0`, exact 276-byte match with all relocations, and native state/call-order tests
 - [network_transport_init_337d40.md](network_transport_init_337d40.md): PAL transport initializer at `0x337D40`, 920-byte exact match with all 107 relocations and 23 native cases
 - [network_buffer_enqueue_338470.md](network_buffer_enqueue_338470.md): DirectPlay buffer enqueue at `0x338470`, 2048-byte threshold, native mutation tests, and matching status
+- [network_receiver_337B30.md](network_receiver_337B30.md): receiver-thread C++ match at `0x337B30` for all 524 executable bytes, 54 resolved candidate relocations, and separate four-byte alignment validation
+- [network_receiver_337B30.md](network_receiver_337B30.md): receiver thread at `0x337B30`, receive ring and peer discovery behavior, 524-byte candidate and matching status
 - [ps2_binary_analysis.md](ps2_binary_analysis.md): disc architecture, Metrowerks compiler, debug strings, and source files discovered in the PS2 binary
 - [ps2_library_map.md](ps2_library_map.md): bounded third-party runtime routines and Sony SDK version markers in the PAL ELF
 - [toolchain.md](toolchain.md): compilers, how to identify them from the binaries, and what is still unverified

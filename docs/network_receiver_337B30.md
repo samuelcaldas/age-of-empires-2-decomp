@@ -21,8 +21,7 @@ checks belong inside this function.
 ## Validation
 
 `tests/test_network_receiver_337B30_native.py` builds the C++ implementation
-with host `g++ -m32`; this environment lacks the 32-bit host runtime, so the
-native test skips. `tests/test_network_receiver_337B30_matching.py` uses the
+with host `g++ -m32`; the focused native test passes. `tests/test_network_receiver_337B30_matching.py` uses the
 shared `tests/network_match_support.py` exact-byte resolver with a 528-byte
 extent and a fixed relocation count. The current candidate does not match: MWCC
 emits 372 bytes. Matching remains blocked pending source-shape reconstruction.

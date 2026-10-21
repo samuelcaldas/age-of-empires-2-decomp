@@ -26,7 +26,7 @@ def test_receiver_extent_includes_return_or_trailing_nop():
         import pytest
         pytest.skip("requires original ELF and PS2 tools; missing: " + ", ".join(missing))
     image = network_match_support.verified_original_image()
-    assert network_match_support.original_bytes(image, 0x337D3C, 4) == b"\\0" * 4
+    assert network_match_support.original_bytes(image, 0x337D3C, 4) == b"\0" * 4
 
 
 def test_receiver_matches_original():

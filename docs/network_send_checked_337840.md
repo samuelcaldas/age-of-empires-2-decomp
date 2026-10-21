@@ -48,6 +48,9 @@ All of the following comes from the original `SLES-50282` ELF:
   that the original holds both log strings at `0x4D1EB0` and `0x4D1ED0`.
 `tests/test_network_match_support.py` mutates an object relocation while keeping
 the count fixed; the shared verifier rejects an unpaired `HI16`.
+`tests/test_network_registered_exact.py` independently rebuilds all six
+registered network functions through that strengthened verifier, asserting
+individual byte extents and relocation counts.
 
 ## Registration
 

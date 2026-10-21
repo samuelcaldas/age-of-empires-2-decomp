@@ -34,7 +34,8 @@ The body contains five `0x117A64` calls, one `0x117AF8` copy call, and one
 `GPREL16` accesses using
 `_gp = 0x4EA7C0`. The matching test applies every relocation and compares all
 276 bytes without masks. It also verifies the five strings and 12 zero padding
-bytes.
+bytes. The compiled-code fixture checks private prerequisites before building;
+without the original ELF or compiler, it skips rather than failing at compile.
 
 Commands:
 

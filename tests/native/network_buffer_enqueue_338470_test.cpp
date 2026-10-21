@@ -35,6 +35,7 @@ extern "C" {
         copy_source = source;
         copy_length = size;
         calls[call_count++] = CALL_COPY;
+        std::memcpy(destination, source, size);
         return 0;
     }
     int func_118de0(const char *format, ...) {
@@ -85,6 +86,7 @@ int main() {
     assert(copy_destination == state + 1324);
     assert(copy_source == payload);
     assert(copy_length == 5);
+    assert(std::memcmp(state + 1324, payload, 5) == 0);
     assert(*reinterpret_cast<int *>(state + 3372) == 1);
     assert(*reinterpret_cast<int *>(state + 3384) == 0);
     assert(*reinterpret_cast<int *>(state + 3380) == 8);
@@ -101,6 +103,7 @@ int main() {
     assert(result == state + 1324);
     assert(call_count == 3);
     assert(calls[0] == CALL_WAIT && calls[1] == CALL_COPY && calls[2] == CALL_SIGNAL);
+    assert(std::memcmp(state + 1324, payload, 8) == 0);
     assert(*reinterpret_cast<int *>(state + 1324 + 12) == static_cast<int>(0x80000000u));
     assert(*reinterpret_cast<int *>(state + 3372) == 3);
     assert(*reinterpret_cast<int *>(state + 3384) == 0);

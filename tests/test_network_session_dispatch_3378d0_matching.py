@@ -125,6 +125,7 @@ def original_image():
 
 @pytest.fixture(scope="module")
 def relocated_code(tmp_path_factory):
+    require_private_inputs()
     path = compile_object(tmp_path_factory.mktemp("session_dispatch"))
     with path.open("rb") as stream:
         elf = ELFFile(stream)

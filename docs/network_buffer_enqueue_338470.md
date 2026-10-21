@@ -21,7 +21,7 @@ The adjacent `0x3383B0` packet builder calls this function with its composed pac
 
 ## Tests and matching
 
-- `tests/test_network_buffer_enqueue_338470_native.py` runs the real C++ implementation under 32-bit host compilation. It checks append state, rounded offsets, rollover flagging, size-rejection logging, and semaphore/copy call order.
+- `tests/test_network_buffer_enqueue_338470_native.py` runs the real C++ implementation under 32-bit host compilation. It checks append state, copied payload bytes, rounded offsets, rollover flagging, size-rejection logging, and semaphore/copy call order.
 - `tests/test_network_buffer_enqueue_338470_matching.py` compiles with MWCC 2.3.1.01, resolves all 16 relocations, checks the strings and alignment boundary, and compares all 328 function bytes without masks. The compiled function has the exact 328-byte extent and matches every byte.
 
 ## Contract notes and open questions

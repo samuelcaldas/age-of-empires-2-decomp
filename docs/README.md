@@ -6,6 +6,7 @@ Start with the top-level [README](../README.md).
 - [game_files.md](game_files.md): where each original file comes from, how to extract it, and how to verify it
 - [tactical_ai_combat_subsystem_directplay_count_338a10.md](tactical_ai_combat_subsystem_directplay_count_338a10.md): pure-C++ message-count query at `0x338A10`, exact 16-byte match, and native mutation tests
 - [tactical_ai_combat_subsystem_directplay_name_338970.md](tactical_ai_combat_subsystem_directplay_name_338970.md): pure-C++ player-name query at `0x338970`, exact 148-byte match, and size/error contracts
+- [network_init_accessors.md](network_init_accessors.md): network reset loop and two state accessors, exact C++ matches with asserted relocation counts
 - [network_send_checked_337840.md](network_send_checked_337840.md): checked 492-byte datagram send at `0x337840`, exact 136-byte match with all 12 relocations, and native call-order tests
 - [network_session_dispatch_3378d0.md](network_session_dispatch_3378d0.md): session message dispatch at `0x3378D0`, exact 276-byte match with all relocations, and native state/call-order tests
 - [network_buffer_enqueue_338470.md](network_buffer_enqueue_338470.md): DirectPlay buffer enqueue at `0x338470`, 2048-byte threshold, native mutation tests, and matching status

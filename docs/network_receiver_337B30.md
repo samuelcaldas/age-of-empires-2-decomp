@@ -13,7 +13,8 @@ index modulo 16 and increments the receive count. In discovery mode it uses
 `recvfrom`, ignores incomplete packets and the configured local address,
 records a new peer, byte-swaps its address words, and calls `connect`. A
 successful connection sets the state and advances the counters. A failed
-connection clears the stored peer words.
+connection clears the stored peer words. Address-byte swapping uses unsigned
+shifts; signed right shifts corrupt peer words with the high bit set.
 
 The original trusts the returned peer address and packet length. No bounds
 checks belong inside this function.
@@ -21,7 +22,8 @@ checks belong inside this function.
 ## Validation
 
 `tests/test_network_receiver_337B30_native.py` builds the C++ implementation
-with host `g++ -m32`; the focused native test passes. `tests/test_network_receiver_337B30_matching.py` uses the
+with host `g++ -m32`; the native test covers connected receive, discovery
+with a high-bit peer address, and failed peer connection. The matching test uses the
 shared `tests/network_match_support.py` exact-byte resolver with a 528-byte
 extent and a fixed relocation count. The current candidate does not match: MWCC
 emits 372 bytes. Matching remains blocked pending source-shape reconstruction.

@@ -14,6 +14,7 @@ Start with the top-level [README](../README.md).
 - [network_layer_contract.md](network_layer_contract.md): sanitized PAL network framing, queue, delivery, timeout and error evidence with explicit contract gaps
 - [network_receiver_337B30.md](network_receiver_337B30.md): receiver-thread C++ match at `0x337B30` for all 524 executable bytes, 54 resolved candidate relocations, and separate four-byte alignment validation
 - [network_message_handler_3385c0.md](network_message_handler_3385c0.md): received message handler at `0x3385C0`, native SESSION test, and 940-byte exact-match gate
+- [network_session_request_338ce0.md](network_session_request_338ce0.md): session request at `0x338CE0`, 700-byte extent, 5000-unit timeout, and current MWCC match status
 - [ps2_binary_analysis.md](ps2_binary_analysis.md): disc architecture, Metrowerks compiler, debug strings, and source files discovered in the PS2 binary
 - [ps2_library_map.md](ps2_library_map.md): bounded third-party runtime routines and Sony SDK version markers in the PAL ELF
 - [toolchain.md](toolchain.md): compilers, how to identify them from the binaries, and what is still unverified

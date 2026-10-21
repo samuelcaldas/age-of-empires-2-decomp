@@ -34,7 +34,8 @@ ELF instructions and referenced strings. No NTSC-J behavior or address is inferr
 
 Both exit paths preserve the final logger's return register. The source returns
 that value; a fixed successful return of 1 is not established by this ELF.
-Native mocks return 1 and retain the original return assertion.
+Native mocks return distinct values (71 on thread start, -33 on creation error).
+Both hardcoded-return mutants fail the native assertion.
 
 ## Behavioral and matching evidence
 

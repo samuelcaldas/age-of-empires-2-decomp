@@ -69,7 +69,10 @@ extern "C" int func_118de0(const char *fmt,...) {
   assert(va_arg(ap,int)==lines[failure]);
   assert(va_arg(ap,int)==(success_at==5 ? 0 : -7)); calls.push_back(80+failure);
  }
- va_end(ap); return 1;
+ va_end(ap);
+ if(fmt==D_004D2090) return 71;
+ if(fmt==D_004D20B0) return -33;
+ return 1;
 }
 int main(int argc,char **argv) {
  failure=argc>1 ? std::atoi(argv[1]) : -1;
@@ -95,6 +98,6 @@ int main(int argc,char **argv) {
  assert(calls==expected);
  assert(D_004E3540[0]==0x78563412 && D_004E3540[1]==0xefcdab89);
  assert(D_004E353C==resource(201) && D_004E3538==resource(202) && D_004E3534==resource(203));
- assert(result==1);
+ assert(result==(failure==4 ? -33 : 71));
  return 0;
 }

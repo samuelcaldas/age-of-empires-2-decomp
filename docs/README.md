@@ -24,6 +24,7 @@ Start with the top-level [README](../README.md).
 - [network_object_lifecycle_338180.md](network_object_lifecycle_338180.md): zero-return cleanup stub at `0x338180`; 8-byte exact code match and 8 bytes of zero padding
 - [network_object_lifecycle_3381a0.md](network_object_lifecycle_3381a0.md): object state reset at `0x3381A0`; 144-byte target extent, matching unverified
 - [network_object_lifecycle_338230.md](network_object_lifecycle_338230.md): joined-state reset at `0x338230`; 48-byte target extent, matching unverified
+- [network_address_helpers.md](network_address_helpers.md): IPv4 formatting/parsing and four byte-swap helper bodies, target extent and relocation analysis
 - [ps2_binary_analysis.md](ps2_binary_analysis.md): disc architecture, Metrowerks compiler, debug strings, and source files discovered in the PS2 binary
 - [ps2_library_map.md](ps2_library_map.md): bounded third-party runtime routines and Sony SDK version markers in the PAL ELF
 - [toolchain.md](toolchain.md): compilers, how to identify them from the binaries, and what is still unverified

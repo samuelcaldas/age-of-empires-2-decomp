@@ -14,12 +14,13 @@ static int send_handle;
 static const void *send_buf;
 static int send_len;
 static int send_flags;
+static const char *log_format;
 
 extern "C" {
     int func_00104d60(int handle) { (void)handle; call_log[call_count++] = CALL_SYNC_ENTER; return 0; }
     int func_00104d40(int handle) { (void)handle; call_log[call_count++] = CALL_SYNC_LEAVE; return 0; }
     int func_00118de0(const char *format, ...) {
-        (void)format;
+        log_format = format;
         call_log[call_count++] = CALL_LOG;
         return 0;
     }
@@ -56,13 +57,16 @@ int main() {
 
     reset_calls();
     send_result = -5;
-    assert(func_00337840(payload, 100) == -5);
-    assert(call_count == 3);
+    assert(func_00337840(payload, 100) == -2);
+    assert(call_count == 4);
+    assert(call_log[3] == CALL_LOG);
+    assert(std::strcmp(log_format, "err! sceILsockSend()\n") == 0);
 
     reset_calls();
     assert(func_00337840(payload, 493) == -1);
     assert(call_count == 1);
     assert(call_log[0] == CALL_LOG);
+    assert(std::strcmp(log_format, "err! il_sendto()\n") == 0);
 
     return 0;
 }

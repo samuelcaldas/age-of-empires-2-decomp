@@ -12,11 +12,13 @@ extern "C" {
 
 int func_00337840(void *self, int size) {
     if (size >= 493) {
-        func_00118de0("send size rejected");
+        func_00118de0("err! il_sendto()\n");
         return -1;
     }
     func_00104d60(g_sync_handle);
     int sent = func_00388d60(g_socket_handle, self, 492, 0);
     func_00104d40(g_sync_handle);
-    return sent;
+    if (sent == 492) return 492;
+    func_00118de0("err! sceILsockSend()\n");
+    return -2;
 }

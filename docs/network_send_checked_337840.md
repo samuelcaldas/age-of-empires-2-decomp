@@ -46,12 +46,15 @@ All of the following comes from the original `SLES-50282` ELF:
   `HI16`/`LO16` string pairs, and three `GPREL16` loads with `_gp = 0x4EA7C0`),
   and compares all 136 bytes with the original without masks. It also checks
   that the original holds both log strings at `0x4D1EB0` and `0x4D1ED0`.
+`tests/test_network_match_support.py` mutates an object relocation while keeping
+the count fixed; the shared verifier rejects an unpaired `HI16`.
 
 ## Registration
 
 The unit is registered as `Matching`, with its own `config.yml` code segment
-(file offset `0x237A20`, 0x90 bytes including the alignment) and the remainder
-of the old `post_aoe4` range split off as `bin_3378d0_340370`. The callees use
+(file offset `0x237A20`, 0x90 bytes including alignment). Adjacent verified
+functions have separate code segments; unmatched ranges remain bin segments.
+The callees use
 the splitter's names (`func_104D60`, `func_104D40`, `func_388D60`, and
 `func_118de0`). The strings and the two globals are `symbols.txt` entries, so
 the reference assembly and the C++ object name them identically.

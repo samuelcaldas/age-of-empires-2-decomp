@@ -31,7 +31,7 @@ def test_receiver_extent_includes_return_or_trailing_nop():
 
 
 def test_receiver_matches_original():
-    command = [str(ROOT / ".venv/bin/python"), "tests/network_match_support.py",
+    command = [sys.executable, "tests/network_match_support.py",
                "src/network_receiver_337B30.cpp", "func_00337B30", "0x337B30", "0x210",
                "--expect-relocations", "46"]
     for name, address in EXTERNALS.items():

@@ -1,7 +1,7 @@
 #include "network_send_checked_337840.h"
 
-extern int g_sync_handle;
-extern int g_socket_handle;
+extern int D_004E3560;
+extern int D_004E3538;
 
 extern "C" {
     int func_00104d60(int handle);
@@ -10,15 +10,17 @@ extern "C" {
     int func_00118de0(const char *format, ...);
 }
 
-int func_00337840(void *self, int size) {
-    if (size >= 493) {
+int func_00337840(const void *payload, int size) {
+    if (size > 492) {
         func_00118de0("err! il_sendto()\n");
         return -1;
     }
-    func_00104d60(g_sync_handle);
-    int sent = func_00388d60(g_socket_handle, self, 492, 0);
-    func_00104d40(g_sync_handle);
-    if (sent == 492) return 492;
-    func_00118de0("err! sceILsockSend()\n");
-    return -2;
+    func_00104d60(D_004E3560);
+    int sent = func_00388d60(D_004E3538, payload, 492, 0);
+    func_00104d40(D_004E3560);
+    if (sent != 492) {
+        func_00118de0("err! sceILsockSend()\n");
+        return -2;
+    }
+    return sent;
 }

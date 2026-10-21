@@ -4,8 +4,8 @@
 
 enum { CALL_SYNC_ENTER = 68, CALL_SYNC_LEAVE = 66, CALL_SEND = 1000, CALL_LOG = 2000 };
 
-int g_sync_handle = 11;
-int g_socket_handle = 22;
+int D_004E3560 = 11;
+int D_004E3538 = 22;
 
 static int call_log[8];
 static int call_count;
@@ -50,7 +50,7 @@ int main() {
     assert(call_log[0] == CALL_SYNC_ENTER);
     assert(call_log[1] == CALL_SEND);
     assert(call_log[2] == CALL_SYNC_LEAVE);
-    assert(send_handle == g_socket_handle);
+    assert(send_handle == D_004E3538);
     assert(send_buf == payload);
     assert(send_len == 492);
     assert(send_flags == 0);

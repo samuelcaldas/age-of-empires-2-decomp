@@ -6,6 +6,7 @@ Start with the top-level [README](../README.md).
 - [game_files.md](game_files.md): where each original file comes from, how to extract it, and how to verify it
 - [tactical_ai_combat_subsystem_directplay_count_338a10.md](tactical_ai_combat_subsystem_directplay_count_338a10.md): pure-C++ message-count query at `0x338A10`, exact 16-byte match, and native mutation tests
 - [tactical_ai_combat_subsystem_directplay_name_338970.md](tactical_ai_combat_subsystem_directplay_name_338970.md): pure-C++ player-name query at `0x338970`, exact 148-byte match, and size/error contracts
+- [network_send_checked_337840.md](network_send_checked_337840.md): checked 492-byte datagram send at `0x337840`, exact 136-byte match with all 12 relocations, and native call-order tests
 - [ps2_binary_analysis.md](ps2_binary_analysis.md): disc architecture, Metrowerks compiler, debug strings, and source files discovered in the PS2 binary
 - [ps2_library_map.md](ps2_library_map.md): bounded third-party runtime routines and Sony SDK version markers in the PAL ELF
 - [toolchain.md](toolchain.md): compilers, how to identify them from the binaries, and what is still unverified

@@ -10,7 +10,7 @@ extern "C" {
     int func_003378D0(const char *message);
     extern int D_004E3530;
     extern int D_004E352C;
-    extern char D_0109AFA0[512];
+    extern char D_0108AFA0[512];
     extern char D_01087ED0[];
     int func_117a64(const char *left, const char *right, int count);
     void func_117af8(void *destination, const void *source, int count);
@@ -53,14 +53,14 @@ extern "C" {
 
 int D_004E3530;
 int D_004E352C;
-char D_0109AFA0[512];
+char D_0108AFA0[512];
 char D_01087ED0[512];
 
 static void clear_state() {
     D_004E3530 = 0;
     D_004E352C = 0;
     call_count = 0;
-    std::memset(D_0109AFA0, 0, sizeof(D_0109AFA0));
+    std::memset(D_0108AFA0, 0, sizeof(D_0108AFA0));
 }
 
 int main() {
@@ -83,15 +83,15 @@ int main() {
     assert(calls[2] == CALL_COMPARE);
     assert(calls[3] == CALL_COMPARE);
     assert(calls[4] == CALL_COPY);
-    assert(std::memcmp(D_0109AFA0, message, sizeof(message)) == 0);
+    assert(std::memcmp(D_0108AFA0, message, sizeof(message)) == 0);
 
     std::memcpy(message, "ilconnect", 10);
     clear_state();
-    D_004E3530 = 1;
+    D_004E3530 = 0;
     D_004E352C = 9;
     assert(func_003378D0(message) == 0);
-    assert(D_004E3530 == 1);
-    assert(D_004E352C == 9);
+    assert(D_004E3530 == 0);
+    assert(D_004E352C == 0);
 
     std::memcpy(message, "other", 6);
     message[12] = 0x34;

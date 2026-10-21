@@ -9,8 +9,13 @@ static int compare_result;
 static int send_result;
 static int send_size;
 static void *send_buffer;
+static unsigned char player_data[136];
+static int create_player_calls;
+static int queue_calls;
 
 extern "C" {
+    extern const char D_004D1F18[] = "SESSION";
+    extern const char D_004D1F10[] = "JOINED";
     int func_117A64(const char *left, const char *right, int size) {
         ++compare_calls;
         return std::strncmp(left, right, static_cast<unsigned int>(size));
@@ -29,8 +34,8 @@ extern "C" {
         send_size = size;
         return send_result;
     }
-    int func_00338470(void *, void *, int) { return 0; }
-    int func_003382D0(void *, int) { return 0; }
+    int func_00338470(void *, void *, int) { ++queue_calls; return 0; }
+    void *func_003382D0(void *, int) { ++create_player_calls; return player_data; }
     void *func_00338310(void *, int) { return 0; }
     void func_00338190(void *, void *) {}
     void *func_11B170(void *destination, const void *source, int size) {
@@ -39,7 +44,6 @@ extern "C" {
     void *func_117CAC(void *destination, int value, int size) {
         return std::memset(destination, value, static_cast<unsigned int>(size));
     }
-    int func_003385C0(void *, void *, int, int) { return 0; }
 }
 
 static void reset() {
@@ -71,5 +75,17 @@ int main() {
     assert(send_buffer == object + 3388);
     assert(std::memcmp(object + 3388, "SESSION", 8) == 0);
     assert(std::memcmp(object + 3396, object + 1092, 216) == 0);
+
+    std::memset(message, 0, sizeof(message));
+    *reinterpret_cast<int *>(message) = 1;
+    *reinterpret_cast<int *>(message + 16) = 3;
+    *reinterpret_cast<int *>(message + 24) = 0x51;
+    *reinterpret_cast<int *>(message + 64) = 0x12345678;
+    *reinterpret_cast<int *>(message + 112) = 0x76543210;
+    assert(func_003385C0(object, message, 120, 0) == 1);
+    assert(create_player_calls == 1);
+    assert(queue_calls == 1);
+    assert(*reinterpret_cast<int *>(player_data + 4) == 0x51);
+    assert(*reinterpret_cast<int *>(player_data) == 0x76543210);
     return 0;
 }

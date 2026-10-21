@@ -19,6 +19,11 @@ Start with the top-level [README](../README.md).
 - [network_message_handler_3385c0.md](network_message_handler_3385c0.md): received message handler at `0x3385C0`, native SESSION test, and 940-byte exact-match gate
 - [network_session_request_338ce0.md](network_session_request_338ce0.md): session request at `0x338CE0`, 700-byte extent, 5000-unit timeout, and current MWCC match status
 - [network_join_request_338fa0.md](network_join_request_338fa0.md): DirectPlay player join setup at `0x338FA0`, native state tests, and 300-byte nonmatching diagnostic
+- [network_object_lifecycle_3380e0.md](network_object_lifecycle_3380e0.md): singleton guard and object pointer exposure at `0x3380E0`; 96-byte target extent, nonmatching candidate
+- [network_object_lifecycle_338140.md](network_object_lifecycle_338140.md): DirectPlay-compatible callback at `0x338140`; 64-byte target extent, nonmatching candidate
+- [network_object_lifecycle_338180.md](network_object_lifecycle_338180.md): zero-return cleanup stub at `0x338180`; 8-byte exact code match and 8 bytes of zero padding
+- [network_object_lifecycle_3381a0.md](network_object_lifecycle_3381a0.md): object state reset at `0x3381A0`; 144-byte target extent, matching unverified
+- [network_object_lifecycle_338230.md](network_object_lifecycle_338230.md): joined-state reset at `0x338230`; 48-byte target extent, matching unverified
 - [ps2_binary_analysis.md](ps2_binary_analysis.md): disc architecture, Metrowerks compiler, debug strings, and source files discovered in the PS2 binary
 - [ps2_library_map.md](ps2_library_map.md): bounded third-party runtime routines and Sony SDK version markers in the PAL ELF
 - [toolchain.md](toolchain.md): compilers, how to identify them from the binaries, and what is still unverified

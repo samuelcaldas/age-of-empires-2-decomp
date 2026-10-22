@@ -97,9 +97,21 @@ segments:
     vram: 0x134de8
     subsegments:
       - [0x34fc8, asm, kt_mouse]
-  - name: post_mouse
-    type: bin
+  - name: kt_keybd
+    type: code
     start: 0x360a0
+    vram: 0x135ec0
+    subsegments:
+      - [0x360a0, asm, kt_keybd]
+  - name: kt_usbkeybd_drv
+    type: code
+    start: 0x373e8
+    vram: 0x137208
+    subsegments:
+      - [0x373e8, asm, kt_usbkeybd_drv]
+  - name: post_usbkeybd
+    type: bin
+    start: 0x379e8
   - name: map_zone
     type: code
     start: 0x379f0

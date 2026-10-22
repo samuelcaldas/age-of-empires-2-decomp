@@ -19,7 +19,8 @@ Start with the top-level [README](../README.md).
 - [network_address_helpers.md](network_address_helpers.md): IPv4 formatting/parsing and four byte-swap helper bodies, target extent and relocation analysis
 - [ps2_binary_analysis.md](ps2_binary_analysis.md): disc architecture, Metrowerks compiler, debug strings, and source files discovered in the PS2 binary
 - [ps2_library_map.md](ps2_library_map.md): bounded third-party runtime routines and Sony SDK version markers in the PAL ELF
-- [toolchain.md](toolchain.md): compilers, how to identify them from the binaries, and what is still unverified
+- [kcet_and_runtime_decomp_roadmap.md](kcet_and_runtime_decomp_roadmap.md): strategic roadmap for 100% decompilation of the KCET platform layer and Metrowerks MSL runtime
+- [kcet_hardware_analysis.md](kcet_hardware_analysis.md): memory layout, boundaries, and structure of the 10 KCET hardware modules in the PS2 binary
 - [ps2_node_pool_verification.md](ps2_node_pool_verification.md): corrected node-pool completion status, clean comparison metrics, and unresolved relocation provenance
 - [ps2_node_pool_alloc_node.md](ps2_node_pool_alloc_node.md): Block 60 node allocation verification, 376-byte literal match, and relocation analysis
 - [ps2_node_pool_free_node.md](ps2_node_pool_free_node.md): Block 61 node free verification, 60-byte exact match, and leaf function analysis

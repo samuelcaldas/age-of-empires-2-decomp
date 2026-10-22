@@ -72,7 +72,6 @@ D_00F99940 = 0x00F99940; // type:s32 size:4 absolute:True
 func_00332DA0 = 0x332DA0; // type:func absolute:True
 func_00202B10 = 0x202B10; // type:func absolute:True
 func_202B10 = 0x202B10; // type:func absolute:True
-func_001510D0 = 0x1510D0; // type:func absolute:True
 D_490AE0 = 0x490AE0; // type:asciz size:40 absolute:True
 D_50A08C = 0x50A08C; // type:u32 absolute:True
 D_50A0C0 = 0x50A0C0; // type:u32 absolute:True
@@ -923,7 +922,6 @@ D_490F10 = 0x490F10; // type:asciz absolute:True
 func_1AAB30 = 0x1AAB30; // type:func absolute:True
 func_001AAB30 = 0x1AAB30; // type:func absolute:True
 func_001AAB70 = 0x1AAB70; // type:func absolute:True
-func_00150F50 = 0x150F50; // type:func absolute:True
 D_490F18 = 0x490F18; // type:asciz absolute:True
 D_490F1C = 0x490F1C; // type:asciz absolute:True
 jtbl_490F20 = 0x490F20; // type:jtbl absolute:True
@@ -2178,6 +2176,29 @@ func_00307A00 = 0x307A00; // type:func size:0x178 absolute:True
 func_186010 = 0x186010; // type:func absolute:True
 func_204920 = 0x204920; // type:func absolute:True
 func_204910 = 0x204910; // type:func absolute:True
+
+// Tactical AI Target Scan (0x307B80-0x3088A0)
+func_00307B80 = 0x307B80; // type:func size:0xD1C absolute:True
+func_1ab8f0 = 0x1AB8F0; // type:func absolute:True
+func_1ab9d0 = 0x1AB9D0; // type:func absolute:True
+func_309500 = 0x309500; // type:func absolute:True
+func_309330 = 0x309330; // type:func absolute:True
+
+// Tactical AI Target Dispatch (0x3088A0-0x308A70)
+func_003088A0 = 0x3088A0; // type:func size:0x1C8 absolute:True
+func_1a4960 = 0x1A4960; // type:func absolute:True
+
+// Tactical AI Grid Marker (0x308A70-0x308C20)
+func_00308A70 = 0x308A70; // type:func size:0x1A8 absolute:True
+func_1acf10 = 0x1ACF10; // type:func absolute:True
+
+// Tactical AI Tile Eval (0x308C20-0x309310)
+func_00308C20 = 0x308C20; // type:func size:0x6E8 absolute:True
+func_1aca60 = 0x1ACA60; // type:func absolute:True
+
+// Tactical AI Mode Ops (0x309310-0x309330)
+func_00309310 = 0x309310; // type:func size:0x8 absolute:True
+func_00309320 = 0x309320; // type:func size:0x8 absolute:True
 D_938AC0 = 0x938AC0; // type:u8 size:0x200 absolute:True
 D_938CC0 = 0x938CC0; // type:u8 size:0x200 absolute:True
 

@@ -7685,3 +7685,70 @@ Located at VRAM `0x32E8C0`–`0x32EC78` (file offset `0x22EAA0`–`0x22EE58`, 95
   - `+0x118`: GP-relative store `sw $zero, 0x8D58($gp)` (raw immediate `0x8D58` sign-extends to `-0x72A8` / `-29352`).
   - `+0x1C4`: GP-relative store `sw $v0, 0x8D4C($gp)` (raw immediate `0x8D4C` sign-extends to `-0x72B4` / `-29364`).
   - Because `AOK.ELF` is stripped, data references and callee names cannot be confirmed from symbol tables and are tracked purely by direct VRAM address. No implementation is established.
+
+#### [aoe4] `Tactical AI Target Scan & Update Coordinator` Subsystem (`0x307B80`–`0x3088A0`, `tactical_ai_target_scan.cpp`)
+
+Located at VRAM `0x307B80`–`0x3088A0` (file offset `0x207D60`–`0x208A80`, 3,360 bytes total slice, Metrowerks C++ PS2 MWCC 2.3.1.01):
+- `func_00307B80` (`0x307B80`, 3,356 bytes code + 4 bytes zero padding, 3,360 bytes slice): Target entities tactical scan and update coordinator. Evaluates interval timer (`now - m_field19C >= 333`) to toggle `m_field1A0`, guards execution via `func_1ab8f0(m_field20, 1)`, traverses entity list container (`m_field11C->m_container->m_list`), filters entities based on operational mode `m_field194` and entity classification tags, and finalizes with `func_1ab9d0(m_field20)`.
+
+Registered as `NonMatching` in `configure.py`.
+
+##### [aoe4] Tactical AI Target Scan Matching Results (Pure C++, 3,360 Bytes)
+
+| Function / Method | VRAM Address | Code Size (Orig) | Slice Size | Match Status | Description |
+|---|---|---|---|---|---|
+| `func_00307B80` | `0x307B80` | 3,356 B | 3,360 B | NonMatching | Target entities tactical scan and update coordinator (3,356 B). |
+
+#### [aoe4] `Tactical AI Target Action Dispatcher` Subsystem (`0x3088A0`–`0x308A70`, `tactical_ai_target_dispatch.cpp`)
+
+Located at VRAM `0x3088A0`–`0x308A70` (file offset `0x208A80`–`0x208C50`, 464 bytes total slice, Metrowerks C++ PS2 MWCC 2.3.1.01):
+- `func_003088A0` (`0x3088A0`, 456 bytes code + 8 bytes zero padding, 464 bytes slice): Target action dispatcher. Evaluates entity flag 57, performs alliance checks for type 80 entities with zero field 368, resolves dynamic priority mark based on `m_field184` and `m_field1A0`, overrides action code to 4 for special unit IDs (276, and 104 with positive `m_field364`), and dispatches to `func_1a4960`. Emitted instructions: 456 bytes code matching 51.89% objdiff fuzzy.
+
+Registered as `NonMatching` in `configure.py`.
+
+##### [aoe4] Tactical AI Target Action Dispatcher Matching Results (Pure C++, 464 Bytes)
+
+| Function / Method | VRAM Address | Code Size (Orig) | Slice Size | Match Status | Description |
+|---|---|---|---|---|---|
+| `func_003088A0` | `0x3088A0` | 456 B | 464 B | NonMatching (51.89% objdiff) | Target action dispatcher (456 B). |
+
+#### [aoe4] `Tactical AI Grid Marker & Box Plotter` Subsystem (`0x308A70`–`0x308C20`, `tactical_ai_grid_marker.cpp`)
+
+Located at VRAM `0x308A70`–`0x308C20` (file offset `0x208C50`–`0x208E00`, 432 bytes total slice, Metrowerks C++ PS2 MWCC 2.3.1.01):
+- `func_00308A70` (`0x308A70`, 424 bytes code + 8 bytes zero padding, 432 bytes slice): Grid tile marker and box plotter. Traverses spatial cell grid `m_grid`, queries cell elevation multipliers through `func_123350`, computes projected bounding box `[center_x ± radius] x [center_y ± radius]`, and draws two diagonal crossing lines via `func_1acf10`. Emitted instructions: 424 bytes code matching 68.99% objdiff fuzzy.
+
+Registered as `NonMatching` in `configure.py`.
+
+##### [aoe4] Tactical AI Grid Marker Matching Results (Pure C++, 432 Bytes)
+
+| Function / Method | VRAM Address | Code Size (Orig) | Slice Size | Match Status | Description |
+|---|---|---|---|---|---|
+| `func_00308A70` | `0x308A70` | 424 B | 432 B | NonMatching (68.99% objdiff) | Grid tile marker and box plotter (424 B). |
+
+#### [aoe4] `Tactical AI Tile Visibility & Entity Evaluator` Subsystem (`0x308C20`–`0x309310`, `tactical_ai_tile_eval.cpp`)
+
+Located at VRAM `0x308C20`–`0x309310` (file offset `0x208E00`–`0x2094F0`, 1,776 bytes total slice, Metrowerks C++ PS2 MWCC 2.3.1.01):
+- `func_00308C20` (`0x308C20`, 1,768 bytes code + 8 bytes zero padding, 1,776 bytes slice): Tile visibility and entity evaluator. Validates tile passable flag at cell offset 2, evaluates player fog-of-war sight bitmask via `D_50A5A0`, projects tile coordinates through `func_123350`, computes bounding box boundaries, and renders tile borders via `func_1aca60`. Emitted instructions: 1,768 bytes code matching 22.68% objdiff fuzzy.
+
+Registered as `NonMatching` in `configure.py`.
+
+##### [aoe4] Tactical AI Tile Visibility Evaluator Matching Results (Pure C++, 1,776 Bytes)
+
+| Function / Method | VRAM Address | Code Size (Orig) | Slice Size | Match Status | Description |
+|---|---|---|---|---|---|
+| `func_00308C20` | `0x308C20` | 1,768 B | 1,776 B | NonMatching (22.68% objdiff) | Tile visibility and entity evaluator (1,768 B). |
+
+#### [aoe4] `Tactical AI Operational Mode Accessors` Subsystem (`0x309310`–`0x309330`, `tactical_ai_mode_ops.cpp`)
+
+Located at VRAM `0x309310`–`0x309330` (file offset `0x2094F0`–`0x209510`, 32 bytes total slice, Metrowerks C++ PS2 MWCC 2.3.1.01):
+- `func_00309310` (`0x309310`, 8 bytes code + 8 bytes zero padding, 16 bytes slice): Sets `m_field194 = mode`. **100.00% exact bit-for-bit match**.
+- `func_00309320` (`0x309320`, 8 bytes code + 8 bytes zero padding, 16 bytes slice): Gets and returns `m_field194`. **100.00% exact bit-for-bit match**.
+
+Emitted instructions: 16 bytes code (8B + 8B) + 16 bytes zero padding = 32 bytes full slice. Complete unit match. Registered as `Matching` in `configure.py`.
+
+##### [aoe4] Tactical AI Operational Mode Accessors Matching Results (100.00% Complete Unit Match, 32 Bytes)
+
+| Function / Method | VRAM Address | Code Size (Orig) | Slice Size | Match Status | Description |
+|---|---|---|---|---|---|
+| `func_00309310` | `0x309310` | 8 B | 16 B | **100.00% exact match** (8/8 B) | Sets operational mode `m_field194 = mode`. |
+| `func_00309320` | `0x309320` | 8 B | 16 B | **100.00% exact match** (8/8 B) | Gets and returns `m_field194`. |

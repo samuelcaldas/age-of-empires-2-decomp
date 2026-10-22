@@ -5468,6 +5468,63 @@ segments:
   - name: post_aoe4
     type: bin
     start: 0x207D60
+  - name: network_init_3377d0
+    type: code
+    start: 0x2379B0
+    vram: 0x3377D0
+    subsegments:
+      - [0x2379B0, asm, network_init_3377d0]
+  - name: network_state_set_337820
+    type: code
+    start: 0x237A00
+    vram: 0x337820
+    subsegments:
+      - [0x237A00, asm, network_state_set_337820]
+  - name: network_state_get_337830
+    type: code
+    start: 0x237A10
+    vram: 0x337830
+    subsegments:
+      - [0x237A10, asm, network_state_get_337830]
+  - name: network_send_checked_337840
+    type: code
+    start: 0x237A20
+    vram: 0x337840
+    subsegments:
+      - [0x237A20, asm, network_send_checked_337840]
+  - name: network_session_dispatch_3378d0
+    type: code
+    start: 0x237AB0
+    vram: 0x3378D0
+    subsegments:
+      - [0x237AB0, asm, network_session_dispatch_3378d0]
+  - name: bin_3379f0_337b30
+    type: bin
+    start: 0x237BD0
+  - name: network_receiver_337B30
+    type: code
+    start: 0x237D10
+    vram: 0x337B30
+    subsegments:
+      - [0x237D10, asm, network_receiver_337B30]
+  - name: network_transport_init_337d40
+    type: code
+    start: 0x237F20
+    vram: 0x337D40
+    subsegments:
+      - [0x237F20, asm, network_transport_init_337d40]
+  - name: bin_3380e0_338470
+    type: bin
+    start: 0x2382C0
+  - name: network_buffer_enqueue_338470
+    type: code
+    start: 0x238650
+    vram: 0x338470
+    subsegments:
+      - [0x238650, asm, network_buffer_enqueue_338470]
+  - name: bin_3385c0_340370
+    type: bin
+    start: 0x2387A0
   - name: tactical_ai_destructors_340370
     type: code
     start: 0x240550

@@ -79,6 +79,7 @@ FUNCTIONS = (
      {"func_003392B0": 0x3392B0, "func_00338180": 0x338180}),
     ("src/network_dplay_send_destroy_3392b0.cpp", "func_003392B0", 0x3392B0, 80, 1,
      {"func_003383B0": 0x3383B0}),
+    ("src/network_utf16_length_3394b0.cpp", "func_003394B0", 0x3394B0, 40, 0, {}),
 )
 
 

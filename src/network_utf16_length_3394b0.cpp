@@ -2,12 +2,8 @@
 
 int func_003394B0(const unsigned short *text) {
     int length = 0;
-    if (*text == 0) {
-        return length;
+    while (*text++) {
+        length++;
     }
-    do {
-        ++length;
-        ++text;
-    } while (*text != 0);
     return length;
 }

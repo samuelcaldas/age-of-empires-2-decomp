@@ -224,6 +224,35 @@ Equivalent = config.non_matching  # Object should be linked when configured with
 if config.platform == Platform.PS2:
     config.libs = [
         {
+            "lib": "msl",
+            "objects": [
+                Object(
+                    Matching,
+                    "msl/atoi",
+                    cflags=["-O3", "-inline", "on", "-msext", "on", "-char", "signed", "-sym", "off", "-Iinclude", "-lang=c"],
+                    toolchain_version="PS2/mwcc-2.3.1.01",
+                ),
+                Object(
+                    Matching,
+                    "msl/atol",
+                    cflags=["-O3", "-inline", "on", "-msext", "on", "-char", "signed", "-sym", "off", "-Iinclude", "-lang=c"],
+                    toolchain_version="PS2/mwcc-2.3.1.01",
+                ),
+                Object(
+                    Matching,
+                    "msl/rand",
+                    cflags=["-O3", "-inline", "on", "-msext", "on", "-char", "signed", "-sym", "off", "-Iinclude", "-lang=c"],
+                    toolchain_version="PS2/mwcc-2.3.1.01",
+                ),
+                Object(
+                    Matching,
+                    "msl/srand",
+                    cflags=["-O3", "-inline", "on", "-msext", "on", "-char", "signed", "-sym", "off", "-Iinclude", "-lang=c"],
+                    toolchain_version="PS2/mwcc-2.3.1.01",
+                ),
+            ],
+        },
+        {
             "lib": "kcet",
             "objects": [
                 Object(

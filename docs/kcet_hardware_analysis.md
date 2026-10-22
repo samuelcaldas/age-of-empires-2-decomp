@@ -40,9 +40,9 @@ The boundaries of each source file were established through assertion string cro
 | **`kt_file.c`** | `0x0012cc00` – `0x0012dbfc` | `0x02cde0` – `0x02dddc` | ~4.0 KiB | `kind < N_KT_FILE_KIND`, `p_string` |
 | **`kt_mc_2.c`** | `0x0012dc00` – `0x001340fc` | `0x02dde0` – `0x0342dc` | ~25.2 KiB | Lines 66–1870+: `n_card <= KT_MC_CARD_MAX`, `ktMcInit2`, `sceMcInit` |
 | **`kt_kernel.c`** | `0x00134100` – `0x001347fc` | `0x0342e0` – `0x0349dc` | ~1.8 KiB | `ThreadID=%d, can't delete`, `SignalSema` |
-| **`kt_mouse.c`** | `0x00134de8` – `0x00135ebc` | `0x034fc8` – `0x03609c` | ~4.2 KiB | Lines 100–659: `mouse_number < W->n_mouse`, `sizeof(KT_MOUSE) == 176` |
-| **`kt_keybd.c`** | `0x00135ec0` – `0x001370fc` | `0x0360a0` – `0x0372dc` | ~4.6 KiB | Lines 102–1020+: `keybd_number < W->n_keybd`, `ktKeybdGetStatus` |
-| **`kt_usbkeybd_drv.c`**| `0x00137100` – `0x001377fc` | `0x0372e0` – `0x0379dc` | ~1.8 KiB | `ktKeybdApiSetCapsTypeRequest` |
+| **`kt_mouse.c`** | `0x00134de8` – `0x00135ebc` | `0x034fc8` – `0x0360a0` | 4,312 B | Lines 100–659: `mouse_number < W->n_mouse`, `sizeof(KT_MOUSE) == 176` |
+| **`kt_keybd.c`** | `0x00135ec0` – `0x00137208` | `0x0360a0` – `0x0373e8` | 4,936 B | Lines 102–1020+: `keybd_number < W->n_keybd`, `ktKeybdGetStatus` |
+| **`kt_usbkeybd_drv.c`**| `0x00137208` – `0x0013747c` | `0x0373e8` – `0x03765c` | 628 B | `ktKeybdApiSetCapsTypeRequest`, `usbkeybd` |
 
 ---
 
@@ -67,8 +67,10 @@ The boundaries of each source file were established through assertion string cro
 
 - **Confirmed Compiler:** Sony PlayStation 2 SDK 1.6.5 **EE-GCC 2.9-991111** (`ee-gcc.exe`).
 - **Flags:** `-O2 -G0 -Iinclude` (MIPS 64-bit EABI register conventions).
-- **Matching Progress (`kt_mouse.c`):**
-  - Matched Functions: **30 / 45** (1,736 / 4,236 bytes = **40.98% byte-matched**)
+- **Matching Progress:**
+  - **`kt_mouse.c`**: **45 / 45 functions** (4,312 / 4,312 bytes = **100.0% byte-matched**)
+  - **`kt_keybd.c`**: **36 / 36 functions** (4,936 / 4,936 bytes = **100.0% byte-matched**)
+  - **`kt_usbkeybd_drv.c`**: **6 / 6 functions** (628 / 628 bytes = **100.0% byte-matched**)
   - Verified 100.0% Byte Matches:
     - `func_00134F18` (8 B) — stub (`jr ra; nop`)
     - `func_00134F20` (44 B) — `D_50A060 = func_134210(1, 1, 0)`

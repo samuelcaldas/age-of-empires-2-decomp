@@ -4547,40 +4547,89 @@ Following stream decoders 11 sits the twelfth stream decoder subsystem (`0x15F22
 
 An independent test suite (`tests/test_trade_action_stream_decoders12.py`) first checks the pinned original ELF SHA-1, then parses its ELF program headers and requires a unique file-backed `PT_LOAD` covering the full 560-byte slice at file offset `0x5F400` / VRAM `0x15F220`. It compiles the actual C++ source, verifies each unique `STT_FUNC` symbol's size and actual `st_shndx` (the two MWCC `.text` sections are homonymous), then links with GNU `ld --no-undefined` at the original function addresses using the specified external addresses and `_gp = 0x4EA7C0`. The final `ET_EXEC` must have no unresolved symbols and must match all 560 original bytes: 548 instruction bytes plus 12 linker-emitted zero alignment bytes. Symbol sizes record only the 272- and 276-byte functions. Registered as `Matching` in `configure.py`.
 
-#### 6.169 `Zone Path & Building Placement Obstruction Evaluator` Subsystem (`0x1C7850`–`0x1C8480`, `zone_path_eval.cpp`)
+#### 6.169 `Zone Path & Building Placement Obstruction Evaluator` Subsystem (`0x1C7860`–`0x1C8490`, `zone_path_eval.cpp`)
 
-Directly beginning the `aoe2` fixed address range (`0x1C7330`–`0x2665B0`) sits the core spatial obstruction and building placement validator `func_001C7850` (`0x1C7850`–`0x1C8480`, 3,120 bytes in Metrowerks C++ PS2 MWCC 2.3.1.01). It validates spatial bounding box coordinates, perimeter zone adjacency, slope elevation gradients, and unit radius collisions:
-- `func_001C7850` (`0x1C7850`, 3,120 bytes): Evaluates map dimensions, converts floating-point coordinates to integer tile coordinates (`func_123350`), tests 4-sided perimeter connectivity against `bld->m_required_zone`, checks tile slope gradient against building type limits (`map + 0x68`), performs special Mill/Farm adjacency logic (`0x3B`), and queries unit collision radii (`func_3675D0`) for obstruction detection.
+Near the beginning of the `aoe2` fixed address range (`0x1C7330`–`0x2665B0`) sits the core spatial obstruction and building placement validator `func_001C7860`. Its original instruction extent is `0x1C7860`–`0x1C848C` (end-exclusive, 3,116 bytes); four alignment bytes extend the padded span to `0x1C8490`.
+- `func_001C7860` (`0x1C7860`, 3,116 instruction bytes): Evaluates map dimensions, converts floating-point coordinates to integer tile coordinates (`func_123350`), tests four-sided perimeter connectivity against `bld->m_required_zone`, checks tile slope limits (`map + 0x68`), applies the ID `0x3B` radius override, and queries unit collision radii (`func_3675D0`) for obstruction detection.
 
-#### 6.169.1 Zone Path Evaluator Matching Results (Pure C++, 3,120 Bytes)
+The pinned original ELF (`SHA-1 f478e19f2059d52899b691483ef5c7522e30e17c`) has a file-backed `PT_LOAD` with `p_offset = 0x1E0` and `p_vaddr = 0x100000`. File offset `0xC7A40` therefore maps to `0x1C7860`, not the previously configured `0x1C7850`. The latter address contains the preceding function's `jr ra`, followed by its stack restoration and two NOPs. The new `-0x1B0` frame begins at `0x1C7860`; a direct JAL at `0x2D800C` targets that address. Its return and delay slot occupy `0x1C8484`–`0x1C848B`; the NOP at `0x1C848C` precedes the next function at `0x1C8490`. The split keeps file offset `0xC7A40`, corrects its VMA, and records the unpadded `0xC2C` symbol size. The C/C++ declarations and native calls use the corrected name. The ELF symbol table is empty; these boundaries come from raw instructions, loader mapping, and the direct caller, not original symbol names.
 
-| Function / Method | VRAM Address | Match Status | Description |
-|---|---|---|---|
-| `func_001C7850` | `0x1C7850` | **44.58%** (3,116 / 3,120 B) | Building placement obstruction and spatial perimeter validator. |
+#### 6.169.1 Zone Path Evaluator Status (Pure C++, `NonMatching`)
+
+`func_001C7860` is 0xC2C (3,116) original instruction bytes; the reference object `.text` is 0xC30 (3,120) bytes including four alignment bytes. It remains registered `NonMatching`. The objdiff fuzzy score is a similarity measure, not a count of matching bytes. A layout-constrained, relocation-resolved link now confirms the compiled candidate differs from the original.
+
+| Measurement (MWCC 2.3.1.01, `-O3 -inline on -msext on -char signed`) | Value |
+|---|---|
+| objdiff fuzzy score | 90.12% |
+| Aligned rows equal / total target instructions (779) | 490 / 779 |
+| Aligned deletions / replacements | 25 / 13 |
+| Aligned insertions / arg mismatches | 29 / 251 |
+
+The current C++ reconstruction scans footprint tiles with outer `cur_x` and inner `cur_y`, reads the base slope from `s0->m_tile_rows[t_max_y][t_min_x]`, indexes `s0->m_tile_rows` directly in all four perimeter loops as well as the footprint loop, excludes perimeter corners from required-zone adjacency, and reloads the unit master after the radius callback. It uses a typed `MapContext` with width at `+0x8`, height at `+0xC`, and tile rows at `+0x8E8C`. These source-level choices do not prove matching register allocation, delay slots, pointer reloads, or stack-slot identities. Earlier claims of exact register and stack alignment are withdrawn.
+
+Correcting placement types 1 and 2 to return status 3 (`return 3;` matching `0x1C7F6C` and `0x1C7F84`) raised fuzzy similarity past 90% to 90.12% (490 EQUAL rows, deletions reduced to 25, replacements to 13, insertions to 29, argument mismatches to 251). At function offset `0`, the emitted instruction is `addiu sp,sp,-400` (`0x27BDFE70`), while the original uses `addiu sp,sp,-432` (`0x27BDFE50`). Entry parameter moves, coordinate spills, table accesses across callbacks, and instruction scheduling also remain divergent. The reconstructed caller ABI is not independently verified. Aligned `EQUAL` rows are not necessarily same-offset linked bytes and must not be multiplied into a verified matching-byte count.
+
+The original `.reginfo` word at file offset `0x3E326C` is `c0 a7 4e 00`, establishing `_gp = 0x4EA7C0`. The load at `0x1C7904` reads `0.001f` (`6f 12 83 3a`) from `0x4E2810`; subtractions at `0x1C7910` and `0x1C7918` apply it to both upper bounds. The load at `0x1C7E34` reads `0.05f` (`cd cc 4c 3d`) from `0x4E2804`. The ordered `c.le.s` at `0x1C7E68` sends equality and smaller values to the status-2 path. Earlier instruction addresses inferred from the misconfigured `0x1C7850` entry were 16 bytes low.
+
+A GNU `ld --no-undefined` diagnostic places the fresh MWCC function at `0x1C7860` and its two literals at those original data addresses, with the declared helper/global addresses and verified GP. MWCC's two homonymous `.lit4` sections receive distinct section names for selection; their payloads and compiler instruction bytes are not patched. Independent inspection confirmed normalization preserves symbols, section indices, and relocation payloads. The resulting `ET_EXEC` has no undefined symbols or retained relocation sections. Both literal payloads now match the original. The first linked instruction still differs, and the compiler symbol remains 20 bytes larger than the original. This layout-constrained comparison proves inequality; it does not establish caller ABI compatibility or a matching-byte percentage.
+
+Native regression: `tests/test_zone_path_eval.py` contains one pytest node that compiles the actual C++ implementation with 32-bit pointers and runs `tests/native/zone_path_eval_test.cpp`, plus two licensed-ELF metadata nodes. Native assertions cover bounds, footprint-margin acceptance and exact-edge rejection on both axes, slope boundary/base selection, query low-byte behavior, singleton mode 7, diagonal obstruction, orthogonal perimeter contact, unit collision/output IDs, ignored units, and inclusive rejection at the `0.05f` table threshold. The metadata tests check the pinned original hash, unique file-backed mapping, symbol identity and unpadded size, prologue, return, and padding. The query stub's `int` return type still differs from the production declaration's `unsigned char`; that low-byte case is not a complete language-level ABI proof.
+
+Threshold regression evidence (2026-10-18): the retained harness rejects a limit of `0.05f` with result `2` and accepts `0.051f` with result `0`. The original host red preceded the implementation edit. A later `docker-dev` replay compiled the unchanged `7a5157cf9` source with the retained threshold regression in an isolated temporary tree and failed at `res_at_threshold == 2`; the corrected source passed. Both Docker runs used `python -m pytest -q -ra -p no:cacheprovider tests/test_zone_path_eval.py` in `aoe-tests:verification`.
+
+Mapping and footprint-margin evidence (2026-10-19): the same Docker pytest command first failed the split comparison (`0x1C7860 != 0x1C7850`), then passed after correcting only the VMA. A separate symbol assertion failed against the old name/address and padded size; correcting the symbol and C/C++ name made all three evaluator nodes pass. Fresh target objects before and after renaming preserved all 3,136 function bytes, literal payloads, and relocation payloads. The x-margin regression then failed at `res_x_margin == 0`; changing only `max_x` to subtract `0.001f` restored **3 passed**. The y-margin regression independently failed at `res_y_margin == 0`; correcting `max_y` restored **3 passed**. Each valid case uses center `99.0005f`, radius `1.0f`, and map dimension `100`; controls at `99.001f` still return `7`. A subsequent behavioral regression requiring placement types 1 and 2 to return status 3 (`res_type1_fail == 3`) failed red against the old implementation returning 2; correcting both cases to return 3 restored **5 passed**. The final focused/subsystem command, `python -m pytest -q -ra -p no:cacheprovider tests/test_zone_path_eval.py tests/test_zone_spatial_entity_collision.py tests/test_zone_spatial_grid_aabb.py`, passed **5 tests**. All these runs used `docker-dev`; the original ELF was mounted read-only for metadata checks.
+
+For the threshold-only snapshots, the documented single-checkout Docker mount yielded **1,349 passed, 30 failed, 1,206 skipped**, both for the threshold-corrected tree and an isolated `git archive 7a5157cf9` baseline with copied private prerequisite paths. Both runs collected the same 2,585 test IDs; their failed IDs and skipped IDs/reasons match exactly. There are no added failures under these prerequisites. The 30 failures are `test_zone_spatial_grid_block27_build` through `test_zone_spatial_grid_block56_build`; all baseline failures show `ninja` regeneration invoking an unavailable absolute host `.venv/bin/python`. The corrected run shows the same message for 29 failures; its first failure truncates stdout after a Ninja log-version warning. The skips report missing original ELF/toolchain paths. Absolute symlink targets for those private inputs are not exposed by the checkout mount alone. This baseline comparison establishes unchanged failures, not a green full gate; 1,206 checks remain unexecuted in each run.
+
+The fully provisioned baseline, threshold-only, and final-state full-suite runs completed inside `docker-dev` using `/opt/venv/bin/python`, in-container Ninja generation (-j2), and read-only private prerequisite mounts:
+- **Baseline (`7a5157cf9`)**: 2,585 tests collected, **2,551 passed, 30 failed, 4 skipped**, 0 errors (6,204.08s). SHA-256: `6e8b30b5cd1e8e750bdd487b4e776b691efc3d90c2aed51edb04391fd6b505d3`.
+- **Threshold-only**: 2,585 tests collected, **2,551 passed, 30 failed, 4 skipped**, 0 errors (6,206.64s). SHA-256: `294d53da661ccc05d4e571f4a21c419352641b8fa89cd7d28c0500613beba59e`.
+- **Final state (`fc32ef67d`)**: 2,587 tests collected, **2,553 passed, 30 failed, 4 skipped**, 0 errors (6,168.08s). SHA-256: `d5b873a6f60188a2fd697beafd2e1ca00fce812936ddc5d9b7817f01fef46d19`.
+
+All three runs share identical 30 failure IDs (`test_zone_spatial_grid_block27_build` through `...block56_build`, matching the clean baseline) and identical 4 skipped IDs (route-finish matching tests requiring prebuilt objects). There are **0 added failures** and **0 removed failures** across all runs. The final state adds two new passing ELF metadata assertions (`test_zone_path_eval_split_matches_original_mapping` and `test_zone_path_eval_symbol_matches_original_extent`), bringing passed tests from 2,551 to 2,553. Fully provisioned tool mounts enabled 1,202 previously skipped checks to run and pass.
 
 #### 6.170 `Zone Path Queries & Position Clamping` Subsystem (`0x1C8490`–`0x1C8C20`, `zone_path_queries.cpp`)
 
-Following the core placement validator sits the spatial queries, tile snapping, and coordinate clamping subsystem (file `0xC8670`–`0xC8E00`, VRAM `0x1C8490`–`0x1C8C20`, end-exclusive). Its 1,936-byte slice contains six original functions and alignment padding. Four functions have C++ implementations; two pre-existing empty stubs still lack behavior. The unit remains `NonMatching`, and the stubs do not count as completed decompilation.
+Following the core placement validator sits the spatial queries, tile snapping, and coordinate clamping subsystem (file `0xC8670`–`0xC8E00`, VRAM `0x1C8490`–`0x1C8C20`, end-exclusive). Its 1,936-byte slice contains six original functions and alignment padding. All six original functions have C++ implementations. The unit remains `NonMatching`.
 
 - `func_001C8490` (`0x1C8490`, 24 bytes code + 8 bytes padding): Status byte updater conditionally writing to `0x42` based on flag `0x43`. **100.0% objdiff match** in pure C++.
-- `func_001C84B0` (`0x1C84B0`, 708 bytes code + 12 bytes padding): Map boundary clamping and grid-snapping validator (`func_123350`) adjusting entity coordinates to half-tile or full-tile centers. **98.13% objdiff fuzzy match**, not exact byte equality.
-- `func_001C8780` (`0x1C8780`, 720-byte original function): Spatial ray-casting and tile coordinate query routine. Empty stub; behavior remains unimplemented.
-- `func_001C8A50` (`0x1C8A50`, 428 bytes original code + 4 bytes padding): MapZone coordinate projection and ray validator dispatching `func_262570` and `func_1D0350`. Empty stub; behavior remains unimplemented.
+- `func_001C84B0` (`0x1C84B0`, 708 bytes code + 12 bytes padding): Map boundary clamping and grid-snapping validator (`func_123350`) adjusting entity coordinates to half-tile or full-tile centers. **100.00% exact match** (708 / 708 B across all 177 instructions).
+- `func_001C8780` (`0x1C8780`, 720-byte original function, 180 instructions): Four-corner entity bounding-box grid projection and tile coordinate evaluator. Projects all four corners (`+rx,+ry`, `-rx,+ry`, `-rx,-ry`, `+rx,-ry`) across 30 JAL helper calls (`func_123350`, `func_1234e0`, `func_1220b0`, `func_122690`, `func_122118`, `func_122748`), populating eight `short*` output pointers and returning status 1. **79.92% objdiff fuzzy match** in pure C++ (94 EQUAL rows, 63 argument mismatches).
+- `func_001C8A50` (`0x1C8A50`, 428 bytes original code + 4 bytes padding = 432 bytes / `0x1B0`, 107 instructions): MapZone virtual method at slot 16 (`0x4D8F60`). Checks `*(this + 0x10)`, forwards arguments to `func_262570`, checks the `a7` guard, projects all four corners (`+rx,-ry`, `+rx,+ry`, `-rx,+ry`, `-rx,-ry`) using radii at `+0x94`/`+0x98` via `func_001D0350` with `z = 0.0f` (`mtc1 zero, f14`), and dispatches rasterizer `func_326F60` with globals at `0x4E3400`/`0x4E3408`, forwarding all four projected corner coordinates (`c1_x, c1_y, c2_x, c2_y, c3_x, c3_y, c4_x, c4_y`) across register and stack slots (`0(sp)`, `8(sp)`, `16(sp)`, `24(sp)=11`, `32(sp)=a8`, `40(sp)=D_4E3400`). The original `dsll32`/`dsra32` sequence at `0x1C8A94`–`0x1C8AAC` uses encoded shift `0x10` (effective 48 bits) to sign-extend the low 16 bits of entry arguments `a2`/`a3`. C++ now explicitly narrows through signed `short` before widening the four repeated `func_262570` payloads and the `func_326F60` target to `long long`; the four projection calls retain the raw entry values. Internal struct typing through `ZoneQueryLayout` aligns the five callee-saved registers (`s0..s4`) with original binary order. A fresh MWCC build of the refactored production source has **94.39% same-offset instruction equality after manual relocation** (101 / 107 instruction words; not a fuzzy objdiff score; original and compiled extents are 428 bytes with 176-byte frames; remaining 6 instructions differ only in the scheduling position of `lw a0, D_4E3408`).
 - `func_001C8C00` (`0x1C8C00`, 8 bytes code + 8 bytes padding): Fast atomic accessor returning pointer at offset `0x84`. **100.0% objdiff match** in pure C++.
 - `func_001C8C10` (`0x1C8C10`, 8 bytes code + 8 bytes padding): Fast atomic accessor returning pointer at offset `0x88`. **100.0% objdiff match** in pure C++.
 
-#### 6.170.1 Zone Path Queries Matching Results (Partial C++, 1,936-Byte Original Slice)
+#### 6.170.1 Zone Path Queries Matching Results (Pure C++, 1,936-Byte Original Slice)
 
-The percentages below are fresh objdiff metrics, not ratios of exactly matched bytes. Function sizes exclude alignment padding; the `func_001C84B0` extent is 708 bytes within a 720-byte aligned span.
+The percentages below use the comparison metric named in each row; they are not interchangeable or universally byte ratios. Function sizes exclude alignment padding; the `func_001C84B0` extent is 708 bytes within a 720-byte aligned span.
 
 | Function / Method | VRAM Address | Match Status | Description |
 |---|---|---|---|
 | `func_001C8490` | `0x1C8490` | **100.0%** (24 B code) | Conditional byte state updater. |
-| `func_001C84B0` | `0x1C84B0` | **98.13% fuzzy** (708 B code) | Map boundary clamping and tile-snapping coordinator. |
-| `func_001C8780` | `0x1C8780` | Stub (0.78%) | Spatial ray-casting (corpo vazio / a implementar). |
-| `func_001C8A50` | `0x1C8A50` | Stub (1.31%) | Corner projection validator (corpo vazio / a implementar). |
+| `func_001C84B0` | `0x1C84B0` | **100.00%** (708 / 708 B) | Map boundary clamping and tile-snapping coordinator. |
+| `func_001C8780` | `0x1C8780` | **79.92% fuzzy** (720 B code) | Four-corner bounding-box grid projection and coordinate evaluator. |
+| `func_001C8A50` | `0x1C8A50` | **94.39% same-offset equality** (101 / 107 words, manually relocated) | MapZone four-corner ray projection and rasterizer dispatch (slot 16); not a fuzzy objdiff score. |
 | `func_001C8C00` | `0x1C8C00` | **100.0%** (8 / 8 B) | Atomic pointer accessor for offset 0x84. |
 | `func_001C8C10` | `0x1C8C10` | **100.0%** (8 / 8 B) | Atomic pointer accessor for offset 0x88. |
+
+Regression history (2026-10-19): `tests/test_zone_path_queries.py` and `tests/native/zone_path_queries_test.cpp` cover `func_001C84B0`, `func_001C8780`, and `func_001C8A50`. The forwarding audit added assertions for all 14 rasterizer arguments, four corners, and helper parameters after implementation; these assertions do not establish historical test-first chronology. Parameter-count compilation failures were build blockers, not behavioral Red evidence. The permanent `func_001C8A50` extent test checks its 428-byte symbol size, not its frame. The historical `func_001C84B0` coordinate-bound reordering produced an instruction-comparison failure (`AssertionError: At index 38 diff: b'\x84' != b'\x85'`) before restoring exact equality; this is matching-regression evidence, not a native behavioral Red. `func_001C8A50` and the slice remain `NonMatching`.
+
+Post-implementation characterization: Native assertions now check no helper events when the internal object is missing, only `func_262570` when `a7 == 0`, and the sequence `func_262570`, four `func_001D0350` calls, then `func_326F60` otherwise. The original PAL ELF calls `func_001D0350` at `0x1C8B04`, `0x1C8B28`, `0x1C8B50`, and `0x1C8B74`, each with positive-zero z bits (`0x00000000`) and output-slot pairs `160/162`, `164/166`, `168/170`, and `172/174`. The tests retain numeric zero assertions and add exact bit checks. Output-pointer assertions establish pairwise uniqueness only; they do not claim absolute private stack identities. These additions are characterization, not Red evidence.
+
+Signed-short regression, Red then Green: `tests/test_zone_path_queries_short_arguments.py` compiles the actual production C++ with `tests/native/zone_path_queries_short_arguments_test.cpp`. Entry values `0x12348001` and `0x5678FEDC` must reach `func_262570` as four full-width `long long` payloads `-32767`, `-292`, `-32767`, `-292`; the rasterizer target must be `-292`. Every projection callback still checks the raw entry values. Before the production change, successful compilation and native execution reached the failing assertion `helper_payloads[0] == -32767LL` (**1 failed in 0.32s**). Only then were the three production casts narrowed through `short`. The identical regression command and unchanged native harness passed afterward (**1 passed in 0.22s**):
+
+```sh
+/opt/venv/bin/python -m pytest -q -ra -p no:cacheprovider --tb=short tests/test_zone_path_queries_short_arguments.py --junitxml=/evidence/short-regression-latest.xml
+```
+
+Both iterations ran inside `aoe4-verification-final:20261018` through the `docker-dev` context. The native harness SHA-256 stayed `ccc758f2b30f0adf4d72fffdc8fc10189d5ba3834abe31722ab4433ae42b3371`; corrected production source SHA-256 is `c256cf27c696b97aebe967aab17583eed6a062aa71b28e14388b0a3a0e4ee5b0`. Five older native expectations were corrected to the ELF-backed signed-short payloads without changing raw projection assertions. The focused selection passed on the refactored source (**22 passed in 3.38s** in `focused_gate.sh after`), also in `docker-dev`; that selection excludes the separate new regression.
+
+Full-suite comparison evidence: Immutable runs between `94a838c05` (current) and `cb9873212` (baseline) completed:
+- `94a838c05`: 2,597 tests, 2,563 passed, 30 failed, 4 skipped in 6,175.22s (`current.xml`).
+- `cb9873212`: 2,590 tests, 2,556 passed, 30 failed, 4 skipped in 6,165.90s (`baseline.xml`).
+- Delta: 0 failure diffs (all 30 failures match 100% across `test_zone_spatial_grid_block27_build` through `block56_build`), 0 skip diffs (4 route-finish skips), +7 net passes.
+
+Full-suite results for the latest refactored source remain unrun (the background queue wrapper was reaped under host memory pressure and not restarted autonomously). Fresh target diagnostics record 101/107 instruction words (94.39%) with 428-byte code and 176-byte frame; this metric is distinct from full-suite status and does not establish exact linking or matching. `func_001C7860` and matching registration are unchanged.
 
 #### 6.170.2 `Zone Raycast Query` Atomic Unit (`0x1C8C20`–`0x1C8CA0`, `zone_raycast_query.cpp`)
 
@@ -7270,6 +7319,19 @@ All four functions match **100.00% byte-for-byte**:
 | `func_00189ba0` | `0x189BA0` | 28 | **100.00% exact match** (28/28 B) | 4 B |
 | `func_00189bc0` | `0x189BC0` | 80 | **100.00% exact match** (80/80 B) | 0 B |
 | `func_00189c10` | `0x189C10` | 104 | **100.00% exact match** (104/104 B) | 8 B |
+
+#### 6.335 RenderManager Status Detail Query (`0x189C80`–`0x189E00`, `render_manager_status.cpp`)
+
+`RenderManagerStatus` occupies VRAM `[0x189C80, 0x189E00)` and file offsets
+`[0x89E60, 0x89FE0)`: **376 instruction bytes, 384-byte slice (8 B alignment padding)**.
+The unit implements the detail status string evaluator queried by `func_00189c10`.
+
+Function matches **100.00% byte-for-byte**:
+1. `func_00189c80` (`0x189C80`–`0x189DF8`, 376 B code, 8 B pad): Render manager layer status evaluator. Validates layer state via `func_00191050(self, a1)` (reporting line 1201), `func_00190FF0(self, a1)` (reporting line 1202), layer type boundary `*(int*)((char*)self + 0x2038 + a1 * 4) >= 4` (reporting line 1203), and layer count limit `self->field_10C8` (reporting line 1204 / 1200 via `ErrorManager::LogError` slot 8 on `D_004E3180`), formatting `"ERROR"` (`D_491BA8`) into buffer `D_568560` on error state. Emitted by MWCC PS2 2.3.1.01 with `-O3 -inline on` and matches **100.00% byte-for-byte** across all 94 instructions.
+
+| Function | VRAM | Instruction bytes | Byte comparison | Padding |
+|---|---:|---:|---|---:|
+| `func_00189c80` | `0x189C80` | 376 | **100.00% exact match** (376/376 B) | 8 B |
 
 #### Zone Terrain and Coordinate Transformation Slices (`0x1CDD00`–`0x1D1430`)
 

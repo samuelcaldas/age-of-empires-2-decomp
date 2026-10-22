@@ -1,80 +1,38 @@
 #pragma exceptions off
-#include "sub_list.h"
+#include "zone_path_eval.h"
+
+extern void *D_004E3180;
 
 extern "C" {
-
-struct MapTile {
-    unsigned char m_terrain;       // 0x00
-    unsigned char m_elevation;     // 0x01
-    unsigned char m_pad02[3];      // 0x02..0x04
-    unsigned char m_zone_id;       // 0x05
-    unsigned char m_slope_flag;    // 0x06
-    unsigned char m_pad07[6];      // 0x07..0x0C
-    unsigned char m_unit_count;    // 0x0D
-    unsigned char m_pad0E[6];      // 0x0E..0x13
-    void **m_unit_array;           // 0x14
-    unsigned char m_pad18[4];      // 0x18..0x1B
-};
-
-struct UnitMaster {
-    unsigned char m_class;         // 0x00
-    char m_pad01[7];
-    short m_id;                    // 0x08
-    char m_pad0A[4];
-    short m_type;                  // 0x0E
-    char m_pad10[16];
-    float m_radius_x;              // 0x20
-    float m_radius_y;              // 0x24
-    char m_pad28[24];
-    unsigned char m_flag40;        // 0x40
-};
-
-struct Unit {
-    char m_pad00[4];
-    UnitMaster *m_master;          // 0x04
-    char m_pad08[28];
-    short m_id;                    // 0x24
-    char m_pad26[19];
-    unsigned char m_unit_type;     // 0x39
-    char m_pad3A[10];
-    float m_x;                     // 0x44
-    float m_y;                     // 0x48
-};
-
-struct BuildingMaster {
-    char m_pad00[8];
-    short m_id;                    // 0x08
-    char m_pad0A[4];
-    short m_construction_type;     // 0x0E
-    char m_pad10[16];
-    float m_alt_radius_x;          // 0x20
-    float m_alt_radius_y;          // 0x24
-    float m_field28;               // 0x28
-    char m_pad2C[24];
-    short m_field44;               // 0x44
-    short m_required_zone;         // 0x46
-    short m_field48;               // 0x48
-    short m_field4A;               // 0x4A
-    float m_radius_x;              // 0x4C
-    float m_radius_y;              // 0x50
-    char m_pad54[2];
-    unsigned char m_placement_type;// 0x56
-    char m_pad57;                  // 0x57
-    short m_type_id;               // 0x58
-};
-
 int func_123350(float val);
-int func_1378c0(void *map_zone, int x, int y);
+unsigned char func_1378c0(void *map_zone, int x, int y);
 float func_3675D0(void *unit);
 
-int func_001C7850(BuildingMaster *bld, void *world, int *out_id, char flag1, char flag2, int arg5, int use_alt_radius, char flag3, char arg9, int arg10, Unit *ignore_unit, float x, float y) {
-    void *map = *(void **)((char *)world + 0xB98);
-    float **slope_table = *(float ***)((char *)map + 0x68);
-    float *slope_limits = slope_table[bld->m_type_id];
+int func_001C7860(
+    BuildingMaster *bld,
+    void *world,
+    int *out_id,
+    unsigned char flag1,
+    unsigned char flag2,
+    int arg5,
+    int use_alt_radius,
+    unsigned char flag3,
+    unsigned char arg9,
+    int arg10,
+    Unit *ignore_unit,
+    float x,
+    float y
+) {
+    (void)arg5;
 
-    void *s0 = *(void **)((char *)map + 0x3C);
-    int map_w = *(int *)((char *)s0 + 0x8);
-    int map_h = *(int *)((char *)s0 + 0xC);
+    MapContext *s0;
+    short cur_x;
+
+    void *map = *(void **)((char *)world + 0xB98);
+    s0 = *(MapContext **)((char *)map + 0x3C);
+    short type_id = bld->m_type_id;
+    float **slope_table = *(float ***)((char *)map + 0x68);
+    float *slope_limits = slope_table[type_id];
 
     float rx, ry;
     if (use_alt_radius) {
@@ -86,9 +44,12 @@ int func_001C7850(BuildingMaster *bld, void *world, int *out_id, char flag1, cha
     }
 
     float min_x = x - rx;
-    float max_x = x + rx - 0.0001f;
     float min_y = y - ry;
-    float max_y = y + ry - 0.0001f;
+    float max_x = (x + rx) - 0.001f;
+    float max_y = (y + ry) - 0.001f;
+
+    int map_w = s0->m_width;
+    int map_h = s0->m_height;
 
     if (min_x < 0.0f || max_x >= (float)map_w || min_y < 0.0f || max_y >= (float)map_h) {
         return 7;
@@ -99,49 +60,62 @@ int func_001C7850(BuildingMaster *bld, void *world, int *out_id, char flag1, cha
     short t_min_y = (short)func_123350(min_y);
     short t_max_y = (short)func_123350(max_y);
 
-    MapTile **tile_rows = *(MapTile ***)((char *)s0 + 0x8E8C);
-
-    if (bld->m_field48 >= 0) {
-        int cx = func_123350(x);
-        int cy = func_123350(y);
-        MapTile *center_tile = &tile_rows[cy][cx];
-        if (center_tile->m_zone_id != bld->m_field48 && center_tile->m_zone_id != bld->m_field4A) {
+    short p_min_x, p_max_x, p_min_y, p_max_y;
+    short field48 = bld->m_field48;
+    if (field48 >= 0 || bld->m_field4A >= 0) {
+        short cy = (short)func_123350(y);
+        MapTile *center_row = s0->m_tile_rows[cy];
+        short cx = (short)func_123350(x);
+        MapTile *center_tile = &center_row[cx];
+        if (center_tile->m_zone_id != field48 && center_tile->m_zone_id != bld->m_field4A) {
             return 1;
         }
+        p_min_x = (short)func_123350(x);
+        p_max_x = p_min_x;
+        p_min_y = (short)func_123350(y);
+        p_max_y = p_min_y;
+    } else {
+        p_max_y = t_max_y;
+        p_min_x = t_min_x;
+        p_max_x = t_max_x;
+        p_min_y = t_min_y;
     }
-
-    int fp_flag = 0;
 
     if (bld->m_required_zone >= 0) {
         int touches_zone = 0;
         int touches_wild = 0;
 
-        for (int cur_x = t_min_x - 1; cur_x <= t_max_x + 1; cur_x++) {
-            if (t_min_y - 1 >= 0) {
-                MapTile *t = &tile_rows[t_min_y - 1][cur_x];
+        short edge_min_x = (short)(p_min_x - 1);
+        short edge_max_x = (short)(p_max_x + 1);
+        short edge_max_y = (short)(p_max_y + 1);
+        short edge_min_y = (short)(p_min_y - 1);
+
+        if (edge_min_y >= 0) {
+            for (cur_x = p_min_x; cur_x <= p_max_x; cur_x++) {
+                MapTile *t = &s0->m_tile_rows[edge_min_y][cur_x];
                 if (t->m_zone_id == bld->m_required_zone) touches_zone = 1;
-                if (t->m_zone_id == 255) touches_wild = 1;
+                if (t->m_zone_id == -1) touches_wild = 1;
             }
         }
-        for (int cur_y = t_min_y; cur_y <= t_max_y; cur_y++) {
-            if (t_max_x + 1 < map_w) {
-                MapTile *t = &tile_rows[cur_y][t_max_x + 1];
+        if (edge_max_x < map_w) {
+            for (short cur_y = p_min_y; cur_y <= p_max_y; cur_y++) {
+                MapTile *t = &s0->m_tile_rows[cur_y][edge_max_x];
                 if (t->m_zone_id == bld->m_required_zone) touches_zone = 1;
-                if (t->m_zone_id == 255) touches_wild = 1;
+                if (t->m_zone_id == -1) touches_wild = 1;
             }
         }
-        for (int cur_x = t_max_x + 1; cur_x >= t_min_x - 1; cur_x--) {
-            if (t_max_y + 1 < map_h) {
-                MapTile *t = &tile_rows[t_max_y + 1][cur_x];
+        if (edge_max_y < map_h) {
+            for (cur_x = p_max_x; cur_x >= p_min_x; cur_x--) {
+                MapTile *t = &s0->m_tile_rows[edge_max_y][cur_x];
                 if (t->m_zone_id == bld->m_required_zone) touches_zone = 1;
-                if (t->m_zone_id == 255) touches_wild = 1;
+                if (t->m_zone_id == -1) touches_wild = 1;
             }
         }
-        for (int cur_y = t_max_y; cur_y >= t_min_y; cur_y--) {
-            if (t_min_x - 1 >= 0) {
-                MapTile *t = &tile_rows[cur_y][t_min_x - 1];
+        if (edge_min_x >= 0) {
+            for (short cur_y = p_max_y; cur_y >= p_min_y; cur_y--) {
+                MapTile *t = &s0->m_tile_rows[cur_y][edge_min_x];
                 if (t->m_zone_id == bld->m_required_zone) touches_zone = 1;
-                if (t->m_zone_id == 255) touches_wild = 1;
+                if (t->m_zone_id == -1) touches_wild = 1;
             }
         }
 
@@ -150,40 +124,56 @@ int func_001C7850(BuildingMaster *bld, void *world, int *out_id, char flag1, cha
         }
     }
 
-    MapTile *base_tile = &tile_rows[t_min_y][t_min_x];
-    int base_slope = base_tile->m_slope_flag;
-    int min_slope = base_slope - 1;
-    int max_slope = base_slope + 1;
+    int fp_flag = 0;
 
-    for (int cur_y = t_min_y; cur_y <= t_max_y; cur_y++) {
-        for (int cur_x = t_min_x; cur_x <= t_max_x; cur_x++) {
-            MapTile *t = &tile_rows[cur_y][cur_x];
+    MapTile *base_tile = &s0->m_tile_rows[t_max_y][t_min_x];
+    short base_slope = base_tile->m_slope_flag;
+    short min_slope = (short)(base_slope - 1);
+    short max_slope = (short)(base_slope + 1);
 
-            if (slope_limits[t->m_zone_id] <= 0.0f) {
+    for (cur_x = t_min_x; cur_x <= t_max_x; cur_x++) {
+        for (short cur_y = t_min_y; cur_y <= t_max_y; cur_y++) {
+            if (bld->m_id == 0x299 || bld->m_id == 0x29A) {
+                if (cur_x - t_min_x != cur_y - t_min_y) continue;
+            } else if ((unsigned int)(bld->m_id - 0x2A1) < 2) {
+                if (t_max_x - cur_x != cur_y - t_min_y) continue;
+            }
+
+            if (slope_limits[s0->m_tile_rows[cur_y][cur_x].m_zone_id] <= 0.05f) {
                 return 2;
             }
 
             if (flag1) {
-                void *zone_mgr = *(void **)((char *)world + 0xB94);
-                if (func_1378c0(zone_mgr, cur_x, cur_y) != 0) {
+                if (*(int *)((char *)D_004E3180 + 0x1C8) == 7) {
                     fp_flag = 1;
+                } else {
+                    void *world_val = *(void * volatile *)&world;
+                    void *zone_mgr = *(void **)((char *)world_val + 0xB94);
+                    if (func_1378c0(zone_mgr, cur_x, cur_y) != 0) {
+                        fp_flag = 1;
+                    }
                 }
             }
 
             if (flag2) {
-                int terrain = t->m_terrain;
-                int slope = t->m_slope_flag;
+                short terrain = s0->m_tile_rows[cur_y][cur_x].m_terrain;
+                short slope = s0->m_tile_rows[cur_y][cur_x].m_slope_flag;
 
-                if (bld->m_placement_type == 3) {
-                    if (cur_y == t_min_y || cur_x == t_max_x) {
+                switch (bld->m_placement_type) {
+                case 1:
+                    if (terrain == 0 || terrain == 5 || terrain == 7 || terrain == 6 || terrain == 8) {
+                    } else {
+                        return 3;
+                    }
+                    break;
+                case 2:
+                    if (terrain != 0) return 3;
+                    break;
+                case 3:
+                    if (cur_x == t_min_x || cur_y == t_max_y) {
                         if (slope < min_slope || slope > max_slope) return 3;
                     }
-                } else if (bld->m_placement_type == 2) {
-                    if (terrain != 0) return 2;
-                } else if (bld->m_placement_type == 1) {
-                    if (terrain != 0 && terrain != 5 && terrain != 7 && terrain != 6 && terrain != 8) {
-                        return 2;
-                    }
+                    break;
                 }
             }
         }
@@ -197,47 +187,75 @@ int func_001C7850(BuildingMaster *bld, void *world, int *out_id, char flag1, cha
         return 0;
     }
 
-    int check_min_x = func_123350(x - 8.0f);
-    int check_min_y = func_123350(y - 8.0f);
-    int check_max_x = func_123350(x + 8.0f);
-    int check_max_y = func_123350(y + 8.0f);
+    short check_min_x = (short)func_123350(x - 8.0f);
+    short check_min_y = (short)func_123350(y - 8.0f);
+    short check_max_x = (short)func_123350(x + 8.0f);
+    short check_max_y = (short)func_123350(y + 8.0f);
 
     if (check_min_x < 0) check_min_x = 0;
-    if (check_max_x >= map_w) check_max_x = map_w - 1;
+    if (check_max_x >= s0->m_width) check_max_x = (short)(s0->m_width - 1);
     if (check_min_y < 0) check_min_y = 0;
-    if (check_max_y >= map_h) check_max_y = map_h - 1;
+    if (check_max_y >= s0->m_height) check_max_y = (short)(s0->m_height - 1);
 
-    if (bld->m_id == 59) {
+    if (bld->m_id == 0x3B) {
         bld->m_field28 = 1.0f;
     }
 
-    for (int cur_y = check_min_y; cur_y <= check_max_y; cur_y++) {
-        for (int cur_x = check_min_x; cur_x <= check_max_x; cur_x++) {
-            MapTile *t = &tile_rows[cur_y][cur_x];
+    float check_radius;
+    if (arg10 != 0) {
+        check_radius = func_3675D0((void *)arg10);
+    } else {
+        check_radius = bld->m_field28;
+    }
+
+    if (arg9 && (flag3 || check_radius > 0.0f)) {
+        for (short cur_y = check_min_y; cur_y <= check_max_y; cur_y++) {
+        MapTile *t = &s0->m_tile_rows[cur_y][check_min_x];
+        for (cur_x = check_min_x; cur_x <= check_max_x; cur_x++, t++) {
+            if (t->m_unit_count == 0) continue;
             for (int i = 0; i < t->m_unit_count; i++) {
                 Unit *u = (Unit *)t->m_unit_array[i];
                 if (u == ignore_unit) continue;
                 if (u->m_unit_type < 7) {
                     UnitMaster *m = u->m_master;
                     if (m->m_flag40 != 1) {
-                        float dist_x = u->m_x - x;
-                        if (dist_x < 0.0f) dist_x = -dist_x;
-                        float dist_y = u->m_y - y;
-                        if (dist_y < 0.0f) dist_y = -dist_y;
+                        float u_rx = m->m_radius_x;
+                        float u_ry = m->m_radius_y;
+                        float u_rad = func_3675D0(u);
+                        m = u->m_master; // reload m after function call
+                        if (m->m_id == 59) {
+                            u_rad = 1.0f;
+                        } else if (bld->m_construction_type == 15 && m->m_type == 49) {
+                            u_rad = 1.0f;
+                        } else if (u_rad == 0.0f && m->m_class == 80 && m->m_id != 50) {
+                            u_rad = 1.0f;
+                        }
 
-                        if (dist_x < rx + m->m_radius_x && dist_y < ry + m->m_radius_y) {
-                            if (out_id) {
-                                *out_id = u->m_id;
+                        if (u_rx <= 0.0f) continue;
+                        if (u_ry <= 0.0f) continue;
+                        if (u_rad <= 0.0f) continue;
+                        if (check_radius <= 0.0f) continue;
+
+                        float dist_y = u->m_y - y;
+                        float dist_x = u->m_x - x;
+                        if (dist_y < 0.0f) dist_y = -dist_y;
+                        if (dist_x < 0.0f) dist_x = -dist_x;
+
+                        if (dist_x < rx + u_rx) {
+                            if (dist_y < ry + u_ry) {
+                                if (out_id) {
+                                    *out_id = u->m_id;
+                                }
+                                return 6;
                             }
-                            return 6;
                         }
                     }
                 }
             }
         }
     }
+    }
 
     return 0;
 }
-
 }

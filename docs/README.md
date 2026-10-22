@@ -2,9 +2,6 @@
 
 Start with the top-level [README](../README.md).
 
-- [network_send_data_3383b0.md](network_send_data_3383b0.md): packet construction, checksum, and send limits at `0x3383B0`
-- [network_receive_data_338a20.md](network_receive_data_338a20.md): receive-ring dequeue and wrap-marker behavior at `0x338A20`
-- [network_send_peers_338b90.md](network_send_peers_338b90.md): eight-slot broadcast and single-send dispatch at `0x338B90`
 - [testing.md](testing.md): mandatory TDD workflow, Docker test commands, and regression completion evidence
 - [game_files.md](game_files.md): where each original file comes from, how to extract it, and how to verify it
 - [tactical_ai_combat_subsystem_directplay_count_338a10.md](tactical_ai_combat_subsystem_directplay_count_338a10.md): pure-C++ message-count query at `0x338A10`, exact 16-byte match, and native mutation tests
@@ -19,11 +16,6 @@ Start with the top-level [README](../README.md).
 - [network_message_handler_3385c0.md](network_message_handler_3385c0.md): received message handler at `0x3385C0`, native SESSION test, and 940-byte exact-match gate
 - [network_session_request_338ce0.md](network_session_request_338ce0.md): session request at `0x338CE0`, 700-byte extent, 5000-unit timeout, and current MWCC match status
 - [network_join_request_338fa0.md](network_join_request_338fa0.md): DirectPlay player join setup at `0x338FA0`, native state tests, and 300-byte nonmatching diagnostic
-- [network_object_lifecycle_3380e0.md](network_object_lifecycle_3380e0.md): singleton guard and object pointer exposure at `0x3380E0`; 84-byte function and 12-byte zero pad, relocation-blocked candidate
-- [network_object_lifecycle_338140.md](network_object_lifecycle_338140.md): DirectPlay-compatible callback at `0x338140`; 60-byte function and 4-byte zero pad, nonmatching candidate
-- [network_object_lifecycle_338180.md](network_object_lifecycle_338180.md): zero-return cleanup stub at `0x338180`; 8-byte exact code match and 8 bytes of zero padding
-- [network_object_lifecycle_3381a0.md](network_object_lifecycle_3381a0.md): object state reset at `0x3381A0`; 144-byte target extent, matching unverified
-- [network_object_lifecycle_338230.md](network_object_lifecycle_338230.md): joined-state reset at `0x338230`; 48-byte target extent, matching unverified
 - [network_address_helpers.md](network_address_helpers.md): IPv4 formatting/parsing and four byte-swap helper bodies, target extent and relocation analysis
 - [ps2_binary_analysis.md](ps2_binary_analysis.md): disc architecture, Metrowerks compiler, debug strings, and source files discovered in the PS2 binary
 - [ps2_library_map.md](ps2_library_map.md): bounded third-party runtime routines and Sony SDK version markers in the PAL ELF

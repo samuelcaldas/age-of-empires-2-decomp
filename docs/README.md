@@ -2,6 +2,9 @@
 
 Start with the top-level [README](../README.md).
 
+- [network_send_data_3383b0.md](network_send_data_3383b0.md): packet construction, checksum, and send limits at `0x3383B0`
+- [network_receive_data_338a20.md](network_receive_data_338a20.md): receive-ring dequeue and wrap-marker behavior at `0x338A20`
+- [network_send_peers_338b90.md](network_send_peers_338b90.md): eight-slot broadcast and single-send dispatch at `0x338B90`
 - [testing.md](testing.md): mandatory TDD workflow, Docker test commands, and regression completion evidence
 - [game_files.md](game_files.md): where each original file comes from, how to extract it, and how to verify it
 - [tactical_ai_combat_subsystem_directplay_count_338a10.md](tactical_ai_combat_subsystem_directplay_count_338a10.md): pure-C++ message-count query at `0x338A10`, exact 16-byte match, and native mutation tests

@@ -61,7 +61,7 @@ void func_1344C0(int);
 void func_134500(int);
 void func_134440(int);
 void func_1348A8(int);
-void func_00135D60();
+void func_00135D60(int);
 void func_00135D98(void);
 void func_117AF8(void *, const void *, int);
 void *func_00135530(void);
@@ -480,8 +480,7 @@ void func_00135AB8(char *ptr, int count, int stride, int a3, char *buf) {
 extern char D_50A080[];
 void func_001359D0(char *, int, int);
 
-void func_00135B88(a0)
-int a0;
+void func_00135B88(int a0)
 {
     if (a0 >= 2) {
         a0 = 1;
@@ -536,8 +535,8 @@ void func_00135BF0(void) {
 
 int func_00135DA0(void);
 
-void func_00135D60(void) {
-    func_00135B88();
+void func_00135D60(int a0) {
+    func_00135B88(a0);
     while (func_00135DA0()) {
         func_00135BE8();
     }

@@ -3414,3 +3414,15 @@ func_366D60 = 0x366d60; // type:func absolute:True
 func_3612E0 = 0x3612e0; // type:func absolute:True
 func_366D00 = 0x366d00; // type:func absolute:True
 func_35CEB0 = 0x35ceb0; // type:func absolute:True
+
+// Restored symbols from recovered slices
+func_00305F30 = 0x305F30; // type:func size:0x1230 absolute:True
+func_00272880 = 0x272880; // type:func size:0x148 absolute:True
+func_00338CE0 = 0x338CE0; // type:func size:0x2C0 absolute:True
+func_00338FA0 = 0x338FA0; // type:func size:0x130 absolute:True
+func_003394B0 = 0x3394B0; // type:func size:0x30 absolute:True
+func_00270B00 = 0x270B00; // type:func size:0x80 absolute:True
+func_00271500 = 0x271500; // type:func size:0xE0 absolute:True
+func_002715E0 = 0x2715E0; // type:func size:0x10 absolute:True
+func_002715F0 = 0x2715F0; // type:func size:0x50 absolute:True
+func_00271640 = 0x271640; // type:func size:0x170 absolute:True

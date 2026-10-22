@@ -6243,6 +6243,84 @@ if config.platform == Platform.PS2:
                     toolchain_version="PS2/mwcc-2.3.1.01",
                 ),
                 Object(
+                    Matching,
+                    "unit_action_build_step",
+                    cflags=config.cflags,
+                    toolchain_version="PS2/mwcc-2.3.1.01",
+                ),
+                Object(
+                    Matching,
+                    "unit_action_build_queue_clear",
+                    cflags=config.cflags,
+                    toolchain_version="PS2/mwcc-2.3.1.01",
+                ),
+                Object(
+                    NonMatching,
+                    "unit_action_build_target_check",
+                    cflags=config.cflags,
+                    toolchain_version="PS2/mwcc-2.3.1.01",
+                ),
+                Object(
+                    NonMatching,
+                    "unit_action_build_target_recheck",
+                    cflags=config.cflags,
+                    toolchain_version="PS2/mwcc-2.3.1.01",
+                ),
+                Object(
+                    NonMatching,
+                    "unit_action_build_target_check4",
+                    cflags=config.cflags,
+                    toolchain_version="PS2/mwcc-2.3.1.01",
+                ),
+                Object(
+                    NonMatching,
+                    "unit_action_build_tile_path",
+                    cflags=config.cflags,
+                    toolchain_version="PS2/mwcc-2.3.1.01",
+                ),
+                Object(
+                    NonMatching,
+                    "unit_action_build_work",
+                    cflags=config.cflags,
+                    toolchain_version="PS2/mwcc-2.3.1.01",
+                ),
+                Object(
+                    Matching,
+                    "unit_action_build_offset_query",
+                    cflags=config.cflags,
+                    toolchain_version="PS2/mwcc-2.3.1.01",
+                ),
+                Object(
+                    NonMatching,
+                    "unit_action_build_has_tasks",
+                    cflags=config.cflags,
+                    toolchain_version="PS2/mwcc-2.3.1.01",
+                ),
+                Object(
+                    NonMatching,
+                    "unit_action_build_check_target_status",
+                    cflags=config.cflags,
+                    toolchain_version="PS2/mwcc-2.3.1.01",
+                ),
+                Object(
+                    Matching,
+                    "unit_action_build_flag_2000_get",
+                    cflags=config.cflags,
+                    toolchain_version="PS2/mwcc-2.3.1.01",
+                ),
+                Object(
+                    Matching,
+                    "unit_action_build_flag_2000_set",
+                    cflags=config.cflags,
+                    toolchain_version="PS2/mwcc-2.3.1.01",
+                ),
+                Object(
+                    NonMatching,
+                    "unit_action_build_880",
+                    cflags=config.cflags,
+                    toolchain_version="PS2/mwcc-2.3.1.01",
+                ),
+                Object(
                     NonMatching,
                     "unit_action_collision",
                     cflags=config.cflags,
@@ -6257,6 +6335,12 @@ if config.platform == Platform.PS2:
                 Object(
                     NonMatching,
                     "tactical_ai_player_dispatch",
+                    cflags=config.cflags,
+                    toolchain_version="PS2/mwcc-2.3.1.01",
+                ),
+                Object(
+                    NonMatching,
+                    "tactical_ai_unit_command",
                     cflags=config.cflags,
                     toolchain_version="PS2/mwcc-2.3.1.01",
                 ),
@@ -6447,6 +6531,12 @@ if config.platform == Platform.PS2:
                     toolchain_version="PS2/mwcc-2.3.1.01",
                 ),
                 Object(
+                    NonMatching,
+                    "network_message_handler_3385c0",
+                    cflags=config.cflags,
+                    toolchain_version="PS2/mwcc-2.3.1.01",
+                ),
+                Object(
                     Matching,
                     "network_dplay_get_player_name_338970",
                     cflags=config.cflags,
@@ -6489,6 +6579,18 @@ if config.platform == Platform.PS2:
                     toolchain_version="PS2/mwcc-2.3.1.01",
                 ),
                 Object(
+                    NonMatching,
+                    "network_session_request_338ce0",
+                    cflags=config.cflags,
+                    toolchain_version="PS2/mwcc-2.3.1.01",
+                ),
+                Object(
+                    NonMatching,
+                    "network_join_request_338fa0",
+                    cflags=config.cflags,
+                    toolchain_version="PS2/mwcc-2.3.1.01",
+                ),
+                Object(
                     Matching,
                     "network_dplay_get_player_caps_3390d0",
                     cflags=config.cflags,
@@ -6521,6 +6623,12 @@ if config.platform == Platform.PS2:
                 Object(
                     Matching,
                     "network_dplay_send_destroy_3392b0",
+                    cflags=config.cflags,
+                    toolchain_version="PS2/mwcc-2.3.1.01",
+                ),
+                Object(
+                    NonMatching,
+                    "network_utf16_length_3394b0",
                     cflags=config.cflags,
                     toolchain_version="PS2/mwcc-2.3.1.01",
                 ),

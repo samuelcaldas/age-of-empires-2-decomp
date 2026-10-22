@@ -4997,9 +4997,36 @@ segments:
     vram: 0x268530
     subsegments:
       - [0x168710, asm, unit_action_state]
-  - name: post_unit_action_state
-    type: bin
+  - name: unit_action_spatial
+    type: code
     start: 0x1689E0
+    vram: 0x268800
+    subsegments:
+      - [0x1689E0, asm, unit_action_spatial]
+  - name: unit_action_los
+    type: code
+    start: 0x168C40
+    vram: 0x268A60
+    subsegments:
+      - [0x168C40, asm, unit_action_los]
+  - name: unit_action_advance
+    type: code
+    start: 0x168FC0
+    vram: 0x268DE0
+    subsegments:
+      - [0x168FC0, asm, unit_action_advance]
+  - name: unit_action_distance
+    type: code
+    start: 0x169210
+    vram: 0x269030
+    subsegments:
+      - [0x169210, asm, unit_action_distance]
+  - name: unit_action_coords
+    type: code
+    start: 0x169470
+    vram: 0x269290
+    subsegments:
+      - [0x169470, asm, unit_action_coords]
   - name: unit_action_collision
     type: code
     start: 0x1699A0
@@ -5012,9 +5039,360 @@ segments:
     vram: 0x2699A0
     subsegments:
       - [0x169B80, asm, unit_action_resolve]
-  - name: post_unit_action_resolve
-    type: bin
+  - name: unit_action_tile_node
+    type: code
     start: 0x169F60
+    vram: 0x269D80
+    subsegments:
+      - [0x169F60, asm, unit_action_tile_node]
+  - name: unit_action_spatial_node
+    type: code
+    start: 0x16A1D0
+    vram: 0x269FF0
+    subsegments:
+      - [0x16A1D0, asm, unit_action_spatial_node]
+  - name: unit_action_state_mgr
+    type: code
+    start: 0x16A640
+    vram: 0x26A460
+    subsegments:
+      - [0x16A640, asm, unit_action_state_mgr]
+  - name: unit_action_waypoint
+    type: code
+    start: 0x16A8E0
+    vram: 0x26A700
+    subsegments:
+      - [0x16A8E0, asm, unit_action_waypoint]
+  - name: unit_action_flags
+    type: code
+    start: 0x16AE20
+    vram: 0x26AC40
+    subsegments:
+      - [0x16AE20, asm, unit_action_flags]
+  - name: unit_action_stream
+    type: code
+    start: 0x16AFE0
+    vram: 0x26AE00
+    subsegments:
+      - [0x16AFE0, asm, unit_action_stream]
+  - name: unit_action_state_handlers
+    type: code
+    start: 0x16B310
+    vram: 0x26B130
+    subsegments:
+      - [0x16B310, asm, unit_action_state_handlers]
+  - name: unit_action_movement_ops
+    type: code
+    start: 0x16B730
+    vram: 0x26B550
+    subsegments:
+      - [0x16B730, asm, unit_action_movement_ops]
+  - name: unit_action_lifecycle
+    type: code
+    start: 0x16BC50
+    vram: 0x26BA70
+    subsegments:
+      - [0x16BC50, asm, unit_action_lifecycle]
+  - name: unit_action_teardown
+    type: code
+    start: 0x16C3D0
+    vram: 0x26C1F0
+    subsegments:
+      - [0x16C3D0, asm, unit_action_teardown]
+  - name: unit_action_combat_timing
+    type: code
+    start: 0x16C5A0
+    vram: 0x26C3C0
+    subsegments:
+      - [0x16C5A0, asm, unit_action_combat_timing]
+  - name: unit_action_execute
+    type: code
+    start: 0x16C7E0
+    vram: 0x26C600
+    subsegments:
+      - [0x16C7E0, asm, unit_action_execute]
+  - name: unit_action_sub_actions
+    type: code
+    start: 0x16D110
+    vram: 0x26CF30
+    subsegments:
+      - [0x16D110, asm, unit_action_sub_actions]
+  - name: unit_action_build_update
+    type: code
+    start: 0x16D1F0
+    vram: 0x26D010
+    subsegments:
+      - [0x16D1F0, asm, unit_action_build_update]
+  - name: unit_action_los_wrapper
+    type: code
+    start: 0x16DB40
+    vram: 0x26D960
+    subsegments:
+      - [0x16DB40, asm, unit_action_los_wrapper]
+  - name: unit_action_build_save
+    type: code
+    start: 0x16DCA0
+    vram: 0x26DAC0
+    subsegments:
+      - [0x16DCA0, asm, unit_action_build_save]
+  - name: unit_action_build_load
+    type: code
+    start: 0x16E070
+    vram: 0x26DE90
+    subsegments:
+      - [0x16E070, asm, unit_action_build_load]
+  - name: unit_action_build_state
+    type: code
+    start: 0x16E3C0
+    vram: 0x26E1E0
+    subsegments:
+      - [0x16E3C0, asm, unit_action_build_state]
+  - name: unit_action_build_anim
+    type: code
+    start: 0x16E740
+    vram: 0x26E560
+    subsegments:
+      - [0x16E740, asm, unit_action_build_anim]
+  - name: unit_action_build_finish
+    type: code
+    start: 0x16E930
+    vram: 0x26E750
+    subsegments:
+      - [0x16E930, asm, unit_action_build_finish]
+  - name: unit_action_build_worker
+    type: code
+    start: 0x16EBA0
+    vram: 0x26E9C0
+    subsegments:
+      - [0x16EBA0, asm, unit_action_build_worker]
+  - name: unit_action_build_progress
+    type: code
+    start: 0x16EE70
+    vram: 0x26EC90
+    subsegments:
+      - [0x16EE70, asm, unit_action_build_progress]
+  - name: unit_action_build_cost
+    type: code
+    start: 0x16EFD0
+    vram: 0x26EDF0
+    subsegments:
+      - [0x16EFD0, asm, unit_action_build_cost]
+  - name: unit_action_build_stage
+    type: code
+    start: 0x16F080
+    vram: 0x26EEA0
+    subsegments:
+      - [0x16F080, asm, unit_action_build_stage]
+  - name: unit_action_build_rate
+    type: code
+    start: 0x16F130
+    vram: 0x26EF50
+    subsegments:
+      - [0x16F130, asm, unit_action_build_rate]
+  - name: unit_action_build_worker_add
+    type: code
+    start: 0x16F610
+    vram: 0x26F430
+    subsegments:
+      - [0x16F610, asm, unit_action_build_worker_add]
+  - name: unit_action_build_worker_sub
+    type: code
+    start: 0x16F6C0
+    vram: 0x26F4E0
+    subsegments:
+      - [0x16F6C0, asm, unit_action_build_worker_sub]
+  - name: unit_action_build_child_update
+    type: code
+    start: 0x16F770
+    vram: 0x26F590
+    subsegments:
+      - [0x16F770, asm, unit_action_build_child_update]
+  - name: unit_action_build_tile_notify
+    type: code
+    start: 0x16FA80
+    vram: 0x26F8A0
+    subsegments:
+      - [0x16FA80, asm, unit_action_build_tile_notify]
+  - name: unit_action_build_child_iterate
+    type: code
+    start: 0x16FAF0
+    vram: 0x26F910
+    subsegments:
+      - [0x16FAF0, asm, unit_action_build_child_iterate]
+  - name: unit_action_build_pos_update
+    type: code
+    start: 0x16FBC0
+    vram: 0x26F9E0
+    subsegments:
+      - [0x16FBC0, asm, unit_action_build_pos_update]
+  - name: unit_action_build_formation
+    type: code
+    start: 0x16FE00
+    vram: 0x26FC20
+    subsegments:
+      - [0x16FE00, asm, unit_action_build_formation]
+  - name: unit_action_build_worker_task
+    type: code
+    start: 0x16FEA0
+    vram: 0x26FCC0
+    subsegments:
+      - [0x16FEA0, asm, unit_action_build_worker_task]
+  - name: unit_action_build_cancel_task
+    type: code
+    start: 0x170140
+    vram: 0x26FF60
+    subsegments:
+      - [0x170140, asm, unit_action_build_cancel_task]
+  - name: unit_action_build_task_remove
+    type: code
+    start: 0x170190
+    vram: 0x26FFB0
+    subsegments:
+      - [0x170190, asm, unit_action_build_task_remove]
+  - name: unit_action_build_task_compact
+    type: code
+    start: 0x1703B0
+    vram: 0x2701D0
+    subsegments:
+      - [0x1703B0, asm, unit_action_build_task_compact]
+  - name: unit_action_build_worker_query
+    type: code
+    start: 0x1705A0
+    vram: 0x2703C0
+    subsegments:
+      - [0x1705A0, asm, unit_action_build_worker_query]
+  - name: unit_action_build_worker_pop
+    type: code
+    start: 0x170630
+    vram: 0x270450
+    subsegments:
+      - [0x170630, asm, unit_action_build_worker_pop]
+  - name: unit_action_build_worker_clear
+    type: code
+    start: 0x170710
+    vram: 0x270530
+    subsegments:
+      - [0x170710, asm, unit_action_build_worker_clear]
+  - name: unit_action_build_notify_workers
+    type: code
+    start: 0x170840
+    vram: 0x270660
+    subsegments:
+      - [0x170840, asm, unit_action_build_notify_workers]
+  - name: unit_action_build_notify_state
+    type: code
+    start: 0x170AE0
+    vram: 0x270900
+    subsegments:
+      - [0x170AE0, asm, unit_action_build_notify_state]
+  - name: unit_action_build_rebind_target
+    type: code
+    start: 0x170B90
+    vram: 0x2709B0
+    subsegments:
+      - [0x170B90, asm, unit_action_build_rebind_target]
+  - name: unit_action_build_retry
+    type: code
+    start: 0x170C00
+    vram: 0x270A20
+    subsegments:
+      - [0x170C00, asm, unit_action_build_retry]
+  - name: unit_action_build_retry_search
+    type: code
+    start: 0x170D80
+    vram: 0x270BA0
+    subsegments:
+      - [0x170D80, asm, unit_action_build_retry_search]
+  - name: unit_action_build_retry_reset
+    type: code
+    start: 0x171010
+    vram: 0x270E30
+    subsegments:
+      - [0x171010, asm, unit_action_build_retry_reset]
+  - name: unit_action_build_step
+    type: code
+    start: 0x171050
+    vram: 0x270E70
+    subsegments:
+      - [0x171050, asm, unit_action_build_step]
+  - name: unit_action_build_queue_clear
+    type: code
+    start: 0x1710D0
+    vram: 0x270EF0
+    subsegments:
+      - [0x1710D0, asm, unit_action_build_queue_clear]
+  - name: unit_action_build_target_check
+    type: code
+    start: 0x171160
+    vram: 0x270F80
+    subsegments:
+      - [0x171160, asm, unit_action_build_target_check]
+  - name: unit_action_build_target_recheck
+    type: code
+    start: 0x171250
+    vram: 0x271070
+    subsegments:
+      - [0x171250, asm, unit_action_build_target_recheck]
+  - name: unit_action_build_target_check4
+    type: code
+    start: 0x171330
+    vram: 0x271150
+    subsegments:
+      - [0x171330, asm, unit_action_build_target_check4]
+  - name: unit_action_build_tile_path
+    type: code
+    start: 0x171400
+    vram: 0x271220
+    subsegments:
+      - [0x171400, asm, unit_action_build_tile_path]
+  - name: unit_action_build_offset_query
+    type: code
+    start: 0x171640
+    vram: 0x271460
+    subsegments:
+      - [0x171640, asm, unit_action_build_offset_query]
+  - name: unit_action_build_has_tasks
+    type: code
+    start: 0x171690
+    vram: 0x2714B0
+    subsegments:
+      - [0x171690, asm, unit_action_build_has_tasks]
+  - name: unit_action_build_check_target_status
+    type: code
+    start: 0x1716E0
+    vram: 0x271500
+    subsegments:
+      - [0x1716E0, asm, unit_action_build_check_target_status]
+  - name: unit_action_build_flag_2000_get
+    type: code
+    start: 0x1717C0
+    vram: 0x2715E0
+    subsegments:
+      - [0x1717C0, asm, unit_action_build_flag_2000_get]
+  - name: unit_action_build_flag_2000_set
+    type: code
+    start: 0x1717D0
+    vram: 0x2715F0
+    subsegments:
+      - [0x1717D0, asm, unit_action_build_flag_2000_set]
+  - name: unit_action_build_work
+    type: code
+    start: 0x171820
+    vram: 0x271640
+    subsegments:
+      - [0x171820, asm, unit_action_build_work]
+  - name: post_unit_action_build_work
+    type: bin
+    start: 0x171990
+  - name: unit_action_build_880
+    type: code
+    start: 0x172A60
+    vram: 0x272880
+    subsegments:
+      - [0x172A60, asm, unit_action_build_880]
+  - name: post_unit_action_build_880
+    type: bin
+    start: 0x172BA8
   - name: unit_action_build_77a0
     type: code
     start: 0x177980
@@ -5438,9 +5816,12 @@ segments:
     vram: 0x305CB0
     subsegments:
       - [0x205E90, asm, tactical_ai_player_dispatch]
-  - name: post_tactical_ai_player_dispatch
-    type: bin
+  - name: tactical_ai_unit_command
+    type: code
     start: 0x206110
+    vram: 0x305F30
+    subsegments:
+      - [0x206110, asm, tactical_ai_unit_command]
   - name: tactical_ai_action_constructors
     type: code
     start: 0x207340
@@ -5630,9 +6011,12 @@ segments:
     vram: 0x338470
     subsegments:
       - [0x238650, asm, network_buffer_enqueue_338470]
-  - name: bin_3385c0_338970
-    type: bin
+  - name: network_message_handler_3385c0
+    type: code
     start: 0x2387A0
+    vram: 0x3385C0
+    subsegments:
+      - [0x2387A0, asm, network_message_handler_3385c0]
   - name: network_dplay_get_player_name_338970
     type: code
     start: 0x238B50
@@ -5675,9 +6059,18 @@ segments:
     vram: 0x338CC0
     subsegments:
       - [0x238EA0, asm, network_dplay_query_interface_338cc0]
-  - name: bin_338ce0_3390d0
-    type: bin
+  - name: network_session_request_338ce0
+    type: code
     start: 0x238EC0
+    vram: 0x338CE0
+    subsegments:
+      - [0x238EC0, asm, network_session_request_338ce0]
+  - name: network_join_request_338fa0
+    type: code
+    start: 0x239180
+    vram: 0x338FA0
+    subsegments:
+      - [0x239180, asm, network_join_request_338fa0]
   - name: network_dplay_get_player_caps_3390d0
     type: code
     start: 0x2392B0
@@ -5714,9 +6107,18 @@ segments:
     vram: 0x3392B0
     subsegments:
       - [0x239490, asm, network_dplay_send_destroy_3392b0]
-  - name: bin_339300_340370
+  - name: bin_339300_3394b0
     type: bin
     start: 0x2394E0
+  - name: network_utf16_length_3394b0
+    type: code
+    start: 0x239690
+    vram: 0x3394B0
+    subsegments:
+      - [0x239690, asm, network_utf16_length_3394b0]
+  - name: bin_3394e0_340370
+    type: bin
+    start: 0x2396C0
   - name: tactical_ai_destructors_340370
     type: code
     start: 0x240550

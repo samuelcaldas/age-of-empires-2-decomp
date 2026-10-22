@@ -1,4 +1,5 @@
 #include <cassert>
+#include <cstdint>
 #include <cstring>
 #include "zone_path_queries.h"
 
@@ -31,6 +32,43 @@ struct Func326F60Args {
     unsigned char flag;
     int d4e3400;
 };
+
+enum CallEvent {
+    CALL_EVENT_FUNC_262570,
+    CALL_EVENT_FUNC_001D0350,
+    CALL_EVENT_FUNC_326F60
+};
+
+CallEvent g_call_events[6];
+int g_call_event_count = 0;
+
+void record_call_event(CallEvent event) {
+    assert(g_call_event_count < 6);
+    g_call_events[g_call_event_count++] = event;
+}
+
+void reset_call_events() {
+    g_call_event_count = 0;
+}
+
+void assert_call_events(const CallEvent *expected, int expected_count) {
+    assert(g_call_event_count == expected_count);
+    for (int i = 0; i < expected_count; ++i) {
+        assert(g_call_events[i] == expected[i]);
+    }
+}
+
+const CallEvent g_query_only_trace[] = {CALL_EVENT_FUNC_262570};
+const CallEvent g_full_projection_trace[] = {
+    CALL_EVENT_FUNC_262570,
+    CALL_EVENT_FUNC_001D0350,
+    CALL_EVENT_FUNC_001D0350,
+    CALL_EVENT_FUNC_001D0350,
+    CALL_EVENT_FUNC_001D0350,
+    CALL_EVENT_FUNC_326F60
+};
+
+static_assert(sizeof(float) == sizeof(std::uint32_t), "requires 32-bit floats");
 
 extern "C" {
 int func_123350(float val) {
@@ -75,6 +113,7 @@ int func_262570(
     float *px,
     int ten
 ) {
+    record_call_event(CALL_EVENT_FUNC_262570);
     ++g_calls_262570;
     g_args_262570.internal_obj = internal_obj;
     g_args_262570.a5 = a5;
@@ -92,6 +131,7 @@ int func_262570(
 int g_calls_1d0350 = 0;
 float g_coords_1d0350[4][2];
 float g_z_1d0350[4];
+std::uint32_t g_z_bits_1d0350[4];
 short *g_out_x_ptrs_1d0350[4];
 short *g_out_y_ptrs_1d0350[4];
 void *g_ctx_1d0350[4];
@@ -106,11 +146,13 @@ int func_001D0350(
     int py,
     int target_info
 ) {
+    record_call_event(CALL_EVENT_FUNC_001D0350);
     if (g_calls_1d0350 < 4) {
         g_ctx_1d0350[g_calls_1d0350] = ctx;
         g_coords_1d0350[g_calls_1d0350][0] = x;
         g_coords_1d0350[g_calls_1d0350][1] = y;
         g_z_1d0350[g_calls_1d0350] = z;
+        std::memcpy(&g_z_bits_1d0350[g_calls_1d0350], &z, sizeof(z));
         g_out_x_ptrs_1d0350[g_calls_1d0350] = out_x;
         g_out_y_ptrs_1d0350[g_calls_1d0350] = out_y;
         g_extra_1d0350[g_calls_1d0350][0] = py;
@@ -140,6 +182,7 @@ int func_326F60(
     unsigned char flag,
     int d4e3400
 ) {
+    record_call_event(CALL_EVENT_FUNC_326F60);
     ++g_calls_326f60;
     g_args_326f60.obj = obj;
     g_args_326f60.one = one;
@@ -219,16 +262,19 @@ int main() {
     g_calls_262570 = 0;
     g_calls_1d0350 = 0;
     g_calls_326f60 = 0;
+    reset_call_events();
     func_001C8A50(zone_buf);
     assert(g_calls_262570 == 0);
     assert(g_calls_1d0350 == 0);
     assert(g_calls_326f60 == 0);
+    assert(g_call_event_count == 0);
 
     // Test 2: *(this + 0x10) != 0, but a7 == 0 -> calls func_262570, then early return
     *reinterpret_cast<void **>(zone_buf + 0x10) = internal_obj;
     g_calls_262570 = 0;
     g_calls_1d0350 = 0;
     g_calls_326f60 = 0;
+    reset_call_events();
     float test_x = 5.0f;
     float test_y = 7.0f;
     void *target_info_val = reinterpret_cast<void *>(0x12345);
@@ -237,14 +283,15 @@ int main() {
     assert(g_calls_262570 == 1);
     assert(g_calls_1d0350 == 0);
     assert(g_calls_326f60 == 0);
+    assert_call_events(g_query_only_trace, 1);
     // Verify argument forwarding to func_262570
     assert(g_args_262570.internal_obj == internal_obj);
     assert(g_args_262570.a5 == 2);
     assert(g_args_262570.a6 == 3);
-    assert(g_args_262570.py1 == reinterpret_cast<int>(&test_y));
-    assert(g_args_262570.target1 == reinterpret_cast<int>(target_info_val));
-    assert(g_args_262570.py2 == reinterpret_cast<int>(&test_y));
-    assert(g_args_262570.target2 == reinterpret_cast<int>(target_info_val));
+    assert(g_args_262570.py1 == static_cast<short>(reinterpret_cast<int>(&test_y)));
+    assert(g_args_262570.target1 == 0x2345);
+    assert(g_args_262570.py2 == static_cast<short>(reinterpret_cast<int>(&test_y)));
+    assert(g_args_262570.target2 == 0x2345);
     assert(g_args_262570.mode == 1);
     assert(g_args_262570.px == &test_x);
     assert(g_args_262570.ten == 10);
@@ -253,6 +300,7 @@ int main() {
     g_calls_262570 = 0;
     g_calls_1d0350 = 0;
     g_calls_326f60 = 0;
+    reset_call_events();
     *reinterpret_cast<float *>(zone_buf + 0x94) = 2.0f; // rx
     *reinterpret_cast<float *>(zone_buf + 0x98) = 3.0f; // ry
 
@@ -261,6 +309,7 @@ int main() {
     // Verified original makes exactly 4 calls to func_001D0350 for the 4 corners
     assert(g_calls_1d0350 == 4);
     assert(g_calls_326f60 == 1);
+    assert_call_events(g_full_projection_trace, 6);
 
     // Verified 4-corner coordinate sequence and extra argument forwarding to func_001D0350
     assert(g_coords_1d0350[0][0] == 2.0f && g_coords_1d0350[0][1] == -3.0f);
@@ -271,6 +320,7 @@ int main() {
     for (int i = 0; i < 4; ++i) {
         assert(g_ctx_1d0350[i] == ctx_buf);
         assert(g_z_1d0350[i] == 0.0f);
+        assert(g_z_bits_1d0350[i] == 0x00000000u);
         assert(g_out_x_ptrs_1d0350[i] != nullptr);
         assert(g_out_y_ptrs_1d0350[i] != nullptr);
         assert(g_out_x_ptrs_1d0350[i] != g_out_y_ptrs_1d0350[i]);
@@ -286,10 +336,17 @@ int main() {
         }
     }
 
+    // Cross-axis checks complete pairwise uniqueness without asserting private stack slots.
+    for (int x_index = 0; x_index < 4; ++x_index) {
+        for (int y_index = 0; y_index < 4; ++y_index) {
+            assert(g_out_x_ptrs_1d0350[x_index] != g_out_y_ptrs_1d0350[y_index]);
+        }
+    }
+
     // Verify all 14 arguments passed to func_326F60, including all 4 corners!
     assert(g_args_326f60.obj == D_4E3408);
     assert(g_args_326f60.one == 1);
-    assert(g_args_326f60.target_info == reinterpret_cast<int>(target_info_val));
+    assert(g_args_326f60.target_info == 0x2345);
     assert(g_args_326f60.c1_x == 10);
     assert(g_args_326f60.c1_y == 20);
     assert(g_args_326f60.c2_x == 12);

@@ -171,6 +171,14 @@ int func_001C8780(
 
     return 1;
 }
+struct ZoneQueryLayout {
+    char pad_00[0x10];
+    void *internal_obj;
+    char pad_14[0x94 - 0x14];
+    float rx;
+    float ry;
+};
+
 void func_001C8A50(
     void *self,
     float *p_x,
@@ -182,20 +190,20 @@ void func_001C8A50(
     int a7,
     unsigned char a8
 ) {
-    void *internal_obj = *(void **)((char *)self + 0x10);
-    if (!internal_obj) {
+    ZoneQueryLayout *zone = (ZoneQueryLayout *)self;
+    if (!zone->internal_obj) {
         return;
     }
 
-    long long ext_target = (int)target_info;
+    long long ext_target = (short)(int)target_info;
 
     func_262570(
-        internal_obj,
+        zone->internal_obj,
         a5,
         a6,
-        (int)p_y,
+        (short)(int)p_y,
         ext_target,
-        (int)p_y,
+        (short)(int)p_y,
         ext_target,
         mode,
         p_x,
@@ -206,8 +214,8 @@ void func_001C8A50(
         return;
     }
 
-    float rx = *(float *)((char *)self + 0x94);
-    float ry = *(float *)((char *)self + 0x98);
+    float rx = zone->rx;
+    float ry = zone->ry;
     float neg_ry = -ry;
 
     void *sub_mgr = *(void **)((char *)D_004E3180 + 0x404);

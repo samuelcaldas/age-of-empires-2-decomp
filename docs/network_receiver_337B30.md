@@ -62,6 +62,18 @@ incomplete packets, local-peer rejection, high-bit address swapping, successful
 and failed connect, buffer contents, state changes, call order, and logs. The
 byte-swap helper uses unsigned host shifts to reproduce R5900 logical shifts.
 
+For the high-bit address regression, the RED command was:
+
+```sh
+.venv/bin/python -m pytest -q -ra tests/test_network_receiver_337B30_native.py
+```
+
+Before the unsigned-shift fix, it failed at
+`connected_words[0] == 0x01000080u`; signed right shift corrupted the high byte.
+The same command passes after the fix and corrected ring-wrap expectation. The
+fix and assertion were recorded in one implementation commit, so Git commit
+ordering alone does not prove the observed RED chronology.
+
 Run the focused gates with:
 
 ```sh

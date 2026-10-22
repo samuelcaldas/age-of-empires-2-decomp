@@ -108,5 +108,6 @@ Start with the top-level [README](../README.md).
 - [open_empire_re_analysis.md](open_empire_re_analysis.md): reverse engineering discoveries from glouw's Open Empire (DRS archive parsing, SLP shape bytecode VM, palette switching, and blendomatic transitions)
 - [observability.md](observability.md): offline-first verification tracking, terminal watch, static dashboard and tracked README SVG badges
 - [agy_orchestration.md](agy_orchestration.md): how the agy CLI is used as a delegated worker (wrapper, profiles, batches, and what is and is not enforced)
+- [network_utf16_length_3394b0.md](network_utf16_length_3394b0.md): UTF-16 string length helper at `0x3394B0`, native tests, and MWCC extent mismatch
 - [kcet_hardware_analysis.md](kcet_hardware_analysis.md): memory layout, boundaries, and structure of the 10 KCET hardware modules in the PS2 binary
 - [adr/0001-target-editions.md](adr/0001-target-editions.md): edition decision, rationale, open verification items, and sources

@@ -111,7 +111,7 @@ segments:
       - [0x373e8, asm, kt_usbkeybd_drv]
   - name: post_usbkeybd
     type: bin
-    start: 0x379e8
+    start: 0x3765c
   - name: map_zone
     type: code
     start: 0x379f0

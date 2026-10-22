@@ -232,6 +232,18 @@ if config.platform == Platform.PS2:
                     cflags=["-O2", "-G0", "-Iinclude"],
                     toolchain_version="PS2/ee-gcc2.9-991111",
                 ),
+                Object(
+                    Matching,
+                    "kt_keybd",
+                    cflags=["-O2", "-G0", "-Iinclude"],
+                    toolchain_version="PS2/ee-gcc2.9-991111",
+                ),
+                Object(
+                    Matching,
+                    "kt_usbkeybd_drv",
+                    cflags=["-O2", "-G0", "-Iinclude"],
+                    toolchain_version="PS2/ee-gcc2.9-991111",
+                ),
             ],
         },
         {

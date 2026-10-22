@@ -5600,9 +5600,93 @@ segments:
     vram: 0x338470
     subsegments:
       - [0x238650, asm, network_buffer_enqueue_338470]
-  - name: bin_3385c0_340370
+  - name: bin_3385c0_338970
     type: bin
     start: 0x2387A0
+  - name: network_dplay_get_player_name_338970
+    type: code
+    start: 0x238B50
+    vram: 0x338970
+    subsegments:
+      - [0x238B50, asm, network_dplay_get_player_name_338970]
+  - name: network_dplay_get_queue_count_338a10
+    type: code
+    start: 0x238BF0
+    vram: 0x338A10
+    subsegments:
+      - [0x238BF0, asm, network_dplay_get_queue_count_338a10]
+  - name: network_dplay_receive_338a20
+    type: code
+    start: 0x238C00
+    vram: 0x338A20
+    subsegments:
+      - [0x238C00, asm, network_dplay_receive_338a20]
+  - name: network_dplay_send_338b90
+    type: code
+    start: 0x238D70
+    vram: 0x338B90
+    subsegments:
+      - [0x238D70, asm, network_dplay_send_338b90]
+  - name: network_dplay_release_338c60
+    type: code
+    start: 0x238E40
+    vram: 0x338C60
+    subsegments:
+      - [0x238E40, asm, network_dplay_release_338c60]
+  - name: network_dplay_init_338cb0
+    type: code
+    start: 0x238E90
+    vram: 0x338CB0
+    subsegments:
+      - [0x238E90, asm, network_dplay_init_338cb0]
+  - name: network_dplay_query_interface_338cc0
+    type: code
+    start: 0x238EA0
+    vram: 0x338CC0
+    subsegments:
+      - [0x238EA0, asm, network_dplay_query_interface_338cc0]
+  - name: bin_338ce0_3390d0
+    type: bin
+    start: 0x238EC0
+  - name: network_dplay_get_player_caps_3390d0
+    type: code
+    start: 0x2392B0
+    vram: 0x3390D0
+    subsegments:
+      - [0x2392B0, asm, network_dplay_get_player_caps_3390d0]
+  - name: network_dplay_get_session_desc_339140
+    type: code
+    start: 0x239320
+    vram: 0x339140
+    subsegments:
+      - [0x239320, asm, network_dplay_get_session_desc_339140]
+  - name: network_dplay_get_caps_3391e0
+    type: code
+    start: 0x2393C0
+    vram: 0x3391E0
+    subsegments:
+      - [0x2393C0, asm, network_dplay_get_caps_3391e0]
+  - name: network_dplay_reset_queue_339220
+    type: code
+    start: 0x239400
+    vram: 0x339220
+    subsegments:
+      - [0x239400, asm, network_dplay_reset_queue_339220]
+  - name: network_dplay_close_339270
+    type: code
+    start: 0x239450
+    vram: 0x339270
+    subsegments:
+      - [0x239450, asm, network_dplay_close_339270]
+  - name: network_dplay_send_destroy_3392b0
+    type: code
+    start: 0x239490
+    vram: 0x3392B0
+    subsegments:
+      - [0x239490, asm, network_dplay_send_destroy_3392b0]
+  - name: bin_339300_340370
+    type: bin
+    start: 0x2394E0
   - name: tactical_ai_destructors_340370
     type: code
     start: 0x240550

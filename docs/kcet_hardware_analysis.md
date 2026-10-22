@@ -71,6 +71,7 @@ The boundaries of each source file were established through assertion string cro
   - **`kt_mouse.c`**: **45 / 45 functions** (4,312 / 4,312 bytes = **100.0% byte-matched**)
   - **`kt_keybd.c`**: **36 / 36 functions** (4,936 / 4,936 bytes = **100.0% byte-matched**)
   - **`kt_usbkeybd_drv.c`**: **6 / 6 functions** (628 / 628 bytes = **100.0% byte-matched**)
+  - **PS2 Network / DirectPlay (`mydplay.cpp` & `socketee.c`)**: **33 / 33 registered functions** (`0x3377D0` – `0x339300`, **100.0% byte-matched** with Metrowerks CodeWarrior `mwccps2.exe` 2.3.1.01 `-O3`)
   - Verified 100.0% Byte Matches:
     - `func_00134F18` (8 B) — stub (`jr ra; nop`)
     - `func_00134F20` (44 B) — `D_50A060 = func_134210(1, 1, 0)`

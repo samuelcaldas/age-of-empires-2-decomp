@@ -47,6 +47,63 @@ extern "C" {
         log_calls++;
         return 0;
     }
+
+    int D_004E3560[2] = {0, 777};
+    static int sem_wait_calls = 0;
+    static int sem_signal_calls = 0;
+    int func_104D60(int sem) {
+        assert(sem == 777);
+        sem_wait_calls++;
+        return 0;
+    }
+    int func_104D40(int sem) {
+        assert(sem == 777);
+        sem_signal_calls++;
+        return 0;
+    }
+
+    int D_004E3530 = 1;
+    char D_0108AFA0[512];
+    extern const char D_00492C60[16] = "GUID_SESSION_16";
+    extern const char D_004D1F10[] = "PLAYER";
+    extern const char D_004D1F18[] = "SESSION";
+
+    int func_117a64(const char *a, const char *b, int n) {
+        return strncmp(a, b, n);
+    }
+    char *func_11ABBC(char *dst, const char *src) {
+        return strcpy(dst, src);
+    }
+    char *func_11B170(char *dst, const char *src, int n) {
+        return strncpy(dst, src, n);
+    }
+    int func_11ACD0(const char *s) {
+        return (int)strlen(s);
+    }
+    void *func_00338470(void *state, const void *payload, int size) {
+        int *fields = (int *)state;
+        char *buf = (char *)state + 1324 + fields[845];
+        memcpy(buf, payload, size);
+        fields[843]++;
+        fields[846] = fields[845];
+        fields[845] += (size + 3) & -4;
+        return buf;
+    }
+    static int cur_time_ms = 1000;
+    int func_2261C0(void) {
+        return cur_time_ms;
+    }
+    void func_103358(int arg) {
+        cur_time_ms += 1000;
+        if (cur_time_ms == 2000) {
+            strcpy(D_0108AFA0, "SESSION");
+        }
+    }
+    static int last_converted_id = 0;
+    int func_335A20(void) {
+        last_converted_id++;
+        return 1100;
+    }
 }
 
 static int enum_cb_calls = 0;
@@ -94,10 +151,10 @@ int main(void) {
 
     /* 4. func_003382D0 & func_00338310 & func_00338350: slot ops */
     func_003381A0(obj);
-    DPlayPlayerSlot *s0 = func_003382D0(obj);
+    DPlayPlayerSlot *s0 = func_003382D0(obj, 0);
     assert(s0 == (DPlayPlayerSlot *)(obj + 4));
     s0->id = 100;
-    DPlayPlayerSlot *s1 = func_003382D0(obj);
+    DPlayPlayerSlot *s1 = func_003382D0(obj, 0);
     assert(s1 == (DPlayPlayerSlot *)((char *)s0 + 136));
     assert(func_00338310(obj, 100) == s0);
     assert(func_00338310(obj, 999) == 0);
@@ -125,6 +182,113 @@ int main(void) {
     send_checked_ret = -2;
     assert(func_003383B0(obj, 11, 22, payload, 4) == -2);
     assert(log_calls == 1);
+
+    /* 6. func_00338970: GetPlayerName */
+    func_003381A0(obj);
+    DPlayPlayerSlot *p0 = func_003382D0(obj, 0);
+    p0->id = 55;
+    int name_size = 0;
+    assert(func_00338970(obj, 55, 0, &name_size) == 0);
+    assert(name_size == 16);
+    assert(func_00338970(obj, 999, payload, &name_size) == (int)0x88770096u);
+    name_size = 8;
+    assert(func_00338970(obj, 55, payload, &name_size) == (int)0x8877001Eu);
+    name_size = 16;
+    void *name_struct[4] = {0};
+    assert(func_00338970(obj, 55, name_struct, &name_size) == 0);
+    assert((int)(long)name_struct[0] == 16);
+    assert(name_struct[1] == 0);
+    assert(name_struct[2] == (char *)p0 + 24);
+    assert(name_struct[3] == (char *)p0 + 40);
+
+    /* 7. func_00338A10 & func_00338A20 & func_00339220: Receive & Queue ops */
+    *(int *)(obj + 3372) = 3;
+    int qcount = 0;
+    assert(func_00338A10(obj, 0, &qcount, 0) == 0);
+    assert(qcount == 3);
+    assert(func_00339220(obj) == 0);
+    assert(*(int *)(obj + 3372) == 0);
+
+    /* Empty queue receive -> 0x887700BE */
+    int rx_from = 0, rx_to = 0, rx_sz = 0;
+    char rx_buf[64];
+    assert(func_00338A20(obj, &rx_from, &rx_to, 0, rx_buf, &rx_sz) == (int)0x887700BEu);
+
+    /* Enqueue one message manually into ring buffer at obj + 1324 */
+    int *ring_entry = (int *)(obj + 1324);
+    ring_entry[0] = 222; /* to */
+    ring_entry[1] = 111; /* from */
+    ring_entry[2] = 0;
+    ring_entry[3] = 5;   /* size */
+    memcpy(ring_entry + 4, "HELLO", 5);
+    *(int *)(obj + 3372) = 1;
+    *(int *)(obj + 3376) = 0;
+    /* Peek size (data == NULL) */
+    assert(func_00338A20(obj, &rx_from, &rx_to, 0, 0, &rx_sz) == 0);
+    assert(rx_from == 111 && rx_to == 222 && rx_sz == 5);
+    assert(*(int *)(obj + 3372) == 1);
+    /* Dequeue payload */
+    memset(rx_buf, 0, sizeof(rx_buf));
+    assert(func_00338A20(obj, &rx_from, &rx_to, 0, rx_buf, &rx_sz) == 0);
+    assert(memcmp(rx_buf, "HELLO", 5) == 0);
+    assert(*(int *)(obj + 3372) == 0);
+    assert(*(int *)(obj + 3376) == 24); /* 16 + ((5+3)&~3) = 24 */
+
+    /* 8. func_00338B90: Send (direct & broadcast) */
+    send_checked_ret = 20;
+    last_send_size = 0;
+    *(int *)(obj + 0) = 55; /* local player id = 55 */
+    DPlayPlayerSlot *p1 = func_003382D0(obj, 0);
+    p1->id = 66;
+    /* Broadcast (to_id == 0) sends to p1 (66), skips p0 (55 == local id) */
+    assert(func_00338B90(obj, 55, 0, 0, payload, 4) == 0);
+    assert(*(int *)(obj + 3388 + 0) == 66);
+    assert(*(int *)(obj + 3388 + 4) == 55);
+    /* Direct (to_id == 77) */
+    assert(func_00338B90(obj, 55, 77, 0, payload, 4) == 0);
+    assert(*(int *)(obj + 3388 + 0) == 77);
+    assert(*(int *)(obj + 3388 + 4) == 55);
+
+    /* 9. func_00338C60, func_00338CB0, func_00338CC0: COM methods */
+    assert(func_00338CB0(obj) == 0);
+    void *q_iface = 0;
+    obj[4560] = 1;
+    assert(func_00338CC0(obj, 0, &q_iface) == 0);
+    assert(q_iface == D_01087ED0);
+    assert(obj[4560] == 2);
+    assert(func_00338C60(obj) == 1);
+    assert(func_00338C60(obj) == 0);
+
+    /* 10. func_003390D0, func_00339140, func_003391E0: Caps & SessionDesc */
+    func_003381A0(obj);
+    p0 = func_003382D0(obj, 0);
+    p0->id = 55;
+    int pcaps[10] = {0};
+    assert(func_003390D0(obj, 999, pcaps, 0) == (int)0x88770096u);
+    assert(func_003390D0(obj, 55, pcaps, 0) == 0);
+    assert(pcaps[1] == 64 && pcaps[4] == 8 && pcaps[9] == 6000);
+
+    unsigned int sdesc_sz = 0;
+    assert(func_00339140(obj, 0, &sdesc_sz) == 0);
+    assert(sdesc_sz == 80);
+    sdesc_sz = 40;
+    char sdesc_buf[80];
+    assert(func_00339140(obj, sdesc_buf, &sdesc_sz) == (int)0x8877001Eu);
+    sdesc_sz = 80;
+    assert(func_00339140(obj, sdesc_buf, &sdesc_sz) == 0);
+
+    int dcaps[10] = {0};
+    *(int *)(obj + 1312) = 1;
+    assert(func_003391E0(obj, dcaps, 0) == 0);
+    assert(dcaps[1] == 66 && dcaps[4] == 8 && dcaps[9] == 60);
+
+    /* 11. func_00339270 & func_003392B0: Close & SendDestroyMsg */
+    *(int *)(obj + 0) = 88;
+    *(int *)(obj + 1136) = 4;
+    *(int *)(obj + 1308) = 1;
+    assert(func_00339270(obj) == 0);
+    assert(*(int *)(obj + 1308) == 0);
+    assert(*(int *)(obj + 1136) == 3);
 
     return 0;
 }

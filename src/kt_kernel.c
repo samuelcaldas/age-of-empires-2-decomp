@@ -1,1334 +1,466 @@
 #include "common.h"
+#include "kt_kernel.h"
 
-void func_00134140();
-void func_00134168();
-void func_00134188();
-void func_001341B8();
-void func_00134210();
-void func_00134290();
-void func_00134330();
-void func_00134378();
-void func_001343A8();
-void func_001343F8();
-void func_00134440();
-void func_00134480();
-void func_001344C0();
-void func_00134500();
-void func_00134528();
-void func_00134538();
-void func_00134548();
-void func_00134558();
-void func_00134568();
-void func_001345D0();
-void func_00134638();
-void func_001346A8();
-void func_00134710();
-void func_001347A8();
-void func_00134828();
-void func_001348A8();
-void func_00134928();
-void func_00134970();
-void func_001349E8();
-void func_00134A20();
-void func_00134A58();
-void func_00134A78();
-void func_00134AF0();
-void func_00134BB0();
-void func_00134C60();
-void func_00134CB8();
-void func_00134CF0();
-void func_00134D48();
-void func_00134D80();
+extern int D_38CEC0[];
+extern int D_38CED0[];
+extern int D_4EA7C0;
 
-/* func_00134140 */
-__asm__(
-    ".text\n\t"
-    ".globl func_00134140\n\t"
-    ".ent func_00134140\n"
-    "func_00134140:\n\t"
-    ".set noreorder\n\t"
-    "addiu      $29, $29, -0x10\n\t"
-    "sd         $31, 0x0($29)\n\t"
-    ".L00134148:\n\t"
-    "jal        func_104C10\n\t"
-    "nop\n\t"
-    "jal        func_00134168\n\t"
-    "daddu     $4, $2, $0\n\t"
-    "ld         $31, 0x0($29)\n\t"
-    "jr         $31\n\t"
-    "addiu     $29, $29, 0x10\n\t"
-    "nop\n\t"
-    ".set reorder\n\t"
-    ".end func_00134140\n"
-);
+extern const char D_4905C0[];
+extern const char D_4905E0[];
+extern const char D_490600[];
+extern const char D_490610[];
+extern const char D_490620[];
+extern const char D_490648[];
+extern const char D_490678[];
+extern const char D_490698[];
+extern const char D_4906B8[];
+extern const char D_4906D0[];
+extern const KtThreadStatusEntry D_490740[];
+extern const char D_490770[];
+extern const char D_4907E8[];
+extern const char D_4E2D68[];
+extern const char D_4E2D70[];
 
-/* func_00134168 */
-__asm__(
-    ".text\n\t"
-    ".globl func_00134168\n\t"
-    ".ent func_00134168\n"
-    "func_00134168:\n\t"
-    ".set noreorder\n\t"
-    "addiu      $29, $29, -0x40\n\t"
-    "sd         $31, 0x30($29)\n\t"
-    "jal        func_104C20\n\t"
-    "daddu     $5, $29, $0\n\t"
-    "lw         $2, 0x18($29)\n\t"
-    "ld         $31, 0x30($29)\n\t"
-    "jr         $31\n\t"
-    "addiu     $29, $29, 0x40\n\t"
-    ".set reorder\n\t"
-    ".end func_00134168\n"
-);
+/* Kernel syscall wrappers and external runtime functions */
+int func_104C10(void);
+int func_104C20(int thid, KtThreadParam *param);
+int func_104BB0(int thid, int prio);
+int func_104B70(int thid);
+int func_104B30(int thid);
+int func_104B20(KtThreadParam *param);
+int func_104B40(int thid, void *arg);
+int func_104D20(KtSemaParam *param);
+int func_104D30(int sem_id);
+int func_104D40(int sem_id);
+int func_104D50(int sem_id);
+int func_104D60(int sem_id);
+int func_104D70(int sem_id);
+int func_104D80(int sem_id);
+int func_104D90(int sem_id, KtSemaParam *param);
+int func_104DA0(int sem_id, KtSemaParam *param);
+int func_104A00(int intc, int (*handler)(void), int flag);
+int func_104A50(int intc);
+void func_1057B0(int a0);
+int func_105818(int a0);
+int func_105880(int a0);
+int func_00134DE8(int a0, int a1);
+void func_114320(const char *file, int line, const char *expr);
+void func_001143C0(void *ptr, int size);
+void func_118de0(const char *fmt, ...);
+void func_106E20(const char *fmt, ...);
 
-/* func_00134188 */
-__asm__(
-    ".text\n\t"
-    ".globl func_00134188\n\t"
-    ".ent func_00134188\n"
-    "func_00134188:\n\t"
-    ".set noreorder\n\t"
-    "addiu      $29, $29, -0x20\n\t"
-    "sd         $16, 0x0($29)\n\t"
-    "sd         $31, 0x10($29)\n\t"
-    "jal        func_104C10\n\t"
-    ".L00134198:\n\t"
-    "daddu     $16, $4, $0\n\t"
-    "daddu      $5, $16, $0\n\t"
-    "jal        func_104BB0\n\t"
-    "daddu     $4, $2, $0\n\t"
-    "ld         $31, 0x10($29)\n\t"
-    "ld         $16, 0x0($29)\n\t"
-    "jr         $31\n\t"
-    "addiu     $29, $29, 0x20\n\t"
-    ".set reorder\n\t"
-    ".end func_00134188\n"
-);
+static int s_vblank_s_initialized = 0;
+static int s_vblank_e_initialized = 0;
 
-/* func_001341B8 */
-__asm__(
-    ".text\n\t"
-    ".globl func_001341B8\n\t"
-    ".ent func_001341B8\n"
-    "func_001341B8:\n\t"
-    ".set noreorder\n\t"
-    "addiu      $29, $29, -0x20\n\t"
-    "sd         $16, 0x0($29)\n\t"
-    "sd         $31, 0x10($29)\n\t"
-    "jal        func_104B70\n\t"
-    "daddu     $16, $4, $0\n\t"
-    "beq        $2, $16, .L001341E0\n\t"
-    "lui       $4, %hi(D_4905C0)\n\t"
-    "daddu      $5, $16, $0\n\t"
-    "jal        func_118de0\n\t"
-    "addiu     $4, $4, %lo(D_4905C0)\n\t"
-    ".L001341E0:\n\t"
-    "jal        func_104B30\n\t"
-    "daddu     $4, $16, $0\n\t"
-    "beq        $2, $16, .L001341FC\n\t"
-    "daddu     $5, $16, $0\n\t"
-    "lui        $4, %hi(D_4905E0)\n\t"
-    "jal        func_118de0\n\t"
-    "addiu     $4, $4, %lo(D_4905E0)\n\t"
-    ".L001341FC:\n\t"
-    "daddu      $2, $16, $0\n\t"
-    "ld         $31, 0x10($29)\n\t"
-    "ld         $16, 0x0($29)\n\t"
-    "jr         $31\n\t"
-    "addiu     $29, $29, 0x20\n\t"
-    ".set reorder\n\t"
-    ".end func_001341B8\n"
-);
+/* func_00134140: Get current thread priority */
+int func_00134140(void) {
+    return func_00134168(func_104C10());
+}
 
-/* func_00134210 */
-__asm__(
-    ".text\n\t"
-    ".globl func_00134210\n\t"
-    ".ent func_00134210\n"
-    "func_00134210:\n\t"
-    ".set noreorder\n\t"
-    "addiu      $29, $29, -0x60\n\t"
-    "sd         $17, 0x30($29)\n\t"
-    "sd         $16, 0x20($29)\n\t"
-    "daddu      $17, $5, $0\n\t"
-    "daddu      $16, $4, $0\n\t"
-    "sd         $18, 0x40($29)\n\t"
-    "daddu      $18, $6, $0\n\t"
-    "sd         $31, 0x50($29)\n\t"
-    "daddu      $4, $29, $0\n\t"
-    "jal        func_001143C0\n\t"
-    "addiu     $5, $0, 0x18\n\t"
-    "sw         $16, 0x4($29)\n\t"
-    "daddu      $4, $29, $0\n\t"
-    "sw         $17, 0x8($29)\n\t"
-    "jal        func_104D20\n\t"
-    "sw        $18, 0x14($29)\n\t"
-    "daddu      $16, $2, $0\n\t"
-    "bgez       $16, .L00134278\n\t"
-    "daddu     $2, $16, $0\n\t"
-    "lui        $4, %hi(D_490600)\n\t"
-    "lui        $6, %hi(D_4E2D68)\n\t"
-    "addiu      $4, $4, %lo(D_490600)\n\t"
-    "addiu      $6, $6, %lo(D_4E2D68)\n\t"
-    "jal        func_114320\n\t"
-    "addiu     $5, $0, 0x74\n\t"
-    "daddu      $2, $16, $0\n\t"
-    ".L00134278:\n\t"
-    "ld         $31, 0x50($29)\n\t"
-    "ld         $18, 0x40($29)\n\t"
-    "ld         $17, 0x30($29)\n\t"
-    "ld         $16, 0x20($29)\n\t"
-    "jr         $31\n\t"
-    "addiu     $29, $29, 0x60\n\t"
-    ".set reorder\n\t"
-    ".end func_00134210\n"
-);
+/* func_00134168: Get specific thread priority */
+int func_00134168(int thid) {
+    KtThreadParam status;
+    func_104C20(thid, &status);
+    return status.current_priority;
+}
 
-/* func_00134290 */
-__asm__(
-    ".text\n\t"
-    ".globl func_00134290\n\t"
-    ".ent func_00134290\n"
-    "func_00134290:\n\t"
-    ".set noreorder\n\t"
-    "addiu      $29, $29, -0x80\n\t"
-    "sd         $17, 0x40($29)\n\t"
-    "sd         $16, 0x30($29)\n\t"
-    "daddu      $17, $5, $0\n\t"
-    "daddu      $16, $4, $0\n\t"
-    "sd         $19, 0x60($29)\n\t"
-    "sd         $18, 0x50($29)\n\t"
-    "daddu      $19, $7, $0\n\t"
-    "daddu      $18, $6, $0\n\t"
-    "sd         $31, 0x70($29)\n\t"
-    "daddu      $4, $29, $0\n\t"
-    "jal        func_001143C0\n\t"
-    "addiu     $5, $0, 0x30\n\t"
-    "lui        $2, %hi(D_4EA7C0)\n\t"
-    "addiu      $2, $2, %lo(D_4EA7C0)\n\t"
-    ".L001342CC:\n\t"
-    "sw         $16, 0x4($29)\n\t"
-    "sw         $17, 0x8($29)\n\t"
-    "daddu      $4, $29, $0\n\t"
-    ".L001342D8:\n\t"
-    "sw         $18, 0xC($29)\n\t"
-    "sw         $19, 0x14($29)\n\t"
-    "jal        func_104B20\n\t"
-    "sw        $2, 0x10($29)\n\t"
-    "daddu      $16, $2, $0\n\t"
-    "bgez       $16, .L00134310\n\t"
-    "daddu     $2, $16, $0\n\t"
-    "lui        $4, %hi(D_490600)\n\t"
-    "lui        $6, %hi(D_4E2D68)\n\t"
-    "addiu      $4, $4, %lo(D_490600)\n\t"
-    "addiu      $6, $6, %lo(D_4E2D68)\n\t"
-    "jal        func_114320\n\t"
-    "addiu     $5, $0, 0x8E\n\t"
-    "daddu      $2, $16, $0\n\t"
-    ".L00134310:\n\t"
-    "ld         $31, 0x70($29)\n\t"
-    "ld         $19, 0x60($29)\n\t"
-    "ld         $18, 0x50($29)\n\t"
-    "ld         $17, 0x40($29)\n\t"
-    "ld         $16, 0x30($29)\n\t"
-    "jr         $31\n\t"
-    "addiu     $29, $29, 0x80\n\t"
-    "nop\n\t"
-    ".set reorder\n\t"
-    ".end func_00134290\n"
-);
+/* func_00134188: Change current thread priority */
+int func_00134188(int priority) {
+    return func_104BB0(func_104C10(), priority);
+}
 
-/* func_00134330 */
-__asm__(
-    ".text\n\t"
-    ".globl func_00134330\n\t"
-    ".ent func_00134330\n"
-    "func_00134330:\n\t"
-    ".set noreorder\n\t"
-    "addiu      $29, $29, -0x20\n\t"
-    "sd         $16, 0x0($29)\n\t"
-    "sd         $31, 0x10($29)\n\t"
-    "jal        func_104B40\n\t"
-    "daddu     $16, $4, $0\n\t"
-    "beq        $2, $16, .L00134360\n\t"
-    "lui       $4, %hi(D_490600)\n\t"
-    "lui        $6, %hi(D_490610)\n\t"
-    "addiu      $4, $4, %lo(D_490600)\n\t"
-    "addiu      $6, $6, %lo(D_490610)\n\t"
-    "jal        func_114320\n\t"
-    "addiu     $5, $0, 0x95\n\t"
-    ".L00134360:\n\t"
-    "daddu      $2, $16, $0\n\t"
-    "ld         $31, 0x10($29)\n\t"
-    "ld         $16, 0x0($29)\n\t"
-    "jr         $31\n\t"
-    "addiu     $29, $29, 0x20\n\t"
-    "nop\n\t"
-    ".set reorder\n\t"
-    ".end func_00134330\n"
-);
+/* func_001341B8: Terminate and delete thread */
+int func_001341B8(int thid) {
+    if (func_104B70(thid) != thid) {
+        func_118de0(D_4905C0, thid);
+    }
+    if (func_104B30(thid) != thid) {
+        func_118de0(D_4905E0, thid);
+    }
+    return thid;
+}
 
-/* func_00134378 */
-__asm__(
-    ".text\n\t"
-    ".globl func_00134378\n\t"
-    ".ent func_00134378\n"
-    "func_00134378:\n\t"
-    ".set noreorder\n\t"
-    "addiu      $29, $29, -0x20\n\t"
-    "sd         $16, 0x0($29)\n\t"
-    "sd         $31, 0x10($29)\n\t"
-    "jal        func_00134290\n\t"
-    "daddu     $16, $9, $0\n\t"
-    "daddu      $5, $16, $0\n\t"
-    "jal        func_00134330\n\t"
-    "daddu     $4, $2, $0\n\t"
-    "ld         $31, 0x10($29)\n\t"
-    "ld         $16, 0x0($29)\n\t"
-    "jr         $31\n\t"
-    "addiu     $29, $29, 0x20\n\t"
-    ".set reorder\n\t"
-    ".end func_00134378\n"
-);
+/* func_00134210: Create semaphore */
+int func_00134210(int init_count, int max_count, int option) {
+    KtSemaParam sema;
+    int id;
 
-/* func_001343A8 */
-__asm__(
-    ".text\n\t"
-    ".globl func_001343A8\n\t"
-    ".ent func_001343A8\n"
-    "func_001343A8:\n\t"
-    ".set noreorder\n\t"
-    "addiu      $29, $29, -0x30\n\t"
-    "sd         $17, 0x10($29)\n\t"
-    "sd         $16, 0x0($29)\n\t"
-    "sd         $31, 0x20($29)\n\t"
-    "jal        func_001343F8\n\t"
-    "daddu     $17, $4, $0\n\t"
-    "daddu      $16, $2, $0\n\t"
-    "beqz       $16, .L001343DC\n\t"
-    "lui       $4, %hi(D_490620)\n\t"
-    "daddu      $5, $17, $0\n\t"
-    "addiu      $4, $4, %lo(D_490620)\n\t"
-    "jal        func_118de0\n\t"
-    "daddu     $6, $16, $0\n\t"
-    ".L001343DC:\n\t"
-    "daddu      $2, $16, $0\n\t"
-    "ld         $31, 0x20($29)\n\t"
-    "ld         $17, 0x10($29)\n\t"
-    "ld         $16, 0x0($29)\n\t"
-    "jr         $31\n\t"
-    "addiu     $29, $29, 0x30\n\t"
-    "nop\n\t"
-    ".set reorder\n\t"
-    ".end func_001343A8\n"
-);
+    func_001143C0(&sema, sizeof(sema));
+    sema.max_count = max_count;
+    sema.init_count = init_count;
+    sema.option = option;
 
-/* func_001343F8 */
-__asm__(
-    ".text\n\t"
-    ".globl func_001343F8\n\t"
-    ".ent func_001343F8\n"
-    "func_001343F8:\n\t"
-    ".set noreorder\n\t"
-    "addiu      $29, $29, -0x30\n\t"
-    "sd         $17, 0x10($29)\n\t"
-    "sd         $16, 0x0($29)\n\t"
-    "daddu      $17, $0, $0\n\t"
-    "sd         $31, 0x20($29)\n\t"
-    "b          .L0013441C\n\t"
-    "daddu     $16, $4, $0\n\t"
-    "nop\n\t"
-    ".L00134418:\n\t"
-    "addiu      $17, $17, 0x1\n\t"
-    ".L0013441C:\n\t"
-    "jal        func_104D70\n\t"
-    "daddu     $4, $16, $0\n\t"
-    "beq        $2, $16, .L00134418\n\t"
-    "daddu     $2, $17, $0\n\t"
-    "ld         $31, 0x20($29)\n\t"
-    "ld         $17, 0x10($29)\n\t"
-    "ld         $16, 0x0($29)\n\t"
-    "jr         $31\n\t"
-    "addiu     $29, $29, 0x30\n\t"
-    ".set reorder\n\t"
-    ".end func_001343F8\n"
-);
+    id = func_104D20(&sema);
+    if (id < 0) {
+        func_114320(D_490600, 0x74, D_4E2D68);
+    }
+    return id;
+}
 
-/* func_00134440 */
-__asm__(
-    ".text\n\t"
-    ".globl func_00134440\n\t"
-    ".ent func_00134440\n"
-    "func_00134440:\n\t"
-    ".set noreorder\n\t"
-    "addiu      $29, $29, -0x20\n\t"
-    "sd         $16, 0x0($29)\n\t"
-    "sd         $31, 0x10($29)\n\t"
-    "jal        func_104D40\n\t"
-    "daddu     $16, $4, $0\n\t"
-    "beq        $16, $2, .L00134468\n\t"
-    "daddu     $5, $16, $0\n\t"
-    "lui        $4, %hi(D_490648)\n\t"
-    "jal        func_118de0\n\t"
-    "addiu     $4, $4, %lo(D_490648)\n\t"
-    ".L00134468:\n\t"
-    "daddu      $2, $16, $0\n\t"
-    "ld         $31, 0x10($29)\n\t"
-    "ld         $16, 0x0($29)\n\t"
-    "jr         $31\n\t"
-    "addiu     $29, $29, 0x20\n\t"
-    "nop\n\t"
-    ".set reorder\n\t"
-    ".end func_00134440\n"
-);
+/* func_00134290: Create thread */
+int func_00134290(void *entry, void *stack, int stack_size, int priority, int option) {
+    KtThreadParam th;
+    int id;
 
-/* func_00134480 */
-__asm__(
-    ".text\n\t"
-    ".globl func_00134480\n\t"
-    ".ent func_00134480\n"
-    "func_00134480:\n\t"
-    ".set noreorder\n\t"
-    "addiu      $29, $29, -0x20\n\t"
-    "sd         $16, 0x0($29)\n\t"
-    "sd         $31, 0x10($29)\n\t"
-    "jal        func_104D50\n\t"
-    "daddu     $16, $4, $0\n\t"
-    "beq        $16, $2, .L001344A8\n\t"
-    "daddu     $5, $16, $0\n\t"
-    "lui        $4, %hi(D_490678)\n\t"
-    "jal        func_106E20\n\t"
-    "addiu     $4, $4, %lo(D_490678)\n\t"
-    ".L001344A8:\n\t"
-    "daddu      $2, $16, $0\n\t"
-    "ld         $31, 0x10($29)\n\t"
-    "ld         $16, 0x0($29)\n\t"
-    "jr         $31\n\t"
-    "addiu     $29, $29, 0x20\n\t"
-    "nop\n\t"
-    ".set reorder\n\t"
-    ".end func_00134480\n"
-);
+    func_001143C0(&th, sizeof(th));
+    th.entry = entry;
+    th.stack = stack;
+    th.stack_size = stack_size;
+    th.init_priority = priority;
+    th.gp_reg = &D_4EA7C0;
+    th.option = option;
 
-/* func_001344C0 */
-__asm__(
-    ".text\n\t"
-    ".globl func_001344C0\n\t"
-    ".ent func_001344C0\n"
-    "func_001344C0:\n\t"
-    ".set noreorder\n\t"
-    "addiu      $29, $29, -0x20\n\t"
-    "sd         $16, 0x0($29)\n\t"
-    "sd         $31, 0x10($29)\n\t"
-    "jal        func_104D30\n\t"
-    "daddu     $16, $4, $0\n\t"
-    "beq        $16, $2, .L001344E8\n\t"
-    "daddu     $5, $16, $0\n\t"
-    "lui        $4, %hi(D_490698)\n\t"
-    "jal        func_106E20\n\t"
-    "addiu     $4, $4, %lo(D_490698)\n\t"
-    ".L001344E8:\n\t"
-    "daddu      $2, $16, $0\n\t"
-    "ld         $31, 0x10($29)\n\t"
-    "ld         $16, 0x0($29)\n\t"
-    "jr         $31\n\t"
-    "addiu     $29, $29, 0x20\n\t"
-    "nop\n\t"
-    ".set reorder\n\t"
-    ".end func_001344C0\n"
-);
+    id = func_104B20(&th);
+    if (id < 0) {
+        func_114320(D_490600, 0x93, D_4E2D68);
+    }
+    return id;
+}
 
-/* func_00134500 */
-__asm__(
-    ".text\n\t"
-    ".globl func_00134500\n\t"
-    ".ent func_00134500\n"
-    "func_00134500:\n\t"
-    ".set noreorder\n\t"
-    "addiu      $29, $29, -0x20\n\t"
-    "sd         $16, 0x0($29)\n\t"
-    "sd         $31, 0x10($29)\n\t"
-    "jal        func_104D60\n\t"
-    "daddu     $16, $4, $0\n\t"
-    "daddu      $2, $16, $0\n\t"
-    "ld         $31, 0x10($29)\n\t"
-    "ld         $16, 0x0($29)\n\t"
-    "jr         $31\n\t"
-    "addiu     $29, $29, 0x20\n\t"
-    ".set reorder\n\t"
-    ".end func_00134500\n"
-);
+/* func_00134330: Start thread */
+int func_00134330(int thid, void *arg) {
+    int check_id = func_104B40(thid, arg);
+    if (check_id != thid) {
+        func_114320(D_490600, 0xA8, D_490610);
+    }
+    return thid;
+}
 
-/* func_00134528 */
-__asm__(
-    ".text\n\t"
-    ".globl func_00134528\n\t"
-    ".ent func_00134528\n"
-    "func_00134528:\n\t"
-    ".set noreorder\n\t"
-    "lui        $3, (0x390000 >> 16)\n\t"
-    "jr         $31\n\t"
-    "lw        $2, -0x3140($3)\n\t"
-    "nop\n\t"
-    ".set reorder\n\t"
-    ".end func_00134528\n"
-);
+/* func_00134378: Create and start thread */
+int func_00134378(void *entry, void *stack, int stack_size, int priority, void *arg, int option) {
+    int id = func_00134290(entry, stack, stack_size, priority, option);
+    func_00134330(id, arg);
+    return id;
+}
 
-/* func_00134538 */
-__asm__(
-    ".text\n\t"
-    ".globl func_00134538\n\t"
-    ".ent func_00134538\n"
-    "func_00134538:\n\t"
-    ".set noreorder\n\t"
-    "lui        $3, (0x390000 >> 16)\n\t"
-    "jr         $31\n\t"
-    "lw        $2, -0x313C($3)\n\t"
-    "nop\n\t"
-    ".set reorder\n\t"
-    ".end func_00134538\n"
-);
+/* func_001343A8: Drain semaphore and print cancel count */
+int func_001343A8(int sem_id) {
+    int count = func_001343F8(sem_id);
+    if (count > 0) {
+        func_118de0(D_490620, sem_id, count);
+    }
+    return count;
+}
 
-/* func_00134548 */
-__asm__(
-    ".text\n\t"
-    ".globl func_00134548\n\t"
-    ".ent func_00134548\n"
-    "func_00134548:\n\t"
-    ".set noreorder\n\t"
-    "lui        $3, (0x390000 >> 16)\n\t"
-    "jr         $31\n\t"
-    "lw        $2, -0x3138($3)\n\t"
-    "nop\n\t"
-    ".set reorder\n\t"
-    ".end func_00134548\n"
-);
+/* func_001343F8: Drain semaphore count via polling */
+int func_001343F8(int sem_id) {
+    int count = 0;
+    while (func_104D70(sem_id) > 0) {
+        count++;
+    }
+    return count;
+}
 
-/* func_00134558 */
-__asm__(
-    ".text\n\t"
-    ".globl func_00134558\n\t"
-    ".ent func_00134558\n"
-    "func_00134558:\n\t"
-    ".set noreorder\n\t"
-    "lui        $3, (0x390000 >> 16)\n\t"
-    "jr         $31\n\t"
-    "lw        $2, -0x3134($3)\n\t"
-    "nop\n\t"
-    ".set reorder\n\t"
-    ".end func_00134558\n"
-);
+/* func_00134440: Signal semaphore */
+int func_00134440(int sem_id) {
+    int res = func_104D40(sem_id);
+    if (res != sem_id) {
+        func_118de0(D_490648, sem_id);
+    }
+    return res;
+}
 
-/* func_00134568 */
-__asm__(
-    ".text\n\t"
-    ".globl func_00134568\n\t"
-    ".ent func_00134568\n"
-    "func_00134568:\n\t"
-    ".set noreorder\n\t"
-    "addiu      $29, $29, -0x30\n\t"
-    "sd         $17, 0x10($29)\n\t"
-    "sd         $16, 0x0($29)\n\t"
-    "sd         $31, 0x20($29)\n\t"
-    "jal        func_00134528\n\t"
-    "nop\n\t"
-    "jal        func_00134538\n\t"
-    "daddu     $16, $2, $0\n\t"
-    "bltz       $16, .L001345B0\n\t"
-    "daddu     $17, $2, $0\n\t"
-    "b          .L001345A0\n\t"
-    "nop\n\t"
-    ".L00134598:\n\t"
-    "jal        func_104D50\n\t"
-    "daddu     $4, $17, $0\n\t"
-    ".L001345A0:\n\t"
-    "jal        func_104D80\n\t"
-    "daddu     $4, $16, $0\n\t"
-    "beq        $2, $16, .L00134598\n\t"
-    "nop\n\t"
-    ".L001345B0:\n\t"
-    "sync\n\t"
-    "ei\n\t"
-    "ld         $31, 0x20($29)\n\t"
-    "daddu      $2, $0, $0\n\t"
-    "ld         $17, 0x10($29)\n\t"
-    "ld         $16, 0x0($29)\n\t"
-    "jr         $31\n\t"
-    "addiu     $29, $29, 0x30\n\t"
-    ".set reorder\n\t"
-    ".end func_00134568\n"
-);
+/* func_00134480: Signal semaphore (interrupt context) */
+int func_00134480(int sem_id) {
+    int res = func_104D50(sem_id);
+    if (res != sem_id) {
+        func_106E20(D_490678, sem_id);
+    }
+    return res;
+}
 
-/* func_001345D0 */
-__asm__(
-    ".text\n\t"
-    ".globl func_001345D0\n\t"
-    ".ent func_001345D0\n"
-    "func_001345D0:\n\t"
-    ".set noreorder\n\t"
-    "addiu      $29, $29, -0x30\n\t"
-    "sd         $17, 0x10($29)\n\t"
-    "sd         $16, 0x0($29)\n\t"
-    "sd         $31, 0x20($29)\n\t"
-    "jal        func_00134548\n\t"
-    "nop\n\t"
-    "jal        func_00134558\n\t"
-    "daddu     $16, $2, $0\n\t"
-    "bltz       $16, .L00134618\n\t"
-    "daddu     $17, $2, $0\n\t"
-    "b          .L00134608\n\t"
-    "nop\n\t"
-    ".L00134600:\n\t"
-    "jal        func_104D50\n\t"
-    "daddu     $4, $17, $0\n\t"
-    ".L00134608:\n\t"
-    "jal        func_104D80\n\t"
-    "daddu     $4, $16, $0\n\t"
-    "beq        $2, $16, .L00134600\n\t"
-    "nop\n\t"
-    ".L00134618:\n\t"
-    "sync\n\t"
-    "ei\n\t"
-    "ld         $31, 0x20($29)\n\t"
-    "daddu      $2, $0, $0\n\t"
-    "ld         $17, 0x10($29)\n\t"
-    "ld         $16, 0x0($29)\n\t"
-    "jr         $31\n\t"
-    "addiu     $29, $29, 0x30\n\t"
-    ".set reorder\n\t"
-    ".end func_001345D0\n"
-);
+/* func_001344C0: Delete semaphore */
+int func_001344C0(int sem_id) {
+    int res = func_104D30(sem_id);
+    if (res != sem_id) {
+        func_106E20(D_490698, sem_id);
+    }
+    return res;
+}
 
-/* func_00134638 */
-__asm__(
-    ".text\n\t"
-    ".globl func_00134638\n\t"
-    ".ent func_00134638\n"
-    "func_00134638:\n\t"
-    ".set noreorder\n\t"
-    "addiu      $29, $29, -0x40\n\t"
-    "lui        $2, %hi(D_38CED0)\n\t"
-    "sd         $18, 0x20($29)\n\t"
-    "sd         $17, 0x10($29)\n\t"
-    "addiu      $18, $0, -0x1\n\t"
-    "sd         $16, 0x0($29)\n\t"
-    "daddu      $17, $0, $0\n\t"
-    "sd         $31, 0x30($29)\n\t"
-    "addiu      $16, $2, %lo(D_38CED0)\n\t"
-    "nop\n\t"
-    ".L00134660:\n\t"
-    "lw         $2, 0x4($16)\n\t"
-    "addiu      $17, $17, 0x1\n\t"
-    "lw         $4, 0x0($16)\n\t"
-    "bltz       $2, .L00134684\n\t"
-    "daddu     $5, $2, $0\n\t"
-    "jal        func_00134DE8\n\t"
-    "nop\n\t"
-    "sw         $18, 0x0($16)\n\t"
-    "sw         $18, 0x4($16)\n\t"
-    ".L00134684:\n\t"
-    "sltiu      $2, $17, 0x2\n\t"
-    "bnez       $2, .L00134660\n\t"
-    "addiu     $16, $16, 0x8\n\t"
-    "ld         $31, 0x30($29)\n\t"
-    "ld         $18, 0x20($29)\n\t"
-    "ld         $17, 0x10($29)\n\t"
-    "ld         $16, 0x0($29)\n\t"
-    "jr         $31\n\t"
-    "addiu     $29, $29, 0x40\n\t"
-    ".set reorder\n\t"
-    ".end func_00134638\n"
-);
+/* func_00134500: Wait semaphore */
+int func_00134500(int sem_id) {
+    return func_104D60(sem_id);
+}
 
-/* func_001346A8 */
-__asm__(
-    ".text\n\t"
-    ".globl func_001346A8\n\t"
-    ".ent func_001346A8\n"
-    "func_001346A8:\n\t"
-    ".set noreorder\n\t"
-    "addiu      $29, $29, -0x40\n\t"
-    "lui        $2, %hi(D_38CEC0)\n\t"
-    "sd         $18, 0x20($29)\n\t"
-    "sd         $17, 0x10($29)\n\t"
-    "addiu      $18, $0, -0x1\n\t"
-    "sd         $16, 0x0($29)\n\t"
-    "daddu      $17, $0, $0\n\t"
-    "sd         $31, 0x30($29)\n\t"
-    "addiu      $16, $2, %lo(D_38CEC0)\n\t"
-    "nop\n\t"
-    ".L001346D0:\n\t"
-    "lw         $2, 0x0($16)\n\t"
-    "addiu      $17, $17, 0x1\n\t"
-    "bltz       $2, .L001346EC\n\t"
-    "daddu     $4, $2, $0\n\t"
-    "jal        func_104D30\n\t"
-    "nop\n\t"
-    "sw         $18, 0x0($16)\n\t"
-    ".L001346EC:\n\t"
-    "sltiu      $2, $17, 0x4\n\t"
-    "bnez       $2, .L001346D0\n\t"
-    "addiu     $16, $16, 0x4\n\t"
-    "ld         $31, 0x30($29)\n\t"
-    "ld         $18, 0x20($29)\n\t"
-    "ld         $17, 0x10($29)\n\t"
-    "ld         $16, 0x0($29)\n\t"
-    "jr         $31\n\t"
-    "addiu     $29, $29, 0x40\n\t"
-    ".set reorder\n\t"
-    ".end func_001346A8\n"
-);
+/* func_00134528: Get SyncV sema 0 */
+int func_00134528(void) {
+    return D_38CEC0[0];
+}
 
-/* func_00134710 */
-__asm__(
-    ".text\n\t"
-    ".globl func_00134710\n\t"
-    ".ent func_00134710\n"
-    "func_00134710:\n\t"
-    ".set noreorder\n\t"
-    "addiu      $29, $29, -0x50\n\t"
-    "lui        $2, %hi(D_38CEC0)\n\t"
-    "sd         $16, 0x0($29)\n\t"
-    "addiu      $2, $2, %lo(D_38CEC0)\n\t"
-    "daddu      $16, $4, $0\n\t"
-    "sd         $19, 0x30($29)\n\t"
-    "sd         $18, 0x20($29)\n\t"
-    "sll        $3, $16, 2\n\t"
-    "sd         $17, 0x10($29)\n\t"
-    "addu       $18, $3, $2\n\t"
-    "sd         $31, 0x40($29)\n\t"
-    "daddu      $19, $5, $0\n\t"
-    "b          .L00134750\n\t"
-    "addiu     $17, $0, -0x1\n\t"
-    ".L00134748:\n\t"
-    "addiu      $16, $16, 0x1\n\t"
-    "addiu      $18, $18, 0x4\n\t"
-    ".L00134750:\n\t"
-    "slt        $2, $16, $19\n\t"
-    "beqz       $2, .L00134774\n\t"
-    "daddu     $4, $0, $0\n\t"
-    "daddu      $5, $0, $0\n\t"
-    "jal        func_00134210\n\t"
-    "daddu     $6, $0, $0\n\t"
-    "daddu      $17, $2, $0\n\t"
-    "bgezl      $17, .L00134748\n\t"
-    "sw        $17, 0x0($18)\n\t"
-    ".L00134774:\n\t"
-    "bgez       $17, .L00134788\n\t"
-    "daddu     $2, $17, $0\n\t"
-    "jal        func_001346A8\n\t"
-    "nop\n\t"
-    "daddu      $2, $17, $0\n\t"
-    ".L00134788:\n\t"
-    "ld         $31, 0x40($29)\n\t"
-    "ld         $19, 0x30($29)\n\t"
-    "ld         $18, 0x20($29)\n\t"
-    "ld         $17, 0x10($29)\n\t"
-    "ld         $16, 0x0($29)\n\t"
-    "jr         $31\n\t"
-    "addiu     $29, $29, 0x50\n\t"
-    "nop\n\t"
-    ".set reorder\n\t"
-    ".end func_00134710\n"
-);
+/* func_00134538: Get SyncV sema 1 */
+int func_00134538(void) {
+    return D_38CEC0[1];
+}
 
-/* func_001347A8 */
-__asm__(
-    ".text\n\t"
-    ".globl func_001347A8\n\t"
-    ".ent func_001347A8\n"
-    "func_001347A8:\n\t"
-    ".set noreorder\n\t"
-    "addiu      $29, $29, -0x20\n\t"
-    "lw         $2, -0x7770($28)\n\t"
-    "sd         $31, 0x10($29)\n\t"
-    "beqz       $2, .L001347C4\n\t"
-    "sd        $16, 0x0($29)\n\t"
-    "b          .L00134810\n\t"
-    "daddu     $16, $0, $0\n\t"
-    ".L001347C4:\n\t"
-    "addiu      $2, $0, 0x1\n\t"
-    "daddu      $4, $0, $0\n\t"
-    "sw         $2, -0x7770($28)\n\t"
-    "jal        func_00134710\n\t"
-    "addiu     $5, $0, 0x2\n\t"
-    "daddu      $16, $2, $0\n\t"
-    "bltz       $16, .L00134810\n\t"
-    "lui       $5, %hi(func_00134568)\n\t"
-    "addiu      $4, $0, 0x2\n\t"
-    "addiu      $5, $5, %lo(func_00134568)\n\t"
-    "jal        func_104A00\n\t"
-    "addiu     $6, $0, -0x1\n\t"
-    "lui        $3, %hi(D_38CED0)\n\t"
-    "daddu      $16, $2, $0\n\t"
-    "addiu      $4, $0, 0x2\n\t"
-    "addiu      $2, $3, %lo(D_38CED0)\n\t"
-    "sw         $4, -0x3130($3)\n\t"
-    "jal        func_1057B0\n\t"
-    "sw        $16, 0x4($2)\n\t"
-    ".L00134810:\n\t"
-    "daddu      $2, $16, $0\n\t"
-    "ld         $31, 0x10($29)\n\t"
-    "ld         $16, 0x0($29)\n\t"
-    "jr         $31\n\t"
-    "addiu     $29, $29, 0x20\n\t"
-    "nop\n\t"
-    ".set reorder\n\t"
-    ".end func_001347A8\n"
-);
+/* func_00134548: Get SyncV sema 2 */
+int func_00134548(void) {
+    return D_38CEC0[2];
+}
 
-/* func_00134828 */
-__asm__(
-    ".text\n\t"
-    ".globl func_00134828\n\t"
-    ".ent func_00134828\n"
-    "func_00134828:\n\t"
-    ".set noreorder\n\t"
-    "addiu      $29, $29, -0x20\n\t"
-    "lw         $2, -0x776C($28)\n\t"
-    "sd         $31, 0x10($29)\n\t"
-    "beqz       $2, .L00134844\n\t"
-    "sd        $16, 0x0($29)\n\t"
-    "b          .L00134894\n\t"
-    "daddu     $16, $0, $0\n\t"
-    ".L00134844:\n\t"
-    "addiu      $2, $0, 0x1\n\t"
-    "addiu      $4, $0, 0x2\n\t"
-    "sw         $2, -0x776C($28)\n\t"
-    "jal        func_00134710\n\t"
-    "addiu     $5, $0, 0x4\n\t"
-    "daddu      $16, $2, $0\n\t"
-    "bltz       $16, .L00134894\n\t"
-    "lui       $5, %hi(func_001345D0)\n\t"
-    "addiu      $4, $0, 0x3\n\t"
-    "addiu      $5, $5, %lo(func_001345D0)\n\t"
-    "jal        func_104A00\n\t"
-    "addiu     $6, $0, -0x1\n\t"
-    "lui        $3, %hi(D_38CED0)\n\t"
-    "addiu      $5, $0, 0x3\n\t"
-    "addiu      $3, $3, %lo(D_38CED0)\n\t"
-    "daddu      $16, $2, $0\n\t"
-    "addiu      $4, $0, 0x3\n\t"
-    "sw         $5, 0x8($3)\n\t"
-    "jal        func_1057B0\n\t"
-    "sw        $16, 0xC($3)\n\t"
-    ".L00134894:\n\t"
-    "daddu      $2, $16, $0\n\t"
-    "ld         $31, 0x10($29)\n\t"
-    "ld         $16, 0x0($29)\n\t"
-    "jr         $31\n\t"
-    "addiu     $29, $29, 0x20\n\t"
-    ".set reorder\n\t"
-    ".end func_00134828\n"
-);
+/* func_00134558: Get SyncV sema 3 */
+int func_00134558(void) {
+    return D_38CEC0[3];
+}
 
-/* func_001348A8 */
-__asm__(
-    ".text\n\t"
-    ".globl func_001348A8\n\t"
-    ".ent func_001348A8\n"
-    "func_001348A8:\n\t"
-    ".set noreorder\n\t"
-    "addiu      $29, $29, -0x20\n\t"
-    "addiu      $2, $0, 0x1\n\t"
-    "sd         $31, 0x10($29)\n\t"
-    "beq        $4, $2, .L001348F4\n\t"
-    "sd        $16, 0x0($29)\n\t"
-    "slti       $2, $4, 0x2\n\t"
-    "bnez       $2, .L001348D0\n\t"
-    "addiu     $2, $0, 0x2\n\t"
-    "beq        $4, $2, .L00134904\n\t"
-    "nop\n\t"
-    ".L001348D0:\n\t"
-    "jal        func_001347A8\n\t"
-    "nop\n\t"
-    "daddu      $16, $2, $0\n\t"
-    "bltz       $16, .L00134914\n\t"
-    "daddu     $2, $16, $0\n\t"
-    "jal        func_00134828\n\t"
-    "nop\n\t"
-    "b          .L00134914\n\t"
-    "daddu     $2, $16, $0\n\t"
-    ".L001348F4:\n\t"
-    "jal        func_001347A8\n\t"
-    "nop\n\t"
-    "b          .L00134910\n\t"
-    "daddu     $16, $2, $0\n\t"
-    ".L00134904:\n\t"
-    "jal        func_00134828\n\t"
-    "nop\n\t"
-    "daddu      $16, $2, $0\n\t"
-    ".L00134910:\n\t"
-    "daddu      $2, $16, $0\n\t"
-    ".L00134914:\n\t"
-    "ld         $31, 0x10($29)\n\t"
-    "ld         $16, 0x0($29)\n\t"
-    "jr         $31\n\t"
-    "addiu     $29, $29, 0x20\n\t"
-    "nop\n\t"
-    ".set reorder\n\t"
-    ".end func_001348A8\n"
-);
+/* func_00134568: VBLANK_S interrupt callback */
+int func_00134568(void) {
+    int sem0 = func_00134528();
+    int sem1 = func_00134538();
+    if (sem0 >= 0) {
+        while (func_104D80(sem0) == sem0) {
+            func_104D50(sem1);
+        }
+    }
+#if defined(__mips__)
+    __asm__ volatile("sync\n\tei");
+#endif
+    return 0;
+}
 
-/* func_00134928 */
-__asm__(
-    ".text\n\t"
-    ".globl func_00134928\n\t"
-    ".ent func_00134928\n"
-    "func_00134928:\n\t"
-    ".set noreorder\n\t"
-    "addiu      $29, $29, -0x10\n\t"
-    "sd         $31, 0x0($29)\n\t"
-    "jal        func_00134638\n\t"
-    "nop\n\t"
-    "jal        func_001346A8\n\t"
-    "nop\n\t"
-    "daddu      $4, $0, $0\n\t"
-    "addiu      $3, $28, -0x7770\n\t"
-    ".L00134948:\n\t"
-    "sw         $0, 0x0($3)\n\t"
-    "addiu      $4, $4, 0x1\n\t"
-    "addiu      $3, $3, 0x4\n\t"
-    "sltiu      $2, $4, 0x2\n\t"
-    "nop\n\t"
-    "bnez       $2, .L00134948\n\t"
-    "nop\n\t"
-    "ld         $31, 0x0($29)\n\t"
-    "jr         $31\n\t"
-    "addiu     $29, $29, 0x10\n\t"
-    ".set reorder\n\t"
-    ".end func_00134928\n"
-);
+/* func_001345D0: VBLANK_E interrupt callback */
+int func_001345D0(void) {
+    int sem2 = func_00134548();
+    int sem3 = func_00134558();
+    if (sem2 >= 0) {
+        while (func_104D80(sem2) == sem2) {
+            func_104D50(sem3);
+        }
+    }
+#if defined(__mips__)
+    __asm__ volatile("sync\n\tei");
+#endif
+    return 0;
+}
 
-/* func_00134970 */
-__asm__(
-    ".text\n\t"
-    ".globl func_00134970\n\t"
-    ".ent func_00134970\n"
-    "func_00134970:\n\t"
-    ".set noreorder\n\t"
-    "addiu      $29, $29, -0x30\n\t"
-    "sd         $17, 0x10($29)\n\t"
-    "sd         $16, 0x0($29)\n\t"
-    "daddu      $17, $5, $0\n\t"
-    "daddu      $16, $4, $0\n\t"
-    "bltz       $16, .L001349B8\n\t"
-    "sd        $31, 0x20($29)\n\t"
-    "bltzl      $17, .L001349BC\n\t"
-    "lui       $4, %hi(D_4906B8)\n\t"
-    "jal        func_104D40\n\t"
-    "nop\n\t"
-    "bne        $2, $16, .L001349D4\n\t"
-    "ld        $31, 0x20($29)\n\t"
-    "daddu      $4, $17, $0\n\t"
-    "ld         $17, 0x10($29)\n\t"
-    "ld         $16, 0x0($29)\n\t"
-    "j          func_104D60\n\t"
-    "addiu     $29, $29, 0x30\n\t"
-    ".L001349B8:\n\t"
-    "lui        $4, %hi(D_4906B8)\n\t"
-    ".L001349BC:\n\t"
-    "ld         $31, 0x20($29)\n\t"
-    "ld         $17, 0x10($29)\n\t"
-    "addiu      $4, $4, %lo(D_4906B8)\n\t"
-    "ld         $16, 0x0($29)\n\t"
-    "j          func_118de0\n\t"
-    "addiu     $29, $29, 0x30\n\t"
-    ".L001349D4:\n\t"
-    "ld         $17, 0x10($29)\n\t"
-    "ld         $16, 0x0($29)\n\t"
-    "jr         $31\n\t"
-    "addiu     $29, $29, 0x30\n\t"
-    "nop\n\t"
-    ".set reorder\n\t"
-    ".end func_00134970\n"
-);
+/* func_00134638: Remove V-Sync interrupt handlers */
+void func_00134638(void) {
+    int i;
+    for (i = 0; i < 2; i++) {
+        int handler_id = D_38CED0[i * 2 + 1];
+        int intr = D_38CED0[i * 2];
+        if (handler_id >= 0) {
+            func_00134DE8(intr, handler_id);
+            D_38CED0[i * 2] = -1;
+            D_38CED0[i * 2 + 1] = -1;
+        }
+    }
+}
 
-/* func_001349E8 */
-__asm__(
-    ".text\n\t"
-    ".globl func_001349E8\n\t"
-    ".ent func_001349E8\n"
-    "func_001349E8:\n\t"
-    ".set noreorder\n\t"
-    "addiu      $29, $29, -0x20\n\t"
-    "sd         $16, 0x0($29)\n\t"
-    "sd         $31, 0x10($29)\n\t"
-    "jal        func_00134528\n\t"
-    "nop\n\t"
-    "jal        func_00134538\n\t"
-    "daddu     $16, $2, $0\n\t"
-    "daddu      $4, $16, $0\n\t"
-    "ld         $31, 0x10($29)\n\t"
-    "ld         $16, 0x0($29)\n\t"
-    "daddu      $5, $2, $0\n\t"
-    "j          func_00134970\n\t"
-    "addiu     $29, $29, 0x20\n\t"
-    "nop\n\t"
-    ".set reorder\n\t"
-    ".end func_001349E8\n"
-);
+/* func_001346A8: Delete all SyncV semaphores */
+void func_001346A8(void) {
+    int i;
+    for (i = 0; i < 4; i++) {
+        int sem = D_38CEC0[i];
+        if (sem >= 0) {
+            func_104D30(sem);
+            D_38CEC0[i] = -1;
+        }
+    }
+}
 
-/* func_00134A20 */
-__asm__(
-    ".text\n\t"
-    ".globl func_00134A20\n\t"
-    ".ent func_00134A20\n"
-    "func_00134A20:\n\t"
-    ".set noreorder\n\t"
-    "addiu      $29, $29, -0x20\n\t"
-    "sd         $16, 0x0($29)\n\t"
-    "sd         $31, 0x10($29)\n\t"
-    "jal        func_00134548\n\t"
-    "nop\n\t"
-    "jal        func_00134558\n\t"
-    "daddu     $16, $2, $0\n\t"
-    "daddu      $4, $16, $0\n\t"
-    "ld         $31, 0x10($29)\n\t"
-    "ld         $16, 0x0($29)\n\t"
-    "daddu      $5, $2, $0\n\t"
-    "j          func_00134970\n\t"
-    "addiu     $29, $29, 0x20\n\t"
-    "nop\n\t"
-    ".set reorder\n\t"
-    ".end func_00134A20\n"
-);
+/* func_00134710: Initialize range of SyncV semaphores */
+int func_00134710(int start_idx, int end_idx) {
+    int i;
+    int id = -1;
+    for (i = start_idx; i < end_idx; i++) {
+        id = func_00134210(0, 0, 0);
+        if (id >= 0) {
+            D_38CEC0[i] = id;
+        } else {
+            break;
+        }
+    }
+    if (id < 0) {
+        func_001346A8();
+    }
+    return id;
+}
 
-/* func_00134A58 */
-__asm__(
-    ".text\n\t"
-    ".globl func_00134A58\n\t"
-    ".ent func_00134A58\n"
-    "func_00134A58:\n\t"
-    ".set noreorder\n\t"
-    "addiu      $29, $29, -0x40\n\t"
-    "sd         $31, 0x30($29)\n\t"
-    "jal        func_104C20\n\t"
-    "daddu     $5, $29, $0\n\t"
-    "lw         $2, 0x0($29)\n\t"
-    "ld         $31, 0x30($29)\n\t"
-    "jr         $31\n\t"
-    "addiu     $29, $29, 0x40\n\t"
-    ".set reorder\n\t"
-    ".end func_00134A58\n"
-);
+/* func_001347A8: Register VBLANK_S INTC handler */
+int func_001347A8(void) {
+    int res = 0;
+    if (s_vblank_s_initialized == 0) {
+        s_vblank_s_initialized = 1;
+        res = func_00134710(0, 2);
+        if (res >= 0) {
+            res = func_104A00(2, func_00134568, -1);
+            D_38CED0[0] = 2;
+            D_38CED0[1] = res;
+            func_1057B0(2);
+        }
+    }
+    return res;
+}
 
-/* func_00134A78 */
-__asm__(
-    ".text\n\t"
-    ".globl func_00134A78\n\t"
-    ".ent func_00134A78\n"
-    "func_00134A78:\n\t"
-    ".set noreorder\n\t"
-    "addiu      $29, $29, -0x60\n\t"
-    "sd         $16, 0x40($29)\n\t"
-    "addiu      $5, $29, 0x10\n\t"
-    "sd         $31, 0x50($29)\n\t"
-    "jal        func_104C20\n\t"
-    "daddu     $16, $4, $0\n\t"
-    "jal        func_00134AF0\n\t"
-    "lw        $4, 0x10($29)\n\t"
-    "lui        $3, %hi(D_4906D0)\n\t"
-    "daddu      $6, $2, $0\n\t"
-    "bnez       $6, .L00134AB0\n\t"
-    "addiu     $4, $3, %lo(D_4906D0)\n\t"
-    "lui        $2, %hi(D_4E2D70)\n\t"
-    "addiu      $6, $2, %lo(D_4E2D70)\n\t"
-    ".L00134AB0:\n\t"
-    "lw         $3, 0x28($29)\n\t"
-    "daddu      $5, $16, $0\n\t"
-    "lw         $2, 0x2C($29)\n\t"
-    "lw         $7, 0x14($29)\n\t"
-    "lw         $8, 0x18($29)\n\t"
-    "lw         $9, 0x1C($29)\n\t"
-    "lw         $10, 0x20($29)\n\t"
-    "lw         $11, 0x24($29)\n\t"
-    "sw         $3, 0x0($29)\n\t"
-    "jal        func_118de0\n\t"
-    "sw        $2, 0x8($29)\n\t"
-    "ld         $31, 0x50($29)\n\t"
-    "ld         $16, 0x40($29)\n\t"
-    "jr         $31\n\t"
-    "addiu     $29, $29, 0x60\n\t"
-    "nop\n\t"
-    ".set reorder\n\t"
-    ".end func_00134A78\n"
-);
+/* func_00134828: Register VBLANK_E INTC handler */
+int func_00134828(void) {
+    int res = 0;
+    if (s_vblank_e_initialized == 0) {
+        s_vblank_e_initialized = 1;
+        res = func_00134710(2, 4);
+        if (res >= 0) {
+            res = func_104A00(3, func_001345D0, -1);
+            D_38CED0[2] = 3;
+            D_38CED0[3] = res;
+            func_1057B0(3);
+        }
+    }
+    return res;
+}
 
-/* func_00134AF0 */
-__asm__(
-    ".text\n\t"
-    ".globl func_00134AF0\n\t"
-    ".ent func_00134AF0\n"
-    "func_00134AF0:\n\t"
-    ".set noreorder\n\t"
-    "addiu      $29, $29, -0x30\n\t"
-    "lui        $2, %hi(D_490740)\n\t"
-    "addiu      $7, $2, %lo(D_490740)\n\t"
-    "ldl        $3, 0x7($7)\n\t"
-    "ldr        $3, 0x0($7)\n\t"
-    "ldl        $5, 0xF($7)\n\t"
-    "ldr        $5, 0x8($7)\n\t"
-    "ldl        $6, 0x17($7)\n\t"
-    "ldr        $6, 0x10($7)\n\t"
-    "sdl        $3, 0x7($29)\n\t"
-    "sdr        $3, 0x0($29)\n\t"
-    "sdl        $5, 0xF($29)\n\t"
-    "sdr        $5, 0x8($29)\n\t"
-    "sdl        $6, 0x17($29)\n\t"
-    "sdr        $6, 0x10($29)\n\t"
-    "ldl        $3, 0x1F($7)\n\t"
-    "ldr        $3, 0x18($7)\n\t"
-    "ldl        $5, 0x27($7)\n\t"
-    "ldr        $5, 0x20($7)\n\t"
-    "ldl        $6, 0x2F($7)\n\t"
-    "ldr        $6, 0x28($7)\n\t"
-    "sdl        $3, 0x1F($29)\n\t"
-    "sdr        $3, 0x18($29)\n\t"
-    "sdl        $5, 0x27($29)\n\t"
-    "sdr        $5, 0x20($29)\n\t"
-    "sdl        $6, 0x2F($29)\n\t"
-    "sdr        $6, 0x28($29)\n\t"
-    "daddu      $7, $0, $0\n\t"
-    "lw         $2, 0x0($29)\n\t"
-    "bne        $4, $2, .L00134B78\n\t"
-    "daddu     $6, $0, $0\n\t"
-    "b          .L00134BA4\n\t"
-    "lw        $7, 0x4($29)\n\t"
-    "nop\n\t"
-    ".L00134B78:\n\t"
-    "addiu      $6, $6, 0x1\n\t"
-    ".L00134B7C:\n\t"
-    "sltiu      $2, $6, 0x6\n\t"
-    "beqz       $2, .L00134BA4\n\t"
-    "sll       $5, $6, 3\n\t"
-    "addu       $2, $29, $5\n\t"
-    "lw         $3, 0x0($2)\n\t"
-    "bnel       $4, $3, .L00134B7C\n\t"
-    "addiu     $6, $6, 0x1\n\t"
-    "addiu      $2, $29, 0x4\n\t"
-    "addu       $2, $2, $5\n\t"
-    "lw         $7, 0x0($2)\n\t"
-    ".L00134BA4:\n\t"
-    "daddu      $2, $7, $0\n\t"
-    "jr         $31\n\t"
-    "addiu     $29, $29, 0x30\n\t"
-    ".set reorder\n\t"
-    ".end func_00134AF0\n"
-);
+/* func_001348A8: Initialize V-Sync subsystem */
+int func_001348A8(int mode) {
+    int res;
+    if (mode == 1) {
+        res = func_001347A8();
+    } else if (mode == 2) {
+        res = func_00134828();
+    } else {
+        res = func_001347A8();
+        if (res >= 0) {
+            res = func_00134828();
+        }
+    }
+    return res;
+}
 
-/* func_00134BB0 */
-__asm__(
-    ".text\n\t"
-    ".globl func_00134BB0\n\t"
-    ".ent func_00134BB0\n"
-    "func_00134BB0:\n\t"
-    ".set noreorder\n\t"
-    "addiu      $29, $29, -0x90\n\t"
-    "sd         $17, 0x70($29)\n\t"
-    "sd         $16, 0x60($29)\n\t"
-    "lui        $17, %hi(D_490770)\n\t"
-    "sd         $31, 0x80($29)\n\t"
-    "addiu      $16, $0, 0x1\n\t"
-    "daddu      $4, $16, $0\n\t"
-    "nop\n\t"
-    ".L00134BD0:\n\t"
-    "jal        func_104C20\n\t"
-    "addiu     $5, $29, 0x30\n\t"
-    "jal        func_00134AF0\n\t"
-    "daddu     $4, $2, $0\n\t"
-    "daddu      $5, $16, $0\n\t"
-    "addiu      $4, $17, %lo(D_490770)\n\t"
-    "addiu      $16, $16, 0x1\n\t"
-    "beqz       $2, .L00134C3C\n\t"
-    "daddu     $6, $2, $0\n\t"
-    "lw         $2, 0x48($29)\n\t"
-    "lw         $3, 0x4C($29)\n\t"
-    "lw         $12, 0x50($29)\n\t"
-    "lw         $13, 0x54($29)\n\t"
-    "lw         $14, 0x58($29)\n\t"
-    "lw         $15, 0x5C($29)\n\t"
-    "lw         $7, 0x34($29)\n\t"
-    "lw         $8, 0x38($29)\n\t"
-    "lw         $9, 0x3C($29)\n\t"
-    "lw         $10, 0x40($29)\n\t"
-    "lw         $11, 0x44($29)\n\t"
-    "sw         $2, 0x0($29)\n\t"
-    "sw         $3, 0x8($29)\n\t"
-    "sw         $12, 0x10($29)\n\t"
-    "sw         $13, 0x18($29)\n\t"
-    "sw         $14, 0x20($29)\n\t"
-    "jal        func_118de0\n\t"
-    "sw        $15, 0x28($29)\n\t"
-    ".L00134C3C:\n\t"
-    "slti       $2, $16, 0x41\n\t"
-    "bnez       $2, .L00134BD0\n\t"
-    "daddu     $4, $16, $0\n\t"
-    "ld         $31, 0x80($29)\n\t"
-    "ld         $17, 0x70($29)\n\t"
-    "ld         $16, 0x60($29)\n\t"
-    "jr         $31\n\t"
-    "addiu     $29, $29, 0x90\n\t"
-    "nop\n\t"
-    ".set reorder\n\t"
-    ".end func_00134BB0\n"
-);
+/* func_00134928: Shutdown V-Sync subsystem */
+void func_00134928(void) {
+    func_00134638();
+    func_001346A8();
+    s_vblank_s_initialized = 0;
+    s_vblank_e_initialized = 0;
+}
 
-/* func_00134C60 */
-__asm__(
-    ".text\n\t"
-    ".globl func_00134C60\n\t"
-    ".ent func_00134C60\n"
-    "func_00134C60:\n\t"
-    ".set noreorder\n\t"
-    "addiu      $29, $29, -0x40\n\t"
-    "sd         $16, 0x20($29)\n\t"
-    "daddu      $5, $29, $0\n\t"
-    "sd         $31, 0x30($29)\n\t"
-    "jal        func_104DA0\n\t"
-    "daddu     $16, $4, $0\n\t"
-    "bne        $16, $2, .L00134CA8\n\t"
-    "ld        $31, 0x30($29)\n\t"
-    "lui        $4, %hi(D_4907E8)\n\t"
-    "lw         $6, 0x0($29)\n\t"
-    "lw         $7, 0x8($29)\n\t"
-    "addiu      $4, $4, %lo(D_4907E8)\n\t"
-    "lw         $8, 0x4($29)\n\t"
-    "daddu      $5, $16, $0\n\t"
-    "lw         $9, 0xC($29)\n\t"
-    "jal        func_106E20\n\t"
-    "lw        $10, 0x14($29)\n\t"
-    "ld         $31, 0x30($29)\n\t"
-    ".L00134CA8:\n\t"
-    "ld         $16, 0x20($29)\n\t"
-    "jr         $31\n\t"
-    "addiu     $29, $29, 0x40\n\t"
-    "nop\n\t"
-    ".set reorder\n\t"
-    ".end func_00134C60\n"
-);
+/* func_00134970: Wait for V-Sync signal/wait pair */
+int func_00134970(int sem0, int sem1) {
+    if (sem0 < 0 || sem1 < 0) {
+        func_118de0(D_4906B8);
+        return 0;
+    }
+    if (func_104D40(sem0) == sem0) {
+        return func_104D60(sem1);
+    }
+    return 0;
+}
 
-/* func_00134CB8 */
-__asm__(
-    ".text\n\t"
-    ".globl func_00134CB8\n\t"
-    ".ent func_00134CB8\n"
-    "func_00134CB8:\n\t"
-    ".set noreorder\n\t"
-    "addiu      $29, $29, -0x20\n\t"
-    "sd         $16, 0x0($29)\n\t"
-    "sd         $31, 0x10($29)\n\t"
-    "addiu      $16, $0, 0x1\n\t"
-    ".L00134CC8:\n\t"
-    "jal        func_00134C60\n\t"
-    "daddu     $4, $16, $0\n\t"
-    "addiu      $16, $16, 0x1\n\t"
-    "slti       $2, $16, 0x81\n\t"
-    "bnez       $2, .L00134CC8\n\t"
-    "ld        $31, 0x10($29)\n\t"
-    "ld         $16, 0x0($29)\n\t"
-    "jr         $31\n\t"
-    "addiu     $29, $29, 0x20\n\t"
-    "nop\n\t"
-    ".set reorder\n\t"
-    ".end func_00134CB8\n"
-);
+/* func_001349E8: Wait for VBLANK_S */
+int func_001349E8(void) {
+    return func_00134970(func_00134528(), func_00134538());
+}
 
-/* func_00134CF0 */
-__asm__(
-    ".text\n\t"
-    ".globl func_00134CF0\n\t"
-    ".ent func_00134CF0\n"
-    "func_00134CF0:\n\t"
-    ".set noreorder\n\t"
-    "addiu      $29, $29, -0x40\n\t"
-    "sd         $16, 0x20($29)\n\t"
-    "daddu      $5, $29, $0\n\t"
-    "sd         $31, 0x30($29)\n\t"
-    "jal        func_104D90\n\t"
-    "daddu     $16, $4, $0\n\t"
-    "bne        $16, $2, .L00134D38\n\t"
-    "ld        $31, 0x30($29)\n\t"
-    "lui        $4, %hi(D_4907E8)\n\t"
-    "lw         $6, 0x0($29)\n\t"
-    "lw         $7, 0x8($29)\n\t"
-    "addiu      $4, $4, %lo(D_4907E8)\n\t"
-    "lw         $8, 0x4($29)\n\t"
-    "daddu      $5, $16, $0\n\t"
-    "lw         $9, 0xC($29)\n\t"
-    "jal        func_118de0\n\t"
-    "lw        $10, 0x14($29)\n\t"
-    "ld         $31, 0x30($29)\n\t"
-    ".L00134D38:\n\t"
-    "ld         $16, 0x20($29)\n\t"
-    "jr         $31\n\t"
-    "addiu     $29, $29, 0x40\n\t"
-    "nop\n\t"
-    ".set reorder\n\t"
-    ".end func_00134CF0\n"
-);
+/* func_00134A20: Wait for VBLANK_E */
+int func_00134A20(void) {
+    return func_00134970(func_00134548(), func_00134558());
+}
 
-/* func_00134D48 */
-__asm__(
-    ".text\n\t"
-    ".globl func_00134D48\n\t"
-    ".ent func_00134D48\n"
-    "func_00134D48:\n\t"
-    ".set noreorder\n\t"
-    "addiu      $29, $29, -0x20\n\t"
-    "sd         $16, 0x0($29)\n\t"
-    "sd         $31, 0x10($29)\n\t"
-    "addiu      $16, $0, 0x1\n\t"
-    ".L00134D58:\n\t"
-    "jal        func_00134CF0\n\t"
-    "daddu     $4, $16, $0\n\t"
-    "addiu      $16, $16, 0x1\n\t"
-    "slti       $2, $16, 0x81\n\t"
-    "bnez       $2, .L00134D58\n\t"
-    "ld        $31, 0x10($29)\n\t"
-    "ld         $16, 0x0($29)\n\t"
-    "jr         $31\n\t"
-    "addiu     $29, $29, 0x20\n\t"
-    "nop\n\t"
-    ".set reorder\n\t"
-    ".end func_00134D48\n"
-);
+/* func_00134A58: Get thread status */
+int func_00134A58(int thid) {
+    KtThreadParam param;
+    func_104C20(thid, &param);
+    return param.status;
+}
 
-/* func_00134D80 */
-__asm__(
-    ".text\n\t"
-    ".globl func_00134D80\n\t"
-    ".ent func_00134D80\n"
-    "func_00134D80:\n\t"
-    ".set noreorder\n\t"
-    "addiu      $29, $29, -0x40\n\t"
-    "sd         $17, 0x10($29)\n\t"
-    "sd         $16, 0x0($29)\n\t"
-    "daddu      $17, $4, $0\n\t"
-    "sd         $18, 0x20($29)\n\t"
-    "sd         $31, 0x30($29)\n\t"
-    "jal        func_105818\n\t"
-    "daddu     $16, $5, $0\n\t"
-    "daddu      $5, $16, $0\n\t"
-    "daddu      $18, $2, $0\n\t"
-    "jal        func_104A50\n\t"
-    "daddu     $4, $17, $0\n\t"
-    "daddu      $16, $2, $0\n\t"
-    "beqz       $16, .L00134DD0\n\t"
-    "daddu     $2, $16, $0\n\t"
-    "beqz       $18, .L00134DD4\n\t"
-    "ld        $31, 0x30($29)\n\t"
-    "jal        func_105880\n\t"
-    "daddu     $4, $17, $0\n\t"
-    "daddu      $2, $16, $0\n\t"
-    ".L00134DD0:\n\t"
-    "ld         $31, 0x30($29)\n\t"
-    ".L00134DD4:\n\t"
-    "ld         $18, 0x20($29)\n\t"
-    "ld         $17, 0x10($29)\n\t"
-    "ld         $16, 0x0($29)\n\t"
-    "jr         $31\n\t"
-    "addiu     $29, $29, 0x40\n\t"
-    ".set reorder\n\t"
-    ".end func_00134D80\n"
-);
+/* func_00134A78: Dump thread details */
+void func_00134A78(int thid) {
+    KtThreadParam param;
+    const char *status_str;
+
+    func_104C20(thid, &param);
+    status_str = func_00134AF0(param.status);
+    if (status_str == 0) {
+        status_str = D_4E2D70;
+    }
+    func_118de0(D_4906D0, thid, status_str,
+                param.entry, param.stack, param.stack_size,
+                param.gp_reg, param.init_priority,
+                param.current_priority, param.attr);
+}
+
+/* func_00134AF0: Convert thread status ID to string */
+const char *func_00134AF0(int status) {
+    KtThreadStatusEntry table[6];
+    int i;
+
+    /* Copy static entry table into local stack as original did */
+    const KtThreadStatusEntry *src = D_490740;
+    for (i = 0; i < 6; i++) {
+        table[i] = src[i];
+    }
+
+    if (status == table[0].status_id) {
+        return table[0].status_str;
+    }
+    for (i = 1; i < 6; i++) {
+        if (status == table[i].status_id) {
+            return table[i].status_str;
+        }
+    }
+    return 0;
+}
+
+/* func_00134BB0: Dump all active threads */
+void func_00134BB0(void) {
+    int thid;
+    for (thid = 1; thid < 0x41; thid++) {
+        KtThreadParam param;
+        const char *status_str;
+        func_104C20(thid, &param);
+        status_str = func_00134AF0(param.status);
+        if (status_str != 0) {
+            func_118de0(D_490770, thid, status_str,
+                        param.entry, param.stack, param.stack_size,
+                        param.gp_reg, param.init_priority,
+                        param.current_priority, param.attr,
+                        param.option, param.wait_type,
+                        param.wait_id, param.wakeup_count);
+        }
+    }
+}
+
+/* func_00134C60: Dump semaphore status (interrupt context) */
+void func_00134C60(int sem_id) {
+    KtSemaParam param;
+    if (func_104DA0(sem_id, &param) == sem_id) {
+        func_106E20(D_4907E8, sem_id, param.current_count,
+                    param.init_count, param.max_count,
+                    param.wait_threads, param.option);
+    }
+}
+
+/* func_00134CB8: Dump all semaphores (interrupt context) */
+void func_00134CB8(void) {
+    int i;
+    for (i = 1; i < 0x81; i++) {
+        func_00134C60(i);
+    }
+}
+
+/* func_00134CF0: Dump semaphore status (thread context) */
+void func_00134CF0(int sem_id) {
+    KtSemaParam param;
+    if (func_104D90(sem_id, &param) == sem_id) {
+        func_118de0(D_4907E8, sem_id, param.current_count,
+                    param.init_count, param.max_count,
+                    param.wait_threads, param.option);
+    }
+}
+
+/* func_00134D48: Dump all semaphores (thread context) */
+void func_00134D48(void) {
+    int i;
+    for (i = 1; i < 0x81; i++) {
+        func_00134CF0(i);
+    }
+}
+
+/* func_00134D80: Enable INTC cause with interrupt lock */
+int func_00134D80(int intc_cause, int flag) {
+    int lock = func_105818(flag);
+    int res = func_104A50(intc_cause);
+    if (res != 0 && lock != 0) {
+        func_105880(intc_cause);
+    }
+    return res;
+}

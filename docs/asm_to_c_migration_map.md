@@ -48,7 +48,7 @@ pie title Distribuição de Funções em Assembly (Total: 1.906 funções)
 | **`src/hist_overlay.c`** | Overlay (História) | 92.649 | 13 | 5.440 B | 100% Matched |
 | **`src/multim_overlay.c`** | Overlay (Slideshow) | 42.221 | 19 | 7.872 B | 100% Matched |
 | **`src/kt_hd.c`** | KCET Hardware (PS2 HDD) | 1.020 | 27 | 2.600 B | 100% Matched |
-| **`src/kt_kernel.c`** | KCET Hardware (Kernel/OS) | 1.334 | 39 | 4.384 B | 100% Matched |
+| **`src/kt_kernel.c`** | KCET Hardware (Kernel/OS) | 496 | 39 | 3.172 B | Decompilado (C Puro + Testes Nativos) |
 | **`src/kt_file.c`** | KCET Hardware (I/O VFS) | 1.677 | 50 | 5.760 B | 100% Matched |
 | **`src/dcomp_overlay.c`** | Overlay (Gerador RMS) | 23.589 | 71 | 40.128 B | 100% Matched |
 | **`src/kt_libpad.c`** | KCET Hardware (DualShock) | 4.486 | 100 | 12.144 B | 100% Matched |

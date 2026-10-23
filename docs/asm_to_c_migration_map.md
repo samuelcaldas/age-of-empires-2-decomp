@@ -51,7 +51,7 @@ pie title Distribuição de Funções em Assembly (Total: 1.906 funções)
 | **`src/kt_hd.c`** | KCET Hardware (PS2 HDD) | 441 | 27 | 2.600 B | Decompilado (C Puro + Testes Nativos) |
 | **`src/kt_kernel.c`** | KCET Hardware (Kernel/OS) | 496 | 39 | 3.172 B | Decompilado (C Puro + Testes Nativos) |
 | **`src/kt_file.c`** | KCET Hardware (I/O VFS) | 1.677 | 50 | 5.760 B | 100% Matched |
-| **`src/dcomp_overlay.c`** | Overlay (Gerador RMS) | 294 | 71 | 40.128 B | **INCOMPLETO** (Stubbing em 69/71 fns; requer descompilação real) |
+| **`src/dcomp_overlay.c`** | Overlay (Gerador RMS) | 10.169 | 71 | 40.128 B | Decompilado (C Puro + Testes Nativos) |
 | **`src/kt_libpad.c`** | KCET Hardware (DualShock) | 4.486 | 100 | 12.144 B | 100% Matched |
 | **`src/thelp_overlay.c`** | Overlay (Tech Tree) | 38.213 | 119 | 70.848 B | 100% Matched |
 | **`src/smenu_overlay.c`** | Overlay (Setup/Menus) | 49.515 | 144 | 90.560 B | 100% Matched |
@@ -88,11 +88,12 @@ Estes arquivos contêm o código carregado dinamicamente do CD pelo CodeWarrior 
 * **Descrição**: Controlador de apresentação de slides de campanhas e sincronização de dublagens.
 * **Complexidade**: Média. Controle de temporizadores e paginação de imagens.
 
-### 5. `src/dcomp_overlay.c` (71 funções / 294 linhas atuais) — *INCOMPLETO (Stubbing Detectado)*
+### 5. `src/dcomp_overlay.c` (71 funções / 10.169 linhas) — *Decompilado (C Puro + Testes Nativos)*
 * **VRAM**: `0x01D98000`
-* **Descrição**: Motor de interpretação de scripts RMS (*Random Map Script* — lê `arabia.rms`, `black_forest.rms`) e gerador procedural de relevo, florestas e recursos.
-* **Complexidade**: Alta. Algoritmos matemáticos de colocação de terreno e geração de sementes randômicas.
-* **Status Crítico**: 69 das 71 funções sofreram **stubbing** (corpos vazios `{}` criados para forçar remoção de ASM). Apenas a tabela `.rodata` foi migrada. As funções lógicas de relevo/mapa continuam pendentes de descompilação C/C++ real. O ASM original não deve ser descartado até que o código C real seja devidamente descompilado e validado.
+* **Descrição**: Motor de interpretação de scripts RMS (*Random Map Script* — lê `arabia.rms`, `black_forest.rms`) e gerador procedural de relevo, florestas e recursos. Todas as 71 funções encontram-se descompiladas em C estruturado puro com tratamento de delay slots MIPS/MMI e a tabela `.rodata` (3.904 bytes) preservada em `include/dcomp_data.inc`.
+* **Header**: `include/dcomp_overlay.h`
+* **Testes**: `tests/test_dcomp_native.py` (execução comportamental nativa) e `tests/test_dcomp_matching.py` (compilação com `ee-gcc 2.9-991111 -O2 -G0`, validação de símbolos e exatidão bit-a-bit de `.rodata`).
+* **Prioridade**: Concluído.
 
 ### 6. `src/thelp_overlay.c` (119 funções / 38.213 linhas)
 * **VRAM**: `0x01F68000`

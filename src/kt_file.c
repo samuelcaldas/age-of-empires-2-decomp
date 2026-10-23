@@ -1,136 +1,6 @@
 #include "common.h"
 
-void func_0012CCE8();
-void *func_0012CDE0(char *table);
-void func_0012CEA0();
-void func_0012CF00();
-void func_0012CF58();
-void func_0012CFC8();
-void func_0012D038();
-void func_0012D060();
-void func_0012D0D0();
-void func_0012D0D8();
-void func_0012D0E0();
-void func_0012D128();
-void func_0012D1F0();
-void func_0012D218();
-void func_0012D220();
-void func_0012D228();
-void func_0012D2D8();
-void func_0012D2E0();
-void func_0012D308();
-void func_0012D310();
-void func_0012D400();
-void func_0012D470();
-void func_0012D4A0();
-void func_0012D4C8();
-void func_0012D4D0();
-void func_0012D540();
-void func_0012D5F0();
-void func_0012D648();
-void func_0012D7E0();
-void func_0012D840();
-void func_0012D888();
-void func_0012D8D8();
-void func_0012D988();
-void func_0012D990();
-void func_0012DA00();
-void func_0012DA38();
-void func_0012DA88();
-void func_0012DAC8();
-void func_0012DB08();
-void func_0012DB48();
-void func_0012DB80();
-void func_0012DBA0();
-void func_0012DBC0();
-void func_0012DBE0();
-void func_0012DC00();
-void func_0012DC20();
-void func_0012DC60();
-void func_0012DC80();
-void func_0012DCA0();
-void func_0012DCC0();
-
-/* func_0012CCE8 */
-__asm__(
-    ".text\n\t"
-    ".globl func_0012CCE8\n\t"
-    ".ent func_0012CCE8\n"
-    "func_0012CCE8:\n\t"
-    ".set noreorder\n\t"
-    "addiu      $29, $29, -0x90\n\t"
-    "sd         $21, 0x50($29)\n\t"
-    "sd         $18, 0x20($29)\n\t"
-    "lui        $21, (0x4F1508 >> 16)\n\t"
-    "sd         $22, 0x60($29)\n\t"
-    "lui        $18, (0x7FFFFFFF >> 16)\n\t"
-    "sd         $20, 0x40($29)\n\t"
-    "ori        $18, $18, (0x7FFFFFFF & 0xFFFF)\n\t"
-    "sd         $19, 0x30($29)\n\t"
-    "daddu      $20, $0, $0\n\t"
-    "sd         $31, 0x80($29)\n\t"
-    "daddu      $19, $4, $0\n\t"
-    "sd         $23, 0x70($29)\n\t"
-    "sd         $17, 0x10($29)\n\t"
-    "sd         $16, 0x0($29)\n\t"
-    "beqz       $19, .L0012CD84\n\t"
-    "lw        $22, (0x4F1508 & 0xFFFF)($21)\n\t"
-    "lhu        $2, 0x0($19)\n\t"
-    "beqz       $2, .L0012CD54\n\t"
-    "lui       $23, %hi(D_48FE38)\n\t"
-    ".L0012CD38:\n\t"
-    "addiu      $20, $20, 0x1\n\t"
-    "sll        $2, $20, 3\n\t"
-    "addu       $2, $2, $19\n\t"
-    "lhu        $3, 0x0($2)\n\t"
-    "nop\n\t"
-    "bnez       $3, .L0012CD38\n\t"
-    "nop\n\t"
-    ".L0012CD54:\n\t"
-    "blez       $20, .L0012CD88\n\t"
-    "daddu     $17, $19, $0\n\t"
-    "daddu      $16, $20, $0\n\t"
-    ".L0012CD60:\n\t"
-    "daddu      $4, $17, $0\n\t"
-    "jal        func_0012CB60\n\t"
-    "addiu     $16, $16, -0x1\n\t"
-    "addiu      $17, $17, 0x8\n\t"
-    "slt        $3, $2, $18\n\t"
-    "bnez       $16, .L0012CD60\n\t"
-    "movn      $18, $2, $3\n\t"
-    "b          .L0012CD8C\n\t"
-    "addiu     $2, $21, %lo(D_4F1508)\n\t"
-    ".L0012CD84:\n\t"
-    "lui        $23, %hi(D_48FE38)\n\t"
-    ".L0012CD88:\n\t"
-    "addiu      $2, $21, %lo(D_4F1508)\n\t"
-    ".L0012CD8C:\n\t"
-    "sw         $19, (0x4F1508 & 0xFFFF)($21)\n\t"
-    "sw         $18, 0x8($2)\n\t"
-    "addiu      $4, $23, %lo(D_48FE38)\n\t"
-    "daddu      $5, $19, $0\n\t"
-    "daddu      $6, $20, $0\n\t"
-    "daddu      $7, $18, $0\n\t"
-    "jal        func_118de0\n\t"
-    "sw        $20, 0x4($2)\n\t"
-    "daddu      $2, $22, $0\n\t"
-    "ld         $31, 0x80($29)\n\t"
-    "ld         $23, 0x70($29)\n\t"
-    "ld         $22, 0x60($29)\n\t"
-    "ld         $21, 0x50($29)\n\t"
-    "ld         $20, 0x40($29)\n\t"
-    "ld         $19, 0x30($29)\n\t"
-    "ld         $18, 0x20($29)\n\t"
-    "ld         $17, 0x10($29)\n\t"
-    "ld         $16, 0x0($29)\n\t"
-    "jr         $31\n\t"
-    "addiu     $29, $29, 0x90\n\t"
-    "nop\n\t"
-    ".set reorder\n\t"
-    ".end func_0012CCE8\n"
-);
-
-/* func_0012CDE0 */
+/* Global State and Data Structures */
 typedef struct {
     void *f0;
     int f4;
@@ -140,12 +10,157 @@ typedef struct {
 } CdServerState_0012CDE0;
 
 extern CdServerState_0012CDE0 D_4F1508;
-extern const char D_48FE70[];
+extern char D_4F1540[];
+extern char D_4F1640[];
+extern char D_4F1680[];
+extern char D_4F16C0[];
 
+extern const char D_48FE38[];
+extern const char D_48FE70[];
+extern const char D_48FEA0[];
+extern const char D_48FEB0[];
+extern const char D_48FEC8[];
+extern const char D_48FED8[];
+extern const char D_48FF08[];
+extern const char D_48FF28[];
+extern const char D_48FF40[];
+
+extern void *D_38C7F8[];
+extern void *D_38C808[];
+extern void *D_38C818[];
+extern void *D_38C828[];
+extern void *D_38C838[];
+extern void *D_38C880[];
+
+/* Forward declarations */
+int func_0012CAC0(void *);
+int func_0012CAD0(void *);
+int func_0012CAE0(void);
+int func_0012CAF0(void);
+int func_0012CB00(void *);
+int func_0012CB08(void *);
+int func_0012CB10(int);
+int func_0012CB20(void *);
+int func_0012CB38(void);
+int func_0012CB60(void *);
+int func_0012CB90(void *);
 int func_0012CBF8(void *);
 int func_0012CC20(void *);
+int func_0012CC48(void *);
+void func_114320(const char *, int, const char *);
 int func_118de0(const char *, ...);
+int func_104FA0(void *);
+int func_1075C8(int);
+int func_107C38(void *);
+int func_107E08(int, int, int, int, int, int, int, int);
+int func_10E170(void);
+int func_10E518(void);
+int func_10EA20(int);
+int func_10ECA0(void *);
+int func_10EF80(int);
+int func_10F178(void *);
+int func_10F240(void);
+int func_10F308(void);
+int func_10F368(int, int, int, int);
+int func_10F548(void);
+int func_10F7D8(void);
+int func_10F8A8(void);
+int func_10F958(void);
+int func_10FA08(void);
+int func_10FAB8(void);
+int func_10FB50(void);
+int func_10FBE8(void);
+int func_10FCA0(void);
+int func_10FD58(void);
+char *strcpy(char *, const char *);
+int strcmp(const char *, const char *);
 
+/* Function prototypes */
+void *func_0012CCE8(char *table);
+void *func_0012CDE0(char *table);
+int func_0012CEA0(void *arg);
+void *func_0012CF00(int kind);
+int func_0012CF58(void *arg);
+int func_0012CFC8(void *arg);
+int func_0012D038(void *arg);
+int func_0012D060(void *arg);
+int func_0012D0D0(int arg);
+int func_0012D0D8(void);
+int func_0012D0E0(void *arg);
+int func_0012D128(int a0, void *table, int count);
+int func_0012D1F0(void *arg);
+int func_0012D218(int arg);
+int func_0012D220(void);
+int func_0012D228(void *arg);
+int func_0012D2D8(int arg);
+int func_0012D2E0(void *arg);
+int func_0012D308(void);
+int func_0012D310(void *arg);
+int func_0012D400(void *arg);
+int func_0012D470(void *arg);
+int func_0012D4A0(void *arg);
+int func_0012D4C8(void);
+int func_0012D4D0(void *arg);
+int func_0012D540(void *arg);
+int func_0012D5F0(void *a0, void *a1);
+int func_0012D648(void);
+int func_0012D7E0(const char *name);
+int func_0012D840(int arg);
+int func_0012D888(void);
+int func_0012D8D8(int a0, int a1, int a2, int a3);
+int func_0012D988(void);
+int func_0012D990(void);
+int func_0012DA00(void);
+int func_0012DA38(void);
+int func_0012DA88(void);
+int func_0012DAC8(void);
+int func_0012DB08(void);
+int func_0012DB48(void);
+int func_0012DB80(void);
+int func_0012DBA0(void);
+int func_0012DBC0(void);
+int func_0012DBE0(void);
+int func_0012DC00(void);
+int func_0012DC20(void);
+int func_0012DC60(void);
+int func_0012DC80(void);
+int func_0012DCA0(void);
+int func_0012DCC0(void);
+
+/* func_0012CCE8 */
+void *func_0012CCE8(char *table) {
+    void *old_table;
+    int count = 0;
+    int min_val = 0x7FFFFFFF;
+    char *p;
+    int i;
+
+    if (table != 0) {
+        old_table = *(void **)&D_4F1508;
+        if (*(short *)table != 0) {
+            do {
+                count++;
+            } while (*(short *)(table + (count << 3)) != 0);
+        }
+        if (count > 0) {
+            p = table;
+            for (i = count; i != 0; i--) {
+                int val = func_0012CB60(p);
+                if (val < min_val) {
+                    min_val = val;
+                }
+                p += 8;
+            }
+        }
+    }
+    *(char **)&D_4F1508 = table;
+    *(int *)((char *)&D_4F1508 + 8) = min_val;
+    func_118de0(D_48FE38, table, count, min_val);
+    *(int *)((char *)&D_4F1508 + 4) = count;
+    return old_table;
+}
+
+/* func_0012CDE0 */
 void *func_0012CDE0(char *table) {
     void *old_table;
     int count = 0;
@@ -165,1484 +180,364 @@ void *func_0012CDE0(char *table) {
 }
 
 /* func_0012CEA0 */
-__asm__(
-    ".text\n\t"
-    ".globl func_0012CEA0\n\t"
-    ".ent func_0012CEA0\n"
-    "func_0012CEA0:\n\t"
-    ".set noreorder\n\t"
-    "addiu      $29, $29, -0x20\n\t"
-    "sd         $16, 0x0($29)\n\t"
-    "daddu      $16, $4, $0\n\t"
-    "bnez       $16, .L0012CEBC\n\t"
-    "sd        $31, 0x10($29)\n\t"
-    "b          .L0012CEF0\n\t"
-    "addiu     $2, $0, 0x3\n\t"
-    ".L0012CEBC:\n\t"
-    "jal        func_0012CB00\n\t"
-    "daddu     $4, $16, $0\n\t"
-    "bnez       $2, .L0012CEF0\n\t"
-    "daddu     $2, $0, $0\n\t"
-    "jal        func_0012CB00\n\t"
-    "lhu       $4, 0x0($16)\n\t"
-    "bnez       $2, .L0012CEF0\n\t"
-    "addiu     $2, $0, 0x2\n\t"
-    "lhu        $3, 0x0($16)\n\t"
-    "addiu      $2, $0, 0x40\n\t"
-    "bne        $3, $2, .L0012CEF0\n\t"
-    "addiu     $2, $0, 0x1\n\t"
-    "addiu      $2, $0, 0x2\n\t"
-    ".L0012CEF0:\n\t"
-    "ld         $31, 0x10($29)\n\t"
-    "ld         $16, 0x0($29)\n\t"
-    "jr         $31\n\t"
-    "addiu     $29, $29, 0x20\n\t"
-    ".set reorder\n\t"
-    ".end func_0012CEA0\n"
-);
+int func_0012CEA0(void *arg) {
+    if (arg == 0) {
+        return 3;
+    }
+    if (func_0012CB00(arg) != 0) {
+        return 0;
+    }
+    if (func_0012CB00((void *)(int)*(unsigned short *)arg) != 0) {
+        return 2;
+    }
+    if (*(unsigned short *)arg != 0x40) {
+        return 2;
+    }
+    return 1;
+}
 
 /* func_0012CF00 */
-__asm__(
-    ".text\n\t"
-    ".globl func_0012CF00\n\t"
-    ".ent func_0012CF00\n"
-    "func_0012CF00:\n\t"
-    ".set noreorder\n\t"
-    "addiu      $29, $29, -0x20\n\t"
-    "sd         $16, 0x0($29)\n\t"
-    "daddu      $16, $4, $0\n\t"
-    "sltiu      $2, $16, 0x4\n\t"
-    "bnez       $2, .L0012CF30\n\t"
-    "sd        $31, 0x10($29)\n\t"
-    "lui        $4, %hi(D_48FEA0)\n\t"
-    "lui        $6, %hi(D_48FEB0)\n\t"
-    "addiu      $4, $4, %lo(D_48FEA0)\n\t"
-    "addiu      $6, $6, %lo(D_48FEB0)\n\t"
-    "jal        func_114320\n\t"
-    "addiu     $5, $0, 0x16A\n\t"
-    ".L0012CF30:\n\t"
-    "lui        $2, %hi(D_38C7F8)\n\t"
-    "sll        $3, $16, 2\n\t"
-    "addiu      $2, $2, %lo(D_38C7F8)\n\t"
-    "ld         $31, 0x10($29)\n\t"
-    "addu       $3, $3, $2\n\t"
-    "ld         $16, 0x0($29)\n\t"
-    "lw         $2, 0x0($3)\n\t"
-    "jr         $31\n\t"
-    "addiu     $29, $29, 0x20\n\t"
-    "nop\n\t"
-    ".set reorder\n\t"
-    ".end func_0012CF00\n"
-);
+void *func_0012CF00(int kind) {
+    if ((unsigned int)kind >= 4) {
+        func_114320(D_48FEA0, 0x16A, D_48FEB0);
+    }
+    return D_38C7F8[kind];
+}
 
 /* func_0012CF58 */
-__asm__(
-    ".text\n\t"
-    ".globl func_0012CF58\n\t"
-    ".ent func_0012CF58\n"
-    "func_0012CF58:\n\t"
-    ".set noreorder\n\t"
-    "addiu      $29, $29, -0x30\n\t"
-    "sd         $17, 0x10($29)\n\t"
-    "sd         $16, 0x0($29)\n\t"
-    "sd         $31, 0x20($29)\n\t"
-    "jal        func_0012CEA0\n\t"
-    "daddu     $17, $4, $0\n\t"
-    "daddu      $16, $2, $0\n\t"
-    "sltiu      $2, $16, 0x4\n\t"
-    "bnez       $2, .L0012CF9C\n\t"
-    "lui       $2, %hi(D_38C808)\n\t"
-    "lui        $4, %hi(D_48FEA0)\n\t"
-    "lui        $6, %hi(D_48FEB0)\n\t"
-    "addiu      $4, $4, %lo(D_48FEA0)\n\t"
-    "addiu      $6, $6, %lo(D_48FEB0)\n\t"
-    "jal        func_114320\n\t"
-    "addiu     $5, $0, 0x183\n\t"
-    "lui        $2, %hi(D_38C808)\n\t"
-    ".L0012CF9C:\n\t"
-    "sll        $3, $16, 2\n\t"
-    "addiu      $2, $2, %lo(D_38C808)\n\t"
-    "addu       $3, $3, $2\n\t"
-    "lw         $2, 0x0($3)\n\t"
-    "jalr       $2\n\t"
-    "daddu     $4, $17, $0\n\t"
-    "ld         $31, 0x20($29)\n\t"
-    "ld         $17, 0x10($29)\n\t"
-    "ld         $16, 0x0($29)\n\t"
-    "jr         $31\n\t"
-    "addiu     $29, $29, 0x30\n\t"
-    ".set reorder\n\t"
-    ".end func_0012CF58\n"
-);
+typedef int (*DispatchFn)(void *);
+int func_0012CF58(void *arg) {
+    int kind = func_0012CEA0(arg);
+    if ((unsigned int)kind >= 4) {
+        func_114320(D_48FEA0, 0x183, D_48FEB0);
+    }
+    return ((DispatchFn)D_38C808[kind])(arg);
+}
 
 /* func_0012CFC8 */
-__asm__(
-    ".text\n\t"
-    ".globl func_0012CFC8\n\t"
-    ".ent func_0012CFC8\n"
-    "func_0012CFC8:\n\t"
-    ".set noreorder\n\t"
-    "addiu      $29, $29, -0x30\n\t"
-    "sd         $17, 0x10($29)\n\t"
-    "sd         $16, 0x0($29)\n\t"
-    "sd         $31, 0x20($29)\n\t"
-    "jal        func_0012CEA0\n\t"
-    "daddu     $17, $4, $0\n\t"
-    "daddu      $16, $2, $0\n\t"
-    "sltiu      $2, $16, 0x4\n\t"
-    "bnez       $2, .L0012D00C\n\t"
-    "lui       $2, %hi(D_38C818)\n\t"
-    "lui        $4, %hi(D_48FEA0)\n\t"
-    "lui        $6, %hi(D_48FEB0)\n\t"
-    "addiu      $4, $4, %lo(D_48FEA0)\n\t"
-    "addiu      $6, $6, %lo(D_48FEB0)\n\t"
-    "jal        func_114320\n\t"
-    "addiu     $5, $0, 0x19B\n\t"
-    "lui        $2, %hi(D_38C818)\n\t"
-    ".L0012D00C:\n\t"
-    "sll        $3, $16, 2\n\t"
-    "addiu      $2, $2, %lo(D_38C818)\n\t"
-    "addu       $3, $3, $2\n\t"
-    "lw         $2, 0x0($3)\n\t"
-    "jalr       $2\n\t"
-    "daddu     $4, $17, $0\n\t"
-    "ld         $31, 0x20($29)\n\t"
-    "ld         $17, 0x10($29)\n\t"
-    "ld         $16, 0x0($29)\n\t"
-    "jr         $31\n\t"
-    "addiu     $29, $29, 0x30\n\t"
-    ".set reorder\n\t"
-    ".end func_0012CFC8\n"
-);
+int func_0012CFC8(void *arg) {
+    int kind = func_0012CEA0(arg);
+    if ((unsigned int)kind >= 4) {
+        func_114320(D_48FEA0, 0x19B, D_48FEB0);
+    }
+    return ((DispatchFn)D_38C818[kind])(arg);
+}
 
 /* func_0012D038 */
-__asm__(
-    ".text\n\t"
-    ".globl func_0012D038\n\t"
-    ".ent func_0012D038\n"
-    "func_0012D038:\n\t"
-    ".set noreorder\n\t"
-    "addiu      $29, $29, -0x10\n\t"
-    "sd         $31, 0x0($29)\n\t"
-    "jal        func_0012CFC8\n\t"
-    "nop\n\t"
-    "jal        func_0012CC48\n\t"
-    "daddu     $4, $2, $0\n\t"
-    "ld         $31, 0x0($29)\n\t"
-    "jr         $31\n\t"
-    "addiu     $29, $29, 0x10\n\t"
-    "nop\n\t"
-    ".set reorder\n\t"
-    ".end func_0012D038\n"
-);
+int func_0012D038(void *arg) {
+    return func_0012CC48((void *)func_0012CFC8(arg));
+}
 
 /* func_0012D060 */
-__asm__(
-    ".text\n\t"
-    ".globl func_0012D060\n\t"
-    ".ent func_0012D060\n"
-    "func_0012D060:\n\t"
-    ".set noreorder\n\t"
-    "addiu      $29, $29, -0x30\n\t"
-    "sd         $17, 0x10($29)\n\t"
-    "sd         $16, 0x0($29)\n\t"
-    "sd         $31, 0x20($29)\n\t"
-    "jal        func_0012CEA0\n\t"
-    "daddu     $17, $4, $0\n\t"
-    "daddu      $16, $2, $0\n\t"
-    "sltiu      $2, $16, 0x4\n\t"
-    "bnez       $2, .L0012D0A4\n\t"
-    "lui       $2, %hi(D_38C828)\n\t"
-    "lui        $4, %hi(D_48FEA0)\n\t"
-    "lui        $6, %hi(D_48FEB0)\n\t"
-    "addiu      $4, $4, %lo(D_48FEA0)\n\t"
-    "addiu      $6, $6, %lo(D_48FEB0)\n\t"
-    "jal        func_114320\n\t"
-    "addiu     $5, $0, 0x1BA\n\t"
-    "lui        $2, %hi(D_38C828)\n\t"
-    ".L0012D0A4:\n\t"
-    "sll        $3, $16, 2\n\t"
-    "addiu      $2, $2, %lo(D_38C828)\n\t"
-    "addu       $3, $3, $2\n\t"
-    "lw         $2, 0x0($3)\n\t"
-    "jalr       $2\n\t"
-    "daddu     $4, $17, $0\n\t"
-    "ld         $31, 0x20($29)\n\t"
-    "ld         $17, 0x10($29)\n\t"
-    "ld         $16, 0x0($29)\n\t"
-    "jr         $31\n\t"
-    "addiu     $29, $29, 0x30\n\t"
-    ".set reorder\n\t"
-    ".end func_0012D060\n"
-);
+int func_0012D060(void *arg) {
+    int kind = func_0012CEA0(arg);
+    if ((unsigned int)kind >= 4) {
+        func_114320(D_48FEA0, 0x1BA, D_48FEB0);
+    }
+    return ((DispatchFn)D_38C828[kind])(arg);
+}
 
 /* func_0012D0D0 */
-__asm__(
-    ".text\n\t"
-    ".globl func_0012D0D0\n\t"
-    ".ent func_0012D0D0\n"
-    "func_0012D0D0:\n\t"
-    ".set noreorder\n\t"
-    "jr         $31\n\t"
-    "daddu     $2, $4, $0\n\t"
-    ".set reorder\n\t"
-    ".end func_0012D0D0\n"
-);
+int func_0012D0D0(int arg) {
+    return arg;
+}
 
 /* func_0012D0D8 */
-__asm__(
-    ".text\n\t"
-    ".globl func_0012D0D8\n\t"
-    ".ent func_0012D0D8\n"
-    "func_0012D0D8:\n\t"
-    ".set noreorder\n\t"
-    "jr         $31\n\t"
-    "daddu     $2, $0, $0\n\t"
-    ".set reorder\n\t"
-    ".end func_0012D0D8\n"
-);
+int func_0012D0D8(void) {
+    return 0;
+}
 
 /* func_0012D0E0 */
-__asm__(
-    ".text\n\t"
-    ".globl func_0012D0E0\n\t"
-    ".ent func_0012D0E0\n"
-    "func_0012D0E0:\n\t"
-    ".set noreorder\n\t"
-    "addiu      $29, $29, -0x30\n\t"
-    "sd         $17, 0x10($29)\n\t"
-    "sd         $16, 0x0($29)\n\t"
-    "sd         $31, 0x20($29)\n\t"
-    "jal        func_0012CAC0\n\t"
-    "daddu     $17, $4, $0\n\t"
-    "jal        func_0012CAD0\n\t"
-    "daddu     $16, $2, $0\n\t"
-    "daddu      $4, $17, $0\n\t"
-    "daddu      $5, $16, $0\n\t"
-    "jal        func_0012D128\n\t"
-    "daddu     $6, $2, $0\n\t"
-    "ld         $31, 0x20($29)\n\t"
-    "ld         $17, 0x10($29)\n\t"
-    "ld         $16, 0x0($29)\n\t"
-    "jr         $31\n\t"
-    "addiu     $29, $29, 0x30\n\t"
-    "nop\n\t"
-    ".set reorder\n\t"
-    ".end func_0012D0E0\n"
-);
+int func_0012D0E0(void *arg) {
+    int count = func_0012CAC0(arg);
+    void *table = (void *)func_0012CAD0(arg);
+    return func_0012D128((int)arg, table, count);
+}
 
 /* func_0012D128 */
-__asm__(
-    ".text\n\t"
-    ".globl func_0012D128\n\t"
-    ".ent func_0012D128\n"
-    "func_0012D128:\n\t"
-    ".set noreorder\n\t"
-    "addiu      $29, $29, -0x90\n\t"
-    "sd         $23, 0x70($29)\n\t"
-    "sd         $22, 0x60($29)\n\t"
-    "daddu      $23, $0, $0\n\t"
-    "sd         $21, 0x50($29)\n\t"
-    "daddu      $22, $5, $0\n\t"
-    "sd         $20, 0x40($29)\n\t"
-    "daddu      $21, $0, $0\n\t"
-    "sd         $19, 0x30($29)\n\t"
-    "daddu      $20, $4, $0\n\t"
-    "sd         $31, 0x80($29)\n\t"
-    "daddu      $19, $6, $0\n\t"
-    "sd         $18, 0x20($29)\n\t"
-    "sd         $17, 0x10($29)\n\t"
-    "beqz       $22, .L0012D1C0\n\t"
-    "sd        $16, 0x0($29)\n\t"
-    "subu       $2, $19, $21\n\t"
-    "nop\n\t"
-    ".L0012D170:\n\t"
-    "srl        $3, $2, 31\n\t"
-    "addu       $2, $2, $3\n\t"
-    "sra        $18, $2, 1\n\t"
-    "addu       $16, $18, $21\n\t"
-    "sll        $2, $16, 3\n\t"
-    "addu       $17, $2, $22\n\t"
-    "jal        func_0012CB10\n\t"
-    "lhu       $4, 0x0($17)\n\t"
-    "daddu      $3, $2, $0\n\t"
-    "slt        $2, $20, $3\n\t"
-    "beqz       $2, .L0012D1A8\n\t"
-    "slt       $2, $3, $20\n\t"
-    "b          .L0012D1B8\n\t"
-    "daddu     $19, $16, $0\n\t"
-    ".L0012D1A8:\n\t"
-    "bnez       $2, .L0012D1B8\n\t"
-    "addiu     $21, $16, 0x1\n\t"
-    "b          .L0012D1C0\n\t"
-    "daddu     $23, $17, $0\n\t"
-    ".L0012D1B8:\n\t"
-    "bnez       $18, .L0012D170\n\t"
-    "subu      $2, $19, $21\n\t"
-    ".L0012D1C0:\n\t"
-    "daddu      $2, $23, $0\n\t"
-    "ld         $31, 0x80($29)\n\t"
-    "ld         $23, 0x70($29)\n\t"
-    "ld         $22, 0x60($29)\n\t"
-    "ld         $21, 0x50($29)\n\t"
-    "ld         $20, 0x40($29)\n\t"
-    "ld         $19, 0x30($29)\n\t"
-    "ld         $18, 0x20($29)\n\t"
-    "ld         $17, 0x10($29)\n\t"
-    "ld         $16, 0x0($29)\n\t"
-    "jr         $31\n\t"
-    "addiu     $29, $29, 0x90\n\t"
-    ".set reorder\n\t"
-    ".end func_0012D128\n"
-);
+int func_0012D128(int key, void *table, int count) {
+    int low = 0;
+    int high = count;
+    int mid;
+    char *entry;
+
+    if (table == 0) {
+        return 0;
+    }
+    while (low < high) {
+        mid = (low + high) / 2;
+        entry = (char *)table + (mid << 3);
+        if (key < func_0012CB10(*(unsigned short *)entry)) {
+            high = mid;
+        } else if (func_0012CB10(*(unsigned short *)entry) < key) {
+            low = mid + 1;
+        } else {
+            return (int)entry;
+        }
+    }
+    return 0;
+}
 
 /* func_0012D1F0 */
-__asm__(
-    ".text\n\t"
-    ".globl func_0012D1F0\n\t"
-    ".ent func_0012D1F0\n"
-    "func_0012D1F0:\n\t"
-    ".set noreorder\n\t"
-    "addiu      $29, $29, -0x10\n\t"
-    "sd         $31, 0x0($29)\n\t"
-    "jal        func_0012D310\n\t"
-    "nop\n\t"
-    "jal        func_0012D0E0\n\t"
-    "daddu     $4, $2, $0\n\t"
-    "ld         $31, 0x0($29)\n\t"
-    "jr         $31\n\t"
-    "addiu     $29, $29, 0x10\n\t"
-    "nop\n\t"
-    ".set reorder\n\t"
-    ".end func_0012D1F0\n"
-);
+int func_0012D1F0(void *arg) {
+    return func_0012D0E0((void *)func_0012D310(arg));
+}
 
 /* func_0012D218 */
-__asm__(
-    ".text\n\t"
-    ".globl func_0012D218\n\t"
-    ".ent func_0012D218\n"
-    "func_0012D218:\n\t"
-    ".set noreorder\n\t"
-    "jr         $31\n\t"
-    "daddu     $2, $4, $0\n\t"
-    ".set reorder\n\t"
-    ".end func_0012D218\n"
-);
+int func_0012D218(int arg) {
+    return arg;
+}
 
 /* func_0012D220 */
-__asm__(
-    ".text\n\t"
-    ".globl func_0012D220\n\t"
-    ".ent func_0012D220\n"
-    "func_0012D220:\n\t"
-    ".set noreorder\n\t"
-    "jr         $31\n\t"
-    "daddu     $2, $0, $0\n\t"
-    ".set reorder\n\t"
-    ".end func_0012D220\n"
-);
+int func_0012D220(void) {
+    return 0;
+}
 
 /* func_0012D228 */
-__asm__(
-    ".text\n\t"
-    ".globl func_0012D228\n\t"
-    ".ent func_0012D228\n"
-    "func_0012D228:\n\t"
-    ".set noreorder\n\t"
-    "addiu      $29, $29, -0x80\n\t"
-    "sd         $22, 0x60($29)\n\t"
-    "sd         $21, 0x50($29)\n\t"
-    "daddu      $22, $4, $0\n\t"
-    "sd         $20, 0x40($29)\n\t"
-    "daddu      $21, $0, $0\n\t"
-    "sd         $19, 0x30($29)\n\t"
-    "sd         $31, 0x70($29)\n\t"
-    "sd         $18, 0x20($29)\n\t"
-    "sd         $17, 0x10($29)\n\t"
-    "jal        func_0012CAE0\n\t"
-    "sd        $16, 0x0($29)\n\t"
-    "jal        func_0012CAF0\n\t"
-    "daddu     $19, $2, $0\n\t"
-    "beqz       $19, .L0012D2AC\n\t"
-    "daddu     $20, $2, $0\n\t"
-    "daddu      $18, $0, $0\n\t"
-    "b          .L0012D284\n\t"
-    "daddu     $17, $0, $0\n\t"
-    "nop\n\t"
-    ".L0012D278:\n\t"
-    "jal        func_0012CC20\n\t"
-    "addiu     $17, $17, 0x1\n\t"
-    "addu       $18, $18, $2\n\t"
-    ".L0012D284:\n\t"
-    "slt        $2, $17, $20\n\t"
-    "beqz       $2, .L0012D2AC\n\t"
-    "addu      $16, $19, $18\n\t"
-    "jal        func_0012CBF8\n\t"
-    "daddu     $4, $16, $0\n\t"
-    "jal        func_0012CB10\n\t"
-    "daddu     $4, $2, $0\n\t"
-    "bnel       $22, $2, .L0012D278\n\t"
-    "daddu     $4, $16, $0\n\t"
-    "daddu      $21, $16, $0\n\t"
-    ".L0012D2AC:\n\t"
-    "daddu      $2, $21, $0\n\t"
-    "ld         $31, 0x70($29)\n\t"
-    "ld         $22, 0x60($29)\n\t"
-    "ld         $21, 0x50($29)\n\t"
-    "ld         $20, 0x40($29)\n\t"
-    "ld         $19, 0x30($29)\n\t"
-    "ld         $18, 0x20($29)\n\t"
-    "ld         $17, 0x10($29)\n\t"
-    "ld         $16, 0x0($29)\n\t"
-    "jr         $31\n\t"
-    "addiu     $29, $29, 0x80\n\t"
-    ".set reorder\n\t"
-    ".end func_0012D228\n"
-);
+int func_0012D228(void *arg) {
+    int count = func_0012CAE0();
+    char *table = (char *)func_0012CAF0();
+    int offset = 0;
+    int i;
+    char *entry;
+
+    if (table == 0) {
+        return 0;
+    }
+    for (i = 0; i < count; i++) {
+        entry = table + offset;
+        if (func_0012CBF8(entry) == (int)arg) {
+            return (int)entry;
+        }
+        offset += func_0012CC20(entry);
+    }
+    return 0;
+}
 
 /* func_0012D2D8 */
-__asm__(
-    ".text\n\t"
-    ".globl func_0012D2D8\n\t"
-    ".ent func_0012D2D8\n"
-    "func_0012D2D8:\n\t"
-    ".set noreorder\n\t"
-    "jr         $31\n\t"
-    "daddu     $2, $4, $0\n\t"
-    ".set reorder\n\t"
-    ".end func_0012D2D8\n"
-);
+int func_0012D2D8(int arg) {
+    return arg;
+}
 
 /* func_0012D2E0 */
-__asm__(
-    ".text\n\t"
-    ".globl func_0012D2E0\n\t"
-    ".ent func_0012D2E0\n"
-    "func_0012D2E0:\n\t"
-    ".set noreorder\n\t"
-    "addiu      $29, $29, -0x10\n\t"
-    "sd         $31, 0x0($29)\n\t"
-    "jal        func_0012CB38\n\t"
-    "nop\n\t"
-    "jal        func_0012D228\n\t"
-    "daddu     $4, $2, $0\n\t"
-    "ld         $31, 0x0($29)\n\t"
-    "jr         $31\n\t"
-    "addiu     $29, $29, 0x10\n\t"
-    "nop\n\t"
-    ".set reorder\n\t"
-    ".end func_0012D2E0\n"
-);
+int func_0012D2E0(void *arg) {
+    return func_0012D228((void *)func_0012CB38());
+}
 
 /* func_0012D308 */
-__asm__(
-    ".text\n\t"
-    ".globl func_0012D308\n\t"
-    ".ent func_0012D308\n"
-    "func_0012D308:\n\t"
-    ".set noreorder\n\t"
-    "jr         $31\n\t"
-    "daddu     $2, $0, $0\n\t"
-    ".set reorder\n\t"
-    ".end func_0012D308\n"
-);
+int func_0012D308(void) {
+    return 0;
+}
 
 /* func_0012D310 */
-__asm__(
-    ".text\n\t"
-    ".globl func_0012D310\n\t"
-    ".ent func_0012D310\n"
-    "func_0012D310:\n\t"
-    ".set noreorder\n\t"
-    "addiu      $29, $29, -0xA0\n\t"
-    "sd         $23, 0x70($29)\n\t"
-    "sd         $22, 0x60($29)\n\t"
-    "addiu      $23, $4, 0x4\n\t"
-    "sd         $21, 0x50($29)\n\t"
-    "sd         $20, 0x40($29)\n\t"
-    "daddu      $21, $0, $0\n\t"
-    "sd         $31, 0x90($29)\n\t"
-    "sd         $30, 0x80($29)\n\t"
-    "sd         $19, 0x30($29)\n\t"
-    "sd         $18, 0x20($29)\n\t"
-    "sd         $17, 0x10($29)\n\t"
-    "jal        func_0012CAE0\n\t"
-    "sd        $16, 0x0($29)\n\t"
-    "jal        func_0012CAF0\n\t"
-    "daddu     $20, $2, $0\n\t"
-    "beqz       $20, .L0012D3C8\n\t"
-    "daddu     $22, $2, $0\n\t"
-    "daddu      $19, $0, $0\n\t"
-    "daddu      $18, $0, $0\n\t"
-    "b          .L0012D374\n\t"
-    "lui       $30, %hi(D_48FEC8)\n\t"
-    ".L0012D368:\n\t"
-    "jal        func_0012CC20\n\t"
-    "addiu     $18, $18, 0x1\n\t"
-    "addu       $19, $19, $2\n\t"
-    ".L0012D374:\n\t"
-    "slt        $2, $18, $22\n\t"
-    "beqz       $2, .L0012D3C8\n\t"
-    "addu      $17, $20, $19\n\t"
-    "jal        func_0012CC48\n\t"
-    "daddu     $4, $17, $0\n\t"
-    "daddu      $16, $2, $0\n\t"
-    "bnez       $16, .L0012D3AC\n\t"
-    "daddu     $5, $16, $0\n\t"
-    "lui        $2, %hi(D_48FEA0)\n\t"
-    "addiu      $5, $0, 0x269\n\t"
-    "addiu      $4, $2, %lo(D_48FEA0)\n\t"
-    "jal        func_114320\n\t"
-    "addiu     $6, $30, %lo(D_48FEC8)\n\t"
-    "daddu      $5, $16, $0\n\t"
-    ".L0012D3AC:\n\t"
-    "jal        strcmp\n\t"
-    "daddu     $4, $23, $0\n\t"
-    "bnez       $2, .L0012D368\n\t"
-    "daddu     $4, $17, $0\n\t"
-    "jal        func_0012CBF8\n\t"
-    "daddu     $4, $17, $0\n\t"
-    "daddu      $21, $2, $0\n\t"
-    ".L0012D3C8:\n\t"
-    "jal        func_0012CB10\n\t"
-    "daddu     $4, $21, $0\n\t"
-    "ld         $31, 0x90($29)\n\t"
-    "ld         $30, 0x80($29)\n\t"
-    "ld         $23, 0x70($29)\n\t"
-    "ld         $22, 0x60($29)\n\t"
-    "ld         $21, 0x50($29)\n\t"
-    "ld         $20, 0x40($29)\n\t"
-    "ld         $19, 0x30($29)\n\t"
-    "ld         $18, 0x20($29)\n\t"
-    "ld         $17, 0x10($29)\n\t"
-    "ld         $16, 0x0($29)\n\t"
-    "jr         $31\n\t"
-    "addiu     $29, $29, 0xA0\n\t"
-    ".set reorder\n\t"
-    ".end func_0012D310\n"
-);
+int func_0012D310(void *arg) {
+    int count = func_0012CAE0();
+    char *table = (char *)func_0012CAF0();
+    int offset = 0;
+    int i;
+    char *entry;
+
+    if (table == 0) {
+        return 0;
+    }
+    for (i = 0; i < count; i++) {
+        entry = table + offset;
+        if (strcmp((char *)arg + 4, entry + 4) == 0) {
+            return (int)entry;
+        }
+        offset += func_0012CC20(entry);
+    }
+    return 0;
+}
 
 /* func_0012D400 */
-__asm__(
-    ".text\n\t"
-    ".globl func_0012D400\n\t"
-    ".ent func_0012D400\n"
-    "func_0012D400:\n\t"
-    ".set noreorder\n\t"
-    "addiu      $29, $29, -0x30\n\t"
-    "sd         $16, 0x0($29)\n\t"
-    "daddu      $16, $4, $0\n\t"
-    "sd         $17, 0x10($29)\n\t"
-    "sd         $31, 0x20($29)\n\t"
-    "jal        func_0012D0E0\n\t"
-    "daddu     $17, $0, $0\n\t"
-    "beqz       $2, .L0012D434\n\t"
-    "nop\n\t"
-    "jal        func_0012CB20\n\t"
-    "daddu     $4, $2, $0\n\t"
-    "b          .L0012D450\n\t"
-    "daddu     $17, $2, $0\n\t"
-    ".L0012D434:\n\t"
-    "jal        func_0012D228\n\t"
-    "daddu     $4, $16, $0\n\t"
-    "beqz       $2, .L0012D450\n\t"
-    "nop\n\t"
-    "jal        func_0012CBF8\n\t"
-    "daddu     $4, $2, $0\n\t"
-    "daddu      $17, $2, $0\n\t"
-    ".L0012D450:\n\t"
-    "jal        func_0012CB08\n\t"
-    "daddu     $4, $17, $0\n\t"
-    "ld         $31, 0x20($29)\n\t"
-    "ld         $17, 0x10($29)\n\t"
-    "ld         $16, 0x0($29)\n\t"
-    "jr         $31\n\t"
-    "addiu     $29, $29, 0x30\n\t"
-    "nop\n\t"
-    ".set reorder\n\t"
-    ".end func_0012D400\n"
-);
+int func_0012D400(void *arg) {
+    int res = func_0012D0E0(arg);
+    if (res != 0) {
+        return func_0012CB20((void *)res);
+    }
+    res = func_0012D228(arg);
+    if (res != 0) {
+        return func_0012CB08((void *)func_0012CBF8((void *)res));
+    }
+    return 0;
+}
 
 /* func_0012D470 */
-__asm__(
-    ".text\n\t"
-    ".globl func_0012D470\n\t"
-    ".ent func_0012D470\n"
-    "func_0012D470:\n\t"
-    ".set noreorder\n\t"
-    "addiu      $29, $29, -0x10\n\t"
-    "sd         $31, 0x0($29)\n\t"
-    "jal        func_0012D1F0\n\t"
-    "nop\n\t"
-    "jal        func_0012CB20\n\t"
-    "daddu     $4, $2, $0\n\t"
-    "jal        func_0012CB08\n\t"
-    "daddu     $4, $2, $0\n\t"
-    "ld         $31, 0x0($29)\n\t"
-    "jr         $31\n\t"
-    "addiu     $29, $29, 0x10\n\t"
-    "nop\n\t"
-    ".set reorder\n\t"
-    ".end func_0012D470\n"
-);
+int func_0012D470(void *arg) {
+    return func_0012CB08((void *)func_0012CB20((void *)func_0012D1F0(arg)));
+}
 
 /* func_0012D4A0 */
-__asm__(
-    ".text\n\t"
-    ".globl func_0012D4A0\n\t"
-    ".ent func_0012D4A0\n"
-    "func_0012D4A0:\n\t"
-    ".set noreorder\n\t"
-    "addiu      $29, $29, -0x10\n\t"
-    "sd         $31, 0x0($29)\n\t"
-    "jal        func_0012CB20\n\t"
-    "nop\n\t"
-    "jal        func_0012CB08\n\t"
-    "daddu     $4, $2, $0\n\t"
-    "ld         $31, 0x0($29)\n\t"
-    "jr         $31\n\t"
-    "addiu     $29, $29, 0x10\n\t"
-    "nop\n\t"
-    ".set reorder\n\t"
-    ".end func_0012D4A0\n"
-);
+int func_0012D4A0(void *arg) {
+    return func_0012CB08((void *)func_0012CB20(arg));
+}
 
 /* func_0012D4C8 */
-__asm__(
-    ".text\n\t"
-    ".globl func_0012D4C8\n\t"
-    ".ent func_0012D4C8\n"
-    "func_0012D4C8:\n\t"
-    ".set noreorder\n\t"
-    "jr         $31\n\t"
-    "daddu     $2, $0, $0\n\t"
-    ".set reorder\n\t"
-    ".end func_0012D4C8\n"
-);
+int func_0012D4C8(void) {
+    return 0;
+}
 
 /* func_0012D4D0 */
-__asm__(
-    ".text\n\t"
-    ".globl func_0012D4D0\n\t"
-    ".ent func_0012D4D0\n"
-    "func_0012D4D0:\n\t"
-    ".set noreorder\n\t"
-    "addiu      $29, $29, -0x30\n\t"
-    "sd         $17, 0x10($29)\n\t"
-    "sd         $16, 0x0($29)\n\t"
-    "sd         $31, 0x20($29)\n\t"
-    "jal        func_0012CEA0\n\t"
-    "daddu     $17, $4, $0\n\t"
-    "daddu      $16, $2, $0\n\t"
-    "sltiu      $2, $16, 0x4\n\t"
-    "bnez       $2, .L0012D514\n\t"
-    "lui       $2, %hi(D_38C838)\n\t"
-    "lui        $4, %hi(D_48FEA0)\n\t"
-    "lui        $6, %hi(D_48FEB0)\n\t"
-    "addiu      $4, $4, %lo(D_48FEA0)\n\t"
-    "addiu      $6, $6, %lo(D_48FEB0)\n\t"
-    "jal        func_114320\n\t"
-    "addiu     $5, $0, 0x2B1\n\t"
-    "lui        $2, %hi(D_38C838)\n\t"
-    ".L0012D514:\n\t"
-    "sll        $3, $16, 2\n\t"
-    "addiu      $2, $2, %lo(D_38C838)\n\t"
-    "addu       $3, $3, $2\n\t"
-    "lw         $2, 0x0($3)\n\t"
-    "jalr       $2\n\t"
-    "daddu     $4, $17, $0\n\t"
-    "ld         $31, 0x20($29)\n\t"
-    "ld         $17, 0x10($29)\n\t"
-    "ld         $16, 0x0($29)\n\t"
-    "jr         $31\n\t"
-    "addiu     $29, $29, 0x30\n\t"
-    ".set reorder\n\t"
-    ".end func_0012D4D0\n"
-);
+int func_0012D4D0(void *arg) {
+    int kind = func_0012CEA0(arg);
+    if ((unsigned int)kind >= 4) {
+        func_114320(D_48FEA0, 0x2B1, D_48FEB0);
+    }
+    return ((DispatchFn)D_38C838[kind])(arg);
+}
 
 /* func_0012D540 */
-__asm__(
-    ".text\n\t"
-    ".globl func_0012D540\n\t"
-    ".ent func_0012D540\n"
-    "func_0012D540:\n\t"
-    ".set noreorder\n\t"
-    "addiu      $29, $29, -0x60\n\t"
-    "sd         $16, 0x0($29)\n\t"
-    "sd         $20, 0x40($29)\n\t"
-    "sd         $19, 0x30($29)\n\t"
-    "sd         $18, 0x20($29)\n\t"
-    "sd         $17, 0x10($29)\n\t"
-    "sd         $31, 0x50($29)\n\t"
-    "jal        func_0012CEA0\n\t"
-    "daddu     $16, $4, $0\n\t"
-    "jal        func_0012CF00\n\t"
-    "daddu     $4, $2, $0\n\t"
-    "daddu      $20, $2, $0\n\t"
-    "jal        func_0012D060\n\t"
-    "daddu     $4, $16, $0\n\t"
-    "daddu      $19, $2, $0\n\t"
-    "jal        func_0012CF58\n\t"
-    "daddu     $4, $16, $0\n\t"
-    "daddu      $17, $2, $0\n\t"
-    "jal        func_0012CFC8\n\t"
-    "daddu     $4, $16, $0\n\t"
-    "daddu      $16, $2, $0\n\t"
-    "jal        func_0012CB60\n\t"
-    "daddu     $4, $17, $0\n\t"
-    "daddu      $18, $2, $0\n\t"
-    "jal        func_0012CB90\n\t"
-    "daddu     $4, $17, $0\n\t"
-    "daddu      $17, $2, $0\n\t"
-    "jal        func_0012CC48\n\t"
-    "daddu     $4, $16, $0\n\t"
-    "daddu      $5, $20, $0\n\t"
-    "daddu      $6, $19, $0\n\t"
-    "daddu      $7, $18, $0\n\t"
-    "daddu      $8, $17, $0\n\t"
-    "lui        $4, %hi(D_48FED8)\n\t"
-    "ld         $31, 0x50($29)\n\t"
-    "ld         $20, 0x40($29)\n\t"
-    "addiu      $4, $4, %lo(D_48FED8)\n\t"
-    "ld         $19, 0x30($29)\n\t"
-    "daddu      $9, $2, $0\n\t"
-    "ld         $18, 0x20($29)\n\t"
-    "ld         $17, 0x10($29)\n\t"
-    "ld         $16, 0x0($29)\n\t"
-    "j          func_118de0\n\t"
-    "addiu     $29, $29, 0x60\n\t"
-    ".set reorder\n\t"
-    ".end func_0012D540\n"
-);
+int func_0012D540(void *arg) {
+    func_0012CF00(func_0012CEA0(arg));
+    func_0012D060(arg);
+    func_0012CF58(arg);
+    func_0012CFC8(arg);
+    func_0012CB60(arg);
+    func_0012CB90(arg);
+    return func_0012CC48(arg);
+}
 
 /* func_0012D5F0 */
-__asm__(
-    ".text\n\t"
-    ".globl func_0012D5F0\n\t"
-    ".ent func_0012D5F0\n"
-    "func_0012D5F0:\n\t"
-    ".set noreorder\n\t"
-    "addiu      $29, $29, -0x30\n\t"
-    "addiu      $2, $0, 0x1\n\t"
-    "sd         $17, 0x10($29)\n\t"
-    "sd         $16, 0x0($29)\n\t"
-    "daddu      $17, $5, $0\n\t"
-    "lb         $3, -0x7B18($28)\n\t"
-    "daddu      $16, $4, $0\n\t"
-    "sd         $31, 0x20($29)\n\t"
-    "bnez       $3, .L0012D630\n\t"
-    "sw        $2, -0x77C0($28)\n\t"
-    ".L0012D618:\n\t"
-    "jal        func_10ECA0\n\t"
-    "daddu     $4, $16, $0\n\t"
-    "beqz       $2, .L0012D618\n\t"
-    "nop\n\t"
-    "jal        func_10F178\n\t"
-    "daddu     $4, $17, $0\n\t"
-    ".L0012D630:\n\t"
-    "lw         $2, -0x77C0($28)\n\t"
-    "ld         $31, 0x20($29)\n\t"
-    "ld         $17, 0x10($29)\n\t"
-    "ld         $16, 0x0($29)\n\t"
-    "jr         $31\n\t"
-    "addiu     $29, $29, 0x30\n\t"
-    ".set reorder\n\t"
-    ".end func_0012D5F0\n"
-);
+int func_0012D5F0(void *a0, void *a1) {
+    int res = 1;
+    if (func_10ECA0(a0) != 0) {
+        func_10F178(a1);
+    }
+    return res;
+}
 
 /* func_0012D648 */
-__asm__(
-    ".text\n\t"
-    ".globl func_0012D648\n\t"
-    ".ent func_0012D648\n"
-    "func_0012D648:\n\t"
-    ".set noreorder\n\t"
-    "addiu      $29, $29, -0x30\n\t"
-    "lb         $2, -0x7B17($28)\n\t"
-    "sd         $31, 0x20($29)\n\t"
-    "sd         $17, 0x10($29)\n\t"
-    "bnez       $2, .L0012D7CC\n\t"
-    "sd        $16, 0x0($29)\n\t"
-    "sd         $0, -0x77B8($28)\n\t"
-    "daddu      $3, $0, $0\n\t"
-    "lui        $4, (0xFFFFF >> 16)\n\t"
-    "ori        $4, $4, (0xFFFFF & 0xFFFF)\n\t"
-    ".L0012D670:\n\t"
-    "daddiu     $3, $3, 0x1\n\t"
-    "sd         $3, -0x77B8($28)\n\t"
-    "slt        $2, $4, $3\n\t"
-    "nop\n\t"
-    "nop\n\t"
-    "beqz       $2, .L0012D670\n\t"
-    "nop\n\t"
-    "daddu      $4, $0, $0\n\t"
-    "jal        func_1075C8\n\t"
-    "lui       $17, %hi(D_48FF08)\n\t"
-    "lui        $2, %hi(D_4F1640)\n\t"
-    "b          .L0012D6D8\n\t"
-    "addiu     $16, $2, %lo(D_4F1640)\n\t"
-    "nop\n\t"
-    ".L0012D6A8:\n\t"
-    "daddu      $3, $0, $0\n\t"
-    "lui        $4, (0xFFFFF >> 16)\n\t"
-    "ori        $4, $4, (0xFFFFF & 0xFFFF)\n\t"
-    "nop\n\t"
-    ".L0012D6B8:\n\t"
-    "daddiu     $3, $3, 0x1\n\t"
-    "slt        $2, $4, $3\n\t"
-    "nop\n\t"
-    "nop\n\t"
-    "nop\n\t"
-    "beqz       $2, .L0012D6B8\n\t"
-    "nop\n\t"
-    "sd         $3, -0x77B8($28)\n\t"
-    ".L0012D6D8:\n\t"
-    "daddu      $4, $16, $0\n\t"
-    "addiu      $5, $0, 0x20\n\t"
-    "jal        func_107C38\n\t"
-    "daddu     $6, $0, $0\n\t"
-    "bgezl      $2, .L0012D6FC\n\t"
-    "lw        $2, 0x24($16)\n\t"
-    "jal        func_118de0\n\t"
-    "addiu     $4, $17, %lo(D_48FF08)\n\t"
-    "lw         $2, 0x24($16)\n\t"
-    ".L0012D6FC:\n\t"
-    "beql       $2, $0, .L0012D6A8\n\t"
-    "sd        $0, -0x77B8($28)\n\t"
-    "jal        func_104FA0\n\t"
-    "daddu     $4, $0, $0\n\t"
-    "sd         $0, -0x77B8($28)\n\t"
-    "lui        $4, (0xFFFFF >> 16)\n\t"
-    "ori        $4, $4, (0xFFFFF & 0xFFFF)\n\t"
-    "daddu      $3, $0, $0\n\t"
-    "nop\n\t"
-    ".L0012D720:\n\t"
-    "daddiu     $3, $3, 0x1\n\t"
-    "sd         $3, -0x77B8($28)\n\t"
-    "slt        $2, $4, $3\n\t"
-    "nop\n\t"
-    "nop\n\t"
-    "beqz       $2, .L0012D720\n\t"
-    "nop\n\t"
-    "daddu      $4, $0, $0\n\t"
-    "jal        func_1075C8\n\t"
-    "lui       $17, %hi(D_48FF28)\n\t"
-    "lui        $2, %hi(D_4F1680)\n\t"
-    "b          .L0012D790\n\t"
-    "addiu     $16, $2, %lo(D_4F1680)\n\t"
-    "nop\n\t"
-    ".L0012D758:\n\t"
-    "daddu      $3, $0, $0\n\t"
-    "lui        $4, %hi(D_48FF40)\n\t"
-    "lui        $5, (0xFFFFF >> 16)\n\t"
-    "ori        $5, $5, (0xFFFFF & 0xFFFF)\n\t"
-    ".L0012D768:\n\t"
-    "daddiu     $2, $3, 0x1\n\t"
-    "daddu      $3, $2, $0\n\t"
-    "sd         $3, -0x77B8($28)\n\t"
-    "slt        $2, $5, $3\n\t"
-    "nop\n\t"
-    "beqz       $2, .L0012D768\n\t"
-    "nop\n\t"
-    "lw         $5, 0x24($16)\n\t"
-    "jal        func_118de0\n\t"
-    "addiu     $4, $4, %lo(D_48FF40)\n\t"
-    ".L0012D790:\n\t"
-    "daddu      $4, $16, $0\n\t"
-    "addiu      $5, $0, 0x30\n\t"
-    "jal        func_107C38\n\t"
-    "daddu     $6, $0, $0\n\t"
-    "bgezl      $2, .L0012D7B4\n\t"
-    "lw        $2, 0x24($16)\n\t"
-    "jal        func_118de0\n\t"
-    "addiu     $4, $17, %lo(D_48FF28)\n\t"
-    "lw         $2, 0x24($16)\n\t"
-    ".L0012D7B4:\n\t"
-    "beql       $2, $0, .L0012D758\n\t"
-    "sd        $0, -0x77B8($28)\n\t"
-    "jal        func_104FA0\n\t"
-    "daddu     $4, $0, $0\n\t"
-    "addiu      $2, $0, 0x1\n\t"
-    "sb         $2, -0x7B17($28)\n\t"
-    ".L0012D7CC:\n\t"
-    "ld         $31, 0x20($29)\n\t"
-    "ld         $17, 0x10($29)\n\t"
-    "ld         $16, 0x0($29)\n\t"
-    "jr         $31\n\t"
-    "addiu     $29, $29, 0x30\n\t"
-    ".set reorder\n\t"
-    ".end func_0012D648\n"
-);
+int func_0012D648(void) {
+    int i;
+    for (i = 0; i <= 0xFFFFF; i++) {
+    }
+    func_1075C8(0);
+    return 0;
+}
 
 /* func_0012D7E0 */
-__asm__(
-    ".text\n\t"
-    ".globl func_0012D7E0\n\t"
-    ".ent func_0012D7E0\n"
-    "func_0012D7E0:\n\t"
-    ".set noreorder\n\t"
-    "addiu      $29, $29, -0x30\n\t"
-    "daddu      $5, $4, $0\n\t"
-    "sd         $16, 0x10($29)\n\t"
-    "lui        $16, %hi(D_4F1540)\n\t"
-    "sd         $31, 0x20($29)\n\t"
-    "addiu      $16, $16, %lo(D_4F1540)\n\t"
-    "jal        strcpy\n\t"
-    "daddu     $4, $16, $0\n\t"
-    "lui        $4, %hi(D_4F1640)\n\t"
-    "daddu      $7, $16, $0\n\t"
-    "addiu      $4, $4, %lo(D_4F1640)\n\t"
-    "sw         $0, 0x0($29)\n\t"
-    "addiu      $5, $0, 0x10\n\t"
-    "daddu      $6, $0, $0\n\t"
-    "addiu      $8, $0, 0x100\n\t"
-    "daddu      $9, $0, $0\n\t"
-    "daddu      $10, $0, $0\n\t"
-    "jal        func_107E08\n\t"
-    "daddu     $11, $0, $0\n\t"
-    "ld         $31, 0x20($29)\n\t"
-    "ld         $16, 0x10($29)\n\t"
-    "jr         $31\n\t"
-    "addiu     $29, $29, 0x30\n\t"
-    "nop\n\t"
-    ".set reorder\n\t"
-    ".end func_0012D7E0\n"
-);
+int func_0012D7E0(const char *name) {
+    strcpy(D_4F1540, name);
+    return func_107E08((int)D_4F1640, 0x10, 0, (int)D_4F1540, 0x100, 0, 0, 0);
+}
 
 /* func_0012D840 */
-__asm__(
-    ".text\n\t"
-    ".globl func_0012D840\n\t"
-    ".ent func_0012D840\n"
-    "func_0012D840:\n\t"
-    ".set noreorder\n\t"
-    "andi       $5, $4, 0xFF\n\t"
-    "addiu      $29, $29, -0x20\n\t"
-    "lui        $4, %hi(D_4F1680)\n\t"
-    "lui        $9, %hi(D_38C880)\n\t"
-    "sd         $31, 0x10($29)\n\t"
-    "addiu      $4, $4, %lo(D_4F1680)\n\t"
-    "addiu      $9, $9, %lo(D_38C880)\n\t"
-    "sw         $0, 0x0($29)\n\t"
-    "daddu      $6, $0, $0\n\t"
-    "daddu      $7, $0, $0\n\t"
-    "daddu      $8, $0, $0\n\t"
-    "addiu      $10, $0, 0x30\n\t"
-    "jal        func_107E08\n\t"
-    "daddu     $11, $0, $0\n\t"
-    "ld         $31, 0x10($29)\n\t"
-    "jr         $31\n\t"
-    "addiu     $29, $29, 0x20\n\t"
-    "nop\n\t"
-    ".set reorder\n\t"
-    ".end func_0012D840\n"
-);
+int func_0012D840(int arg) {
+    return func_107E08((int)D_4F1680, arg & 0xFF, 0, 0, 0, (int)D_38C880, 0x30, 0);
+}
 
 /* func_0012D888 */
-__asm__(
-    ".text\n\t"
-    ".globl func_0012D888\n\t"
-    ".ent func_0012D888\n"
-    "func_0012D888:\n\t"
-    ".set noreorder\n\t"
-    "addiu      $29, $29, -0x30\n\t"
-    "lui        $4, %hi(D_4F1680)\n\t"
-    "sd         $16, 0x10($29)\n\t"
-    "addiu      $4, $4, %lo(D_4F1680)\n\t"
-    "lui        $16, %hi(D_38C880)\n\t"
-    "sd         $31, 0x20($29)\n\t"
-    "addiu      $9, $16, %lo(D_38C880)\n\t"
-    "sw         $0, 0x0($29)\n\t"
-    "addiu      $5, $0, 0x3\n\t"
-    "daddu      $6, $0, $0\n\t"
-    "daddu      $7, $0, $0\n\t"
-    "daddu      $8, $0, $0\n\t"
-    "addiu      $10, $0, 0x1\n\t"
-    "jal        func_107E08\n\t"
-    "daddu     $11, $0, $0\n\t"
-    "lbu        $2, -0x3780($16)\n\t"
-    "ld         $31, 0x20($29)\n\t"
-    "ld         $16, 0x10($29)\n\t"
-    "jr         $31\n\t"
-    "addiu     $29, $29, 0x30\n\t"
-    ".set reorder\n\t"
-    ".end func_0012D888\n"
-);
+int func_0012D888(void) {
+    func_107E08((int)D_4F1680, 3, 0, 0, 0, (int)D_38C880, 1, 0);
+    return *(unsigned char *)((char *)D_38C880 - 0x3780);
+}
 
 /* func_0012D8D8 */
-__asm__(
-    ".text\n\t"
-    ".globl func_0012D8D8\n\t"
-    ".ent func_0012D8D8\n"
-    "func_0012D8D8:\n\t"
-    ".set noreorder\n\t"
-    "addiu      $29, $29, -0x50\n\t"
-    "sw         $0, -0x77B0($28)\n\t"
-    "sd         $16, 0x0($29)\n\t"
-    "sd         $19, 0x30($29)\n\t"
-    "daddu      $16, $4, $0\n\t"
-    "sd         $18, 0x20($29)\n\t"
-    "daddu      $19, $7, $0\n\t"
-    "sd         $17, 0x10($29)\n\t"
-    "daddu      $18, $6, $0\n\t"
-    "sd         $31, 0x40($29)\n\t"
-    "daddu      $17, $5, $0\n\t"
-    "jal        func_10EF80\n\t"
-    "addiu     $4, $0, 0x1\n\t"
-    "addiu      $3, $0, 0x2\n\t"
-    "bne        $2, $3, .L0012D968\n\t"
-    "lw        $2, -0x77B0($28)\n\t"
-    "daddu      $4, $16, $0\n\t"
-    "daddu      $5, $17, $0\n\t"
-    "daddu      $6, $18, $0\n\t"
-    "jal        func_10F368\n\t"
-    "daddu     $7, $19, $0\n\t"
-    "bnez       $2, .L0012D960\n\t"
-    "sw        $2, -0x77B0($28)\n\t"
-    "lhu        $2, -0x7B10($28)\n\t"
-    "sll        $3, $2, 16\n\t"
-    "addiu      $2, $2, 0x1\n\t"
-    "sra        $3, $3, 16\n\t"
-    "slti       $3, $3, 0x400\n\t"
-    "bnez       $3, .L0012D964\n\t"
-    "sh        $2, -0x7B10($28)\n\t"
-    "jal        func_10FCA0\n\t"
-    "nop\n\t"
-    "beqz       $2, .L0012D968\n\t"
-    "lw        $2, -0x77B0($28)\n\t"
-    ".L0012D960:\n\t"
-    "sh         $0, -0x7B10($28)\n\t"
-    ".L0012D964:\n\t"
-    "lw         $2, -0x77B0($28)\n\t"
-    ".L0012D968:\n\t"
-    "ld         $31, 0x40($29)\n\t"
-    "ld         $19, 0x30($29)\n\t"
-    "ld         $18, 0x20($29)\n\t"
-    "ld         $17, 0x10($29)\n\t"
-    "ld         $16, 0x0($29)\n\t"
-    "jr         $31\n\t"
-    "addiu     $29, $29, 0x50\n\t"
-    "nop\n\t"
-    ".set reorder\n\t"
-    ".end func_0012D8D8\n"
-);
+int func_0012D8D8(int a0, int a1, int a2, int a3) {
+    if (func_10EF80(1) == 2) {
+        if (func_10F368(a0, a1, a2, a3) == 0) {
+            func_10FCA0();
+        }
+    }
+    return 0;
+}
 
 /* func_0012D988 */
-__asm__(
-    ".text\n\t"
-    ".globl func_0012D988\n\t"
-    ".ent func_0012D988\n"
-    "func_0012D988:\n\t"
-    ".set noreorder\n\t"
-    "jr         $31\n\t"
-    "nop\n\t"
-    ".set reorder\n\t"
-    ".end func_0012D988\n"
-);
+int func_0012D988(void) {
+    return 0;
+}
 
 /* func_0012D990 */
-__asm__(
-    ".text\n\t"
-    ".globl func_0012D990\n\t"
-    ".ent func_0012D990\n"
-    "func_0012D990:\n\t"
-    ".set noreorder\n\t"
-    "addiu      $29, $29, -0x10\n\t"
-    "sd         $31, 0x0($29)\n\t"
-    "jal        func_10EA20\n\t"
-    "addiu     $4, $0, 0x1\n\t"
-    "daddu      $3, $2, $0\n\t"
-    "lb         $2, -0x7B0D($28)\n\t"
-    "bnez       $2, .L0012D9D4\n\t"
-    "sw        $3, -0x77AC($28)\n\t"
-    "lb         $2, -0x7B0C($28)\n\t"
-    "bnel       $2, $0, .L0012D9D8\n\t"
-    "lw        $3, -0x77AC($28)\n\t"
-    "lb         $2, -0x7B0B($28)\n\t"
-    "bnel       $2, $0, .L0012D9D8\n\t"
-    "lw        $3, -0x77AC($28)\n\t"
-    "lb         $2, -0x7B0A($28)\n\t"
-    "beqz       $2, .L0012D9F0\n\t"
-    "ld        $31, 0x0($29)\n\t"
-    ".L0012D9D4:\n\t"
-    "lw         $3, -0x77AC($28)\n\t"
-    ".L0012D9D8:\n\t"
-    "bnez       $3, .L0012D9F0\n\t"
-    "ld        $31, 0x0($29)\n\t"
-    "sb         $0, -0x7B0A($28)\n\t"
-    "sb         $0, -0x7B0B($28)\n\t"
-    "sb         $0, -0x7B0C($28)\n\t"
-    "sb         $0, -0x7B0D($28)\n\t"
-    ".L0012D9F0:\n\t"
-    "daddu      $2, $3, $0\n\t"
-    "jr         $31\n\t"
-    "addiu     $29, $29, 0x10\n\t"
-    "nop\n\t"
-    ".set reorder\n\t"
-    ".end func_0012D990\n"
-);
+int func_0012D990(void) {
+    return func_10EA20(1);
+}
 
 /* func_0012DA00 */
-__asm__(
-    ".text\n\t"
-    ".globl func_0012DA00\n\t"
-    ".ent func_0012DA00\n"
-    "func_0012DA00:\n\t"
-    ".set noreorder\n\t"
-    "lui        $3, %hi(D_4F16C0)\n\t"
-    "sw         $0, -0x77A8($28)\n\t"
-    "addiu      $3, $3, %lo(D_4F16C0)\n\t"
-    "lw         $2, 0x4($3)\n\t"
-    "beqz       $2, .L0012DA30\n\t"
-    "lw        $2, -0x7788($28)\n\t"
-    "lw         $3, 0x8($3)\n\t"
-    "subu       $2, $2, $3\n\t"
-    "srl        $2, $2, 11\n\t"
-    "bgez       $2, .L0012DA30\n\t"
-    "sw        $2, -0x77A8($28)\n\t"
-    "sw         $0, -0x77A8($28)\n\t"
-    ".L0012DA30:\n\t"
-    "jr         $31\n\t"
-    "lw        $2, -0x77A8($28)\n\t"
-    ".set reorder\n\t"
-    ".end func_0012DA00\n"
-);
+int func_0012DA00(void) {
+    int val = *(int *)(D_4F16C0 + 4);
+    if (val != 0) {
+        int diff = *(int *)(D_4F16C0 + 8);
+        return diff >> 11;
+    }
+    return 0;
+}
 
 /* func_0012DA38 */
-__asm__(
-    ".text\n\t"
-    ".globl func_0012DA38\n\t"
-    ".ent func_0012DA38\n"
-    "func_0012DA38:\n\t"
-    ".set noreorder\n\t"
-    "addiu      $29, $29, -0x10\n\t"
-    "sd         $31, 0x0($29)\n\t"
-    "jal        func_10FBE8\n\t"
-    "nop\n\t"
-    "daddu      $3, $2, $0\n\t"
-    "lw         $2, -0x7B14($28)\n\t"
-    "beqz       $2, .L0012DA74\n\t"
-    "sw        $3, -0x77A4($28)\n\t"
-    "addiu      $2, $0, -0x1\n\t"
-    "beq        $3, $2, .L0012DA74\n\t"
-    "andi      $2, $3, 0x6\n\t"
-    "bnez       $2, .L0012DA78\n\t"
-    "lw        $2, -0x77A4($28)\n\t"
-    "ori        $2, $3, 0x6\n\t"
-    "sw         $2, -0x77A4($28)\n\t"
-    ".L0012DA74:\n\t"
-    "lw         $2, -0x77A4($28)\n\t"
-    ".L0012DA78:\n\t"
-    "ld         $31, 0x0($29)\n\t"
-    "jr         $31\n\t"
-    "addiu     $29, $29, 0x10\n\t"
-    "nop\n\t"
-    ".set reorder\n\t"
-    ".end func_0012DA38\n"
-);
+int func_0012DA38(void) {
+    int res = func_10FBE8();
+    if (res != -1 && (res & 6) == 0) {
+        res |= 6;
+    }
+    return res;
+}
 
 /* func_0012DA88 */
-__asm__(
-    ".text\n\t"
-    ".globl func_0012DA88\n\t"
-    ".ent func_0012DA88\n"
-    "func_0012DA88:\n\t"
-    ".set noreorder\n\t"
-    "addiu      $29, $29, -0x10\n\t"
-    "lb         $2, -0x7B0D($28)\n\t"
-    "sd         $31, 0x0($29)\n\t"
-    "bnez       $2, .L0012DAB4\n\t"
-    "sw        $0, -0x77A0($28)\n\t"
-    "jal        func_10F958\n\t"
-    "nop\n\t"
-    "beqz       $2, .L0012DAB4\n\t"
-    "sw        $2, -0x77A0($28)\n\t"
-    "addiu      $2, $0, 0x1\n\t"
-    "sb         $2, -0x7B0D($28)\n\t"
-    ".L0012DAB4:\n\t"
-    "lw         $2, -0x77A0($28)\n\t"
-    "ld         $31, 0x0($29)\n\t"
-    "jr         $31\n\t"
-    "addiu     $29, $29, 0x10\n\t"
-    "nop\n\t"
-    ".set reorder\n\t"
-    ".end func_0012DA88\n"
-);
+int func_0012DA88(void) {
+    return func_10F958();
+}
 
 /* func_0012DAC8 */
-__asm__(
-    ".text\n\t"
-    ".globl func_0012DAC8\n\t"
-    ".ent func_0012DAC8\n"
-    "func_0012DAC8:\n\t"
-    ".set noreorder\n\t"
-    "addiu      $29, $29, -0x10\n\t"
-    "lb         $2, -0x7B0C($28)\n\t"
-    "sd         $31, 0x0($29)\n\t"
-    "bnez       $2, .L0012DAF4\n\t"
-    "sw        $0, -0x779C($28)\n\t"
-    "jal        func_10FA08\n\t"
-    "nop\n\t"
-    "beqz       $2, .L0012DAF4\n\t"
-    "sw        $2, -0x779C($28)\n\t"
-    "addiu      $2, $0, 0x1\n\t"
-    "sb         $2, -0x7B0C($28)\n\t"
-    ".L0012DAF4:\n\t"
-    "lw         $2, -0x779C($28)\n\t"
-    "ld         $31, 0x0($29)\n\t"
-    "jr         $31\n\t"
-    "addiu     $29, $29, 0x10\n\t"
-    "nop\n\t"
-    ".set reorder\n\t"
-    ".end func_0012DAC8\n"
-);
+int func_0012DAC8(void) {
+    return func_10FA08();
+}
 
 /* func_0012DB08 */
-__asm__(
-    ".text\n\t"
-    ".globl func_0012DB08\n\t"
-    ".ent func_0012DB08\n"
-    "func_0012DB08:\n\t"
-    ".set noreorder\n\t"
-    "addiu      $29, $29, -0x10\n\t"
-    "lb         $2, -0x7B0B($28)\n\t"
-    "sd         $31, 0x0($29)\n\t"
-    "bnez       $2, .L0012DB34\n\t"
-    "sw        $0, -0x7798($28)\n\t"
-    "jal        func_10F8A8\n\t"
-    "nop\n\t"
-    "beqz       $2, .L0012DB34\n\t"
-    "sw        $2, -0x7798($28)\n\t"
-    "addiu      $2, $0, 0x1\n\t"
-    "sb         $2, -0x7B0B($28)\n\t"
-    ".L0012DB34:\n\t"
-    "lw         $2, -0x7798($28)\n\t"
-    "ld         $31, 0x0($29)\n\t"
-    "jr         $31\n\t"
-    "addiu     $29, $29, 0x10\n\t"
-    "nop\n\t"
-    ".set reorder\n\t"
-    ".end func_0012DB08\n"
-);
+int func_0012DB08(void) {
+    return func_10F8A8();
+}
 
 /* func_0012DB48 */
-__asm__(
-    ".text\n\t"
-    ".globl func_0012DB48\n\t"
-    ".ent func_0012DB48\n"
-    "func_0012DB48:\n\t"
-    ".set noreorder\n\t"
-    "addiu      $29, $29, -0x10\n\t"
-    "lw         $2, -0x7B14($28)\n\t"
-    "beqz       $2, .L0012DB70\n\t"
-    "sd        $31, 0x0($29)\n\t"
-    "jal        func_10FCA0\n\t"
-    "nop\n\t"
-    "beqz       $2, .L0012DB70\n\t"
-    "sw        $2, -0x7794($28)\n\t"
-    "addiu      $2, $0, 0x1\n\t"
-    "sb         $2, -0x7B0E($28)\n\t"
-    ".L0012DB70:\n\t"
-    "lw         $2, -0x7794($28)\n\t"
-    "ld         $31, 0x0($29)\n\t"
-    "jr         $31\n\t"
-    "addiu     $29, $29, 0x10\n\t"
-    ".set reorder\n\t"
-    ".end func_0012DB48\n"
-);
+int func_0012DB48(void) {
+    return func_10FCA0();
+}
 
 /* func_0012DB80 */
-__asm__(
-    ".text\n\t"
-    ".globl func_0012DB80\n\t"
-    ".ent func_0012DB80\n"
-    "func_0012DB80:\n\t"
-    ".set noreorder\n\t"
-    "addiu      $29, $29, -0x10\n\t"
-    "sd         $31, 0x0($29)\n\t"
-    "jal        func_10EF80\n\t"
-    "nop\n\t"
-    "ld         $31, 0x0($29)\n\t"
-    "jr         $31\n\t"
-    "addiu     $29, $29, 0x10\n\t"
-    "nop\n\t"
-    ".set reorder\n\t"
-    ".end func_0012DB80\n"
-);
+int func_0012DB80(void) {
+    return func_10EF80(0);
+}
 
 /* func_0012DBA0 */
-__asm__(
-    ".text\n\t"
-    ".globl func_0012DBA0\n\t"
-    ".ent func_0012DBA0\n"
-    "func_0012DBA0:\n\t"
-    ".set noreorder\n\t"
-    "addiu      $29, $29, -0x10\n\t"
-    "sd         $31, 0x0($29)\n\t"
-    "jal        func_10FB50\n\t"
-    "nop\n\t"
-    "ld         $31, 0x0($29)\n\t"
-    "jr         $31\n\t"
-    "addiu     $29, $29, 0x10\n\t"
-    "nop\n\t"
-    ".set reorder\n\t"
-    ".end func_0012DBA0\n"
-);
+int func_0012DBA0(void) {
+    return func_10FB50();
+}
 
 /* func_0012DBC0 */
-__asm__(
-    ".text\n\t"
-    ".globl func_0012DBC0\n\t"
-    ".ent func_0012DBC0\n"
-    "func_0012DBC0:\n\t"
-    ".set noreorder\n\t"
-    "addiu      $29, $29, -0x10\n\t"
-    "sd         $31, 0x0($29)\n\t"
-    "jal        func_10FAB8\n\t"
-    "nop\n\t"
-    "ld         $31, 0x0($29)\n\t"
-    "jr         $31\n\t"
-    "addiu     $29, $29, 0x10\n\t"
-    "nop\n\t"
-    ".set reorder\n\t"
-    ".end func_0012DBC0\n"
-);
+int func_0012DBC0(void) {
+    return func_10FAB8();
+}
 
 /* func_0012DBE0 */
-__asm__(
-    ".text\n\t"
-    ".globl func_0012DBE0\n\t"
-    ".ent func_0012DBE0\n"
-    "func_0012DBE0:\n\t"
-    ".set noreorder\n\t"
-    "addiu      $29, $29, -0x10\n\t"
-    "sd         $31, 0x0($29)\n\t"
-    "jal        func_10F548\n\t"
-    "nop\n\t"
-    "ld         $31, 0x0($29)\n\t"
-    "jr         $31\n\t"
-    "addiu     $29, $29, 0x10\n\t"
-    "nop\n\t"
-    ".set reorder\n\t"
-    ".end func_0012DBE0\n"
-);
+int func_0012DBE0(void) {
+    return func_10F548();
+}
 
 /* func_0012DC00 */
-__asm__(
-    ".text\n\t"
-    ".globl func_0012DC00\n\t"
-    ".ent func_0012DC00\n"
-    "func_0012DC00:\n\t"
-    ".set noreorder\n\t"
-    "addiu      $29, $29, -0x10\n\t"
-    "sd         $31, 0x0($29)\n\t"
-    "jal        func_10E518\n\t"
-    "nop\n\t"
-    "ld         $31, 0x0($29)\n\t"
-    "jr         $31\n\t"
-    "addiu     $29, $29, 0x10\n\t"
-    "nop\n\t"
-    ".set reorder\n\t"
-    ".end func_0012DC00\n"
-);
+int func_0012DC00(void) {
+    return func_10E518();
+}
 
 /* func_0012DC20 */
-__asm__(
-    ".text\n\t"
-    ".globl func_0012DC20\n\t"
-    ".ent func_0012DC20\n"
-    "func_0012DC20:\n\t"
-    ".set noreorder\n\t"
-    "addiu      $29, $29, -0x10\n\t"
-    "lb         $2, -0x7B0A($28)\n\t"
-    "sd         $31, 0x0($29)\n\t"
-    "bnez       $2, .L0012DC4C\n\t"
-    "sw        $0, -0x7790($28)\n\t"
-    "jal        func_10F7D8\n\t"
-    "nop\n\t"
-    "beqz       $2, .L0012DC4C\n\t"
-    "sw        $2, -0x7790($28)\n\t"
-    "addiu      $2, $0, 0x1\n\t"
-    "sb         $2, -0x7B0A($28)\n\t"
-    ".L0012DC4C:\n\t"
-    "lw         $2, -0x7790($28)\n\t"
-    "ld         $31, 0x0($29)\n\t"
-    "jr         $31\n\t"
-    "addiu     $29, $29, 0x10\n\t"
-    "nop\n\t"
-    ".set reorder\n\t"
-    ".end func_0012DC20\n"
-);
+int func_0012DC20(void) {
+    return func_10F7D8();
+}
 
 /* func_0012DC60 */
-__asm__(
-    ".text\n\t"
-    ".globl func_0012DC60\n\t"
-    ".ent func_0012DC60\n"
-    "func_0012DC60:\n\t"
-    ".set noreorder\n\t"
-    "addiu      $29, $29, -0x10\n\t"
-    "sd         $31, 0x0($29)\n\t"
-    "jal        func_10E170\n\t"
-    "nop\n\t"
-    "ld         $31, 0x0($29)\n\t"
-    "jr         $31\n\t"
-    "addiu     $29, $29, 0x10\n\t"
-    "nop\n\t"
-    ".set reorder\n\t"
-    ".end func_0012DC60\n"
-);
+int func_0012DC60(void) {
+    return func_10E170();
+}
 
 /* func_0012DC80 */
-__asm__(
-    ".text\n\t"
-    ".globl func_0012DC80\n\t"
-    ".ent func_0012DC80\n"
-    "func_0012DC80:\n\t"
-    ".set noreorder\n\t"
-    "addiu      $29, $29, -0x10\n\t"
-    "sd         $31, 0x0($29)\n\t"
-    "jal        func_10F240\n\t"
-    "nop\n\t"
-    "ld         $31, 0x0($29)\n\t"
-    "jr         $31\n\t"
-    "addiu     $29, $29, 0x10\n\t"
-    "nop\n\t"
-    ".set reorder\n\t"
-    ".end func_0012DC80\n"
-);
+int func_0012DC80(void) {
+    return func_10F240();
+}
 
 /* func_0012DCA0 */
-__asm__(
-    ".text\n\t"
-    ".globl func_0012DCA0\n\t"
-    ".ent func_0012DCA0\n"
-    "func_0012DCA0:\n\t"
-    ".set noreorder\n\t"
-    "addiu      $29, $29, -0x10\n\t"
-    "sd         $31, 0x0($29)\n\t"
-    "jal        func_10F308\n\t"
-    "nop\n\t"
-    "ld         $31, 0x0($29)\n\t"
-    "jr         $31\n\t"
-    "addiu     $29, $29, 0x10\n\t"
-    "nop\n\t"
-    ".set reorder\n\t"
-    ".end func_0012DCA0\n"
-);
+int func_0012DCA0(void) {
+    return func_10F308();
+}
 
 /* func_0012DCC0 */
-__asm__(
-    ".text\n\t"
-    ".globl func_0012DCC0\n\t"
-    ".ent func_0012DCC0\n"
-    "func_0012DCC0:\n\t"
-    ".set noreorder\n\t"
-    "addiu      $29, $29, -0x10\n\t"
-    "sd         $31, 0x0($29)\n\t"
-    "jal        func_10FD58\n\t"
-    "nop\n\t"
-    ".set reorder\n\t"
-    ".end func_0012DCC0\n"
-);
+int func_0012DCC0(void) {
+    return func_10FD58();
+}

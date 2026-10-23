@@ -1,8 +1,9 @@
 """Target matching regression tests for PS2 SMENU_CD.BIN overlay (src/smenu_overlay.c).
 
 Verifies that src/smenu_overlay.c compiles with EE-GCC 2.9-991111 (-O2 -G0) into
-100% bit-exact machine instructions matching orig/SLES-50282/SMENU_CD.BIN across
-all 25,232 bytes in Batches 1..4 (VRAM 0x01D98000 - 0x01D9E290, 45 functions).
+100% bit-exact machine instructions and data matching orig/SLES-50282/SMENU_CD.BIN
+across the entire payload (92,672 bytes: 90,560 bytes .text + 2,112 bytes .rodata,
+144 structured functions and dialog tables).
 """
 
 from pathlib import Path
@@ -20,8 +21,10 @@ COMPILER = ROOT / "compilers/PS2/ee-gcc2.9-991111/bin/ee-gcc.exe"
 WRAPPER = ROOT / "build/tools/wibo"
 
 OVERLAY_HEADER_SIZE = 0x80
-CURRENT_SIZE = 25232
+TEXT_SIZE = 90560
+RODATA_SIZE = 2112
 VRAM_BASE = 0x01D98000
+RODATA_VRAM_BASE = 0x01DAE1C0
 
 
 def require_inputs():
@@ -41,36 +44,55 @@ def compile_object(directory):
     return output
 
 
-def extract_compiled_text(object_path):
-    with object_path.open("rb") as f:
-        elf = ELFFile(f)
-        text_section = elf.get_section_by_name(".text")
-        assert text_section is not None, ".text section missing from compiled object"
-        return text_section.data()
-
-
-def read_original_bytes():
+def test_smenu_overlay_text_exact_match(tmp_path):
+    require_inputs()
     with OVERLAY_BIN.open("rb") as f:
         f.seek(OVERLAY_HEADER_SIZE)
-        data = f.read(CURRENT_SIZE)
-        assert len(data) == CURRENT_SIZE, f"Short read from {OVERLAY_BIN}: {len(data)} != {CURRENT_SIZE}"
-        return data
+        expected_text = f.read(TEXT_SIZE)
+        assert len(expected_text) == TEXT_SIZE
 
-
-def test_smenu_overlay_exact_match(tmp_path):
-    require_inputs()
-    expected = read_original_bytes()
     compiled_obj = compile_object(tmp_path)
-    actual = extract_compiled_text(compiled_obj)
+    with compiled_obj.open("rb") as f:
+        elf = ELFFile(f)
+        text_section = elf.get_section_by_name(".text")
+        assert text_section is not None, ".text section missing"
+        actual_text = text_section.data()
 
-    assert len(actual) == len(expected), f"Length mismatch: {len(actual)} != {len(expected)}"
+    assert len(actual_text) == len(expected_text), f"Length mismatch: {len(actual_text)} != {len(expected_text)}"
 
     mismatches = []
-    for offset in range(0, len(expected), 4):
-        exp_w, = struct.unpack_from("<I", expected, offset)
-        act_w, = struct.unpack_from("<I", actual, offset)
+    for offset in range(0, len(expected_text), 4):
+        exp_w, = struct.unpack_from("<I", expected_text, offset)
+        act_w, = struct.unpack_from("<I", actual_text, offset)
         if exp_w != act_w:
             vma = VRAM_BASE + offset
             mismatches.append(f"0x{vma:08X} (offset +0x{offset:04X}): expected 0x{exp_w:08X}, got 0x{act_w:08X}")
 
-    assert not mismatches, f"{len(mismatches)} mismatches in SMENU decompilation:\n" + "\n".join(mismatches[:20])
+    assert not mismatches, f"{len(mismatches)} mismatches in SMENU .text:\n" + "\n".join(mismatches[:20])
+
+
+def test_smenu_overlay_rodata_exact_match(tmp_path):
+    require_inputs()
+    with OVERLAY_BIN.open("rb") as f:
+        f.seek(OVERLAY_HEADER_SIZE + TEXT_SIZE)
+        expected_rodata = f.read(RODATA_SIZE)
+        assert len(expected_rodata) == RODATA_SIZE
+
+    compiled_obj = compile_object(tmp_path)
+    with compiled_obj.open("rb") as f:
+        elf = ELFFile(f)
+        rodata_section = elf.get_section_by_name(".rodata")
+        assert rodata_section is not None, ".rodata section missing"
+        actual_rodata = rodata_section.data()
+
+    assert len(actual_rodata) == len(expected_rodata), f"Length mismatch: {len(actual_rodata)} != {len(expected_rodata)}"
+
+    mismatches = []
+    for offset in range(0, len(expected_rodata), 4):
+        exp_w, = struct.unpack_from("<I", expected_rodata, offset)
+        act_w, = struct.unpack_from("<I", actual_rodata, offset)
+        if exp_w != act_w:
+            vma = RODATA_VRAM_BASE + offset
+            mismatches.append(f"0x{vma:08X} (offset +0x{offset:04X}): expected 0x{exp_w:08X}, got 0x{act_w:08X}")
+
+    assert not mismatches, f"{len(mismatches)} mismatches in SMENU .rodata:\n" + "\n".join(mismatches[:20])

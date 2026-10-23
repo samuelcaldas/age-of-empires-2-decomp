@@ -42,7 +42,7 @@ pie title Distribuição de Funções em Assembly (Total: 1.906 funções)
 | Arquivo Fonte | Subcutâneo / Domínio | Linhas | Funções | Tamanho (.text) | Status de Teste |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | **`src/mo_ov_overlay.c`** | Overlay (Vídeo PSS) | 37 | 2 | 312 B | Decompilado (C Puro + Testes Nativos) |
-| **`src/rmmmem_overlay.c`** | Overlay (Heap RMS) | 495 | 5 | 832 B | 100% Matched |
+| **`src/rmmmem_overlay.c`** | Overlay (Heap RMS) | 165 | 5 | 832 B | Decompilado (C Puro + Testes Nativos) |
 | **`src/kt_gpu.c`** | KCET Hardware (GS) | 252 | 5 | 1.072 B | 100% Matched |
 | **`src/libscf.c`** | Sony SCF (Config/Idioma) | 200 | 11 | 1.500 B | Decompilado (C Puro + Testes Nativos) |
 | **`src/hist_overlay.c`** | Overlay (História) | 92.649 | 13 | 5.440 B | 100% Matched |
@@ -70,10 +70,11 @@ Estes arquivos contêm o código carregado dinamicamente do CD pelo CodeWarrior 
 * **Descrição**: Ponte de controle para execução de vídeos cinemáticos em segundo plano via subsistema PSS.
 * **Complexidade**: Muito Baixa. Apenas rotinas de sincronização e chamadas de interrupção.
 
-### 2. `src/rmmmem_overlay.c` (5 funções / 495 linhas)
+### 2. `src/rmmmem_overlay.c` (5 funções / 165 linhas) — *Decompilado (C Puro + Testes Nativos)*
 * **VRAM**: `0x01D98000`
-* **Descrição**: Gerenciador de alocação de memória (Heap) dedicado para geração procedural de mapas aleatórios.
-* **Complexidade**: Baixa. Estrutura de pool de blocos e controle de ponteiros de memória.
+* **Descrição**: Gerenciador de alocação dinâmica (Heap) dedicado para geração procedural de mapas aleatórios (`RMMMEMCD.BIN`), administrando 1 MB de memória em `0x01D98380`–`0x01E96380` via lista circular duplamente coalescida (K&R/Doug Lea).
+* **Funções**: `rmmmem_func_01D98000` (`rmm_heap_init`), `rmmmem_func_01D98050` (`rmm_alloc`), `rmmmem_func_01D980FC` (`rmm_calloc`), `rmmmem_func_01D98150` (`rmm_free`), `rmmmem_func_01D98284` (`rmm_stub`).
+* **Testes**: `tests/test_rmmmem_native.py` (execução comportamental nativa x86-64 com `gcc -m32`) e `tests/test_rmmmem_matching.py` (compilação e símbolos com `ee-gcc 2.9-991111 -O2 -G0`).
 
 ### 3. `src/hist_overlay.c` (13 funções / 92.649 linhas)
 * **VRAM**: `0x01D98000`

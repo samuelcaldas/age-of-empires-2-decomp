@@ -103,9 +103,15 @@ segments:
     vram: 0x125c38
     subsegments:
       - [0x25e18, asm, kt_libpad]
-  - name: pre_mouse_after_kt_libpad
-    type: bin
+  - name: kt_hd
+    type: code
     start: 0x28d88
+    vram: 0x128ba8
+    subsegments:
+      - [0x28d88, asm, kt_hd]
+  - name: pre_mouse_after_kt_hd
+    type: bin
+    start: 0x297b0
   - name: kt_mouse
     type: code
     start: 0x34fc8

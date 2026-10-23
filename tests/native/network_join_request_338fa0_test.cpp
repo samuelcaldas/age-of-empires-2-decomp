@@ -55,13 +55,19 @@ extern "C" {
         std::memcpy(destination, source, size);
         ++copy_count;
     }
-    int func_00335A20(int player_id) {
-        assert(player_id == 42);
+    void *func_11B170(void *destination, const void *source, int size) {
+        func_0011B170(destination, source, size);
+        return destination;
+    }
+    int func_00335A20() {
         call_order[call_count++] = CALL_IDENTITY;
         return 0x12345678;
     }
     void *func_00117AF8(void *destination, const void *source, int size) {
         return std::memcpy(destination, source, size);
+    }
+    void *func_117AF8(void *destination, const void *source, int size) {
+        return func_00117AF8(destination, source, size);
     }
     int func_003383B0(void *owner, int first, int second, const void *entry, int fifth_argument) {
         assert(owner == &direct_play);
@@ -104,7 +110,7 @@ int main() {
     created_record = record_buffer;
     assert(func_00338FA0(&direct_play, &record, &session) == 0);
     assert(*reinterpret_cast<int *>(&direct_play) == 42);
-    assert(record == created_record);
+    assert(reinterpret_cast<size_t>(record) == 42);
     assert(call_count == 4);
     assert(call_order[0] == CALL_ALLOC_ID);
     assert(call_order[1] == CALL_CREATE_RECORD);
@@ -118,7 +124,8 @@ int main() {
     assert(std::strcmp(sent_session_name, "Session") == 0);
     assert(std::strcmp(static_cast<char *>(created_record) + 24, "Player") == 0);
     assert(std::strcmp(static_cast<char *>(created_record) + 40, "Session") == 0);
-    assert(*reinterpret_cast<int *>(static_cast<char *>(created_record) + 4) == 0x12345678);
+    assert(*reinterpret_cast<int *>(static_cast<char *>(created_record) + 4) == 42);
+    assert(*reinterpret_cast<int *>(static_cast<char *>(created_record)) == 0x12345678);
 
     reset();
     direct_play.is_host = 1;

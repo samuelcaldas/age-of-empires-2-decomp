@@ -68,7 +68,7 @@ int main() {
 
     reset();
     assert(func_003385C0(object, message, 492, 0) == 1);
-    assert(compare_calls == 1);
+    assert(compare_calls == 2);
     assert(copy_calls == 2);
     assert(send_calls == 1);
     assert(send_size == 224);

@@ -91,6 +91,15 @@ segments:
   - name: pre_mouse_after_runtime
     type: bin
     start: 0x1aeb0
+  - name: kt_gpu
+    type: code
+    start: 0x259e8
+    vram: 0x125808
+    subsegments:
+      - [0x259e8, asm, kt_gpu]
+  - name: pre_mouse_after_kt_gpu
+    type: bin
+    start: 0x25e18
   - name: kt_mouse
     type: code
     start: 0x34fc8

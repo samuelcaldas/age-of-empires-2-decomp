@@ -5337,3 +5337,4321 @@ __asm__(
     ".end func_01D9A520
 "
 );
+
+/* func_01D9A720 (VMA: 0x01D9A720, size 284 bytes, 288 bytes with pad) */
+__asm__(
+    ".text
+	"
+    ".globl func_01D9A720
+	"
+    ".ent func_01D9A720
+"
+    "func_01D9A720:
+	"
+    ".set noreorder
+	"
+    ".set noat
+	"
+    ".word 0x27BDFF90
+	"
+    ".word 0x7FBF0060
+	"
+    ".word 0x7FB50050
+	"
+    ".word 0x7FB40040
+	"
+    ".word 0x7FB30030
+	"
+    ".word 0x7FB20020
+	"
+    ".word 0x7FB10010
+	"
+    ".word 0x7FB00000
+	"
+    ".word 0x71008E28
+	"
+    ".word 0x7080AE28
+	"
+    ".word 0x70A0A628
+	"
+    ".word 0x70C09E28
+	"
+    ".word 0x70E09628
+	"
+    ".word 0x16200013
+	"
+    ".word 0x71208628
+	"
+    ".word 0x16000012
+	"
+    ".word 0x24020001
+	"
+    ".word 0x24020002
+	"
+    ".word 0x328300FF
+	"
+    ".word 0x10620005
+	"
+    ".word 0x72A02628
+	"
+    ".word 0x24020004
+	"
+    ".word 0x1462000A
+	"
+    ".word 0x00000000
+	"
+    ".word 0x72A02628
+	"
+    ".word 0x72802E28
+	"
+    ".word 0x72603628
+	"
+    ".word 0x0C07EF1C
+	"
+    ".word 0x72403E28
+	"
+    ".word 0x10400003
+	"
+    ".word 0x00000000
+	"
+    ".word 0x1000001E
+	"
+    ".word 0x24020001
+	"
+    ".word 0x24020001
+	"
+    ".word 0x328300FF
+	"
+    ".word 0x14620014
+	"
+    ".word 0x72A02628
+	"
+    ".word 0x8EA20884
+	"
+    ".word 0x72602E28
+	"
+    ".word 0x00021080
+	"
+    ".word 0x00551021
+	"
+    ".word 0x8C440858
+	"
+    ".word 0x8C990000
+	"
+    ".word 0x8F3900D8
+	"
+    ".word 0x0320F809
+	"
+    ".word 0x72403628
+	"
+    ".word 0x10400008
+	"
+    ".word 0x00000000
+	"
+    ".word 0x8EA20884
+	"
+    ".word 0x3405FFFF
+	"
+    ".word 0x00021080
+	"
+    ".word 0x00551021
+	"
+    ".word 0x8C44082C
+	"
+    ".word 0x0C085E38
+	"
+    ".word 0x70003628
+	"
+    ".word 0x72A02628
+	"
+    ".word 0x72802E28
+	"
+    ".word 0x72603628
+	"
+    ".word 0x72403E28
+	"
+    ".word 0x72204628
+	"
+    ".word 0x0C07E064
+	"
+    ".word 0x72004E28
+	"
+    ".word 0x7BBF0060
+	"
+    ".word 0x7BB50050
+	"
+    ".word 0x7BB40040
+	"
+    ".word 0x7BB30030
+	"
+    ".word 0x7BB20020
+	"
+    ".word 0x7BB10010
+	"
+    ".word 0x7BB00000
+	"
+    ".word 0x03E00008
+	"
+    ".word 0x27BD0070
+	"
+    ".word 0x00000000
+	"
+    ".set at
+	"
+    ".set reorder
+	"
+    ".end func_01D9A720
+"
+);
+
+/* func_01D9A840 (VMA: 0x01D9A840, size 508 bytes, 512 bytes with pad) */
+__asm__(
+    ".text
+	"
+    ".globl func_01D9A840
+	"
+    ".ent func_01D9A840
+"
+    "func_01D9A840:
+	"
+    ".set noreorder
+	"
+    ".set noat
+	"
+    ".word 0x27BDFF90
+	"
+    ".word 0x7FBF0060
+	"
+    ".word 0x7FB50050
+	"
+    ".word 0x7FB40040
+	"
+    ".word 0x7FB30030
+	"
+    ".word 0x7FB20020
+	"
+    ".word 0x7FB10010
+	"
+    ".word 0x7080AE28
+	"
+    ".word 0x70A0A628
+	"
+    ".word 0x0C07D570
+	"
+    ".word 0x7FB00000
+	"
+    ".word 0x70408E28
+	"
+    ".word 0x24020009
+	"
+    ".word 0x1282000A
+	"
+    ".word 0x00000000
+	"
+    ".word 0x24020026
+	"
+    ".word 0x12820007
+	"
+    ".word 0x00000000
+	"
+    ".word 0x24020028
+	"
+    ".word 0x12820004
+	"
+    ".word 0x00000000
+	"
+    ".word 0x2402001B
+	"
+    ".word 0x1682005F
+	"
+    ".word 0x72201628
+	"
+    ".word 0x8EA20884
+	"
+    ".word 0x8EA3003C
+	"
+    ".word 0x00021080
+	"
+    ".word 0x00551021
+	"
+    ".word 0x8C440858
+	"
+    ".word 0x10830057
+	"
+    ".word 0x00000000
+	"
+    ".word 0x10000052
+	"
+    ".word 0x70008628
+	"
+    ".word 0x00109080
+	"
+    ".word 0x02B21021
+	"
+    ".word 0x8C420858
+	"
+    ".word 0x5040004D
+	"
+    ".word 0x26100001
+	"
+    ".word 0x1443004A
+	"
+    ".word 0x00000000
+	"
+    ".word 0x92A60344
+	"
+    ".word 0x92A70345
+	"
+    ".word 0x92A80346
+	"
+    ".word 0x92A90347
+	"
+    ".word 0x92AA0348
+	"
+    ".word 0x92AB0349
+	"
+    ".word 0x0C0825D0
+	"
+    ".word 0x70002E28
+	"
+    ".word 0x8EA20884
+	"
+    ".word 0x00021080
+	"
+    ".word 0x00551021
+	"
+    ".word 0x8C440858
+	"
+    ".word 0x8C990000
+	"
+    ".word 0x8F390028
+	"
+    ".word 0x0320F809
+	"
+    ".word 0x24050001
+	"
+    ".word 0x8EA20884
+	"
+    ".word 0x70002E28
+	"
+    ".word 0x00021080
+	"
+    ".word 0x00551021
+	"
+    ".word 0x8C44082C
+	"
+    ".word 0x0C085E38
+	"
+    ".word 0x70003628
+	"
+    ".word 0x8EA20884
+	"
+    ".word 0x00021080
+	"
+    ".word 0x00551021
+	"
+    ".word 0x8C44082C
+	"
+    ".word 0x8C990000
+	"
+    ".word 0x8F390028
+	"
+    ".word 0x0320F809
+	"
+    ".word 0x24050001
+	"
+    ".word 0x02551021
+	"
+    ".word 0x92A60344
+	"
+    ".word 0x8C440858
+	"
+    ".word 0x92A70345
+	"
+    ".word 0x92A80346
+	"
+    ".word 0x92A90347
+	"
+    ".word 0x92AA0348
+	"
+    ".word 0x92AB0349
+	"
+    ".word 0x24530858
+	"
+    ".word 0x0C0825D0
+	"
+    ".word 0x24050002
+	"
+    ".word 0x8E640000
+	"
+    ".word 0x8C990000
+	"
+    ".word 0x8F390028
+	"
+    ".word 0x0320F809
+	"
+    ".word 0x24050001
+	"
+    ".word 0x02551021
+	"
+    ".word 0x8C44082C
+	"
+    ".word 0x2452082C
+	"
+    ".word 0x70003628
+	"
+    ".word 0x3C0200FF
+	"
+    ".word 0x0C085E38
+	"
+    ".word 0x3445FFFF
+	"
+    ".word 0x8E440000
+	"
+    ".word 0x8C990000
+	"
+    ".word 0x8F390028
+	"
+    ".word 0x0320F809
+	"
+    ".word 0x24050001
+	"
+    ".word 0xAEB00884
+	"
+    ".word 0x8EB90000
+	"
+    ".word 0x72A02628
+	"
+    ".word 0x8F390028
+	"
+    ".word 0x0320F809
+	"
+    ".word 0x70002E28
+	"
+    ".word 0x2402001B
+	"
+    ".word 0x1682000A
+	"
+    ".word 0x00000000
+	"
+    ".word 0x8E650000
+	"
+    ".word 0x0C07E22C
+	"
+    ".word 0x72A02628
+	"
+    ".word 0x10000005
+	"
+    ".word 0x00000000
+	"
+    ".word 0x26100001
+	"
+    ".word 0x2A02000A
+	"
+    ".word 0x1440FFAE
+	"
+    ".word 0x00109080
+	"
+    ".word 0x72201628
+	"
+    ".word 0x7BBF0060
+	"
+    ".word 0x7BB50050
+	"
+    ".word 0x7BB40040
+	"
+    ".word 0x7BB30030
+	"
+    ".word 0x7BB20020
+	"
+    ".word 0x7BB10010
+	"
+    ".word 0x7BB00000
+	"
+    ".word 0x03E00008
+	"
+    ".word 0x27BD0070
+	"
+    ".word 0x00000000
+	"
+    ".set at
+	"
+    ".set reorder
+	"
+    ".end func_01D9A840
+"
+);
+
+/* func_01D9AA40 (VMA: 0x01D9AA40, size 1176 bytes, 1184 bytes with pad) */
+__asm__(
+    ".text
+	"
+    ".globl func_01D9AA40
+	"
+    ".ent func_01D9AA40
+"
+    "func_01D9AA40:
+	"
+    ".set noreorder
+	"
+    ".set noat
+	"
+    ".word 0x27BDFFE0
+	"
+    ".word 0x7FBF0010
+	"
+    ".word 0x10A0011D
+	"
+    ".word 0x7FB00000
+	"
+    ".word 0x24030001
+	"
+    ".word 0x14C3011A
+	"
+    ".word 0x00000000
+	"
+    ".word 0x24020004
+	"
+    ".word 0x14E20019
+	"
+    ".word 0x24020005
+	"
+    ".word 0xAF838BD0
+	"
+    ".word 0x8C900040
+	"
+    ".word 0x3C0300A8
+	"
+    ".word 0x3C0201DB
+	"
+    ".word 0x2445E428
+	"
+    ".word 0x0C07CB2C
+	"
+    ".word 0x24640BB0
+	"
+    ".word 0x3C0200A8
+	"
+    ".word 0x24440BB0
+	"
+    ".word 0x3C0201DB
+	"
+    ".word 0x2445E468
+	"
+    ".word 0x0C07CA40
+	"
+    ".word 0x70003628
+	"
+    ".word 0x3C0201DB
+	"
+    ".word 0x24050C1D
+	"
+    ".word 0x2446E478
+	"
+    ".word 0x240701C2
+	"
+    ".word 0x24080064
+	"
+    ".word 0x72002628
+	"
+    ".word 0x0C07EE84
+	"
+    ".word 0x70004E28
+	"
+    ".word 0x10000102
+	"
+    ".word 0x24020001
+	"
+    ".word 0x24020005
+	"
+    ".word 0x14E20016
+	"
+    ".word 0x2402000B
+	"
+    ".word 0x0C040214
+	"
+    ".word 0x24040874
+	"
+    ".word 0x10400004
+	"
+    ".word 0x00000000
+	"
+    ".word 0x24050001
+	"
+    ".word 0x0C767F10
+	"
+    ".word 0x70402628
+	"
+    ".word 0x3C0200A8
+	"
+    ".word 0x24440BB0
+	"
+    ".word 0x3C0201DB
+	"
+    ".word 0x2445E488
+	"
+    ".word 0x0C07CA40
+	"
+    ".word 0x70003628
+	"
+    ".word 0x3C0200A8
+	"
+    ".word 0x24440BB0
+	"
+    ".word 0x3C0201DB
+	"
+    ".word 0x0C07CB2C
+	"
+    ".word 0x2445E428
+	"
+    ".word 0x100000EB
+	"
+    ".word 0x24020001
+	"
+    ".word 0x2402000B
+	"
+    ".word 0x14E20018
+	"
+    ".word 0x24020006
+	"
+    ".word 0x8C900040
+	"
+    ".word 0x3C0300A8
+	"
+    ".word 0x3C0201DB
+	"
+    ".word 0x2445E428
+	"
+    ".word 0x0C07CB2C
+	"
+    ".word 0x24640BB0
+	"
+    ".word 0x3C0200A8
+	"
+    ".word 0x24440BB0
+	"
+    ".word 0x3C0201DB
+	"
+    ".word 0x2445E468
+	"
+    ".word 0x0C07CA40
+	"
+    ".word 0x70003628
+	"
+    ".word 0x3C0201DB
+	"
+    ".word 0x24050C1E
+	"
+    ".word 0x2446E498
+	"
+    ".word 0x240701C2
+	"
+    ".word 0x24080064
+	"
+    ".word 0x72002628
+	"
+    ".word 0x0C07EE84
+	"
+    ".word 0x70004E28
+	"
+    ".word 0x100000D2
+	"
+    ".word 0x24020001
+	"
+    ".word 0x24020006
+	"
+    ".word 0x14E2001B
+	"
+    ".word 0x2402000C
+	"
+    ".word 0x0C062034
+	"
+    ".word 0x8F8489C0
+	"
+    ".word 0x24030001
+	"
+    ".word 0x14430008
+	"
+    ".word 0x00000000
+	"
+    ".word 0x8F8489C0
+	"
+    ".word 0x8C820B20
+	"
+    ".word 0x14400004
+	"
+    ".word 0x00000000
+	"
+    ".word 0x70002E28
+	"
+    ".word 0x0C0617C0
+	"
+    ".word 0x70003628
+	"
+    ".word 0x3C0200A8
+	"
+    ".word 0x24440BB0
+	"
+    ".word 0x3C0201DB
+	"
+    ".word 0x2445E468
+	"
+    ".word 0x0C07CA40
+	"
+    ".word 0x70003628
+	"
+    ".word 0x3C0200A8
+	"
+    ".word 0x24440BB0
+	"
+    ".word 0x3C0201DB
+	"
+    ".word 0x0C07CB2C
+	"
+    ".word 0x2445E428
+	"
+    ".word 0x100000B6
+	"
+    ".word 0x24020001
+	"
+    ".word 0x2402000C
+	"
+    ".word 0x14E20018
+	"
+    ".word 0x2402000E
+	"
+    ".word 0x8C900040
+	"
+    ".word 0x3C0300A8
+	"
+    ".word 0x3C0201DB
+	"
+    ".word 0x2445E428
+	"
+    ".word 0x0C07CB2C
+	"
+    ".word 0x24640BB0
+	"
+    ".word 0x3C0200A8
+	"
+    ".word 0x24440BB0
+	"
+    ".word 0x3C0201DB
+	"
+    ".word 0x2445E468
+	"
+    ".word 0x0C07CA40
+	"
+    ".word 0x70003628
+	"
+    ".word 0x3C0201DB
+	"
+    ".word 0x24050C1F
+	"
+    ".word 0x2446E4A8
+	"
+    ".word 0x240701C2
+	"
+    ".word 0x24080064
+	"
+    ".word 0x72002628
+	"
+    ".word 0x0C07EE84
+	"
+    ".word 0x70004E28
+	"
+    ".word 0x1000009D
+	"
+    ".word 0x24020001
+	"
+    ".word 0x2402000E
+	"
+    ".word 0x14E2002A
+	"
+    ".word 0x2402000F
+	"
+    ".word 0x0C062034
+	"
+    ".word 0x8F8489C0
+	"
+    ".word 0x24030001
+	"
+    ".word 0x14430008
+	"
+    ".word 0x00000000
+	"
+    ".word 0x8F8489C0
+	"
+    ".word 0x8C820B20
+	"
+    ".word 0x14400004
+	"
+    ".word 0x00000000
+	"
+    ".word 0x70002E28
+	"
+    ".word 0x0C0617C0
+	"
+    ".word 0x70003628
+	"
+    ".word 0x3C0200A8
+	"
+    ".word 0x24440BB0
+	"
+    ".word 0x3C0201DB
+	"
+    ".word 0x2445E468
+	"
+    ".word 0x0C07CA40
+	"
+    ".word 0x70003628
+	"
+    ".word 0x3C0200A8
+	"
+    ".word 0x24440BB0
+	"
+    ".word 0x3C0201DB
+	"
+    ".word 0x0C07CB2C
+	"
+    ".word 0x2445E428
+	"
+    ".word 0x0C062034
+	"
+    ".word 0x8F8489C0
+	"
+    ".word 0x24030001
+	"
+    ".word 0x14430008
+	"
+    ".word 0x00000000
+	"
+    ".word 0x8F8489C0
+	"
+    ".word 0x8C820B20
+	"
+    ".word 0x14400004
+	"
+    ".word 0x00000000
+	"
+    ".word 0x70002E28
+	"
+    ".word 0x0C0617C0
+	"
+    ".word 0x70003628
+	"
+    ".word 0x8F8289C0
+	"
+    ".word 0x0C0930A4
+	"
+    ".word 0x8C441468
+	"
+    ".word 0x10000072
+	"
+    ".word 0x24020001
+	"
+    ".word 0x2402000F
+	"
+    ".word 0x14E2001D
+	"
+    ".word 0x24020010
+	"
+    ".word 0x8C900040
+	"
+    ".word 0x3C0300A8
+	"
+    ".word 0x3C0201DB
+	"
+    ".word 0x2445E428
+	"
+    ".word 0x0C07CB2C
+	"
+    ".word 0x24640BB0
+	"
+    ".word 0x3C0200A8
+	"
+    ".word 0x24440BB0
+	"
+    ".word 0x3C0201DB
+	"
+    ".word 0x2445E468
+	"
+    ".word 0x0C07CA40
+	"
+    ".word 0x70003628
+	"
+    ".word 0x24020001
+	"
+    ".word 0xAF828E18
+	"
+    ".word 0x72002628
+	"
+    ".word 0x0C093FE0
+	"
+    ".word 0x70002E28
+	"
+    ".word 0x0C040214
+	"
+    ".word 0x24040988
+	"
+    ".word 0x50400005
+	"
+    ".word 0x24020001
+	"
+    ".word 0x70402628
+	"
+    ".word 0x0C76A544
+	"
+    ".word 0x72002E28
+	"
+    ".word 0x24020001
+	"
+    ".word 0x10000055
+	"
+    ".word 0x7BBF0010
+	"
+    ".word 0x24020010
+	"
+    ".word 0x14E2001A
+	"
+    ".word 0x24020012
+	"
+    ".word 0x8C900040
+	"
+    ".word 0x3C0300A8
+	"
+    ".word 0x3C0201DB
+	"
+    ".word 0x2445E428
+	"
+    ".word 0x0C07CB2C
+	"
+    ".word 0x24640BB0
+	"
+    ".word 0x3C0200A8
+	"
+    ".word 0x24440BB0
+	"
+    ".word 0x3C0201DB
+	"
+    ".word 0x2445E468
+	"
+    ".word 0x0C07CA40
+	"
+    ".word 0x70003628
+	"
+    ".word 0x24020001
+	"
+    ".word 0x2404084C
+	"
+    ".word 0x0C040214
+	"
+    ".word 0xAF828E18
+	"
+    ".word 0x50400005
+	"
+    ".word 0x24020001
+	"
+    ".word 0x70402628
+	"
+    ".word 0x0C766020
+	"
+    ".word 0x72002E28
+	"
+    ".word 0x24020001
+	"
+    ".word 0x10000039
+	"
+    ".word 0x00000000
+	"
+    ".word 0x24020012
+	"
+    ".word 0x14E2001A
+	"
+    ".word 0x24020013
+	"
+    ".word 0x8C900040
+	"
+    ".word 0x3C0300A8
+	"
+    ".word 0x3C0201DB
+	"
+    ".word 0x2445E428
+	"
+    ".word 0x0C07CB2C
+	"
+    ".word 0x24640BB0
+	"
+    ".word 0x3C0200A8
+	"
+    ".word 0x24440BB0
+	"
+    ".word 0x3C0201DB
+	"
+    ".word 0x2445E468
+	"
+    ".word 0x0C07CA40
+	"
+    ".word 0x70003628
+	"
+    ".word 0x24020001
+	"
+    ".word 0x24040878
+	"
+    ".word 0x0C040214
+	"
+    ".word 0xAF828E18
+	"
+    ".word 0x50400005
+	"
+    ".word 0x24020001
+	"
+    ".word 0x70402628
+	"
+    ".word 0x0C7678C4
+	"
+    ".word 0x72002E28
+	"
+    ".word 0x24020001
+	"
+    ".word 0x1000001E
+	"
+    ".word 0x00000000
+	"
+    ".word 0x24020013
+	"
+    ".word 0x14E20019
+	"
+    ".word 0x00000000
+	"
+    ".word 0x8C900040
+	"
+    ".word 0x3C0300A8
+	"
+    ".word 0x3C0201DB
+	"
+    ".word 0x2445E428
+	"
+    ".word 0x0C07CB2C
+	"
+    ".word 0x24640BB0
+	"
+    ".word 0x3C0200A8
+	"
+    ".word 0x24440BB0
+	"
+    ".word 0x3C0201DB
+	"
+    ".word 0x2445E468
+	"
+    ".word 0x0C07CA40
+	"
+    ".word 0x70003628
+	"
+    ".word 0x24020001
+	"
+    ".word 0x24040840
+	"
+    ".word 0x0C040214
+	"
+    ".word 0xAF828E18
+	"
+    ".word 0x50400005
+	"
+    ".word 0x24020001
+	"
+    ".word 0x70402628
+	"
+    ".word 0x0C766CDC
+	"
+    ".word 0x72002E28
+	"
+    ".word 0x24020001
+	"
+    ".word 0x10000003
+	"
+    ".word 0x00000000
+	"
+    ".word 0x0C07EF4C
+	"
+    ".word 0x00000000
+	"
+    ".word 0x7BBF0010
+	"
+    ".word 0x7BB00000
+	"
+    ".word 0x03E00008
+	"
+    ".word 0x27BD0020
+	"
+    ".word 0x00000000
+	"
+    ".word 0x00000000
+	"
+    ".set at
+	"
+    ".set reorder
+	"
+    ".end func_01D9AA40
+"
+);
+
+/* func_01D9AEE0 (VMA: 0x01D9AEE0, size 448 bytes, 448 bytes with pad) */
+__asm__(
+    ".text
+	"
+    ".globl func_01D9AEE0
+	"
+    ".ent func_01D9AEE0
+"
+    "func_01D9AEE0:
+	"
+    ".set noreorder
+	"
+    ".set noat
+	"
+    ".word 0x27BDFFC0
+	"
+    ".word 0x7FBF0020
+	"
+    ".word 0x7FB10010
+	"
+    ".word 0x7FB00000
+	"
+    ".word 0x70808628
+	"
+    ".word 0x8F8489C0
+	"
+    ".word 0x8C8201F0
+	"
+    ".word 0x54400004
+	"
+    ".word 0x72002628
+	"
+    ".word 0x0C0621AC
+	"
+    ".word 0x00000000
+	"
+    ".word 0x72002628
+	"
+    ".word 0x0C766C48
+	"
+    ".word 0x00000000
+	"
+    ".word 0x3C0200A8
+	"
+    ".word 0x24440BB0
+	"
+    ".word 0x3C0201DB
+	"
+    ".word 0x0C07C9C0
+	"
+    ".word 0x2445E4B8
+	"
+    ".word 0x14400055
+	"
+    ".word 0x72002628
+	"
+    ".word 0x3C0200A8
+	"
+    ".word 0x0C07C9B0
+	"
+    ".word 0x24440BB0
+	"
+    ".word 0x1450004F
+	"
+    ".word 0x00000000
+	"
+    ".word 0x8E020090
+	"
+    ".word 0x1040004C
+	"
+    ".word 0x00000000
+	"
+    ".word 0x0C089558
+	"
+    ".word 0x27A40038
+	"
+    ".word 0x1000000E
+	"
+    ".word 0x70008E28
+	"
+    ".word 0x00111080
+	"
+    ".word 0x02021021
+	"
+    ".word 0x8C440858
+	"
+    ".word 0x50800009
+	"
+    ".word 0x26310001
+	"
+    ".word 0x8C990000
+	"
+    ".word 0x8FA6003C
+	"
+    ".word 0x8F3900D8
+	"
+    ".word 0x0320F809
+	"
+    ".word 0x8FA50038
+	"
+    ".word 0x14400006
+	"
+    ".word 0x2A21000A
+	"
+    ".word 0x26310001
+	"
+    ".word 0x2A22000A
+	"
+    ".word 0x1440FFF2
+	"
+    ".word 0x00111080
+	"
+    ".word 0x2A21000A
+	"
+    ".word 0x1020000C
+	"
+    ".word 0x00000000
+	"
+    ".word 0x8E020884
+	"
+    ".word 0x12220009
+	"
+    ".word 0x00000000
+	"
+    ".word 0x8E190000
+	"
+    ".word 0x8FA50038
+	"
+    ".word 0x8FA6003C
+	"
+    ".word 0x72002628
+	"
+    ".word 0x70003E28
+	"
+    ".word 0x8F39007C
+	"
+    ".word 0x0320F809
+	"
+    ".word 0x70004628
+	"
+    ".word 0x8E020884
+	"
+    ".word 0x8FA6003C
+	"
+    ".word 0x00021080
+	"
+    ".word 0x00501021
+	"
+    ".word 0x8C440858
+	"
+    ".word 0x8C990000
+	"
+    ".word 0x8F3900D8
+	"
+    ".word 0x0320F809
+	"
+    ".word 0x8FA50038
+	"
+    ".word 0x10400013
+	"
+    ".word 0x00000000
+	"
+    ".word 0x8E020884
+	"
+    ".word 0x00021080
+	"
+    ".word 0x00501821
+	"
+    ".word 0x8C620858
+	"
+    ".word 0x8C420228
+	"
+    ".word 0x10400018
+	"
+    ".word 0x00000000
+	"
+    ".word 0x8C64082C
+	"
+    ".word 0x3C0200FF
+	"
+    ".word 0x3442FFFF
+	"
+    ".word 0x8C83015C
+	"
+    ".word 0x14620012
+	"
+    ".word 0x00000000
+	"
+    ".word 0x34058080
+	"
+    ".word 0x0C085E38
+	"
+    ".word 0x70003628
+	"
+    ".word 0x1000000D
+	"
+    ".word 0x00000000
+	"
+    ".word 0x8E030884
+	"
+    ".word 0x34028080
+	"
+    ".word 0x00031880
+	"
+    ".word 0x00701821
+	"
+    ".word 0x8C64082C
+	"
+    ".word 0x8C83015C
+	"
+    ".word 0x14620005
+	"
+    ".word 0x00000000
+	"
+    ".word 0x3C0200FF
+	"
+    ".word 0x3445FFFF
+	"
+    ".word 0x0C085E38
+	"
+    ".word 0x70003628
+	"
+    ".word 0x72002628
+	"
+    ".word 0x0C07D3E8
+	"
+    ".word 0x00000000
+	"
+    ".word 0x7BBF0020
+	"
+    ".word 0x7BB10010
+	"
+    ".word 0x7BB00000
+	"
+    ".word 0x03E00008
+	"
+    ".word 0x27BD0040
+	"
+    ".set at
+	"
+    ".set reorder
+	"
+    ".end func_01D9AEE0
+"
+);
+
+/* func_01D9B0A0 (VMA: 0x01D9B0A0, size 196 bytes, 208 bytes with pad) */
+__asm__(
+    ".text
+	"
+    ".globl func_01D9B0A0
+	"
+    ".ent func_01D9B0A0
+"
+    "func_01D9B0A0:
+	"
+    ".set noreorder
+	"
+    ".set noat
+	"
+    ".word 0x27BDFFD0
+	"
+    ".word 0x7FBF0020
+	"
+    ".word 0x7FB10010
+	"
+    ".word 0x7FB00000
+	"
+    ".word 0x8F8389C0
+	"
+    ".word 0x70808E28
+	"
+    ".word 0x8C840860
+	"
+    ".word 0x3C010001
+	"
+    ".word 0x8C630404
+	"
+    ".word 0x00610821
+	"
+    ".word 0x8C239E38
+	"
+    ".word 0x90630004
+	"
+    ".word 0x10600016
+	"
+    ".word 0x849001A0
+	"
+    ".word 0x0C089870
+	"
+    ".word 0x00000000
+	"
+    ".word 0x8E230888
+	"
+    ".word 0x00431823
+	"
+    ".word 0x2C6303E8
+	"
+    ".word 0x14600018
+	"
+    ".word 0x00000000
+	"
+    ".word 0x2A01000A
+	"
+    ".word 0x14200003
+	"
+    ".word 0xAE220888
+	"
+    ".word 0x10000002
+	"
+    ".word 0x2610FFFE
+	"
+    ".word 0x26100002
+	"
+    ".word 0x8E240860
+	"
+    ".word 0x8E260854
+	"
+    ".word 0x00103C3C
+	"
+    ".word 0x00073C3F
+	"
+    ".word 0x0C082468
+	"
+    ".word 0x70002E28
+	"
+    ".word 0x1000000B
+	"
+    ".word 0x7BBF0020
+	"
+    ".word 0x2A01000A
+	"
+    ".word 0x14200007
+	"
+    ".word 0x00000000
+	"
+    ".word 0x8E260854
+	"
+    ".word 0x2602FFFE
+	"
+    ".word 0x00023C3C
+	"
+    ".word 0x00073C3F
+	"
+    ".word 0x0C082468
+	"
+    ".word 0x70002E28
+	"
+    ".word 0x7BBF0020
+	"
+    ".word 0x7BB10010
+	"
+    ".word 0x7BB00000
+	"
+    ".word 0x03E00008
+	"
+    ".word 0x27BD0030
+	"
+    ".word 0x00000000
+	"
+    ".word 0x00000000
+	"
+    ".word 0x00000000
+	"
+    ".set at
+	"
+    ".set reorder
+	"
+    ".end func_01D9B0A0
+"
+);
+
+/* func_01D9B170 (VMA: 0x01D9B170, size 52 bytes, 64 bytes with pad) */
+__asm__(
+    ".text
+	"
+    ".globl func_01D9B170
+	"
+    ".ent func_01D9B170
+"
+    "func_01D9B170:
+	"
+    ".set noreorder
+	"
+    ".set noat
+	"
+    ".word 0x27BDFFE0
+	"
+    ".word 0x7FBF0010
+	"
+    ".word 0x7FB00000
+	"
+    ".word 0x0C082334
+	"
+    ".word 0x70808628
+	"
+    ".word 0x3C02004E
+	"
+    ".word 0x24420A00
+	"
+    ".word 0xAE020000
+	"
+    ".word 0x72001628
+	"
+    ".word 0x7BBF0010
+	"
+    ".word 0x7BB00000
+	"
+    ".word 0x03E00008
+	"
+    ".word 0x27BD0020
+	"
+    ".word 0x00000000
+	"
+    ".word 0x00000000
+	"
+    ".word 0x00000000
+	"
+    ".set at
+	"
+    ".set reorder
+	"
+    ".end func_01D9B170
+"
+);
+
+/* func_01D9B1B0 (VMA: 0x01D9B1B0, size 96 bytes, 96 bytes with pad) */
+__asm__(
+    ".text
+	"
+    ".globl func_01D9B1B0
+	"
+    ".ent func_01D9B1B0
+"
+    "func_01D9B1B0:
+	"
+    ".set noreorder
+	"
+    ".set noat
+	"
+    ".word 0x27BDFFD0
+	"
+    ".word 0x7FBF0020
+	"
+    ".word 0x7FB10010
+	"
+    ".word 0x7FB00000
+	"
+    ".word 0x70808E28
+	"
+    ".word 0x1220000C
+	"
+    ".word 0x70A08628
+	"
+    ".word 0x3C02004E
+	"
+    ".word 0x24420A00
+	"
+    ".word 0xAE220000
+	"
+    ".word 0x0C082388
+	"
+    ".word 0x70002E28
+	"
+    ".word 0x0010143C
+	"
+    ".word 0x0002143F
+	"
+    ".word 0x18400004
+	"
+    ".word 0x72201628
+	"
+    ".word 0x0C04019C
+	"
+    ".word 0x72202628
+	"
+    ".word 0x72201628
+	"
+    ".word 0x7BBF0020
+	"
+    ".word 0x7BB10010
+	"
+    ".word 0x7BB00000
+	"
+    ".word 0x03E00008
+	"
+    ".word 0x27BD0030
+	"
+    ".set at
+	"
+    ".set reorder
+	"
+    ".end func_01D9B1B0
+"
+);
+
+/* func_01D9B210 (VMA: 0x01D9B210, size 212 bytes, 224 bytes with pad) */
+__asm__(
+    ".text
+	"
+    ".globl func_01D9B210
+	"
+    ".ent func_01D9B210
+"
+    "func_01D9B210:
+	"
+    ".set noreorder
+	"
+    ".set noat
+	"
+    ".word 0x27BDFFD0
+	"
+    ".word 0x7FBF0020
+	"
+    ".word 0x7FB00010
+	"
+    ".word 0x0C08262C
+	"
+    ".word 0x70808628
+	"
+    ".word 0x8E030090
+	"
+    ".word 0x1060002A
+	"
+    ".word 0x00000000
+	"
+    ".word 0x8E040020
+	"
+    ".word 0x0C06AE3C
+	"
+    ".word 0x24050001
+	"
+    ".word 0x10400025
+	"
+    ".word 0x00000000
+	"
+    ".word 0x8E020228
+	"
+    ".word 0x14400011
+	"
+    ".word 0x00000000
+	"
+    ".word 0x8E060010
+	"
+    ".word 0x8E05000C
+	"
+    ".word 0x24090081
+	"
+    ".word 0x71205628
+	"
+    ".word 0x71205E28
+	"
+    ".word 0xFFA90000
+	"
+    ".word 0x8E030014
+	"
+    ".word 0x8E020018
+	"
+    ".word 0x8E040020
+	"
+    ".word 0x00A31821
+	"
+    ".word 0x00C21021
+	"
+    ".word 0x2467FFFE
+	"
+    ".word 0x0C06B69C
+	"
+    ".word 0x2448FFFF
+	"
+    ".word 0x10000010
+	"
+    ".word 0x8E040020
+	"
+    ".word 0x8E060010
+	"
+    ".word 0x8E05000C
+	"
+    ".word 0x240900F3
+	"
+    ".word 0x71205628
+	"
+    ".word 0x71205E28
+	"
+    ".word 0xFFA90000
+	"
+    ".word 0x8E030014
+	"
+    ".word 0x8E020018
+	"
+    ".word 0x8E040020
+	"
+    ".word 0x00A31821
+	"
+    ".word 0x00C21021
+	"
+    ".word 0x2467FFFE
+	"
+    ".word 0x0C06B69C
+	"
+    ".word 0x2448FFFF
+	"
+    ".word 0x8E040020
+	"
+    ".word 0x0C06AE74
+	"
+    ".word 0x00000000
+	"
+    ".word 0x7BBF0020
+	"
+    ".word 0x7BB00010
+	"
+    ".word 0x03E00008
+	"
+    ".word 0x27BD0030
+	"
+    ".word 0x00000000
+	"
+    ".word 0x00000000
+	"
+    ".word 0x00000000
+	"
+    ".set at
+	"
+    ".set reorder
+	"
+    ".end func_01D9B210
+"
+);
+
+/* func_01D9B2F0 (VMA: 0x01D9B2F0, size 828 bytes, 832 bytes with pad) */
+__asm__(
+    ".text
+	"
+    ".globl func_01D9B2F0
+	"
+    ".ent func_01D9B2F0
+"
+    "func_01D9B2F0:
+	"
+    ".set noreorder
+	"
+    ".set noat
+	"
+    ".word 0x27BDFFA0
+	"
+    ".word 0x7FBF0030
+	"
+    ".word 0x7FB00020
+	"
+    ".word 0xAFA4004C
+	"
+    ".word 0x8FA4004C
+	"
+    ".word 0x70A08628
+	"
+    ".word 0x3C0201DB
+	"
+    ".word 0x0C082EBC
+	"
+    ".word 0x2445E4D0
+	"
+    ".word 0x3C02004E
+	"
+    ".word 0x24450880
+	"
+    ".word 0x8FA2004C
+	"
+    ".word 0x24030001
+	"
+    ".word 0x72002628
+	"
+    ".word 0xAC450000
+	"
+    ".word 0x8F8589C0
+	"
+    ".word 0x8FA2004C
+	"
+    ".word 0x8CA51468
+	"
+    ".word 0x90A5007C
+	"
+    ".word 0xA045083C
+	"
+    ".word 0x8F8289C0
+	"
+    ".word 0x8C421468
+	"
+    ".word 0xA043007C
+	"
+    ".word 0x8FA2004C
+	"
+    ".word 0xAC400828
+	"
+    ".word 0x8FA2004C
+	"
+    ".word 0xAC40082C
+	"
+    ".word 0x8FA2004C
+	"
+    ".word 0xAC400830
+	"
+    ".word 0x8FA2004C
+	"
+    ".word 0xAC400834
+	"
+    ".word 0x8FA2004C
+	"
+    ".word 0x0C07DB7C
+	"
+    ".word 0xAC400838
+	"
+    ".word 0x8FA4004C
+	"
+    ".word 0x70402E28
+	"
+    ".word 0x3C0201DB
+	"
+    ".word 0x2407015C
+	"
+    ".word 0x240800EC
+	"
+    ".word 0x8C990000
+	"
+    ".word 0x2449E4E8
+	"
+    ".word 0x240B0001
+	"
+    ".word 0x72003628
+	"
+    ".word 0x8F39016C
+	"
+    ".word 0x0320F809
+	"
+    ".word 0x340AD7A0
+	"
+    ".word 0x14400003
+	"
+    ".word 0x00000000
+	"
+    ".word 0x1000009A
+	"
+    ".word 0x8FA2004C
+	"
+    ".word 0x8FA4004C
+	"
+    ".word 0x8C990000
+	"
+    ".word 0x8C82000C
+	"
+    ".word 0x8C860010
+	"
+    ".word 0x8C870014
+	"
+    ".word 0x8C880018
+	"
+    ".word 0x8F390024
+	"
+    ".word 0x0320F809
+	"
+    ".word 0x24450010
+	"
+    ".word 0x8FA4004C
+	"
+    ".word 0x24020001
+	"
+    ".word 0x2407244D
+	"
+    ".word 0x24080078
+	"
+    ".word 0xFFA00000
+	"
+    ".word 0xFFA20008
+	"
+    ".word 0xFFA20010
+	"
+    ".word 0xFFA00018
+	"
+    ".word 0x8C990000
+	"
+    ".word 0x24860828
+	"
+    ".word 0x2409000E
+	"
+    ".word 0x240A0058
+	"
+    ".word 0x8F390128
+	"
+    ".word 0x240B0016
+	"
+    ".word 0x0320F809
+	"
+    ".word 0x70802E28
+	"
+    ".word 0x14400003
+	"
+    ".word 0x00000000
+	"
+    ".word 0x1000007D
+	"
+    ".word 0x8FA2004C
+	"
+    ".word 0x8FA4004C
+	"
+    ".word 0x2403001A
+	"
+    ".word 0x24020002
+	"
+    ".word 0x2407244A
+	"
+    ".word 0xFFA30000
+	"
+    ".word 0xFFA20008
+	"
+    ".word 0xFFA00010
+	"
+    ".word 0xFFA00018
+	"
+    ".word 0x8C990000
+	"
+    ".word 0x2486082C
+	"
+    ".word 0x2409005E
+	"
+    ".word 0x240A0032
+	"
+    ".word 0x8F390114
+	"
+    ".word 0x240B008C
+	"
+    ".word 0x70802E28
+	"
+    ".word 0x0320F809
+	"
+    ".word 0x70004628
+	"
+    ".word 0x14400003
+	"
+    ".word 0x00000000
+	"
+    ".word 0x10000068
+	"
+    ".word 0x8FA2004C
+	"
+    ".word 0x8FA4004C
+	"
+    ".word 0x2403001A
+	"
+    ".word 0x24020002
+	"
+    ".word 0x2407243C
+	"
+    ".word 0xFFA30000
+	"
+    ".word 0xFFA20008
+	"
+    ".word 0xFFA00010
+	"
+    ".word 0xFFA00018
+	"
+    ".word 0x8C990000
+	"
+    ".word 0x24860830
+	"
+    ".word 0x2409005E
+	"
+    ".word 0x240A005A
+	"
+    ".word 0x8F390114
+	"
+    ".word 0x240B008C
+	"
+    ".word 0x70802E28
+	"
+    ".word 0x0320F809
+	"
+    ".word 0x70004628
+	"
+    ".word 0x14400003
+	"
+    ".word 0x00000000
+	"
+    ".word 0x10000053
+	"
+    ".word 0x8FA2004C
+	"
+    ".word 0x8FA4004C
+	"
+    ".word 0x2403001A
+	"
+    ".word 0x24020002
+	"
+    ".word 0x24072400
+	"
+    ".word 0xFFA30000
+	"
+    ".word 0xFFA20008
+	"
+    ".word 0xFFA00010
+	"
+    ".word 0xFFA00018
+	"
+    ".word 0x8C990000
+	"
+    ".word 0x24860834
+	"
+    ".word 0x2409005E
+	"
+    ".word 0x240A0082
+	"
+    ".word 0x8F390114
+	"
+    ".word 0x240B008C
+	"
+    ".word 0x70802E28
+	"
+    ".word 0x0320F809
+	"
+    ".word 0x70004628
+	"
+    ".word 0x14400003
+	"
+    ".word 0x00000000
+	"
+    ".word 0x1000003E
+	"
+    ".word 0x8FA2004C
+	"
+    ".word 0x8FA4004C
+	"
+    ".word 0x2403001A
+	"
+    ".word 0x24020002
+	"
+    ".word 0x2407243B
+	"
+    ".word 0xFFA30000
+	"
+    ".word 0xFFA20008
+	"
+    ".word 0xFFA00010
+	"
+    ".word 0xFFA00018
+	"
+    ".word 0x8C990000
+	"
+    ".word 0x24860838
+	"
+    ".word 0x2409005E
+	"
+    ".word 0x240A00AA
+	"
+    ".word 0x8F390114
+	"
+    ".word 0x240B008C
+	"
+    ".word 0x70802E28
+	"
+    ".word 0x0320F809
+	"
+    ".word 0x70004628
+	"
+    ".word 0x14400003
+	"
+    ".word 0x00000000
+	"
+    ".word 0x10000029
+	"
+    ".word 0x8FA2004C
+	"
+    ".word 0x8FA3004C
+	"
+    ".word 0x2402001B
+	"
+    ".word 0x27A50050
+	"
+    ".word 0x24060004
+	"
+    ".word 0x8C630838
+	"
+    ".word 0xAC6202CC
+	"
+    ".word 0xAC6002D0
+	"
+    ".word 0xAC6002D4
+	"
+    ".word 0xAC6002D8
+	"
+    ".word 0x8FA4004C
+	"
+    ".word 0x8C82082C
+	"
+    ".word 0xAFA20050
+	"
+    ".word 0x8C820830
+	"
+    ".word 0xAFA20054
+	"
+    ".word 0x8C820834
+	"
+    ".word 0xAFA20058
+	"
+    ".word 0x8C820838
+	"
+    ".word 0xAFA2005C
+	"
+    ".word 0x8C990000
+	"
+    ".word 0x8F3900E0
+	"
+    ".word 0x0320F809
+	"
+    ".word 0x70003E28
+	"
+    ".word 0x8FA4004C
+	"
+    ".word 0x27A50050
+	"
+    ".word 0x24060004
+	"
+    ".word 0x8C990000
+	"
+    ".word 0x8F3900E0
+	"
+    ".word 0x0320F809
+	"
+    ".word 0x24070001
+	"
+    ".word 0x8FA4004C
+	"
+    ".word 0x0C07D9D4
+	"
+    ".word 0x8C85082C
+	"
+    ".word 0x8FA4004C
+	"
+    ".word 0x0C07E1BC
+	"
+    ".word 0x8C85082C
+	"
+    ".word 0x8FA4004C
+	"
+    ".word 0x0C07E2BC
+	"
+    ".word 0x70002E28
+	"
+    ".word 0x8FA2004C
+	"
+    ".word 0x00000000
+	"
+    ".word 0x7BBF0030
+	"
+    ".word 0x7BB00020
+	"
+    ".word 0x03E00008
+	"
+    ".word 0x27BD0060
+	"
+    ".word 0x00000000
+	"
+    ".set at
+	"
+    ".set reorder
+	"
+    ".end func_01D9B2F0
+"
+);
+
+/* func_01D9B630 (VMA: 0x01D9B630, size 316 bytes, 320 bytes with pad) */
+__asm__(
+    ".text
+	"
+    ".globl func_01D9B630
+	"
+    ".ent func_01D9B630
+"
+    "func_01D9B630:
+	"
+    ".set noreorder
+	"
+    ".set noat
+	"
+    ".word 0x27BDFFD0
+	"
+    ".word 0x7FBF0020
+	"
+    ".word 0x7FB10010
+	"
+    ".word 0x7FB00000
+	"
+    ".word 0x70808628
+	"
+    ".word 0x12000043
+	"
+    ".word 0x70A08E28
+	"
+    ".word 0x3C02004E
+	"
+    ".word 0x24420880
+	"
+    ".word 0xAE020000
+	"
+    ".word 0x8F8289C0
+	"
+    ".word 0x9203083C
+	"
+    ".word 0x8C421468
+	"
+    ".word 0xA043007C
+	"
+    ".word 0x8E040828
+	"
+    ".word 0x10800008
+	"
+    ".word 0x00000000
+	"
+    ".word 0x10800005
+	"
+    ".word 0x00000000
+	"
+    ".word 0x8C990000
+	"
+    ".word 0x8F390008
+	"
+    ".word 0x0320F809
+	"
+    ".word 0x24050001
+	"
+    ".word 0xAE000828
+	"
+    ".word 0x8E04082C
+	"
+    ".word 0x10800008
+	"
+    ".word 0x00000000
+	"
+    ".word 0x10800005
+	"
+    ".word 0x00000000
+	"
+    ".word 0x8C990000
+	"
+    ".word 0x8F390008
+	"
+    ".word 0x0320F809
+	"
+    ".word 0x24050001
+	"
+    ".word 0xAE00082C
+	"
+    ".word 0x8E040830
+	"
+    ".word 0x10800008
+	"
+    ".word 0x00000000
+	"
+    ".word 0x10800005
+	"
+    ".word 0x00000000
+	"
+    ".word 0x8C990000
+	"
+    ".word 0x8F390008
+	"
+    ".word 0x0320F809
+	"
+    ".word 0x24050001
+	"
+    ".word 0xAE000830
+	"
+    ".word 0x8E040834
+	"
+    ".word 0x10800008
+	"
+    ".word 0x00000000
+	"
+    ".word 0x10800005
+	"
+    ".word 0x00000000
+	"
+    ".word 0x8C990000
+	"
+    ".word 0x8F390008
+	"
+    ".word 0x0320F809
+	"
+    ".word 0x24050001
+	"
+    ".word 0xAE000834
+	"
+    ".word 0x8E040838
+	"
+    ".word 0x50800009
+	"
+    ".word 0x72002628
+	"
+    ".word 0x10800005
+	"
+    ".word 0x00000000
+	"
+    ".word 0x8C990000
+	"
+    ".word 0x8F390008
+	"
+    ".word 0x0320F809
+	"
+    ".word 0x24050001
+	"
+    ".word 0xAE000838
+	"
+    ".word 0x72002628
+	"
+    ".word 0x0C082F98
+	"
+    ".word 0x70002E28
+	"
+    ".word 0x0011143C
+	"
+    ".word 0x0002143F
+	"
+    ".word 0x18400004
+	"
+    ".word 0x72001628
+	"
+    ".word 0x0C04019C
+	"
+    ".word 0x72002628
+	"
+    ".word 0x72001628
+	"
+    ".word 0x7BBF0020
+	"
+    ".word 0x7BB10010
+	"
+    ".word 0x7BB00000
+	"
+    ".word 0x03E00008
+	"
+    ".word 0x27BD0030
+	"
+    ".word 0x00000000
+	"
+    ".set at
+	"
+    ".set reorder
+	"
+    ".end func_01D9B630
+"
+);
+
+/* func_01D9B770 (VMA: 0x01D9B770, size 296 bytes, 304 bytes with pad) */
+__asm__(
+    ".text
+	"
+    ".globl func_01D9B770
+	"
+    ".ent func_01D9B770
+"
+    "func_01D9B770:
+	"
+    ".set noreorder
+	"
+    ".set noat
+	"
+    ".word 0x27BDFFA0
+	"
+    ".word 0x7FBF0050
+	"
+    ".word 0x7FB40040
+	"
+    ".word 0x7FB30030
+	"
+    ".word 0x7FB20020
+	"
+    ".word 0x7FB10010
+	"
+    ".word 0x7FB00000
+	"
+    ".word 0x7080A628
+	"
+    ".word 0x8C84082C
+	"
+    ".word 0x70E08E28
+	"
+    ".word 0x71008628
+	"
+    ".word 0x70A09E28
+	"
+    ".word 0x8C990000
+	"
+    ".word 0x8F3900D8
+	"
+    ".word 0x0320F809
+	"
+    ".word 0x70C09628
+	"
+    ".word 0x10400006
+	"
+    ".word 0x00000000
+	"
+    ".word 0x8E85082C
+	"
+    ".word 0x0C07D9D4
+	"
+    ".word 0x72802628
+	"
+    ".word 0x10000027
+	"
+    ".word 0x72802628
+	"
+    ".word 0x8E840830
+	"
+    ".word 0x72602E28
+	"
+    ".word 0x8C990000
+	"
+    ".word 0x8F3900D8
+	"
+    ".word 0x0320F809
+	"
+    ".word 0x72403628
+	"
+    ".word 0x10400006
+	"
+    ".word 0x00000000
+	"
+    ".word 0x8E850830
+	"
+    ".word 0x0C07D9D4
+	"
+    ".word 0x72802628
+	"
+    ".word 0x10000019
+	"
+    ".word 0x00000000
+	"
+    ".word 0x8E840834
+	"
+    ".word 0x72602E28
+	"
+    ".word 0x8C990000
+	"
+    ".word 0x8F3900D8
+	"
+    ".word 0x0320F809
+	"
+    ".word 0x72403628
+	"
+    ".word 0x10400006
+	"
+    ".word 0x00000000
+	"
+    ".word 0x8E850834
+	"
+    ".word 0x0C07D9D4
+	"
+    ".word 0x72802628
+	"
+    ".word 0x1000000C
+	"
+    ".word 0x00000000
+	"
+    ".word 0x8E840838
+	"
+    ".word 0x72602E28
+	"
+    ".word 0x8C990000
+	"
+    ".word 0x8F3900D8
+	"
+    ".word 0x0320F809
+	"
+    ".word 0x72403628
+	"
+    ".word 0x10400004
+	"
+    ".word 0x00000000
+	"
+    ".word 0x8E850838
+	"
+    ".word 0x0C07D9D4
+	"
+    ".word 0x72802628
+	"
+    ".word 0x72802628
+	"
+    ".word 0x72602E28
+	"
+    ".word 0x72403628
+	"
+    ".word 0x72203E28
+	"
+    ".word 0x0C07EFCC
+	"
+    ".word 0x72004628
+	"
+    ".word 0x7BBF0050
+	"
+    ".word 0x7BB40040
+	"
+    ".word 0x7BB30030
+	"
+    ".word 0x7BB20020
+	"
+    ".word 0x7BB10010
+	"
+    ".word 0x7BB00000
+	"
+    ".word 0x03E00008
+	"
+    ".word 0x27BD0060
+	"
+    ".word 0x00000000
+	"
+    ".word 0x00000000
+	"
+    ".set at
+	"
+    ".set reorder
+	"
+    ".end func_01D9B770
+"
+);
+
+/* func_01D9B8A0 (VMA: 0x01D9B8A0, size 480 bytes, 480 bytes with pad) */
+__asm__(
+    ".text
+	"
+    ".globl func_01D9B8A0
+	"
+    ".ent func_01D9B8A0
+"
+    "func_01D9B8A0:
+	"
+    ".set noreorder
+	"
+    ".set noat
+	"
+    ".word 0x27BDFFF0
+	"
+    ".word 0x10A00071
+	"
+    ".word 0x7FBF0000
+	"
+    ".word 0x24020001
+	"
+    ".word 0x14C2006E
+	"
+    ".word 0x00000000
+	"
+    ".word 0x8C82082C
+	"
+    ".word 0x14A20015
+	"
+    ".word 0x00000000
+	"
+    ".word 0x0C040214
+	"
+    ".word 0x240408A4
+	"
+    ".word 0x10400004
+	"
+    ".word 0x00000000
+	"
+    ".word 0x24050004
+	"
+    ".word 0x0C0CF6BC
+	"
+    ".word 0x70402628
+	"
+    ".word 0x3C0200A8
+	"
+    ".word 0x24440BB0
+	"
+    ".word 0x3C0201DB
+	"
+    ".word 0x2445E500
+	"
+    ".word 0x0C07CA40
+	"
+    ".word 0x70003628
+	"
+    ".word 0x3C0200A8
+	"
+    ".word 0x24440BB0
+	"
+    ".word 0x3C0201DB
+	"
+    ".word 0x0C07CB2C
+	"
+    ".word 0x2445E4D0
+	"
+    ".word 0x10000059
+	"
+    ".word 0x24020001
+	"
+    ".word 0x8C820830
+	"
+    ".word 0x14A2001B
+	"
+    ".word 0x00000000
+	"
+    ".word 0x3C0200A8
+	"
+    ".word 0x24440BB0
+	"
+    ".word 0x3C0201DB
+	"
+    ".word 0x2445E468
+	"
+    ".word 0x0C07CA40
+	"
+    ".word 0x70003628
+	"
+    ".word 0x3C0200A8
+	"
+    ".word 0x24440BB0
+	"
+    ".word 0x3C0201DB
+	"
+    ".word 0x0C07CB2C
+	"
+    ".word 0x2445E4D0
+	"
+    ".word 0x0C040214
+	"
+    ".word 0x240408A4
+	"
+    ".word 0x10400004
+	"
+    ".word 0x00000000
+	"
+    ".word 0x24050003
+	"
+    ".word 0x0C0CF6BC
+	"
+    ".word 0x70402628
+	"
+    ".word 0x3C0200A8
+	"
+    ".word 0x24440BB0
+	"
+    ".word 0x3C0201DB
+	"
+    ".word 0x2445E500
+	"
+    ".word 0x0C07CA40
+	"
+    ".word 0x70003628
+	"
+    ".word 0x1000003C
+	"
+    ".word 0x24020001
+	"
+    ".word 0x8C820834
+	"
+    ".word 0x14A2001B
+	"
+    ".word 0x00000000
+	"
+    ".word 0x3C0200A8
+	"
+    ".word 0x24440BB0
+	"
+    ".word 0x3C0201DB
+	"
+    ".word 0x2445E468
+	"
+    ".word 0x0C07CA40
+	"
+    ".word 0x70003628
+	"
+    ".word 0x3C0200A8
+	"
+    ".word 0x24440BB0
+	"
+    ".word 0x3C0201DB
+	"
+    ".word 0x0C07CB2C
+	"
+    ".word 0x2445E4D0
+	"
+    ".word 0x0C040214
+	"
+    ".word 0x240408A4
+	"
+    ".word 0x10400004
+	"
+    ".word 0x00000000
+	"
+    ".word 0x24050006
+	"
+    ".word 0x0C0CF6BC
+	"
+    ".word 0x70402628
+	"
+    ".word 0x3C0200A8
+	"
+    ".word 0x24440BB0
+	"
+    ".word 0x3C0201DB
+	"
+    ".word 0x2445E500
+	"
+    ".word 0x0C07CA40
+	"
+    ".word 0x70003628
+	"
+    ".word 0x1000001F
+	"
+    ".word 0x24020001
+	"
+    ".word 0x8C820838
+	"
+    ".word 0x14A2001A
+	"
+    ".word 0x00000000
+	"
+    ".word 0x0C062034
+	"
+    ".word 0x8F8489C0
+	"
+    ".word 0x24030001
+	"
+    ".word 0x14430008
+	"
+    ".word 0x00000000
+	"
+    ".word 0x8F8489C0
+	"
+    ".word 0x8C820B20
+	"
+    ".word 0x14400004
+	"
+    ".word 0x00000000
+	"
+    ".word 0x70002E28
+	"
+    ".word 0x0C0617C0
+	"
+    ".word 0x70003628
+	"
+    ".word 0x3C0200A8
+	"
+    ".word 0x24440BB0
+	"
+    ".word 0x3C0201DB
+	"
+    ".word 0x2445E468
+	"
+    ".word 0x0C07CA40
+	"
+    ".word 0x70003628
+	"
+    ".word 0x3C0200A8
+	"
+    ".word 0x24440BB0
+	"
+    ".word 0x3C0201DB
+	"
+    ".word 0x0C07CB2C
+	"
+    ".word 0x2445E4D0
+	"
+    ".word 0x10000003
+	"
+    ".word 0x24020001
+	"
+    ".word 0x0C07EF4C
+	"
+    ".word 0x00000000
+	"
+    ".word 0x7BBF0000
+	"
+    ".word 0x03E00008
+	"
+    ".word 0x27BD0010
+	"
+    ".set at
+	"
+    ".set reorder
+	"
+    ".end func_01D9B8A0
+"
+);
+
+/* func_01D9BA80 (VMA: 0x01D9BA80, size 3104 bytes, 3104 bytes with pad) */
+__asm__(
+    ".text
+	"
+    ".globl func_01D9BA80
+	"
+    ".ent func_01D9BA80
+"
+    "func_01D9BA80:
+	"
+    ".set noreorder
+	"
+    ".set noat
+	"
+    ".word 0x27BDFF20
+	"
+    ".word 0x7FBF0040
+	"
+    ".word 0x7FB10030
+	"
+    ".word 0x7FB00020
+	"
+    ".word 0xAFA4005C
+	"
+    ".word 0x8FA4005C
+	"
+    ".word 0x70A08628
+	"
+    ".word 0x3C0201DB
+	"
+    ".word 0x0C082EBC
+	"
+    ".word 0x2445E520
+	"
+    ".word 0x3C02004E
+	"
+    ".word 0x24430C90
+	"
+    ".word 0x8FA2005C
+	"
+    ".word 0x24050002
+	"
+    ".word 0xAC430000
+	"
+    ".word 0x8E190000
+	"
+    ".word 0x8F390028
+	"
+    ".word 0x0320F809
+	"
+    ".word 0x72002628
+	"
+    ".word 0x8F8289C0
+	"
+    ".word 0x8C421468
+	"
+    ".word 0x10400008
+	"
+    ".word 0x00000000
+	"
+    ".word 0x9044007C
+	"
+    ".word 0x24030001
+	"
+    ".word 0x8FA2005C
+	"
+    ".word 0xA04408B0
+	"
+    ".word 0x8F8289C0
+	"
+    ".word 0x8C421468
+	"
+    ".word 0xA043007C
+	"
+    ".word 0x8FA2005C
+	"
+    ".word 0x24030001
+	"
+    ".word 0x70002628
+	"
+    ".word 0xA043007C
+	"
+    ".word 0x8FA2005C
+	"
+    ".word 0xAC40083C
+	"
+    ".word 0x8FA2005C
+	"
+    ".word 0xAC400840
+	"
+    ".word 0x8FA2005C
+	"
+    ".word 0x10000006
+	"
+    ".word 0xAC400844
+	"
+    ".word 0x8FA2005C
+	"
+    ".word 0x00041880
+	"
+    ".word 0x24840001
+	"
+    ".word 0x00431021
+	"
+    ".word 0xAC400850
+	"
+    ".word 0x28820017
+	"
+    ".word 0x1440FFF9
+	"
+    ".word 0x00000000
+	"
+    ".word 0x8FA2005C
+	"
+    ".word 0x72002628
+	"
+    ".word 0xAC4008AC
+	"
+    ".word 0x8FA2005C
+	"
+    ".word 0xAC400848
+	"
+    ".word 0x8FA2005C
+	"
+    ".word 0xAC40084C
+	"
+    ".word 0x8FA2005C
+	"
+    ".word 0xA0400828
+	"
+    ".word 0x8FA2005C
+	"
+    ".word 0xA0400829
+	"
+    ".word 0x8FA2005C
+	"
+    ".word 0xA040082A
+	"
+    ".word 0x8FA2005C
+	"
+    ".word 0xAC40082C
+	"
+    ".word 0x8FA2005C
+	"
+    ".word 0xAC400830
+	"
+    ".word 0x8FA2005C
+	"
+    ".word 0xAC400834
+	"
+    ".word 0x8FA2005C
+	"
+    ".word 0x0C07DB7C
+	"
+    ".word 0xAC400838
+	"
+    ".word 0x8FA4005C
+	"
+    ".word 0x70402E28
+	"
+    ".word 0x3C0201DB
+	"
+    ".word 0x24070150
+	"
+    ".word 0x24080152
+	"
+    ".word 0x8C990000
+	"
+    ".word 0x2449E530
+	"
+    ".word 0x240B0001
+	"
+    ".word 0x72003628
+	"
+    ".word 0x8F39016C
+	"
+    ".word 0x0320F809
+	"
+    ".word 0x340AC35F
+	"
+    ".word 0x14400003
+	"
+    ".word 0x00000000
+	"
+    ".word 0x100002AD
+	"
+    ".word 0x8FA2005C
+	"
+    ".word 0x8FA4005C
+	"
+    ".word 0x240500A0
+	"
+    ".word 0x24060059
+	"
+    ".word 0x24070150
+	"
+    ".word 0x8C990000
+	"
+    ".word 0x8F390024
+	"
+    ".word 0x0320F809
+	"
+    ".word 0x24080152
+	"
+    ".word 0x0C097CAC
+	"
+    ".word 0x24040014
+	"
+    ".word 0x10400006
+	"
+    ".word 0x70408628
+	"
+    ".word 0x3C0201DB
+	"
+    ".word 0x2445E538
+	"
+    ".word 0x72002628
+	"
+    ".word 0x0C0975B4
+	"
+    ".word 0x3406DBC5
+	"
+    ".word 0x8FA2005C
+	"
+    ".word 0xAC50083C
+	"
+    ".word 0x8FA4005C
+	"
+    ".word 0x8C82083C
+	"
+    ".word 0x50400007
+	"
+    ".word 0x24020001
+	"
+    ".word 0x90420013
+	"
+    ".word 0x000217BC
+	"
+    ".word 0x000217FE
+	"
+    ".word 0x14400006
+	"
+    ".word 0x24020001
+	"
+    ".word 0x24020001
+	"
+    ".word 0xAC8200F4
+	"
+    ".word 0x1000028D
+	"
+    ".word 0x8FA2005C
+	"
+    ".word 0x24020001
+	"
+    ".word 0xFFA00000
+	"
+    ".word 0xFFA20008
+	"
+    ".word 0xFFA20010
+	"
+    ".word 0xFFA00018
+	"
+    ".word 0x8C990000
+	"
+    ".word 0x24860840
+	"
+    ".word 0x24080076
+	"
+    ".word 0x2409000E
+	"
+    ".word 0x8F390128
+	"
+    ".word 0x240A0058
+	"
+    ".word 0x240B0016
+	"
+    ".word 0x70802E28
+	"
+    ".word 0x0320F809
+	"
+    ".word 0x3407C418
+	"
+    ".word 0x14400003
+	"
+    ".word 0x00000000
+	"
+    ".word 0x1000027A
+	"
+    ".word 0x8FA2005C
+	"
+    ".word 0x8FA4005C
+	"
+    ".word 0x24030002
+	"
+    ".word 0x24020001
+	"
+    ".word 0x24080010
+	"
+    ".word 0xFFA30000
+	"
+    ".word 0xFFA00008
+	"
+    ".word 0xFFA00010
+	"
+    ".word 0xFFA20018
+	"
+    ".word 0x8C990000
+	"
+    ".word 0x24860844
+	"
+    ".word 0x240900EC
+	"
+    ".word 0x240A011C
+	"
+    ".word 0x8F390128
+	"
+    ".word 0x240B002E
+	"
+    ".word 0x70003E28
+	"
+    ".word 0x0320F809
+	"
+    ".word 0x70802E28
+	"
+    ".word 0x14400003
+	"
+    ".word 0x00000000
+	"
+    ".word 0x10000265
+	"
+    ".word 0x8FA2005C
+	"
+    ".word 0x8FA2005C
+	"
+    ".word 0x8C440844
+	"
+    ".word 0x90460344
+	"
+    ".word 0x90470345
+	"
+    ".word 0x90480346
+	"
+    ".word 0x90490347
+	"
+    ".word 0x904A0348
+	"
+    ".word 0x8C990000
+	"
+    ".word 0x904B0349
+	"
+    ".word 0x8F390118
+	"
+    ".word 0x0320F809
+	"
+    ".word 0x24050002
+	"
+    ".word 0x3C0201DB
+	"
+    ".word 0x2442E2C0
+	"
+    ".word 0x78430000
+	"
+    ".word 0x27A40060
+	"
+    ".word 0x70008E28
+	"
+    ".word 0xDC420010
+	"
+    ".word 0x7C830000
+	"
+    ".word 0x1000005E
+	"
+    ".word 0xFC820010
+	"
+    ".word 0x24050005
+	"
+    ".word 0x8FA4005C
+	"
+    ".word 0x0225001A
+	"
+    ".word 0x24030021
+	"
+    ".word 0x00118080
+	"
+    ".word 0x24020002
+	"
+    ".word 0xFFA30000
+	"
+    ".word 0xFFA20008
+	"
+    ".word 0xFFA00010
+	"
+    ".word 0x00903021
+	"
+    ".word 0xFFA00018
+	"
+    ".word 0x00001810
+	"
+    ".word 0x0225001A
+	"
+    ".word 0x00031100
+	"
+    ".word 0x00431023
+	"
+    ".word 0x00021080
+	"
+    ".word 0x14A00002
+	"
+    ".word 0x24490010
+	"
+    ".word 0x000001CD
+	"
+    ".word 0x8C990000
+	"
+    ".word 0x00001812
+	"
+    ".word 0x24C60850
+	"
+    ".word 0x000310C0
+	"
+    ".word 0x00431021
+	"
+    ".word 0x8F390114
+	"
+    ".word 0x00021040
+	"
+    ".word 0x00431021
+	"
+    ".word 0x00021040
+	"
+    ".word 0x244A002E
+	"
+    ".word 0x240B0028
+	"
+    ".word 0x70802E28
+	"
+    ".word 0x70003E28
+	"
+    ".word 0x0320F809
+	"
+    ".word 0x70004628
+	"
+    ".word 0x14400003
+	"
+    ".word 0x00000000
+	"
+    ".word 0x1000022A
+	"
+    ".word 0x8FA2005C
+	"
+    ".word 0x8FA2005C
+	"
+    ".word 0x00501021
+	"
+    ".word 0x8C440850
+	"
+    ".word 0x0C0823E8
+	"
+    ".word 0x24050007
+	"
+    ".word 0x2A210011
+	"
+    ".word 0x1020000D
+	"
+    ".word 0x021D1021
+	"
+    ".word 0x8FA3005C
+	"
+    ".word 0x00111040
+	"
+    ".word 0x00023C3C
+	"
+    ".word 0x00073C3F
+	"
+    ".word 0x00701021
+	"
+    ".word 0x8C66083C
+	"
+    ".word 0x8C440850
+	"
+    ".word 0x0C082468
+	"
+    ".word 0x70002E28
+	"
+    ".word 0x1000000A
+	"
+    ".word 0x8FA2005C
+	"
+    ".word 0x021D1021
+	"
+    ".word 0x8FA3005C
+	"
+    ".word 0x8447001C
+	"
+    ".word 0x8C66083C
+	"
+    ".word 0x00701021
+	"
+    ".word 0x8C440850
+	"
+    ".word 0x0C082468
+	"
+    ".word 0x70002E28
+	"
+    ".word 0x8FA2005C
+	"
+    ".word 0x70002E28
+	"
+    ".word 0x72203628
+	"
+    ".word 0x00501021
+	"
+    ".word 0x8C440850
+	"
+    ".word 0x0C082460
+	"
+    ".word 0x70003E28
+	"
+    ".word 0x8FA4005C
+	"
+    ".word 0x0C767400
+	"
+    ".word 0x72202E28
+	"
+    ".word 0x54400011
+	"
+    ".word 0x26310001
+	"
+    ".word 0x8FA2005C
+	"
+    ".word 0x00501021
+	"
+    ".word 0x8C440850
+	"
+    ".word 0x0C0825D8
+	"
+    ".word 0x24050001
+	"
+    ".word 0x8FA3005C
+	"
+    ".word 0x70002E28
+	"
+    ".word 0x00701021
+	"
+    ".word 0x8C66083C
+	"
+    ".word 0x8C440850
+	"
+    ".word 0x848201A0
+	"
+    ".word 0x24420001
+	"
+    ".word 0x00023C3C
+	"
+    ".word 0x0C082468
+	"
+    ".word 0x00073C3F
+	"
+    ".word 0x26310001
+	"
+    ".word 0x2A220017
+	"
+    ".word 0x1440FFA2
+	"
+    ".word 0x24050005
+	"
+    ".word 0x8FA2005C
+	"
+    ".word 0x24054A52
+	"
+    ".word 0x8C440850
+	"
+    ".word 0x0C07DBB8
+	"
+    ".word 0x2406FFFF
+	"
+    ".word 0x8FA2005C
+	"
+    ".word 0x24054B4C
+	"
+    ".word 0x8C440854
+	"
+    ".word 0x0C07DBB8
+	"
+    ".word 0x2406FFFF
+	"
+    ".word 0x8FA2005C
+	"
+    ".word 0x24054B5C
+	"
+    ".word 0x8C440858
+	"
+    ".word 0x0C07DBB8
+	"
+    ".word 0x2406FFFF
+	"
+    ".word 0x8FA2005C
+	"
+    ".word 0x24054B5B
+	"
+    ".word 0x8C44085C
+	"
+    ".word 0x0C07DBB8
+	"
+    ".word 0x2406FFFF
+	"
+    ".word 0x8FA2005C
+	"
+    ".word 0x24054B49
+	"
+    ".word 0x8C440860
+	"
+    ".word 0x0C07DBB8
+	"
+    ".word 0x2406FFFF
+	"
+    ".word 0x8FA2005C
+	"
+    ".word 0x24054A53
+	"
+    ".word 0x8C440864
+	"
+    ".word 0x0C07DBB8
+	"
+    ".word 0x2406FFFF
+	"
+    ".word 0x8FA2005C
+	"
+    ".word 0x24054B4B
+	"
+    ".word 0x8C440868
+	"
+    ".word 0x0C07DBB8
+	"
+    ".word 0x2406FFFF
+	"
+    ".word 0x8FA2005C
+	"
+    ".word 0x24054B4A
+	"
+    ".word 0x8C44086C
+	"
+    ".word 0x0C07DBB8
+	"
+    ".word 0x2406FFFF
+	"
+    ".word 0x8FA2005C
+	"
+    ".word 0x24054B4D
+	"
+    ".word 0x8C440870
+	"
+    ".word 0x0C07DBB8
+	"
+    ".word 0x2406FFFF
+	"
+    ".word 0x8FA2005C
+	"
+    ".word 0x24054B5A
+	"
+    ".word 0x8C440874
+	"
+    ".word 0x0C07DBB8
+	"
+    ".word 0x2406FFFF
+	"
+    ".word 0x8FA2005C
+	"
+    ".word 0x24054B45
+	"
+    ".word 0x8C440878
+	"
+    ".word 0x0C07DBB8
+	"
+    ".word 0x2406FFFF
+	"
+    ".word 0x8FA2005C
+	"
+    ".word 0x24054B46
+	"
+    ".word 0x8C44087C
+	"
+    ".word 0x0C07DBB8
+	"
+    ".word 0x2406FFFF
+	"
+    ".word 0x8FA2005C
+	"
+    ".word 0x24054B47
+	"
+    ".word 0x8C440880
+	"
+    ".word 0x0C07DBB8
+	"
+    ".word 0x2406FFFF
+	"
+    ".word 0x8FA2005C
+	"
+    ".word 0x24054B48
+	"
+    ".word 0x8C440884
+	"
+    ".word 0x0C07DBB8
+	"
+    ".word 0x2406FFFF
+	"
+    ".word 0x8FA2005C
+	"
+    ".word 0x24054A51
+	"
+    ".word 0x8C440888
+	"
+    ".word 0x0C07DBB8
+	"
+    ".word 0x2406FFFF
+	"
+    ".word 0x8FA2005C
+	"
+    ".word 0x24054A55
+	"
+    ".word 0x8C44088C
+	"
+    ".word 0x0C07DBB8
+	"
+    ".word 0x2406FFFF
+	"
+    ".word 0x8FA2005C
+	"
+    ".word 0x24054A54
+	"
+    ".word 0x8C440890
+	"
+    ".word 0x0C07DBB8
+	"
+    ".word 0x2406FFFF
+	"
+    ".word 0x8F8389C0
+	"
+    ".word 0x8FA4005C
+	"
+    ".word 0x3C010001
+	"
+    ".word 0x24051015
+	"
+    ".word 0x24021014
+	"
+    ".word 0x8C630404
+	"
+    ".word 0x8C840894
+	"
+    ".word 0x2406FFFF
+	"
+    ".word 0x00610821
+	"
+    ".word 0x90239DB4
+	"
+    ".word 0x0C07DBB8
+	"
+    ".word 0x0043280A
+	"
+    ".word 0x8F8289C0
+	"
+    ".word 0x8C421468
+	"
+    ".word 0x8C4217C8
+	"
+    ".word 0x10400004
+	"
+    ".word 0x3405DAC1
+	"
+    ".word 0x10000002
+	"
+    ".word 0x3405DAC2
+	"
+    ".word 0x3405DAC1
+	"
+    ".word 0x8FA2005C
+	"
+    ".word 0x8C440898
+	"
+    ".word 0x0C07DBB8
+	"
+    ".word 0x2406FFFF
+	"
+    ".word 0x8FA2005C
+	"
+    ".word 0x2405102C
+	"
+    ".word 0x8C44089C
+	"
+    ".word 0x0C07DBB8
+	"
+    ".word 0x2406FFFF
+	"
+    ".word 0x8FA2005C
+	"
+    ".word 0x24050060
+	"
+    ".word 0x240600C6
+	"
+    ".word 0x24070028
+	"
+    ".word 0x8C4408A0
+	"
+    ".word 0x8C990000
+	"
+    ".word 0x8F390024
+	"
+    ".word 0x0320F809
+	"
+    ".word 0x24080021
+	"
+    ".word 0x8FA2005C
+	"
+    ".word 0x24050001
+	"
+    ".word 0x8C4408A0
+	"
+    ".word 0x8C46083C
+	"
+    ".word 0x0C082468
+	"
+    ".word 0x24070026
+	"
+    ".word 0x8FA2005C
+	"
+    ".word 0x24050001
+	"
+    ".word 0x24060014
+	"
+    ".word 0x8C4408A0
+	"
+    ".word 0x0C082460
+	"
+    ".word 0x70003E28
+	"
+    ".word 0x8FA2005C
+	"
+    ".word 0x24054B5F
+	"
+    ".word 0x8C4408A0
+	"
+    ".word 0x0C07DBB8
+	"
+    ".word 0x2406FFFF
+	"
+    ".word 0x8FA2005C
+	"
+    ".word 0x24050088
+	"
+    ".word 0x240600C6
+	"
+    ".word 0x24070028
+	"
+    ".word 0x8C4408A4
+	"
+    ".word 0x8C990000
+	"
+    ".word 0x8F390024
+	"
+    ".word 0x0320F809
+	"
+    ".word 0x24080021
+	"
+    ".word 0x8FA2005C
+	"
+    ".word 0x24050001
+	"
+    ".word 0x8C4408A4
+	"
+    ".word 0x8C46083C
+	"
+    ".word 0x0C082468
+	"
+    ".word 0x24070028
+	"
+    ".word 0x8FA2005C
+	"
+    ".word 0x24050001
+	"
+    ".word 0x24060015
+	"
+    ".word 0x8C4408A4
+	"
+    ".word 0x0C082460
+	"
+    ".word 0x70003E28
+	"
+    ".word 0x8FA2005C
+	"
+    ".word 0x24054B5D
+	"
+    ".word 0x8C4408A4
+	"
+    ".word 0x0C07DBB8
+	"
+    ".word 0x2406FFFF
+	"
+    ".word 0x8FA2005C
+	"
+    ".word 0x240500B0
+	"
+    ".word 0x240600C6
+	"
+    ".word 0x24070028
+	"
+    ".word 0x8C4408A8
+	"
+    ".word 0x8C990000
+	"
+    ".word 0x8F390024
+	"
+    ".word 0x0320F809
+	"
+    ".word 0x24080021
+	"
+    ".word 0x8FA2005C
+	"
+    ".word 0x24050001
+	"
+    ".word 0x8C4408A8
+	"
+    ".word 0x8C46083C
+	"
+    ".word 0x0C082468
+	"
+    ".word 0x2407002A
+	"
+    ".word 0x8FA2005C
+	"
+    ".word 0x24050001
+	"
+    ".word 0x24060016
+	"
+    ".word 0x8C4408A8
+	"
+    ".word 0x0C082460
+	"
+    ".word 0x70003E28
+	"
+    ".word 0x8FA2005C
+	"
+    ".word 0x24054B5E
+	"
+    ".word 0x8C4408A8
+	"
+    ".word 0x0C07DBB8
+	"
+    ".word 0x2406FFFF
+	"
+    ".word 0x8F8289C0
+	"
+    ".word 0x8C421468
+	"
+    ".word 0x0C0C24C8
+	"
+    ".word 0x8C441064
+	"
+    ".word 0x24030002
+	"
+    ".word 0x70008628
+	"
+    ".word 0x1043000E
+	"
+    ".word 0x70008E28
+	"
+    ".word 0x24030001
+	"
+    ".word 0x50430009
+	"
+    ".word 0x24100087
+	"
+    ".word 0x50400004
+	"
+    ".word 0x2410005F
+	"
+    ".word 0x1000000A
+	"
+    ".word 0x8FA4005C
+	"
+    ".word 0x2410005F
+	"
+    ".word 0x10000006
+	"
+    ".word 0x241100C5
+	"
+    ".word 0x24100087
+	"
+    ".word 0x10000003
+	"
+    ".word 0x241100C5
+	"
+    ".word 0x241000AF
+	"
+    ".word 0x241100C5
+	"
+    ".word 0x8FA4005C
+	"
+    ".word 0x240A002A
+	"
+    ".word 0x240B0023
+	"
+    ".word 0x70003E28
+	"
+    ".word 0xFFA00000
+	"
+    ".word 0xFFA00008
+	"
+    ".word 0xFFA00010
+	"
+    ".word 0xFFA00018
+	"
+    ".word 0x8C990000
+	"
+    ".word 0x24860848
+	"
+    ".word 0x72004628
+	"
+    ".word 0x72204E28
+	"
+    ".word 0x8F390128
+	"
+    ".word 0x0320F809
+	"
+    ".word 0x70802E28
+	"
+    ".word 0x14400003
+	"
+    ".word 0x00000000
+	"
+    ".word 0x10000106
+	"
+    ".word 0x8FA2005C
+	"
+    ".word 0x8FA2005C
+	"
+    ".word 0x240600F1
+	"
+    ".word 0x24050002
+	"
+    ".word 0x70C03E28
+	"
+    ".word 0x8C440848
+	"
+    ".word 0x70C04628
+	"
+    ".word 0x70C04E28
+	"
+    ".word 0x70C05628
+	"
+    ".word 0x8C990000
+	"
+    ".word 0x8F390118
+	"
+    ".word 0x0320F809
+	"
+    ".word 0x70C05E28
+	"
+    ".word 0x8FA2005C
+	"
+    ".word 0x24050002
+	"
+    ".word 0x8C440848
+	"
+    ".word 0x0C07DA14
+	"
+    ".word 0x2406FFFF
+	"
+    ".word 0x8FA4005C
+	"
+    ".word 0x2608FFFF
+	"
+    ".word 0x2629FFFF
+	"
+    ".word 0x240A002C
+	"
+    ".word 0xFFA00000
+	"
+    ".word 0xFFA00008
+	"
+    ".word 0xFFA00010
+	"
+    ".word 0xFFA00018
+	"
+    ".word 0x8C990000
+	"
+    ".word 0x2486084C
+	"
+    ".word 0x240B0025
+	"
+    ".word 0x70003E28
+	"
+    ".word 0x8F390128
+	"
+    ".word 0x0320F809
+	"
+    ".word 0x70802E28
+	"
+    ".word 0x14400003
+	"
+    ".word 0x00000000
+	"
+    ".word 0x100000E2
+	"
+    ".word 0x8FA2005C
+	"
+    ".word 0x8FA2005C
+	"
+    ".word 0x24050002
+	"
+    ".word 0x70003628
+	"
+    ".word 0x70003E28
+	"
+    ".word 0x70004628
+	"
+    ".word 0x8C44084C
+	"
+    ".word 0x70004E28
+	"
+    ".word 0x70005628
+	"
+    ".word 0x8C990000
+	"
+    ".word 0x8F390118
+	"
+    ".word 0x0320F809
+	"
+    ".word 0x70005E28
+	"
+    ".word 0x8FA2005C
+	"
+    ".word 0x24050002
+	"
+    ".word 0x8C44084C
+	"
+    ".word 0x0C07DA14
+	"
+    ".word 0x2406FFFF
+	"
+    ".word 0x8FA4005C
+	"
+    ".word 0x2403001C
+	"
+    ".word 0x24020002
+	"
+    ".word 0x24070FA2
+	"
+    ".word 0xFFA30000
+	"
+    ".word 0xFFA20008
+	"
+    ".word 0xFFA00010
+	"
+    ".word 0xFFA00018
+	"
+    ".word 0x8C990000
+	"
+    ".word 0x248608AC
+	"
+    ".word 0x24090064
+	"
+    ".word 0x240A011E
+	"
+    ".word 0x8F390114
+	"
+    ".word 0x240B0078
+	"
+    ".word 0x70802E28
+	"
+    ".word 0x0320F809
+	"
+    ".word 0x70004628
+	"
+    ".word 0x14400003
+	"
+    ".word 0x00000000
+	"
+    ".word 0x100000BC
+	"
+    ".word 0x8FA2005C
+	"
+    ".word 0x8FA3005C
+	"
+    ".word 0x2402001B
+	"
+    ".word 0x8C6308AC
+	"
+    ".word 0xAC6202CC
+	"
+    ".word 0xAC6002D0
+	"
+    ".word 0xAC6002D4
+	"
+    ".word 0xAC6002D8
+	"
+    ".word 0x8FA4005C
+	"
+    ".word 0x10000007
+	"
+    ".word 0x70003628
+	"
+    ".word 0x00062880
+	"
+    ".word 0x00851021
+	"
+    ".word 0x8C430850
+	"
+    ".word 0x24C60001
+	"
+    ".word 0x00BD1021
+	"
+    ".word 0xAC430080
+	"
+    ".word 0x28C20017
+	"
+    ".word 0x1440FFF9
+	"
+    ".word 0x00062880
+	"
+    ".word 0x8C8508AC
+	"
+    ".word 0x00061080
+	"
+    ".word 0x005D1821
+	"
+    ".word 0x24C20001
+	"
+    ".word 0xAC650080
+	"
+    ".word 0x8C990000
+	"
+    ".word 0x0002343C
+	"
+    ".word 0x27A50080
+	"
+    ".word 0x0006343F
+	"
+    ".word 0x8F3900E0
+	"
+    ".word 0x0320F809
+	"
+    ".word 0x70003E28
+	"
+    ".word 0x10000023
+	"
+    ".word 0x70008628
+	"
+    ".word 0x8FA4005C
+	"
+    ".word 0x70003628
+	"
+    ".word 0x1000000F
+	"
+    ".word 0x70002E28
+	"
+    ".word 0x00051080
+	"
+    ".word 0x00451021
+	"
+    ".word 0x02021021
+	"
+    ".word 0x28410017
+	"
+    ".word 0x50200009
+	"
+    ".word 0x24A50001
+	"
+    ".word 0x00021080
+	"
+    ".word 0x00821021
+	"
+    ".word 0x8C430850
+	"
+    ".word 0x00061080
+	"
+    ".word 0x005D1021
+	"
+    ".word 0x24C60001
+	"
+    ".word 0xAC430080
+	"
+    ".word 0x24A50001
+	"
+    ".word 0x28A20004
+	"
+    ".word 0x1440FFF1
+	"
+    ".word 0x00051080
+	"
+    ".word 0x8C8508AC
+	"
+    ".word 0x00061080
+	"
+    ".word 0x005D1821
+	"
+    ".word 0x24C20001
+	"
+    ".word 0xAC650080
+	"
+    ".word 0x8C990000
+	"
+    ".word 0x0002343C
+	"
+    ".word 0x27A50080
+	"
+    ".word 0x24070001
+	"
+    ".word 0x8F3900E0
+	"
+    ".word 0x0320F809
+	"
+    ".word 0x0006343F
+	"
+    ".word 0x26100001
+	"
+    ".word 0x2A020005
+	"
+    ".word 0x1440FFDC
+	"
+    ".word 0x00000000
+	"
+    ".word 0x8FA2005C
+	"
+    ".word 0x8C44088C
+	"
+    ".word 0x8C450878
+	"
+    ".word 0x8C4608A0
+	"
+    ".word 0x8C990000
+	"
+    ".word 0x8F3900E4
+	"
+    ".word 0x0320F809
+	"
+    ".word 0x24070001
+	"
+    ".word 0x8FA2005C
+	"
+    ".word 0x8C440890
+	"
+    ".word 0x8C45087C
+	"
+    ".word 0x8C4608A0
+	"
+    ".word 0x8C990000
+	"
+    ".word 0x8F3900E4
+	"
+    ".word 0x0320F809
+	"
+    ".word 0x24070001
+	"
+    ".word 0x8FA2005C
+	"
+    ".word 0x8C440894
+	"
+    ".word 0x8C450880
+	"
+    ".word 0x8C4608A4
+	"
+    ".word 0x8C990000
+	"
+    ".word 0x8F3900E4
+	"
+    ".word 0x0320F809
+	"
+    ".word 0x24070001
+	"
+    ".word 0x8FA2005C
+	"
+    ".word 0x8C440898
+	"
+    ".word 0x8C450884
+	"
+    ".word 0x8C4608A8
+	"
+    ".word 0x8C990000
+	"
+    ".word 0x8F3900E4
+	"
+    ".word 0x0320F809
+	"
+    ".word 0x24070001
+	"
+    ".word 0x8FA2005C
+	"
+    ".word 0x8C44089C
+	"
+    ".word 0x8C450888
+	"
+    ".word 0x8C4608A8
+	"
+    ".word 0x8C990000
+	"
+    ".word 0x8F3900E4
+	"
+    ".word 0x0320F809
+	"
+    ".word 0x24070001
+	"
+    ".word 0x8FA2005C
+	"
+    ".word 0x8C4408A0
+	"
+    ".word 0x8C450890
+	"
+    ".word 0x8C4608AC
+	"
+    ".word 0x8C990000
+	"
+    ".word 0x8F3900E4
+	"
+    ".word 0x0320F809
+	"
+    ".word 0x24070001
+	"
+    ".word 0x8FA2005C
+	"
+    ".word 0x8C4408A4
+	"
+    ".word 0x8C450894
+	"
+    ".word 0x8C4608AC
+	"
+    ".word 0x8C990000
+	"
+    ".word 0x8F3900E4
+	"
+    ".word 0x0320F809
+	"
+    ".word 0x24070001
+	"
+    ".word 0x8FA2005C
+	"
+    ".word 0x8C4408A8
+	"
+    ".word 0x8C450898
+	"
+    ".word 0x8C4608AC
+	"
+    ".word 0x8C990000
+	"
+    ".word 0x8F3900E4
+	"
+    ".word 0x0320F809
+	"
+    ".word 0x24070001
+	"
+    ".word 0x1000001E
+	"
+    ".word 0x70008628
+	"
+    ".word 0x8FA4005C
+	"
+    ".word 0x00101080
+	"
+    ".word 0x00502821
+	"
+    ".word 0x70003628
+	"
+    ".word 0x1000000D
+	"
+    ".word 0x70003E28
+	"
+    ".word 0x00E51021
+	"
+    ".word 0x28410017
+	"
+    ".word 0x50200009
+	"
+    ".word 0x24E70001
+	"
+    ".word 0x00021080
+	"
+    ".word 0x00821021
+	"
+    ".word 0x8C430850
+	"
+    ".word 0x00061080
+	"
+    ".word 0x005D1021
+	"
+    ".word 0x24C60001
+	"
+    ".word 0xAC430080
+	"
+    ".word 0x24E70001
+	"
+    ".word 0x28E20005
+	"
+    ".word 0x1440FFF3
+	"
+    ".word 0x00E51021
+	"
+    ".word 0x8C990000
+	"
+    ".word 0x0006343C
+	"
+    ".word 0x27A50080
+	"
+    ".word 0x24070002
+	"
+    ".word 0x8F3900E0
+	"
+    ".word 0x0320F809
+	"
+    ".word 0x0006343F
+	"
+    ".word 0x26100001
+	"
+    ".word 0x2A020005
+	"
+    ".word 0x1440FFE1
+	"
+    ".word 0x00000000
+	"
+    ".word 0x8FA2005C
+	"
+    ".word 0x8C4408AC
+	"
+    ".word 0x8C4508A4
+	"
+    ".word 0x8C460858
+	"
+    ".word 0x8C990000
+	"
+    ".word 0x8F3900E4
+	"
+    ".word 0x0320F809
+	"
+    ".word 0x24070001
+	"
+    ".word 0x8FA4005C
+	"
+    ".word 0x0C07D9D4
+	"
+    ".word 0x8C8508AC
+	"
+    ".word 0x8FA4005C
+	"
+    ".word 0x0C07E22C
+	"
+    ".word 0x8C8508AC
+	"
+    ".word 0x8FA4005C
+	"
+    ".word 0x0C07E2BC
+	"
+    ".word 0x70002E28
+	"
+    ".word 0x8FA2005C
+	"
+    ".word 0x00000000
+	"
+    ".word 0x7BBF0040
+	"
+    ".word 0x7BB10030
+	"
+    ".word 0x7BB00020
+	"
+    ".word 0x03E00008
+	"
+    ".word 0x27BD00E0
+	"
+    ".set at
+	"
+    ".set reorder
+	"
+    ".end func_01D9BA80
+"
+);

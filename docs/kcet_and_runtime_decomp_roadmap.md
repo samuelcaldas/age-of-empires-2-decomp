@@ -114,8 +114,27 @@ These are vendor static libraries. Once identified and bounded, they can be matc
 ## 5. Execution Workflow & Acceptance Gates
 
 For every unit in Phase 1 (MSL) and Phase 2 (KCET):
-1. **Red (TDD):** Native unit test (`tests/native/msl_*_test.c` or pytest) asserting functional equivalence before implementation.
+1. **Red (TDD):** Native unit test (`tests/native/msl_*_test.c`, `tests/native/kt_*_test.c` or pytest) asserting functional equivalence before implementation.
 2. **Green (C Implementation):** Implement in `src/msl/*.c` or `src/kt_*.c` to pass native behavior tests.
-3. **Refactor & Binary Matching:** Compile with respective toolchain (`mwccps2` for MSL, `ee-gcc` for KCET) until byte-exact match (`objdiff` 100.0%).
+3. **Refactor & Binary Matching:** Compile with respective toolchain (`mwccps2` for MSL/mydplay, `ee-gcc` for KCET) until byte-exact match (`objdiff` 100.0%).
 4. **Registration:** Promote from `NonMatching` to `Matching` in [`configure.py`](../configure.py) and update [`config.yml`](../config/SLES-50282/config.yml).
 5. **Regression Verification:** Run full test suite (`ninja -n`, native harness, pytest) cleanly.
+
+---
+
+## 6. Immediate Phase 2 Execution Plan
+
+1. **`socketee.c` / Network Address Helpers (`0x00337520` – `0x00337840`)**:
+   - **COMPLETED (100.0% MATCH)**: 6 functions (`htonl`, `htons`, `ntohl`, `ntohs`, `inet_ntoa`, `inet_addr`) sliced in `config.yml`, registered as `Matching` in `configure.py`, and verified byte-exact.
+
+2. **`kt_gpu.c` (`0x00125800` – `0x00125C34`, ~1.1 KiB)**:
+   - Slicing: Partition `pre_mouse` segment in `config/SLES-50282/config.yml` at VRAM `0x125800`.
+   - Behavioral tests: `tests/native/kt_gpu_test.c` and pytest runner covering GS display configuration and V-Sync sync points.
+   - Implementation: `src/kt_gpu.c` compiled with Sony EE-GCC (`-O2 -G0 -Iinclude`).
+   - Matching target: 100.0% byte match against original ELF.
+
+3. **`kt_libpad.c` (`0x00125C38` – `0x00128BA4`, ~11.9 KiB)**:
+   - Slicing: Slice contiguous range `0x00125C38` – `0x00128BA4` (~11.9 KiB).
+   - Behavioral tests: DualShock 2 analog/digital button polling, actuator motors/vibration, slot enumeration.
+   - Implementation: `src/kt_libpad.c` via EE-GCC.
+   - Matching target: 100.0% byte match.

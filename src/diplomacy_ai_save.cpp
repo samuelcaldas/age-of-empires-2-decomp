@@ -59,5 +59,4 @@ int DiplomacyAI::Save(void *stream) {
     }
     return 1;
 }
-
 }

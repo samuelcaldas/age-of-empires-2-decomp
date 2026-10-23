@@ -3,15 +3,21 @@
 #pragma exceptions off
 
 class OtherPlayerBase {
-public:
+  public:
     char pad_00[0x1B30];
 };
 
 class OtherPlayer : public OtherPlayerBase {
-public:
-    virtual void* v0(); virtual void* v1(); virtual void* v2(); virtual void* v3();
-    virtual void* v4(); virtual void* v5(); virtual void* v6(); virtual void* v7();
-    virtual void* v8();
+  public:
+    virtual void *v0();
+    virtual void *v1();
+    virtual void *v2();
+    virtual void *v3();
+    virtual void *v4();
+    virtual void *v5();
+    virtual void *v6();
+    virtual void *v7();
+    virtual void *v8();
     virtual int CheckRelation(int self_id);
 };
 
@@ -91,7 +97,5 @@ int func_1402E0(DiplomacyAI *self, int player) {
     return 0;
 }
 
-void func_00140360() {
-}
-
+void func_00140360() {}
 }

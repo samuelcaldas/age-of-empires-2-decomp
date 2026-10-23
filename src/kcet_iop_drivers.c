@@ -13,7 +13,7 @@
 #include "kcet_iop_drivers.h"
 #include <string.h>
 
-static KcetMousePacket s_mouse_state = { 0, 0, 0, 0, 0 };
+static KcetMousePacket s_mouse_state = {0, 0, 0, 0, 0};
 static uint16_t s_master_volume = 0x3fff;
 
 int soundcd_init(int argc, char *argv[]) {

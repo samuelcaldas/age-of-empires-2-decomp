@@ -9,12 +9,12 @@ typedef struct {
     u16 buttons_released; /* 0x04 */
     u32 unk_08;           /* 0x08 */
     u32 unk_0C;           /* 0x0C */
-    u8  data_10[12];      /* 0x10 */
-    u8  unk_1C[24];       /* 0x1C */
+    u8 data_10[12];       /* 0x10 */
+    u8 unk_1C[24];        /* 0x1C */
     u32 unk_34;           /* 0x34 */
-    u8  rapid_table[12];  /* 0x38 */
-    u8  act_data[17];     /* 0x44 */
-    u8  act_config[18];   /* 0x55 */
+    u8 rapid_table[12];   /* 0x38 */
+    u8 act_data[17];      /* 0x44 */
+    u8 act_config[18];    /* 0x55 */
     u32 unk_68;           /* 0x68 */
     int port;             /* 0x6C */
     int slot;             /* 0x70 */
@@ -30,18 +30,18 @@ typedef struct {
     int err_count;        /* 0x98 */
     int press_mode;       /* 0x9C */
     int unk_A0;           /* 0xA0 */
-    u8  act_align[12];    /* 0xA4 */
+    u8 act_align[12];     /* 0xA4 */
     u32 flags;            /* 0xB0 */
     u32 act_exec[2];      /* 0xB4 */
     int model;            /* 0xBC */
-    u8  dma_buffer[0x140];/* 0xC0 .. 0x200 */
+    u8 dma_buffer[0x140]; /* 0xC0 .. 0x200 */
 } PadSlot;
 
 typedef struct {
-    PadSlot *slots;       /* 0x00 */
-    int n_pad;            /* 0x04 */
-    int sema;             /* 0x08 */
-    int flags;            /* 0x0C */
+    PadSlot *slots; /* 0x00 */
+    int n_pad;      /* 0x04 */
+    int sema;       /* 0x08 */
+    int flags;      /* 0x0C */
 } PadWork;
 
 /* External global references */
@@ -77,31 +77,31 @@ extern void (*D_10DC60)();
 /* External library functions */
 void func_114320(const char *file, int line, const char *assertion);
 void func_001143C0(void *ptr, int size);
-int  func_134210(int, int, int);
-int  func_103358(int);
-int  func_10CCB0(int);
-int  func_10DEC0(int);
+int func_134210(int, int, int);
+int func_103358(int);
+int func_10CCB0(int);
+int func_10DEC0(int);
 void *func_116D40(int, int);
-int  func_10DDF0(int);
-int  func_10CF10(int, int, void *);
-int  func_10D260(int, int, void *);
-int  func_10D2E0(int, int);
-int  func_10D0F8(int, int);
-int  func_10D480(int, int, ...);
-int  func_10D6C0(int, int, int, ...);
-int  func_10D7F8(int, int, int, int);
-int  func_10D8B0(int, int, void *);
-int  func_10D968(int, int, void *);
-int  func_10DBA8(int, int);
-int  func_116F68(int);
-int  func_128D30(int, int, int, int);
-int  func_104B60(int);
+int func_10DDF0(int);
+int func_10CF10(int, int, void *);
+int func_10D260(int, int, void *);
+int func_10D2E0(int, int);
+int func_10D0F8(int, int);
+int func_10D480(int, int, ...);
+int func_10D6C0(int, int, int, ...);
+int func_10D7F8(int, int, int, int);
+int func_10D8B0(int, int, void *);
+int func_10D968(int, int, void *);
+int func_10DBA8(int, int);
+int func_116F68(int);
+int func_128D30(int, int, int, int);
+int func_104B60(int);
 
 /* Forward declarations of kt_gpu helper functions referenced */
 PadSlot *func_00125A70(int idx);
 void func_00125AA8(void);
 void func_00125AC8(void);
-int  func_00125AE8(int, int);
+int func_00125AE8(int, int);
 
 /* Function Prototypes */
 void func_00125C38(int rpc_id, int n_pad, PadSlot *buf);
@@ -117,17 +117,17 @@ void func_00125EC0(PadSlot *p);
 void func_00125F48(void);
 void func_00125F68(PadSlot *buf, int n_pad, int flag);
 void func_00126040(u16 *out_ports, int n_pad, int mode, int flag, int *p_ports);
-int  func_00126140(u16 *out_ports, int n_pad, int n_ports, int *p_ports);
-int  func_001261E0(u16 *out_ports, int n_pad, int n_ports, int *p_ports);
-int  func_00126258(u16 *out_ports, int n_pad, int n_ports, int *p_ports);
+int func_00126140(u16 *out_ports, int n_pad, int n_ports, int *p_ports);
+int func_001261E0(u16 *out_ports, int n_pad, int n_ports, int *p_ports);
+int func_00126258(u16 *out_ports, int n_pad, int n_ports, int *p_ports);
 void func_00126288(int *p_ports, int count);
-int  func_001262E8(int *p_ports, int start, u16 *out_ports, int max_items, int n_ports);
+int func_001262E8(int *p_ports, int start, u16 *out_ports, int max_items, int n_ports);
 void func_00126350(int pad_number, int cmd);
-u32  func_00126410(int pad_number);
-u32  func_00126488(int pad_number);
-u32  func_00126500(int pad_number);
-u32  func_00126578(int pad_number);
-u32  func_001265F0(int pad_number);
+u32 func_00126410(int pad_number);
+u32 func_00126488(int pad_number);
+u32 func_00126500(int pad_number);
+u32 func_00126578(int pad_number);
+u32 func_001265F0(int pad_number);
 void func_00126668(int pad_number);
 void func_001266D8(int pad_number);
 void func_00126750(int pad_number, int act_number, int val1, int val2);
@@ -139,31 +139,31 @@ void func_001269B0(int pad_number, u32 mask);
 void func_00126A30(int pad_number, int ch, u8 *data);
 void func_00126AE8(int pad_number, u8 *table, int n_rpd);
 void func_00126BC0(PadSlot *p, int ch, u16 mask, int mode, int speed);
-int  func_00126C30(int pad_number);
-int  func_00126D50(PadSlot *p);
-int  func_00126D60(int pad_number);
-int  func_00126DD8(int pad_number);
+int func_00126C30(int pad_number);
+int func_00126D50(PadSlot *p);
+int func_00126D60(int pad_number);
+int func_00126DD8(int pad_number);
 void func_00126E68(int pad_number, int mode, int param);
-int  func_00126EF8(int pad_number, int type);
+int func_00126EF8(int pad_number, int type);
 void func_00126FA8(int pad_number, int mode);
-int  func_00127048(int pad_number);
-int  func_001270E8(int pad_number, int offset);
-int  func_00127188(int pad_number, u8 *dest);
-int  func_001271E8(int pad_number);
+int func_00127048(int pad_number);
+int func_001270E8(int pad_number, int offset);
+int func_00127188(int pad_number, u8 *dest);
+int func_001271E8(int pad_number);
 void func_00127288(int pad_number, int act_number);
-int  func_00127370(void);
+int func_00127370(void);
 void func_00127380(void);
 void func_001273D8(PadSlot *p);
-int  func_00127488(PadSlot *p);
-int  func_001275A0(PadSlot *p);
-int  func_001276B0(PadSlot *p);
-int  func_001276B8(PadSlot *p);
-int  func_00127750(PadSlot *p);
+int func_00127488(PadSlot *p);
+int func_001275A0(PadSlot *p);
+int func_001276B0(PadSlot *p);
+int func_001276B8(PadSlot *p);
+int func_00127750(PadSlot *p);
 void func_001277E0(PadSlot *p);
 void func_001277F8(PadSlot *p);
-int  func_00127810(PadSlot *p);
+int func_00127810(PadSlot *p);
 void func_00127820(PadSlot *p);
-int  func_00127900(PadSlot *p);
+int func_00127900(PadSlot *p);
 void func_001279A0(PadSlot *p);
 void func_001279A8(PadSlot *p);
 void func_001279B0(PadSlot *p);
@@ -171,39 +171,39 @@ void func_001279B8(PadSlot *p);
 void func_001279C0(PadSlot *p);
 void func_001279C8(PadSlot *p, int flag);
 void func_00127BD8(PadSlot *p);
-int  func_00127BE8(PadSlot *p);
-int  func_00127C68(PadSlot *p);
-int  func_00127C78(int val);
+int func_00127BE8(PadSlot *p);
+int func_00127C68(PadSlot *p);
+int func_00127C78(int val);
 void func_00127C88(PadSlot *p, int a, int b, int c);
 void func_00127C98(PadSlot *p, void *src, int n_dat);
-int  func_00127D30(int val, int mode, int a, int b, int c);
-int  func_00127D88(int val, int scale, int min_val, int max_val);
-int  func_00127DC8(int val, int a, int b);
-int  func_00127E40(int val, int min_val, int max_val);
-int  func_00127E68(PadSlot *p, int flag);
-int  func_00128130(u8 *p, int idx);
-int  func_001281B0(PadSlot *p);
-int  func_001281C0(PadSlot *p);
+int func_00127D30(int val, int mode, int a, int b, int c);
+int func_00127D88(int val, int scale, int min_val, int max_val);
+int func_00127DC8(int val, int a, int b);
+int func_00127E40(int val, int min_val, int max_val);
+int func_00127E68(PadSlot *p, int flag);
+int func_00128130(u8 *p, int idx);
+int func_001281B0(PadSlot *p);
+int func_001281C0(PadSlot *p);
 void func_00128390(PadSlot *p);
-int  func_001285F8(int port, int slot, int type);
-int  func_00128698(PadSlot *p);
-int  func_001286A8(PadSlot *p);
-int  func_001287D8(PadSlot *p);
-int  func_001287E8(PadSlot *p);
-int  func_00128820(PadSlot *p);
+int func_001285F8(int port, int slot, int type);
+int func_00128698(PadSlot *p);
+int func_001286A8(PadSlot *p);
+int func_001287D8(PadSlot *p);
+int func_001287E8(PadSlot *p);
+int func_00128820(PadSlot *p);
 void func_00128850(PadSlot *p);
-int  func_00128868(int val);
-int  func_00128878(PadSlot *p);
-u64  func_00128990(u64 val);
+int func_00128868(int val);
+int func_00128878(PadSlot *p);
+u64 func_00128990(u64 val);
 void func_001289C0(void);
-int  func_00128A18(int a);
+int func_00128A18(int a);
 char *func_00128A20(char *str, int ch);
 void func_00128A68(void);
-int  func_00128A90(void);
-int  func_00128B08(void);
+int func_00128A90(void);
+int func_00128B08(void);
 void func_00128B18(void);
 void func_00128B38(void);
-int  func_00128B68(int *p);
+int func_00128B68(int *p);
 
 /* Static small data / flags accessed via GP */
 static u8 s_act_0 = 0;
@@ -471,12 +471,23 @@ void func_00126350(int pad_number, int cmd) {
         func_114320(D_48F1F0, 0x319, D_48F268);
     }
     switch (cmd) {
-    case 0: func_00126410(pad_number); break;
-    case 1: func_00126488(pad_number); break;
-    case 2: func_00126500(pad_number); break;
-    case 3: func_00126578(pad_number); break;
-    case 4: func_001265F0(pad_number); break;
-    default: break;
+        case 0:
+            func_00126410(pad_number);
+            break;
+        case 1:
+            func_00126488(pad_number);
+            break;
+        case 2:
+            func_00126500(pad_number);
+            break;
+        case 3:
+            func_00126578(pad_number);
+            break;
+        case 4:
+            func_001265F0(pad_number);
+            break;
+        default:
+            break;
     }
 }
 
@@ -1160,73 +1171,74 @@ void func_001279C8(PadSlot *p, int flag) {
     }
 
     switch (unk_19) {
-    case 0:
-        p->retry_count = 0;
-        func_001277E0(p);
-        p->err_count = 0;
-        unk_17 |= func_00127900(p);
-        if (unk_17 == 0) {
-            unk_19++;
-            break;
-        }
-        func_00127820(p);
-        p->flags |= 0x10;
-        if (flag) {
-            p->flags |= 0x20000;
-        } else {
-            p->flags &= ~0x20000;
-        }
-        unk_19++;
-        break;
-    case 1:
-        ret = func_001286A8(p);
-        goto check_sub;
-    case 2:
-        ret = func_001281C0(p);
-        goto check_sub;
-    case 3:
-        ret = func_00128878(p);
-    check_sub:
-        if (ret == 0) {
-            ret = 2;
-        } else if (ret > 0) {
-            if (ret != 1) {
-                ret = 0;
-            }
-        } else {
-            ret = 0;
-        }
-        if (ret > 0) {
-            p->unk_A0 = 0;
-            unk_19 += ret;
-            break;
-        }
-        ret = func_10D3F8(p->port, p->slot);
-        unk_17 = unk_19;
-        if (ret == 1) {
-            p->unk_A0++;
-        } else if (ret < 2) {
-            if (ret == 0) {
-                unk_17 = unk_19 + 1;
-            } else {
-                unk_17 = unk_19 - 1;
-            }
-        } else if (ret != 2) {
-            unk_17 = unk_19 - 1;
-        }
-        unk_19 = unk_17;
-        break;
-    default:
-        func_00127E68(p, 1); func_00128390(p);
-        if (func_00128698(p) == 0 && func_001281B0(p) == 0) {
-            if (func_001287D8(p) == 0) {
-                p->flags |= 0x40000;
+        case 0:
+            p->retry_count = 0;
+            func_001277E0(p);
+            p->err_count = 0;
+            unk_17 |= func_00127900(p);
+            if (unk_17 == 0) {
+                unk_19++;
                 break;
             }
-        }
-        func_00125E30(p);
-        unk_19 = p->unk_88;
-        break;
+            func_00127820(p);
+            p->flags |= 0x10;
+            if (flag) {
+                p->flags |= 0x20000;
+            } else {
+                p->flags &= ~0x20000;
+            }
+            unk_19++;
+            break;
+        case 1:
+            ret = func_001286A8(p);
+            goto check_sub;
+        case 2:
+            ret = func_001281C0(p);
+            goto check_sub;
+        case 3:
+            ret = func_00128878(p);
+        check_sub:
+            if (ret == 0) {
+                ret = 2;
+            } else if (ret > 0) {
+                if (ret != 1) {
+                    ret = 0;
+                }
+            } else {
+                ret = 0;
+            }
+            if (ret > 0) {
+                p->unk_A0 = 0;
+                unk_19 += ret;
+                break;
+            }
+            ret = func_10D3F8(p->port, p->slot);
+            unk_17 = unk_19;
+            if (ret == 1) {
+                p->unk_A0++;
+            } else if (ret < 2) {
+                if (ret == 0) {
+                    unk_17 = unk_19 + 1;
+                } else {
+                    unk_17 = unk_19 - 1;
+                }
+            } else if (ret != 2) {
+                unk_17 = unk_19 - 1;
+            }
+            unk_19 = unk_17;
+            break;
+        default:
+            func_00127E68(p, 1);
+            func_00128390(p);
+            if (func_00128698(p) == 0 && func_001281B0(p) == 0) {
+                if (func_001287D8(p) == 0) {
+                    p->flags |= 0x40000;
+                    break;
+                }
+            }
+            func_00125E30(p);
+            unk_19 = p->unk_88;
+            break;
     }
     p->unk_88 = unk_19;
 }

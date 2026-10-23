@@ -68,8 +68,7 @@ void *func_00135530(void);
 int *func_001350E0(int);
 int func_00135258(int);
 
-void func_00134F18(void) {
-}
+void func_00134F18(void) {}
 
 void func_00134F20(void) {
     D_50A060.handle = func_134210(1, 1, 0);
@@ -408,7 +407,6 @@ int func_00135870(int a0, int a1, int a2, int a3, int a4) {
 int func_00135980(void) {
     int res;
 
-
     func_00134F90();
     res = D_50A06C;
     func_00134FB8();
@@ -480,8 +478,7 @@ void func_00135AB8(char *ptr, int count, int stride, int a3, char *buf) {
 extern char D_50A080[];
 void func_001359D0(char *, int, int);
 
-void func_00135B88(int a0)
-{
+void func_00135B88(int a0) {
     if (a0 >= 2) {
         a0 = 1;
     }
@@ -542,8 +539,7 @@ void func_00135D60(int a0) {
     }
 }
 
-void func_00135D98(void) {
-}
+void func_00135D98(void) {}
 
 typedef struct {
     char pad[0x24];

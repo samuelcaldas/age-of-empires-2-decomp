@@ -372,10 +372,8 @@ void func_00134A78(int thid) {
     if (status_str == 0) {
         status_str = D_4E2D70;
     }
-    func_118de0(D_4906D0, thid, status_str,
-                param.entry, param.stack, param.stack_size,
-                param.gp_reg, param.init_priority,
-                param.current_priority, param.attr);
+    func_118de0(D_4906D0, thid, status_str, param.entry, param.stack, param.stack_size, param.gp_reg, param.init_priority, param.current_priority,
+                param.attr);
 }
 
 /* func_00134AF0: Convert thread status ID to string */
@@ -409,12 +407,8 @@ void func_00134BB0(void) {
         func_104C20(thid, &param);
         status_str = func_00134AF0(param.status);
         if (status_str != 0) {
-            func_118de0(D_490770, thid, status_str,
-                        param.entry, param.stack, param.stack_size,
-                        param.gp_reg, param.init_priority,
-                        param.current_priority, param.attr,
-                        param.option, param.wait_type,
-                        param.wait_id, param.wakeup_count);
+            func_118de0(D_490770, thid, status_str, param.entry, param.stack, param.stack_size, param.gp_reg, param.init_priority,
+                        param.current_priority, param.attr, param.option, param.wait_type, param.wait_id, param.wakeup_count);
         }
     }
 }
@@ -423,9 +417,7 @@ void func_00134BB0(void) {
 void func_00134C60(int sem_id) {
     KtSemaParam param;
     if (func_104DA0(sem_id, &param) == sem_id) {
-        func_106E20(D_4907E8, sem_id, param.current_count,
-                    param.init_count, param.max_count,
-                    param.wait_threads, param.option);
+        func_106E20(D_4907E8, sem_id, param.current_count, param.init_count, param.max_count, param.wait_threads, param.option);
     }
 }
 
@@ -441,9 +433,7 @@ void func_00134CB8(void) {
 void func_00134CF0(int sem_id) {
     KtSemaParam param;
     if (func_104D90(sem_id, &param) == sem_id) {
-        func_118de0(D_4907E8, sem_id, param.current_count,
-                    param.init_count, param.max_count,
-                    param.wait_threads, param.option);
+        func_118de0(D_4907E8, sem_id, param.current_count, param.init_count, param.max_count, param.wait_threads, param.option);
     }
 }
 

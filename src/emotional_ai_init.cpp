@@ -82,5 +82,4 @@ EmotionalAI *func_00140580(EmotionalAI *self, int flag) {
 void func_001405F0(EmotionalAI *self, int val) {
     self->m_fieldAC = val;
 }
-
 }

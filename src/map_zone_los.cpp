@@ -2,10 +2,10 @@
 #include "map_zone_los.h"
 
 extern "C" {
-    extern int D_004E3058;
-    extern SightEntry *D_0038FA40[];
-    extern SightEntry *D_0038FAA0[];
-    extern int *D_50A5A0[];
+extern int D_004E3058;
+extern SightEntry *D_0038FA40[];
+extern SightEntry *D_0038FAA0[];
+extern int *D_50A5A0[];
 }
 
 void func_00137E90(void *self) {
@@ -43,7 +43,7 @@ void func_00137EA0(MapZone *self, int x, int y, int radius, int mode, int flag) 
                 unsigned char *tile_ptr = self->m_row_ptrs[ty] + min_x;
                 int *flag_ptr = D_50A5A0[ty] + min_x;
                 if (flag) {
-                    tile28 = ((ZoneFieldC*)self->pad_0C)->m_grid[ty] + min_x * 28;
+                    tile28 = ((ZoneFieldC *)self->pad_0C)->m_grid[ty] + min_x * 28;
                 }
                 while (min_x <= max_x) {
                     int val = *tile_ptr - 1;

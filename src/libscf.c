@@ -35,10 +35,10 @@ void func_00389630(sceCdCLOCK *prtc) {
     if (prtc == NULL) {
         func_114320(D_4D6298, 0x132, D_4D62C0);
     }
-    prtc->year   = func_003895D8(prtc->year);
-    prtc->month  = func_003895D8(prtc->month);
-    prtc->day    = func_003895D8(prtc->day);
-    prtc->hour   = func_003895D8(prtc->hour);
+    prtc->year = func_003895D8(prtc->year);
+    prtc->month = func_003895D8(prtc->month);
+    prtc->day = func_003895D8(prtc->day);
+    prtc->hour = func_003895D8(prtc->hour);
     prtc->minute = func_003895D8(prtc->minute);
     prtc->second = func_003895D8(prtc->second);
 }
@@ -48,10 +48,10 @@ void func_003896B8(sceCdCLOCK *prtc) {
     if (prtc == NULL) {
         func_114320(D_4D6298, 0x141, D_4D62C0);
     }
-    prtc->year   = func_00389570(prtc->year);
-    prtc->month  = func_00389570(prtc->month);
-    prtc->day    = func_00389570(prtc->day);
-    prtc->hour   = func_00389570(prtc->hour);
+    prtc->year = func_00389570(prtc->year);
+    prtc->month = func_00389570(prtc->month);
+    prtc->day = func_00389570(prtc->day);
+    prtc->hour = func_00389570(prtc->hour);
     prtc->minute = func_00389570(prtc->minute);
     prtc->second = func_00389570(prtc->second);
 }

@@ -85,8 +85,7 @@ void func_00135EC0(int n_keybd) {
     }
 }
 
-void func_00135F90(void) {
-}
+void func_00135F90(void) {}
 
 void func_00135F98(void) {
     D_50A338.handle = func_134210(1, 1, 0);
@@ -611,5 +610,4 @@ void func_001371C8(int a0) {
     }
 }
 
-void func_00137200(void) {
-}
+void func_00137200(void) {}

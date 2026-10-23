@@ -149,18 +149,35 @@ Each folder contains the main engine ELF and 8 dynamic CodeWarrior overlays (`MW
 * Contains the complete Ensemble Studios Genie Engine: simulation, AI scripts, pathfinding, rendering, tactical combat, network synchronization, and KCET platform adaptation layers.
 
 ### CodeWarrior Overlays (`MWo3` Format)
-All `.BIN` files in the language folders are **Metrowerks CodeWarrior Overlay version 3** binaries (magic header `MWo3` / `0x4D 0x57 0x6F 0x33`). Overlays allow sections of code and UI data to be paged into EE RAM on demand and evicted when returning to the game simulation:
+All `.BIN` files in the language folders are **Metrowerks CodeWarrior Overlay version 3** binaries (magic header `MWo3` / `0x4D 0x57 0x6F 0x33`), compiled and linked using **Metrowerks CodeWarrior for PlayStation 2 (`MWCCPS2` / `MWLDPS2` v2.3.1.01)** in EABI64 MIPS R5900 mode.
 
-| Overlay File | EN Size (Bytes) | Role & Responsibilities |
-| :--- | :--- | :--- |
-| **`SMENU_CD.BIN`** | 92,800 | **Start / Setup Menu:** Main menu UI, campaign selection carousel, scenario browser, system audio/video settings, and player profile configuration. |
-| **`HIST_CD.BIN`** | 184,832 | **History & Encyclopedia:** In-game historical database of all civilizations, units, historical battles, and background lore. |
-| **`THELP_CD.BIN`** | 71,296 | **Tech Tree & Quick Help:** Interactive technological tree viewer (`btnmain17.shp`) and contextual help screens. |
-| **`LOBBY_CD.BIN`** | 458,496 | **Multiplayer Lobby:** Network room creation, player slot management, host/peer negotiations, and network buffer serialization (`ps2_DataTrans`). |
-| **`MULTIMCD.BIN`** | 83,712 | **Multimedia Player:** Campaign briefing slides, narrative text scrollers, and voiceover synchronization. |
-| **`DCOMP_CD.BIN`** | 44,160 | **Random Map Decompressor & Generator:** RMS script interpreter (executes `arabia.rms`, `black_forest.rms`, `baltic.rms`, etc.) and decompression engine. |
-| **`RMMMEMCD.BIN`** | 896 | **Random Map Memory Heap:** Dynamic scratchpad memory allocator specifically reserved for map generation calculations. |
-| **`MO_OV_CD.BIN`** | 640 | **Movie Overlay:** Synchronization bridge between the active game session and the background PSS video player. |
+#### Internal Header Layout (128 bytes):
+* `0x00`: Magic `MWo3` (`0x336F574D`)
+* `0x04`: Overlay numeric ID (2..9)
+* `0x08`: Target VRAM load address in EE RAM
+* `0x0C`: Code size (`.text` section length in bytes)
+* `0x10`: Data size (`.data` / `.rodata` length in bytes)
+* `0x14`: BSS size (uninitialized memory cleared in RAM)
+* `0x18 - 0x1C`: Relocation markers / end offsets
+* `0x20 - 0x2B`: Internal ASCII filename
+* `0x80`: Beginning of `.text` code section
+
+#### Quantitative Breakdown of the 8 Overlays:
+
+| Overlay File | ID | VRAM Load Addr | Total File Size | Code (`.text`) | MIPS Insts | Data (`.data`) | BSS (`.bss`) | RAM Footprint | Role |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| **`DCOMP_CD.BIN`** | 5 | `0x01D98000` | 44,160 B | 40,128 B | 10,032 | 3,968 B | 9,088 B | 53,184 B | Random Map Script (RMS) decompressor |
+| **`HIST_CD.BIN`** | 9 | `0x01D98000` | 184,832 B | 5,440 B | 1,360 | 179,328 B | 237,568 B | 422,336 B | History encyclopedia & briefings |
+| **`LOBBY_CD.BIN`** | 4 | `0x01D98000` | 458,496 B | 337,472 B | 84,368 | 120,948 B | 269,324 B | 727,744 B | Multiplayer lobby & `ps2_DataTrans` |
+| **`MO_OV_CD.BIN`** | 2 | `0x01ED7000` | 640 B | 192 B | 48 | 340 B | 788,524 B | 789,056 B | PSS background video bridge |
+| **`MULTIMCD.BIN`** | 7 | `0x01D98000` | 83,712 B | 7,872 B | 1,968 | 75,776 B | 0 B | 83,648 B | Campaign multimedia slideshow player |
+| **`RMMMEMCD.BIN`** | 3 | `0x01D98000` | 896 B | 832 B | 208 | 0 B | 1,040,384 B | 1,041,216 B | Random Map heap memory allocator |
+| **`SMENU_CD.BIN`** | 6 | `0x01D98000` | 92,800 B | 90,560 B | 22,640 | 2,176 B | 0 B | 92,736 B | Start menu & campaign selector |
+| **`THELP_CD.BIN`** | 8 | `0x01F68000` | 71,296 B | 70,848 B | 17,712 | 384 B | 0 B | 71,232 B | Tech Tree viewer & contextual help |
+| **TOTAL** | — | — | **936,832 B** | **553,344 B** | **138,336** | **382,920 B** | **2,344,888 B** | **3,281,152 B** | **~540 KB code / 138k insts** |
+
+> [!NOTE]
+> Six of the eight overlays (`DCOMP`, `HIST`, `LOBBY`, `MULTIM`, `RMMMEM`, `SMENU`) share the exact same VRAM load address (`0x01D98000`). This demonstrates KCET's memory swap strategy: mutually exclusive game screens and generator routines share a single ~728 KB memory slot in EE RAM. In the modern recompilation target, all overlays can be linked simultaneously into the unified executable.
 
 ---
 

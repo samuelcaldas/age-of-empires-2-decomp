@@ -240,6 +240,12 @@ if config.platform == Platform.PS2:
                 ),
                 Object(
                     Matching,
+                    "msl/memset",
+                    cflags=["-O3", "-inline", "on", "-msext", "on", "-char", "signed", "-sym", "off", "-Iinclude", "-lang=c"],
+                    toolchain_version="PS2/mwcc-2.3.1.01",
+                ),
+                Object(
+                    Matching,
                     "msl/rand",
                     cflags=["-O3", "-inline", "on", "-msext", "on", "-char", "signed", "-sym", "off", "-Iinclude", "-lang=c"],
                     toolchain_version="PS2/mwcc-2.3.1.01",

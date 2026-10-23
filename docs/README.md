@@ -6,6 +6,7 @@ Start with the top-level [README](../README.md).
 - [game_files.md](game_files.md): where each original file comes from, how to extract it, and how to verify it
 - [ps2_disc_architecture.md](ps2_disc_architecture.md): complete PS2 CD-ROM architecture, boot flow, CodeWarrior overlays, and 85-file verified catalog
 - [audio_and_asset_pipeline.md](audio_and_asset_pipeline.md): PC vs PS2 vs HD Edition asset/audio comparison, loose file VFS, and HD audio drop-in strategy for recomp
+- [asm_to_c_migration_map.md](asm_to_c_migration_map.md): complete inventory of all 16 assembly files, 1,906 functions, and phased C/C++ rewrite roadmap
 - [tactical_ai_combat_subsystem_directplay_count_338a10.md](tactical_ai_combat_subsystem_directplay_count_338a10.md): pure-C++ message-count query at `0x338A10`, exact 16-byte match, and native mutation tests
 - [tactical_ai_combat_subsystem_directplay_name_338970.md](tactical_ai_combat_subsystem_directplay_name_338970.md): pure-C++ player-name query at `0x338970`, exact 148-byte match, and size/error contracts
 - [network_init_accessors.md](network_init_accessors.md): network reset loop and two state accessors, exact C++ matches with asserted relocation counts

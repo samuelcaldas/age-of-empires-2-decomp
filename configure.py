@@ -299,6 +299,12 @@ if config.platform == Platform.PS2:
                 ),
                 Object(
                     Matching,
+                    "kt_kernel",
+                    cflags=["-O2", "-G0", "-Iinclude"],
+                    toolchain_version="PS2/ee-gcc2.9-991111",
+                ),
+                Object(
+                    Matching,
                     "kt_libcdvd_server",
                     cflags=["-O2", "-G0", "-Iinclude"],
                     toolchain_version="PS2/ee-gcc2.9-991111",

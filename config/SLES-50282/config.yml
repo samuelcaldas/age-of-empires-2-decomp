@@ -115,9 +115,15 @@ segments:
     vram: 0x1295d0
     subsegments:
       - [0x297b0, asm, kt_libcdvd_server]
-  - name: pre_mouse_after_kt_libcdvd_server
-    type: bin
+  - name: kt_file
+    type: code
     start: 0x2cec8
+    vram: 0x12cce8
+    subsegments:
+      - [0x2cec8, asm, kt_file]
+  - name: pre_mouse_after_kt_file
+    type: bin
+    start: 0x2deb0
   - name: kt_mouse
     type: code
     start: 0x34fc8

@@ -1,10126 +1,11417 @@
+/* KCET PlayStation 2 Memory Card Manager (kt_mc_2.c) */
 #include "common.h"
+#include "kt_mc_2.h"
 
-void func_0012DE88();
-void func_0012DE98();
-void func_0012DEB8();
-void func_0012DF08();
-void func_0012DF78();
-void func_0012DFE0();
-void func_0012E058();
-void func_0012E068();
-void func_0012E0A8();
-void func_0012E0B8();
-void func_0012E118();
-void func_0012E178();
-void func_0012E1C0();
-void func_0012E208();
-void func_0012E260();
-void func_0012E270();
-void func_0012E298();
-void func_0012E2D0();
-void func_0012E2F0();
-void func_0012E320();
-void func_0012E330();
-void func_0012E348();
-void func_0012E360();
-void func_0012E378();
-void func_0012E3C0();
-void func_0012E3C8();
-void func_0012E448();
-void func_0012E4A8();
-void func_0012E4D8();
-void func_0012E4E8();
-void func_0012E4F8();
-void func_0012E580();
-void func_0012E5C0();
-void func_0012E600();
-void func_0012E640();
-void func_0012E6A0();
-void func_0012E768();
-void func_0012E770();
-void func_0012E790();
-void func_0012E7E8();
-void func_0012EA40();
-void func_0012EA90();
-void func_0012EAE0();
-void func_0012EB00();
-void func_0012EB10();
-void func_0012EB40();
-void func_0012EB50();
-void func_0012EB80();
-void func_0012EB90();
-void func_0012EC18();
-void func_0012EC70();
-void func_0012EC90();
-void func_0012ECA8();
-void func_0012ED08();
-void func_0012ED28();
-void func_0012EDA0();
-void func_0012EDF0();
-void func_0012EE20();
-void func_0012EE38();
-void func_0012EE50();
-void func_0012EE60();
-void func_0012EEC0();
-void func_0012EEE0();
-void func_0012EF18();
-void func_0012EF38();
-void func_0012EF98();
-void func_0012EFB0();
-void func_0012EFD8();
-void func_0012F0A0();
-void func_0012F0D0();
-void func_0012F0F0();
-void func_0012F108();
-void func_0012F168();
-void func_0012F188();
-void func_0012F208();
-void func_0012F258();
-void func_0012F298();
-void func_0012F2C0();
-void func_0012F340();
-void func_0012F388();
-void func_0012F3C0();
-void func_0012F418();
-void func_0012F428();
-void func_0012F438();
-void func_0012F450();
-void func_0012F4B0();
-void func_0012F4C8();
-void func_0012F500();
-void func_0012F540();
-void func_0012F5C8();
-void func_0012F5E0();
-void func_0012F5F0();
-void func_0012F610();
-void func_0012F668();
-void func_0012F680();
-void func_0012F6A8();
-void func_0012F6B0();
-void func_0012F6C8();
-void func_0012F6F8();
-void func_0012F768();
-void func_0012F780();
-void func_0012F7A0();
-void func_0012F7B0();
-void func_0012F7C8();
-void func_0012F7E8();
-void func_0012F860();
-void func_0012F868();
-void func_0012F880();
-void func_0012F8B0();
-void func_0012F920();
-void func_0012F958();
-void func_0012F968();
-void func_0012F970();
-void func_0012F980();
-void func_0012F9A0();
-void func_0012F9B0();
-void func_0012FA08();
-void func_0012FA20();
-void func_0012FA30();
-void func_0012FA60();
-void func_0012FA80();
-void func_0012FAC8();
-void func_0012FB28();
-void func_0012FB38();
-void func_0012FB60();
-void func_0012FBA8();
-void func_0012FBC0();
-void func_0012FBD8();
-void func_0012FBE8();
-void func_0012FC18();
-void func_0012FC38();
-void func_0012FC60();
-void func_0012FC80();
-void func_0012FD10();
-void func_0012FD18();
-void func_0012FD58();
-void func_0012FD60();
-void func_0012FDD0();
-void func_0012FDE0();
-void func_0012FE10();
-void func_0012FE18();
-void func_0012FE58();
-void func_0012FE88();
-void func_0012FEC8();
-void func_0012FEF8();
-void func_0012FF10();
-void func_0012FF28();
-void func_0012FF98();
-void func_0012FFC8();
-void func_00130010();
-void func_00130038();
-void func_00130040();
-void func_00130068();
-void func_001300B0();
-void func_001300D8();
-void func_001300E0();
-void func_00130108();
-void func_00130150();
-void func_00130168();
-void func_00130180();
-void func_001301F0();
-void func_00130220();
-void func_00130250();
-void func_00130280();
-void func_00130290();
-void func_001302C0();
-void func_001302F0();
-void func_00130320();
-void func_00130370();
-void func_001303A8();
-void func_00130408();
-void func_00130438();
-void func_00130440();
-void func_001304A8();
-void func_001304D0();
-void func_001304D8();
-void func_00130560();
-void func_001305D0();
-void func_001305F8();
-void func_00130630();
-void func_00130670();
-void func_00130688();
-void func_00130788();
-void func_001307E8();
-void func_00130828();
-void func_00130900();
-void func_00130920();
-void func_00130930();
-void func_00130960();
-void func_001309E0();
-void func_00130A50();
-void func_00130A98();
-void func_00130AA8();
-void func_00130B18();
-void func_00130BB0();
-void func_00130BD8();
-void func_00130BE8();
-void func_00130C08();
-void func_00130C40();
-void func_00130C60();
-void func_00130D40();
-void func_00130D68();
-void func_00130D70();
-void func_00130D88();
-void func_00130D98();
-void func_00130DB8();
-void func_00130DF0();
-void func_00130E10();
-void func_00130E48();
-void func_00130F20();
-void func_00130F40();
-void func_00130FA8();
-void func_00130FD8();
-void func_00131000();
-void func_001310D0();
-void func_001310F0();
-void func_001311C0();
-void func_00131240();
-void func_00131348();
-void func_00131408();
-void func_001314F0();
-void func_00131518();
-void func_00131538();
-void func_001316D0();
-void func_001317C8();
-void func_001318D8();
-void func_00131938();
-void func_00131AD0();
-void func_00131B88();
-void func_00131BB8();
-void func_00131BE0();
-void func_00131C38();
-void func_00131D08();
-void func_00131D28();
-void func_00131DC0();
-void func_00131E08();
-void func_00131E20();
-void func_00131EA8();
-void func_00131ED8();
-void func_00131F30();
-void func_00131F60();
-void func_00131F78();
-void func_00131F80();
-void func_00131FC0();
-void func_00132018();
-void func_00132060();
-void func_001320E8();
-void func_00132138();
-void func_00132258();
-void func_00132278();
-void func_00132298();
-void func_001322C0();
-void func_001322E0();
-void func_00132300();
-void func_00132390();
-void func_00132478();
-void func_00132500();
-void func_00132510();
-void func_00132538();
-void func_00132590();
-void func_001325C0();
-void func_001326C0();
-void func_001326F0();
-void func_00132720();
-void func_00132748();
-void func_00132800();
-void func_00132848();
-void func_00132930();
-void func_00132950();
-void func_001329F8();
-void func_00132A98();
-void func_00132AB8();
-void func_00132AD8();
-void func_00132B50();
-void func_00132B70();
-void func_00132B90();
-void func_00132BB8();
-void func_00132BE0();
-void func_00132C78();
-void func_00132C90();
-void func_00132D50();
-void func_00132DD8();
-void func_00132E28();
-void func_00132E48();
-void func_00132E68();
-void func_00132E90();
-void func_00132EB0();
-void func_00132ED0();
-void func_00132F08();
-void func_00132F58();
-void func_00133038();
-void func_001330C0();
-void func_001330E0();
-void func_001331B8();
-void func_001331E8();
-void func_00133298();
-void func_001332B8();
-void func_001332D8();
-void func_00133300();
-void func_00133320();
-void func_00133340();
-void func_00133390();
-void func_001334B0();
-void func_00133568();
-void func_00133580();
-void func_00133598();
-void func_00133658();
-void func_00133668();
-void func_00133720();
-void func_00133750();
-void func_001337F8();
-void func_00133818();
-void func_00133850();
-void func_00133898();
-void func_001338B8();
-void func_001338D8();
-void func_00133908();
-void func_00133AE8();
-void func_00133B08();
-void func_00133B28();
-void func_00133B50();
-void func_00133BD0();
-void func_00133C40();
-void func_00133E08();
-void func_00133F28();
-void func_00133F70();
-void func_00133FA0();
-void func_00133FC8();
-void func_00134010();
-void func_00134020();
-void func_00134080();
-void func_001340E0();
-void func_001340F0();
-void func_00134140();
-void func_00134170();
-void func_001341B8();
-void func_00134210();
+/* String functions */
+char *strcpy(char *, const char *);
+char *strcat(char *, const char *);
+int strcmp(const char *, const char *);
+int strlen(const char *);
+void *memset(void *, int, unsigned int);
+void *memcpy(void *, const void *, unsigned int);
+
+/* External data symbols */
+extern char D_00130748[];
+extern char D_00131190[];
+extern char D_00131720[];
+extern char D_00131DA8[];
+extern char D_00132358[];
+extern char D_00132840[];
+extern char D_001328E0[];
+extern char D_00132C70[];
+extern char D_00133000[];
+extern char D_00133640[];
+extern char D_00133698[];
+extern char D_001336E0[];
+extern char D_00133700[];
+extern char D_00133930[];
+extern char D_00133A18[];
+extern char D_00133DB8[];
+extern char D_00133DE8[];
+extern char D_38C8B0[];
+extern char D_38C8C0[];
+extern char D_38C900[];
+extern char D_38C930[];
+extern char D_38C960[];
+extern char D_38C970[];
+extern char D_38C980[];
+extern char D_38C990[];
+extern char D_38CA10[];
+extern char D_38CA40[];
+extern char D_38CA70[];
+extern char D_38CAA0[];
+extern char D_38CAD0[];
+extern char D_38CB00[];
+extern char D_38CB60[];
+extern char D_38CB90[];
+extern char D_38CBD8[];
+extern char D_38CC08[];
+extern char D_38CC38[];
+extern char D_38CC68[];
+extern char D_38CC98[];
+extern char D_38CCC8[];
+extern char D_38CCE0[];
+extern char D_38CD10[];
+extern char D_38CD40[];
+extern char D_38CD70[];
+extern char D_38CDA0[];
+extern char D_38CDE0[];
+extern char D_38CE10[];
+extern char D_38CE40[];
+extern char D_38CE70[];
+extern char D_38CE90[];
+extern char D_48FF90[];
+extern char D_48FFB0[];
+extern char D_490010[];
+extern char D_490048[];
+extern char D_490068[];
+extern char D_490078[];
+extern char D_490088[];
+extern char D_4900A8[];
+extern char D_4900C0[];
+extern char D_490100[];
+extern char D_490110[];
+extern char D_490130[];
+extern char D_4901C8[];
+extern char D_4901F8[];
+extern char D_490210[];
+extern char D_490250[];
+extern char D_490288[];
+extern char D_4902C8[];
+extern char D_4902F0[];
+extern char D_490370[];
+extern char D_490390[];
+extern char D_4903D0[];
+extern char D_4903F0[];
+extern char D_490420[];
+extern char D_490440[];
+extern char D_490458[];
+extern char D_490490[];
+extern char D_4904A0[];
+extern char D_4904C0[];
+extern char D_4904D8[];
+extern char D_4904E8[];
+extern char D_490500[];
+extern char D_490528[];
+extern char D_490558[];
+extern char D_4E2CB8[];
+extern char D_4E2D00[];
+extern char D_4E2D40[];
+extern char D_4E2D48[];
+extern char D_4E2D50[];
+extern char D_4E2D58[];
+extern char D_4E2D60[];
+extern char D_4F9700[];
+extern char D_4F97D8[];
+extern char D_4F9840[];
+extern char D_4F9E40[];
+extern char D_4F9EC0[];
+extern char D_509EC0[];
+extern char D_509ED0[];
+extern char D_509EE0[];
+
+extern void *func_001143C0(void *a0, ...);
+extern void *func_0011ACD0(void *a0, ...);
+extern void *func_00126040(void *a0, ...);
+extern void *func_00128990(void *a0, ...);
+extern void *func_1043B8(void *a0, ...);
+extern void *func_1043C8(void *a0, ...);
+extern void *func_1043D8(void *a0, ...);
+extern void *func_104558(void *a0, ...);
+extern void *func_104FA0(void *a0, ...);
+extern void *func_10FE50(void *a0, ...);
+extern void *func_10FF40(void *a0, ...);
+extern void *func_1102A0(void *a0, ...);
+extern void *func_1103D8(void *a0, ...);
+extern void *func_110410(void *a0, ...);
+extern void *func_1104C8(void *a0, ...);
+extern void *func_110630(void *a0, ...);
+extern void *func_110750(void *a0, ...);
+extern void *func_110940(void *a0, ...);
+extern void *func_110A78(void *a0, ...);
+extern void *func_110C00(void *a0, ...);
+extern void *func_110F30(void *a0, ...);
+extern void *func_110FF8(void *a0, ...);
+extern void *func_1111D8(void *a0, ...);
+extern void *func_1113B0(void *a0, ...);
+extern void *func_1115E0(void *a0, ...);
+extern void *func_114320(void *a0, ...);
+extern void *func_116D40(void *a0, ...);
+extern void *func_116F40(void *a0, ...);
+extern void *func_116F68(void *a0, ...);
+extern void *func_117CAC(void *a0, ...);
+extern void *func_118de0(void *a0, ...);
+extern void *func_1236D0(void *a0, ...);
+extern void *func_123790(void *a0, ...);
+extern void *func_123818(void *a0, ...);
+extern void *func_123848(void *a0, ...);
+extern void *func_12DD00(void *a0, ...);
+extern void *func_12DE28(void *a0, ...);
+extern void *func_00128990(void *a0, ...);
+extern void *func_00126040(void *a0, ...);
+extern void *func_1043B8(void *a0, ...);
+extern void *func_1043C8(void *a0, ...);
 
 /* func_0012DE88 */
-__asm__(".text\n\t"
-        ".globl func_0012DE88\n\t"
-        ".ent func_0012DE88\n"
-        "func_0012DE88:\n\t"
-        ".set noreorder\n\t"
-        "ld         $31, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x10\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_0012DE88\n");
+void *func_0012DE88(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x10));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_0012DE98 */
-__asm__(".text\n\t"
-        ".globl func_0012DE98\n\t"
-        ".ent func_0012DE98\n"
-        "func_0012DE98:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x10\n\t"
-        "sd         $31, 0x0($29)\n\t"
-        "jal        func_10FE50\n\t"
-        "nop\n\t"
-        "ld         $31, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x10\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_0012DE98\n");
+void *func_0012DE98(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    r_sp = (long)(r_sp + (-0x10));
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_ra; }
+    r_v0 = (long)func_10FE50((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x10));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_0012DEB8 */
-__asm__(".text\n\t"
-        ".globl func_0012DEB8\n\t"
-        ".ent func_0012DEB8\n"
-        "func_0012DEB8:\n\t"
-        ".set noreorder\n\t"
-        "lui        $2, %hi(D_4E2CB8)\n\t"
-        "daddu      $7, $0, $0\n\t"
-        "blez       $6, .L0012DF00\n\t"
-        "addiu     $8, $2, %lo(D_4E2CB8)\n\t"
-        "lw         $2, 0x0($5)\n\t"
-        "bne        $2, $4, .L0012DEE0\n\t"
-        "addiu     $7, $7, 0x1\n\t"
-        "b          .L0012DF00\n\t"
-        "lw        $8, 0x4($5)\n\t"
-        "nop\n\t"
-        ".L0012DEE0:\n\t"
-        "slt        $2, $7, $6\n\t"
-        "beqz       $2, .L0012DF00\n\t"
-        "sll       $2, $7, 3\n\t"
-        "addu       $2, $2, $5\n\t"
-        "lw         $3, 0x0($2)\n\t"
-        "bne        $3, $4, .L0012DEE0\n\t"
-        "addiu     $7, $7, 0x1\n\t"
-        "lw         $8, 0x4($2)\n\t"
-        ".L0012DF00:\n\t"
-        "jr         $31\n\t"
-        "daddu     $2, $8, $0\n\t"
-        ".set reorder\n\t"
-        ".end func_0012DEB8\n");
+void *func_0012DEB8(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_t0 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_t0;
+    r_v0 = (long)&D_4E2CB8;
+    r_a3 = (long)(0 + 0);
+    if ((long)r_a2 <= 0) { r_t0 = (long)&D_4E2CB8; goto _lbl_L0012DF00; }
+    r_t0 = (long)&D_4E2CB8;
+    if (r_a1) { r_v0 = *(int *)((char *)r_a1 + (0x0)); }
+    if (r_v0 != r_a0) { r_a3 = (long)(r_a3 + (0x1)); goto _lbl_L0012DEE0; }
+    r_a3 = (long)(r_a3 + (0x1));
+    if (r_a1) { r_t0 = *(int *)((char *)r_a1 + (0x4)); }
+    goto _lbl_L0012DF00;
+_lbl_L0012DEE0:
+    r_v0 = (long)((long)r_a3 < (long)r_a2 ? 1 : 0);
+    if (r_v0 == 0) { r_v0 = (long)((unsigned long)r_a3 << (3)); goto _lbl_L0012DF00; }
+    r_v0 = (long)((unsigned long)r_a3 << (3));
+    r_v0 = (long)(r_v0 + r_a1);
+    if (r_v0) { r_v1 = *(int *)((char *)r_v0 + (0x0)); }
+    if (r_v1 != r_a0) { r_a3 = (long)(r_a3 + (0x1)); goto _lbl_L0012DEE0; }
+    r_a3 = (long)(r_a3 + (0x1));
+    if (r_v0) { r_t0 = *(int *)((char *)r_v0 + (0x4)); }
+_lbl_L0012DF00:
+    r_v0 = (long)(r_t0 + 0);
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_0012DF08 */
-__asm__(".text\n\t"
-        ".globl func_0012DF08\n\t"
-        ".ent func_0012DF08\n"
-        "func_0012DF08:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x30\n\t"
-        "lui        $2, %hi(D_48FF90)\n\t"
-        "sd         $31, 0x20($29)\n\t"
-        "addiu      $4, $4, 0x1\n\t"
-        "daddu      $5, $29, $0\n\t"
-        "addiu      $9, $2, %lo(D_48FF90)\n\t"
-        "ldl        $3, 0x7($9)\n\t"
-        "ldr        $3, 0x0($9)\n\t"
-        "ldl        $7, 0xF($9)\n\t"
-        "ldr        $7, 0x8($9)\n\t"
-        "ldl        $8, 0x17($9)\n\t"
-        "ldr        $8, 0x10($9)\n\t"
-        "sdl        $3, 0x7($29)\n\t"
-        "sdr        $3, 0x0($29)\n\t"
-        "sdl        $7, 0xF($29)\n\t"
-        "sdr        $7, 0x8($29)\n\t"
-        "sdl        $8, 0x17($29)\n\t"
-        "sdr        $8, 0x10($29)\n\t"
-        "ldl        $3, 0x1F($9)\n\t"
-        "ldr        $3, 0x18($9)\n\t"
-        "sdl        $3, 0x1F($29)\n\t"
-        "sdr        $3, 0x18($29)\n\t"
-        "jal        func_12DD00\n\t"
-        "addiu     $6, $0, 0x4\n\t"
-        "ld         $31, 0x20($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x30\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_0012DF08\n");
+void *func_0012DF08(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_t0 = 0, r_t1 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_t0;
+    (void)r_t1;
+    r_sp = (long)(r_sp + (-0x30));
+    r_v0 = (long)&D_48FF90;
+    if (r_sp) { *(long *)((char *)r_sp + (0x20)) = (long)r_ra; }
+    r_a0 = (long)(r_a0 + (0x1));
+    r_a1 = (long)(r_sp + 0);
+    r_t1 = (long)&D_48FF90;
+    if (r_t1) { r_v1 = *(long *)((char *)r_t1 + (0x7)); }
+    if (r_t1) { r_v1 = *(long *)((char *)r_t1 + (0x0)); }
+    if (r_t1) { r_a3 = *(long *)((char *)r_t1 + (0xF)); }
+    if (r_t1) { r_a3 = *(long *)((char *)r_t1 + (0x8)); }
+    if (r_t1) { r_t0 = *(long *)((char *)r_t1 + (0x17)); }
+    if (r_t1) { r_t0 = *(long *)((char *)r_t1 + (0x10)); }
+    if (r_sp) { *(long *)((char *)r_sp + (0x7)) = (long)r_v1; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_v1; }
+    if (r_sp) { *(long *)((char *)r_sp + (0xF)) = (long)r_a3; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x8)) = (long)r_a3; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x17)) = (long)r_t0; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_t0; }
+    if (r_t1) { r_v1 = *(long *)((char *)r_t1 + (0x1F)); }
+    if (r_t1) { r_v1 = *(long *)((char *)r_t1 + (0x18)); }
+    if (r_sp) { *(long *)((char *)r_sp + (0x1F)) = (long)r_v1; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x18)) = (long)r_v1; }
+    r_a2 = (long)(0 + (0x4));
+    r_v0 = (long)func_12DD00((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x20)); }
+    r_sp = (long)(r_sp + (0x30));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_0012DF78 */
-__asm__(".text\n\t"
-        ".globl func_0012DF78\n\t"
-        ".ent func_0012DF78\n"
-        "func_0012DF78:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x30\n\t"
-        "lui        $2, %hi(D_48FFB0)\n\t"
-        "sd         $31, 0x20($29)\n\t"
-        "daddu      $5, $29, $0\n\t"
-        "addiu      $9, $2, %lo(D_48FFB0)\n\t"
-        "ldl        $3, 0x7($9)\n\t"
-        "ldr        $3, 0x0($9)\n\t"
-        "ldl        $7, 0xF($9)\n\t"
-        "ldr        $7, 0x8($9)\n\t"
-        "ldl        $8, 0x17($9)\n\t"
-        "ldr        $8, 0x10($9)\n\t"
-        "sdl        $3, 0x7($29)\n\t"
-        "sdr        $3, 0x0($29)\n\t"
-        "sdl        $7, 0xF($29)\n\t"
-        "sdr        $7, 0x8($29)\n\t"
-        "sdl        $8, 0x17($29)\n\t"
-        "sdr        $8, 0x10($29)\n\t"
-        "ldl        $3, 0x1F($9)\n\t"
-        "ldr        $3, 0x18($9)\n\t"
-        "sdl        $3, 0x1F($29)\n\t"
-        "sdr        $3, 0x18($29)\n\t"
-        "jal        func_12DD00\n\t"
-        "addiu     $6, $0, 0x4\n\t"
-        "ld         $31, 0x20($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x30\n\t"
-        ".set reorder\n\t"
-        ".end func_0012DF78\n");
+void *func_0012DF78(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_t0 = 0, r_t1 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_t0;
+    (void)r_t1;
+    r_sp = (long)(r_sp + (-0x30));
+    r_v0 = (long)&D_48FFB0;
+    if (r_sp) { *(long *)((char *)r_sp + (0x20)) = (long)r_ra; }
+    r_a1 = (long)(r_sp + 0);
+    r_t1 = (long)&D_48FFB0;
+    if (r_t1) { r_v1 = *(long *)((char *)r_t1 + (0x7)); }
+    if (r_t1) { r_v1 = *(long *)((char *)r_t1 + (0x0)); }
+    if (r_t1) { r_a3 = *(long *)((char *)r_t1 + (0xF)); }
+    if (r_t1) { r_a3 = *(long *)((char *)r_t1 + (0x8)); }
+    if (r_t1) { r_t0 = *(long *)((char *)r_t1 + (0x17)); }
+    if (r_t1) { r_t0 = *(long *)((char *)r_t1 + (0x10)); }
+    if (r_sp) { *(long *)((char *)r_sp + (0x7)) = (long)r_v1; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_v1; }
+    if (r_sp) { *(long *)((char *)r_sp + (0xF)) = (long)r_a3; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x8)) = (long)r_a3; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x17)) = (long)r_t0; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_t0; }
+    if (r_t1) { r_v1 = *(long *)((char *)r_t1 + (0x1F)); }
+    if (r_t1) { r_v1 = *(long *)((char *)r_t1 + (0x18)); }
+    if (r_sp) { *(long *)((char *)r_sp + (0x1F)) = (long)r_v1; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x18)) = (long)r_v1; }
+    r_a2 = (long)(0 + (0x4));
+    r_v0 = (long)func_12DD00((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x20)); }
+    r_sp = (long)(r_sp + (0x30));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_0012DFE0 */
-__asm__(".text\n\t"
-        ".globl func_0012DFE0\n\t"
-        ".ent func_0012DFE0\n"
-        "func_0012DFE0:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x40\n\t"
-        "lui        $2, %hi(D_490010)\n\t"
-        "sd         $31, 0x30($29)\n\t"
-        "daddu      $5, $29, $0\n\t"
-        "addiu      $9, $2, %lo(D_490010)\n\t"
-        "ldl        $3, 0x7($9)\n\t"
-        "ldr        $3, 0x0($9)\n\t"
-        "ldl        $7, 0xF($9)\n\t"
-        "ldr        $7, 0x8($9)\n\t"
-        "ldl        $8, 0x17($9)\n\t"
-        "ldr        $8, 0x10($9)\n\t"
-        "sdl        $3, 0x7($29)\n\t"
-        "sdr        $3, 0x0($29)\n\t"
-        "sdl        $7, 0xF($29)\n\t"
-        "sdr        $7, 0x8($29)\n\t"
-        "sdl        $8, 0x17($29)\n\t"
-        "sdr        $8, 0x10($29)\n\t"
-        "ldl        $3, 0x1F($9)\n\t"
-        "ldr        $3, 0x18($9)\n\t"
-        "ldl        $7, 0x27($9)\n\t"
-        "ldr        $7, 0x20($9)\n\t"
-        "sdl        $3, 0x1F($29)\n\t"
-        "sdr        $3, 0x18($29)\n\t"
-        "sdl        $7, 0x27($29)\n\t"
-        "sdr        $7, 0x20($29)\n\t"
-        "jal        func_12DD00\n\t"
-        "addiu     $6, $0, 0x5\n\t"
-        "ld         $31, 0x30($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x40\n\t"
-        ".set reorder\n\t"
-        ".end func_0012DFE0\n");
+void *func_0012DFE0(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_t0 = 0, r_t1 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_t0;
+    (void)r_t1;
+    r_sp = (long)(r_sp + (-0x40));
+    r_v0 = (long)&D_490010;
+    if (r_sp) { *(long *)((char *)r_sp + (0x30)) = (long)r_ra; }
+    r_a1 = (long)(r_sp + 0);
+    r_t1 = (long)&D_490010;
+    if (r_t1) { r_v1 = *(long *)((char *)r_t1 + (0x7)); }
+    if (r_t1) { r_v1 = *(long *)((char *)r_t1 + (0x0)); }
+    if (r_t1) { r_a3 = *(long *)((char *)r_t1 + (0xF)); }
+    if (r_t1) { r_a3 = *(long *)((char *)r_t1 + (0x8)); }
+    if (r_t1) { r_t0 = *(long *)((char *)r_t1 + (0x17)); }
+    if (r_t1) { r_t0 = *(long *)((char *)r_t1 + (0x10)); }
+    if (r_sp) { *(long *)((char *)r_sp + (0x7)) = (long)r_v1; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_v1; }
+    if (r_sp) { *(long *)((char *)r_sp + (0xF)) = (long)r_a3; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x8)) = (long)r_a3; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x17)) = (long)r_t0; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_t0; }
+    if (r_t1) { r_v1 = *(long *)((char *)r_t1 + (0x1F)); }
+    if (r_t1) { r_v1 = *(long *)((char *)r_t1 + (0x18)); }
+    if (r_t1) { r_a3 = *(long *)((char *)r_t1 + (0x27)); }
+    if (r_t1) { r_a3 = *(long *)((char *)r_t1 + (0x20)); }
+    if (r_sp) { *(long *)((char *)r_sp + (0x1F)) = (long)r_v1; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x18)) = (long)r_v1; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x27)) = (long)r_a3; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x20)) = (long)r_a3; }
+    r_a2 = (long)(0 + (0x5));
+    r_v0 = (long)func_12DD00((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x30)); }
+    r_sp = (long)(r_sp + (0x40));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_0012E058 */
-__asm__(".text\n\t"
-        ".globl func_0012E058\n\t"
-        ".ent func_0012E058\n"
-        "func_0012E058:\n\t"
-        ".set noreorder\n\t"
-        "daddu      $6, $5, $0\n\t"
-        "daddu      $5, $4, $0\n\t"
-        "j          func_0012DEB0\n\t"
-        "daddu     $4, $0, $0\n\t"
-        ".set reorder\n\t"
-        ".end func_0012E058\n");
+void *func_0012E058(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    r_a2 = (long)(r_a1 + 0);
+    r_a1 = (long)(r_a0 + 0);
+    r_a0 = (long)(0 + 0);
+    return func_0012DE98((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    return func_0012E068((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+}
 
 /* func_0012E068 */
-__asm__(".text\n\t"
-        ".globl func_0012E068\n\t"
-        ".ent func_0012E068\n"
-        "func_0012E068:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x70\n\t"
-        "sd         $18, 0x30($29)\n\t"
-        "sd         $20, 0x50($29)\n\t"
-        "daddu      $18, $5, $0\n\t"
-        "sd         $17, 0x20($29)\n\t"
-        "daddu      $20, $6, $0\n\t"
-        "sd         $31, 0x60($29)\n\t"
-        "daddu      $17, $4, $0\n\t"
-        "sd         $19, 0x40($29)\n\t"
-        "slti       $2, $18, 0x3\n\t"
-        "bnez       $2, func_0012E0B8\n\t"
-        "sd        $16, 0x10($29)\n\t"
-        "lui        $4, %hi(D_490048)\n\t"
-        "lui        $5, (0x490000 >> 16)\n\t"
-        "lui        $7, (0x490000 >> 16)\n\t"
-        "addiu      $4, $4, %lo(D_490048)\n\t"
-        ".set reorder\n\t"
-        ".end func_0012E068\n");
+void *func_0012E068(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0, r_s3 = 0, r_s4 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    (void)r_s3;
+    (void)r_s4;
+    r_sp = (long)(r_sp + (-0x70));
+    if (r_sp) { *(long *)((char *)r_sp + (0x30)) = (long)r_s2; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x50)) = (long)r_s4; }
+    r_s2 = (long)(r_a1 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x20)) = (long)r_s1; }
+    r_s4 = (long)(r_a2 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x60)) = (long)r_ra; }
+    r_s1 = (long)(r_a0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x40)) = (long)r_s3; }
+    r_v0 = (long)((long)r_s2 < (long)(0x3) ? 1 : 0);
+    if (r_v0 != 0) { if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_s0; } return func_0012E0B8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3); }
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_s0; }
+    r_a0 = (long)&D_490048;
+    r_a1 = (long)((0x490000 >> 16) << 16);
+    r_a3 = (long)((0x490000 >> 16) << 16);
+    r_a0 = (long)&D_490048;
+    return func_0012E0A8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+}
 
 /* func_0012E0A8 */
-__asm__(".text\n\t"
-        ".globl func_0012E0A8\n\t"
-        ".ent func_0012E0A8\n"
-        "func_0012E0A8:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $5, $5, 0x68\n\t"
-        "addiu      $7, $7, 0x78\n\t"
-        "jal        func_123790\n\t"
-        "addiu     $6, $0, 0x230\n\t"
-        ".set reorder\n\t"
-        ".end func_0012E0A8\n");
+void *func_0012E0A8(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    r_a1 = (long)(r_a1 + (0x68));
+    r_a3 = (long)(r_a3 + (0x78));
+    r_a2 = (long)(0 + (0x230));
+    r_v0 = (long)func_123790((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    return func_0012E0B8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+}
 
 /* func_0012E0B8 */
-__asm__(".text\n\t"
-        ".globl func_0012E0B8\n\t"
-        ".ent func_0012E0B8\n"
-        "func_0012E0B8:\n\t"
-        ".set noreorder\n\t"
-        "lui        $16, (0x500000 >> 16)\n\t"
-        "b          .L0012E174\n\t"
-        "lui       $19, (0x500000 >> 16)\n\t"
-        "nop\n\t"
-        ".L0012E0C8:\n\t"
-        "beq        $5, $2, func_0012E118\n\t"
-        "slti      $2, $5, -0x77\n\t"
-        "beqz       $2, .L0012E0E8\n\t"
-        "addiu     $2, $0, -0x79\n\t"
-        "beq        $5, $2, .L0012E14C\n\t"
-        "lui       $4, (0x490000 >> 16)\n\t"
-        "b          .L0012E0F4\n\t"
-        "lui       $4, %hi(D_490088)\n\t"
-        ".L0012E0E8:\n\t"
-        "addiu      $2, $0, -0x65\n\t"
-        "beq        $5, $2, .L0012E104\n\t"
-        "lui       $4, %hi(D_490088)\n\t"
-        ".L0012E0F4:\n\t"
-        "jal        func_118de0\n\t"
-        "addiu     $4, $4, %lo(D_490088)\n\t"
-        "b          .L0012E174\n\t"
-        "nop\n\t"
-        ".L0012E104:\n\t"
-        "lui        $4, %hi(D_4900A8)\n\t"
-        "jal        func_118de0\n\t"
-        "addiu     $4, $4, %lo(D_4900A8)\n\t"
-        "b          .L0012E174\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_0012E0B8\n");
+void *func_0012E0B8(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s3 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s3;
+    r_s0 = (long)((0x500000 >> 16) << 16);
+    r_s3 = (long)((0x500000 >> 16) << 16);
+    return func_0012E118((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+_lbl_L0012E0C8:
+    if (r_a1 == r_v0) { r_v0 = (long)((long)r_a1 < (long)(-0x77) ? 1 : 0); return func_0012E118((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3); }
+    r_v0 = (long)((long)r_a1 < (long)(-0x77) ? 1 : 0);
+    if (r_v0 == 0) { r_v0 = (long)(0 + (-0x79)); goto _lbl_L0012E0E8; }
+    r_v0 = (long)(0 + (-0x79));
+    if (r_a1 == r_v0) { r_a0 = (long)((0x490000 >> 16) << 16); return func_0012E118((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3); }
+    r_a0 = (long)((0x490000 >> 16) << 16);
+    r_a0 = (long)&D_490088;
+    goto _lbl_L0012E0F4;
+_lbl_L0012E0E8:
+    r_v0 = (long)(0 + (-0x65));
+    if (r_a1 == r_v0) { r_a0 = (long)&D_490088; goto _lbl_L0012E104; }
+    r_a0 = (long)&D_490088;
+_lbl_L0012E0F4:
+    r_a0 = (long)&D_490088;
+    r_v0 = (long)func_118de0((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    return func_0012E118((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+_lbl_L0012E104:
+    r_a0 = (long)&D_4900A8;
+    r_a0 = (long)&D_4900A8;
+    r_v0 = (long)func_118de0((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    return func_0012E118((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    return func_0012E118((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+}
 
 /* func_0012E118 */
-__asm__(".text\n\t"
-        ".globl func_0012E118\n\t"
-        ".ent func_0012E118\n"
-        "func_0012E118:\n\t"
-        ".set noreorder\n\t"
-        "lui        $4, %hi(D_4900C0)\n\t"
-        "jal        func_118de0\n\t"
-        "addiu     $4, $4, %lo(D_4900C0)\n\t"
-        "lui        $4, %hi(D_4E2D00)\n\t"
-        "lui        $5, %hi(D_490068)\n\t"
-        "lui        $7, %hi(D_490078)\n\t"
-        "addiu      $4, $4, %lo(D_4E2D00)\n\t"
-        "addiu      $5, $5, %lo(D_490068)\n\t"
-        "addiu      $7, $7, %lo(D_490078)\n\t"
-        "jal        func_123790\n\t"
-        "addiu     $6, $0, 0x240\n\t"
-        "b          .L0012E174\n\t"
-        "nop\n\t"
-        ".L0012E14C:\n\t"
-        "jal        func_118de0\n\t"
-        "addiu     $4, $4, 0xE0\n\t"
-        "lui        $4, %hi(D_4E2D00)\n\t"
-        "lui        $5, %hi(D_490068)\n\t"
-        "lui        $7, %hi(D_490078)\n\t"
-        "addiu      $4, $4, %lo(D_4E2D00)\n\t"
-        "addiu      $5, $5, %lo(D_490068)\n\t"
-        "addiu      $7, $7, %lo(D_490078)\n\t"
-        "jal        func_123790\n\t"
-        "addiu     $6, $0, 0x241\n\t"
-        ".L0012E174:\n\t"
-        "jal        func_10FF40\n\t"
-        ".set reorder\n\t"
-        ".end func_0012E118\n");
+void *func_0012E118(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    r_a0 = (long)&D_4900C0;
+    r_a0 = (long)&D_4900C0;
+    r_v0 = (long)func_118de0((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_a0 = (long)&D_4E2D00;
+    r_a1 = (long)&D_490068;
+    r_a3 = (long)&D_490078;
+    r_a0 = (long)&D_4E2D00;
+    r_a1 = (long)&D_490068;
+    r_a3 = (long)&D_490078;
+    r_a2 = (long)(0 + (0x240));
+    r_v0 = (long)func_123790((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    goto _lbl_L0012E174;
+_lbl_L0012E14C:
+    r_a0 = (long)(r_a0 + (0xE0));
+    r_v0 = (long)func_118de0((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_a0 = (long)&D_4E2D00;
+    r_a1 = (long)&D_490068;
+    r_a3 = (long)&D_490078;
+    r_a0 = (long)&D_4E2D00;
+    r_a1 = (long)&D_490068;
+    r_a3 = (long)&D_490078;
+    r_a2 = (long)(0 + (0x241));
+    r_v0 = (long)func_123790((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+_lbl_L0012E174:
+    r_v0 = (long)func_10FF40((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    return func_0012E178((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+}
 
 /* func_0012E178 */
-__asm__(".text\n\t"
-        ".globl func_0012E178\n\t"
-        ".ent func_0012E178\n"
-        "func_0012E178:\n\t"
-        ".set noreorder\n\t"
-        "nop\n\t"
-        "daddu      $5, $2, $0\n\t"
-        "bnez       $5, .L0012E0C8\n\t"
-        "addiu     $2, $0, -0x78\n\t"
-        "addiu      $4, $16, -0x6900\n\t"
-        "jal        func_001143C0\n\t"
-        "addiu     $5, $0, 0xD4\n\t"
-        "addiu      $16, $19, -0x6828\n\t"
-        "daddu      $4, $16, $0\n\t"
-        "jal        func_001143C0\n\t"
-        "addiu     $5, $0, 0x50\n\t"
-        "beqz       $18, .L0012E240\n\t"
-        "ld        $31, 0x60($29)\n\t"
-        "bnez       $17, .L0012E1F4\n\t"
-        "daddu     $4, $17, $0\n\t"
-        "jal        func_116F40\n\t"
-        "sll       $4, $18, 4\n\t"
-        "lw         $3, 0x4C($16)\n\t"
-        ".set reorder\n\t"
-        ".end func_0012E178\n");
+void *func_0012E178(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0, r_s3 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    (void)r_s3;
+    r_a1 = (long)(r_v0 + 0);
+    if (r_a1 != 0) { r_v0 = (long)(0 + (-0x78)); return func_0012E0B8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3); }
+    r_v0 = (long)(0 + (-0x78));
+    r_a0 = (long)(r_s0 + (-0x6900));
+    r_a1 = (long)(0 + (0xD4));
+    r_v0 = (long)func_001143C0((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_s0 = (long)(r_s3 + (-0x6828));
+    r_a0 = (long)(r_s0 + 0);
+    r_a1 = (long)(0 + (0x50));
+    r_v0 = (long)func_001143C0((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_s2 == 0) { if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x60)); } return func_0012E208((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3); }
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x60)); }
+    if (r_s1 != 0) { r_a0 = (long)(r_s1 + 0); return func_0012E1C0((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3); }
+    r_a0 = (long)(r_s1 + 0);
+    r_a0 = (long)((unsigned long)r_s2 << (4));
+    r_v0 = (long)func_116F40((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_s0) { r_v1 = *(int *)((char *)r_s0 + (0x4C)); }
+    return func_0012E1C0((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+}
 
 /* func_0012E1C0 */
-__asm__(".text\n\t"
-        ".globl func_0012E1C0\n\t"
-        ".ent func_0012E1C0\n"
-        "func_0012E1C0:\n\t"
-        ".set noreorder\n\t"
-        "daddu      $17, $2, $0\n\t"
-        "ori        $3, $3, 0x1\n\t"
-        "bnez       $17, .L0012E1F0\n\t"
-        "sw        $3, 0x4C($16)\n\t"
-        "lui        $4, %hi(D_490100)\n\t"
-        "lui        $5, %hi(D_490068)\n\t"
-        "lui        $7, %hi(D_490078)\n\t"
-        "addiu      $4, $4, %lo(D_490100)\n\t"
-        "addiu      $5, $5, %lo(D_490068)\n\t"
-        "addiu      $7, $7, %lo(D_490078)\n\t"
-        "jal        func_123790\n\t"
-        "addiu     $6, $0, 0x24F\n\t"
-        ".L0012E1F0:\n\t"
-        "daddu      $4, $17, $0\n\t"
-        ".L0012E1F4:\n\t"
-        "jal        func_0012F980\n\t"
-        "daddu     $5, $18, $0\n\t"
-        "addiu      $16, $19, -0x6828\n\t"
-        "daddu      $4, $17, $0\n\t"
-        "daddu      $5, $18, $0\n\t"
-        ".set reorder\n\t"
-        ".end func_0012E1C0\n");
+void *func_0012E1C0(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0, r_s3 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    (void)r_s3;
+    r_s1 = (long)(r_v0 + 0);
+    r_v1 = (long)(r_v1 | (0x1));
+    if (r_s1 != 0) { if (r_s0) { *(int *)((char *)r_s0 + (0x4C)) = (int)r_v1; } goto _lbl_L0012E1F0; }
+    if (r_s0) { *(int *)((char *)r_s0 + (0x4C)) = (int)r_v1; }
+    r_a0 = (long)&D_490100;
+    r_a1 = (long)&D_490068;
+    r_a3 = (long)&D_490078;
+    r_a0 = (long)&D_490100;
+    r_a1 = (long)&D_490068;
+    r_a3 = (long)&D_490078;
+    r_a2 = (long)(0 + (0x24F));
+    r_v0 = (long)func_123790((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+_lbl_L0012E1F0:
+    r_a0 = (long)(r_s1 + 0);
+_lbl_L0012E1F4:
+    r_a1 = (long)(r_s2 + 0);
+    r_v0 = (long)func_0012F980((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_s0 = (long)(r_s3 + (-0x6828));
+    r_a0 = (long)(r_s1 + 0);
+    r_a1 = (long)(r_s2 + 0);
+    return func_0012E208((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+}
 
 /* func_0012E208 */
-__asm__(".text\n\t"
-        ".globl func_0012E208\n\t"
-        ".ent func_0012E208\n"
-        "func_0012E208:\n\t"
-        ".set noreorder\n\t"
-        "jal        func_0012E208\n\t"
-        "addiu     $6, $0, 0x1\n\t"
-        "sw         $17, -0x6828($19)\n\t"
-        "sw         $18, 0x4($16)\n\t"
-        "jal        func_00128990\n\t"
-        "sw        $20, 0x1C($16)\n\t"
-        "dsrl       $3, $2, 16\n\t"
-        "sh         $2, 0x0($29)\n\t"
-        "sh         $3, 0x2($29)\n\t"
-        "lwl        $2, 0x3($29)\n\t"
-        "lwr        $2, 0x0($29)\n\t"
-        "swl        $2, 0x23($16)\n\t"
-        "swr        $2, 0x20($16)\n\t"
-        "ld         $31, 0x60($29)\n\t"
-        ".L0012E240:\n\t"
-        "ld         $20, 0x50($29)\n\t"
-        "ld         $19, 0x40($29)\n\t"
-        "ld         $18, 0x30($29)\n\t"
-        "ld         $17, 0x20($29)\n\t"
-        "ld         $16, 0x10($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x70\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_0012E208\n");
+void *func_0012E208(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0, r_s3 = 0, r_s4 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    (void)r_s3;
+    (void)r_s4;
+    r_a2 = (long)(0 + (0x1));
+    /* recursive self-call omitted */
+    if (r_s3) { *(int *)((char *)r_s3 + (-0x6828)) = (int)r_s1; }
+    if (r_s0) { *(int *)((char *)r_s0 + (0x4)) = (int)r_s2; }
+    if (r_s0) { *(int *)((char *)r_s0 + (0x1C)) = (int)r_s4; }
+    r_v0 = (long)func_00128990((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_v1 = (long)((unsigned long)r_v0 >> (16));
+    if (r_sp) { *(short *)((char *)r_sp + (0x0)) = (short)r_v0; }
+    if (r_sp) { *(short *)((char *)r_sp + (0x2)) = (short)r_v1; }
+    if (r_sp) { r_v0 = *(int *)((char *)r_sp + (0x3)); }
+    if (r_sp) { r_v0 = *(int *)((char *)r_sp + (0x0)); }
+    if (r_s0) { *(int *)((char *)r_s0 + (0x23)) = (int)r_v0; }
+    if (r_s0) { *(int *)((char *)r_s0 + (0x20)) = (int)r_v0; }
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x60)); }
+_lbl_L0012E240:
+    if (r_sp) { r_s4 = *(long *)((char *)r_sp + (0x50)); }
+    if (r_sp) { r_s3 = *(long *)((char *)r_sp + (0x40)); }
+    if (r_sp) { r_s2 = *(long *)((char *)r_sp + (0x30)); }
+    if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x20)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x10)); }
+    r_sp = (long)(r_sp + (0x70));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_0012E260 */
-__asm__(".text\n\t"
-        ".globl func_0012E260\n\t"
-        ".ent func_0012E260\n"
-        "func_0012E260:\n\t"
-        ".set noreorder\n\t"
-        "lui        $2, (0x500000 >> 16)\n\t"
-        "jr         $31\n\t"
-        "sw        $4, -0x680C($2)\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_0012E260\n");
+void *func_0012E260(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    r_v0 = (long)((0x500000 >> 16) << 16);
+    if (r_v0) { *(int *)((char *)r_v0 + (-0x680C)) = (int)r_a0; }
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_0012E270 */
-__asm__(".text\n\t"
-        ".globl func_0012E270\n\t"
-        ".ent func_0012E270\n"
-        "func_0012E270:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x10\n\t"
-        "lui        $2, %hi(D_4F97D8)\n\t"
-        "sw         $4, 0x0($29)\n\t"
-        "addiu      $2, $2, %lo(D_4F97D8)\n\t"
-        "lwl        $3, 0x3($29)\n\t"
-        "lwr        $3, 0x0($29)\n\t"
-        "swl        $3, 0x23($2)\n\t"
-        "swr        $3, 0x20($2)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x10\n\t"
-        ".set reorder\n\t"
-        ".end func_0012E270\n");
+void *func_0012E270(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    r_sp = (long)(r_sp + (-0x10));
+    r_v0 = (long)&D_4F97D8;
+    if (r_sp) { *(int *)((char *)r_sp + (0x0)) = (int)r_a0; }
+    r_v0 = (long)&D_4F97D8;
+    if (r_sp) { r_v1 = *(int *)((char *)r_sp + (0x3)); }
+    if (r_sp) { r_v1 = *(int *)((char *)r_sp + (0x0)); }
+    if (r_v0) { *(int *)((char *)r_v0 + (0x23)) = (int)r_v1; }
+    if (r_v0) { *(int *)((char *)r_v0 + (0x20)) = (int)r_v1; }
+    r_sp = (long)(r_sp + (0x10));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_0012E298 */
-__asm__(".text\n\t"
-        ".globl func_0012E298\n\t"
-        ".ent func_0012E298\n"
-        "func_0012E298:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x20\n\t"
-        "sw         $5, 0x0($29)\n\t"
-        "sd         $31, 0x10($29)\n\t"
-        "jal        func_0012E0A8\n\t"
-        "nop\n\t"
-        "lw         $2, 0x0($29)\n\t"
-        "lui        $4, (0xFFFF0000 >> 16)\n\t"
-        "dsrl32     $4, $4, 0\n\t"
-        "jal        func_0012E0B8\n\t"
-        "and       $4, $2, $4\n\t"
-        "ld         $31, 0x10($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x20\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_0012E298\n");
+void *func_0012E298(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    r_sp = (long)(r_sp + (-0x20));
+    if (r_sp) { *(int *)((char *)r_sp + (0x0)) = (int)r_a1; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_ra; }
+    r_v0 = (long)func_0012E0A8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_v0 = *(int *)((char *)r_sp + (0x0)); }
+    r_a0 = (long)((0xFFFF0000 >> 16) << 16);
+    r_a0 = (long)((unsigned long)r_a0 >> (0));
+    r_a0 = (long)(r_v0 & r_a0);
+    r_v0 = (long)func_0012E0B8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x10)); }
+    r_sp = (long)(r_sp + (0x20));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_0012E2D0 */
-__asm__(".text\n\t"
-        ".globl func_0012E2D0\n\t"
-        ".ent func_0012E2D0\n"
-        "func_0012E2D0:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x30\n\t"
-        "daddu      $4, $0, $0\n\t"
-        "sd         $16, 0x10($29)\n\t"
-        "daddu      $5, $29, $0\n\t"
-        "sd         $31, 0x20($29)\n\t"
-        "jal        func_110940\n\t"
-        "ori       $6, $29, 0x4\n\t"
-        "lui        $3, (0x500000 >> 16)\n\t"
-        ".set reorder\n\t"
-        ".end func_0012E2D0\n");
+void *func_0012E2D0(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    r_sp = (long)(r_sp + (-0x30));
+    r_a0 = (long)(0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_s0; }
+    r_a1 = (long)(r_sp + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x20)) = (long)r_ra; }
+    r_a2 = (long)(r_sp | (0x4));
+    r_v0 = (long)func_110940((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_v1 = (long)((0x500000 >> 16) << 16);
+    return func_0012E2F0((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+}
 
 /* func_0012E2F0 */
-__asm__(".text\n\t"
-        ".globl func_0012E2F0\n\t"
-        ".ent func_0012E2F0\n"
-        "func_0012E2F0:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $16, $3, -0x6828\n\t"
-        "lw         $2, 0x4C($16)\n\t"
-        "andi       $2, $2, 0x1\n\t"
-        "beqz       $2, .L0012E31C\n\t"
-        "sw        $0, 0x4($16)\n\t"
-        "jal        func_116F68\n\t"
-        "lw        $4, -0x6828($3)\n\t"
-        "lw         $2, 0x4C($16)\n\t"
-        "addiu      $3, $0, -0x2\n\t"
-        "and        $2, $2, $3\n\t"
-        "sw         $2, 0x4C($16)\n\t"
-        ".L0012E31C:\n\t"
-        "ld         $31, 0x20($29)\n\t"
-        ".set reorder\n\t"
-        ".end func_0012E2F0\n");
+void *func_0012E2F0(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    r_s0 = (long)(r_v1 + (-0x6828));
+    if (r_s0) { r_v0 = *(int *)((char *)r_s0 + (0x4C)); }
+    r_v0 = (long)(r_v0 & (0x1));
+    if (r_v0 == 0) { if (r_s0) { *(int *)((char *)r_s0 + (0x4)) = (int)0; } goto _lbl_L0012E31C; }
+    if (r_s0) { *(int *)((char *)r_s0 + (0x4)) = (int)0; }
+    if (r_v1) { r_a0 = *(int *)((char *)r_v1 + (-0x6828)); }
+    r_v0 = (long)func_116F68((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_s0) { r_v0 = *(int *)((char *)r_s0 + (0x4C)); }
+    r_v1 = (long)(0 + (-0x2));
+    r_v0 = (long)(r_v0 & r_v1);
+    if (r_s0) { *(int *)((char *)r_s0 + (0x4C)) = (int)r_v0; }
+_lbl_L0012E31C:
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x20)); }
+    return func_0012E320((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+}
 
 /* func_0012E320 */
-__asm__(".text\n\t"
-        ".globl func_0012E320\n\t"
-        ".ent func_0012E320\n"
-        "func_0012E320:\n\t"
-        ".set noreorder\n\t"
-        "ld         $16, 0x10($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x30\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_0012E320\n");
+void *func_0012E320(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x10)); }
+    r_sp = (long)(r_sp + (0x30));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_0012E330 */
-__asm__(".text\n\t"
-        ".globl func_0012E330\n\t"
-        ".ent func_0012E330\n"
-        "func_0012E330:\n\t"
-        ".set noreorder\n\t"
-        "beqz       $4, .L0012E33C\n\t"
-        "addiu     $2, $0, 0x1\n\t"
-        "lw         $2, 0x0($4)\n\t"
-        ".L0012E33C:\n\t"
-        "jr         $31\n\t"
-        "nop\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_0012E330\n");
+void *func_0012E330(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    if (r_a0 == 0) { r_v0 = (long)(0 + (0x1)); goto _lbl_L0012E33C; }
+    r_v0 = (long)(0 + (0x1));
+    if (r_a0) { r_v0 = *(int *)((char *)r_a0 + (0x0)); }
+_lbl_L0012E33C:
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_0012E348 */
-__asm__(".text\n\t"
-        ".globl func_0012E348\n\t"
-        ".ent func_0012E348\n"
-        "func_0012E348:\n\t"
-        ".set noreorder\n\t"
-        "beqz       $4, .L0012E354\n\t"
-        "daddu     $2, $0, $0\n\t"
-        "lw         $2, 0x4($4)\n\t"
-        ".L0012E354:\n\t"
-        "jr         $31\n\t"
-        "nop\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_0012E348\n");
+void *func_0012E348(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    if (r_a0 == 0) { r_v0 = (long)(0 + 0); goto _lbl_L0012E354; }
+    r_v0 = (long)(0 + 0);
+    if (r_a0) { r_v0 = *(int *)((char *)r_a0 + (0x4)); }
+_lbl_L0012E354:
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_0012E360 */
-__asm__(".text\n\t"
-        ".globl func_0012E360\n\t"
-        ".ent func_0012E360\n"
-        "func_0012E360:\n\t"
-        ".set noreorder\n\t"
-        "beqz       $4, .L0012E36C\n\t"
-        "daddu     $2, $0, $0\n\t"
-        "lw         $2, 0x8($4)\n\t"
-        ".L0012E36C:\n\t"
-        "jr         $31\n\t"
-        "nop\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_0012E360\n");
+void *func_0012E360(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    if (r_a0 == 0) { r_v0 = (long)(0 + 0); goto _lbl_L0012E36C; }
+    r_v0 = (long)(0 + 0);
+    if (r_a0) { r_v0 = *(int *)((char *)r_a0 + (0x8)); }
+_lbl_L0012E36C:
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_0012E378 */
-__asm__(".text\n\t"
-        ".globl func_0012E378\n\t"
-        ".ent func_0012E378\n"
-        "func_0012E378:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x30\n\t"
-        "sd         $16, 0x0($29)\n\t"
-        "sd         $31, 0x20($29)\n\t"
-        "daddu      $16, $4, $0\n\t"
-        "sd         $17, 0x10($29)\n\t"
-        "lw         $17, 0xC($16)\n\t"
-        "andi       $2, $17, 0x1\n\t"
-        "beqz       $2, .L0012E3B0\n\t"
-        "ld        $31, 0x20($29)\n\t"
-        "jal        func_116F68\n\t"
-        "lw        $4, 0x8($16)\n\t"
-        "xori       $2, $17, 0x1\n\t"
-        "sw         $2, 0xC($16)\n\t"
-        "ld         $31, 0x20($29)\n\t"
-        ".L0012E3B0:\n\t"
-        "ld         $17, 0x10($29)\n\t"
-        "ld         $16, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x30\n\t"
-        ".set reorder\n\t"
-        ".end func_0012E378\n");
+void *func_0012E378(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    r_sp = (long)(r_sp + (-0x30));
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_s0; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x20)) = (long)r_ra; }
+    r_s0 = (long)(r_a0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_s1; }
+    if (r_s0) { r_s1 = *(int *)((char *)r_s0 + (0xC)); }
+    r_v0 = (long)(r_s1 & (0x1));
+    if (r_v0 == 0) { if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x20)); } goto _lbl_L0012E3B0; }
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x20)); }
+    if (r_s0) { r_a0 = *(int *)((char *)r_s0 + (0x8)); }
+    r_v0 = (long)func_116F68((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_v0 = (long)(r_s1 ^ (0x1));
+    if (r_s0) { *(int *)((char *)r_s0 + (0xC)) = (int)r_v0; }
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x20)); }
+_lbl_L0012E3B0:
+    if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x10)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x30));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_0012E3C0 */
-__asm__(".text\n\t"
-        ".globl func_0012E3C0\n\t"
-        ".ent func_0012E3C0\n"
-        "func_0012E3C0:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x60\n\t"
-        "sd         $16, 0x20($29)\n\t"
-        ".set reorder\n\t"
-        ".end func_0012E3C0\n");
+void *func_0012E3C0(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    r_sp = (long)(r_sp + (-0x60));
+    if (r_sp) { *(long *)((char *)r_sp + (0x20)) = (long)r_s0; }
+    return func_0012E3C8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+}
 
 /* func_0012E3C8 */
-__asm__(".text\n\t"
-        ".globl func_0012E3C8\n\t"
-        ".ent func_0012E3C8\n"
-        "func_0012E3C8:\n\t"
-        ".set noreorder\n\t"
-        "sd         $18, 0x40($29)\n\t"
-        "daddu      $16, $5, $0\n\t"
-        "sd         $17, 0x30($29)\n\t"
-        "daddu      $18, $6, $0\n\t"
-        "sd         $31, 0x50($29)\n\t"
-        "sltiu      $2, $16, 0x3\n\t"
-        "bnez       $2, .L0012E400\n\t"
-        "daddu     $17, $4, $0\n\t"
-        "lui        $4, %hi(D_490068)\n\t"
-        "lui        $6, %hi(D_490110)\n\t"
-        "addiu      $4, $4, %lo(D_490068)\n\t"
-        "addiu      $6, $6, %lo(D_490110)\n\t"
-        "jal        func_114320\n\t"
-        "addiu     $5, $0, 0x2BA\n\t"
-        ".L0012E400:\n\t"
-        "bnez       $17, .L0012E418\n\t"
-        "addiu     $8, $29, 0x10\n\t"
-        "jal        func_0012E2F0\n\t"
-        "daddu     $4, $0, $0\n\t"
-        "daddu      $17, $2, $0\n\t"
-        "addiu      $8, $29, 0x10\n\t"
-        ".L0012E418:\n\t"
-        "addiu      $3, $0, 0x1\n\t"
-        "addiu      $6, $0, 0x1\n\t"
-        "addiu      $2, $29, 0x14\n\t"
-        "nop\n\t"
-        ".L0012E428:\n\t"
-        "sw         $3, 0x0($2)\n\t"
-        "addiu      $6, $6, -0x1\n\t"
-        "addiu      $2, $2, -0x4\n\t"
-        "nop\n\t"
-        "nop\n\t"
-        "bgez       $6, .L0012E428\n\t"
-        "nop\n\t"
-        "daddu      $7, $18, $0\n\t"
-        ".set reorder\n\t"
-        ".end func_0012E3C8\n");
+void *func_0012E3C8(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0, r_t0 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    (void)r_t0;
+    if (r_sp) { *(long *)((char *)r_sp + (0x40)) = (long)r_s2; }
+    r_s0 = (long)(r_a1 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x30)) = (long)r_s1; }
+    r_s2 = (long)(r_a2 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x50)) = (long)r_ra; }
+    r_v0 = (long)((unsigned long)r_s0 < (unsigned long)(0x3) ? 1 : 0);
+    if (r_v0 != 0) { r_s1 = (long)(r_a0 + 0); goto _lbl_L0012E400; }
+    r_s1 = (long)(r_a0 + 0);
+    r_a0 = (long)&D_490068;
+    r_a2 = (long)&D_490110;
+    r_a0 = (long)&D_490068;
+    r_a2 = (long)&D_490110;
+    r_a1 = (long)(0 + (0x2BA));
+    r_v0 = (long)func_114320((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+_lbl_L0012E400:
+    if (r_s1 != 0) { r_t0 = (long)(r_sp + (0x10)); goto _lbl_L0012E418; }
+    r_t0 = (long)(r_sp + (0x10));
+    r_a0 = (long)(0 + 0);
+    r_v0 = (long)func_0012E2F0((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_s1 = (long)(r_v0 + 0);
+    r_t0 = (long)(r_sp + (0x10));
+_lbl_L0012E418:
+    r_v1 = (long)(0 + (0x1));
+    r_a2 = (long)(0 + (0x1));
+    r_v0 = (long)(r_sp + (0x14));
+_lbl_L0012E428:
+    if (r_v0) { *(int *)((char *)r_v0 + (0x0)) = (int)r_v1; }
+    r_a2 = (long)(r_a2 + (-0x1));
+    r_v0 = (long)(r_v0 + (-0x4));
+    if ((long)r_a2 >= 0) goto _lbl_L0012E428;
+    r_a3 = (long)(r_s2 + 0);
+    return func_0012E448((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+}
 
 /* func_0012E448 */
-__asm__(".text\n\t"
-        ".globl func_0012E448\n\t"
-        ".ent func_0012E448\n"
-        "func_0012E448:\n\t"
-        ".set noreorder\n\t"
-        "daddu      $4, $29, $0\n\t"
-        "daddu      $5, $16, $0\n\t"
-        "jal        func_00126040\n\t"
-        "addiu     $6, $0, 0x2\n\t"
-        "blez       $16, .L0012E494\n\t"
-        "ld        $31, 0x50($29)\n\t"
-        "daddu      $4, $17, $0\n\t"
-        "daddu      $6, $16, $0\n\t"
-        "daddu      $5, $29, $0\n\t"
-        "nop\n\t"
-        ".L0012E470:\n\t"
-        "lhu        $2, 0x0($5)\n\t"
-        "addiu      $6, $6, -0x1\n\t"
-        "sh         $2, 0x0($4)\n\t"
-        "lhu        $3, 0x2($5)\n\t"
-        "addiu      $5, $5, 0x4\n\t"
-        "sh         $3, 0x2($4)\n\t"
-        "bnez       $6, .L0012E470\n\t"
-        "addiu     $4, $4, 0x10\n\t"
-        "ld         $31, 0x50($29)\n\t"
-        ".L0012E494:\n\t"
-        "ld         $18, 0x40($29)\n\t"
-        "ld         $17, 0x30($29)\n\t"
-        "ld         $16, 0x20($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x60\n\t"
-        ".set reorder\n\t"
-        ".end func_0012E448\n");
+void *func_0012E448(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    r_a0 = (long)(r_sp + 0);
+    r_a1 = (long)(r_s0 + 0);
+    r_a2 = (long)(0 + (0x2));
+    r_v0 = (long)func_00126040((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if ((long)r_s0 <= 0) { if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x50)); } goto _lbl_L0012E494; }
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x50)); }
+    r_a0 = (long)(r_s1 + 0);
+    r_a2 = (long)(r_s0 + 0);
+    r_a1 = (long)(r_sp + 0);
+_lbl_L0012E470:
+    if (r_a1) { r_v0 = *(unsigned short *)((char *)r_a1 + (0x0)); }
+    r_a2 = (long)(r_a2 + (-0x1));
+    if (r_a0) { *(short *)((char *)r_a0 + (0x0)) = (short)r_v0; }
+    if (r_a1) { r_v1 = *(unsigned short *)((char *)r_a1 + (0x2)); }
+    r_a1 = (long)(r_a1 + (0x4));
+    if (r_a0) { *(short *)((char *)r_a0 + (0x2)) = (short)r_v1; }
+    if (r_a2 != 0) { r_a0 = (long)(r_a0 + (0x10)); goto _lbl_L0012E470; }
+    r_a0 = (long)(r_a0 + (0x10));
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x50)); }
+_lbl_L0012E494:
+    if (r_sp) { r_s2 = *(long *)((char *)r_sp + (0x40)); }
+    if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x30)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x20)); }
+    r_sp = (long)(r_sp + (0x60));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_0012E4A8 */
-__asm__(".text\n\t"
-        ".globl func_0012E4A8\n\t"
-        ".ent func_0012E4A8\n"
-        "func_0012E4A8:\n\t"
-        ".set noreorder\n\t"
-        "lui        $6, %hi(D_4F97D8)\n\t"
-        "addiu      $3, $6, %lo(D_4F97D8)\n\t"
-        "lw         $2, 0x4($3)\n\t"
-        "slt        $2, $4, $2\n\t"
-        "beqz       $2, .L0012E4CC\n\t"
-        "daddu     $5, $0, $0\n\t"
-        "lw         $3, -0x6828($6)\n\t"
-        "sll        $2, $4, 4\n\t"
-        "addu       $5, $3, $2\n\t"
-        ".L0012E4CC:\n\t"
-        "jr         $31\n\t"
-        "daddu     $2, $5, $0\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_0012E4A8\n");
+void *func_0012E4A8(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    r_a2 = (long)&D_4F97D8;
+    r_v1 = (long)&D_4F97D8;
+    if (r_v1) { r_v0 = *(int *)((char *)r_v1 + (0x4)); }
+    r_v0 = (long)((long)r_a0 < (long)r_v0 ? 1 : 0);
+    if (r_v0 == 0) { r_a1 = (long)(0 + 0); goto _lbl_L0012E4CC; }
+    r_a1 = (long)(0 + 0);
+    if (r_a2) { r_v1 = *(int *)((char *)r_a2 + (-0x6828)); }
+    r_v0 = (long)((unsigned long)r_a0 << (4));
+    r_a1 = (long)(r_v1 + r_v0);
+_lbl_L0012E4CC:
+    r_v0 = (long)(r_a1 + 0);
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_0012E4D8 */
-__asm__(".text\n\t"
-        ".globl func_0012E4D8\n\t"
-        ".ent func_0012E4D8\n"
-        "func_0012E4D8:\n\t"
-        ".set noreorder\n\t"
-        "lui        $3, (0x500000 >> 16)\n\t"
-        "daddu      $4, $0, $0\n\t"
-        "lw         $2, -0x6828($3)\n\t"
-        "beqz       $2, .L0012E4F0\n\t"
-        ".set reorder\n\t"
-        ".end func_0012E4D8\n");
+void *func_0012E4D8(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    r_v1 = (long)((0x500000 >> 16) << 16);
+    r_a0 = (long)(0 + 0);
+    if (r_v1) { r_v0 = *(int *)((char *)r_v1 + (-0x6828)); }
+    if (r_v0 == 0) return func_0012E4E8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    return func_0012E4E8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+}
 
 /* func_0012E4E8 */
-__asm__(".text\n\t"
-        ".globl func_0012E4E8\n\t"
-        ".ent func_0012E4E8\n"
-        "func_0012E4E8:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $5, $3, -0x6828\n\t"
-        "lw         $4, 0x4($5)\n\t"
-        ".L0012E4F0:\n\t"
-        "jr         $31\n\t"
-        "daddu     $2, $4, $0\n\t"
-        ".set reorder\n\t"
-        ".end func_0012E4E8\n");
+void *func_0012E4E8(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    r_a1 = (long)(r_v1 + (-0x6828));
+    if (r_a1) { r_a0 = *(int *)((char *)r_a1 + (0x4)); }
+_lbl_L0012E4F0:
+    r_v0 = (long)(r_a0 + 0);
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_0012E4F8 */
-__asm__(".text\n\t"
-        ".globl func_0012E4F8\n\t"
-        ".ent func_0012E4F8\n"
-        "func_0012E4F8:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x40\n\t"
-        "sd         $16, 0x20($29)\n\t"
-        "sd         $31, 0x30($29)\n\t"
-        "jal        func_00128990\n\t"
-        "daddu     $16, $4, $0\n\t"
-        "dsrl       $3, $2, 16\n\t"
-        "sh         $2, 0x10($29)\n\t"
-        "sh         $3, 0x12($29)\n\t"
-        "lwl        $2, 0x13($29)\n\t"
-        "lwr        $2, 0x10($29)\n\t"
-        "swl        $2, 0x3($29)\n\t"
-        "swr        $2, 0x0($29)\n\t"
-        "beqz       $16, .L0012E544\n\t"
-        "lhu       $6, 0x0($29)\n\t"
-        "lwl        $2, 0x3($16)\n\t"
-        "lwr        $2, 0x0($16)\n\t"
-        "swl        $2, 0x3($29)\n\t"
-        "swr        $2, 0x0($29)\n\t"
-        "lhu        $6, 0x0($29)\n\t"
-        ".L0012E544:\n\t"
-        "lui        $4, (0xFFFF0000 >> 16)\n\t"
-        "lhu        $3, 0x2($29)\n\t"
-        "and        $2, $2, $4\n\t"
-        "addiu      $5, $0, -0x1\n\t"
-        "dsll32     $5, $5, 0\n\t"
-        "ori        $5, $5, 0xFFFF\n\t"
-        "or         $2, $2, $6\n\t"
-        "dsll       $3, $3, 16\n\t"
-        "and        $2, $2, $5\n\t"
-        "ld         $31, 0x30($29)\n\t"
-        "or         $2, $3, $2\n\t"
-        "ld         $16, 0x20($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x40\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_0012E4F8\n");
+void *func_0012E4F8(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    r_sp = (long)(r_sp + (-0x40));
+    if (r_sp) { *(long *)((char *)r_sp + (0x20)) = (long)r_s0; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x30)) = (long)r_ra; }
+    r_s0 = (long)(r_a0 + 0);
+    r_v0 = (long)func_00128990((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_v1 = (long)((unsigned long)r_v0 >> (16));
+    if (r_sp) { *(short *)((char *)r_sp + (0x10)) = (short)r_v0; }
+    if (r_sp) { *(short *)((char *)r_sp + (0x12)) = (short)r_v1; }
+    if (r_sp) { r_v0 = *(int *)((char *)r_sp + (0x13)); }
+    if (r_sp) { r_v0 = *(int *)((char *)r_sp + (0x10)); }
+    if (r_sp) { *(int *)((char *)r_sp + (0x3)) = (int)r_v0; }
+    if (r_sp) { *(int *)((char *)r_sp + (0x0)) = (int)r_v0; }
+    if (r_s0 == 0) { if (r_sp) { r_a2 = *(unsigned short *)((char *)r_sp + (0x0)); } goto _lbl_L0012E544; }
+    if (r_sp) { r_a2 = *(unsigned short *)((char *)r_sp + (0x0)); }
+    if (r_s0) { r_v0 = *(int *)((char *)r_s0 + (0x3)); }
+    if (r_s0) { r_v0 = *(int *)((char *)r_s0 + (0x0)); }
+    if (r_sp) { *(int *)((char *)r_sp + (0x3)) = (int)r_v0; }
+    if (r_sp) { *(int *)((char *)r_sp + (0x0)) = (int)r_v0; }
+    if (r_sp) { r_a2 = *(unsigned short *)((char *)r_sp + (0x0)); }
+_lbl_L0012E544:
+    r_a0 = (long)((0xFFFF0000 >> 16) << 16);
+    if (r_sp) { r_v1 = *(unsigned short *)((char *)r_sp + (0x2)); }
+    r_v0 = (long)(r_v0 & r_a0);
+    r_a1 = (long)(0 + (-0x1));
+    r_a1 = (long)((unsigned long)r_a1 << (0));
+    r_a1 = (long)(r_a1 | (0xFFFF));
+    r_v0 = (long)(r_v0 | r_a2);
+    r_v1 = (long)((unsigned long)r_v1 << (16));
+    r_v0 = (long)(r_v0 & r_a1);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x30)); }
+    r_v0 = (long)(r_v1 | r_v0);
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x20)); }
+    r_sp = (long)(r_sp + (0x40));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_0012E580 */
-__asm__(".text\n\t"
-        ".globl func_0012E580\n\t"
-        ".ent func_0012E580\n"
-        "func_0012E580:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x20\n\t"
-        "lui        $2, (0xFFFF0000 >> 16)\n\t"
-        "dsrl32     $2, $2, 0\n\t"
-        "sw         $4, 0x0($29)\n\t"
-        "sd         $31, 0x10($29)\n\t"
-        "lw         $4, 0x0($29)\n\t"
-        "jal        func_0012E4E8\n\t"
-        "and       $4, $4, $2\n\t"
-        "beqz       $2, .L0012E5AC\n\t"
-        "daddu     $3, $0, $0\n\t"
-        "lh         $3, 0x4($2)\n\t"
-        ".L0012E5AC:\n\t"
-        "ld         $31, 0x10($29)\n\t"
-        "daddu      $2, $3, $0\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x20\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_0012E580\n");
+void *func_0012E580(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    r_sp = (long)(r_sp + (-0x20));
+    r_v0 = (long)((0xFFFF0000 >> 16) << 16);
+    r_v0 = (long)((unsigned long)r_v0 >> (0));
+    if (r_sp) { *(int *)((char *)r_sp + (0x0)) = (int)r_a0; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_ra; }
+    if (r_sp) { r_a0 = *(int *)((char *)r_sp + (0x0)); }
+    r_a0 = (long)(r_a0 & r_v0);
+    r_v0 = (long)func_0012E4E8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_v0 == 0) { r_v1 = (long)(0 + 0); goto _lbl_L0012E5AC; }
+    r_v1 = (long)(0 + 0);
+    if (r_v0) { r_v1 = *(short *)((char *)r_v0 + (0x4)); }
+_lbl_L0012E5AC:
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x10)); }
+    r_v0 = (long)(r_v1 + 0);
+    r_sp = (long)(r_sp + (0x20));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_0012E5C0 */
-__asm__(".text\n\t"
-        ".globl func_0012E5C0\n\t"
-        ".ent func_0012E5C0\n"
-        "func_0012E5C0:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x20\n\t"
-        "lui        $2, (0xFFFF0000 >> 16)\n\t"
-        "dsrl32     $2, $2, 0\n\t"
-        "sw         $4, 0x0($29)\n\t"
-        "sd         $31, 0x10($29)\n\t"
-        "lw         $4, 0x0($29)\n\t"
-        "jal        func_0012E4E8\n\t"
-        "and       $4, $4, $2\n\t"
-        "beqz       $2, .L0012E5EC\n\t"
-        "daddu     $3, $0, $0\n\t"
-        "lw         $3, 0x8($2)\n\t"
-        ".L0012E5EC:\n\t"
-        "ld         $31, 0x10($29)\n\t"
-        "daddu      $2, $3, $0\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x20\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_0012E5C0\n");
+void *func_0012E5C0(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    r_sp = (long)(r_sp + (-0x20));
+    r_v0 = (long)((0xFFFF0000 >> 16) << 16);
+    r_v0 = (long)((unsigned long)r_v0 >> (0));
+    if (r_sp) { *(int *)((char *)r_sp + (0x0)) = (int)r_a0; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_ra; }
+    if (r_sp) { r_a0 = *(int *)((char *)r_sp + (0x0)); }
+    r_a0 = (long)(r_a0 & r_v0);
+    r_v0 = (long)func_0012E4E8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_v0 == 0) { r_v1 = (long)(0 + 0); goto _lbl_L0012E5EC; }
+    r_v1 = (long)(0 + 0);
+    if (r_v0) { r_v1 = *(int *)((char *)r_v0 + (0x8)); }
+_lbl_L0012E5EC:
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x10)); }
+    r_v0 = (long)(r_v1 + 0);
+    r_sp = (long)(r_sp + (0x20));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_0012E600 */
-__asm__(".text\n\t"
-        ".globl func_0012E600\n\t"
-        ".ent func_0012E600\n"
-        "func_0012E600:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x20\n\t"
-        "lui        $2, (0xFFFF0000 >> 16)\n\t"
-        "dsrl32     $2, $2, 0\n\t"
-        "sw         $4, 0x0($29)\n\t"
-        "sd         $31, 0x10($29)\n\t"
-        "lw         $4, 0x0($29)\n\t"
-        "jal        func_0012E4E8\n\t"
-        "and       $4, $4, $2\n\t"
-        "beqz       $2, .L0012E62C\n\t"
-        "addiu     $3, $0, -0x1\n\t"
-        "lh         $3, 0x6($2)\n\t"
-        ".L0012E62C:\n\t"
-        "ld         $31, 0x10($29)\n\t"
-        "daddu      $2, $3, $0\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x20\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_0012E600\n");
+void *func_0012E600(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    r_sp = (long)(r_sp + (-0x20));
+    r_v0 = (long)((0xFFFF0000 >> 16) << 16);
+    r_v0 = (long)((unsigned long)r_v0 >> (0));
+    if (r_sp) { *(int *)((char *)r_sp + (0x0)) = (int)r_a0; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_ra; }
+    if (r_sp) { r_a0 = *(int *)((char *)r_sp + (0x0)); }
+    r_a0 = (long)(r_a0 & r_v0);
+    r_v0 = (long)func_0012E4E8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_v0 == 0) { r_v1 = (long)(0 + (-0x1)); goto _lbl_L0012E62C; }
+    r_v1 = (long)(0 + (-0x1));
+    if (r_v0) { r_v1 = *(short *)((char *)r_v0 + (0x6)); }
+_lbl_L0012E62C:
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x10)); }
+    r_v0 = (long)(r_v1 + 0);
+    r_sp = (long)(r_sp + (0x20));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_0012E640 */
-__asm__(".text\n\t"
-        ".globl func_0012E640\n\t"
-        ".ent func_0012E640\n"
-        "func_0012E640:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x30\n\t"
-        "lui        $2, (0xFFFF0000 >> 16)\n\t"
-        "dsrl32     $2, $2, 0\n\t"
-        "sd         $16, 0x10($29)\n\t"
-        "sw         $4, 0x0($29)\n\t"
-        "daddu      $16, $0, $0\n\t"
-        "sd         $31, 0x20($29)\n\t"
-        "lw         $4, 0x0($29)\n\t"
-        "jal        func_0012E4E8\n\t"
-        "and       $4, $4, $2\n\t"
-        "daddu      $3, $2, $0\n\t"
-        "beqz       $3, .L0012E68C\n\t"
-        "daddu     $2, $16, $0\n\t"
-        "lw         $2, 0xC($3)\n\t"
-        "andi       $16, $2, 0x3\n\t"
-        "ori        $2, $2, 0x3\n\t"
-        "xori       $2, $2, 0x3\n\t"
-        "sw         $2, 0xC($3)\n\t"
-        "daddu      $2, $16, $0\n\t"
-        ".L0012E68C:\n\t"
-        "ld         $31, 0x20($29)\n\t"
-        "ld         $16, 0x10($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x30\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_0012E640\n");
+void *func_0012E640(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    r_sp = (long)(r_sp + (-0x30));
+    r_v0 = (long)((0xFFFF0000 >> 16) << 16);
+    r_v0 = (long)((unsigned long)r_v0 >> (0));
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_s0; }
+    if (r_sp) { *(int *)((char *)r_sp + (0x0)) = (int)r_a0; }
+    r_s0 = (long)(0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x20)) = (long)r_ra; }
+    if (r_sp) { r_a0 = *(int *)((char *)r_sp + (0x0)); }
+    r_a0 = (long)(r_a0 & r_v0);
+    r_v0 = (long)func_0012E4E8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_v1 = (long)(r_v0 + 0);
+    if (r_v1 == 0) { r_v0 = (long)(r_s0 + 0); goto _lbl_L0012E68C; }
+    r_v0 = (long)(r_s0 + 0);
+    if (r_v1) { r_v0 = *(int *)((char *)r_v1 + (0xC)); }
+    r_s0 = (long)(r_v0 & (0x3));
+    r_v0 = (long)(r_v0 | (0x3));
+    r_v0 = (long)(r_v0 ^ (0x3));
+    if (r_v1) { *(int *)((char *)r_v1 + (0xC)) = (int)r_v0; }
+    r_v0 = (long)(r_s0 + 0);
+_lbl_L0012E68C:
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x20)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x10)); }
+    r_sp = (long)(r_sp + (0x30));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_0012E6A0 */
-__asm__(".text\n\t"
-        ".globl func_0012E6A0\n\t"
-        ".ent func_0012E6A0\n"
-        "func_0012E6A0:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x40\n\t"
-        "sw         $4, 0x0($29)\n\t"
-        "sd         $17, 0x20($29)\n\t"
-        "daddu      $4, $0, $0\n\t"
-        "sd         $16, 0x10($29)\n\t"
-        "sd         $31, 0x30($29)\n\t"
-        "jal        func_0012E2F0\n\t"
-        "daddu     $17, $0, $0\n\t"
-        "jal        func_0012E320\n\t"
-        "daddu     $16, $2, $0\n\t"
-        "lh         $7, 0x0($29)\n\t"
-        "daddu      $6, $2, $0\n\t"
-        "addiu      $4, $0, -0x1\n\t"
-        "beq        $7, $4, .L0012E750\n\t"
-        "lhu       $8, 0x0($29)\n\t"
-        "lhu        $5, 0x2($29)\n\t"
-        "sll        $2, $5, 16\n\t"
-        "sra        $3, $2, 16\n\t"
-        "beq        $3, $4, .L0012E754\n\t"
-        "daddu     $2, $17, $0\n\t"
-        "blez       $6, .L0012E754\n\t"
-        "daddu     $4, $0, $0\n\t"
-        "lh         $2, 0x2($16)\n\t"
-        "bnel       $2, $3, .L0012E718\n\t"
-        "addiu     $4, $4, 0x1\n\t"
-        "lh         $2, 0x0($16)\n\t"
-        "beql       $2, $7, .L0012E750\n\t"
-        "daddu     $17, $16, $0\n\t"
-        "addiu      $4, $4, 0x1\n\t"
-        "nop\n\t"
-        ".L0012E718:\n\t"
-        "slt        $2, $4, $6\n\t"
-        "beqz       $2, .L0012E750\n\t"
-        "addiu     $16, $16, 0x10\n\t"
-        "sll        $2, $5, 16\n\t"
-        "lh         $3, 0x2($16)\n\t"
-        "sra        $2, $2, 16\n\t"
-        "bnel       $3, $2, .L0012E718\n\t"
-        "addiu     $4, $4, 0x1\n\t"
-        "sll        $2, $8, 16\n\t"
-        "lh         $3, 0x0($16)\n\t"
-        "sra        $2, $2, 16\n\t"
-        "bnel       $3, $2, .L0012E718\n\t"
-        "addiu     $4, $4, 0x1\n\t"
-        "daddu      $17, $16, $0\n\t"
-        ".L0012E750:\n\t"
-        "daddu      $2, $17, $0\n\t"
-        ".L0012E754:\n\t"
-        "ld         $31, 0x30($29)\n\t"
-        "ld         $17, 0x20($29)\n\t"
-        "ld         $16, 0x10($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x40\n\t"
-        ".set reorder\n\t"
-        ".end func_0012E6A0\n");
+void *func_0012E6A0(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_t0 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_t0;
+    r_sp = (long)(r_sp + (-0x40));
+    if (r_sp) { *(int *)((char *)r_sp + (0x0)) = (int)r_a0; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x20)) = (long)r_s1; }
+    r_a0 = (long)(0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_s0; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x30)) = (long)r_ra; }
+    r_s1 = (long)(0 + 0);
+    r_v0 = (long)func_0012E2F0((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_s0 = (long)(r_v0 + 0);
+    r_v0 = (long)func_0012E320((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_a3 = *(short *)((char *)r_sp + (0x0)); }
+    r_a2 = (long)(r_v0 + 0);
+    r_a0 = (long)(0 + (-0x1));
+    if (r_a3 == r_a0) { if (r_sp) { r_t0 = *(unsigned short *)((char *)r_sp + (0x0)); } goto _lbl_L0012E750; }
+    if (r_sp) { r_t0 = *(unsigned short *)((char *)r_sp + (0x0)); }
+    if (r_sp) { r_a1 = *(unsigned short *)((char *)r_sp + (0x2)); }
+    r_v0 = (long)((unsigned long)r_a1 << (16));
+    r_v1 = (long)((long)r_v0 >> (16));
+    if (r_v1 == r_a0) { r_v0 = (long)(r_s1 + 0); goto _lbl_L0012E754; }
+    r_v0 = (long)(r_s1 + 0);
+    if ((long)r_a2 <= 0) { r_a0 = (long)(0 + 0); goto _lbl_L0012E754; }
+    r_a0 = (long)(0 + 0);
+    if (r_s0) { r_v0 = *(short *)((char *)r_s0 + (0x2)); }
+    if (r_v0 != r_v1) { r_a0 = (long)(r_a0 + (0x1)); goto _lbl_L0012E718; }
+    r_a0 = (long)(r_a0 + (0x1));
+    if (r_s0) { r_v0 = *(short *)((char *)r_s0 + (0x0)); }
+    if (r_v0 == r_a3) { r_s1 = (long)(r_s0 + 0); goto _lbl_L0012E750; }
+    r_s1 = (long)(r_s0 + 0);
+    r_a0 = (long)(r_a0 + (0x1));
+_lbl_L0012E718:
+    r_v0 = (long)((long)r_a0 < (long)r_a2 ? 1 : 0);
+    if (r_v0 == 0) { r_s0 = (long)(r_s0 + (0x10)); goto _lbl_L0012E750; }
+    r_s0 = (long)(r_s0 + (0x10));
+    r_v0 = (long)((unsigned long)r_a1 << (16));
+    if (r_s0) { r_v1 = *(short *)((char *)r_s0 + (0x2)); }
+    r_v0 = (long)((long)r_v0 >> (16));
+    if (r_v1 != r_v0) { r_a0 = (long)(r_a0 + (0x1)); goto _lbl_L0012E718; }
+    r_a0 = (long)(r_a0 + (0x1));
+    r_v0 = (long)((unsigned long)r_t0 << (16));
+    if (r_s0) { r_v1 = *(short *)((char *)r_s0 + (0x0)); }
+    r_v0 = (long)((long)r_v0 >> (16));
+    if (r_v1 != r_v0) { r_a0 = (long)(r_a0 + (0x1)); goto _lbl_L0012E718; }
+    r_a0 = (long)(r_a0 + (0x1));
+    r_s1 = (long)(r_s0 + 0);
+_lbl_L0012E750:
+    r_v0 = (long)(r_s1 + 0);
+_lbl_L0012E754:
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x30)); }
+    if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x20)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x10)); }
+    r_sp = (long)(r_sp + (0x40));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_0012E768 */
-__asm__(".text\n\t"
-        ".globl func_0012E768\n\t"
-        ".ent func_0012E768\n"
-        "func_0012E768:\n\t"
-        ".set noreorder\n\t"
-        "jr         $31\n\t"
-        "daddu     $2, $4, $0\n\t"
-        ".set reorder\n\t"
-        ".end func_0012E768\n");
+void *func_0012E768(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    r_v0 = (long)(r_a0 + 0);
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_0012E770 */
-__asm__(".text\n\t"
-        ".globl func_0012E770\n\t"
-        ".ent func_0012E770\n"
-        "func_0012E770:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x10\n\t"
-        "sd         $31, 0x0($29)\n\t"
-        "jal        func_0012ECA8\n\t"
-        "nop\n\t"
-        "ld         $31, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x10\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_0012E770\n");
+void *func_0012E770(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    r_sp = (long)(r_sp + (-0x10));
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_ra; }
+    r_v0 = (long)func_0012ECA8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x10));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_0012E790 */
-__asm__(".text\n\t"
-        ".globl func_0012E790\n\t"
-        ".ent func_0012E790\n"
-        "func_0012E790:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $2, $0, 0x3\n\t"
-        "beq        $5, $2, .L0012E7D0\n\t"
-        "slti      $2, $5, 0x4\n\t"
-        "beqz       $2, .L0012E7B4\n\t"
-        "addiu     $2, $0, 0x2\n\t"
-        "beq        $5, $2, .L0012E7C8\n\t"
-        "addiu     $4, $4, 0x104\n\t"
-        "jr         $31\n\t"
-        "nop\n\t"
-        ".L0012E7B4:\n\t"
-        "addiu      $2, $0, 0x4\n\t"
-        "beq        $5, $2, .L0012E7DC\n\t"
-        "addiu     $4, $4, 0x184\n\t"
-        "jr         $31\n\t"
-        "nop\n\t"
-        ".L0012E7C8:\n\t"
-        "j          strcpy\n\t"
-        "daddu     $5, $6, $0\n\t"
-        ".L0012E7D0:\n\t"
-        "addiu      $4, $4, 0x144\n\t"
-        "j          strcpy\n\t"
-        "daddu     $5, $6, $0\n\t"
-        ".L0012E7DC:\n\t"
-        "j          strcpy\n\t"
-        "daddu     $5, $6, $0\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_0012E790\n");
+void *func_0012E790(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    r_v0 = (long)(0 + (0x3));
+    if (r_a1 == r_v0) { r_v0 = (long)((long)r_a1 < (long)(0x4) ? 1 : 0); goto _lbl_L0012E7D0; }
+    r_v0 = (long)((long)r_a1 < (long)(0x4) ? 1 : 0);
+    if (r_v0 == 0) { r_v0 = (long)(0 + (0x2)); goto _lbl_L0012E7B4; }
+    r_v0 = (long)(0 + (0x2));
+    if (r_a1 == r_v0) { r_a0 = (long)(r_a0 + (0x104)); goto _lbl_L0012E7C8; }
+    r_a0 = (long)(r_a0 + (0x104));
+    return (void *)r_v0;
+_lbl_L0012E7B4:
+    r_v0 = (long)(0 + (0x4));
+    if (r_a1 == r_v0) { r_a0 = (long)(r_a0 + (0x184)); goto _lbl_L0012E7DC; }
+    r_a0 = (long)(r_a0 + (0x184));
+    return (void *)r_v0;
+_lbl_L0012E7C8:
+    r_a1 = (long)(r_a2 + 0);
+    return (void *)strcpy((char *)r_a0, (const char *)r_a1);
+_lbl_L0012E7D0:
+    r_a0 = (long)(r_a0 + (0x144));
+    r_a1 = (long)(r_a2 + 0);
+    return (void *)strcpy((char *)r_a0, (const char *)r_a1);
+_lbl_L0012E7DC:
+    r_a1 = (long)(r_a2 + 0);
+    return (void *)strcpy((char *)r_a0, (const char *)r_a1);
+    return (void *)r_v0;
+}
 
 /* func_0012E7E8 */
-__asm__(".text\n\t"
-        ".globl func_0012E7E8\n\t"
-        ".ent func_0012E7E8\n"
-        "func_0012E7E8:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x50\n\t"
-        "addiu      $7, $0, 0x44\n\t"
-        "sd         $16, 0x0($29)\n\t"
-        "addiu      $8, $0, 0x58\n\t"
-        "daddu      $16, $4, $0\n\t"
-        "sd         $19, 0x30($29)\n\t"
-        "sd         $18, 0x20($29)\n\t"
-        "addiu      $2, $0, 0x50\n\t"
-        "sd         $17, 0x10($29)\n\t"
-        "addiu      $3, $0, 0x53\n\t"
-        "sd         $31, 0x40($29)\n\t"
-        "addiu      $4, $0, 0x32\n\t"
-        "sb         $2, 0x0($16)\n\t"
-        "lui        $9, %hi(D_38C8C0)\n\t"
-        "sb         $3, 0x1($16)\n\t"
-        "lui        $2, %hi(D_38C900)\n\t"
-        "sb         $4, 0x2($16)\n\t"
-        "lui        $3, %hi(D_38C930)\n\t"
-        "sb         $7, 0x3($16)\n\t"
-        "lui        $10, %hi(D_38C960)\n\t"
-        "sh         $6, 0x6($16)\n\t"
-        "addiu      $4, $16, 0xC0\n\t"
-        "sw         $8, 0xC($16)\n\t"
-        "addiu      $17, $16, 0x104\n\t"
-        "addiu      $11, $9, %lo(D_38C8C0)\n\t"
-        "ldl        $6, 0x7($11)\n\t"
-        "ldr        $6, 0x0($11)\n\t"
-        "ldl        $7, 0xF($11)\n\t"
-        "ldr        $7, 0x8($11)\n\t"
-        "ldl        $8, 0x17($11)\n\t"
-        "ldr        $8, 0x10($11)\n\t"
-        "sdl        $6, 0x17($16)\n\t"
-        "sdr        $6, 0x10($16)\n\t"
-        "sdl        $7, 0x1F($16)\n\t"
-        "sdr        $7, 0x18($16)\n\t"
-        "sdl        $8, 0x27($16)\n\t"
-        "sdr        $8, 0x20($16)\n\t"
-        "ldl        $6, 0x1F($11)\n\t"
-        "ldr        $6, 0x18($11)\n\t"
-        "ldl        $7, 0x27($11)\n\t"
-        "ldr        $7, 0x20($11)\n\t"
-        "ldl        $8, 0x2F($11)\n\t"
-        "ldr        $8, 0x28($11)\n\t"
-        "sdl        $6, 0x2F($16)\n\t"
-        "sdr        $6, 0x28($16)\n\t"
-        "sdl        $7, 0x37($16)\n\t"
-        "sdr        $7, 0x30($16)\n\t"
-        "sdl        $8, 0x3F($16)\n\t"
-        "sdr        $8, 0x38($16)\n\t"
-        "ldl        $6, 0x37($11)\n\t"
-        "ldr        $6, 0x30($11)\n\t"
-        "ldl        $7, 0x3F($11)\n\t"
-        "ldr        $7, 0x38($11)\n\t"
-        "sdl        $6, 0x47($16)\n\t"
-        "sdr        $6, 0x40($16)\n\t"
-        "sdl        $7, 0x4F($16)\n\t"
-        "sdr        $7, 0x48($16)\n\t"
-        "addiu      $18, $16, 0x144\n\t"
-        "addiu      $9, $2, %lo(D_38C900)\n\t"
-        "ldl        $6, 0x7($9)\n\t"
-        "ldr        $6, 0x0($9)\n\t"
-        "ldl        $7, 0xF($9)\n\t"
-        "ldr        $7, 0x8($9)\n\t"
-        "ldl        $8, 0x17($9)\n\t"
-        "ldr        $8, 0x10($9)\n\t"
-        "sdl        $6, 0x57($16)\n\t"
-        "sdr        $6, 0x50($16)\n\t"
-        "sdl        $7, 0x5F($16)\n\t"
-        "sdr        $7, 0x58($16)\n\t"
-        "sdl        $8, 0x67($16)\n\t"
-        "sdr        $8, 0x60($16)\n\t"
-        "ldl        $6, 0x1F($9)\n\t"
-        "ldr        $6, 0x18($9)\n\t"
-        "ldl        $7, 0x27($9)\n\t"
-        "ldr        $7, 0x20($9)\n\t"
-        "ldl        $8, 0x2F($9)\n\t"
-        "ldr        $8, 0x28($9)\n\t"
-        "sdl        $6, 0x6F($16)\n\t"
-        "sdr        $6, 0x68($16)\n\t"
-        "sdl        $7, 0x77($16)\n\t"
-        "sdr        $7, 0x70($16)\n\t"
-        "sdl        $8, 0x7F($16)\n\t"
-        "sdr        $8, 0x78($16)\n\t"
-        "addiu      $7, $3, %lo(D_38C930)\n\t"
-        "ldl        $11, 0x7($7)\n\t"
-        "ldr        $11, 0x0($7)\n\t"
-        "ldl        $2, 0xF($7)\n\t"
-        "ldr        $2, 0x8($7)\n\t"
-        "ldl        $6, 0x17($7)\n\t"
-        "ldr        $6, 0x10($7)\n\t"
-        "sdl        $11, 0x87($16)\n\t"
-        "sdr        $11, 0x80($16)\n\t"
-        "sdl        $2, 0x8F($16)\n\t"
-        "sdr        $2, 0x88($16)\n\t"
-        "sdl        $6, 0x97($16)\n\t"
-        "sdr        $6, 0x90($16)\n\t"
-        "ldl        $11, 0x1F($7)\n\t"
-        "ldr        $11, 0x18($7)\n\t"
-        "ldl        $2, 0x27($7)\n\t"
-        "ldr        $2, 0x20($7)\n\t"
-        "ldl        $6, 0x2F($7)\n\t"
-        "ldr        $6, 0x28($7)\n\t"
-        "sdl        $11, 0x9F($16)\n\t"
-        "sdr        $11, 0x98($16)\n\t"
-        "sdl        $2, 0xA7($16)\n\t"
-        "sdr        $2, 0xA0($16)\n\t"
-        "sdl        $6, 0xAF($16)\n\t"
-        "sdr        $6, 0xA8($16)\n\t"
-        "addiu      $2, $10, %lo(D_38C960)\n\t"
-        "ldl        $8, 0x7($2)\n\t"
-        "ldr        $8, 0x0($2)\n\t"
-        "ldl        $9, 0xF($2)\n\t"
-        "ldr        $9, 0x8($2)\n\t"
-        "sdl        $8, 0xB7($16)\n\t"
-        "sdr        $8, 0xB0($16)\n\t"
-        "sdl        $9, 0xBF($16)\n\t"
-        "sdr        $9, 0xB8($16)\n\t"
-        "jal        strcpy\n\t"
-        "addiu     $19, $16, 0x184\n\t"
-        "jal        func_0012ECA8\n\t"
-        "addiu     $4, $0, 0x2\n\t"
-        "daddu      $4, $17, $0\n\t"
-        "jal        strcpy\n\t"
-        "daddu     $5, $2, $0\n\t"
-        "jal        func_0012ECA8\n\t"
-        "addiu     $4, $0, 0x3\n\t"
-        "daddu      $4, $18, $0\n\t"
-        "jal        strcpy\n\t"
-        "daddu     $5, $2, $0\n\t"
-        "jal        func_0012ECA8\n\t"
-        "addiu     $4, $0, 0x4\n\t"
-        "daddu      $4, $19, $0\n\t"
-        "jal        strcpy\n\t"
-        "daddu     $5, $2, $0\n\t"
-        "addiu      $4, $16, 0x4\n\t"
-        "jal        func_001143C0\n\t"
-        "addiu     $5, $0, 0x2\n\t"
-        "addiu      $4, $16, 0x8\n\t"
-        "jal        func_001143C0\n\t"
-        "addiu     $5, $0, 0x4\n\t"
-        "addiu      $4, $16, 0x1C4\n\t"
-        "ld         $31, 0x40($29)\n\t"
-        "ld         $19, 0x30($29)\n\t"
-        "addiu      $5, $0, 0x200\n\t"
-        "ld         $18, 0x20($29)\n\t"
-        "ld         $17, 0x10($29)\n\t"
-        "ld         $16, 0x0($29)\n\t"
-        "j          func_001143C0\n\t"
-        "addiu     $29, $29, 0x50\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_0012E7E8\n");
+void *func_0012E7E8(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0, r_s3 = 0, r_t0 = 0, r_t1 = 0, r_t2 = 0, r_t3 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    (void)r_s3;
+    (void)r_t0;
+    (void)r_t1;
+    (void)r_t2;
+    (void)r_t3;
+    r_sp = (long)(r_sp + (-0x50));
+    r_a3 = (long)(0 + (0x44));
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_s0; }
+    r_t0 = (long)(0 + (0x58));
+    r_s0 = (long)(r_a0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x30)) = (long)r_s3; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x20)) = (long)r_s2; }
+    r_v0 = (long)(0 + (0x50));
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_s1; }
+    r_v1 = (long)(0 + (0x53));
+    if (r_sp) { *(long *)((char *)r_sp + (0x40)) = (long)r_ra; }
+    r_a0 = (long)(0 + (0x32));
+    if (r_s0) { *(char *)((char *)r_s0 + (0x0)) = (char)r_v0; }
+    r_t1 = (long)&D_38C8C0;
+    if (r_s0) { *(char *)((char *)r_s0 + (0x1)) = (char)r_v1; }
+    r_v0 = (long)&D_38C900;
+    if (r_s0) { *(char *)((char *)r_s0 + (0x2)) = (char)r_a0; }
+    r_v1 = (long)&D_38C930;
+    if (r_s0) { *(char *)((char *)r_s0 + (0x3)) = (char)r_a3; }
+    r_t2 = (long)&D_38C960;
+    if (r_s0) { *(short *)((char *)r_s0 + (0x6)) = (short)r_a2; }
+    r_a0 = (long)(r_s0 + (0xC0));
+    if (r_s0) { *(int *)((char *)r_s0 + (0xC)) = (int)r_t0; }
+    r_s1 = (long)(r_s0 + (0x104));
+    r_t3 = (long)&D_38C8C0;
+    if (r_t3) { r_a2 = *(long *)((char *)r_t3 + (0x7)); }
+    if (r_t3) { r_a2 = *(long *)((char *)r_t3 + (0x0)); }
+    if (r_t3) { r_a3 = *(long *)((char *)r_t3 + (0xF)); }
+    if (r_t3) { r_a3 = *(long *)((char *)r_t3 + (0x8)); }
+    if (r_t3) { r_t0 = *(long *)((char *)r_t3 + (0x17)); }
+    if (r_t3) { r_t0 = *(long *)((char *)r_t3 + (0x10)); }
+    if (r_s0) { *(long *)((char *)r_s0 + (0x17)) = (long)r_a2; }
+    if (r_s0) { *(long *)((char *)r_s0 + (0x10)) = (long)r_a2; }
+    if (r_s0) { *(long *)((char *)r_s0 + (0x1F)) = (long)r_a3; }
+    if (r_s0) { *(long *)((char *)r_s0 + (0x18)) = (long)r_a3; }
+    if (r_s0) { *(long *)((char *)r_s0 + (0x27)) = (long)r_t0; }
+    if (r_s0) { *(long *)((char *)r_s0 + (0x20)) = (long)r_t0; }
+    if (r_t3) { r_a2 = *(long *)((char *)r_t3 + (0x1F)); }
+    if (r_t3) { r_a2 = *(long *)((char *)r_t3 + (0x18)); }
+    if (r_t3) { r_a3 = *(long *)((char *)r_t3 + (0x27)); }
+    if (r_t3) { r_a3 = *(long *)((char *)r_t3 + (0x20)); }
+    if (r_t3) { r_t0 = *(long *)((char *)r_t3 + (0x2F)); }
+    if (r_t3) { r_t0 = *(long *)((char *)r_t3 + (0x28)); }
+    if (r_s0) { *(long *)((char *)r_s0 + (0x2F)) = (long)r_a2; }
+    if (r_s0) { *(long *)((char *)r_s0 + (0x28)) = (long)r_a2; }
+    if (r_s0) { *(long *)((char *)r_s0 + (0x37)) = (long)r_a3; }
+    if (r_s0) { *(long *)((char *)r_s0 + (0x30)) = (long)r_a3; }
+    if (r_s0) { *(long *)((char *)r_s0 + (0x3F)) = (long)r_t0; }
+    if (r_s0) { *(long *)((char *)r_s0 + (0x38)) = (long)r_t0; }
+    if (r_t3) { r_a2 = *(long *)((char *)r_t3 + (0x37)); }
+    if (r_t3) { r_a2 = *(long *)((char *)r_t3 + (0x30)); }
+    if (r_t3) { r_a3 = *(long *)((char *)r_t3 + (0x3F)); }
+    if (r_t3) { r_a3 = *(long *)((char *)r_t3 + (0x38)); }
+    if (r_s0) { *(long *)((char *)r_s0 + (0x47)) = (long)r_a2; }
+    if (r_s0) { *(long *)((char *)r_s0 + (0x40)) = (long)r_a2; }
+    if (r_s0) { *(long *)((char *)r_s0 + (0x4F)) = (long)r_a3; }
+    if (r_s0) { *(long *)((char *)r_s0 + (0x48)) = (long)r_a3; }
+    r_s2 = (long)(r_s0 + (0x144));
+    r_t1 = (long)&D_38C900;
+    if (r_t1) { r_a2 = *(long *)((char *)r_t1 + (0x7)); }
+    if (r_t1) { r_a2 = *(long *)((char *)r_t1 + (0x0)); }
+    if (r_t1) { r_a3 = *(long *)((char *)r_t1 + (0xF)); }
+    if (r_t1) { r_a3 = *(long *)((char *)r_t1 + (0x8)); }
+    if (r_t1) { r_t0 = *(long *)((char *)r_t1 + (0x17)); }
+    if (r_t1) { r_t0 = *(long *)((char *)r_t1 + (0x10)); }
+    if (r_s0) { *(long *)((char *)r_s0 + (0x57)) = (long)r_a2; }
+    if (r_s0) { *(long *)((char *)r_s0 + (0x50)) = (long)r_a2; }
+    if (r_s0) { *(long *)((char *)r_s0 + (0x5F)) = (long)r_a3; }
+    if (r_s0) { *(long *)((char *)r_s0 + (0x58)) = (long)r_a3; }
+    if (r_s0) { *(long *)((char *)r_s0 + (0x67)) = (long)r_t0; }
+    if (r_s0) { *(long *)((char *)r_s0 + (0x60)) = (long)r_t0; }
+    if (r_t1) { r_a2 = *(long *)((char *)r_t1 + (0x1F)); }
+    if (r_t1) { r_a2 = *(long *)((char *)r_t1 + (0x18)); }
+    if (r_t1) { r_a3 = *(long *)((char *)r_t1 + (0x27)); }
+    if (r_t1) { r_a3 = *(long *)((char *)r_t1 + (0x20)); }
+    if (r_t1) { r_t0 = *(long *)((char *)r_t1 + (0x2F)); }
+    if (r_t1) { r_t0 = *(long *)((char *)r_t1 + (0x28)); }
+    if (r_s0) { *(long *)((char *)r_s0 + (0x6F)) = (long)r_a2; }
+    if (r_s0) { *(long *)((char *)r_s0 + (0x68)) = (long)r_a2; }
+    if (r_s0) { *(long *)((char *)r_s0 + (0x77)) = (long)r_a3; }
+    if (r_s0) { *(long *)((char *)r_s0 + (0x70)) = (long)r_a3; }
+    if (r_s0) { *(long *)((char *)r_s0 + (0x7F)) = (long)r_t0; }
+    if (r_s0) { *(long *)((char *)r_s0 + (0x78)) = (long)r_t0; }
+    r_a3 = (long)&D_38C930;
+    if (r_a3) { r_t3 = *(long *)((char *)r_a3 + (0x7)); }
+    if (r_a3) { r_t3 = *(long *)((char *)r_a3 + (0x0)); }
+    if (r_a3) { r_v0 = *(long *)((char *)r_a3 + (0xF)); }
+    if (r_a3) { r_v0 = *(long *)((char *)r_a3 + (0x8)); }
+    if (r_a3) { r_a2 = *(long *)((char *)r_a3 + (0x17)); }
+    if (r_a3) { r_a2 = *(long *)((char *)r_a3 + (0x10)); }
+    if (r_s0) { *(long *)((char *)r_s0 + (0x87)) = (long)r_t3; }
+    if (r_s0) { *(long *)((char *)r_s0 + (0x80)) = (long)r_t3; }
+    if (r_s0) { *(long *)((char *)r_s0 + (0x8F)) = (long)r_v0; }
+    if (r_s0) { *(long *)((char *)r_s0 + (0x88)) = (long)r_v0; }
+    if (r_s0) { *(long *)((char *)r_s0 + (0x97)) = (long)r_a2; }
+    if (r_s0) { *(long *)((char *)r_s0 + (0x90)) = (long)r_a2; }
+    if (r_a3) { r_t3 = *(long *)((char *)r_a3 + (0x1F)); }
+    if (r_a3) { r_t3 = *(long *)((char *)r_a3 + (0x18)); }
+    if (r_a3) { r_v0 = *(long *)((char *)r_a3 + (0x27)); }
+    if (r_a3) { r_v0 = *(long *)((char *)r_a3 + (0x20)); }
+    if (r_a3) { r_a2 = *(long *)((char *)r_a3 + (0x2F)); }
+    if (r_a3) { r_a2 = *(long *)((char *)r_a3 + (0x28)); }
+    if (r_s0) { *(long *)((char *)r_s0 + (0x9F)) = (long)r_t3; }
+    if (r_s0) { *(long *)((char *)r_s0 + (0x98)) = (long)r_t3; }
+    if (r_s0) { *(long *)((char *)r_s0 + (0xA7)) = (long)r_v0; }
+    if (r_s0) { *(long *)((char *)r_s0 + (0xA0)) = (long)r_v0; }
+    if (r_s0) { *(long *)((char *)r_s0 + (0xAF)) = (long)r_a2; }
+    if (r_s0) { *(long *)((char *)r_s0 + (0xA8)) = (long)r_a2; }
+    r_v0 = (long)&D_38C960;
+    if (r_v0) { r_t0 = *(long *)((char *)r_v0 + (0x7)); }
+    if (r_v0) { r_t0 = *(long *)((char *)r_v0 + (0x0)); }
+    if (r_v0) { r_t1 = *(long *)((char *)r_v0 + (0xF)); }
+    if (r_v0) { r_t1 = *(long *)((char *)r_v0 + (0x8)); }
+    if (r_s0) { *(long *)((char *)r_s0 + (0xB7)) = (long)r_t0; }
+    if (r_s0) { *(long *)((char *)r_s0 + (0xB0)) = (long)r_t0; }
+    if (r_s0) { *(long *)((char *)r_s0 + (0xBF)) = (long)r_t1; }
+    if (r_s0) { *(long *)((char *)r_s0 + (0xB8)) = (long)r_t1; }
+    r_s3 = (long)(r_s0 + (0x184));
+    r_v0 = (long)strcpy((char *)r_a0, (const char *)r_a1);
+    r_a0 = (long)(0 + (0x2));
+    r_v0 = (long)func_0012ECA8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_a0 = (long)(r_s1 + 0);
+    r_a1 = (long)(r_v0 + 0);
+    r_v0 = (long)strcpy((char *)r_a0, (const char *)r_a1);
+    r_a0 = (long)(0 + (0x3));
+    r_v0 = (long)func_0012ECA8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_a0 = (long)(r_s2 + 0);
+    r_a1 = (long)(r_v0 + 0);
+    r_v0 = (long)strcpy((char *)r_a0, (const char *)r_a1);
+    r_a0 = (long)(0 + (0x4));
+    r_v0 = (long)func_0012ECA8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_a0 = (long)(r_s3 + 0);
+    r_a1 = (long)(r_v0 + 0);
+    r_v0 = (long)strcpy((char *)r_a0, (const char *)r_a1);
+    r_a0 = (long)(r_s0 + (0x4));
+    r_a1 = (long)(0 + (0x2));
+    r_v0 = (long)func_001143C0((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_a0 = (long)(r_s0 + (0x8));
+    r_a1 = (long)(0 + (0x4));
+    r_v0 = (long)func_001143C0((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_a0 = (long)(r_s0 + (0x1C4));
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x40)); }
+    if (r_sp) { r_s3 = *(long *)((char *)r_sp + (0x30)); }
+    r_a1 = (long)(0 + (0x200));
+    if (r_sp) { r_s2 = *(long *)((char *)r_sp + (0x20)); }
+    if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x10)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x50));
+    return (void *)func_001143C0((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    return func_0012EA40((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+}
 
 /* func_0012EA40 */
-__asm__(".text\n\t"
-        ".globl func_0012EA40\n\t"
-        ".ent func_0012EA40\n"
-        "func_0012EA40:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x40\n\t"
-        "sd         $18, 0x20($29)\n\t"
-        "sd         $17, 0x10($29)\n\t"
-        "daddu      $18, $7, $0\n\t"
-        "sd         $16, 0x0($29)\n\t"
-        "daddu      $17, $6, $0\n\t"
-        "daddu      $16, $4, $0\n\t"
-        "beqz       $16, .L0012EA74\n\t"
-        "sd        $31, 0x30($29)\n\t"
-        "jal        strcpy\n\t"
-        "nop\n\t"
-        "sw         $17, 0x1C($16)\n\t"
-        "sw         $18, 0x18($16)\n\t"
-        ".L0012EA74:\n\t"
-        "ld         $31, 0x30($29)\n\t"
-        "ld         $18, 0x20($29)\n\t"
-        "ld         $17, 0x10($29)\n\t"
-        "ld         $16, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x40\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_0012EA40\n");
+void *func_0012EA40(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    r_sp = (long)(r_sp + (-0x40));
+    if (r_sp) { *(long *)((char *)r_sp + (0x20)) = (long)r_s2; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_s1; }
+    r_s2 = (long)(r_a3 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_s0; }
+    r_s1 = (long)(r_a2 + 0);
+    r_s0 = (long)(r_a0 + 0);
+    if (r_s0 == 0) { if (r_sp) { *(long *)((char *)r_sp + (0x30)) = (long)r_ra; } goto _lbl_L0012EA74; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x30)) = (long)r_ra; }
+    r_v0 = (long)strcpy((char *)r_a0, (const char *)r_a1);
+    if (r_s0) { *(int *)((char *)r_s0 + (0x1C)) = (int)r_s1; }
+    if (r_s0) { *(int *)((char *)r_s0 + (0x18)) = (int)r_s2; }
+_lbl_L0012EA74:
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x30)); }
+    if (r_sp) { r_s2 = *(long *)((char *)r_sp + (0x20)); }
+    if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x10)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x40));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_0012EA90 */
-__asm__(".text\n\t"
-        ".globl func_0012EA90\n\t"
-        ".ent func_0012EA90\n"
-        "func_0012EA90:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x40\n\t"
-        "sd         $18, 0x20($29)\n\t"
-        "sd         $17, 0x10($29)\n\t"
-        "daddu      $18, $6, $0\n\t"
-        "sd         $16, 0x0($29)\n\t"
-        "daddu      $17, $7, $0\n\t"
-        "daddu      $16, $4, $0\n\t"
-        "beqz       $16, .L0012EAC4\n\t"
-        "sd        $31, 0x30($29)\n\t"
-        "jal        strcpy\n\t"
-        "nop\n\t"
-        "sw         $17, 0x1C($16)\n\t"
-        "sw         $18, 0x18($16)\n\t"
-        ".L0012EAC4:\n\t"
-        "ld         $31, 0x30($29)\n\t"
-        "ld         $18, 0x20($29)\n\t"
-        "ld         $17, 0x10($29)\n\t"
-        "ld         $16, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x40\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_0012EA90\n");
+void *func_0012EA90(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    r_sp = (long)(r_sp + (-0x40));
+    if (r_sp) { *(long *)((char *)r_sp + (0x20)) = (long)r_s2; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_s1; }
+    r_s2 = (long)(r_a2 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_s0; }
+    r_s1 = (long)(r_a3 + 0);
+    r_s0 = (long)(r_a0 + 0);
+    if (r_s0 == 0) { if (r_sp) { *(long *)((char *)r_sp + (0x30)) = (long)r_ra; } goto _lbl_L0012EAC4; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x30)) = (long)r_ra; }
+    r_v0 = (long)strcpy((char *)r_a0, (const char *)r_a1);
+    if (r_s0) { *(int *)((char *)r_s0 + (0x1C)) = (int)r_s1; }
+    if (r_s0) { *(int *)((char *)r_s0 + (0x18)) = (int)r_s2; }
+_lbl_L0012EAC4:
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x30)); }
+    if (r_sp) { r_s2 = *(long *)((char *)r_sp + (0x20)); }
+    if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x10)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x40));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_0012EAE0 */
-__asm__(".text\n\t"
-        ".globl func_0012EAE0\n\t"
-        ".ent func_0012EAE0\n"
-        "func_0012EAE0:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x10\n\t"
-        "lui        $5, %hi(D_490130)\n\t"
-        "sd         $31, 0x0($29)\n\t"
-        "addiu      $5, $5, %lo(D_490130)\n\t"
-        "jal        func_12DD00\n\t"
-        "addiu     $6, $0, 0xB\n\t"
-        "ld         $31, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        ".set reorder\n\t"
-        ".end func_0012EAE0\n");
+void *func_0012EAE0(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    r_sp = (long)(r_sp + (-0x10));
+    r_a1 = (long)&D_490130;
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_ra; }
+    r_a1 = (long)&D_490130;
+    r_a2 = (long)(0 + (0xB));
+    r_v0 = (long)func_12DD00((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_0012EB00 */
-__asm__(".text\n\t"
-        ".globl func_0012EB00\n\t"
-        ".ent func_0012EB00\n"
-        "func_0012EB00:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, 0x10\n\t"
-        "nop\n\t"
-        "j          func_0012F7F8\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_0012EB00\n");
+void *func_0012EB00(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    r_sp = (long)(r_sp + (0x10));
+    return func_0012F7E8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    return func_0012EB10((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+}
 
 /* func_0012EB10 */
-__asm__(".text\n\t"
-        ".globl func_0012EB10\n\t"
-        ".ent func_0012EB10\n"
-        "func_0012EB10:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x20\n\t"
-        "sd         $16, 0x0($29)\n\t"
-        "sd         $31, 0x10($29)\n\t"
-        "jal        func_0012F298\n\t"
-        "daddu     $16, $6, $0\n\t"
-        "daddu      $5, $16, $0\n\t"
-        "ld         $31, 0x10($29)\n\t"
-        "ld         $16, 0x0($29)\n\t"
-        "daddu      $4, $2, $0\n\t"
-        "j          func_0012E988\n\t"
-        "addiu     $29, $29, 0x20\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_0012EB10\n");
+void *func_0012EB10(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    r_sp = (long)(r_sp + (-0x20));
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_s0; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_ra; }
+    r_s0 = (long)(r_a2 + 0);
+    r_v0 = (long)func_0012F298((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_a1 = (long)(r_s0 + 0);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x10)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
+    r_a0 = (long)(r_v0 + 0);
+    r_sp = (long)(r_sp + (0x20));
+    return func_0012E7E8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    return func_0012EB40((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+}
 
 /* func_0012EB40 */
-__asm__(".text\n\t"
-        ".globl func_0012EB40\n\t"
-        ".ent func_0012EB40\n"
-        "func_0012EB40:\n\t"
-        ".set noreorder\n\t"
-        "bnel       $4, $0, .L0012EB48\n\t"
-        "sw        $5, 0x18($4)\n\t"
-        ".L0012EB48:\n\t"
-        "jr         $31\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_0012EB40\n");
+void *func_0012EB40(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    if (r_a0 != 0) { if (r_a0) { *(int *)((char *)r_a0 + (0x18)) = (int)r_a1; } goto _lbl_L0012EB48; }
+    if (r_a0) { *(int *)((char *)r_a0 + (0x18)) = (int)r_a1; }
+_lbl_L0012EB48:
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_0012EB50 */
-__asm__(".text\n\t"
-        ".globl func_0012EB50\n\t"
-        ".ent func_0012EB50\n"
-        "func_0012EB50:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x20\n\t"
-        "sd         $16, 0x0($29)\n\t"
-        "sd         $31, 0x10($29)\n\t"
-        "jal        func_0012F298\n\t"
-        "daddu     $16, $6, $0\n\t"
-        "daddu      $5, $16, $0\n\t"
-        "ld         $31, 0x10($29)\n\t"
-        "ld         $16, 0x0($29)\n\t"
-        "daddu      $4, $2, $0\n\t"
-        "j          func_0012E9C8\n\t"
-        "addiu     $29, $29, 0x20\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_0012EB50\n");
+void *func_0012EB50(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    r_sp = (long)(r_sp + (-0x20));
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_s0; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_ra; }
+    r_s0 = (long)(r_a2 + 0);
+    r_v0 = (long)func_0012F298((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_a1 = (long)(r_s0 + 0);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x10)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
+    r_a0 = (long)(r_v0 + 0);
+    r_sp = (long)(r_sp + (0x20));
+    return func_0012E7E8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    return func_0012EB80((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+}
 
 /* func_0012EB80 */
-__asm__(".text\n\t"
-        ".globl func_0012EB80\n\t"
-        ".ent func_0012EB80\n"
-        "func_0012EB80:\n\t"
-        ".set noreorder\n\t"
-        "bnel       $4, $0, .L0012EB88\n\t"
-        "sw        $5, 0x1C($4)\n\t"
-        ".L0012EB88:\n\t"
-        "jr         $31\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_0012EB80\n");
+void *func_0012EB80(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    if (r_a0 != 0) { if (r_a0) { *(int *)((char *)r_a0 + (0x1C)) = (int)r_a1; } goto _lbl_L0012EB88; }
+    if (r_a0) { *(int *)((char *)r_a0 + (0x1C)) = (int)r_a1; }
+_lbl_L0012EB88:
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_0012EB90 */
-__asm__(".text\n\t"
-        ".globl func_0012EB90\n\t"
-        ".ent func_0012EB90\n"
-        "func_0012EB90:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x30\n\t"
-        "sd         $17, 0x10($29)\n\t"
-        "sd         $16, 0x0($29)\n\t"
-        "daddu      $17, $4, $0\n\t"
-        "sd         $31, 0x20($29)\n\t"
-        "beqz       $17, .L0012EC00\n\t"
-        "daddu     $16, $5, $0\n\t"
-        "jal        func_0011ACD0\n\t"
-        "daddu     $4, $16, $0\n\t"
-        "sltiu      $2, $2, 0x18\n\t"
-        "beqz       $2, .L0012EBDC\n\t"
-        "lui       $4, %hi(D_4901C8)\n\t"
-        "lui        $5, %hi(D_490068)\n\t"
-        "lui        $7, %hi(D_4901F8)\n\t"
-        "addiu      $4, $4, %lo(D_4901C8)\n\t"
-        "addiu      $5, $5, %lo(D_490068)\n\t"
-        "addiu      $7, $7, %lo(D_4901F8)\n\t"
-        "jal        func_123790\n\t"
-        "addiu     $6, $0, 0x3F8\n\t"
-        ".L0012EBDC:\n\t"
-        "beql       $16, $0, .L0012EC00\n\t"
-        "sb        $0, 0x0($17)\n\t"
-        "daddu      $4, $17, $0\n\t"
-        "daddu      $5, $16, $0\n\t"
-        "ld         $31, 0x20($29)\n\t"
-        "ld         $17, 0x10($29)\n\t"
-        "ld         $16, 0x0($29)\n\t"
-        "j          strcpy\n\t"
-        "addiu     $29, $29, 0x30\n\t"
-        ".L0012EC00:\n\t"
-        "ld         $31, 0x20($29)\n\t"
-        "ld         $17, 0x10($29)\n\t"
-        "ld         $16, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x30\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_0012EB90\n");
+void *func_0012EB90(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    r_sp = (long)(r_sp + (-0x30));
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_s1; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_s0; }
+    r_s1 = (long)(r_a0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x20)) = (long)r_ra; }
+    if (r_s1 == 0) { r_s0 = (long)(r_a1 + 0); goto _lbl_L0012EC00; }
+    r_s0 = (long)(r_a1 + 0);
+    r_a0 = (long)(r_s0 + 0);
+    r_v0 = (long)func_0011ACD0((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_v0 = (long)((unsigned long)r_v0 < (unsigned long)(0x18) ? 1 : 0);
+    if (r_v0 == 0) { r_a0 = (long)&D_4901C8; goto _lbl_L0012EBDC; }
+    r_a0 = (long)&D_4901C8;
+    r_a1 = (long)&D_490068;
+    r_a3 = (long)&D_4901F8;
+    r_a0 = (long)&D_4901C8;
+    r_a1 = (long)&D_490068;
+    r_a3 = (long)&D_4901F8;
+    r_a2 = (long)(0 + (0x3F8));
+    r_v0 = (long)func_123790((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+_lbl_L0012EBDC:
+    if (r_s0 == 0) { if (r_s1) { *(char *)((char *)r_s1 + (0x0)) = (char)0; } goto _lbl_L0012EC00; }
+    if (r_s1) { *(char *)((char *)r_s1 + (0x0)) = (char)0; }
+    r_a0 = (long)(r_s1 + 0);
+    r_a1 = (long)(r_s0 + 0);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x20)); }
+    if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x10)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x30));
+    return (void *)strcpy((char *)r_a0, (const char *)r_a1);
+_lbl_L0012EC00:
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x20)); }
+    if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x10)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x30));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_0012EC18 */
-__asm__(".text\n\t"
-        ".globl func_0012EC18\n\t"
-        ".ent func_0012EC18\n"
-        "func_0012EC18:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x30\n\t"
-        "lui        $2, (0xFFFF0000 >> 16)\n\t"
-        "dsrl32     $2, $2, 0\n\t"
-        "sd         $16, 0x10($29)\n\t"
-        "sd         $31, 0x20($29)\n\t"
-        "daddu      $16, $4, $0\n\t"
-        "sw         $5, 0x0($29)\n\t"
-        "lw         $4, 0x0($29)\n\t"
-        "jal        func_0012E3C8\n\t"
-        "and       $4, $4, $2\n\t"
-        "addiu      $5, $0, 0x2\n\t"
-        "daddu      $4, $16, $0\n\t"
-        "movn       $5, $2, $2\n\t"
-        "daddu      $6, $0, $0\n\t"
-        "daddu      $7, $0, $0\n\t"
-        "jal        func_0012F610\n\t"
-        "addiu     $8, $0, 0x1\n\t"
-        "ld         $31, 0x20($29)\n\t"
-        "ld         $16, 0x10($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x30\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_0012EC18\n");
+void *func_0012EC18(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_t0 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_t0;
+    r_sp = (long)(r_sp + (-0x30));
+    r_v0 = (long)((0xFFFF0000 >> 16) << 16);
+    r_v0 = (long)((unsigned long)r_v0 >> (0));
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_s0; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x20)) = (long)r_ra; }
+    r_s0 = (long)(r_a0 + 0);
+    if (r_sp) { *(int *)((char *)r_sp + (0x0)) = (int)r_a1; }
+    if (r_sp) { r_a0 = *(int *)((char *)r_sp + (0x0)); }
+    r_a0 = (long)(r_a0 & r_v0);
+    r_v0 = (long)func_0012E3C8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_a1 = (long)(0 + (0x2));
+    r_a0 = (long)(r_s0 + 0);
+    if (r_v0 != 0) r_a1 = r_v0;
+    r_a2 = (long)(0 + 0);
+    r_a3 = (long)(0 + 0);
+    r_t0 = (long)(0 + (0x1));
+    r_v0 = (long)func_0012F610((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x20)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x10)); }
+    r_sp = (long)(r_sp + (0x30));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_0012EC70 */
-__asm__(".text\n\t"
-        ".globl func_0012EC70\n\t"
-        ".ent func_0012EC70\n"
-        "func_0012EC70:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x10\n\t"
-        "sd         $31, 0x0($29)\n\t"
-        "jal        func_0012EB00\n\t"
-        "nop\n\t"
-        "ld         $31, 0x0($29)\n\t"
-        "j          func_0012EDE0\n\t"
-        "addiu     $29, $29, 0x10\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_0012EC70\n");
+void *func_0012EC70(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    r_sp = (long)(r_sp + (-0x10));
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_ra; }
+    r_v0 = (long)func_0012EB00((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x10));
+    return func_0012EDA0((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    return func_0012EC90((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+}
 
 /* func_0012EC90 */
-__asm__(".text\n\t"
-        ".globl func_0012EC90\n\t"
-        ".ent func_0012EC90\n"
-        "func_0012EC90:\n\t"
-        ".set noreorder\n\t"
-        "lui        $3, (0x500000 >> 16)\n\t"
-        "addiu      $4, $0, 0x1\n\t"
-        "lw         $2, -0x680C($3)\n\t"
-        "beq        $2, $4, .L0012ECAC\n\t"
-        "lui       $2, (0x500000 >> 16)\n\t"
-        "lw         $3, -0x6900($2)\n\t"
-        ".set reorder\n\t"
-        ".end func_0012EC90\n");
+void *func_0012EC90(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    r_v1 = (long)((0x500000 >> 16) << 16);
+    r_a0 = (long)(0 + (0x1));
+    if (r_v1) { r_v0 = *(int *)((char *)r_v1 + (-0x680C)); }
+    if (r_v0 == r_a0) { r_v0 = (long)((0x500000 >> 16) << 16); return func_0012ECA8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3); }
+    r_v0 = (long)((0x500000 >> 16) << 16);
+    if (r_v0) { r_v1 = *(int *)((char *)r_v0 + (-0x6900)); }
+    return func_0012ECA8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+}
 
 /* func_0012ECA8 */
-__asm__(".text\n\t"
-        ".globl func_0012ECA8\n\t"
-        ".ent func_0012ECA8\n"
-        "func_0012ECA8:\n\t"
-        ".set noreorder\n\t"
-        "movz       $4, $0, $3\n\t"
-        ".L0012ECAC:\n\t"
-        "jr         $31\n\t"
-        "daddu     $2, $4, $0\n\t"
-        "nop\n\t"
-        "addiu      $29, $29, -0x70\n\t"
-        "lui        $2, %hi(D_38C970)\n\t"
-        "sd         $17, 0x10($29)\n\t"
-        "sd         $21, 0x50($29)\n\t"
-        "lui        $17, %hi(D_4F97D8)\n\t"
-        "sd         $20, 0x40($29)\n\t"
-        "addiu      $3, $17, %lo(D_4F97D8)\n\t"
-        "sd         $19, 0x30($29)\n\t"
-        "addiu      $21, $2, %lo(D_38C970)\n\t"
-        "sd         $18, 0x20($29)\n\t"
-        "addiu      $20, $0, -0x7F\n\t"
-        "sd         $31, 0x60($29)\n\t"
-        "addiu      $19, $0, -0x80\n\t"
-        "sd         $16, 0x0($29)\n\t"
-        "addiu      $18, $0, -0x7E\n\t"
-        "lw         $16, 0x8($3)\n\t"
-        "sll        $3, $16, 2\n\t"
-        "nop\n\t"
-        ".L0012ED00:\n\t"
-        "addu       $3, $3, $21\n\t"
-        "lw         $2, 0x0($3)\n\t"
-        ".set reorder\n\t"
-        ".end func_0012ECA8\n");
+void *func_0012ECA8(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0, r_s3 = 0, r_s4 = 0, r_s5 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    (void)r_s3;
+    (void)r_s4;
+    (void)r_s5;
+    if (r_v1 == 0) r_a0 = 0;
+_lbl_L0012ECAC:
+    r_v0 = (long)(r_a0 + 0);
+    return (void *)r_v0;
+    r_sp = (long)(r_sp + (-0x70));
+    r_v0 = (long)&D_38C970;
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_s1; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x50)) = (long)r_s5; }
+    r_s1 = (long)&D_4F97D8;
+    if (r_sp) { *(long *)((char *)r_sp + (0x40)) = (long)r_s4; }
+    r_v1 = (long)&D_4F97D8;
+    if (r_sp) { *(long *)((char *)r_sp + (0x30)) = (long)r_s3; }
+    r_s5 = (long)&D_38C970;
+    if (r_sp) { *(long *)((char *)r_sp + (0x20)) = (long)r_s2; }
+    r_s4 = (long)(0 + (-0x7F));
+    if (r_sp) { *(long *)((char *)r_sp + (0x60)) = (long)r_ra; }
+    r_s3 = (long)(0 + (-0x80));
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_s0; }
+    r_s2 = (long)(0 + (-0x7E));
+    if (r_v1) { r_s0 = *(int *)((char *)r_v1 + (0x8)); }
+    r_v1 = (long)((unsigned long)r_s0 << (2));
+_lbl_L0012ED00:
+    r_v1 = (long)(r_v1 + r_s5);
+    if (r_v1) { r_v0 = *(int *)((char *)r_v1 + (0x0)); }
+    return (void *)r_v0;
+}
 
 /* func_0012ED08 */
-__asm__(".text\n\t"
-        ".globl func_0012ED08\n\t"
-        ".ent func_0012ED08\n"
-        "func_0012ED08:\n\t"
-        ".set noreorder\n\t"
-        "jalr       $2\n\t"
-        "addiu     $4, $17, -0x6828\n\t"
-        "daddu      $3, $2, $0\n\t"
-        "beq        $3, $20, .L0012ED50\n\t"
-        "daddu     $4, $0, $0\n\t"
-        "slti       $2, $3, -0x7E\n\t"
-        "beqz       $2, .L0012ED38\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_0012ED08\n");
+void *func_0012ED08(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s1 = 0, r_s4 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s1;
+    (void)r_s4;
+    r_a0 = (long)(r_s1 + (-0x6828));
+    if (r_v0) { r_v0 = (long)((void *(*)(void *, ...))r_v0)((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3); }
+    r_v1 = (long)(r_v0 + 0);
+    if (r_v1 == r_s4) { r_a0 = (long)(0 + 0); return func_0012ED28((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3); }
+    r_a0 = (long)(0 + 0);
+    r_v0 = (long)((long)r_v1 < (long)(-0x7E) ? 1 : 0);
+    if (r_v0 == 0) return func_0012ED28((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    return func_0012ED28((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+}
 
 /* func_0012ED28 */
-__asm__(".text\n\t"
-        ".globl func_0012ED28\n\t"
-        ".ent func_0012ED28\n"
-        "func_0012ED28:\n\t"
-        ".set noreorder\n\t"
-        "beq        $3, $19, .L0012ED58\n\t"
-        "addu      $16, $16, $3\n\t"
-        "b          .L0012ED6C\n\t"
-        "addiu     $4, $0, 0x1\n\t"
-        ".L0012ED38:\n\t"
-        "beql       $3, $18, .L0012ED68\n\t"
-        "addiu     $16, $16, 0x1\n\t"
-        "bnel       $3, $0, .L0012ED68\n\t"
-        "addu      $16, $16, $3\n\t"
-        "b          .L0012ED6C\n\t"
-        "nop\n\t"
-        ".L0012ED50:\n\t"
-        "b          .L0012ED6C\n\t"
-        "addiu     $16, $16, 0x1\n\t"
-        ".L0012ED58:\n\t"
-        "jal        func_0012E118\n\t"
-        "nop\n\t"
-        "b          .L0012ED80\n\t"
-        "ld        $31, 0x60($29)\n\t"
-        ".L0012ED68:\n\t"
-        "addiu      $4, $0, 0x1\n\t"
-        ".L0012ED6C:\n\t"
-        "bnel       $4, $0, .L0012ED00\n\t"
-        "sll       $3, $16, 2\n\t"
-        "addiu      $2, $17, -0x6828\n\t"
-        "sw         $16, 0x8($2)\n\t"
-        "ld         $31, 0x60($29)\n\t"
-        ".L0012ED80:\n\t"
-        "ld         $21, 0x50($29)\n\t"
-        "ld         $20, 0x40($29)\n\t"
-        "ld         $19, 0x30($29)\n\t"
-        "ld         $18, 0x20($29)\n\t"
-        "ld         $17, 0x10($29)\n\t"
-        "ld         $16, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x70\n\t"
-        ".set reorder\n\t"
-        ".end func_0012ED28\n");
+void *func_0012ED28(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0, r_s3 = 0, r_s4 = 0, r_s5 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    (void)r_s3;
+    (void)r_s4;
+    (void)r_s5;
+    if (r_v1 == r_s3) { r_s0 = (long)(r_s0 + r_v1); goto _lbl_L0012ED58; }
+    r_s0 = (long)(r_s0 + r_v1);
+    r_a0 = (long)(0 + (0x1));
+    goto _lbl_L0012ED6C;
+_lbl_L0012ED38:
+    if (r_v1 == r_s2) { r_s0 = (long)(r_s0 + (0x1)); goto _lbl_L0012ED68; }
+    r_s0 = (long)(r_s0 + (0x1));
+    if (r_v1 != 0) { r_s0 = (long)(r_s0 + r_v1); goto _lbl_L0012ED68; }
+    r_s0 = (long)(r_s0 + r_v1);
+    goto _lbl_L0012ED6C;
+_lbl_L0012ED50:
+    r_s0 = (long)(r_s0 + (0x1));
+    goto _lbl_L0012ED6C;
+_lbl_L0012ED58:
+    r_v0 = (long)func_0012E118((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x60)); }
+    goto _lbl_L0012ED80;
+_lbl_L0012ED68:
+    r_a0 = (long)(0 + (0x1));
+_lbl_L0012ED6C:
+    if (r_a0 != 0) { r_v1 = (long)((unsigned long)r_s0 << (2)); return func_0012ECA8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3); }
+    r_v1 = (long)((unsigned long)r_s0 << (2));
+    r_v0 = (long)(r_s1 + (-0x6828));
+    if (r_v0) { *(int *)((char *)r_v0 + (0x8)) = (int)r_s0; }
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x60)); }
+_lbl_L0012ED80:
+    if (r_sp) { r_s5 = *(long *)((char *)r_sp + (0x50)); }
+    if (r_sp) { r_s4 = *(long *)((char *)r_sp + (0x40)); }
+    if (r_sp) { r_s3 = *(long *)((char *)r_sp + (0x30)); }
+    if (r_sp) { r_s2 = *(long *)((char *)r_sp + (0x20)); }
+    if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x10)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x70));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_0012EDA0 */
-__asm__(".text\n\t"
-        ".globl func_0012EDA0\n\t"
-        ".ent func_0012EDA0\n"
-        "func_0012EDA0:\n\t"
-        ".set noreorder\n\t"
-        "lui        $2, (0x500000 >> 16)\n\t"
-        "addiu      $29, $29, -0x10\n\t"
-        "lw         $3, -0x6824($2)\n\t"
-        "daddu      $5, $4, $0\n\t"
-        "sd         $31, 0x0($29)\n\t"
-        "beqz       $3, .L0012EDE4\n\t"
-        "daddu     $2, $0, $0\n\t"
-        "lwl        $2, 0x23($5)\n\t"
-        "lwr        $2, 0x20($5)\n\t"
-        "lui        $4, (0xFFFF0000 >> 16)\n\t"
-        "dsrl32     $4, $4, 0\n\t"
-        "addiu      $5, $5, 0xC\n\t"
-        "jal        func_00130670\n\t"
-        "and       $4, $2, $4\n\t"
-        "addiu      $3, $0, -0x7F\n\t"
-        "movz       $3, $0, $2\n\t"
-        "daddu      $2, $3, $0\n\t"
-        ".L0012EDE4:\n\t"
-        "ld         $31, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x10\n\t"
-        ".set reorder\n\t"
-        ".end func_0012EDA0\n");
+void *func_0012EDA0(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    r_v0 = (long)((0x500000 >> 16) << 16);
+    r_sp = (long)(r_sp + (-0x10));
+    if (r_v0) { r_v1 = *(int *)((char *)r_v0 + (-0x6824)); }
+    r_a1 = (long)(r_a0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_ra; }
+    if (r_v1 == 0) { r_v0 = (long)(0 + 0); goto _lbl_L0012EDE4; }
+    r_v0 = (long)(0 + 0);
+    if (r_a1) { r_v0 = *(int *)((char *)r_a1 + (0x23)); }
+    if (r_a1) { r_v0 = *(int *)((char *)r_a1 + (0x20)); }
+    r_a0 = (long)((0xFFFF0000 >> 16) << 16);
+    r_a0 = (long)((unsigned long)r_a0 >> (0));
+    r_a1 = (long)(r_a1 + (0xC));
+    r_a0 = (long)(r_v0 & r_a0);
+    r_v0 = (long)func_00130670((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_v1 = (long)(0 + (-0x7F));
+    if (r_v0 == 0) r_v1 = 0;
+    r_v0 = (long)(r_v1 + 0);
+_lbl_L0012EDE4:
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x10));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_0012EDF0 */
-__asm__(".text\n\t"
-        ".globl func_0012EDF0\n\t"
-        ".ent func_0012EDF0\n"
-        "func_0012EDF0:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x30\n\t"
-        "sd         $16, 0x0($29)\n\t"
-        "sd         $17, 0x10($29)\n\t"
-        "addiu      $16, $4, 0xC\n\t"
-        "sd         $31, 0x20($29)\n\t"
-        "daddu      $17, $0, $0\n\t"
-        "jal        func_0012E178\n\t"
-        "daddu     $4, $16, $0\n\t"
-        "beqz       $2, func_0012EE20\n\t"
-        "daddu     $4, $16, $0\n\t"
-        "jal        func_0012E1C0\n\t"
-        "addiu     $17, $0, -0x7E\n\t"
-        ".set reorder\n\t"
-        ".end func_0012EDF0\n");
+void *func_0012EDF0(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    r_sp = (long)(r_sp + (-0x30));
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_s0; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_s1; }
+    r_s0 = (long)(r_a0 + (0xC));
+    if (r_sp) { *(long *)((char *)r_sp + (0x20)) = (long)r_ra; }
+    r_s1 = (long)(0 + 0);
+    r_a0 = (long)(r_s0 + 0);
+    r_v0 = (long)func_0012E178((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_v0 == 0) { r_a0 = (long)(r_s0 + 0); return func_0012EE20((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3); }
+    r_a0 = (long)(r_s0 + 0);
+    r_s1 = (long)(0 + (-0x7E));
+    r_v0 = (long)func_0012E1C0((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    return func_0012EE20((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+}
 
 /* func_0012EE20 */
-__asm__(".text\n\t"
-        ".globl func_0012EE20\n\t"
-        ".ent func_0012EE20\n"
-        "func_0012EE20:\n\t"
-        ".set noreorder\n\t"
-        "daddu      $2, $17, $0\n\t"
-        "ld         $31, 0x20($29)\n\t"
-        "ld         $17, 0x10($29)\n\t"
-        "ld         $16, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x30\n\t"
-        ".set reorder\n\t"
-        ".end func_0012EE20\n");
+void *func_0012EE20(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    r_v0 = (long)(r_s1 + 0);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x20)); }
+    if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x10)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x30));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_0012EE38 */
-__asm__(".text\n\t"
-        ".globl func_0012EE38\n\t"
-        ".ent func_0012EE38\n"
-        "func_0012EE38:\n\t"
-        ".set noreorder\n\t"
-        "lw         $3, 0x1C($4)\n\t"
-        "addiu      $2, $0, -0x2\n\t"
-        "addiu      $4, $0, -0x7E\n\t"
-        "xori       $3, $3, 0x1\n\t"
-        "jr         $31\n\t"
-        "movn      $2, $4, $3\n\t"
-        ".set reorder\n\t"
-        ".end func_0012EE38\n");
+void *func_0012EE38(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    if (r_a0) { r_v1 = *(int *)((char *)r_a0 + (0x1C)); }
+    r_v0 = (long)(0 + (-0x2));
+    r_a0 = (long)(0 + (-0x7E));
+    r_v1 = (long)(r_v1 ^ (0x1));
+    if (r_v1 != 0) r_v0 = r_a0;
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_0012EE50 */
-__asm__(".text\n\t"
-        ".globl func_0012EE50\n\t"
-        ".ent func_0012EE50\n"
-        "func_0012EE50:\n\t"
-        ".set noreorder\n\t"
-        "lw         $3, 0x1C($4)\n\t"
-        "addiu      $2, $0, -0x3\n\t"
-        "jr         $31\n\t"
-        "movz      $2, $0, $3\n\t"
-        ".set reorder\n\t"
-        ".end func_0012EE50\n");
+void *func_0012EE50(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    if (r_a0) { r_v1 = *(int *)((char *)r_a0 + (0x1C)); }
+    r_v0 = (long)(0 + (-0x3));
+    if (r_v1 == 0) r_v0 = 0;
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_0012EE60 */
-__asm__(".text\n\t"
-        ".globl func_0012EE60\n\t"
-        ".ent func_0012EE60\n"
-        "func_0012EE60:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x20\n\t"
-        "sd         $16, 0x0($29)\n\t"
-        "addiu      $16, $4, -0x1\n\t"
-        "sltiu      $2, $16, 0x4\n\t"
-        "bnez       $2, .L0012EE98\n\t"
-        "sd        $31, 0x10($29)\n\t"
-        "lui        $4, %hi(D_490210)\n\t"
-        "lui        $5, %hi(D_490068)\n\t"
-        "lui        $7, %hi(D_490250)\n\t"
-        "addiu      $4, $4, %lo(D_490210)\n\t"
-        "addiu      $5, $5, %lo(D_490068)\n\t"
-        "addiu      $7, $7, %lo(D_490250)\n\t"
-        "jal        func_123790\n\t"
-        "addiu     $6, $0, 0x4BF\n\t"
-        ".L0012EE98:\n\t"
-        "lui        $2, %hi(D_38C8B0)\n\t"
-        "sll        $3, $16, 2\n\t"
-        "addiu      $2, $2, %lo(D_38C8B0)\n\t"
-        "ld         $31, 0x10($29)\n\t"
-        "addu       $3, $3, $2\n\t"
-        "ld         $16, 0x0($29)\n\t"
-        "lw         $2, 0x0($3)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x20\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_0012EE60\n");
+void *func_0012EE60(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    r_sp = (long)(r_sp + (-0x20));
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_s0; }
+    r_s0 = (long)(r_a0 + (-0x1));
+    r_v0 = (long)((unsigned long)r_s0 < (unsigned long)(0x4) ? 1 : 0);
+    if (r_v0 != 0) { if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_ra; } goto _lbl_L0012EE98; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_ra; }
+    r_a0 = (long)&D_490210;
+    r_a1 = (long)&D_490068;
+    r_a3 = (long)&D_490250;
+    r_a0 = (long)&D_490210;
+    r_a1 = (long)&D_490068;
+    r_a3 = (long)&D_490250;
+    r_a2 = (long)(0 + (0x4BF));
+    r_v0 = (long)func_123790((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+_lbl_L0012EE98:
+    r_v0 = (long)&D_38C8B0;
+    r_v1 = (long)((unsigned long)r_s0 << (2));
+    r_v0 = (long)&D_38C8B0;
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x10)); }
+    r_v1 = (long)(r_v1 + r_v0);
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
+    if (r_v1) { r_v0 = *(int *)((char *)r_v1 + (0x0)); }
+    r_sp = (long)(r_sp + (0x20));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_0012EEC0 */
-__asm__(".text\n\t"
-        ".globl func_0012EEC0\n\t"
-        ".ent func_0012EEC0\n"
-        "func_0012EEC0:\n\t"
-        ".set noreorder\n\t"
-        "lw         $3, 0x1C($4)\n\t"
-        "beqz       $3, .L0012EED4\n\t"
-        "daddu     $2, $0, $0\n\t"
-        "sll        $2, $5, 5\n\t"
-        "addu       $2, $3, $2\n\t"
-        ".L0012EED4:\n\t"
-        "jr         $31\n\t"
-        "nop\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_0012EEC0\n");
+void *func_0012EEC0(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    if (r_a0) { r_v1 = *(int *)((char *)r_a0 + (0x1C)); }
+    if (r_v1 == 0) { r_v0 = (long)(0 + 0); goto _lbl_L0012EED4; }
+    r_v0 = (long)(0 + 0);
+    r_v0 = (long)((unsigned long)r_a1 << (5));
+    r_v0 = (long)(r_v1 + r_v0);
+_lbl_L0012EED4:
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_0012EEE0 */
-__asm__(".text\n\t"
-        ".globl func_0012EEE0\n\t"
-        ".ent func_0012EEE0\n"
-        "func_0012EEE0:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x50\n\t"
-        "sd         $18, 0x20($29)\n\t"
-        "sd         $17, 0x10($29)\n\t"
-        "daddu      $18, $5, $0\n\t"
-        "sd         $16, 0x0($29)\n\t"
-        "daddu      $17, $4, $0\n\t"
-        "sd         $31, 0x40($29)\n\t"
-        "daddu      $16, $0, $0\n\t"
-        "beqz       $17, .L0012EF74\n\t"
-        "sd        $19, 0x30($29)\n\t"
-        "lui        $19, (0x390000 >> 16)\n\t"
-        "lw         $6, 0x18($17)\n\t"
-        "lw         $4, -0x3750($19)\n\t"
-        "jal        func_0012F208\n\t"
-        ".set reorder\n\t"
-        ".end func_0012EEE0\n");
+void *func_0012EEE0(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0, r_s3 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    (void)r_s3;
+    r_sp = (long)(r_sp + (-0x50));
+    if (r_sp) { *(long *)((char *)r_sp + (0x20)) = (long)r_s2; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_s1; }
+    r_s2 = (long)(r_a1 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_s0; }
+    r_s1 = (long)(r_a0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x40)) = (long)r_ra; }
+    r_s0 = (long)(0 + 0);
+    if (r_s1 == 0) { if (r_sp) { *(long *)((char *)r_sp + (0x30)) = (long)r_s3; } return func_0012EF38((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3); }
+    if (r_sp) { *(long *)((char *)r_sp + (0x30)) = (long)r_s3; }
+    r_s3 = (long)((0x390000 >> 16) << 16);
+    if (r_s1) { r_a2 = *(int *)((char *)r_s1 + (0x18)); }
+    if (r_s3) { r_a0 = *(int *)((char *)r_s3 + (-0x3750)); }
+    r_v0 = (long)func_0012F208((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    return func_0012EF18((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+}
 
 /* func_0012EF18 */
-__asm__(".text\n\t"
-        ".globl func_0012EF18\n\t"
-        ".ent func_0012EF18\n"
-        "func_0012EF18:\n\t"
-        ".set noreorder\n\t"
-        "daddu      $5, $17, $0\n\t"
-        "beqz       $2, .L0012EF28\n\t"
-        "daddu     $6, $0, $0\n\t"
-        "lw         $6, 0x18($2)\n\t"
-        ".L0012EF28:\n\t"
-        "sltiu      $2, $18, 0x5\n\t"
-        "beqz       $2, .L0012EF74\n\t"
-        "lui       $2, (0x490000 >> 16)\n\t"
-        "sll        $3, $18, 2\n\t"
-        ".set reorder\n\t"
-        ".end func_0012EF18\n");
+void *func_0012EF18(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s1 = 0, r_s2 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s1;
+    (void)r_s2;
+    r_a1 = (long)(r_s1 + 0);
+    if (r_v0 == 0) { r_a2 = (long)(0 + 0); goto _lbl_L0012EF28; }
+    r_a2 = (long)(0 + 0);
+    if (r_v0) { r_a2 = *(int *)((char *)r_v0 + (0x18)); }
+_lbl_L0012EF28:
+    r_v0 = (long)((unsigned long)r_s2 < (unsigned long)(0x5) ? 1 : 0);
+    if (r_v0 == 0) { r_v0 = (long)((0x490000 >> 16) << 16); return func_0012EF38((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3); }
+    r_v0 = (long)((0x490000 >> 16) << 16);
+    r_v1 = (long)((unsigned long)r_s2 << (2));
+    return func_0012EF38((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+}
 
 /* func_0012EF38 */
-__asm__(".text\n\t"
-        ".globl func_0012EF38\n\t"
-        ".ent func_0012EF38\n"
-        "func_0012EF38:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $2, $2, 0x270\n\t"
-        "addu       $3, $3, $2\n\t"
-        "lw         $4, 0x0($3)\n\t"
-        "jr         $4\n\t"
-        "nop\n\t"
-        "b          .L0012EF74\n\t"
-        "daddu     $16, $17, $0\n\t"
-        "b          .L0012EF74\n\t"
-        "lw        $16, -0x3750($19)\n\t"
-        "b          .L0012EF70\n\t"
-        "addiu     $16, $6, 0x104\n\t"
-        "b          .L0012EF70\n\t"
-        "addiu     $16, $6, 0x144\n\t"
-        "addiu      $16, $6, 0x184\n\t"
-        ".L0012EF70:\n\t"
-        "movz       $16, $0, $6\n\t"
-        ".L0012EF74:\n\t"
-        "daddu      $2, $16, $0\n\t"
-        "ld         $31, 0x40($29)\n\t"
-        "ld         $19, 0x30($29)\n\t"
-        "ld         $18, 0x20($29)\n\t"
-        "ld         $17, 0x10($29)\n\t"
-        "ld         $16, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x50\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_0012EF38\n");
+void *func_0012EF38(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0, r_s3 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    (void)r_s3;
+    r_v0 = (long)(r_v0 + (0x270));
+    r_v1 = (long)(r_v1 + r_v0);
+    if (r_v1) { r_a0 = *(int *)((char *)r_v1 + (0x0)); }
+    return (void *)r_v0;
+    r_s0 = (long)(r_s1 + 0);
+    goto _lbl_L0012EF74;
+    if (r_s3) { r_s0 = *(int *)((char *)r_s3 + (-0x3750)); }
+    goto _lbl_L0012EF74;
+    r_s0 = (long)(r_a2 + (0x104));
+    goto _lbl_L0012EF70;
+    r_s0 = (long)(r_a2 + (0x144));
+    goto _lbl_L0012EF70;
+    r_s0 = (long)(r_a2 + (0x184));
+_lbl_L0012EF70:
+    if (r_a2 == 0) r_s0 = 0;
+_lbl_L0012EF74:
+    r_v0 = (long)(r_s0 + 0);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x40)); }
+    if (r_sp) { r_s3 = *(long *)((char *)r_sp + (0x30)); }
+    if (r_sp) { r_s2 = *(long *)((char *)r_sp + (0x20)); }
+    if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x10)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x50));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_0012EF98 */
-__asm__(".text\n\t"
-        ".globl func_0012EF98\n\t"
-        ".ent func_0012EF98\n"
-        "func_0012EF98:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x20\n\t"
-        "sd         $16, 0x0($29)\n\t"
-        "lui        $16, (0x500000 >> 16)\n\t"
-        "sd         $31, 0x10($29)\n\t"
-        "lw         $2, -0x6900($16)\n\t"
-        "beqz       $2, .L0012EFC8\n\t"
-        ".set reorder\n\t"
-        ".end func_0012EF98\n");
+void *func_0012EF98(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    r_sp = (long)(r_sp + (-0x20));
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_s0; }
+    r_s0 = (long)((0x500000 >> 16) << 16);
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_ra; }
+    if (r_s0) { r_v0 = *(int *)((char *)r_s0 + (-0x6900)); }
+    if (r_v0 == 0) return func_0012EFB0((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    return func_0012EFB0((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+}
 
 /* func_0012EFB0 */
-__asm__(".text\n\t"
-        ".globl func_0012EFB0\n\t"
-        ".ent func_0012EFB0\n"
-        "func_0012EFB0:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $4, $16, -0x6900\n\t"
-        "jalr       $2\n\t"
-        "nop\n\t"
-        "addiu      $3, $0, -0x80\n\t"
-        "beql       $2, $3, .L0012EFC8\n\t"
-        "sw        $0, -0x6900($16)\n\t"
-        ".L0012EFC8:\n\t"
-        "ld         $31, 0x10($29)\n\t"
-        "ld         $16, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x20\n\t"
-        ".set reorder\n\t"
-        ".end func_0012EFB0\n");
+void *func_0012EFB0(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    r_a0 = (long)(r_s0 + (-0x6900));
+    if (r_v0) { r_v0 = (long)((void *(*)(void *, ...))r_v0)((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3); }
+    r_v1 = (long)(0 + (-0x80));
+    if (r_v0 == r_v1) { if (r_s0) { *(int *)((char *)r_s0 + (-0x6900)) = (int)0; } goto _lbl_L0012EFC8; }
+    if (r_s0) { *(int *)((char *)r_s0 + (-0x6900)) = (int)0; }
+_lbl_L0012EFC8:
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x10)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x20));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_0012EFD8 */
-__asm__(".text\n\t"
-        ".globl func_0012EFD8\n\t"
-        ".ent func_0012EFD8\n"
-        "func_0012EFD8:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x90\n\t"
-        "sd         $23, 0x70($29)\n\t"
-        "sd         $22, 0x60($29)\n\t"
-        "addiu      $23, $0, -0x7F\n\t"
-        "sd         $21, 0x50($29)\n\t"
-        "addiu      $22, $0, -0x80\n\t"
-        "sd         $20, 0x40($29)\n\t"
-        "addiu      $21, $0, -0x7E\n\t"
-        "sd         $19, 0x30($29)\n\t"
-        "daddu      $20, $5, $0\n\t"
-        "sd         $17, 0x10($29)\n\t"
-        "daddu      $19, $0, $0\n\t"
-        "sd         $31, 0x80($29)\n\t"
-        "daddu      $17, $4, $0\n\t"
-        "sd         $18, 0x20($29)\n\t"
-        "sd         $16, 0x0($29)\n\t"
-        "lw         $16, 0x4($17)\n\t"
-        "sll        $3, $16, 2\n\t"
-        ".L0012F020:\n\t"
-        "daddu      $4, $17, $0\n\t"
-        "addu       $3, $3, $20\n\t"
-        "daddu      $18, $0, $0\n\t"
-        "lw         $2, 0x0($3)\n\t"
-        "jalr       $2\n\t"
-        "sw        $2, 0xAC($17)\n\t"
-        "daddu      $3, $2, $0\n\t"
-        "beq        $3, $23, .L0012F078\n\t"
-        "slti      $2, $3, -0x7E\n\t"
-        "beqz       $2, .L0012F05C\n\t"
-        "nop\n\t"
-        "beql       $3, $22, .L0012F084\n\t"
-        "addiu     $19, $0, -0x80\n\t"
-        "b          .L0012F070\n\t"
-        "addu      $16, $16, $3\n\t"
-        ".L0012F05C:\n\t"
-        "beql       $3, $21, .L0012F080\n\t"
-        "addiu     $16, $16, 0x1\n\t"
-        "beqz       $3, .L0012F084\n\t"
-        "nop\n\t"
-        "addu       $16, $16, $3\n\t"
-        ".L0012F070:\n\t"
-        "b          .L0012F084\n\t"
-        "addiu     $18, $0, 0x1\n\t"
-        ".L0012F078:\n\t"
-        "b          .L0012F084\n\t"
-        "addiu     $16, $16, 0x1\n\t"
-        ".L0012F080:\n\t"
-        "addiu      $18, $0, 0x1\n\t"
-        ".L0012F084:\n\t"
-        "bnez       $18, .L0012F020\n\t"
-        "sll       $3, $16, 2\n\t"
-        "lw         $3, 0x8($17)\n\t"
-        "daddu      $2, $19, $0\n\t"
-        "sw         $16, 0x4($17)\n\t"
-        "addiu      $3, $3, 0x1\n\t"
-        "ld         $31, 0x80($29)\n\t"
-        ".set reorder\n\t"
-        ".end func_0012EFD8\n");
+void *func_0012EFD8(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0, r_s3 = 0, r_s4 = 0, r_s5 = 0, r_s6 = 0, r_s7 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    (void)r_s3;
+    (void)r_s4;
+    (void)r_s5;
+    (void)r_s6;
+    (void)r_s7;
+    r_sp = (long)(r_sp + (-0x90));
+    if (r_sp) { *(long *)((char *)r_sp + (0x70)) = (long)r_s7; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x60)) = (long)r_s6; }
+    r_s7 = (long)(0 + (-0x7F));
+    if (r_sp) { *(long *)((char *)r_sp + (0x50)) = (long)r_s5; }
+    r_s6 = (long)(0 + (-0x80));
+    if (r_sp) { *(long *)((char *)r_sp + (0x40)) = (long)r_s4; }
+    r_s5 = (long)(0 + (-0x7E));
+    if (r_sp) { *(long *)((char *)r_sp + (0x30)) = (long)r_s3; }
+    r_s4 = (long)(r_a1 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_s1; }
+    r_s3 = (long)(0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x80)) = (long)r_ra; }
+    r_s1 = (long)(r_a0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x20)) = (long)r_s2; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_s0; }
+    if (r_s1) { r_s0 = *(int *)((char *)r_s1 + (0x4)); }
+    r_v1 = (long)((unsigned long)r_s0 << (2));
+_lbl_L0012F020:
+    r_a0 = (long)(r_s1 + 0);
+    r_v1 = (long)(r_v1 + r_s4);
+    r_s2 = (long)(0 + 0);
+    if (r_v1) { r_v0 = *(int *)((char *)r_v1 + (0x0)); }
+    if (r_s1) { *(int *)((char *)r_s1 + (0xAC)) = (int)r_v0; }
+    if (r_v0) { r_v0 = (long)((void *(*)(void *, ...))r_v0)((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3); }
+    r_v1 = (long)(r_v0 + 0);
+    if (r_v1 == r_s7) { r_v0 = (long)((long)r_v1 < (long)(-0x7E) ? 1 : 0); goto _lbl_L0012F078; }
+    r_v0 = (long)((long)r_v1 < (long)(-0x7E) ? 1 : 0);
+    if (r_v0 == 0) goto _lbl_L0012F05C;
+    if (r_v1 == r_s6) { r_s3 = (long)(0 + (-0x80)); goto _lbl_L0012F084; }
+    r_s3 = (long)(0 + (-0x80));
+    r_s0 = (long)(r_s0 + r_v1);
+    goto _lbl_L0012F070;
+_lbl_L0012F05C:
+    if (r_v1 == r_s5) { r_s0 = (long)(r_s0 + (0x1)); goto _lbl_L0012F080; }
+    r_s0 = (long)(r_s0 + (0x1));
+    if (r_v1 == 0) goto _lbl_L0012F084;
+    r_s0 = (long)(r_s0 + r_v1);
+_lbl_L0012F070:
+    r_s2 = (long)(0 + (0x1));
+    goto _lbl_L0012F084;
+_lbl_L0012F078:
+    r_s0 = (long)(r_s0 + (0x1));
+    goto _lbl_L0012F084;
+_lbl_L0012F080:
+    r_s2 = (long)(0 + (0x1));
+_lbl_L0012F084:
+    if (r_s2 != 0) { r_v1 = (long)((unsigned long)r_s0 << (2)); goto _lbl_L0012F020; }
+    r_v1 = (long)((unsigned long)r_s0 << (2));
+    if (r_s1) { r_v1 = *(int *)((char *)r_s1 + (0x8)); }
+    r_v0 = (long)(r_s3 + 0);
+    if (r_s1) { *(int *)((char *)r_s1 + (0x4)) = (int)r_s0; }
+    r_v1 = (long)(r_v1 + (0x1));
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x80)); }
+    return func_0012F0A0((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+}
 
 /* func_0012F0A0 */
-__asm__(".text\n\t"
-        ".globl func_0012F0A0\n\t"
-        ".ent func_0012F0A0\n"
-        "func_0012F0A0:\n\t"
-        ".set noreorder\n\t"
-        "sw         $3, 0x8($17)\n\t"
-        "ld         $23, 0x70($29)\n\t"
-        "ld         $22, 0x60($29)\n\t"
-        "ld         $21, 0x50($29)\n\t"
-        "ld         $20, 0x40($29)\n\t"
-        "ld         $19, 0x30($29)\n\t"
-        "ld         $18, 0x20($29)\n\t"
-        "ld         $17, 0x10($29)\n\t"
-        "ld         $16, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x90\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_0012F0A0\n");
+void *func_0012F0A0(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0, r_s3 = 0, r_s4 = 0, r_s5 = 0, r_s6 = 0, r_s7 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    (void)r_s3;
+    (void)r_s4;
+    (void)r_s5;
+    (void)r_s6;
+    (void)r_s7;
+    if (r_s1) { *(int *)((char *)r_s1 + (0x8)) = (int)r_v1; }
+    if (r_sp) { r_s7 = *(long *)((char *)r_sp + (0x70)); }
+    if (r_sp) { r_s6 = *(long *)((char *)r_sp + (0x60)); }
+    if (r_sp) { r_s5 = *(long *)((char *)r_sp + (0x50)); }
+    if (r_sp) { r_s4 = *(long *)((char *)r_sp + (0x40)); }
+    if (r_sp) { r_s3 = *(long *)((char *)r_sp + (0x30)); }
+    if (r_sp) { r_s2 = *(long *)((char *)r_sp + (0x20)); }
+    if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x10)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x90));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_0012F0D0 */
-__asm__(".text\n\t"
-        ".globl func_0012F0D0\n\t"
-        ".ent func_0012F0D0\n"
-        "func_0012F0D0:\n\t"
-        ".set noreorder\n\t"
-        "beqz       $4, .L0012F0E4\n\t"
-        "nop\n\t"
-        "sw         $0, 0xC($4)\n\t"
-        "sw         $0, 0x0($4)\n\t"
-        "sw         $0, 0x8($4)\n\t"
-        ".L0012F0E4:\n\t"
-        "jr         $31\n\t"
-        "nop\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_0012F0D0\n");
+void *func_0012F0D0(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    if (r_a0 == 0) goto _lbl_L0012F0E4;
+    if (r_a0) { *(int *)((char *)r_a0 + (0xC)) = (int)0; }
+    if (r_a0) { *(int *)((char *)r_a0 + (0x0)) = (int)0; }
+    if (r_a0) { *(int *)((char *)r_a0 + (0x8)) = (int)0; }
+_lbl_L0012F0E4:
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_0012F0F0 */
-__asm__(".text\n\t"
-        ".globl func_0012F0F0\n\t"
-        ".ent func_0012F0F0\n"
-        "func_0012F0F0:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x20\n\t"
-        "daddu      $2, $4, $0\n\t"
-        "sd         $31, 0x10($29)\n\t"
-        "addiu      $4, $2, 0xB4\n\t"
-        "sw         $7, 0x0($29)\n\t"
-        "sw         $5, 0x0($2)\n\t"
-        ".set reorder\n\t"
-        ".end func_0012F0F0\n");
+void *func_0012F0F0(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    r_sp = (long)(r_sp + (-0x20));
+    r_v0 = (long)(r_a0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_ra; }
+    r_a0 = (long)(r_v0 + (0xB4));
+    if (r_sp) { *(int *)((char *)r_sp + (0x0)) = (int)r_a3; }
+    if (r_v0) { *(int *)((char *)r_v0 + (0x0)) = (int)r_a1; }
+    return func_0012F108((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+}
 
 /* func_0012F108 */
-__asm__(".text\n\t"
-        ".globl func_0012F108\n\t"
-        ".ent func_0012F108\n"
-        "func_0012F108:\n\t"
-        ".set noreorder\n\t"
-        "sw         $6, 0xB0($2)\n\t"
-        "addiu      $5, $0, 0x20\n\t"
-        "sw         $0, 0x4($2)\n\t"
-        "sw         $0, 0x8($2)\n\t"
-        "lwl        $3, 0x3($29)\n\t"
-        "lwr        $3, 0x0($29)\n\t"
-        "swl        $3, 0xF($2)\n\t"
-        "swr        $3, 0xC($2)\n\t"
-        "sw         $8, 0x10($2)\n\t"
-        "sw         $9, 0x34($2)\n\t"
-        "sw         $10, 0xA8($2)\n\t"
-        "sw         $0, 0x14($2)\n\t"
-        "sw         $0, 0x18($2)\n\t"
-        "sw         $0, 0x1C($2)\n\t"
-        "sw         $0, 0x20($2)\n\t"
-        "sw         $0, 0x24($2)\n\t"
-        "sw         $0, 0x28($2)\n\t"
-        "sw         $0, 0x30($2)\n\t"
-        "jal        func_001143C0\n\t"
-        "sw        $0, 0xAC($2)\n\t"
-        "ld         $31, 0x10($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x20\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_0012F108\n");
+void *func_0012F108(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_t0 = 0, r_t1 = 0, r_t2 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_t0;
+    (void)r_t1;
+    (void)r_t2;
+    if (r_v0) { *(int *)((char *)r_v0 + (0xB0)) = (int)r_a2; }
+    r_a1 = (long)(0 + (0x20));
+    if (r_v0) { *(int *)((char *)r_v0 + (0x4)) = (int)0; }
+    if (r_v0) { *(int *)((char *)r_v0 + (0x8)) = (int)0; }
+    if (r_sp) { r_v1 = *(int *)((char *)r_sp + (0x3)); }
+    if (r_sp) { r_v1 = *(int *)((char *)r_sp + (0x0)); }
+    if (r_v0) { *(int *)((char *)r_v0 + (0xF)) = (int)r_v1; }
+    if (r_v0) { *(int *)((char *)r_v0 + (0xC)) = (int)r_v1; }
+    if (r_v0) { *(int *)((char *)r_v0 + (0x10)) = (int)r_t0; }
+    if (r_v0) { *(int *)((char *)r_v0 + (0x34)) = (int)r_t1; }
+    if (r_v0) { *(int *)((char *)r_v0 + (0xA8)) = (int)r_t2; }
+    if (r_v0) { *(int *)((char *)r_v0 + (0x14)) = (int)0; }
+    if (r_v0) { *(int *)((char *)r_v0 + (0x18)) = (int)0; }
+    if (r_v0) { *(int *)((char *)r_v0 + (0x1C)) = (int)0; }
+    if (r_v0) { *(int *)((char *)r_v0 + (0x20)) = (int)0; }
+    if (r_v0) { *(int *)((char *)r_v0 + (0x24)) = (int)0; }
+    if (r_v0) { *(int *)((char *)r_v0 + (0x28)) = (int)0; }
+    if (r_v0) { *(int *)((char *)r_v0 + (0x30)) = (int)0; }
+    if (r_v0) { *(int *)((char *)r_v0 + (0xAC)) = (int)0; }
+    r_v0 = (long)func_001143C0((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x10)); }
+    r_sp = (long)(r_sp + (0x20));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_0012F168 */
-__asm__(".text\n\t"
-        ".globl func_0012F168\n\t"
-        ".ent func_0012F168\n"
-        "func_0012F168:\n\t"
-        ".set noreorder\n\t"
-        "blez       $5, .L0012F178\n\t"
-        "lw        $6, 0xC($4)\n\t"
-        "b          func_0012F188\n\t"
-        "ori       $6, $6, 0x2\n\t"
-        ".L0012F178:\n\t"
-        "addiu      $2, $0, -0x1\n\t"
-        "ori        $3, $6, 0x1\n\t"
-        "slt        $2, $2, $5\n\t"
-        "movz       $6, $3, $2\n\t"
-        ".set reorder\n\t"
-        ".end func_0012F168\n");
+void *func_0012F168(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    if ((long)r_a1 <= 0) { if (r_a0) { r_a2 = *(int *)((char *)r_a0 + (0xC)); } goto _lbl_L0012F178; }
+    if (r_a0) { r_a2 = *(int *)((char *)r_a0 + (0xC)); }
+    r_a2 = (long)(r_a2 | (0x2));
+    return func_0012F188((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+_lbl_L0012F178:
+    r_v0 = (long)(0 + (-0x1));
+    r_v1 = (long)(r_a2 | (0x1));
+    r_v0 = (long)((long)r_v0 < (long)r_a1 ? 1 : 0);
+    if (r_v0 == 0) r_a2 = r_v1;
+    return func_0012F188((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+}
 
 /* func_0012F188 */
-__asm__(".text\n\t"
-        ".globl func_0012F188\n\t"
-        ".ent func_0012F188\n"
-        "func_0012F188:\n\t"
-        ".set noreorder\n\t"
-        "jr         $31\n\t"
-        "sw        $6, 0xC($4)\n\t"
-        "addiu      $29, $29, -0x30\n\t"
-        "sd         $17, 0x10($29)\n\t"
-        "sd         $31, 0x20($29)\n\t"
-        "daddu      $17, $4, $0\n\t"
-        "bltz       $6, .L0012F1B8\n\t"
-        "sd        $16, 0x0($29)\n\t"
-        "addiu      $16, $0, 0x1\n\t"
-        "addiu      $2, $0, 0x2\n\t"
-        "b          .L0012F210\n\t"
-        "movz      $16, $2, $6\n\t"
-        ".L0012F1B8:\n\t"
-        "addiu      $2, $0, -0x1\n\t"
-        "beq        $5, $2, .L0012F1F0\n\t"
-        "addiu     $16, $0, 0x1\n\t"
-        "bgez       $5, .L0012F1DC\n\t"
-        "addiu     $2, $0, -0x2\n\t"
-        "beq        $5, $2, .L0012F1EC\n\t"
-        "addiu     $16, $0, -0x1\n\t"
-        "b          .L0012F1F4\n\t"
-        "lh        $2, 0x4($17)\n\t"
-        ".L0012F1DC:\n\t"
-        "bnez       $5, .L0012F1F0\n\t"
-        "addiu     $16, $0, -0x1\n\t"
-        "b          .L0012F1F0\n\t"
-        "daddu     $16, $0, $0\n\t"
-        ".L0012F1EC:\n\t"
-        "addiu      $16, $0, 0x2\n\t"
-        ".L0012F1F0:\n\t"
-        "lh         $2, 0x4($17)\n\t"
-        ".L0012F1F4:\n\t"
-        "beqz       $2, .L0012F214\n\t"
-        "slti      $2, $5, -0x2\n\t"
-        "bnez       $16, .L0012F214\n\t"
-        "nop\n\t"
-        "lh         $2, 0x6($17)\n\t"
-        ".set reorder\n\t"
-        ".end func_0012F188\n");
+void *func_0012F188(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    if (r_a0) { *(int *)((char *)r_a0 + (0xC)) = (int)r_a2; }
+    return (void *)r_v0;
+    r_sp = (long)(r_sp + (-0x30));
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_s1; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x20)) = (long)r_ra; }
+    r_s1 = (long)(r_a0 + 0);
+    if ((long)r_a2 < 0) { if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_s0; } goto _lbl_L0012F1B8; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_s0; }
+    r_s0 = (long)(0 + (0x1));
+    r_v0 = (long)(0 + (0x2));
+    if (r_a2 == 0) r_s0 = r_v0;
+    return func_0012F208((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+_lbl_L0012F1B8:
+    r_v0 = (long)(0 + (-0x1));
+    if (r_a1 == r_v0) { r_s0 = (long)(0 + (0x1)); goto _lbl_L0012F1F0; }
+    r_s0 = (long)(0 + (0x1));
+    if ((long)r_a1 >= 0) { r_v0 = (long)(0 + (-0x2)); goto _lbl_L0012F1DC; }
+    r_v0 = (long)(0 + (-0x2));
+    if (r_a1 == r_v0) { r_s0 = (long)(0 + (-0x1)); goto _lbl_L0012F1EC; }
+    r_s0 = (long)(0 + (-0x1));
+    if (r_s1) { r_v0 = *(short *)((char *)r_s1 + (0x4)); }
+    goto _lbl_L0012F1F4;
+_lbl_L0012F1DC:
+    if (r_a1 != 0) { r_s0 = (long)(0 + (-0x1)); goto _lbl_L0012F1F0; }
+    r_s0 = (long)(0 + (-0x1));
+    r_s0 = (long)(0 + 0);
+    goto _lbl_L0012F1F0;
+_lbl_L0012F1EC:
+    r_s0 = (long)(0 + (0x2));
+_lbl_L0012F1F0:
+    if (r_s1) { r_v0 = *(short *)((char *)r_s1 + (0x4)); }
+_lbl_L0012F1F4:
+    if (r_v0 == 0) { r_v0 = (long)((long)r_a1 < (long)(-0x2) ? 1 : 0); return func_0012F208((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3); }
+    r_v0 = (long)((long)r_a1 < (long)(-0x2) ? 1 : 0);
+    if (r_s0 != 0) return func_0012F208((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_s1) { r_v0 = *(short *)((char *)r_s1 + (0x6)); }
+    return (void *)r_v0;
+}
 
 /* func_0012F208 */
-__asm__(".text\n\t"
-        ".globl func_0012F208\n\t"
-        ".ent func_0012F208\n"
-        "func_0012F208:\n\t"
-        ".set noreorder\n\t"
-        "nor        $2, $0, $2\n\t"
-        "sltiu      $16, $2, 0x1\n\t"
-        ".L0012F210:\n\t"
-        "slti       $2, $5, -0x2\n\t"
-        ".L0012F214:\n\t"
-        "bnel       $2, $0, .L0012F230\n\t"
-        "addiu     $5, $0, -0x1\n\t"
-        "bltzl      $5, .L0012F230\n\t"
-        "addiu     $5, $0, 0x1\n\t"
-        "bnez       $5, .L0012F230\n\t"
-        "addiu     $5, $0, -0x1\n\t"
-        "daddu      $5, $0, $0\n\t"
-        ".L0012F230:\n\t"
-        "beql       $5, $0, .L0012F244\n\t"
-        "sh        $16, 0x6($17)\n\t"
-        "jal        func_0012EFB0\n\t"
-        "daddu     $4, $17, $0\n\t"
-        "sh         $16, 0x6($17)\n\t"
-        ".L0012F244:\n\t"
-        "ld         $31, 0x20($29)\n\t"
-        "ld         $17, 0x10($29)\n\t"
-        "ld         $16, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x30\n\t"
-        ".set reorder\n\t"
-        ".end func_0012F208\n");
+void *func_0012F208(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    r_v0 = (long)(~(0 | r_v0));
+    r_s0 = (long)((unsigned long)r_v0 < (unsigned long)(0x1) ? 1 : 0);
+_lbl_L0012F210:
+    r_v0 = (long)((long)r_a1 < (long)(-0x2) ? 1 : 0);
+_lbl_L0012F214:
+    if (r_v0 != 0) { r_a1 = (long)(0 + (-0x1)); goto _lbl_L0012F230; }
+    r_a1 = (long)(0 + (-0x1));
+    if ((long)r_a1 < 0) { r_a1 = (long)(0 + (0x1)); goto _lbl_L0012F230; }
+    r_a1 = (long)(0 + (0x1));
+    if (r_a1 != 0) { r_a1 = (long)(0 + (-0x1)); goto _lbl_L0012F230; }
+    r_a1 = (long)(0 + (-0x1));
+    r_a1 = (long)(0 + 0);
+_lbl_L0012F230:
+    if (r_a1 == 0) { if (r_s1) { *(short *)((char *)r_s1 + (0x6)) = (short)r_s0; } goto _lbl_L0012F244; }
+    if (r_s1) { *(short *)((char *)r_s1 + (0x6)) = (short)r_s0; }
+    r_a0 = (long)(r_s1 + 0);
+    r_v0 = (long)func_0012EFB0((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_s1) { *(short *)((char *)r_s1 + (0x6)) = (short)r_s0; }
+_lbl_L0012F244:
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x20)); }
+    if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x10)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x30));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_0012F258 */
-__asm__(".text\n\t"
-        ".globl func_0012F258\n\t"
-        ".ent func_0012F258\n"
-        "func_0012F258:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x40\n\t"
-        "sd         $18, 0x20($29)\n\t"
-        "sd         $17, 0x10($29)\n\t"
-        "daddu      $18, $7, $0\n\t"
-        "sd         $16, 0x0($29)\n\t"
-        "daddu      $17, $8, $0\n\t"
-        "daddu      $16, $4, $0\n\t"
-        "beqz       $16, .L0012F2A8\n\t"
-        "sd        $31, 0x30($29)\n\t"
-        "jal        func_0012F6B0\n\t"
-        "nop\n\t"
-        "daddu      $4, $16, $0\n\t"
-        "daddu      $5, $17, $0\n\t"
-        "daddu      $6, $18, $0\n\t"
-        "ld         $31, 0x30($29)\n\t"
-        "ld         $18, 0x20($29)\n\t"
-        ".set reorder\n\t"
-        ".end func_0012F258\n");
+void *func_0012F258(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0, r_t0 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    (void)r_t0;
+    r_sp = (long)(r_sp + (-0x40));
+    if (r_sp) { *(long *)((char *)r_sp + (0x20)) = (long)r_s2; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_s1; }
+    r_s2 = (long)(r_a3 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_s0; }
+    r_s1 = (long)(r_t0 + 0);
+    r_s0 = (long)(r_a0 + 0);
+    if (r_s0 == 0) { if (r_sp) { *(long *)((char *)r_sp + (0x30)) = (long)r_ra; } return func_0012F298((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3); }
+    if (r_sp) { *(long *)((char *)r_sp + (0x30)) = (long)r_ra; }
+    r_v0 = (long)func_0012F6B0((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_a0 = (long)(r_s0 + 0);
+    r_a1 = (long)(r_s1 + 0);
+    r_a2 = (long)(r_s2 + 0);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x30)); }
+    if (r_sp) { r_s2 = *(long *)((char *)r_sp + (0x20)); }
+    return func_0012F298((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+}
 
 /* func_0012F298 */
-__asm__(".text\n\t"
-        ".globl func_0012F298\n\t"
-        ".ent func_0012F298\n"
-        "func_0012F298:\n\t"
-        ".set noreorder\n\t"
-        "ld         $17, 0x10($29)\n\t"
-        "ld         $16, 0x0($29)\n\t"
-        "j          func_0012EFD8\n\t"
-        "addiu     $29, $29, 0x40\n\t"
-        ".L0012F2A8:\n\t"
-        "ld         $31, 0x30($29)\n\t"
-        "ld         $18, 0x20($29)\n\t"
-        "ld         $17, 0x10($29)\n\t"
-        "ld         $16, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x40\n\t"
-        ".set reorder\n\t"
-        ".end func_0012F298\n");
+void *func_0012F298(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x10)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x40));
+    return func_0012EFD8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+_lbl_L0012F2A8:
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x30)); }
+    if (r_sp) { r_s2 = *(long *)((char *)r_sp + (0x20)); }
+    if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x10)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x40));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_0012F2C0 */
-__asm__(".text\n\t"
-        ".globl func_0012F2C0\n\t"
-        ".ent func_0012F2C0\n"
-        "func_0012F2C0:\n\t"
-        ".set noreorder\n\t"
-        "lw         $6, 0xAC($4)\n\t"
-        "daddu      $7, $0, $0\n\t"
-        "lw         $4, 0xA8($4)\n\t"
-        "lw         $2, 0x0($4)\n\t"
-        "beq        $2, $6, .L0012F304\n\t"
-        "daddu     $8, $0, $0\n\t"
-        "daddu      $9, $0, $0\n\t"
-        "nop\n\t"
-        ".L0012F2E0:\n\t"
-        "addiu      $7, $7, 0x1\n\t"
-        "sll        $2, $7, 2\n\t"
-        "addu       $2, $2, $4\n\t"
-        "lw         $3, 0x0($2)\n\t"
-        "nop\n\t"
-        "bne        $3, $6, .L0012F2E0\n\t"
-        "nop\n\t"
-        "b          .L0012F30C\n\t"
-        "addu      $3, $9, $4\n\t"
-        ".L0012F304:\n\t"
-        "daddu      $9, $0, $0\n\t"
-        "addu       $3, $9, $4\n\t"
-        ".L0012F30C:\n\t"
-        "lw         $2, 0x0($3)\n\t"
-        "beq        $2, $5, .L0012F334\n\t"
-        "nop\n\t"
-        ".L0012F318:\n\t"
-        "addiu      $3, $3, 0x4\n\t"
-        "addiu      $8, $8, 0x1\n\t"
-        "lw         $2, 0x0($3)\n\t"
-        "nop\n\t"
-        "nop\n\t"
-        "bne        $2, $5, .L0012F318\n\t"
-        "nop\n\t"
-        ".L0012F334:\n\t"
-        "jr         $31\n\t"
-        "subu      $2, $8, $7\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_0012F2C0\n");
+void *func_0012F2C0(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_t0 = 0, r_t1 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_t0;
+    (void)r_t1;
+    if (r_a0) { r_a2 = *(int *)((char *)r_a0 + (0xAC)); }
+    r_a3 = (long)(0 + 0);
+    if (r_a0) { r_a0 = *(int *)((char *)r_a0 + (0xA8)); }
+    if (r_a0) { r_v0 = *(int *)((char *)r_a0 + (0x0)); }
+    if (r_v0 == r_a2) { r_t0 = (long)(0 + 0); goto _lbl_L0012F304; }
+    r_t0 = (long)(0 + 0);
+    r_t1 = (long)(0 + 0);
+_lbl_L0012F2E0:
+    r_a3 = (long)(r_a3 + (0x1));
+    r_v0 = (long)((unsigned long)r_a3 << (2));
+    r_v0 = (long)(r_v0 + r_a0);
+    if (r_v0) { r_v1 = *(int *)((char *)r_v0 + (0x0)); }
+    if (r_v1 != r_a2) goto _lbl_L0012F2E0;
+    r_v1 = (long)(r_t1 + r_a0);
+    goto _lbl_L0012F30C;
+_lbl_L0012F304:
+    r_t1 = (long)(0 + 0);
+    r_v1 = (long)(r_t1 + r_a0);
+_lbl_L0012F30C:
+    if (r_v1) { r_v0 = *(int *)((char *)r_v1 + (0x0)); }
+    if (r_v0 == r_a1) goto _lbl_L0012F334;
+_lbl_L0012F318:
+    r_v1 = (long)(r_v1 + (0x4));
+    r_t0 = (long)(r_t0 + (0x1));
+    if (r_v1) { r_v0 = *(int *)((char *)r_v1 + (0x0)); }
+    if (r_v0 != r_a1) goto _lbl_L0012F318;
+_lbl_L0012F334:
+    r_v0 = (long)(r_t0 - r_a3);
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_0012F340 */
-__asm__(".text\n\t"
-        ".globl func_0012F340\n\t"
-        ".ent func_0012F340\n"
-        "func_0012F340:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x60\n\t"
-        "sd         $20, 0x40($29)\n\t"
-        "sd         $19, 0x30($29)\n\t"
-        "daddu      $20, $4, $0\n\t"
-        "sd         $18, 0x20($29)\n\t"
-        "daddu      $19, $6, $0\n\t"
-        "sd         $17, 0x10($29)\n\t"
-        "daddu      $18, $0, $0\n\t"
-        "sd         $16, 0x0($29)\n\t"
-        "daddu      $17, $0, $0\n\t"
-        "sd         $31, 0x50($29)\n\t"
-        "b          .L0012F37C\n\t"
-        "daddu     $16, $5, $0\n\t"
-        "nop\n\t"
-        ".L0012F378:\n\t"
-        "addiu      $16, $16, 0x40\n\t"
-        ".L0012F37C:\n\t"
-        "slt        $2, $17, $19\n\t"
-        "beqz       $2, .L0012F39C\n\t"
-        "daddu     $4, $20, $0\n\t"
-        ".set reorder\n\t"
-        ".end func_0012F340\n");
+void *func_0012F340(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0, r_s3 = 0, r_s4 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    (void)r_s3;
+    (void)r_s4;
+    r_sp = (long)(r_sp + (-0x60));
+    if (r_sp) { *(long *)((char *)r_sp + (0x40)) = (long)r_s4; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x30)) = (long)r_s3; }
+    r_s4 = (long)(r_a0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x20)) = (long)r_s2; }
+    r_s3 = (long)(r_a2 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_s1; }
+    r_s2 = (long)(0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_s0; }
+    r_s1 = (long)(0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x50)) = (long)r_ra; }
+    r_s0 = (long)(r_a1 + 0);
+    goto _lbl_L0012F37C;
+_lbl_L0012F378:
+    r_s0 = (long)(r_s0 + (0x40));
+_lbl_L0012F37C:
+    r_v0 = (long)((long)r_s1 < (long)r_s3 ? 1 : 0);
+    if (r_v0 == 0) { r_a0 = (long)(r_s4 + 0); return func_0012F388((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3); }
+    r_a0 = (long)(r_s4 + 0);
+    return func_0012F388((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+}
 
 /* func_0012F388 */
-__asm__(".text\n\t"
-        ".globl func_0012F388\n\t"
-        ".ent func_0012F388\n"
-        "func_0012F388:\n\t"
-        ".set noreorder\n\t"
-        "jal        strcmp\n\t"
-        "addiu     $5, $16, 0x20\n\t"
-        "bnez       $2, .L0012F378\n\t"
-        "addiu     $17, $17, 0x1\n\t"
-        "daddu      $18, $16, $0\n\t"
-        ".L0012F39C:\n\t"
-        "daddu      $2, $18, $0\n\t"
-        "ld         $31, 0x50($29)\n\t"
-        "ld         $20, 0x40($29)\n\t"
-        "ld         $19, 0x30($29)\n\t"
-        "ld         $18, 0x20($29)\n\t"
-        "ld         $17, 0x10($29)\n\t"
-        "ld         $16, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x60\n\t"
-        ".set reorder\n\t"
-        ".end func_0012F388\n");
+void *func_0012F388(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0, r_s3 = 0, r_s4 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    (void)r_s3;
+    (void)r_s4;
+    r_a1 = (long)(r_s0 + (0x20));
+    r_v0 = (long)strcmp((const char *)r_a0, (const char *)r_a1);
+    if (r_v0 != 0) { r_s1 = (long)(r_s1 + (0x1)); return func_0012F340((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3); }
+    r_s1 = (long)(r_s1 + (0x1));
+    r_s2 = (long)(r_s0 + 0);
+_lbl_L0012F39C:
+    r_v0 = (long)(r_s2 + 0);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x50)); }
+    if (r_sp) { r_s4 = *(long *)((char *)r_sp + (0x40)); }
+    if (r_sp) { r_s3 = *(long *)((char *)r_sp + (0x30)); }
+    if (r_sp) { r_s2 = *(long *)((char *)r_sp + (0x20)); }
+    if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x10)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x60));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_0012F3C0 */
-__asm__(".text\n\t"
-        ".globl func_0012F3C0\n\t"
-        ".ent func_0012F3C0\n"
-        "func_0012F3C0:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x60\n\t"
-        "sd         $20, 0x40($29)\n\t"
-        "sd         $19, 0x30($29)\n\t"
-        "daddu      $20, $6, $0\n\t"
-        "sd         $18, 0x20($29)\n\t"
-        "daddu      $19, $0, $0\n\t"
-        "sd         $31, 0x50($29)\n\t"
-        "daddu      $18, $4, $0\n\t"
-        "sd         $17, 0x10($29)\n\t"
-        "beqz       $18, func_0012F428\n\t"
-        "sd        $16, 0x0($29)\n\t"
-        "beqz       $5, func_0012F428\n\t"
-        "daddu     $17, $0, $0\n\t"
-        "b          .L0012F404\n\t"
-        "lw        $16, 0x1C($5)\n\t"
-        "nop\n\t"
-        ".L0012F400:\n\t"
-        "addiu      $16, $16, 0x20\n\t"
-        ".L0012F404:\n\t"
-        "slt        $2, $17, $20\n\t"
-        "beqz       $2, func_0012F428\n\t"
-        "daddu     $4, $18, $0\n\t"
-        "sll        $5, $17, 5\n\t"
-        "jal        strcmp\n\t"
-        ".set reorder\n\t"
-        ".end func_0012F3C0\n");
+void *func_0012F3C0(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0, r_s3 = 0, r_s4 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    (void)r_s3;
+    (void)r_s4;
+    r_sp = (long)(r_sp + (-0x60));
+    if (r_sp) { *(long *)((char *)r_sp + (0x40)) = (long)r_s4; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x30)) = (long)r_s3; }
+    r_s4 = (long)(r_a2 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x20)) = (long)r_s2; }
+    r_s3 = (long)(0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x50)) = (long)r_ra; }
+    r_s2 = (long)(r_a0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_s1; }
+    if (r_s2 == 0) { if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_s0; } return func_0012F428((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3); }
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_s0; }
+    if (r_a1 == 0) { r_s1 = (long)(0 + 0); return func_0012F428((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3); }
+    r_s1 = (long)(0 + 0);
+    if (r_a1) { r_s0 = *(int *)((char *)r_a1 + (0x1C)); }
+    goto _lbl_L0012F404;
+_lbl_L0012F400:
+    r_s0 = (long)(r_s0 + (0x20));
+_lbl_L0012F404:
+    r_v0 = (long)((long)r_s1 < (long)r_s4 ? 1 : 0);
+    if (r_v0 == 0) { r_a0 = (long)(r_s2 + 0); return func_0012F428((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3); }
+    r_a0 = (long)(r_s2 + 0);
+    r_a1 = (long)((unsigned long)r_s1 << (5));
+    r_v0 = (long)strcmp((const char *)r_a0, (const char *)r_a1);
+    return func_0012F418((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+}
 
 /* func_0012F418 */
-__asm__(".text\n\t"
-        ".globl func_0012F418\n\t"
-        ".ent func_0012F418\n"
-        "func_0012F418:\n\t"
-        ".set noreorder\n\t"
-        "addu       $5, $16, $5\n\t"
-        "bnez       $2, .L0012F400\n\t"
-        "addiu     $17, $17, 0x1\n\t"
-        "daddu      $19, $16, $0\n\t"
-        ".set reorder\n\t"
-        ".end func_0012F418\n");
+void *func_0012F418(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s3 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s3;
+    r_a1 = (long)(r_s0 + r_a1);
+    if (r_v0 != 0) { r_s1 = (long)(r_s1 + (0x1)); return func_0012F3C0((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3); }
+    r_s1 = (long)(r_s1 + (0x1));
+    r_s3 = (long)(r_s0 + 0);
+    return func_0012F428((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+}
 
 /* func_0012F428 */
-__asm__(".text\n\t"
-        ".globl func_0012F428\n\t"
-        ".ent func_0012F428\n"
-        "func_0012F428:\n\t"
-        ".set noreorder\n\t"
-        "daddu      $2, $19, $0\n\t"
-        "ld         $31, 0x50($29)\n\t"
-        "ld         $20, 0x40($29)\n\t"
-        "ld         $19, 0x30($29)\n\t"
-        ".set reorder\n\t"
-        ".end func_0012F428\n");
+void *func_0012F428(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s3 = 0, r_s4 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s3;
+    (void)r_s4;
+    r_v0 = (long)(r_s3 + 0);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x50)); }
+    if (r_sp) { r_s4 = *(long *)((char *)r_sp + (0x40)); }
+    if (r_sp) { r_s3 = *(long *)((char *)r_sp + (0x30)); }
+    return func_0012F438((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+}
 
 /* func_0012F438 */
-__asm__(".text\n\t"
-        ".globl func_0012F438\n\t"
-        ".ent func_0012F438\n"
-        "func_0012F438:\n\t"
-        ".set noreorder\n\t"
-        "ld         $18, 0x20($29)\n\t"
-        "ld         $17, 0x10($29)\n\t"
-        "ld         $16, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x60\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_0012F438\n");
+void *func_0012F438(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    if (r_sp) { r_s2 = *(long *)((char *)r_sp + (0x20)); }
+    if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x10)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x60));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_0012F450 */
-__asm__(".text\n\t"
-        ".globl func_0012F450\n\t"
-        ".ent func_0012F450\n"
-        "func_0012F450:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x50\n\t"
-        "sd         $18, 0x20($29)\n\t"
-        "sd         $17, 0x10($29)\n\t"
-        "daddu      $18, $5, $0\n\t"
-        "daddu      $17, $4, $0\n\t"
-        "sd         $19, 0x30($29)\n\t"
-        "sd         $31, 0x40($29)\n\t"
-        "jal        func_0012ED28\n\t"
-        "sd        $16, 0x0($29)\n\t"
-        "daddu      $19, $2, $0\n\t"
-        "bnel       $19, $0, .L0012F4C4\n\t"
-        "lw        $6, 0x18($17)\n\t"
-        "lui        $16, %hi(D_490288)\n\t"
-        "daddu      $4, $18, $0\n\t"
-        "jal        func_12DE28\n\t"
-        "addiu     $16, $16, %lo(D_490288)\n\t"
-        "daddu      $4, $16, $0\n\t"
-        "daddu      $6, $2, $0\n\t"
-        "jal        func_118de0\n\t"
-        "daddu     $5, $17, $0\n\t"
-        "lui        $4, %hi(D_4E2D40)\n\t"
-        "lui        $5, (0x490000 >> 16)\n\t"
-        "lui        $7, (0x490000 >> 16)\n\t"
-        "addiu      $4, $4, %lo(D_4E2D40)\n\t"
-        ".set reorder\n\t"
-        ".end func_0012F450\n");
+void *func_0012F450(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0, r_s3 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    (void)r_s3;
+    r_sp = (long)(r_sp + (-0x50));
+    if (r_sp) { *(long *)((char *)r_sp + (0x20)) = (long)r_s2; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_s1; }
+    r_s2 = (long)(r_a1 + 0);
+    r_s1 = (long)(r_a0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x30)) = (long)r_s3; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x40)) = (long)r_ra; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_s0; }
+    r_v0 = (long)func_0012ED28((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_s3 = (long)(r_v0 + 0);
+    if (r_s3 != 0) { if (r_s1) { r_a2 = *(int *)((char *)r_s1 + (0x18)); } return func_0012F4B0((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3); }
+    if (r_s1) { r_a2 = *(int *)((char *)r_s1 + (0x18)); }
+    r_s0 = (long)&D_490288;
+    r_a0 = (long)(r_s2 + 0);
+    r_s0 = (long)&D_490288;
+    r_v0 = (long)func_12DE28((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_a0 = (long)(r_s0 + 0);
+    r_a2 = (long)(r_v0 + 0);
+    r_a1 = (long)(r_s1 + 0);
+    r_v0 = (long)func_118de0((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_a0 = (long)&D_4E2D40;
+    r_a1 = (long)((0x490000 >> 16) << 16);
+    r_a3 = (long)((0x490000 >> 16) << 16);
+    r_a0 = (long)&D_4E2D40;
+    return func_0012F4B0((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+}
 
 /* func_0012F4B0 */
-__asm__(".text\n\t"
-        ".globl func_0012F4B0\n\t"
-        ".ent func_0012F4B0\n"
-        "func_0012F4B0:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $5, $5, 0x68\n\t"
-        "addiu      $7, $7, 0x2C8\n\t"
-        "jal        func_123790\n\t"
-        "addiu     $6, $0, 0x664\n\t"
-        "lw         $6, 0x18($17)\n\t"
-        ".L0012F4C4:\n\t"
-        "daddu      $4, $19, $0\n\t"
-        ".set reorder\n\t"
-        ".end func_0012F4B0\n");
+void *func_0012F4B0(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s1 = 0, r_s3 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s1;
+    (void)r_s3;
+    r_a1 = (long)(r_a1 + (0x68));
+    r_a3 = (long)(r_a3 + (0x2C8));
+    r_a2 = (long)(0 + (0x664));
+    r_v0 = (long)func_123790((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_s1) { r_a2 = *(int *)((char *)r_s1 + (0x18)); }
+_lbl_L0012F4C4:
+    r_a0 = (long)(r_s3 + 0);
+    return func_0012F4C8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+}
 
 /* func_0012F4C8 */
-__asm__(".text\n\t"
-        ".globl func_0012F4C8\n\t"
-        ".ent func_0012F4C8\n"
-        "func_0012F4C8:\n\t"
-        ".set noreorder\n\t"
-        "jal        func_0012F208\n\t"
-        "daddu     $5, $17, $0\n\t"
-        "daddu      $19, $2, $0\n\t"
-        "bnez       $19, .L0012F520\n\t"
-        "daddu     $2, $19, $0\n\t"
-        "lui        $16, %hi(D_490288)\n\t"
-        "daddu      $4, $18, $0\n\t"
-        "jal        func_12DE28\n\t"
-        "addiu     $16, $16, %lo(D_490288)\n\t"
-        "daddu      $4, $16, $0\n\t"
-        "daddu      $5, $17, $0\n\t"
-        "jal        func_118de0\n\t"
-        "daddu     $6, $2, $0\n\t"
-        "lui        $4, (0x490000 >> 16)\n\t"
-        ".set reorder\n\t"
-        ".end func_0012F4C8\n");
+void *func_0012F4C8(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0, r_s3 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    (void)r_s3;
+    r_a1 = (long)(r_s1 + 0);
+    r_v0 = (long)func_0012F208((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_s3 = (long)(r_v0 + 0);
+    if (r_s3 != 0) { r_v0 = (long)(r_s3 + 0); return func_0012F500((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3); }
+    r_v0 = (long)(r_s3 + 0);
+    r_s0 = (long)&D_490288;
+    r_a0 = (long)(r_s2 + 0);
+    r_s0 = (long)&D_490288;
+    r_v0 = (long)func_12DE28((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_a0 = (long)(r_s0 + 0);
+    r_a1 = (long)(r_s1 + 0);
+    r_a2 = (long)(r_v0 + 0);
+    r_v0 = (long)func_118de0((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_a0 = (long)((0x490000 >> 16) << 16);
+    return func_0012F500((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+}
 
 /* func_0012F500 */
-__asm__(".text\n\t"
-        ".globl func_0012F500\n\t"
-        ".ent func_0012F500\n"
-        "func_0012F500:\n\t"
-        ".set noreorder\n\t"
-        "lui        $5, %hi(D_490068)\n\t"
-        "lui        $7, %hi(D_4902C8)\n\t"
-        "addiu      $4, $4, 0x2E0\n\t"
-        "addiu      $5, $5, %lo(D_490068)\n\t"
-        "addiu      $7, $7, %lo(D_4902C8)\n\t"
-        "jal        func_123790\n\t"
-        "addiu     $6, $0, 0x66A\n\t"
-        "daddu      $2, $19, $0\n\t"
-        ".L0012F520:\n\t"
-        "ld         $31, 0x40($29)\n\t"
-        "ld         $19, 0x30($29)\n\t"
-        "ld         $18, 0x20($29)\n\t"
-        "ld         $17, 0x10($29)\n\t"
-        "ld         $16, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x50\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_0012F500\n");
+void *func_0012F500(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0, r_s3 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    (void)r_s3;
+    r_a1 = (long)&D_490068;
+    r_a3 = (long)&D_4902C8;
+    r_a0 = (long)(r_a0 + (0x2E0));
+    r_a1 = (long)&D_490068;
+    r_a3 = (long)&D_4902C8;
+    r_a2 = (long)(0 + (0x66A));
+    r_v0 = (long)func_123790((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_v0 = (long)(r_s3 + 0);
+_lbl_L0012F520:
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x40)); }
+    if (r_sp) { r_s3 = *(long *)((char *)r_sp + (0x30)); }
+    if (r_sp) { r_s2 = *(long *)((char *)r_sp + (0x20)); }
+    if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x10)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x50));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_0012F540 */
-__asm__(".text\n\t"
-        ".globl func_0012F540\n\t"
-        ".ent func_0012F540\n"
-        "func_0012F540:\n\t"
-        ".set noreorder\n\t"
-        "lh         $3, 0x4($4)\n\t"
-        "daddu      $5, $0, $0\n\t"
-        "addiu      $2, $0, 0x1\n\t"
-        "beq        $3, $2, .L0012F580\n\t"
-        "lh        $7, 0x6($4)\n\t"
-        "slti       $2, $3, 0x2\n\t"
-        "beql       $2, $0, .L0012F570\n\t"
-        "addiu     $2, $0, 0x3\n\t"
-        "beql       $3, $0, .L0012F584\n\t"
-        "addiu     $5, $0, -0x7F\n\t"
-        "b          .L0012F584\n\t"
-        "nop\n\t"
-        ".L0012F570:\n\t"
-        "beql       $3, $2, .L0012F584\n\t"
-        "addiu     $5, $0, -0x7E\n\t"
-        "b          .L0012F584\n\t"
-        "nop\n\t"
-        ".L0012F580:\n\t"
-        "addiu      $5, $0, -0x7F\n\t"
-        ".L0012F584:\n\t"
-        "bnez       $5, func_0012F5C8\n\t"
-        "addiu     $2, $0, 0x1\n\t"
-        "beql       $7, $0, func_0012F5C8\n\t"
-        "addiu     $5, $0, -0x7E\n\t"
-        "bgtz       $7, .L0012F5B0\n\t"
-        "addiu     $2, $0, 0x2\n\t"
-        "addiu      $2, $0, -0x1\n\t"
-        "beql       $7, $2, .L0012F5C4\n\t"
-        "addiu     $5, $0, -0x7F\n\t"
-        "b          func_0012F5C8\n\t"
-        "addiu     $2, $0, 0x1\n\t"
-        ".L0012F5B0:\n\t"
-        "beql       $7, $2, .L0012F5C0\n\t"
-        "addiu     $5, $0, -0x7C\n\t"
-        "b          func_0012F5C8\n\t"
-        "addiu     $2, $0, 0x1\n\t"
-        ".L0012F5C0:\n\t"
-        "movn       $5, $0, $6\n\t"
-        ".L0012F5C4:\n\t"
-        "addiu      $2, $0, 0x1\n\t"
-        ".set reorder\n\t"
-        ".end func_0012F540\n");
+void *func_0012F540(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    if (r_a0) { r_v1 = *(short *)((char *)r_a0 + (0x4)); }
+    r_a1 = (long)(0 + 0);
+    r_v0 = (long)(0 + (0x1));
+    if (r_v1 == r_v0) { if (r_a0) { r_a3 = *(short *)((char *)r_a0 + (0x6)); } goto _lbl_L0012F580; }
+    if (r_a0) { r_a3 = *(short *)((char *)r_a0 + (0x6)); }
+    r_v0 = (long)((long)r_v1 < (long)(0x2) ? 1 : 0);
+    if (r_v0 == 0) { r_v0 = (long)(0 + (0x3)); goto _lbl_L0012F570; }
+    r_v0 = (long)(0 + (0x3));
+    if (r_v1 == 0) { r_a1 = (long)(0 + (-0x7F)); goto _lbl_L0012F584; }
+    r_a1 = (long)(0 + (-0x7F));
+    goto _lbl_L0012F584;
+_lbl_L0012F570:
+    if (r_v1 == r_v0) { r_a1 = (long)(0 + (-0x7E)); goto _lbl_L0012F584; }
+    r_a1 = (long)(0 + (-0x7E));
+    goto _lbl_L0012F584;
+_lbl_L0012F580:
+    r_a1 = (long)(0 + (-0x7F));
+_lbl_L0012F584:
+    if (r_a1 != 0) { r_v0 = (long)(0 + (0x1)); return func_0012F5C8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3); }
+    r_v0 = (long)(0 + (0x1));
+    if (r_a3 == 0) { r_a1 = (long)(0 + (-0x7E)); return func_0012F5C8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3); }
+    r_a1 = (long)(0 + (-0x7E));
+    if ((long)r_a3 > 0) { r_v0 = (long)(0 + (0x2)); goto _lbl_L0012F5B0; }
+    r_v0 = (long)(0 + (0x2));
+    r_v0 = (long)(0 + (-0x1));
+    if (r_a3 == r_v0) { r_a1 = (long)(0 + (-0x7F)); goto _lbl_L0012F5C4; }
+    r_a1 = (long)(0 + (-0x7F));
+    r_v0 = (long)(0 + (0x1));
+    return func_0012F5C8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+_lbl_L0012F5B0:
+    if (r_a3 == r_v0) { r_a1 = (long)(0 + (-0x7C)); goto _lbl_L0012F5C0; }
+    r_a1 = (long)(0 + (-0x7C));
+    r_v0 = (long)(0 + (0x1));
+    return func_0012F5C8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+_lbl_L0012F5C0:
+    if (r_a2 != 0) r_a1 = 0;
+_lbl_L0012F5C4:
+    r_v0 = (long)(0 + (0x1));
+    return func_0012F5C8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+}
 
 /* func_0012F5C8 */
-__asm__(".text\n\t"
-        ".globl func_0012F5C8\n\t"
-        ".ent func_0012F5C8\n"
-        "func_0012F5C8:\n\t"
-        ".set noreorder\n\t"
-        "jr         $31\n\t"
-        "movn      $2, $5, $5\n\t"
-        "lh         $2, 0x4($4)\n\t"
-        "xori       $2, $2, 0x3\n\t"
-        "jr         $31\n\t"
-        "sltiu     $2, $2, 0x1\n\t"
-        ".set reorder\n\t"
-        ".end func_0012F5C8\n");
+void *func_0012F5C8(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    if (r_a1 != 0) r_v0 = r_a1;
+    return (void *)r_v0;
+    if (r_a0) { r_v0 = *(short *)((char *)r_a0 + (0x4)); }
+    r_v0 = (long)(r_v0 ^ (0x3));
+    r_v0 = (long)((unsigned long)r_v0 < (unsigned long)(0x1) ? 1 : 0);
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_0012F5E0 */
-__asm__(".text\n\t"
-        ".globl func_0012F5E0\n\t"
-        ".ent func_0012F5E0\n"
-        "func_0012F5E0:\n\t"
-        ".set noreorder\n\t"
-        "lh         $2, 0x4($4)\n\t"
-        "xori       $2, $2, 0x2\n\t"
-        "jr         $31\n\t"
-        "sltiu     $2, $2, 0x1\n\t"
-        ".set reorder\n\t"
-        ".end func_0012F5E0\n");
+void *func_0012F5E0(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    if (r_a0) { r_v0 = *(short *)((char *)r_a0 + (0x4)); }
+    r_v0 = (long)(r_v0 ^ (0x2));
+    r_v0 = (long)((unsigned long)r_v0 < (unsigned long)(0x1) ? 1 : 0);
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_0012F5F0 */
-__asm__(".text\n\t"
-        ".globl func_0012F5F0\n\t"
-        ".ent func_0012F5F0\n"
-        "func_0012F5F0:\n\t"
-        ".set noreorder\n\t"
-        "daddu      $8, $5, $0\n\t"
-        "daddu      $2, $0, $0\n\t"
-        "addiu      $5, $0, -0xB\n\t"
-        "slti       $7, $8, 0x1\n\t"
-        "slt        $5, $5, $8\n\t"
-        "movn       $2, $8, $7\n\t"
-        "addiu      $3, $0, -0xA\n\t"
-        "addiu      $29, $29, -0x20\n\t"
-        ".set reorder\n\t"
-        ".end func_0012F5F0\n");
+void *func_0012F5F0(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_t0 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_t0;
+    r_t0 = (long)(r_a1 + 0);
+    r_v0 = (long)(0 + 0);
+    r_a1 = (long)(0 + (-0xB));
+    r_a3 = (long)((long)r_t0 < (long)(0x1) ? 1 : 0);
+    r_a1 = (long)((long)r_a1 < (long)r_t0 ? 1 : 0);
+    if (r_a3 != 0) r_v0 = r_t0;
+    r_v1 = (long)(0 + (-0xA));
+    r_sp = (long)(r_sp + (-0x20));
+    return func_0012F610((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+}
 
 /* func_0012F610 */
-__asm__(".text\n\t"
-        ".globl func_0012F610\n\t"
-        ".ent func_0012F610\n"
-        "func_0012F610:\n\t"
-        ".set noreorder\n\t"
-        "movz       $2, $3, $5\n\t"
-        "sd         $31, 0x10($29)\n\t"
-        "sll        $2, $2, 2\n\t"
-        "sd         $16, 0x0($29)\n\t"
-        "subu       $4, $4, $2\n\t"
-        "lw         $16, 0x0($4)\n\t"
-        "addiu      $2, $16, 0x7D\n\t"
-        "sltiu      $2, $2, 0x2\n\t"
-        "bnez       $2, .L0012F648\n\t"
-        "daddu     $4, $6, $0\n\t"
-        "addiu      $2, $0, -0x7F\n\t"
-        "bne        $16, $2, .L0012F658\n\t"
-        "daddu     $2, $16, $0\n\t"
-        "daddu      $4, $6, $0\n\t"
-        ".L0012F648:\n\t"
-        "daddu      $5, $8, $0\n\t"
-        "jal        func_0012EFD8\n\t"
-        "addiu     $6, $0, -0x1\n\t"
-        "daddu      $2, $16, $0\n\t"
-        ".L0012F658:\n\t"
-        "ld         $31, 0x10($29)\n\t"
-        "ld         $16, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x20\n\t"
-        ".set reorder\n\t"
-        ".end func_0012F610\n");
+void *func_0012F610(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_t0 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_t0;
+    if (r_a1 == 0) r_v0 = r_v1;
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_ra; }
+    r_v0 = (long)((unsigned long)r_v0 << (2));
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_s0; }
+    r_a0 = (long)(r_a0 - r_v0);
+    if (r_a0) { r_s0 = *(int *)((char *)r_a0 + (0x0)); }
+    r_v0 = (long)(r_s0 + (0x7D));
+    r_v0 = (long)((unsigned long)r_v0 < (unsigned long)(0x2) ? 1 : 0);
+    if (r_v0 != 0) { r_a0 = (long)(r_a2 + 0); goto _lbl_L0012F648; }
+    r_a0 = (long)(r_a2 + 0);
+    r_v0 = (long)(0 + (-0x7F));
+    if (r_s0 != r_v0) { r_v0 = (long)(r_s0 + 0); goto _lbl_L0012F658; }
+    r_v0 = (long)(r_s0 + 0);
+    r_a0 = (long)(r_a2 + 0);
+_lbl_L0012F648:
+    r_a1 = (long)(r_t0 + 0);
+    r_a2 = (long)(0 + (-0x1));
+    r_v0 = (long)func_0012EFD8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_v0 = (long)(r_s0 + 0);
+_lbl_L0012F658:
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x10)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x20));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_0012F668 */
-__asm__(".text\n\t"
-        ".globl func_0012F668\n\t"
-        ".ent func_0012F668\n"
-        "func_0012F668:\n\t"
-        ".set noreorder\n\t"
-        "xori       $4, $4, 0x2\n\t"
-        "addiu      $3, $0, 0x2000\n\t"
-        "addiu      $2, $0, 0x400\n\t"
-        "jr         $31\n\t"
-        "movn      $2, $3, $4\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_0012F668\n");
+void *func_0012F668(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    r_a0 = (long)(r_a0 ^ (0x2));
+    r_v1 = (long)(0 + (0x2000));
+    r_v0 = (long)(0 + (0x400));
+    if (r_a0 != 0) r_v0 = r_v1;
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_0012F680 */
-__asm__(".text\n\t"
-        ".globl func_0012F680\n\t"
-        ".ent func_0012F680\n"
-        "func_0012F680:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $4, $4, -0x1\n\t"
-        "addiu      $3, $0, -0x1\n\t"
-        "addu       $4, $4, $5\n\t"
-        "slt        $3, $3, $5\n\t"
-        "div        $0, $4, $5\n\t"
-        "addiu      $2, $5, 0x3FF\n\t"
-        "movn       $2, $5, $3\n\t"
-        "beql       $5, $0, .L0012F6A4\n\t"
-        "break     0, 7\n\t"
-        ".L0012F6A4:\n\t"
-        "sra        $2, $2, 10\n\t"
-        ".set reorder\n\t"
-        ".end func_0012F680\n");
+void *func_0012F680(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    r_a0 = (long)(r_a0 + (-0x1));
+    r_v1 = (long)(0 + (-0x1));
+    r_a0 = (long)(r_a0 + r_a1);
+    r_v1 = (long)((long)r_v1 < (long)r_a1 ? 1 : 0);
+    /* unhandled: div */
+    r_v0 = (long)(r_a1 + (0x3FF));
+    if (r_v1 != 0) r_v0 = r_a1;
+    if (r_a1 == 0) { /* break */ goto _lbl_L0012F6A4; }
+    /* break */
+_lbl_L0012F6A4:
+    r_v0 = (long)((long)r_v0 >> (10));
+    return func_0012F6A8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+}
 
 /* func_0012F6A8 */
-__asm__(".text\n\t"
-        ".globl func_0012F6A8\n\t"
-        ".ent func_0012F6A8\n"
-        "func_0012F6A8:\n\t"
-        ".set noreorder\n\t"
-        "mflo       $4\n\t"
-        "jr         $31\n\t"
-        ".set reorder\n\t"
-        ".end func_0012F6A8\n");
+void *func_0012F6A8(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    /* unhandled: mflo */
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_0012F6B0 */
-__asm__(".text\n\t"
-        ".globl func_0012F6B0\n\t"
-        ".ent func_0012F6B0\n"
-        "func_0012F6B0:\n\t"
-        ".set noreorder\n\t"
-        "mult       $2, $4, $2\n\t"
-        "nop\n\t"
-        "addiu      $29, $29, -0x90\n\t"
-        "sd         $23, 0x70($29)\n\t"
-        "sd         $22, 0x60($29)\n\t"
-        "daddu      $23, $6, $0\n\t"
-        ".set reorder\n\t"
-        ".end func_0012F6B0\n");
+void *func_0012F6B0(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s6 = 0, r_s7 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s6;
+    (void)r_s7;
+    /* unhandled: mult */
+    r_sp = (long)(r_sp + (-0x90));
+    if (r_sp) { *(long *)((char *)r_sp + (0x70)) = (long)r_s7; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x60)) = (long)r_s6; }
+    r_s7 = (long)(r_a2 + 0);
+    return func_0012F6C8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+}
 
 /* func_0012F6C8 */
-__asm__(".text\n\t"
-        ".globl func_0012F6C8\n\t"
-        ".ent func_0012F6C8\n"
-        "func_0012F6C8:\n\t"
-        ".set noreorder\n\t"
-        "sd         $21, 0x50($29)\n\t"
-        "sd         $19, 0x30($29)\n\t"
-        "daddu      $21, $0, $0\n\t"
-        "sd         $18, 0x20($29)\n\t"
-        "daddu      $19, $4, $0\n\t"
-        "sd         $17, 0x10($29)\n\t"
-        "daddu      $4, $5, $0\n\t"
-        "sd         $31, 0x80($29)\n\t"
-        "daddu      $17, $0, $0\n\t"
-        "sd         $20, 0x40($29)\n\t"
-        "daddu      $18, $0, $0\n\t"
-        "sd         $16, 0x0($29)\n\t"
-        ".set reorder\n\t"
-        ".end func_0012F6C8\n");
+void *func_0012F6C8(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0, r_s3 = 0, r_s4 = 0, r_s5 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    (void)r_s3;
+    (void)r_s4;
+    (void)r_s5;
+    if (r_sp) { *(long *)((char *)r_sp + (0x50)) = (long)r_s5; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x30)) = (long)r_s3; }
+    r_s5 = (long)(0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x20)) = (long)r_s2; }
+    r_s3 = (long)(r_a0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_s1; }
+    r_a0 = (long)(r_a1 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x80)) = (long)r_ra; }
+    r_s1 = (long)(0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x40)) = (long)r_s4; }
+    r_s2 = (long)(0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_s0; }
+    return func_0012F6F8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+}
 
 /* func_0012F6F8 */
-__asm__(".text\n\t"
-        ".globl func_0012F6F8\n\t"
-        ".ent func_0012F6F8\n"
-        "func_0012F6F8:\n\t"
-        ".set noreorder\n\t"
-        "lw         $16, 0x1C($19)\n\t"
-        "jal        func_0012F4B0\n\t"
-        "lw        $20, 0x18($19)\n\t"
-        "blez       $20, .L0012F744\n\t"
-        "daddu     $22, $2, $0\n\t"
-        "addiu      $16, $16, 0x1C\n\t"
-        ".L0012F710:\n\t"
-        "daddu      $4, $19, $0\n\t"
-        "jal        func_0012F7B0\n\t"
-        "daddu     $5, $17, $0\n\t"
-        "beqz       $2, .L0012F734\n\t"
-        "daddu     $5, $22, $0\n\t"
-        "lw         $4, 0x0($16)\n\t"
-        "jal        func_0012F4C8\n\t"
-        "addiu     $21, $21, 0x1\n\t"
-        "addu       $18, $18, $2\n\t"
-        ".L0012F734:\n\t"
-        "addiu      $17, $17, 0x1\n\t"
-        "slt        $2, $17, $20\n\t"
-        "bnez       $2, .L0012F710\n\t"
-        "addiu     $16, $16, 0x20\n\t"
-        ".L0012F744:\n\t"
-        "bnel       $23, $0, .L0012F74C\n\t"
-        "sw        $21, 0x0($23)\n\t"
-        ".L0012F74C:\n\t"
-        "daddu      $2, $18, $0\n\t"
-        "ld         $31, 0x80($29)\n\t"
-        "ld         $23, 0x70($29)\n\t"
-        "ld         $22, 0x60($29)\n\t"
-        "ld         $21, 0x50($29)\n\t"
-        "ld         $20, 0x40($29)\n\t"
-        "ld         $19, 0x30($29)\n\t"
-        ".set reorder\n\t"
-        ".end func_0012F6F8\n");
+void *func_0012F6F8(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0, r_s3 = 0, r_s4 = 0, r_s5 = 0, r_s6 = 0, r_s7 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    (void)r_s3;
+    (void)r_s4;
+    (void)r_s5;
+    (void)r_s6;
+    (void)r_s7;
+    if (r_s3) { r_s0 = *(int *)((char *)r_s3 + (0x1C)); }
+    if (r_s3) { r_s4 = *(int *)((char *)r_s3 + (0x18)); }
+    r_v0 = (long)func_0012F4B0((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if ((long)r_s4 <= 0) { r_s6 = (long)(r_v0 + 0); goto _lbl_L0012F744; }
+    r_s6 = (long)(r_v0 + 0);
+    r_s0 = (long)(r_s0 + (0x1C));
+_lbl_L0012F710:
+    r_a0 = (long)(r_s3 + 0);
+    r_a1 = (long)(r_s1 + 0);
+    r_v0 = (long)func_0012F7B0((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_v0 == 0) { r_a1 = (long)(r_s6 + 0); goto _lbl_L0012F734; }
+    r_a1 = (long)(r_s6 + 0);
+    if (r_s0) { r_a0 = *(int *)((char *)r_s0 + (0x0)); }
+    r_s5 = (long)(r_s5 + (0x1));
+    r_v0 = (long)func_0012F4C8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_s2 = (long)(r_s2 + r_v0);
+_lbl_L0012F734:
+    r_s1 = (long)(r_s1 + (0x1));
+    r_v0 = (long)((long)r_s1 < (long)r_s4 ? 1 : 0);
+    if (r_v0 != 0) { r_s0 = (long)(r_s0 + (0x20)); goto _lbl_L0012F710; }
+    r_s0 = (long)(r_s0 + (0x20));
+_lbl_L0012F744:
+    if (r_s7 != 0) { if (r_s7) { *(int *)((char *)r_s7 + (0x0)) = (int)r_s5; } goto _lbl_L0012F74C; }
+    if (r_s7) { *(int *)((char *)r_s7 + (0x0)) = (int)r_s5; }
+_lbl_L0012F74C:
+    r_v0 = (long)(r_s2 + 0);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x80)); }
+    if (r_sp) { r_s7 = *(long *)((char *)r_sp + (0x70)); }
+    if (r_sp) { r_s6 = *(long *)((char *)r_sp + (0x60)); }
+    if (r_sp) { r_s5 = *(long *)((char *)r_sp + (0x50)); }
+    if (r_sp) { r_s4 = *(long *)((char *)r_sp + (0x40)); }
+    if (r_sp) { r_s3 = *(long *)((char *)r_sp + (0x30)); }
+    return func_0012F768((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+}
 
 /* func_0012F768 */
-__asm__(".text\n\t"
-        ".globl func_0012F768\n\t"
-        ".ent func_0012F768\n"
-        "func_0012F768:\n\t"
-        ".set noreorder\n\t"
-        "ld         $18, 0x20($29)\n\t"
-        "ld         $17, 0x10($29)\n\t"
-        "ld         $16, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x90\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_0012F768\n");
+void *func_0012F768(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    if (r_sp) { r_s2 = *(long *)((char *)r_sp + (0x20)); }
+    if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x10)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x90));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_0012F780 */
-__asm__(".text\n\t"
-        ".globl func_0012F780\n\t"
-        ".ent func_0012F780\n"
-        "func_0012F780:\n\t"
-        ".set noreorder\n\t"
-        "subu       $2, $4, $5\n\t"
-        "addiu      $3, $0, -0x1\n\t"
-        "slt        $3, $3, $2\n\t"
-        "movz       $2, $0, $3\n\t"
-        "addiu      $2, $2, 0x1\n\t"
-        "srl        $3, $2, 31\n\t"
-        "addu       $2, $2, $3\n\t"
-        "jr         $31\n\t"
-        ".set reorder\n\t"
-        ".end func_0012F780\n");
+void *func_0012F780(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    r_v0 = (long)(r_a0 - r_a1);
+    r_v1 = (long)(0 + (-0x1));
+    r_v1 = (long)((long)r_v1 < (long)r_v0 ? 1 : 0);
+    if (r_v1 == 0) r_v0 = 0;
+    r_v0 = (long)(r_v0 + (0x1));
+    r_v1 = (long)((unsigned long)r_v0 >> (31));
+    r_v0 = (long)(r_v0 + r_v1);
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_0012F7A0 */
-__asm__(".text\n\t"
-        ".globl func_0012F7A0\n\t"
-        ".ent func_0012F7A0\n"
-        "func_0012F7A0:\n\t"
-        ".set noreorder\n\t"
-        "sra        $2, $2, 1\n\t"
-        "nop\n\t"
-        "addiu      $29, $29, -0x10\n\t"
-        "sd         $31, 0x0($29)\n\t"
-        ".set reorder\n\t"
-        ".end func_0012F7A0\n");
+void *func_0012F7A0(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    r_v0 = (long)((long)r_v0 >> (1));
+    r_sp = (long)(r_sp + (-0x10));
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_ra; }
+    return func_0012F7B0((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+}
 
 /* func_0012F7B0 */
-__asm__(".text\n\t"
-        ".globl func_0012F7B0\n\t"
-        ".ent func_0012F7B0\n"
-        "func_0012F7B0:\n\t"
-        ".set noreorder\n\t"
-        "jal        func_0012F610\n\t"
-        "lh        $5, 0x4($5)\n\t"
-        "ld         $31, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x10\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_0012F7B0\n");
+void *func_0012F7B0(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    if (r_a1) { r_a1 = *(short *)((char *)r_a1 + (0x4)); }
+    r_v0 = (long)func_0012F610((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x10));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_0012F7C8 */
-__asm__(".text\n\t"
-        ".globl func_0012F7C8\n\t"
-        ".ent func_0012F7C8\n"
-        "func_0012F7C8:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x70\n\t"
-        "sd         $17, 0x20($29)\n\t"
-        "sd         $16, 0x10($29)\n\t"
-        "daddu      $17, $6, $0\n\t"
-        "sd         $19, 0x40($29)\n\t"
-        "daddu      $16, $5, $0\n\t"
-        "sd         $18, 0x30($29)\n\t"
-        "daddu      $19, $7, $0\n\t"
-        ".set reorder\n\t"
-        ".end func_0012F7C8\n");
+void *func_0012F7C8(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0, r_s3 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    (void)r_s3;
+    r_sp = (long)(r_sp + (-0x70));
+    if (r_sp) { *(long *)((char *)r_sp + (0x20)) = (long)r_s1; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_s0; }
+    r_s1 = (long)(r_a2 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x40)) = (long)r_s3; }
+    r_s0 = (long)(r_a1 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x30)) = (long)r_s2; }
+    r_s3 = (long)(r_a3 + 0);
+    return func_0012F7E8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+}
 
 /* func_0012F7E8 */
-__asm__(".text\n\t"
-        ".globl func_0012F7E8\n\t"
-        ".ent func_0012F7E8\n"
-        "func_0012F7E8:\n\t"
-        ".set noreorder\n\t"
-        "sd         $20, 0x50($29)\n\t"
-        "daddu      $18, $8, $0\n\t"
-        "sd         $31, 0x60($29)\n\t"
-        "jal        func_0012F500\n\t"
-        "daddu     $6, $29, $0\n\t"
-        "daddu      $20, $2, $0\n\t"
-        "addiu      $2, $0, 0x2\n\t"
-        "bne        $16, $2, .L0012F834\n\t"
-        "daddu     $16, $0, $0\n\t"
-        "lw         $4, 0x0($29)\n\t"
-        "daddu      $5, $17, $0\n\t"
-        "jal        func_0012F5C8\n\t"
-        "addiu     $4, $4, 0x2\n\t"
-        "daddu      $16, $2, $0\n\t"
-        "daddu      $4, $18, $0\n\t"
-        "jal        func_0012F5C8\n\t"
-        "daddu     $5, $19, $0\n\t"
-        "b          .L0012F838\n\t"
-        "daddu     $3, $2, $0\n\t"
-        ".L0012F834:\n\t"
-        "daddu      $3, $0, $0\n\t"
-        ".L0012F838:\n\t"
-        "addu       $2, $20, $16\n\t"
-        "ld         $31, 0x60($29)\n\t"
-        "ld         $20, 0x50($29)\n\t"
-        "addu       $2, $2, $3\n\t"
-        "ld         $19, 0x40($29)\n\t"
-        "ld         $18, 0x30($29)\n\t"
-        "ld         $17, 0x20($29)\n\t"
-        "ld         $16, 0x10($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x70\n\t"
-        ".set reorder\n\t"
-        ".end func_0012F7E8\n");
+void *func_0012F7E8(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0, r_s3 = 0, r_s4 = 0, r_t0 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    (void)r_s3;
+    (void)r_s4;
+    (void)r_t0;
+    if (r_sp) { *(long *)((char *)r_sp + (0x50)) = (long)r_s4; }
+    r_s2 = (long)(r_t0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x60)) = (long)r_ra; }
+    r_a2 = (long)(r_sp + 0);
+    r_v0 = (long)func_0012F500((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_s4 = (long)(r_v0 + 0);
+    r_v0 = (long)(0 + (0x2));
+    if (r_s0 != r_v0) { r_s0 = (long)(0 + 0); goto _lbl_L0012F834; }
+    r_s0 = (long)(0 + 0);
+    if (r_sp) { r_a0 = *(int *)((char *)r_sp + (0x0)); }
+    r_a1 = (long)(r_s1 + 0);
+    r_a0 = (long)(r_a0 + (0x2));
+    r_v0 = (long)func_0012F5C8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_s0 = (long)(r_v0 + 0);
+    r_a0 = (long)(r_s2 + 0);
+    r_a1 = (long)(r_s3 + 0);
+    r_v0 = (long)func_0012F5C8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_v1 = (long)(r_v0 + 0);
+    goto _lbl_L0012F838;
+_lbl_L0012F834:
+    r_v1 = (long)(0 + 0);
+_lbl_L0012F838:
+    r_v0 = (long)(r_s4 + r_s0);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x60)); }
+    if (r_sp) { r_s4 = *(long *)((char *)r_sp + (0x50)); }
+    r_v0 = (long)(r_v0 + r_v1);
+    if (r_sp) { r_s3 = *(long *)((char *)r_sp + (0x40)); }
+    if (r_sp) { r_s2 = *(long *)((char *)r_sp + (0x30)); }
+    if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x20)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x10)); }
+    r_sp = (long)(r_sp + (0x70));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_0012F860 */
-__asm__(".text\n\t"
-        ".globl func_0012F860\n\t"
-        ".ent func_0012F860\n"
-        "func_0012F860:\n\t"
-        ".set noreorder\n\t"
-        "jr         $31\n\t"
-        "lw        $2, 0x8($4)\n\t"
-        ".set reorder\n\t"
-        ".end func_0012F860\n");
+void *func_0012F860(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    if (r_a0) { r_v0 = *(int *)((char *)r_a0 + (0x8)); }
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_0012F868 */
-__asm__(".text\n\t"
-        ".globl func_0012F868\n\t"
-        ".ent func_0012F868\n"
-        "func_0012F868:\n\t"
-        ".set noreorder\n\t"
-        "sll        $2, $6, 3\n\t"
-        "xori       $3, $5, 0x2\n\t"
-        "movz       $2, $6, $3\n\t"
-        "sh         $5, 0x4($4)\n\t"
-        "jr         $31\n\t"
-        "sw        $2, 0x8($4)\n\t"
-        ".set reorder\n\t"
-        ".end func_0012F868\n");
+void *func_0012F868(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    r_v0 = (long)((unsigned long)r_a2 << (3));
+    r_v1 = (long)(r_a1 ^ (0x2));
+    if (r_v1 == 0) r_v0 = r_a2;
+    if (r_a0) { *(short *)((char *)r_a0 + (0x4)) = (short)r_a1; }
+    if (r_a0) { *(int *)((char *)r_a0 + (0x8)) = (int)r_v0; }
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_0012F880 */
-__asm__(".text\n\t"
-        ".globl func_0012F880\n\t"
-        ".ent func_0012F880\n"
-        "func_0012F880:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x20\n\t"
-        "sd         $16, 0x0($29)\n\t"
-        "sd         $31, 0x10($29)\n\t"
-        "jal        func_0012F6A8\n\t"
-        "daddu     $16, $5, $0\n\t"
-        "slt        $2, $2, $16\n\t"
-        "ld         $31, 0x10($29)\n\t"
-        "ld         $16, 0x0($29)\n\t"
-        "xori       $2, $2, 0x1\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x20\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_0012F880\n");
+void *func_0012F880(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    r_sp = (long)(r_sp + (-0x20));
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_s0; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_ra; }
+    r_s0 = (long)(r_a1 + 0);
+    r_v0 = (long)func_0012F6A8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_v0 = (long)((long)r_v0 < (long)r_s0 ? 1 : 0);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x10)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
+    r_v0 = (long)(r_v0 ^ (0x1));
+    r_sp = (long)(r_sp + (0x20));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_0012F8B0 */
-__asm__(".text\n\t"
-        ".globl func_0012F8B0\n\t"
-        ".ent func_0012F8B0\n"
-        "func_0012F8B0:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x50\n\t"
-        "sd         $19, 0x30($29)\n\t"
-        "sd         $18, 0x20($29)\n\t"
-        "daddu      $19, $7, $0\n\t"
-        "sd         $17, 0x10($29)\n\t"
-        "daddu      $18, $4, $0\n\t"
-        "sd         $16, 0x0($29)\n\t"
-        "daddu      $17, $6, $0\n\t"
-        "sd         $31, 0x40($29)\n\t"
-        "daddu      $16, $5, $0\n\t"
-        "addiu      $5, $0, 0x32\n\t"
-        "jal        func_0012F7A0\n\t"
-        "lw        $4, 0x34($18)\n\t"
-        "beqz       $2, .L0012F900\n\t"
-        "addiu     $3, $16, 0x1\n\t"
-        "lw         $2, 0xB0($18)\n\t"
-        "movn       $16, $3, $19\n\t"
-        "addiu      $4, $0, 0x1\n\t"
-        "sw         $16, 0x4($2)\n\t"
-        "movz       $17, $4, $17\n\t"
-        ".L0012F900:\n\t"
-        "daddu      $2, $17, $0\n\t"
-        "ld         $31, 0x40($29)\n\t"
-        "ld         $19, 0x30($29)\n\t"
-        "ld         $18, 0x20($29)\n\t"
-        "ld         $17, 0x10($29)\n\t"
-        "ld         $16, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x50\n\t"
-        ".set reorder\n\t"
-        ".end func_0012F8B0\n");
+void *func_0012F8B0(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0, r_s3 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    (void)r_s3;
+    r_sp = (long)(r_sp + (-0x50));
+    if (r_sp) { *(long *)((char *)r_sp + (0x30)) = (long)r_s3; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x20)) = (long)r_s2; }
+    r_s3 = (long)(r_a3 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_s1; }
+    r_s2 = (long)(r_a0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_s0; }
+    r_s1 = (long)(r_a2 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x40)) = (long)r_ra; }
+    r_s0 = (long)(r_a1 + 0);
+    r_a1 = (long)(0 + (0x32));
+    if (r_s2) { r_a0 = *(int *)((char *)r_s2 + (0x34)); }
+    r_v0 = (long)func_0012F7A0((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_v0 == 0) { r_v1 = (long)(r_s0 + (0x1)); goto _lbl_L0012F900; }
+    r_v1 = (long)(r_s0 + (0x1));
+    if (r_s2) { r_v0 = *(int *)((char *)r_s2 + (0xB0)); }
+    if (r_s3 != 0) r_s0 = r_v1;
+    r_a0 = (long)(0 + (0x1));
+    if (r_v0) { *(int *)((char *)r_v0 + (0x4)) = (int)r_s0; }
+    if (r_s1 == 0) r_s1 = r_a0;
+_lbl_L0012F900:
+    r_v0 = (long)(r_s1 + 0);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x40)); }
+    if (r_sp) { r_s3 = *(long *)((char *)r_sp + (0x30)); }
+    if (r_sp) { r_s2 = *(long *)((char *)r_sp + (0x20)); }
+    if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x10)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x50));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_0012F920 */
-__asm__(".text\n\t"
-        ".globl func_0012F920\n\t"
-        ".ent func_0012F920\n"
-        "func_0012F920:\n\t"
-        ".set noreorder\n\t"
-        "lbu        $3, 0x0($4)\n\t"
-        "addiu      $2, $0, 0x2E\n\t"
-        "bne        $3, $2, .L0012F94C\n\t"
-        "daddu     $5, $0, $0\n\t"
-        "lbu        $2, 0x1($4)\n\t"
-        "beql       $2, $0, .L0012F94C\n\t"
-        "addiu     $5, $0, 0x1\n\t"
-        "bne        $2, $3, .L0012F950\n\t"
-        "daddu     $2, $5, $0\n\t"
-        "lbu        $2, 0x2($4)\n\t"
-        "sltiu      $5, $2, 0x1\n\t"
-        ".L0012F94C:\n\t"
-        "daddu      $2, $5, $0\n\t"
-        ".L0012F950:\n\t"
-        "jr         $31\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_0012F920\n");
+void *func_0012F920(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    if (r_a0) { r_v1 = *(unsigned char *)((char *)r_a0 + (0x0)); }
+    r_v0 = (long)(0 + (0x2E));
+    if (r_v1 != r_v0) { r_a1 = (long)(0 + 0); goto _lbl_L0012F94C; }
+    r_a1 = (long)(0 + 0);
+    if (r_a0) { r_v0 = *(unsigned char *)((char *)r_a0 + (0x1)); }
+    if (r_v0 == 0) { r_a1 = (long)(0 + (0x1)); goto _lbl_L0012F94C; }
+    r_a1 = (long)(0 + (0x1));
+    if (r_v0 != r_v1) { r_v0 = (long)(r_a1 + 0); goto _lbl_L0012F950; }
+    r_v0 = (long)(r_a1 + 0);
+    if (r_a0) { r_v0 = *(unsigned char *)((char *)r_a0 + (0x2)); }
+    r_a1 = (long)((unsigned long)r_v0 < (unsigned long)(0x1) ? 1 : 0);
+_lbl_L0012F94C:
+    r_v0 = (long)(r_a1 + 0);
+_lbl_L0012F950:
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_0012F958 */
-__asm__(".text\n\t"
-        ".globl func_0012F958\n\t"
-        ".ent func_0012F958\n"
-        "func_0012F958:\n\t"
-        ".set noreorder\n\t"
-        "nor        $2, $0, $4\n\t"
-        "and        $2, $2, $5\n\t"
-        "jr         $31\n\t"
-        "sltiu     $2, $2, 0x1\n\t"
-        ".set reorder\n\t"
-        ".end func_0012F958\n");
+void *func_0012F958(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    r_v0 = (long)(~(0 | r_a0));
+    r_v0 = (long)(r_v0 & r_a1);
+    r_v0 = (long)((unsigned long)r_v0 < (unsigned long)(0x1) ? 1 : 0);
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_0012F968 */
-__asm__(".text\n\t"
-        ".globl func_0012F968\n\t"
-        ".ent func_0012F968\n"
-        "func_0012F968:\n\t"
-        ".set noreorder\n\t"
-        "lw         $2, 0x1C($4)\n\t"
-        "sll        $5, $5, 5\n\t"
-        ".set reorder\n\t"
-        ".end func_0012F968\n");
+void *func_0012F968(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    if (r_a0) { r_v0 = *(int *)((char *)r_a0 + (0x1C)); }
+    r_a1 = (long)((unsigned long)r_a1 << (5));
+    return func_0012F970((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+}
 
 /* func_0012F970 */
-__asm__(".text\n\t"
-        ".globl func_0012F970\n\t"
-        ".ent func_0012F970\n"
-        "func_0012F970:\n\t"
-        ".set noreorder\n\t"
-        "addu       $5, $5, $2\n\t"
-        "lw         $2, 0x18($5)\n\t"
-        "jr         $31\n\t"
-        "sltu      $2, $0, $2\n\t"
-        ".set reorder\n\t"
-        ".end func_0012F970\n");
+void *func_0012F970(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    r_a1 = (long)(r_a1 + r_v0);
+    if (r_a1) { r_v0 = *(int *)((char *)r_a1 + (0x18)); }
+    r_v0 = (long)((unsigned long)0 < (unsigned long)r_v0 ? 1 : 0);
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_0012F980 */
-__asm__(".text\n\t"
-        ".globl func_0012F980\n\t"
-        ".ent func_0012F980\n"
-        "func_0012F980:\n\t"
-        ".set noreorder\n\t"
-        "beqz       $4, .L0012F998\n\t"
-        "daddu     $5, $0, $0\n\t"
-        "slti       $3, $4, 0x4\n\t"
-        "addiu      $5, $0, 0x1\n\t"
-        "addiu      $2, $0, 0x2\n\t"
-        "movz       $5, $2, $3\n\t"
-        ".L0012F998:\n\t"
-        "jr         $31\n\t"
-        "daddu     $2, $5, $0\n\t"
-        ".set reorder\n\t"
-        ".end func_0012F980\n");
+void *func_0012F980(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    if (r_a0 == 0) { r_a1 = (long)(0 + 0); goto _lbl_L0012F998; }
+    r_a1 = (long)(0 + 0);
+    r_v1 = (long)((long)r_a0 < (long)(0x4) ? 1 : 0);
+    r_a1 = (long)(0 + (0x1));
+    r_v0 = (long)(0 + (0x2));
+    if (r_v1 == 0) r_a1 = r_v0;
+_lbl_L0012F998:
+    r_v0 = (long)(r_a1 + 0);
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_0012F9A0 */
-__asm__(".text\n\t"
-        ".globl func_0012F9A0\n\t"
-        ".ent func_0012F9A0\n"
-        "func_0012F9A0:\n\t"
-        ".set noreorder\n\t"
-        "lui        $4, %hi(D_4F9840)\n\t"
-        "addiu      $5, $0, 0x600\n\t"
-        "j          func_001143C0\n\t"
-        "addiu     $4, $4, %lo(D_4F9840)\n\t"
-        ".set reorder\n\t"
-        ".end func_0012F9A0\n");
+void *func_0012F9A0(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    r_a0 = (long)&D_4F9840;
+    r_a1 = (long)(0 + (0x600));
+    r_a0 = (long)&D_4F9840;
+    return (void *)func_001143C0((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    return func_0012F9B0((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+}
 
 /* func_0012F9B0 */
-__asm__(".text\n\t"
-        ".globl func_0012F9B0\n\t"
-        ".ent func_0012F9B0\n"
-        "func_0012F9B0:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0xB0\n\t"
-        "sd         $18, 0x60($29)\n\t"
-        "daddu      $18, $4, $0\n\t"
-        "sd         $20, 0x80($29)\n\t"
-        "lui        $4, %hi(D_4902F0)\n\t"
-        "daddu      $20, $5, $0\n\t"
-        "sd         $31, 0xA0($29)\n\t"
-        "addiu      $4, $4, %lo(D_4902F0)\n\t"
-        "sd         $21, 0x90($29)\n\t"
-        "sd         $19, 0x70($29)\n\t"
-        "sd         $17, 0x50($29)\n\t"
-        "jal        func_118de0\n\t"
-        "sd        $16, 0x40($29)\n\t"
-        "beqz       $20, .L0012FA7C\n\t"
-        "lui       $4, (0x490000 >> 16)\n\t"
-        "blez       $20, .L0012FAA4\n\t"
-        "daddu     $19, $0, $0\n\t"
-        "lui        $21, (0x490000 >> 16)\n\t"
-        "lbu        $15, 0xA($18)\n\t"
-        "nop\n\t"
-        ".L0012FA00:\n\t"
-        "addiu      $17, $18, 0x20\n\t"
-        "lbu        $16, 0xB($18)\n\t"
-        ".set reorder\n\t"
-        ".end func_0012F9B0\n");
+void *func_0012F9B0(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0, r_s3 = 0, r_s4 = 0, r_s5 = 0, r_t7 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    (void)r_s3;
+    (void)r_s4;
+    (void)r_s5;
+    (void)r_t7;
+    r_sp = (long)(r_sp + (-0xB0));
+    if (r_sp) { *(long *)((char *)r_sp + (0x60)) = (long)r_s2; }
+    r_s2 = (long)(r_a0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x80)) = (long)r_s4; }
+    r_a0 = (long)&D_4902F0;
+    r_s4 = (long)(r_a1 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0xA0)) = (long)r_ra; }
+    r_a0 = (long)&D_4902F0;
+    if (r_sp) { *(long *)((char *)r_sp + (0x90)) = (long)r_s5; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x70)) = (long)r_s3; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x50)) = (long)r_s1; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x40)) = (long)r_s0; }
+    r_v0 = (long)func_118de0((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_s4 == 0) { r_a0 = (long)((0x490000 >> 16) << 16); return func_0012FA60((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3); }
+    r_a0 = (long)((0x490000 >> 16) << 16);
+    if ((long)r_s4 <= 0) { r_s3 = (long)(0 + 0); return func_0012FA80((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3); }
+    r_s3 = (long)(0 + 0);
+    r_s5 = (long)((0x490000 >> 16) << 16);
+    if (r_s2) { r_t7 = *(unsigned char *)((char *)r_s2 + (0xA)); }
+_lbl_L0012FA00:
+    r_s1 = (long)(r_s2 + (0x20));
+    if (r_s2) { r_s0 = *(unsigned char *)((char *)r_s2 + (0xB)); }
+    return func_0012FA08((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+}
 
 /* func_0012FA08 */
-__asm__(".text\n\t"
-        ".globl func_0012FA08\n\t"
-        ".ent func_0012FA08\n"
-        "func_0012FA08:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $4, $21, 0x300\n\t"
-        "lbu        $14, 0xC($18)\n\t"
-        "addiu      $19, $19, 0x1\n\t"
-        "lbu        $2, 0xD($18)\n\t"
-        "lhu        $3, 0xE($18)\n\t"
-        "lw         $12, 0x10($18)\n\t"
-        ".set reorder\n\t"
-        ".end func_0012FA08\n");
+void *func_0012FA08(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s2 = 0, r_s3 = 0, r_s5 = 0, r_t4 = 0, r_t6 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s2;
+    (void)r_s3;
+    (void)r_s5;
+    (void)r_t4;
+    (void)r_t6;
+    r_a0 = (long)(r_s5 + (0x300));
+    if (r_s2) { r_t6 = *(unsigned char *)((char *)r_s2 + (0xC)); }
+    r_s3 = (long)(r_s3 + (0x1));
+    if (r_s2) { r_v0 = *(unsigned char *)((char *)r_s2 + (0xD)); }
+    if (r_s2) { r_v1 = *(unsigned short *)((char *)r_s2 + (0xE)); }
+    if (r_s2) { r_t4 = *(int *)((char *)r_s2 + (0x10)); }
+    return func_0012FA20((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+}
 
 /* func_0012FA20 */
-__asm__(".text\n\t"
-        ".globl func_0012FA20\n\t"
-        ".ent func_0012FA20\n"
-        "func_0012FA20:\n\t"
-        ".set noreorder\n\t"
-        "lhu        $13, 0x14($18)\n\t"
-        "lbu        $5, 0x1($18)\n\t"
-        "lbu        $6, 0x2($18)\n\t"
-        "lbu        $7, 0x3($18)\n\t"
-        ".set reorder\n\t"
-        ".end func_0012FA20\n");
+void *func_0012FA20(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s2 = 0, r_t5 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s2;
+    (void)r_t5;
+    if (r_s2) { r_t5 = *(unsigned short *)((char *)r_s2 + (0x14)); }
+    if (r_s2) { r_a1 = *(unsigned char *)((char *)r_s2 + (0x1)); }
+    if (r_s2) { r_a2 = *(unsigned char *)((char *)r_s2 + (0x2)); }
+    if (r_s2) { r_a3 = *(unsigned char *)((char *)r_s2 + (0x3)); }
+    return func_0012FA30((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+}
 
 /* func_0012FA30 */
-__asm__(".text\n\t"
-        ".globl func_0012FA30\n\t"
-        ".ent func_0012FA30\n"
-        "func_0012FA30:\n\t"
-        ".set noreorder\n\t"
-        "lbu        $8, 0x4($18)\n\t"
-        "lbu        $9, 0x5($18)\n\t"
-        "lhu        $10, 0x6($18)\n\t"
-        "lbu        $11, 0x9($18)\n\t"
-        "sw         $15, 0x0($29)\n\t"
-        "addiu      $18, $18, 0x40\n\t"
-        "sw         $16, 0x8($29)\n\t"
-        "sw         $14, 0x10($29)\n\t"
-        "sw         $2, 0x18($29)\n\t"
-        "sw         $3, 0x20($29)\n\t"
-        "sw         $12, 0x28($29)\n\t"
-        "sw         $13, 0x30($29)\n\t"
-        ".set reorder\n\t"
-        ".end func_0012FA30\n");
+void *func_0012FA30(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s2 = 0, r_t0 = 0, r_t1 = 0, r_t2 = 0, r_t3 = 0, r_t4 = 0, r_t5 = 0, r_t6 = 0, r_t7 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s2;
+    (void)r_t0;
+    (void)r_t1;
+    (void)r_t2;
+    (void)r_t3;
+    (void)r_t4;
+    (void)r_t5;
+    (void)r_t6;
+    (void)r_t7;
+    if (r_s2) { r_t0 = *(unsigned char *)((char *)r_s2 + (0x4)); }
+    if (r_s2) { r_t1 = *(unsigned char *)((char *)r_s2 + (0x5)); }
+    if (r_s2) { r_t2 = *(unsigned short *)((char *)r_s2 + (0x6)); }
+    if (r_s2) { r_t3 = *(unsigned char *)((char *)r_s2 + (0x9)); }
+    if (r_sp) { *(int *)((char *)r_sp + (0x0)) = (int)r_t7; }
+    r_s2 = (long)(r_s2 + (0x40));
+    if (r_sp) { *(int *)((char *)r_sp + (0x8)) = (int)r_s0; }
+    if (r_sp) { *(int *)((char *)r_sp + (0x10)) = (int)r_t6; }
+    if (r_sp) { *(int *)((char *)r_sp + (0x18)) = (int)r_v0; }
+    if (r_sp) { *(int *)((char *)r_sp + (0x20)) = (int)r_v1; }
+    if (r_sp) { *(int *)((char *)r_sp + (0x28)) = (int)r_t4; }
+    if (r_sp) { *(int *)((char *)r_sp + (0x30)) = (int)r_t5; }
+    return func_0012FA60((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+}
 
 /* func_0012FA60 */
-__asm__(".text\n\t"
-        ".globl func_0012FA60\n\t"
-        ".ent func_0012FA60\n"
-        "func_0012FA60:\n\t"
-        ".set noreorder\n\t"
-        "jal        func_118de0\n\t"
-        "sw        $17, 0x38($29)\n\t"
-        "slt        $3, $19, $20\n\t"
-        "bnel       $3, $0, .L0012FA00\n\t"
-        "lbu       $15, 0xA($18)\n\t"
-        "b          .L0012FAA8\n\t"
-        "ld        $31, 0xA0($29)\n\t"
-        ".L0012FA7C:\n\t"
-        "ld         $31, 0xA0($29)\n\t"
-        ".set reorder\n\t"
-        ".end func_0012FA60\n");
+void *func_0012FA60(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s1 = 0, r_s2 = 0, r_s3 = 0, r_s4 = 0, r_t7 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s1;
+    (void)r_s2;
+    (void)r_s3;
+    (void)r_s4;
+    (void)r_t7;
+    if (r_sp) { *(int *)((char *)r_sp + (0x38)) = (int)r_s1; }
+    r_v0 = (long)func_118de0((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_v1 = (long)((long)r_s3 < (long)r_s4 ? 1 : 0);
+    if (r_v1 != 0) { if (r_s2) { r_t7 = *(unsigned char *)((char *)r_s2 + (0xA)); } return func_0012F9B0((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3); }
+    if (r_s2) { r_t7 = *(unsigned char *)((char *)r_s2 + (0xA)); }
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0xA0)); }
+    return func_0012FA80((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+_lbl_L0012FA7C:
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0xA0)); }
+    return func_0012FA80((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+}
 
 /* func_0012FA80 */
-__asm__(".text\n\t"
-        ".globl func_0012FA80\n\t"
-        ".ent func_0012FA80\n"
-        "func_0012FA80:\n\t"
-        ".set noreorder\n\t"
-        "ld         $21, 0x90($29)\n\t"
-        "addiu      $4, $4, 0x360\n\t"
-        "ld         $20, 0x80($29)\n\t"
-        "ld         $19, 0x70($29)\n\t"
-        "ld         $18, 0x60($29)\n\t"
-        "ld         $17, 0x50($29)\n\t"
-        "ld         $16, 0x40($29)\n\t"
-        "j          func_118de0\n\t"
-        "addiu     $29, $29, 0xB0\n\t"
-        ".L0012FAA4:\n\t"
-        "ld         $31, 0xA0($29)\n\t"
-        ".L0012FAA8:\n\t"
-        "ld         $21, 0x90($29)\n\t"
-        "ld         $20, 0x80($29)\n\t"
-        "ld         $19, 0x70($29)\n\t"
-        "ld         $18, 0x60($29)\n\t"
-        "ld         $17, 0x50($29)\n\t"
-        "ld         $16, 0x40($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0xB0\n\t"
-        ".set reorder\n\t"
-        ".end func_0012FA80\n");
+void *func_0012FA80(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0, r_s3 = 0, r_s4 = 0, r_s5 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    (void)r_s3;
+    (void)r_s4;
+    (void)r_s5;
+    if (r_sp) { r_s5 = *(long *)((char *)r_sp + (0x90)); }
+    r_a0 = (long)(r_a0 + (0x360));
+    if (r_sp) { r_s4 = *(long *)((char *)r_sp + (0x80)); }
+    if (r_sp) { r_s3 = *(long *)((char *)r_sp + (0x70)); }
+    if (r_sp) { r_s2 = *(long *)((char *)r_sp + (0x60)); }
+    if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x50)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x40)); }
+    r_sp = (long)(r_sp + (0xB0));
+    return (void *)func_118de0((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+_lbl_L0012FAA4:
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0xA0)); }
+_lbl_L0012FAA8:
+    if (r_sp) { r_s5 = *(long *)((char *)r_sp + (0x90)); }
+    if (r_sp) { r_s4 = *(long *)((char *)r_sp + (0x80)); }
+    if (r_sp) { r_s3 = *(long *)((char *)r_sp + (0x70)); }
+    if (r_sp) { r_s2 = *(long *)((char *)r_sp + (0x60)); }
+    if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x50)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x40)); }
+    r_sp = (long)(r_sp + (0xB0));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_0012FAC8 */
-__asm__(".text\n\t"
-        ".globl func_0012FAC8\n\t"
-        ".ent func_0012FAC8\n"
-        "func_0012FAC8:\n\t"
-        ".set noreorder\n\t"
-        "sra        $6, $5, 8\n\t"
-        "addiu      $3, $0, 0x7\n\t"
-        "addiu      $2, $4, 0x7\n\t"
-        "nop\n\t"
-        ".L0012FAD8:\n\t"
-        "sb         $0, 0x0($2)\n\t"
-        "addiu      $3, $3, -0x1\n\t"
-        "addiu      $2, $2, -0x1\n\t"
-        "nop\n\t"
-        "nop\n\t"
-        "bgez       $3, .L0012FAD8\n\t"
-        "nop\n\t"
-        "addiu      $3, $0, 0x7\n\t"
-        "addiu      $2, $4, 0xF\n\t"
-        "nop\n\t"
-        ".L0012FB00:\n\t"
-        "sb         $0, 0x0($2)\n\t"
-        "addiu      $3, $3, -0x1\n\t"
-        "addiu      $2, $2, -0x1\n\t"
-        "nop\n\t"
-        "nop\n\t"
-        "bgez       $3, .L0012FB00\n\t"
-        "nop\n\t"
-        "sb         $6, 0x15($4)\n\t"
-        "jr         $31\n\t"
-        "sb        $5, 0x14($4)\n\t"
-        ".set reorder\n\t"
-        ".end func_0012FAC8\n");
+void *func_0012FAC8(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    r_a2 = (long)((long)r_a1 >> (8));
+    r_v1 = (long)(0 + (0x7));
+    r_v0 = (long)(r_a0 + (0x7));
+_lbl_L0012FAD8:
+    if (r_v0) { *(char *)((char *)r_v0 + (0x0)) = (char)0; }
+    r_v1 = (long)(r_v1 + (-0x1));
+    r_v0 = (long)(r_v0 + (-0x1));
+    if ((long)r_v1 >= 0) goto _lbl_L0012FAD8;
+    r_v1 = (long)(0 + (0x7));
+    r_v0 = (long)(r_a0 + (0xF));
+_lbl_L0012FB00:
+    if (r_v0) { *(char *)((char *)r_v0 + (0x0)) = (char)0; }
+    r_v1 = (long)(r_v1 + (-0x1));
+    r_v0 = (long)(r_v0 + (-0x1));
+    if ((long)r_v1 >= 0) goto _lbl_L0012FB00;
+    if (r_a0) { *(char *)((char *)r_a0 + (0x15)) = (char)r_a2; }
+    if (r_a0) { *(char *)((char *)r_a0 + (0x14)) = (char)r_a1; }
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_0012FB28 */
-__asm__(".text\n\t"
-        ".globl func_0012FB28\n\t"
-        ".ent func_0012FB28\n"
-        "func_0012FB28:\n\t"
-        ".set noreorder\n\t"
-        "lw         $2, 0xC($4)\n\t"
-        "ori        $2, $2, 0x1\n\t"
-        "jr         $31\n\t"
-        "sw        $2, 0xC($4)\n\t"
-        ".set reorder\n\t"
-        ".end func_0012FB28\n");
+void *func_0012FB28(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    if (r_a0) { r_v0 = *(int *)((char *)r_a0 + (0xC)); }
+    r_v0 = (long)(r_v0 | (0x1));
+    if (r_a0) { *(int *)((char *)r_a0 + (0xC)) = (int)r_v0; }
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_0012FB38 */
-__asm__(".text\n\t"
-        ".globl func_0012FB38\n\t"
-        ".ent func_0012FB38\n"
-        "func_0012FB38:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x50\n\t"
-        "sd         $17, 0x20($29)\n\t"
-        "sd         $16, 0x10($29)\n\t"
-        "daddu      $17, $5, $0\n\t"
-        "daddu      $16, $4, $0\n\t"
-        "sd         $31, 0x40($29)\n\t"
-        "sd         $18, 0x30($29)\n\t"
-        "jal        func_001143C0\n\t"
-        "sll       $5, $17, 4\n\t"
-        "blez       $17, func_0012FBA8\n\t"
-        ".set reorder\n\t"
-        ".end func_0012FB38\n");
+void *func_0012FB38(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    r_sp = (long)(r_sp + (-0x50));
+    if (r_sp) { *(long *)((char *)r_sp + (0x20)) = (long)r_s1; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_s0; }
+    r_s1 = (long)(r_a1 + 0);
+    r_s0 = (long)(r_a0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x40)) = (long)r_ra; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x30)) = (long)r_s2; }
+    r_a1 = (long)((unsigned long)r_s1 << (4));
+    r_v0 = (long)func_001143C0((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if ((long)r_s1 <= 0) return func_0012FBA8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    return func_0012FB60((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+}
 
 /* func_0012FB60 */
-__asm__(".text\n\t"
-        ".globl func_0012FB60\n\t"
-        ".ent func_0012FB60\n"
-        "func_0012FB60:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $18, $0, -0x1\n\t"
-        "nop\n\t"
-        ".L0012FB68:\n\t"
-        "jal        func_00128990\n\t"
-        "addiu     $17, $17, -0x1\n\t"
-        "dsrl       $3, $2, 16\n\t"
-        "sh         $2, 0x0($29)\n\t"
-        "sh         $3, 0x2($16)\n\t"
-        "jal        func_00128990\n\t"
-        "sh        $3, 0x2($29)\n\t"
-        "sh         $0, 0x4($16)\n\t"
-        "daddu      $3, $2, $0\n\t"
-        "sh         $18, 0x6($16)\n\t"
-        "sh         $3, 0x0($16)\n\t"
-        "dsrl       $2, $2, 16\n\t"
-        "sh         $2, 0x2($29)\n\t"
-        "addiu      $16, $16, 0x10\n\t"
-        "bnez       $17, .L0012FB68\n\t"
-        "sh        $3, 0x0($29)\n\t"
-        ".set reorder\n\t"
-        ".end func_0012FB60\n");
+void *func_0012FB60(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    r_s2 = (long)(0 + (-0x1));
+_lbl_L0012FB68:
+    r_s1 = (long)(r_s1 + (-0x1));
+    r_v0 = (long)func_00128990((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_v1 = (long)((unsigned long)r_v0 >> (16));
+    if (r_sp) { *(short *)((char *)r_sp + (0x0)) = (short)r_v0; }
+    if (r_s0) { *(short *)((char *)r_s0 + (0x2)) = (short)r_v1; }
+    if (r_sp) { *(short *)((char *)r_sp + (0x2)) = (short)r_v1; }
+    r_v0 = (long)func_00128990((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_s0) { *(short *)((char *)r_s0 + (0x4)) = (short)0; }
+    r_v1 = (long)(r_v0 + 0);
+    if (r_s0) { *(short *)((char *)r_s0 + (0x6)) = (short)r_s2; }
+    if (r_s0) { *(short *)((char *)r_s0 + (0x0)) = (short)r_v1; }
+    r_v0 = (long)((unsigned long)r_v0 >> (16));
+    if (r_sp) { *(short *)((char *)r_sp + (0x2)) = (short)r_v0; }
+    r_s0 = (long)(r_s0 + (0x10));
+    if (r_s1 != 0) { if (r_sp) { *(short *)((char *)r_sp + (0x0)) = (short)r_v1; } goto _lbl_L0012FB68; }
+    if (r_sp) { *(short *)((char *)r_sp + (0x0)) = (short)r_v1; }
+    return func_0012FBA8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+}
 
 /* func_0012FBA8 */
-__asm__(".text\n\t"
-        ".globl func_0012FBA8\n\t"
-        ".ent func_0012FBA8\n"
-        "func_0012FBA8:\n\t"
-        ".set noreorder\n\t"
-        "ld         $31, 0x40($29)\n\t"
-        "ld         $18, 0x30($29)\n\t"
-        "ld         $17, 0x20($29)\n\t"
-        "ld         $16, 0x10($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x50\n\t"
-        ".set reorder\n\t"
-        ".end func_0012FBA8\n");
+void *func_0012FBA8(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x40)); }
+    if (r_sp) { r_s2 = *(long *)((char *)r_sp + (0x30)); }
+    if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x20)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x10)); }
+    r_sp = (long)(r_sp + (0x50));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_0012FBC0 */
-__asm__(".text\n\t"
-        ".globl func_0012FBC0\n\t"
-        ".ent func_0012FBC0\n"
-        "func_0012FBC0:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $3, $0, -0xB\n\t"
-        "addiu      $2, $0, -0xA\n\t"
-        "slt        $3, $3, $4\n\t"
-        "jr         $31\n\t"
-        "movn      $2, $4, $3\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_0012FBC0\n");
+void *func_0012FBC0(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    r_v1 = (long)(0 + (-0xB));
+    r_v0 = (long)(0 + (-0xA));
+    r_v1 = (long)((long)r_v1 < (long)r_a0 ? 1 : 0);
+    if (r_v1 != 0) r_v0 = r_a0;
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_0012FBD8 */
-__asm__(".text\n\t"
-        ".globl func_0012FBD8\n\t"
-        ".ent func_0012FBD8\n"
-        "func_0012FBD8:\n\t"
-        ".set noreorder\n\t"
-        "lui        $2, (0x500000 >> 16)\n\t"
-        "jr         $31\n\t"
-        "sw        $0, -0x6800($2)\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_0012FBD8\n");
+void *func_0012FBD8(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    r_v0 = (long)((0x500000 >> 16) << 16);
+    if (r_v0) { *(int *)((char *)r_v0 + (-0x6800)) = (int)0; }
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_0012FBE8 */
-__asm__(".text\n\t"
-        ".globl func_0012FBE8\n\t"
-        ".ent func_0012FBE8\n"
-        "func_0012FBE8:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x10\n\t"
-        "daddu      $2, $7, $0\n\t"
-        "beqz       $4, .L0012FC08\n\t"
-        "sd        $31, 0x0($29)\n\t"
-        "sw         $4, 0x20($5)\n\t"
-        "daddu      $4, $5, $0\n\t"
-        "jal        func_0012F108\n\t"
-        "daddu     $5, $6, $0\n\t"
-        ".L0012FC08:\n\t"
-        "ld         $31, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x10\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_0012FBE8\n");
+void *func_0012FBE8(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    r_sp = (long)(r_sp + (-0x10));
+    r_v0 = (long)(r_a3 + 0);
+    if (r_a0 == 0) { if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_ra; } goto _lbl_L0012FC08; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_ra; }
+    if (r_a1) { *(int *)((char *)r_a1 + (0x20)) = (int)r_a0; }
+    r_a0 = (long)(r_a1 + 0);
+    r_a1 = (long)(r_a2 + 0);
+    r_v0 = (long)func_0012F108((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+_lbl_L0012FC08:
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x10));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_0012FC18 */
-__asm__(".text\n\t"
-        ".globl func_0012FC18\n\t"
-        ".ent func_0012FC18\n"
-        "func_0012FC18:\n\t"
-        ".set noreorder\n\t"
-        "lui        $2, (0x500000 >> 16)\n\t"
-        "sw         $0, -0x6804($2)\n\t"
-        "bnez       $4, .L0012FC30\n\t"
-        "daddu     $2, $0, $0\n\t"
-        "sw         $0, 0x8($5)\n\t"
-        "addiu      $2, $0, -0x7F\n\t"
-        ".L0012FC30:\n\t"
-        "jr         $31\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_0012FC18\n");
+void *func_0012FC18(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    r_v0 = (long)((0x500000 >> 16) << 16);
+    if (r_v0) { *(int *)((char *)r_v0 + (-0x6804)) = (int)0; }
+    if (r_a0 != 0) { r_v0 = (long)(0 + 0); goto _lbl_L0012FC30; }
+    r_v0 = (long)(0 + 0);
+    if (r_a1) { *(int *)((char *)r_a1 + (0x8)) = (int)0; }
+    r_v0 = (long)(0 + (-0x7F));
+_lbl_L0012FC30:
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_0012FC38 */
-__asm__(".text\n\t"
-        ".globl func_0012FC38\n\t"
-        ".ent func_0012FC38\n"
-        "func_0012FC38:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x20\n\t"
-        "daddu      $2, $0, $0\n\t"
-        "sd         $16, 0x0($29)\n\t"
-        "addiu      $3, $0, -0x1\n\t"
-        "sd         $31, 0x10($29)\n\t"
-        "beq        $4, $3, .L0012FC64\n\t"
-        "daddu     $16, $9, $0\n\t"
-        "beql       $5, $3, .L0012FC68\n\t"
-        "daddu     $5, $16, $0\n\t"
-        "jal        func_110A78\n\t"
-        ".set reorder\n\t"
-        ".end func_0012FC38\n");
+void *func_0012FC38(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_t1 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_t1;
+    r_sp = (long)(r_sp + (-0x20));
+    r_v0 = (long)(0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_s0; }
+    r_v1 = (long)(0 + (-0x1));
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_ra; }
+    if (r_a0 == r_v1) { r_s0 = (long)(r_t1 + 0); return func_0012FC60((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3); }
+    r_s0 = (long)(r_t1 + 0);
+    if (r_a1 == r_v1) { r_a1 = (long)(r_s0 + 0); return func_0012FC60((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3); }
+    r_a1 = (long)(r_s0 + 0);
+    r_v0 = (long)func_110A78((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    return func_0012FC60((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+}
 
 /* func_0012FC60 */
-__asm__(".text\n\t"
-        ".globl func_0012FC60\n\t"
-        ".ent func_0012FC60\n"
-        "func_0012FC60:\n\t"
-        ".set noreorder\n\t"
-        "nop\n\t"
-        ".L0012FC64:\n\t"
-        "daddu      $5, $16, $0\n\t"
-        ".L0012FC68:\n\t"
-        "jal        func_0012FA60\n\t"
-        "daddu     $4, $2, $0\n\t"
-        "ld         $31, 0x10($29)\n\t"
-        "ld         $16, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x20\n\t"
-        ".set reorder\n\t"
-        ".end func_0012FC60\n");
+void *func_0012FC60(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+_lbl_L0012FC64:
+    r_a1 = (long)(r_s0 + 0);
+_lbl_L0012FC68:
+    r_a0 = (long)(r_v0 + 0);
+    r_v0 = (long)func_0012FA60((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x10)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x20));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_0012FC80 */
-__asm__(".text\n\t"
-        ".globl func_0012FC80\n\t"
-        ".ent func_0012FC80\n"
-        "func_0012FC80:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x70\n\t"
-        "sd         $21, 0x50($29)\n\t"
-        "sd         $20, 0x40($29)\n\t"
-        "daddu      $21, $7, $0\n\t"
-        "sd         $19, 0x30($29)\n\t"
-        "daddu      $20, $6, $0\n\t"
-        "sd         $18, 0x20($29)\n\t"
-        "daddu      $19, $5, $0\n\t"
-        "sd         $17, 0x10($29)\n\t"
-        "daddu      $18, $4, $0\n\t"
-        "sd         $16, 0x0($29)\n\t"
-        "daddu      $17, $9, $0\n\t"
-        "sd         $31, 0x60($29)\n\t"
-        "jal        func_0012FA20\n\t"
-        "daddu     $16, $8, $0\n\t"
-        "lui        $2, %hi(D_4F97D8)\n\t"
-        "daddu      $4, $18, $0\n\t"
-        "addiu      $2, $2, %lo(D_4F97D8)\n\t"
-        "daddu      $5, $19, $0\n\t"
-        "sw         $16, 0x3C($2)\n\t"
-        "daddu      $6, $20, $0\n\t"
-        "daddu      $7, $21, $0\n\t"
-        "daddu      $8, $16, $0\n\t"
-        "daddu      $9, $17, $0\n\t"
-        "sw         $18, 0x2C($2)\n\t"
-        "sw         $19, 0x30($2)\n\t"
-        "sw         $20, 0x34($2)\n\t"
-        "jal        func_0012FA80\n\t"
-        "sw        $21, 0x38($2)\n\t"
-        "ld         $31, 0x60($29)\n\t"
-        "ld         $21, 0x50($29)\n\t"
-        "ld         $20, 0x40($29)\n\t"
-        "ld         $19, 0x30($29)\n\t"
-        "ld         $18, 0x20($29)\n\t"
-        "ld         $17, 0x10($29)\n\t"
-        "ld         $16, 0x0($29)\n\t"
-        ".set reorder\n\t"
-        ".end func_0012FC80\n");
+void *func_0012FC80(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0, r_s3 = 0, r_s4 = 0, r_s5 = 0, r_t0 = 0, r_t1 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    (void)r_s3;
+    (void)r_s4;
+    (void)r_s5;
+    (void)r_t0;
+    (void)r_t1;
+    r_sp = (long)(r_sp + (-0x70));
+    if (r_sp) { *(long *)((char *)r_sp + (0x50)) = (long)r_s5; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x40)) = (long)r_s4; }
+    r_s5 = (long)(r_a3 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x30)) = (long)r_s3; }
+    r_s4 = (long)(r_a2 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x20)) = (long)r_s2; }
+    r_s3 = (long)(r_a1 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_s1; }
+    r_s2 = (long)(r_a0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_s0; }
+    r_s1 = (long)(r_t1 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x60)) = (long)r_ra; }
+    r_s0 = (long)(r_t0 + 0);
+    r_v0 = (long)func_0012FA20((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_v0 = (long)&D_4F97D8;
+    r_a0 = (long)(r_s2 + 0);
+    r_v0 = (long)&D_4F97D8;
+    r_a1 = (long)(r_s3 + 0);
+    if (r_v0) { *(int *)((char *)r_v0 + (0x3C)) = (int)r_s0; }
+    r_a2 = (long)(r_s4 + 0);
+    r_a3 = (long)(r_s5 + 0);
+    r_t0 = (long)(r_s0 + 0);
+    r_t1 = (long)(r_s1 + 0);
+    if (r_v0) { *(int *)((char *)r_v0 + (0x2C)) = (int)r_s2; }
+    if (r_v0) { *(int *)((char *)r_v0 + (0x30)) = (int)r_s3; }
+    if (r_v0) { *(int *)((char *)r_v0 + (0x34)) = (int)r_s4; }
+    if (r_v0) { *(int *)((char *)r_v0 + (0x38)) = (int)r_s5; }
+    r_v0 = (long)func_0012FA80((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x60)); }
+    if (r_sp) { r_s5 = *(long *)((char *)r_sp + (0x50)); }
+    if (r_sp) { r_s4 = *(long *)((char *)r_sp + (0x40)); }
+    if (r_sp) { r_s3 = *(long *)((char *)r_sp + (0x30)); }
+    if (r_sp) { r_s2 = *(long *)((char *)r_sp + (0x20)); }
+    if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x10)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
+    return func_0012FD10((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+}
 
 /* func_0012FD10 */
-__asm__(".text\n\t"
-        ".globl func_0012FD10\n\t"
-        ".ent func_0012FD10\n"
-        "func_0012FD10:\n\t"
-        ".set noreorder\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x70\n\t"
-        ".set reorder\n\t"
-        ".end func_0012FD10\n");
+void *func_0012FD10(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    r_sp = (long)(r_sp + (0x70));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_0012FD18 */
-__asm__(".text\n\t"
-        ".globl func_0012FD18\n\t"
-        ".ent func_0012FD18\n"
-        "func_0012FD18:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x20\n\t"
-        "daddu      $2, $0, $0\n\t"
-        "sd         $16, 0x0($29)\n\t"
-        "addiu      $3, $0, -0x1\n\t"
-        "sd         $31, 0x10($29)\n\t"
-        "beq        $4, $3, .L0012FD44\n\t"
-        "daddu     $16, $7, $0\n\t"
-        "beql       $5, $3, .L0012FD48\n\t"
-        "daddu     $5, $16, $0\n\t"
-        "jal        func_1103D8\n\t"
-        "nop\n\t"
-        ".L0012FD44:\n\t"
-        "daddu      $5, $16, $0\n\t"
-        ".L0012FD48:\n\t"
-        "jal        func_0012FA60\n\t"
-        "daddu     $4, $2, $0\n\t"
-        "ld         $31, 0x10($29)\n\t"
-        "ld         $16, 0x0($29)\n\t"
-        ".set reorder\n\t"
-        ".end func_0012FD18\n");
+void *func_0012FD18(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    r_sp = (long)(r_sp + (-0x20));
+    r_v0 = (long)(0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_s0; }
+    r_v1 = (long)(0 + (-0x1));
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_ra; }
+    if (r_a0 == r_v1) { r_s0 = (long)(r_a3 + 0); goto _lbl_L0012FD44; }
+    r_s0 = (long)(r_a3 + 0);
+    if (r_a1 == r_v1) { r_a1 = (long)(r_s0 + 0); goto _lbl_L0012FD48; }
+    r_a1 = (long)(r_s0 + 0);
+    r_v0 = (long)func_1103D8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+_lbl_L0012FD44:
+    r_a1 = (long)(r_s0 + 0);
+_lbl_L0012FD48:
+    r_a0 = (long)(r_v0 + 0);
+    r_v0 = (long)func_0012FA60((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x10)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
+    return func_0012FD58((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+}
 
 /* func_0012FD58 */
-__asm__(".text\n\t"
-        ".globl func_0012FD58\n\t"
-        ".ent func_0012FD58\n"
-        "func_0012FD58:\n\t"
-        ".set noreorder\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x20\n\t"
-        ".set reorder\n\t"
-        ".end func_0012FD58\n");
+void *func_0012FD58(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    r_sp = (long)(r_sp + (0x20));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_0012FD60 */
-__asm__(".text\n\t"
-        ".globl func_0012FD60\n\t"
-        ".ent func_0012FD60\n"
-        "func_0012FD60:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x50\n\t"
-        "sd         $19, 0x30($29)\n\t"
-        "sd         $18, 0x20($29)\n\t"
-        "daddu      $19, $7, $0\n\t"
-        "sd         $17, 0x10($29)\n\t"
-        "daddu      $18, $5, $0\n\t"
-        "sd         $16, 0x0($29)\n\t"
-        "daddu      $17, $4, $0\n\t"
-        "sd         $31, 0x40($29)\n\t"
-        "jal        func_0012FA20\n\t"
-        "daddu     $16, $6, $0\n\t"
-        "lui        $2, %hi(D_4F97D8)\n\t"
-        "daddu      $4, $17, $0\n\t"
-        "addiu      $2, $2, %lo(D_4F97D8)\n\t"
-        "daddu      $5, $18, $0\n\t"
-        "sw         $16, 0x34($2)\n\t"
-        "daddu      $6, $16, $0\n\t"
-        "daddu      $7, $19, $0\n\t"
-        "sw         $17, 0x2C($2)\n\t"
-        "jal        func_0012FB60\n\t"
-        "sw        $18, 0x30($2)\n\t"
-        "ld         $31, 0x40($29)\n\t"
-        "ld         $19, 0x30($29)\n\t"
-        "ld         $18, 0x20($29)\n\t"
-        "ld         $17, 0x10($29)\n\t"
-        "ld         $16, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x50\n\t"
-        ".set reorder\n\t"
-        ".end func_0012FD60\n");
+void *func_0012FD60(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0, r_s3 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    (void)r_s3;
+    r_sp = (long)(r_sp + (-0x50));
+    if (r_sp) { *(long *)((char *)r_sp + (0x30)) = (long)r_s3; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x20)) = (long)r_s2; }
+    r_s3 = (long)(r_a3 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_s1; }
+    r_s2 = (long)(r_a1 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_s0; }
+    r_s1 = (long)(r_a0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x40)) = (long)r_ra; }
+    r_s0 = (long)(r_a2 + 0);
+    r_v0 = (long)func_0012FA20((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_v0 = (long)&D_4F97D8;
+    r_a0 = (long)(r_s1 + 0);
+    r_v0 = (long)&D_4F97D8;
+    r_a1 = (long)(r_s2 + 0);
+    if (r_v0) { *(int *)((char *)r_v0 + (0x34)) = (int)r_s0; }
+    r_a2 = (long)(r_s0 + 0);
+    r_a3 = (long)(r_s3 + 0);
+    if (r_v0) { *(int *)((char *)r_v0 + (0x2C)) = (int)r_s1; }
+    if (r_v0) { *(int *)((char *)r_v0 + (0x30)) = (int)r_s2; }
+    r_v0 = (long)func_0012FB60((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x40)); }
+    if (r_sp) { r_s3 = *(long *)((char *)r_sp + (0x30)); }
+    if (r_sp) { r_s2 = *(long *)((char *)r_sp + (0x20)); }
+    if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x10)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x50));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_0012FDD0 */
-__asm__(".text\n\t"
-        ".globl func_0012FDD0\n\t"
-        ".ent func_0012FDD0\n"
-        "func_0012FDD0:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x20\n\t"
-        "daddu      $2, $0, $0\n\t"
-        "sd         $16, 0x0($29)\n\t"
-        "addiu      $3, $0, -0x1\n\t"
-        ".set reorder\n\t"
-        ".end func_0012FDD0\n");
+void *func_0012FDD0(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    r_sp = (long)(r_sp + (-0x20));
+    r_v0 = (long)(0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_s0; }
+    r_v1 = (long)(0 + (-0x1));
+    return func_0012FDE0((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+}
 
 /* func_0012FDE0 */
-__asm__(".text\n\t"
-        ".globl func_0012FDE0\n\t"
-        ".ent func_0012FDE0\n"
-        "func_0012FDE0:\n\t"
-        ".set noreorder\n\t"
-        "sd         $31, 0x10($29)\n\t"
-        "beq        $4, $3, .L0012FDFC\n\t"
-        "daddu     $16, $10, $0\n\t"
-        "beql       $5, $3, .L0012FE00\n\t"
-        "daddu     $5, $16, $0\n\t"
-        "jal        func_110C00\n\t"
-        "nop\n\t"
-        ".L0012FDFC:\n\t"
-        "daddu      $5, $16, $0\n\t"
-        ".L0012FE00:\n\t"
-        "jal        func_0012FA60\n\t"
-        "daddu     $4, $2, $0\n\t"
-        "ld         $31, 0x10($29)\n\t"
-        "ld         $16, 0x0($29)\n\t"
-        ".set reorder\n\t"
-        ".end func_0012FDE0\n");
+void *func_0012FDE0(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_t2 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_t2;
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_ra; }
+    if (r_a0 == r_v1) { r_s0 = (long)(r_t2 + 0); goto _lbl_L0012FDFC; }
+    r_s0 = (long)(r_t2 + 0);
+    if (r_a1 == r_v1) { r_a1 = (long)(r_s0 + 0); goto _lbl_L0012FE00; }
+    r_a1 = (long)(r_s0 + 0);
+    r_v0 = (long)func_110C00((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+_lbl_L0012FDFC:
+    r_a1 = (long)(r_s0 + 0);
+_lbl_L0012FE00:
+    r_a0 = (long)(r_v0 + 0);
+    r_v0 = (long)func_0012FA60((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x10)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
+    return func_0012FE10((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+}
 
 /* func_0012FE10 */
-__asm__(".text\n\t"
-        ".globl func_0012FE10\n\t"
-        ".ent func_0012FE10\n"
-        "func_0012FE10:\n\t"
-        ".set noreorder\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x20\n\t"
-        ".set reorder\n\t"
-        ".end func_0012FE10\n");
+void *func_0012FE10(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    r_sp = (long)(r_sp + (0x20));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_0012FE18 */
-__asm__(".text\n\t"
-        ".globl func_0012FE18\n\t"
-        ".ent func_0012FE18\n"
-        "func_0012FE18:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x80\n\t"
-        "sd         $22, 0x60($29)\n\t"
-        "sd         $21, 0x50($29)\n\t"
-        "daddu      $22, $8, $0\n\t"
-        "sd         $20, 0x40($29)\n\t"
-        "daddu      $21, $7, $0\n\t"
-        "sd         $19, 0x30($29)\n\t"
-        "daddu      $20, $6, $0\n\t"
-        "sd         $18, 0x20($29)\n\t"
-        "daddu      $19, $5, $0\n\t"
-        "sd         $17, 0x10($29)\n\t"
-        "daddu      $18, $4, $0\n\t"
-        "sd         $16, 0x0($29)\n\t"
-        "daddu      $17, $10, $0\n\t"
-        "sd         $31, 0x70($29)\n\t"
-        "jal        func_0012FA20\n\t"
-        ".set reorder\n\t"
-        ".end func_0012FE18\n");
+void *func_0012FE18(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0, r_s3 = 0, r_s4 = 0, r_s5 = 0, r_s6 = 0, r_t0 = 0, r_t2 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    (void)r_s3;
+    (void)r_s4;
+    (void)r_s5;
+    (void)r_s6;
+    (void)r_t0;
+    (void)r_t2;
+    r_sp = (long)(r_sp + (-0x80));
+    if (r_sp) { *(long *)((char *)r_sp + (0x60)) = (long)r_s6; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x50)) = (long)r_s5; }
+    r_s6 = (long)(r_t0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x40)) = (long)r_s4; }
+    r_s5 = (long)(r_a3 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x30)) = (long)r_s3; }
+    r_s4 = (long)(r_a2 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x20)) = (long)r_s2; }
+    r_s3 = (long)(r_a1 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_s1; }
+    r_s2 = (long)(r_a0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_s0; }
+    r_s1 = (long)(r_t2 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x70)) = (long)r_ra; }
+    r_v0 = (long)func_0012FA20((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    return func_0012FE58((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+}
 
 /* func_0012FE58 */
-__asm__(".text\n\t"
-        ".globl func_0012FE58\n\t"
-        ".ent func_0012FE58\n"
-        "func_0012FE58:\n\t"
-        ".set noreorder\n\t"
-        "daddu      $16, $9, $0\n\t"
-        "lui        $2, %hi(D_4F97D8)\n\t"
-        "daddu      $4, $18, $0\n\t"
-        "addiu      $2, $2, %lo(D_4F97D8)\n\t"
-        "daddu      $5, $19, $0\n\t"
-        "sw         $16, 0x40($2)\n\t"
-        "daddu      $6, $20, $0\n\t"
-        "daddu      $7, $21, $0\n\t"
-        "daddu      $8, $22, $0\n\t"
-        "daddu      $9, $16, $0\n\t"
-        "daddu      $10, $17, $0\n\t"
-        "sw         $18, 0x2C($2)\n\t"
-        ".set reorder\n\t"
-        ".end func_0012FE58\n");
+void *func_0012FE58(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0, r_s3 = 0, r_s4 = 0, r_s5 = 0, r_s6 = 0, r_t0 = 0, r_t1 = 0, r_t2 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    (void)r_s3;
+    (void)r_s4;
+    (void)r_s5;
+    (void)r_s6;
+    (void)r_t0;
+    (void)r_t1;
+    (void)r_t2;
+    r_s0 = (long)(r_t1 + 0);
+    r_v0 = (long)&D_4F97D8;
+    r_a0 = (long)(r_s2 + 0);
+    r_v0 = (long)&D_4F97D8;
+    r_a1 = (long)(r_s3 + 0);
+    if (r_v0) { *(int *)((char *)r_v0 + (0x40)) = (int)r_s0; }
+    r_a2 = (long)(r_s4 + 0);
+    r_a3 = (long)(r_s5 + 0);
+    r_t0 = (long)(r_s6 + 0);
+    r_t1 = (long)(r_s0 + 0);
+    r_t2 = (long)(r_s1 + 0);
+    if (r_v0) { *(int *)((char *)r_v0 + (0x2C)) = (int)r_s2; }
+    return func_0012FE88((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+}
 
 /* func_0012FE88 */
-__asm__(".text\n\t"
-        ".globl func_0012FE88\n\t"
-        ".ent func_0012FE88\n"
-        "func_0012FE88:\n\t"
-        ".set noreorder\n\t"
-        "sw         $19, 0x30($2)\n\t"
-        "sw         $20, 0x34($2)\n\t"
-        "sw         $21, 0x38($2)\n\t"
-        "jal        func_0012FC18\n\t"
-        "sw        $22, 0x3C($2)\n\t"
-        "ld         $31, 0x70($29)\n\t"
-        "ld         $22, 0x60($29)\n\t"
-        "ld         $21, 0x50($29)\n\t"
-        "ld         $20, 0x40($29)\n\t"
-        "ld         $19, 0x30($29)\n\t"
-        "ld         $18, 0x20($29)\n\t"
-        "ld         $17, 0x10($29)\n\t"
-        "ld         $16, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x80\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_0012FE88\n");
+void *func_0012FE88(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0, r_s3 = 0, r_s4 = 0, r_s5 = 0, r_s6 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    (void)r_s3;
+    (void)r_s4;
+    (void)r_s5;
+    (void)r_s6;
+    if (r_v0) { *(int *)((char *)r_v0 + (0x30)) = (int)r_s3; }
+    if (r_v0) { *(int *)((char *)r_v0 + (0x34)) = (int)r_s4; }
+    if (r_v0) { *(int *)((char *)r_v0 + (0x38)) = (int)r_s5; }
+    if (r_v0) { *(int *)((char *)r_v0 + (0x3C)) = (int)r_s6; }
+    r_v0 = (long)func_0012FC18((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x70)); }
+    if (r_sp) { r_s6 = *(long *)((char *)r_sp + (0x60)); }
+    if (r_sp) { r_s5 = *(long *)((char *)r_sp + (0x50)); }
+    if (r_sp) { r_s4 = *(long *)((char *)r_sp + (0x40)); }
+    if (r_sp) { r_s3 = *(long *)((char *)r_sp + (0x30)); }
+    if (r_sp) { r_s2 = *(long *)((char *)r_sp + (0x20)); }
+    if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x10)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x80));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_0012FEC8 */
-__asm__(".text\n\t"
-        ".globl func_0012FEC8\n\t"
-        ".ent func_0012FEC8\n"
-        "func_0012FEC8:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x20\n\t"
-        "daddu      $2, $0, $0\n\t"
-        "sd         $16, 0x0($29)\n\t"
-        "addiu      $3, $0, -0x1\n\t"
-        "sd         $31, 0x10($29)\n\t"
-        "beq        $4, $3, .L0012FEF4\n\t"
-        "daddu     $16, $8, $0\n\t"
-        "beql       $5, $3, func_0012FEF8\n\t"
-        "daddu     $5, $16, $0\n\t"
-        "jal        func_1102A0\n\t"
-        "nop\n\t"
-        ".L0012FEF4:\n\t"
-        "daddu      $5, $16, $0\n\t"
-        ".set reorder\n\t"
-        ".end func_0012FEC8\n");
+void *func_0012FEC8(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_t0 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_t0;
+    r_sp = (long)(r_sp + (-0x20));
+    r_v0 = (long)(0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_s0; }
+    r_v1 = (long)(0 + (-0x1));
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_ra; }
+    if (r_a0 == r_v1) { r_s0 = (long)(r_t0 + 0); goto _lbl_L0012FEF4; }
+    r_s0 = (long)(r_t0 + 0);
+    if (r_a1 == r_v1) { r_a1 = (long)(r_s0 + 0); return func_0012FEF8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3); }
+    r_a1 = (long)(r_s0 + 0);
+    r_v0 = (long)func_1102A0((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+_lbl_L0012FEF4:
+    r_a1 = (long)(r_s0 + 0);
+    return func_0012FEF8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+}
 
 /* func_0012FEF8 */
-__asm__(".text\n\t"
-        ".globl func_0012FEF8\n\t"
-        ".ent func_0012FEF8\n"
-        "func_0012FEF8:\n\t"
-        ".set noreorder\n\t"
-        "jal        func_0012FA60\n\t"
-        "daddu     $4, $2, $0\n\t"
-        "ld         $31, 0x10($29)\n\t"
-        "ld         $16, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x20\n\t"
-        ".set reorder\n\t"
-        ".end func_0012FEF8\n");
+void *func_0012FEF8(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    r_a0 = (long)(r_v0 + 0);
+    r_v0 = (long)func_0012FA60((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x10)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x20));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_0012FF10 */
-__asm__(".text\n\t"
-        ".globl func_0012FF10\n\t"
-        ".ent func_0012FF10\n"
-        "func_0012FF10:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x60\n\t"
-        "sd         $20, 0x40($29)\n\t"
-        "sd         $19, 0x30($29)\n\t"
-        "daddu      $20, $6, $0\n\t"
-        "sd         $18, 0x20($29)\n\t"
-        "daddu      $19, $5, $0\n\t"
-        ".set reorder\n\t"
-        ".end func_0012FF10\n");
+void *func_0012FF10(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s2 = 0, r_s3 = 0, r_s4 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s2;
+    (void)r_s3;
+    (void)r_s4;
+    r_sp = (long)(r_sp + (-0x60));
+    if (r_sp) { *(long *)((char *)r_sp + (0x40)) = (long)r_s4; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x30)) = (long)r_s3; }
+    r_s4 = (long)(r_a2 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x20)) = (long)r_s2; }
+    r_s3 = (long)(r_a1 + 0);
+    return func_0012FF28((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+}
 
 /* func_0012FF28 */
-__asm__(".text\n\t"
-        ".globl func_0012FF28\n\t"
-        ".ent func_0012FF28\n"
-        "func_0012FF28:\n\t"
-        ".set noreorder\n\t"
-        "sd         $17, 0x10($29)\n\t"
-        "daddu      $18, $4, $0\n\t"
-        "sd         $16, 0x0($29)\n\t"
-        "daddu      $17, $8, $0\n\t"
-        "sd         $31, 0x50($29)\n\t"
-        "jal        func_0012FA20\n\t"
-        "daddu     $16, $7, $0\n\t"
-        "lui        $2, %hi(D_4F97D8)\n\t"
-        "daddu      $4, $18, $0\n\t"
-        "addiu      $2, $2, %lo(D_4F97D8)\n\t"
-        "daddu      $5, $19, $0\n\t"
-        "sw         $16, 0x38($2)\n\t"
-        "daddu      $6, $20, $0\n\t"
-        "daddu      $7, $16, $0\n\t"
-        "daddu      $8, $17, $0\n\t"
-        "sw         $18, 0x2C($2)\n\t"
-        "sw         $19, 0x30($2)\n\t"
-        "jal        func_0012FD10\n\t"
-        "sw        $20, 0x34($2)\n\t"
-        "ld         $31, 0x50($29)\n\t"
-        "ld         $20, 0x40($29)\n\t"
-        "ld         $19, 0x30($29)\n\t"
-        "ld         $18, 0x20($29)\n\t"
-        "ld         $17, 0x10($29)\n\t"
-        "ld         $16, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x60\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_0012FF28\n");
+void *func_0012FF28(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0, r_s3 = 0, r_s4 = 0, r_t0 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    (void)r_s3;
+    (void)r_s4;
+    (void)r_t0;
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_s1; }
+    r_s2 = (long)(r_a0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_s0; }
+    r_s1 = (long)(r_t0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x50)) = (long)r_ra; }
+    r_s0 = (long)(r_a3 + 0);
+    r_v0 = (long)func_0012FA20((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_v0 = (long)&D_4F97D8;
+    r_a0 = (long)(r_s2 + 0);
+    r_v0 = (long)&D_4F97D8;
+    r_a1 = (long)(r_s3 + 0);
+    if (r_v0) { *(int *)((char *)r_v0 + (0x38)) = (int)r_s0; }
+    r_a2 = (long)(r_s4 + 0);
+    r_a3 = (long)(r_s0 + 0);
+    r_t0 = (long)(r_s1 + 0);
+    if (r_v0) { *(int *)((char *)r_v0 + (0x2C)) = (int)r_s2; }
+    if (r_v0) { *(int *)((char *)r_v0 + (0x30)) = (int)r_s3; }
+    if (r_v0) { *(int *)((char *)r_v0 + (0x34)) = (int)r_s4; }
+    r_v0 = (long)func_0012FD10((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x50)); }
+    if (r_sp) { r_s4 = *(long *)((char *)r_sp + (0x40)); }
+    if (r_sp) { r_s3 = *(long *)((char *)r_sp + (0x30)); }
+    if (r_sp) { r_s2 = *(long *)((char *)r_sp + (0x20)); }
+    if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x10)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x60));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_0012FF98 */
-__asm__(".text\n\t"
-        ".globl func_0012FF98\n\t"
-        ".ent func_0012FF98\n"
-        "func_0012FF98:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x20\n\t"
-        "sd         $16, 0x0($29)\n\t"
-        "sd         $31, 0x10($29)\n\t"
-        "jal        func_110410\n\t"
-        "daddu     $16, $5, $0\n\t"
-        "daddu      $5, $16, $0\n\t"
-        "jal        func_0012FA60\n\t"
-        "daddu     $4, $2, $0\n\t"
-        "ld         $31, 0x10($29)\n\t"
-        "ld         $16, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x20\n\t"
-        ".set reorder\n\t"
-        ".end func_0012FF98\n");
+void *func_0012FF98(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    r_sp = (long)(r_sp + (-0x20));
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_s0; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_ra; }
+    r_s0 = (long)(r_a1 + 0);
+    r_v0 = (long)func_110410((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_a1 = (long)(r_s0 + 0);
+    r_a0 = (long)(r_v0 + 0);
+    r_v0 = (long)func_0012FA60((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x10)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x20));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_0012FFC8 */
-__asm__(".text\n\t"
-        ".globl func_0012FFC8\n\t"
-        ".ent func_0012FFC8\n"
-        "func_0012FFC8:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x30\n\t"
-        "sd         $17, 0x10($29)\n\t"
-        "sd         $16, 0x0($29)\n\t"
-        "daddu      $17, $5, $0\n\t"
-        "sd         $31, 0x20($29)\n\t"
-        "jal        func_0012FA20\n\t"
-        "daddu     $16, $4, $0\n\t"
-        "lui        $2, (0x500000 >> 16)\n\t"
-        "daddu      $4, $16, $0\n\t"
-        "sw         $16, -0x67FC($2)\n\t"
-        "jal        func_0012FDE0\n\t"
-        "daddu     $5, $17, $0\n\t"
-        "ld         $31, 0x20($29)\n\t"
-        "ld         $17, 0x10($29)\n\t"
-        "ld         $16, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x30\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_0012FFC8\n");
+void *func_0012FFC8(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    r_sp = (long)(r_sp + (-0x30));
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_s1; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_s0; }
+    r_s1 = (long)(r_a1 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x20)) = (long)r_ra; }
+    r_s0 = (long)(r_a0 + 0);
+    r_v0 = (long)func_0012FA20((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_v0 = (long)((0x500000 >> 16) << 16);
+    r_a0 = (long)(r_s0 + 0);
+    if (r_v0) { *(int *)((char *)r_v0 + (-0x67FC)) = (int)r_s0; }
+    r_a1 = (long)(r_s1 + 0);
+    r_v0 = (long)func_0012FDE0((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x20)); }
+    if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x10)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x30));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00130010 */
-__asm__(".text\n\t"
-        ".globl func_00130010\n\t"
-        ".ent func_00130010\n"
-        "func_00130010:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x20\n\t"
-        "sd         $16, 0x0($29)\n\t"
-        "sd         $31, 0x10($29)\n\t"
-        "jal        func_110750\n\t"
-        "daddu     $16, $7, $0\n\t"
-        "daddu      $5, $16, $0\n\t"
-        "jal        func_0012FA60\n\t"
-        "daddu     $4, $2, $0\n\t"
-        "ld         $31, 0x10($29)\n\t"
-        "ld         $16, 0x0($29)\n\t"
-        ".set reorder\n\t"
-        ".end func_00130010\n");
+void *func_00130010(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    r_sp = (long)(r_sp + (-0x20));
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_s0; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_ra; }
+    r_s0 = (long)(r_a3 + 0);
+    r_v0 = (long)func_110750((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_a1 = (long)(r_s0 + 0);
+    r_a0 = (long)(r_v0 + 0);
+    r_v0 = (long)func_0012FA60((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x10)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
+    return func_00130038((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+}
 
 /* func_00130038 */
-__asm__(".text\n\t"
-        ".globl func_00130038\n\t"
-        ".ent func_00130038\n"
-        "func_00130038:\n\t"
-        ".set noreorder\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x20\n\t"
-        ".set reorder\n\t"
-        ".end func_00130038\n");
+void *func_00130038(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    r_sp = (long)(r_sp + (0x20));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00130040 */
-__asm__(".text\n\t"
-        ".globl func_00130040\n\t"
-        ".ent func_00130040\n"
-        "func_00130040:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x50\n\t"
-        "sd         $19, 0x30($29)\n\t"
-        "sd         $18, 0x20($29)\n\t"
-        "daddu      $19, $7, $0\n\t"
-        "sd         $17, 0x10($29)\n\t"
-        "daddu      $18, $5, $0\n\t"
-        "sd         $16, 0x0($29)\n\t"
-        "daddu      $17, $4, $0\n\t"
-        "sd         $31, 0x40($29)\n\t"
-        "jal        func_0012FA20\n\t"
-        ".set reorder\n\t"
-        ".end func_00130040\n");
+void *func_00130040(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0, r_s3 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    (void)r_s3;
+    r_sp = (long)(r_sp + (-0x50));
+    if (r_sp) { *(long *)((char *)r_sp + (0x30)) = (long)r_s3; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x20)) = (long)r_s2; }
+    r_s3 = (long)(r_a3 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_s1; }
+    r_s2 = (long)(r_a1 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_s0; }
+    r_s1 = (long)(r_a0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x40)) = (long)r_ra; }
+    r_v0 = (long)func_0012FA20((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    return func_00130068((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+}
 
 /* func_00130068 */
-__asm__(".text\n\t"
-        ".globl func_00130068\n\t"
-        ".ent func_00130068\n"
-        "func_00130068:\n\t"
-        ".set noreorder\n\t"
-        "daddu      $16, $6, $0\n\t"
-        "lui        $2, %hi(D_4F97D8)\n\t"
-        "daddu      $4, $17, $0\n\t"
-        "addiu      $2, $2, %lo(D_4F97D8)\n\t"
-        "daddu      $5, $18, $0\n\t"
-        "sw         $16, 0x34($2)\n\t"
-        "daddu      $6, $16, $0\n\t"
-        "daddu      $7, $19, $0\n\t"
-        "sw         $17, 0x2C($2)\n\t"
-        "jal        func_0012FE58\n\t"
-        "sw        $18, 0x30($2)\n\t"
-        "ld         $31, 0x40($29)\n\t"
-        "ld         $19, 0x30($29)\n\t"
-        "ld         $18, 0x20($29)\n\t"
-        "ld         $17, 0x10($29)\n\t"
-        "ld         $16, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x50\n\t"
-        ".set reorder\n\t"
-        ".end func_00130068\n");
+void *func_00130068(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0, r_s3 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    (void)r_s3;
+    r_s0 = (long)(r_a2 + 0);
+    r_v0 = (long)&D_4F97D8;
+    r_a0 = (long)(r_s1 + 0);
+    r_v0 = (long)&D_4F97D8;
+    r_a1 = (long)(r_s2 + 0);
+    if (r_v0) { *(int *)((char *)r_v0 + (0x34)) = (int)r_s0; }
+    r_a2 = (long)(r_s0 + 0);
+    r_a3 = (long)(r_s3 + 0);
+    if (r_v0) { *(int *)((char *)r_v0 + (0x2C)) = (int)r_s1; }
+    if (r_v0) { *(int *)((char *)r_v0 + (0x30)) = (int)r_s2; }
+    r_v0 = (long)func_0012FE58((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x40)); }
+    if (r_sp) { r_s3 = *(long *)((char *)r_sp + (0x30)); }
+    if (r_sp) { r_s2 = *(long *)((char *)r_sp + (0x20)); }
+    if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x10)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x50));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_001300B0 */
-__asm__(".text\n\t"
-        ".globl func_001300B0\n\t"
-        ".ent func_001300B0\n"
-        "func_001300B0:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x20\n\t"
-        "sd         $16, 0x0($29)\n\t"
-        "sd         $31, 0x10($29)\n\t"
-        "jal        func_110630\n\t"
-        "daddu     $16, $7, $0\n\t"
-        "daddu      $5, $16, $0\n\t"
-        "jal        func_0012FA60\n\t"
-        "daddu     $4, $2, $0\n\t"
-        "ld         $31, 0x10($29)\n\t"
-        "ld         $16, 0x0($29)\n\t"
-        ".set reorder\n\t"
-        ".end func_001300B0\n");
+void *func_001300B0(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    r_sp = (long)(r_sp + (-0x20));
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_s0; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_ra; }
+    r_s0 = (long)(r_a3 + 0);
+    r_v0 = (long)func_110630((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_a1 = (long)(r_s0 + 0);
+    r_a0 = (long)(r_v0 + 0);
+    r_v0 = (long)func_0012FA60((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x10)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
+    return func_001300D8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+}
 
 /* func_001300D8 */
-__asm__(".text\n\t"
-        ".globl func_001300D8\n\t"
-        ".ent func_001300D8\n"
-        "func_001300D8:\n\t"
-        ".set noreorder\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x20\n\t"
-        ".set reorder\n\t"
-        ".end func_001300D8\n");
+void *func_001300D8(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    r_sp = (long)(r_sp + (0x20));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_001300E0 */
-__asm__(".text\n\t"
-        ".globl func_001300E0\n\t"
-        ".ent func_001300E0\n"
-        "func_001300E0:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x50\n\t"
-        "sd         $19, 0x30($29)\n\t"
-        "sd         $18, 0x20($29)\n\t"
-        "daddu      $19, $7, $0\n\t"
-        "sd         $17, 0x10($29)\n\t"
-        "daddu      $18, $5, $0\n\t"
-        "sd         $16, 0x0($29)\n\t"
-        "daddu      $17, $4, $0\n\t"
-        "sd         $31, 0x40($29)\n\t"
-        "jal        func_0012FA20\n\t"
-        ".set reorder\n\t"
-        ".end func_001300E0\n");
+void *func_001300E0(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0, r_s3 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    (void)r_s3;
+    r_sp = (long)(r_sp + (-0x50));
+    if (r_sp) { *(long *)((char *)r_sp + (0x30)) = (long)r_s3; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x20)) = (long)r_s2; }
+    r_s3 = (long)(r_a3 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_s1; }
+    r_s2 = (long)(r_a1 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_s0; }
+    r_s1 = (long)(r_a0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x40)) = (long)r_ra; }
+    r_v0 = (long)func_0012FA20((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    return func_00130108((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+}
 
 /* func_00130108 */
-__asm__(".text\n\t"
-        ".globl func_00130108\n\t"
-        ".ent func_00130108\n"
-        "func_00130108:\n\t"
-        ".set noreorder\n\t"
-        "daddu      $16, $6, $0\n\t"
-        "lui        $2, %hi(D_4F97D8)\n\t"
-        "daddu      $4, $17, $0\n\t"
-        "addiu      $2, $2, %lo(D_4F97D8)\n\t"
-        "daddu      $5, $18, $0\n\t"
-        "sw         $16, 0x34($2)\n\t"
-        "daddu      $6, $16, $0\n\t"
-        "daddu      $7, $19, $0\n\t"
-        "sw         $17, 0x2C($2)\n\t"
-        "jal        func_0012FEF8\n\t"
-        "sw        $18, 0x30($2)\n\t"
-        "ld         $31, 0x40($29)\n\t"
-        "ld         $19, 0x30($29)\n\t"
-        "ld         $18, 0x20($29)\n\t"
-        "ld         $17, 0x10($29)\n\t"
-        "ld         $16, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x50\n\t"
-        ".set reorder\n\t"
-        ".end func_00130108\n");
+void *func_00130108(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0, r_s3 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    (void)r_s3;
+    r_s0 = (long)(r_a2 + 0);
+    r_v0 = (long)&D_4F97D8;
+    r_a0 = (long)(r_s1 + 0);
+    r_v0 = (long)&D_4F97D8;
+    r_a1 = (long)(r_s2 + 0);
+    if (r_v0) { *(int *)((char *)r_v0 + (0x34)) = (int)r_s0; }
+    r_a2 = (long)(r_s0 + 0);
+    r_a3 = (long)(r_s3 + 0);
+    if (r_v0) { *(int *)((char *)r_v0 + (0x2C)) = (int)r_s1; }
+    if (r_v0) { *(int *)((char *)r_v0 + (0x30)) = (int)r_s2; }
+    r_v0 = (long)func_0012FEF8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x40)); }
+    if (r_sp) { r_s3 = *(long *)((char *)r_sp + (0x30)); }
+    if (r_sp) { r_s2 = *(long *)((char *)r_sp + (0x20)); }
+    if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x10)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x50));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00130150 */
-__asm__(".text\n\t"
-        ".globl func_00130150\n\t"
-        ".ent func_00130150\n"
-        "func_00130150:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x20\n\t"
-        "sd         $16, 0x0($29)\n\t"
-        "sd         $31, 0x10($29)\n\t"
-        "jal        func_1104C8\n\t"
-        "daddu     $16, $7, $0\n\t"
-        "daddu      $5, $16, $0\n\t"
-        ".set reorder\n\t"
-        ".end func_00130150\n");
+void *func_00130150(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    r_sp = (long)(r_sp + (-0x20));
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_s0; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_ra; }
+    r_s0 = (long)(r_a3 + 0);
+    r_v0 = (long)func_1104C8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_a1 = (long)(r_s0 + 0);
+    return func_00130168((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+}
 
 /* func_00130168 */
-__asm__(".text\n\t"
-        ".globl func_00130168\n\t"
-        ".ent func_00130168\n"
-        "func_00130168:\n\t"
-        ".set noreorder\n\t"
-        "jal        func_0012FA60\n\t"
-        "daddu     $4, $2, $0\n\t"
-        "ld         $31, 0x10($29)\n\t"
-        "ld         $16, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x20\n\t"
-        ".set reorder\n\t"
-        ".end func_00130168\n");
+void *func_00130168(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    r_a0 = (long)(r_v0 + 0);
+    r_v0 = (long)func_0012FA60((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x10)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x20));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00130180 */
-__asm__(".text\n\t"
-        ".globl func_00130180\n\t"
-        ".ent func_00130180\n"
-        "func_00130180:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x50\n\t"
-        "sd         $19, 0x30($29)\n\t"
-        "sd         $18, 0x20($29)\n\t"
-        "daddu      $19, $7, $0\n\t"
-        "sd         $17, 0x10($29)\n\t"
-        "daddu      $18, $5, $0\n\t"
-        "sd         $16, 0x0($29)\n\t"
-        "daddu      $17, $4, $0\n\t"
-        "sd         $31, 0x40($29)\n\t"
-        "jal        func_0012FA20\n\t"
-        "daddu     $16, $6, $0\n\t"
-        "lui        $2, %hi(D_4F97D8)\n\t"
-        "daddu      $4, $17, $0\n\t"
-        "addiu      $2, $2, %lo(D_4F97D8)\n\t"
-        "daddu      $5, $18, $0\n\t"
-        "sw         $16, 0x34($2)\n\t"
-        "daddu      $6, $16, $0\n\t"
-        "daddu      $7, $19, $0\n\t"
-        "sw         $17, 0x2C($2)\n\t"
-        "jal        func_0012FF98\n\t"
-        "sw        $18, 0x30($2)\n\t"
-        "ld         $31, 0x40($29)\n\t"
-        "ld         $19, 0x30($29)\n\t"
-        "ld         $18, 0x20($29)\n\t"
-        "ld         $17, 0x10($29)\n\t"
-        "ld         $16, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x50\n\t"
-        ".set reorder\n\t"
-        ".end func_00130180\n");
+void *func_00130180(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0, r_s3 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    (void)r_s3;
+    r_sp = (long)(r_sp + (-0x50));
+    if (r_sp) { *(long *)((char *)r_sp + (0x30)) = (long)r_s3; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x20)) = (long)r_s2; }
+    r_s3 = (long)(r_a3 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_s1; }
+    r_s2 = (long)(r_a1 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_s0; }
+    r_s1 = (long)(r_a0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x40)) = (long)r_ra; }
+    r_s0 = (long)(r_a2 + 0);
+    r_v0 = (long)func_0012FA20((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_v0 = (long)&D_4F97D8;
+    r_a0 = (long)(r_s1 + 0);
+    r_v0 = (long)&D_4F97D8;
+    r_a1 = (long)(r_s2 + 0);
+    if (r_v0) { *(int *)((char *)r_v0 + (0x34)) = (int)r_s0; }
+    r_a2 = (long)(r_s0 + 0);
+    r_a3 = (long)(r_s3 + 0);
+    if (r_v0) { *(int *)((char *)r_v0 + (0x2C)) = (int)r_s1; }
+    if (r_v0) { *(int *)((char *)r_v0 + (0x30)) = (int)r_s2; }
+    r_v0 = (long)func_0012FF98((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x40)); }
+    if (r_sp) { r_s3 = *(long *)((char *)r_sp + (0x30)); }
+    if (r_sp) { r_s2 = *(long *)((char *)r_sp + (0x20)); }
+    if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x10)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x50));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_001301F0 */
-__asm__(".text\n\t"
-        ".globl func_001301F0\n\t"
-        ".ent func_001301F0\n"
-        "func_001301F0:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x20\n\t"
-        "sd         $16, 0x0($29)\n\t"
-        "sd         $31, 0x10($29)\n\t"
-        "jal        func_110FF8\n\t"
-        "daddu     $16, $7, $0\n\t"
-        "daddu      $5, $16, $0\n\t"
-        "jal        func_0012FA60\n\t"
-        "daddu     $4, $2, $0\n\t"
-        "ld         $31, 0x10($29)\n\t"
-        "ld         $16, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x20\n\t"
-        ".set reorder\n\t"
-        ".end func_001301F0\n");
+void *func_001301F0(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    r_sp = (long)(r_sp + (-0x20));
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_s0; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_ra; }
+    r_s0 = (long)(r_a3 + 0);
+    r_v0 = (long)func_110FF8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_a1 = (long)(r_s0 + 0);
+    r_a0 = (long)(r_v0 + 0);
+    r_v0 = (long)func_0012FA60((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x10)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x20));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00130220 */
-__asm__(".text\n\t"
-        ".globl func_00130220\n\t"
-        ".ent func_00130220\n"
-        "func_00130220:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x50\n\t"
-        "sd         $19, 0x30($29)\n\t"
-        "sd         $18, 0x20($29)\n\t"
-        "daddu      $19, $7, $0\n\t"
-        "sd         $17, 0x10($29)\n\t"
-        "daddu      $18, $5, $0\n\t"
-        "sd         $16, 0x0($29)\n\t"
-        "daddu      $17, $4, $0\n\t"
-        "sd         $31, 0x40($29)\n\t"
-        "jal        func_0012FA20\n\t"
-        "daddu     $16, $6, $0\n\t"
-        "lui        $2, (0x500000 >> 16)\n\t"
-        ".set reorder\n\t"
-        ".end func_00130220\n");
+void *func_00130220(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0, r_s3 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    (void)r_s3;
+    r_sp = (long)(r_sp + (-0x50));
+    if (r_sp) { *(long *)((char *)r_sp + (0x30)) = (long)r_s3; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x20)) = (long)r_s2; }
+    r_s3 = (long)(r_a3 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_s1; }
+    r_s2 = (long)(r_a1 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_s0; }
+    r_s1 = (long)(r_a0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x40)) = (long)r_ra; }
+    r_s0 = (long)(r_a2 + 0);
+    r_v0 = (long)func_0012FA20((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_v0 = (long)((0x500000 >> 16) << 16);
+    return func_00130250((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+}
 
 /* func_00130250 */
-__asm__(".text\n\t"
-        ".globl func_00130250\n\t"
-        ".ent func_00130250\n"
-        "func_00130250:\n\t"
-        ".set noreorder\n\t"
-        "daddu      $4, $17, $0\n\t"
-        "addiu      $2, $2, -0x6828\n\t"
-        "daddu      $5, $18, $0\n\t"
-        "sw         $16, 0x34($2)\n\t"
-        "daddu      $6, $16, $0\n\t"
-        "daddu      $7, $19, $0\n\t"
-        "sw         $17, 0x2C($2)\n\t"
-        "jal        func_00130038\n\t"
-        "sw        $18, 0x30($2)\n\t"
-        "ld         $31, 0x40($29)\n\t"
-        "ld         $19, 0x30($29)\n\t"
-        "ld         $18, 0x20($29)\n\t"
-        ".set reorder\n\t"
-        ".end func_00130250\n");
+void *func_00130250(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0, r_s3 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    (void)r_s3;
+    r_a0 = (long)(r_s1 + 0);
+    r_v0 = (long)(r_v0 + (-0x6828));
+    r_a1 = (long)(r_s2 + 0);
+    if (r_v0) { *(int *)((char *)r_v0 + (0x34)) = (int)r_s0; }
+    r_a2 = (long)(r_s0 + 0);
+    r_a3 = (long)(r_s3 + 0);
+    if (r_v0) { *(int *)((char *)r_v0 + (0x2C)) = (int)r_s1; }
+    if (r_v0) { *(int *)((char *)r_v0 + (0x30)) = (int)r_s2; }
+    r_v0 = (long)func_00130038((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x40)); }
+    if (r_sp) { r_s3 = *(long *)((char *)r_sp + (0x30)); }
+    if (r_sp) { r_s2 = *(long *)((char *)r_sp + (0x20)); }
+    return func_00130280((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+}
 
 /* func_00130280 */
-__asm__(".text\n\t"
-        ".globl func_00130280\n\t"
-        ".ent func_00130280\n"
-        "func_00130280:\n\t"
-        ".set noreorder\n\t"
-        "ld         $17, 0x10($29)\n\t"
-        "ld         $16, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x50\n\t"
-        ".set reorder\n\t"
-        ".end func_00130280\n");
+void *func_00130280(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x10)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x50));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00130290 */
-__asm__(".text\n\t"
-        ".globl func_00130290\n\t"
-        ".ent func_00130290\n"
-        "func_00130290:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x20\n\t"
-        "sd         $16, 0x0($29)\n\t"
-        "sd         $31, 0x10($29)\n\t"
-        "jal        func_110F30\n\t"
-        "daddu     $16, $6, $0\n\t"
-        "daddu      $5, $16, $0\n\t"
-        "jal        func_0012FA60\n\t"
-        "daddu     $4, $2, $0\n\t"
-        "ld         $31, 0x10($29)\n\t"
-        "ld         $16, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x20\n\t"
-        ".set reorder\n\t"
-        ".end func_00130290\n");
+void *func_00130290(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    r_sp = (long)(r_sp + (-0x20));
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_s0; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_ra; }
+    r_s0 = (long)(r_a2 + 0);
+    r_v0 = (long)func_110F30((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_a1 = (long)(r_s0 + 0);
+    r_a0 = (long)(r_v0 + 0);
+    r_v0 = (long)func_0012FA60((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x10)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x20));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_001302C0 */
-__asm__(".text\n\t"
-        ".globl func_001302C0\n\t"
-        ".ent func_001302C0\n"
-        "func_001302C0:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x40\n\t"
-        "sd         $18, 0x20($29)\n\t"
-        "sd         $17, 0x10($29)\n\t"
-        "daddu      $18, $6, $0\n\t"
-        "sd         $16, 0x0($29)\n\t"
-        "daddu      $17, $4, $0\n\t"
-        "sd         $31, 0x30($29)\n\t"
-        "jal        func_0012FA20\n\t"
-        "daddu     $16, $5, $0\n\t"
-        "lui        $2, %hi(D_4F97D8)\n\t"
-        "daddu      $4, $17, $0\n\t"
-        "addiu      $2, $2, %lo(D_4F97D8)\n\t"
-        ".set reorder\n\t"
-        ".end func_001302C0\n");
+void *func_001302C0(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    r_sp = (long)(r_sp + (-0x40));
+    if (r_sp) { *(long *)((char *)r_sp + (0x20)) = (long)r_s2; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_s1; }
+    r_s2 = (long)(r_a2 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_s0; }
+    r_s1 = (long)(r_a0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x30)) = (long)r_ra; }
+    r_s0 = (long)(r_a1 + 0);
+    r_v0 = (long)func_0012FA20((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_v0 = (long)&D_4F97D8;
+    r_a0 = (long)(r_s1 + 0);
+    r_v0 = (long)&D_4F97D8;
+    return func_001302F0((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+}
 
 /* func_001302F0 */
-__asm__(".text\n\t"
-        ".globl func_001302F0\n\t"
-        ".ent func_001302F0\n"
-        "func_001302F0:\n\t"
-        ".set noreorder\n\t"
-        "daddu      $5, $16, $0\n\t"
-        "sw         $16, 0x30($2)\n\t"
-        "daddu      $6, $18, $0\n\t"
-        "jal        func_001300D8\n\t"
-        "sw        $17, 0x2C($2)\n\t"
-        "ld         $31, 0x30($29)\n\t"
-        "ld         $18, 0x20($29)\n\t"
-        "ld         $17, 0x10($29)\n\t"
-        "ld         $16, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x40\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_001302F0\n");
+void *func_001302F0(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    r_a1 = (long)(r_s0 + 0);
+    if (r_v0) { *(int *)((char *)r_v0 + (0x30)) = (int)r_s0; }
+    r_a2 = (long)(r_s2 + 0);
+    if (r_v0) { *(int *)((char *)r_v0 + (0x2C)) = (int)r_s1; }
+    r_v0 = (long)func_001300D8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x30)); }
+    if (r_sp) { r_s2 = *(long *)((char *)r_sp + (0x20)); }
+    if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x10)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x40));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00130320 */
-__asm__(".text\n\t"
-        ".globl func_00130320\n\t"
-        ".ent func_00130320\n"
-        "func_00130320:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x20\n\t"
-        "daddu      $10, $7, $0\n\t"
-        "sd         $16, 0x0($29)\n\t"
-        "daddu      $7, $8, $0\n\t"
-        "sd         $31, 0x10($29)\n\t"
-        "daddu      $16, $9, $0\n\t"
-        "addiu      $3, $0, -0x1\n\t"
-        "beq        $4, $3, .L00130354\n\t"
-        "daddu     $2, $0, $0\n\t"
-        "beql       $5, $3, .L00130358\n\t"
-        "daddu     $5, $16, $0\n\t"
-        "jal        func_1111D8\n\t"
-        "daddu     $8, $10, $0\n\t"
-        ".L00130354:\n\t"
-        "daddu      $5, $16, $0\n\t"
-        ".L00130358:\n\t"
-        "jal        func_0012FA60\n\t"
-        "daddu     $4, $2, $0\n\t"
-        "ld         $31, 0x10($29)\n\t"
-        "ld         $16, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x20\n\t"
-        ".set reorder\n\t"
-        ".end func_00130320\n");
+void *func_00130320(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_t0 = 0, r_t1 = 0, r_t2 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_t0;
+    (void)r_t1;
+    (void)r_t2;
+    r_sp = (long)(r_sp + (-0x20));
+    r_t2 = (long)(r_a3 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_s0; }
+    r_a3 = (long)(r_t0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_ra; }
+    r_s0 = (long)(r_t1 + 0);
+    r_v1 = (long)(0 + (-0x1));
+    if (r_a0 == r_v1) { r_v0 = (long)(0 + 0); goto _lbl_L00130354; }
+    r_v0 = (long)(0 + 0);
+    if (r_a1 == r_v1) { r_a1 = (long)(r_s0 + 0); goto _lbl_L00130358; }
+    r_a1 = (long)(r_s0 + 0);
+    r_t0 = (long)(r_t2 + 0);
+    r_v0 = (long)func_1111D8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+_lbl_L00130354:
+    r_a1 = (long)(r_s0 + 0);
+_lbl_L00130358:
+    r_a0 = (long)(r_v0 + 0);
+    r_v0 = (long)func_0012FA60((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x10)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x20));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00130370 */
-__asm__(".text\n\t"
-        ".globl func_00130370\n\t"
-        ".ent func_00130370\n"
-        "func_00130370:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x70\n\t"
-        "sd         $21, 0x50($29)\n\t"
-        "sd         $20, 0x40($29)\n\t"
-        "daddu      $21, $7, $0\n\t"
-        "sd         $19, 0x30($29)\n\t"
-        "daddu      $20, $6, $0\n\t"
-        "sd         $18, 0x20($29)\n\t"
-        "daddu      $19, $5, $0\n\t"
-        "sd         $17, 0x10($29)\n\t"
-        "daddu      $18, $4, $0\n\t"
-        "sd         $16, 0x0($29)\n\t"
-        "daddu      $17, $9, $0\n\t"
-        "sd         $31, 0x60($29)\n\t"
-        "jal        func_0012FA20\n\t"
-        ".set reorder\n\t"
-        ".end func_00130370\n");
+void *func_00130370(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0, r_s3 = 0, r_s4 = 0, r_s5 = 0, r_t1 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    (void)r_s3;
+    (void)r_s4;
+    (void)r_s5;
+    (void)r_t1;
+    r_sp = (long)(r_sp + (-0x70));
+    if (r_sp) { *(long *)((char *)r_sp + (0x50)) = (long)r_s5; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x40)) = (long)r_s4; }
+    r_s5 = (long)(r_a3 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x30)) = (long)r_s3; }
+    r_s4 = (long)(r_a2 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x20)) = (long)r_s2; }
+    r_s3 = (long)(r_a1 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_s1; }
+    r_s2 = (long)(r_a0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_s0; }
+    r_s1 = (long)(r_t1 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x60)) = (long)r_ra; }
+    r_v0 = (long)func_0012FA20((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    return func_001303A8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+}
 
 /* func_001303A8 */
-__asm__(".text\n\t"
-        ".globl func_001303A8\n\t"
-        ".ent func_001303A8\n"
-        "func_001303A8:\n\t"
-        ".set noreorder\n\t"
-        "daddu      $16, $8, $0\n\t"
-        "lui        $2, %hi(D_4F97D8)\n\t"
-        "daddu      $4, $18, $0\n\t"
-        "addiu      $2, $2, %lo(D_4F97D8)\n\t"
-        "daddu      $5, $19, $0\n\t"
-        "sw         $16, 0x3C($2)\n\t"
-        "daddu      $6, $20, $0\n\t"
-        "daddu      $7, $21, $0\n\t"
-        "daddu      $8, $16, $0\n\t"
-        "daddu      $9, $17, $0\n\t"
-        "sw         $18, 0x2C($2)\n\t"
-        "sw         $19, 0x30($2)\n\t"
-        "sw         $20, 0x34($2)\n\t"
-        "jal        func_00130168\n\t"
-        "sw        $21, 0x38($2)\n\t"
-        "ld         $31, 0x60($29)\n\t"
-        "ld         $21, 0x50($29)\n\t"
-        "ld         $20, 0x40($29)\n\t"
-        "ld         $19, 0x30($29)\n\t"
-        "ld         $18, 0x20($29)\n\t"
-        "ld         $17, 0x10($29)\n\t"
-        "ld         $16, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x70\n\t"
-        ".set reorder\n\t"
-        ".end func_001303A8\n");
+void *func_001303A8(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0, r_s3 = 0, r_s4 = 0, r_s5 = 0, r_t0 = 0, r_t1 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    (void)r_s3;
+    (void)r_s4;
+    (void)r_s5;
+    (void)r_t0;
+    (void)r_t1;
+    r_s0 = (long)(r_t0 + 0);
+    r_v0 = (long)&D_4F97D8;
+    r_a0 = (long)(r_s2 + 0);
+    r_v0 = (long)&D_4F97D8;
+    r_a1 = (long)(r_s3 + 0);
+    if (r_v0) { *(int *)((char *)r_v0 + (0x3C)) = (int)r_s0; }
+    r_a2 = (long)(r_s4 + 0);
+    r_a3 = (long)(r_s5 + 0);
+    r_t0 = (long)(r_s0 + 0);
+    r_t1 = (long)(r_s1 + 0);
+    if (r_v0) { *(int *)((char *)r_v0 + (0x2C)) = (int)r_s2; }
+    if (r_v0) { *(int *)((char *)r_v0 + (0x30)) = (int)r_s3; }
+    if (r_v0) { *(int *)((char *)r_v0 + (0x34)) = (int)r_s4; }
+    if (r_v0) { *(int *)((char *)r_v0 + (0x38)) = (int)r_s5; }
+    r_v0 = (long)func_00130168((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x60)); }
+    if (r_sp) { r_s5 = *(long *)((char *)r_sp + (0x50)); }
+    if (r_sp) { r_s4 = *(long *)((char *)r_sp + (0x40)); }
+    if (r_sp) { r_s3 = *(long *)((char *)r_sp + (0x30)); }
+    if (r_sp) { r_s2 = *(long *)((char *)r_sp + (0x20)); }
+    if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x10)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x70));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00130408 */
-__asm__(".text\n\t"
-        ".globl func_00130408\n\t"
-        ".ent func_00130408\n"
-        "func_00130408:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x20\n\t"
-        "sd         $16, 0x0($29)\n\t"
-        "sd         $31, 0x10($29)\n\t"
-        "jal        func_1115E0\n\t"
-        "daddu     $16, $7, $0\n\t"
-        "daddu      $5, $16, $0\n\t"
-        "jal        func_0012FA60\n\t"
-        "daddu     $4, $2, $0\n\t"
-        "ld         $31, 0x10($29)\n\t"
-        "ld         $16, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x20\n\t"
-        ".set reorder\n\t"
-        ".end func_00130408\n");
+void *func_00130408(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    r_sp = (long)(r_sp + (-0x20));
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_s0; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_ra; }
+    r_s0 = (long)(r_a3 + 0);
+    r_v0 = (long)func_1115E0((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_a1 = (long)(r_s0 + 0);
+    r_a0 = (long)(r_v0 + 0);
+    r_v0 = (long)func_0012FA60((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x10)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x20));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00130438 */
-__asm__(".text\n\t"
-        ".globl func_00130438\n\t"
-        ".ent func_00130438\n"
-        "func_00130438:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x50\n\t"
-        "sd         $19, 0x30($29)\n\t"
-        ".set reorder\n\t"
-        ".end func_00130438\n");
+void *func_00130438(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s3 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s3;
+    r_sp = (long)(r_sp + (-0x50));
+    if (r_sp) { *(long *)((char *)r_sp + (0x30)) = (long)r_s3; }
+    return func_00130440((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+}
 
 /* func_00130440 */
-__asm__(".text\n\t"
-        ".globl func_00130440\n\t"
-        ".ent func_00130440\n"
-        "func_00130440:\n\t"
-        ".set noreorder\n\t"
-        "sd         $18, 0x20($29)\n\t"
-        "daddu      $19, $7, $0\n\t"
-        "sd         $17, 0x10($29)\n\t"
-        "daddu      $18, $5, $0\n\t"
-        "sd         $16, 0x0($29)\n\t"
-        "daddu      $17, $4, $0\n\t"
-        "sd         $31, 0x40($29)\n\t"
-        "jal        func_0012FA20\n\t"
-        "daddu     $16, $6, $0\n\t"
-        "lui        $2, %hi(D_4F97D8)\n\t"
-        "daddu      $4, $17, $0\n\t"
-        "addiu      $2, $2, %lo(D_4F97D8)\n\t"
-        "daddu      $5, $18, $0\n\t"
-        "sw         $16, 0x34($2)\n\t"
-        "daddu      $6, $16, $0\n\t"
-        "daddu      $7, $19, $0\n\t"
-        "sw         $17, 0x2C($2)\n\t"
-        "jal        func_00130250\n\t"
-        "sw        $18, 0x30($2)\n\t"
-        "ld         $31, 0x40($29)\n\t"
-        "ld         $19, 0x30($29)\n\t"
-        "ld         $18, 0x20($29)\n\t"
-        "ld         $17, 0x10($29)\n\t"
-        "ld         $16, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x50\n\t"
-        ".set reorder\n\t"
-        ".end func_00130440\n");
+void *func_00130440(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0, r_s3 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    (void)r_s3;
+    if (r_sp) { *(long *)((char *)r_sp + (0x20)) = (long)r_s2; }
+    r_s3 = (long)(r_a3 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_s1; }
+    r_s2 = (long)(r_a1 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_s0; }
+    r_s1 = (long)(r_a0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x40)) = (long)r_ra; }
+    r_s0 = (long)(r_a2 + 0);
+    r_v0 = (long)func_0012FA20((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_v0 = (long)&D_4F97D8;
+    r_a0 = (long)(r_s1 + 0);
+    r_v0 = (long)&D_4F97D8;
+    r_a1 = (long)(r_s2 + 0);
+    if (r_v0) { *(int *)((char *)r_v0 + (0x34)) = (int)r_s0; }
+    r_a2 = (long)(r_s0 + 0);
+    r_a3 = (long)(r_s3 + 0);
+    if (r_v0) { *(int *)((char *)r_v0 + (0x2C)) = (int)r_s1; }
+    if (r_v0) { *(int *)((char *)r_v0 + (0x30)) = (int)r_s2; }
+    r_v0 = (long)func_00130250((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x40)); }
+    if (r_sp) { r_s3 = *(long *)((char *)r_sp + (0x30)); }
+    if (r_sp) { r_s2 = *(long *)((char *)r_sp + (0x20)); }
+    if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x10)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x50));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_001304A8 */
-__asm__(".text\n\t"
-        ".globl func_001304A8\n\t"
-        ".ent func_001304A8\n"
-        "func_001304A8:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x20\n\t"
-        "sd         $16, 0x0($29)\n\t"
-        "sd         $31, 0x10($29)\n\t"
-        "jal        func_1113B0\n\t"
-        "daddu     $16, $8, $0\n\t"
-        "daddu      $5, $16, $0\n\t"
-        "jal        func_0012FA60\n\t"
-        "daddu     $4, $2, $0\n\t"
-        "ld         $31, 0x10($29)\n\t"
-        "ld         $16, 0x0($29)\n\t"
-        ".set reorder\n\t"
-        ".end func_001304A8\n");
+void *func_001304A8(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_t0 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_t0;
+    r_sp = (long)(r_sp + (-0x20));
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_s0; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_ra; }
+    r_s0 = (long)(r_t0 + 0);
+    r_v0 = (long)func_1113B0((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_a1 = (long)(r_s0 + 0);
+    r_a0 = (long)(r_v0 + 0);
+    r_v0 = (long)func_0012FA60((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x10)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
+    return func_001304D0((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+}
 
 /* func_001304D0 */
-__asm__(".text\n\t"
-        ".globl func_001304D0\n\t"
-        ".ent func_001304D0\n"
-        "func_001304D0:\n\t"
-        ".set noreorder\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x20\n\t"
-        ".set reorder\n\t"
-        ".end func_001304D0\n");
+void *func_001304D0(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    r_sp = (long)(r_sp + (0x20));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_001304D8 */
-__asm__(".text\n\t"
-        ".globl func_001304D8\n\t"
-        ".ent func_001304D8\n"
-        "func_001304D8:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x60\n\t"
-        "sd         $20, 0x40($29)\n\t"
-        "sd         $19, 0x30($29)\n\t"
-        "daddu      $20, $6, $0\n\t"
-        "sd         $18, 0x20($29)\n\t"
-        "daddu      $19, $5, $0\n\t"
-        "sd         $17, 0x10($29)\n\t"
-        "daddu      $18, $4, $0\n\t"
-        "sd         $16, 0x0($29)\n\t"
-        "daddu      $17, $8, $0\n\t"
-        "sd         $31, 0x50($29)\n\t"
-        "jal        func_0012FA20\n\t"
-        "daddu     $16, $7, $0\n\t"
-        "lui        $2, %hi(D_4F97D8)\n\t"
-        "daddu      $4, $18, $0\n\t"
-        "addiu      $2, $2, %lo(D_4F97D8)\n\t"
-        "daddu      $5, $19, $0\n\t"
-        "sw         $16, 0x38($2)\n\t"
-        "daddu      $6, $20, $0\n\t"
-        "daddu      $7, $16, $0\n\t"
-        "daddu      $8, $17, $0\n\t"
-        "sw         $18, 0x2C($2)\n\t"
-        "sw         $19, 0x30($2)\n\t"
-        "jal        func_001302F0\n\t"
-        "sw        $20, 0x34($2)\n\t"
-        "ld         $31, 0x50($29)\n\t"
-        "ld         $20, 0x40($29)\n\t"
-        "ld         $19, 0x30($29)\n\t"
-        "ld         $18, 0x20($29)\n\t"
-        "ld         $17, 0x10($29)\n\t"
-        "ld         $16, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x60\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_001304D8\n");
+void *func_001304D8(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0, r_s3 = 0, r_s4 = 0, r_t0 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    (void)r_s3;
+    (void)r_s4;
+    (void)r_t0;
+    r_sp = (long)(r_sp + (-0x60));
+    if (r_sp) { *(long *)((char *)r_sp + (0x40)) = (long)r_s4; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x30)) = (long)r_s3; }
+    r_s4 = (long)(r_a2 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x20)) = (long)r_s2; }
+    r_s3 = (long)(r_a1 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_s1; }
+    r_s2 = (long)(r_a0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_s0; }
+    r_s1 = (long)(r_t0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x50)) = (long)r_ra; }
+    r_s0 = (long)(r_a3 + 0);
+    r_v0 = (long)func_0012FA20((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_v0 = (long)&D_4F97D8;
+    r_a0 = (long)(r_s2 + 0);
+    r_v0 = (long)&D_4F97D8;
+    r_a1 = (long)(r_s3 + 0);
+    if (r_v0) { *(int *)((char *)r_v0 + (0x38)) = (int)r_s0; }
+    r_a2 = (long)(r_s4 + 0);
+    r_a3 = (long)(r_s0 + 0);
+    r_t0 = (long)(r_s1 + 0);
+    if (r_v0) { *(int *)((char *)r_v0 + (0x2C)) = (int)r_s2; }
+    if (r_v0) { *(int *)((char *)r_v0 + (0x30)) = (int)r_s3; }
+    if (r_v0) { *(int *)((char *)r_v0 + (0x34)) = (int)r_s4; }
+    r_v0 = (long)func_001302F0((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x50)); }
+    if (r_sp) { r_s4 = *(long *)((char *)r_sp + (0x40)); }
+    if (r_sp) { r_s3 = *(long *)((char *)r_sp + (0x30)); }
+    if (r_sp) { r_s2 = *(long *)((char *)r_sp + (0x20)); }
+    if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x10)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x60));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00130560 */
-__asm__(".text\n\t"
-        ".globl func_00130560\n\t"
-        ".ent func_00130560\n"
-        "func_00130560:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x60\n\t"
-        "sd         $18, 0x20($29)\n\t"
-        "sd         $17, 0x10($29)\n\t"
-        "daddu      $18, $6, $0\n\t"
-        "sd         $16, 0x0($29)\n\t"
-        "daddu      $17, $5, $0\n\t"
-        "sd         $20, 0x40($29)\n\t"
-        "daddu      $16, $4, $0\n\t"
-        "sd         $19, 0x30($29)\n\t"
-        "daddu      $20, $8, $0\n\t"
-        "sd         $31, 0x50($29)\n\t"
-        "jal        func_110940\n\t"
-        "daddu     $19, $7, $0\n\t"
-        "daddu      $4, $2, $0\n\t"
-        "lui        $2, (0x500000 >> 16)\n\t"
-        "lw         $3, -0x6804($2)\n\t"
-        "bnez       $3, .L001305C4\n\t"
-        "daddu     $5, $16, $0\n\t"
-        "daddu      $6, $17, $0\n\t"
-        "daddu      $7, $18, $0\n\t"
-        "daddu      $8, $19, $0\n\t"
-        "jal        func_00130440\n\t"
-        "daddu     $9, $20, $0\n\t"
-        "b          .L001305DC\n\t"
-        "ld        $31, 0x50($29)\n\t"
-        ".L001305C4:\n\t"
-        "daddu      $6, $17, $0\n\t"
-        "daddu      $7, $18, $0\n\t"
-        "daddu      $8, $19, $0\n\t"
-        ".set reorder\n\t"
-        ".end func_00130560\n");
+void *func_00130560(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0, r_s3 = 0, r_s4 = 0, r_t0 = 0, r_t1 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    (void)r_s3;
+    (void)r_s4;
+    (void)r_t0;
+    (void)r_t1;
+    r_sp = (long)(r_sp + (-0x60));
+    if (r_sp) { *(long *)((char *)r_sp + (0x20)) = (long)r_s2; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_s1; }
+    r_s2 = (long)(r_a2 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_s0; }
+    r_s1 = (long)(r_a1 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x40)) = (long)r_s4; }
+    r_s0 = (long)(r_a0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x30)) = (long)r_s3; }
+    r_s4 = (long)(r_t0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x50)) = (long)r_ra; }
+    r_s3 = (long)(r_a3 + 0);
+    r_v0 = (long)func_110940((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_a0 = (long)(r_v0 + 0);
+    r_v0 = (long)((0x500000 >> 16) << 16);
+    if (r_v0) { r_v1 = *(int *)((char *)r_v0 + (-0x6804)); }
+    if (r_v1 != 0) { r_a1 = (long)(r_s0 + 0); goto _lbl_L001305C4; }
+    r_a1 = (long)(r_s0 + 0);
+    r_a2 = (long)(r_s1 + 0);
+    r_a3 = (long)(r_s2 + 0);
+    r_t0 = (long)(r_s3 + 0);
+    r_t1 = (long)(r_s4 + 0);
+    r_v0 = (long)func_00130440((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x50)); }
+    return func_001305D0((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+_lbl_L001305C4:
+    r_a2 = (long)(r_s1 + 0);
+    r_a3 = (long)(r_s2 + 0);
+    r_t0 = (long)(r_s3 + 0);
+    return func_001305D0((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+}
 
 /* func_001305D0 */
-__asm__(".text\n\t"
-        ".globl func_001305D0\n\t"
-        ".ent func_001305D0\n"
-        "func_001305D0:\n\t"
-        ".set noreorder\n\t"
-        "jal        func_001304D0\n\t"
-        "daddu     $9, $20, $0\n\t"
-        "ld         $31, 0x50($29)\n\t"
-        ".L001305DC:\n\t"
-        "ld         $20, 0x40($29)\n\t"
-        "ld         $19, 0x30($29)\n\t"
-        "ld         $18, 0x20($29)\n\t"
-        "ld         $17, 0x10($29)\n\t"
-        "ld         $16, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x60\n\t"
-        ".set reorder\n\t"
-        ".end func_001305D0\n");
+void *func_001305D0(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0, r_s3 = 0, r_s4 = 0, r_t1 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    (void)r_s3;
+    (void)r_s4;
+    (void)r_t1;
+    r_t1 = (long)(r_s4 + 0);
+    r_v0 = (long)func_001304D0((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x50)); }
+_lbl_L001305DC:
+    if (r_sp) { r_s4 = *(long *)((char *)r_sp + (0x40)); }
+    if (r_sp) { r_s3 = *(long *)((char *)r_sp + (0x30)); }
+    if (r_sp) { r_s2 = *(long *)((char *)r_sp + (0x20)); }
+    if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x10)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x60));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_001305F8 */
-__asm__(".text\n\t"
-        ".globl func_001305F8\n\t"
-        ".ent func_001305F8\n"
-        "func_001305F8:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x30\n\t"
-        "lw         $2, 0x0($6)\n\t"
-        "sd         $17, 0x10($29)\n\t"
-        "sd         $16, 0x0($29)\n\t"
-        "daddu      $17, $0, $0\n\t"
-        "sd         $31, 0x20($29)\n\t"
-        "bne        $2, $8, .L00130668\n\t"
-        "daddu     $16, $9, $0\n\t"
-        "beqz       $4, func_00130630\n\t"
-        "addiu     $2, $0, 0x1\n\t"
-        "beq        $4, $2, .L00130654\n\t"
-        "addiu     $17, $0, -0x1\n\t"
-        "b          func_00130670\n\t"
-        "daddu     $2, $17, $0\n\t"
-        ".set reorder\n\t"
-        ".end func_001305F8\n");
+void *func_001305F8(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_t0 = 0, r_t1 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_t0;
+    (void)r_t1;
+    r_sp = (long)(r_sp + (-0x30));
+    if (r_a2) { r_v0 = *(int *)((char *)r_a2 + (0x0)); }
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_s1; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_s0; }
+    r_s1 = (long)(0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x20)) = (long)r_ra; }
+    if (r_v0 != r_t0) { r_s0 = (long)(r_t1 + 0); return func_00130630((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3); }
+    r_s0 = (long)(r_t1 + 0);
+    if (r_a0 == 0) { r_v0 = (long)(0 + (0x1)); return func_00130630((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3); }
+    r_v0 = (long)(0 + (0x1));
+    if (r_a0 == r_v0) { r_s1 = (long)(0 + (-0x1)); return func_00130630((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3); }
+    r_s1 = (long)(0 + (-0x1));
+    r_v0 = (long)(r_s1 + 0);
+    return func_00130670((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    return func_00130630((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+}
 
 /* func_00130630 */
-__asm__(".text\n\t"
-        ".globl func_00130630\n\t"
-        ".ent func_00130630\n"
-        "func_00130630:\n\t"
-        ".set noreorder\n\t"
-        "lw         $2, 0x8($16)\n\t"
-        "slti       $2, $2, 0xE11\n\t"
-        "bnez       $2, func_00130670\n\t"
-        "daddu     $2, $17, $0\n\t"
-        "lui        $4, %hi(D_490370)\n\t"
-        "jal        func_118de0\n\t"
-        "addiu     $4, $4, %lo(D_490370)\n\t"
-        "b          .L0013066C\n\t"
-        "sw        $0, 0x8($16)\n\t"
-        ".L00130654:\n\t"
-        "lw         $4, 0x0($7)\n\t"
-        "jal        func_00130630\n\t"
-        "daddu     $5, $16, $0\n\t"
-        "b          .L0013066C\n\t"
-        "daddu     $17, $2, $0\n\t"
-        ".L00130668:\n\t"
-        "addiu      $17, $0, -0x1\n\t"
-        ".L0013066C:\n\t"
-        "daddu      $2, $17, $0\n\t"
-        ".set reorder\n\t"
-        ".end func_00130630\n");
+void *func_00130630(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    if (r_s0) { r_v0 = *(int *)((char *)r_s0 + (0x8)); }
+    r_v0 = (long)((long)r_v0 < (long)(0xE11) ? 1 : 0);
+    if (r_v0 != 0) { r_v0 = (long)(r_s1 + 0); return func_00130670((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3); }
+    r_v0 = (long)(r_s1 + 0);
+    r_a0 = (long)&D_490370;
+    r_a0 = (long)&D_490370;
+    r_v0 = (long)func_118de0((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_s0) { *(int *)((char *)r_s0 + (0x8)) = (int)0; }
+    goto _lbl_L0013066C;
+_lbl_L00130654:
+    if (r_a3) { r_a0 = *(int *)((char *)r_a3 + (0x0)); }
+    r_a1 = (long)(r_s0 + 0);
+    /* recursive self-call omitted */
+    r_s1 = (long)(r_v0 + 0);
+    goto _lbl_L0013066C;
+_lbl_L00130668:
+    r_s1 = (long)(0 + (-0x1));
+_lbl_L0013066C:
+    r_v0 = (long)(r_s1 + 0);
+    return func_00130670((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+}
 
 /* func_00130670 */
-__asm__(".text\n\t"
-        ".globl func_00130670\n\t"
-        ".ent func_00130670\n"
-        "func_00130670:\n\t"
-        ".set noreorder\n\t"
-        "ld         $31, 0x20($29)\n\t"
-        "ld         $17, 0x10($29)\n\t"
-        "ld         $16, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x30\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_00130670\n");
+void *func_00130670(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x20)); }
+    if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x10)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x30));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00130688 */
-__asm__(".text\n\t"
-        ".globl func_00130688\n\t"
-        ".ent func_00130688\n"
-        "func_00130688:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x50\n\t"
-        "sd         $19, 0x30($29)\n\t"
-        "sd         $18, 0x20($29)\n\t"
-        "daddu      $19, $0, $0\n\t"
-        "sd         $17, 0x10($29)\n\t"
-        "daddu      $18, $9, $0\n\t"
-        "sd         $16, 0x0($29)\n\t"
-        "daddu      $17, $7, $0\n\t"
-        "sd         $31, 0x40($29)\n\t"
-        "daddu      $16, $4, $0\n\t"
-        "jal        func_0012FA08\n\t"
-        "lw        $4, 0x0($17)\n\t"
-        "beqz       $16, .L00130764\n\t"
-        "daddu     $5, $2, $0\n\t"
-        "bgtz       $16, .L001306DC\n\t"
-        "addiu     $2, $0, 0x1\n\t"
-        "addiu      $2, $0, -0x1\n\t"
-        "beq        $16, $2, .L00130758\n\t"
-        "daddu     $2, $19, $0\n\t"
-        "b          .L0013076C\n\t"
-        "ld        $31, 0x40($29)\n\t"
-        ".L001306DC:\n\t"
-        "bne        $16, $2, .L00130768\n\t"
-        "daddu     $2, $19, $0\n\t"
-        "addiu      $2, $0, -0xA\n\t"
-        "beq        $5, $2, .L00130720\n\t"
-        "addiu     $19, $0, -0x7E\n\t"
-        "slti       $2, $5, -0xA\n\t"
-        "bnez       $2, .L0013070C\n\t"
-        "lui       $4, %hi(D_490390)\n\t"
-        "bgtz       $5, .L0013070C\n\t"
-        "slti      $2, $5, -0x2\n\t"
-        "beqz       $2, .L00130768\n\t"
-        "daddu     $2, $19, $0\n\t"
-        ".L0013070C:\n\t"
-        "jal        func_118de0\n\t"
-        "addiu     $4, $4, %lo(D_490390)\n\t"
-        "addiu      $3, $0, -0x9\n\t"
-        "b          .L00130764\n\t"
-        "sw        $3, 0x0($17)\n\t"
-        ".L00130720:\n\t"
-        "lwl        $2, 0xF($18)\n\t"
-        "lwr        $2, 0xC($18)\n\t"
-        "lui        $4, (0xFFFF0000 >> 16)\n\t"
-        "dsrl32     $4, $4, 0\n\t"
-        "jal        func_0012E448\n\t"
-        "and       $4, $2, $4\n\t"
-        "addiu      $3, $0, 0x2\n\t"
-        "bne        $2, $3, .L00130768\n\t"
-        "daddu     $2, $19, $0\n\t"
-        "daddu      $4, $18, $0\n\t"
-        "jal        func_001305D0\n\t"
-        "addiu     $5, $0, -0xA\n\t"
-        "b          .L00130764\n\t"
-        "daddu     $19, $2, $0\n\t"
-        ".L00130758:\n\t"
-        "addiu      $2, $0, -0x9\n\t"
-        "addiu      $19, $0, -0x7E\n\t"
-        "sw         $2, 0x0($17)\n\t"
-        ".L00130764:\n\t"
-        "daddu      $2, $19, $0\n\t"
-        ".L00130768:\n\t"
-        "ld         $31, 0x40($29)\n\t"
-        ".L0013076C:\n\t"
-        "ld         $19, 0x30($29)\n\t"
-        "ld         $18, 0x20($29)\n\t"
-        "ld         $17, 0x10($29)\n\t"
-        "ld         $16, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x50\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_00130688\n");
+void *func_00130688(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0, r_s3 = 0, r_t1 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    (void)r_s3;
+    (void)r_t1;
+    r_sp = (long)(r_sp + (-0x50));
+    if (r_sp) { *(long *)((char *)r_sp + (0x30)) = (long)r_s3; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x20)) = (long)r_s2; }
+    r_s3 = (long)(0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_s1; }
+    r_s2 = (long)(r_t1 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_s0; }
+    r_s1 = (long)(r_a3 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x40)) = (long)r_ra; }
+    r_s0 = (long)(r_a0 + 0);
+    if (r_s1) { r_a0 = *(int *)((char *)r_s1 + (0x0)); }
+    r_v0 = (long)func_0012FA08((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_s0 == 0) { r_a1 = (long)(r_v0 + 0); goto _lbl_L00130764; }
+    r_a1 = (long)(r_v0 + 0);
+    if ((long)r_s0 > 0) { r_v0 = (long)(0 + (0x1)); goto _lbl_L001306DC; }
+    r_v0 = (long)(0 + (0x1));
+    r_v0 = (long)(0 + (-0x1));
+    if (r_s0 == r_v0) { r_v0 = (long)(r_s3 + 0); goto _lbl_L00130758; }
+    r_v0 = (long)(r_s3 + 0);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x40)); }
+    goto _lbl_L0013076C;
+_lbl_L001306DC:
+    if (r_s0 != r_v0) { r_v0 = (long)(r_s3 + 0); goto _lbl_L00130768; }
+    r_v0 = (long)(r_s3 + 0);
+    r_v0 = (long)(0 + (-0xA));
+    if (r_a1 == r_v0) { r_s3 = (long)(0 + (-0x7E)); goto _lbl_L00130720; }
+    r_s3 = (long)(0 + (-0x7E));
+    r_v0 = (long)((long)r_a1 < (long)(-0xA) ? 1 : 0);
+    if (r_v0 != 0) { r_a0 = (long)&D_490390; goto _lbl_L0013070C; }
+    r_a0 = (long)&D_490390;
+    if ((long)r_a1 > 0) { r_v0 = (long)((long)r_a1 < (long)(-0x2) ? 1 : 0); goto _lbl_L0013070C; }
+    r_v0 = (long)((long)r_a1 < (long)(-0x2) ? 1 : 0);
+    if (r_v0 == 0) { r_v0 = (long)(r_s3 + 0); goto _lbl_L00130768; }
+    r_v0 = (long)(r_s3 + 0);
+_lbl_L0013070C:
+    r_a0 = (long)&D_490390;
+    r_v0 = (long)func_118de0((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_v1 = (long)(0 + (-0x9));
+    if (r_s1) { *(int *)((char *)r_s1 + (0x0)) = (int)r_v1; }
+    goto _lbl_L00130764;
+_lbl_L00130720:
+    if (r_s2) { r_v0 = *(int *)((char *)r_s2 + (0xF)); }
+    if (r_s2) { r_v0 = *(int *)((char *)r_s2 + (0xC)); }
+    r_a0 = (long)((0xFFFF0000 >> 16) << 16);
+    r_a0 = (long)((unsigned long)r_a0 >> (0));
+    r_a0 = (long)(r_v0 & r_a0);
+    r_v0 = (long)func_0012E448((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_v1 = (long)(0 + (0x2));
+    if (r_v0 != r_v1) { r_v0 = (long)(r_s3 + 0); goto _lbl_L00130768; }
+    r_v0 = (long)(r_s3 + 0);
+    r_a0 = (long)(r_s2 + 0);
+    r_a1 = (long)(0 + (-0xA));
+    r_v0 = (long)func_001305D0((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_s3 = (long)(r_v0 + 0);
+    goto _lbl_L00130764;
+_lbl_L00130758:
+    r_v0 = (long)(0 + (-0x9));
+    r_s3 = (long)(0 + (-0x7E));
+    if (r_s1) { *(int *)((char *)r_s1 + (0x0)) = (int)r_v0; }
+_lbl_L00130764:
+    r_v0 = (long)(r_s3 + 0);
+_lbl_L00130768:
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x40)); }
+_lbl_L0013076C:
+    if (r_sp) { r_s3 = *(long *)((char *)r_sp + (0x30)); }
+    if (r_sp) { r_s2 = *(long *)((char *)r_sp + (0x20)); }
+    if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x10)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x50));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00130788 */
-__asm__(".text\n\t"
-        ".globl func_00130788\n\t"
-        ".ent func_00130788\n"
-        "func_00130788:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x20\n\t"
-        "lui        $3, %hi(D_4F97D8)\n\t"
-        "sd         $16, 0x0($29)\n\t"
-        "addiu      $3, $3, %lo(D_4F97D8)\n\t"
-        "sd         $31, 0x10($29)\n\t"
-        "daddu      $7, $4, $0\n\t"
-        "lw         $2, 0x24($3)\n\t"
-        "addiu      $2, $2, 0x1\n\t"
-        "sw         $2, 0x24($3)\n\t"
-        "slti       $2, $2, 0x4\n\t"
-        "beqz       $2, .L001307D4\n\t"
-        "addiu     $16, $0, -0x7E\n\t"
-        "lh         $4, 0xC($7)\n\t"
-        "addiu      $8, $7, 0x2C\n\t"
-        "lh         $5, 0xE($7)\n\t"
-        "addiu      $6, $7, 0x24\n\t"
-        "jal        func_110A78\n\t"
-        "addiu     $7, $7, 0x28\n\t"
-        "movz       $16, $0, $2\n\t"
-        ".L001307D4:\n\t"
-        "daddu      $2, $16, $0\n\t"
-        "ld         $31, 0x10($29)\n\t"
-        "ld         $16, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x20\n\t"
-        ".set reorder\n\t"
-        ".end func_00130788\n");
+void *func_00130788(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_t0 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_t0;
+    r_sp = (long)(r_sp + (-0x20));
+    r_v1 = (long)&D_4F97D8;
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_s0; }
+    r_v1 = (long)&D_4F97D8;
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_ra; }
+    r_a3 = (long)(r_a0 + 0);
+    if (r_v1) { r_v0 = *(int *)((char *)r_v1 + (0x24)); }
+    r_v0 = (long)(r_v0 + (0x1));
+    if (r_v1) { *(int *)((char *)r_v1 + (0x24)) = (int)r_v0; }
+    r_v0 = (long)((long)r_v0 < (long)(0x4) ? 1 : 0);
+    if (r_v0 == 0) { r_s0 = (long)(0 + (-0x7E)); goto _lbl_L001307D4; }
+    r_s0 = (long)(0 + (-0x7E));
+    if (r_a3) { r_a0 = *(short *)((char *)r_a3 + (0xC)); }
+    r_t0 = (long)(r_a3 + (0x2C));
+    if (r_a3) { r_a1 = *(short *)((char *)r_a3 + (0xE)); }
+    r_a2 = (long)(r_a3 + (0x24));
+    r_a3 = (long)(r_a3 + (0x28));
+    r_v0 = (long)func_110A78((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_v0 == 0) r_s0 = 0;
+_lbl_L001307D4:
+    r_v0 = (long)(r_s0 + 0);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x10)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x20));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_001307E8 */
-__asm__(".text\n\t"
-        ".globl func_001307E8\n\t"
-        ".ent func_001307E8\n"
-        "func_001307E8:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x20\n\t"
-        "sd         $16, 0x0($29)\n\t"
-        "sd         $31, 0x10($29)\n\t"
-        "jal        func_0012FA08\n\t"
-        "daddu     $16, $5, $0\n\t"
-        "addiu      $3, $0, -0xA\n\t"
-        "bne        $2, $3, .L00130814\n\t"
-        "addiu     $2, $0, -0x7E\n\t"
-        "daddu      $4, $16, $0\n\t"
-        "jal        func_001305D0\n\t"
-        "addiu     $5, $0, -0xA\n\t"
-        ".L00130814:\n\t"
-        "ld         $31, 0x10($29)\n\t"
-        "ld         $16, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x20\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_001307E8\n");
+void *func_001307E8(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    r_sp = (long)(r_sp + (-0x20));
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_s0; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_ra; }
+    r_s0 = (long)(r_a1 + 0);
+    r_v0 = (long)func_0012FA08((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_v1 = (long)(0 + (-0xA));
+    if (r_v0 != r_v1) { r_v0 = (long)(0 + (-0x7E)); goto _lbl_L00130814; }
+    r_v0 = (long)(0 + (-0x7E));
+    r_a0 = (long)(r_s0 + 0);
+    r_a1 = (long)(0 + (-0xA));
+    r_v0 = (long)func_001305D0((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+_lbl_L00130814:
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x10)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x20));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00130828 */
-__asm__(".text\n\t"
-        ".globl func_00130828\n\t"
-        ".ent func_00130828\n"
-        "func_00130828:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x80\n\t"
-        "lui        $3, %hi(D_4F97D8)\n\t"
-        "sd         $20, 0x60($29)\n\t"
-        "lui        $2, %hi(D_4F9700)\n\t"
-        "sd         $18, 0x40($29)\n\t"
-        "sd         $17, 0x30($29)\n\t"
-        "addiu      $18, $2, %lo(D_4F9700)\n\t"
-        "sd         $31, 0x70($29)\n\t"
-        "daddu      $17, $5, $0\n\t"
-        "sd         $16, 0x20($29)\n\t"
-        "lw         $20, -0x6828($3)\n\t"
-        "sd         $19, 0x50($29)\n\t"
-        "addiu      $3, $3, %lo(D_4F97D8)\n\t"
-        "lw         $6, -0x6900($2)\n\t"
-        "lw         $19, 0x4($3)\n\t"
-        "daddu      $2, $0, $0\n\t"
-        "bnez       $6, .L001308DC\n\t"
-        "sw        $4, 0x0($29)\n\t"
-        "jal        func_0012EF18\n\t"
-        "daddu     $4, $17, $0\n\t"
-        "lui        $16, %hi(D_00130748)\n\t"
-        "jal        func_00128990\n\t"
-        "addiu     $16, $16, %lo(D_00130748)\n\t"
-        "lui        $10, %hi(D_38C980)\n\t"
-        "dsrl       $3, $2, 16\n\t"
-        "sh         $2, 0x10($29)\n\t"
-        "sh         $3, 0x12($29)\n\t"
-        "lui        $2, (0xFFFF0000 >> 16)\n\t"
-        "dsrl32     $2, $2, 0\n\t"
-        "daddu      $5, $16, $0\n\t"
-        "daddu      $6, $17, $0\n\t"
-        "lw         $7, 0x10($29)\n\t"
-        "addiu      $10, $10, %lo(D_38C980)\n\t"
-        "daddu      $4, $18, $0\n\t"
-        "daddu      $8, $0, $0\n\t"
-        "and        $7, $7, $2\n\t"
-        "jal        func_0012EF38\n\t"
-        "daddu     $9, $0, $0\n\t"
-        "sw         $20, 0xC4($18)\n\t"
-        "addiu      $2, $0, 0x1\n\t"
-        "sw         $19, 0xBC($18)\n\t"
-        "lwl        $3, 0x3($29)\n\t"
-        "lwr        $3, 0x0($29)\n\t"
-        "swl        $3, 0xB7($18)\n\t"
-        "swr        $3, 0xB4($18)\n\t"
-        ".L001308DC:\n\t"
-        "ld         $31, 0x70($29)\n\t"
-        "ld         $20, 0x60($29)\n\t"
-        "ld         $19, 0x50($29)\n\t"
-        "ld         $18, 0x40($29)\n\t"
-        "ld         $17, 0x30($29)\n\t"
-        "ld         $16, 0x20($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x80\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_00130828\n");
+void *func_00130828(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0, r_s3 = 0, r_s4 = 0, r_t0 = 0, r_t1 = 0, r_t2 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    (void)r_s3;
+    (void)r_s4;
+    (void)r_t0;
+    (void)r_t1;
+    (void)r_t2;
+    r_sp = (long)(r_sp + (-0x80));
+    r_v1 = (long)&D_4F97D8;
+    if (r_sp) { *(long *)((char *)r_sp + (0x60)) = (long)r_s4; }
+    r_v0 = (long)&D_4F9700;
+    if (r_sp) { *(long *)((char *)r_sp + (0x40)) = (long)r_s2; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x30)) = (long)r_s1; }
+    r_s2 = (long)&D_4F9700;
+    if (r_sp) { *(long *)((char *)r_sp + (0x70)) = (long)r_ra; }
+    r_s1 = (long)(r_a1 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x20)) = (long)r_s0; }
+    if (r_v1) { r_s4 = *(int *)((char *)r_v1 + (-0x6828)); }
+    if (r_sp) { *(long *)((char *)r_sp + (0x50)) = (long)r_s3; }
+    r_v1 = (long)&D_4F97D8;
+    if (r_v0) { r_a2 = *(int *)((char *)r_v0 + (-0x6900)); }
+    if (r_v1) { r_s3 = *(int *)((char *)r_v1 + (0x4)); }
+    r_v0 = (long)(0 + 0);
+    if (r_a2 != 0) { if (r_sp) { *(int *)((char *)r_sp + (0x0)) = (int)r_a0; } goto _lbl_L001308DC; }
+    if (r_sp) { *(int *)((char *)r_sp + (0x0)) = (int)r_a0; }
+    r_a0 = (long)(r_s1 + 0);
+    r_v0 = (long)func_0012EF18((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_s0 = (long)&D_00130748;
+    r_s0 = (long)&D_00130748;
+    r_v0 = (long)func_00128990((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_t2 = (long)&D_38C980;
+    r_v1 = (long)((unsigned long)r_v0 >> (16));
+    if (r_sp) { *(short *)((char *)r_sp + (0x10)) = (short)r_v0; }
+    if (r_sp) { *(short *)((char *)r_sp + (0x12)) = (short)r_v1; }
+    r_v0 = (long)((0xFFFF0000 >> 16) << 16);
+    r_v0 = (long)((unsigned long)r_v0 >> (0));
+    r_a1 = (long)(r_s0 + 0);
+    r_a2 = (long)(r_s1 + 0);
+    if (r_sp) { r_a3 = *(int *)((char *)r_sp + (0x10)); }
+    r_t2 = (long)&D_38C980;
+    r_a0 = (long)(r_s2 + 0);
+    r_t0 = (long)(0 + 0);
+    r_a3 = (long)(r_a3 & r_v0);
+    r_t1 = (long)(0 + 0);
+    r_v0 = (long)func_0012EF38((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_s2) { *(int *)((char *)r_s2 + (0xC4)) = (int)r_s4; }
+    r_v0 = (long)(0 + (0x1));
+    if (r_s2) { *(int *)((char *)r_s2 + (0xBC)) = (int)r_s3; }
+    if (r_sp) { r_v1 = *(int *)((char *)r_sp + (0x3)); }
+    if (r_sp) { r_v1 = *(int *)((char *)r_sp + (0x0)); }
+    if (r_s2) { *(int *)((char *)r_s2 + (0xB7)) = (int)r_v1; }
+    if (r_s2) { *(int *)((char *)r_s2 + (0xB4)) = (int)r_v1; }
+_lbl_L001308DC:
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x70)); }
+    if (r_sp) { r_s4 = *(long *)((char *)r_sp + (0x60)); }
+    if (r_sp) { r_s3 = *(long *)((char *)r_sp + (0x50)); }
+    if (r_sp) { r_s2 = *(long *)((char *)r_sp + (0x40)); }
+    if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x30)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x20)); }
+    r_sp = (long)(r_sp + (0x80));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00130900 */
-__asm__(".text\n\t"
-        ".globl func_00130900\n\t"
-        ".ent func_00130900\n"
-        "func_00130900:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x10\n\t"
-        "lui        $5, %hi(D_38C980)\n\t"
-        "sd         $31, 0x0($29)\n\t"
-        "jal        func_0012EE20\n\t"
-        "addiu     $5, $5, %lo(D_38C980)\n\t"
-        "ld         $31, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x10\n\t"
-        ".set reorder\n\t"
-        ".end func_00130900\n");
+void *func_00130900(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    r_sp = (long)(r_sp + (-0x10));
+    r_a1 = (long)&D_38C980;
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_ra; }
+    r_a1 = (long)&D_38C980;
+    r_v0 = (long)func_0012EE20((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x10));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00130920 */
-__asm__(".text\n\t"
-        ".globl func_00130920\n\t"
-        ".ent func_00130920\n"
-        "func_00130920:\n\t"
-        ".set noreorder\n\t"
-        "sw         $0, 0xD0($4)\n\t"
-        "jr         $31\n\t"
-        "addiu     $2, $0, -0x7E\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_00130920\n");
+void *func_00130920(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    if (r_a0) { *(int *)((char *)r_a0 + (0xD0)) = (int)0; }
+    r_v0 = (long)(0 + (-0x7E));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00130930 */
-__asm__(".text\n\t"
-        ".globl func_00130930\n\t"
-        ".ent func_00130930\n"
-        "func_00130930:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x40\n\t"
-        "sd         $16, 0x0($29)\n\t"
-        "sd         $31, 0x30($29)\n\t"
-        "daddu      $16, $4, $0\n\t"
-        "sd         $18, 0x20($29)\n\t"
-        "sd         $17, 0x10($29)\n\t"
-        "lh         $7, 0xB6($16)\n\t"
-        "lh         $6, 0xB4($16)\n\t"
-        "lw         $8, 0xBC($16)\n\t"
-        ".L00130954:\n\t"
-        "lw         $4, 0xD0($16)\n\t"
-        "sltu       $2, $4, $8\n\t"
-        "bnel       $2, $0, .L0013096C\n\t"
-        ".set reorder\n\t"
-        ".end func_00130930\n");
+void *func_00130930(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0, r_t0 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    (void)r_t0;
+    r_sp = (long)(r_sp + (-0x40));
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_s0; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x30)) = (long)r_ra; }
+    r_s0 = (long)(r_a0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x20)) = (long)r_s2; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_s1; }
+    if (r_s0) { r_a3 = *(short *)((char *)r_s0 + (0xB6)); }
+    if (r_s0) { r_a2 = *(short *)((char *)r_s0 + (0xB4)); }
+    if (r_s0) { r_t0 = *(int *)((char *)r_s0 + (0xBC)); }
+_lbl_L00130954:
+    if (r_s0) { r_a0 = *(int *)((char *)r_s0 + (0xD0)); }
+    r_v0 = (long)((unsigned long)r_a0 < (unsigned long)r_t0 ? 1 : 0);
+    if (r_v0 != 0) return func_00130960((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    return func_00130960((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+}
 
 /* func_00130960 */
-__asm__(".text\n\t"
-        ".globl func_00130960\n\t"
-        ".ent func_00130960\n"
-        "func_00130960:\n\t"
-        ".set noreorder\n\t"
-        "lw         $3, 0xC4($16)\n\t"
-        "b          .L001309C8\n\t"
-        "addiu     $2, $0, 0x2\n\t"
-        ".L0013096C:\n\t"
-        "sll        $2, $4, 4\n\t"
-        "addiu      $5, $0, -0x1\n\t"
-        "addu       $2, $2, $3\n\t"
-        "lh         $18, 0x0($2)\n\t"
-        "beq        $6, $5, .L001309A4\n\t"
-        "lh        $17, 0x2($2)\n\t"
-        "beql       $7, $5, .L001309A8\n\t"
-        "daddu     $4, $18, $0\n\t"
-        "bne        $7, $17, .L0013099C\n\t"
-        "addiu     $4, $4, 0x1\n\t"
-        "beql       $6, $18, .L001309A8\n\t"
-        "daddu     $4, $18, $0\n\t"
-        ".L0013099C:\n\t"
-        "b          .L00130954\n\t"
-        "sw        $4, 0xD0($16)\n\t"
-        ".L001309A4:\n\t"
-        "daddu      $4, $18, $0\n\t"
-        ".L001309A8:\n\t"
-        "daddu      $5, $17, $0\n\t"
-        "addiu      $6, $16, 0x24\n\t"
-        "addiu      $7, $16, 0x28\n\t"
-        "addiu      $8, $16, 0x2C\n\t"
-        "jal        func_0012FAC8\n\t"
-        "daddu     $9, $16, $0\n\t"
-        "sh         $17, 0xE($16)\n\t"
-        "sh         $18, 0xC($16)\n\t"
-        ".L001309C8:\n\t"
-        "ld         $31, 0x30($29)\n\t"
-        "ld         $18, 0x20($29)\n\t"
-        "ld         $17, 0x10($29)\n\t"
-        "ld         $16, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x40\n\t"
-        ".set reorder\n\t"
-        ".end func_00130960\n");
+void *func_00130960(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0, r_t0 = 0, r_t1 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    (void)r_t0;
+    (void)r_t1;
+    if (r_s0) { r_v1 = *(int *)((char *)r_s0 + (0xC4)); }
+    r_v0 = (long)(0 + (0x2));
+    goto _lbl_L001309C8;
+_lbl_L0013096C:
+    r_v0 = (long)((unsigned long)r_a0 << (4));
+    r_a1 = (long)(0 + (-0x1));
+    r_v0 = (long)(r_v0 + r_v1);
+    if (r_v0) { r_s2 = *(short *)((char *)r_v0 + (0x0)); }
+    if (r_a2 == r_a1) { if (r_v0) { r_s1 = *(short *)((char *)r_v0 + (0x2)); } goto _lbl_L001309A4; }
+    if (r_v0) { r_s1 = *(short *)((char *)r_v0 + (0x2)); }
+    if (r_a3 == r_a1) { r_a0 = (long)(r_s2 + 0); goto _lbl_L001309A8; }
+    r_a0 = (long)(r_s2 + 0);
+    if (r_a3 != r_s1) { r_a0 = (long)(r_a0 + (0x1)); goto _lbl_L0013099C; }
+    r_a0 = (long)(r_a0 + (0x1));
+    if (r_a2 == r_s2) { r_a0 = (long)(r_s2 + 0); goto _lbl_L001309A8; }
+    r_a0 = (long)(r_s2 + 0);
+_lbl_L0013099C:
+    if (r_s0) { *(int *)((char *)r_s0 + (0xD0)) = (int)r_a0; }
+    return func_00130930((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+_lbl_L001309A4:
+    r_a0 = (long)(r_s2 + 0);
+_lbl_L001309A8:
+    r_a1 = (long)(r_s1 + 0);
+    r_a2 = (long)(r_s0 + (0x24));
+    r_a3 = (long)(r_s0 + (0x28));
+    r_t0 = (long)(r_s0 + (0x2C));
+    r_t1 = (long)(r_s0 + 0);
+    r_v0 = (long)func_0012FAC8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_s0) { *(short *)((char *)r_s0 + (0xE)) = (short)r_s1; }
+    if (r_s0) { *(short *)((char *)r_s0 + (0xC)) = (short)r_s2; }
+_lbl_L001309C8:
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x30)); }
+    if (r_sp) { r_s2 = *(long *)((char *)r_sp + (0x20)); }
+    if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x10)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x40));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_001309E0 */
-__asm__(".text\n\t"
-        ".globl func_001309E0\n\t"
-        ".ent func_001309E0\n"
-        "func_001309E0:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x50\n\t"
-        "sd         $16, 0x10($29)\n\t"
-        "sd         $31, 0x40($29)\n\t"
-        "daddu      $16, $4, $0\n\t"
-        "sd         $18, 0x30($29)\n\t"
-        "addiu      $4, $0, -0x1\n\t"
-        "sd         $17, 0x20($29)\n\t"
-        "lw         $17, 0xD0($16)\n\t"
-        "lh         $2, 0xC($16)\n\t"
-        "lw         $18, 0xC4($16)\n\t"
-        "beq        $2, $4, .L00130A34\n\t"
-        "lh        $3, 0xE($16)\n\t"
-        "beq        $3, $4, .L00130A34\n\t"
-        "addiu     $4, $0, 0x1\n\t"
-        "daddu      $5, $29, $0\n\t"
-        "ori        $6, $29, 0x4\n\t"
-        "addiu      $7, $0, 0x1\n\t"
-        "jal        func_001303A8\n\t"
-        "daddu     $8, $16, $0\n\t"
-        "b          .L00130A48\n\t"
-        "daddu     $3, $2, $0\n\t"
-        ".L00130A34:\n\t"
-        "addiu      $2, $0, -0xA\n\t"
-        "sw         $0, 0x24($16)\n\t"
-        "sw         $2, 0x4($29)\n\t"
-        "addiu      $3, $0, -0x7E\n\t"
-        "sw         $0, 0x28($16)\n\t"
-        ".L00130A48:\n\t"
-        "addiu      $2, $0, -0x7E\n\t"
-        "bne        $3, $2, .L00130A80\n\t"
-        ".set reorder\n\t"
-        ".end func_001309E0\n");
+void *func_001309E0(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0, r_t0 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    (void)r_t0;
+    r_sp = (long)(r_sp + (-0x50));
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_s0; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x40)) = (long)r_ra; }
+    r_s0 = (long)(r_a0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x30)) = (long)r_s2; }
+    r_a0 = (long)(0 + (-0x1));
+    if (r_sp) { *(long *)((char *)r_sp + (0x20)) = (long)r_s1; }
+    if (r_s0) { r_s1 = *(int *)((char *)r_s0 + (0xD0)); }
+    if (r_s0) { r_v0 = *(short *)((char *)r_s0 + (0xC)); }
+    if (r_s0) { r_s2 = *(int *)((char *)r_s0 + (0xC4)); }
+    if (r_v0 == r_a0) { if (r_s0) { r_v1 = *(short *)((char *)r_s0 + (0xE)); } goto _lbl_L00130A34; }
+    if (r_s0) { r_v1 = *(short *)((char *)r_s0 + (0xE)); }
+    if (r_v1 == r_a0) { r_a0 = (long)(0 + (0x1)); goto _lbl_L00130A34; }
+    r_a0 = (long)(0 + (0x1));
+    r_a1 = (long)(r_sp + 0);
+    r_a2 = (long)(r_sp | (0x4));
+    r_a3 = (long)(0 + (0x1));
+    r_t0 = (long)(r_s0 + 0);
+    r_v0 = (long)func_001303A8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_v1 = (long)(r_v0 + 0);
+    goto _lbl_L00130A48;
+_lbl_L00130A34:
+    r_v0 = (long)(0 + (-0xA));
+    if (r_s0) { *(int *)((char *)r_s0 + (0x24)) = (int)0; }
+    if (r_sp) { *(int *)((char *)r_sp + (0x4)) = (int)r_v0; }
+    r_v1 = (long)(0 + (-0x7E));
+    if (r_s0) { *(int *)((char *)r_s0 + (0x28)) = (int)0; }
+_lbl_L00130A48:
+    r_v0 = (long)(0 + (-0x7E));
+    if (r_v1 != r_v0) return func_00130A50((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    return func_00130A50((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+}
 
 /* func_00130A50 */
-__asm__(".text\n\t"
-        ".globl func_00130A50\n\t"
-        ".ent func_00130A50\n"
-        "func_00130A50:\n\t"
-        ".set noreorder\n\t"
-        "ld         $31, 0x40($29)\n\t"
-        "lw         $8, 0x4($29)\n\t"
-        "sll        $4, $17, 4\n\t"
-        "lw         $5, 0x24($16)\n\t"
-        "addu       $4, $18, $4\n\t"
-        "lw         $6, 0x28($16)\n\t"
-        "jal        func_0012F0A0\n\t"
-        "lw        $7, 0x2C($16)\n\t"
-        "addiu      $2, $17, 0x1\n\t"
-        "addiu      $3, $0, -0x1\n\t"
-        "sw         $2, 0xD0($16)\n\t"
-        "ld         $31, 0x40($29)\n\t"
-        ".L00130A80:\n\t"
-        "daddu      $2, $3, $0\n\t"
-        "ld         $18, 0x30($29)\n\t"
-        "ld         $17, 0x20($29)\n\t"
-        "ld         $16, 0x10($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x50\n\t"
-        ".set reorder\n\t"
-        ".end func_00130A50\n");
+void *func_00130A50(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0, r_t0 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    (void)r_t0;
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x40)); }
+    if (r_sp) { r_t0 = *(int *)((char *)r_sp + (0x4)); }
+    r_a0 = (long)((unsigned long)r_s1 << (4));
+    if (r_s0) { r_a1 = *(int *)((char *)r_s0 + (0x24)); }
+    r_a0 = (long)(r_s2 + r_a0);
+    if (r_s0) { r_a2 = *(int *)((char *)r_s0 + (0x28)); }
+    if (r_s0) { r_a3 = *(int *)((char *)r_s0 + (0x2C)); }
+    r_v0 = (long)func_0012F0A0((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_v0 = (long)(r_s1 + (0x1));
+    r_v1 = (long)(0 + (-0x1));
+    if (r_s0) { *(int *)((char *)r_s0 + (0xD0)) = (int)r_v0; }
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x40)); }
+_lbl_L00130A80:
+    r_v0 = (long)(r_v1 + 0);
+    if (r_sp) { r_s2 = *(long *)((char *)r_sp + (0x30)); }
+    if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x20)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x10)); }
+    r_sp = (long)(r_sp + (0x50));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00130A98 */
-__asm__(".text\n\t"
-        ".globl func_00130A98\n\t"
-        ".ent func_00130A98\n"
-        "func_00130A98:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x20\n\t"
-        "sd         $31, 0x10($29)\n\t"
-        "sd         $16, 0x0($29)\n\t"
-        "lw         $16, 0xB0($4)\n\t"
-        ".set reorder\n\t"
-        ".end func_00130A98\n");
+void *func_00130A98(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    r_sp = (long)(r_sp + (-0x20));
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_ra; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_s0; }
+    if (r_a0) { r_s0 = *(int *)((char *)r_a0 + (0xB0)); }
+    return func_00130AA8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+}
 
 /* func_00130AA8 */
-__asm__(".text\n\t"
-        ".globl func_00130AA8\n\t"
-        ".ent func_00130AA8\n"
-        "func_00130AA8:\n\t"
-        ".set noreorder\n\t"
-        "beqz       $16, .L00130B00\n\t"
-        "addiu     $3, $0, -0x1\n\t"
-        "lh         $2, 0xB4($4)\n\t"
-        "beql       $2, $3, .L00130AEC\n\t"
-        "lw        $3, 0xBC($4)\n\t"
-        "lh         $2, 0xB6($4)\n\t"
-        "beql       $2, $3, .L00130AEC\n\t"
-        "lw        $3, 0xBC($4)\n\t"
-        "lwl        $2, 0xB7($4)\n\t"
-        "lwr        $2, 0xB4($4)\n\t"
-        "lui        $4, (0xFFFF0000 >> 16)\n\t"
-        "dsrl32     $4, $4, 0\n\t"
-        "jal        func_0012E4E8\n\t"
-        "and       $4, $2, $4\n\t"
-        "daddu      $4, $2, $0\n\t"
-        "b          .L00130AF0\n\t"
-        "addiu     $3, $0, 0x1\n\t"
-        ".L00130AEC:\n\t"
-        "lw         $4, 0xC4($4)\n\t"
-        ".L00130AF0:\n\t"
-        "addiu      $2, $0, 0x1\n\t"
-        "sw         $4, 0x8($16)\n\t"
-        "sw         $2, 0x0($16)\n\t"
-        "sw         $3, 0x4($16)\n\t"
-        ".L00130B00:\n\t"
-        "ld         $31, 0x10($29)\n\t"
-        "addiu      $2, $0, -0x80\n\t"
-        "ld         $16, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x20\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_00130AA8\n");
+void *func_00130AA8(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    if (r_s0 == 0) { r_v1 = (long)(0 + (-0x1)); goto _lbl_L00130B00; }
+    r_v1 = (long)(0 + (-0x1));
+    if (r_a0) { r_v0 = *(short *)((char *)r_a0 + (0xB4)); }
+    if (r_v0 == r_v1) { if (r_a0) { r_v1 = *(int *)((char *)r_a0 + (0xBC)); } goto _lbl_L00130AEC; }
+    if (r_a0) { r_v1 = *(int *)((char *)r_a0 + (0xBC)); }
+    if (r_a0) { r_v0 = *(short *)((char *)r_a0 + (0xB6)); }
+    if (r_v0 == r_v1) { if (r_a0) { r_v1 = *(int *)((char *)r_a0 + (0xBC)); } goto _lbl_L00130AEC; }
+    if (r_a0) { r_v1 = *(int *)((char *)r_a0 + (0xBC)); }
+    if (r_a0) { r_v0 = *(int *)((char *)r_a0 + (0xB7)); }
+    if (r_a0) { r_v0 = *(int *)((char *)r_a0 + (0xB4)); }
+    r_a0 = (long)((0xFFFF0000 >> 16) << 16);
+    r_a0 = (long)((unsigned long)r_a0 >> (0));
+    r_a0 = (long)(r_v0 & r_a0);
+    r_v0 = (long)func_0012E4E8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_a0 = (long)(r_v0 + 0);
+    r_v1 = (long)(0 + (0x1));
+    goto _lbl_L00130AF0;
+_lbl_L00130AEC:
+    if (r_a0) { r_a0 = *(int *)((char *)r_a0 + (0xC4)); }
+_lbl_L00130AF0:
+    r_v0 = (long)(0 + (0x1));
+    if (r_s0) { *(int *)((char *)r_s0 + (0x8)) = (int)r_a0; }
+    if (r_s0) { *(int *)((char *)r_s0 + (0x0)) = (int)r_v0; }
+    if (r_s0) { *(int *)((char *)r_s0 + (0x4)) = (int)r_v1; }
+_lbl_L00130B00:
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x10)); }
+    r_v0 = (long)(0 + (-0x80));
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x20));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00130B18 */
-__asm__(".text\n\t"
-        ".globl func_00130B18\n\t"
-        ".ent func_00130B18\n"
-        "func_00130B18:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x60\n\t"
-        "lui        $2, %hi(D_4F9700)\n\t"
-        "sd         $18, 0x30($29)\n\t"
-        "sd         $19, 0x40($29)\n\t"
-        "addiu      $18, $2, %lo(D_4F9700)\n\t"
-        "sd         $17, 0x20($29)\n\t"
-        "daddu      $19, $4, $0\n\t"
-        "sd         $16, 0x10($29)\n\t"
-        "daddu      $17, $7, $0\n\t"
-        "lw         $3, -0x6900($2)\n\t"
-        "daddu      $16, $6, $0\n\t"
-        "sd         $31, 0x50($29)\n\t"
-        "daddu      $2, $0, $0\n\t"
-        "bnez       $3, .L00130BC8\n\t"
-        "sw        $5, 0x0($29)\n\t"
-        "jal        func_0012EF18\n\t"
-        "daddu     $4, $16, $0\n\t"
-        "lw         $2, 0x0($29)\n\t"
-        "lui        $5, %hi(func_001309E0 + 0x50)\n\t"
-        "lui        $10, %hi(D_38C990)\n\t"
-        "lui        $7, (0xFFFF0000 >> 16)\n\t"
-        "dsrl32     $7, $7, 0\n\t"
-        "daddu      $6, $16, $0\n\t"
-        "daddu      $9, $17, $0\n\t"
-        "daddu      $8, $19, $0\n\t"
-        "addiu      $10, $10, %lo(D_38C990)\n\t"
-        "and        $7, $2, $7\n\t"
-        "addiu      $5, $5, %lo(func_001309E0 + 0x50)\n\t"
-        "jal        func_0012EF38\n\t"
-        "daddu     $4, $18, $0\n\t"
-        "lui        $2, %hi(D_4F9840)\n\t"
-        "sw         $0, 0xD0($18)\n\t"
-        "addiu      $2, $2, %lo(D_4F9840)\n\t"
-        "lui        $3, %hi(D_4E2D48)\n\t"
-        "sw         $2, 0xCC($18)\n\t"
-        "addiu      $4, $18, 0x38\n\t"
-        "addiu      $8, $3, %lo(D_4E2D48)\n\t"
-        "lb         $2, 0x0($8)\n\t"
-        ".set reorder\n\t"
-        ".end func_00130B18\n");
+void *func_00130B18(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0, r_s3 = 0, r_t0 = 0, r_t1 = 0, r_t2 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    (void)r_s3;
+    (void)r_t0;
+    (void)r_t1;
+    (void)r_t2;
+    r_sp = (long)(r_sp + (-0x60));
+    r_v0 = (long)&D_4F9700;
+    if (r_sp) { *(long *)((char *)r_sp + (0x30)) = (long)r_s2; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x40)) = (long)r_s3; }
+    r_s2 = (long)&D_4F9700;
+    if (r_sp) { *(long *)((char *)r_sp + (0x20)) = (long)r_s1; }
+    r_s3 = (long)(r_a0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_s0; }
+    r_s1 = (long)(r_a3 + 0);
+    if (r_v0) { r_v1 = *(int *)((char *)r_v0 + (-0x6900)); }
+    r_s0 = (long)(r_a2 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x50)) = (long)r_ra; }
+    r_v0 = (long)(0 + 0);
+    if (r_v1 != 0) { if (r_sp) { *(int *)((char *)r_sp + (0x0)) = (int)r_a1; } return func_00130BB0((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3); }
+    if (r_sp) { *(int *)((char *)r_sp + (0x0)) = (int)r_a1; }
+    r_a0 = (long)(r_s0 + 0);
+    r_v0 = (long)func_0012EF18((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_v0 = *(int *)((char *)r_sp + (0x0)); }
+    r_a1 = (long)&func_001309E0 + 0x50;
+    r_t2 = (long)&D_38C990;
+    r_a3 = (long)((0xFFFF0000 >> 16) << 16);
+    r_a3 = (long)((unsigned long)r_a3 >> (0));
+    r_a2 = (long)(r_s0 + 0);
+    r_t1 = (long)(r_s1 + 0);
+    r_t0 = (long)(r_s3 + 0);
+    r_t2 = (long)&D_38C990;
+    r_a3 = (long)(r_v0 & r_a3);
+    r_a1 = (long)&func_001309E0 + 0x50;
+    r_a0 = (long)(r_s2 + 0);
+    r_v0 = (long)func_0012EF38((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_v0 = (long)&D_4F9840;
+    if (r_s2) { *(int *)((char *)r_s2 + (0xD0)) = (int)0; }
+    r_v0 = (long)&D_4F9840;
+    r_v1 = (long)&D_4E2D48;
+    if (r_s2) { *(int *)((char *)r_s2 + (0xCC)) = (int)r_v0; }
+    r_a0 = (long)(r_s2 + (0x38));
+    r_t0 = (long)&D_4E2D48;
+    if (r_t0) { r_v0 = *(signed char *)((char *)r_t0 + (0x0)); }
+    return func_00130BB0((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+}
 
 /* func_00130BB0 */
-__asm__(".text\n\t"
-        ".globl func_00130BB0\n\t"
-        ".ent func_00130BB0\n"
-        "func_00130BB0:\n\t"
-        ".set noreorder\n\t"
-        "lb         $6, 0x1($8)\n\t"
-        "sb         $2, 0x38($18)\n\t"
-        "sb         $6, 0x39($18)\n\t"
-        "jal        strcat\n\t"
-        "daddu     $5, $19, $0\n\t"
-        "addiu      $2, $0, 0x1\n\t"
-        ".L00130BC8:\n\t"
-        "ld         $31, 0x50($29)\n\t"
-        "ld         $19, 0x40($29)\n\t"
-        "ld         $18, 0x30($29)\n\t"
-        "ld         $17, 0x20($29)\n\t"
-        ".set reorder\n\t"
-        ".end func_00130BB0\n");
+void *func_00130BB0(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s1 = 0, r_s2 = 0, r_s3 = 0, r_t0 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s1;
+    (void)r_s2;
+    (void)r_s3;
+    (void)r_t0;
+    if (r_t0) { r_a2 = *(signed char *)((char *)r_t0 + (0x1)); }
+    if (r_s2) { *(char *)((char *)r_s2 + (0x38)) = (char)r_v0; }
+    if (r_s2) { *(char *)((char *)r_s2 + (0x39)) = (char)r_a2; }
+    r_a1 = (long)(r_s3 + 0);
+    r_v0 = (long)strcat((char *)r_a0, (const char *)r_a1);
+    r_v0 = (long)(0 + (0x1));
+_lbl_L00130BC8:
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x50)); }
+    if (r_sp) { r_s3 = *(long *)((char *)r_sp + (0x40)); }
+    if (r_sp) { r_s2 = *(long *)((char *)r_sp + (0x30)); }
+    if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x20)); }
+    return func_00130BD8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+}
 
 /* func_00130BD8 */
-__asm__(".text\n\t"
-        ".globl func_00130BD8\n\t"
-        ".ent func_00130BD8\n"
-        "func_00130BD8:\n\t"
-        ".set noreorder\n\t"
-        "ld         $16, 0x10($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x60\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_00130BD8\n");
+void *func_00130BD8(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x10)); }
+    r_sp = (long)(r_sp + (0x60));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00130BE8 */
-__asm__(".text\n\t"
-        ".globl func_00130BE8\n\t"
-        ".ent func_00130BE8\n"
-        "func_00130BE8:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x10\n\t"
-        "lui        $5, %hi(D_38C990)\n\t"
-        "sd         $31, 0x0($29)\n\t"
-        "jal        func_0012EE20\n\t"
-        "addiu     $5, $5, %lo(D_38C990)\n\t"
-        "ld         $31, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x10\n\t"
-        ".set reorder\n\t"
-        ".end func_00130BE8\n");
+void *func_00130BE8(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    r_sp = (long)(r_sp + (-0x10));
+    r_a1 = (long)&D_38C990;
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_ra; }
+    r_a1 = (long)&D_38C990;
+    r_v0 = (long)func_0012EE20((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x10));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00130C08 */
-__asm__(".text\n\t"
-        ".globl func_00130C08\n\t"
-        ".ent func_00130C08\n"
-        "func_00130C08:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x10\n\t"
-        "daddu      $8, $4, $0\n\t"
-        "sd         $31, 0x0($29)\n\t"
-        "daddu      $9, $8, $0\n\t"
-        "addiu      $6, $8, 0x24\n\t"
-        "addiu      $7, $8, 0x28\n\t"
-        "lh         $4, 0xC($8)\n\t"
-        "lh         $5, 0xE($8)\n\t"
-        "jal        func_0012FAC8\n\t"
-        "addiu     $8, $8, 0x2C\n\t"
-        "ld         $31, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x10\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_00130C08\n");
+void *func_00130C08(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_t0 = 0, r_t1 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_t0;
+    (void)r_t1;
+    r_sp = (long)(r_sp + (-0x10));
+    r_t0 = (long)(r_a0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_ra; }
+    r_t1 = (long)(r_t0 + 0);
+    r_a2 = (long)(r_t0 + (0x24));
+    r_a3 = (long)(r_t0 + (0x28));
+    if (r_t0) { r_a0 = *(short *)((char *)r_t0 + (0xC)); }
+    if (r_t0) { r_a1 = *(short *)((char *)r_t0 + (0xE)); }
+    r_t0 = (long)(r_t0 + (0x2C));
+    r_v0 = (long)func_0012FAC8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x10));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00130C40 */
-__asm__(".text\n\t"
-        ".globl func_00130C40\n\t"
-        ".ent func_00130C40\n"
-        "func_00130C40:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x10\n\t"
-        "sd         $31, 0x0($29)\n\t"
-        "jal        func_00130A50\n\t"
-        "nop\n\t"
-        "ld         $31, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x10\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_00130C40\n");
+void *func_00130C40(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    r_sp = (long)(r_sp + (-0x10));
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_ra; }
+    r_v0 = (long)func_00130A50((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x10));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00130C60 */
-__asm__(".text\n\t"
-        ".globl func_00130C60\n\t"
-        ".ent func_00130C60\n"
-        "func_00130C60:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x80\n\t"
-        "addiu      $7, $0, 0x1\n\t"
-        "sd         $20, 0x50($29)\n\t"
-        "sd         $19, 0x40($29)\n\t"
-        "daddu      $20, $6, $0\n\t"
-        "sd         $17, 0x20($29)\n\t"
-        "daddu      $19, $5, $0\n\t"
-        "daddu      $17, $4, $0\n\t"
-        "sd         $21, 0x60($29)\n\t"
-        "sd         $18, 0x30($29)\n\t"
-        "addiu      $4, $0, 0x1\n\t"
-        "sd         $31, 0x70($29)\n\t"
-        "daddu      $5, $29, $0\n\t"
-        "sd         $16, 0x10($29)\n\t"
-        "ori        $6, $29, 0x4\n\t"
-        "daddu      $8, $17, $0\n\t"
-        "jal        func_001303A8\n\t"
-        "addiu     $21, $0, 0x1\n\t"
-        "daddu      $18, $2, $0\n\t"
-        "addiu      $2, $0, -0x7E\n\t"
-        "bne        $18, $2, .L00130D18\n\t"
-        "daddu     $2, $18, $0\n\t"
-        "lwl        $2, 0xF($17)\n\t"
-        "lwr        $2, 0xC($17)\n\t"
-        "lui        $4, (0xFFFF0000 >> 16)\n\t"
-        "dsrl32     $4, $4, 0\n\t"
-        "jal        func_0012E4E8\n\t"
-        "and       $4, $2, $4\n\t"
-        "daddu      $16, $2, $0\n\t"
-        "lw         $8, 0x4($29)\n\t"
-        "lw         $5, 0x24($17)\n\t"
-        "daddu      $4, $16, $0\n\t"
-        "lw         $6, 0x28($17)\n\t"
-        "jal        func_0012F0A0\n\t"
-        "lw        $7, 0x2C($17)\n\t"
-        "daddu      $4, $16, $0\n\t"
-        "daddu      $6, $19, $0\n\t"
-        "jal        func_0012F388\n\t"
-        "daddu     $5, $17, $0\n\t"
-        "beq        $2, $21, .L00130D14\n\t"
-        "daddu     $4, $17, $0\n\t"
-        "sw         $2, 0x20($17)\n\t"
-        "jal        func_0012F108\n\t"
-        "daddu     $5, $20, $0\n\t"
-        "daddu      $18, $2, $0\n\t"
-        ".L00130D14:\n\t"
-        "daddu      $2, $18, $0\n\t"
-        ".L00130D18:\n\t"
-        "ld         $31, 0x70($29)\n\t"
-        "ld         $21, 0x60($29)\n\t"
-        "ld         $20, 0x50($29)\n\t"
-        "ld         $19, 0x40($29)\n\t"
-        "ld         $18, 0x30($29)\n\t"
-        "ld         $17, 0x20($29)\n\t"
-        "ld         $16, 0x10($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x80\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_00130C60\n");
+void *func_00130C60(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0, r_s3 = 0, r_s4 = 0, r_s5 = 0, r_t0 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    (void)r_s3;
+    (void)r_s4;
+    (void)r_s5;
+    (void)r_t0;
+    r_sp = (long)(r_sp + (-0x80));
+    r_a3 = (long)(0 + (0x1));
+    if (r_sp) { *(long *)((char *)r_sp + (0x50)) = (long)r_s4; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x40)) = (long)r_s3; }
+    r_s4 = (long)(r_a2 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x20)) = (long)r_s1; }
+    r_s3 = (long)(r_a1 + 0);
+    r_s1 = (long)(r_a0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x60)) = (long)r_s5; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x30)) = (long)r_s2; }
+    r_a0 = (long)(0 + (0x1));
+    if (r_sp) { *(long *)((char *)r_sp + (0x70)) = (long)r_ra; }
+    r_a1 = (long)(r_sp + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_s0; }
+    r_a2 = (long)(r_sp | (0x4));
+    r_t0 = (long)(r_s1 + 0);
+    r_s5 = (long)(0 + (0x1));
+    r_v0 = (long)func_001303A8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_s2 = (long)(r_v0 + 0);
+    r_v0 = (long)(0 + (-0x7E));
+    if (r_s2 != r_v0) { r_v0 = (long)(r_s2 + 0); goto _lbl_L00130D18; }
+    r_v0 = (long)(r_s2 + 0);
+    if (r_s1) { r_v0 = *(int *)((char *)r_s1 + (0xF)); }
+    if (r_s1) { r_v0 = *(int *)((char *)r_s1 + (0xC)); }
+    r_a0 = (long)((0xFFFF0000 >> 16) << 16);
+    r_a0 = (long)((unsigned long)r_a0 >> (0));
+    r_a0 = (long)(r_v0 & r_a0);
+    r_v0 = (long)func_0012E4E8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_s0 = (long)(r_v0 + 0);
+    if (r_sp) { r_t0 = *(int *)((char *)r_sp + (0x4)); }
+    if (r_s1) { r_a1 = *(int *)((char *)r_s1 + (0x24)); }
+    r_a0 = (long)(r_s0 + 0);
+    if (r_s1) { r_a2 = *(int *)((char *)r_s1 + (0x28)); }
+    if (r_s1) { r_a3 = *(int *)((char *)r_s1 + (0x2C)); }
+    r_v0 = (long)func_0012F0A0((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_a0 = (long)(r_s0 + 0);
+    r_a2 = (long)(r_s3 + 0);
+    r_a1 = (long)(r_s1 + 0);
+    r_v0 = (long)func_0012F388((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_v0 == r_s5) { r_a0 = (long)(r_s1 + 0); goto _lbl_L00130D14; }
+    r_a0 = (long)(r_s1 + 0);
+    if (r_s1) { *(int *)((char *)r_s1 + (0x20)) = (int)r_v0; }
+    r_a1 = (long)(r_s4 + 0);
+    r_v0 = (long)func_0012F108((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_s2 = (long)(r_v0 + 0);
+_lbl_L00130D14:
+    r_v0 = (long)(r_s2 + 0);
+_lbl_L00130D18:
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x70)); }
+    if (r_sp) { r_s5 = *(long *)((char *)r_sp + (0x60)); }
+    if (r_sp) { r_s4 = *(long *)((char *)r_sp + (0x50)); }
+    if (r_sp) { r_s3 = *(long *)((char *)r_sp + (0x40)); }
+    if (r_sp) { r_s2 = *(long *)((char *)r_sp + (0x30)); }
+    if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x20)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x10)); }
+    r_sp = (long)(r_sp + (0x80));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00130D40 */
-__asm__(".text\n\t"
-        ".globl func_00130D40\n\t"
-        ".ent func_00130D40\n"
-        "func_00130D40:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x10\n\t"
-        "lui        $6, %hi(D_00131DA8)\n\t"
-        "sd         $31, 0x0($29)\n\t"
-        "addiu      $6, $6, %lo(D_00131DA8)\n\t"
-        "jal        func_00130AA8\n\t"
-        "daddu     $5, $0, $0\n\t"
-        "ld         $31, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x10\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_00130D40\n");
+void *func_00130D40(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    r_sp = (long)(r_sp + (-0x10));
+    r_a2 = (long)&D_00131DA8;
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_ra; }
+    r_a2 = (long)&D_00131DA8;
+    r_a1 = (long)(0 + 0);
+    r_v0 = (long)func_00130AA8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x10));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00130D68 */
-__asm__(".text\n\t"
-        ".globl func_00130D68\n\t"
-        ".ent func_00130D68\n"
-        "func_00130D68:\n\t"
-        ".set noreorder\n\t"
-        "jr         $31\n\t"
-        "addiu     $2, $0, -0x7E\n\t"
-        ".set reorder\n\t"
-        ".end func_00130D68\n");
+void *func_00130D68(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    r_v0 = (long)(0 + (-0x7E));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00130D70 */
-__asm__(".text\n\t"
-        ".globl func_00130D70\n\t"
-        ".ent func_00130D70\n"
-        "func_00130D70:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x10\n\t"
-        "sd         $31, 0x0($29)\n\t"
-        "jal        func_00130BB0\n\t"
-        "nop\n\t"
-        "ld         $31, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        ".set reorder\n\t"
-        ".end func_00130D70\n");
+void *func_00130D70(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    r_sp = (long)(r_sp + (-0x10));
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_ra; }
+    r_v0 = (long)func_00130BB0((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00130D88 */
-__asm__(".text\n\t"
-        ".globl func_00130D88\n\t"
-        ".ent func_00130D88\n"
-        "func_00130D88:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, 0x10\n\t"
-        "nop\n\t"
-        "jr         $31\n\t"
-        "addiu     $2, $0, -0x7E\n\t"
-        ".set reorder\n\t"
-        ".end func_00130D88\n");
+void *func_00130D88(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    r_sp = (long)(r_sp + (0x10));
+    r_v0 = (long)(0 + (-0x7E));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00130D98 */
-__asm__(".text\n\t"
-        ".globl func_00130D98\n\t"
-        ".ent func_00130D98\n"
-        "func_00130D98:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x10\n\t"
-        "lui        $5, %hi(D_00131DA8)\n\t"
-        "sd         $31, 0x0($29)\n\t"
-        "jal        func_00130BD8\n\t"
-        "addiu     $5, $5, %lo(D_00131DA8)\n\t"
-        "ld         $31, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x10\n\t"
-        ".set reorder\n\t"
-        ".end func_00130D98\n");
+void *func_00130D98(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    r_sp = (long)(r_sp + (-0x10));
+    r_a1 = (long)&D_00131DA8;
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_ra; }
+    r_a1 = (long)&D_00131DA8;
+    r_v0 = (long)func_00130BD8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x10));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00130DB8 */
-__asm__(".text\n\t"
-        ".globl func_00130DB8\n\t"
-        ".ent func_00130DB8\n"
-        "func_00130DB8:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x30\n\t"
-        "lui        $9, %hi(D_4F9840)\n\t"
-        "sd         $17, 0x10($29)\n\t"
-        "addiu      $9, $9, %lo(D_4F9840)\n\t"
-        "sd         $16, 0x0($29)\n\t"
-        "daddu      $7, $0, $0\n\t"
-        "sd         $31, 0x20($29)\n\t"
-        "daddu      $16, $4, $0\n\t"
-        "addiu      $6, $16, 0x38\n\t"
-        "daddu      $10, $16, $0\n\t"
-        "lh         $4, 0xC($16)\n\t"
-        "addiu      $8, $0, 0x18\n\t"
-        "lh         $5, 0xE($16)\n\t"
-        "jal        func_0012FC60\n\t"
-        ".set reorder\n\t"
-        ".end func_00130DB8\n");
+void *func_00130DB8(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_t0 = 0, r_t1 = 0, r_t2 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_t0;
+    (void)r_t1;
+    (void)r_t2;
+    r_sp = (long)(r_sp + (-0x30));
+    r_t1 = (long)&D_4F9840;
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_s1; }
+    r_t1 = (long)&D_4F9840;
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_s0; }
+    r_a3 = (long)(0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x20)) = (long)r_ra; }
+    r_s0 = (long)(r_a0 + 0);
+    r_a2 = (long)(r_s0 + (0x38));
+    r_t2 = (long)(r_s0 + 0);
+    if (r_s0) { r_a0 = *(short *)((char *)r_s0 + (0xC)); }
+    r_t0 = (long)(0 + (0x18));
+    if (r_s0) { r_a1 = *(short *)((char *)r_s0 + (0xE)); }
+    r_v0 = (long)func_0012FC60((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    return func_00130DF0((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+}
 
 /* func_00130DF0 */
-__asm__(".text\n\t"
-        ".globl func_00130DF0\n\t"
-        ".ent func_00130DF0\n"
-        "func_00130DF0:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $17, $0, 0x18\n\t"
-        "sw         $17, 0x18($16)\n\t"
-        "ld         $31, 0x20($29)\n\t"
-        "ld         $17, 0x10($29)\n\t"
-        "ld         $16, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x30\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_00130DF0\n");
+void *func_00130DF0(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    r_s1 = (long)(0 + (0x18));
+    if (r_s0) { *(int *)((char *)r_s0 + (0x18)) = (int)r_s1; }
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x20)); }
+    if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x10)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x30));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00130E10 */
-__asm__(".text\n\t"
-        ".globl func_00130E10\n\t"
-        ".ent func_00130E10\n"
-        "func_00130E10:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x60\n\t"
-        "lui        $2, %hi(D_00131DA8)\n\t"
-        "sd         $16, 0x10($29)\n\t"
-        "daddu      $5, $29, $0\n\t"
-        "sd         $19, 0x40($29)\n\t"
-        "daddu      $16, $4, $0\n\t"
-        "sd         $17, 0x20($29)\n\t"
-        "addiu      $19, $2, %lo(D_00131DA8)\n\t"
-        "sd         $31, 0x50($29)\n\t"
-        "addiu      $4, $0, 0x1\n\t"
-        "sd         $18, 0x30($29)\n\t"
-        "ori        $6, $29, 0x4\n\t"
-        "addiu      $7, $0, 0xD\n\t"
-        "jal        func_001303A8\n\t"
-        ".set reorder\n\t"
-        ".end func_00130E10\n");
+void *func_00130E10(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0, r_s3 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    (void)r_s3;
+    r_sp = (long)(r_sp + (-0x60));
+    r_v0 = (long)&D_00131DA8;
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_s0; }
+    r_a1 = (long)(r_sp + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x40)) = (long)r_s3; }
+    r_s0 = (long)(r_a0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x20)) = (long)r_s1; }
+    r_s3 = (long)&D_00131DA8;
+    if (r_sp) { *(long *)((char *)r_sp + (0x50)) = (long)r_ra; }
+    r_a0 = (long)(0 + (0x1));
+    if (r_sp) { *(long *)((char *)r_sp + (0x30)) = (long)r_s2; }
+    r_a2 = (long)(r_sp | (0x4));
+    r_a3 = (long)(0 + (0xD));
+    r_v0 = (long)func_001303A8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    return func_00130E48((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+}
 
 /* func_00130E48 */
-__asm__(".text\n\t"
-        ".globl func_00130E48\n\t"
-        ".ent func_00130E48\n"
-        "func_00130E48:\n\t"
-        ".set noreorder\n\t"
-        "daddu      $8, $16, $0\n\t"
-        "daddu      $17, $2, $0\n\t"
-        "addiu      $2, $0, -0x7E\n\t"
-        "bne        $17, $2, .L00130F04\n\t"
-        "daddu     $2, $17, $0\n\t"
-        "lwl        $2, 0xF($16)\n\t"
-        "lwr        $2, 0xC($16)\n\t"
-        "lui        $4, (0xFFFF0000 >> 16)\n\t"
-        "dsrl32     $4, $4, 0\n\t"
-        "daddu      $18, $0, $0\n\t"
-        "jal        func_0012E4E8\n\t"
-        "and       $4, $2, $4\n\t"
-        "lw         $5, 0x4($29)\n\t"
-        "bltzl      $5, .L00130ED8\n\t"
-        "lui       $4, %hi(D_38CA10)\n\t"
-        "blez       $5, .L00130E94\n\t"
-        "lui       $2, %hi(D_4F9840)\n\t"
-        "addiu      $2, $2, %lo(D_4F9840)\n\t"
-        "sw         $2, 0x30($16)\n\t"
-        ".L00130E94:\n\t"
-        "lw         $2, 0x30($16)\n\t"
-        "beqz       $2, .L00130ED0\n\t"
-        "addiu     $2, $0, 0x1\n\t"
-        "lw         $4, 0x34($16)\n\t"
-        "jal        func_0012F7A0\n\t"
-        "addiu     $5, $0, 0x2\n\t"
-        "beqz       $2, .L00130EC8\n\t"
-        "lui       $5, %hi(D_00131190)\n\t"
-        "daddu      $4, $16, $0\n\t"
-        "jal        func_0012F108\n\t"
-        "addiu     $5, $5, %lo(D_00131190)\n\t"
-        "b          .L00130EE8\n\t"
-        "daddu     $17, $2, $0\n\t"
-        ".L00130EC8:\n\t"
-        "b          .L00130EE8\n\t"
-        "addiu     $18, $0, -0x79\n\t"
-        ".L00130ED0:\n\t"
-        "b          .L00130EE8\n\t"
-        "sw        $2, 0xB4($16)\n\t"
-        ".L00130ED8:\n\t"
-        "daddu      $6, $2, $0\n\t"
-        "jal        func_0012F438\n\t"
-        "addiu     $4, $4, %lo(D_38CA10)\n\t"
-        "daddu      $18, $2, $0\n\t"
-        ".L00130EE8:\n\t"
-        "daddu      $7, $17, $0\n\t"
-        "daddu      $4, $18, $0\n\t"
-        "daddu      $5, $16, $0\n\t"
-        "jal        func_0012FA30\n\t"
-        "daddu     $6, $19, $0\n\t"
-        "daddu      $17, $2, $0\n\t"
-        "daddu      $2, $17, $0\n\t"
-        ".L00130F04:\n\t"
-        "ld         $31, 0x50($29)\n\t"
-        "ld         $19, 0x40($29)\n\t"
-        "ld         $18, 0x30($29)\n\t"
-        "ld         $17, 0x20($29)\n\t"
-        "ld         $16, 0x10($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x60\n\t"
-        ".set reorder\n\t"
-        ".end func_00130E48\n");
+void *func_00130E48(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0, r_s3 = 0, r_t0 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    (void)r_s3;
+    (void)r_t0;
+    r_t0 = (long)(r_s0 + 0);
+    r_s1 = (long)(r_v0 + 0);
+    r_v0 = (long)(0 + (-0x7E));
+    if (r_s1 != r_v0) { r_v0 = (long)(r_s1 + 0); goto _lbl_L00130F04; }
+    r_v0 = (long)(r_s1 + 0);
+    if (r_s0) { r_v0 = *(int *)((char *)r_s0 + (0xF)); }
+    if (r_s0) { r_v0 = *(int *)((char *)r_s0 + (0xC)); }
+    r_a0 = (long)((0xFFFF0000 >> 16) << 16);
+    r_a0 = (long)((unsigned long)r_a0 >> (0));
+    r_s2 = (long)(0 + 0);
+    r_a0 = (long)(r_v0 & r_a0);
+    r_v0 = (long)func_0012E4E8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_a1 = *(int *)((char *)r_sp + (0x4)); }
+    if ((long)r_a1 < 0) { r_a0 = (long)&D_38CA10; goto _lbl_L00130ED8; }
+    r_a0 = (long)&D_38CA10;
+    if ((long)r_a1 <= 0) { r_v0 = (long)&D_4F9840; goto _lbl_L00130E94; }
+    r_v0 = (long)&D_4F9840;
+    r_v0 = (long)&D_4F9840;
+    if (r_s0) { *(int *)((char *)r_s0 + (0x30)) = (int)r_v0; }
+_lbl_L00130E94:
+    if (r_s0) { r_v0 = *(int *)((char *)r_s0 + (0x30)); }
+    if (r_v0 == 0) { r_v0 = (long)(0 + (0x1)); goto _lbl_L00130ED0; }
+    r_v0 = (long)(0 + (0x1));
+    if (r_s0) { r_a0 = *(int *)((char *)r_s0 + (0x34)); }
+    r_a1 = (long)(0 + (0x2));
+    r_v0 = (long)func_0012F7A0((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_v0 == 0) { r_a1 = (long)&D_00131190; goto _lbl_L00130EC8; }
+    r_a1 = (long)&D_00131190;
+    r_a0 = (long)(r_s0 + 0);
+    r_a1 = (long)&D_00131190;
+    r_v0 = (long)func_0012F108((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_s1 = (long)(r_v0 + 0);
+    goto _lbl_L00130EE8;
+_lbl_L00130EC8:
+    r_s2 = (long)(0 + (-0x79));
+    goto _lbl_L00130EE8;
+_lbl_L00130ED0:
+    if (r_s0) { *(int *)((char *)r_s0 + (0xB4)) = (int)r_v0; }
+    goto _lbl_L00130EE8;
+_lbl_L00130ED8:
+    r_a2 = (long)(r_v0 + 0);
+    r_a0 = (long)&D_38CA10;
+    r_v0 = (long)func_0012F438((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_s2 = (long)(r_v0 + 0);
+_lbl_L00130EE8:
+    r_a3 = (long)(r_s1 + 0);
+    r_a0 = (long)(r_s2 + 0);
+    r_a1 = (long)(r_s0 + 0);
+    r_a2 = (long)(r_s3 + 0);
+    r_v0 = (long)func_0012FA30((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_s1 = (long)(r_v0 + 0);
+    r_v0 = (long)(r_s1 + 0);
+_lbl_L00130F04:
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x50)); }
+    if (r_sp) { r_s3 = *(long *)((char *)r_sp + (0x40)); }
+    if (r_sp) { r_s2 = *(long *)((char *)r_sp + (0x30)); }
+    if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x20)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x10)); }
+    r_sp = (long)(r_sp + (0x60));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00130F20 */
-__asm__(".text\n\t"
-        ".globl func_00130F20\n\t"
-        ".ent func_00130F20\n"
-        "func_00130F20:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x10\n\t"
-        "lui        $5, %hi(func_00130D68)\n\t"
-        "sd         $31, 0x0($29)\n\t"
-        "jal        func_00130D88\n\t"
-        "addiu     $5, $5, %lo(func_00130D68)\n\t"
-        "ld         $31, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x10\n\t"
-        ".set reorder\n\t"
-        ".end func_00130F20\n");
+void *func_00130F20(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    r_sp = (long)(r_sp + (-0x10));
+    r_a1 = (long)&func_00130D68;
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_ra; }
+    r_a1 = (long)&func_00130D68;
+    r_v0 = (long)func_00130D88((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x10));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00130F40 */
-__asm__(".text\n\t"
-        ".globl func_00130F40\n\t"
-        ".ent func_00130F40\n"
-        "func_00130F40:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x30\n\t"
-        "lui        $2, (0xFFFF0000 >> 16)\n\t"
-        "dsrl32     $2, $2, 0\n\t"
-        "sd         $17, 0x10($29)\n\t"
-        "sd         $16, 0x0($29)\n\t"
-        "daddu      $17, $4, $0\n\t"
-        "sd         $31, 0x20($29)\n\t"
-        "addiu      $16, $0, -0x7E\n\t"
-        "lwl        $4, 0xF($17)\n\t"
-        "lwr        $4, 0xC($17)\n\t"
-        "jal        func_0012E4E8\n\t"
-        "and       $4, $4, $2\n\t"
-        "jal        func_0012F418\n\t"
-        "daddu     $4, $2, $0\n\t"
-        "lui        $6, %hi(D_00131DA8)\n\t"
-        "daddu      $4, $0, $0\n\t"
-        "movn       $4, $16, $2\n\t"
-        "daddu      $5, $17, $0\n\t"
-        "addiu      $6, $6, %lo(D_00131DA8)\n\t"
-        "jal        func_0012FA30\n\t"
-        "addiu     $7, $0, -0x7E\n\t"
-        "ld         $31, 0x20($29)\n\t"
-        "ld         $17, 0x10($29)\n\t"
-        "ld         $16, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x30\n\t"
-        ".set reorder\n\t"
-        ".end func_00130F40\n");
+void *func_00130F40(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    r_sp = (long)(r_sp + (-0x30));
+    r_v0 = (long)((0xFFFF0000 >> 16) << 16);
+    r_v0 = (long)((unsigned long)r_v0 >> (0));
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_s1; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_s0; }
+    r_s1 = (long)(r_a0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x20)) = (long)r_ra; }
+    r_s0 = (long)(0 + (-0x7E));
+    if (r_s1) { r_a0 = *(int *)((char *)r_s1 + (0xF)); }
+    if (r_s1) { r_a0 = *(int *)((char *)r_s1 + (0xC)); }
+    r_a0 = (long)(r_a0 & r_v0);
+    r_v0 = (long)func_0012E4E8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_a0 = (long)(r_v0 + 0);
+    r_v0 = (long)func_0012F418((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_a2 = (long)&D_00131DA8;
+    r_a0 = (long)(0 + 0);
+    if (r_v0 != 0) r_a0 = r_s0;
+    r_a1 = (long)(r_s1 + 0);
+    r_a2 = (long)&D_00131DA8;
+    r_a3 = (long)(0 + (-0x7E));
+    r_v0 = (long)func_0012FA30((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x20)); }
+    if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x10)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x30));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00130FA8 */
-__asm__(".text\n\t"
-        ".globl func_00130FA8\n\t"
-        ".ent func_00130FA8\n"
-        "func_00130FA8:\n\t"
-        ".set noreorder\n\t"
-        "daddu      $7, $4, $0\n\t"
-        "addiu      $29, $29, -0x10\n\t"
-        "daddu      $4, $5, $0\n\t"
-        "lui        $2, %hi(D_4E2D48)\n\t"
-        "daddu      $5, $6, $0\n\t"
-        "sd         $31, 0x0($29)\n\t"
-        "jal        func_00130280\n\t"
-        "addiu     $6, $2, %lo(D_4E2D48)\n\t"
-        "ld         $31, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x10\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_00130FA8\n");
+void *func_00130FA8(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    r_a3 = (long)(r_a0 + 0);
+    r_sp = (long)(r_sp + (-0x10));
+    r_a0 = (long)(r_a1 + 0);
+    r_v0 = (long)&D_4E2D48;
+    r_a1 = (long)(r_a2 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_ra; }
+    r_a2 = (long)&D_4E2D48;
+    r_v0 = (long)func_00130280((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x10));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00130FD8 */
-__asm__(".text\n\t"
-        ".globl func_00130FD8\n\t"
-        ".ent func_00130FD8\n"
-        "func_00130FD8:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x10\n\t"
-        "lui        $7, %hi(D_4E2D48)\n\t"
-        "sd         $31, 0x0($29)\n\t"
-        "addiu      $7, $7, %lo(D_4E2D48)\n\t"
-        "lh         $5, 0xC($4)\n\t"
-        "jal        func_00130DF0\n\t"
-        "lh        $6, 0xE($4)\n\t"
-        "ld         $31, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x10\n\t"
-        ".set reorder\n\t"
-        ".end func_00130FD8\n");
+void *func_00130FD8(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    r_sp = (long)(r_sp + (-0x10));
+    r_a3 = (long)&D_4E2D48;
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_ra; }
+    r_a3 = (long)&D_4E2D48;
+    if (r_a0) { r_a1 = *(short *)((char *)r_a0 + (0xC)); }
+    if (r_a0) { r_a2 = *(short *)((char *)r_a0 + (0xE)); }
+    r_v0 = (long)func_00130DF0((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x10));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00131000 */
-__asm__(".text\n\t"
-        ".globl func_00131000\n\t"
-        ".ent func_00131000\n"
-        "func_00131000:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x70\n\t"
-        "lui        $2, (0xFFFF0000 >> 16)\n\t"
-        "dsrl32     $2, $2, 0\n\t"
-        "sd         $20, 0x50($29)\n\t"
-        "sd         $19, 0x40($29)\n\t"
-        "daddu      $20, $5, $0\n\t"
-        "sd         $18, 0x30($29)\n\t"
-        "daddu      $19, $0, $0\n\t"
-        "sd         $17, 0x20($29)\n\t"
-        "sd         $16, 0x10($29)\n\t"
-        "daddu      $17, $4, $0\n\t"
-        "sd         $31, 0x60($29)\n\t"
-        "lwl        $4, 0xF($17)\n\t"
-        "lwr        $4, 0xC($17)\n\t"
-        "jal        func_0012E4E8\n\t"
-        "and       $4, $4, $2\n\t"
-        "daddu      $18, $2, $0\n\t"
-        "addiu      $4, $0, 0x1\n\t"
-        "daddu      $5, $29, $0\n\t"
-        "ori        $6, $29, 0x4\n\t"
-        "addiu      $7, $0, 0x12\n\t"
-        "jal        func_001303A8\n\t"
-        "daddu     $8, $17, $0\n\t"
-        "daddu      $16, $2, $0\n\t"
-        "addiu      $2, $0, -0x7E\n\t"
-        "bne        $16, $2, .L001310AC\n\t"
-        "daddu     $2, $16, $0\n\t"
-        "lw         $5, 0x4($29)\n\t"
-        "bltz       $5, .L00131080\n\t"
-        "lui       $4, %hi(D_38CA40)\n\t"
-        "b          .L00131090\n\t"
-        "sw        $5, 0xC4($17)\n\t"
-        ".L00131080:\n\t"
-        "daddu      $6, $18, $0\n\t"
-        "jal        func_0012F438\n\t"
-        "addiu     $4, $4, %lo(D_38CA40)\n\t"
-        "daddu      $19, $2, $0\n\t"
-        ".L00131090:\n\t"
-        "daddu      $7, $16, $0\n\t"
-        "daddu      $4, $19, $0\n\t"
-        "daddu      $5, $17, $0\n\t"
-        "jal        func_0012FA30\n\t"
-        "daddu     $6, $20, $0\n\t"
-        "daddu      $16, $2, $0\n\t"
-        "daddu      $2, $16, $0\n\t"
-        ".L001310AC:\n\t"
-        "ld         $31, 0x60($29)\n\t"
-        "ld         $20, 0x50($29)\n\t"
-        "ld         $19, 0x40($29)\n\t"
-        "ld         $18, 0x30($29)\n\t"
-        "ld         $17, 0x20($29)\n\t"
-        "ld         $16, 0x10($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x70\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_00131000\n");
+void *func_00131000(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0, r_s3 = 0, r_s4 = 0, r_t0 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    (void)r_s3;
+    (void)r_s4;
+    (void)r_t0;
+    r_sp = (long)(r_sp + (-0x70));
+    r_v0 = (long)((0xFFFF0000 >> 16) << 16);
+    r_v0 = (long)((unsigned long)r_v0 >> (0));
+    if (r_sp) { *(long *)((char *)r_sp + (0x50)) = (long)r_s4; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x40)) = (long)r_s3; }
+    r_s4 = (long)(r_a1 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x30)) = (long)r_s2; }
+    r_s3 = (long)(0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x20)) = (long)r_s1; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_s0; }
+    r_s1 = (long)(r_a0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x60)) = (long)r_ra; }
+    if (r_s1) { r_a0 = *(int *)((char *)r_s1 + (0xF)); }
+    if (r_s1) { r_a0 = *(int *)((char *)r_s1 + (0xC)); }
+    r_a0 = (long)(r_a0 & r_v0);
+    r_v0 = (long)func_0012E4E8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_s2 = (long)(r_v0 + 0);
+    r_a0 = (long)(0 + (0x1));
+    r_a1 = (long)(r_sp + 0);
+    r_a2 = (long)(r_sp | (0x4));
+    r_a3 = (long)(0 + (0x12));
+    r_t0 = (long)(r_s1 + 0);
+    r_v0 = (long)func_001303A8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_s0 = (long)(r_v0 + 0);
+    r_v0 = (long)(0 + (-0x7E));
+    if (r_s0 != r_v0) { r_v0 = (long)(r_s0 + 0); goto _lbl_L001310AC; }
+    r_v0 = (long)(r_s0 + 0);
+    if (r_sp) { r_a1 = *(int *)((char *)r_sp + (0x4)); }
+    if ((long)r_a1 < 0) { r_a0 = (long)&D_38CA40; goto _lbl_L00131080; }
+    r_a0 = (long)&D_38CA40;
+    if (r_s1) { *(int *)((char *)r_s1 + (0xC4)) = (int)r_a1; }
+    goto _lbl_L00131090;
+_lbl_L00131080:
+    r_a2 = (long)(r_s2 + 0);
+    r_a0 = (long)&D_38CA40;
+    r_v0 = (long)func_0012F438((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_s3 = (long)(r_v0 + 0);
+_lbl_L00131090:
+    r_a3 = (long)(r_s0 + 0);
+    r_a0 = (long)(r_s3 + 0);
+    r_a1 = (long)(r_s1 + 0);
+    r_a2 = (long)(r_s4 + 0);
+    r_v0 = (long)func_0012FA30((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_s0 = (long)(r_v0 + 0);
+    r_v0 = (long)(r_s0 + 0);
+_lbl_L001310AC:
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x60)); }
+    if (r_sp) { r_s4 = *(long *)((char *)r_sp + (0x50)); }
+    if (r_sp) { r_s3 = *(long *)((char *)r_sp + (0x40)); }
+    if (r_sp) { r_s2 = *(long *)((char *)r_sp + (0x30)); }
+    if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x20)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x10)); }
+    r_sp = (long)(r_sp + (0x70));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_001310D0 */
-__asm__(".text\n\t"
-        ".globl func_001310D0\n\t"
-        ".ent func_001310D0\n"
-        "func_001310D0:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x10\n\t"
-        "lui        $5, %hi(D_00131DA8)\n\t"
-        "sd         $31, 0x0($29)\n\t"
-        "jal        func_00130E48\n\t"
-        "addiu     $5, $5, %lo(D_00131DA8)\n\t"
-        "ld         $31, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x10\n\t"
-        ".set reorder\n\t"
-        ".end func_001310D0\n");
+void *func_001310D0(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    r_sp = (long)(r_sp + (-0x10));
+    r_a1 = (long)&D_00131DA8;
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_ra; }
+    r_a1 = (long)&D_00131DA8;
+    r_v0 = (long)func_00130E48((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x10));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_001310F0 */
-__asm__(".text\n\t"
-        ".globl func_001310F0\n\t"
-        ".ent func_001310F0\n"
-        "func_001310F0:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x60\n\t"
-        "lui        $2, (0xFFFF0000 >> 16)\n\t"
-        "dsrl32     $2, $2, 0\n\t"
-        "sd         $20, 0x40($29)\n\t"
-        "sd         $19, 0x30($29)\n\t"
-        "daddu      $20, $0, $0\n\t"
-        "sd         $18, 0x20($29)\n\t"
-        "sd         $17, 0x10($29)\n\t"
-        "sd         $16, 0x0($29)\n\t"
-        "daddu      $17, $4, $0\n\t"
-        "sd         $31, 0x50($29)\n\t"
-        "lwl        $4, 0xF($17)\n\t"
-        "lwr        $4, 0xC($17)\n\t"
-        "jal        func_0012E4E8\n\t"
-        "and       $4, $4, $2\n\t"
-        "lw         $19, 0xC4($17)\n\t"
-        "daddu      $16, $2, $0\n\t"
-        "lw         $4, 0x10($17)\n\t"
-        "addiu      $8, $0, 0x1\n\t"
-        "daddu      $5, $16, $0\n\t"
-        "daddu      $6, $0, $0\n\t"
-        "jal        func_0012F5F0\n\t"
-        "daddu     $7, $19, $0\n\t"
-        "daddu      $18, $2, $0\n\t"
-        "daddu      $4, $16, $0\n\t"
-        "jal        func_0012F6C8\n\t"
-        "daddu     $5, $18, $0\n\t"
-        "bnez       $2, .L00131178\n\t"
-        "daddu     $5, $18, $0\n\t"
-        "lui        $4, %hi(D_4903D0)\n\t"
-        "addiu      $20, $0, -0x7B\n\t"
-        "jal        func_118de0\n\t"
-        "addiu     $4, $4, %lo(D_4903D0)\n\t"
-        "daddu      $5, $18, $0\n\t"
-        ".L00131178:\n\t"
-        "daddu      $6, $20, $0\n\t"
-        "daddu      $7, $19, $0\n\t"
-        "jal        func_0012F6F8\n\t"
-        "daddu     $4, $17, $0\n\t"
-        "lui        $6, %hi(D_00131DA8)\n\t"
-        "daddu      $5, $17, $0\n\t"
-        "daddu      $4, $2, $0\n\t"
-        "addiu      $6, $6, %lo(D_00131DA8)\n\t"
-        "jal        func_0012FA30\n\t"
-        "addiu     $7, $0, -0x7E\n\t"
-        "ld         $31, 0x50($29)\n\t"
-        "ld         $20, 0x40($29)\n\t"
-        "ld         $19, 0x30($29)\n\t"
-        "ld         $18, 0x20($29)\n\t"
-        "ld         $17, 0x10($29)\n\t"
-        "ld         $16, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x60\n\t"
-        ".set reorder\n\t"
-        ".end func_001310F0\n");
+void *func_001310F0(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0, r_s3 = 0, r_s4 = 0, r_t0 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    (void)r_s3;
+    (void)r_s4;
+    (void)r_t0;
+    r_sp = (long)(r_sp + (-0x60));
+    r_v0 = (long)((0xFFFF0000 >> 16) << 16);
+    r_v0 = (long)((unsigned long)r_v0 >> (0));
+    if (r_sp) { *(long *)((char *)r_sp + (0x40)) = (long)r_s4; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x30)) = (long)r_s3; }
+    r_s4 = (long)(0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x20)) = (long)r_s2; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_s1; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_s0; }
+    r_s1 = (long)(r_a0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x50)) = (long)r_ra; }
+    if (r_s1) { r_a0 = *(int *)((char *)r_s1 + (0xF)); }
+    if (r_s1) { r_a0 = *(int *)((char *)r_s1 + (0xC)); }
+    r_a0 = (long)(r_a0 & r_v0);
+    r_v0 = (long)func_0012E4E8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_s1) { r_s3 = *(int *)((char *)r_s1 + (0xC4)); }
+    r_s0 = (long)(r_v0 + 0);
+    if (r_s1) { r_a0 = *(int *)((char *)r_s1 + (0x10)); }
+    r_t0 = (long)(0 + (0x1));
+    r_a1 = (long)(r_s0 + 0);
+    r_a2 = (long)(0 + 0);
+    r_a3 = (long)(r_s3 + 0);
+    r_v0 = (long)func_0012F5F0((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_s2 = (long)(r_v0 + 0);
+    r_a0 = (long)(r_s0 + 0);
+    r_a1 = (long)(r_s2 + 0);
+    r_v0 = (long)func_0012F6C8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_v0 != 0) { r_a1 = (long)(r_s2 + 0); goto _lbl_L00131178; }
+    r_a1 = (long)(r_s2 + 0);
+    r_a0 = (long)&D_4903D0;
+    r_s4 = (long)(0 + (-0x7B));
+    r_a0 = (long)&D_4903D0;
+    r_v0 = (long)func_118de0((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_a1 = (long)(r_s2 + 0);
+_lbl_L00131178:
+    r_a2 = (long)(r_s4 + 0);
+    r_a3 = (long)(r_s3 + 0);
+    r_a0 = (long)(r_s1 + 0);
+    r_v0 = (long)func_0012F6F8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_a2 = (long)&D_00131DA8;
+    r_a1 = (long)(r_s1 + 0);
+    r_a0 = (long)(r_v0 + 0);
+    r_a2 = (long)&D_00131DA8;
+    r_a3 = (long)(0 + (-0x7E));
+    r_v0 = (long)func_0012FA30((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x50)); }
+    if (r_sp) { r_s4 = *(long *)((char *)r_sp + (0x40)); }
+    if (r_sp) { r_s3 = *(long *)((char *)r_sp + (0x30)); }
+    if (r_sp) { r_s2 = *(long *)((char *)r_sp + (0x20)); }
+    if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x10)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x60));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_001311C0 */
-__asm__(".text\n\t"
-        ".globl func_001311C0\n\t"
-        ".ent func_001311C0\n"
-        "func_001311C0:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x50\n\t"
-        "lui        $2, (0xFFFF0000 >> 16)\n\t"
-        "dsrl32     $2, $2, 0\n\t"
-        "sd         $19, 0x30($29)\n\t"
-        "sd         $16, 0x0($29)\n\t"
-        "sd         $31, 0x40($29)\n\t"
-        "daddu      $16, $4, $0\n\t"
-        "sd         $18, 0x20($29)\n\t"
-        "addiu      $19, $16, 0x38\n\t"
-        "sd         $17, 0x10($29)\n\t"
-        "lh         $17, 0xE($16)\n\t"
-        "lwl        $4, 0xF($16)\n\t"
-        "lwr        $4, 0xC($16)\n\t"
-        "lh         $18, 0xC($16)\n\t"
-        "jal        func_0012E4E8\n\t"
-        "and       $4, $4, $2\n\t"
-        "jal        func_0012F418\n\t"
-        "daddu     $4, $2, $0\n\t"
-        "bnez       $2, .L00131224\n\t"
-        "addiu     $2, $0, -0x7E\n\t"
-        "daddu      $4, $18, $0\n\t"
-        "daddu      $5, $17, $0\n\t"
-        "daddu      $6, $19, $0\n\t"
-        "jal        func_0012FBA8\n\t"
-        "daddu     $7, $16, $0\n\t"
-        ".L00131224:\n\t"
-        "ld         $31, 0x40($29)\n\t"
-        "ld         $19, 0x30($29)\n\t"
-        "ld         $18, 0x20($29)\n\t"
-        "ld         $17, 0x10($29)\n\t"
-        "ld         $16, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x50\n\t"
-        ".set reorder\n\t"
-        ".end func_001311C0\n");
+void *func_001311C0(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0, r_s3 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    (void)r_s3;
+    r_sp = (long)(r_sp + (-0x50));
+    r_v0 = (long)((0xFFFF0000 >> 16) << 16);
+    r_v0 = (long)((unsigned long)r_v0 >> (0));
+    if (r_sp) { *(long *)((char *)r_sp + (0x30)) = (long)r_s3; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_s0; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x40)) = (long)r_ra; }
+    r_s0 = (long)(r_a0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x20)) = (long)r_s2; }
+    r_s3 = (long)(r_s0 + (0x38));
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_s1; }
+    if (r_s0) { r_s1 = *(short *)((char *)r_s0 + (0xE)); }
+    if (r_s0) { r_a0 = *(int *)((char *)r_s0 + (0xF)); }
+    if (r_s0) { r_a0 = *(int *)((char *)r_s0 + (0xC)); }
+    if (r_s0) { r_s2 = *(short *)((char *)r_s0 + (0xC)); }
+    r_a0 = (long)(r_a0 & r_v0);
+    r_v0 = (long)func_0012E4E8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_a0 = (long)(r_v0 + 0);
+    r_v0 = (long)func_0012F418((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_v0 != 0) { r_v0 = (long)(0 + (-0x7E)); goto _lbl_L00131224; }
+    r_v0 = (long)(0 + (-0x7E));
+    r_a0 = (long)(r_s2 + 0);
+    r_a1 = (long)(r_s1 + 0);
+    r_a2 = (long)(r_s3 + 0);
+    r_a3 = (long)(r_s0 + 0);
+    r_v0 = (long)func_0012FBA8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+_lbl_L00131224:
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x40)); }
+    if (r_sp) { r_s3 = *(long *)((char *)r_sp + (0x30)); }
+    if (r_sp) { r_s2 = *(long *)((char *)r_sp + (0x20)); }
+    if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x10)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x50));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00131240 */
-__asm__(".text\n\t"
-        ".globl func_00131240\n\t"
-        ".ent func_00131240\n"
-        "func_00131240:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x70\n\t"
-        "lui        $2, %hi(D_00131DA8)\n\t"
-        "sd         $20, 0x50($29)\n\t"
-        "sd         $19, 0x40($29)\n\t"
-        "addiu      $20, $2, %lo(D_00131DA8)\n\t"
-        "sd         $18, 0x30($29)\n\t"
-        "sd         $17, 0x20($29)\n\t"
-        "daddu      $18, $0, $0\n\t"
-        "sd         $31, 0x60($29)\n\t"
-        "daddu      $17, $4, $0\n\t"
-        "sd         $16, 0x10($29)\n\t"
-        "lui        $4, (0xFFFF0000 >> 16)\n\t"
-        "dsrl32     $4, $4, 0\n\t"
-        "lwl        $3, 0xF($17)\n\t"
-        "lwr        $3, 0xC($17)\n\t"
-        "jal        func_0012E4E8\n\t"
-        "and       $4, $3, $4\n\t"
-        "daddu      $19, $2, $0\n\t"
-        "jal        func_0012F418\n\t"
-        "daddu     $4, $19, $0\n\t"
-        "beqz       $2, .L001312A0\n\t"
-        "addiu     $16, $0, -0x7E\n\t"
-        "b          .L001312E4\n\t"
-        "addiu     $18, $0, -0x7E\n\t"
-        ".L001312A0:\n\t"
-        "addiu      $4, $0, 0x1\n\t"
-        "daddu      $5, $29, $0\n\t"
-        "ori        $6, $29, 0x4\n\t"
-        "addiu      $7, $0, 0xB\n\t"
-        "jal        func_001303A8\n\t"
-        "daddu     $8, $17, $0\n\t"
-        "daddu      $16, $2, $0\n\t"
-        "addiu      $2, $0, -0x7E\n\t"
-        "bne        $16, $2, .L00131324\n\t"
-        "daddu     $2, $16, $0\n\t"
-        "lw         $5, 0x4($29)\n\t"
-        "bgez       $5, .L001312E4\n\t"
-        "lui       $4, %hi(D_38CA70)\n\t"
-        "daddu      $6, $19, $0\n\t"
-        "jal        func_0012F438\n\t"
-        "addiu     $4, $4, %lo(D_38CA70)\n\t"
-        "daddu      $18, $2, $0\n\t"
-        ".L001312E4:\n\t"
-        "beqz       $18, .L00131304\n\t"
-        "daddu     $7, $16, $0\n\t"
-        "daddu      $4, $18, $0\n\t"
-        "daddu      $5, $17, $0\n\t"
-        "jal        func_0012FA30\n\t"
-        "daddu     $6, $20, $0\n\t"
-        "b          .L00131320\n\t"
-        "daddu     $16, $2, $0\n\t"
-        ".L00131304:\n\t"
-        "jal        func_0012F7E8\n\t"
-        "nop\n\t"
-        "lui        $5, %hi(D_00131720)\n\t"
-        "daddu      $4, $17, $0\n\t"
-        "jal        func_0012F108\n\t"
-        "addiu     $5, $5, %lo(D_00131720)\n\t"
-        "daddu      $16, $2, $0\n\t"
-        ".L00131320:\n\t"
-        "daddu      $2, $16, $0\n\t"
-        ".L00131324:\n\t"
-        "ld         $31, 0x60($29)\n\t"
-        "ld         $20, 0x50($29)\n\t"
-        "ld         $19, 0x40($29)\n\t"
-        "ld         $18, 0x30($29)\n\t"
-        "ld         $17, 0x20($29)\n\t"
-        "ld         $16, 0x10($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x70\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_00131240\n");
+void *func_00131240(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0, r_s3 = 0, r_s4 = 0, r_t0 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    (void)r_s3;
+    (void)r_s4;
+    (void)r_t0;
+    r_sp = (long)(r_sp + (-0x70));
+    r_v0 = (long)&D_00131DA8;
+    if (r_sp) { *(long *)((char *)r_sp + (0x50)) = (long)r_s4; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x40)) = (long)r_s3; }
+    r_s4 = (long)&D_00131DA8;
+    if (r_sp) { *(long *)((char *)r_sp + (0x30)) = (long)r_s2; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x20)) = (long)r_s1; }
+    r_s2 = (long)(0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x60)) = (long)r_ra; }
+    r_s1 = (long)(r_a0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_s0; }
+    r_a0 = (long)((0xFFFF0000 >> 16) << 16);
+    r_a0 = (long)((unsigned long)r_a0 >> (0));
+    if (r_s1) { r_v1 = *(int *)((char *)r_s1 + (0xF)); }
+    if (r_s1) { r_v1 = *(int *)((char *)r_s1 + (0xC)); }
+    r_a0 = (long)(r_v1 & r_a0);
+    r_v0 = (long)func_0012E4E8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_s3 = (long)(r_v0 + 0);
+    r_a0 = (long)(r_s3 + 0);
+    r_v0 = (long)func_0012F418((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_v0 == 0) { r_s0 = (long)(0 + (-0x7E)); goto _lbl_L001312A0; }
+    r_s0 = (long)(0 + (-0x7E));
+    r_s2 = (long)(0 + (-0x7E));
+    goto _lbl_L001312E4;
+_lbl_L001312A0:
+    r_a0 = (long)(0 + (0x1));
+    r_a1 = (long)(r_sp + 0);
+    r_a2 = (long)(r_sp | (0x4));
+    r_a3 = (long)(0 + (0xB));
+    r_t0 = (long)(r_s1 + 0);
+    r_v0 = (long)func_001303A8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_s0 = (long)(r_v0 + 0);
+    r_v0 = (long)(0 + (-0x7E));
+    if (r_s0 != r_v0) { r_v0 = (long)(r_s0 + 0); goto _lbl_L00131324; }
+    r_v0 = (long)(r_s0 + 0);
+    if (r_sp) { r_a1 = *(int *)((char *)r_sp + (0x4)); }
+    if ((long)r_a1 >= 0) { r_a0 = (long)&D_38CA70; goto _lbl_L001312E4; }
+    r_a0 = (long)&D_38CA70;
+    r_a2 = (long)(r_s3 + 0);
+    r_a0 = (long)&D_38CA70;
+    r_v0 = (long)func_0012F438((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_s2 = (long)(r_v0 + 0);
+_lbl_L001312E4:
+    if (r_s2 == 0) { r_a3 = (long)(r_s0 + 0); goto _lbl_L00131304; }
+    r_a3 = (long)(r_s0 + 0);
+    r_a0 = (long)(r_s2 + 0);
+    r_a1 = (long)(r_s1 + 0);
+    r_a2 = (long)(r_s4 + 0);
+    r_v0 = (long)func_0012FA30((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_s0 = (long)(r_v0 + 0);
+    goto _lbl_L00131320;
+_lbl_L00131304:
+    r_v0 = (long)func_0012F7E8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_a1 = (long)&D_00131720;
+    r_a0 = (long)(r_s1 + 0);
+    r_a1 = (long)&D_00131720;
+    r_v0 = (long)func_0012F108((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_s0 = (long)(r_v0 + 0);
+_lbl_L00131320:
+    r_v0 = (long)(r_s0 + 0);
+_lbl_L00131324:
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x60)); }
+    if (r_sp) { r_s4 = *(long *)((char *)r_sp + (0x50)); }
+    if (r_sp) { r_s3 = *(long *)((char *)r_sp + (0x40)); }
+    if (r_sp) { r_s2 = *(long *)((char *)r_sp + (0x30)); }
+    if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x20)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x10)); }
+    r_sp = (long)(r_sp + (0x70));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00131348 */
-__asm__(".text\n\t"
-        ".globl func_00131348\n\t"
-        ".ent func_00131348\n"
-        "func_00131348:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x60\n\t"
-        "lui        $2, %hi(D_4F9E40)\n\t"
-        "sd         $18, 0x20($29)\n\t"
-        "sd         $17, 0x10($29)\n\t"
-        "addiu      $18, $2, %lo(D_4F9E40)\n\t"
-        "sd         $31, 0x50($29)\n\t"
-        "daddu      $17, $4, $0\n\t"
-        "sd         $20, 0x40($29)\n\t"
-        "lui        $2, (0xFFFF0000 >> 16)\n\t"
-        "dsrl32     $2, $2, 0\n\t"
-        "sd         $19, 0x30($29)\n\t"
-        "sd         $16, 0x0($29)\n\t"
-        "lwl        $4, 0xF($17)\n\t"
-        "lwr        $4, 0xC($17)\n\t"
-        "lh         $20, 0xE($17)\n\t"
-        "lh         $19, 0xC($17)\n\t"
-        "jal        func_0012E4E8\n\t"
-        "and       $4, $4, $2\n\t"
-        "jal        func_0012F418\n\t"
-        "daddu     $4, $2, $0\n\t"
-        "bnez       $2, .L001313E8\n\t"
-        "addiu     $2, $0, -0x7E\n\t"
-        "daddu      $4, $18, $0\n\t"
-        "jal        strcpy\n\t"
-        "addiu     $5, $17, 0x38\n\t"
-        "addiu      $16, $0, 0x18\n\t"
-        "lui        $5, %hi(D_4E2D50)\n\t"
-        "daddu      $4, $18, $0\n\t"
-        "jal        strcat\n\t"
-        "addiu     $5, $5, %lo(D_4E2D50)\n\t"
-        "lui        $9, %hi(D_4F9840)\n\t"
-        "lw         $7, 0x14($17)\n\t"
-        "daddu      $4, $19, $0\n\t"
-        "daddu      $5, $20, $0\n\t"
-        "daddu      $6, $18, $0\n\t"
-        "addiu      $9, $9, %lo(D_4F9840)\n\t"
-        "addiu      $8, $0, 0x18\n\t"
-        "jal        func_0012FC60\n\t"
-        "daddu     $10, $17, $0\n\t"
-        "sw         $16, 0x18($17)\n\t"
-        ".L001313E8:\n\t"
-        "ld         $31, 0x50($29)\n\t"
-        "ld         $20, 0x40($29)\n\t"
-        "ld         $19, 0x30($29)\n\t"
-        "ld         $18, 0x20($29)\n\t"
-        "ld         $17, 0x10($29)\n\t"
-        "ld         $16, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x60\n\t"
-        ".set reorder\n\t"
-        ".end func_00131348\n");
+void *func_00131348(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0, r_s3 = 0, r_s4 = 0, r_t0 = 0, r_t1 = 0, r_t2 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    (void)r_s3;
+    (void)r_s4;
+    (void)r_t0;
+    (void)r_t1;
+    (void)r_t2;
+    r_sp = (long)(r_sp + (-0x60));
+    r_v0 = (long)&D_4F9E40;
+    if (r_sp) { *(long *)((char *)r_sp + (0x20)) = (long)r_s2; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_s1; }
+    r_s2 = (long)&D_4F9E40;
+    if (r_sp) { *(long *)((char *)r_sp + (0x50)) = (long)r_ra; }
+    r_s1 = (long)(r_a0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x40)) = (long)r_s4; }
+    r_v0 = (long)((0xFFFF0000 >> 16) << 16);
+    r_v0 = (long)((unsigned long)r_v0 >> (0));
+    if (r_sp) { *(long *)((char *)r_sp + (0x30)) = (long)r_s3; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_s0; }
+    if (r_s1) { r_a0 = *(int *)((char *)r_s1 + (0xF)); }
+    if (r_s1) { r_a0 = *(int *)((char *)r_s1 + (0xC)); }
+    if (r_s1) { r_s4 = *(short *)((char *)r_s1 + (0xE)); }
+    if (r_s1) { r_s3 = *(short *)((char *)r_s1 + (0xC)); }
+    r_a0 = (long)(r_a0 & r_v0);
+    r_v0 = (long)func_0012E4E8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_a0 = (long)(r_v0 + 0);
+    r_v0 = (long)func_0012F418((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_v0 != 0) { r_v0 = (long)(0 + (-0x7E)); goto _lbl_L001313E8; }
+    r_v0 = (long)(0 + (-0x7E));
+    r_a0 = (long)(r_s2 + 0);
+    r_a1 = (long)(r_s1 + (0x38));
+    r_v0 = (long)strcpy((char *)r_a0, (const char *)r_a1);
+    r_s0 = (long)(0 + (0x18));
+    r_a1 = (long)&D_4E2D50;
+    r_a0 = (long)(r_s2 + 0);
+    r_a1 = (long)&D_4E2D50;
+    r_v0 = (long)strcat((char *)r_a0, (const char *)r_a1);
+    r_t1 = (long)&D_4F9840;
+    if (r_s1) { r_a3 = *(int *)((char *)r_s1 + (0x14)); }
+    r_a0 = (long)(r_s3 + 0);
+    r_a1 = (long)(r_s4 + 0);
+    r_a2 = (long)(r_s2 + 0);
+    r_t1 = (long)&D_4F9840;
+    r_t0 = (long)(0 + (0x18));
+    r_t2 = (long)(r_s1 + 0);
+    r_v0 = (long)func_0012FC60((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_s1) { *(int *)((char *)r_s1 + (0x18)) = (int)r_s0; }
+_lbl_L001313E8:
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x50)); }
+    if (r_sp) { r_s4 = *(long *)((char *)r_sp + (0x40)); }
+    if (r_sp) { r_s3 = *(long *)((char *)r_sp + (0x30)); }
+    if (r_sp) { r_s2 = *(long *)((char *)r_sp + (0x20)); }
+    if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x10)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x60));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00131408 */
-__asm__(".text\n\t"
-        ".globl func_00131408\n\t"
-        ".ent func_00131408\n"
-        "func_00131408:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x70\n\t"
-        "lui        $2, %hi(D_00131DA8)\n\t"
-        "sd         $20, 0x50($29)\n\t"
-        "sd         $19, 0x40($29)\n\t"
-        "addiu      $20, $2, %lo(D_00131DA8)\n\t"
-        "sd         $18, 0x30($29)\n\t"
-        "daddu      $19, $0, $0\n\t"
-        "sd         $17, 0x20($29)\n\t"
-        "sd         $31, 0x60($29)\n\t"
-        "daddu      $17, $4, $0\n\t"
-        "sd         $16, 0x10($29)\n\t"
-        "lui        $4, (0xFFFF0000 >> 16)\n\t"
-        "dsrl32     $4, $4, 0\n\t"
-        "lwl        $3, 0xF($17)\n\t"
-        "lwr        $3, 0xC($17)\n\t"
-        "jal        func_0012E4E8\n\t"
-        "and       $4, $3, $4\n\t"
-        "daddu      $18, $2, $0\n\t"
-        "jal        func_0012F418\n\t"
-        "daddu     $4, $18, $0\n\t"
-        "beqz       $2, .L00131468\n\t"
-        "addiu     $16, $0, -0x7E\n\t"
-        "b          .L001314B4\n\t"
-        "addiu     $19, $0, -0x7E\n\t"
-        ".L00131468:\n\t"
-        "addiu      $4, $0, 0x1\n\t"
-        "daddu      $5, $29, $0\n\t"
-        "ori        $6, $29, 0x4\n\t"
-        "addiu      $7, $0, 0xD\n\t"
-        "jal        func_001303A8\n\t"
-        "daddu     $8, $17, $0\n\t"
-        "daddu      $16, $2, $0\n\t"
-        "addiu      $2, $0, -0x7E\n\t"
-        "bne        $16, $2, .L001314D0\n\t"
-        "daddu     $2, $16, $0\n\t"
-        "lw         $5, 0x4($29)\n\t"
-        "bltz       $5, .L001314A4\n\t"
-        "lui       $4, %hi(D_38CAA0)\n\t"
-        "b          .L001314B4\n\t"
-        "sw        $5, 0xD0($17)\n\t"
-        ".L001314A4:\n\t"
-        "daddu      $6, $18, $0\n\t"
-        "jal        func_0012F438\n\t"
-        "addiu     $4, $4, %lo(D_38CAA0)\n\t"
-        "daddu      $19, $2, $0\n\t"
-        ".L001314B4:\n\t"
-        "daddu      $7, $16, $0\n\t"
-        "daddu      $4, $19, $0\n\t"
-        "daddu      $5, $17, $0\n\t"
-        "jal        func_0012FA30\n\t"
-        "daddu     $6, $20, $0\n\t"
-        "daddu      $16, $2, $0\n\t"
-        "daddu      $2, $16, $0\n\t"
-        ".L001314D0:\n\t"
-        "ld         $31, 0x60($29)\n\t"
-        "ld         $20, 0x50($29)\n\t"
-        "ld         $19, 0x40($29)\n\t"
-        "ld         $18, 0x30($29)\n\t"
-        "ld         $17, 0x20($29)\n\t"
-        "ld         $16, 0x10($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x70\n\t"
-        ".set reorder\n\t"
-        ".end func_00131408\n");
+void *func_00131408(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0, r_s3 = 0, r_s4 = 0, r_t0 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    (void)r_s3;
+    (void)r_s4;
+    (void)r_t0;
+    r_sp = (long)(r_sp + (-0x70));
+    r_v0 = (long)&D_00131DA8;
+    if (r_sp) { *(long *)((char *)r_sp + (0x50)) = (long)r_s4; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x40)) = (long)r_s3; }
+    r_s4 = (long)&D_00131DA8;
+    if (r_sp) { *(long *)((char *)r_sp + (0x30)) = (long)r_s2; }
+    r_s3 = (long)(0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x20)) = (long)r_s1; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x60)) = (long)r_ra; }
+    r_s1 = (long)(r_a0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_s0; }
+    r_a0 = (long)((0xFFFF0000 >> 16) << 16);
+    r_a0 = (long)((unsigned long)r_a0 >> (0));
+    if (r_s1) { r_v1 = *(int *)((char *)r_s1 + (0xF)); }
+    if (r_s1) { r_v1 = *(int *)((char *)r_s1 + (0xC)); }
+    r_a0 = (long)(r_v1 & r_a0);
+    r_v0 = (long)func_0012E4E8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_s2 = (long)(r_v0 + 0);
+    r_a0 = (long)(r_s2 + 0);
+    r_v0 = (long)func_0012F418((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_v0 == 0) { r_s0 = (long)(0 + (-0x7E)); goto _lbl_L00131468; }
+    r_s0 = (long)(0 + (-0x7E));
+    r_s3 = (long)(0 + (-0x7E));
+    goto _lbl_L001314B4;
+_lbl_L00131468:
+    r_a0 = (long)(0 + (0x1));
+    r_a1 = (long)(r_sp + 0);
+    r_a2 = (long)(r_sp | (0x4));
+    r_a3 = (long)(0 + (0xD));
+    r_t0 = (long)(r_s1 + 0);
+    r_v0 = (long)func_001303A8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_s0 = (long)(r_v0 + 0);
+    r_v0 = (long)(0 + (-0x7E));
+    if (r_s0 != r_v0) { r_v0 = (long)(r_s0 + 0); goto _lbl_L001314D0; }
+    r_v0 = (long)(r_s0 + 0);
+    if (r_sp) { r_a1 = *(int *)((char *)r_sp + (0x4)); }
+    if ((long)r_a1 < 0) { r_a0 = (long)&D_38CAA0; goto _lbl_L001314A4; }
+    r_a0 = (long)&D_38CAA0;
+    if (r_s1) { *(int *)((char *)r_s1 + (0xD0)) = (int)r_a1; }
+    goto _lbl_L001314B4;
+_lbl_L001314A4:
+    r_a2 = (long)(r_s2 + 0);
+    r_a0 = (long)&D_38CAA0;
+    r_v0 = (long)func_0012F438((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_s3 = (long)(r_v0 + 0);
+_lbl_L001314B4:
+    r_a3 = (long)(r_s0 + 0);
+    r_a0 = (long)(r_s3 + 0);
+    r_a1 = (long)(r_s1 + 0);
+    r_a2 = (long)(r_s4 + 0);
+    r_v0 = (long)func_0012FA30((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_s0 = (long)(r_v0 + 0);
+    r_v0 = (long)(r_s0 + 0);
+_lbl_L001314D0:
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x60)); }
+    if (r_sp) { r_s4 = *(long *)((char *)r_sp + (0x50)); }
+    if (r_sp) { r_s3 = *(long *)((char *)r_sp + (0x40)); }
+    if (r_sp) { r_s2 = *(long *)((char *)r_sp + (0x30)); }
+    if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x20)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x10)); }
+    r_sp = (long)(r_sp + (0x70));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_001314F0 */
-__asm__(".text\n\t"
-        ".globl func_001314F0\n\t"
-        ".ent func_001314F0\n"
-        "func_001314F0:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x10\n\t"
-        "sd         $31, 0x0($29)\n\t"
-        "lh         $5, 0xC($4)\n\t"
-        "lh         $6, 0xE($4)\n\t"
-        "jal        func_00130DF0\n\t"
-        "lw        $7, 0x10($4)\n\t"
-        "ld         $31, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x10\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_001314F0\n");
+void *func_001314F0(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    r_sp = (long)(r_sp + (-0x10));
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_ra; }
+    if (r_a0) { r_a1 = *(short *)((char *)r_a0 + (0xC)); }
+    if (r_a0) { r_a2 = *(short *)((char *)r_a0 + (0xE)); }
+    if (r_a0) { r_a3 = *(int *)((char *)r_a0 + (0x10)); }
+    r_v0 = (long)func_00130DF0((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x10));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00131518 */
-__asm__(".text\n\t"
-        ".globl func_00131518\n\t"
-        ".ent func_00131518\n"
-        "func_00131518:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x10\n\t"
-        "lui        $5, %hi(D_00131DA8)\n\t"
-        "sd         $31, 0x0($29)\n\t"
-        "jal        func_00130E48\n\t"
-        "addiu     $5, $5, %lo(D_00131DA8)\n\t"
-        "ld         $31, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x10\n\t"
-        ".set reorder\n\t"
-        ".end func_00131518\n");
+void *func_00131518(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    r_sp = (long)(r_sp + (-0x10));
+    r_a1 = (long)&D_00131DA8;
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_ra; }
+    r_a1 = (long)&D_00131DA8;
+    r_v0 = (long)func_00130E48((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x10));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00131538 */
-__asm__(".text\n\t"
-        ".globl func_00131538\n\t"
-        ".ent func_00131538\n"
-        "func_00131538:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0xA0\n\t"
-        "lui        $2, (0xFFFF0000 >> 16)\n\t"
-        "dsrl32     $2, $2, 0\n\t"
-        "sd         $30, 0x80($29)\n\t"
-        "sd         $23, 0x70($29)\n\t"
-        "addiu      $30, $0, -0x7E\n\t"
-        "sd         $22, 0x60($29)\n\t"
-        "daddu      $23, $0, $0\n\t"
-        "sd         $21, 0x50($29)\n\t"
-        "sd         $20, 0x40($29)\n\t"
-        "sd         $19, 0x30($29)\n\t"
-        "sd         $18, 0x20($29)\n\t"
-        "daddu      $19, $4, $0\n\t"
-        "sd         $31, 0x90($29)\n\t"
-        "sd         $17, 0x10($29)\n\t"
-        "sd         $16, 0x0($29)\n\t"
-        "lwl        $4, 0xF($19)\n\t"
-        "lwr        $4, 0xC($19)\n\t"
-        "jal        func_0012E4E8\n\t"
-        "and       $4, $4, $2\n\t"
-        "lw         $18, 0x10($19)\n\t"
-        "daddu      $4, $2, $0\n\t"
-        "lw         $22, 0xCC($19)\n\t"
-        "lw         $21, 0x18($18)\n\t"
-        "jal        func_0012F428\n\t"
-        "lw        $20, 0xD0($19)\n\t"
-        "beqz       $2, .L00131640\n\t"
-        "daddu     $4, $18, $0\n\t"
-        "jal        func_0012ED28\n\t"
-        "daddu     $5, $0, $0\n\t"
-        "daddu      $4, $2, $0\n\t"
-        "daddu      $5, $22, $0\n\t"
-        "jal        func_0012F188\n\t"
-        "daddu     $6, $20, $0\n\t"
-        "bnez       $2, .L00131620\n\t"
-        "nop\n\t"
-        "b          .L00131640\n\t"
-        "addiu     $23, $0, -0x78\n\t"
-        ".L001315D0:\n\t"
-        "slti       $2, $17, 0x5\n\t"
-        "beqz       $2, .L00131640\n\t"
-        "daddu     $4, $18, $0\n\t"
-        "jal        func_0012ED28\n\t"
-        "daddu     $5, $17, $0\n\t"
-        "daddu      $16, $2, $0\n\t"
-        "daddu      $5, $18, $0\n\t"
-        "daddu      $4, $16, $0\n\t"
-        "jal        func_0012F208\n\t"
-        "daddu     $6, $21, $0\n\t"
-        "bnel       $2, $0, .L001315D0\n\t"
-        "addiu     $17, $17, 0x1\n\t"
-        "daddu      $4, $16, $0\n\t"
-        "daddu      $5, $22, $0\n\t"
-        "jal        func_0012F188\n\t"
-        "daddu     $6, $20, $0\n\t"
-        "bnez       $2, .L001315D0\n\t"
-        "addiu     $17, $17, 0x1\n\t"
-        "b          .L00131640\n\t"
-        "addiu     $23, $0, -0x78\n\t"
-        ".L00131620:\n\t"
-        "jal        func_0012ECA8\n\t"
-        "addiu     $4, $0, 0x1\n\t"
-        "daddu      $4, $2, $0\n\t"
-        "daddu      $5, $18, $0\n\t"
-        "jal        func_0012F208\n\t"
-        "daddu     $6, $21, $0\n\t"
-        "bnez       $2, .L001315D0\n\t"
-        "addiu     $17, $0, 0x2\n\t"
-        ".L00131640:\n\t"
-        "addiu      $2, $0, -0x78\n\t"
-        "bne        $23, $2, .L00131680\n\t"
-        "lui       $6, %hi(D_00131DA8)\n\t"
-        "lw         $4, 0x34($19)\n\t"
-        "jal        func_0012F7A0\n\t"
-        "addiu     $5, $0, 0x10\n\t"
-        "beqz       $2, .L0013167C\n\t"
-        "addiu     $2, $0, 0x1\n\t"
-        "lui        $5, %hi(func_00131348 + 0x38)\n\t"
-        "sw         $2, 0xB4($19)\n\t"
-        "daddu      $4, $19, $0\n\t"
-        "jal        func_00130D88\n\t"
-        "addiu     $5, $5, %lo(func_00131348 + 0x38)\n\t"
-        "b          .L0013169C\n\t"
-        "daddu     $2, $30, $0\n\t"
-        ".L0013167C:\n\t"
-        "lui        $6, %hi(D_00131DA8)\n\t"
-        ".L00131680:\n\t"
-        "daddu      $4, $23, $0\n\t"
-        "daddu      $5, $19, $0\n\t"
-        "addiu      $6, $6, %lo(D_00131DA8)\n\t"
-        "jal        func_0012FA30\n\t"
-        "addiu     $7, $0, -0x7E\n\t"
-        "daddu      $30, $2, $0\n\t"
-        "daddu      $2, $30, $0\n\t"
-        ".L0013169C:\n\t"
-        "ld         $31, 0x90($29)\n\t"
-        "ld         $30, 0x80($29)\n\t"
-        "ld         $23, 0x70($29)\n\t"
-        "ld         $22, 0x60($29)\n\t"
-        "ld         $21, 0x50($29)\n\t"
-        "ld         $20, 0x40($29)\n\t"
-        "ld         $19, 0x30($29)\n\t"
-        "ld         $18, 0x20($29)\n\t"
-        "ld         $17, 0x10($29)\n\t"
-        "ld         $16, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0xA0\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_00131538\n");
+void *func_00131538(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0, r_s3 = 0, r_s4 = 0, r_s5 = 0, r_s6 = 0, r_s7 = 0, r_s8 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    (void)r_s3;
+    (void)r_s4;
+    (void)r_s5;
+    (void)r_s6;
+    (void)r_s7;
+    (void)r_s8;
+    r_sp = (long)(r_sp + (-0xA0));
+    r_v0 = (long)((0xFFFF0000 >> 16) << 16);
+    r_v0 = (long)((unsigned long)r_v0 >> (0));
+    if (r_sp) { *(long *)((char *)r_sp + (0x80)) = (long)r_s8; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x70)) = (long)r_s7; }
+    r_s8 = (long)(0 + (-0x7E));
+    if (r_sp) { *(long *)((char *)r_sp + (0x60)) = (long)r_s6; }
+    r_s7 = (long)(0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x50)) = (long)r_s5; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x40)) = (long)r_s4; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x30)) = (long)r_s3; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x20)) = (long)r_s2; }
+    r_s3 = (long)(r_a0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x90)) = (long)r_ra; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_s1; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_s0; }
+    if (r_s3) { r_a0 = *(int *)((char *)r_s3 + (0xF)); }
+    if (r_s3) { r_a0 = *(int *)((char *)r_s3 + (0xC)); }
+    r_a0 = (long)(r_a0 & r_v0);
+    r_v0 = (long)func_0012E4E8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_s3) { r_s2 = *(int *)((char *)r_s3 + (0x10)); }
+    r_a0 = (long)(r_v0 + 0);
+    if (r_s3) { r_s6 = *(int *)((char *)r_s3 + (0xCC)); }
+    if (r_s2) { r_s5 = *(int *)((char *)r_s2 + (0x18)); }
+    if (r_s3) { r_s4 = *(int *)((char *)r_s3 + (0xD0)); }
+    r_v0 = (long)func_0012F428((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_v0 == 0) { r_a0 = (long)(r_s2 + 0); goto _lbl_L00131640; }
+    r_a0 = (long)(r_s2 + 0);
+    r_a1 = (long)(0 + 0);
+    r_v0 = (long)func_0012ED28((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_a0 = (long)(r_v0 + 0);
+    r_a1 = (long)(r_s6 + 0);
+    r_a2 = (long)(r_s4 + 0);
+    r_v0 = (long)func_0012F188((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_v0 != 0) goto _lbl_L00131620;
+    r_s7 = (long)(0 + (-0x78));
+    goto _lbl_L00131640;
+_lbl_L001315D0:
+    r_v0 = (long)((long)r_s1 < (long)(0x5) ? 1 : 0);
+    if (r_v0 == 0) { r_a0 = (long)(r_s2 + 0); goto _lbl_L00131640; }
+    r_a0 = (long)(r_s2 + 0);
+    r_a1 = (long)(r_s1 + 0);
+    r_v0 = (long)func_0012ED28((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_s0 = (long)(r_v0 + 0);
+    r_a1 = (long)(r_s2 + 0);
+    r_a0 = (long)(r_s0 + 0);
+    r_a2 = (long)(r_s5 + 0);
+    r_v0 = (long)func_0012F208((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_v0 != 0) { r_s1 = (long)(r_s1 + (0x1)); goto _lbl_L001315D0; }
+    r_s1 = (long)(r_s1 + (0x1));
+    r_a0 = (long)(r_s0 + 0);
+    r_a1 = (long)(r_s6 + 0);
+    r_a2 = (long)(r_s4 + 0);
+    r_v0 = (long)func_0012F188((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_v0 != 0) { r_s1 = (long)(r_s1 + (0x1)); goto _lbl_L001315D0; }
+    r_s1 = (long)(r_s1 + (0x1));
+    r_s7 = (long)(0 + (-0x78));
+    goto _lbl_L00131640;
+_lbl_L00131620:
+    r_a0 = (long)(0 + (0x1));
+    r_v0 = (long)func_0012ECA8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_a0 = (long)(r_v0 + 0);
+    r_a1 = (long)(r_s2 + 0);
+    r_a2 = (long)(r_s5 + 0);
+    r_v0 = (long)func_0012F208((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_v0 != 0) { r_s1 = (long)(0 + (0x2)); goto _lbl_L001315D0; }
+    r_s1 = (long)(0 + (0x2));
+_lbl_L00131640:
+    r_v0 = (long)(0 + (-0x78));
+    if (r_s7 != r_v0) { r_a2 = (long)&D_00131DA8; goto _lbl_L00131680; }
+    r_a2 = (long)&D_00131DA8;
+    if (r_s3) { r_a0 = *(int *)((char *)r_s3 + (0x34)); }
+    r_a1 = (long)(0 + (0x10));
+    r_v0 = (long)func_0012F7A0((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_v0 == 0) { r_v0 = (long)(0 + (0x1)); goto _lbl_L0013167C; }
+    r_v0 = (long)(0 + (0x1));
+    r_a1 = (long)&func_00131348 + 0x38;
+    if (r_s3) { *(int *)((char *)r_s3 + (0xB4)) = (int)r_v0; }
+    r_a0 = (long)(r_s3 + 0);
+    r_a1 = (long)&func_00131348 + 0x38;
+    r_v0 = (long)func_00130D88((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_v0 = (long)(r_s8 + 0);
+    goto _lbl_L0013169C;
+_lbl_L0013167C:
+    r_a2 = (long)&D_00131DA8;
+_lbl_L00131680:
+    r_a0 = (long)(r_s7 + 0);
+    r_a1 = (long)(r_s3 + 0);
+    r_a2 = (long)&D_00131DA8;
+    r_a3 = (long)(0 + (-0x7E));
+    r_v0 = (long)func_0012FA30((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_s8 = (long)(r_v0 + 0);
+    r_v0 = (long)(r_s8 + 0);
+_lbl_L0013169C:
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x90)); }
+    if (r_sp) { r_s8 = *(long *)((char *)r_sp + (0x80)); }
+    if (r_sp) { r_s7 = *(long *)((char *)r_sp + (0x70)); }
+    if (r_sp) { r_s6 = *(long *)((char *)r_sp + (0x60)); }
+    if (r_sp) { r_s5 = *(long *)((char *)r_sp + (0x50)); }
+    if (r_sp) { r_s4 = *(long *)((char *)r_sp + (0x40)); }
+    if (r_sp) { r_s3 = *(long *)((char *)r_sp + (0x30)); }
+    if (r_sp) { r_s2 = *(long *)((char *)r_sp + (0x20)); }
+    if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x10)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0xA0));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_001316D0 */
-__asm__(".text\n\t"
-        ".globl func_001316D0\n\t"
-        ".ent func_001316D0\n"
-        "func_001316D0:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0xA0\n\t"
-        "sd         $30, 0x80($29)\n\t"
-        "sd         $23, 0x70($29)\n\t"
-        "daddu      $30, $4, $0\n\t"
-        "sd         $21, 0x50($29)\n\t"
-        "daddu      $23, $5, $0\n\t"
-        "sd         $20, 0x40($29)\n\t"
-        "sd         $19, 0x30($29)\n\t"
-        "daddu      $20, $0, $0\n\t"
-        "sd         $17, 0x10($29)\n\t"
-        "daddu      $19, $0, $0\n\t"
-        "sd         $31, 0x90($29)\n\t"
-        "daddu      $17, $6, $0\n\t"
-        "sd         $22, 0x60($29)\n\t"
-        "sd         $18, 0x20($29)\n\t"
-        "sd         $16, 0x0($29)\n\t"
-        "lh         $4, 0x4($7)\n\t"
-        "jal        func_0012F4B0\n\t"
-        "lw        $22, 0x18($17)\n\t"
-        "blez       $22, .L00131790\n\t"
-        "daddu     $21, $2, $0\n\t"
-        "daddu      $18, $0, $0\n\t"
-        ".L00131728:\n\t"
-        "daddu      $4, $17, $0\n\t"
-        "jal        func_0012F7B0\n\t"
-        "daddu     $5, $19, $0\n\t"
-        "beqz       $2, .L00131780\n\t"
-        "daddu     $5, $30, $0\n\t"
-        "lw         $4, 0x1C($17)\n\t"
-        "daddu      $6, $23, $0\n\t"
-        "jal        func_0012F188\n\t"
-        "addu      $4, $4, $18\n\t"
-        "beqz       $2, .L00131764\n\t"
-        "daddu     $16, $0, $0\n\t"
-        "lw         $4, 0x10($2)\n\t"
-        "jal        func_0012F4C8\n\t"
-        "daddu     $5, $21, $0\n\t"
-        "daddu      $16, $2, $0\n\t"
-        ".L00131764:\n\t"
-        "lw         $2, 0x1C($17)\n\t"
-        "daddu      $5, $21, $0\n\t"
-        "addu       $2, $18, $2\n\t"
-        "jal        func_0012F4C8\n\t"
-        "lw        $4, 0x1C($2)\n\t"
-        "subu       $2, $2, $16\n\t"
-        "addu       $20, $20, $2\n\t"
-        ".L00131780:\n\t"
-        "addiu      $19, $19, 0x1\n\t"
-        "slt        $2, $19, $22\n\t"
-        "bnez       $2, .L00131728\n\t"
-        "addiu     $18, $18, 0x20\n\t"
-        ".L00131790:\n\t"
-        "daddu      $2, $20, $0\n\t"
-        "ld         $31, 0x90($29)\n\t"
-        "ld         $30, 0x80($29)\n\t"
-        "ld         $23, 0x70($29)\n\t"
-        "ld         $22, 0x60($29)\n\t"
-        "ld         $21, 0x50($29)\n\t"
-        "ld         $20, 0x40($29)\n\t"
-        "ld         $19, 0x30($29)\n\t"
-        "ld         $18, 0x20($29)\n\t"
-        "ld         $17, 0x10($29)\n\t"
-        "ld         $16, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0xA0\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_001316D0\n");
+void *func_001316D0(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0, r_s3 = 0, r_s4 = 0, r_s5 = 0, r_s6 = 0, r_s7 = 0, r_s8 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    (void)r_s3;
+    (void)r_s4;
+    (void)r_s5;
+    (void)r_s6;
+    (void)r_s7;
+    (void)r_s8;
+    r_sp = (long)(r_sp + (-0xA0));
+    if (r_sp) { *(long *)((char *)r_sp + (0x80)) = (long)r_s8; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x70)) = (long)r_s7; }
+    r_s8 = (long)(r_a0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x50)) = (long)r_s5; }
+    r_s7 = (long)(r_a1 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x40)) = (long)r_s4; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x30)) = (long)r_s3; }
+    r_s4 = (long)(0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_s1; }
+    r_s3 = (long)(0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x90)) = (long)r_ra; }
+    r_s1 = (long)(r_a2 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x60)) = (long)r_s6; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x20)) = (long)r_s2; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_s0; }
+    if (r_a3) { r_a0 = *(short *)((char *)r_a3 + (0x4)); }
+    if (r_s1) { r_s6 = *(int *)((char *)r_s1 + (0x18)); }
+    r_v0 = (long)func_0012F4B0((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if ((long)r_s6 <= 0) { r_s5 = (long)(r_v0 + 0); goto _lbl_L00131790; }
+    r_s5 = (long)(r_v0 + 0);
+    r_s2 = (long)(0 + 0);
+_lbl_L00131728:
+    r_a0 = (long)(r_s1 + 0);
+    r_a1 = (long)(r_s3 + 0);
+    r_v0 = (long)func_0012F7B0((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_v0 == 0) { r_a1 = (long)(r_s8 + 0); goto _lbl_L00131780; }
+    r_a1 = (long)(r_s8 + 0);
+    if (r_s1) { r_a0 = *(int *)((char *)r_s1 + (0x1C)); }
+    r_a2 = (long)(r_s7 + 0);
+    r_a0 = (long)(r_a0 + r_s2);
+    r_v0 = (long)func_0012F188((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_v0 == 0) { r_s0 = (long)(0 + 0); goto _lbl_L00131764; }
+    r_s0 = (long)(0 + 0);
+    if (r_v0) { r_a0 = *(int *)((char *)r_v0 + (0x10)); }
+    r_a1 = (long)(r_s5 + 0);
+    r_v0 = (long)func_0012F4C8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_s0 = (long)(r_v0 + 0);
+_lbl_L00131764:
+    if (r_s1) { r_v0 = *(int *)((char *)r_s1 + (0x1C)); }
+    r_a1 = (long)(r_s5 + 0);
+    r_v0 = (long)(r_s2 + r_v0);
+    if (r_v0) { r_a0 = *(int *)((char *)r_v0 + (0x1C)); }
+    r_v0 = (long)func_0012F4C8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_v0 = (long)(r_v0 - r_s0);
+    r_s4 = (long)(r_s4 + r_v0);
+_lbl_L00131780:
+    r_s3 = (long)(r_s3 + (0x1));
+    r_v0 = (long)((long)r_s3 < (long)r_s6 ? 1 : 0);
+    if (r_v0 != 0) { r_s2 = (long)(r_s2 + (0x20)); goto _lbl_L00131728; }
+    r_s2 = (long)(r_s2 + (0x20));
+_lbl_L00131790:
+    r_v0 = (long)(r_s4 + 0);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x90)); }
+    if (r_sp) { r_s8 = *(long *)((char *)r_sp + (0x80)); }
+    if (r_sp) { r_s7 = *(long *)((char *)r_sp + (0x70)); }
+    if (r_sp) { r_s6 = *(long *)((char *)r_sp + (0x60)); }
+    if (r_sp) { r_s5 = *(long *)((char *)r_sp + (0x50)); }
+    if (r_sp) { r_s4 = *(long *)((char *)r_sp + (0x40)); }
+    if (r_sp) { r_s3 = *(long *)((char *)r_sp + (0x30)); }
+    if (r_sp) { r_s2 = *(long *)((char *)r_sp + (0x20)); }
+    if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x10)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0xA0));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_001317C8 */
-__asm__(".text\n\t"
-        ".globl func_001317C8\n\t"
-        ".ent func_001317C8\n"
-        "func_001317C8:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x60\n\t"
-        "lui        $2, (0xFFFF0000 >> 16)\n\t"
-        "dsrl32     $2, $2, 0\n\t"
-        "sd         $19, 0x30($29)\n\t"
-        "sd         $18, 0x20($29)\n\t"
-        "daddu      $19, $4, $0\n\t"
-        "sd         $17, 0x10($29)\n\t"
-        "daddu      $18, $0, $0\n\t"
-        "sd         $31, 0x50($29)\n\t"
-        "sd         $20, 0x40($29)\n\t"
-        "sd         $16, 0x0($29)\n\t"
-        "lwl        $4, 0xF($19)\n\t"
-        "lwr        $4, 0xC($19)\n\t"
-        "jal        func_0012E4E8\n\t"
-        "and       $4, $4, $2\n\t"
-        "daddu      $17, $2, $0\n\t"
-        "jal        func_0012F418\n\t"
-        "daddu     $4, $17, $0\n\t"
-        "beqz       $2, .L00131820\n\t"
-        "lui       $2, %hi(D_4F9840)\n\t"
-        "b          .L001318A0\n\t"
-        "addiu     $18, $0, -0x7E\n\t"
-        ".L00131820:\n\t"
-        "lw         $3, 0x30($19)\n\t"
-        "beqz       $3, .L00131894\n\t"
-        "addiu     $4, $2, %lo(D_4F9840)\n\t"
-        "lw         $16, 0x10($19)\n\t"
-        "addiu      $5, $0, 0x18\n\t"
-        "daddu      $7, $17, $0\n\t"
-        "jal        func_00131518\n\t"
-        "daddu     $6, $16, $0\n\t"
-        "daddu      $4, $16, $0\n\t"
-        "daddu      $20, $2, $0\n\t"
-        "daddu      $5, $17, $0\n\t"
-        "daddu      $6, $0, $0\n\t"
-        "daddu      $7, $0, $0\n\t"
-        "jal        func_0012F5F0\n\t"
-        "addiu     $8, $0, 0x1\n\t"
-        "blez       $20, .L00131878\n\t"
-        "daddu     $16, $2, $0\n\t"
-        "daddu      $4, $17, $0\n\t"
-        "jal        func_0012F6A8\n\t"
-        "addiu     $18, $0, -0x7B\n\t"
-        "slt        $2, $2, $20\n\t"
-        "movz       $18, $0, $2\n\t"
-        ".L00131878:\n\t"
-        "daddu      $6, $18, $0\n\t"
-        "daddu      $5, $16, $0\n\t"
-        "daddu      $4, $19, $0\n\t"
-        "jal        func_0012F6F8\n\t"
-        "daddu     $7, $0, $0\n\t"
-        "b          .L001318A0\n\t"
-        "daddu     $18, $2, $0\n\t"
-        ".L00131894:\n\t"
-        "lui        $4, %hi(D_4903F0)\n\t"
-        "jal        func_118de0\n\t"
-        "addiu     $4, $4, %lo(D_4903F0)\n\t"
-        ".L001318A0:\n\t"
-        "lui        $6, %hi(D_00131DA8)\n\t"
-        "daddu      $4, $18, $0\n\t"
-        "daddu      $5, $19, $0\n\t"
-        "addiu      $6, $6, %lo(D_00131DA8)\n\t"
-        "jal        func_0012FA30\n\t"
-        "addiu     $7, $0, -0x7E\n\t"
-        "ld         $31, 0x50($29)\n\t"
-        "ld         $20, 0x40($29)\n\t"
-        "ld         $19, 0x30($29)\n\t"
-        "ld         $18, 0x20($29)\n\t"
-        "ld         $17, 0x10($29)\n\t"
-        "ld         $16, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x60\n\t"
-        ".set reorder\n\t"
-        ".end func_001317C8\n");
+void *func_001317C8(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0, r_s3 = 0, r_s4 = 0, r_t0 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    (void)r_s3;
+    (void)r_s4;
+    (void)r_t0;
+    r_sp = (long)(r_sp + (-0x60));
+    r_v0 = (long)((0xFFFF0000 >> 16) << 16);
+    r_v0 = (long)((unsigned long)r_v0 >> (0));
+    if (r_sp) { *(long *)((char *)r_sp + (0x30)) = (long)r_s3; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x20)) = (long)r_s2; }
+    r_s3 = (long)(r_a0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_s1; }
+    r_s2 = (long)(0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x50)) = (long)r_ra; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x40)) = (long)r_s4; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_s0; }
+    if (r_s3) { r_a0 = *(int *)((char *)r_s3 + (0xF)); }
+    if (r_s3) { r_a0 = *(int *)((char *)r_s3 + (0xC)); }
+    r_a0 = (long)(r_a0 & r_v0);
+    r_v0 = (long)func_0012E4E8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_s1 = (long)(r_v0 + 0);
+    r_a0 = (long)(r_s1 + 0);
+    r_v0 = (long)func_0012F418((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_v0 == 0) { r_v0 = (long)&D_4F9840; goto _lbl_L00131820; }
+    r_v0 = (long)&D_4F9840;
+    r_s2 = (long)(0 + (-0x7E));
+    goto _lbl_L001318A0;
+_lbl_L00131820:
+    if (r_s3) { r_v1 = *(int *)((char *)r_s3 + (0x30)); }
+    if (r_v1 == 0) { r_a0 = (long)&D_4F9840; goto _lbl_L00131894; }
+    r_a0 = (long)&D_4F9840;
+    if (r_s3) { r_s0 = *(int *)((char *)r_s3 + (0x10)); }
+    r_a1 = (long)(0 + (0x18));
+    r_a3 = (long)(r_s1 + 0);
+    r_a2 = (long)(r_s0 + 0);
+    r_v0 = (long)func_00131518((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_a0 = (long)(r_s0 + 0);
+    r_s4 = (long)(r_v0 + 0);
+    r_a1 = (long)(r_s1 + 0);
+    r_a2 = (long)(0 + 0);
+    r_a3 = (long)(0 + 0);
+    r_t0 = (long)(0 + (0x1));
+    r_v0 = (long)func_0012F5F0((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if ((long)r_s4 <= 0) { r_s0 = (long)(r_v0 + 0); goto _lbl_L00131878; }
+    r_s0 = (long)(r_v0 + 0);
+    r_a0 = (long)(r_s1 + 0);
+    r_s2 = (long)(0 + (-0x7B));
+    r_v0 = (long)func_0012F6A8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_v0 = (long)((long)r_v0 < (long)r_s4 ? 1 : 0);
+    if (r_v0 == 0) r_s2 = 0;
+_lbl_L00131878:
+    r_a2 = (long)(r_s2 + 0);
+    r_a1 = (long)(r_s0 + 0);
+    r_a0 = (long)(r_s3 + 0);
+    r_a3 = (long)(0 + 0);
+    r_v0 = (long)func_0012F6F8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_s2 = (long)(r_v0 + 0);
+    goto _lbl_L001318A0;
+_lbl_L00131894:
+    r_a0 = (long)&D_4903F0;
+    r_a0 = (long)&D_4903F0;
+    r_v0 = (long)func_118de0((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+_lbl_L001318A0:
+    r_a2 = (long)&D_00131DA8;
+    r_a0 = (long)(r_s2 + 0);
+    r_a1 = (long)(r_s3 + 0);
+    r_a2 = (long)&D_00131DA8;
+    r_a3 = (long)(0 + (-0x7E));
+    r_v0 = (long)func_0012FA30((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x50)); }
+    if (r_sp) { r_s4 = *(long *)((char *)r_sp + (0x40)); }
+    if (r_sp) { r_s3 = *(long *)((char *)r_sp + (0x30)); }
+    if (r_sp) { r_s2 = *(long *)((char *)r_sp + (0x20)); }
+    if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x10)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x60));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_001318D8 */
-__asm__(".text\n\t"
-        ".globl func_001318D8\n\t"
-        ".ent func_001318D8\n"
-        "func_001318D8:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x20\n\t"
-        "lui        $2, (0xFFFF0000 >> 16)\n\t"
-        "dsrl32     $2, $2, 0\n\t"
-        "sd         $16, 0x0($29)\n\t"
-        "sd         $31, 0x10($29)\n\t"
-        "daddu      $16, $4, $0\n\t"
-        "lwl        $4, 0xF($16)\n\t"
-        "lwr        $4, 0xC($16)\n\t"
-        "jal        func_0012E4E8\n\t"
-        "and       $4, $4, $2\n\t"
-        "jal        func_0012F418\n\t"
-        "daddu     $4, $2, $0\n\t"
-        "bnez       $2, .L00131918\n\t"
-        "addiu     $2, $0, 0x1\n\t"
-        "lw         $2, 0x10($16)\n\t"
-        "lw         $2, 0x18($2)\n\t"
-        ".L00131918:\n\t"
-        "sw         $2, 0x1C($16)\n\t"
-        "sw         $0, 0xBC($16)\n\t"
-        "addiu      $2, $0, -0x7E\n\t"
-        "sw         $0, 0xB8($16)\n\t"
-        "ld         $31, 0x10($29)\n\t"
-        "ld         $16, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x20\n\t"
-        ".set reorder\n\t"
-        ".end func_001318D8\n");
+void *func_001318D8(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    r_sp = (long)(r_sp + (-0x20));
+    r_v0 = (long)((0xFFFF0000 >> 16) << 16);
+    r_v0 = (long)((unsigned long)r_v0 >> (0));
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_s0; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_ra; }
+    r_s0 = (long)(r_a0 + 0);
+    if (r_s0) { r_a0 = *(int *)((char *)r_s0 + (0xF)); }
+    if (r_s0) { r_a0 = *(int *)((char *)r_s0 + (0xC)); }
+    r_a0 = (long)(r_a0 & r_v0);
+    r_v0 = (long)func_0012E4E8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_a0 = (long)(r_v0 + 0);
+    r_v0 = (long)func_0012F418((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_v0 != 0) { r_v0 = (long)(0 + (0x1)); goto _lbl_L00131918; }
+    r_v0 = (long)(0 + (0x1));
+    if (r_s0) { r_v0 = *(int *)((char *)r_s0 + (0x10)); }
+    if (r_v0) { r_v0 = *(int *)((char *)r_v0 + (0x18)); }
+_lbl_L00131918:
+    if (r_s0) { *(int *)((char *)r_s0 + (0x1C)) = (int)r_v0; }
+    if (r_s0) { *(int *)((char *)r_s0 + (0xBC)) = (int)0; }
+    r_v0 = (long)(0 + (-0x7E));
+    if (r_s0) { *(int *)((char *)r_s0 + (0xB8)) = (int)0; }
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x10)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x20));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00131938 */
-__asm__(".text\n\t"
-        ".globl func_00131938\n\t"
-        ".ent func_00131938\n"
-        "func_00131938:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0xA0\n\t"
-        "lui        $2, (0xFFFF0000 >> 16)\n\t"
-        "dsrl32     $2, $2, 0\n\t"
-        "sd         $22, 0x60($29)\n\t"
-        "sd         $21, 0x50($29)\n\t"
-        "addiu      $22, $0, 0x1\n\t"
-        "sd         $20, 0x40($29)\n\t"
-        "sd         $18, 0x20($29)\n\t"
-        "sd         $16, 0x0($29)\n\t"
-        "sd         $31, 0x90($29)\n\t"
-        "daddu      $16, $4, $0\n\t"
-        "sd         $30, 0x80($29)\n\t"
-        "sd         $23, 0x70($29)\n\t"
-        "sd         $19, 0x30($29)\n\t"
-        "sd         $17, 0x10($29)\n\t"
-        "lw         $17, 0xB8($16)\n\t"
-        "lwl        $4, 0xF($16)\n\t"
-        "lwr        $4, 0xC($16)\n\t"
-        "lh         $30, 0xE($16)\n\t"
-        "lh         $23, 0xC($16)\n\t"
-        "and        $4, $4, $2\n\t"
-        "jal        func_0012E4E8\n\t"
-        "lw        $19, 0x10($16)\n\t"
-        "daddu      $21, $2, $0\n\t"
-        "lw         $18, 0x1C($16)\n\t"
-        "lui        $2, %hi(D_00131DA8)\n\t"
-        "addiu      $20, $2, %lo(D_00131DA8)\n\t"
-        "b          .L001319BC\n\t"
-        "daddu     $2, $18, $0\n\t"
-        "nop\n\t"
-        ".L001319B0:\n\t"
-        "addiu      $17, $17, 0x1\n\t"
-        "lw         $2, 0x1C($16)\n\t"
-        "sw         $17, 0xB8($16)\n\t"
-        ".L001319BC:\n\t"
-        "slt        $2, $17, $2\n\t"
-        "bnez       $2, .L001319E0\n\t"
-        "daddu     $4, $19, $0\n\t"
-        "sw         $22, 0x20($16)\n\t"
-        "daddu      $4, $16, $0\n\t"
-        "jal        func_0012F108\n\t"
-        "daddu     $5, $20, $0\n\t"
-        "b          .L00131AA0\n\t"
-        "ld        $31, 0x90($29)\n\t"
-        ".L001319E0:\n\t"
-        "jal        func_0012F7B0\n\t"
-        "daddu     $5, $17, $0\n\t"
-        "beqz       $2, .L001319B0\n\t"
-        "slt       $2, $17, $18\n\t"
-        "beqz       $2, .L001319B0\n\t"
-        "lui       $3, %hi(D_4F9E40)\n\t"
-        "lui        $2, %hi(D_4E2D48)\n\t"
-        "addiu      $18, $3, %lo(D_4F9E40)\n\t"
-        "addiu      $20, $2, %lo(D_4E2D48)\n\t"
-        "addiu      $8, $2, %lo(D_4E2D48)\n\t"
-        "addiu      $7, $3, %lo(D_4F9E40)\n\t"
-        "lb         $5, 0x0($8)\n\t"
-        "lb         $6, 0x1($8)\n\t"
-        "sb         $5, 0x0($7)\n\t"
-        "sb         $6, 0x1($7)\n\t"
-        "jal        func_0012F418\n\t"
-        "daddu     $4, $21, $0\n\t"
-        "bnez       $2, .L00131A48\n\t"
-        "daddu     $5, $17, $0\n\t"
-        "daddu      $4, $18, $0\n\t"
-        "jal        strcat\n\t"
-        "addiu     $5, $16, 0x39\n\t"
-        "daddu      $5, $20, $0\n\t"
-        "jal        strcat\n\t"
-        "daddu     $4, $18, $0\n\t"
-        "daddu      $5, $17, $0\n\t"
-        ".L00131A48:\n\t"
-        "jal        func_0012ED08\n\t"
-        "daddu     $4, $19, $0\n\t"
-        "addiu      $17, $0, 0x2\n\t"
-        "daddu      $5, $2, $0\n\t"
-        "jal        strcat\n\t"
-        "daddu     $4, $18, $0\n\t"
-        "lw         $3, 0xB4($16)\n\t"
-        "bnel       $3, $0, .L00131A84\n\t"
-        "addiu     $17, $0, 0x202\n\t"
-        "lw         $4, 0x34($16)\n\t"
-        "jal        func_0012F7A0\n\t"
-        "addiu     $5, $0, 0x100\n\t"
-        "bnez       $2, .L00131A88\n\t"
-        "daddu     $4, $23, $0\n\t"
-        "addiu      $17, $0, 0x202\n\t"
-        ".L00131A84:\n\t"
-        "daddu      $4, $23, $0\n\t"
-        ".L00131A88:\n\t"
-        "daddu      $5, $30, $0\n\t"
-        "daddu      $6, $18, $0\n\t"
-        "daddu      $7, $17, $0\n\t"
-        "jal        func_0012FD58\n\t"
-        "daddu     $8, $16, $0\n\t"
-        "ld         $31, 0x90($29)\n\t"
-        ".L00131AA0:\n\t"
-        "ld         $30, 0x80($29)\n\t"
-        "ld         $23, 0x70($29)\n\t"
-        "ld         $22, 0x60($29)\n\t"
-        "ld         $21, 0x50($29)\n\t"
-        "ld         $20, 0x40($29)\n\t"
-        "ld         $19, 0x30($29)\n\t"
-        "ld         $18, 0x20($29)\n\t"
-        "ld         $17, 0x10($29)\n\t"
-        "ld         $16, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0xA0\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_00131938\n");
+void *func_00131938(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0, r_s3 = 0, r_s4 = 0, r_s5 = 0, r_s6 = 0, r_s7 = 0, r_s8 = 0, r_t0 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    (void)r_s3;
+    (void)r_s4;
+    (void)r_s5;
+    (void)r_s6;
+    (void)r_s7;
+    (void)r_s8;
+    (void)r_t0;
+    r_sp = (long)(r_sp + (-0xA0));
+    r_v0 = (long)((0xFFFF0000 >> 16) << 16);
+    r_v0 = (long)((unsigned long)r_v0 >> (0));
+    if (r_sp) { *(long *)((char *)r_sp + (0x60)) = (long)r_s6; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x50)) = (long)r_s5; }
+    r_s6 = (long)(0 + (0x1));
+    if (r_sp) { *(long *)((char *)r_sp + (0x40)) = (long)r_s4; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x20)) = (long)r_s2; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_s0; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x90)) = (long)r_ra; }
+    r_s0 = (long)(r_a0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x80)) = (long)r_s8; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x70)) = (long)r_s7; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x30)) = (long)r_s3; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_s1; }
+    if (r_s0) { r_s1 = *(int *)((char *)r_s0 + (0xB8)); }
+    if (r_s0) { r_a0 = *(int *)((char *)r_s0 + (0xF)); }
+    if (r_s0) { r_a0 = *(int *)((char *)r_s0 + (0xC)); }
+    if (r_s0) { r_s8 = *(short *)((char *)r_s0 + (0xE)); }
+    if (r_s0) { r_s7 = *(short *)((char *)r_s0 + (0xC)); }
+    r_a0 = (long)(r_a0 & r_v0);
+    if (r_s0) { r_s3 = *(int *)((char *)r_s0 + (0x10)); }
+    r_v0 = (long)func_0012E4E8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_s5 = (long)(r_v0 + 0);
+    if (r_s0) { r_s2 = *(int *)((char *)r_s0 + (0x1C)); }
+    r_v0 = (long)&D_00131DA8;
+    r_s4 = (long)&D_00131DA8;
+    r_v0 = (long)(r_s2 + 0);
+    goto _lbl_L001319BC;
+_lbl_L001319B0:
+    r_s1 = (long)(r_s1 + (0x1));
+    if (r_s0) { r_v0 = *(int *)((char *)r_s0 + (0x1C)); }
+    if (r_s0) { *(int *)((char *)r_s0 + (0xB8)) = (int)r_s1; }
+_lbl_L001319BC:
+    r_v0 = (long)((long)r_s1 < (long)r_v0 ? 1 : 0);
+    if (r_v0 != 0) { r_a0 = (long)(r_s3 + 0); goto _lbl_L001319E0; }
+    r_a0 = (long)(r_s3 + 0);
+    if (r_s0) { *(int *)((char *)r_s0 + (0x20)) = (int)r_s6; }
+    r_a0 = (long)(r_s0 + 0);
+    r_a1 = (long)(r_s4 + 0);
+    r_v0 = (long)func_0012F108((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x90)); }
+    goto _lbl_L00131AA0;
+_lbl_L001319E0:
+    r_a1 = (long)(r_s1 + 0);
+    r_v0 = (long)func_0012F7B0((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_v0 == 0) { r_v0 = (long)((long)r_s1 < (long)r_s2 ? 1 : 0); goto _lbl_L001319B0; }
+    r_v0 = (long)((long)r_s1 < (long)r_s2 ? 1 : 0);
+    if (r_v0 == 0) { r_v1 = (long)&D_4F9E40; goto _lbl_L001319B0; }
+    r_v1 = (long)&D_4F9E40;
+    r_v0 = (long)&D_4E2D48;
+    r_s2 = (long)&D_4F9E40;
+    r_s4 = (long)&D_4E2D48;
+    r_t0 = (long)&D_4E2D48;
+    r_a3 = (long)&D_4F9E40;
+    if (r_t0) { r_a1 = *(signed char *)((char *)r_t0 + (0x0)); }
+    if (r_t0) { r_a2 = *(signed char *)((char *)r_t0 + (0x1)); }
+    if (r_a3) { *(char *)((char *)r_a3 + (0x0)) = (char)r_a1; }
+    if (r_a3) { *(char *)((char *)r_a3 + (0x1)) = (char)r_a2; }
+    r_a0 = (long)(r_s5 + 0);
+    r_v0 = (long)func_0012F418((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_v0 != 0) { r_a1 = (long)(r_s1 + 0); goto _lbl_L00131A48; }
+    r_a1 = (long)(r_s1 + 0);
+    r_a0 = (long)(r_s2 + 0);
+    r_a1 = (long)(r_s0 + (0x39));
+    r_v0 = (long)strcat((char *)r_a0, (const char *)r_a1);
+    r_a1 = (long)(r_s4 + 0);
+    r_a0 = (long)(r_s2 + 0);
+    r_v0 = (long)strcat((char *)r_a0, (const char *)r_a1);
+    r_a1 = (long)(r_s1 + 0);
+_lbl_L00131A48:
+    r_a0 = (long)(r_s3 + 0);
+    r_v0 = (long)func_0012ED08((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_s1 = (long)(0 + (0x2));
+    r_a1 = (long)(r_v0 + 0);
+    r_a0 = (long)(r_s2 + 0);
+    r_v0 = (long)strcat((char *)r_a0, (const char *)r_a1);
+    if (r_s0) { r_v1 = *(int *)((char *)r_s0 + (0xB4)); }
+    if (r_v1 != 0) { r_s1 = (long)(0 + (0x202)); goto _lbl_L00131A84; }
+    r_s1 = (long)(0 + (0x202));
+    if (r_s0) { r_a0 = *(int *)((char *)r_s0 + (0x34)); }
+    r_a1 = (long)(0 + (0x100));
+    r_v0 = (long)func_0012F7A0((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_v0 != 0) { r_a0 = (long)(r_s7 + 0); goto _lbl_L00131A88; }
+    r_a0 = (long)(r_s7 + 0);
+    r_s1 = (long)(0 + (0x202));
+_lbl_L00131A84:
+    r_a0 = (long)(r_s7 + 0);
+_lbl_L00131A88:
+    r_a1 = (long)(r_s8 + 0);
+    r_a2 = (long)(r_s2 + 0);
+    r_a3 = (long)(r_s1 + 0);
+    r_t0 = (long)(r_s0 + 0);
+    r_v0 = (long)func_0012FD58((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x90)); }
+_lbl_L00131AA0:
+    if (r_sp) { r_s8 = *(long *)((char *)r_sp + (0x80)); }
+    if (r_sp) { r_s7 = *(long *)((char *)r_sp + (0x70)); }
+    if (r_sp) { r_s6 = *(long *)((char *)r_sp + (0x60)); }
+    if (r_sp) { r_s5 = *(long *)((char *)r_sp + (0x50)); }
+    if (r_sp) { r_s4 = *(long *)((char *)r_sp + (0x40)); }
+    if (r_sp) { r_s3 = *(long *)((char *)r_sp + (0x30)); }
+    if (r_sp) { r_s2 = *(long *)((char *)r_sp + (0x20)); }
+    if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x10)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0xA0));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00131AD0 */
-__asm__(".text\n\t"
-        ".globl func_00131AD0\n\t"
-        ".ent func_00131AD0\n"
-        "func_00131AD0:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x50\n\t"
-        "lui        $2, %hi(D_00131DA8)\n\t"
-        "sd         $17, 0x20($29)\n\t"
-        "daddu      $5, $29, $0\n\t"
-        "sd         $18, 0x30($29)\n\t"
-        "daddu      $17, $4, $0\n\t"
-        "sd         $16, 0x10($29)\n\t"
-        "addiu      $18, $2, %lo(D_00131DA8)\n\t"
-        "sd         $31, 0x40($29)\n\t"
-        "addiu      $4, $0, 0x1\n\t"
-        "ori        $6, $29, 0x4\n\t"
-        "addiu      $7, $0, 0x2\n\t"
-        "jal        func_001303A8\n\t"
-        "daddu     $8, $17, $0\n\t"
-        "daddu      $16, $2, $0\n\t"
-        "addiu      $2, $0, -0x7E\n\t"
-        "bne        $16, $2, .L00131B70\n\t"
-        "daddu     $2, $16, $0\n\t"
-        "lwl        $2, 0xF($17)\n\t"
-        "lwr        $2, 0xC($17)\n\t"
-        "lui        $4, (0xFFFF0000 >> 16)\n\t"
-        "dsrl32     $4, $4, 0\n\t"
-        "jal        func_0012E4E8\n\t"
-        "and       $4, $2, $4\n\t"
-        "lw         $5, 0x4($29)\n\t"
-        "bltz       $5, .L00131B44\n\t"
-        "daddu     $4, $0, $0\n\t"
-        "b          .L00131B58\n\t"
-        "sw        $5, 0x84($17)\n\t"
-        ".L00131B44:\n\t"
-        "lui        $4, %hi(D_38CAD0)\n\t"
-        "daddu      $6, $2, $0\n\t"
-        "jal        func_0012F438\n\t"
-        "addiu     $4, $4, %lo(D_38CAD0)\n\t"
-        "daddu      $4, $2, $0\n\t"
-        ".L00131B58:\n\t"
-        "daddu      $7, $16, $0\n\t"
-        "daddu      $5, $17, $0\n\t"
-        "jal        func_0012FA30\n\t"
-        "daddu     $6, $18, $0\n\t"
-        "daddu      $16, $2, $0\n\t"
-        "daddu      $2, $16, $0\n\t"
-        ".L00131B70:\n\t"
-        "ld         $31, 0x40($29)\n\t"
-        "ld         $18, 0x30($29)\n\t"
-        "ld         $17, 0x20($29)\n\t"
-        "ld         $16, 0x10($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x50\n\t"
-        ".set reorder\n\t"
-        ".end func_00131AD0\n");
+void *func_00131AD0(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0, r_t0 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    (void)r_t0;
+    r_sp = (long)(r_sp + (-0x50));
+    r_v0 = (long)&D_00131DA8;
+    if (r_sp) { *(long *)((char *)r_sp + (0x20)) = (long)r_s1; }
+    r_a1 = (long)(r_sp + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x30)) = (long)r_s2; }
+    r_s1 = (long)(r_a0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_s0; }
+    r_s2 = (long)&D_00131DA8;
+    if (r_sp) { *(long *)((char *)r_sp + (0x40)) = (long)r_ra; }
+    r_a0 = (long)(0 + (0x1));
+    r_a2 = (long)(r_sp | (0x4));
+    r_a3 = (long)(0 + (0x2));
+    r_t0 = (long)(r_s1 + 0);
+    r_v0 = (long)func_001303A8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_s0 = (long)(r_v0 + 0);
+    r_v0 = (long)(0 + (-0x7E));
+    if (r_s0 != r_v0) { r_v0 = (long)(r_s0 + 0); goto _lbl_L00131B70; }
+    r_v0 = (long)(r_s0 + 0);
+    if (r_s1) { r_v0 = *(int *)((char *)r_s1 + (0xF)); }
+    if (r_s1) { r_v0 = *(int *)((char *)r_s1 + (0xC)); }
+    r_a0 = (long)((0xFFFF0000 >> 16) << 16);
+    r_a0 = (long)((unsigned long)r_a0 >> (0));
+    r_a0 = (long)(r_v0 & r_a0);
+    r_v0 = (long)func_0012E4E8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_a1 = *(int *)((char *)r_sp + (0x4)); }
+    if ((long)r_a1 < 0) { r_a0 = (long)(0 + 0); goto _lbl_L00131B44; }
+    r_a0 = (long)(0 + 0);
+    if (r_s1) { *(int *)((char *)r_s1 + (0x84)) = (int)r_a1; }
+    goto _lbl_L00131B58;
+_lbl_L00131B44:
+    r_a0 = (long)&D_38CAD0;
+    r_a2 = (long)(r_v0 + 0);
+    r_a0 = (long)&D_38CAD0;
+    r_v0 = (long)func_0012F438((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_a0 = (long)(r_v0 + 0);
+_lbl_L00131B58:
+    r_a3 = (long)(r_s0 + 0);
+    r_a1 = (long)(r_s1 + 0);
+    r_a2 = (long)(r_s2 + 0);
+    r_v0 = (long)func_0012FA30((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_s0 = (long)(r_v0 + 0);
+    r_v0 = (long)(r_s0 + 0);
+_lbl_L00131B70:
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x40)); }
+    if (r_sp) { r_s2 = *(long *)((char *)r_sp + (0x30)); }
+    if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x20)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x10)); }
+    r_sp = (long)(r_sp + (0x50));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00131B88 */
-__asm__(".text\n\t"
-        ".globl func_00131B88\n\t"
-        ".ent func_00131B88\n"
-        "func_00131B88:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x10\n\t"
-        "daddu      $2, $4, $0\n\t"
-        "sd         $31, 0x0($29)\n\t"
-        "daddu      $5, $0, $0\n\t"
-        "daddu      $7, $2, $0\n\t"
-        "sw         $0, 0x7C($2)\n\t"
-        "lw         $4, 0x84($2)\n\t"
-        "jal        func_00132538\n\t"
-        "daddu     $6, $0, $0\n\t"
-        "ld         $31, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x10\n\t"
-        ".set reorder\n\t"
-        ".end func_00131B88\n");
+void *func_00131B88(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    r_sp = (long)(r_sp + (-0x10));
+    r_v0 = (long)(r_a0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_ra; }
+    r_a1 = (long)(0 + 0);
+    r_a3 = (long)(r_v0 + 0);
+    if (r_v0) { *(int *)((char *)r_v0 + (0x7C)) = (int)0; }
+    if (r_v0) { r_a0 = *(int *)((char *)r_v0 + (0x84)); }
+    r_a2 = (long)(0 + 0);
+    r_v0 = (long)func_00132538((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x10));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00131BB8 */
-__asm__(".text\n\t"
-        ".globl func_00131BB8\n\t"
-        ".ent func_00131BB8\n"
-        "func_00131BB8:\n\t"
-        ".set noreorder\n\t"
-        "daddu      $5, $4, $0\n\t"
-        "addiu      $29, $29, -0x10\n\t"
-        "lui        $4, %hi(D_00131DA8)\n\t"
-        "sd         $31, 0x0($29)\n\t"
-        "jal        func_00132590\n\t"
-        "addiu     $4, $4, %lo(D_00131DA8)\n\t"
-        "ld         $31, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x10\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_00131BB8\n");
+void *func_00131BB8(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    r_a1 = (long)(r_a0 + 0);
+    r_sp = (long)(r_sp + (-0x10));
+    r_a0 = (long)&D_00131DA8;
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_ra; }
+    r_a0 = (long)&D_00131DA8;
+    r_v0 = (long)func_00132590((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x10));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00131BE0 */
-__asm__(".text\n\t"
-        ".globl func_00131BE0\n\t"
-        ".ent func_00131BE0\n"
-        "func_00131BE0:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x30\n\t"
-        "sd         $16, 0x0($29)\n\t"
-        "sd         $31, 0x20($29)\n\t"
-        "daddu      $16, $4, $0\n\t"
-        "sd         $17, 0x10($29)\n\t"
-        "daddu      $7, $16, $0\n\t"
-        "lw         $3, 0x10($16)\n\t"
-        "lw         $2, 0xB8($16)\n\t"
-        "lw         $5, 0x1C($3)\n\t"
-        "sll        $2, $2, 5\n\t"
-        "lw         $4, 0x84($16)\n\t"
-        "addu       $2, $2, $5\n\t"
-        "lw         $17, 0x1C($2)\n\t"
-        "lw         $5, 0x18($2)\n\t"
-        "jal        func_0012FE88\n\t"
-        "daddu     $6, $17, $0\n\t"
-        "sw         $17, 0xC4($16)\n\t"
-        "ld         $31, 0x20($29)\n\t"
-        "ld         $17, 0x10($29)\n\t"
-        "ld         $16, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x30\n\t"
-        ".set reorder\n\t"
-        ".end func_00131BE0\n");
+void *func_00131BE0(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    r_sp = (long)(r_sp + (-0x30));
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_s0; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x20)) = (long)r_ra; }
+    r_s0 = (long)(r_a0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_s1; }
+    r_a3 = (long)(r_s0 + 0);
+    if (r_s0) { r_v1 = *(int *)((char *)r_s0 + (0x10)); }
+    if (r_s0) { r_v0 = *(int *)((char *)r_s0 + (0xB8)); }
+    if (r_v1) { r_a1 = *(int *)((char *)r_v1 + (0x1C)); }
+    r_v0 = (long)((unsigned long)r_v0 << (5));
+    if (r_s0) { r_a0 = *(int *)((char *)r_s0 + (0x84)); }
+    r_v0 = (long)(r_v0 + r_a1);
+    if (r_v0) { r_s1 = *(int *)((char *)r_v0 + (0x1C)); }
+    if (r_v0) { r_a1 = *(int *)((char *)r_v0 + (0x18)); }
+    r_a2 = (long)(r_s1 + 0);
+    r_v0 = (long)func_0012FE88((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_s0) { *(int *)((char *)r_s0 + (0xC4)) = (int)r_s1; }
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x20)); }
+    if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x10)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x30));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00131C38 */
-__asm__(".text\n\t"
-        ".globl func_00131C38\n\t"
-        ".ent func_00131C38\n"
-        "func_00131C38:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x50\n\t"
-        "lui        $2, %hi(D_00131DA8)\n\t"
-        "sd         $16, 0x10($29)\n\t"
-        "daddu      $5, $29, $0\n\t"
-        "sd         $18, 0x30($29)\n\t"
-        "daddu      $16, $4, $0\n\t"
-        "sd         $17, 0x20($29)\n\t"
-        "addiu      $18, $2, %lo(D_00131DA8)\n\t"
-        "sd         $31, 0x40($29)\n\t"
-        "addiu      $4, $0, 0x1\n\t"
-        "ori        $6, $29, 0x4\n\t"
-        "addiu      $7, $0, 0x6\n\t"
-        "jal        func_001303A8\n\t"
-        "daddu     $8, $16, $0\n\t"
-        "daddu      $17, $2, $0\n\t"
-        "addiu      $2, $0, -0x7E\n\t"
-        "bne        $17, $2, .L00131CEC\n\t"
-        "daddu     $2, $17, $0\n\t"
-        "lwl        $2, 0xF($16)\n\t"
-        "lwr        $2, 0xC($16)\n\t"
-        "lui        $4, (0xFFFF0000 >> 16)\n\t"
-        "dsrl32     $4, $4, 0\n\t"
-        "jal        func_0012E4E8\n\t"
-        "and       $4, $2, $4\n\t"
-        "lw         $5, 0x4($29)\n\t"
-        "bltz       $5, .L00131CC0\n\t"
-        "daddu     $4, $0, $0\n\t"
-        "lw         $2, 0xC4($16)\n\t"
-        "beq        $5, $2, .L00131CD8\n\t"
-        "daddu     $7, $17, $0\n\t"
-        "lw         $2, 0xBC($16)\n\t"
-        "addiu      $2, $2, 0x1\n\t"
-        "b          .L00131CD8\n\t"
-        "sw        $2, 0xBC($16)\n\t"
-        ".L00131CC0:\n\t"
-        "lui        $4, %hi(D_38CB00)\n\t"
-        "daddu      $6, $2, $0\n\t"
-        "jal        func_0012F438\n\t"
-        "addiu     $4, $4, %lo(D_38CB00)\n\t"
-        "daddu      $4, $2, $0\n\t"
-        "daddu      $7, $17, $0\n\t"
-        ".L00131CD8:\n\t"
-        "daddu      $5, $16, $0\n\t"
-        "jal        func_0012FA30\n\t"
-        "daddu     $6, $18, $0\n\t"
-        "daddu      $17, $2, $0\n\t"
-        "daddu      $2, $17, $0\n\t"
-        ".L00131CEC:\n\t"
-        "ld         $31, 0x40($29)\n\t"
-        "ld         $18, 0x30($29)\n\t"
-        "ld         $17, 0x20($29)\n\t"
-        "ld         $16, 0x10($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x50\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_00131C38\n");
+void *func_00131C38(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0, r_t0 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    (void)r_t0;
+    r_sp = (long)(r_sp + (-0x50));
+    r_v0 = (long)&D_00131DA8;
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_s0; }
+    r_a1 = (long)(r_sp + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x30)) = (long)r_s2; }
+    r_s0 = (long)(r_a0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x20)) = (long)r_s1; }
+    r_s2 = (long)&D_00131DA8;
+    if (r_sp) { *(long *)((char *)r_sp + (0x40)) = (long)r_ra; }
+    r_a0 = (long)(0 + (0x1));
+    r_a2 = (long)(r_sp | (0x4));
+    r_a3 = (long)(0 + (0x6));
+    r_t0 = (long)(r_s0 + 0);
+    r_v0 = (long)func_001303A8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_s1 = (long)(r_v0 + 0);
+    r_v0 = (long)(0 + (-0x7E));
+    if (r_s1 != r_v0) { r_v0 = (long)(r_s1 + 0); goto _lbl_L00131CEC; }
+    r_v0 = (long)(r_s1 + 0);
+    if (r_s0) { r_v0 = *(int *)((char *)r_s0 + (0xF)); }
+    if (r_s0) { r_v0 = *(int *)((char *)r_s0 + (0xC)); }
+    r_a0 = (long)((0xFFFF0000 >> 16) << 16);
+    r_a0 = (long)((unsigned long)r_a0 >> (0));
+    r_a0 = (long)(r_v0 & r_a0);
+    r_v0 = (long)func_0012E4E8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_a1 = *(int *)((char *)r_sp + (0x4)); }
+    if ((long)r_a1 < 0) { r_a0 = (long)(0 + 0); goto _lbl_L00131CC0; }
+    r_a0 = (long)(0 + 0);
+    if (r_s0) { r_v0 = *(int *)((char *)r_s0 + (0xC4)); }
+    if (r_a1 == r_v0) { r_a3 = (long)(r_s1 + 0); goto _lbl_L00131CD8; }
+    r_a3 = (long)(r_s1 + 0);
+    if (r_s0) { r_v0 = *(int *)((char *)r_s0 + (0xBC)); }
+    r_v0 = (long)(r_v0 + (0x1));
+    if (r_s0) { *(int *)((char *)r_s0 + (0xBC)) = (int)r_v0; }
+    goto _lbl_L00131CD8;
+_lbl_L00131CC0:
+    r_a0 = (long)&D_38CB00;
+    r_a2 = (long)(r_v0 + 0);
+    r_a0 = (long)&D_38CB00;
+    r_v0 = (long)func_0012F438((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_a0 = (long)(r_v0 + 0);
+    r_a3 = (long)(r_s1 + 0);
+_lbl_L00131CD8:
+    r_a1 = (long)(r_s0 + 0);
+    r_a2 = (long)(r_s2 + 0);
+    r_v0 = (long)func_0012FA30((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_s1 = (long)(r_v0 + 0);
+    r_v0 = (long)(r_s1 + 0);
+_lbl_L00131CEC:
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x40)); }
+    if (r_sp) { r_s2 = *(long *)((char *)r_sp + (0x30)); }
+    if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x20)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x10)); }
+    r_sp = (long)(r_sp + (0x50));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00131D08 */
-__asm__(".text\n\t"
-        ".globl func_00131D08\n\t"
-        ".ent func_00131D08\n"
-        "func_00131D08:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x10\n\t"
-        "daddu      $5, $4, $0\n\t"
-        "sd         $31, 0x0($29)\n\t"
-        "jal        func_0012FE10\n\t"
-        "lw        $4, 0x84($5)\n\t"
-        "ld         $31, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x10\n\t"
-        ".set reorder\n\t"
-        ".end func_00131D08\n");
+void *func_00131D08(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    r_sp = (long)(r_sp + (-0x10));
+    r_a1 = (long)(r_a0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_ra; }
+    if (r_a1) { r_a0 = *(int *)((char *)r_a1 + (0x84)); }
+    r_v0 = (long)func_0012FE10((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x10));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00131D28 */
-__asm__(".text\n\t"
-        ".globl func_00131D28\n\t"
-        ".ent func_00131D28\n"
-        "func_00131D28:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x60\n\t"
-        "lui        $2, %hi(D_00131DA8)\n\t"
-        "sd         $17, 0x20($29)\n\t"
-        "daddu      $5, $29, $0\n\t"
-        "sd         $19, 0x40($29)\n\t"
-        "daddu      $17, $4, $0\n\t"
-        "sd         $16, 0x10($29)\n\t"
-        "addiu      $19, $2, %lo(D_00131DA8)\n\t"
-        "sd         $31, 0x50($29)\n\t"
-        "addiu      $4, $0, 0x1\n\t"
-        "sd         $18, 0x30($29)\n\t"
-        "ori        $6, $29, 0x4\n\t"
-        "addiu      $7, $0, 0x3\n\t"
-        "jal        func_001303A8\n\t"
-        "daddu     $8, $17, $0\n\t"
-        "daddu      $16, $2, $0\n\t"
-        "addiu      $2, $0, -0x7E\n\t"
-        "bne        $16, $2, .L00131DE8\n\t"
-        "daddu     $2, $16, $0\n\t"
-        "lwl        $2, 0xF($17)\n\t"
-        "lwr        $2, 0xC($17)\n\t"
-        "lui        $4, (0xFFFF0000 >> 16)\n\t"
-        "dsrl32     $4, $4, 0\n\t"
-        "daddu      $18, $0, $0\n\t"
-        "jal        func_0012E4E8\n\t"
-        "and       $4, $2, $4\n\t"
-        "lw         $5, 0x4($29)\n\t"
-        "bltz       $5, .L00131DBC\n\t"
-        "lui       $4, (0x390000 >> 16)\n\t"
-        "lw         $2, 0xBC($17)\n\t"
-        "beqz       $2, .L00131DCC\n\t"
-        "lui       $5, %hi(func_00131D08 + 0x18)\n\t"
-        "daddu      $4, $17, $0\n\t"
-        "jal        func_0012F108\n\t"
-        "addiu     $5, $5, %lo(func_00131D08 + 0x18)\n\t"
-        "b          .L00131DCC\n\t"
-        "daddu     $16, $2, $0\n\t"
-        ".L00131DBC:\n\t"
-        "daddu      $6, $2, $0\n\t"
-        ".set reorder\n\t"
-        ".end func_00131D28\n");
+void *func_00131D28(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0, r_s3 = 0, r_t0 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    (void)r_s3;
+    (void)r_t0;
+    r_sp = (long)(r_sp + (-0x60));
+    r_v0 = (long)&D_00131DA8;
+    if (r_sp) { *(long *)((char *)r_sp + (0x20)) = (long)r_s1; }
+    r_a1 = (long)(r_sp + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x40)) = (long)r_s3; }
+    r_s1 = (long)(r_a0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_s0; }
+    r_s3 = (long)&D_00131DA8;
+    if (r_sp) { *(long *)((char *)r_sp + (0x50)) = (long)r_ra; }
+    r_a0 = (long)(0 + (0x1));
+    if (r_sp) { *(long *)((char *)r_sp + (0x30)) = (long)r_s2; }
+    r_a2 = (long)(r_sp | (0x4));
+    r_a3 = (long)(0 + (0x3));
+    r_t0 = (long)(r_s1 + 0);
+    r_v0 = (long)func_001303A8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_s0 = (long)(r_v0 + 0);
+    r_v0 = (long)(0 + (-0x7E));
+    if (r_s0 != r_v0) { r_v0 = (long)(r_s0 + 0); return func_00131DC0((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3); }
+    r_v0 = (long)(r_s0 + 0);
+    if (r_s1) { r_v0 = *(int *)((char *)r_s1 + (0xF)); }
+    if (r_s1) { r_v0 = *(int *)((char *)r_s1 + (0xC)); }
+    r_a0 = (long)((0xFFFF0000 >> 16) << 16);
+    r_a0 = (long)((unsigned long)r_a0 >> (0));
+    r_s2 = (long)(0 + 0);
+    r_a0 = (long)(r_v0 & r_a0);
+    r_v0 = (long)func_0012E4E8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_a1 = *(int *)((char *)r_sp + (0x4)); }
+    if ((long)r_a1 < 0) { r_a0 = (long)((0x390000 >> 16) << 16); goto _lbl_L00131DBC; }
+    r_a0 = (long)((0x390000 >> 16) << 16);
+    if (r_s1) { r_v0 = *(int *)((char *)r_s1 + (0xBC)); }
+    if (r_v0 == 0) { r_a1 = (long)&func_00131D08 + 0x18; return func_00131DC0((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3); }
+    r_a1 = (long)&func_00131D08 + 0x18;
+    r_a0 = (long)(r_s1 + 0);
+    r_a1 = (long)&func_00131D08 + 0x18;
+    r_v0 = (long)func_0012F108((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_s0 = (long)(r_v0 + 0);
+    return func_00131DC0((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+_lbl_L00131DBC:
+    r_a2 = (long)(r_v0 + 0);
+    return func_00131DC0((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+}
 
 /* func_00131DC0 */
-__asm__(".text\n\t"
-        ".globl func_00131DC0\n\t"
-        ".ent func_00131DC0\n"
-        "func_00131DC0:\n\t"
-        ".set noreorder\n\t"
-        "jal        func_0012F438\n\t"
-        "addiu     $4, $4, -0x34D0\n\t"
-        "daddu      $18, $2, $0\n\t"
-        ".L00131DCC:\n\t"
-        "daddu      $7, $16, $0\n\t"
-        "daddu      $4, $18, $0\n\t"
-        "daddu      $5, $17, $0\n\t"
-        "jal        func_0012FA30\n\t"
-        "daddu     $6, $19, $0\n\t"
-        "daddu      $16, $2, $0\n\t"
-        "daddu      $2, $16, $0\n\t"
-        ".L00131DE8:\n\t"
-        "ld         $31, 0x50($29)\n\t"
-        "ld         $19, 0x40($29)\n\t"
-        "ld         $18, 0x30($29)\n\t"
-        "ld         $17, 0x20($29)\n\t"
-        "ld         $16, 0x10($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x60\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_00131DC0\n");
+void *func_00131DC0(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0, r_s3 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    (void)r_s3;
+    r_a0 = (long)(r_a0 + (-0x34D0));
+    r_v0 = (long)func_0012F438((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_s2 = (long)(r_v0 + 0);
+_lbl_L00131DCC:
+    r_a3 = (long)(r_s0 + 0);
+    r_a0 = (long)(r_s2 + 0);
+    r_a1 = (long)(r_s1 + 0);
+    r_a2 = (long)(r_s3 + 0);
+    r_v0 = (long)func_0012FA30((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_s0 = (long)(r_v0 + 0);
+    r_v0 = (long)(r_s0 + 0);
+_lbl_L00131DE8:
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x50)); }
+    if (r_sp) { r_s3 = *(long *)((char *)r_sp + (0x40)); }
+    if (r_sp) { r_s2 = *(long *)((char *)r_sp + (0x30)); }
+    if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x20)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x10)); }
+    r_sp = (long)(r_sp + (0x60));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00131E08 */
-__asm__(".text\n\t"
-        ".globl func_00131E08\n\t"
-        ".ent func_00131E08\n"
-        "func_00131E08:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x20\n\t"
-        "sw         $0, 0xC8($4)\n\t"
-        "addiu      $2, $0, -0x7E\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x20\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_00131E08\n");
+void *func_00131E08(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    r_sp = (long)(r_sp + (-0x20));
+    if (r_a0) { *(int *)((char *)r_a0 + (0xC8)) = (int)0; }
+    r_v0 = (long)(0 + (-0x7E));
+    r_sp = (long)(r_sp + (0x20));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00131E20 */
-__asm__(".text\n\t"
-        ".globl func_00131E20\n\t"
-        ".ent func_00131E20\n"
-        "func_00131E20:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x40\n\t"
-        "lui        $2, %hi(D_00131DA8)\n\t"
-        "sd         $17, 0x20($29)\n\t"
-        "sd         $16, 0x10($29)\n\t"
-        "sd         $31, 0x30($29)\n\t"
-        "daddu      $16, $4, $0\n\t"
-        "lw         $3, 0xC8($16)\n\t"
-        "bnez       $3, .L00131E4C\n\t"
-        "addiu     $17, $2, %lo(D_00131DA8)\n\t"
-        "b          .L00131EC0\n\t"
-        "addiu     $3, $0, -0x7E\n\t"
-        ".L00131E4C:\n\t"
-        "addiu      $4, $0, 0x1\n\t"
-        "daddu      $5, $29, $0\n\t"
-        "ori        $6, $29, 0x4\n\t"
-        "addiu      $7, $0, 0xE\n\t"
-        "jal        func_001303A8\n\t"
-        "daddu     $8, $16, $0\n\t"
-        "daddu      $3, $2, $0\n\t"
-        "addiu      $2, $0, -0x7E\n\t"
-        "bne        $3, $2, .L00131EC4\n\t"
-        "ld        $31, 0x30($29)\n\t"
-        "lwl        $2, 0xF($16)\n\t"
-        "lwr        $2, 0xC($16)\n\t"
-        "lui        $4, (0xFFFF0000 >> 16)\n\t"
-        "dsrl32     $4, $4, 0\n\t"
-        "jal        func_0012E4E8\n\t"
-        "and       $4, $2, $4\n\t"
-        "daddu      $6, $2, $0\n\t"
-        "lw         $5, 0x4($29)\n\t"
-        "bgez       $5, func_00131EA8\n\t"
-        "daddu     $2, $0, $0\n\t"
-        "lui        $4, %hi(D_38CB60)\n\t"
-        "jal        func_0012F438\n\t"
-        "addiu     $4, $4, %lo(D_38CB60)\n\t"
-        ".set reorder\n\t"
-        ".end func_00131E20\n");
+void *func_00131E20(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_t0 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_t0;
+    r_sp = (long)(r_sp + (-0x40));
+    r_v0 = (long)&D_00131DA8;
+    if (r_sp) { *(long *)((char *)r_sp + (0x20)) = (long)r_s1; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_s0; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x30)) = (long)r_ra; }
+    r_s0 = (long)(r_a0 + 0);
+    if (r_s0) { r_v1 = *(int *)((char *)r_s0 + (0xC8)); }
+    if (r_v1 != 0) { r_s1 = (long)&D_00131DA8; goto _lbl_L00131E4C; }
+    r_s1 = (long)&D_00131DA8;
+    r_v1 = (long)(0 + (-0x7E));
+    return func_00131EA8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+_lbl_L00131E4C:
+    r_a0 = (long)(0 + (0x1));
+    r_a1 = (long)(r_sp + 0);
+    r_a2 = (long)(r_sp | (0x4));
+    r_a3 = (long)(0 + (0xE));
+    r_t0 = (long)(r_s0 + 0);
+    r_v0 = (long)func_001303A8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_v1 = (long)(r_v0 + 0);
+    r_v0 = (long)(0 + (-0x7E));
+    if (r_v1 != r_v0) { if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x30)); } return func_00131EA8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3); }
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x30)); }
+    if (r_s0) { r_v0 = *(int *)((char *)r_s0 + (0xF)); }
+    if (r_s0) { r_v0 = *(int *)((char *)r_s0 + (0xC)); }
+    r_a0 = (long)((0xFFFF0000 >> 16) << 16);
+    r_a0 = (long)((unsigned long)r_a0 >> (0));
+    r_a0 = (long)(r_v0 & r_a0);
+    r_v0 = (long)func_0012E4E8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_a2 = (long)(r_v0 + 0);
+    if (r_sp) { r_a1 = *(int *)((char *)r_sp + (0x4)); }
+    if ((long)r_a1 >= 0) { r_v0 = (long)(0 + 0); return func_00131EA8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3); }
+    r_v0 = (long)(0 + 0);
+    r_a0 = (long)&D_38CB60;
+    r_a0 = (long)&D_38CB60;
+    r_v0 = (long)func_0012F438((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    return func_00131EA8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+}
 
 /* func_00131EA8 */
-__asm__(".text\n\t"
-        ".globl func_00131EA8\n\t"
-        ".ent func_00131EA8\n"
-        "func_00131EA8:\n\t"
-        ".set noreorder\n\t"
-        "daddu      $4, $2, $0\n\t"
-        "daddu      $5, $16, $0\n\t"
-        "daddu      $6, $17, $0\n\t"
-        "jal        func_0012FA30\n\t"
-        "addiu     $7, $0, -0x7E\n\t"
-        "daddu      $3, $2, $0\n\t"
-        ".L00131EC0:\n\t"
-        "ld         $31, 0x30($29)\n\t"
-        ".L00131EC4:\n\t"
-        "daddu      $2, $3, $0\n\t"
-        "ld         $17, 0x20($29)\n\t"
-        "ld         $16, 0x10($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x40\n\t"
-        ".set reorder\n\t"
-        ".end func_00131EA8\n");
+void *func_00131EA8(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    r_a0 = (long)(r_v0 + 0);
+    r_a1 = (long)(r_s0 + 0);
+    r_a2 = (long)(r_s1 + 0);
+    r_a3 = (long)(0 + (-0x7E));
+    r_v0 = (long)func_0012FA30((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_v1 = (long)(r_v0 + 0);
+_lbl_L00131EC0:
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x30)); }
+_lbl_L00131EC4:
+    r_v0 = (long)(r_v1 + 0);
+    if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x20)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x10)); }
+    r_sp = (long)(r_sp + (0x40));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00131ED8 */
-__asm__(".text\n\t"
-        ".globl func_00131ED8\n\t"
-        ".ent func_00131ED8\n"
-        "func_00131ED8:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x40\n\t"
-        "lui        $5, %hi(.L00131780)\n\t"
-        "sd         $16, 0x0($29)\n\t"
-        "addiu      $5, $5, %lo(.L00131780)\n\t"
-        "daddu      $16, $4, $0\n\t"
-        "sd         $18, 0x20($29)\n\t"
-        "sd         $17, 0x10($29)\n\t"
-        "sd         $31, 0x30($29)\n\t"
-        "jal        func_0012F108\n\t"
-        "daddu     $17, $0, $0\n\t"
-        "lw         $4, 0xBC($16)\n\t"
-        "jal        func_0012F7C8\n\t"
-        "daddu     $18, $2, $0\n\t"
-        "daddu      $3, $2, $0\n\t"
-        "addiu      $2, $0, 0x1\n\t"
-        "beq        $3, $2, .L00131F34\n\t"
-        "addiu     $2, $0, 0x2\n\t"
-        "beql       $3, $2, .L00131F34\n\t"
-        "addiu     $17, $0, -0x7A\n\t"
-        "lw         $2, 0xB8($16)\n\t"
-        "sw         $0, 0xBC($16)\n\t"
-        "addiu      $2, $2, 0x1\n\t"
-        ".set reorder\n\t"
-        ".end func_00131ED8\n");
+void *func_00131ED8(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    r_sp = (long)(r_sp + (-0x40));
+    r_a1 = 0x00131780 & 0xFFFF0000;
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_s0; }
+    r_a1 = 0x00131780;
+    r_s0 = (long)(r_a0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x20)) = (long)r_s2; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_s1; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x30)) = (long)r_ra; }
+    r_s1 = (long)(0 + 0);
+    r_v0 = (long)func_0012F108((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_s0) { r_a0 = *(int *)((char *)r_s0 + (0xBC)); }
+    r_s2 = (long)(r_v0 + 0);
+    r_v0 = (long)func_0012F7C8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_v1 = (long)(r_v0 + 0);
+    r_v0 = (long)(0 + (0x1));
+    if (r_v1 == r_v0) { r_v0 = (long)(0 + (0x2)); return func_00131F30((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3); }
+    r_v0 = (long)(0 + (0x2));
+    if (r_v1 == r_v0) { r_s1 = (long)(0 + (-0x7A)); return func_00131F30((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3); }
+    r_s1 = (long)(0 + (-0x7A));
+    if (r_s0) { r_v0 = *(int *)((char *)r_s0 + (0xB8)); }
+    if (r_s0) { *(int *)((char *)r_s0 + (0xBC)) = (int)0; }
+    r_v0 = (long)(r_v0 + (0x1));
+    return func_00131F30((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+}
 
 /* func_00131F30 */
-__asm__(".text\n\t"
-        ".globl func_00131F30\n\t"
-        ".ent func_00131F30\n"
-        "func_00131F30:\n\t"
-        ".set noreorder\n\t"
-        "sw         $2, 0xB8($16)\n\t"
-        ".L00131F34:\n\t"
-        "beqz       $17, .L00131F48\n\t"
-        "daddu     $2, $18, $0\n\t"
-        "sw         $17, 0x20($16)\n\t"
-        "addiu      $18, $0, -0x7E\n\t"
-        "daddu      $2, $18, $0\n\t"
-        ".L00131F48:\n\t"
-        "ld         $31, 0x30($29)\n\t"
-        "ld         $18, 0x20($29)\n\t"
-        "ld         $17, 0x10($29)\n\t"
-        "ld         $16, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x40\n\t"
-        ".set reorder\n\t"
-        ".end func_00131F30\n");
+void *func_00131F30(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    if (r_s0) { *(int *)((char *)r_s0 + (0xB8)) = (int)r_v0; }
+_lbl_L00131F34:
+    if (r_s1 == 0) { r_v0 = (long)(r_s2 + 0); goto _lbl_L00131F48; }
+    r_v0 = (long)(r_s2 + 0);
+    if (r_s0) { *(int *)((char *)r_s0 + (0x20)) = (int)r_s1; }
+    r_s2 = (long)(0 + (-0x7E));
+    r_v0 = (long)(r_s2 + 0);
+_lbl_L00131F48:
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x30)); }
+    if (r_sp) { r_s2 = *(long *)((char *)r_sp + (0x20)); }
+    if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x10)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x40));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00131F60 */
-__asm__(".text\n\t"
-        ".globl func_00131F60\n\t"
-        ".ent func_00131F60\n"
-        "func_00131F60:\n\t"
-        ".set noreorder\n\t"
-        "lw         $5, 0x20($4)\n\t"
-        "addiu      $2, $0, -0x80\n\t"
-        "lw         $3, 0xB0($4)\n\t"
-        "jr         $31\n\t"
-        "sw        $5, 0x0($3)\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_00131F60\n");
+void *func_00131F60(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    if (r_a0) { r_a1 = *(int *)((char *)r_a0 + (0x20)); }
+    r_v0 = (long)(0 + (-0x80));
+    if (r_a0) { r_v1 = *(int *)((char *)r_a0 + (0xB0)); }
+    if (r_v1) { *(int *)((char *)r_v1 + (0x0)) = (int)r_a1; }
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00131F78 */
-__asm__(".text\n\t"
-        ".globl func_00131F78\n\t"
-        ".ent func_00131F78\n"
-        "func_00131F78:\n\t"
-        ".set noreorder\n\t"
-        "lw         $2, 0xC8($4)\n\t"
-        "jr         $31\n\t"
-        ".set reorder\n\t"
-        ".end func_00131F78\n");
+void *func_00131F78(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    if (r_a0) { r_v0 = *(int *)((char *)r_a0 + (0xC8)); }
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00131F80 */
-__asm__(".text\n\t"
-        ".globl func_00131F80\n\t"
-        ".ent func_00131F80\n"
-        "func_00131F80:\n\t"
-        ".set noreorder\n\t"
-        "sltu       $2, $0, $2\n\t"
-        "nop\n\t"
-        "addiu      $29, $29, -0x20\n\t"
-        "lui        $2, (0xFFFF0000 >> 16)\n\t"
-        "dsrl32     $2, $2, 0\n\t"
-        "sw         $5, 0x0($29)\n\t"
-        "daddu      $8, $0, $0\n\t"
-        "sd         $31, 0x10($29)\n\t"
-        "lw         $5, 0x0($29)\n\t"
-        "lw         $9, 0x18($4)\n\t"
-        "jal        func_00131E08\n\t"
-        "and       $5, $5, $2\n\t"
-        "ld         $31, 0x10($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x20\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_00131F80\n");
+void *func_00131F80(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_t0 = 0, r_t1 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_t0;
+    (void)r_t1;
+    r_v0 = (long)((unsigned long)0 < (unsigned long)r_v0 ? 1 : 0);
+    r_sp = (long)(r_sp + (-0x20));
+    r_v0 = (long)((0xFFFF0000 >> 16) << 16);
+    r_v0 = (long)((unsigned long)r_v0 >> (0));
+    if (r_sp) { *(int *)((char *)r_sp + (0x0)) = (int)r_a1; }
+    r_t0 = (long)(0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_ra; }
+    if (r_sp) { r_a1 = *(int *)((char *)r_sp + (0x0)); }
+    if (r_a0) { r_t1 = *(int *)((char *)r_a0 + (0x18)); }
+    r_a1 = (long)(r_a1 & r_v0);
+    r_v0 = (long)func_00131E08((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x10)); }
+    r_sp = (long)(r_sp + (0x20));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00131FC0 */
-__asm__(".text\n\t"
-        ".globl func_00131FC0\n\t"
-        ".ent func_00131FC0\n"
-        "func_00131FC0:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x30\n\t"
-        "daddu      $10, $6, $0\n\t"
-        "sd         $31, 0x20($29)\n\t"
-        "daddu      $3, $7, $0\n\t"
-        "sw         $5, 0x10($29)\n\t"
-        "sll        $6, $8, 5\n\t"
-        "lw         $5, 0x1C($4)\n\t"
-        "daddu      $8, $10, $0\n\t"
-        "lw         $2, 0x10($29)\n\t"
-        "lui        $7, (0xFFFF0000 >> 16)\n\t"
-        "dsrl32     $7, $7, 0\n\t"
-        "addu       $6, $5, $6\n\t"
-        "sw         $3, 0x8($29)\n\t"
-        "and        $7, $2, $7\n\t"
-        "sw         $0, 0x0($29)\n\t"
-        "daddu      $5, $0, $0\n\t"
-        "daddu      $10, $0, $0\n\t"
-        "jal        func_00131F80\n\t"
-        "daddu     $11, $0, $0\n\t"
-        "ld         $31, 0x20($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x30\n\t"
-        ".set reorder\n\t"
-        ".end func_00131FC0\n");
+void *func_00131FC0(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_t0 = 0, r_t2 = 0, r_t3 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_t0;
+    (void)r_t2;
+    (void)r_t3;
+    r_sp = (long)(r_sp + (-0x30));
+    r_t2 = (long)(r_a2 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x20)) = (long)r_ra; }
+    r_v1 = (long)(r_a3 + 0);
+    if (r_sp) { *(int *)((char *)r_sp + (0x10)) = (int)r_a1; }
+    r_a2 = (long)((unsigned long)r_t0 << (5));
+    if (r_a0) { r_a1 = *(int *)((char *)r_a0 + (0x1C)); }
+    r_t0 = (long)(r_t2 + 0);
+    if (r_sp) { r_v0 = *(int *)((char *)r_sp + (0x10)); }
+    r_a3 = (long)((0xFFFF0000 >> 16) << 16);
+    r_a3 = (long)((unsigned long)r_a3 >> (0));
+    r_a2 = (long)(r_a1 + r_a2);
+    if (r_sp) { *(int *)((char *)r_sp + (0x8)) = (int)r_v1; }
+    r_a3 = (long)(r_v0 & r_a3);
+    if (r_sp) { *(int *)((char *)r_sp + (0x0)) = (int)0; }
+    r_a1 = (long)(0 + 0);
+    r_t2 = (long)(0 + 0);
+    r_t3 = (long)(0 + 0);
+    r_v0 = (long)func_00131F80((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x20)); }
+    r_sp = (long)(r_sp + (0x30));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00132018 */
-__asm__(".text\n\t"
-        ".globl func_00132018\n\t"
-        ".ent func_00132018\n"
-        "func_00132018:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x20\n\t"
-        "sll        $3, $7, 5\n\t"
-        "sw         $5, 0x0($29)\n\t"
-        "daddu      $9, $0, $0\n\t"
-        "sd         $31, 0x10($29)\n\t"
-        "lui        $5, (0xFFFF0000 >> 16)\n\t"
-        "dsrl32     $5, $5, 0\n\t"
-        "lw         $8, 0x0($29)\n\t"
-        "lw         $2, 0x1C($4)\n\t"
-        "and        $5, $8, $5\n\t"
-        "addu       $2, $2, $3\n\t"
-        "lw         $10, 0x1C($2)\n\t"
-        "jal        func_00131EA8\n\t"
-        "lw        $8, 0x18($2)\n\t"
-        "ld         $31, 0x10($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x20\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_00132018\n");
+void *func_00132018(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_t0 = 0, r_t1 = 0, r_t2 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_t0;
+    (void)r_t1;
+    (void)r_t2;
+    r_sp = (long)(r_sp + (-0x20));
+    r_v1 = (long)((unsigned long)r_a3 << (5));
+    if (r_sp) { *(int *)((char *)r_sp + (0x0)) = (int)r_a1; }
+    r_t1 = (long)(0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_ra; }
+    r_a1 = (long)((0xFFFF0000 >> 16) << 16);
+    r_a1 = (long)((unsigned long)r_a1 >> (0));
+    if (r_sp) { r_t0 = *(int *)((char *)r_sp + (0x0)); }
+    if (r_a0) { r_v0 = *(int *)((char *)r_a0 + (0x1C)); }
+    r_a1 = (long)(r_t0 & r_a1);
+    r_v0 = (long)(r_v0 + r_v1);
+    if (r_v0) { r_t2 = *(int *)((char *)r_v0 + (0x1C)); }
+    if (r_v0) { r_t0 = *(int *)((char *)r_v0 + (0x18)); }
+    r_v0 = (long)func_00131EA8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x10)); }
+    r_sp = (long)(r_sp + (0x20));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00132060 */
-__asm__(".text\n\t"
-        ".globl func_00132060\n\t"
-        ".ent func_00132060\n"
-        "func_00132060:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x70\n\t"
-        "sd         $16, 0x10($29)\n\t"
-        "daddu      $16, $4, $0\n\t"
-        "sd         $20, 0x50($29)\n\t"
-        "sd         $19, 0x40($29)\n\t"
-        "daddu      $20, $10, $0\n\t"
-        "sd         $18, 0x30($29)\n\t"
-        "daddu      $19, $9, $0\n\t"
-        "sd         $17, 0x20($29)\n\t"
-        "daddu      $18, $8, $0\n\t"
-        "sw         $5, 0x0($29)\n\t"
-        "daddu      $17, $6, $0\n\t"
-        "sd         $31, 0x60($29)\n\t"
-        "jal        func_0012ED08\n\t"
-        "daddu     $5, $7, $0\n\t"
-        "lw         $3, 0x0($29)\n\t"
-        "lui        $6, (0xFFFF0000 >> 16)\n\t"
-        "dsrl32     $6, $6, 0\n\t"
-        "daddu      $4, $16, $0\n\t"
-        "daddu      $7, $17, $0\n\t"
-        "daddu      $8, $18, $0\n\t"
-        "daddu      $9, $19, $0\n\t"
-        "daddu      $10, $20, $0\n\t"
-        "daddu      $5, $2, $0\n\t"
-        "jal        func_00131F30\n\t"
-        "and       $6, $3, $6\n\t"
-        "ld         $31, 0x60($29)\n\t"
-        "ld         $20, 0x50($29)\n\t"
-        "ld         $19, 0x40($29)\n\t"
-        "ld         $18, 0x30($29)\n\t"
-        "ld         $17, 0x20($29)\n\t"
-        "ld         $16, 0x10($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x70\n\t"
-        ".set reorder\n\t"
-        ".end func_00132060\n");
+void *func_00132060(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0, r_s3 = 0, r_s4 = 0, r_t0 = 0, r_t1 = 0, r_t2 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    (void)r_s3;
+    (void)r_s4;
+    (void)r_t0;
+    (void)r_t1;
+    (void)r_t2;
+    r_sp = (long)(r_sp + (-0x70));
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_s0; }
+    r_s0 = (long)(r_a0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x50)) = (long)r_s4; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x40)) = (long)r_s3; }
+    r_s4 = (long)(r_t2 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x30)) = (long)r_s2; }
+    r_s3 = (long)(r_t1 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x20)) = (long)r_s1; }
+    r_s2 = (long)(r_t0 + 0);
+    if (r_sp) { *(int *)((char *)r_sp + (0x0)) = (int)r_a1; }
+    r_s1 = (long)(r_a2 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x60)) = (long)r_ra; }
+    r_a1 = (long)(r_a3 + 0);
+    r_v0 = (long)func_0012ED08((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_v1 = *(int *)((char *)r_sp + (0x0)); }
+    r_a2 = (long)((0xFFFF0000 >> 16) << 16);
+    r_a2 = (long)((unsigned long)r_a2 >> (0));
+    r_a0 = (long)(r_s0 + 0);
+    r_a3 = (long)(r_s1 + 0);
+    r_t0 = (long)(r_s2 + 0);
+    r_t1 = (long)(r_s3 + 0);
+    r_t2 = (long)(r_s4 + 0);
+    r_a1 = (long)(r_v0 + 0);
+    r_a2 = (long)(r_v1 & r_a2);
+    r_v0 = (long)func_00131F30((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x60)); }
+    if (r_sp) { r_s4 = *(long *)((char *)r_sp + (0x50)); }
+    if (r_sp) { r_s3 = *(long *)((char *)r_sp + (0x40)); }
+    if (r_sp) { r_s2 = *(long *)((char *)r_sp + (0x30)); }
+    if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x20)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x10)); }
+    r_sp = (long)(r_sp + (0x70));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_001320E8 */
-__asm__(".text\n\t"
-        ".globl func_001320E8\n\t"
-        ".ent func_001320E8\n"
-        "func_001320E8:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x30\n\t"
-        "lui        $2, (0xFFFF0000 >> 16)\n\t"
-        "dsrl32     $2, $2, 0\n\t"
-        "sw         $6, 0x10($29)\n\t"
-        "daddu      $11, $9, $0\n\t"
-        "sd         $31, 0x20($29)\n\t"
-        "daddu      $6, $8, $0\n\t"
-        "daddu      $8, $7, $0\n\t"
-        "addiu      $9, $0, 0x1\n\t"
-        "lw         $3, 0x10($29)\n\t"
-        "sw         $10, 0x0($29)\n\t"
-        "daddu      $10, $6, $0\n\t"
-        "and        $7, $3, $2\n\t"
-        "sw         $0, 0x8($29)\n\t"
-        "jal        func_00131F80\n\t"
-        "daddu     $6, $0, $0\n\t"
-        "ld         $31, 0x20($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x30\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_001320E8\n");
+void *func_001320E8(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_t0 = 0, r_t1 = 0, r_t2 = 0, r_t3 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_t0;
+    (void)r_t1;
+    (void)r_t2;
+    (void)r_t3;
+    r_sp = (long)(r_sp + (-0x30));
+    r_v0 = (long)((0xFFFF0000 >> 16) << 16);
+    r_v0 = (long)((unsigned long)r_v0 >> (0));
+    if (r_sp) { *(int *)((char *)r_sp + (0x10)) = (int)r_a2; }
+    r_t3 = (long)(r_t1 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x20)) = (long)r_ra; }
+    r_a2 = (long)(r_t0 + 0);
+    r_t0 = (long)(r_a3 + 0);
+    r_t1 = (long)(0 + (0x1));
+    if (r_sp) { r_v1 = *(int *)((char *)r_sp + (0x10)); }
+    if (r_sp) { *(int *)((char *)r_sp + (0x0)) = (int)r_t2; }
+    r_t2 = (long)(r_a2 + 0);
+    r_a3 = (long)(r_v1 & r_v0);
+    if (r_sp) { *(int *)((char *)r_sp + (0x8)) = (int)0; }
+    r_a2 = (long)(0 + 0);
+    r_v0 = (long)func_00131F80((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x20)); }
+    r_sp = (long)(r_sp + (0x30));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00132138 */
-__asm__(".text\n\t"
-        ".globl func_00132138\n\t"
-        ".ent func_00132138\n"
-        "func_00132138:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0xA0\n\t"
-        "lui        $2, %hi(D_4F9700)\n\t"
-        "sd         $23, 0x80($29)\n\t"
-        "sd         $22, 0x70($29)\n\t"
-        "daddu      $23, $4, $0\n\t"
-        "sd         $21, 0x60($29)\n\t"
-        "daddu      $22, $11, $0\n\t"
-        "sd         $20, 0x50($29)\n\t"
-        "daddu      $21, $10, $0\n\t"
-        "sd         $19, 0x40($29)\n\t"
-        "daddu      $20, $5, $0\n\t"
-        "sd         $18, 0x30($29)\n\t"
-        "daddu      $19, $6, $0\n\t"
-        "sd         $17, 0x20($29)\n\t"
-        "daddu      $18, $9, $0\n\t"
-        "sd         $16, 0x10($29)\n\t"
-        "daddu      $17, $8, $0\n\t"
-        "lw         $3, -0x6900($2)\n\t"
-        "addiu      $16, $2, %lo(D_4F9700)\n\t"
-        "sd         $31, 0x90($29)\n\t"
-        "daddu      $4, $0, $0\n\t"
-        "bnez       $3, .L00132228\n\t"
-        "sw        $7, 0x0($29)\n\t"
-        "jal        func_0012EF18\n\t"
-        "daddu     $4, $17, $0\n\t"
-        "lw         $2, 0x0($29)\n\t"
-        "lui        $5, %hi(func_00132060 + 0x40)\n\t"
-        "lui        $10, %hi(D_38CB90)\n\t"
-        "lui        $7, (0xFFFF0000 >> 16)\n\t"
-        "dsrl32     $7, $7, 0\n\t"
-        "lw         $9, 0xA8($29)\n\t"
-        "and        $7, $2, $7\n\t"
-        "addiu      $5, $5, %lo(func_00132060 + 0x40)\n\t"
-        "daddu      $6, $17, $0\n\t"
-        "addiu      $10, $10, %lo(D_38CB90)\n\t"
-        "daddu      $4, $16, $0\n\t"
-        "jal        func_0012EF38\n\t"
-        "daddu     $8, $0, $0\n\t"
-        "bnez       $19, .L001321EC\n\t"
-        "lui       $2, %hi(D_4E2D48)\n\t"
-        "daddu      $5, $20, $0\n\t"
-        "jal        strcpy\n\t"
-        "addiu     $4, $16, 0x58\n\t"
-        "addiu      $18, $0, 0x1\n\t"
-        "lui        $2, %hi(D_4E2D48)\n\t"
-        ".L001321EC:\n\t"
-        "daddu      $5, $23, $0\n\t"
-        "addiu      $8, $2, %lo(D_4E2D48)\n\t"
-        "lb         $3, 0x0($8)\n\t"
-        "lb         $6, 0x1($8)\n\t"
-        "sb         $3, 0x38($16)\n\t"
-        "sb         $6, 0x39($16)\n\t"
-        "jal        strcat\n\t"
-        "addiu     $4, $16, 0x38\n\t"
-        "sw         $19, 0xC8($16)\n\t"
-        "addiu      $4, $0, 0x1\n\t"
-        "sw         $21, 0x78($16)\n\t"
-        "lw         $2, 0xA0($29)\n\t"
-        "sw         $22, 0x7C($16)\n\t"
-        "sw         $2, 0x80($16)\n\t"
-        "sw         $18, 0xB8($16)\n\t"
-        ".L00132228:\n\t"
-        "ld         $31, 0x90($29)\n\t"
-        "daddu      $2, $4, $0\n\t"
-        "ld         $23, 0x80($29)\n\t"
-        "ld         $22, 0x70($29)\n\t"
-        "ld         $21, 0x60($29)\n\t"
-        "ld         $20, 0x50($29)\n\t"
-        "ld         $19, 0x40($29)\n\t"
-        "ld         $18, 0x30($29)\n\t"
-        "ld         $17, 0x20($29)\n\t"
-        "ld         $16, 0x10($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0xA0\n\t"
-        ".set reorder\n\t"
-        ".end func_00132138\n");
+void *func_00132138(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0, r_s3 = 0, r_s4 = 0, r_s5 = 0, r_s6 = 0, r_s7 = 0, r_t0 = 0, r_t1 = 0, r_t2 = 0, r_t3 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    (void)r_s3;
+    (void)r_s4;
+    (void)r_s5;
+    (void)r_s6;
+    (void)r_s7;
+    (void)r_t0;
+    (void)r_t1;
+    (void)r_t2;
+    (void)r_t3;
+    r_sp = (long)(r_sp + (-0xA0));
+    r_v0 = (long)&D_4F9700;
+    if (r_sp) { *(long *)((char *)r_sp + (0x80)) = (long)r_s7; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x70)) = (long)r_s6; }
+    r_s7 = (long)(r_a0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x60)) = (long)r_s5; }
+    r_s6 = (long)(r_t3 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x50)) = (long)r_s4; }
+    r_s5 = (long)(r_t2 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x40)) = (long)r_s3; }
+    r_s4 = (long)(r_a1 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x30)) = (long)r_s2; }
+    r_s3 = (long)(r_a2 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x20)) = (long)r_s1; }
+    r_s2 = (long)(r_t1 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_s0; }
+    r_s1 = (long)(r_t0 + 0);
+    if (r_v0) { r_v1 = *(int *)((char *)r_v0 + (-0x6900)); }
+    r_s0 = (long)&D_4F9700;
+    if (r_sp) { *(long *)((char *)r_sp + (0x90)) = (long)r_ra; }
+    r_a0 = (long)(0 + 0);
+    if (r_v1 != 0) { if (r_sp) { *(int *)((char *)r_sp + (0x0)) = (int)r_a3; } goto _lbl_L00132228; }
+    if (r_sp) { *(int *)((char *)r_sp + (0x0)) = (int)r_a3; }
+    r_a0 = (long)(r_s1 + 0);
+    r_v0 = (long)func_0012EF18((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_v0 = *(int *)((char *)r_sp + (0x0)); }
+    r_a1 = (long)&func_00132060 + 0x40;
+    r_t2 = (long)&D_38CB90;
+    r_a3 = (long)((0xFFFF0000 >> 16) << 16);
+    r_a3 = (long)((unsigned long)r_a3 >> (0));
+    if (r_sp) { r_t1 = *(int *)((char *)r_sp + (0xA8)); }
+    r_a3 = (long)(r_v0 & r_a3);
+    r_a1 = (long)&func_00132060 + 0x40;
+    r_a2 = (long)(r_s1 + 0);
+    r_t2 = (long)&D_38CB90;
+    r_a0 = (long)(r_s0 + 0);
+    r_t0 = (long)(0 + 0);
+    r_v0 = (long)func_0012EF38((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_s3 != 0) { r_v0 = (long)&D_4E2D48; goto _lbl_L001321EC; }
+    r_v0 = (long)&D_4E2D48;
+    r_a1 = (long)(r_s4 + 0);
+    r_a0 = (long)(r_s0 + (0x58));
+    r_v0 = (long)strcpy((char *)r_a0, (const char *)r_a1);
+    r_s2 = (long)(0 + (0x1));
+    r_v0 = (long)&D_4E2D48;
+_lbl_L001321EC:
+    r_a1 = (long)(r_s7 + 0);
+    r_t0 = (long)&D_4E2D48;
+    if (r_t0) { r_v1 = *(signed char *)((char *)r_t0 + (0x0)); }
+    if (r_t0) { r_a2 = *(signed char *)((char *)r_t0 + (0x1)); }
+    if (r_s0) { *(char *)((char *)r_s0 + (0x38)) = (char)r_v1; }
+    if (r_s0) { *(char *)((char *)r_s0 + (0x39)) = (char)r_a2; }
+    r_a0 = (long)(r_s0 + (0x38));
+    r_v0 = (long)strcat((char *)r_a0, (const char *)r_a1);
+    if (r_s0) { *(int *)((char *)r_s0 + (0xC8)) = (int)r_s3; }
+    r_a0 = (long)(0 + (0x1));
+    if (r_s0) { *(int *)((char *)r_s0 + (0x78)) = (int)r_s5; }
+    if (r_sp) { r_v0 = *(int *)((char *)r_sp + (0xA0)); }
+    if (r_s0) { *(int *)((char *)r_s0 + (0x7C)) = (int)r_s6; }
+    if (r_s0) { *(int *)((char *)r_s0 + (0x80)) = (int)r_v0; }
+    if (r_s0) { *(int *)((char *)r_s0 + (0xB8)) = (int)r_s2; }
+_lbl_L00132228:
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x90)); }
+    r_v0 = (long)(r_a0 + 0);
+    if (r_sp) { r_s7 = *(long *)((char *)r_sp + (0x80)); }
+    if (r_sp) { r_s6 = *(long *)((char *)r_sp + (0x70)); }
+    if (r_sp) { r_s5 = *(long *)((char *)r_sp + (0x60)); }
+    if (r_sp) { r_s4 = *(long *)((char *)r_sp + (0x50)); }
+    if (r_sp) { r_s3 = *(long *)((char *)r_sp + (0x40)); }
+    if (r_sp) { r_s2 = *(long *)((char *)r_sp + (0x30)); }
+    if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x20)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x10)); }
+    r_sp = (long)(r_sp + (0xA0));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00132258 */
-__asm__(".text\n\t"
-        ".globl func_00132258\n\t"
-        ".ent func_00132258\n"
-        "func_00132258:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x10\n\t"
-        "lui        $5, %hi(D_38CB90)\n\t"
-        "sd         $31, 0x0($29)\n\t"
-        "jal        func_0012EE20\n\t"
-        "addiu     $5, $5, %lo(D_38CB90)\n\t"
-        "ld         $31, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x10\n\t"
-        ".set reorder\n\t"
-        ".end func_00132258\n");
+void *func_00132258(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    r_sp = (long)(r_sp + (-0x10));
+    r_a1 = (long)&D_38CB90;
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_ra; }
+    r_a1 = (long)&D_38CB90;
+    r_v0 = (long)func_0012EE20((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x10));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00132278 */
-__asm__(".text\n\t"
-        ".globl func_00132278\n\t"
-        ".ent func_00132278\n"
-        "func_00132278:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x10\n\t"
-        "sd         $31, 0x0($29)\n\t"
-        "jal        func_00130A50\n\t"
-        "nop\n\t"
-        "ld         $31, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x10\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_00132278\n");
+void *func_00132278(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    r_sp = (long)(r_sp + (-0x10));
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_ra; }
+    r_v0 = (long)func_00130A50((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x10));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00132298 */
-__asm__(".text\n\t"
-        ".globl func_00132298\n\t"
-        ".ent func_00132298\n"
-        "func_00132298:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x10\n\t"
-        "lui        $6, %hi(D_001328E0)\n\t"
-        "sd         $31, 0x0($29)\n\t"
-        "addiu      $6, $6, %lo(D_001328E0)\n\t"
-        "jal        func_00130AA8\n\t"
-        "daddu     $5, $0, $0\n\t"
-        "ld         $31, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x10\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_00132298\n");
+void *func_00132298(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    r_sp = (long)(r_sp + (-0x10));
+    r_a2 = (long)&D_001328E0;
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_ra; }
+    r_a2 = (long)&D_001328E0;
+    r_a1 = (long)(0 + 0);
+    r_v0 = (long)func_00130AA8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x10));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_001322C0 */
-__asm__(".text\n\t"
-        ".globl func_001322C0\n\t"
-        ".ent func_001322C0\n"
-        "func_001322C0:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x10\n\t"
-        "sd         $31, 0x0($29)\n\t"
-        "jal        func_00130BB0\n\t"
-        "nop\n\t"
-        "ld         $31, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x10\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_001322C0\n");
+void *func_001322C0(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    r_sp = (long)(r_sp + (-0x10));
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_ra; }
+    r_v0 = (long)func_00130BB0((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x10));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_001322E0 */
-__asm__(".text\n\t"
-        ".globl func_001322E0\n\t"
-        ".ent func_001322E0\n"
-        "func_001322E0:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x10\n\t"
-        "lui        $5, %hi(D_001328E0)\n\t"
-        "sd         $31, 0x0($29)\n\t"
-        "jal        func_00130BD8\n\t"
-        "addiu     $5, $5, %lo(D_001328E0)\n\t"
-        "ld         $31, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x10\n\t"
-        ".set reorder\n\t"
-        ".end func_001322E0\n");
+void *func_001322E0(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    r_sp = (long)(r_sp + (-0x10));
+    r_a1 = (long)&D_001328E0;
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_ra; }
+    r_a1 = (long)&D_001328E0;
+    r_v0 = (long)func_00130BD8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x10));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00132300 */
-__asm__(".text\n\t"
-        ".globl func_00132300\n\t"
-        ".ent func_00132300\n"
-        "func_00132300:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x50\n\t"
-        "sd         $16, 0x0($29)\n\t"
-        "daddu      $16, $4, $0\n\t"
-        "sd         $17, 0x10($29)\n\t"
-        "sd         $31, 0x40($29)\n\t"
-        "addiu      $17, $16, 0x38\n\t"
-        "sd         $19, 0x30($29)\n\t"
-        "daddu      $4, $17, $0\n\t"
-        "sd         $18, 0x20($29)\n\t"
-        "lh         $18, 0xC($16)\n\t"
-        "jal        func_0011ACD0\n\t"
-        "lh        $19, 0xE($16)\n\t"
-        "bnel       $2, $0, .L00132348\n\t"
-        "lw        $7, 0x14($16)\n\t"
-        "lui        $4, %hi(D_490420)\n\t"
-        "jal        func_118de0\n\t"
-        "addiu     $4, $4, %lo(D_490420)\n\t"
-        "lw         $7, 0x14($16)\n\t"
-        ".L00132348:\n\t"
-        "lui        $9, %hi(D_4F9840)\n\t"
-        "daddu      $4, $18, $0\n\t"
-        "daddu      $5, $19, $0\n\t"
-        "daddu      $6, $17, $0\n\t"
-        "daddu      $10, $16, $0\n\t"
-        "addiu      $9, $9, %lo(D_4F9840)\n\t"
-        "jal        func_0012FC60\n\t"
-        "addiu     $8, $0, 0x1\n\t"
-        "addiu      $3, $0, 0x1\n\t"
-        "ld         $31, 0x40($29)\n\t"
-        "sw         $3, 0x18($16)\n\t"
-        "ld         $19, 0x30($29)\n\t"
-        "ld         $18, 0x20($29)\n\t"
-        "ld         $17, 0x10($29)\n\t"
-        "ld         $16, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x50\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_00132300\n");
+void *func_00132300(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0, r_s3 = 0, r_t0 = 0, r_t1 = 0, r_t2 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    (void)r_s3;
+    (void)r_t0;
+    (void)r_t1;
+    (void)r_t2;
+    r_sp = (long)(r_sp + (-0x50));
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_s0; }
+    r_s0 = (long)(r_a0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_s1; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x40)) = (long)r_ra; }
+    r_s1 = (long)(r_s0 + (0x38));
+    if (r_sp) { *(long *)((char *)r_sp + (0x30)) = (long)r_s3; }
+    r_a0 = (long)(r_s1 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x20)) = (long)r_s2; }
+    if (r_s0) { r_s2 = *(short *)((char *)r_s0 + (0xC)); }
+    if (r_s0) { r_s3 = *(short *)((char *)r_s0 + (0xE)); }
+    r_v0 = (long)func_0011ACD0((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_v0 != 0) { if (r_s0) { r_a3 = *(int *)((char *)r_s0 + (0x14)); } goto _lbl_L00132348; }
+    if (r_s0) { r_a3 = *(int *)((char *)r_s0 + (0x14)); }
+    r_a0 = (long)&D_490420;
+    r_a0 = (long)&D_490420;
+    r_v0 = (long)func_118de0((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_s0) { r_a3 = *(int *)((char *)r_s0 + (0x14)); }
+_lbl_L00132348:
+    r_t1 = (long)&D_4F9840;
+    r_a0 = (long)(r_s2 + 0);
+    r_a1 = (long)(r_s3 + 0);
+    r_a2 = (long)(r_s1 + 0);
+    r_t2 = (long)(r_s0 + 0);
+    r_t1 = (long)&D_4F9840;
+    r_t0 = (long)(0 + (0x1));
+    r_v0 = (long)func_0012FC60((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_v1 = (long)(0 + (0x1));
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x40)); }
+    if (r_s0) { *(int *)((char *)r_s0 + (0x18)) = (int)r_v1; }
+    if (r_sp) { r_s3 = *(long *)((char *)r_sp + (0x30)); }
+    if (r_sp) { r_s2 = *(long *)((char *)r_sp + (0x20)); }
+    if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x10)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x50));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00132390 */
-__asm__(".text\n\t"
-        ".globl func_00132390\n\t"
-        ".ent func_00132390\n"
-        "func_00132390:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x60\n\t"
-        "lui        $2, %hi(D_001328E0)\n\t"
-        "sd         $17, 0x20($29)\n\t"
-        "daddu      $5, $29, $0\n\t"
-        "sd         $19, 0x40($29)\n\t"
-        "daddu      $17, $4, $0\n\t"
-        "sd         $18, 0x30($29)\n\t"
-        "addiu      $19, $2, %lo(D_001328E0)\n\t"
-        "sd         $16, 0x10($29)\n\t"
-        "addiu      $4, $0, 0x1\n\t"
-        "sd         $31, 0x50($29)\n\t"
-        "ori        $6, $29, 0x4\n\t"
-        "addiu      $7, $0, 0xD\n\t"
-        "jal        func_001303A8\n\t"
-        "daddu     $8, $17, $0\n\t"
-        "daddu      $16, $2, $0\n\t"
-        "addiu      $2, $0, -0x7E\n\t"
-        "bne        $16, $2, .L00132454\n\t"
-        "addiu     $18, $0, 0x1\n\t"
-        "lwl        $2, 0xF($17)\n\t"
-        "lwr        $2, 0xC($17)\n\t"
-        "lui        $4, (0xFFFF0000 >> 16)\n\t"
-        "dsrl32     $4, $4, 0\n\t"
-        "jal        func_0012E4E8\n\t"
-        "and       $4, $2, $4\n\t"
-        "lw         $5, 0x4($29)\n\t"
-        "bltz       $5, .L0013242C\n\t"
-        "daddu     $4, $0, $0\n\t"
-        "bnel       $5, $18, .L00132440\n\t"
-        "addiu     $4, $0, -0x77\n\t"
-        "lui        $3, (0x500000 >> 16)\n\t"
-        "lhu        $2, -0x67AC($3)\n\t"
-        "andi       $2, $2, 0x20\n\t"
-        "bnez       $2, .L00132444\n\t"
-        "daddu     $7, $16, $0\n\t"
-        "lui        $2, (0x4E2D58 >> 16)\n\t"
-        "lbu        $3, (0x4E2D58 & 0xFFFF)($2)\n\t"
-        "b          .L00132444\n\t"
-        "sb        $3, 0x38($17)\n\t"
-        ".L0013242C:\n\t"
-        "lui        $4, %hi(D_38CBD8)\n\t"
-        "daddu      $6, $2, $0\n\t"
-        "jal        func_0012F438\n\t"
-        "addiu     $4, $4, %lo(D_38CBD8)\n\t"
-        "daddu      $4, $2, $0\n\t"
-        ".L00132440:\n\t"
-        "daddu      $7, $16, $0\n\t"
-        ".L00132444:\n\t"
-        "daddu      $5, $17, $0\n\t"
-        "jal        func_0012FA30\n\t"
-        "daddu     $6, $19, $0\n\t"
-        "daddu      $16, $2, $0\n\t"
-        ".L00132454:\n\t"
-        "daddu      $2, $16, $0\n\t"
-        "ld         $31, 0x50($29)\n\t"
-        "ld         $19, 0x40($29)\n\t"
-        "ld         $18, 0x30($29)\n\t"
-        "ld         $17, 0x20($29)\n\t"
-        "ld         $16, 0x10($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x60\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_00132390\n");
+void *func_00132390(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0, r_s3 = 0, r_t0 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    (void)r_s3;
+    (void)r_t0;
+    r_sp = (long)(r_sp + (-0x60));
+    r_v0 = (long)&D_001328E0;
+    if (r_sp) { *(long *)((char *)r_sp + (0x20)) = (long)r_s1; }
+    r_a1 = (long)(r_sp + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x40)) = (long)r_s3; }
+    r_s1 = (long)(r_a0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x30)) = (long)r_s2; }
+    r_s3 = (long)&D_001328E0;
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_s0; }
+    r_a0 = (long)(0 + (0x1));
+    if (r_sp) { *(long *)((char *)r_sp + (0x50)) = (long)r_ra; }
+    r_a2 = (long)(r_sp | (0x4));
+    r_a3 = (long)(0 + (0xD));
+    r_t0 = (long)(r_s1 + 0);
+    r_v0 = (long)func_001303A8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_s0 = (long)(r_v0 + 0);
+    r_v0 = (long)(0 + (-0x7E));
+    if (r_s0 != r_v0) { r_s2 = (long)(0 + (0x1)); goto _lbl_L00132454; }
+    r_s2 = (long)(0 + (0x1));
+    if (r_s1) { r_v0 = *(int *)((char *)r_s1 + (0xF)); }
+    if (r_s1) { r_v0 = *(int *)((char *)r_s1 + (0xC)); }
+    r_a0 = (long)((0xFFFF0000 >> 16) << 16);
+    r_a0 = (long)((unsigned long)r_a0 >> (0));
+    r_a0 = (long)(r_v0 & r_a0);
+    r_v0 = (long)func_0012E4E8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_a1 = *(int *)((char *)r_sp + (0x4)); }
+    if ((long)r_a1 < 0) { r_a0 = (long)(0 + 0); goto _lbl_L0013242C; }
+    r_a0 = (long)(0 + 0);
+    if (r_a1 != r_s2) { r_a0 = (long)(0 + (-0x77)); goto _lbl_L00132440; }
+    r_a0 = (long)(0 + (-0x77));
+    r_v1 = (long)((0x500000 >> 16) << 16);
+    if (r_v1) { r_v0 = *(unsigned short *)((char *)r_v1 + (-0x67AC)); }
+    r_v0 = (long)(r_v0 & (0x20));
+    if (r_v0 != 0) { r_a3 = (long)(r_s0 + 0); goto _lbl_L00132444; }
+    r_a3 = (long)(r_s0 + 0);
+    r_v0 = (long)((0x4E2D58 >> 16) << 16);
+    /* unhandled: lbu */
+    if (r_s1) { *(char *)((char *)r_s1 + (0x38)) = (char)r_v1; }
+    goto _lbl_L00132444;
+_lbl_L0013242C:
+    r_a0 = (long)&D_38CBD8;
+    r_a2 = (long)(r_v0 + 0);
+    r_a0 = (long)&D_38CBD8;
+    r_v0 = (long)func_0012F438((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_a0 = (long)(r_v0 + 0);
+_lbl_L00132440:
+    r_a3 = (long)(r_s0 + 0);
+_lbl_L00132444:
+    r_a1 = (long)(r_s1 + 0);
+    r_a2 = (long)(r_s3 + 0);
+    r_v0 = (long)func_0012FA30((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_s0 = (long)(r_v0 + 0);
+_lbl_L00132454:
+    r_v0 = (long)(r_s0 + 0);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x50)); }
+    if (r_sp) { r_s3 = *(long *)((char *)r_sp + (0x40)); }
+    if (r_sp) { r_s2 = *(long *)((char *)r_sp + (0x30)); }
+    if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x20)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x10)); }
+    r_sp = (long)(r_sp + (0x60));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00132478 */
-__asm__(".text\n\t"
-        ".globl func_00132478\n\t"
-        ".ent func_00132478\n"
-        "func_00132478:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x40\n\t"
-        "sd         $18, 0x20($29)\n\t"
-        "sd         $16, 0x0($29)\n\t"
-        "addiu      $18, $0, -0x7E\n\t"
-        "sd         $31, 0x30($29)\n\t"
-        "daddu      $16, $4, $0\n\t"
-        "sd         $17, 0x10($29)\n\t"
-        "lw         $2, 0x1C($16)\n\t"
-        "lw         $3, 0xB8($16)\n\t"
-        "sltu       $2, $2, $3\n\t"
-        "bnez       $2, .L001324BC\n\t"
-        "lw        $17, 0xC8($16)\n\t"
-        "lui        $5, %hi(D_001328E0)\n\t"
-        "jal        func_0012F108\n\t"
-        "addiu     $5, $5, %lo(D_001328E0)\n\t"
-        "b          .L001324E0\n\t"
-        "daddu     $18, $2, $0\n\t"
-        ".L001324BC:\n\t"
-        "beqz       $17, .L001324E0\n\t"
-        "addiu     $4, $16, 0x58\n\t"
-        "jal        strcpy\n\t"
-        "daddu     $5, $17, $0\n\t"
-        "lw         $3, 0x1C($17)\n\t"
-        "lw         $2, 0x18($17)\n\t"
-        "sw         $3, 0x80($16)\n\t"
-        "sw         $2, 0x78($16)\n\t"
-        "sw         $0, 0x7C($16)\n\t"
-        ".L001324E0:\n\t"
-        "daddu      $2, $18, $0\n\t"
-        "ld         $31, 0x30($29)\n\t"
-        "ld         $18, 0x20($29)\n\t"
-        "ld         $17, 0x10($29)\n\t"
-        "ld         $16, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x40\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_00132478\n");
+void *func_00132478(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    r_sp = (long)(r_sp + (-0x40));
+    if (r_sp) { *(long *)((char *)r_sp + (0x20)) = (long)r_s2; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_s0; }
+    r_s2 = (long)(0 + (-0x7E));
+    if (r_sp) { *(long *)((char *)r_sp + (0x30)) = (long)r_ra; }
+    r_s0 = (long)(r_a0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_s1; }
+    if (r_s0) { r_v0 = *(int *)((char *)r_s0 + (0x1C)); }
+    if (r_s0) { r_v1 = *(int *)((char *)r_s0 + (0xB8)); }
+    r_v0 = (long)((unsigned long)r_v0 < (unsigned long)r_v1 ? 1 : 0);
+    if (r_v0 != 0) { if (r_s0) { r_s1 = *(int *)((char *)r_s0 + (0xC8)); } goto _lbl_L001324BC; }
+    if (r_s0) { r_s1 = *(int *)((char *)r_s0 + (0xC8)); }
+    r_a1 = (long)&D_001328E0;
+    r_a1 = (long)&D_001328E0;
+    r_v0 = (long)func_0012F108((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_s2 = (long)(r_v0 + 0);
+    goto _lbl_L001324E0;
+_lbl_L001324BC:
+    if (r_s1 == 0) { r_a0 = (long)(r_s0 + (0x58)); goto _lbl_L001324E0; }
+    r_a0 = (long)(r_s0 + (0x58));
+    r_a1 = (long)(r_s1 + 0);
+    r_v0 = (long)strcpy((char *)r_a0, (const char *)r_a1);
+    if (r_s1) { r_v1 = *(int *)((char *)r_s1 + (0x1C)); }
+    if (r_s1) { r_v0 = *(int *)((char *)r_s1 + (0x18)); }
+    if (r_s0) { *(int *)((char *)r_s0 + (0x80)) = (int)r_v1; }
+    if (r_s0) { *(int *)((char *)r_s0 + (0x78)) = (int)r_v0; }
+    if (r_s0) { *(int *)((char *)r_s0 + (0x7C)) = (int)0; }
+_lbl_L001324E0:
+    r_v0 = (long)(r_s2 + 0);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x30)); }
+    if (r_sp) { r_s2 = *(long *)((char *)r_sp + (0x20)); }
+    if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x10)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x40));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00132500 */
-__asm__(".text\n\t"
-        ".globl func_00132500\n\t"
-        ".ent func_00132500\n"
-        "func_00132500:\n\t"
-        ".set noreorder\n\t"
-        "sw         $0, 0xBC($4)\n\t"
-        "jr         $31\n\t"
-        "addiu     $2, $0, -0x7E\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_00132500\n");
+void *func_00132500(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    if (r_a0) { *(int *)((char *)r_a0 + (0xBC)) = (int)0; }
+    r_v0 = (long)(0 + (-0x7E));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00132510 */
-__asm__(".text\n\t"
-        ".globl func_00132510\n\t"
-        ".ent func_00132510\n"
-        "func_00132510:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x60\n\t"
-        "lui        $2, %hi(D_4F9E40)\n\t"
-        "sd         $18, 0x20($29)\n\t"
-        "sd         $17, 0x10($29)\n\t"
-        "addiu      $18, $2, %lo(D_4F9E40)\n\t"
-        "sd         $16, 0x0($29)\n\t"
-        "daddu      $17, $4, $0\n\t"
-        "sd         $31, 0x50($29)\n\t"
-        "daddu      $4, $18, $0\n\t"
-        "sd         $20, 0x40($29)\n\t"
-        ".set reorder\n\t"
-        ".end func_00132510\n");
+void *func_00132510(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0, r_s4 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    (void)r_s4;
+    r_sp = (long)(r_sp + (-0x60));
+    r_v0 = (long)&D_4F9E40;
+    if (r_sp) { *(long *)((char *)r_sp + (0x20)) = (long)r_s2; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_s1; }
+    r_s2 = (long)&D_4F9E40;
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_s0; }
+    r_s1 = (long)(r_a0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x50)) = (long)r_ra; }
+    r_a0 = (long)(r_s2 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x40)) = (long)r_s4; }
+    return func_00132538((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+}
 
 /* func_00132538 */
-__asm__(".text\n\t"
-        ".globl func_00132538\n\t"
-        ".ent func_00132538\n"
-        "func_00132538:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $5, $17, 0x38\n\t"
-        "sd         $19, 0x30($29)\n\t"
-        "addiu      $16, $17, 0x58\n\t"
-        "lh         $19, 0xC($17)\n\t"
-        "jal        strcpy\n\t"
-        "lh        $20, 0xE($17)\n\t"
-        "lui        $5, %hi(D_4E2D48)\n\t"
-        "daddu      $4, $18, $0\n\t"
-        "jal        strcat\n\t"
-        "addiu     $5, $5, %lo(D_4E2D48)\n\t"
-        "daddu      $4, $18, $0\n\t"
-        "jal        strcat\n\t"
-        "daddu     $5, $16, $0\n\t"
-        "jal        func_0011ACD0\n\t"
-        "daddu     $4, $16, $0\n\t"
-        "bnel       $2, $0, .L0013258C\n\t"
-        "daddu     $4, $19, $0\n\t"
-        "lui        $4, %hi(D_490440)\n\t"
-        "jal        func_118de0\n\t"
-        "addiu     $4, $4, %lo(D_490440)\n\t"
-        "daddu      $4, $19, $0\n\t"
-        ".L0013258C:\n\t"
-        "daddu      $5, $20, $0\n\t"
-        ".set reorder\n\t"
-        ".end func_00132538\n");
+void *func_00132538(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0, r_s3 = 0, r_s4 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    (void)r_s3;
+    (void)r_s4;
+    r_a1 = (long)(r_s1 + (0x38));
+    if (r_sp) { *(long *)((char *)r_sp + (0x30)) = (long)r_s3; }
+    r_s0 = (long)(r_s1 + (0x58));
+    if (r_s1) { r_s3 = *(short *)((char *)r_s1 + (0xC)); }
+    if (r_s1) { r_s4 = *(short *)((char *)r_s1 + (0xE)); }
+    r_v0 = (long)strcpy((char *)r_a0, (const char *)r_a1);
+    r_a1 = (long)&D_4E2D48;
+    r_a0 = (long)(r_s2 + 0);
+    r_a1 = (long)&D_4E2D48;
+    r_v0 = (long)strcat((char *)r_a0, (const char *)r_a1);
+    r_a0 = (long)(r_s2 + 0);
+    r_a1 = (long)(r_s0 + 0);
+    r_v0 = (long)strcat((char *)r_a0, (const char *)r_a1);
+    r_a0 = (long)(r_s0 + 0);
+    r_v0 = (long)func_0011ACD0((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_v0 != 0) { r_a0 = (long)(r_s3 + 0); goto _lbl_L0013258C; }
+    r_a0 = (long)(r_s3 + 0);
+    r_a0 = (long)&D_490440;
+    r_a0 = (long)&D_490440;
+    r_v0 = (long)func_118de0((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_a0 = (long)(r_s3 + 0);
+_lbl_L0013258C:
+    r_a1 = (long)(r_s4 + 0);
+    return func_00132590((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+}
 
 /* func_00132590 */
-__asm__(".text\n\t"
-        ".globl func_00132590\n\t"
-        ".ent func_00132590\n"
-        "func_00132590:\n\t"
-        ".set noreorder\n\t"
-        "daddu      $6, $18, $0\n\t"
-        "daddu      $8, $17, $0\n\t"
-        "jal        func_0012FD58\n\t"
-        "addiu     $7, $0, 0x1\n\t"
-        "ld         $31, 0x50($29)\n\t"
-        "ld         $20, 0x40($29)\n\t"
-        "ld         $19, 0x30($29)\n\t"
-        "ld         $18, 0x20($29)\n\t"
-        "ld         $17, 0x10($29)\n\t"
-        "ld         $16, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x60\n\t"
-        ".set reorder\n\t"
-        ".end func_00132590\n");
+void *func_00132590(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0, r_s3 = 0, r_s4 = 0, r_t0 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    (void)r_s3;
+    (void)r_s4;
+    (void)r_t0;
+    r_a2 = (long)(r_s2 + 0);
+    r_t0 = (long)(r_s1 + 0);
+    r_a3 = (long)(0 + (0x1));
+    r_v0 = (long)func_0012FD58((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x50)); }
+    if (r_sp) { r_s4 = *(long *)((char *)r_sp + (0x40)); }
+    if (r_sp) { r_s3 = *(long *)((char *)r_sp + (0x30)); }
+    if (r_sp) { r_s2 = *(long *)((char *)r_sp + (0x20)); }
+    if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x10)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x60));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_001325C0 */
-__asm__(".text\n\t"
-        ".globl func_001325C0\n\t"
-        ".ent func_001325C0\n"
-        "func_001325C0:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x60\n\t"
-        "lui        $2, %hi(D_001328E0)\n\t"
-        "sd         $16, 0x10($29)\n\t"
-        "daddu      $5, $29, $0\n\t"
-        "sd         $19, 0x40($29)\n\t"
-        "daddu      $16, $4, $0\n\t"
-        "sd         $17, 0x20($29)\n\t"
-        "addiu      $19, $2, %lo(D_001328E0)\n\t"
-        "sd         $31, 0x50($29)\n\t"
-        "addiu      $4, $0, 0x1\n\t"
-        "sd         $18, 0x30($29)\n\t"
-        "ori        $6, $29, 0x4\n\t"
-        "addiu      $7, $0, 0x2\n\t"
-        "jal        func_001303A8\n\t"
-        "daddu     $8, $16, $0\n\t"
-        "daddu      $17, $2, $0\n\t"
-        "addiu      $2, $0, -0x7E\n\t"
-        "bne        $17, $2, .L001326A0\n\t"
-        "daddu     $2, $17, $0\n\t"
-        "lwl        $2, 0xF($16)\n\t"
-        "lwr        $2, 0xC($16)\n\t"
-        "lui        $4, (0xFFFF0000 >> 16)\n\t"
-        "dsrl32     $4, $4, 0\n\t"
-        "daddu      $18, $0, $0\n\t"
-        "jal        func_0012E4E8\n\t"
-        "and       $4, $2, $4\n\t"
-        "lw         $5, 0x4($29)\n\t"
-        "bltz       $5, .L0013263C\n\t"
-        "lui       $4, %hi(D_38CC08)\n\t"
-        "b          .L0013264C\n\t"
-        "sw        $5, 0x84($16)\n\t"
-        ".L0013263C:\n\t"
-        "daddu      $6, $2, $0\n\t"
-        "jal        func_0012F438\n\t"
-        "addiu     $4, $4, %lo(D_38CC08)\n\t"
-        "daddu      $18, $2, $0\n\t"
-        ".L0013264C:\n\t"
-        "addiu      $2, $0, -0x77\n\t"
-        "bne        $18, $2, .L00132688\n\t"
-        "daddu     $7, $17, $0\n\t"
-        "lw         $4, 0x34($16)\n\t"
-        "jal        func_0012F7A0\n\t"
-        "addiu     $5, $0, 0x40\n\t"
-        "beqz       $2, .L00132688\n\t"
-        "daddu     $7, $17, $0\n\t"
-        "jal        func_00131DC0\n\t"
-        "daddu     $4, $16, $0\n\t"
-        "beqz       $2, .L00132684\n\t"
-        "lui       $2, %hi(D_00132840)\n\t"
-        "addiu      $18, $0, 0x1\n\t"
-        "addiu      $19, $2, %lo(D_00132840)\n\t"
-        ".L00132684:\n\t"
-        "daddu      $7, $17, $0\n\t"
-        ".L00132688:\n\t"
-        "daddu      $4, $18, $0\n\t"
-        "daddu      $5, $16, $0\n\t"
-        "jal        func_0012FA30\n\t"
-        "daddu     $6, $19, $0\n\t"
-        "daddu      $17, $2, $0\n\t"
-        "daddu      $2, $17, $0\n\t"
-        ".L001326A0:\n\t"
-        "ld         $31, 0x50($29)\n\t"
-        "ld         $19, 0x40($29)\n\t"
-        "ld         $18, 0x30($29)\n\t"
-        "ld         $17, 0x20($29)\n\t"
-        "ld         $16, 0x10($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x60\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_001325C0\n");
+void *func_001325C0(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0, r_s3 = 0, r_t0 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    (void)r_s3;
+    (void)r_t0;
+    r_sp = (long)(r_sp + (-0x60));
+    r_v0 = (long)&D_001328E0;
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_s0; }
+    r_a1 = (long)(r_sp + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x40)) = (long)r_s3; }
+    r_s0 = (long)(r_a0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x20)) = (long)r_s1; }
+    r_s3 = (long)&D_001328E0;
+    if (r_sp) { *(long *)((char *)r_sp + (0x50)) = (long)r_ra; }
+    r_a0 = (long)(0 + (0x1));
+    if (r_sp) { *(long *)((char *)r_sp + (0x30)) = (long)r_s2; }
+    r_a2 = (long)(r_sp | (0x4));
+    r_a3 = (long)(0 + (0x2));
+    r_t0 = (long)(r_s0 + 0);
+    r_v0 = (long)func_001303A8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_s1 = (long)(r_v0 + 0);
+    r_v0 = (long)(0 + (-0x7E));
+    if (r_s1 != r_v0) { r_v0 = (long)(r_s1 + 0); goto _lbl_L001326A0; }
+    r_v0 = (long)(r_s1 + 0);
+    if (r_s0) { r_v0 = *(int *)((char *)r_s0 + (0xF)); }
+    if (r_s0) { r_v0 = *(int *)((char *)r_s0 + (0xC)); }
+    r_a0 = (long)((0xFFFF0000 >> 16) << 16);
+    r_a0 = (long)((unsigned long)r_a0 >> (0));
+    r_s2 = (long)(0 + 0);
+    r_a0 = (long)(r_v0 & r_a0);
+    r_v0 = (long)func_0012E4E8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_a1 = *(int *)((char *)r_sp + (0x4)); }
+    if ((long)r_a1 < 0) { r_a0 = (long)&D_38CC08; goto _lbl_L0013263C; }
+    r_a0 = (long)&D_38CC08;
+    if (r_s0) { *(int *)((char *)r_s0 + (0x84)) = (int)r_a1; }
+    goto _lbl_L0013264C;
+_lbl_L0013263C:
+    r_a2 = (long)(r_v0 + 0);
+    r_a0 = (long)&D_38CC08;
+    r_v0 = (long)func_0012F438((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_s2 = (long)(r_v0 + 0);
+_lbl_L0013264C:
+    r_v0 = (long)(0 + (-0x77));
+    if (r_s2 != r_v0) { r_a3 = (long)(r_s1 + 0); goto _lbl_L00132688; }
+    r_a3 = (long)(r_s1 + 0);
+    if (r_s0) { r_a0 = *(int *)((char *)r_s0 + (0x34)); }
+    r_a1 = (long)(0 + (0x40));
+    r_v0 = (long)func_0012F7A0((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_v0 == 0) { r_a3 = (long)(r_s1 + 0); goto _lbl_L00132688; }
+    r_a3 = (long)(r_s1 + 0);
+    r_a0 = (long)(r_s0 + 0);
+    r_v0 = (long)func_00131DC0((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_v0 == 0) { r_v0 = (long)&D_00132840; goto _lbl_L00132684; }
+    r_v0 = (long)&D_00132840;
+    r_s2 = (long)(0 + (0x1));
+    r_s3 = (long)&D_00132840;
+_lbl_L00132684:
+    r_a3 = (long)(r_s1 + 0);
+_lbl_L00132688:
+    r_a0 = (long)(r_s2 + 0);
+    r_a1 = (long)(r_s0 + 0);
+    r_a2 = (long)(r_s3 + 0);
+    r_v0 = (long)func_0012FA30((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_s1 = (long)(r_v0 + 0);
+    r_v0 = (long)(r_s1 + 0);
+_lbl_L001326A0:
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x50)); }
+    if (r_sp) { r_s3 = *(long *)((char *)r_sp + (0x40)); }
+    if (r_sp) { r_s2 = *(long *)((char *)r_sp + (0x30)); }
+    if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x20)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x10)); }
+    r_sp = (long)(r_sp + (0x60));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_001326C0 */
-__asm__(".text\n\t"
-        ".globl func_001326C0\n\t"
-        ".ent func_001326C0\n"
-        "func_001326C0:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x10\n\t"
-        "daddu      $2, $4, $0\n\t"
-        "sd         $31, 0x0($29)\n\t"
-        "daddu      $6, $0, $0\n\t"
-        "daddu      $7, $2, $0\n\t"
-        "lw         $4, 0x84($2)\n\t"
-        "jal        func_00132538\n\t"
-        "lw        $5, 0x7C($2)\n\t"
-        "ld         $31, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x10\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_001326C0\n");
+void *func_001326C0(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    r_sp = (long)(r_sp + (-0x10));
+    r_v0 = (long)(r_a0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_ra; }
+    r_a2 = (long)(0 + 0);
+    r_a3 = (long)(r_v0 + 0);
+    if (r_v0) { r_a0 = *(int *)((char *)r_v0 + (0x84)); }
+    if (r_v0) { r_a1 = *(int *)((char *)r_v0 + (0x7C)); }
+    r_v0 = (long)func_00132538((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x10));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_001326F0 */
-__asm__(".text\n\t"
-        ".globl func_001326F0\n\t"
-        ".ent func_001326F0\n"
-        "func_001326F0:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x10\n\t"
-        "beqz       $5, .L0013270C\n\t"
-        "sd        $31, 0x0($29)\n\t"
-        "jal        func_0012FFC8\n\t"
-        "nop\n\t"
-        "b          .L00132714\n\t"
-        "ld        $31, 0x0($29)\n\t"
-        ".L0013270C:\n\t"
-        "addiu      $2, $0, -0x7E\n\t"
-        "ld         $31, 0x0($29)\n\t"
-        ".L00132714:\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x10\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_001326F0\n");
+void *func_001326F0(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    r_sp = (long)(r_sp + (-0x10));
+    if (r_a1 == 0) { if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_ra; } goto _lbl_L0013270C; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_ra; }
+    r_v0 = (long)func_0012FFC8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
+    goto _lbl_L00132714;
+_lbl_L0013270C:
+    r_v0 = (long)(0 + (-0x7E));
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
+_lbl_L00132714:
+    r_sp = (long)(r_sp + (0x10));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00132720 */
-__asm__(".text\n\t"
-        ".globl func_00132720\n\t"
-        ".ent func_00132720\n"
-        "func_00132720:\n\t"
-        ".set noreorder\n\t"
-        "daddu      $5, $4, $0\n\t"
-        "addiu      $29, $29, -0x10\n\t"
-        "lui        $4, %hi(D_001328E0)\n\t"
-        "sd         $31, 0x0($29)\n\t"
-        "jal        func_00132590\n\t"
-        "addiu     $4, $4, %lo(D_001328E0)\n\t"
-        "ld         $31, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x10\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_00132720\n");
+void *func_00132720(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    r_a1 = (long)(r_a0 + 0);
+    r_sp = (long)(r_sp + (-0x10));
+    r_a0 = (long)&D_001328E0;
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_ra; }
+    r_a0 = (long)&D_001328E0;
+    r_v0 = (long)func_00132590((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x10));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00132748 */
-__asm__(".text\n\t"
-        ".globl func_00132748\n\t"
-        ".ent func_00132748\n"
-        "func_00132748:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x40\n\t"
-        "sd         $17, 0x20($29)\n\t"
-        "sd         $16, 0x10($29)\n\t"
-        "sd         $31, 0x30($29)\n\t"
-        "daddu      $16, $5, $0\n\t"
-        "lw         $2, 0x7C($16)\n\t"
-        "bnez       $2, .L00132770\n\t"
-        "daddu     $17, $4, $0\n\t"
-        "b          .L001327E4\n\t"
-        "addiu     $3, $0, -0x7E\n\t"
-        ".L00132770:\n\t"
-        "addiu      $4, $0, 0x1\n\t"
-        "daddu      $5, $29, $0\n\t"
-        "ori        $6, $29, 0x4\n\t"
-        "addiu      $7, $0, 0x4\n\t"
-        "jal        func_001303A8\n\t"
-        "daddu     $8, $16, $0\n\t"
-        "daddu      $3, $2, $0\n\t"
-        "addiu      $2, $0, -0x7E\n\t"
-        "bne        $3, $2, .L001327E8\n\t"
-        "ld        $31, 0x30($29)\n\t"
-        "lwl        $2, 0xF($16)\n\t"
-        "lwr        $2, 0xC($16)\n\t"
-        "lui        $4, (0xFFFF0000 >> 16)\n\t"
-        "dsrl32     $4, $4, 0\n\t"
-        "jal        func_0012E4E8\n\t"
-        "and       $4, $2, $4\n\t"
-        "daddu      $6, $2, $0\n\t"
-        "lw         $5, 0x4($29)\n\t"
-        "bgez       $5, .L001327CC\n\t"
-        "daddu     $2, $0, $0\n\t"
-        "lui        $4, %hi(D_38CC38)\n\t"
-        "jal        func_0012F438\n\t"
-        "addiu     $4, $4, %lo(D_38CC38)\n\t"
-        ".L001327CC:\n\t"
-        "daddu      $4, $2, $0\n\t"
-        "daddu      $5, $16, $0\n\t"
-        "daddu      $6, $17, $0\n\t"
-        "jal        func_0012FA30\n\t"
-        "addiu     $7, $0, -0x7E\n\t"
-        "daddu      $3, $2, $0\n\t"
-        ".L001327E4:\n\t"
-        "ld         $31, 0x30($29)\n\t"
-        ".L001327E8:\n\t"
-        "daddu      $2, $3, $0\n\t"
-        "ld         $17, 0x20($29)\n\t"
-        "ld         $16, 0x10($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x40\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_00132748\n");
+void *func_00132748(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_t0 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_t0;
+    r_sp = (long)(r_sp + (-0x40));
+    if (r_sp) { *(long *)((char *)r_sp + (0x20)) = (long)r_s1; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_s0; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x30)) = (long)r_ra; }
+    r_s0 = (long)(r_a1 + 0);
+    if (r_s0) { r_v0 = *(int *)((char *)r_s0 + (0x7C)); }
+    if (r_v0 != 0) { r_s1 = (long)(r_a0 + 0); goto _lbl_L00132770; }
+    r_s1 = (long)(r_a0 + 0);
+    r_v1 = (long)(0 + (-0x7E));
+    goto _lbl_L001327E4;
+_lbl_L00132770:
+    r_a0 = (long)(0 + (0x1));
+    r_a1 = (long)(r_sp + 0);
+    r_a2 = (long)(r_sp | (0x4));
+    r_a3 = (long)(0 + (0x4));
+    r_t0 = (long)(r_s0 + 0);
+    r_v0 = (long)func_001303A8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_v1 = (long)(r_v0 + 0);
+    r_v0 = (long)(0 + (-0x7E));
+    if (r_v1 != r_v0) { if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x30)); } goto _lbl_L001327E8; }
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x30)); }
+    if (r_s0) { r_v0 = *(int *)((char *)r_s0 + (0xF)); }
+    if (r_s0) { r_v0 = *(int *)((char *)r_s0 + (0xC)); }
+    r_a0 = (long)((0xFFFF0000 >> 16) << 16);
+    r_a0 = (long)((unsigned long)r_a0 >> (0));
+    r_a0 = (long)(r_v0 & r_a0);
+    r_v0 = (long)func_0012E4E8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_a2 = (long)(r_v0 + 0);
+    if (r_sp) { r_a1 = *(int *)((char *)r_sp + (0x4)); }
+    if ((long)r_a1 >= 0) { r_v0 = (long)(0 + 0); goto _lbl_L001327CC; }
+    r_v0 = (long)(0 + 0);
+    r_a0 = (long)&D_38CC38;
+    r_a0 = (long)&D_38CC38;
+    r_v0 = (long)func_0012F438((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+_lbl_L001327CC:
+    r_a0 = (long)(r_v0 + 0);
+    r_a1 = (long)(r_s0 + 0);
+    r_a2 = (long)(r_s1 + 0);
+    r_a3 = (long)(0 + (-0x7E));
+    r_v0 = (long)func_0012FA30((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_v1 = (long)(r_v0 + 0);
+_lbl_L001327E4:
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x30)); }
+_lbl_L001327E8:
+    r_v0 = (long)(r_v1 + 0);
+    if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x20)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x10)); }
+    r_sp = (long)(r_sp + (0x40));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00132800 */
-__asm__(".text\n\t"
-        ".globl func_00132800\n\t"
-        ".ent func_00132800\n"
-        "func_00132800:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x30\n\t"
-        "sd         $16, 0x0($29)\n\t"
-        "sd         $31, 0x20($29)\n\t"
-        "daddu      $16, $4, $0\n\t"
-        "sd         $17, 0x10($29)\n\t"
-        "daddu      $7, $16, $0\n\t"
-        "lw         $17, 0x80($16)\n\t"
-        "lw         $4, 0x84($16)\n\t"
-        "lw         $5, 0x78($16)\n\t"
-        "jal        func_0012FF28\n\t"
-        "daddu     $6, $17, $0\n\t"
-        "sw         $17, 0xC4($16)\n\t"
-        "ld         $31, 0x20($29)\n\t"
-        "ld         $17, 0x10($29)\n\t"
-        "ld         $16, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x30\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_00132800\n");
+void *func_00132800(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    r_sp = (long)(r_sp + (-0x30));
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_s0; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x20)) = (long)r_ra; }
+    r_s0 = (long)(r_a0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_s1; }
+    r_a3 = (long)(r_s0 + 0);
+    if (r_s0) { r_s1 = *(int *)((char *)r_s0 + (0x80)); }
+    if (r_s0) { r_a0 = *(int *)((char *)r_s0 + (0x84)); }
+    if (r_s0) { r_a1 = *(int *)((char *)r_s0 + (0x78)); }
+    r_a2 = (long)(r_s1 + 0);
+    r_v0 = (long)func_0012FF28((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_s0) { *(int *)((char *)r_s0 + (0xC4)) = (int)r_s1; }
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x20)); }
+    if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x10)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x30));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00132848 */
-__asm__(".text\n\t"
-        ".globl func_00132848\n\t"
-        ".ent func_00132848\n"
-        "func_00132848:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x60\n\t"
-        "lui        $2, %hi(D_001328E0)\n\t"
-        "sd         $16, 0x10($29)\n\t"
-        "daddu      $5, $29, $0\n\t"
-        "sd         $19, 0x40($29)\n\t"
-        "daddu      $16, $4, $0\n\t"
-        "sd         $17, 0x20($29)\n\t"
-        "addiu      $19, $2, %lo(D_001328E0)\n\t"
-        "sd         $31, 0x50($29)\n\t"
-        "addiu      $4, $0, 0x1\n\t"
-        "sd         $18, 0x30($29)\n\t"
-        "ori        $6, $29, 0x4\n\t"
-        "addiu      $7, $0, 0x5\n\t"
-        "jal        func_001303A8\n\t"
-        "daddu     $8, $16, $0\n\t"
-        "daddu      $17, $2, $0\n\t"
-        "addiu      $2, $0, -0x7E\n\t"
-        "bne        $17, $2, .L00132914\n\t"
-        "daddu     $2, $17, $0\n\t"
-        "lwl        $2, 0xF($16)\n\t"
-        "lwr        $2, 0xC($16)\n\t"
-        "lui        $4, (0xFFFF0000 >> 16)\n\t"
-        "dsrl32     $4, $4, 0\n\t"
-        "daddu      $18, $0, $0\n\t"
-        "jal        func_0012E4E8\n\t"
-        "and       $4, $2, $4\n\t"
-        "lw         $6, 0x4($29)\n\t"
-        "bltz       $6, .L001328E4\n\t"
-        "daddu     $5, $6, $0\n\t"
-        "lw         $5, 0xC4($16)\n\t"
-        "beq        $6, $5, .L001328F8\n\t"
-        "lui       $4, %hi(D_490458)\n\t"
-        "lw         $2, 0xBC($16)\n\t"
-        "addiu      $4, $4, %lo(D_490458)\n\t"
-        "addiu      $2, $2, 0x1\n\t"
-        "jal        func_118de0\n\t"
-        "sw        $2, 0xBC($16)\n\t"
-        "b          .L001328FC\n\t"
-        "daddu     $7, $17, $0\n\t"
-        ".L001328E4:\n\t"
-        "lui        $4, %hi(D_38CC68)\n\t"
-        "addiu      $4, $4, %lo(D_38CC68)\n\t"
-        "jal        func_0012F438\n\t"
-        "daddu     $6, $2, $0\n\t"
-        "daddu      $18, $2, $0\n\t"
-        ".L001328F8:\n\t"
-        "daddu      $7, $17, $0\n\t"
-        ".L001328FC:\n\t"
-        "daddu      $4, $18, $0\n\t"
-        "daddu      $5, $16, $0\n\t"
-        "jal        func_0012FA30\n\t"
-        "daddu     $6, $19, $0\n\t"
-        "daddu      $17, $2, $0\n\t"
-        "daddu      $2, $17, $0\n\t"
-        ".L00132914:\n\t"
-        "ld         $31, 0x50($29)\n\t"
-        "ld         $19, 0x40($29)\n\t"
-        "ld         $18, 0x30($29)\n\t"
-        "ld         $17, 0x20($29)\n\t"
-        "ld         $16, 0x10($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x60\n\t"
-        ".set reorder\n\t"
-        ".end func_00132848\n");
+void *func_00132848(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0, r_s3 = 0, r_t0 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    (void)r_s3;
+    (void)r_t0;
+    r_sp = (long)(r_sp + (-0x60));
+    r_v0 = (long)&D_001328E0;
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_s0; }
+    r_a1 = (long)(r_sp + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x40)) = (long)r_s3; }
+    r_s0 = (long)(r_a0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x20)) = (long)r_s1; }
+    r_s3 = (long)&D_001328E0;
+    if (r_sp) { *(long *)((char *)r_sp + (0x50)) = (long)r_ra; }
+    r_a0 = (long)(0 + (0x1));
+    if (r_sp) { *(long *)((char *)r_sp + (0x30)) = (long)r_s2; }
+    r_a2 = (long)(r_sp | (0x4));
+    r_a3 = (long)(0 + (0x5));
+    r_t0 = (long)(r_s0 + 0);
+    r_v0 = (long)func_001303A8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_s1 = (long)(r_v0 + 0);
+    r_v0 = (long)(0 + (-0x7E));
+    if (r_s1 != r_v0) { r_v0 = (long)(r_s1 + 0); goto _lbl_L00132914; }
+    r_v0 = (long)(r_s1 + 0);
+    if (r_s0) { r_v0 = *(int *)((char *)r_s0 + (0xF)); }
+    if (r_s0) { r_v0 = *(int *)((char *)r_s0 + (0xC)); }
+    r_a0 = (long)((0xFFFF0000 >> 16) << 16);
+    r_a0 = (long)((unsigned long)r_a0 >> (0));
+    r_s2 = (long)(0 + 0);
+    r_a0 = (long)(r_v0 & r_a0);
+    r_v0 = (long)func_0012E4E8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_a2 = *(int *)((char *)r_sp + (0x4)); }
+    if ((long)r_a2 < 0) { r_a1 = (long)(r_a2 + 0); goto _lbl_L001328E4; }
+    r_a1 = (long)(r_a2 + 0);
+    if (r_s0) { r_a1 = *(int *)((char *)r_s0 + (0xC4)); }
+    if (r_a2 == r_a1) { r_a0 = (long)&D_490458; goto _lbl_L001328F8; }
+    r_a0 = (long)&D_490458;
+    if (r_s0) { r_v0 = *(int *)((char *)r_s0 + (0xBC)); }
+    r_a0 = (long)&D_490458;
+    r_v0 = (long)(r_v0 + (0x1));
+    if (r_s0) { *(int *)((char *)r_s0 + (0xBC)) = (int)r_v0; }
+    r_v0 = (long)func_118de0((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_a3 = (long)(r_s1 + 0);
+    goto _lbl_L001328FC;
+_lbl_L001328E4:
+    r_a0 = (long)&D_38CC68;
+    r_a0 = (long)&D_38CC68;
+    r_a2 = (long)(r_v0 + 0);
+    r_v0 = (long)func_0012F438((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_s2 = (long)(r_v0 + 0);
+_lbl_L001328F8:
+    r_a3 = (long)(r_s1 + 0);
+_lbl_L001328FC:
+    r_a0 = (long)(r_s2 + 0);
+    r_a1 = (long)(r_s0 + 0);
+    r_a2 = (long)(r_s3 + 0);
+    r_v0 = (long)func_0012FA30((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_s1 = (long)(r_v0 + 0);
+    r_v0 = (long)(r_s1 + 0);
+_lbl_L00132914:
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x50)); }
+    if (r_sp) { r_s3 = *(long *)((char *)r_sp + (0x40)); }
+    if (r_sp) { r_s2 = *(long *)((char *)r_sp + (0x30)); }
+    if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x20)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x10)); }
+    r_sp = (long)(r_sp + (0x60));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00132930 */
-__asm__(".text\n\t"
-        ".globl func_00132930\n\t"
-        ".ent func_00132930\n"
-        "func_00132930:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x10\n\t"
-        "daddu      $5, $4, $0\n\t"
-        "sd         $31, 0x0($29)\n\t"
-        "jal        func_0012FE10\n\t"
-        "lw        $4, 0x84($5)\n\t"
-        "ld         $31, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x10\n\t"
-        ".set reorder\n\t"
-        ".end func_00132930\n");
+void *func_00132930(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    r_sp = (long)(r_sp + (-0x10));
+    r_a1 = (long)(r_a0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_ra; }
+    if (r_a1) { r_a0 = *(int *)((char *)r_a1 + (0x84)); }
+    r_v0 = (long)func_0012FE10((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x10));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00132950 */
-__asm__(".text\n\t"
-        ".globl func_00132950\n\t"
-        ".ent func_00132950\n"
-        "func_00132950:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x40\n\t"
-        "lui        $2, %hi(D_001328E0)\n\t"
-        "sd         $16, 0x10($29)\n\t"
-        "daddu      $5, $29, $0\n\t"
-        "sd         $17, 0x20($29)\n\t"
-        "daddu      $16, $4, $0\n\t"
-        "sd         $31, 0x30($29)\n\t"
-        "addiu      $17, $2, %lo(D_001328E0)\n\t"
-        "addiu      $4, $0, 0x1\n\t"
-        "ori        $6, $29, 0x4\n\t"
-        "addiu      $7, $0, 0x3\n\t"
-        "jal        func_001303A8\n\t"
-        "daddu     $8, $16, $0\n\t"
-        "daddu      $3, $2, $0\n\t"
-        "addiu      $2, $0, -0x7E\n\t"
-        "bne        $3, $2, .L001329E4\n\t"
-        "ld        $31, 0x30($29)\n\t"
-        "lwl        $2, 0xF($16)\n\t"
-        "lwr        $2, 0xC($16)\n\t"
-        "lui        $4, (0xFFFF0000 >> 16)\n\t"
-        "dsrl32     $4, $4, 0\n\t"
-        "jal        func_0012E4E8\n\t"
-        "and       $4, $2, $4\n\t"
-        "daddu      $6, $2, $0\n\t"
-        "lw         $5, 0x4($29)\n\t"
-        "bgez       $5, .L001329C8\n\t"
-        "daddu     $2, $0, $0\n\t"
-        "lui        $4, %hi(D_38CC98)\n\t"
-        "jal        func_0012F438\n\t"
-        "addiu     $4, $4, %lo(D_38CC98)\n\t"
-        ".L001329C8:\n\t"
-        "daddu      $4, $2, $0\n\t"
-        "daddu      $5, $16, $0\n\t"
-        "daddu      $6, $17, $0\n\t"
-        "jal        func_0012FA30\n\t"
-        "addiu     $7, $0, -0x7E\n\t"
-        "daddu      $3, $2, $0\n\t"
-        "ld         $31, 0x30($29)\n\t"
-        ".L001329E4:\n\t"
-        "daddu      $2, $3, $0\n\t"
-        "ld         $17, 0x20($29)\n\t"
-        "ld         $16, 0x10($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x40\n\t"
-        ".set reorder\n\t"
-        ".end func_00132950\n");
+void *func_00132950(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_t0 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_t0;
+    r_sp = (long)(r_sp + (-0x40));
+    r_v0 = (long)&D_001328E0;
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_s0; }
+    r_a1 = (long)(r_sp + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x20)) = (long)r_s1; }
+    r_s0 = (long)(r_a0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x30)) = (long)r_ra; }
+    r_s1 = (long)&D_001328E0;
+    r_a0 = (long)(0 + (0x1));
+    r_a2 = (long)(r_sp | (0x4));
+    r_a3 = (long)(0 + (0x3));
+    r_t0 = (long)(r_s0 + 0);
+    r_v0 = (long)func_001303A8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_v1 = (long)(r_v0 + 0);
+    r_v0 = (long)(0 + (-0x7E));
+    if (r_v1 != r_v0) { if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x30)); } goto _lbl_L001329E4; }
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x30)); }
+    if (r_s0) { r_v0 = *(int *)((char *)r_s0 + (0xF)); }
+    if (r_s0) { r_v0 = *(int *)((char *)r_s0 + (0xC)); }
+    r_a0 = (long)((0xFFFF0000 >> 16) << 16);
+    r_a0 = (long)((unsigned long)r_a0 >> (0));
+    r_a0 = (long)(r_v0 & r_a0);
+    r_v0 = (long)func_0012E4E8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_a2 = (long)(r_v0 + 0);
+    if (r_sp) { r_a1 = *(int *)((char *)r_sp + (0x4)); }
+    if ((long)r_a1 >= 0) { r_v0 = (long)(0 + 0); goto _lbl_L001329C8; }
+    r_v0 = (long)(0 + 0);
+    r_a0 = (long)&D_38CC98;
+    r_a0 = (long)&D_38CC98;
+    r_v0 = (long)func_0012F438((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+_lbl_L001329C8:
+    r_a0 = (long)(r_v0 + 0);
+    r_a1 = (long)(r_s0 + 0);
+    r_a2 = (long)(r_s1 + 0);
+    r_a3 = (long)(0 + (-0x7E));
+    r_v0 = (long)func_0012FA30((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_v1 = (long)(r_v0 + 0);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x30)); }
+_lbl_L001329E4:
+    r_v0 = (long)(r_v1 + 0);
+    if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x20)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x10)); }
+    r_sp = (long)(r_sp + (0x40));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_001329F8 */
-__asm__(".text\n\t"
-        ".globl func_001329F8\n\t"
-        ".ent func_001329F8\n"
-        "func_001329F8:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x20\n\t"
-        "sd         $16, 0x0($29)\n\t"
-        "sd         $31, 0x10($29)\n\t"
-        "daddu      $16, $4, $0\n\t"
-        "jal        func_0012F7C8\n\t"
-        "lw        $4, 0xBC($16)\n\t"
-        "daddu      $3, $2, $0\n\t"
-        "addiu      $2, $0, 0x1\n\t"
-        "beq        $3, $2, .L00132A5C\n\t"
-        "addiu     $2, $0, 0x2\n\t"
-        "beq        $3, $2, .L00132A74\n\t"
-        "addiu     $2, $0, -0x78\n\t"
-        "lw         $2, 0x1C($16)\n\t"
-        "lw         $3, 0xC8($16)\n\t"
-        "addiu      $2, $2, 0x1\n\t"
-        "beqz       $3, .L00132A44\n\t"
-        "sw        $2, 0x1C($16)\n\t"
-        "addiu      $2, $3, 0x20\n\t"
-        "sw         $2, 0xC8($16)\n\t"
-        ".L00132A44:\n\t"
-        "lui        $5, %hi(func_001322C0)\n\t"
-        "daddu      $4, $16, $0\n\t"
-        "jal        func_0012F108\n\t"
-        "addiu     $5, $5, %lo(func_001322C0)\n\t"
-        "b          .L00132A8C\n\t"
-        "ld        $31, 0x10($29)\n\t"
-        ".L00132A5C:\n\t"
-        "lui        $5, %hi(D_00132358)\n\t"
-        "daddu      $4, $16, $0\n\t"
-        "jal        func_0012F108\n\t"
-        "addiu     $5, $5, %lo(D_00132358)\n\t"
-        "b          .L00132A8C\n\t"
-        "ld        $31, 0x10($29)\n\t"
-        ".L00132A74:\n\t"
-        "lui        $5, %hi(D_001328E0)\n\t"
-        "sw         $2, 0x20($16)\n\t"
-        "daddu      $4, $16, $0\n\t"
-        "jal        func_0012F108\n\t"
-        "addiu     $5, $5, %lo(D_001328E0)\n\t"
-        "ld         $31, 0x10($29)\n\t"
-        ".L00132A8C:\n\t"
-        "ld         $16, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x20\n\t"
-        ".set reorder\n\t"
-        ".end func_001329F8\n");
+void *func_001329F8(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    r_sp = (long)(r_sp + (-0x20));
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_s0; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_ra; }
+    r_s0 = (long)(r_a0 + 0);
+    if (r_s0) { r_a0 = *(int *)((char *)r_s0 + (0xBC)); }
+    r_v0 = (long)func_0012F7C8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_v1 = (long)(r_v0 + 0);
+    r_v0 = (long)(0 + (0x1));
+    if (r_v1 == r_v0) { r_v0 = (long)(0 + (0x2)); goto _lbl_L00132A5C; }
+    r_v0 = (long)(0 + (0x2));
+    if (r_v1 == r_v0) { r_v0 = (long)(0 + (-0x78)); goto _lbl_L00132A74; }
+    r_v0 = (long)(0 + (-0x78));
+    if (r_s0) { r_v0 = *(int *)((char *)r_s0 + (0x1C)); }
+    if (r_s0) { r_v1 = *(int *)((char *)r_s0 + (0xC8)); }
+    r_v0 = (long)(r_v0 + (0x1));
+    if (r_v1 == 0) { if (r_s0) { *(int *)((char *)r_s0 + (0x1C)) = (int)r_v0; } goto _lbl_L00132A44; }
+    if (r_s0) { *(int *)((char *)r_s0 + (0x1C)) = (int)r_v0; }
+    r_v0 = (long)(r_v1 + (0x20));
+    if (r_s0) { *(int *)((char *)r_s0 + (0xC8)) = (int)r_v0; }
+_lbl_L00132A44:
+    r_a1 = (long)&func_001322C0;
+    r_a0 = (long)(r_s0 + 0);
+    r_a1 = (long)&func_001322C0;
+    r_v0 = (long)func_0012F108((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x10)); }
+    goto _lbl_L00132A8C;
+_lbl_L00132A5C:
+    r_a1 = (long)&D_00132358;
+    r_a0 = (long)(r_s0 + 0);
+    r_a1 = (long)&D_00132358;
+    r_v0 = (long)func_0012F108((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x10)); }
+    goto _lbl_L00132A8C;
+_lbl_L00132A74:
+    r_a1 = (long)&D_001328E0;
+    if (r_s0) { *(int *)((char *)r_s0 + (0x20)) = (int)r_v0; }
+    r_a0 = (long)(r_s0 + 0);
+    r_a1 = (long)&D_001328E0;
+    r_v0 = (long)func_0012F108((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x10)); }
+_lbl_L00132A8C:
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x20));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00132A98 */
-__asm__(".text\n\t"
-        ".globl func_00132A98\n\t"
-        ".ent func_00132A98\n"
-        "func_00132A98:\n\t"
-        ".set noreorder\n\t"
-        "lw         $3, 0x20($4)\n\t"
-        "addiu      $6, $0, 0x1\n\t"
-        "lw         $5, 0xB0($4)\n\t"
-        "addiu      $2, $0, -0x80\n\t"
-        "movz       $3, $6, $3\n\t"
-        "jr         $31\n\t"
-        "sw        $3, 0x0($5)\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_00132A98\n");
+void *func_00132A98(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    if (r_a0) { r_v1 = *(int *)((char *)r_a0 + (0x20)); }
+    r_a2 = (long)(0 + (0x1));
+    if (r_a0) { r_a1 = *(int *)((char *)r_a0 + (0xB0)); }
+    r_v0 = (long)(0 + (-0x80));
+    if (r_v1 == 0) r_v1 = r_a2;
+    if (r_a1) { *(int *)((char *)r_a1 + (0x0)) = (int)r_v1; }
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00132AB8 */
-__asm__(".text\n\t"
-        ".globl func_00132AB8\n\t"
-        ".ent func_00132AB8\n"
-        "func_00132AB8:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x60\n\t"
-        "lui        $2, %hi(D_4F9700)\n\t"
-        "sd         $19, 0x40($29)\n\t"
-        "sd         $18, 0x30($29)\n\t"
-        "addiu      $19, $2, %lo(D_4F9700)\n\t"
-        "sd         $17, 0x20($29)\n\t"
-        "daddu      $18, $4, $0\n\t"
-        "sd         $16, 0x10($29)\n\t"
-        ".set reorder\n\t"
-        ".end func_00132AB8\n");
+void *func_00132AB8(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0, r_s3 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    (void)r_s3;
+    r_sp = (long)(r_sp + (-0x60));
+    r_v0 = (long)&D_4F9700;
+    if (r_sp) { *(long *)((char *)r_sp + (0x40)) = (long)r_s3; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x30)) = (long)r_s2; }
+    r_s3 = (long)&D_4F9700;
+    if (r_sp) { *(long *)((char *)r_sp + (0x20)) = (long)r_s1; }
+    r_s2 = (long)(r_a0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_s0; }
+    return func_00132AD8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+}
 
 /* func_00132AD8 */
-__asm__(".text\n\t"
-        ".globl func_00132AD8\n\t"
-        ".ent func_00132AD8\n"
-        "func_00132AD8:\n\t"
-        ".set noreorder\n\t"
-        "daddu      $17, $7, $0\n\t"
-        "lw         $3, -0x6900($2)\n\t"
-        "daddu      $16, $6, $0\n\t"
-        "sd         $31, 0x50($29)\n\t"
-        "daddu      $2, $0, $0\n\t"
-        "bnez       $3, .L00132B34\n\t"
-        "sw        $5, 0x0($29)\n\t"
-        "jal        func_0012EF18\n\t"
-        "daddu     $4, $16, $0\n\t"
-        "lw         $2, 0x0($29)\n\t"
-        "lui        $5, %hi(func_00132950 + 0x48)\n\t"
-        "lui        $10, %hi(D_38CCC8)\n\t"
-        "lui        $7, (0xFFFF0000 >> 16)\n\t"
-        "dsrl32     $7, $7, 0\n\t"
-        "and        $7, $2, $7\n\t"
-        "daddu      $4, $19, $0\n\t"
-        "addiu      $5, $5, %lo(func_00132950 + 0x48)\n\t"
-        "daddu      $6, $16, $0\n\t"
-        "daddu      $8, $18, $0\n\t"
-        "daddu      $9, $17, $0\n\t"
-        "jal        func_0012EF38\n\t"
-        "addiu     $10, $10, %lo(D_38CCC8)\n\t"
-        "addiu      $2, $0, 0x1\n\t"
-        ".L00132B34:\n\t"
-        "ld         $31, 0x50($29)\n\t"
-        "ld         $19, 0x40($29)\n\t"
-        "ld         $18, 0x30($29)\n\t"
-        "ld         $17, 0x20($29)\n\t"
-        "ld         $16, 0x10($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x60\n\t"
-        ".set reorder\n\t"
-        ".end func_00132AD8\n");
+void *func_00132AD8(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0, r_s3 = 0, r_t0 = 0, r_t1 = 0, r_t2 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    (void)r_s3;
+    (void)r_t0;
+    (void)r_t1;
+    (void)r_t2;
+    r_s1 = (long)(r_a3 + 0);
+    if (r_v0) { r_v1 = *(int *)((char *)r_v0 + (-0x6900)); }
+    r_s0 = (long)(r_a2 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x50)) = (long)r_ra; }
+    r_v0 = (long)(0 + 0);
+    if (r_v1 != 0) { if (r_sp) { *(int *)((char *)r_sp + (0x0)) = (int)r_a1; } goto _lbl_L00132B34; }
+    if (r_sp) { *(int *)((char *)r_sp + (0x0)) = (int)r_a1; }
+    r_a0 = (long)(r_s0 + 0);
+    r_v0 = (long)func_0012EF18((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_v0 = *(int *)((char *)r_sp + (0x0)); }
+    r_a1 = (long)&func_00132950 + 0x48;
+    r_t2 = (long)&D_38CCC8;
+    r_a3 = (long)((0xFFFF0000 >> 16) << 16);
+    r_a3 = (long)((unsigned long)r_a3 >> (0));
+    r_a3 = (long)(r_v0 & r_a3);
+    r_a0 = (long)(r_s3 + 0);
+    r_a1 = (long)&func_00132950 + 0x48;
+    r_a2 = (long)(r_s0 + 0);
+    r_t0 = (long)(r_s2 + 0);
+    r_t1 = (long)(r_s1 + 0);
+    r_t2 = (long)&D_38CCC8;
+    r_v0 = (long)func_0012EF38((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_v0 = (long)(0 + (0x1));
+_lbl_L00132B34:
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x50)); }
+    if (r_sp) { r_s3 = *(long *)((char *)r_sp + (0x40)); }
+    if (r_sp) { r_s2 = *(long *)((char *)r_sp + (0x30)); }
+    if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x20)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x10)); }
+    r_sp = (long)(r_sp + (0x60));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00132B50 */
-__asm__(".text\n\t"
-        ".globl func_00132B50\n\t"
-        ".ent func_00132B50\n"
-        "func_00132B50:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x10\n\t"
-        "lui        $5, %hi(D_38CCC8)\n\t"
-        "sd         $31, 0x0($29)\n\t"
-        "jal        func_0012EE20\n\t"
-        "addiu     $5, $5, %lo(D_38CCC8)\n\t"
-        "ld         $31, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x10\n\t"
-        ".set reorder\n\t"
-        ".end func_00132B50\n");
+void *func_00132B50(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    r_sp = (long)(r_sp + (-0x10));
+    r_a1 = (long)&D_38CCC8;
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_ra; }
+    r_a1 = (long)&D_38CCC8;
+    r_v0 = (long)func_0012EE20((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x10));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00132B70 */
-__asm__(".text\n\t"
-        ".globl func_00132B70\n\t"
-        ".ent func_00132B70\n"
-        "func_00132B70:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x10\n\t"
-        "sd         $31, 0x0($29)\n\t"
-        "jal        func_00130A50\n\t"
-        "nop\n\t"
-        "ld         $31, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x10\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_00132B70\n");
+void *func_00132B70(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    r_sp = (long)(r_sp + (-0x10));
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_ra; }
+    r_v0 = (long)func_00130A50((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x10));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00132B90 */
-__asm__(".text\n\t"
-        ".globl func_00132B90\n\t"
-        ".ent func_00132B90\n"
-        "func_00132B90:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x10\n\t"
-        "lui        $6, %hi(func_00132AB8 + 0x8)\n\t"
-        "sd         $31, 0x0($29)\n\t"
-        "addiu      $6, $6, %lo(func_00132AB8 + 0x8)\n\t"
-        "jal        func_00130AA8\n\t"
-        "addiu     $5, $0, 0x1\n\t"
-        "ld         $31, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x10\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_00132B90\n");
+void *func_00132B90(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    r_sp = (long)(r_sp + (-0x10));
+    r_a2 = (long)&func_00132AB8 + 0x8;
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_ra; }
+    r_a2 = (long)&func_00132AB8 + 0x8;
+    r_a1 = (long)(0 + (0x1));
+    r_v0 = (long)func_00130AA8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x10));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00132BB8 */
-__asm__(".text\n\t"
-        ".globl func_00132BB8\n\t"
-        ".ent func_00132BB8\n"
-        "func_00132BB8:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x10\n\t"
-        "daddu      $2, $4, $0\n\t"
-        "sd         $31, 0x0($29)\n\t"
-        "daddu      $6, $2, $0\n\t"
-        "lh         $4, 0xC($2)\n\t"
-        "jal        func_00130108\n\t"
-        "lh        $5, 0xE($2)\n\t"
-        "ld         $31, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x10\n\t"
-        ".set reorder\n\t"
-        ".end func_00132BB8\n");
+void *func_00132BB8(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    r_sp = (long)(r_sp + (-0x10));
+    r_v0 = (long)(r_a0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_ra; }
+    r_a2 = (long)(r_v0 + 0);
+    if (r_v0) { r_a0 = *(short *)((char *)r_v0 + (0xC)); }
+    if (r_v0) { r_a1 = *(short *)((char *)r_v0 + (0xE)); }
+    r_v0 = (long)func_00130108((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x10));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00132BE0 */
-__asm__(".text\n\t"
-        ".globl func_00132BE0\n\t"
-        ".ent func_00132BE0\n"
-        "func_00132BE0:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x40\n\t"
-        "addiu      $7, $0, 0x10\n\t"
-        "sd         $16, 0x10($29)\n\t"
-        "daddu      $5, $29, $0\n\t"
-        "daddu      $16, $4, $0\n\t"
-        "sd         $17, 0x20($29)\n\t"
-        "sd         $31, 0x30($29)\n\t"
-        "addiu      $4, $0, 0x1\n\t"
-        "ori        $6, $29, 0x4\n\t"
-        "jal        func_001303A8\n\t"
-        "daddu     $8, $16, $0\n\t"
-        "daddu      $17, $2, $0\n\t"
-        "addiu      $2, $0, -0x7E\n\t"
-        "bne        $17, $2, .L00132C64\n\t"
-        "daddu     $2, $17, $0\n\t"
-        "lwl        $2, 0xF($16)\n\t"
-        "lwr        $2, 0xC($16)\n\t"
-        "lui        $4, (0xFFFF0000 >> 16)\n\t"
-        "dsrl32     $4, $4, 0\n\t"
-        "jal        func_0012E4E8\n\t"
-        "and       $4, $2, $4\n\t"
-        "lw         $5, 0x4($29)\n\t"
-        "bnez       $5, .L00132C4C\n\t"
-        "daddu     $6, $2, $0\n\t"
-        "addiu      $2, $0, 0x1\n\t"
-        "b          .L00132C58\n\t"
-        "sh        $2, 0x6($6)\n\t"
-        ".L00132C4C:\n\t"
-        "lui        $4, %hi(D_38CCE0)\n\t"
-        "jal        func_0012F438\n\t"
-        "addiu     $4, $4, %lo(D_38CCE0)\n\t"
-        ".L00132C58:\n\t"
-        "bnel       $2, $0, .L00132C60\n\t"
-        "sw        $2, 0x20($16)\n\t"
-        ".L00132C60:\n\t"
-        "daddu      $2, $17, $0\n\t"
-        ".L00132C64:\n\t"
-        "ld         $31, 0x30($29)\n\t"
-        "ld         $17, 0x20($29)\n\t"
-        "ld         $16, 0x10($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x40\n\t"
-        ".set reorder\n\t"
-        ".end func_00132BE0\n");
+void *func_00132BE0(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_t0 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_t0;
+    r_sp = (long)(r_sp + (-0x40));
+    r_a3 = (long)(0 + (0x10));
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_s0; }
+    r_a1 = (long)(r_sp + 0);
+    r_s0 = (long)(r_a0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x20)) = (long)r_s1; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x30)) = (long)r_ra; }
+    r_a0 = (long)(0 + (0x1));
+    r_a2 = (long)(r_sp | (0x4));
+    r_t0 = (long)(r_s0 + 0);
+    r_v0 = (long)func_001303A8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_s1 = (long)(r_v0 + 0);
+    r_v0 = (long)(0 + (-0x7E));
+    if (r_s1 != r_v0) { r_v0 = (long)(r_s1 + 0); goto _lbl_L00132C64; }
+    r_v0 = (long)(r_s1 + 0);
+    if (r_s0) { r_v0 = *(int *)((char *)r_s0 + (0xF)); }
+    if (r_s0) { r_v0 = *(int *)((char *)r_s0 + (0xC)); }
+    r_a0 = (long)((0xFFFF0000 >> 16) << 16);
+    r_a0 = (long)((unsigned long)r_a0 >> (0));
+    r_a0 = (long)(r_v0 & r_a0);
+    r_v0 = (long)func_0012E4E8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_a1 = *(int *)((char *)r_sp + (0x4)); }
+    if (r_a1 != 0) { r_a2 = (long)(r_v0 + 0); goto _lbl_L00132C4C; }
+    r_a2 = (long)(r_v0 + 0);
+    r_v0 = (long)(0 + (0x1));
+    if (r_a2) { *(short *)((char *)r_a2 + (0x6)) = (short)r_v0; }
+    goto _lbl_L00132C58;
+_lbl_L00132C4C:
+    r_a0 = (long)&D_38CCE0;
+    r_a0 = (long)&D_38CCE0;
+    r_v0 = (long)func_0012F438((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+_lbl_L00132C58:
+    if (r_v0 != 0) { if (r_s0) { *(int *)((char *)r_s0 + (0x20)) = (int)r_v0; } goto _lbl_L00132C60; }
+    if (r_s0) { *(int *)((char *)r_s0 + (0x20)) = (int)r_v0; }
+_lbl_L00132C60:
+    r_v0 = (long)(r_s1 + 0);
+_lbl_L00132C64:
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x30)); }
+    if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x20)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x10)); }
+    r_sp = (long)(r_sp + (0x40));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00132C78 */
-__asm__(".text\n\t"
-        ".globl func_00132C78\n\t"
-        ".ent func_00132C78\n"
-        "func_00132C78:\n\t"
-        ".set noreorder\n\t"
-        "lw         $5, 0x20($4)\n\t"
-        "addiu      $2, $0, -0x80\n\t"
-        "lw         $3, 0xB0($4)\n\t"
-        "jr         $31\n\t"
-        "sw        $5, 0x0($3)\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_00132C78\n");
+void *func_00132C78(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    if (r_a0) { r_a1 = *(int *)((char *)r_a0 + (0x20)); }
+    r_v0 = (long)(0 + (-0x80));
+    if (r_a0) { r_v1 = *(int *)((char *)r_a0 + (0xB0)); }
+    if (r_v1) { *(int *)((char *)r_v1 + (0x0)) = (int)r_a1; }
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00132C90 */
-__asm__(".text\n\t"
-        ".globl func_00132C90\n\t"
-        ".ent func_00132C90\n"
-        "func_00132C90:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0xA0\n\t"
-        "sd         $21, 0x60($29)\n\t"
-        "sd         $23, 0x80($29)\n\t"
-        "lui        $21, %hi(D_4F9700)\n\t"
-        "sd         $22, 0x70($29)\n\t"
-        "daddu      $23, $0, $0\n\t"
-        "sd         $20, 0x50($29)\n\t"
-        "daddu      $22, $9, $0\n\t"
-        "sd         $19, 0x40($29)\n\t"
-        "daddu      $20, $7, $0\n\t"
-        "sd         $18, 0x30($29)\n\t"
-        "daddu      $19, $6, $0\n\t"
-        "sd         $17, 0x20($29)\n\t"
-        "addiu      $18, $21, %lo(D_4F9700)\n\t"
-        "sd         $16, 0x10($29)\n\t"
-        "daddu      $17, $8, $0\n\t"
-        "sd         $31, 0x90($29)\n\t"
-        "daddu      $16, $4, $0\n\t"
-        "bnez       $17, .L00132D00\n\t"
-        "sw        $5, 0x0($29)\n\t"
-        "lui        $4, %hi(D_4E2D60)\n\t"
-        "lui        $5, %hi(D_490068)\n\t"
-        "lui        $7, %hi(D_490490)\n\t"
-        "addiu      $4, $4, %lo(D_4E2D60)\n\t"
-        "addiu      $5, $5, %lo(D_490068)\n\t"
-        "addiu      $7, $7, %lo(D_490490)\n\t"
-        "jal        func_123790\n\t"
-        "addiu     $6, $0, 0x1804\n\t"
-        ".L00132D00:\n\t"
-        "andi       $2, $17, 0x3F\n\t"
-        "beqz       $2, .L00132D28\n\t"
-        "lui       $4, %hi(D_4904A0)\n\t"
-        "lui        $5, %hi(D_490068)\n\t"
-        "lui        $7, %hi(D_490490)\n\t"
-        "addiu      $4, $4, %lo(D_4904A0)\n\t"
-        "addiu      $5, $5, %lo(D_490068)\n\t"
-        "addiu      $7, $7, %lo(D_490490)\n\t"
-        "jal        func_123790\n\t"
-        "addiu     $6, $0, 0x1805\n\t"
-        ".L00132D28:\n\t"
-        "bnez       $16, .L00132D3C\n\t"
-        "lw        $2, -0x6900($21)\n\t"
-        "lui        $2, %hi(D_4E2D50)\n\t"
-        "addiu      $16, $2, %lo(D_4E2D50)\n\t"
-        "lw         $2, -0x6900($21)\n\t"
-        ".L00132D3C:\n\t"
-        "bnez       $2, .L00132DA8\n\t"
-        "daddu     $2, $23, $0\n\t"
-        "daddu      $4, $19, $0\n\t"
-        "jal        func_0012EF18\n\t"
-        "addiu     $23, $0, 0x1\n\t"
-        ".set reorder\n\t"
-        ".end func_00132C90\n");
+void *func_00132C90(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0, r_s3 = 0, r_s4 = 0, r_s5 = 0, r_s6 = 0, r_s7 = 0, r_t0 = 0, r_t1 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    (void)r_s3;
+    (void)r_s4;
+    (void)r_s5;
+    (void)r_s6;
+    (void)r_s7;
+    (void)r_t0;
+    (void)r_t1;
+    r_sp = (long)(r_sp + (-0xA0));
+    if (r_sp) { *(long *)((char *)r_sp + (0x60)) = (long)r_s5; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x80)) = (long)r_s7; }
+    r_s5 = (long)&D_4F9700;
+    if (r_sp) { *(long *)((char *)r_sp + (0x70)) = (long)r_s6; }
+    r_s7 = (long)(0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x50)) = (long)r_s4; }
+    r_s6 = (long)(r_t1 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x40)) = (long)r_s3; }
+    r_s4 = (long)(r_a3 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x30)) = (long)r_s2; }
+    r_s3 = (long)(r_a2 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x20)) = (long)r_s1; }
+    r_s2 = (long)&D_4F9700;
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_s0; }
+    r_s1 = (long)(r_t0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x90)) = (long)r_ra; }
+    r_s0 = (long)(r_a0 + 0);
+    if (r_s1 != 0) { if (r_sp) { *(int *)((char *)r_sp + (0x0)) = (int)r_a1; } goto _lbl_L00132D00; }
+    if (r_sp) { *(int *)((char *)r_sp + (0x0)) = (int)r_a1; }
+    r_a0 = (long)&D_4E2D60;
+    r_a1 = (long)&D_490068;
+    r_a3 = (long)&D_490490;
+    r_a0 = (long)&D_4E2D60;
+    r_a1 = (long)&D_490068;
+    r_a3 = (long)&D_490490;
+    r_a2 = (long)(0 + (0x1804));
+    r_v0 = (long)func_123790((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+_lbl_L00132D00:
+    r_v0 = (long)(r_s1 & (0x3F));
+    if (r_v0 == 0) { r_a0 = (long)&D_4904A0; goto _lbl_L00132D28; }
+    r_a0 = (long)&D_4904A0;
+    r_a1 = (long)&D_490068;
+    r_a3 = (long)&D_490490;
+    r_a0 = (long)&D_4904A0;
+    r_a1 = (long)&D_490068;
+    r_a3 = (long)&D_490490;
+    r_a2 = (long)(0 + (0x1805));
+    r_v0 = (long)func_123790((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+_lbl_L00132D28:
+    if (r_s0 != 0) { if (r_s5) { r_v0 = *(int *)((char *)r_s5 + (-0x6900)); } goto _lbl_L00132D3C; }
+    if (r_s5) { r_v0 = *(int *)((char *)r_s5 + (-0x6900)); }
+    r_v0 = (long)&D_4E2D50;
+    r_s0 = (long)&D_4E2D50;
+    if (r_s5) { r_v0 = *(int *)((char *)r_s5 + (-0x6900)); }
+_lbl_L00132D3C:
+    if (r_v0 != 0) { r_v0 = (long)(r_s7 + 0); return func_00132D50((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3); }
+    r_v0 = (long)(r_s7 + 0);
+    r_a0 = (long)(r_s3 + 0);
+    r_s7 = (long)(0 + (0x1));
+    r_v0 = (long)func_0012EF18((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    return func_00132D50((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+}
 
 /* func_00132D50 */
-__asm__(".text\n\t"
-        ".globl func_00132D50\n\t"
-        ".ent func_00132D50\n"
-        "func_00132D50:\n\t"
-        ".set noreorder\n\t"
-        "lw         $2, 0x0($29)\n\t"
-        "lui        $5, %hi(D_00132C70)\n\t"
-        "lui        $10, %hi(D_38CD10)\n\t"
-        "lui        $7, (0xFFFF0000 >> 16)\n\t"
-        "dsrl32     $7, $7, 0\n\t"
-        "daddu      $8, $16, $0\n\t"
-        "daddu      $9, $20, $0\n\t"
-        "addiu      $10, $10, %lo(D_38CD10)\n\t"
-        "and        $7, $2, $7\n\t"
-        "addiu      $5, $5, %lo(D_00132C70)\n\t"
-        "daddu      $6, $19, $0\n\t"
-        "jal        func_0012EF38\n\t"
-        "daddu     $4, $18, $0\n\t"
-        "sw         $17, 0xC0($18)\n\t"
-        "daddu      $4, $20, $0\n\t"
-        "sw         $22, 0xC4($18)\n\t"
-        "jal        func_0012F7A0\n\t"
-        "addiu     $5, $0, 0x200\n\t"
-        "addiu      $3, $0, 0x1\n\t"
-        "sw         $2, 0x14($18)\n\t"
-        "sw         $3, 0xC8($18)\n\t"
-        "daddu      $2, $23, $0\n\t"
-        ".L00132DA8:\n\t"
-        "ld         $31, 0x90($29)\n\t"
-        "ld         $23, 0x80($29)\n\t"
-        "ld         $22, 0x70($29)\n\t"
-        "ld         $21, 0x60($29)\n\t"
-        "ld         $20, 0x50($29)\n\t"
-        "ld         $19, 0x40($29)\n\t"
-        "ld         $18, 0x30($29)\n\t"
-        "ld         $17, 0x20($29)\n\t"
-        "ld         $16, 0x10($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0xA0\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_00132D50\n");
+void *func_00132D50(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0, r_s3 = 0, r_s4 = 0, r_s5 = 0, r_s6 = 0, r_s7 = 0, r_t0 = 0, r_t1 = 0, r_t2 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    (void)r_s3;
+    (void)r_s4;
+    (void)r_s5;
+    (void)r_s6;
+    (void)r_s7;
+    (void)r_t0;
+    (void)r_t1;
+    (void)r_t2;
+    if (r_sp) { r_v0 = *(int *)((char *)r_sp + (0x0)); }
+    r_a1 = (long)&D_00132C70;
+    r_t2 = (long)&D_38CD10;
+    r_a3 = (long)((0xFFFF0000 >> 16) << 16);
+    r_a3 = (long)((unsigned long)r_a3 >> (0));
+    r_t0 = (long)(r_s0 + 0);
+    r_t1 = (long)(r_s4 + 0);
+    r_t2 = (long)&D_38CD10;
+    r_a3 = (long)(r_v0 & r_a3);
+    r_a1 = (long)&D_00132C70;
+    r_a2 = (long)(r_s3 + 0);
+    r_a0 = (long)(r_s2 + 0);
+    r_v0 = (long)func_0012EF38((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_s2) { *(int *)((char *)r_s2 + (0xC0)) = (int)r_s1; }
+    r_a0 = (long)(r_s4 + 0);
+    if (r_s2) { *(int *)((char *)r_s2 + (0xC4)) = (int)r_s6; }
+    r_a1 = (long)(0 + (0x200));
+    r_v0 = (long)func_0012F7A0((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_v1 = (long)(0 + (0x1));
+    if (r_s2) { *(int *)((char *)r_s2 + (0x14)) = (int)r_v0; }
+    if (r_s2) { *(int *)((char *)r_s2 + (0xC8)) = (int)r_v1; }
+    r_v0 = (long)(r_s7 + 0);
+_lbl_L00132DA8:
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x90)); }
+    if (r_sp) { r_s7 = *(long *)((char *)r_sp + (0x80)); }
+    if (r_sp) { r_s6 = *(long *)((char *)r_sp + (0x70)); }
+    if (r_sp) { r_s5 = *(long *)((char *)r_sp + (0x60)); }
+    if (r_sp) { r_s4 = *(long *)((char *)r_sp + (0x50)); }
+    if (r_sp) { r_s3 = *(long *)((char *)r_sp + (0x40)); }
+    if (r_sp) { r_s2 = *(long *)((char *)r_sp + (0x30)); }
+    if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x20)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x10)); }
+    r_sp = (long)(r_sp + (0xA0));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00132DD8 */
-__asm__(".text\n\t"
-        ".globl func_00132DD8\n\t"
-        ".ent func_00132DD8\n"
-        "func_00132DD8:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x20\n\t"
-        "lui        $2, (0xFFFF0000 >> 16)\n\t"
-        "dsrl32     $2, $2, 0\n\t"
-        "sw         $5, 0x0($29)\n\t"
-        "lui        $8, %hi(D_4F9840)\n\t"
-        "sd         $31, 0x10($29)\n\t"
-        "addiu      $8, $8, %lo(D_4F9840)\n\t"
-        "daddu      $7, $0, $0\n\t"
-        "addiu      $9, $0, 0x18\n\t"
-        "lw         $5, 0x0($29)\n\t"
-        "jal        func_00132AD8\n\t"
-        "and       $5, $5, $2\n\t"
-        "daddu      $3, $2, $0\n\t"
-        "beqz       $3, .L00132E18\n\t"
-        "lui       $2, (0x500000 >> 16)\n\t"
-        "sw         $0, -0x6838($2)\n\t"
-        ".L00132E18:\n\t"
-        "ld         $31, 0x10($29)\n\t"
-        "daddu      $2, $3, $0\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x20\n\t"
-        ".set reorder\n\t"
-        ".end func_00132DD8\n");
+void *func_00132DD8(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_t0 = 0, r_t1 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_t0;
+    (void)r_t1;
+    r_sp = (long)(r_sp + (-0x20));
+    r_v0 = (long)((0xFFFF0000 >> 16) << 16);
+    r_v0 = (long)((unsigned long)r_v0 >> (0));
+    if (r_sp) { *(int *)((char *)r_sp + (0x0)) = (int)r_a1; }
+    r_t0 = (long)&D_4F9840;
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_ra; }
+    r_t0 = (long)&D_4F9840;
+    r_a3 = (long)(0 + 0);
+    r_t1 = (long)(0 + (0x18));
+    if (r_sp) { r_a1 = *(int *)((char *)r_sp + (0x0)); }
+    r_a1 = (long)(r_a1 & r_v0);
+    r_v0 = (long)func_00132AD8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_v1 = (long)(r_v0 + 0);
+    if (r_v1 == 0) { r_v0 = (long)((0x500000 >> 16) << 16); goto _lbl_L00132E18; }
+    r_v0 = (long)((0x500000 >> 16) << 16);
+    if (r_v0) { *(int *)((char *)r_v0 + (-0x6838)) = (int)0; }
+_lbl_L00132E18:
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x10)); }
+    r_v0 = (long)(r_v1 + 0);
+    r_sp = (long)(r_sp + (0x20));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00132E28 */
-__asm__(".text\n\t"
-        ".globl func_00132E28\n\t"
-        ".ent func_00132E28\n"
-        "func_00132E28:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x10\n\t"
-        "lui        $5, %hi(D_38CD10)\n\t"
-        "sd         $31, 0x0($29)\n\t"
-        "jal        func_0012EE20\n\t"
-        "addiu     $5, $5, %lo(D_38CD10)\n\t"
-        "ld         $31, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x10\n\t"
-        ".set reorder\n\t"
-        ".end func_00132E28\n");
+void *func_00132E28(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    r_sp = (long)(r_sp + (-0x10));
+    r_a1 = (long)&D_38CD10;
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_ra; }
+    r_a1 = (long)&D_38CD10;
+    r_v0 = (long)func_0012EE20((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x10));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00132E48 */
-__asm__(".text\n\t"
-        ".globl func_00132E48\n\t"
-        ".ent func_00132E48\n"
-        "func_00132E48:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x10\n\t"
-        "sd         $31, 0x0($29)\n\t"
-        "jal        func_00130A50\n\t"
-        "nop\n\t"
-        "ld         $31, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x10\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_00132E48\n");
+void *func_00132E48(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    r_sp = (long)(r_sp + (-0x10));
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_ra; }
+    r_v0 = (long)func_00130A50((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x10));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00132E68 */
-__asm__(".text\n\t"
-        ".globl func_00132E68\n\t"
-        ".ent func_00132E68\n"
-        "func_00132E68:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x10\n\t"
-        "lui        $6, %hi(D_00133000)\n\t"
-        "sd         $31, 0x0($29)\n\t"
-        "addiu      $6, $6, %lo(D_00133000)\n\t"
-        "jal        func_00130AA8\n\t"
-        "daddu     $5, $0, $0\n\t"
-        "ld         $31, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x10\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_00132E68\n");
+void *func_00132E68(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    r_sp = (long)(r_sp + (-0x10));
+    r_a2 = (long)&D_00133000;
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_ra; }
+    r_a2 = (long)&D_00133000;
+    r_a1 = (long)(0 + 0);
+    r_v0 = (long)func_00130AA8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x10));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00132E90 */
-__asm__(".text\n\t"
-        ".globl func_00132E90\n\t"
-        ".ent func_00132E90\n"
-        "func_00132E90:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x10\n\t"
-        "sd         $31, 0x0($29)\n\t"
-        "jal        func_00130BB0\n\t"
-        "nop\n\t"
-        "ld         $31, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x10\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_00132E90\n");
+void *func_00132E90(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    r_sp = (long)(r_sp + (-0x10));
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_ra; }
+    r_v0 = (long)func_00130BB0((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x10));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00132EB0 */
-__asm__(".text\n\t"
-        ".globl func_00132EB0\n\t"
-        ".ent func_00132EB0\n"
-        "func_00132EB0:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x10\n\t"
-        "lui        $5, %hi(D_00133000)\n\t"
-        "sd         $31, 0x0($29)\n\t"
-        "jal        func_00130BD8\n\t"
-        "addiu     $5, $5, %lo(D_00133000)\n\t"
-        "ld         $31, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x10\n\t"
-        ".set reorder\n\t"
-        ".end func_00132EB0\n");
+void *func_00132EB0(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    r_sp = (long)(r_sp + (-0x10));
+    r_a1 = (long)&D_00133000;
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_ra; }
+    r_a1 = (long)&D_00133000;
+    r_v0 = (long)func_00130BD8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x10));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00132ED0 */
-__asm__(".text\n\t"
-        ".globl func_00132ED0\n\t"
-        ".ent func_00132ED0\n"
-        "func_00132ED0:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x10\n\t"
-        "sd         $31, 0x0($29)\n\t"
-        "lw         $2, 0xC8($4)\n\t"
-        "beqz       $2, .L00132EF4\n\t"
-        "lui       $5, %hi(func_00132F08)\n\t"
-        "jal        func_0012F108\n\t"
-        "addiu     $5, $5, %lo(func_00132F08)\n\t"
-        "b          .L00132EFC\n\t"
-        "ld        $31, 0x0($29)\n\t"
-        ".L00132EF4:\n\t"
-        "addiu      $2, $0, -0x7E\n\t"
-        "ld         $31, 0x0($29)\n\t"
-        ".L00132EFC:\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x10\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_00132ED0\n");
+void *func_00132ED0(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    r_sp = (long)(r_sp + (-0x10));
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_ra; }
+    if (r_a0) { r_v0 = *(int *)((char *)r_a0 + (0xC8)); }
+    if (r_v0 == 0) { r_a1 = (long)&func_00132F08; goto _lbl_L00132EF4; }
+    r_a1 = (long)&func_00132F08;
+    r_a1 = (long)&func_00132F08;
+    r_v0 = (long)func_0012F108((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
+    goto _lbl_L00132EFC;
+_lbl_L00132EF4:
+    r_v0 = (long)(0 + (-0x7E));
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
+_lbl_L00132EFC:
+    r_sp = (long)(r_sp + (0x10));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00132F08 */
-__asm__(".text\n\t"
-        ".globl func_00132F08\n\t"
-        ".ent func_00132F08\n"
-        "func_00132F08:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x30\n\t"
-        "sd         $16, 0x0($29)\n\t"
-        "sd         $31, 0x20($29)\n\t"
-        "daddu      $16, $4, $0\n\t"
-        "sd         $17, 0x10($29)\n\t"
-        "daddu      $10, $16, $0\n\t"
-        "lw         $17, 0xC4($16)\n\t"
-        "lh         $4, 0xC($16)\n\t"
-        "lh         $5, 0xE($16)\n\t"
-        "daddu      $8, $17, $0\n\t"
-        "lw         $6, 0x10($16)\n\t"
-        "lw         $7, 0x14($16)\n\t"
-        "jal        func_0012FC60\n\t"
-        "lw        $9, 0xC0($16)\n\t"
-        "sw         $17, 0x18($16)\n\t"
-        "ld         $31, 0x20($29)\n\t"
-        "ld         $17, 0x10($29)\n\t"
-        "ld         $16, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x30\n\t"
-        ".set reorder\n\t"
-        ".end func_00132F08\n");
+void *func_00132F08(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_t0 = 0, r_t1 = 0, r_t2 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_t0;
+    (void)r_t1;
+    (void)r_t2;
+    r_sp = (long)(r_sp + (-0x30));
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_s0; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x20)) = (long)r_ra; }
+    r_s0 = (long)(r_a0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_s1; }
+    r_t2 = (long)(r_s0 + 0);
+    if (r_s0) { r_s1 = *(int *)((char *)r_s0 + (0xC4)); }
+    if (r_s0) { r_a0 = *(short *)((char *)r_s0 + (0xC)); }
+    if (r_s0) { r_a1 = *(short *)((char *)r_s0 + (0xE)); }
+    r_t0 = (long)(r_s1 + 0);
+    if (r_s0) { r_a2 = *(int *)((char *)r_s0 + (0x10)); }
+    if (r_s0) { r_a3 = *(int *)((char *)r_s0 + (0x14)); }
+    if (r_s0) { r_t1 = *(int *)((char *)r_s0 + (0xC0)); }
+    r_v0 = (long)func_0012FC60((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_s0) { *(int *)((char *)r_s0 + (0x18)) = (int)r_s1; }
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x20)); }
+    if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x10)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x30));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00132F58 */
-__asm__(".text\n\t"
-        ".globl func_00132F58\n\t"
-        ".ent func_00132F58\n"
-        "func_00132F58:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x50\n\t"
-        "lui        $2, %hi(D_00133000)\n\t"
-        "sd         $16, 0x10($29)\n\t"
-        "daddu      $5, $29, $0\n\t"
-        "sd         $18, 0x30($29)\n\t"
-        "daddu      $16, $4, $0\n\t"
-        "sd         $17, 0x20($29)\n\t"
-        "addiu      $18, $2, %lo(D_00133000)\n\t"
-        "sd         $31, 0x40($29)\n\t"
-        "addiu      $4, $0, 0x1\n\t"
-        "ori        $6, $29, 0x4\n\t"
-        "addiu      $7, $0, 0xD\n\t"
-        "jal        func_001303A8\n\t"
-        "daddu     $8, $16, $0\n\t"
-        "daddu      $17, $2, $0\n\t"
-        "addiu      $2, $0, -0x7E\n\t"
-        "bne        $17, $2, .L00133020\n\t"
-        "daddu     $2, $17, $0\n\t"
-        "lwl        $2, 0xF($16)\n\t"
-        "lwr        $2, 0xC($16)\n\t"
-        "lui        $4, (0xFFFF0000 >> 16)\n\t"
-        "dsrl32     $4, $4, 0\n\t"
-        "jal        func_0012E4E8\n\t"
-        "and       $4, $2, $4\n\t"
-        "lw         $5, 0x4($29)\n\t"
-        "bltz       $5, .L00132FF4\n\t"
-        "daddu     $4, $0, $0\n\t"
-        "lw         $2, 0x1C($16)\n\t"
-        "lw         $3, 0x18($16)\n\t"
-        "addu       $2, $2, $5\n\t"
-        "slt        $3, $5, $3\n\t"
-        "beqz       $3, .L00132FE4\n\t"
-        "sw        $2, 0x1C($16)\n\t"
-        "b          .L00133008\n\t"
-        "sw        $0, 0x14($16)\n\t"
-        ".L00132FE4:\n\t"
-        "addiu      $2, $0, 0x1\n\t"
-        "addiu      $17, $0, -0x1\n\t"
-        "b          .L00133008\n\t"
-        "sw        $2, 0x14($16)\n\t"
-        ".L00132FF4:\n\t"
-        "lui        $4, %hi(D_38CD40)\n\t"
-        "daddu      $6, $2, $0\n\t"
-        "jal        func_0012F438\n\t"
-        "addiu     $4, $4, %lo(D_38CD40)\n\t"
-        "daddu      $4, $2, $0\n\t"
-        ".L00133008:\n\t"
-        "daddu      $7, $17, $0\n\t"
-        "daddu      $5, $16, $0\n\t"
-        "jal        func_0012FA30\n\t"
-        "daddu     $6, $18, $0\n\t"
-        "daddu      $17, $2, $0\n\t"
-        "daddu      $2, $17, $0\n\t"
-        ".L00133020:\n\t"
-        "ld         $31, 0x40($29)\n\t"
-        "ld         $18, 0x30($29)\n\t"
-        "ld         $17, 0x20($29)\n\t"
-        "ld         $16, 0x10($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x50\n\t"
-        ".set reorder\n\t"
-        ".end func_00132F58\n");
+void *func_00132F58(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0, r_t0 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    (void)r_t0;
+    r_sp = (long)(r_sp + (-0x50));
+    r_v0 = (long)&D_00133000;
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_s0; }
+    r_a1 = (long)(r_sp + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x30)) = (long)r_s2; }
+    r_s0 = (long)(r_a0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x20)) = (long)r_s1; }
+    r_s2 = (long)&D_00133000;
+    if (r_sp) { *(long *)((char *)r_sp + (0x40)) = (long)r_ra; }
+    r_a0 = (long)(0 + (0x1));
+    r_a2 = (long)(r_sp | (0x4));
+    r_a3 = (long)(0 + (0xD));
+    r_t0 = (long)(r_s0 + 0);
+    r_v0 = (long)func_001303A8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_s1 = (long)(r_v0 + 0);
+    r_v0 = (long)(0 + (-0x7E));
+    if (r_s1 != r_v0) { r_v0 = (long)(r_s1 + 0); goto _lbl_L00133020; }
+    r_v0 = (long)(r_s1 + 0);
+    if (r_s0) { r_v0 = *(int *)((char *)r_s0 + (0xF)); }
+    if (r_s0) { r_v0 = *(int *)((char *)r_s0 + (0xC)); }
+    r_a0 = (long)((0xFFFF0000 >> 16) << 16);
+    r_a0 = (long)((unsigned long)r_a0 >> (0));
+    r_a0 = (long)(r_v0 & r_a0);
+    r_v0 = (long)func_0012E4E8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_a1 = *(int *)((char *)r_sp + (0x4)); }
+    if ((long)r_a1 < 0) { r_a0 = (long)(0 + 0); goto _lbl_L00132FF4; }
+    r_a0 = (long)(0 + 0);
+    if (r_s0) { r_v0 = *(int *)((char *)r_s0 + (0x1C)); }
+    if (r_s0) { r_v1 = *(int *)((char *)r_s0 + (0x18)); }
+    r_v0 = (long)(r_v0 + r_a1);
+    r_v1 = (long)((long)r_a1 < (long)r_v1 ? 1 : 0);
+    if (r_v1 == 0) { if (r_s0) { *(int *)((char *)r_s0 + (0x1C)) = (int)r_v0; } goto _lbl_L00132FE4; }
+    if (r_s0) { *(int *)((char *)r_s0 + (0x1C)) = (int)r_v0; }
+    if (r_s0) { *(int *)((char *)r_s0 + (0x14)) = (int)0; }
+    goto _lbl_L00133008;
+_lbl_L00132FE4:
+    r_v0 = (long)(0 + (0x1));
+    r_s1 = (long)(0 + (-0x1));
+    if (r_s0) { *(int *)((char *)r_s0 + (0x14)) = (int)r_v0; }
+    goto _lbl_L00133008;
+_lbl_L00132FF4:
+    r_a0 = (long)&D_38CD40;
+    r_a2 = (long)(r_v0 + 0);
+    r_a0 = (long)&D_38CD40;
+    r_v0 = (long)func_0012F438((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_a0 = (long)(r_v0 + 0);
+_lbl_L00133008:
+    r_a3 = (long)(r_s1 + 0);
+    r_a1 = (long)(r_s0 + 0);
+    r_a2 = (long)(r_s2 + 0);
+    r_v0 = (long)func_0012FA30((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_s1 = (long)(r_v0 + 0);
+    r_v0 = (long)(r_s1 + 0);
+_lbl_L00133020:
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x40)); }
+    if (r_sp) { r_s2 = *(long *)((char *)r_sp + (0x30)); }
+    if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x20)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x10)); }
+    r_sp = (long)(r_sp + (0x50));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00133038 */
-__asm__(".text\n\t"
-        ".globl func_00133038\n\t"
-        ".ent func_00133038\n"
-        "func_00133038:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x40\n\t"
-        "sd         $18, 0x20($29)\n\t"
-        "sd         $17, 0x10($29)\n\t"
-        "sd         $31, 0x30($29)\n\t"
-        "daddu      $17, $4, $0\n\t"
-        "sd         $16, 0x0($29)\n\t"
-        "lw         $16, 0x1C($17)\n\t"
-        "bnez       $16, .L00133064\n\t"
-        "daddu     $18, $0, $0\n\t"
-        "b          .L0013308C\n\t"
-        "addiu     $18, $0, 0x1\n\t"
-        ".L00133064:\n\t"
-        "addiu      $4, $0, 0x40\n\t"
-        "jal        func_116D40\n\t"
-        "sll       $5, $16, 6\n\t"
-        "bnel       $2, $0, .L00133080\n\t"
-        "sw        $16, 0xC4($17)\n\t"
-        "b          .L0013308C\n\t"
-        "addiu     $18, $0, -0x7A\n\t"
-        ".L00133080:\n\t"
-        "lw         $4, 0xB0($17)\n\t"
-        "jal        func_0012F970\n\t"
-        "sw        $2, 0xC0($17)\n\t"
-        ".L0013308C:\n\t"
-        "lui        $6, %hi(D_00133000)\n\t"
-        "daddu      $4, $18, $0\n\t"
-        "daddu      $5, $17, $0\n\t"
-        "addiu      $6, $6, %lo(D_00133000)\n\t"
-        "jal        func_0012FA30\n\t"
-        "addiu     $7, $0, -0x7E\n\t"
-        "ld         $31, 0x30($29)\n\t"
-        "ld         $18, 0x20($29)\n\t"
-        "ld         $17, 0x10($29)\n\t"
-        "ld         $16, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x40\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_00133038\n");
+void *func_00133038(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    r_sp = (long)(r_sp + (-0x40));
+    if (r_sp) { *(long *)((char *)r_sp + (0x20)) = (long)r_s2; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_s1; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x30)) = (long)r_ra; }
+    r_s1 = (long)(r_a0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_s0; }
+    if (r_s1) { r_s0 = *(int *)((char *)r_s1 + (0x1C)); }
+    if (r_s0 != 0) { r_s2 = (long)(0 + 0); goto _lbl_L00133064; }
+    r_s2 = (long)(0 + 0);
+    r_s2 = (long)(0 + (0x1));
+    goto _lbl_L0013308C;
+_lbl_L00133064:
+    r_a0 = (long)(0 + (0x40));
+    r_a1 = (long)((unsigned long)r_s0 << (6));
+    r_v0 = (long)func_116D40((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_v0 != 0) { if (r_s1) { *(int *)((char *)r_s1 + (0xC4)) = (int)r_s0; } goto _lbl_L00133080; }
+    if (r_s1) { *(int *)((char *)r_s1 + (0xC4)) = (int)r_s0; }
+    r_s2 = (long)(0 + (-0x7A));
+    goto _lbl_L0013308C;
+_lbl_L00133080:
+    if (r_s1) { r_a0 = *(int *)((char *)r_s1 + (0xB0)); }
+    if (r_s1) { *(int *)((char *)r_s1 + (0xC0)) = (int)r_v0; }
+    r_v0 = (long)func_0012F970((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+_lbl_L0013308C:
+    r_a2 = (long)&D_00133000;
+    r_a0 = (long)(r_s2 + 0);
+    r_a1 = (long)(r_s1 + 0);
+    r_a2 = (long)&D_00133000;
+    r_a3 = (long)(0 + (-0x7E));
+    r_v0 = (long)func_0012FA30((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x30)); }
+    if (r_sp) { r_s2 = *(long *)((char *)r_sp + (0x20)); }
+    if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x10)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x40));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_001330C0 */
-__asm__(".text\n\t"
-        ".globl func_001330C0\n\t"
-        ".ent func_001330C0\n"
-        "func_001330C0:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x10\n\t"
-        "sd         $31, 0x0($29)\n\t"
-        "jal        func_00132D50\n\t"
-        "nop\n\t"
-        "ld         $31, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x10\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_001330C0\n");
+void *func_001330C0(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    r_sp = (long)(r_sp + (-0x10));
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_ra; }
+    r_v0 = (long)func_00132D50((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x10));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_001330E0 */
-__asm__(".text\n\t"
-        ".globl func_001330E0\n\t"
-        ".ent func_001330E0\n"
-        "func_001330E0:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x50\n\t"
-        "lui        $2, %hi(D_00133000)\n\t"
-        "sd         $16, 0x10($29)\n\t"
-        "daddu      $5, $29, $0\n\t"
-        "sd         $18, 0x30($29)\n\t"
-        "daddu      $16, $4, $0\n\t"
-        "sd         $17, 0x20($29)\n\t"
-        "addiu      $18, $2, %lo(D_00133000)\n\t"
-        "sd         $31, 0x40($29)\n\t"
-        "addiu      $4, $0, 0x1\n\t"
-        "ori        $6, $29, 0x4\n\t"
-        "addiu      $7, $0, 0xD\n\t"
-        "jal        func_001303A8\n\t"
-        "daddu     $8, $16, $0\n\t"
-        "daddu      $17, $2, $0\n\t"
-        "addiu      $2, $0, -0x7E\n\t"
-        "bne        $17, $2, .L001331A0\n\t"
-        "daddu     $2, $17, $0\n\t"
-        "lwl        $2, 0xF($16)\n\t"
-        "lwr        $2, 0xC($16)\n\t"
-        "lui        $4, (0xFFFF0000 >> 16)\n\t"
-        "dsrl32     $4, $4, 0\n\t"
-        "jal        func_0012E4E8\n\t"
-        "and       $4, $2, $4\n\t"
-        "lw         $5, 0x4($29)\n\t"
-        "bltz       $5, .L00133174\n\t"
-        "daddu     $4, $0, $0\n\t"
-        "lw         $2, 0xC8($16)\n\t"
-        "beql       $2, $0, .L00133160\n\t"
-        "lw        $2, 0x1C($16)\n\t"
-        "b          .L0013316C\n\t"
-        "sw        $5, 0x1C($16)\n\t"
-        ".L00133160:\n\t"
-        "addiu      $4, $0, -0x7A\n\t"
-        "xor        $2, $5, $2\n\t"
-        "movz       $4, $0, $2\n\t"
-        ".L0013316C:\n\t"
-        "b          .L00133188\n\t"
-        "sw        $0, 0x14($16)\n\t"
-        ".L00133174:\n\t"
-        "lui        $4, %hi(D_38CD70)\n\t"
-        "daddu      $6, $2, $0\n\t"
-        "jal        func_0012F438\n\t"
-        "addiu     $4, $4, %lo(D_38CD70)\n\t"
-        "daddu      $4, $2, $0\n\t"
-        ".L00133188:\n\t"
-        "daddu      $7, $17, $0\n\t"
-        "daddu      $5, $16, $0\n\t"
-        "jal        func_0012FA30\n\t"
-        "daddu     $6, $18, $0\n\t"
-        "daddu      $17, $2, $0\n\t"
-        "daddu      $2, $17, $0\n\t"
-        ".L001331A0:\n\t"
-        "ld         $31, 0x40($29)\n\t"
-        "ld         $18, 0x30($29)\n\t"
-        "ld         $17, 0x20($29)\n\t"
-        "ld         $16, 0x10($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x50\n\t"
-        ".set reorder\n\t"
-        ".end func_001330E0\n");
+void *func_001330E0(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0, r_t0 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    (void)r_t0;
+    r_sp = (long)(r_sp + (-0x50));
+    r_v0 = (long)&D_00133000;
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_s0; }
+    r_a1 = (long)(r_sp + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x30)) = (long)r_s2; }
+    r_s0 = (long)(r_a0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x20)) = (long)r_s1; }
+    r_s2 = (long)&D_00133000;
+    if (r_sp) { *(long *)((char *)r_sp + (0x40)) = (long)r_ra; }
+    r_a0 = (long)(0 + (0x1));
+    r_a2 = (long)(r_sp | (0x4));
+    r_a3 = (long)(0 + (0xD));
+    r_t0 = (long)(r_s0 + 0);
+    r_v0 = (long)func_001303A8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_s1 = (long)(r_v0 + 0);
+    r_v0 = (long)(0 + (-0x7E));
+    if (r_s1 != r_v0) { r_v0 = (long)(r_s1 + 0); goto _lbl_L001331A0; }
+    r_v0 = (long)(r_s1 + 0);
+    if (r_s0) { r_v0 = *(int *)((char *)r_s0 + (0xF)); }
+    if (r_s0) { r_v0 = *(int *)((char *)r_s0 + (0xC)); }
+    r_a0 = (long)((0xFFFF0000 >> 16) << 16);
+    r_a0 = (long)((unsigned long)r_a0 >> (0));
+    r_a0 = (long)(r_v0 & r_a0);
+    r_v0 = (long)func_0012E4E8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_a1 = *(int *)((char *)r_sp + (0x4)); }
+    if ((long)r_a1 < 0) { r_a0 = (long)(0 + 0); goto _lbl_L00133174; }
+    r_a0 = (long)(0 + 0);
+    if (r_s0) { r_v0 = *(int *)((char *)r_s0 + (0xC8)); }
+    if (r_v0 == 0) { if (r_s0) { r_v0 = *(int *)((char *)r_s0 + (0x1C)); } goto _lbl_L00133160; }
+    if (r_s0) { r_v0 = *(int *)((char *)r_s0 + (0x1C)); }
+    if (r_s0) { *(int *)((char *)r_s0 + (0x1C)) = (int)r_a1; }
+    goto _lbl_L0013316C;
+_lbl_L00133160:
+    r_a0 = (long)(0 + (-0x7A));
+    r_v0 = (long)(r_a1 ^ r_v0);
+    if (r_v0 == 0) r_a0 = 0;
+_lbl_L0013316C:
+    if (r_s0) { *(int *)((char *)r_s0 + (0x14)) = (int)0; }
+    goto _lbl_L00133188;
+_lbl_L00133174:
+    r_a0 = (long)&D_38CD70;
+    r_a2 = (long)(r_v0 + 0);
+    r_a0 = (long)&D_38CD70;
+    r_v0 = (long)func_0012F438((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_a0 = (long)(r_v0 + 0);
+_lbl_L00133188:
+    r_a3 = (long)(r_s1 + 0);
+    r_a1 = (long)(r_s0 + 0);
+    r_a2 = (long)(r_s2 + 0);
+    r_v0 = (long)func_0012FA30((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_s1 = (long)(r_v0 + 0);
+    r_v0 = (long)(r_s1 + 0);
+_lbl_L001331A0:
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x40)); }
+    if (r_sp) { r_s2 = *(long *)((char *)r_sp + (0x30)); }
+    if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x20)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x10)); }
+    r_sp = (long)(r_sp + (0x50));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_001331B8 */
-__asm__(".text\n\t"
-        ".globl func_001331B8\n\t"
-        ".ent func_001331B8\n"
-        "func_001331B8:\n\t"
-        ".set noreorder\n\t"
-        "lw         $3, 0x20($4)\n\t"
-        "addiu      $5, $0, 0x1\n\t"
-        "lw         $6, 0xB0($4)\n\t"
-        "addiu      $2, $0, -0x80\n\t"
-        "movz       $3, $5, $3\n\t"
-        "sw         $3, 0x0($6)\n\t"
-        "lw         $5, 0x1C($4)\n\t"
-        "sw         $5, 0x4($6)\n\t"
-        "lw         $3, 0xC0($4)\n\t"
-        "jr         $31\n\t"
-        "sw        $3, 0x8($6)\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_001331B8\n");
+void *func_001331B8(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    if (r_a0) { r_v1 = *(int *)((char *)r_a0 + (0x20)); }
+    r_a1 = (long)(0 + (0x1));
+    if (r_a0) { r_a2 = *(int *)((char *)r_a0 + (0xB0)); }
+    r_v0 = (long)(0 + (-0x80));
+    if (r_v1 == 0) r_v1 = r_a1;
+    if (r_a2) { *(int *)((char *)r_a2 + (0x0)) = (int)r_v1; }
+    if (r_a0) { r_a1 = *(int *)((char *)r_a0 + (0x1C)); }
+    if (r_a2) { *(int *)((char *)r_a2 + (0x4)) = (int)r_a1; }
+    if (r_a0) { r_v1 = *(int *)((char *)r_a0 + (0xC0)); }
+    if (r_a2) { *(int *)((char *)r_a2 + (0x8)) = (int)r_v1; }
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_001331E8 */
-__asm__(".text\n\t"
-        ".globl func_001331E8\n\t"
-        ".ent func_001331E8\n"
-        "func_001331E8:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x60\n\t"
-        "lui        $2, %hi(D_4F9700)\n\t"
-        "sd         $17, 0x20($29)\n\t"
-        "sd         $19, 0x40($29)\n\t"
-        "addiu      $17, $2, %lo(D_4F9700)\n\t"
-        "sd         $18, 0x30($29)\n\t"
-        "daddu      $19, $4, $0\n\t"
-        "sd         $16, 0x10($29)\n\t"
-        "daddu      $18, $7, $0\n\t"
-        "lw         $3, -0x6900($2)\n\t"
-        "daddu      $16, $6, $0\n\t"
-        "sd         $31, 0x50($29)\n\t"
-        "daddu      $2, $0, $0\n\t"
-        "bnez       $3, .L00133278\n\t"
-        "sw        $5, 0x0($29)\n\t"
-        "jal        func_0012EF18\n\t"
-        "daddu     $4, $16, $0\n\t"
-        "lw         $2, 0x0($29)\n\t"
-        "lui        $5, %hi(func_001330E0)\n\t"
-        "lui        $10, %hi(D_38CDA0)\n\t"
-        "lui        $7, (0xFFFF0000 >> 16)\n\t"
-        "dsrl32     $7, $7, 0\n\t"
-        "and        $7, $2, $7\n\t"
-        "addiu      $5, $5, %lo(func_001330E0)\n\t"
-        "daddu      $6, $16, $0\n\t"
-        "daddu      $8, $19, $0\n\t"
-        "daddu      $9, $18, $0\n\t"
-        "addiu      $10, $10, %lo(D_38CDA0)\n\t"
-        "jal        func_0012EF38\n\t"
-        "daddu     $4, $17, $0\n\t"
-        "lui        $2, %hi(D_4F9840)\n\t"
-        "addiu      $3, $0, 0x18\n\t"
-        "addiu      $2, $2, %lo(D_4F9840)\n\t"
-        "sw         $3, 0xC0($17)\n\t"
-        "sw         $2, 0xBC($17)\n\t"
-        "addiu      $2, $0, 0x1\n\t"
-        ".L00133278:\n\t"
-        "ld         $31, 0x50($29)\n\t"
-        "ld         $19, 0x40($29)\n\t"
-        "ld         $18, 0x30($29)\n\t"
-        "ld         $17, 0x20($29)\n\t"
-        "ld         $16, 0x10($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x60\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_001331E8\n");
+void *func_001331E8(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0, r_s3 = 0, r_t0 = 0, r_t1 = 0, r_t2 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    (void)r_s3;
+    (void)r_t0;
+    (void)r_t1;
+    (void)r_t2;
+    r_sp = (long)(r_sp + (-0x60));
+    r_v0 = (long)&D_4F9700;
+    if (r_sp) { *(long *)((char *)r_sp + (0x20)) = (long)r_s1; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x40)) = (long)r_s3; }
+    r_s1 = (long)&D_4F9700;
+    if (r_sp) { *(long *)((char *)r_sp + (0x30)) = (long)r_s2; }
+    r_s3 = (long)(r_a0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_s0; }
+    r_s2 = (long)(r_a3 + 0);
+    if (r_v0) { r_v1 = *(int *)((char *)r_v0 + (-0x6900)); }
+    r_s0 = (long)(r_a2 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x50)) = (long)r_ra; }
+    r_v0 = (long)(0 + 0);
+    if (r_v1 != 0) { if (r_sp) { *(int *)((char *)r_sp + (0x0)) = (int)r_a1; } goto _lbl_L00133278; }
+    if (r_sp) { *(int *)((char *)r_sp + (0x0)) = (int)r_a1; }
+    r_a0 = (long)(r_s0 + 0);
+    r_v0 = (long)func_0012EF18((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_v0 = *(int *)((char *)r_sp + (0x0)); }
+    r_a1 = (long)&func_001330E0;
+    r_t2 = (long)&D_38CDA0;
+    r_a3 = (long)((0xFFFF0000 >> 16) << 16);
+    r_a3 = (long)((unsigned long)r_a3 >> (0));
+    r_a3 = (long)(r_v0 & r_a3);
+    r_a1 = (long)&func_001330E0;
+    r_a2 = (long)(r_s0 + 0);
+    r_t0 = (long)(r_s3 + 0);
+    r_t1 = (long)(r_s2 + 0);
+    r_t2 = (long)&D_38CDA0;
+    r_a0 = (long)(r_s1 + 0);
+    r_v0 = (long)func_0012EF38((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_v0 = (long)&D_4F9840;
+    r_v1 = (long)(0 + (0x18));
+    r_v0 = (long)&D_4F9840;
+    if (r_s1) { *(int *)((char *)r_s1 + (0xC0)) = (int)r_v1; }
+    if (r_s1) { *(int *)((char *)r_s1 + (0xBC)) = (int)r_v0; }
+    r_v0 = (long)(0 + (0x1));
+_lbl_L00133278:
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x50)); }
+    if (r_sp) { r_s3 = *(long *)((char *)r_sp + (0x40)); }
+    if (r_sp) { r_s2 = *(long *)((char *)r_sp + (0x30)); }
+    if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x20)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x10)); }
+    r_sp = (long)(r_sp + (0x60));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00133298 */
-__asm__(".text\n\t"
-        ".globl func_00133298\n\t"
-        ".ent func_00133298\n"
-        "func_00133298:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x10\n\t"
-        "lui        $5, %hi(D_38CDA0)\n\t"
-        "sd         $31, 0x0($29)\n\t"
-        "jal        func_0012EE20\n\t"
-        "addiu     $5, $5, %lo(D_38CDA0)\n\t"
-        "ld         $31, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x10\n\t"
-        ".set reorder\n\t"
-        ".end func_00133298\n");
+void *func_00133298(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    r_sp = (long)(r_sp + (-0x10));
+    r_a1 = (long)&D_38CDA0;
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_ra; }
+    r_a1 = (long)&D_38CDA0;
+    r_v0 = (long)func_0012EE20((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x10));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_001332B8 */
-__asm__(".text\n\t"
-        ".globl func_001332B8\n\t"
-        ".ent func_001332B8\n"
-        "func_001332B8:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x10\n\t"
-        "sd         $31, 0x0($29)\n\t"
-        "jal        func_00130A50\n\t"
-        "nop\n\t"
-        "ld         $31, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x10\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_001332B8\n");
+void *func_001332B8(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    r_sp = (long)(r_sp + (-0x10));
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_ra; }
+    r_v0 = (long)func_00130A50((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x10));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_001332D8 */
-__asm__(".text\n\t"
-        ".globl func_001332D8\n\t"
-        ".ent func_001332D8\n"
-        "func_001332D8:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x10\n\t"
-        "lui        $6, %hi(D_00133700)\n\t"
-        "sd         $31, 0x0($29)\n\t"
-        "addiu      $6, $6, %lo(D_00133700)\n\t"
-        "jal        func_00130AA8\n\t"
-        "daddu     $5, $0, $0\n\t"
-        "ld         $31, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x10\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_001332D8\n");
+void *func_001332D8(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    r_sp = (long)(r_sp + (-0x10));
+    r_a2 = (long)&D_00133700;
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_ra; }
+    r_a2 = (long)&D_00133700;
+    r_a1 = (long)(0 + 0);
+    r_v0 = (long)func_00130AA8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x10));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00133300 */
-__asm__(".text\n\t"
-        ".globl func_00133300\n\t"
-        ".ent func_00133300\n"
-        "func_00133300:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x10\n\t"
-        "sd         $31, 0x0($29)\n\t"
-        "jal        func_00130BB0\n\t"
-        "nop\n\t"
-        "ld         $31, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x10\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_00133300\n");
+void *func_00133300(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    r_sp = (long)(r_sp + (-0x10));
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_ra; }
+    r_v0 = (long)func_00130BB0((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x10));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00133320 */
-__asm__(".text\n\t"
-        ".globl func_00133320\n\t"
-        ".ent func_00133320\n"
-        "func_00133320:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x10\n\t"
-        "lui        $5, %hi(D_00133700)\n\t"
-        "sd         $31, 0x0($29)\n\t"
-        "jal        func_00130BD8\n\t"
-        "addiu     $5, $5, %lo(D_00133700)\n\t"
-        "ld         $31, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x10\n\t"
-        ".set reorder\n\t"
-        ".end func_00133320\n");
+void *func_00133320(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    r_sp = (long)(r_sp + (-0x10));
+    r_a1 = (long)&D_00133700;
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_ra; }
+    r_a1 = (long)&D_00133700;
+    r_v0 = (long)func_00130BD8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x10));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00133340 */
-__asm__(".text\n\t"
-        ".globl func_00133340\n\t"
-        ".ent func_00133340\n"
-        "func_00133340:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x30\n\t"
-        "sd         $16, 0x0($29)\n\t"
-        "sd         $31, 0x20($29)\n\t"
-        "daddu      $16, $4, $0\n\t"
-        "sd         $17, 0x10($29)\n\t"
-        "daddu      $10, $16, $0\n\t"
-        "lw         $17, 0xC0($16)\n\t"
-        "lh         $4, 0xC($16)\n\t"
-        "lh         $5, 0xE($16)\n\t"
-        "daddu      $8, $17, $0\n\t"
-        "lw         $6, 0x10($16)\n\t"
-        "lw         $7, 0x14($16)\n\t"
-        "jal        func_0012FC60\n\t"
-        "lw        $9, 0xBC($16)\n\t"
-        "sw         $17, 0x18($16)\n\t"
-        "ld         $31, 0x20($29)\n\t"
-        "ld         $17, 0x10($29)\n\t"
-        "ld         $16, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x30\n\t"
-        ".set reorder\n\t"
-        ".end func_00133340\n");
+void *func_00133340(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_t0 = 0, r_t1 = 0, r_t2 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_t0;
+    (void)r_t1;
+    (void)r_t2;
+    r_sp = (long)(r_sp + (-0x30));
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_s0; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x20)) = (long)r_ra; }
+    r_s0 = (long)(r_a0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_s1; }
+    r_t2 = (long)(r_s0 + 0);
+    if (r_s0) { r_s1 = *(int *)((char *)r_s0 + (0xC0)); }
+    if (r_s0) { r_a0 = *(short *)((char *)r_s0 + (0xC)); }
+    if (r_s0) { r_a1 = *(short *)((char *)r_s0 + (0xE)); }
+    r_t0 = (long)(r_s1 + 0);
+    if (r_s0) { r_a2 = *(int *)((char *)r_s0 + (0x10)); }
+    if (r_s0) { r_a3 = *(int *)((char *)r_s0 + (0x14)); }
+    if (r_s0) { r_t1 = *(int *)((char *)r_s0 + (0xBC)); }
+    r_v0 = (long)func_0012FC60((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_s0) { *(int *)((char *)r_s0 + (0x18)) = (int)r_s1; }
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x20)); }
+    if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x10)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x30));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00133390 */
-__asm__(".text\n\t"
-        ".globl func_00133390\n\t"
-        ".ent func_00133390\n"
-        "func_00133390:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x70\n\t"
-        "lui        $2, %hi(D_00133700)\n\t"
-        "sd         $17, 0x20($29)\n\t"
-        "daddu      $5, $29, $0\n\t"
-        "sd         $20, 0x50($29)\n\t"
-        "daddu      $17, $4, $0\n\t"
-        "sd         $18, 0x30($29)\n\t"
-        "addiu      $20, $2, %lo(D_00133700)\n\t"
-        "sd         $31, 0x60($29)\n\t"
-        "addiu      $4, $0, 0x1\n\t"
-        "sd         $19, 0x40($29)\n\t"
-        "ori        $6, $29, 0x4\n\t"
-        "sd         $16, 0x10($29)\n\t"
-        "addiu      $7, $0, 0xD\n\t"
-        "jal        func_001303A8\n\t"
-        "daddu     $8, $17, $0\n\t"
-        "daddu      $18, $2, $0\n\t"
-        "addiu      $2, $0, -0x7E\n\t"
-        "bne        $18, $2, .L00133490\n\t"
-        "daddu     $2, $18, $0\n\t"
-        "lwl        $2, 0xF($17)\n\t"
-        "lwr        $2, 0xC($17)\n\t"
-        "lui        $4, (0xFFFF0000 >> 16)\n\t"
-        "dsrl32     $4, $4, 0\n\t"
-        "daddu      $19, $0, $0\n\t"
-        "jal        func_0012E4E8\n\t"
-        "and       $4, $2, $4\n\t"
-        "lw         $5, 0x4($29)\n\t"
-        "bltz       $5, .L00133464\n\t"
-        "lui       $4, %hi(D_38CDE0)\n\t"
-        "bnel       $5, $0, .L00133418\n\t"
-        "lw        $16, 0xBC($17)\n\t"
-        "b          .L00133474\n\t"
-        "addiu     $19, $0, -0x77\n\t"
-        ".L00133418:\n\t"
-        "lui        $2, %hi(D_4E2D48)\n\t"
-        "addiu      $7, $2, %lo(D_4E2D48)\n\t"
-        "lb         $3, 0x0($7)\n\t"
-        "lb         $5, 0x1($7)\n\t"
-        "sb         $3, 0x38($17)\n\t"
-        "sb         $5, 0x39($17)\n\t"
-        "addiu      $4, $17, 0x38\n\t"
-        "jal        strcat\n\t"
-        "addiu     $5, $16, 0x20\n\t"
-        "lhu        $3, 0x14($16)\n\t"
-        "andi       $3, $3, 0x20\n\t"
-        "bnez       $3, .L00133478\n\t"
-        "daddu     $7, $18, $0\n\t"
-        "lui        $5, %hi(D_00133698)\n\t"
-        "daddu      $4, $17, $0\n\t"
-        "jal        func_0012F108\n\t"
-        "addiu     $5, $5, %lo(D_00133698)\n\t"
-        "b          .L00133474\n\t"
-        "daddu     $18, $2, $0\n\t"
-        ".L00133464:\n\t"
-        "daddu      $6, $2, $0\n\t"
-        "jal        func_0012F438\n\t"
-        "addiu     $4, $4, %lo(D_38CDE0)\n\t"
-        "daddu      $19, $2, $0\n\t"
-        ".L00133474:\n\t"
-        "daddu      $7, $18, $0\n\t"
-        ".L00133478:\n\t"
-        "daddu      $4, $19, $0\n\t"
-        "daddu      $5, $17, $0\n\t"
-        "jal        func_0012FA30\n\t"
-        "daddu     $6, $20, $0\n\t"
-        "daddu      $18, $2, $0\n\t"
-        "daddu      $2, $18, $0\n\t"
-        ".L00133490:\n\t"
-        "ld         $31, 0x60($29)\n\t"
-        "ld         $20, 0x50($29)\n\t"
-        "ld         $19, 0x40($29)\n\t"
-        "ld         $18, 0x30($29)\n\t"
-        "ld         $17, 0x20($29)\n\t"
-        "ld         $16, 0x10($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x70\n\t"
-        ".set reorder\n\t"
-        ".end func_00133390\n");
+void *func_00133390(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0, r_s3 = 0, r_s4 = 0, r_t0 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    (void)r_s3;
+    (void)r_s4;
+    (void)r_t0;
+    r_sp = (long)(r_sp + (-0x70));
+    r_v0 = (long)&D_00133700;
+    if (r_sp) { *(long *)((char *)r_sp + (0x20)) = (long)r_s1; }
+    r_a1 = (long)(r_sp + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x50)) = (long)r_s4; }
+    r_s1 = (long)(r_a0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x30)) = (long)r_s2; }
+    r_s4 = (long)&D_00133700;
+    if (r_sp) { *(long *)((char *)r_sp + (0x60)) = (long)r_ra; }
+    r_a0 = (long)(0 + (0x1));
+    if (r_sp) { *(long *)((char *)r_sp + (0x40)) = (long)r_s3; }
+    r_a2 = (long)(r_sp | (0x4));
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_s0; }
+    r_a3 = (long)(0 + (0xD));
+    r_t0 = (long)(r_s1 + 0);
+    r_v0 = (long)func_001303A8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_s2 = (long)(r_v0 + 0);
+    r_v0 = (long)(0 + (-0x7E));
+    if (r_s2 != r_v0) { r_v0 = (long)(r_s2 + 0); goto _lbl_L00133490; }
+    r_v0 = (long)(r_s2 + 0);
+    if (r_s1) { r_v0 = *(int *)((char *)r_s1 + (0xF)); }
+    if (r_s1) { r_v0 = *(int *)((char *)r_s1 + (0xC)); }
+    r_a0 = (long)((0xFFFF0000 >> 16) << 16);
+    r_a0 = (long)((unsigned long)r_a0 >> (0));
+    r_s3 = (long)(0 + 0);
+    r_a0 = (long)(r_v0 & r_a0);
+    r_v0 = (long)func_0012E4E8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_a1 = *(int *)((char *)r_sp + (0x4)); }
+    if ((long)r_a1 < 0) { r_a0 = (long)&D_38CDE0; goto _lbl_L00133464; }
+    r_a0 = (long)&D_38CDE0;
+    if (r_a1 != 0) { if (r_s1) { r_s0 = *(int *)((char *)r_s1 + (0xBC)); } goto _lbl_L00133418; }
+    if (r_s1) { r_s0 = *(int *)((char *)r_s1 + (0xBC)); }
+    r_s3 = (long)(0 + (-0x77));
+    goto _lbl_L00133474;
+_lbl_L00133418:
+    r_v0 = (long)&D_4E2D48;
+    r_a3 = (long)&D_4E2D48;
+    if (r_a3) { r_v1 = *(signed char *)((char *)r_a3 + (0x0)); }
+    if (r_a3) { r_a1 = *(signed char *)((char *)r_a3 + (0x1)); }
+    if (r_s1) { *(char *)((char *)r_s1 + (0x38)) = (char)r_v1; }
+    if (r_s1) { *(char *)((char *)r_s1 + (0x39)) = (char)r_a1; }
+    r_a0 = (long)(r_s1 + (0x38));
+    r_a1 = (long)(r_s0 + (0x20));
+    r_v0 = (long)strcat((char *)r_a0, (const char *)r_a1);
+    if (r_s0) { r_v1 = *(unsigned short *)((char *)r_s0 + (0x14)); }
+    r_v1 = (long)(r_v1 & (0x20));
+    if (r_v1 != 0) { r_a3 = (long)(r_s2 + 0); goto _lbl_L00133478; }
+    r_a3 = (long)(r_s2 + 0);
+    r_a1 = (long)&D_00133698;
+    r_a0 = (long)(r_s1 + 0);
+    r_a1 = (long)&D_00133698;
+    r_v0 = (long)func_0012F108((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_s2 = (long)(r_v0 + 0);
+    goto _lbl_L00133474;
+_lbl_L00133464:
+    r_a2 = (long)(r_v0 + 0);
+    r_a0 = (long)&D_38CDE0;
+    r_v0 = (long)func_0012F438((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_s3 = (long)(r_v0 + 0);
+_lbl_L00133474:
+    r_a3 = (long)(r_s2 + 0);
+_lbl_L00133478:
+    r_a0 = (long)(r_s3 + 0);
+    r_a1 = (long)(r_s1 + 0);
+    r_a2 = (long)(r_s4 + 0);
+    r_v0 = (long)func_0012FA30((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_s2 = (long)(r_v0 + 0);
+    r_v0 = (long)(r_s2 + 0);
+_lbl_L00133490:
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x60)); }
+    if (r_sp) { r_s4 = *(long *)((char *)r_sp + (0x50)); }
+    if (r_sp) { r_s3 = *(long *)((char *)r_sp + (0x40)); }
+    if (r_sp) { r_s2 = *(long *)((char *)r_sp + (0x30)); }
+    if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x20)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x10)); }
+    r_sp = (long)(r_sp + (0x70));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_001334B0 */
-__asm__(".text\n\t"
-        ".globl func_001334B0\n\t"
-        ".ent func_001334B0\n"
-        "func_001334B0:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x90\n\t"
-        "lui        $2, %hi(D_4F9E40)\n\t"
-        "sd         $16, 0x0($29)\n\t"
-        "daddu      $16, $4, $0\n\t"
-        "sd         $18, 0x20($29)\n\t"
-        "sd         $17, 0x10($29)\n\t"
-        "addiu      $18, $2, %lo(D_4F9E40)\n\t"
-        "sd         $31, 0x80($29)\n\t"
-        "addiu      $17, $16, 0x38\n\t"
-        "sd         $23, 0x70($29)\n\t"
-        "daddu      $4, $17, $0\n\t"
-        "sd         $22, 0x60($29)\n\t"
-        "sd         $21, 0x50($29)\n\t"
-        "sd         $20, 0x40($29)\n\t"
-        "sd         $19, 0x30($29)\n\t"
-        "lw         $19, 0xC0($16)\n\t"
-        "lh         $22, 0xE($16)\n\t"
-        "lh         $21, 0xC($16)\n\t"
-        "lw         $23, 0xBC($16)\n\t"
-        "jal        func_0011ACD0\n\t"
-        "lw        $20, 0x14($16)\n\t"
-        "bnez       $2, .L00133514\n\t"
-        "daddu     $5, $17, $0\n\t"
-        "b          .L00133550\n\t"
-        "addiu     $2, $0, -0x7E\n\t"
-        ".L00133514:\n\t"
-        "jal        strcpy\n\t"
-        "daddu     $4, $18, $0\n\t"
-        "lui        $5, %hi(D_4E2D50)\n\t"
-        "daddu      $4, $18, $0\n\t"
-        "jal        strcat\n\t"
-        "addiu     $5, $5, %lo(D_4E2D50)\n\t"
-        "daddu      $4, $21, $0\n\t"
-        "daddu      $5, $22, $0\n\t"
-        "daddu      $6, $18, $0\n\t"
-        "daddu      $7, $20, $0\n\t"
-        "daddu      $9, $23, $0\n\t"
-        "daddu      $8, $19, $0\n\t"
-        "jal        func_0012FC60\n\t"
-        "daddu     $10, $16, $0\n\t"
-        "sw         $19, 0x18($16)\n\t"
-        ".L00133550:\n\t"
-        "ld         $31, 0x80($29)\n\t"
-        "ld         $23, 0x70($29)\n\t"
-        "ld         $22, 0x60($29)\n\t"
-        "ld         $21, 0x50($29)\n\t"
-        "ld         $20, 0x40($29)\n\t"
-        "ld         $19, 0x30($29)\n\t"
-        ".set reorder\n\t"
-        ".end func_001334B0\n");
+void *func_001334B0(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0, r_s3 = 0, r_s4 = 0, r_s5 = 0, r_s6 = 0, r_s7 = 0, r_t0 = 0, r_t1 = 0, r_t2 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    (void)r_s3;
+    (void)r_s4;
+    (void)r_s5;
+    (void)r_s6;
+    (void)r_s7;
+    (void)r_t0;
+    (void)r_t1;
+    (void)r_t2;
+    r_sp = (long)(r_sp + (-0x90));
+    r_v0 = (long)&D_4F9E40;
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_s0; }
+    r_s0 = (long)(r_a0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x20)) = (long)r_s2; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_s1; }
+    r_s2 = (long)&D_4F9E40;
+    if (r_sp) { *(long *)((char *)r_sp + (0x80)) = (long)r_ra; }
+    r_s1 = (long)(r_s0 + (0x38));
+    if (r_sp) { *(long *)((char *)r_sp + (0x70)) = (long)r_s7; }
+    r_a0 = (long)(r_s1 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x60)) = (long)r_s6; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x50)) = (long)r_s5; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x40)) = (long)r_s4; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x30)) = (long)r_s3; }
+    if (r_s0) { r_s3 = *(int *)((char *)r_s0 + (0xC0)); }
+    if (r_s0) { r_s6 = *(short *)((char *)r_s0 + (0xE)); }
+    if (r_s0) { r_s5 = *(short *)((char *)r_s0 + (0xC)); }
+    if (r_s0) { r_s7 = *(int *)((char *)r_s0 + (0xBC)); }
+    if (r_s0) { r_s4 = *(int *)((char *)r_s0 + (0x14)); }
+    r_v0 = (long)func_0011ACD0((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_v0 != 0) { r_a1 = (long)(r_s1 + 0); goto _lbl_L00133514; }
+    r_a1 = (long)(r_s1 + 0);
+    r_v0 = (long)(0 + (-0x7E));
+    goto _lbl_L00133550;
+_lbl_L00133514:
+    r_a0 = (long)(r_s2 + 0);
+    r_v0 = (long)strcpy((char *)r_a0, (const char *)r_a1);
+    r_a1 = (long)&D_4E2D50;
+    r_a0 = (long)(r_s2 + 0);
+    r_a1 = (long)&D_4E2D50;
+    r_v0 = (long)strcat((char *)r_a0, (const char *)r_a1);
+    r_a0 = (long)(r_s5 + 0);
+    r_a1 = (long)(r_s6 + 0);
+    r_a2 = (long)(r_s2 + 0);
+    r_a3 = (long)(r_s4 + 0);
+    r_t1 = (long)(r_s7 + 0);
+    r_t0 = (long)(r_s3 + 0);
+    r_t2 = (long)(r_s0 + 0);
+    r_v0 = (long)func_0012FC60((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_s0) { *(int *)((char *)r_s0 + (0x18)) = (int)r_s3; }
+_lbl_L00133550:
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x80)); }
+    if (r_sp) { r_s7 = *(long *)((char *)r_sp + (0x70)); }
+    if (r_sp) { r_s6 = *(long *)((char *)r_sp + (0x60)); }
+    if (r_sp) { r_s5 = *(long *)((char *)r_sp + (0x50)); }
+    if (r_sp) { r_s4 = *(long *)((char *)r_sp + (0x40)); }
+    if (r_sp) { r_s3 = *(long *)((char *)r_sp + (0x30)); }
+    return func_00133568((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+}
 
 /* func_00133568 */
-__asm__(".text\n\t"
-        ".globl func_00133568\n\t"
-        ".ent func_00133568\n"
-        "func_00133568:\n\t"
-        ".set noreorder\n\t"
-        "ld         $18, 0x20($29)\n\t"
-        "ld         $17, 0x10($29)\n\t"
-        "ld         $16, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x90\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_00133568\n");
+void *func_00133568(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    if (r_sp) { r_s2 = *(long *)((char *)r_sp + (0x20)); }
+    if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x10)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x90));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00133580 */
-__asm__(".text\n\t"
-        ".globl func_00133580\n\t"
-        ".ent func_00133580\n"
-        "func_00133580:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x50\n\t"
-        "lui        $2, (0x130000 >> 16)\n\t"
-        "sd         $16, 0x10($29)\n\t"
-        "sd         $18, 0x30($29)\n\t"
-        "daddu      $16, $4, $0\n\t"
-        "sd         $31, 0x40($29)\n\t"
-        ".set reorder\n\t"
-        ".end func_00133580\n");
+void *func_00133580(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s2 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s2;
+    r_sp = (long)(r_sp + (-0x50));
+    r_v0 = (long)((0x130000 >> 16) << 16);
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_s0; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x30)) = (long)r_s2; }
+    r_s0 = (long)(r_a0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x40)) = (long)r_ra; }
+    return func_00133598((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+}
 
 /* func_00133598 */
-__asm__(".text\n\t"
-        ".globl func_00133598\n\t"
-        ".ent func_00133598\n"
-        "func_00133598:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $18, $2, 0x3700\n\t"
-        "sd         $17, 0x20($29)\n\t"
-        "jal        func_0011ACD0\n\t"
-        "addiu     $4, $16, 0x38\n\t"
-        "bnez       $2, .L001335C0\n\t"
-        "addiu     $4, $0, 0x1\n\t"
-        "addiu      $2, $0, 0x1\n\t"
-        "addiu      $17, $0, -0x7E\n\t"
-        "b          .L00133638\n\t"
-        "sw        $2, 0x1C($16)\n\t"
-        ".L001335C0:\n\t"
-        "daddu      $5, $29, $0\n\t"
-        "ori        $6, $29, 0x4\n\t"
-        "addiu      $7, $0, 0xD\n\t"
-        "jal        func_001303A8\n\t"
-        "daddu     $8, $16, $0\n\t"
-        "daddu      $17, $2, $0\n\t"
-        "addiu      $2, $0, -0x7E\n\t"
-        "bne        $17, $2, .L0013363C\n\t"
-        "daddu     $2, $17, $0\n\t"
-        "lwl        $2, 0xF($16)\n\t"
-        "lwr        $2, 0xC($16)\n\t"
-        "lui        $4, (0xFFFF0000 >> 16)\n\t"
-        "dsrl32     $4, $4, 0\n\t"
-        "jal        func_0012E4E8\n\t"
-        "and       $4, $2, $4\n\t"
-        "lw         $5, 0x4($29)\n\t"
-        "bltz       $5, .L00133610\n\t"
-        "daddu     $4, $0, $0\n\t"
-        "b          .L00133624\n\t"
-        "sw        $5, 0x1C($16)\n\t"
-        ".L00133610:\n\t"
-        "lui        $4, %hi(D_38CE10)\n\t"
-        "daddu      $6, $2, $0\n\t"
-        "jal        func_0012F438\n\t"
-        "addiu     $4, $4, %lo(D_38CE10)\n\t"
-        "daddu      $4, $2, $0\n\t"
-        ".L00133624:\n\t"
-        "daddu      $7, $17, $0\n\t"
-        "daddu      $5, $16, $0\n\t"
-        "jal        func_0012FA30\n\t"
-        "daddu     $6, $18, $0\n\t"
-        "daddu      $17, $2, $0\n\t"
-        ".L00133638:\n\t"
-        "daddu      $2, $17, $0\n\t"
-        ".L0013363C:\n\t"
-        "ld         $31, 0x40($29)\n\t"
-        "ld         $18, 0x30($29)\n\t"
-        "ld         $17, 0x20($29)\n\t"
-        "ld         $16, 0x10($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x50\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_00133598\n");
+void *func_00133598(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0, r_t0 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    (void)r_t0;
+    r_s2 = (long)(r_v0 + (0x3700));
+    if (r_sp) { *(long *)((char *)r_sp + (0x20)) = (long)r_s1; }
+    r_a0 = (long)(r_s0 + (0x38));
+    r_v0 = (long)func_0011ACD0((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_v0 != 0) { r_a0 = (long)(0 + (0x1)); goto _lbl_L001335C0; }
+    r_a0 = (long)(0 + (0x1));
+    r_v0 = (long)(0 + (0x1));
+    r_s1 = (long)(0 + (-0x7E));
+    if (r_s0) { *(int *)((char *)r_s0 + (0x1C)) = (int)r_v0; }
+    goto _lbl_L00133638;
+_lbl_L001335C0:
+    r_a1 = (long)(r_sp + 0);
+    r_a2 = (long)(r_sp | (0x4));
+    r_a3 = (long)(0 + (0xD));
+    r_t0 = (long)(r_s0 + 0);
+    r_v0 = (long)func_001303A8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_s1 = (long)(r_v0 + 0);
+    r_v0 = (long)(0 + (-0x7E));
+    if (r_s1 != r_v0) { r_v0 = (long)(r_s1 + 0); goto _lbl_L0013363C; }
+    r_v0 = (long)(r_s1 + 0);
+    if (r_s0) { r_v0 = *(int *)((char *)r_s0 + (0xF)); }
+    if (r_s0) { r_v0 = *(int *)((char *)r_s0 + (0xC)); }
+    r_a0 = (long)((0xFFFF0000 >> 16) << 16);
+    r_a0 = (long)((unsigned long)r_a0 >> (0));
+    r_a0 = (long)(r_v0 & r_a0);
+    r_v0 = (long)func_0012E4E8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_a1 = *(int *)((char *)r_sp + (0x4)); }
+    if ((long)r_a1 < 0) { r_a0 = (long)(0 + 0); goto _lbl_L00133610; }
+    r_a0 = (long)(0 + 0);
+    if (r_s0) { *(int *)((char *)r_s0 + (0x1C)) = (int)r_a1; }
+    goto _lbl_L00133624;
+_lbl_L00133610:
+    r_a0 = (long)&D_38CE10;
+    r_a2 = (long)(r_v0 + 0);
+    r_a0 = (long)&D_38CE10;
+    r_v0 = (long)func_0012F438((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_a0 = (long)(r_v0 + 0);
+_lbl_L00133624:
+    r_a3 = (long)(r_s1 + 0);
+    r_a1 = (long)(r_s0 + 0);
+    r_a2 = (long)(r_s2 + 0);
+    r_v0 = (long)func_0012FA30((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_s1 = (long)(r_v0 + 0);
+_lbl_L00133638:
+    r_v0 = (long)(r_s1 + 0);
+_lbl_L0013363C:
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x40)); }
+    if (r_sp) { r_s2 = *(long *)((char *)r_sp + (0x30)); }
+    if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x20)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x10)); }
+    r_sp = (long)(r_sp + (0x50));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00133658 */
-__asm__(".text\n\t"
-        ".globl func_00133658\n\t"
-        ".ent func_00133658\n"
-        "func_00133658:\n\t"
-        ".set noreorder\n\t"
-        "sw         $0, 0xB8($4)\n\t"
-        "jr         $31\n\t"
-        "addiu     $2, $0, -0x7E\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_00133658\n");
+void *func_00133658(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    if (r_a0) { *(int *)((char *)r_a0 + (0xB8)) = (int)0; }
+    r_v0 = (long)(0 + (-0x7E));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00133668 */
-__asm__(".text\n\t"
-        ".globl func_00133668\n\t"
-        ".ent func_00133668\n"
-        "func_00133668:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x40\n\t"
-        "sd         $17, 0x10($29)\n\t"
-        "sd         $31, 0x30($29)\n\t"
-        "daddu      $17, $4, $0\n\t"
-        "sd         $18, 0x20($29)\n\t"
-        "sd         $16, 0x0($29)\n\t"
-        "lw         $16, 0xB8($17)\n\t"
-        ".L00133684:\n\t"
-        "lw         $2, 0x1C($17)\n\t"
-        "slt        $2, $16, $2\n\t"
-        "bnel       $2, $0, .L001336AC\n\t"
-        "lw        $2, 0xBC($17)\n\t"
-        "lui        $5, %hi(D_00133698)\n\t"
-        "daddu      $4, $17, $0\n\t"
-        "jal        func_0012F108\n\t"
-        "addiu     $5, $5, %lo(D_00133698)\n\t"
-        "b          .L0013370C\n\t"
-        "ld        $31, 0x30($29)\n\t"
-        ".L001336AC:\n\t"
-        "sll        $3, $16, 6\n\t"
-        "addu       $2, $2, $3\n\t"
-        "addiu      $18, $2, 0x20\n\t"
-        "jal        func_0012F768\n\t"
-        "daddu     $4, $18, $0\n\t"
-        "beqz       $2, .L001336D0\n\t"
-        "addiu     $16, $16, 0x1\n\t"
-        "b          .L00133684\n\t"
-        "sw        $16, 0xB8($17)\n\t"
-        ".L001336D0:\n\t"
-        "lui        $16, %hi(D_4F9E40)\n\t"
-        "addiu      $5, $17, 0x38\n\t"
-        "addiu      $16, $16, %lo(D_4F9E40)\n\t"
-        "jal        strcpy\n\t"
-        "daddu     $4, $16, $0\n\t"
-        "lui        $5, %hi(D_4E2D48)\n\t"
-        "daddu      $4, $16, $0\n\t"
-        "jal        strcat\n\t"
-        "addiu     $5, $5, %lo(D_4E2D48)\n\t"
-        "daddu      $5, $18, $0\n\t"
-        "jal        strcat\n\t"
-        "daddu     $4, $16, $0\n\t"
-        "sw         $16, 0xC4($17)\n\t"
-        "addiu      $2, $0, -0x7E\n\t"
-        "ld         $31, 0x30($29)\n\t"
-        ".L0013370C:\n\t"
-        "ld         $18, 0x20($29)\n\t"
-        "ld         $17, 0x10($29)\n\t"
-        "ld         $16, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x40\n\t"
-        ".set reorder\n\t"
-        ".end func_00133668\n");
+void *func_00133668(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    r_sp = (long)(r_sp + (-0x40));
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_s1; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x30)) = (long)r_ra; }
+    r_s1 = (long)(r_a0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x20)) = (long)r_s2; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_s0; }
+    if (r_s1) { r_s0 = *(int *)((char *)r_s1 + (0xB8)); }
+_lbl_L00133684:
+    if (r_s1) { r_v0 = *(int *)((char *)r_s1 + (0x1C)); }
+    r_v0 = (long)((long)r_s0 < (long)r_v0 ? 1 : 0);
+    if (r_v0 != 0) { if (r_s1) { r_v0 = *(int *)((char *)r_s1 + (0xBC)); } goto _lbl_L001336AC; }
+    if (r_s1) { r_v0 = *(int *)((char *)r_s1 + (0xBC)); }
+    r_a1 = (long)&D_00133698;
+    r_a0 = (long)(r_s1 + 0);
+    r_a1 = (long)&D_00133698;
+    r_v0 = (long)func_0012F108((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x30)); }
+    goto _lbl_L0013370C;
+_lbl_L001336AC:
+    r_v1 = (long)((unsigned long)r_s0 << (6));
+    r_v0 = (long)(r_v0 + r_v1);
+    r_s2 = (long)(r_v0 + (0x20));
+    r_a0 = (long)(r_s2 + 0);
+    r_v0 = (long)func_0012F768((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_v0 == 0) { r_s0 = (long)(r_s0 + (0x1)); goto _lbl_L001336D0; }
+    r_s0 = (long)(r_s0 + (0x1));
+    if (r_s1) { *(int *)((char *)r_s1 + (0xB8)) = (int)r_s0; }
+    goto _lbl_L00133684;
+_lbl_L001336D0:
+    r_s0 = (long)&D_4F9E40;
+    r_a1 = (long)(r_s1 + (0x38));
+    r_s0 = (long)&D_4F9E40;
+    r_a0 = (long)(r_s0 + 0);
+    r_v0 = (long)strcpy((char *)r_a0, (const char *)r_a1);
+    r_a1 = (long)&D_4E2D48;
+    r_a0 = (long)(r_s0 + 0);
+    r_a1 = (long)&D_4E2D48;
+    r_v0 = (long)strcat((char *)r_a0, (const char *)r_a1);
+    r_a1 = (long)(r_s2 + 0);
+    r_a0 = (long)(r_s0 + 0);
+    r_v0 = (long)strcat((char *)r_a0, (const char *)r_a1);
+    if (r_s1) { *(int *)((char *)r_s1 + (0xC4)) = (int)r_s0; }
+    r_v0 = (long)(0 + (-0x7E));
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x30)); }
+_lbl_L0013370C:
+    if (r_sp) { r_s2 = *(long *)((char *)r_sp + (0x20)); }
+    if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x10)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x40));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00133720 */
-__asm__(".text\n\t"
-        ".globl func_00133720\n\t"
-        ".ent func_00133720\n"
-        "func_00133720:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x10\n\t"
-        "daddu      $2, $4, $0\n\t"
-        "sd         $31, 0x0($29)\n\t"
-        "daddu      $7, $2, $0\n\t"
-        "lh         $4, 0xC($2)\n\t"
-        "lh         $5, 0xE($2)\n\t"
-        "jal        func_00130068\n\t"
-        "lw        $6, 0xC4($2)\n\t"
-        "ld         $31, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x10\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_00133720\n");
+void *func_00133720(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    r_sp = (long)(r_sp + (-0x10));
+    r_v0 = (long)(r_a0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_ra; }
+    r_a3 = (long)(r_v0 + 0);
+    if (r_v0) { r_a0 = *(short *)((char *)r_v0 + (0xC)); }
+    if (r_v0) { r_a1 = *(short *)((char *)r_v0 + (0xE)); }
+    if (r_v0) { r_a2 = *(int *)((char *)r_v0 + (0xC4)); }
+    r_v0 = (long)func_00130068((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x10));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00133750 */
-__asm__(".text\n\t"
-        ".globl func_00133750\n\t"
-        ".ent func_00133750\n"
-        "func_00133750:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x40\n\t"
-        "lui        $2, %hi(D_00133700)\n\t"
-        "sd         $16, 0x10($29)\n\t"
-        "daddu      $5, $29, $0\n\t"
-        "sd         $17, 0x20($29)\n\t"
-        "daddu      $16, $4, $0\n\t"
-        "sd         $31, 0x30($29)\n\t"
-        "addiu      $17, $2, %lo(D_00133700)\n\t"
-        "addiu      $4, $0, 0x1\n\t"
-        "ori        $6, $29, 0x4\n\t"
-        "addiu      $7, $0, 0xF\n\t"
-        "jal        func_001303A8\n\t"
-        "daddu     $8, $16, $0\n\t"
-        "daddu      $3, $2, $0\n\t"
-        "addiu      $2, $0, -0x7E\n\t"
-        "bne        $3, $2, .L001337E4\n\t"
-        "ld        $31, 0x30($29)\n\t"
-        "lwl        $2, 0xF($16)\n\t"
-        "lwr        $2, 0xC($16)\n\t"
-        "lui        $4, (0xFFFF0000 >> 16)\n\t"
-        "dsrl32     $4, $4, 0\n\t"
-        "jal        func_0012E4E8\n\t"
-        "and       $4, $2, $4\n\t"
-        "daddu      $6, $2, $0\n\t"
-        "lw         $5, 0x4($29)\n\t"
-        "bgez       $5, .L001337C8\n\t"
-        "daddu     $2, $0, $0\n\t"
-        "lui        $4, %hi(D_38CE40)\n\t"
-        "jal        func_0012F438\n\t"
-        "addiu     $4, $4, %lo(D_38CE40)\n\t"
-        ".L001337C8:\n\t"
-        "daddu      $4, $2, $0\n\t"
-        "daddu      $5, $16, $0\n\t"
-        "daddu      $6, $17, $0\n\t"
-        "jal        func_0012FA30\n\t"
-        "addiu     $7, $0, -0x7E\n\t"
-        "daddu      $3, $2, $0\n\t"
-        "ld         $31, 0x30($29)\n\t"
-        ".L001337E4:\n\t"
-        "daddu      $2, $3, $0\n\t"
-        "ld         $17, 0x20($29)\n\t"
-        "ld         $16, 0x10($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x40\n\t"
-        ".set reorder\n\t"
-        ".end func_00133750\n");
+void *func_00133750(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_t0 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_t0;
+    r_sp = (long)(r_sp + (-0x40));
+    r_v0 = (long)&D_00133700;
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_s0; }
+    r_a1 = (long)(r_sp + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x20)) = (long)r_s1; }
+    r_s0 = (long)(r_a0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x30)) = (long)r_ra; }
+    r_s1 = (long)&D_00133700;
+    r_a0 = (long)(0 + (0x1));
+    r_a2 = (long)(r_sp | (0x4));
+    r_a3 = (long)(0 + (0xF));
+    r_t0 = (long)(r_s0 + 0);
+    r_v0 = (long)func_001303A8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_v1 = (long)(r_v0 + 0);
+    r_v0 = (long)(0 + (-0x7E));
+    if (r_v1 != r_v0) { if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x30)); } goto _lbl_L001337E4; }
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x30)); }
+    if (r_s0) { r_v0 = *(int *)((char *)r_s0 + (0xF)); }
+    if (r_s0) { r_v0 = *(int *)((char *)r_s0 + (0xC)); }
+    r_a0 = (long)((0xFFFF0000 >> 16) << 16);
+    r_a0 = (long)((unsigned long)r_a0 >> (0));
+    r_a0 = (long)(r_v0 & r_a0);
+    r_v0 = (long)func_0012E4E8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_a2 = (long)(r_v0 + 0);
+    if (r_sp) { r_a1 = *(int *)((char *)r_sp + (0x4)); }
+    if ((long)r_a1 >= 0) { r_v0 = (long)(0 + 0); goto _lbl_L001337C8; }
+    r_v0 = (long)(0 + 0);
+    r_a0 = (long)&D_38CE40;
+    r_a0 = (long)&D_38CE40;
+    r_v0 = (long)func_0012F438((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+_lbl_L001337C8:
+    r_a0 = (long)(r_v0 + 0);
+    r_a1 = (long)(r_s0 + 0);
+    r_a2 = (long)(r_s1 + 0);
+    r_a3 = (long)(0 + (-0x7E));
+    r_v0 = (long)func_0012FA30((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_v1 = (long)(r_v0 + 0);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x30)); }
+_lbl_L001337E4:
+    r_v0 = (long)(r_v1 + 0);
+    if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x20)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x10)); }
+    r_sp = (long)(r_sp + (0x40));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_001337F8 */
-__asm__(".text\n\t"
-        ".globl func_001337F8\n\t"
-        ".ent func_001337F8\n"
-        "func_001337F8:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x10\n\t"
-        "lui        $5, %hi(D_00133640)\n\t"
-        "sd         $31, 0x0($29)\n\t"
-        "jal        func_00133598\n\t"
-        "addiu     $5, $5, %lo(D_00133640)\n\t"
-        "ld         $31, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x10\n\t"
-        ".set reorder\n\t"
-        ".end func_001337F8\n");
+void *func_001337F8(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    r_sp = (long)(r_sp + (-0x10));
+    r_a1 = (long)&D_00133640;
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_ra; }
+    r_a1 = (long)&D_00133640;
+    r_v0 = (long)func_00133598((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x10));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00133818 */
-__asm__(".text\n\t"
-        ".globl func_00133818\n\t"
-        ".ent func_00133818\n"
-        "func_00133818:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x20\n\t"
-        "lui        $5, %hi(func_001334B0)\n\t"
-        "sd         $16, 0x0($29)\n\t"
-        "addiu      $5, $5, %lo(func_001334B0)\n\t"
-        "sd         $31, 0x10($29)\n\t"
-        "jal        func_0012F108\n\t"
-        "daddu     $16, $4, $0\n\t"
-        "lw         $3, 0xB8($16)\n\t"
-        "ld         $31, 0x10($29)\n\t"
-        "addiu      $3, $3, 0x1\n\t"
-        "sw         $3, 0xB8($16)\n\t"
-        "ld         $16, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x20\n\t"
-        ".set reorder\n\t"
-        ".end func_00133818\n");
+void *func_00133818(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    r_sp = (long)(r_sp + (-0x20));
+    r_a1 = (long)&func_001334B0;
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_s0; }
+    r_a1 = (long)&func_001334B0;
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_ra; }
+    r_s0 = (long)(r_a0 + 0);
+    r_v0 = (long)func_0012F108((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_s0) { r_v1 = *(int *)((char *)r_s0 + (0xB8)); }
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x10)); }
+    r_v1 = (long)(r_v1 + (0x1));
+    if (r_s0) { *(int *)((char *)r_s0 + (0xB8)) = (int)r_v1; }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x20));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00133850 */
-__asm__(".text\n\t"
-        ".globl func_00133850\n\t"
-        ".ent func_00133850\n"
-        "func_00133850:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x30\n\t"
-        "sd         $16, 0x0($29)\n\t"
-        "sd         $17, 0x10($29)\n\t"
-        "lui        $16, %hi(D_4F9E40)\n\t"
-        "daddu      $17, $4, $0\n\t"
-        "addiu      $16, $16, %lo(D_4F9E40)\n\t"
-        "addiu      $5, $17, 0x38\n\t"
-        "sd         $31, 0x20($29)\n\t"
-        "jal        strcpy\n\t"
-        "daddu     $4, $16, $0\n\t"
-        "sw         $16, 0xC4($17)\n\t"
-        "jal        func_00133568\n\t"
-        "daddu     $4, $17, $0\n\t"
-        "ld         $31, 0x20($29)\n\t"
-        "ld         $17, 0x10($29)\n\t"
-        "ld         $16, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x30\n\t"
-        ".set reorder\n\t"
-        ".end func_00133850\n");
+void *func_00133850(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    r_sp = (long)(r_sp + (-0x30));
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_s0; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_s1; }
+    r_s0 = (long)&D_4F9E40;
+    r_s1 = (long)(r_a0 + 0);
+    r_s0 = (long)&D_4F9E40;
+    r_a1 = (long)(r_s1 + (0x38));
+    if (r_sp) { *(long *)((char *)r_sp + (0x20)) = (long)r_ra; }
+    r_a0 = (long)(r_s0 + 0);
+    r_v0 = (long)strcpy((char *)r_a0, (const char *)r_a1);
+    if (r_s1) { *(int *)((char *)r_s1 + (0xC4)) = (int)r_s0; }
+    r_a0 = (long)(r_s1 + 0);
+    r_v0 = (long)func_00133568((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x20)); }
+    if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x10)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x30));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00133898 */
-__asm__(".text\n\t"
-        ".globl func_00133898\n\t"
-        ".ent func_00133898\n"
-        "func_00133898:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x10\n\t"
-        "lui        $5, %hi(D_001336E0)\n\t"
-        "sd         $31, 0x0($29)\n\t"
-        "jal        func_00133598\n\t"
-        "addiu     $5, $5, %lo(D_001336E0)\n\t"
-        "ld         $31, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x10\n\t"
-        ".set reorder\n\t"
-        ".end func_00133898\n");
+void *func_00133898(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    r_sp = (long)(r_sp + (-0x10));
+    r_a1 = (long)&D_001336E0;
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_ra; }
+    r_a1 = (long)&D_001336E0;
+    r_v0 = (long)func_00133598((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x10));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_001338B8 */
-__asm__(".text\n\t"
-        ".globl func_001338B8\n\t"
-        ".ent func_001338B8\n"
-        "func_001338B8:\n\t"
-        ".set noreorder\n\t"
-        "lw         $3, 0x20($4)\n\t"
-        "addiu      $6, $0, 0x1\n\t"
-        "lw         $5, 0xB0($4)\n\t"
-        "addiu      $2, $0, -0x80\n\t"
-        "movz       $3, $6, $3\n\t"
-        "jr         $31\n\t"
-        "sw        $3, 0x0($5)\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_001338B8\n");
+void *func_001338B8(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    if (r_a0) { r_v1 = *(int *)((char *)r_a0 + (0x20)); }
+    r_a2 = (long)(0 + (0x1));
+    if (r_a0) { r_a1 = *(int *)((char *)r_a0 + (0xB0)); }
+    r_v0 = (long)(0 + (-0x80));
+    if (r_v1 == 0) r_v1 = r_a2;
+    if (r_a1) { *(int *)((char *)r_a1 + (0x0)) = (int)r_v1; }
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_001338D8 */
-__asm__(".text\n\t"
-        ".globl func_001338D8\n\t"
-        ".ent func_001338D8\n"
-        "func_001338D8:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x20\n\t"
-        "lui        $2, (0xFFFF0000 >> 16)\n\t"
-        "dsrl32     $2, $2, 0\n\t"
-        "sw         $5, 0x0($29)\n\t"
-        "addiu      $7, $0, 0x32\n\t"
-        "sd         $31, 0x10($29)\n\t"
-        "lw         $5, 0x0($29)\n\t"
-        "jal        func_00130960\n\t"
-        "and       $5, $5, $2\n\t"
-        "ld         $31, 0x10($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x20\n\t"
-        ".set reorder\n\t"
-        ".end func_001338D8\n");
+void *func_001338D8(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    r_sp = (long)(r_sp + (-0x20));
+    r_v0 = (long)((0xFFFF0000 >> 16) << 16);
+    r_v0 = (long)((unsigned long)r_v0 >> (0));
+    if (r_sp) { *(int *)((char *)r_sp + (0x0)) = (int)r_a1; }
+    r_a3 = (long)(0 + (0x32));
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_ra; }
+    if (r_sp) { r_a1 = *(int *)((char *)r_sp + (0x0)); }
+    r_a1 = (long)(r_a1 & r_v0);
+    r_v0 = (long)func_00130960((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x10)); }
+    r_sp = (long)(r_sp + (0x20));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00133908 */
-__asm__(".text\n\t"
-        ".globl func_00133908\n\t"
-        ".ent func_00133908\n"
-        "func_00133908:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0xA0\n\t"
-        "sd         $23, 0x80($29)\n\t"
-        "sd         $22, 0x70($29)\n\t"
-        "lui        $23, %hi(D_4F9700)\n\t"
-        "sd         $21, 0x60($29)\n\t"
-        "addiu      $22, $23, %lo(D_4F9700)\n\t"
-        "sd         $20, 0x50($29)\n\t"
-        "daddu      $21, $9, $0\n\t"
-        "sd         $19, 0x40($29)\n\t"
-        "daddu      $20, $0, $0\n\t"
-        "sd         $18, 0x30($29)\n\t"
-        "daddu      $19, $8, $0\n\t"
-        "sd         $17, 0x20($29)\n\t"
-        "daddu      $18, $4, $0\n\t"
-        "sd         $16, 0x10($29)\n\t"
-        "daddu      $17, $5, $0\n\t"
-        "sd         $31, 0x90($29)\n\t"
-        "daddu      $16, $6, $0\n\t"
-        "bnez       $16, .L00133978\n\t"
-        "sw        $7, 0x0($29)\n\t"
-        "lui        $4, %hi(D_4904C0)\n\t"
-        "lui        $5, %hi(D_490068)\n\t"
-        "lui        $7, %hi(D_4904D8)\n\t"
-        "addiu      $4, $4, %lo(D_4904C0)\n\t"
-        "addiu      $5, $5, %lo(D_490068)\n\t"
-        "addiu      $7, $7, %lo(D_4904D8)\n\t"
-        "jal        func_123790\n\t"
-        "addiu     $6, $0, 0x1C04\n\t"
-        ".L00133978:\n\t"
-        "bnez       $18, .L001339A4\n\t"
-        "lw        $2, -0x6900($23)\n\t"
-        "lui        $4, %hi(D_4904E8)\n\t"
-        "lui        $5, %hi(D_490068)\n\t"
-        "lui        $7, %hi(D_4904D8)\n\t"
-        "addiu      $4, $4, %lo(D_4904E8)\n\t"
-        "addiu      $5, $5, %lo(D_490068)\n\t"
-        "addiu      $7, $7, %lo(D_4904D8)\n\t"
-        "jal        func_123790\n\t"
-        "addiu     $6, $0, 0x1C06\n\t"
-        "lw         $2, -0x6900($23)\n\t"
-        ".L001339A4:\n\t"
-        "bnez       $2, .L00133ABC\n\t"
-        "daddu     $2, $20, $0\n\t"
-        "jal        func_0012EF18\n\t"
-        "daddu     $4, $19, $0\n\t"
-        "lw         $2, 0x0($29)\n\t"
-        "lui        $5, %hi(D_00133930)\n\t"
-        "lui        $10, %hi(D_38CE70)\n\t"
-        "lui        $7, (0xFFFF0000 >> 16)\n\t"
-        "dsrl32     $7, $7, 0\n\t"
-        "and        $7, $2, $7\n\t"
-        "addiu      $5, $5, %lo(D_00133930)\n\t"
-        "daddu      $6, $19, $0\n\t"
-        "daddu      $9, $21, $0\n\t"
-        "addiu      $10, $10, %lo(D_38CE70)\n\t"
-        "daddu      $4, $22, $0\n\t"
-        "jal        func_0012EF38\n\t"
-        "daddu     $8, $0, $0\n\t"
-        "bnez       $17, .L001339F4\n\t"
-        "lui       $2, %hi(D_4E2D58)\n\t"
-        "addiu      $17, $2, %lo(D_4E2D58)\n\t"
-        ".L001339F4:\n\t"
-        "jal        func_0011ACD0\n\t"
-        "daddu     $4, $16, $0\n\t"
-        "sltiu      $2, $2, 0x20\n\t"
-        "bnez       $2, .L00133A2C\n\t"
-        "daddu     $5, $16, $0\n\t"
-        "lui        $4, %hi(D_490500)\n\t"
-        "lui        $5, %hi(D_490068)\n\t"
-        "lui        $7, %hi(D_4904D8)\n\t"
-        "addiu      $4, $4, %lo(D_490500)\n\t"
-        "addiu      $5, $5, %lo(D_490068)\n\t"
-        "addiu      $7, $7, %lo(D_4904D8)\n\t"
-        "jal        func_123790\n\t"
-        "addiu     $6, $0, 0x1C12\n\t"
-        "daddu      $5, $16, $0\n\t"
-        ".L00133A2C:\n\t"
-        "jal        strcpy\n\t"
-        "addiu     $4, $22, 0x88\n\t"
-        "jal        func_0011ACD0\n\t"
-        "daddu     $4, $18, $0\n\t"
-        "sltiu      $2, $2, 0x20\n\t"
-        "bnez       $2, .L00133A6C\n\t"
-        "daddu     $5, $18, $0\n\t"
-        "lui        $4, %hi(D_490528)\n\t"
-        "lui        $5, %hi(D_490068)\n\t"
-        "lui        $7, %hi(D_4904D8)\n\t"
-        "addiu      $4, $4, %lo(D_490528)\n\t"
-        "addiu      $5, $5, %lo(D_490068)\n\t"
-        "addiu      $7, $7, %lo(D_4904D8)\n\t"
-        "jal        func_123790\n\t"
-        "addiu     $6, $0, 0x1C15\n\t"
-        "daddu      $5, $18, $0\n\t"
-        ".L00133A6C:\n\t"
-        "jal        strcpy\n\t"
-        "addiu     $4, $22, 0x38\n\t"
-        "jal        func_0011ACD0\n\t"
-        "daddu     $4, $17, $0\n\t"
-        "sltiu      $2, $2, 0x20\n\t"
-        "bnez       $2, .L00133AAC\n\t"
-        "addiu     $4, $22, 0x58\n\t"
-        "lui        $4, %hi(D_490558)\n\t"
-        "lui        $5, %hi(D_490068)\n\t"
-        "lui        $7, %hi(D_4904D8)\n\t"
-        "addiu      $4, $4, %lo(D_490558)\n\t"
-        "addiu      $5, $5, %lo(D_490068)\n\t"
-        "addiu      $7, $7, %lo(D_4904D8)\n\t"
-        "jal        func_123790\n\t"
-        "addiu     $6, $0, 0x1C18\n\t"
-        "addiu      $4, $22, 0x58\n\t"
-        ".L00133AAC:\n\t"
-        "jal        strcpy\n\t"
-        "daddu     $5, $17, $0\n\t"
-        "addiu      $20, $0, 0x1\n\t"
-        "daddu      $2, $20, $0\n\t"
-        ".L00133ABC:\n\t"
-        "ld         $31, 0x90($29)\n\t"
-        "ld         $23, 0x80($29)\n\t"
-        "ld         $22, 0x70($29)\n\t"
-        "ld         $21, 0x60($29)\n\t"
-        "ld         $20, 0x50($29)\n\t"
-        "ld         $19, 0x40($29)\n\t"
-        "ld         $18, 0x30($29)\n\t"
-        "ld         $17, 0x20($29)\n\t"
-        "ld         $16, 0x10($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0xA0\n\t"
-        ".set reorder\n\t"
-        ".end func_00133908\n");
+void *func_00133908(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0, r_s3 = 0, r_s4 = 0, r_s5 = 0, r_s6 = 0, r_s7 = 0, r_t0 = 0, r_t1 = 0, r_t2 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    (void)r_s3;
+    (void)r_s4;
+    (void)r_s5;
+    (void)r_s6;
+    (void)r_s7;
+    (void)r_t0;
+    (void)r_t1;
+    (void)r_t2;
+    r_sp = (long)(r_sp + (-0xA0));
+    if (r_sp) { *(long *)((char *)r_sp + (0x80)) = (long)r_s7; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x70)) = (long)r_s6; }
+    r_s7 = (long)&D_4F9700;
+    if (r_sp) { *(long *)((char *)r_sp + (0x60)) = (long)r_s5; }
+    r_s6 = (long)&D_4F9700;
+    if (r_sp) { *(long *)((char *)r_sp + (0x50)) = (long)r_s4; }
+    r_s5 = (long)(r_t1 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x40)) = (long)r_s3; }
+    r_s4 = (long)(0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x30)) = (long)r_s2; }
+    r_s3 = (long)(r_t0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x20)) = (long)r_s1; }
+    r_s2 = (long)(r_a0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_s0; }
+    r_s1 = (long)(r_a1 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x90)) = (long)r_ra; }
+    r_s0 = (long)(r_a2 + 0);
+    if (r_s0 != 0) { if (r_sp) { *(int *)((char *)r_sp + (0x0)) = (int)r_a3; } goto _lbl_L00133978; }
+    if (r_sp) { *(int *)((char *)r_sp + (0x0)) = (int)r_a3; }
+    r_a0 = (long)&D_4904C0;
+    r_a1 = (long)&D_490068;
+    r_a3 = (long)&D_4904D8;
+    r_a0 = (long)&D_4904C0;
+    r_a1 = (long)&D_490068;
+    r_a3 = (long)&D_4904D8;
+    r_a2 = (long)(0 + (0x1C04));
+    r_v0 = (long)func_123790((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+_lbl_L00133978:
+    if (r_s2 != 0) { if (r_s7) { r_v0 = *(int *)((char *)r_s7 + (-0x6900)); } goto _lbl_L001339A4; }
+    if (r_s7) { r_v0 = *(int *)((char *)r_s7 + (-0x6900)); }
+    r_a0 = (long)&D_4904E8;
+    r_a1 = (long)&D_490068;
+    r_a3 = (long)&D_4904D8;
+    r_a0 = (long)&D_4904E8;
+    r_a1 = (long)&D_490068;
+    r_a3 = (long)&D_4904D8;
+    r_a2 = (long)(0 + (0x1C06));
+    r_v0 = (long)func_123790((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_s7) { r_v0 = *(int *)((char *)r_s7 + (-0x6900)); }
+_lbl_L001339A4:
+    if (r_v0 != 0) { r_v0 = (long)(r_s4 + 0); goto _lbl_L00133ABC; }
+    r_v0 = (long)(r_s4 + 0);
+    r_a0 = (long)(r_s3 + 0);
+    r_v0 = (long)func_0012EF18((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_v0 = *(int *)((char *)r_sp + (0x0)); }
+    r_a1 = (long)&D_00133930;
+    r_t2 = (long)&D_38CE70;
+    r_a3 = (long)((0xFFFF0000 >> 16) << 16);
+    r_a3 = (long)((unsigned long)r_a3 >> (0));
+    r_a3 = (long)(r_v0 & r_a3);
+    r_a1 = (long)&D_00133930;
+    r_a2 = (long)(r_s3 + 0);
+    r_t1 = (long)(r_s5 + 0);
+    r_t2 = (long)&D_38CE70;
+    r_a0 = (long)(r_s6 + 0);
+    r_t0 = (long)(0 + 0);
+    r_v0 = (long)func_0012EF38((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_s1 != 0) { r_v0 = (long)&D_4E2D58; goto _lbl_L001339F4; }
+    r_v0 = (long)&D_4E2D58;
+    r_s1 = (long)&D_4E2D58;
+_lbl_L001339F4:
+    r_a0 = (long)(r_s0 + 0);
+    r_v0 = (long)func_0011ACD0((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_v0 = (long)((unsigned long)r_v0 < (unsigned long)(0x20) ? 1 : 0);
+    if (r_v0 != 0) { r_a1 = (long)(r_s0 + 0); goto _lbl_L00133A2C; }
+    r_a1 = (long)(r_s0 + 0);
+    r_a0 = (long)&D_490500;
+    r_a1 = (long)&D_490068;
+    r_a3 = (long)&D_4904D8;
+    r_a0 = (long)&D_490500;
+    r_a1 = (long)&D_490068;
+    r_a3 = (long)&D_4904D8;
+    r_a2 = (long)(0 + (0x1C12));
+    r_v0 = (long)func_123790((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_a1 = (long)(r_s0 + 0);
+_lbl_L00133A2C:
+    r_a0 = (long)(r_s6 + (0x88));
+    r_v0 = (long)strcpy((char *)r_a0, (const char *)r_a1);
+    r_a0 = (long)(r_s2 + 0);
+    r_v0 = (long)func_0011ACD0((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_v0 = (long)((unsigned long)r_v0 < (unsigned long)(0x20) ? 1 : 0);
+    if (r_v0 != 0) { r_a1 = (long)(r_s2 + 0); goto _lbl_L00133A6C; }
+    r_a1 = (long)(r_s2 + 0);
+    r_a0 = (long)&D_490528;
+    r_a1 = (long)&D_490068;
+    r_a3 = (long)&D_4904D8;
+    r_a0 = (long)&D_490528;
+    r_a1 = (long)&D_490068;
+    r_a3 = (long)&D_4904D8;
+    r_a2 = (long)(0 + (0x1C15));
+    r_v0 = (long)func_123790((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_a1 = (long)(r_s2 + 0);
+_lbl_L00133A6C:
+    r_a0 = (long)(r_s6 + (0x38));
+    r_v0 = (long)strcpy((char *)r_a0, (const char *)r_a1);
+    r_a0 = (long)(r_s1 + 0);
+    r_v0 = (long)func_0011ACD0((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_v0 = (long)((unsigned long)r_v0 < (unsigned long)(0x20) ? 1 : 0);
+    if (r_v0 != 0) { r_a0 = (long)(r_s6 + (0x58)); goto _lbl_L00133AAC; }
+    r_a0 = (long)(r_s6 + (0x58));
+    r_a0 = (long)&D_490558;
+    r_a1 = (long)&D_490068;
+    r_a3 = (long)&D_4904D8;
+    r_a0 = (long)&D_490558;
+    r_a1 = (long)&D_490068;
+    r_a3 = (long)&D_4904D8;
+    r_a2 = (long)(0 + (0x1C18));
+    r_v0 = (long)func_123790((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_a0 = (long)(r_s6 + (0x58));
+_lbl_L00133AAC:
+    r_a1 = (long)(r_s1 + 0);
+    r_v0 = (long)strcpy((char *)r_a0, (const char *)r_a1);
+    r_s4 = (long)(0 + (0x1));
+    r_v0 = (long)(r_s4 + 0);
+_lbl_L00133ABC:
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x90)); }
+    if (r_sp) { r_s7 = *(long *)((char *)r_sp + (0x80)); }
+    if (r_sp) { r_s6 = *(long *)((char *)r_sp + (0x70)); }
+    if (r_sp) { r_s5 = *(long *)((char *)r_sp + (0x60)); }
+    if (r_sp) { r_s4 = *(long *)((char *)r_sp + (0x50)); }
+    if (r_sp) { r_s3 = *(long *)((char *)r_sp + (0x40)); }
+    if (r_sp) { r_s2 = *(long *)((char *)r_sp + (0x30)); }
+    if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x20)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x10)); }
+    r_sp = (long)(r_sp + (0xA0));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00133AE8 */
-__asm__(".text\n\t"
-        ".globl func_00133AE8\n\t"
-        ".ent func_00133AE8\n"
-        "func_00133AE8:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x10\n\t"
-        "lui        $5, %hi(D_38CE70)\n\t"
-        "sd         $31, 0x0($29)\n\t"
-        "jal        func_0012EE20\n\t"
-        "addiu     $5, $5, %lo(D_38CE70)\n\t"
-        "ld         $31, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x10\n\t"
-        ".set reorder\n\t"
-        ".end func_00133AE8\n");
+void *func_00133AE8(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    r_sp = (long)(r_sp + (-0x10));
+    r_a1 = (long)&D_38CE70;
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_ra; }
+    r_a1 = (long)&D_38CE70;
+    r_v0 = (long)func_0012EE20((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x10));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00133B08 */
-__asm__(".text\n\t"
-        ".globl func_00133B08\n\t"
-        ".ent func_00133B08\n"
-        "func_00133B08:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x10\n\t"
-        "sd         $31, 0x0($29)\n\t"
-        "jal        func_00130A50\n\t"
-        "nop\n\t"
-        "ld         $31, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x10\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_00133B08\n");
+void *func_00133B08(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    r_sp = (long)(r_sp + (-0x10));
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_ra; }
+    r_v0 = (long)func_00130A50((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x10));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00133B28 */
-__asm__(".text\n\t"
-        ".globl func_00133B28\n\t"
-        ".ent func_00133B28\n"
-        "func_00133B28:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x10\n\t"
-        "lui        $6, %hi(D_00133DE8)\n\t"
-        "sd         $31, 0x0($29)\n\t"
-        "addiu      $6, $6, %lo(D_00133DE8)\n\t"
-        "jal        func_00130AA8\n\t"
-        "daddu     $5, $0, $0\n\t"
-        "ld         $31, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x10\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_00133B28\n");
+void *func_00133B28(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    r_sp = (long)(r_sp + (-0x10));
+    r_a2 = (long)&D_00133DE8;
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_ra; }
+    r_a2 = (long)&D_00133DE8;
+    r_a1 = (long)(0 + 0);
+    r_v0 = (long)func_00130AA8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x10));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00133B50 */
-__asm__(".text\n\t"
-        ".globl func_00133B50\n\t"
-        ".ent func_00133B50\n"
-        "func_00133B50:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x30\n\t"
-        "sd         $17, 0x10($29)\n\t"
-        "daddu      $17, $4, $0\n\t"
-        "sd         $16, 0x0($29)\n\t"
-        "addiu      $16, $17, 0x58\n\t"
-        "sd         $31, 0x20($29)\n\t"
-        "jal        func_0011ACD0\n\t"
-        "daddu     $4, $16, $0\n\t"
-        "beqz       $2, .L00133BA8\n\t"
-        "daddu     $5, $16, $0\n\t"
-        "addiu      $4, $17, 0x38\n\t"
-        "jal        strcmp\n\t"
-        "addiu     $16, $0, 0x1\n\t"
-        "bnel       $2, $0, .L00133BB0\n\t"
-        "sw        $16, 0xB4($17)\n\t"
-        "lw         $4, 0x34($17)\n\t"
-        "addiu      $5, $0, 0x80\n\t"
-        "jal        func_0012F7A0\n\t"
-        "addiu     $16, $0, 0x3\n\t"
-        "addiu      $3, $0, 0x1\n\t"
-        "b          .L00133BAC\n\t"
-        "movn      $16, $3, $2\n\t"
-        ".L00133BA8:\n\t"
-        "addiu      $16, $0, 0x2\n\t"
-        ".L00133BAC:\n\t"
-        "sw         $16, 0xB4($17)\n\t"
-        ".L00133BB0:\n\t"
-        "addiu      $2, $0, -0x7E\n\t"
-        "sw         $0, 0xB8($17)\n\t"
-        "ld         $31, 0x20($29)\n\t"
-        "ld         $17, 0x10($29)\n\t"
-        "ld         $16, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x30\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_00133B50\n");
+void *func_00133B50(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    r_sp = (long)(r_sp + (-0x30));
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_s1; }
+    r_s1 = (long)(r_a0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_s0; }
+    r_s0 = (long)(r_s1 + (0x58));
+    if (r_sp) { *(long *)((char *)r_sp + (0x20)) = (long)r_ra; }
+    r_a0 = (long)(r_s0 + 0);
+    r_v0 = (long)func_0011ACD0((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_v0 == 0) { r_a1 = (long)(r_s0 + 0); goto _lbl_L00133BA8; }
+    r_a1 = (long)(r_s0 + 0);
+    r_a0 = (long)(r_s1 + (0x38));
+    r_s0 = (long)(0 + (0x1));
+    r_v0 = (long)strcmp((const char *)r_a0, (const char *)r_a1);
+    if (r_v0 != 0) { if (r_s1) { *(int *)((char *)r_s1 + (0xB4)) = (int)r_s0; } goto _lbl_L00133BB0; }
+    if (r_s1) { *(int *)((char *)r_s1 + (0xB4)) = (int)r_s0; }
+    if (r_s1) { r_a0 = *(int *)((char *)r_s1 + (0x34)); }
+    r_a1 = (long)(0 + (0x80));
+    r_s0 = (long)(0 + (0x3));
+    r_v0 = (long)func_0012F7A0((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_v1 = (long)(0 + (0x1));
+    if (r_v0 != 0) r_s0 = r_v1;
+    goto _lbl_L00133BAC;
+_lbl_L00133BA8:
+    r_s0 = (long)(0 + (0x2));
+_lbl_L00133BAC:
+    if (r_s1) { *(int *)((char *)r_s1 + (0xB4)) = (int)r_s0; }
+_lbl_L00133BB0:
+    r_v0 = (long)(0 + (-0x7E));
+    if (r_s1) { *(int *)((char *)r_s1 + (0xB8)) = (int)0; }
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x20)); }
+    if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x10)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x30));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00133BD0 */
-__asm__(".text\n\t"
-        ".globl func_00133BD0\n\t"
-        ".ent func_00133BD0\n"
-        "func_00133BD0:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x30\n\t"
-        "addiu      $5, $0, -0x7E\n\t"
-        "sd         $17, 0x10($29)\n\t"
-        "sd         $31, 0x20($29)\n\t"
-        "daddu      $17, $4, $0\n\t"
-        "sd         $16, 0x0($29)\n\t"
-        "lw         $16, 0xB8($17)\n\t"
-        "lw         $4, 0xB4($17)\n\t"
-        ".L00133BF0:\n\t"
-        "slti       $3, $16, 0x3\n\t"
-        "beqz       $3, .L00133C10\n\t"
-        "srav      $2, $4, $16\n\t"
-        "andi       $2, $2, 0x1\n\t"
-        "beql       $2, $0, .L00133BF0\n\t"
-        "addiu     $16, $16, 0x1\n\t"
-        "bnel       $3, $0, .L00133C28\n\t"
-        "sw        $16, 0xB8($17)\n\t"
-        ".L00133C10:\n\t"
-        "lui        $5, %hi(D_00133DE8)\n\t"
-        "daddu      $4, $17, $0\n\t"
-        "jal        func_0012F108\n\t"
-        "addiu     $5, $5, %lo(D_00133DE8)\n\t"
-        "daddu      $5, $2, $0\n\t"
-        "sw         $16, 0xB8($17)\n\t"
-        ".L00133C28:\n\t"
-        "daddu      $2, $5, $0\n\t"
-        "ld         $31, 0x20($29)\n\t"
-        "ld         $17, 0x10($29)\n\t"
-        "ld         $16, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x30\n\t"
-        ".set reorder\n\t"
-        ".end func_00133BD0\n");
+void *func_00133BD0(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    r_sp = (long)(r_sp + (-0x30));
+    r_a1 = (long)(0 + (-0x7E));
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_s1; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x20)) = (long)r_ra; }
+    r_s1 = (long)(r_a0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_s0; }
+    if (r_s1) { r_s0 = *(int *)((char *)r_s1 + (0xB8)); }
+    if (r_s1) { r_a0 = *(int *)((char *)r_s1 + (0xB4)); }
+_lbl_L00133BF0:
+    r_v1 = (long)((long)r_s0 < (long)(0x3) ? 1 : 0);
+    if (r_v1 == 0) { r_v0 = (long)((long)r_a0 >> r_s0); goto _lbl_L00133C10; }
+    r_v0 = (long)((long)r_a0 >> r_s0);
+    r_v0 = (long)(r_v0 & (0x1));
+    if (r_v0 == 0) { r_s0 = (long)(r_s0 + (0x1)); goto _lbl_L00133BF0; }
+    r_s0 = (long)(r_s0 + (0x1));
+    if (r_v1 != 0) { if (r_s1) { *(int *)((char *)r_s1 + (0xB8)) = (int)r_s0; } goto _lbl_L00133C28; }
+    if (r_s1) { *(int *)((char *)r_s1 + (0xB8)) = (int)r_s0; }
+_lbl_L00133C10:
+    r_a1 = (long)&D_00133DE8;
+    r_a0 = (long)(r_s1 + 0);
+    r_a1 = (long)&D_00133DE8;
+    r_v0 = (long)func_0012F108((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_a1 = (long)(r_v0 + 0);
+    if (r_s1) { *(int *)((char *)r_s1 + (0xB8)) = (int)r_s0; }
+_lbl_L00133C28:
+    r_v0 = (long)(r_a1 + 0);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x20)); }
+    if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x10)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x30));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00133C40 */
-__asm__(".text\n\t"
-        ".globl func_00133C40\n\t"
-        ".ent func_00133C40\n"
-        "func_00133C40:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x80\n\t"
-        "lui        $2, (0xFFFF0000 >> 16)\n\t"
-        "dsrl32     $2, $2, 0\n\t"
-        "sd         $22, 0x60($29)\n\t"
-        "sd         $21, 0x50($29)\n\t"
-        "sd         $20, 0x40($29)\n\t"
-        "sd         $19, 0x30($29)\n\t"
-        "daddu      $20, $0, $0\n\t"
-        "sd         $18, 0x20($29)\n\t"
-        "sd         $17, 0x10($29)\n\t"
-        "sd         $16, 0x0($29)\n\t"
-        "daddu      $17, $4, $0\n\t"
-        "sd         $31, 0x70($29)\n\t"
-        "lui        $16, %hi(D_4F9E40)\n\t"
-        "addiu      $18, $16, %lo(D_4F9E40)\n\t"
-        "addiu      $19, $17, 0x88\n\t"
-        "lwl        $4, 0xF($17)\n\t"
-        "lwr        $4, 0xC($17)\n\t"
-        "jal        func_0012E4E8\n\t"
-        "and       $4, $4, $2\n\t"
-        "daddu      $5, $2, $0\n\t"
-        "lh         $21, 0xC($17)\n\t"
-        "lui        $2, (0x4E2D58 >> 16)\n\t"
-        "lh         $22, 0xE($17)\n\t"
-        "lbu        $3, (0x4E2D58 & 0xFFFF)($2)\n\t"
-        "addiu      $4, $0, 0x1\n\t"
-        "sb         $3, -0x61C0($16)\n\t"
-        "lw         $3, 0xB8($17)\n\t"
-        "beq        $3, $4, .L00133D1C\n\t"
-        "nop\n\t"
-        "beqz       $3, .L00133CD0\n\t"
-        "addiu     $2, $0, 0x2\n\t"
-        "beq        $3, $2, .L00133D5C\n\t"
-        "nop\n\t"
-        "b          .L00133DA8\n\t"
-        "addiu     $20, $0, 0x1\n\t"
-        ".L00133CD0:\n\t"
-        "jal        func_0012F418\n\t"
-        "daddu     $4, $5, $0\n\t"
-        "bnez       $2, .L00133D0C\n\t"
-        "daddu     $4, $18, $0\n\t"
-        "lui        $16, %hi(D_4E2D48)\n\t"
-        "addiu      $16, $16, %lo(D_4E2D48)\n\t"
-        "jal        strcat\n\t"
-        "daddu     $5, $16, $0\n\t"
-        "daddu      $4, $18, $0\n\t"
-        "jal        strcat\n\t"
-        "addiu     $5, $17, 0x38\n\t"
-        "daddu      $5, $16, $0\n\t"
-        "jal        strcat\n\t"
-        "daddu     $4, $18, $0\n\t"
-        "daddu      $4, $18, $0\n\t"
-        ".L00133D0C:\n\t"
-        "jal        strcat\n\t"
-        "addiu     $5, $17, 0x58\n\t"
-        "b          .L00133DA8\n\t"
-        "nop\n\t"
-        ".L00133D1C:\n\t"
-        "jal        func_0012F418\n\t"
-        "daddu     $4, $5, $0\n\t"
-        "bnel       $2, $0, .L00133DA8\n\t"
-        "addiu     $20, $0, 0x1\n\t"
-        "lui        $2, %hi(D_4E2D48)\n\t"
-        "daddu      $4, $18, $0\n\t"
-        "addiu      $8, $2, %lo(D_4E2D48)\n\t"
-        "addiu      $7, $16, %lo(D_4F9E40)\n\t"
-        "lb         $3, 0x0($8)\n\t"
-        "lb         $6, 0x1($8)\n\t"
-        "sb         $3, 0x0($7)\n\t"
-        "sb         $6, 0x1($7)\n\t"
-        "jal        strcat\n\t"
-        "addiu     $5, $17, 0x38\n\t"
-        "b          .L00133DA8\n\t"
-        "nop\n\t"
-        ".L00133D5C:\n\t"
-        "jal        func_0012F418\n\t"
-        "daddu     $4, $5, $0\n\t"
-        "bnez       $2, .L00133D9C\n\t"
-        "daddu     $5, $19, $0\n\t"
-        "lui        $16, %hi(D_4E2D48)\n\t"
-        "daddu      $4, $18, $0\n\t"
-        "addiu      $16, $16, %lo(D_4E2D48)\n\t"
-        "jal        strcat\n\t"
-        "daddu     $5, $16, $0\n\t"
-        "daddu      $4, $18, $0\n\t"
-        "jal        strcat\n\t"
-        "addiu     $5, $17, 0x38\n\t"
-        "daddu      $5, $16, $0\n\t"
-        "jal        strcat\n\t"
-        "daddu     $4, $18, $0\n\t"
-        "daddu      $5, $19, $0\n\t"
-        ".L00133D9C:\n\t"
-        "jal        strcat\n\t"
-        "daddu     $4, $18, $0\n\t"
-        "addiu      $19, $17, 0x58\n\t"
-        ".L00133DA8:\n\t"
-        "beqz       $20, .L00133DC4\n\t"
-        "lui       $5, %hi(D_00133DB8)\n\t"
-        "daddu      $4, $17, $0\n\t"
-        "jal        func_0012F108\n\t"
-        "addiu     $5, $5, %lo(D_00133DB8)\n\t"
-        "b          .L00133DE0\n\t"
-        "ld        $31, 0x70($29)\n\t"
-        ".L00133DC4:\n\t"
-        "daddu      $4, $21, $0\n\t"
-        "daddu      $5, $22, $0\n\t"
-        "daddu      $6, $18, $0\n\t"
-        "daddu      $7, $19, $0\n\t"
-        "jal        func_00130320\n\t"
-        "daddu     $8, $17, $0\n\t"
-        "ld         $31, 0x70($29)\n\t"
-        ".L00133DE0:\n\t"
-        "ld         $22, 0x60($29)\n\t"
-        "ld         $21, 0x50($29)\n\t"
-        "ld         $20, 0x40($29)\n\t"
-        "ld         $19, 0x30($29)\n\t"
-        "ld         $18, 0x20($29)\n\t"
-        "ld         $17, 0x10($29)\n\t"
-        "ld         $16, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x80\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_00133C40\n");
+void *func_00133C40(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0, r_s3 = 0, r_s4 = 0, r_s5 = 0, r_s6 = 0, r_t0 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_s2;
+    (void)r_s3;
+    (void)r_s4;
+    (void)r_s5;
+    (void)r_s6;
+    (void)r_t0;
+    r_sp = (long)(r_sp + (-0x80));
+    r_v0 = (long)((0xFFFF0000 >> 16) << 16);
+    r_v0 = (long)((unsigned long)r_v0 >> (0));
+    if (r_sp) { *(long *)((char *)r_sp + (0x60)) = (long)r_s6; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x50)) = (long)r_s5; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x40)) = (long)r_s4; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x30)) = (long)r_s3; }
+    r_s4 = (long)(0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x20)) = (long)r_s2; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_s1; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_s0; }
+    r_s1 = (long)(r_a0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x70)) = (long)r_ra; }
+    r_s0 = (long)&D_4F9E40;
+    r_s2 = (long)&D_4F9E40;
+    r_s3 = (long)(r_s1 + (0x88));
+    if (r_s1) { r_a0 = *(int *)((char *)r_s1 + (0xF)); }
+    if (r_s1) { r_a0 = *(int *)((char *)r_s1 + (0xC)); }
+    r_a0 = (long)(r_a0 & r_v0);
+    r_v0 = (long)func_0012E4E8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_a1 = (long)(r_v0 + 0);
+    if (r_s1) { r_s5 = *(short *)((char *)r_s1 + (0xC)); }
+    r_v0 = (long)((0x4E2D58 >> 16) << 16);
+    if (r_s1) { r_s6 = *(short *)((char *)r_s1 + (0xE)); }
+    /* unhandled: lbu */
+    r_a0 = (long)(0 + (0x1));
+    if (r_s0) { *(char *)((char *)r_s0 + (-0x61C0)) = (char)r_v1; }
+    if (r_s1) { r_v1 = *(int *)((char *)r_s1 + (0xB8)); }
+    if (r_v1 == r_a0) goto _lbl_L00133D1C;
+    if (r_v1 == 0) { r_v0 = (long)(0 + (0x2)); goto _lbl_L00133CD0; }
+    r_v0 = (long)(0 + (0x2));
+    if (r_v1 == r_v0) goto _lbl_L00133D5C;
+    r_s4 = (long)(0 + (0x1));
+    goto _lbl_L00133DA8;
+_lbl_L00133CD0:
+    r_a0 = (long)(r_a1 + 0);
+    r_v0 = (long)func_0012F418((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_v0 != 0) { r_a0 = (long)(r_s2 + 0); goto _lbl_L00133D0C; }
+    r_a0 = (long)(r_s2 + 0);
+    r_s0 = (long)&D_4E2D48;
+    r_s0 = (long)&D_4E2D48;
+    r_a1 = (long)(r_s0 + 0);
+    r_v0 = (long)strcat((char *)r_a0, (const char *)r_a1);
+    r_a0 = (long)(r_s2 + 0);
+    r_a1 = (long)(r_s1 + (0x38));
+    r_v0 = (long)strcat((char *)r_a0, (const char *)r_a1);
+    r_a1 = (long)(r_s0 + 0);
+    r_a0 = (long)(r_s2 + 0);
+    r_v0 = (long)strcat((char *)r_a0, (const char *)r_a1);
+    r_a0 = (long)(r_s2 + 0);
+_lbl_L00133D0C:
+    r_a1 = (long)(r_s1 + (0x58));
+    r_v0 = (long)strcat((char *)r_a0, (const char *)r_a1);
+    goto _lbl_L00133DA8;
+_lbl_L00133D1C:
+    r_a0 = (long)(r_a1 + 0);
+    r_v0 = (long)func_0012F418((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_v0 != 0) { r_s4 = (long)(0 + (0x1)); goto _lbl_L00133DA8; }
+    r_s4 = (long)(0 + (0x1));
+    r_v0 = (long)&D_4E2D48;
+    r_a0 = (long)(r_s2 + 0);
+    r_t0 = (long)&D_4E2D48;
+    r_a3 = (long)&D_4F9E40;
+    if (r_t0) { r_v1 = *(signed char *)((char *)r_t0 + (0x0)); }
+    if (r_t0) { r_a2 = *(signed char *)((char *)r_t0 + (0x1)); }
+    if (r_a3) { *(char *)((char *)r_a3 + (0x0)) = (char)r_v1; }
+    if (r_a3) { *(char *)((char *)r_a3 + (0x1)) = (char)r_a2; }
+    r_a1 = (long)(r_s1 + (0x38));
+    r_v0 = (long)strcat((char *)r_a0, (const char *)r_a1);
+    goto _lbl_L00133DA8;
+_lbl_L00133D5C:
+    r_a0 = (long)(r_a1 + 0);
+    r_v0 = (long)func_0012F418((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_v0 != 0) { r_a1 = (long)(r_s3 + 0); goto _lbl_L00133D9C; }
+    r_a1 = (long)(r_s3 + 0);
+    r_s0 = (long)&D_4E2D48;
+    r_a0 = (long)(r_s2 + 0);
+    r_s0 = (long)&D_4E2D48;
+    r_a1 = (long)(r_s0 + 0);
+    r_v0 = (long)strcat((char *)r_a0, (const char *)r_a1);
+    r_a0 = (long)(r_s2 + 0);
+    r_a1 = (long)(r_s1 + (0x38));
+    r_v0 = (long)strcat((char *)r_a0, (const char *)r_a1);
+    r_a1 = (long)(r_s0 + 0);
+    r_a0 = (long)(r_s2 + 0);
+    r_v0 = (long)strcat((char *)r_a0, (const char *)r_a1);
+    r_a1 = (long)(r_s3 + 0);
+_lbl_L00133D9C:
+    r_a0 = (long)(r_s2 + 0);
+    r_v0 = (long)strcat((char *)r_a0, (const char *)r_a1);
+    r_s3 = (long)(r_s1 + (0x58));
+_lbl_L00133DA8:
+    if (r_s4 == 0) { r_a1 = (long)&D_00133DB8; goto _lbl_L00133DC4; }
+    r_a1 = (long)&D_00133DB8;
+    r_a0 = (long)(r_s1 + 0);
+    r_a1 = (long)&D_00133DB8;
+    r_v0 = (long)func_0012F108((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x70)); }
+    goto _lbl_L00133DE0;
+_lbl_L00133DC4:
+    r_a0 = (long)(r_s5 + 0);
+    r_a1 = (long)(r_s6 + 0);
+    r_a2 = (long)(r_s2 + 0);
+    r_a3 = (long)(r_s3 + 0);
+    r_t0 = (long)(r_s1 + 0);
+    r_v0 = (long)func_00130320((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x70)); }
+_lbl_L00133DE0:
+    if (r_sp) { r_s6 = *(long *)((char *)r_sp + (0x60)); }
+    if (r_sp) { r_s5 = *(long *)((char *)r_sp + (0x50)); }
+    if (r_sp) { r_s4 = *(long *)((char *)r_sp + (0x40)); }
+    if (r_sp) { r_s3 = *(long *)((char *)r_sp + (0x30)); }
+    if (r_sp) { r_s2 = *(long *)((char *)r_sp + (0x20)); }
+    if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x10)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x80));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00133E08 */
-__asm__(".text\n\t"
-        ".globl func_00133E08\n\t"
-        ".ent func_00133E08\n"
-        "func_00133E08:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x40\n\t"
-        "addiu      $7, $0, 0x13\n\t"
-        "sd         $16, 0x10($29)\n\t"
-        "daddu      $5, $29, $0\n\t"
-        "daddu      $16, $4, $0\n\t"
-        "sd         $17, 0x20($29)\n\t"
-        "sd         $31, 0x30($29)\n\t"
-        "addiu      $4, $0, 0x1\n\t"
-        "ori        $6, $29, 0x4\n\t"
-        "jal        func_001303A8\n\t"
-        "daddu     $8, $16, $0\n\t"
-        "daddu      $17, $2, $0\n\t"
-        "addiu      $2, $0, -0x7E\n\t"
-        "bne        $17, $2, .L00133F5C\n\t"
-        "daddu     $2, $17, $0\n\t"
-        "lwl        $2, 0xF($16)\n\t"
-        "lwr        $2, 0xC($16)\n\t"
-        "lui        $4, (0xFFFF0000 >> 16)\n\t"
-        "dsrl32     $4, $4, 0\n\t"
-        "jal        func_0012E4E8\n\t"
-        "and       $4, $2, $4\n\t"
-        "lw         $5, 0x4($29)\n\t"
-        "daddu      $6, $2, $0\n\t"
-        "beqz       $5, .L00133E8C\n\t"
-        "daddu     $4, $0, $0\n\t"
-        "blez       $5, .L00133E7C\n\t"
-        "addiu     $2, $0, -0x4\n\t"
-        "addiu      $5, $0, -0x4\n\t"
-        "sw         $2, 0x4($29)\n\t"
-        ".L00133E7C:\n\t"
-        "lui        $4, %hi(D_38CE90)\n\t"
-        "jal        func_0012F438\n\t"
-        "addiu     $4, $4, %lo(D_38CE90)\n\t"
-        "daddu      $4, $2, $0\n\t"
-        ".L00133E8C:\n\t"
-        "addiu      $2, $0, -0x77\n\t"
-        "bne        $4, $2, .L00133F44\n\t"
-        "lui       $6, (0x130000 >> 16)\n\t"
-        "lw         $7, 0xB8($16)\n\t"
-        "beqz       $7, .L00133F44\n\t"
-        "sltiu     $2, $7, 0x2\n\t"
-        "beql       $2, $0, .L00133F48\n\t"
-        "daddu     $7, $17, $0\n\t"
-        "sw         $4, 0xBC($16)\n\t"
-        "daddu      $6, $0, $0\n\t"
-        "beqz       $7, .L00133EFC\n\t"
-        "lw        $5, 0xB4($16)\n\t"
-        "lui        $4, (0x490000 >> 16)\n\t"
-        "srav       $2, $5, $6\n\t"
-        "nop\n\t"
-        ".L00133EC8:\n\t"
-        "andi       $2, $2, 0x1\n\t"
-        "beqz       $2, .L00133EE4\n\t"
-        "addiu     $2, $0, 0x2\n\t"
-        "addiu      $3, $0, 0x1\n\t"
-        "subu       $2, $2, $6\n\t"
-        "sllv       $3, $3, $2\n\t"
-        "or         $5, $5, $3\n\t"
-        ".L00133EE4:\n\t"
-        "addiu      $6, $6, 0x1\n\t"
-        "sltu       $2, $6, $7\n\t"
-        "bnez       $2, .L00133EC8\n\t"
-        "srav      $2, $5, $6\n\t"
-        "b          .L00133F04\n\t"
-        "addiu     $6, $7, 0x1\n\t"
-        ".L00133EFC:\n\t"
-        "lui        $4, (0x490000 >> 16)\n\t"
-        "addiu      $6, $7, 0x1\n\t"
-        ".L00133F04:\n\t"
-        "slti       $2, $6, 0x2\n\t"
-        "beqz       $2, .L00133F2C\n\t"
-        "addiu     $7, $0, 0x1\n\t"
-        ".L00133F10:\n\t"
-        "sllv       $3, $7, $6\n\t"
-        "or         $5, $5, $3\n\t"
-        "addiu      $6, $6, 0x1\n\t"
-        "xor        $5, $5, $3\n\t"
-        "slti       $2, $6, 0x2\n\t"
-        "bnez       $2, .L00133F10\n\t"
-        ".set reorder\n\t"
-        ".end func_00133E08\n");
+void *func_00133E08(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0, r_t0 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+    (void)r_t0;
+    r_sp = (long)(r_sp + (-0x40));
+    r_a3 = (long)(0 + (0x13));
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_s0; }
+    r_a1 = (long)(r_sp + 0);
+    r_s0 = (long)(r_a0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x20)) = (long)r_s1; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x30)) = (long)r_ra; }
+    r_a0 = (long)(0 + (0x1));
+    r_a2 = (long)(r_sp | (0x4));
+    r_t0 = (long)(r_s0 + 0);
+    r_v0 = (long)func_001303A8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_s1 = (long)(r_v0 + 0);
+    r_v0 = (long)(0 + (-0x7E));
+    if (r_s1 != r_v0) { r_v0 = (long)(r_s1 + 0); return func_00133F28((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3); }
+    r_v0 = (long)(r_s1 + 0);
+    if (r_s0) { r_v0 = *(int *)((char *)r_s0 + (0xF)); }
+    if (r_s0) { r_v0 = *(int *)((char *)r_s0 + (0xC)); }
+    r_a0 = (long)((0xFFFF0000 >> 16) << 16);
+    r_a0 = (long)((unsigned long)r_a0 >> (0));
+    r_a0 = (long)(r_v0 & r_a0);
+    r_v0 = (long)func_0012E4E8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_a1 = *(int *)((char *)r_sp + (0x4)); }
+    r_a2 = (long)(r_v0 + 0);
+    if (r_a1 == 0) { r_a0 = (long)(0 + 0); goto _lbl_L00133E8C; }
+    r_a0 = (long)(0 + 0);
+    if ((long)r_a1 <= 0) { r_v0 = (long)(0 + (-0x4)); goto _lbl_L00133E7C; }
+    r_v0 = (long)(0 + (-0x4));
+    r_a1 = (long)(0 + (-0x4));
+    if (r_sp) { *(int *)((char *)r_sp + (0x4)) = (int)r_v0; }
+_lbl_L00133E7C:
+    r_a0 = (long)&D_38CE90;
+    r_a0 = (long)&D_38CE90;
+    r_v0 = (long)func_0012F438((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_a0 = (long)(r_v0 + 0);
+_lbl_L00133E8C:
+    r_v0 = (long)(0 + (-0x77));
+    if (r_a0 != r_v0) { r_a2 = (long)((0x130000 >> 16) << 16); return func_00133F28((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3); }
+    r_a2 = (long)((0x130000 >> 16) << 16);
+    if (r_s0) { r_a3 = *(int *)((char *)r_s0 + (0xB8)); }
+    if (r_a3 == 0) { r_v0 = (long)((unsigned long)r_a3 < (unsigned long)(0x2) ? 1 : 0); return func_00133F28((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3); }
+    r_v0 = (long)((unsigned long)r_a3 < (unsigned long)(0x2) ? 1 : 0);
+    if (r_v0 == 0) { r_a3 = (long)(r_s1 + 0); return func_00133F28((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3); }
+    r_a3 = (long)(r_s1 + 0);
+    if (r_s0) { *(int *)((char *)r_s0 + (0xBC)) = (int)r_a0; }
+    r_a2 = (long)(0 + 0);
+    if (r_a3 == 0) { if (r_s0) { r_a1 = *(int *)((char *)r_s0 + (0xB4)); } goto _lbl_L00133EFC; }
+    if (r_s0) { r_a1 = *(int *)((char *)r_s0 + (0xB4)); }
+    r_a0 = (long)((0x490000 >> 16) << 16);
+    r_v0 = (long)((long)r_a1 >> r_a2);
+_lbl_L00133EC8:
+    r_v0 = (long)(r_v0 & (0x1));
+    if (r_v0 == 0) { r_v0 = (long)(0 + (0x2)); goto _lbl_L00133EE4; }
+    r_v0 = (long)(0 + (0x2));
+    r_v1 = (long)(0 + (0x1));
+    r_v0 = (long)(r_v0 - r_a2);
+    r_v1 = (long)((unsigned long)r_v1 << r_v0);
+    r_a1 = (long)(r_a1 | r_v1);
+_lbl_L00133EE4:
+    r_a2 = (long)(r_a2 + (0x1));
+    r_v0 = (long)((unsigned long)r_a2 < (unsigned long)r_a3 ? 1 : 0);
+    if (r_v0 != 0) { r_v0 = (long)((long)r_a1 >> r_a2); goto _lbl_L00133EC8; }
+    r_v0 = (long)((long)r_a1 >> r_a2);
+    r_a2 = (long)(r_a3 + (0x1));
+    goto _lbl_L00133F04;
+_lbl_L00133EFC:
+    r_a0 = (long)((0x490000 >> 16) << 16);
+    r_a2 = (long)(r_a3 + (0x1));
+_lbl_L00133F04:
+    r_v0 = (long)((long)r_a2 < (long)(0x2) ? 1 : 0);
+    if (r_v0 == 0) { r_a3 = (long)(0 + (0x1)); return func_00133F28((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3); }
+    r_a3 = (long)(0 + (0x1));
+_lbl_L00133F10:
+    r_v1 = (long)((unsigned long)r_a3 << r_a2);
+    r_a1 = (long)(r_a1 | r_v1);
+    r_a2 = (long)(r_a2 + (0x1));
+    r_a1 = (long)(r_a1 ^ r_v1);
+    r_v0 = (long)((long)r_a2 < (long)(0x2) ? 1 : 0);
+    if (r_v0 != 0) goto _lbl_L00133F10;
+    return func_00133F28((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+}
 
 /* func_00133F28 */
-__asm__(".text\n\t"
-        ".globl func_00133F28\n\t"
-        ".ent func_00133F28\n"
-        "func_00133F28:\n\t"
-        ".set noreorder\n\t"
-        "nop\n\t"
-        ".L00133F2C:\n\t"
-        "sw         $5, 0xB4($16)\n\t"
-        "addiu      $4, $4, 0x588\n\t"
-        "jal        func_118de0\n\t"
-        "addiu     $17, $0, -0x7E\n\t"
-        "b          .L00133F5C\n\t"
-        "daddu     $2, $17, $0\n\t"
-        ".L00133F44:\n\t"
-        "daddu      $7, $17, $0\n\t"
-        ".L00133F48:\n\t"
-        "daddu      $5, $16, $0\n\t"
-        "jal        func_0012FA30\n\t"
-        "addiu     $6, $6, 0x3DE8\n\t"
-        "daddu      $17, $2, $0\n\t"
-        "daddu      $2, $17, $0\n\t"
-        ".L00133F5C:\n\t"
-        "ld         $31, 0x30($29)\n\t"
-        "ld         $17, 0x20($29)\n\t"
-        "ld         $16, 0x10($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x40\n\t"
-        ".set reorder\n\t"
-        ".end func_00133F28\n");
+void *func_00133F28(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_s1 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_s1;
+_lbl_L00133F2C:
+    if (r_s0) { *(int *)((char *)r_s0 + (0xB4)) = (int)r_a1; }
+    r_a0 = (long)(r_a0 + (0x588));
+    r_s1 = (long)(0 + (-0x7E));
+    r_v0 = (long)func_118de0((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_v0 = (long)(r_s1 + 0);
+    goto _lbl_L00133F5C;
+_lbl_L00133F44:
+    r_a3 = (long)(r_s1 + 0);
+_lbl_L00133F48:
+    r_a1 = (long)(r_s0 + 0);
+    r_a2 = (long)(r_a2 + (0x3DE8));
+    r_v0 = (long)func_0012FA30((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_s1 = (long)(r_v0 + 0);
+    r_v0 = (long)(r_s1 + 0);
+_lbl_L00133F5C:
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x30)); }
+    if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x20)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x10)); }
+    r_sp = (long)(r_sp + (0x40));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00133F70 */
-__asm__(".text\n\t"
-        ".globl func_00133F70\n\t"
-        ".ent func_00133F70\n"
-        "func_00133F70:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x10\n\t"
-        "daddu      $2, $4, $0\n\t"
-        "sd         $31, 0x0($29)\n\t"
-        "lui        $5, %hi(D_00133A18)\n\t"
-        "addiu      $5, $5, %lo(D_00133A18)\n\t"
-        "lw         $3, 0xB8($2)\n\t"
-        "addiu      $3, $3, 0x1\n\t"
-        "jal        func_0012F108\n\t"
-        "sw        $3, 0xB8($2)\n\t"
-        "ld         $31, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x10\n\t"
-        ".set reorder\n\t"
-        ".end func_00133F70\n");
+void *func_00133F70(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    r_sp = (long)(r_sp + (-0x10));
+    r_v0 = (long)(r_a0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_ra; }
+    r_a1 = (long)&D_00133A18;
+    r_a1 = (long)&D_00133A18;
+    if (r_v0) { r_v1 = *(int *)((char *)r_v0 + (0xB8)); }
+    r_v1 = (long)(r_v1 + (0x1));
+    if (r_v0) { *(int *)((char *)r_v0 + (0xB8)) = (int)r_v1; }
+    r_v0 = (long)func_0012F108((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x10));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00133FA0 */
-__asm__(".text\n\t"
-        ".globl func_00133FA0\n\t"
-        ".ent func_00133FA0\n"
-        "func_00133FA0:\n\t"
-        ".set noreorder\n\t"
-        "lw         $5, 0xBC($4)\n\t"
-        "bnez       $5, .L00133FB0\n\t"
-        "lw        $6, 0xB0($4)\n\t"
-        "lw         $5, 0x20($4)\n\t"
-        ".L00133FB0:\n\t"
-        "addiu      $3, $0, 0x1\n\t"
-        "addiu      $2, $0, -0x80\n\t"
-        "movz       $5, $3, $5\n\t"
-        "jr         $31\n\t"
-        "sw        $5, 0x0($6)\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_00133FA0\n");
+void *func_00133FA0(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    if (r_a0) { r_a1 = *(int *)((char *)r_a0 + (0xBC)); }
+    if (r_a1 != 0) { if (r_a0) { r_a2 = *(int *)((char *)r_a0 + (0xB0)); } goto _lbl_L00133FB0; }
+    if (r_a0) { r_a2 = *(int *)((char *)r_a0 + (0xB0)); }
+    if (r_a0) { r_a1 = *(int *)((char *)r_a0 + (0x20)); }
+_lbl_L00133FB0:
+    r_v1 = (long)(0 + (0x1));
+    r_v0 = (long)(0 + (-0x80));
+    if (r_a1 == 0) r_a1 = r_v1;
+    if (r_a2) { *(int *)((char *)r_a2 + (0x0)) = (int)r_a1; }
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00133FC8 */
-__asm__(".text\n\t"
-        ".globl func_00133FC8\n\t"
-        ".ent func_00133FC8\n"
-        "func_00133FC8:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x20\n\t"
-        "lui        $6, (0x10010 >> 16)\n\t"
-        "sd         $16, 0x0($29)\n\t"
-        "daddu      $5, $0, $0\n\t"
-        "lui        $16, %hi(D_4F9EC0)\n\t"
-        "sd         $31, 0x10($29)\n\t"
-        "addiu      $16, $16, %lo(D_4F9EC0)\n\t"
-        "ori        $6, $6, (0x10010 & 0xFFFF)\n\t"
-        "jal        func_117CAC\n\t"
-        "daddu     $4, $16, $0\n\t"
-        "daddu      $5, $16, $0\n\t"
-        "lui        $4, %hi(D_509EC0)\n\t"
-        "ld         $31, 0x10($29)\n\t"
-        "addiu      $4, $4, %lo(D_509EC0)\n\t"
-        "ld         $16, 0x0($29)\n\t"
-        "j          func_1043B8\n\t"
-        "addiu     $29, $29, 0x20\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_00133FC8\n");
+void *func_00133FC8(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    r_sp = (long)(r_sp + (-0x20));
+    r_a2 = (long)((0x10010 >> 16) << 16);
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_s0; }
+    r_a1 = (long)(0 + 0);
+    r_s0 = (long)&D_4F9EC0;
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_ra; }
+    r_s0 = (long)&D_4F9EC0;
+    r_a2 = (long)(r_a2 | ((0x10010 & 0xFFFF)));
+    r_a0 = (long)(r_s0 + 0);
+    r_v0 = (long)func_117CAC((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_a1 = (long)(r_s0 + 0);
+    r_a0 = (long)&D_509EC0;
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x10)); }
+    r_a0 = (long)&D_509EC0;
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x20));
+    return (void *)func_1043B8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    return func_00134010((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+}
 
 /* func_00134010 */
-__asm__(".text\n\t"
-        ".globl func_00134010\n\t"
-        ".ent func_00134010\n"
-        "func_00134010:\n\t"
-        ".set noreorder\n\t"
-        "lui        $2, %hi(D_509EC0)\n\t"
-        "jr         $31\n\t"
-        "addiu     $2, $2, %lo(D_509EC0)\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_00134010\n");
+void *func_00134010(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    r_v0 = (long)&D_509EC0;
+    r_v0 = (long)&D_509EC0;
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00134020 */
-__asm__(".text\n\t"
-        ".globl func_00134020\n\t"
-        ".ent func_00134020\n"
-        "func_00134020:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x20\n\t"
-        "daddu      $5, $0, $0\n\t"
-        "sd         $16, 0x0($29)\n\t"
-        "daddu      $6, $0, $0\n\t"
-        "lui        $16, %hi(D_509EC0)\n\t"
-        "sd         $31, 0x10($29)\n\t"
-        "addiu      $16, $16, %lo(D_509EC0)\n\t"
-        "daddu      $7, $0, $0\n\t"
-        "jal        func_104558\n\t"
-        "daddu     $4, $16, $0\n\t"
-        "jal        func_1043D8\n\t"
-        "daddu     $4, $16, $0\n\t"
-        "jal        func_104FA0\n\t"
-        "daddu     $4, $0, $0\n\t"
-        "jal        func_123818\n\t"
-        "nop\n\t"
-        "jal        func_123848\n\t"
-        "lw        $4, 0x4($16)\n\t"
-        "daddu      $4, $16, $0\n\t"
-        "ld         $31, 0x10($29)\n\t"
-        "ld         $16, 0x0($29)\n\t"
-        "j          func_1043C8\n\t"
-        "addiu     $29, $29, 0x20\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_00134020\n");
+void *func_00134020(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    r_sp = (long)(r_sp + (-0x20));
+    r_a1 = (long)(0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_s0; }
+    r_a2 = (long)(0 + 0);
+    r_s0 = (long)&D_509EC0;
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_ra; }
+    r_s0 = (long)&D_509EC0;
+    r_a3 = (long)(0 + 0);
+    r_a0 = (long)(r_s0 + 0);
+    r_v0 = (long)func_104558((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_a0 = (long)(r_s0 + 0);
+    r_v0 = (long)func_1043D8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_a0 = (long)(0 + 0);
+    r_v0 = (long)func_104FA0((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_v0 = (long)func_123818((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_s0) { r_a0 = *(int *)((char *)r_s0 + (0x4)); }
+    r_v0 = (long)func_123848((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_a0 = (long)(r_s0 + 0);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x10)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x20));
+    return (void *)func_1043C8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    return func_00134080((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+}
 
 /* func_00134080 */
-__asm__(".text\n\t"
-        ".globl func_00134080\n\t"
-        ".ent func_00134080\n"
-        "func_00134080:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x20\n\t"
-        "sd         $16, 0x0($29)\n\t"
-        "sd         $31, 0x10($29)\n\t"
-        "jal        func_00133F28\n\t"
-        "daddu     $16, $4, $0\n\t"
-        "beqz       $2, .L001340D0\n\t"
-        "andi      $16, $16, 0x1\n\t"
-        "lui        $2, %hi(D_509ED0)\n\t"
-        "sll        $4, $16, 3\n\t"
-        "addiu      $2, $2, %lo(D_509ED0)\n\t"
-        "addu       $2, $4, $2\n\t"
-        "lw         $7, -0x7780($28)\n\t"
-        "ld         $5, 0x0($2)\n\t"
-        "lui        $3, %hi(D_509EE0)\n\t"
-        "addiu      $3, $3, %lo(D_509EE0)\n\t"
-        "lw         $6, -0x777C($28)\n\t"
-        "sd         $5, 0x0($7)\n\t"
-        "addu       $4, $4, $3\n\t"
-        "ld         $2, 0x0($4)\n\t"
-        "sd         $2, 0x0($6)\n\t"
-        ".L001340D0:\n\t"
-        "ld         $31, 0x10($29)\n\t"
-        "ld         $16, 0x0($29)\n\t"
-        "jr         $31\n\t"
-        "addiu     $29, $29, 0x20\n\t"
-        ".set reorder\n\t"
-        ".end func_00134080\n");
+void *func_00134080(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    r_sp = (long)(r_sp + (-0x20));
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_s0; }
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_ra; }
+    r_s0 = (long)(r_a0 + 0);
+    r_v0 = (long)func_00133F28((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    if (r_v0 == 0) { r_s0 = (long)(r_s0 & (0x1)); goto _lbl_L001340D0; }
+    r_s0 = (long)(r_s0 & (0x1));
+    r_v0 = (long)&D_509ED0;
+    r_a0 = (long)((unsigned long)r_s0 << (3));
+    r_v0 = (long)&D_509ED0;
+    r_v0 = (long)(r_a0 + r_v0);
+    if (r_gp) { r_a3 = *(int *)((char *)r_gp + (-0x7780)); }
+    if (r_v0) { r_a1 = *(long *)((char *)r_v0 + (0x0)); }
+    r_v1 = (long)&D_509EE0;
+    r_v1 = (long)&D_509EE0;
+    if (r_gp) { r_a2 = *(int *)((char *)r_gp + (-0x777C)); }
+    if (r_a3) { *(long *)((char *)r_a3 + (0x0)) = (long)r_a1; }
+    r_a0 = (long)(r_a0 + r_v1);
+    if (r_a0) { r_v0 = *(long *)((char *)r_a0 + (0x0)); }
+    if (r_a2) { *(long *)((char *)r_a2 + (0x0)) = (long)r_v0; }
+_lbl_L001340D0:
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x10)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
+    r_sp = (long)(r_sp + (0x20));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_001340E0 */
-__asm__(".text\n\t"
-        ".globl func_001340E0\n\t"
-        ".ent func_001340E0\n"
-        "func_001340E0:\n\t"
-        ".set noreorder\n\t"
-        "lw         $2, -0x7778($28)\n\t"
-        "jr         $31\n\t"
-        "andi      $2, $2, 0x1\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_001340E0\n");
+void *func_001340E0(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    if (r_gp) { r_v0 = *(int *)((char *)r_gp + (-0x7778)); }
+    r_v0 = (long)(r_v0 & (0x1));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_001340F0 */
-__asm__(".text\n\t"
-        ".globl func_001340F0\n\t"
-        ".ent func_001340F0\n"
-        "func_001340F0:\n\t"
-        ".set noreorder\n\t"
-        "lw         $2, -0x7778($28)\n\t"
-        "addiu      $3, $0, -0x2\n\t"
-        "sltu       $5, $0, $5\n\t"
-        "addiu      $6, $0, 0x80\n\t"
-        "and        $2, $2, $3\n\t"
-        "or         $2, $2, $5\n\t"
-        "beqz       $5, func_00134140\n\t"
-        "sw        $2, -0x7778($28)\n\t"
-        "addiu      $5, $0, -0x81\n\t"
-        "addiu      $3, $0, 0x1\n\t"
-        ".L00134118:\n\t"
-        "lw         $2, 0x0($4)\n\t"
-        "addiu      $3, $3, -0x1\n\t"
-        "ori        $2, $2, 0x63\n\t"
-        "and        $2, $2, $5\n\t"
-        "sw         $2, 0x0($4)\n\t"
-        "sb         $6, 0x1($4)\n\t"
-        "bgez       $3, .L00134118\n\t"
-        "addiu     $4, $4, 0x28\n\t"
-        "jr         $31\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_001340F0\n");
+void *func_001340F0(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    if (r_gp) { r_v0 = *(int *)((char *)r_gp + (-0x7778)); }
+    r_v1 = (long)(0 + (-0x2));
+    r_a1 = (long)((unsigned long)0 < (unsigned long)r_a1 ? 1 : 0);
+    r_a2 = (long)(0 + (0x80));
+    r_v0 = (long)(r_v0 & r_v1);
+    r_v0 = (long)(r_v0 | r_a1);
+    if (r_a1 == 0) { if (r_gp) { *(int *)((char *)r_gp + (-0x7778)) = (int)r_v0; } return func_00134140((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3); }
+    if (r_gp) { *(int *)((char *)r_gp + (-0x7778)) = (int)r_v0; }
+    r_a1 = (long)(0 + (-0x81));
+    r_v1 = (long)(0 + (0x1));
+_lbl_L00134118:
+    if (r_a0) { r_v0 = *(int *)((char *)r_a0 + (0x0)); }
+    r_v1 = (long)(r_v1 + (-0x1));
+    r_v0 = (long)(r_v0 | (0x63));
+    r_v0 = (long)(r_v0 & r_a1);
+    if (r_a0) { *(int *)((char *)r_a0 + (0x0)) = (int)r_v0; }
+    if (r_a0) { *(char *)((char *)r_a0 + (0x1)) = (char)r_a2; }
+    if ((long)r_v1 >= 0) { r_a0 = (long)(r_a0 + (0x28)); goto _lbl_L00134118; }
+    r_a0 = (long)(r_a0 + (0x28));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00134140 */
-__asm__(".text\n\t"
-        ".globl func_00134140\n\t"
-        ".ent func_00134140\n"
-        "func_00134140:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $5, $0, -0x2\n\t"
-        "addiu      $3, $0, 0x1\n\t"
-        ".L00134148:\n\t"
-        "lw         $2, 0x0($4)\n\t"
-        "addiu      $3, $3, -0x1\n\t"
-        "and        $2, $2, $5\n\t"
-        "ori        $2, $2, 0x2\n\t"
-        "sw         $2, 0x0($4)\n\t"
-        "sb         $0, 0x1($4)\n\t"
-        "bgez       $3, .L00134148\n\t"
-        "addiu     $4, $4, 0x28\n\t"
-        "jr         $31\n\t"
-        "nop\n\t"
-        ".set reorder\n\t"
-        ".end func_00134140\n");
+void *func_00134140(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    r_a1 = (long)(0 + (-0x2));
+    r_v1 = (long)(0 + (0x1));
+_lbl_L00134148:
+    if (r_a0) { r_v0 = *(int *)((char *)r_a0 + (0x0)); }
+    r_v1 = (long)(r_v1 + (-0x1));
+    r_v0 = (long)(r_v0 & r_a1);
+    r_v0 = (long)(r_v0 | (0x2));
+    if (r_a0) { *(int *)((char *)r_a0 + (0x0)) = (int)r_v0; }
+    if (r_a0) { *(char *)((char *)r_a0 + (0x1)) = (char)0; }
+    if ((long)r_v1 >= 0) { r_a0 = (long)(r_a0 + (0x28)); goto _lbl_L00134148; }
+    r_a0 = (long)(r_a0 + (0x28));
+    return (void *)r_v0;
+    return (void *)r_v0;
+}
 
 /* func_00134170 */
-__asm__(".text\n\t"
-        ".globl func_00134170\n\t"
-        ".ent func_00134170\n"
-        "func_00134170:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $29, $29, -0x20\n\t"
-        "lui        $15, %hi(D_509ED0)\n\t"
-        "sd         $16, 0x0($29)\n\t"
-        "lui        $14, %hi(D_509EE0)\n\t"
-        "daddu      $16, $4, $0\n\t"
-        "sd         $31, 0x10($29)\n\t"
-        "addiu      $6, $15, %lo(D_509ED0)\n\t"
-        "addiu      $5, $14, %lo(D_509EE0)\n\t"
-        "daddu      $3, $16, $0\n\t"
-        "addiu      $4, $0, 0x1\n\t"
-        ".L00134198:\n\t"
-        "ld         $2, 0x10($3)\n\t"
-        "addiu      $4, $4, -0x1\n\t"
-        "sd         $2, 0x0($6)\n\t"
-        "addiu      $6, $6, 0x8\n\t"
-        "ld         $2, 0x18($3)\n\t"
-        "addiu      $3, $3, 0x28\n\t"
-        "sd         $2, 0x0($5)\n\t"
-        "bgez       $4, .L00134198\n\t"
-        ".set reorder\n\t"
-        ".end func_00134170\n");
+void *func_00134170(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_t6 = 0, r_t7 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_t6;
+    (void)r_t7;
+    r_sp = (long)(r_sp + (-0x20));
+    r_t7 = (long)&D_509ED0;
+    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_s0; }
+    r_t6 = (long)&D_509EE0;
+    r_s0 = (long)(r_a0 + 0);
+    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_ra; }
+    r_a2 = (long)&D_509ED0;
+    r_a1 = (long)&D_509EE0;
+    r_v1 = (long)(r_s0 + 0);
+    r_a0 = (long)(0 + (0x1));
+_lbl_L00134198:
+    if (r_v1) { r_v0 = *(long *)((char *)r_v1 + (0x10)); }
+    r_a0 = (long)(r_a0 + (-0x1));
+    if (r_a2) { *(long *)((char *)r_a2 + (0x0)) = (long)r_v0; }
+    r_a2 = (long)(r_a2 + (0x8));
+    if (r_v1) { r_v0 = *(long *)((char *)r_v1 + (0x18)); }
+    r_v1 = (long)(r_v1 + (0x28));
+    if (r_a1) { *(long *)((char *)r_a1 + (0x0)) = (long)r_v0; }
+    if ((long)r_a0 >= 0) goto _lbl_L00134198;
+    return func_001341B8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+}
 
 /* func_001341B8 */
-__asm__(".text\n\t"
-        ".globl func_001341B8\n\t"
-        ".ent func_001341B8\n"
-        "func_001341B8:\n\t"
-        ".set noreorder\n\t"
-        "addiu      $5, $5, 0x8\n\t"
-        "addiu      $13, $14, -0x6120\n\t"
-        "ld         $4, -0x6120($14)\n\t"
-        "ld         $5, 0x8($13)\n\t"
-        "lui        $6, (0xFF800FFF >> 16)\n\t"
-        "ori        $6, $6, (0xFF800FFF & 0xFFFF)\n\t"
-        "dsll       $3, $4, 20\n\t"
-        "dsra32     $3, $3, 0\n\t"
-        "ld         $9, -0x6130($15)\n\t"
-        "dsll       $2, $5, 20\n\t"
-        ".L001341E0:\n\t"
-        "dsra32     $2, $2, 0\n\t"
-        "andi       $3, $3, 0x7FF\n\t"
-        "andi       $2, $2, 0x7FF\n\t"
-        "addiu      $3, $3, -0x1\n\t"
-        "addiu      $2, $2, -0x1\n\t"
-        "andi       $3, $3, 0x7FF\n\t"
-        "andi       $2, $2, 0x7FF\n\t"
-        ".L001341FC:\n\t"
-        "addiu      $12, $15, -0x6130\n\t"
-        "and        $5, $5, $6\n\t"
-        "dsll       $3, $3, 12\n\t"
-        "and        $4, $4, $6\n\t"
-        "dsll       $2, $2, 12\n\t"
-        ".set reorder\n\t"
-        ".end func_001341B8\n");
+void *func_001341B8(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_t1 = 0, r_t4 = 0, r_t5 = 0, r_t6 = 0, r_t7 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_t1;
+    (void)r_t4;
+    (void)r_t5;
+    (void)r_t6;
+    (void)r_t7;
+    r_a1 = (long)(r_a1 + (0x8));
+    r_t5 = (long)(r_t6 + (-0x6120));
+    if (r_t6) { r_a0 = *(long *)((char *)r_t6 + (-0x6120)); }
+    if (r_t5) { r_a1 = *(long *)((char *)r_t5 + (0x8)); }
+    r_a2 = (long)((0xFF800FFF >> 16) << 16);
+    r_a2 = (long)(r_a2 | ((0xFF800FFF & 0xFFFF)));
+    r_v1 = (long)((unsigned long)r_a0 << (20));
+    r_v1 = (long)((long)r_v1 >> (0));
+    if (r_t7) { r_t1 = *(long *)((char *)r_t7 + (-0x6130)); }
+    r_v0 = (long)((unsigned long)r_a1 << (20));
+_lbl_L001341E0:
+    r_v0 = (long)((long)r_v0 >> (0));
+    r_v1 = (long)(r_v1 & (0x7FF));
+    r_v0 = (long)(r_v0 & (0x7FF));
+    r_v1 = (long)(r_v1 + (-0x1));
+    r_v0 = (long)(r_v0 + (-0x1));
+    r_v1 = (long)(r_v1 & (0x7FF));
+    r_v0 = (long)(r_v0 & (0x7FF));
+_lbl_L001341FC:
+    r_t4 = (long)(r_t7 + (-0x6130));
+    r_a1 = (long)(r_a1 & r_a2);
+    r_v1 = (long)((unsigned long)r_v1 << (12));
+    r_a0 = (long)(r_a0 & r_a2);
+    r_v0 = (long)((unsigned long)r_v0 << (12));
+    return func_00134210((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+}
 
 /* func_00134210 */
-__asm__(".text\n\t"
-        ".globl func_00134210\n\t"
-        ".ent func_00134210\n"
-        "func_00134210:\n\t"
-        ".set noreorder\n\t"
-        "ld         $10, 0x8($12)\n\t"
-        "or         $5, $5, $2\n\t"
-        "or         $4, $4, $3\n\t"
-        "dsrl32     $2, $9, 11\n\t"
-        "dsrl32     $3, $4, 12\n\t"
-        "dsrl32     $6, $5, 12\n\t"
-        "dsrl32     $7, $10, 11\n\t"
-        "lui        $8, (0xFF800FFF >> 16)\n\t"
-        "ori        $8, $8, (0xFF800FFF & 0xFFFF)\n\t"
-        "dsll       $8, $8, 16\n\t"
-        "ori        $8, $8, 0xFFFF\n\t"
-        "dsll       $8, $8, 16\n\t"
-        "ori        $8, $8, 0xFFFF\n\t"
-        "lui        $11, (0xFFC007FF >> 16)\n\t"
-        "ori        $11, $11, (0xFFC007FF & 0xFFFF)\n\t"
-        "dsll       $11, $11, 16\n\t"
-        "ori        $11, $11, 0xFFFF\n\t"
-        "dsll       $11, $11, 16\n\t"
-        "ori        $11, $11, 0xFFFF\n\t"
-        "andi       $3, $3, 0x7FF\n\t"
-        "andi       $2, $2, 0x7FF\n\t"
-        "andi       $6, $6, 0x7FF\n\t"
-        "andi       $7, $7, 0x7FF\n\t"
-        "dsll32     $3, $3, 12\n\t"
-        "and        $4, $4, $8\n\t"
-        "dsll32     $2, $2, 11\n\t"
-        ".L00134278:\n\t"
-        "and        $9, $9, $11\n\t"
-        "and        $5, $5, $8\n\t"
-        "and        $10, $10, $11\n\t"
-        "dsll32     $6, $6, 12\n\t"
-        "dsll32     $7, $7, 11\n\t"
-        "or         $4, $4, $3\n\t"
-        "or         $9, $9, $2\n\t"
-        "or         $5, $5, $6\n\t"
-        "or         $10, $10, $7\n\t"
-        "sd         $4, -0x6120($14)\n\t"
-        "sd         $9, -0x6130($15)\n\t"
-        "sd         $5, 0x8($13)\n\t"
-        "jal        func_1236D0\n\t"
-        "sd        $10, 0x8($12)\n\t"
-        "addiu      $3, $0, 0x1\n\t"
-        "bne        $2, $3, .L001342CC\n\t"
-        "lui       $2, (0x12000050 >> 16)\n\t"
-        "lui        $3, (0x12000060 >> 16)\n\t"
-        "ori        $2, $2, (0x12000050 & 0xFFFF)\n\t"
-        "b          .L001342D8\n\t"
-        "ori       $3, $3, (0x12000060 & 0xFFFF)\n\t"
-        ".L001342CC:\n\t"
-        "lui        $3, (0x12000080 >> 16)\n\t"
-        "ori        $2, $2, (0x12000070 & 0xFFFF)\n\t"
-        "ori        $3, $3, (0x12000080 & 0xFFFF)\n\t"
-        ".L001342D8:\n\t"
-        "sw         $2, -0x7780($28)\n\t"
-        "sw         $3, -0x777C($28)\n\t"
-        "daddu      $4, $16, $0\n\t"
-        "ld         $31, 0x10($29)\n\t"
-        "ld         $16, 0x0($29)\n\t"
-        "addiu      $5, $0, 0x1\n\t"
-        "j          func_00133F38\n\t"
-        "addiu     $29, $29, 0x20\n\t"
-        ".set reorder\n\t"
-        ".end func_00134210\n");
+void *func_00134210(void *a0, void *a1, void *a2, void *a3) {
+    long r_v0 = 0, r_v1 = 0;
+    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_ra = 0, r_gp = 0;
+    long r_s0 = 0, r_t0 = 0, r_t1 = 0, r_t2 = 0, r_t3 = 0, r_t4 = 0, r_t5 = 0, r_t6 = 0, r_t7 = 0;
+    unsigned char stack_mem[256];
+    long r_sp = (long)stack_mem + 128;
+    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
+    (void)r_s0;
+    (void)r_t0;
+    (void)r_t1;
+    (void)r_t2;
+    (void)r_t3;
+    (void)r_t4;
+    (void)r_t5;
+    (void)r_t6;
+    (void)r_t7;
+    if (r_t4) { r_t2 = *(long *)((char *)r_t4 + (0x8)); }
+    r_a1 = (long)(r_a1 | r_v0);
+    r_a0 = (long)(r_a0 | r_v1);
+    r_v0 = (long)((unsigned long)r_t1 >> (11));
+    r_v1 = (long)((unsigned long)r_a0 >> (12));
+    r_a2 = (long)((unsigned long)r_a1 >> (12));
+    r_a3 = (long)((unsigned long)r_t2 >> (11));
+    r_t0 = (long)((0xFF800FFF >> 16) << 16);
+    r_t0 = (long)(r_t0 | ((0xFF800FFF & 0xFFFF)));
+    r_t0 = (long)((unsigned long)r_t0 << (16));
+    r_t0 = (long)(r_t0 | (0xFFFF));
+    r_t0 = (long)((unsigned long)r_t0 << (16));
+    r_t0 = (long)(r_t0 | (0xFFFF));
+    r_t3 = (long)((0xFFC007FF >> 16) << 16);
+    r_t3 = (long)(r_t3 | ((0xFFC007FF & 0xFFFF)));
+    r_t3 = (long)((unsigned long)r_t3 << (16));
+    r_t3 = (long)(r_t3 | (0xFFFF));
+    r_t3 = (long)((unsigned long)r_t3 << (16));
+    r_t3 = (long)(r_t3 | (0xFFFF));
+    r_v1 = (long)(r_v1 & (0x7FF));
+    r_v0 = (long)(r_v0 & (0x7FF));
+    r_a2 = (long)(r_a2 & (0x7FF));
+    r_a3 = (long)(r_a3 & (0x7FF));
+    r_v1 = (long)((unsigned long)r_v1 << (12));
+    r_a0 = (long)(r_a0 & r_t0);
+    r_v0 = (long)((unsigned long)r_v0 << (11));
+_lbl_L00134278:
+    r_t1 = (long)(r_t1 & r_t3);
+    r_a1 = (long)(r_a1 & r_t0);
+    r_t2 = (long)(r_t2 & r_t3);
+    r_a2 = (long)((unsigned long)r_a2 << (12));
+    r_a3 = (long)((unsigned long)r_a3 << (11));
+    r_a0 = (long)(r_a0 | r_v1);
+    r_t1 = (long)(r_t1 | r_v0);
+    r_a1 = (long)(r_a1 | r_a2);
+    r_t2 = (long)(r_t2 | r_a3);
+    if (r_t6) { *(long *)((char *)r_t6 + (-0x6120)) = (long)r_a0; }
+    if (r_t7) { *(long *)((char *)r_t7 + (-0x6130)) = (long)r_t1; }
+    if (r_t5) { *(long *)((char *)r_t5 + (0x8)) = (long)r_a1; }
+    if (r_t4) { *(long *)((char *)r_t4 + (0x8)) = (long)r_t2; }
+    r_v0 = (long)func_1236D0((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_v1 = (long)(0 + (0x1));
+    if (r_v0 != r_v1) { r_v0 = (long)((0x12000050 >> 16) << 16); goto _lbl_L001342CC; }
+    r_v0 = (long)((0x12000050 >> 16) << 16);
+    r_v1 = (long)((0x12000060 >> 16) << 16);
+    r_v0 = (long)(r_v0 | ((0x12000050 & 0xFFFF)));
+    r_v1 = (long)(r_v1 | ((0x12000060 & 0xFFFF)));
+    goto _lbl_L001342D8;
+_lbl_L001342CC:
+    r_v1 = (long)((0x12000080 >> 16) << 16);
+    r_v0 = (long)(r_v0 | ((0x12000070 & 0xFFFF)));
+    r_v1 = (long)(r_v1 | ((0x12000080 & 0xFFFF)));
+_lbl_L001342D8:
+    if (r_gp) { *(int *)((char *)r_gp + (-0x7780)) = (int)r_v0; }
+    if (r_gp) { *(int *)((char *)r_gp + (-0x777C)) = (int)r_v1; }
+    r_a0 = (long)(r_s0 + 0);
+    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x10)); }
+    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
+    r_a1 = (long)(0 + (0x1));
+    r_sp = (long)(r_sp + (0x20));
+    return func_00133F28((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    return (void *)r_v0;
+}

@@ -50,12 +50,12 @@ pie title Distribuição de Funções em Assembly (Total: 1.906 funções)
 | **`src/kt_hd.c`** | KCET Hardware (PS2 HDD) | 441 | 27 | 2.600 B | Decompilado (C Puro + Testes Nativos) |
 | **`src/kt_kernel.c`** | KCET Hardware (Kernel/OS) | 496 | 39 | 3.172 B | Decompilado (C Puro + Testes Nativos) |
 | **`src/kt_file.c`** | KCET Hardware (I/O VFS) | 1.677 | 50 | 5.760 B | 100% Matched |
-| **`src/dcomp_overlay.c`** | Overlay (Gerador RMS) | 23.589 | 71 | 40.128 B | 100% Matched |
+| **`src/dcomp_overlay.c`** | Overlay (Gerador RMS) | 294 | 71 | 40.128 B | Decompilado (C Puro + Testes Nativos) |
 | **`src/kt_libpad.c`** | KCET Hardware (DualShock) | 4.486 | 100 | 12.144 B | 100% Matched |
 | **`src/thelp_overlay.c`** | Overlay (Tech Tree) | 38.213 | 119 | 70.848 B | 100% Matched |
 | **`src/smenu_overlay.c`** | Overlay (Setup/Menus) | 49.515 | 144 | 90.560 B | 100% Matched |
 | **`src/kt_libcdvd_server.c`** | KCET Hardware (CD/DVD) | 618 | 150 | 14.104 B | Decompilado (C Puro + Testes Nativos) |
-| **`src/kt_mc_2.c`** | KCET Hardware (Memory Card)| 10.800 | 337 | 35.808 B | 100% Matched |
+| **`src/kt_mc_2.c`** | KCET Hardware (Memory Card)| 11.415 | 337 | 56.396 B | Decompilado (C Puro + Testes Nativos) |
 | **`src/lobby_overlay.c`** | Overlay (Multiplayer) | 3.268 | 814 | 337.472 B | Decompilado (C Puro + Testes Nativos) |
 | **TOTAL** | — | **519.736** | **1.906** | **631.328 B** *(~616 KB)* | **16 arquivos** |
 
@@ -144,9 +144,11 @@ Módulos desenvolvidos pela Konami Tokyo para adaptar o motor de PC ao hardware 
 * **Descrição**: Servidor de leitura do leitor de CD/DVD do console, leitura assíncrona de setores e tratamento de erros do drive óptico.
 * **Prioridade**: Média.
 
-### 8. `src/kt_mc_2.c` (337 funções / 10.800 linhas)
-* **Descrição**: Gerenciador avançado de Memory Cards (leitura/escrita de saves, verificação de espaço livre, ícones de save 3D e cabeçalhos de arquivo).
-* **Prioridade**: Média.
+### 8. `src/kt_mc_2.c` (337 funções / 11.415 linhas) — *Decompilado (C Puro + Testes Nativos)*
+* **Descrição**: Gerenciador avançado de Memory Cards da Konami Tokyo (leitura/escrita de saves, verificação de espaço livre, ícones de save 3D e cabeçalhos de arquivo `icon.sys`). Todas as 337 funções encontram-se descompiladas em C estruturado puro com tratamento de delay slots.
+* **Header**: `include/kt_mc_2.h`
+* **Testes**: `tests/test_kt_mc_2_native.py` (execução comportamental nativa) e `tests/test_kt_mc_2_matching.py` (compilação e símbolos de todas as 337 funções com `ee-gcc 2.9-991111 -O2 -G0`).
+* **Prioridade**: Concluído.
 
 ---
 

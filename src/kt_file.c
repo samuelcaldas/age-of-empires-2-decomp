@@ -1,7 +1,7 @@
 #include "common.h"
 
 void func_0012CCE8();
-void func_0012CDE0();
+void *func_0012CDE0(char *table);
 void func_0012CEA0();
 void func_0012CF00();
 void func_0012CF58();
@@ -131,67 +131,38 @@ __asm__(
 );
 
 /* func_0012CDE0 */
-__asm__(
-    ".text\n\t"
-    ".globl func_0012CDE0\n\t"
-    ".ent func_0012CDE0\n"
-    "func_0012CDE0:\n\t"
-    ".set noreorder\n\t"
-    "addiu      $29, $29, -0x80\n\t"
-    "sd         $22, 0x60($29)\n\t"
-    "sd         $19, 0x30($29)\n\t"
-    "lui        $22, %hi(D_4F1508)\n\t"
-    "sd         $18, 0x20($29)\n\t"
-    "addiu      $2, $22, %lo(D_4F1508)\n\t"
-    "sd         $17, 0x10($29)\n\t"
-    "daddu      $18, $4, $0\n\t"
-    "sd         $31, 0x70($29)\n\t"
-    "daddu      $19, $0, $0\n\t"
-    "sd         $20, 0x40($29)\n\t"
-    "daddu      $17, $0, $0\n\t"
-    "sd         $16, 0x0($29)\n\t"
-    "sd         $21, 0x50($29)\n\t"
-    "beqz       $18, .L0012CE50\n\t"
-    "lw        $21, 0xC($2)\n\t"
-    "b          .L0012CE34\n\t"
-    "lui       $20, %hi(D_48FE70)\n\t"
-    ".L0012CE28:\n\t"
-    "jal        func_0012CC20\n\t"
-    "addiu     $19, $19, 0x1\n\t"
-    "addu       $17, $17, $2\n\t"
-    ".L0012CE34:\n\t"
-    "addu       $16, $18, $17\n\t"
-    "jal        func_0012CBF8\n\t"
-    "daddu     $4, $16, $0\n\t"
-    "bnez       $2, .L0012CE28\n\t"
-    "daddu     $4, $16, $0\n\t"
-    "b          .L0012CE58\n\t"
-    "addiu     $2, $22, %lo(D_4F1508)\n\t"
-    ".L0012CE50:\n\t"
-    "lui        $20, %hi(D_48FE70)\n\t"
-    "addiu      $2, $22, %lo(D_4F1508)\n\t"
-    ".L0012CE58:\n\t"
-    "addiu      $4, $20, %lo(D_48FE70)\n\t"
-    "sw         $19, 0x10($2)\n\t"
-    "daddu      $5, $18, $0\n\t"
-    "daddu      $6, $19, $0\n\t"
-    "jal        func_118de0\n\t"
-    "sw        $18, 0xC($2)\n\t"
-    "daddu      $2, $21, $0\n\t"
-    "ld         $31, 0x70($29)\n\t"
-    "ld         $22, 0x60($29)\n\t"
-    "ld         $21, 0x50($29)\n\t"
-    "ld         $20, 0x40($29)\n\t"
-    "ld         $19, 0x30($29)\n\t"
-    "ld         $18, 0x20($29)\n\t"
-    "ld         $17, 0x10($29)\n\t"
-    "ld         $16, 0x0($29)\n\t"
-    "jr         $31\n\t"
-    "addiu     $29, $29, 0x80\n\t"
-    "nop\n\t"
-    ".set reorder\n\t"
-    ".end func_0012CDE0\n"
-);
+typedef struct {
+    void *f0;
+    int f4;
+    int f8;
+    void *table;
+    int count;
+} CdServerState_0012CDE0;
+
+extern CdServerState_0012CDE0 D_4F1508;
+extern const char D_48FE70[];
+
+int func_0012CBF8(void *);
+int func_0012CC20(void *);
+int func_118de0(const char *, ...);
+
+void *func_0012CDE0(char *table) {
+    void *old_table;
+    int count = 0;
+    int offset = 0;
+
+    if (table != 0) {
+        old_table = D_4F1508.table;
+        while (func_0012CBF8(table + offset) != 0) {
+            count++;
+            offset += func_0012CC20(table + offset);
+        }
+    }
+    D_4F1508.count = count;
+    func_118de0(D_48FE70, table, count);
+    D_4F1508.table = table;
+    return old_table;
+}
 
 /* func_0012CEA0 */
 __asm__(

@@ -31,18 +31,18 @@ The Metrowerks Standard Library for MIPS/PS2 (`0x00100000` – `0x00125000`) pro
 
 The original source code for these routines is public and standard across Metrowerks CodeWarrior distributions for MIPS. Slices are already bounded in [`config/SLES-50282/config.yml`](../config/SLES-50282/config.yml):
 
-| Target | VMA Range | Extent | Responsibilities & Public Provenance |
-|---|---|---|---|
-| `msl/atoi.c` | `0x114378` – `0x1143A0` | 40 B | Base-10 integer string conversion via `strtol` |
-| `msl/atol.c` | `0x1143A0` – `0x1143C0` | 32 B | Signed long string conversion via `strtol` |
-| `msl/rand.c` | `0x119868` – `0x119898` | 48 B | Linear congruential generator (`1103515245 * seed + 12345`) |
-| `msl/srand.c` | `0x119858` – `0x119868` | 16 B | Random seed setter at `context + 0x58` |
-| `msl/strcat.c` | `0x11A7BC` – `0x11A8E8` | 300 B | String concatenation with tail copy call |
-| `msl/strcmp.c` | `0x11AA78` – `0x11ABBC` | 324 B | Lexicographical unsigned char byte comparison |
-| `msl/strcpy.c` | `0x11ABBC` – `0x11ACD0` | 276 B | Null-terminated byte copy loop |
-| `msl/memset.c` | `0x117CAC` – `0x117D70` | 196 B | Word-aligned block fill |
-| `msl/qsort.c` | `0x118E30` – `0x119858` | 2,600 B | Quick sort algorithm with median-of-three pivot selection |
-| **Initial MSL Batch** | | **3,832 B** | **100% matching target for Phase 1** |
+| Target | VMA Range | Extent | Responsibilities & Public Provenance | Status |
+|---|---|---|---|---|
+| `msl/atoi.c` | `0x114378` – `0x1143A0` | 40 B | Base-10 integer string conversion via `strtol` | **100.0% MATCH** |
+| `msl/atol.c` | `0x1143A0` – `0x1143C0` | 32 B | Signed long string conversion via `strtol` | **100.0% MATCH** |
+| `msl/rand.c` | `0x119868` – `0x119898` | 48 B | Linear congruential generator (`1103515245 * seed + 12345`) | **100.0% MATCH** |
+| `msl/srand.c` | `0x119858` – `0x119868` | 16 B | Random seed setter at `context + 0x58` | **100.0% MATCH** |
+| `msl/strcat.c` | `0x11A7BC` – `0x11A8E8` | 300 B | String concatenation with tail copy call | **100.0% MATCH** |
+| `msl/strcmp.c` | `0x11AA78` – `0x11ABBC` | 324 B | Lexicographical unsigned char byte comparison | **100.0% MATCH** |
+| `msl/strcpy.c` | `0x11ABBC` – `0x11ACD0` | 276 B | Null-terminated byte copy loop | **100.0% MATCH** |
+| `msl/memset.c` | `0x117CAC` – `0x117D70` | 196 B | Word-aligned block fill | **100.0% MATCH** |
+| `msl/qsort.c` | `0x118E30` – `0x119858` | 2,600 B | Quick sort algorithm (Bentley-McIlroy 1993) | Native verified |
+| **Initial MSL Batch** | | **3,832 B** | **1,232 B (100% byte-matched), 2,600 B (native verified)** | |
 
 ### 2.2 Toolchain & Configuration
 - **Compiler:** Metrowerks CodeWarrior for PlayStation 2 (`compilers/PS2/mwcc-2.3.1.01/mwccps2.exe`).

@@ -64,189 +64,82 @@ void func_001259C8(void *p, u8 *cmd, int flag) {
     func_104600(p);
 }
 
+typedef struct {
+    char *buffer;
+    int count;
+    int sema;
+    int flags;
+} GpuWorkState;
+
+extern GpuWorkState D_4EA148;
+void func_134500(int);
+void func_134440(int);
+void func_10D8B0(int, int, void *);
+int func_10D0F8(int, int);
+int func_10CE90(void);
+void func_116F68(int);
+void func_1344C0(int);
+
 /* 0x00125A70 */
-void *func_00125A70(int idx);
-__asm__(
-    ".text\n\t"
-    ".p2align 3\n\t"
-    ".globl func_00125A70\n\t"
-    ".ent func_00125A70\n"
-    "func_00125A70:\n\t"
-    ".set noreorder\n\t"
-    "lui   $2, %hi(D_4EA148)\n\t"
-    "daddu $6, $4, $0\n\t"
-    "addiu $4, $2, %lo(D_4EA148)\n\t"
-    "lw    $3, 4($4)\n\t"
-    "sltu  $3, $6, $3\n\t"
-    "beqz  $3, 1f\n\t"
-    "lw    $5, %lo(D_4EA148)($2)\n\t"
-    "sll   $2, $6, 9\n\t"
-    "b     2f\n\t"
-    "addu  $5, $5, $2\n"
-    "1:\n\t"
-    "daddu $5, $0, $0\n"
-    "2:\n\t"
-    "jr    $31\n\t"
-    "daddu $2, $5, $0\n\t"
-    "nop\n\t"
-    ".set reorder\n\t"
-    ".end func_00125A70\n"
-);
+void *func_00125A70(int idx) {
+    if ((unsigned int)idx < (unsigned int)D_4EA148.count) {
+        return D_4EA148.buffer + (idx << 9);
+    }
+    return 0;
+}
 
 /* 0x00125AA8 */
-void func_00125AA8(void);
-__asm__(
-    ".text\n\t"
-    ".p2align 3\n\t"
-    ".globl func_00125AA8\n\t"
-    ".ent func_00125AA8\n"
-    "func_00125AA8:\n\t"
-    ".set noreorder\n\t"
-    "lui   $2, %hi(D_4EA148+8)\n\t"
-    "lw    $4, %lo(D_4EA148+8)($2)\n\t"
-    "bltz  $4, 1f\n\t"
-    "nop\n\t"
-    "j     func_134500\n\t"
-    "nop\n"
-    "1:\n\t"
-    "jr    $31\n\t"
-    "nop\n\t"
-    ".set reorder\n\t"
-    ".end func_00125AA8\n"
-);
+void func_00125AA8(void) {
+    if (D_4EA148.sema >= 0) {
+        func_134500(D_4EA148.sema);
+    }
+}
 
 /* 0x00125AC8 */
-void func_00125AC8(void);
-__asm__(
-    ".text\n\t"
-    ".p2align 3\n\t"
-    ".globl func_00125AC8\n\t"
-    ".ent func_00125AC8\n"
-    "func_00125AC8:\n\t"
-    ".set noreorder\n\t"
-    "lui   $2, %hi(D_4EA148+8)\n\t"
-    "lw    $4, %lo(D_4EA148+8)($2)\n\t"
-    "bltz  $4, 1f\n\t"
-    "nop\n\t"
-    "j     func_134440\n\t"
-    "nop\n"
-    "1:\n\t"
-    "jr    $31\n\t"
-    "nop\n\t"
-    ".set reorder\n\t"
-    ".end func_00125AC8\n"
-);
+void func_00125AC8(void) {
+    if (D_4EA148.sema >= 0) {
+        func_134440(D_4EA148.sema);
+    }
+}
 
 /* 0x00125AE8 */
-void func_00125AE8(int a0, int a1);
-__asm__(
-    ".text\n\t"
-    ".globl func_00125AE8\n\t"
-    ".ent func_00125AE8\n"
-    "func_00125AE8:\n\t"
-    "addiu $6, $28, -0x7c00\n\t"
-    "j func_10D8B0\n\t"
-    "nop\n\t"
-    ".end func_00125AE8\n"
-);
+void func_00125AE8(int a0, int a1) {
+    register void *gp asm("8");
+    func_10D8B0(a0, a1, (char *)gp - 0x7c00);
+}
 
 /* 0x00125AF8 */
-int func_00125AF8(void);
-__asm__(
-    ".text\n\t"
-    ".p2align 3\n\t"
-    ".globl func_00125AF8\n\t"
-    ".ent func_00125AF8\n"
-    "func_00125AF8:\n\t"
-    ".set noreorder\n\t"
-    "addiu $29, $29, -160\n\t"
-    "sd $23, 112($29)\n\t"
-    "sd $22, 96($29)\n\t"
-    "lui $23, %hi(D_4EA148)\n\t"
-    "sd $19, 48($29)\n\t"
-    "addiu $2, $23, %lo(D_4EA148)\n\t"
-    "sd $31, 144($29)\n\t"
-    "addiu $22, $0, 1\n\t"
-    "sd $30, 128($29)\n\t"
-    "sd $20, 64($29)\n\t"
-    "sd $18, 32($29)\n\t"
-    "sd $17, 16($29)\n\t"
-    "sd $16, 0($29)\n\t"
-    "sd $21, 80($29)\n\t"
-    "lw $21, 4($2)\n\t"
-    "blez $21, 2f\n\t"
-    "daddu $19, $0, $0\n\t"
-    "addiu $20, $0, -1\n\t"
-    "addiu $30, $0, 1\n\t"
-    "nop\n"
-    "1:\n\t"
-    "jal func_00125A70\n\t"
-    "daddu $4, $19, $0\n\t"
-    "daddu $16, $2, $0\n\t"
-    "lw $17, 108($16)\n\t"
-    "beq $17, $20, 3f\n\t"
-    "lw $18, 112($16)\n\t"
-    "beq $18, $20, 3f\n\t"
-    "lui $3, 2\n\t"
-    "lw $2, 176($16)\n\t"
-    "and $2, $2, $3\n\t"
-    "beqz $2, 4f\n\t"
-    "daddu $4, $17, $0\n\t"
-    "jal func_00125AE8\n\t"
-    "daddu $5, $18, $0\n"
-    "4:\n\t"
-    "daddu $4, $17, $0\n\t"
-    "jal func_10D0F8\n\t"
-    "daddu $5, $18, $0\n\t"
-    "bnel $2, $30, 3f\n\t"
-    "daddu $22, $0, $0\n\t"
-    "sw $20, 112($16)\n\t"
-    "sw $20, 108($16)\n"
-    "3:\n\t"
-    "addiu $19, $19, 1\n\t"
-    "slt $2, $19, $21\n\t"
-    "bnez $2, 1b\n\t"
-    "nop\n"
-    "2:\n\t"
-    "beqz $22, 5f\n\t"
-    "daddu $2, $22, $0\n\t"
-    "jal func_10CE90\n\t"
-    "nop\n\t"
-    "addiu $3, $0, 1\n\t"
-    "beq $2, $3, 6f\n\t"
-    "lui $2, %hi(D_4EA148)\n\t"
-    "b 7f\n\t"
-    "daddu $22, $0, $0\n"
-    "6:\n\t"
-    "addiu $16, $2, %lo(D_4EA148)\n\t"
-    "lw $2, 12($16)\n\t"
-    "andi $2, $2, 1\n\t"
-    "beqz $2, 8f\n\t"
-    "nop\n\t"
-    "jal func_116F68\n\t"
-    "lw $4, -24248($23)\n\t"
-    "lw $2, 12($16)\n\t"
-    "addiu $3, $0, -2\n\t"
-    "and $2, $2, $3\n\t"
-    "sw $2, 12($16)\n"
-    "8:\n\t"
-    "jal func_1344C0\n\t"
-    "lw $4, 8($16)\n"
-    "7:\n\t"
-    "daddu $2, $22, $0\n"
-    "5:\n\t"
-    "ld $31, 144($29)\n\t"
-    "ld $30, 128($29)\n\t"
-    "ld $23, 112($29)\n\t"
-    "ld $22, 96($29)\n\t"
-    "ld $21, 80($29)\n\t"
-    "ld $20, 64($29)\n\t"
-    "ld $19, 48($29)\n\t"
-    "ld $18, 32($29)\n\t"
-    "ld $17, 16($29)\n\t"
-    "ld $16, 0($29)\n\t"
-    "jr $31\n\t"
-    "addiu $29, $29, 160\n\t"
-    ".set reorder\n\t"
-    ".end func_00125AF8\n"
-);
+int func_00125AF8(void) {
+    int i;
+    int res = 1;
+
+    if (D_4EA148.count > 0) {
+        for (i = 0; i < D_4EA148.count; i++) {
+            char *item = (char *)func_00125A70(i);
+            int v1 = *(int *)(item + 108);
+            int v2 = *(int *)(item + 112);
+            if (v1 != -1 && v2 != -1) {
+                if (*(int *)(item + 176) & 0x20000) {
+                    func_00125AE8(v1, v2);
+                }
+                if (func_10D0F8(v1, v2) == 1) {
+                    res = 0;
+                    *(int *)(item + 112) = -1;
+                    *(int *)(item + 108) = -1;
+                }
+            }
+        }
+    }
+    if (res != 0) {
+        if (func_10CE90() == 1) {
+            if (D_4EA148.flags & 1) {
+                func_116F68(*(int *)((char *)&D_4EA148 - 24248));
+                D_4EA148.flags &= ~1;
+            }
+            func_1344C0(D_4EA148.sema);
+        } else {
+            res = 0;
+        }
+    }
+    return res;
+}

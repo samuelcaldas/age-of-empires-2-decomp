@@ -143,11 +143,11 @@ void func_0012CB60();
 void func_0012CB90();
 void func_0012CBA8();
 void func_0012CBE8();
-void func_0012CBF8();
+int func_0012CBF8(const unsigned char *data);
 void func_0012CC20();
-void func_0012CC48();
-void func_0012CC58();
-void func_0012CC78();
+const unsigned char *func_0012CC48(const unsigned char *data);
+int func_0012CC58(const char *data);
+int func_0012CC78(const char *data);
 void func_0012CC98();
 void func_0012CCD8();
 
@@ -5388,32 +5388,22 @@ __asm__(
 );
 
 /* func_0012CBF8 */
-__asm__(
-    ".text\n\t"
-    ".globl func_0012CBF8\n\t"
-    ".ent func_0012CBF8\n"
-    "func_0012CBF8:\n\t"
-    ".set noreorder\n\t"
-    "daddu      $2, $0, $0\n\t"
-    "beqz       $4, .L0012CC14\n\t"
-    "addiu     $5, $4, 0x2\n\t"
-    "lbu        $2, 0x1($5)\n\t"
-    "lbu        $3, 0x2($4)\n\t"
-    "sll        $2, $2, 8\n\t"
-    "addu       $2, $3, $2\n\t"
-    ".L0012CC14:\n\t"
-    "jr         $31\n\t"
-    "nop\n\t"
-    "nop\n\t"
-    ".set reorder\n\t"
-    ".end func_0012CBF8\n"
-);
+int func_0012CBF8(const unsigned char *data) {
+    int value = 0;
+    /* Avoid null-pointer arithmetic while preserving target address calculation. */
+    const unsigned char *payload = (const unsigned char *)((unsigned long long)data + 2);
+    if (data) {
+        value = payload[0] + ((unsigned int)payload[1] << 8);
+    }
+    return value;
+}
 
 /* func_0012CC20 */
 __asm__(
     ".text\n\t"
     ".globl func_0012CC20\n\t"
     ".ent func_0012CC20\n"
+    ".align 4\n\t"
     "func_0012CC20:\n\t"
     ".set noreorder\n\t"
     "addiu      $29, $29, -0x10\n\t"
@@ -5432,65 +5422,26 @@ __asm__(
 );
 
 /* func_0012CC48 */
-__asm__(
-    ".text\n\t"
-    ".globl func_0012CC48\n\t"
-    ".ent func_0012CC48\n"
-    "func_0012CC48:\n\t"
-    ".set noreorder\n\t"
-    "addiu      $2, $4, 0x4\n\t"
-    "jr         $31\n\t"
-    "movz      $2, $0, $4\n\t"
-    "nop\n\t"
-    ".set reorder\n\t"
-    ".end func_0012CC48\n"
-);
+const unsigned char *func_0012CC48(const unsigned char *data) {
+    return data ? data + 4 : 0;
+}
 
 /* func_0012CC58 */
-__asm__(
-    ".text\n\t"
-    ".globl func_0012CC58\n\t"
-    ".ent func_0012CC58\n"
-    "func_0012CC58:\n\t"
-    ".set noreorder\n\t"
-    "beqz       $4, .L0012CC6C\n\t"
-    "daddu     $2, $0, $0\n\t"
-    "lb         $2, 0x0($4)\n\t"
-    "xori       $2, $2, 0x30\n\t"
-    "sltiu      $2, $2, 0x1\n\t"
-    ".L0012CC6C:\n\t"
-    "jr         $31\n\t"
-    "nop\n\t"
-    "nop\n\t"
-    ".set reorder\n\t"
-    ".end func_0012CC58\n"
-);
+int func_0012CC58(const char *data) {
+    return data && data[0] == '0';
+}
 
 /* func_0012CC78 */
-__asm__(
-    ".text\n\t"
-    ".globl func_0012CC78\n\t"
-    ".ent func_0012CC78\n"
-    "func_0012CC78:\n\t"
-    ".set noreorder\n\t"
-    "beqz       $4, .L0012CC8C\n\t"
-    "daddu     $2, $0, $0\n\t"
-    "lb         $2, 0x0($4)\n\t"
-    "xori       $2, $2, 0x40\n\t"
-    "sltiu      $2, $2, 0x1\n\t"
-    ".L0012CC8C:\n\t"
-    "jr         $31\n\t"
-    "nop\n\t"
-    "nop\n\t"
-    ".set reorder\n\t"
-    ".end func_0012CC78\n"
-);
+int func_0012CC78(const char *data) {
+    return data && data[0] == '@';
+}
 
 /* func_0012CC98 */
 __asm__(
     ".text\n\t"
     ".globl func_0012CC98\n\t"
     ".ent func_0012CC98\n"
+    ".align 3\n\t"
     "func_0012CC98:\n\t"
     ".set noreorder\n\t"
     "daddu      $7, $4, $0\n\t"

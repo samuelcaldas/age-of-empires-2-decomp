@@ -2,7 +2,7 @@
 
 Verifies that src/smenu_overlay.c compiles with EE-GCC 2.9-991111 (-O2 -G0) into
 100% bit-exact machine instructions matching orig/SLES-50282/SMENU_CD.BIN across
-all 18,080 bytes in Batches 1, 2 & 3 (VRAM 0x01D98000 - 0x01D9C6A0, 28 functions).
+all 25,232 bytes in Batches 1..4 (VRAM 0x01D98000 - 0x01D9E290, 45 functions).
 """
 
 from pathlib import Path
@@ -20,7 +20,7 @@ COMPILER = ROOT / "compilers/PS2/ee-gcc2.9-991111/bin/ee-gcc.exe"
 WRAPPER = ROOT / "build/tools/wibo"
 
 OVERLAY_HEADER_SIZE = 0x80
-CURRENT_SIZE = 18080
+CURRENT_SIZE = 25232
 VRAM_BASE = 0x01D98000
 
 

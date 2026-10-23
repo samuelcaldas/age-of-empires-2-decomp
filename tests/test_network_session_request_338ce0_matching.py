@@ -13,7 +13,7 @@ SOURCE = ROOT / "src/network_session_request_338ce0.cpp"
 NAME = "func_00338CE0"
 ADDRESS = 0x338CE0
 SIZE = 0x2BC
-RELOCATIONS = 52
+RELOCATIONS = 40
 EXTERNALS = {
     "func_117af8": 0x117AF8,
     "func_117cac": 0x117CAC,

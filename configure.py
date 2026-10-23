@@ -250,6 +250,24 @@ if config.platform == Platform.PS2:
                     cflags=["-O3", "-inline", "on", "-msext", "on", "-char", "signed", "-sym", "off", "-Iinclude", "-lang=c"],
                     toolchain_version="PS2/mwcc-2.3.1.01",
                 ),
+                Object(
+                    Matching,
+                    "msl/strcat",
+                    cflags=["-O3", "-inline", "on", "-msext", "on", "-char", "signed", "-sym", "off", "-Iinclude", "-lang=c"],
+                    toolchain_version="PS2/mwcc-2.3.1.01",
+                ),
+                Object(
+                    Matching,
+                    "msl/strcmp",
+                    cflags=["-O3", "-inline", "on", "-msext", "on", "-char", "signed", "-sym", "off", "-Iinclude", "-lang=c"],
+                    toolchain_version="PS2/mwcc-2.3.1.01",
+                ),
+                Object(
+                    Matching,
+                    "msl/strcpy",
+                    cflags=["-O3", "-inline", "on", "-msext", "on", "-char", "signed", "-sym", "off", "-Iinclude", "-lang=c"],
+                    toolchain_version="PS2/mwcc-2.3.1.01",
+                ),
             ],
         },
         {

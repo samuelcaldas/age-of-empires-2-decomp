@@ -88,7 +88,7 @@ Three modules are already **100.0% matching**:
 | **`kt_file.c`** | `0x0012CC00` – `0x0012DBFC` | ~4.0 KiB | Unified file descriptor layer wrapping CDVD and dev filesystems | Pending split |
 | **`kt_mc_2.c`** | `0x0012DC00` – `0x001340FC` | ~25.2 KiB | PlayStation 2 Memory Card file save/load/format manager (`ktMcInit2`) | Pending split |
 | **`kt_kernel.c`** | `0x00134100` – `0x001347FC` | ~1.8 KiB | EE kernel thread creation, semaphores, synchronization (`SignalSema`) | Pending split |
-| **`socketee.c`** | `0x00337520` – `0x00337840` | ~3.2 KiB | EE Sockets i.LINK / SCE network RPC | 80% Matched |
+| **`socketee.c`** | `0x00337520` – `0x00337840` | ~3.2 KiB | EE Sockets i.LINK / SCE network RPC | **100.0% MATCH** |
 | **`libscf.c`** | `0x00389580` – `0x00389B60` | ~1.5 KiB | Sony PS2 system configuration, language & timezone query | Pending split |
 
 ### 3.3 Toolchain & Flags

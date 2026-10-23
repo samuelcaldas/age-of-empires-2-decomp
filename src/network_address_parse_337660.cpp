@@ -1,35 +1,42 @@
 #include "network_address_helpers.h"
 
+#pragma optimization_level 1
+
 extern "C" {
-extern const signed char D_0049E101[];
+extern const signed char D_0048E101[];
 extern const char D_004D1EA0[];
 int func_11A510(const char *text, const char *format, ...);
 }
 
 int func_00337660(const char *text) {
-    const unsigned char *cursor = (const unsigned char *)text;
-    int dots = 0;
-    while (*cursor != 0) {
-        int character = (signed char)*cursor;
-        if (character == '.') {
-            ++dots;
+    const char *cursor = text;
+    int count = 0;
+    char c;
+    while ((c = *cursor) != 0) {
+        int sc = (signed char)c;
+        if (sc == 46) {
+            count++;
         }
-        if ((D_0049E101[character] & 4) == 0 && character != '.') {
+        if (!(D_0048E101[(signed char)c] & 4) && sc != 46) {
             return -1;
         }
-        ++cursor;
+        cursor++;
     }
-    if (dots >= 4) {
+    if (count > 3) {
         return -1;
     }
-    int first;
-    int second;
-    int third;
-    int fourth;
-    int count = func_11A510(text, D_004D1EA0, &first, &second, &third, &fourth);
-    if (count != 4 || (unsigned int)first >= 256 || (unsigned int)second >= 256
-        || (unsigned int)third >= 256 || (unsigned int)fourth >= 256) {
+    int parts[4];
+    int *p1 = &parts[1];
+    int *p2 = &parts[2];
+    int *p3 = &parts[3];
+    if (func_11A510(text, D_004D1EA0, &parts[0], p1, p2, p3) != 4) {
         return -1;
     }
-    return (fourth << 24) | (third << 16) | (second << 8) | first;
+    for (count = 0; count < 4; count++) {
+        if ((unsigned int)parts[count] > 255) {
+            return -1;
+        }
+    }
+    count = (*p3 << 24) | ((*p2 << 16) | (parts[0] | (*p1 << 8)));
+    return count;
 }

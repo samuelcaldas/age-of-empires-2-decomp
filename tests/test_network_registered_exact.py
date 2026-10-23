@@ -20,6 +20,14 @@ from test_network_receiver_337B30_matching import (
 
 
 FUNCTIONS = (
+    ("src/network_byte_swap_337520.cpp", "func_00337520", 0x337520, 60, 0, {}),
+    ("src/network_byte_swap_337560.cpp", "func_00337560", 0x337560, 36, 0, {}),
+    ("src/network_byte_swap_337590.cpp", "func_00337590", 0x337590, 60, 0, {}),
+    ("src/network_byte_swap_3375d0.cpp", "func_003375D0", 0x3375D0, 36, 0, {}),
+    ("src/network_address_format_337600.cpp", "func_00337600", 0x337600, 92, 7,
+     {"func_11A498": 0x11A498, "D_004D1E88": 0x4D1E88, "D_01087EB0": 0x1087EB0}),
+    ("src/network_address_parse_337660.cpp", "func_00337660", 0x337660, 360, 5,
+     {"func_11A510": 0x11A510, "D_004D1EA0": 0x4D1EA0, "D_0048E101": 0x48E101}),
     ("src/network_init_3377d0.cpp", "func_003377D0", 0x3377D0, 80, 2,
      {"func_003379F0": 0x3379F0, "D_004E3568": 0x4E3568}),
     ("src/network_state_set_337820.cpp", "func_00337820", 0x337820, 8, 1,

@@ -5891,6 +5891,42 @@ segments:
   - name: post_aoe4
     type: bin
     start: 0x209510
+  - name: network_byte_swap_337520
+    type: code
+    start: 0x237700
+    vram: 0x337520
+    subsegments:
+      - [0x237700, asm, network_byte_swap_337520]
+  - name: network_byte_swap_337560
+    type: code
+    start: 0x237740
+    vram: 0x337560
+    subsegments:
+      - [0x237740, asm, network_byte_swap_337560]
+  - name: network_byte_swap_337590
+    type: code
+    start: 0x237770
+    vram: 0x337590
+    subsegments:
+      - [0x237770, asm, network_byte_swap_337590]
+  - name: network_byte_swap_3375d0
+    type: code
+    start: 0x2377B0
+    vram: 0x3375D0
+    subsegments:
+      - [0x2377B0, asm, network_byte_swap_3375d0]
+  - name: network_address_format_337600
+    type: code
+    start: 0x2377E0
+    vram: 0x337600
+    subsegments:
+      - [0x2377E0, asm, network_address_format_337600]
+  - name: network_address_parse_337660
+    type: code
+    start: 0x237840
+    vram: 0x337660
+    subsegments:
+      - [0x237840, asm, network_address_parse_337660]
   - name: network_init_3377d0
     type: code
     start: 0x2379B0

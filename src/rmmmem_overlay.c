@@ -1,495 +1,155 @@
-#include "common.h"
+#include "rmmmem_overlay.h"
 
-/* rmmmem_func_01D98000 (VMA: 0x01D98000, size 80 bytes) */
-__asm__(
-    ".text
-	"
-    ".globl rmmmem_func_01D98000
-	"
-    ".ent rmmmem_func_01D98000
-"
-    "rmmmem_func_01D98000:
-	"
-    ".set noreorder
-	"
-    ".set noat
-	"
-    ".word 0x3C0201DA
-	"
-    ".word 0x24448380
-	"
-    ".word 0x27BDFFF0
-	"
-    ".word 0x3C02000F
-	"
-    ".word 0x7FBF0000
-	"
-    ".word 0x70002E28
-	"
-    ".word 0x0C045F2B
-	"
-    ".word 0x3446E000
-	"
-    ".word 0x3C0301DA
-	"
-    ".word 0x24638380
-	"
-    ".word 0xAF838F2C
-	"
-    ".word 0x3C03000F
-	"
-    ".word 0x3464E000
-	"
-    ".word 0x8F838F2C
-	"
-    ".word 0xAC640004
-	"
-    ".word 0x8F838F2C
-	"
-    ".word 0xAC630000
-	"
-    ".word 0x7BBF0000
-	"
-    ".word 0x03E00008
-	"
-    ".word 0x27BD0010
-	"
-    ".set at
-	"
-    ".set reorder
-	"
-    ".end rmmmem_func_01D98000
-"
-);
+/* External CRT memset provided by game binary */
+void func_00117CAC(void *ptr, int val, int size);
 
-/* rmmmem_func_01D98050 (VMA: 0x01D98050, size 172 bytes) */
-__asm__(
-    ".text
-	"
-    ".globl rmmmem_func_01D98050
-	"
-    ".ent rmmmem_func_01D98050
-"
-    "rmmmem_func_01D98050:
-	"
-    ".set noreorder
-	"
-    ".set noat
-	"
-    ".word 0x8F868F2C
-	"
-    ".word 0x14C00004
-	"
-    ".word 0x24830003
-	"
-    ".word 0x10000025
-	"
-    ".word 0x70001628
-	"
-    ".word 0x24830003
-	"
-    ".word 0x8CC40000
-	"
-    ".word 0x2402FFFC
-	"
-    ".word 0x00621024
-	"
-    ".word 0x24430008
-	"
-    ".word 0x10000008
-	"
-    ".word 0x70C02E28
-	"
-    ".word 0x14850004
-	"
-    ".word 0x70803628
-	"
-    ".word 0x1000001A
-	"
-    ".word 0x70001628
-	"
-    ".word 0x70803628
-	"
-    ".word 0x8C840000
-	"
-    ".word 0x00000000
-	"
-    ".word 0x8C870004
-	"
-    ".word 0x00E3102A
-	"
-    ".word 0x1440FFF6
-	"
-    ".word 0x00000000
-	"
-    ".word 0x24620008
-	"
-    ".word 0x0047082B
-	"
-    ".word 0x1420000B
-	"
-    ".word 0x00E31023
-	"
-    ".word 0x8C820000
-	"
-    ".word 0x14440004
-	"
-    ".word 0x00000000
-	"
-    ".word 0xAF808F2C
-	"
-    ".word 0x10000002
-	"
-    ".word 0xAC800000
-	"
-    ".word 0xACC20000
-	"
-    ".word 0x10000006
-	"
-    ".word 0x24820008
-	"
-    ".word 0x00E31023
-	"
-    ".word 0xAC820004
-	"
-    ".word 0x00821021
-	"
-    ".word 0xAC430004
-	"
-    ".word 0x24420008
-	"
-    ".word 0x03E00008
-	"
-    ".word 0x00000000
-	"
-    ".set at
-	"
-    ".set reorder
-	"
-    ".end rmmmem_func_01D98050
-"
-);
+/* Circular free list head pointer for Random Map heap allocator */
+static RmmBlock *s_free_list = NULL;
 
-/* rmmmem_func_01D980FC (VMA: 0x01D980FC, size 84 bytes) */
-__asm__(
-    ".text
-	"
-    ".globl rmmmem_func_01D980FC
-	"
-    ".ent rmmmem_func_01D980FC
-"
-    "rmmmem_func_01D980FC:
-	"
-    ".set noreorder
-	"
-    ".set noat
-	"
-    ".word 0x00000000
-	"
-    ".word 0x27BDFFD0
-	"
-    ".word 0x7FBF0020
-	"
-    ".word 0x7FB10010
-	"
-    ".word 0x7FB00000
-	"
-    ".word 0x00858018
-	"
-    ".word 0x0C766034
-	"
-    ".word 0x72002628
-	"
-    ".word 0x70408E28
-	"
-    ".word 0x12200006
-	"
-    ".word 0x72201628
-	"
-    ".word 0x72003628
-	"
-    ".word 0x72202628
-	"
-    ".word 0x0C045F2B
-	"
-    ".word 0x70002E28
-	"
-    ".word 0x72201628
-	"
-    ".word 0x7BBF0020
-	"
-    ".word 0x7BB10010
-	"
-    ".word 0x7BB00000
-	"
-    ".word 0x03E00008
-	"
-    ".word 0x27BD0030
-	"
-    ".set at
-	"
-    ".set reorder
-	"
-    ".end rmmmem_func_01D980FC
-"
-);
+/*
+ * rmmmem_func_01D98000 (rmm_heap_init):
+ * Clears the 1 MB heap at 0x01DA8380 and initializes the circular free list.
+ */
+void rmmmem_func_01D98000(void) {
+    func_00117CAC(RMMMEM_HEAP_BASE, 0, RMMMEM_HEAP_SIZE);
+    s_free_list = (RmmBlock *)RMMMEM_HEAP_BASE;
+    s_free_list->size = RMMMEM_HEAP_SIZE;
+    s_free_list->next = s_free_list;
+}
 
-/* rmmmem_func_01D98150 (VMA: 0x01D98150, size 308 bytes) */
-__asm__(
-    ".text
-	"
-    ".globl rmmmem_func_01D98150
-	"
-    ".ent rmmmem_func_01D98150
-"
-    "rmmmem_func_01D98150:
-	"
-    ".set noreorder
-	"
-    ".set noat
-	"
-    ".word 0x2483FFF8
-	"
-    ".word 0x3C0401DA
-	"
-    ".word 0x24848380
-	"
-    ".word 0x0064202B
-	"
-    ".word 0x14800046
-	"
-    ".word 0x3C0401E9
-	"
-    ".word 0x24846380
-	"
-    ".word 0x0083082B
-	"
-    ".word 0x10200003
-	"
-    ".word 0x00000000
-	"
-    ".word 0x10000040
-	"
-    ".word 0x00000000
-	"
-    ".word 0x8F868F2C
-	"
-    ".word 0x8CC70000
-	"
-    ".word 0x00C72026
-	"
-    ".word 0x2C840001
-	"
-    ".word 0x10800018
-	"
-    ".word 0x70C02E28
-	"
-    ".word 0x8C650004
-	"
-    ".word 0x00652021
-	"
-    ".word 0x14860007
-	"
-    ".word 0x00000000
-	"
-    ".word 0x8CC40004
-	"
-    ".word 0x00A42021
-	"
-    ".word 0xAC640004
-	"
-    ".word 0xAC630000
-	"
-    ".word 0x1000000C
-	"
-    ".word 0xAF838F2C
-	"
-    ".word 0x8CC40004
-	"
-    ".word 0x00C42021
-	"
-    ".word 0x14830005
-	"
-    ".word 0x24C70004
-	"
-    ".word 0x8CE30000
-	"
-    ".word 0x00651821
-	"
-    ".word 0x10000004
-	"
-    ".word 0xACE30000
-	"
-    ".word 0xACC30000
-	"
-    ".word 0x8F848F2C
-	"
-    ".word 0xAC640000
-	"
-    ".word 0x10000023
-	"
-    ".word 0x00000000
-	"
-    ".word 0x10000009
-	"
-    ".word 0x00000000
-	"
-    ".word 0x8C640004
-	"
-    ".word 0x00642021
-	"
-    ".word 0x00E4082B
-	"
-    ".word 0x10200006
-	"
-    ".word 0x00000000
-	"
-    ".word 0x70E03628
-	"
-    ".word 0x8CE70000
-	"
-    ".word 0x00000000
-	"
-    ".word 0x14E5FFF7
-	"
-    ".word 0x00000000
-	"
-    ".word 0x8C650004
-	"
-    ".word 0x00652021
-	"
-    ".word 0x14E40008
-	"
-    ".word 0x00000000
-	"
-    ".word 0x8CE40004
-	"
-    ".word 0x00A42021
-	"
-    ".word 0xAC640004
-	"
-    ".word 0x8CE40000
-	"
-    ".word 0xAC640000
-	"
-    ".word 0x10000003
-	"
-    ".word 0xACC30000
-	"
-    ".word 0xAC670000
-	"
-    ".word 0xACC30000
-	"
-    ".word 0x8CC50004
-	"
-    ".word 0x00C52021
-	"
-    ".word 0x14640006
-	"
-    ".word 0x00000000
-	"
-    ".word 0x8C640004
-	"
-    ".word 0x00A42021
-	"
-    ".word 0xACC40004
-	"
-    ".word 0x8C630000
-	"
-    ".word 0xACC30000
-	"
-    ".word 0x03E00008
-	"
-    ".word 0x00000000
-	"
-    ".set at
-	"
-    ".set reorder
-	"
-    ".end rmmmem_func_01D98150
-"
-);
+/*
+ * rmmmem_func_01D98050 (rmm_alloc):
+ * Traverses circular free list and allocates memory aligned to 4 bytes.
+ * If block is larger than needed + sizeof(RmmBlock), splits block from tail.
+ */
+void *rmmmem_func_01D98050(unsigned int size) {
+    unsigned int total_size;
+    RmmBlock *curr;
+    RmmBlock *prev;
+    RmmBlock *start;
+    RmmBlock *allocated;
+    RmmBlock *next;
 
-/* rmmmem_func_01D98284 (VMA: 0x01D98284, size 124 bytes) */
-__asm__(
-    ".text
-	"
-    ".globl rmmmem_func_01D98284
-	"
-    ".ent rmmmem_func_01D98284
-"
-    "rmmmem_func_01D98284:
-	"
-    ".set noreorder
-	"
-    ".set noat
-	"
-    ".word 0x00000000
-	"
-    ".word 0x00000000
-	"
-    ".word 0x00000000
-	"
-    ".word 0x00000000
-	"
-    ".word 0x00000000
-	"
-    ".word 0x00000000
-	"
-    ".word 0x00000000
-	"
-    ".word 0x00000000
-	"
-    ".word 0x00000000
-	"
-    ".word 0x00000000
-	"
-    ".word 0x00000000
-	"
-    ".word 0x00000000
-	"
-    ".word 0x00000000
-	"
-    ".word 0x00000000
-	"
-    ".word 0x00000000
-	"
-    ".word 0x00000000
-	"
-    ".word 0x00000000
-	"
-    ".word 0x00000000
-	"
-    ".word 0x00000000
-	"
-    ".word 0x00000000
-	"
-    ".word 0x00000000
-	"
-    ".word 0x00000000
-	"
-    ".word 0x00000000
-	"
-    ".word 0x00000000
-	"
-    ".word 0x00000000
-	"
-    ".word 0x00000000
-	"
-    ".word 0x00000000
-	"
-    ".word 0x00000000
-	"
-    ".word 0x00000000
-	"
-    ".word 0x00000000
-	"
-    ".word 0x00000000
-	"
-    ".set at
-	"
-    ".set reorder
-	"
-    ".end rmmmem_func_01D98284
-"
-);
+    if (s_free_list == NULL) {
+        return NULL;
+    }
+
+    total_size = ((size + 3) & ~3) + sizeof(RmmBlock);
+    start = s_free_list;
+    prev = s_free_list;
+    curr = s_free_list->next;
+
+    while (1) {
+        if (curr->size >= total_size) {
+            if (curr->size > total_size + sizeof(RmmBlock)) {
+                curr->size -= total_size;
+                allocated = (RmmBlock *)((char *)curr + curr->size);
+                allocated->size = total_size;
+                return (void *)((char *)allocated + sizeof(RmmBlock));
+            } else {
+                next = curr->next;
+                if (next == curr) {
+                    s_free_list = NULL;
+                    curr->next = NULL;
+                } else {
+                    prev->next = next;
+                }
+                return (void *)((char *)curr + sizeof(RmmBlock));
+            }
+        }
+
+        if (curr == start) {
+            return NULL;
+        }
+        prev = curr;
+        curr = curr->next;
+    }
+}
+
+/*
+ * rmmmem_func_01D980FC (rmm_calloc):
+ * Allocates count * sz bytes and zeros the allocated memory.
+ */
+void *rmmmem_func_01D980FC(unsigned int count, unsigned int sz) {
+    unsigned int total;
+    void *ptr;
+
+    total = count * sz;
+    ptr = rmmmem_func_01D98050(total);
+    if (ptr != NULL) {
+        func_00117CAC(ptr, 0, total);
+    }
+    return ptr;
+}
+
+/*
+ * rmmmem_func_01D98150 (rmm_free):
+ * Verifies pointer bounds [0x01DA8380, 0x01E96380], returns block to circular
+ * free list and coalesces with adjacent left/right free blocks.
+ */
+void rmmmem_func_01D98150(void *ptr) {
+    RmmBlock *block;
+    RmmBlock *curr;
+    RmmBlock *prev;
+
+    if (ptr == NULL) {
+        return;
+    }
+
+    block = (RmmBlock *)((char *)ptr - sizeof(RmmBlock));
+    if ((void *)block < RMMMEM_HEAP_BASE || (void *)block > RMMMEM_HEAP_MAX) {
+        return;
+    }
+
+    prev = s_free_list;
+    curr = s_free_list->next;
+
+    if (prev == curr) {
+        /* Single block currently in free list */
+        if ((char *)block + block->size == (char *)prev) {
+            block->size += prev->size;
+            block->next = block;
+            s_free_list = block;
+            return;
+        }
+        if ((char *)prev + prev->size == (char *)block) {
+            prev->size += block->size;
+            return;
+        }
+        prev->next = block;
+        block->next = prev;
+        return;
+    }
+
+    /* Multiple blocks in circular free list: locate insertion point */
+    while (curr != s_free_list) {
+        if (curr >= (RmmBlock *)((char *)block + block->size)) {
+            break;
+        }
+        prev = curr;
+        curr = curr->next;
+    }
+
+    /* Coalesce with right neighbor */
+    if (curr == (RmmBlock *)((char *)block + block->size)) {
+        block->size += curr->size;
+        block->next = curr->next;
+        prev->next = block;
+    } else {
+        block->next = curr;
+        prev->next = block;
+    }
+
+    /* Coalesce with left neighbor */
+    if (block == (RmmBlock *)((char *)prev + prev->size)) {
+        prev->size += block->size;
+        prev->next = block->next;
+    }
+}
+
+/*
+ * rmmmem_func_01D98284:
+ * Stub / alignment function.
+ */
+void rmmmem_func_01D98284(void) {
+}

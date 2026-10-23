@@ -121,9 +121,18 @@ segments:
     vram: 0x12cce8
     subsegments:
       - [0x2cec8, asm, kt_file]
-  - name: pre_mouse_after_kt_file
-    type: bin
+  - name: kt_mc_2
+    type: code
     start: 0x2deb0
+    vram: 0x12de88
+    subsegments:
+      - [0x2deb0, asm, kt_mc_2]
+  - name: kt_kernel
+    type: code
+    start: 0x34320
+    vram: 0x134140
+    subsegments:
+      - [0x34320, asm, kt_kernel]
   - name: kt_mouse
     type: code
     start: 0x34fc8

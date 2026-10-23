@@ -45,7 +45,7 @@ pie title Distribuição de Funções em Assembly (Total: 1.906 funções)
 | **`src/rmmmem_overlay.c`** | Overlay (Heap RMS) | 165 | 5 | 832 B | Decompilado (C Puro + Testes Nativos) |
 | **`src/kt_gpu.c`** | KCET Hardware (GS) | 252 | 5 | 1.072 B | 100% Matched |
 | **`src/libscf.c`** | Sony SCF (Config/Idioma) | 200 | 11 | 1.500 B | Decompilado (C Puro + Testes Nativos) |
-| **`src/hist_overlay.c`** | Overlay (História) | 5.608 | 13 | 5.440 B | Decompilado (C Puro + Testes Nativos) |
+| **`src/hist_overlay.c`** | Overlay (História) | 271 | 13 | 5.440 B | Decompilado (C Puro + Testes Nativos) |
 | **`src/multim_overlay.c`** | Overlay (Slideshow) | 42.221 | 19 | 7.872 B | 100% Matched |
 | **`src/kt_hd.c`** | KCET Hardware (PS2 HDD) | 441 | 27 | 2.600 B | Decompilado (C Puro + Testes Nativos) |
 | **`src/kt_kernel.c`** | KCET Hardware (Kernel/OS) | 496 | 39 | 3.172 B | Decompilado (C Puro + Testes Nativos) |
@@ -76,7 +76,7 @@ Estes arquivos contêm o código carregado dinamicamente do CD pelo CodeWarrior 
 * **Funções**: `rmmmem_func_01D98000` (`rmm_heap_init`), `rmmmem_func_01D98050` (`rmm_alloc`), `rmmmem_func_01D980FC` (`rmm_calloc`), `rmmmem_func_01D98150` (`rmm_free`), `rmmmem_func_01D98284` (`rmm_stub`).
 * **Testes**: `tests/test_rmmmem_native.py` (execução comportamental nativa x86-64 com `gcc -m32`) e `tests/test_rmmmem_matching.py` (compilação e símbolos com `ee-gcc 2.9-991111 -O2 -G0`).
 
-### 3. `src/hist_overlay.c` (13 funções / 5.608 linhas) — *Decompilado (C Puro + Testes Nativos)*
+### 3. `src/hist_overlay.c` (13 funções / 271 linhas) — *Decompilado (C Puro + Testes Nativos)*
 * **VRAM**: `0x01D98000`
 * **Descrição**: Visualizador da enciclopédia histórica e tela de contexto de missões. A tabela de dados `.rodata` (179.264 bytes) e as 13 funções lógicas encontram-se 100% descompiladas em C estruturado puro.
 * **Header**: `include/hist_overlay.h`

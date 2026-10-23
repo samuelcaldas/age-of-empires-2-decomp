@@ -2,7 +2,7 @@
 
 Verifies that src/smenu_overlay.c compiles with EE-GCC 2.9-991111 (-O2 -G0) into
 100% bit-exact machine instructions matching orig/SLES-50282/SMENU_CD.BIN across
-all 3,216 bytes in Batch 1 (VRAM 0x01D98000 - 0x01D98C90, 5 functions).
+all 10,016 bytes in Batches 1 & 2 (VRAM 0x01D98000 - 0x01D9A720, 15 functions).
 """
 
 from pathlib import Path
@@ -20,7 +20,7 @@ COMPILER = ROOT / "compilers/PS2/ee-gcc2.9-991111/bin/ee-gcc.exe"
 WRAPPER = ROOT / "build/tools/wibo"
 
 OVERLAY_HEADER_SIZE = 0x80
-BATCH1_SIZE = 3216
+CURRENT_SIZE = 10016
 VRAM_BASE = 0x01D98000
 
 
@@ -52,12 +52,12 @@ def extract_compiled_text(object_path):
 def read_original_bytes():
     with OVERLAY_BIN.open("rb") as f:
         f.seek(OVERLAY_HEADER_SIZE)
-        data = f.read(BATCH1_SIZE)
-        assert len(data) == BATCH1_SIZE, f"Short read from {OVERLAY_BIN}: {len(data)} != {BATCH1_SIZE}"
+        data = f.read(CURRENT_SIZE)
+        assert len(data) == CURRENT_SIZE, f"Short read from {OVERLAY_BIN}: {len(data)} != {CURRENT_SIZE}"
         return data
 
 
-def test_smenu_overlay_batch1_exact_match(tmp_path):
+def test_smenu_overlay_exact_match(tmp_path):
     require_inputs()
     expected = read_original_bytes()
     compiled_obj = compile_object(tmp_path)
@@ -73,4 +73,4 @@ def test_smenu_overlay_batch1_exact_match(tmp_path):
             vma = VRAM_BASE + offset
             mismatches.append(f"0x{vma:08X} (offset +0x{offset:04X}): expected 0x{exp_w:08X}, got 0x{act_w:08X}")
 
-    assert not mismatches, f"{len(mismatches)} mismatches in SMENU Batch 1:\n" + "\n".join(mismatches[:20])
+    assert not mismatches, f"{len(mismatches)} mismatches in SMENU decompilation:\n" + "\n".join(mismatches[:20])

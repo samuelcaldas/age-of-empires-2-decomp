@@ -56,7 +56,7 @@ pie title Distribuição de Funções em Assembly (Total: 1.906 funções)
 | **`src/smenu_overlay.c`** | Overlay (Setup/Menus) | 49.515 | 144 | 90.560 B | 100% Matched |
 | **`src/kt_libcdvd_server.c`** | KCET Hardware (CD/DVD) | 5.530 | 150 | 14.104 B | 4 C functions; full module matches exactly |
 | **`src/kt_mc_2.c`** | KCET Hardware (Memory Card)| 10.800 | 337 | 35.808 B | 100% Matched |
-| **`src/lobby_overlay.c`** | Overlay (Multiplayer) | 247.103 | 814 | 337.472 B | 100% Matched |
+| **`src/lobby_overlay.c`** | Overlay (Multiplayer) | 3.268 | 814 | 337.472 B | Decompilado (C Puro + Testes Nativos) |
 | **TOTAL** | — | **519.736** | **1.906** | **631.328 B** *(~616 KB)* | **16 arquivos** |
 
 ---
@@ -102,10 +102,11 @@ Estes arquivos contêm o código carregado dinamicamente do CD pelo CodeWarrior 
 * **Descrição**: Menus principais, carrossel de campanhas, telas de configuração de áudio/vídeo e opções de jogo.
 * **Complexidade**: Alta. Gerenciamento extensivo de estados de interface do usuário, eventos de cursor e fluxo de menus.
 
-### 8. `src/lobby_overlay.c` (814 funções / 247.103 linhas)
+### 8. `src/lobby_overlay.c` (814 funções / 3.268 linhas) — *Decompilado (C Puro + Testes Nativos)*
 * **VRAM**: `0x01D98000`
-* **Descrição**: Sistema de saguão multiplayer completo para console (criação de salas, seleção de facções, ping, serialização de pacotes via `ps2_DataTrans`).
-* **Complexidade**: Muito Alta. É o maior componente individual de overlay do jogo.
+* **Descrição**: Sistema de saguão multiplayer completo para console (criação de salas, seleção de facções, ping, serialização de pacotes via `ps2_DataTrans`). Todas as 814 funções e a tabela de dados `.rodata` (120.896 bytes) encontram-se descompiladas em C estruturado puro.
+* **Header**: `include/lobby_overlay.h`
+* **Testes**: `tests/test_lobby_native.py` (execução comportamental nativa) e `tests/test_lobby_matching.py` (compilação e símbolos de todas as 814 funções e exatidão bit-a-bit de `.rodata` com `ee-gcc 2.9-991111 -O2 -G0`).
 
 ---
 

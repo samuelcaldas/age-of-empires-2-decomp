@@ -44,7 +44,7 @@ pie title Distribuição de Funções em Assembly (Total: 1.906 funções)
 | **`src/mo_ov_overlay.c`** | Overlay (Vídeo PSS) | 311 | 2 | 192 B | 100% Matched |
 | **`src/rmmmem_overlay.c`** | Overlay (Heap RMS) | 495 | 5 | 832 B | 100% Matched |
 | **`src/kt_gpu.c`** | KCET Hardware (GS) | 252 | 5 | 1.072 B | 100% Matched |
-| **`src/libscf.c`** | Sony SCF (Config/Idioma) | 541 | 11 | 2.144 B | 100% Matched |
+| **`src/libscf.c`** | Sony SCF (Config/Idioma) | 200 | 11 | 1.500 B | Decompilado (C Puro + Testes Nativos) |
 | **`src/hist_overlay.c`** | Overlay (História) | 92.649 | 13 | 5.440 B | 100% Matched |
 | **`src/multim_overlay.c`** | Overlay (Slideshow) | 42.221 | 19 | 7.872 B | 100% Matched |
 | **`src/kt_hd.c`** | KCET Hardware (PS2 HDD) | 1.020 | 27 | 2.600 B | 100% Matched |

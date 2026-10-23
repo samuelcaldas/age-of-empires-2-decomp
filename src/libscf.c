@@ -1,541 +1,181 @@
 #include "common.h"
+#include "libscf.h"
 
-void func_00389570();
-void func_003895D8();
-void func_00389630();
-void func_003896B8();
-void func_00389740();
-void func_00389828();
-void func_00389900();
-void func_00389970();
-void func_003899D8();
-void func_00389AA8();
-void func_00389AF0();
+#define NULL ((void *)0)
 
-/* func_00389570 */
-__asm__(
-    ".text\n\t"
-    ".globl func_00389570\n\t"
-    ".ent func_00389570\n"
-    "func_00389570:\n\t"
-    ".set noreorder\n\t"
-    "addiu      $29, $29, -0x20\n\t"
-    "sd         $16, 0x0($29)\n\t"
-    "andi       $16, $4, 0xFF\n\t"
-    "sltiu      $2, $16, 0x64\n\t"
-    "bnez       $2, .L003895A0\n\t"
-    "sd        $31, 0x10($29)\n\t"
-    "lui        $4, %hi(D_4D6298)\n\t"
-    "lui        $6, %hi(D_4D62A8)\n\t"
-    "addiu      $4, $4, %lo(D_4D6298)\n\t"
-    "addiu      $6, $6, %lo(D_4D62A8)\n\t"
-    "jal        func_114320\n\t"
-    "addiu     $5, $0, 0x119\n\t"
-    ".L003895A0:\n\t"
-    "addiu      $3, $0, 0xA\n\t"
-    "addiu      $4, $0, 0x6\n\t"
-    "divu       $0, $16, $3\n\t"
-    "beql       $3, $0, .L003895B4\n\t"
-    "break     0, 7\n\t"
-    ".L003895B4:\n\t"
-    "ld         $31, 0x10($29)\n\t"
-    "mflo       $2\n\t"
-    "mult       $3, $2, $4\n\t"
-    "addu       $2, $3, $16\n\t"
-    "ld         $16, 0x0($29)\n\t"
-    "andi       $2, $2, 0xFF\n\t"
-    "jr         $31\n\t"
-    "addiu     $29, $29, 0x20\n\t"
-    "nop\n\t"
-    ".set reorder\n\t"
-    ".end func_00389570\n"
-);
+extern const char D_4D6298[];
+extern const char D_4D62A8[];
+extern const char D_4D62B0[];
+extern const char D_4D62C0[];
+extern const char D_4D62D0[];
+extern const char D_4D62E0[];
 
-/* func_003895D8 */
-__asm__(
-    ".text\n\t"
-    ".globl func_003895D8\n\t"
-    ".ent func_003895D8\n"
-    "func_003895D8:\n\t"
-    ".set noreorder\n\t"
-    "addiu      $29, $29, -0x20\n\t"
-    "sd         $16, 0x0($29)\n\t"
-    "andi       $16, $4, 0xFF\n\t"
-    "sltiu      $2, $16, 0x9A\n\t"
-    "bnez       $2, .L00389608\n\t"
-    "sd        $31, 0x10($29)\n\t"
-    "lui        $4, %hi(D_4D6298)\n\t"
-    "lui        $6, %hi(D_4D62B0)\n\t"
-    "addiu      $4, $4, %lo(D_4D6298)\n\t"
-    "addiu      $6, $6, %lo(D_4D62B0)\n\t"
-    "jal        func_114320\n\t"
-    "addiu     $5, $0, 0x126\n\t"
-    ".L00389608:\n\t"
-    "srl        $2, $16, 4\n\t"
-    "addiu      $3, $0, 0x6\n\t"
-    "mult       $0, $2, $3\n\t"
-    "ld         $31, 0x10($29)\n\t"
-    "mflo       $2\n\t"
-    "subu       $2, $16, $2\n\t"
-    "ld         $16, 0x0($29)\n\t"
-    "andi       $2, $2, 0xFF\n\t"
-    "jr         $31\n\t"
-    "addiu     $29, $29, 0x20\n\t"
-    ".set reorder\n\t"
-    ".end func_003895D8\n"
-);
+void func_114320(const char *file, int line, const char *expr);
+int func_389388(sceCdCLOCK *clock);
+int func_389470(void);
 
-/* func_00389630 */
-__asm__(
-    ".text\n\t"
-    ".globl func_00389630\n\t"
-    ".ent func_00389630\n"
-    "func_00389630:\n\t"
-    ".set noreorder\n\t"
-    "addiu      $29, $29, -0x20\n\t"
-    "sd         $16, 0x0($29)\n\t"
-    "daddu      $16, $4, $0\n\t"
-    "bnez       $16, .L0038965C\n\t"
-    "sd        $31, 0x10($29)\n\t"
-    "lui        $4, %hi(D_4D6298)\n\t"
-    "lui        $6, %hi(D_4D62C0)\n\t"
-    "addiu      $4, $4, %lo(D_4D6298)\n\t"
-    "addiu      $6, $6, %lo(D_4D62C0)\n\t"
-    "jal        func_114320\n\t"
-    "addiu     $5, $0, 0x132\n\t"
-    ".L0038965C:\n\t"
-    "jal        func_003895D8\n\t"
-    "lbu       $4, 0x7($16)\n\t"
-    "lbu        $4, 0x6($16)\n\t"
-    "jal        func_003895D8\n\t"
-    "sb        $2, 0x7($16)\n\t"
-    "lbu        $4, 0x5($16)\n\t"
-    "jal        func_003895D8\n\t"
-    "sb        $2, 0x6($16)\n\t"
-    "lbu        $4, 0x3($16)\n\t"
-    "jal        func_003895D8\n\t"
-    "sb        $2, 0x5($16)\n\t"
-    "lbu        $4, 0x2($16)\n\t"
-    "jal        func_003895D8\n\t"
-    "sb        $2, 0x3($16)\n\t"
-    "lbu        $4, 0x1($16)\n\t"
-    "jal        func_003895D8\n\t"
-    "sb        $2, 0x2($16)\n\t"
-    "sb         $2, 0x1($16)\n\t"
-    "ld         $31, 0x10($29)\n\t"
-    "ld         $16, 0x0($29)\n\t"
-    "jr         $31\n\t"
-    "addiu     $29, $29, 0x20\n\t"
-    "nop\n\t"
-    ".set reorder\n\t"
-    ".end func_00389630\n"
-);
+/* func_00389570: Decimal to BCD */
+unsigned char func_00389570(unsigned char c) {
+    if (c > 99) {
+        func_114320(D_4D6298, 0x119, D_4D62A8);
+    }
+    return (unsigned char)(c + (c / 10) * 6);
+}
 
-/* func_003896B8 */
-__asm__(
-    ".text\n\t"
-    ".globl func_003896B8\n\t"
-    ".ent func_003896B8\n"
-    "func_003896B8:\n\t"
-    ".set noreorder\n\t"
-    "addiu      $29, $29, -0x20\n\t"
-    "sd         $16, 0x0($29)\n\t"
-    "daddu      $16, $4, $0\n\t"
-    "bnez       $16, .L003896E4\n\t"
-    "sd        $31, 0x10($29)\n\t"
-    "lui        $4, %hi(D_4D6298)\n\t"
-    "lui        $6, %hi(D_4D62C0)\n\t"
-    "addiu      $4, $4, %lo(D_4D6298)\n\t"
-    "addiu      $6, $6, %lo(D_4D62C0)\n\t"
-    "jal        func_114320\n\t"
-    "addiu     $5, $0, 0x141\n\t"
-    ".L003896E4:\n\t"
-    "jal        func_00389570\n\t"
-    "lbu       $4, 0x7($16)\n\t"
-    "lbu        $4, 0x6($16)\n\t"
-    "jal        func_00389570\n\t"
-    "sb        $2, 0x7($16)\n\t"
-    "lbu        $4, 0x5($16)\n\t"
-    "jal        func_00389570\n\t"
-    "sb        $2, 0x6($16)\n\t"
-    "lbu        $4, 0x3($16)\n\t"
-    "jal        func_00389570\n\t"
-    "sb        $2, 0x5($16)\n\t"
-    "lbu        $4, 0x2($16)\n\t"
-    "jal        func_00389570\n\t"
-    "sb        $2, 0x3($16)\n\t"
-    "lbu        $4, 0x1($16)\n\t"
-    "jal        func_00389570\n\t"
-    "sb        $2, 0x2($16)\n\t"
-    "sb         $2, 0x1($16)\n\t"
-    "ld         $31, 0x10($29)\n\t"
-    "ld         $16, 0x0($29)\n\t"
-    "jr         $31\n\t"
-    "addiu     $29, $29, 0x20\n\t"
-    "nop\n\t"
-    ".set reorder\n\t"
-    ".end func_003896B8\n"
-);
+/* func_003895D8: BCD to Decimal */
+unsigned char func_003895D8(unsigned char c) {
+    if (c > 0x99) {
+        func_114320(D_4D6298, 0x126, D_4D62B0);
+    }
+    return (unsigned char)(c - (c >> 4) * 6);
+}
 
-/* func_00389740 */
-__asm__(
-    ".text\n\t"
-    ".globl func_00389740\n\t"
-    ".ent func_00389740\n"
-    "func_00389740:\n\t"
-    ".set noreorder\n\t"
-    "addiu      $29, $29, -0x30\n\t"
-    "lui        $2, %hi(D_4D62D0)\n\t"
-    "sd         $16, 0x10($29)\n\t"
-    "sd         $31, 0x20($29)\n\t"
-    "daddu      $16, $4, $0\n\t"
-    "addiu      $6, $2, %lo(D_4D62D0)\n\t"
-    "ldl        $3, 0x7($6)\n\t"
-    "ldr        $3, 0x0($6)\n\t"
-    "lwl        $4, 0xB($6)\n\t"
-    "lwr        $4, 0x8($6)\n\t"
-    "sdl        $3, 0x7($29)\n\t"
-    "sdr        $3, 0x0($29)\n\t"
-    "swl        $4, 0xB($29)\n\t"
-    "swr        $4, 0x8($29)\n\t"
-    "bnel       $16, $0, .L0038979C\n\t"
-    "lbu       $2, 0x5($16)\n\t"
-    "lui        $4, %hi(D_4D6298)\n\t"
-    "lui        $6, %hi(D_4D62C0)\n\t"
-    "addiu      $4, $4, %lo(D_4D6298)\n\t"
-    "addiu      $6, $6, %lo(D_4D62C0)\n\t"
-    "jal        func_114320\n\t"
-    "addiu     $5, $0, 0x150\n\t"
-    "lbu        $2, 0x5($16)\n\t"
-    ".L0038979C:\n\t"
-    "lbu        $3, 0x7($16)\n\t"
-    "addiu      $2, $2, 0x1\n\t"
-    "andi       $3, $3, 0x3\n\t"
-    "bnez       $3, .L003897B8\n\t"
-    "sb        $2, 0x5($16)\n\t"
-    "addiu      $2, $0, 0x1D\n\t"
-    "sb         $2, 0x1($29)\n\t"
-    ".L003897B8:\n\t"
-    "lbu        $2, 0x6($16)\n\t"
-    "lbu        $4, 0x5($16)\n\t"
-    "addu       $2, $2, $29\n\t"
-    "lb         $3, -0x1($2)\n\t"
-    "slt        $3, $3, $4\n\t"
-    "beqz       $3, .L00389814\n\t"
-    "addiu     $2, $0, 0x1\n\t"
-    "lbu        $3, 0x6($16)\n\t"
-    "sb         $2, 0x5($16)\n\t"
-    "addiu      $4, $0, 0xD\n\t"
-    "addiu      $3, $3, 0x1\n\t"
-    "andi       $2, $3, 0xFF\n\t"
-    "bne        $2, $4, .L00389814\n\t"
-    "sb        $3, 0x6($16)\n\t"
-    "lbu        $3, 0x7($16)\n\t"
-    "addiu      $2, $0, 0x63\n\t"
-    "bne        $3, $2, .L00389808\n\t"
-    "addiu     $2, $3, 0x1\n\t"
-    "b          .L0038980C\n\t"
-    "sb        $0, 0x7($16)\n\t"
-    ".L00389808:\n\t"
-    "sb         $2, 0x7($16)\n\t"
-    ".L0038980C:\n\t"
-    "addiu      $2, $0, 0x1\n\t"
-    "sb         $2, 0x6($16)\n\t"
-    ".L00389814:\n\t"
-    "ld         $31, 0x20($29)\n\t"
-    "ld         $16, 0x10($29)\n\t"
-    "jr         $31\n\t"
-    "addiu     $29, $29, 0x30\n\t"
-    "nop\n\t"
-    ".set reorder\n\t"
-    ".end func_00389740\n"
-);
+/* func_00389630: RTC BCD to Decimal */
+void func_00389630(sceCdCLOCK *prtc) {
+    if (prtc == NULL) {
+        func_114320(D_4D6298, 0x132, D_4D62C0);
+    }
+    prtc->year   = func_003895D8(prtc->year);
+    prtc->month  = func_003895D8(prtc->month);
+    prtc->day    = func_003895D8(prtc->day);
+    prtc->hour   = func_003895D8(prtc->hour);
+    prtc->minute = func_003895D8(prtc->minute);
+    prtc->second = func_003895D8(prtc->second);
+}
 
-/* func_00389828 */
-__asm__(
-    ".text\n\t"
-    ".globl func_00389828\n\t"
-    ".ent func_00389828\n"
-    "func_00389828:\n\t"
-    ".set noreorder\n\t"
-    "addiu      $29, $29, -0x30\n\t"
-    "lui        $2, %hi(D_4D62D0)\n\t"
-    "sd         $16, 0x10($29)\n\t"
-    "sd         $31, 0x20($29)\n\t"
-    "daddu      $16, $4, $0\n\t"
-    "addiu      $6, $2, %lo(D_4D62D0)\n\t"
-    "ldl        $3, 0x7($6)\n\t"
-    "ldr        $3, 0x0($6)\n\t"
-    "lwl        $4, 0xB($6)\n\t"
-    "lwr        $4, 0x8($6)\n\t"
-    "sdl        $3, 0x7($29)\n\t"
-    "sdr        $3, 0x0($29)\n\t"
-    "swl        $4, 0xB($29)\n\t"
-    "swr        $4, 0x8($29)\n\t"
-    "bnel       $16, $0, .L00389884\n\t"
-    "lbu       $2, 0x5($16)\n\t"
-    "lui        $4, %hi(D_4D6298)\n\t"
-    "lui        $6, %hi(D_4D62C0)\n\t"
-    "addiu      $4, $4, %lo(D_4D6298)\n\t"
-    "addiu      $6, $6, %lo(D_4D62C0)\n\t"
-    "jal        func_114320\n\t"
-    "addiu     $5, $0, 0x168\n\t"
-    "lbu        $2, 0x5($16)\n\t"
-    ".L00389884:\n\t"
-    "lbu        $3, 0x7($16)\n\t"
-    "addiu      $2, $2, -0x1\n\t"
-    "andi       $3, $3, 0x3\n\t"
-    "bnez       $3, .L003898A0\n\t"
-    "sb        $2, 0x5($16)\n\t"
-    "addiu      $2, $0, 0x1D\n\t"
-    "sb         $2, 0x1($29)\n\t"
-    ".L003898A0:\n\t"
-    "lbu        $2, 0x5($16)\n\t"
-    "bnez       $2, .L003898F0\n\t"
-    "ld        $31, 0x20($29)\n\t"
-    "lbu        $2, 0x6($16)\n\t"
-    "addiu      $2, $2, -0x1\n\t"
-    "andi       $3, $2, 0xFF\n\t"
-    "bnez       $3, .L003898DC\n\t"
-    "sb        $2, 0x6($16)\n\t"
-    "lbu        $2, 0x7($16)\n\t"
-    "bnez       $2, .L003898D0\n\t"
-    "addiu     $2, $2, -0x1\n\t"
-    "addiu      $2, $0, 0x63\n\t"
-    ".L003898D0:\n\t"
-    "sb         $2, 0x7($16)\n\t"
-    "addiu      $2, $0, 0xC\n\t"
-    "sb         $2, 0x6($16)\n\t"
-    ".L003898DC:\n\t"
-    "lbu        $2, 0x6($16)\n\t"
-    "addu       $2, $2, $29\n\t"
-    "lbu        $3, -0x1($2)\n\t"
-    "sb         $3, 0x5($16)\n\t"
-    "ld         $31, 0x20($29)\n\t"
-    ".L003898F0:\n\t"
-    "ld         $16, 0x10($29)\n\t"
-    "jr         $31\n\t"
-    "addiu     $29, $29, 0x30\n\t"
-    "nop\n\t"
-    ".set reorder\n\t"
-    ".end func_00389828\n"
-);
+/* func_003896B8: RTC Decimal to BCD */
+void func_003896B8(sceCdCLOCK *prtc) {
+    if (prtc == NULL) {
+        func_114320(D_4D6298, 0x141, D_4D62C0);
+    }
+    prtc->year   = func_00389570(prtc->year);
+    prtc->month  = func_00389570(prtc->month);
+    prtc->day    = func_00389570(prtc->day);
+    prtc->hour   = func_00389570(prtc->hour);
+    prtc->minute = func_00389570(prtc->minute);
+    prtc->second = func_00389570(prtc->second);
+}
 
-/* func_00389900 */
-__asm__(
-    ".text\n\t"
-    ".globl func_00389900\n\t"
-    ".ent func_00389900\n"
-    "func_00389900:\n\t"
-    ".set noreorder\n\t"
-    "addiu      $29, $29, -0x20\n\t"
-    "sd         $16, 0x0($29)\n\t"
-    "daddu      $16, $4, $0\n\t"
-    "bnez       $16, .L0038992C\n\t"
-    "sd        $31, 0x10($29)\n\t"
-    "lui        $4, %hi(D_4D6298)\n\t"
-    "lui        $6, %hi(D_4D62C0)\n\t"
-    "addiu      $4, $4, %lo(D_4D6298)\n\t"
-    "addiu      $6, $6, %lo(D_4D62C0)\n\t"
-    "jal        func_114320\n\t"
-    "addiu     $5, $0, 0x181\n\t"
-    ".L0038992C:\n\t"
-    "lbu        $2, 0x3($16)\n\t"
-    "addiu      $4, $0, 0x18\n\t"
-    "addiu      $2, $2, 0x1\n\t"
-    "andi       $3, $2, 0xFF\n\t"
-    "bne        $3, $4, .L0038995C\n\t"
-    "sb        $2, 0x3($16)\n\t"
-    "sb         $0, 0x3($16)\n\t"
-    "daddu      $4, $16, $0\n\t"
-    "ld         $31, 0x10($29)\n\t"
-    "ld         $16, 0x0($29)\n\t"
-    "j          func_00389740\n\t"
-    "addiu     $29, $29, 0x20\n\t"
-    ".L0038995C:\n\t"
-    "ld         $31, 0x10($29)\n\t"
-    "ld         $16, 0x0($29)\n\t"
-    "jr         $31\n\t"
-    "addiu     $29, $29, 0x20\n\t"
-    "nop\n\t"
-    ".set reorder\n\t"
-    ".end func_00389900\n"
-);
+/* func_00389740: RTC Increment Day with Leap Year Calculation */
+void func_00389740(sceCdCLOCK *prtc) {
+    char table[12];
+    int i;
+    const char *src = D_4D62D0;
+    for (i = 0; i < 12; i++) {
+        table[i] = src[i];
+    }
 
-/* func_00389970 */
-__asm__(
-    ".text\n\t"
-    ".globl func_00389970\n\t"
-    ".ent func_00389970\n"
-    "func_00389970:\n\t"
-    ".set noreorder\n\t"
-    "addiu      $29, $29, -0x20\n\t"
-    "sd         $16, 0x0($29)\n\t"
-    "daddu      $16, $4, $0\n\t"
-    "bnez       $16, .L0038999C\n\t"
-    "sd        $31, 0x10($29)\n\t"
-    "lui        $4, %hi(D_4D6298)\n\t"
-    "lui        $6, %hi(D_4D62C0)\n\t"
-    "addiu      $4, $4, %lo(D_4D6298)\n\t"
-    "addiu      $6, $6, %lo(D_4D62C0)\n\t"
-    "jal        func_114320\n\t"
-    "addiu     $5, $0, 0x18E\n\t"
-    ".L0038999C:\n\t"
-    "lbu        $2, 0x3($16)\n\t"
-    "bnez       $2, .L003899C4\n\t"
-    "addiu     $2, $2, -0x1\n\t"
-    "addiu      $2, $0, 0x17\n\t"
-    "daddu      $4, $16, $0\n\t"
-    "sb         $2, 0x3($16)\n\t"
-    "ld         $31, 0x10($29)\n\t"
-    "ld         $16, 0x0($29)\n\t"
-    "j          func_00389828\n\t"
-    "addiu     $29, $29, 0x20\n\t"
-    ".L003899C4:\n\t"
-    "ld         $31, 0x10($29)\n\t"
-    "sb         $2, 0x3($16)\n\t"
-    "ld         $16, 0x0($29)\n\t"
-    "jr         $31\n\t"
-    "addiu     $29, $29, 0x20\n\t"
-    ".set reorder\n\t"
-    ".end func_00389970\n"
-);
+    if (prtc == NULL) {
+        func_114320(D_4D6298, 0x150, D_4D62C0);
+    }
+    prtc->day++;
+    if ((prtc->year & 3) == 0) {
+        table[1] = 29;
+    }
+    if (prtc->day > table[prtc->month - 1]) {
+        prtc->day = 1;
+        prtc->month++;
+        if (prtc->month == 13) {
+            prtc->year = (prtc->year == 99) ? 0 : prtc->year + 1;
+            prtc->month = 1;
+        }
+    }
+}
 
-/* func_003899D8 */
-__asm__(
-    ".text\n\t"
-    ".globl func_003899D8\n\t"
-    ".ent func_003899D8\n"
-    "func_003899D8:\n\t"
-    ".set noreorder\n\t"
-    "addiu      $29, $29, -0x30\n\t"
-    "sd         $17, 0x10($29)\n\t"
-    "sd         $16, 0x0($29)\n\t"
-    "daddu      $17, $4, $0\n\t"
-    "sd         $31, 0x20($29)\n\t"
-    "bnez       $17, .L00389A0C\n\t"
-    "daddu     $16, $5, $0\n\t"
-    "lui        $4, %hi(D_4D6298)\n\t"
-    "lui        $6, %hi(D_4D62C0)\n\t"
-    "addiu      $4, $4, %lo(D_4D6298)\n\t"
-    "addiu      $6, $6, %lo(D_4D62C0)\n\t"
-    "jal        func_114320\n\t"
-    "addiu     $5, $0, 0x1A0\n\t"
-    ".L00389A0C:\n\t"
-    "addiu      $2, $16, 0x5A0\n\t"
-    "sltiu      $2, $2, 0xB41\n\t"
-    "bnez       $2, .L00389A30\n\t"
-    "lui       $4, %hi(D_4D6298)\n\t"
-    "lui        $6, %hi(D_4D62E0)\n\t"
-    "addiu      $4, $4, %lo(D_4D6298)\n\t"
-    "addiu      $6, $6, %lo(D_4D62E0)\n\t"
-    "jal        func_114320\n\t"
-    "addiu     $5, $0, 0x1A1\n\t"
-    ".L00389A30:\n\t"
-    "jal        func_00389630\n\t"
-    "daddu     $4, $17, $0\n\t"
-    "lbu        $2, 0x2($17)\n\t"
-    "addu       $16, $2, $16\n\t"
-    "bltzl      $16, .L00389A78\n\t"
-    "addiu     $16, $16, 0x3C\n\t"
-    "slti       $2, $16, 0x3D\n\t"
-    "bnel       $2, $0, .L00389A8C\n\t"
-    "sb        $16, 0x2($17)\n\t"
-    "daddu      $4, $17, $0\n\t"
-    ".L00389A58:\n\t"
-    "jal        func_00389900\n\t"
-    "addiu     $16, $16, -0x3C\n\t"
-    "slti       $2, $16, 0x3D\n\t"
-    "beqz       $2, .L00389A58\n\t"
-    "daddu     $4, $17, $0\n\t"
-    "b          .L00389A90\n\t"
-    "sb        $16, 0x2($17)\n\t"
-    "nop\n\t"
-    ".L00389A78:\n\t"
-    "jal        func_00389970\n\t"
-    "daddu     $4, $17, $0\n\t"
-    "bltzl      $16, .L00389A78\n\t"
-    "addiu     $16, $16, 0x3C\n\t"
-    "sb         $16, 0x2($17)\n\t"
-    ".L00389A8C:\n\t"
-    "daddu      $4, $17, $0\n\t"
-    ".L00389A90:\n\t"
-    "ld         $31, 0x20($29)\n\t"
-    "ld         $17, 0x10($29)\n\t"
-    "ld         $16, 0x0($29)\n\t"
-    "j          func_003896B8\n\t"
-    "addiu     $29, $29, 0x30\n\t"
-    "nop\n\t"
-    ".set reorder\n\t"
-    ".end func_003899D8\n"
-);
+/* func_00389828: RTC Decrement Day with Leap Year Calculation */
+void func_00389828(sceCdCLOCK *prtc) {
+    char table[12];
+    int i;
+    const char *src = D_4D62D0;
+    for (i = 0; i < 12; i++) {
+        table[i] = src[i];
+    }
 
-/* func_00389AA8 */
-__asm__(
-    ".text\n\t"
-    ".globl func_00389AA8\n\t"
-    ".ent func_00389AA8\n"
-    "func_00389AA8:\n\t"
-    ".set noreorder\n\t"
-    "addiu      $29, $29, -0x20\n\t"
-    "sd         $16, 0x0($29)\n\t"
-    "daddu      $16, $4, $0\n\t"
-    "bnez       $16, .L00389AD4\n\t"
-    "sd        $31, 0x10($29)\n\t"
-    "lui        $4, %hi(D_4D6298)\n\t"
-    "lui        $6, %hi(D_4D62C0)\n\t"
-    "addiu      $4, $4, %lo(D_4D6298)\n\t"
-    "addiu      $6, $6, %lo(D_4D62C0)\n\t"
-    "jal        func_114320\n\t"
-    "addiu     $5, $0, 0x1BC\n\t"
-    ".L00389AD4:\n\t"
-    "daddu      $4, $16, $0\n\t"
-    "ld         $31, 0x10($29)\n\t"
-    "ld         $16, 0x0($29)\n\t"
-    "addiu      $5, $0, -0x21C\n\t"
-    "j          func_003899D8\n\t"
-    "addiu     $29, $29, 0x20\n\t"
-    "nop\n\t"
-    ".set reorder\n\t"
-    ".end func_00389AA8\n"
-);
+    if (prtc == NULL) {
+        func_114320(D_4D6298, 0x168, D_4D62C0);
+    }
+    prtc->day--;
+    if ((prtc->year & 3) == 0) {
+        table[1] = 29;
+    }
+    if (prtc->day == 0) {
+        prtc->month--;
+        if (prtc->month == 0) {
+            prtc->year = (prtc->year == 0) ? 99 : prtc->year - 1;
+            prtc->month = 12;
+        }
+        prtc->day = table[prtc->month - 1];
+    }
+}
 
-/* func_00389AF0 */
-__asm__(
-    ".text\n\t"
-    ".globl func_00389AF0\n\t"
-    ".ent func_00389AF0\n"
-    "func_00389AF0:\n\t"
-    ".set noreorder\n\t"
-    "addiu      $29, $29, -0x30\n\t"
-    "sd         $17, 0x10($29)\n\t"
-    "sd         $16, 0x0($29)\n\t"
-    "sd         $31, 0x20($29)\n\t"
-    "jal        func_389388\n\t"
-    "daddu     $17, $4, $0\n\t"
-    "jal        func_389470\n\t"
-    "daddu     $16, $2, $0\n\t"
-    "addiu      $3, $0, 0x3C\n\t"
-    "mult       $2, $2, $3\n\t"
-    "addiu      $2, $2, -0x21C\n\t"
-    "bnez       $17, .L00389B3C\n\t"
-    "addu      $16, $16, $2\n\t"
-    "lui        $4, %hi(D_4D6298)\n\t"
-    "lui        $6, %hi(D_4D62C0)\n\t"
-    "addiu      $4, $4, %lo(D_4D6298)\n\t"
-    "addiu      $6, $6, %lo(D_4D62C0)\n\t"
-    "jal        func_114320\n\t"
-    "addiu     $5, $0, 0x1C7\n\t"
-    ".L00389B3C:\n\t"
-    "daddu      $4, $17, $0\n\t"
-    "daddu      $5, $16, $0\n\t"
-    "ld         $31, 0x20($29)\n\t"
-    "ld         $17, 0x10($29)\n\t"
-    "ld         $16, 0x0($29)\n\t"
-    "j          func_003899D8\n\t"
-    "addiu     $29, $29, 0x30\n\t"
-    "nop\n\t"
-    "nop\n\t"
-    ".set reorder\n\t"
-    ".end func_00389AF0\n"
-);
+/* func_00389900: RTC Increment Hour */
+void func_00389900(sceCdCLOCK *prtc) {
+    if (prtc == NULL) {
+        func_114320(D_4D6298, 0x181, D_4D62C0);
+    }
+    prtc->hour++;
+    if (prtc->hour == 24) {
+        prtc->hour = 0;
+        func_00389740(prtc);
+    }
+}
+
+/* func_00389970: RTC Decrement Hour */
+void func_00389970(sceCdCLOCK *prtc) {
+    if (prtc == NULL) {
+        func_114320(D_4D6298, 0x190, D_4D62C0);
+    }
+    if (prtc->hour == 0) {
+        prtc->hour = 23;
+        func_00389828(prtc);
+    } else {
+        prtc->hour--;
+    }
+}
+
+/* func_003899D8: Adjust RTC by timezone difference (in minutes) */
+void func_003899D8(sceCdCLOCK *prtc, int diff) {
+    if (prtc == NULL) {
+        func_114320(D_4D6298, 0x1A0, D_4D62C0);
+    }
+    if (diff < -1440 || diff > 1440) {
+        func_114320(D_4D6298, 0x1A1, D_4D62E0);
+    }
+    func_00389630(prtc);
+    diff += prtc->minute;
+    if (diff < 0) {
+        do {
+            func_00389970(prtc);
+            diff += 60;
+        } while (diff < 0);
+        prtc->minute = diff;
+    } else {
+        while (diff > 60) {
+            func_00389900(prtc);
+            diff -= 60;
+        }
+        prtc->minute = diff;
+    }
+    func_003896B8(prtc);
+}
+
+/* func_00389AA8: Get Local Time from RTC with -540 min default offset */
+void func_00389AA8(sceCdCLOCK *prtc) {
+    if (prtc == NULL) {
+        func_114320(D_4D6298, 0x1BC, D_4D62C0);
+    }
+    func_003899D8(prtc, -540);
+}
+
+/* func_00389AF0: Read RTC, query TimeZone and adjust */
+void func_00389AF0(sceCdCLOCK *prtc) {
+    int tz;
+    int diff;
+    func_389388(prtc);
+    tz = func_389470();
+    diff = tz * 60 - 540;
+    if (prtc == NULL) {
+        func_114320(D_4D6298, 0x1C7, D_4D62C0);
+    }
+    func_003899D8(prtc, diff);
+}

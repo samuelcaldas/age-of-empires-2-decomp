@@ -45,9 +45,9 @@ pie title Distribuição de Funções em Assembly (Total: 1.906 funções)
 | **`src/rmmmem_overlay.c`** | Overlay (Heap RMS) | 165 | 5 | 832 B | Decompilado (C Puro + Testes Nativos) |
 | **`src/kt_gpu.c`** | KCET Hardware (GS) | 252 | 5 | 1.072 B | 100% Matched |
 | **`src/libscf.c`** | Sony SCF (Config/Idioma) | 200 | 11 | 1.500 B | Decompilado (C Puro + Testes Nativos) |
-| **`src/hist_overlay.c`** | Overlay (História) | 92.649 | 13 | 5.440 B | 100% Matched |
+| **`src/hist_overlay.c`** | Overlay (História) | 5.608 | 13 | 5.440 B | Decompilado (C Puro + Testes Nativos) |
 | **`src/multim_overlay.c`** | Overlay (Slideshow) | 42.221 | 19 | 7.872 B | 100% Matched |
-| **`src/kt_hd.c`** | KCET Hardware (PS2 HDD) | 1.020 | 27 | 2.600 B | 100% Matched |
+| **`src/kt_hd.c`** | KCET Hardware (PS2 HDD) | 441 | 27 | 2.600 B | Decompilado (C Puro + Testes Nativos) |
 | **`src/kt_kernel.c`** | KCET Hardware (Kernel/OS) | 496 | 39 | 3.172 B | Decompilado (C Puro + Testes Nativos) |
 | **`src/kt_file.c`** | KCET Hardware (I/O VFS) | 1.677 | 50 | 5.760 B | 100% Matched |
 | **`src/dcomp_overlay.c`** | Overlay (Gerador RMS) | 23.589 | 71 | 40.128 B | 100% Matched |
@@ -76,10 +76,11 @@ Estes arquivos contêm o código carregado dinamicamente do CD pelo CodeWarrior 
 * **Funções**: `rmmmem_func_01D98000` (`rmm_heap_init`), `rmmmem_func_01D98050` (`rmm_alloc`), `rmmmem_func_01D980FC` (`rmm_calloc`), `rmmmem_func_01D98150` (`rmm_free`), `rmmmem_func_01D98284` (`rmm_stub`).
 * **Testes**: `tests/test_rmmmem_native.py` (execução comportamental nativa x86-64 com `gcc -m32`) e `tests/test_rmmmem_matching.py` (compilação e símbolos com `ee-gcc 2.9-991111 -O2 -G0`).
 
-### 3. `src/hist_overlay.c` (13 funções / 92.649 linhas)
+### 3. `src/hist_overlay.c` (13 funções / 5.608 linhas) — *Decompilado (C Puro + Testes Nativos)*
 * **VRAM**: `0x01D98000`
-* **Descrição**: Visualizador da enciclopédia histórica e tela de contexto de missões. A maior parte das 92k linhas é composta por dados brutos `.rodata` (textos e tabelas).
-* **Complexidade**: Média. Poucas funções lógicas (13 funções) manipulando grandes tabelas de strings.
+* **Descrição**: Visualizador da enciclopédia histórica e tela de contexto de missões. A tabela de dados `.rodata` (179.264 bytes) e as 13 funções lógicas encontram-se 100% descompiladas em C estruturado puro.
+* **Header**: `include/hist_overlay.h`
+* **Testes**: `tests/test_hist_native.py` (execução comportamental nativa) e `tests/test_hist_matching.py` (matching de símbolos e exatidão bit-a-bit de `.rodata` com `ee-gcc 2.9-991111 -O2 -G0`).
 
 ### 4. `src/multim_overlay.c` (19 funções / 42.221 linhas)
 * **VRAM**: `0x01D98000`
@@ -120,9 +121,11 @@ Módulos desenvolvidos pela Konami Tokyo para adaptar o motor de PC ao hardware 
 * **Descrição**: *System Configuration Framework* da Sony. Lê as configurações da EEPROM/OSD do console (idioma, fuso horário, formato de tela 4:3 / 16:9).
 * **Prioridade**: Alta / Fácil.
 
-### 3. `src/kt_hd.c` (27 funções / 1.020 linhas)
-* **Descrição**: Interface de comunicação com o disco rígido oficial do PS2 (HDD) e sistema de arquivos PFS (`pfs0:`).
-* **Prioridade**: Média.
+### 3. `src/kt_hd.c` (27 funções / 441 linhas) — *Decompilado (C Puro + Testes Nativos)*
+* **Descrição**: Interface de comunicação com o disco rígido oficial do PS2 (HDD), portas de depuração `host0:`, `sim:` e sistema de arquivos atfile (`atfile:`).
+* **Header**: `include/kt_hd.h`
+* **Testes**: `tests/test_kt_hd_native.py` (execução comportamental nativa) e `tests/test_kt_hd_matching.py` (compilação e símbolos com `ee-gcc 2.9-991111 -O2 -G0`).
+* **Prioridade**: Concluído.
 
 ### 4. `src/kt_kernel.c` (39 funções / 1.334 linhas)
 * **Descrição**: Abstração de chamadas do sistema operacional do Emotion Engine (criação de threads, semáforos, manipuladores de interrupção e DMA).

@@ -69,9 +69,15 @@ def test_hist_overlay_compiles_and_contains_all_functions(tmp_path):
 
         symtab = elf.get_section_by_name(".symtab")
         funcs = [s.name for s in symtab.iter_symbols() if s["st_info"]["type"] == "STT_FUNC"]
+        objects = [s.name for s in symtab.iter_symbols() if s["st_info"]["type"] == "STT_OBJECT"]
         for fn in EXPECTED_FUNCS:
             assert fn in funcs, f"Missing function {fn} in .symtab"
         assert len(funcs) == 13, f"Expected 13 functions, got {len(funcs)}"
+        assert "hist_data" in objects, "Missing hist_data object symbol in .symtab"
+
+        # Verify no inline assembly remains in C source
+        source_text = SOURCE.read_text()
+        assert "__asm__" not in source_text, "Found __asm__ in src/hist_overlay.c; must be pure C"
 
 
 def test_hist_overlay_rodata_exact_match(tmp_path):

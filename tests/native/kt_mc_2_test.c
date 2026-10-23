@@ -109,8 +109,12 @@ char D_38CE10[64] = {0};
 char D_38CE40[64] = {0};
 char D_38CE70[64] = {0};
 char D_38CE90[64] = {0};
-int func_1043B8(void) { return 0; }
-int func_1043C8(void) { return 0; }
+int func_1043B8(void) {
+    return 0;
+}
+int func_1043C8(void) {
+    return 0;
+}
 
 /* Mock state */
 static int mock_assert_calls = 0;
@@ -144,36 +148,106 @@ void func_118de0(const char *fmt, ...) {
     (void)fmt;
 }
 
-int func_10FE50(void) { return 0; }
-int func_10FF40(void) { return mock_mc_init_code; }
-int func_116F40(int size) { (void)size; return 0x1000; }
-int func_116F68(int p) { (void)p; return 0; }
-int func_117CAC(void *dst, int val, int size) { memset(dst, val, size); return 0; }
-int func_1236D0(int a) { return a; }
-int func_12DD00(int a0, void *a1, int a2) { (void)a0; (void)a1; (void)a2; return 0; }
-int func_12DE28(int a0) { return a0; }
-int func_00128990(void) { return 0; }
-int func_00126040(void *p) { (void)p; return 0; }
-int func_1043D8(void) { return 0; }
-int func_104558(void) { return 0; }
-int func_104FA0(void *p) { (void)p; return 0; }
-int func_1102A0(void) { return 0; }
-int func_1103D8(void) { return 0; }
-int func_110410(void) { return 0; }
-int func_1104C8(void) { return 0; }
-int func_110630(void) { return 0; }
-int func_110750(void) { return 0; }
-int func_110940(void) { return 0; }
-int func_110A78(void) { return 0; }
-int func_110C00(void) { return 0; }
-int func_110F30(void) { return 0; }
-int func_110FF8(void) { return 0; }
-int func_1111D8(void) { return 0; }
-int func_1113B0(void) { return 0; }
-int func_1115E0(void) { return 0; }
-int func_116D40(int a, int b) { (void)a; (void)b; return 0; }
-int func_123818(void) { return 0; }
-int func_123848(void) { return 0; }
+int func_10FE50(void) {
+    return 0;
+}
+int func_10FF40(void) {
+    return mock_mc_init_code;
+}
+int func_116F40(int size) {
+    (void)size;
+    return 0x1000;
+}
+int func_116F68(int p) {
+    (void)p;
+    return 0;
+}
+int func_117CAC(void *dst, int val, int size) {
+    memset(dst, val, size);
+    return 0;
+}
+int func_1236D0(int a) {
+    return a;
+}
+int func_12DD00(int a0, void *a1, int a2) {
+    (void)a0;
+    (void)a1;
+    (void)a2;
+    return 0;
+}
+int func_12DE28(int a0) {
+    return a0;
+}
+int func_00128990(void) {
+    return 0;
+}
+int func_00126040(void *p) {
+    (void)p;
+    return 0;
+}
+int func_1043D8(void) {
+    return 0;
+}
+int func_104558(void) {
+    return 0;
+}
+int func_104FA0(void *p) {
+    (void)p;
+    return 0;
+}
+int func_1102A0(void) {
+    return 0;
+}
+int func_1103D8(void) {
+    return 0;
+}
+int func_110410(void) {
+    return 0;
+}
+int func_1104C8(void) {
+    return 0;
+}
+int func_110630(void) {
+    return 0;
+}
+int func_110750(void) {
+    return 0;
+}
+int func_110940(void) {
+    return 0;
+}
+int func_110A78(void) {
+    return 0;
+}
+int func_110C00(void) {
+    return 0;
+}
+int func_110F30(void) {
+    return 0;
+}
+int func_110FF8(void) {
+    return 0;
+}
+int func_1111D8(void) {
+    return 0;
+}
+int func_1113B0(void) {
+    return 0;
+}
+int func_1115E0(void) {
+    return 0;
+}
+int func_116D40(int a, int b) {
+    (void)a;
+    (void)b;
+    return 0;
+}
+int func_123818(void) {
+    return 0;
+}
+int func_123848(void) {
+    return 0;
+}
 
 /* Test Cases */
 static void test_table_lookup(void) {

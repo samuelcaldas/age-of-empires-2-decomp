@@ -6249,6 +6249,15 @@ segments:
   - name: post_tactical_ai_layout_341040
     type: bin
     start: 0x242980
+  - name: libscf
+    type: code
+    start: 0x289750
+    vram: 0x389570
+    subsegments:
+      - [0x289750, asm, libscf]
+  - name: post_libscf
+    type: bin
+    start: 0x289d40
   - [0x3e31c0]
 
 

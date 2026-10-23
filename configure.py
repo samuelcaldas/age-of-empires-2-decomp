@@ -339,6 +339,12 @@ if config.platform == Platform.PS2:
                     cflags=["-O2", "-G0", "-Iinclude"],
                     toolchain_version="PS2/ee-gcc2.9-991111",
                 ),
+                Object(
+                    Matching,
+                    "libscf",
+                    cflags=["-O2", "-G0", "-Iinclude"],
+                    toolchain_version="PS2/ee-gcc2.9-991111",
+                ),
             ],
         },
         {

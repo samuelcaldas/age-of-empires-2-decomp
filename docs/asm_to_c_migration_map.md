@@ -41,7 +41,7 @@ pie title Distribuição de Funções em Assembly (Total: 1.906 funções)
 
 | Arquivo Fonte | Subcutâneo / Domínio | Linhas | Funções | Tamanho (.text) | Status de Teste |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **`src/mo_ov_overlay.c`** | Overlay (Vídeo PSS) | 311 | 2 | 192 B | 100% Matched |
+| **`src/mo_ov_overlay.c`** | Overlay (Vídeo PSS) | 37 | 2 | 312 B | Decompilado (C Puro + Testes Nativos) |
 | **`src/rmmmem_overlay.c`** | Overlay (Heap RMS) | 495 | 5 | 832 B | 100% Matched |
 | **`src/kt_gpu.c`** | KCET Hardware (GS) | 252 | 5 | 1.072 B | 100% Matched |
 | **`src/libscf.c`** | Sony SCF (Config/Idioma) | 200 | 11 | 1.500 B | Decompilado (C Puro + Testes Nativos) |
@@ -54,7 +54,7 @@ pie title Distribuição de Funções em Assembly (Total: 1.906 funções)
 | **`src/kt_libpad.c`** | KCET Hardware (DualShock) | 4.486 | 100 | 12.144 B | 100% Matched |
 | **`src/thelp_overlay.c`** | Overlay (Tech Tree) | 38.213 | 119 | 70.848 B | 100% Matched |
 | **`src/smenu_overlay.c`** | Overlay (Setup/Menus) | 49.515 | 144 | 90.560 B | 100% Matched |
-| **`src/kt_libcdvd_server.c`** | KCET Hardware (CD/DVD) | 5.530 | 150 | 14.072 B | 100% Matched |
+| **`src/kt_libcdvd_server.c`** | KCET Hardware (CD/DVD) | 5.530 | 150 | 14.104 B | Partial C migration; exact matching currently fails |
 | **`src/kt_mc_2.c`** | KCET Hardware (Memory Card)| 10.800 | 337 | 35.808 B | 100% Matched |
 | **`src/lobby_overlay.c`** | Overlay (Multiplayer) | 247.103 | 814 | 337.472 B | 100% Matched |
 | **TOTAL** | — | **519.736** | **1.906** | **631.328 B** *(~616 KB)* | **16 arquivos** |

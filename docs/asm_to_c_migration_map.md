@@ -18,6 +18,7 @@ A codebase de *Age of Empires II: The Age of Kings* (PS2 PAL `SLES-50282`) encon
    - **519.736 linhas de código**.
    - **1.906 funções**.
    - Preservados como blocos inline `__asm__` (`.word 0x...` ou mnemônicos MIPS diretos) garantindo 100% de paridade binária com o original, mas ainda não descompilados para C/C++ de alto nível.
+   - **REGRA FUNDAMENTAL ANTI-STUBBING**: Funções em assembly NUNCA devem ser substituídas por corpos vazios (`void f() {}`) ou stubs meramente para remover `__asm__` do arquivo. O código real deve ser descompilado e validado em C/C++; **somente após a descompilação real e validação comportamental/matching o assembly pode ser removido**. Módulos que sofreram stubbing são considerados estritamente **INCOMPLETOS**.
 3. **Lacunas Binárias no ELF (`type: bin`)**:
    - **26 blocos residuais** no `AOK.ELF` mapeados em `config.yml` aguardando fatiamento.
 
@@ -50,13 +51,13 @@ pie title Distribuição de Funções em Assembly (Total: 1.906 funções)
 | **`src/kt_hd.c`** | KCET Hardware (PS2 HDD) | 441 | 27 | 2.600 B | Decompilado (C Puro + Testes Nativos) |
 | **`src/kt_kernel.c`** | KCET Hardware (Kernel/OS) | 496 | 39 | 3.172 B | Decompilado (C Puro + Testes Nativos) |
 | **`src/kt_file.c`** | KCET Hardware (I/O VFS) | 1.677 | 50 | 5.760 B | 100% Matched |
-| **`src/dcomp_overlay.c`** | Overlay (Gerador RMS) | 294 | 71 | 40.128 B | Decompilado (C Puro + Testes Nativos) |
+| **`src/dcomp_overlay.c`** | Overlay (Gerador RMS) | 294 | 71 | 40.128 B | **INCOMPLETO** (Stubbing em 69/71 fns; requer descompilação real) |
 | **`src/kt_libpad.c`** | KCET Hardware (DualShock) | 4.486 | 100 | 12.144 B | 100% Matched |
 | **`src/thelp_overlay.c`** | Overlay (Tech Tree) | 38.213 | 119 | 70.848 B | 100% Matched |
 | **`src/smenu_overlay.c`** | Overlay (Setup/Menus) | 49.515 | 144 | 90.560 B | 100% Matched |
-| **`src/kt_libcdvd_server.c`** | KCET Hardware (CD/DVD) | 618 | 150 | 14.104 B | Decompilado (C Puro + Testes Nativos) |
-| **`src/kt_mc_2.c`** | KCET Hardware (Memory Card)| 11.415 | 337 | 56.396 B | Decompilado (C Puro + Testes Nativos) |
-| **`src/lobby_overlay.c`** | Overlay (Multiplayer) | 3.268 | 814 | 337.472 B | Decompilado (C Puro + Testes Nativos) |
+| **`src/kt_libcdvd_server.c`** | KCET Hardware (CD/DVD) | 5.614 | 150 | 14.104 B | Decompilado (C Puro + Testes Nativos) |
+| **`src/kt_mc_2.c`** | KCET Hardware (Memory Card)| 11.415 | 337 | 56.396 B | **INCOMPLETO** (Transpilação crua de registradores; requer C estruturado) |
+| **`src/lobby_overlay.c`** | Overlay (Multiplayer) | 3.268 | 814 | 337.472 B | **INCOMPLETO** (Stubbing total: 814/814 fns vazias; requer descompilação real) |
 | **TOTAL** | — | **519.736** | **1.906** | **631.328 B** *(~616 KB)* | **16 arquivos** |
 
 ---
@@ -87,10 +88,11 @@ Estes arquivos contêm o código carregado dinamicamente do CD pelo CodeWarrior 
 * **Descrição**: Controlador de apresentação de slides de campanhas e sincronização de dublagens.
 * **Complexidade**: Média. Controle de temporizadores e paginação de imagens.
 
-### 5. `src/dcomp_overlay.c` (71 funções / 23.589 linhas)
+### 5. `src/dcomp_overlay.c` (71 funções / 294 linhas atuais) — *INCOMPLETO (Stubbing Detectado)*
 * **VRAM**: `0x01D98000`
 * **Descrição**: Motor de interpretação de scripts RMS (*Random Map Script* — lê `arabia.rms`, `black_forest.rms`) e gerador procedural de relevo, florestas e recursos.
 * **Complexidade**: Alta. Algoritmos matemáticos de colocação de terreno e geração de sementes randômicas.
+* **Status Crítico**: 69 das 71 funções sofreram **stubbing** (corpos vazios `{}` criados para forçar remoção de ASM). Apenas a tabela `.rodata` foi migrada. As funções lógicas de relevo/mapa continuam pendentes de descompilação C/C++ real. O ASM original não deve ser descartado até que o código C real seja devidamente descompilado e validado.
 
 ### 6. `src/thelp_overlay.c` (119 funções / 38.213 linhas)
 * **VRAM**: `0x01F68000`
@@ -102,11 +104,12 @@ Estes arquivos contêm o código carregado dinamicamente do CD pelo CodeWarrior 
 * **Descrição**: Menus principais, carrossel de campanhas, telas de configuração de áudio/vídeo e opções de jogo.
 * **Complexidade**: Alta. Gerenciamento extensivo de estados de interface do usuário, eventos de cursor e fluxo de menus.
 
-### 8. `src/lobby_overlay.c` (814 funções / 3.268 linhas) — *Decompilado (C Puro + Testes Nativos)*
+### 8. `src/lobby_overlay.c` (814 funções / 3.268 linhas atuais) — *INCOMPLETO (Stubbing Total Detectado)*
 * **VRAM**: `0x01D98000`
-* **Descrição**: Sistema de saguão multiplayer completo para console (criação de salas, seleção de facções, ping, serialização de pacotes via `ps2_DataTrans`). Todas as 814 funções e a tabela de dados `.rodata` (120.896 bytes) encontram-se descompiladas em C estruturado puro.
+* **Descrição**: Sistema de saguão multiplayer para console (criação de salas, seleção de facções, ping, serialização de pacotes via `ps2_DataTrans`).
 * **Header**: `include/lobby_overlay.h`
-* **Testes**: `tests/test_lobby_native.py` (execução comportamental nativa) e `tests/test_lobby_matching.py` (compilação e símbolos de todas as 814 funções e exatidão bit-a-bit de `.rodata` com `ee-gcc 2.9-991111 -O2 -G0`).
+* **Status Crítico**: Todas as 814 funções lógicas (337.472 bytes de código `.text`) sofreram **stubbing** total (todas foram substituídas por `void lobby_func_...() {}`). Apenas a tabela `.rodata` foi preservada em `include/lobby_data.inc`. O módulo requer descompilação C real de todas as 814 funções; o ASM original não pode ser removido até que o código C equivalente seja implementado e validado.
+* **Testes**: `tests/test_lobby_matching.py` valida apenas `.rodata` e presença dos símbolos; paridade de `.text` está comprometida devido ao stubbing.
 
 ---
 
@@ -140,15 +143,18 @@ Módulos desenvolvidos pela Konami Tokyo para adaptar o motor de PC ao hardware 
 * **Descrição**: Biblioteca completa de controle do DualShock 2 (mapeamento de botões, sensibilidade analógica e acionadores de vibração).
 * **Prioridade**: Média.
 
-### 7. `src/kt_libcdvd_server.c` (150 funções / 5.530 linhas)
-* **Descrição**: Servidor de leitura do leitor de CD/DVD do console, leitura assíncrona de setores e tratamento de erros do drive óptico.
-* **Prioridade**: Média.
-
-### 8. `src/kt_mc_2.c` (337 funções / 11.415 linhas) — *Decompilado (C Puro + Testes Nativos)*
-* **Descrição**: Gerenciador avançado de Memory Cards da Konami Tokyo (leitura/escrita de saves, verificação de espaço livre, ícones de save 3D e cabeçalhos de arquivo `icon.sys`). Todas as 337 funções encontram-se descompiladas em C estruturado puro com tratamento de delay slots.
-* **Header**: `include/kt_mc_2.h`
-* **Testes**: `tests/test_kt_mc_2_native.py` (execução comportamental nativa) e `tests/test_kt_mc_2_matching.py` (compilação e símbolos de todas as 337 funções com `ee-gcc 2.9-991111 -O2 -G0`).
+### 7. `src/kt_libcdvd_server.c` (150 funções / 5.614 linhas) — *Decompilado (C Puro + Testes Nativos)*
+* **Descrição**: Servidor de leitura do leitor de CD/DVD do console, leitura assíncrona de setores e tratamento de erros do drive óptico. Todas as 150 funções encontram-se descompiladas em C estruturado puro com tratamento de delay slots e zero blocos `__asm__`.
+* **Header**: `include/kt_libcdvd_server.h`
+* **Testes**: `tests/test_kt_libcdvd_server_native.py` (execução comportamental nativa) e `tests/test_kt_libcdvd_server_matching.py` (compilação e símbolos de todas as 150 funções com `ee-gcc 2.9-991111 -O2 -G0`).
 * **Prioridade**: Concluído.
+
+### 8. `src/kt_mc_2.c` (337 funções / 11.415 linhas) — *INCOMPLETO (Transpilação de Registradores)*
+* **Descrição**: Gerenciador de Memory Cards da Konami Tokyo (leitura/escrita de saves, verificação de espaço livre, ícones de save 3D e cabeçalhos de arquivo `icon.sys`).
+* **Header**: `include/kt_mc_2.h`
+* **Status Crítico**: Não possui stubs vazios, porém as 337 funções consistem em uma transpilação mecânica linha-a-linha de instruções assembly para variáveis de registradores C (`long r_v0, r_sp, stack_mem...`). Requer refatoração e descompilação estruturada de verdade em C idiomático com correspondência comportamental e tipagem real.
+* **Testes**: `tests/test_kt_mc_2_native.py` e `tests/test_kt_mc_2_matching.py`.
+* **Prioridade**: Média-Alta.
 
 ---
 

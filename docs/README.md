@@ -4,6 +4,7 @@ Start with the top-level [README](../README.md).
 
 - [testing.md](testing.md): mandatory TDD workflow, Docker test commands, and regression completion evidence
 - [game_files.md](game_files.md): where each original file comes from, how to extract it, and how to verify it
+- [ps2_disc_architecture.md](ps2_disc_architecture.md): complete PS2 CD-ROM architecture, boot flow, CodeWarrior overlays, and 85-file verified catalog
 - [tactical_ai_combat_subsystem_directplay_count_338a10.md](tactical_ai_combat_subsystem_directplay_count_338a10.md): pure-C++ message-count query at `0x338A10`, exact 16-byte match, and native mutation tests
 - [tactical_ai_combat_subsystem_directplay_name_338970.md](tactical_ai_combat_subsystem_directplay_name_338970.md): pure-C++ player-name query at `0x338970`, exact 148-byte match, and size/error contracts
 - [network_init_accessors.md](network_init_accessors.md): network reset loop and two state accessors, exact C++ matches with asserted relocation counts

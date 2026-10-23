@@ -1,0 +1,512 @@
+[
+  {
+    "path": "ALL_DATA.BIN",
+    "size": 93636608,
+    "modified": "2002-04-10 01:46:40",
+    "sha1": "b52712eb1e04da7fac9310a3469ef673dc2f98c5"
+  },
+  {
+    "path": "SYSTEM.CNF",
+    "size": 56,
+    "modified": "2002-04-14 01:31:20",
+    "sha1": "4002d102211d319a55bec13d5951a7ccd86de965"
+  },
+  {
+    "path": "DATA.CAT",
+    "size": 207900672,
+    "modified": "2001-06-01 03:12:52",
+    "sha1": "73c6b074afb3a32f7a36aefefe1fb958ba710d42"
+  },
+  {
+    "path": "SLES_502.82",
+    "size": 1593256,
+    "modified": "2002-04-26 02:34:30",
+    "sha1": "2f5139c1cb45c6b22b93e0c32bbea8e94a7b4a5f"
+  },
+  {
+    "path": "PPS_PAL/ESLOGO_2.PSS",
+    "size": 18382852,
+    "modified": "2001-05-28 08:59:12",
+    "sha1": "1df87e57974ef3397d71d8acbf57e3bf63188750"
+  },
+  {
+    "path": "PPS_PAL/AGE2_2.PSS",
+    "size": 113967108,
+    "modified": "2001-05-28 10:08:56",
+    "sha1": "95a5d98554f8c79e541c373c04d977b6d411151b"
+  },
+  {
+    "path": "PPS_PAL/MSLOGO_2.PSS",
+    "size": 14499844,
+    "modified": "2001-05-28 09:01:28",
+    "sha1": "c332da32cd42166bed67bf8ae473f14ded4f5ff9"
+  },
+  {
+    "path": "EN/AGE2_PS2.ELF",
+    "size": 4076904,
+    "modified": "2002-04-26 02:54:18",
+    "sha1": "f478e19f2059d52899b691483ef5c7522e30e17c"
+  },
+  {
+    "path": "EN/DCOMP_CD.BIN",
+    "size": 44160,
+    "modified": "2002-04-26 02:54:18",
+    "sha1": "cc1517c3b9e38c4817ec947625c69dc84de0bf8a"
+  },
+  {
+    "path": "EN/HIST_CD.BIN",
+    "size": 184832,
+    "modified": "2002-04-26 02:54:18",
+    "sha1": "bc53c25a9d240f15ed11d4f619b894b57f48de9f"
+  },
+  {
+    "path": "EN/LOBBY_CD.BIN",
+    "size": 458496,
+    "modified": "2002-04-26 02:54:18",
+    "sha1": "36127486c8278dac3ff656528e01f5324f6d73cd"
+  },
+  {
+    "path": "EN/MO_OV_CD.BIN",
+    "size": 640,
+    "modified": "2002-04-26 02:54:18",
+    "sha1": "f5113294761e5b21fd4c55f6e6f4373cdd4f5496"
+  },
+  {
+    "path": "EN/MULTIMCD.BIN",
+    "size": 83712,
+    "modified": "2002-04-26 02:54:18",
+    "sha1": "9e50c22f488e3ebfd84d69d1a4f56c0b4694c6e2"
+  },
+  {
+    "path": "EN/RMMMEMCD.BIN",
+    "size": 896,
+    "modified": "2002-04-26 02:54:18",
+    "sha1": "a826ac625d88faf252baac911c46757f1cb0f81c"
+  },
+  {
+    "path": "EN/SMENU_CD.BIN",
+    "size": 92800,
+    "modified": "2002-04-26 02:54:18",
+    "sha1": "40aa9f9a9b43f65c81348aaf55ad109b15ea55da"
+  },
+  {
+    "path": "EN/THELP_CD.BIN",
+    "size": 71296,
+    "modified": "2002-04-26 02:54:18",
+    "sha1": "df01b7bf5d8e92ff758059ddf033a03d571a5a1a"
+  },
+  {
+    "path": "FR/AGE2_PS2.ELF",
+    "size": 4119528,
+    "modified": "2002-04-26 03:09:26",
+    "sha1": "0aaf8461cb8ec79cf3cb960e8fe17e297abc6528"
+  },
+  {
+    "path": "FR/DCOMP_CD.BIN",
+    "size": 44160,
+    "modified": "2002-04-26 03:09:26",
+    "sha1": "cc1517c3b9e38c4817ec947625c69dc84de0bf8a"
+  },
+  {
+    "path": "FR/HIST_CD.BIN",
+    "size": 225920,
+    "modified": "2002-04-26 03:09:26",
+    "sha1": "8611224e25dea67139ce0db14840613a3125a132"
+  },
+  {
+    "path": "FR/LOBBY_CD.BIN",
+    "size": 458496,
+    "modified": "2002-04-26 03:09:26",
+    "sha1": "de6105978eb69b83f5201d284036585f952b8d34"
+  },
+  {
+    "path": "FR/MO_OV_CD.BIN",
+    "size": 640,
+    "modified": "2002-04-26 03:09:26",
+    "sha1": "55572614a793e3d2e7dbe1d89bbe2e5e4de1d362"
+  },
+  {
+    "path": "FR/MULTIMCD.BIN",
+    "size": 90240,
+    "modified": "2002-04-26 03:09:26",
+    "sha1": "1a560010d5f0aa57a1380794acb7910a10b57980"
+  },
+  {
+    "path": "FR/RMMMEMCD.BIN",
+    "size": 896,
+    "modified": "2002-04-26 03:09:26",
+    "sha1": "a826ac625d88faf252baac911c46757f1cb0f81c"
+  },
+  {
+    "path": "FR/SMENU_CD.BIN",
+    "size": 93056,
+    "modified": "2002-04-26 03:09:26",
+    "sha1": "f0c27dd9847e60ee5d0116534b0bc340f74d0733"
+  },
+  {
+    "path": "FR/THELP_CD.BIN",
+    "size": 71296,
+    "modified": "2002-04-26 03:09:26",
+    "sha1": "ce466a6c8486c7ec4f6a46c7c26f87ba884239dc"
+  },
+  {
+    "path": "GR/AGE2_PS2.ELF",
+    "size": 4123496,
+    "modified": "2002-04-26 03:21:26",
+    "sha1": "139a21467fa0f2bdc245ef3c205670f1e774eb32"
+  },
+  {
+    "path": "GR/DCOMP_CD.BIN",
+    "size": 44160,
+    "modified": "2002-04-26 03:21:26",
+    "sha1": "cc1517c3b9e38c4817ec947625c69dc84de0bf8a"
+  },
+  {
+    "path": "GR/HIST_CD.BIN",
+    "size": 225792,
+    "modified": "2002-04-26 03:21:26",
+    "sha1": "86d040cf4f96a28cc66ee45e0c13799552aeea01"
+  },
+  {
+    "path": "GR/LOBBY_CD.BIN",
+    "size": 458496,
+    "modified": "2002-04-26 03:21:26",
+    "sha1": "66bddf6de6df623ce27b5783de2e0c6e00a8f4f8"
+  },
+  {
+    "path": "GR/MO_OV_CD.BIN",
+    "size": 640,
+    "modified": "2002-04-26 03:21:26",
+    "sha1": "38cffc790e947ce486438de9091f9190bbff8dec"
+  },
+  {
+    "path": "GR/MULTIMCD.BIN",
+    "size": 92800,
+    "modified": "2002-04-26 03:21:26",
+    "sha1": "f7c9c3cfb6178956101488e77ac90f23e6f5fc02"
+  },
+  {
+    "path": "GR/RMMMEMCD.BIN",
+    "size": 896,
+    "modified": "2002-04-26 03:21:26",
+    "sha1": "a826ac625d88faf252baac911c46757f1cb0f81c"
+  },
+  {
+    "path": "GR/SMENU_CD.BIN",
+    "size": 92928,
+    "modified": "2002-04-26 03:21:26",
+    "sha1": "776742bb3911889d5caad946cf9c3f72e88a4802"
+  },
+  {
+    "path": "GR/THELP_CD.BIN",
+    "size": 71296,
+    "modified": "2002-04-26 03:21:26",
+    "sha1": "4fbf439700b0b83227c3f625880753c31bd553fe"
+  },
+  {
+    "path": "IT/AGE2_PS2.ELF",
+    "size": 4123880,
+    "modified": "2002-04-26 03:34:24",
+    "sha1": "6cb85763b37a0f157fab2421c3a78419b1f3a910"
+  },
+  {
+    "path": "IT/DCOMP_CD.BIN",
+    "size": 44160,
+    "modified": "2002-04-26 03:34:24",
+    "sha1": "cc1517c3b9e38c4817ec947625c69dc84de0bf8a"
+  },
+  {
+    "path": "IT/HIST_CD.BIN",
+    "size": 215552,
+    "modified": "2002-04-26 03:34:24",
+    "sha1": "284e38ddaa2d80c054156ee24695394fb2319b87"
+  },
+  {
+    "path": "IT/LOBBY_CD.BIN",
+    "size": 458496,
+    "modified": "2002-04-26 03:34:24",
+    "sha1": "cf5e7394cad77b696b1e434a6867ac07573173a9"
+  },
+  {
+    "path": "IT/MO_OV_CD.BIN",
+    "size": 640,
+    "modified": "2002-04-26 03:34:24",
+    "sha1": "39d2e65f9984146136717810a0f400932b5fe7e7"
+  },
+  {
+    "path": "IT/MULTIMCD.BIN",
+    "size": 88576,
+    "modified": "2002-04-26 03:34:24",
+    "sha1": "7aae4ad44874c4ed0a7aea318fb34548dd7395db"
+  },
+  {
+    "path": "IT/RMMMEMCD.BIN",
+    "size": 896,
+    "modified": "2002-04-26 03:34:24",
+    "sha1": "a826ac625d88faf252baac911c46757f1cb0f81c"
+  },
+  {
+    "path": "IT/SMENU_CD.BIN",
+    "size": 93056,
+    "modified": "2002-04-26 03:34:24",
+    "sha1": "cef36cd7bc97763ea716fdd0e1164c1fb4b69350"
+  },
+  {
+    "path": "IT/THELP_CD.BIN",
+    "size": 71296,
+    "modified": "2002-04-26 03:34:24",
+    "sha1": "2bd1ea6e15540925114a40339276f0d4eb77027b"
+  },
+  {
+    "path": "SP/AGE2_PS2.ELF",
+    "size": 4112232,
+    "modified": "2002-04-26 04:06:22",
+    "sha1": "c4c83c05f3eb82e2ef7a4f3078a31484e60965a0"
+  },
+  {
+    "path": "SP/DCOMP_CD.BIN",
+    "size": 44160,
+    "modified": "2002-04-26 04:06:22",
+    "sha1": "cc1517c3b9e38c4817ec947625c69dc84de0bf8a"
+  },
+  {
+    "path": "SP/HIST_CD.BIN",
+    "size": 213376,
+    "modified": "2002-04-26 04:06:22",
+    "sha1": "561c9c7bb61dde48d5ad20e41a407b2ddf298ba9"
+  },
+  {
+    "path": "SP/LOBBY_CD.BIN",
+    "size": 458496,
+    "modified": "2002-04-26 04:06:22",
+    "sha1": "7e8cd062798c3588ad83346f788b3784f6a27d14"
+  },
+  {
+    "path": "SP/MO_OV_CD.BIN",
+    "size": 640,
+    "modified": "2002-04-26 04:06:22",
+    "sha1": "79c1491ad9e280d04ff723643bb553a34e8ad266"
+  },
+  {
+    "path": "SP/MULTIMCD.BIN",
+    "size": 87936,
+    "modified": "2002-04-26 04:06:22",
+    "sha1": "2ae3a3f4b084b18d5ad60d154f41e04f78fa24e3"
+  },
+  {
+    "path": "SP/RMMMEMCD.BIN",
+    "size": 896,
+    "modified": "2002-04-26 04:06:22",
+    "sha1": "a826ac625d88faf252baac911c46757f1cb0f81c"
+  },
+  {
+    "path": "SP/SMENU_CD.BIN",
+    "size": 93056,
+    "modified": "2002-04-26 04:06:22",
+    "sha1": "fe1103e4770dc28599a785a8f6194f570185ec8c"
+  },
+  {
+    "path": "SP/THELP_CD.BIN",
+    "size": 71296,
+    "modified": "2002-04-26 04:06:22",
+    "sha1": "36bacabae7a29993c557a0eea17f6f72a467b9ba"
+  },
+  {
+    "path": "MODULES/ATAD.IRX",
+    "size": 11781,
+    "modified": "2001-07-04 23:07:00",
+    "sha1": "c00a4e11d6326ba862438a5a0b00d3b3aa0de848"
+  },
+  {
+    "path": "MODULES/DEV9.IRX",
+    "size": 9197,
+    "modified": "2001-07-04 23:07:00",
+    "sha1": "4ff29ed33728f19222b12d3f9d5ce53b68277d00"
+  },
+  {
+    "path": "MODULES/HDD.IRX",
+    "size": 30101,
+    "modified": "2001-07-04 23:07:00",
+    "sha1": "1f580f84d3e201dba39bcdd15caf56d2903abf7d"
+  },
+  {
+    "path": "MODULES/KTNETCNF.IRX",
+    "size": 23452,
+    "modified": "2001-06-18 02:44:02",
+    "sha1": "142dd2178e08f246b14f21a81728713f0bb3d46b"
+  },
+  {
+    "path": "MODULES/LIBSD.IRX",
+    "size": 26165,
+    "modified": "2001-06-18 02:44:02",
+    "sha1": "095afbab9dfe2d1fb7e9f1a769c5cef8fe8748c5"
+  },
+  {
+    "path": "MODULES/MCMAN.IRX",
+    "size": 90533,
+    "modified": "2001-07-04 23:07:00",
+    "sha1": "68e3063d9a5e05de6c0e8a585b31f85b7417e244"
+  },
+  {
+    "path": "MODULES/MCSERV.IRX",
+    "size": 7353,
+    "modified": "2001-07-04 23:07:00",
+    "sha1": "88cda6dd1f0e0d9f26faae934fc46d30f4f3b12a"
+  },
+  {
+    "path": "MODULES/NETCNF.IRX",
+    "size": 56037,
+    "modified": "2001-07-02 08:00:22",
+    "sha1": "049374f83e67fd9d475540ec0ca0a500aca0f34a"
+  },
+  {
+    "path": "MODULES/PADMAN.IRX",
+    "size": 43861,
+    "modified": "2001-06-18 02:44:02",
+    "sha1": "3221207e9af13a8a491008f2ec0189a6b4342293"
+  },
+  {
+    "path": "MODULES/PFS.IRX",
+    "size": 49609,
+    "modified": "2001-07-04 23:07:02",
+    "sha1": "fc14c9540bb155ff9210309d94b32355430425b3"
+  },
+  {
+    "path": "MODULES/SDRDRV.IRX",
+    "size": 6345,
+    "modified": "2001-06-18 02:44:02",
+    "sha1": "199da7b0ca8502b82a906bc9ef7ddd20896f113c"
+  },
+  {
+    "path": "MODULES/SDSTR.IRX",
+    "size": 34257,
+    "modified": "2001-07-02 07:58:16",
+    "sha1": "461e0e2fa06e8cc650214cc5a077d8074b86be5d"
+  },
+  {
+    "path": "MODULES/SD_CD.IRX",
+    "size": 15297,
+    "modified": "2001-07-02 07:58:16",
+    "sha1": "d9d32ad95e93f8d3cbb70dfb0fd53d198a770022"
+  },
+  {
+    "path": "MODULES/SIO2MAN.IRX",
+    "size": 6161,
+    "modified": "2001-06-18 02:44:02",
+    "sha1": "7ccd2f951dd31639c8f397822d9cc8e834bc70f5"
+  },
+  {
+    "path": "MODULES/SOUNDCD.IRX",
+    "size": 114669,
+    "modified": "2001-09-08 04:32:10",
+    "sha1": "b99cd70bf2d5fbd25ec65428eb7c5ef5b4cce934"
+  },
+  {
+    "path": "MODULES/USBD.IRX",
+    "size": 32601,
+    "modified": "2001-06-18 02:44:04",
+    "sha1": "01b7279254e8f66deea53eaff30d1547edcfe032"
+  },
+  {
+    "path": "MODULES/USBKEYBD.IRX",
+    "size": 16641,
+    "modified": "2001-10-31 07:10:30",
+    "sha1": "b4fdd88c8008e3f1c9543403d680cc74fe30acb7"
+  },
+  {
+    "path": "MODULES/USBMLCNT.IRX",
+    "size": 24347,
+    "modified": "2001-11-09 06:10:54",
+    "sha1": "a950483a045ea4c292a90e1f45fabeeffa6d8bc6"
+  },
+  {
+    "path": "MODULES/USBMLOAD.IRX",
+    "size": 13865,
+    "modified": "2001-05-28 04:51:16",
+    "sha1": "884f27e27e7f8764fab5365996147c2ed3d1ff9a"
+  },
+  {
+    "path": "MODULES/USBMOUSE.IRX",
+    "size": 13255,
+    "modified": "2001-10-31 07:10:08",
+    "sha1": "8f40a2eb1830718cdb77ef32d6954727d7537bab"
+  },
+  {
+    "path": "MODULES/IOPRP23.IMG",
+    "size": 230329,
+    "modified": "2001-05-28 09:06:06",
+    "sha1": "921c747c58ae67d1cf4c3b5477de71106fd276a8"
+  },
+  {
+    "path": "MODULES2/AVEDHCP.IRX",
+    "size": 29148,
+    "modified": "2001-03-01 05:15:04",
+    "sha1": "1644c392d9c1358a365aeebba18823b62b2d2004"
+  },
+  {
+    "path": "MODULES2/AVEPPP.IRX",
+    "size": 150210,
+    "modified": "2001-10-05 09:46:34",
+    "sha1": "5c015230b5bf2762b0fb94614bceeeb2f8dca730"
+  },
+  {
+    "path": "MODULES2/AVETCP.IRX",
+    "size": 190432,
+    "modified": "2001-06-23 06:01:58",
+    "sha1": "de7c07a5a07afb394064034d1a9f2094941a9e0f"
+  },
+  {
+    "path": "MODULES2/BSDSOCKI.IRX",
+    "size": 32793,
+    "modified": "2001-10-14 22:07:28",
+    "sha1": "0b51b4e4bac82092f73b01f8b51174d81392a40b"
+  },
+  {
+    "path": "MODULES2/CXTMDM.IRX",
+    "size": 74500,
+    "modified": "2001-04-04 07:10:08",
+    "sha1": "93d32a4df9f6a8f1a259ba19e0d36c38efa89c96"
+  },
+  {
+    "path": "MODULES2/NDGLUE.IRX",
+    "size": 30451,
+    "modified": "2001-10-05 02:56:10",
+    "sha1": "4aa20b79887dddcfb7659e2e80fade851b7d43f6"
+  },
+  {
+    "path": "MODULES2/OMMODEM.IRX",
+    "size": 40915,
+    "modified": "2001-08-23 07:37:42",
+    "sha1": "182987dcce0963a20a79ee5dcd47650f4802127a"
+  },
+  {
+    "path": "MODULES2/OSTMDM_A.IRX",
+    "size": 32585,
+    "modified": "2001-08-23 06:51:44",
+    "sha1": "07abfcbeb1b26d20cef12a86be6b0370d4d8b118"
+  },
+  {
+    "path": "MODULES2/SMAP.IRX",
+    "size": 15249,
+    "modified": "2001-08-01 23:34:52",
+    "sha1": "e07a8fff0391d6d4051f3d234cd22c9105eec177"
+  },
+  {
+    "path": "MODULES2/ILINT.IRX",
+    "size": 15558,
+    "modified": "2001-07-24 06:43:44",
+    "sha1": "5b7114204ce79af44656a7b96e96e8353cdbe886"
+  },
+  {
+    "path": "MODULES2/ILINK.IRX",
+    "size": 141493,
+    "modified": "2001-05-28 04:51:16",
+    "sha1": "781b99d57d7c04aeb8f3a6f2de57f45cd30536a6"
+  },
+  {
+    "path": "MODULES2/ILSOCK.IRX",
+    "size": 14953,
+    "modified": "2001-05-28 04:51:16",
+    "sha1": "f0cfdbe4bec105a651ed075fb099d2bbef71c233"
+  }
+]

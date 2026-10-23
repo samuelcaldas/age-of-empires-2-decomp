@@ -43,6 +43,10 @@ and localized game executables:
    - `SP/AGE2_PS2.ELF` (Spanish)
 4. Copy `EN/AGE2_PS2.ELF` to `orig/SLES-50282/AOK.ELF`.
 
+For a full breakdown of every file, overlay (`.BIN`), audio container (`DATA.CAT`),
+master DRS archive (`ALL_DATA.BIN`), and IOP module on the disc, see
+[PS2 Disc Architecture & File Catalog](ps2_disc_architecture.md).
+
 ## Verifying a dump
 
 Hash the file and compare it with `config/<VERSION>/build.sha1`:

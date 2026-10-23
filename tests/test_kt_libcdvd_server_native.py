@@ -1,4 +1,4 @@
-"""Native behavior tests for decompiled CD/DVD server routines."""
+"""Native unit tests executing C-level behavioral regressions for kt_libcdvd_server.c."""
 
 from pathlib import Path
 import shutil
@@ -19,7 +19,7 @@ def test_kt_libcdvd_server_native_behavior(tmp_path):
 
     bin_path = tmp_path / "kt_libcdvd_server_test"
     result = subprocess.run(
-        [cc, "-O2", "-Iinclude", "-D__asm__(...)=", str(C_SRC), str(C_TEST), "-o", str(bin_path)],
+        [cc, "-O2", "-Iinclude", str(C_SRC), str(C_TEST), "-o", str(bin_path)],
         cwd=ROOT,
         capture_output=True,
         text=True,

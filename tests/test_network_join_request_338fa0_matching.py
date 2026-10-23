@@ -17,9 +17,9 @@ RELOCATION_COUNT = 9
 EXTERNAL_SYMBOLS = {
     "func_00338350": 0x338350,
     "func_003382D0": 0x3382D0,
-    "func_0011B170": 0x11B170,
+    "func_11B170": 0x11B170,
     "func_00335A20": 0x335A20,
-    "func_00117AF8": 0x117AF8,
+    "func_117AF8": 0x117AF8,
     "func_003383B0": 0x3383B0,
 }
 

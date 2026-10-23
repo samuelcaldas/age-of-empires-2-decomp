@@ -1666,7 +1666,7 @@ int func_00128A18(int a) {
 /* Function 94: func_00128A20 */
 char *func_00128A20(char *str, int ch) {
     char target = (char)ch;
-    while (*str != ' ') {
+    while (*str != '\0') {
         if (*str == target) {
             return str;
         }

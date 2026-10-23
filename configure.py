@@ -6560,7 +6560,7 @@ if config.platform == Platform.PS2:
                     toolchain_version="PS2/mwcc-2.3.1.01",
                 ),
                 Object(
-                    NonMatching,
+                    Matching,
                     "network_message_handler_3385c0",
                     cflags=config.cflags,
                     toolchain_version="PS2/mwcc-2.3.1.01",

@@ -18,6 +18,13 @@ extern "C" {
 int func_003385C0(void *object, void *message, int size, int flag) {
     char *base = static_cast<char *>(object);
     char *packet = static_cast<char *>(message);
+    char *player;
+    char *name;
+    char *body;
+    char *slot;
+    char *record;
+    int index;
+
     if (*reinterpret_cast<int *>(base + 1312) != 0 &&
         *reinterpret_cast<int *>(packet) == 0 &&
         *reinterpret_cast<int *>(packet + 8) == 0 &&
@@ -26,79 +33,72 @@ int func_003385C0(void *object, void *message, int size, int flag) {
             func_11ABBC(base + 3388, D_004D1F18);
             func_117AF8(base + 3396, base + 1092, 216);
             func_00337840(base + 3388, 224);
-            return 1;
         }
         if (func_117A64(packet + 16, D_004D1F10, 6) == 0) {
             char records[896];
-            char *slot = base + 4;
-            char *record = records;
-            for (int index = 0; index < 8; ++index) {
+            slot = base + 4;
+            record = records;
+            for (index = 0; index < 8; ++index, slot += 136, record += 112) {
                 func_117AF8(record, slot, 112);
-                slot += 136;
-                record += 112;
             }
             func_11ABBC(base + 3388, D_004D1F10);
-            func_117AF8(base + 3396, records, 896);
+            func_117AF8(base + 3396, record - 896, 896);
             func_00337840(base + 3388, 456);
-            return 1;
         }
         return 1;
     }
+
     if (*reinterpret_cast<int *>(packet + 4) != 0) {
         func_00338470(object, message, size + 16);
         return 1;
     }
-    int type = *reinterpret_cast<int *>(packet + 16);
-    if (type == 265 || type == 7 || type == 33 || type == 258 ||
-        type == 264 || type == 260 || type == 263) {
-        return 1;
-    }
-    if (type == 261) {
-        return 1;
-    }
-    if (type == 257 || type == 49) {
-        func_00338470(object, message, size + 16);
-        return 1;
-    }
-    if (type == 3) {
-        if (*reinterpret_cast<int *>(base + 1312) == 0) {
-            return 1;
-        }
-        char *player = static_cast<char *>(func_003382D0(object, 0));
-        if (player == 0) {
-            return 0;
-        }
-        char *name = packet + 64;
+
+    body = packet + 16;
+    switch (*reinterpret_cast<int *>(body)) {
+    case 3: {
+        if (*reinterpret_cast<int *>(base + 1312) == 0) break;
+        player = static_cast<char *>(func_003382D0(object, 0));
+        if (player == 0) return 0;
+        char *short_name = body + 48;
+        name = short_name + 16;
         *reinterpret_cast<void **>(player + 16) = player + 24;
         *reinterpret_cast<void **>(player + 20) = player + 40;
-        func_11B170(player + 24, name, 16);
-        func_11B170(player + 40, name + 16, 32);
-        *reinterpret_cast<int *>(player + 4) = *reinterpret_cast<int *>(packet + 24);
-        *reinterpret_cast<int *>(player) = *reinterpret_cast<int *>(packet + 112);
+        func_11B170(player + 24, short_name, 16);
+        func_11B170(player + 40, name, 32);
+        *reinterpret_cast<void **>(body + 32) = player + 24;
+        *reinterpret_cast<void **>(body + 36) = player + 40;
+        *reinterpret_cast<int *>(player + 4) = *reinterpret_cast<int *>(body + 8);
+        *reinterpret_cast<int *>(player) = *reinterpret_cast<int *>(name + 32);
         func_00338470(object, message, size + 16);
-        return 1;
+        break;
     }
-    if (type == 5) {
-        void *player = func_00338310(object, *reinterpret_cast<int *>(packet + 24));
-        if (player == 0) {
-            return 0;
-        }
+    case 5: {
+        player = static_cast<char *>(func_00338310(object, *reinterpret_cast<int *>(body + 8)));
+        if (!player) return 0;
         func_00338190(object, player);
         func_117CAC(player, 0, 136);
         func_00338470(object, message, size + 16);
-        return 1;
+        break;
     }
-    if (type == 259) {
-        void *player = func_00338310(object, *reinterpret_cast<int *>(packet + 24));
-        if (player == 0) {
-            return 0;
-        }
-        char *name = packet + 44;
-        func_11B170(static_cast<char *>(player) + 24, name, 16);
-        func_11B170(static_cast<char *>(player) + 40, name + 16, 32);
-        *reinterpret_cast<void **>(packet + 36) = static_cast<char *>(player) + 24;
-        *reinterpret_cast<void **>(packet + 40) = static_cast<char *>(player) + 40;
+    case 257:
         func_00338470(object, message, size + 16);
+        break;
+    case 49:
+        func_00338470(object, message, size + 16);
+        break;
+    case 259: {
+        player = static_cast<char *>(func_00338310(object, *reinterpret_cast<int *>(body + 8)));
+        if (!player) return 0;
+        name = body + 28;
+        func_11B170(player + 24, name, 16);
+        func_11B170(player + 40, name + 16, 32);
+        *reinterpret_cast<void **>(body + 20) = player + 24;
+        *reinterpret_cast<void **>(body + 24) = player + 40;
+        func_00338470(object, message, size + 16);
+        break;
+    }
+    case 263: case 260: case 264: case 258: case 33: case 7: case 261: case 265:
+    default:
         return 1;
     }
     return 1;

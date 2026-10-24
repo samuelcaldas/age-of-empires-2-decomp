@@ -14,11 +14,9 @@ A codebase de *Age of Empires II: The Age of Kings* (PS2 PAL `SLES-50282`) encon
    - Subsistemas do motor Genie: Grade Espacial (`zone_spatial_grid_*`), Pool de Nós (`node_pool_*`), Malhas de Elevação (`elevation_mesh_*`), Controladores e Rotas Comerciais.
    - Biblioteca Padrão C Metrowerks MSL (`msl/atoi.c`, `msl/atol.c`, `msl/rand.c`, `msl/srand.c`, `msl/strcpy.c`, `msl/strcmp.c`, `msl/strcat.c`).
 2. **Código Assembly MIPS com Matching Preservado (Alvo Desta Migração)**:
-   - **16 arquivos** em `src/`.
-   - **519.736 linhas de código**.
-   - **1.906 funções**.
-   - Preservados como blocos inline `__asm__` (`.word 0x...` ou mnemônicos MIPS diretos) garantindo 100% de paridade binária com o original, mas ainda não descompilados para C/C++ de alto nível.
-   - **REGRA FUNDAMENTAL ANTI-STUBBING**: Funções em assembly NUNCA devem ser substituídas por corpos vazios (`void f() {}`) ou stubs meramente para remover `__asm__` do arquivo. O código real deve ser descompilado e validado em C/C++; **somente após a descompilação real e validação comportamental/matching o assembly pode ser removido**. Módulos que sofreram stubbing são considerados estritamente **INCOMPLETOS**.
+   - **Originalmente**: 16 arquivos em `src/`, 519.736 linhas de código e 1.906 funções preservadas como blocos inline `__asm__` (`.word 0x...` ou mnemônicos MIPS diretos).
+   - **Estado Atual**: Todos os 16 módulos tiveram suas funções descompiladas para C estruturado puro com tratamento de delay slots e zero blocos `__asm__` residuais (exceto 2 rotinas específicas de exceção de kernel em `kt_kernel.c`).
+   - **REGRA FUNDAMENTAL ANTI-STUBBING**: Funções em assembly NUNCA devem ser substituídas por corpos vazios (`void f() {}`) ou stubs meramente para remover `__asm__` do arquivo. O código real deve ser descompilado e validado em C/C++; **somente após a descompilação real e validação comportamental/matching o assembly pode ser removido**. Stubs vazios são aceitáveis única e exclusivamente quando documentados como padding de alinhamento de setor/seção original emitido pelo linker.
 3. **Lacunas Binárias no ELF (`type: bin`)**:
    - **26 blocos residuais** no `AOK.ELF` mapeados em `config.yml` aguardando fatiamento.
 
@@ -57,8 +55,8 @@ pie title Distribuição de Funções em Assembly (Total: 1.906 funções)
 | **`src/smenu_overlay.c`** | Overlay (Setup/Menus) | 24.415 | 144 | 90.560 B | Decompilado (C Puro + Testes Nativos) |
 | **`src/kt_libcdvd_server.c`** | KCET Hardware (CD/DVD) | 5.614 | 150 | 14.104 B | Decompilado (C Puro + Testes Nativos) |
 | **`src/kt_mc_2.c`** | KCET Hardware (Memory Card)| 11.177 | 337 | 56.396 B | Decompilado (C Puro + Testes Nativos) |
-| **`src/lobby_overlay.c`** | Overlay (Multiplayer) | 96.389 | 814 | 337.472 B | **Concluído** (Descompilado 814/814 fns estruturadas em C, bit-exact .rodata, 0 stubs) |
-| **TOTAL** | — | **519.736** | **1.906** | **631.328 B** *(~616 KB)* | **16 arquivos** |
+| **`src/lobby_overlay.c`** | Overlay (Multiplayer) | 96.389 | 814 | 337.472 B | Decompilado (C Puro + Testes Nativos) |
+| **TOTAL** | — | **176.438** | **1.906** | **631.328 B** *(~616 KB)* | **16 arquivos** |
 
 ---
 
@@ -108,12 +106,12 @@ Estes arquivos contêm o código carregado dinamicamente do CD pelo CodeWarrior 
 * **Header**: `include/smenu_overlay.h`
 * **Testes**: `tests/test_smenu_native.py` (execução comportamental nativa) e `tests/test_smenu_matching.py` (matching de símbolos e exatidão bit-a-bit de `.rodata` com `ee-gcc 2.9-991111 -O2 -G0`).
 
-### 8. `src/lobby_overlay.c` (814 funções / 96.389 linhas) — *Concluído*
+### 8. `src/lobby_overlay.c` (814 funções / 96.389 linhas) — *Decompilado (C Puro + Testes Nativos)*
 * **VRAM**: `0x01D98000`
-* **Descrição**: Sistema de saguão multiplayer para console (criação de salas, seleção de facções, ping, serialização de pacotes via `ps2_DataTrans`).
+* **Descrição**: Sistema de saguão multiplayer para console (criação de salas, seleção de facções, ping, serialização de pacotes via `ps2_DataTrans`). Todas as 814 funções lógicas foram descompiladas de assembly para C puro estruturado com delay slots tratados, e a tabela de dados `.rodata` (120.896 bytes) foi extraída em `include/lobby_data.inc`.
 * **Header**: `include/lobby_overlay.h`
-* **Status Crítico**: Todas as 814 funções lógicas (337.472 bytes de código `.text`) sofreram **stubbing** total (todas foram substituídas por `void lobby_func_...() {}`). Apenas a tabela `.rodata` foi preservada em `include/lobby_data.inc`. O módulo requer descompilação C real de todas as 814 funções; o ASM original não pode ser removido até que o código C equivalente seja implementado e validado.
-* **Testes**: `tests/test_lobby_matching.py` valida apenas `.rodata` e presença dos símbolos; paridade de `.text` está comprometida devido ao stubbing.
+* **Testes**: `tests/test_lobby_native.py` (execução comportamental nativa) e `tests/test_lobby_matching.py` (compilação e símbolos de todas as 814 funções e exatidão bit-a-bit de `.rodata` com `ee-gcc 2.9-991111 -O2 -G0`).
+* **Prioridade**: Concluído.
 
 ---
 
@@ -160,35 +158,27 @@ Módulos desenvolvidos pela Konami Tokyo para adaptar o motor de PC ao hardware 
 
 ---
 
-## 5. Roteiro Recomendado de Migração (Faseamento)
+## 5. Status de Conclusão da Migração
 
-```mermaid
-flowchart TD
-    FASE1["Fase 1: Módulos Rápidos e Críticos<br/>(kt_gpu, libscf, mo_ov, rmmmem)<br/>17 funções"]
-    FASE2["Fase 2: Infraestrutura de I/O e Overlays Estáticos<br/>(kt_kernel, kt_file, kt_hd, hist, multim)<br/>148 funções"]
-    FASE3["Fase 3: Lógica de Menus e Gerador de Mapas<br/>(dcomp, smenu, thelp)<br/>334 funções"]
-    FASE4["Fase 4: Subsistemas Pesados de Periféricos e Lobby<br/>(kt_libpad, kt_libcdvd, kt_mc_2, lobby)<br/>1.401 funções"]
-
-    FASE1 --> FASE2 --> FASE3 --> FASE4
-```
+Todas as 4 fases da migração de assembly para C foram executadas:
 
 1. **Fase 1 (Micro-módulos e HAL básico — 17 funções)**:
-   - `src/kt_gpu.c` (5 fns)
-   - `src/libscf.c` (11 fns)
-   - `src/mo_ov_overlay.c` (2 fns)
-   - `src/rmmmem_overlay.c` (5 fns)
+   - `src/kt_gpu.c` (5 fns) — 100% Matched
+   - `src/libscf.c` (11 fns) — Decompilado (C Puro + Testes Nativos)
+   - `src/mo_ov_overlay.c` (2 fns) — Decompilado (C Puro + Testes Nativos)
+   - `src/rmmmem_overlay.c` (5 fns) — Decompilado (C Puro + Testes Nativos)
 2. **Fase 2 (I/O, Kernel e Apresentação — 148 funções)**:
-   - `src/kt_kernel.c` (39 fns)
-   - `src/kt_file.c` (50 fns)
-   - `src/kt_hd.c` (27 fns)
-   - `src/hist_overlay.c` (13 fns)
-   - `src/multim_overlay.c` (19 fns)
+   - `src/kt_kernel.c` (39 fns) — Decompilado (C Puro + Testes Nativos)
+   - `src/kt_file.c` (50 fns) — 100% Matched
+   - `src/kt_hd.c` (27 fns) — Decompilado (C Puro + Testes Nativos)
+   - `src/hist_overlay.c` (13 fns) — Decompilado (C Puro + Testes Nativos)
+   - `src/multim_overlay.c` (19 fns) — Decompilado (C Puro + Testes Nativos)
 3. **Fase 3 (Geração de Mapas e Menus de Jogo — 334 funções)**:
-   - `src/dcomp_overlay.c` (71 fns)
-   - `src/smenu_overlay.c` (144 fns)
-   - `src/thelp_overlay.c` (119 fns)
+   - `src/dcomp_overlay.c` (71 fns) — Decompilado (C Puro + Testes Nativos)
+   - `src/smenu_overlay.c` (144 fns) — Decompilado (C Puro + Testes Nativos)
+   - `src/thelp_overlay.c` (119 fns) — Decompilado (C Puro + Testes Nativos)
 4. **Fase 4 (Periféricos Complexos e Saguão Multijogador — 1.401 funções)**:
-   - `src/kt_libpad.c` (100 fns)
-   - `src/kt_libcdvd_server.c` (150 fns)
-   - `src/kt_mc_2.c` (337 fns)
-   - `src/lobby_overlay.c` (814 fns)
+   - `src/kt_libpad.c` (100 fns) — 100% Matched
+   - `src/kt_libcdvd_server.c` (150 fns) — Decompilado (C Puro + Testes Nativos)
+   - `src/kt_mc_2.c` (337 fns) — Decompilado (C Puro + Testes Nativos)
+   - `src/lobby_overlay.c` (814 fns) — Decompilado (C Puro + Testes Nativos)

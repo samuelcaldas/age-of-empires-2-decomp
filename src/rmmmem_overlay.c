@@ -149,7 +149,10 @@ void rmmmem_func_01D98150(void *ptr) {
 
 /*
  * rmmmem_func_01D98284:
- * Stub / alignment function.
+ * Section padding / alignment function.
+ * In the original RMMMEMCD.BIN overlay binary (offset 0x284, 124 bytes),
+ * this routine consists of 31 consecutive 0x00000000 (nop) words emitted
+ * by the PS2 linker to align the overlay payload to sector boundary.
  */
 void rmmmem_func_01D98284(void) {
 }

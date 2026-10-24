@@ -1,0 +1,21 @@
+EXPECTED_FUNCS = [
+    "multim_func_01D98000",
+    "multim_func_01D9842C",
+    "multim_func_01D98504",
+    "multim_func_01D985A8",
+    "multim_func_01D985E4",
+    "multim_func_01D9865C",
+    "multim_func_01D987C0",
+    "multim_func_01D9880C",
+    "multim_func_01D98848",
+    "multim_func_01D98D5C",
+    "multim_func_01D98D98",
+    "multim_func_01D9916C",
+    "multim_func_01D995A8",
+    "multim_func_01D996A4",
+    "multim_func_01D9978C",
+    "multim_func_01D99CA4",
+    "multim_func_01D99D3C",
+    "multim_func_01D99E2C",
+    "multim_func_01D99E78"
+]

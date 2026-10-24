@@ -47,7 +47,7 @@ pie title Distribuição de Funções em Assembly (Total: 1.906 funções)
 | **`src/kt_gpu.c`** | KCET Hardware (GS) | 252 | 5 | 1.072 B | 100% Matched |
 | **`src/libscf.c`** | Sony SCF (Config/Idioma) | 200 | 11 | 1.500 B | Decompilado (C Puro + Testes Nativos) |
 | **`src/hist_overlay.c`** | Overlay (História) | 271 | 13 | 5.440 B | Decompilado (C Puro + Testes Nativos) |
-| **`src/multim_overlay.c`** | Overlay (Slideshow) | 42.221 | 19 | 7.872 B | 100% Matched |
+| **`src/multim_overlay.c`** | Overlay (Slideshow) | 2.378 | 19 | 7.872 B | Decompilado (C Puro + Testes Nativos) |
 | **`src/kt_hd.c`** | KCET Hardware (PS2 HDD) | 441 | 27 | 2.600 B | Decompilado (C Puro + Testes Nativos) |
 | **`src/kt_kernel.c`** | KCET Hardware (Kernel/OS) | 496 | 39 | 3.172 B | Decompilado (C Puro + Testes Nativos) |
 | **`src/kt_file.c`** | KCET Hardware (I/O VFS) | 1.677 | 50 | 5.760 B | 100% Matched |
@@ -83,10 +83,11 @@ Estes arquivos contêm o código carregado dinamicamente do CD pelo CodeWarrior 
 * **Header**: `include/hist_overlay.h`
 * **Testes**: `tests/test_hist_native.py` (execução comportamental nativa) e `tests/test_hist_matching.py` (matching de símbolos e exatidão bit-a-bit de `.rodata` com `ee-gcc 2.9-991111 -O2 -G0`).
 
-### 4. `src/multim_overlay.c` (19 funções / 42.221 linhas)
+### 4. `src/multim_overlay.c` (19 funções / 2.378 linhas) — *Decompilado (C Puro + Testes Nativos)*
 * **VRAM**: `0x01D98000`
-* **Descrição**: Controlador de apresentação de slides de campanhas e sincronização de dublagens.
-* **Complexidade**: Média. Controle de temporizadores e paginação de imagens.
+* **Descrição**: Controlador de apresentação de slides de campanhas e sincronização de dublagens (`MULTIMCD.BIN`). As 19 funções lógicas foram descompiladas de inline assembly para C puro estruturado com delay slots tratados, e a tabela de dados `.rodata` (75.712 bytes) foi extraída em `include/multim_data.inc`.
+* **Header**: `include/multim_overlay.h`
+* **Testes**: `tests/test_multim_native.py` (execução comportamental nativa) e `tests/test_multim_matching.py` (matching de símbolos e exatidão bit-a-bit de `.rodata` com `ee-gcc 2.9-991111 -O2 -G0`).
 
 ### 5. `src/dcomp_overlay.c` (71 funções / 10.169 linhas) — *Decompilado (C Puro + Testes Nativos)*
 * **VRAM**: `0x01D98000`

@@ -36,7 +36,7 @@ def rebind_test(tmp_path_factory):
         [
             compiler, "-m32", "-Wno-invalid-offsetof",
             "-Iinclude",
-            "src/unit_action_rebind.cpp",
+            "src/unit/unit_action_rebind.cpp",
             "tests/native/unit_action_rebind_test.cpp",
             "-o", str(binary)
         ],

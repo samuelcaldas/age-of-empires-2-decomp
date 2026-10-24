@@ -36,7 +36,7 @@ def build_task_remove_test(tmp_path_factory):
         [
             compiler, "-m32", "-Wno-invalid-offsetof",
             "-Iinclude",
-            "src/unit_action_build_task_remove.cpp",
+            "src/unit/unit_action_build_task_remove.cpp",
             "tests/native/unit_action_build_task_remove_test.cpp",
             "-o", str(binary)
         ],

@@ -34,7 +34,7 @@ def state_handlers_test(tmp_path_factory):
         [
             compiler, "-m32", "-Wno-invalid-offsetof",
             "-Iinclude",
-            "src/unit_action_state_handlers.cpp",
+            "src/unit/unit_action_state_handlers.cpp",
             "tests/native/unit_action_state_handlers_test.cpp",
             "-o", str(binary)
         ],

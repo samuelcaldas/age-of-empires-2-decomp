@@ -36,7 +36,7 @@ def trade_action_stream_raster_test(tmp_path_factory):
         [
             compiler, "-m32", "-Wno-invalid-offsetof",
             "-Iinclude",
-            "src/trade_action_stream_raster.cpp",
+            "src/trade/trade_action_stream_raster.cpp",
             "tests/native/trade_action_stream_raster_test.cpp",
             "-o", str(binary)
         ],

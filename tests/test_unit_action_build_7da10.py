@@ -35,7 +35,7 @@ def build_7da10_test(tmp_path_factory):
         [
             compiler, "-m32", "-Wno-invalid-offsetof",
             "-Iinclude",
-            "src/unit_action_build_7da10.cpp",
+            "src/unit/unit_action_build_7da10.cpp",
             "tests/native/unit_action_build_7da10_test.cpp",
             "-o", str(binary)
         ],

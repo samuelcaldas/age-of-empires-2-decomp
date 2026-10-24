@@ -45,9 +45,9 @@ def zone_filter_test_binary(tmp_path_factory):
 
     binary = fixture_dir / "zone-filter-elevation-test"
     sources = [
-        "src/zone_filter_elevation.cpp",
-        "src/zone_level_elevation.cpp",
-        "src/zone_smooth_elevation.cpp",
+        "src/zone/zone_filter_elevation.cpp",
+        "src/zone/zone_level_elevation.cpp",
+        "src/zone/zone_smooth_elevation.cpp",
         "tests/native/zone_filter_elevation_test.cpp",
     ]
     subprocess.run(

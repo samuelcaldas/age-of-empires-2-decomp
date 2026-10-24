@@ -6,7 +6,7 @@ def test_zone_spatial_entity_collision_native():
         "g++", "-m32", "-O2",
         "-Iinclude",
         "tests/native/zone_spatial_entity_collision_test.cpp",
-        "src/zone_spatial_entity_calc_scale_factor_copy.cpp",
+        "src/zone/zone_spatial_entity_calc_scale_factor_copy.cpp",
         "-o", "/tmp/zone_spatial_entity_collision_test"
     ]
     res = subprocess.run(cmd, capture_output=True, text=True)

@@ -24,10 +24,10 @@ def test_zone_spatial_grid_block47_native():
     cmd = [
         "g++", "-m32", "-O2", "-Iinclude",
         "tests/native/zone_spatial_grid_block47_test.cpp",
-        "src/zone_spatial_grid_compute_terrain_mask.cpp",
-        "src/zone_spatial_grid_stamp_obstacle_region.cpp",
-        "src/zone_spatial_grid_clear_obstacle_region.cpp",
-        "src/zone_spatial_grid_set_obstacle_callback.cpp",
+        "src/zone/zone_spatial_grid_compute_terrain_mask.cpp",
+        "src/zone/zone_spatial_grid_stamp_obstacle_region.cpp",
+        "src/zone/zone_spatial_grid_clear_obstacle_region.cpp",
+        "src/zone/zone_spatial_grid_set_obstacle_callback.cpp",
         "-o", "tests/native/zone_spatial_grid_block47_test"
     ]
     compile_res = subprocess.run(cmd, capture_output=True, text=True)

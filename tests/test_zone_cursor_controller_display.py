@@ -6,10 +6,10 @@ def test_zone_cursor_controller_display_native():
         "g++", "-m32", "-O2",
         "-Iinclude",
         "tests/native/zone_cursor_controller_display_test.cpp",
-        "src/zone_cursor_controller_hide_cursor.cpp",
-        "src/zone_cursor_controller_show_cursor.cpp",
-        "src/zone_cursor_controller_init_display_res.cpp",
-        "src/zone_cursor_controller_reset_global.cpp",
+        "src/zone/zone_cursor_controller_hide_cursor.cpp",
+        "src/zone/zone_cursor_controller_show_cursor.cpp",
+        "src/zone/zone_cursor_controller_init_display_res.cpp",
+        "src/zone/zone_cursor_controller_reset_global.cpp",
         "-o", "/tmp/zone_cursor_controller_display_test"
     ]
     res = subprocess.run(cmd, capture_output=True, text=True)

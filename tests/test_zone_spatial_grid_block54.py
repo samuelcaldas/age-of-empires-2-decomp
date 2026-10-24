@@ -22,8 +22,8 @@ def test_zone_spatial_grid_block54_native():
     cmd = [
         "g++", "-m32", "-O2", "-Iinclude",
         "tests/native/zone_spatial_grid_block54_test.cpp",
-        "src/zone_spatial_grid_eval_ray_hit.cpp",
-        "src/zone_spatial_grid_eval_cell_hit.cpp",
+        "src/zone/zone_spatial_grid_eval_ray_hit.cpp",
+        "src/zone/zone_spatial_grid_eval_cell_hit.cpp",
         "-o", "tests/native/zone_spatial_grid_block54_test"
     ]
     compile_res = subprocess.run(cmd, capture_output=True, text=True)

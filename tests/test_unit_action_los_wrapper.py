@@ -36,7 +36,7 @@ def los_wrapper_test(tmp_path_factory):
         [
             compiler, "-m32", "-Wno-invalid-offsetof",
             "-Iinclude",
-            "src/unit_action_los_wrapper.cpp",
+            "src/unit/unit_action_los_wrapper.cpp",
             "tests/native/unit_action_los_wrapper_test.cpp",
             "-o", str(binary)
         ],

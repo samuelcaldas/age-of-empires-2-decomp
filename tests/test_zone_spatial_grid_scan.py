@@ -6,7 +6,7 @@ def test_zone_spatial_grid_scan_native():
         "g++", "-m32", "-O2",
         "-Iinclude",
         "tests/native/zone_spatial_grid_scan_test.cpp",
-        "src/zone_spatial_grid_scan_occupants.cpp",
+        "src/zone/zone_spatial_grid_scan_occupants.cpp",
         "-o", "/tmp/zone_spatial_grid_scan_test"
     ]
     res = subprocess.run(cmd, capture_output=True, text=True)

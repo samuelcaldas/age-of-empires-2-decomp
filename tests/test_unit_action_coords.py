@@ -35,7 +35,7 @@ def coords_test(tmp_path_factory):
         [
             compiler, "-m32", "-Wno-invalid-offsetof",
             "-Iinclude",
-            "src/unit_action_coords.cpp",
+            "src/unit/unit_action_coords.cpp",
             "tests/native/unit_action_coords_test.cpp",
             "-o", str(binary)
         ],

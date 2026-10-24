@@ -42,7 +42,7 @@ def zone_calc_coords_test_binary(tmp_path_factory):
 
     binary = fixture_dir / "zone-calc-coords-test"
     sources = [
-        "src/zone_calc_subtile_screen_coords.cpp",
+        "src/zone/zone_calc_subtile_screen_coords.cpp",
         "tests/native/zone_calc_subtile_screen_coords_test.cpp",
     ]
     subprocess.run(

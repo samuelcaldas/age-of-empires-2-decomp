@@ -41,7 +41,7 @@ def zone_path_eval_test(tmp_path_factory):
     subprocess.run(
         [
             compiler, "-m32", "-fno-builtin", "-Iinclude",
-            "src/zone_path_eval.cpp",
+            "src/zone/zone_path_eval.cpp",
             "tests/native/zone_path_eval_test.cpp",
             "-o", str(binary)
         ],

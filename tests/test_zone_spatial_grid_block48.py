@@ -25,11 +25,11 @@ def test_zone_spatial_grid_block48_native():
     cmd = [
         "g++", "-m32", "-O2", "-Iinclude",
         "tests/native/zone_spatial_grid_block48_test.cpp",
-        "src/zone_spatial_grid_clear_entity_markers.cpp",
-        "src/zone_spatial_grid_remove_node.cpp",
-        "src/zone_spatial_grid_set_obstacle_array.cpp",
-        "src/zone_spatial_grid_set_query_params.cpp",
-        "src/zone_spatial_grid_set_collision_margin.cpp",
+        "src/zone/zone_spatial_grid_clear_entity_markers.cpp",
+        "src/zone/zone_spatial_grid_remove_node.cpp",
+        "src/zone/zone_spatial_grid_set_obstacle_array.cpp",
+        "src/zone/zone_spatial_grid_set_query_params.cpp",
+        "src/zone/zone_spatial_grid_set_collision_margin.cpp",
         "-o", "tests/native/zone_spatial_grid_block48_test"
     ]
     compile_res = subprocess.run(cmd, capture_output=True, text=True)

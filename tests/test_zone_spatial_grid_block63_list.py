@@ -16,7 +16,7 @@ def list_executable(tmp_path_factory):
     completed = subprocess.run(
         ["g++", "-m32", "-std=c++98", "-O2", "-Iinclude",
          "tests/native/zone_spatial_grid_block63_list_test.cpp",
-         "src/zone_spatial_grid_destructor.cpp", "-o", str(executable)],
+         "src/zone/zone_spatial_grid_destructor.cpp", "-o", str(executable)],
         cwd=ROOT, capture_output=True, text=True,
     )
     assert completed.returncode == 0, completed.stderr

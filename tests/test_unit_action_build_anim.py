@@ -35,7 +35,7 @@ def build_anim_test(tmp_path_factory):
         [
             compiler, "-m32", "-Wno-invalid-offsetof",
             "-Iinclude",
-            "src/unit_action_build_anim.cpp",
+            "src/unit/unit_action_build_anim.cpp",
             "tests/native/unit_action_build_anim_test.cpp",
             "-o", str(binary)
         ],

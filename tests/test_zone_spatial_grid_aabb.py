@@ -6,9 +6,9 @@ def test_zone_spatial_grid_aabb_native():
         "g++", "-m32", "-O2",
         "-Iinclude",
         "tests/native/zone_spatial_grid_aabb_test.cpp",
-        "src/zone_spatial_grid_check_point_in_aabb_list.cpp",
-        "src/zone_spatial_grid_zero_vector3.cpp",
-        "src/zone_spatial_grid_identity_helper.cpp",
+        "src/zone/zone_spatial_grid_check_point_in_aabb_list.cpp",
+        "src/zone/zone_spatial_grid_zero_vector3.cpp",
+        "src/zone/zone_spatial_grid_identity_helper.cpp",
         "-o", "/tmp/zone_spatial_grid_aabb_test"
     ]
     res = subprocess.run(cmd, capture_output=True, text=True)

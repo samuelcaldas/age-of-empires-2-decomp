@@ -53,7 +53,7 @@ def helper_218820_test(tmp_path_factory):
             "-m32",
             "-fno-builtin",
             "-Iinclude",
-            "src/trade_action_helper_218820.cpp",
+            "src/trade/trade_action_helper_218820.cpp",
             "tests/native/trade_action_helper_218820_support.cpp",
             "tests/native/trade_action_helper_218820_test.cpp",
             "-o",

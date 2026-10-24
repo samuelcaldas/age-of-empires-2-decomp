@@ -35,7 +35,7 @@ def build_retry_reset_test(tmp_path_factory):
         [
             compiler, "-m32", "-Wno-invalid-offsetof",
             "-Iinclude",
-            "src/unit_action_build_retry_reset.cpp",
+            "src/unit/unit_action_build_retry_reset.cpp",
             "tests/native/unit_action_build_retry_reset_test.cpp",
             "-o", str(binary)
         ],

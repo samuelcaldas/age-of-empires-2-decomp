@@ -41,7 +41,7 @@ def zone_path_queries_test(tmp_path_factory):
     subprocess.run(
         [
             compiler, "-m32", "-fno-builtin", "-Iinclude",
-            "src/zone_path_queries.cpp",
+            "src/zone/zone_path_queries.cpp",
             "tests/native/zone_path_queries_test.cpp",
             "-o", str(binary)
         ],
@@ -104,7 +104,7 @@ def test_func_001C84B0_matches_original_instructions(tmp_path_factory):
         [
             str(wrapper), str(compiler), "-O3", "-inline", "on",
             "-msext", "on", "-char", "signed", "-sym", "off", "-Iinclude",
-            "-lang=c++", "-c", "src/zone_path_queries.cpp", "-o", str(output_obj)
+            "-lang=c++", "-c", "src/zone/zone_path_queries.cpp", "-o", str(output_obj)
         ],
         cwd=PROJECT_ROOT,
         capture_output=True,
@@ -187,7 +187,7 @@ def test_func_001C8A50_matches_original_extent_and_size(tmp_path_factory):
         [
             str(wrapper), str(compiler), "-O3", "-inline", "on",
             "-msext", "on", "-char", "signed", "-sym", "off", "-Iinclude",
-            "-lang=c++", "-c", "src/zone_path_queries.cpp", "-o", str(output_obj)
+            "-lang=c++", "-c", "src/zone/zone_path_queries.cpp", "-o", str(output_obj)
         ],
         cwd=PROJECT_ROOT,
         capture_output=True,

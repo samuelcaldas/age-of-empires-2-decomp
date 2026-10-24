@@ -34,7 +34,7 @@ def build_load_test(tmp_path_factory):
         [
             compiler, "-m32", "-Wno-invalid-offsetof",
             "-Iinclude",
-            "src/unit_action_build_load.cpp",
+            "src/unit/unit_action_build_load.cpp",
             "tests/native/unit_action_build_load_test.cpp",
             "-o", str(binary)
         ],

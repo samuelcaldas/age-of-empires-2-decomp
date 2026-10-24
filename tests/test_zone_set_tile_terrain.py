@@ -42,7 +42,7 @@ def zone_set_terrain_test_binary(tmp_path_factory):
 
     binary = fixture_dir / "zone-set-terrain-test"
     sources = [
-        "src/zone_set_tile_terrain.cpp",
+        "src/zone/zone_set_tile_terrain.cpp",
         "tests/native/zone_set_tile_terrain_test.cpp",
     ]
     subprocess.run(

@@ -203,7 +203,7 @@ def test_verifier_rejects_wrong_elf_machine():
 import sys, struct
 from tools import verify_exact_linked_80680
 
-with open("build/SLES-50282/src/unit_action_build_80680.o", "rb") as f:
+with open("build/SLES-50282/src/unit/unit_action_build_80680.o", "rb") as f:
     data = bytearray(f.read())
 
 # Overwrite e_machine at offset 0x12 with 3 (EM_386)
@@ -230,7 +230,7 @@ def test_verifier_rejects_wrong_rel_sh_info():
 import sys, struct
 from tools import verify_exact_linked_80680
 
-with open("build/SLES-50282/src/unit_action_build_80680.o", "rb") as f:
+with open("build/SLES-50282/src/unit/unit_action_build_80680.o", "rb") as f:
     data = bytearray(f.read())
 
 raw, secs, _ = verify_exact_linked_80680.parse_elf_sections_from_bytes(data)
@@ -266,7 +266,7 @@ def test_verifier_rejects_wrong_rel_sh_link():
 import sys, struct
 from tools import verify_exact_linked_80680
 
-with open("build/SLES-50282/src/unit_action_build_80680.o", "rb") as f:
+with open("build/SLES-50282/src/unit/unit_action_build_80680.o", "rb") as f:
     data = bytearray(f.read())
 
 raw, secs, _ = verify_exact_linked_80680.parse_elf_sections_from_bytes(data)

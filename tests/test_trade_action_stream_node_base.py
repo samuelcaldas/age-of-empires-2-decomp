@@ -34,7 +34,7 @@ def trade_action_stream_node_base_test(tmp_path_factory):
         [
             compiler, "-m32", "-Wno-invalid-offsetof",
             "-Iinclude",
-            "src/trade_action_stream_node_base.cpp",
+            "src/trade/trade_action_stream_node_base.cpp",
             "tests/native/trade_action_stream_node_base_test.cpp",
             "-o", str(binary)
         ],

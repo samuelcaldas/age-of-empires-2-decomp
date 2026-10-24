@@ -42,7 +42,7 @@ def zone_init_arrays_test_binary(tmp_path_factory):
 
     binary = fixture_dir / "zone-init-arrays-test"
     sources = [
-        "src/zone_init_bucket_arrays.cpp",
+        "src/zone/zone_init_bucket_arrays.cpp",
         "tests/native/zone_init_bucket_arrays_test.cpp",
     ]
     subprocess.run(

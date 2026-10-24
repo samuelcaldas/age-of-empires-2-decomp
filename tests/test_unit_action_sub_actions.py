@@ -35,7 +35,7 @@ def sub_actions_test(tmp_path_factory):
         [
             compiler, "-m32", "-Wno-invalid-offsetof",
             "-Iinclude",
-            "src/unit_action_sub_actions.cpp",
+            "src/unit/unit_action_sub_actions.cpp",
             "tests/native/unit_action_sub_actions_test.cpp",
             "-o", str(binary)
         ],

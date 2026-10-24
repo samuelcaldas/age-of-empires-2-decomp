@@ -34,7 +34,7 @@ def lifecycle_test(tmp_path_factory):
         [
             compiler, "-m32", "-Wno-invalid-offsetof",
             "-Iinclude",
-            "src/unit_action_lifecycle.cpp",
+            "src/unit/unit_action_lifecycle.cpp",
             "tests/native/unit_action_lifecycle_test.cpp",
             "-o", str(binary)
         ],

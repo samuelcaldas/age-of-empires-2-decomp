@@ -42,7 +42,7 @@ def zone_find_attr_test_binary(tmp_path_factory):
 
     binary = fixture_dir / "zone-find-attr-test"
     sources = [
-        "src/zone_find_cell_item_by_attr.cpp",
+        "src/zone/zone_find_cell_item_by_attr.cpp",
         "tests/native/zone_find_cell_item_by_attr_test.cpp",
     ]
     subprocess.run(

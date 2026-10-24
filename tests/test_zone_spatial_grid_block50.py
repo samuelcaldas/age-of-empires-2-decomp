@@ -23,9 +23,9 @@ def test_zone_spatial_grid_block50_native():
     cmd = [
         "g++", "-m32", "-O2", "-Iinclude",
         "tests/native/zone_spatial_grid_block50_test.cpp",
-        "src/zone_spatial_grid_test_cell_items.cpp",
-        "src/zone_spatial_grid_test_cell_raycast.cpp",
-        "src/zone_spatial_grid_intersect_segments_2d.cpp",
+        "src/zone/zone_spatial_grid_test_cell_items.cpp",
+        "src/zone/zone_spatial_grid_test_cell_raycast.cpp",
+        "src/zone/zone_spatial_grid_intersect_segments_2d.cpp",
         "-o", "tests/native/zone_spatial_grid_block50_test"
     ]
     compile_res = subprocess.run(cmd, capture_output=True, text=True)

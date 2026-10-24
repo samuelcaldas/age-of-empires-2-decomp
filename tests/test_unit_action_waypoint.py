@@ -36,7 +36,7 @@ def waypoint_test(tmp_path_factory):
         [
             compiler, "-m32", "-Wno-invalid-offsetof",
             "-Iinclude",
-            "src/unit_action_waypoint.cpp",
+            "src/unit/unit_action_waypoint.cpp",
             "tests/native/unit_action_waypoint_test.cpp",
             "-o", str(binary)
         ],

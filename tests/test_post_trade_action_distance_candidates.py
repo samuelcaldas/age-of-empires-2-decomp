@@ -21,7 +21,7 @@ def distance_candidates_binary(tmp_path_factory):
             "-m32",
             "-fno-builtin",
             "-Iinclude",
-            "src/post_trade_action_distance_candidates.cpp",
+            "src/trade/post_trade_action_distance_candidates.cpp",
             "tests/native/post_trade_action_distance_candidates_test.cpp",
             "-o",
             str(binary),
@@ -58,7 +58,7 @@ def test_distance_candidates_mutants_fail(tmp_path, name, orig_str, mutated_str,
     if compiler is None:
         pytest.skip("native tests require g++")
 
-    src = (PROJECT_ROOT / "src" / "post_trade_action_distance_candidates.cpp").read_text()
+    src = (PROJECT_ROOT / "src/trade" / "post_trade_action_distance_candidates.cpp").read_text()
     assert orig_str in src, f"Expected '{orig_str}' in source"
     mutant_src = src.replace(orig_str, mutated_str, 1)
 

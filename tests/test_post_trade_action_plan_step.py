@@ -21,7 +21,7 @@ def plan_step_binary(tmp_path_factory):
             "-m32",
             "-fno-builtin",
             "-Iinclude",
-            "src/post_trade_action_plan_step.cpp",
+            "src/trade/post_trade_action_plan_step.cpp",
             "tests/native/post_trade_action_plan_step_test.cpp",
             "-o",
             str(binary),
@@ -84,7 +84,7 @@ def test_plan_step_mutants_fail(tmp_path, name, orig_str, mutated_str, expected_
     if compiler is None:
         pytest.skip("native tests require g++")
 
-    src = (PROJECT_ROOT / "src" / "post_trade_action_plan_step.cpp").read_text()
+    src = (PROJECT_ROOT / "src/trade" / "post_trade_action_plan_step.cpp").read_text()
     assert orig_str in src, f"Expected '{orig_str}' in source"
     mutant_src = src.replace(orig_str, mutated_str, 1)
 

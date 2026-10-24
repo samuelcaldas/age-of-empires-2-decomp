@@ -35,7 +35,7 @@ def tile_node_test(tmp_path_factory):
         [
             compiler, "-m32", "-Wno-invalid-offsetof",
             "-Iinclude",
-            "src/unit_action_tile_node.cpp",
+            "src/unit/unit_action_tile_node.cpp",
             "tests/native/unit_action_tile_node_test.cpp",
             "-o", str(binary)
         ],

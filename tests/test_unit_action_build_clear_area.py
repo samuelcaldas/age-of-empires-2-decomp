@@ -36,7 +36,7 @@ def build_clear_area_test(tmp_path_factory):
         [
             compiler, "-m32", "-Wno-invalid-offsetof",
             "-Iinclude",
-            "src/unit_action_build_clear_area.cpp",
+            "src/unit/unit_action_build_clear_area.cpp",
             "tests/native/unit_action_build_clear_area_test.cpp",
             "-o", str(binary)
         ],

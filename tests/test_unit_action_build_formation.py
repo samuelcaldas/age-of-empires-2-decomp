@@ -34,7 +34,7 @@ def build_formation_test(tmp_path_factory):
         [
             compiler, "-m32", "-Wno-invalid-offsetof",
             "-Iinclude",
-            "src/unit_action_build_formation.cpp",
+            "src/unit/unit_action_build_formation.cpp",
             "tests/native/unit_action_build_formation_test.cpp",
             "-o", str(binary)
         ],

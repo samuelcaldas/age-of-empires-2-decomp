@@ -33,7 +33,7 @@ def private_inputs(tmp_path_factory):
     completed = subprocess.run(
         [str(LAUNCHER), str(COMPILER), "-O3", "-inline", "on", "-msext",
          "on", "-char", "signed", "-sym", "off", "-Iinclude", "-lang=c++",
-         "-c", "src/zone_spatial_grid_lookup_node.cpp", "-o", str(source)],
+         "-c", "src/zone/zone_spatial_grid_lookup_node.cpp", "-o", str(source)],
         cwd=ROOT, capture_output=True, text=True,
     )
     assert completed.returncode == 0, completed.stdout + completed.stderr

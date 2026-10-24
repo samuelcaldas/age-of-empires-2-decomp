@@ -34,7 +34,7 @@ def movement_ops_test(tmp_path_factory):
         [
             compiler, "-m32", "-Wno-invalid-offsetof",
             "-Iinclude",
-            "src/unit_action_movement_ops.cpp",
+            "src/unit/unit_action_movement_ops.cpp",
             "tests/native/unit_action_movement_ops_test.cpp",
             "-o", str(binary)
         ],

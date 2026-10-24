@@ -23,9 +23,9 @@ def test_zone_spatial_grid_block46_native():
     cmd = [
         "g++", "-m32", "-O2", "-Iinclude",
         "tests/native/zone_spatial_grid_block46_test.cpp",
-        "src/zone_spatial_grid_clear_active_markers.cpp",
-        "src/zone_spatial_grid_insert_marker_node.cpp",
-        "src/zone_spatial_grid_mark_bounds_region.cpp",
+        "src/zone/zone_spatial_grid_clear_active_markers.cpp",
+        "src/zone/zone_spatial_grid_insert_marker_node.cpp",
+        "src/zone/zone_spatial_grid_mark_bounds_region.cpp",
         "-o", "tests/native/zone_spatial_grid_block46_test"
     ]
     compile_res = subprocess.run(cmd, capture_output=True, text=True)

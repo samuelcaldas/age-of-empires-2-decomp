@@ -101,7 +101,7 @@ def main():
     """Run source-object, original-slice, and GNU final-link checks."""
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--object", type=Path,
-                        default=Path("build/SLES-50282/src/trade_action_helper_2184D0.o"))
+                        default=Path("build/SLES-50282/src/trade/trade_action_helper_2184D0.o"))
     parser.add_argument("--original", type=Path, default=Path("orig/SLES-50282/AOK.ELF"))
     parser.add_argument("--linker", type=Path,
                         default=Path("build/mips_binutils/mips-linux-gnu-ld"))

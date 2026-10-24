@@ -39,7 +39,7 @@ def helper_217B50_test(tmp_path_factory):
     binary = fixture / "helper-217B50-test"
     subprocess.run(
         [compiler, "-m32", "-fno-builtin", "-DTRADE_ACTION_HELPER_217B50_TEST_SHIM", "-Iinclude",
-         "src/trade_action_helper_217B50.cpp",
+         "src/trade/trade_action_helper_217B50.cpp",
          "tests/native/trade_action_helper_217B50_test.cpp",
          "-o", str(binary)],
         cwd=PROJECT_ROOT, check=True, capture_output=True, text=True,
@@ -59,7 +59,7 @@ def test_helper_217B50_behavior(helper_217B50_test, case, description):
 
 def test_mutation_break_code_6_source_proof(tmp_path):
     """Read source, assert count(kBreakCode = 7) == 1, write tmp copy with 6, compile with harness and assert case 8 fails with exact assertion."""
-    source_path = PROJECT_ROOT / "src/trade_action_helper_217B50.cpp"
+    source_path = PROJECT_ROOT / "src/trade/trade_action_helper_217B50.cpp"
     source_code = source_path.read_text(encoding="utf-8")
     assert source_code.count("enum { kBreakCode = 7 };") == 1
 

@@ -43,7 +43,7 @@ def getters7_test_binary(tmp_path_factory):
     binary = tmp_path_factory.mktemp("getters7") / "trade-action-getters7-test"
     result = subprocess.run(
         [compiler, "-fno-builtin", "-Iinclude",
-         "src/trade_action_getters7.cpp",
+         "src/trade/trade_action_getters7.cpp",
          "tests/native/trade_action_getters7_test.cpp",
          "tests/native/trade_action_getters7_test_support.cpp",
          "tests/native/trade_action_getters7_test_cases_part1.cpp",
@@ -89,7 +89,7 @@ def test_getters7_source_mutants_fail_at_expected_assertion(
     tmp_path, name, original, mutated, diagnostic
 ):
     """Require compiled source mutants to hit their targeted native assertion."""
-    source = PROJECT_ROOT / "src/trade_action_getters7.cpp"
+    source = PROJECT_ROOT / "src/trade/trade_action_getters7.cpp"
     source_text = source.read_text()
     assert source_text.count(original) == 1, (
         f"{name} mutation anchor must be unique"

@@ -42,7 +42,7 @@ def zone_free_grid_test_binary(tmp_path_factory):
 
     binary = fixture_dir / "zone-free-grid-test"
     sources = [
-        "src/zone_free_spatial_grid.cpp",
+        "src/zone/zone_free_spatial_grid.cpp",
         "tests/native/zone_free_spatial_grid_test.cpp",
     ]
     subprocess.run(

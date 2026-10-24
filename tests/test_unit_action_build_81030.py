@@ -3,7 +3,7 @@ from pathlib import Path
 import pytest
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
-SRC_FILE = REPO_ROOT / "src" / "unit_action_build_81030.cpp"
+SRC_FILE = REPO_ROOT / "src/unit" / "unit_action_build_81030.cpp"
 TEST_FILE = REPO_ROOT / "tests" / "native" / "unit_action_build_81030_test.cpp"
 INCLUDE_DIR = REPO_ROOT / "include"
 

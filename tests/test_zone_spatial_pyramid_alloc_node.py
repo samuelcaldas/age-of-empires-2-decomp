@@ -3,7 +3,7 @@ from pathlib import Path
 
 def test_zone_spatial_pyramid_alloc_node_native():
     repo_root = Path(__file__).resolve().parent.parent
-    src_file = repo_root / "src" / "zone_spatial_pyramid_alloc_node.cpp"
+    src_file = repo_root / "src/zone" / "zone_spatial_pyramid_alloc_node.cpp"
     test_file = repo_root / "tests" / "native" / "zone_spatial_pyramid_alloc_node_test.cpp"
     bin_file = repo_root / "build" / "native_zone_spatial_pyramid_alloc_node_test"
 

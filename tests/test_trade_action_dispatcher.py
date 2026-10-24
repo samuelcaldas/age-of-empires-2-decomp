@@ -38,7 +38,7 @@ def dispatcher_test_binary(tmp_path_factory):
             "-m32",
             "-fno-builtin",
             "-Iinclude",
-            "src/trade_action_dispatcher.cpp",
+            "src/trade/trade_action_dispatcher.cpp",
             "tests/native/trade_action_dispatcher_test.cpp",
             "tests/native/trade_action_dispatcher_test_support.cpp",
             "tests/native/trade_action_dispatcher_cases_part1.cpp",
@@ -95,7 +95,7 @@ def test_dispatcher_source_mutants_fail_at_expected_assertion(
 ):
     """Require compiled source mutants to hit their targeted native assertion."""
     source = (
-        PROJECT_ROOT / "src" / "trade_action_dispatcher.cpp"
+        PROJECT_ROOT / "src/trade" / "trade_action_dispatcher.cpp"
         if "513" in name
         else PROJECT_ROOT / "include" / "trade_action_dispatcher_direct.h"
     )
@@ -119,7 +119,7 @@ def test_dispatcher_source_mutants_fail_at_expected_assertion(
             "-Iinclude",
             str(mutant_source)
             if source.suffix == ".cpp"
-            else "src/trade_action_dispatcher.cpp",
+            else "src/trade/trade_action_dispatcher.cpp",
             "tests/native/trade_action_dispatcher_test.cpp",
             "tests/native/trade_action_dispatcher_test_support.cpp",
             "tests/native/trade_action_dispatcher_cases_part1.cpp",

@@ -46,7 +46,7 @@ def visible_map_test(tmp_path_factory):
     subprocess.run(
         [
             compiler, "-m32", "-fno-builtin", "-Iinclude",
-            "src/visible_map.cpp",
+            "src/zone/visible_map.cpp",
             "tests/native/visible_map_test.cpp",
             "-o", str(binary)
         ],

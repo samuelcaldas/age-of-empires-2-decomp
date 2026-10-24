@@ -37,7 +37,7 @@ def advance_test(tmp_path_factory):
         [
             compiler, "-m32", "-Wno-invalid-offsetof",
             "-Iinclude",
-            "src/unit_action_advance.cpp",
+            "src/unit/unit_action_advance.cpp",
             "tests/native/unit_action_advance_test.cpp",
             "-o", str(binary)
         ],

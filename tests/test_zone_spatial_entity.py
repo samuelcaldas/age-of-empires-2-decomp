@@ -6,9 +6,9 @@ def test_zone_spatial_entity_native():
         "g++", "-m32", "-O2",
         "-Iinclude",
         "tests/native/zone_spatial_entity_test.cpp",
-        "src/zone_spatial_entity_resolve_wrapper.cpp",
-        "src/zone_spatial_entity_setup.cpp",
-        "src/zone_spatial_entity_derived_dtor.cpp",
+        "src/zone/zone_spatial_entity_resolve_wrapper.cpp",
+        "src/zone/zone_spatial_entity_setup.cpp",
+        "src/zone/zone_spatial_entity_derived_dtor.cpp",
         "-o", "/tmp/zone_spatial_entity_test"
     ]
     res = subprocess.run(cmd, capture_output=True, text=True)

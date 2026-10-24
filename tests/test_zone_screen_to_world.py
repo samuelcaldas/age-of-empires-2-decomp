@@ -47,7 +47,7 @@ def zone_screen_world_test_binary(tmp_path_factory):
 
     binary = fixture_dir / "zone-s2w-test"
     sources = [
-        "src/zone_screen_to_world.cpp",
+        "src/zone/zone_screen_to_world.cpp",
         "tests/native/zone_screen_to_world_test.cpp",
     ]
     subprocess.run(
@@ -77,7 +77,7 @@ def test_zone_screen_to_world_old_formula_mutant_fails(tmp_path):
     if compiler is None:
         pytest.skip("native tests require g++")
 
-    src = (PROJECT_ROOT / "src" / "zone_screen_to_world.cpp").read_text()
+    src = (PROJECT_ROOT / "src/zone" / "zone_screen_to_world.cpp").read_text()
     # Mutate addition to multiplication: sum_term = s2 + ((2.0 * fy - 1.0) + 2.0 * fx) -> * 2.0 * fx
     target = "int64_t sum_term = func_122058(s2, func_122058(two_fy_minus_one, two_fx));"
     mutated = "int64_t sum_term = func_122058(s2, func_122118(two_fy_minus_one, two_fx));"
@@ -108,7 +108,7 @@ def test_zone_screen_to_world_early_return_mutant_fails(tmp_path):
     if compiler is None:
         pytest.skip("native tests require g++")
 
-    src = (PROJECT_ROOT / "src" / "zone_screen_to_world.cpp").read_text()
+    src = (PROJECT_ROOT / "src/zone" / "zone_screen_to_world.cpp").read_text()
     # Mutate to early return when cmd > 16
     target = "int64_t s2 = 0;"
     mutated = "if (cmd > 16) return;\n    int64_t s2 = 0;"
@@ -139,7 +139,7 @@ def test_zone_screen_to_world_cmd11_slope_mutant_fails(tmp_path):
     if compiler is None:
         pytest.skip("native tests require g++")
 
-    src = (PROJECT_ROOT / "src" / "zone_screen_to_world.cpp").read_text()
+    src = (PROJECT_ROOT / "src/zone" / "zone_screen_to_world.cpp").read_text()
     target = "s2 = func_122118(FP_TWO, func_1220B0(FP_HALF, fx));"
     mutated = "s2 = func_122058(FP_TWO, func_1220B0(FP_HALF, fx));"
     mutated_src = src.replace(target, mutated)
@@ -169,7 +169,7 @@ def test_zone_screen_to_world_cmd2_family_mutant_fails(tmp_path):
     if compiler is None:
         pytest.skip("native tests require g++")
 
-    src = (PROJECT_ROOT / "src" / "zone_screen_to_world.cpp").read_text()
+    src = (PROJECT_ROOT / "src/zone" / "zone_screen_to_world.cpp").read_text()
     target = """    case 2:
         if (func_100170(fx, FP_HALF)) {
             s2 = func_1220B0(func_1223C0(fx, FP_NEG2), func_1220B0(fy, FP_HALF));
@@ -211,7 +211,7 @@ def test_zone_screen_to_world_cmd3_family_mutant_fails(tmp_path):
     if compiler is None:
         pytest.skip("native tests require g++")
 
-    src = (PROJECT_ROOT / "src" / "zone_screen_to_world.cpp").read_text()
+    src = (PROJECT_ROOT / "src/zone" / "zone_screen_to_world.cpp").read_text()
     target = "if (func_100120(func_1223C0(fx, FP_TWO), s5_fp)) {"
     mutated = "if (func_100170(func_1223C0(fx, FP_TWO), s5_fp)) {"
     mutated_src = src.replace(target, mutated)
@@ -241,7 +241,7 @@ def test_zone_screen_to_world_cmd10_family_mutant_fails(tmp_path):
     if compiler is None:
         pytest.skip("native tests require g++")
 
-    src = (PROJECT_ROOT / "src" / "zone_screen_to_world.cpp").read_text()
+    src = (PROJECT_ROOT / "src/zone" / "zone_screen_to_world.cpp").read_text()
     target = "s2 = fy ^ FP_SIGN;"
     mutated = "s2 = fy;"
     mutated_src = src.replace(target, mutated)

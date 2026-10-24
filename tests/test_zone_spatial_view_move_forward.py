@@ -6,7 +6,7 @@ def test_zone_spatial_view_move_forward_native():
         "g++", "-m32", "-O2",
         "-Iinclude",
         "tests/native/zone_spatial_view_move_forward_test.cpp",
-        "src/zone_spatial_view_move_forward.cpp",
+        "src/zone/zone_spatial_view_move_forward.cpp",
         "-o", "/tmp/zone_spatial_view_move_forward_test"
     ]
     res = subprocess.run(cmd, capture_output=True, text=True)

@@ -34,7 +34,7 @@ def execute_test(tmp_path_factory):
         [
             compiler, "-m32", "-Wno-invalid-offsetof",
             "-Iinclude",
-            "src/unit_action_execute.cpp",
+            "src/unit/unit_action_execute.cpp",
             "tests/native/unit_action_execute_test.cpp",
             "-o", str(binary)
         ],

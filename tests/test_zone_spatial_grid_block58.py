@@ -16,7 +16,7 @@ def test_zone_spatial_grid_block58_build():
 
 def test_zone_spatial_grid_block58_no_asm():
     """Verify that decompiled source files are 100% pure C/C++ without embedded assembly."""
-    with open("src/zone_spatial_grid_node_pool_expand.cpp", "r") as f:
+    with open("src/zone/zone_spatial_grid_node_pool_expand.cpp", "r") as f:
         content = f.read()
     assert "__asm__" not in content, "Found embedded assembly"
     assert ".word" not in content, "Found raw opcodes"
@@ -28,7 +28,7 @@ def test_zone_spatial_grid_block58_native():
     cmd = [
         "g++", "-m32", "-std=c++98", "-O2", "-Iinclude",
         "tests/native/zone_spatial_grid_block58_test.cpp",
-        "src/zone_spatial_grid_node_pool_expand.cpp",
+        "src/zone/zone_spatial_grid_node_pool_expand.cpp",
         "-o", "tests/native/zone_spatial_grid_block58_test"
     ]
     compile_res = subprocess.run(cmd, capture_output=True, text=True)

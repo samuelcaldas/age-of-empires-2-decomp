@@ -44,7 +44,7 @@ def zone_calc_slope_test_binary(tmp_path_factory):
 
     binary = fixture_dir / "zone-calc-slope-test"
     sources = [
-        "src/zone_calc_tile_slope.cpp",
+        "src/zone/zone_calc_tile_slope.cpp",
         "tests/native/zone_calc_tile_slope_test.cpp",
     ]
     subprocess.run(

@@ -36,7 +36,7 @@ def build_task_compact_test(tmp_path_factory):
         [
             compiler, "-m32", "-Wno-invalid-offsetof",
             "-Iinclude",
-            "src/unit_action_build_task_compact.cpp",
+            "src/unit/unit_action_build_task_compact.cpp",
             "tests/native/unit_action_build_task_compact_test.cpp",
             "-o", str(binary)
         ],

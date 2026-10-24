@@ -14,7 +14,7 @@ from scripts.verify_node_pool_free_node import verify
 
 
 ROOT = Path(__file__).resolve().parents[1]
-SOURCE = ROOT / "build/SLES-50282/src/zone_spatial_grid_node_pool_free_node.o"
+SOURCE = ROOT / "build/SLES-50282/src/zone/zone_spatial_grid_node_pool_free_node.o"
 ORIGINAL = ROOT / "orig/SLES-50282/AOK.ELF"
 
 

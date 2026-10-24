@@ -36,7 +36,7 @@ def build_progress_frame_test(tmp_path_factory):
         [
             compiler, "-m32", "-Wno-invalid-offsetof",
             "-Iinclude",
-            "src/unit_action_build_progress_frame.cpp",
+            "src/unit/unit_action_build_progress_frame.cpp",
             "tests/native/unit_action_build_progress_frame_test.cpp",
             "-o", str(binary)
         ],

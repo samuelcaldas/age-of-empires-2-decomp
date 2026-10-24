@@ -46,7 +46,7 @@ def zone_smooth_test_binary(tmp_path_factory):
 
     binary = fixture_dir / "zone-smooth-elevation-test"
     sources = [
-        "src/zone_smooth_elevation.cpp",
+        "src/zone/zone_smooth_elevation.cpp",
         "tests/native/zone_smooth_elevation_test.cpp",
     ]
     subprocess.run(

@@ -6,8 +6,8 @@ def test_zone_spatial_entity_vel_heading_native():
         "g++", "-m32", "-O2",
         "-Iinclude",
         "tests/native/zone_spatial_entity_vel_heading_test.cpp",
-        "src/zone_spatial_entity_set_velocity.cpp",
-        "src/zone_spatial_entity_set_heading.cpp",
+        "src/zone/zone_spatial_entity_set_velocity.cpp",
+        "src/zone/zone_spatial_entity_set_heading.cpp",
         "-o", "/tmp/zone_spatial_entity_vel_heading_test"
     ]
     res = subprocess.run(cmd, capture_output=True, text=True)

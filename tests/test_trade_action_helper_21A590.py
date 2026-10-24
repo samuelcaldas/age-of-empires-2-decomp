@@ -32,7 +32,7 @@ def helper_21A590_test(tmp_path_factory):
     binary = fixture / "helper-21A590-test"
     subprocess.run(
         [compiler, "-m32", "-fno-builtin", "-Iinclude",
-         "src/trade_action_helper_21A590.cpp",
+         "src/trade/trade_action_helper_21A590.cpp",
          "tests/native/trade_action_helper_21A590_test.cpp",
          "-o", str(binary)],
         cwd=PROJECT_ROOT, check=True, capture_output=True, text=True,

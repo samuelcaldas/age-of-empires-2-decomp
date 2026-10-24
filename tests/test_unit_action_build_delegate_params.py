@@ -36,7 +36,7 @@ def build_delegate_params_test(tmp_path_factory):
         [
             compiler, "-m32", "-Wno-invalid-offsetof",
             "-Iinclude",
-            "src/unit_action_build_delegate_params.cpp",
+            "src/unit/unit_action_build_delegate_params.cpp",
             "tests/native/unit_action_build_delegate_params_test.cpp",
             "-o", str(binary)
         ],

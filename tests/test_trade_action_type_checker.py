@@ -21,7 +21,7 @@ def type_checker_binary(tmp_path_factory):
             "-m32",
             "-fno-builtin",
             "-Iinclude",
-            "src/trade_action_type_checker.cpp",
+            "src/trade/trade_action_type_checker.cpp",
             "tests/native/trade_action_type_checker_test.cpp",
             "-o",
             str(binary),
@@ -57,7 +57,7 @@ def test_type_checker_mutants_fail(tmp_path, name, orig_str, mutated_str, expect
     if compiler is None:
         pytest.skip("native tests require g++")
 
-    src = (PROJECT_ROOT / "src" / "trade_action_type_checker.cpp").read_text()
+    src = (PROJECT_ROOT / "src/trade" / "trade_action_type_checker.cpp").read_text()
     assert orig_str in src, f"Expected '{orig_str}' in source"
     mutant_src = src.replace(orig_str, mutated_str, 1)
 

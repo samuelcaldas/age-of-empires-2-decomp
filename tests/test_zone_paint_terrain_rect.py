@@ -42,7 +42,7 @@ def zone_paint_rect_test_binary(tmp_path_factory):
 
     binary = fixture_dir / "zone-paint-rect-test"
     sources = [
-        "src/zone_paint_terrain_rect.cpp",
+        "src/zone/zone_paint_terrain_rect.cpp",
         "tests/native/zone_paint_terrain_rect_test.cpp",
     ]
     subprocess.run(

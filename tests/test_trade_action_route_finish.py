@@ -29,7 +29,7 @@ def route_buffer_test(tmp_path_factory):
     binary = tmp_path_factory.mktemp("route-buffer") / "route-buffer-test"
     subprocess.run(
         [compiler, "-m32", "-fno-builtin", "-Iinclude",
-         "src/trade_action_route_finish.cpp",
+         "src/trade/trade_action_route_finish.cpp",
          "tests/native/trade_action_route_finish_test.cpp",
          "tests/native/trade_action_route_finish_stubs.cpp", "-o", str(binary)],
         cwd=PROJECT_ROOT, check=True, capture_output=True, text=True,

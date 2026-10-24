@@ -52,8 +52,8 @@ def candidates_test_binary(tmp_path_factory):
             "-m32",
             "-fno-builtin",
             "-Iinclude",
-            "src/trade_action_candidates.cpp",
-            "src/trade_action_candidates_extra.cpp",
+            "src/trade/trade_action_candidates.cpp",
+            "src/trade/trade_action_candidates_extra.cpp",
             "tests/native/trade_action_candidates_test.cpp",
             "tests/native/trade_action_candidates_test_support.cpp",
             "tests/native/trade_action_candidates_cases_part1.cpp",
@@ -152,9 +152,9 @@ def test_candidates_source_mutants_fail_at_expected_assertion(
     source = (
         PROJECT_ROOT / "include" / "trade_action_candidates_dual.h"
         if "mode_" in name
-        else PROJECT_ROOT / "src" / "trade_action_candidates_extra.cpp"
+        else PROJECT_ROOT / "src/trade" / "trade_action_candidates_extra.cpp"
         if "rate_" in name or "selector_" in name or "distance_" in name or "type_" in name
-        else PROJECT_ROOT / "src" / "trade_action_candidates.cpp"
+        else PROJECT_ROOT / "src/trade" / "trade_action_candidates.cpp"
     )
     source_name = source.name
     source_text = source.read_text()
@@ -174,8 +174,8 @@ def test_candidates_source_mutants_fail_at_expected_assertion(
             "-fno-builtin",
             f"-I{tmp_path}",
             "-Iinclude",
-            str(mutant_source) if source.name == "trade_action_candidates.cpp" else "src/trade_action_candidates.cpp",
-            str(mutant_source) if source.name == "trade_action_candidates_extra.cpp" else "src/trade_action_candidates_extra.cpp",
+            str(mutant_source) if source.name == "trade_action_candidates.cpp" else "src/trade/trade_action_candidates.cpp",
+            str(mutant_source) if source.name == "trade_action_candidates_extra.cpp" else "src/trade/trade_action_candidates_extra.cpp",
             "tests/native/trade_action_candidates_test.cpp",
             "tests/native/trade_action_candidates_test_support.cpp",
             "tests/native/trade_action_candidates_cases_part1.cpp",

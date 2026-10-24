@@ -42,7 +42,7 @@ def zone_stub_test_binary(tmp_path_factory):
 
     binary = fixture_dir / "zone-stub-test"
     sources = [
-        "src/zone_stub_1cd3c0.cpp",
+        "src/zone/zone_stub_1cd3c0.cpp",
         "tests/native/zone_stub_1cd3c0_test.cpp",
     ]
     subprocess.run(

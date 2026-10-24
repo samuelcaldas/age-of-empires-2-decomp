@@ -6,10 +6,10 @@ def test_zone_spatial_entity_motion_scale_native():
         "g++", "-m32", "-O2",
         "-Iinclude",
         "tests/native/zone_spatial_entity_motion_scale_test.cpp",
-        "src/zone_spatial_entity_has_positive_velocity.cpp",
-        "src/zone_spatial_entity_reset_motion_state.cpp",
-        "src/zone_spatial_entity_set_motion_scale.cpp",
-        "src/zone_spatial_entity_get_state_id.cpp",
+        "src/zone/zone_spatial_entity_has_positive_velocity.cpp",
+        "src/zone/zone_spatial_entity_reset_motion_state.cpp",
+        "src/zone/zone_spatial_entity_set_motion_scale.cpp",
+        "src/zone/zone_spatial_entity_get_state_id.cpp",
         "-o", "/tmp/zone_spatial_entity_motion_scale_test"
     ]
     res = subprocess.run(cmd, capture_output=True, text=True)

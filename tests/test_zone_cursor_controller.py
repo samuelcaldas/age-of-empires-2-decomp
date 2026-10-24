@@ -6,11 +6,11 @@ def test_zone_cursor_controller_native():
         "g++", "-m32", "-O2",
         "-Iinclude",
         "tests/native/zone_cursor_controller_test.cpp",
-        "src/zone_cursor_controller_set_field_2c.cpp",
-        "src/zone_cursor_controller_set_field_30.cpp",
-        "src/zone_cursor_controller_get_field_30.cpp",
-        "src/zone_cursor_controller_set_bounds.cpp",
-        "src/zone_cursor_controller_is_active.cpp",
+        "src/zone/zone_cursor_controller_set_field_2c.cpp",
+        "src/zone/zone_cursor_controller_set_field_30.cpp",
+        "src/zone/zone_cursor_controller_get_field_30.cpp",
+        "src/zone/zone_cursor_controller_set_bounds.cpp",
+        "src/zone/zone_cursor_controller_is_active.cpp",
         "-o", "/tmp/zone_cursor_controller_test"
     ]
     res = subprocess.run(cmd, capture_output=True, text=True)

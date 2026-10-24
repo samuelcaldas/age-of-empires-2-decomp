@@ -42,7 +42,7 @@ def zone_set_ranges_test_binary(tmp_path_factory):
 
     binary = fixture_dir / "zone-set-ranges-test"
     sources = [
-        "src/zone_set_table_item_ranges.cpp",
+        "src/zone/zone_set_table_item_ranges.cpp",
         "tests/native/zone_set_table_item_ranges_test.cpp",
     ]
     subprocess.run(

@@ -29,7 +29,7 @@ def resize_test_binary(tmp_path_factory):
         pytest.skip(f"native 32-bit g++ unavailable: {probe.stderr.strip()}")
     binary = build_dir / "zone-dispatch-resize-test"
     subprocess.run(
-        [compiler, "-m32", "-fno-builtin", "-Iinclude", "src/zone_dispatch.cpp",
+        [compiler, "-m32", "-fno-builtin", "-Iinclude", "src/zone/zone_dispatch.cpp",
          "tests/native/zone_dispatch_fixture_support.cpp",
          "tests/native/zone_dispatch_resize_test.cpp", "-o", str(binary)],
         cwd=PROJECT_ROOT,

@@ -277,7 +277,7 @@ def test_verifier_rejects_short_e_shentsize():
 import sys, struct
 from tools import verify_exact_linked
 
-with open("build/SLES-50282/src/unit_action_build_7f890.o", "rb") as f:
+with open("build/SLES-50282/src/unit/unit_action_build_7f890.o", "rb") as f:
     data = bytearray(f.read())
 
 struct.pack_into('<H', data, 0x2e, 32)
@@ -303,7 +303,7 @@ def test_verifier_rejects_invalid_symtab_sh_link():
 import sys, struct
 from tools import verify_exact_linked
 
-with open("build/SLES-50282/src/unit_action_build_7f890.o", "rb") as f:
+with open("build/SLES-50282/src/unit/unit_action_build_7f890.o", "rb") as f:
     data = bytearray(f.read())
 
 e_shoff = struct.unpack_from('<I', data, 0x20)[0]

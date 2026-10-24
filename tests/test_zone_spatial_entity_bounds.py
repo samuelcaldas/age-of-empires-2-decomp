@@ -6,8 +6,8 @@ def test_zone_spatial_entity_bounds_native():
         "g++", "-m32", "-O2",
         "-Iinclude",
         "tests/native/zone_spatial_entity_bounds_test.cpp",
-        "src/zone_spatial_entity_update_velocity_threshold.cpp",
-        "src/zone_spatial_entity_dispatch_registration.cpp",
+        "src/zone/zone_spatial_entity_update_velocity_threshold.cpp",
+        "src/zone/zone_spatial_entity_dispatch_registration.cpp",
         "-o", "/tmp/zone_spatial_entity_bounds_test"
     ]
     res = subprocess.run(cmd, capture_output=True, text=True)

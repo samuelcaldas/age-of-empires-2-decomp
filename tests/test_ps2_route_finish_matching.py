@@ -9,7 +9,7 @@ from elftools.elf.elffile import ELFFile
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 ORIGINAL_PATH = PROJECT_ROOT / "orig/SLES-50282/AOK.ELF"
-OBJECT_PATH = PROJECT_ROOT / "build/SLES-50282/src/trade_action_route_finish.o"
+OBJECT_PATH = PROJECT_ROOT / "build/SLES-50282/src/trade/trade_action_route_finish.o"
 FUNCTIONS = {
     "func_001508F0": (0x1508F0, 0x2C),
     "func_00150920": (0x150920, 0x3A0),

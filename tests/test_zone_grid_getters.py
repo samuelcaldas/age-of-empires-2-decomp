@@ -42,8 +42,8 @@ def zone_grid_test_binary(tmp_path_factory):
 
     binary = fixture_dir / "zone-grid-getters-test"
     sources = [
-        "src/zone_grid_getters.cpp",
-        "src/zone_deserialize_grid.cpp",
+        "src/zone/zone_grid_getters.cpp",
+        "src/zone/zone_deserialize_grid.cpp",
         "tests/native/zone_grid_getters_test.cpp",
     ]
     subprocess.run(

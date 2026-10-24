@@ -35,7 +35,7 @@ def stream_test(tmp_path_factory):
         [
             compiler, "-m32", "-Wno-invalid-offsetof",
             "-Iinclude",
-            "src/unit_action_stream.cpp",
+            "src/unit/unit_action_stream.cpp",
             "tests/native/unit_action_stream_test.cpp",
             "-o", str(binary)
         ],

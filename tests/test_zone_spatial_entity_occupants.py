@@ -6,8 +6,8 @@ def test_zone_spatial_entity_occupants_native():
         "g++", "-m32", "-O2",
         "-Iinclude",
         "tests/native/zone_spatial_entity_occupants_test.cpp",
-        "src/zone_spatial_entity_resolve_world_node.cpp",
-        "src/zone_spatial_entity_query_spatial_cell.cpp",
+        "src/zone/zone_spatial_entity_resolve_world_node.cpp",
+        "src/zone/zone_spatial_entity_query_spatial_cell.cpp",
         "-o", "/tmp/zone_spatial_entity_occupants_test"
     ]
     res = subprocess.run(cmd, capture_output=True, text=True)

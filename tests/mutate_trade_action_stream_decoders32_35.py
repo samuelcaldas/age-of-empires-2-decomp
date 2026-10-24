@@ -6,10 +6,10 @@ import importlib.util
 from pathlib import Path
 
 HASHES = {
-    "src/trade_action_stream_decoders32.cpp": "98c91c3750b10bb13cb16b417f3d0ddb35bbc590629c0a7e363f81179e9a0611",
-    "src/trade_action_stream_decoders33.cpp": "8bb58652c60ce34a45931fd3afe6063ef7cff0fbe38f18d65f36e3818b40a3c6",
-    "src/trade_action_stream_decoders34.cpp": "04be99f729c47444fd29df85ec6463f20bdbc05c67f9541ccedae404ed55eaeb",
-    "src/trade_action_stream_decoders35.cpp": "b798aaf3cbe181012c5d217ccec130c368a0da6601f36f629287629ecdefefd2",
+    "src/trade/trade_action_stream_decoders32.cpp": "98c91c3750b10bb13cb16b417f3d0ddb35bbc590629c0a7e363f81179e9a0611",
+    "src/trade/trade_action_stream_decoders33.cpp": "8bb58652c60ce34a45931fd3afe6063ef7cff0fbe38f18d65f36e3818b40a3c6",
+    "src/trade/trade_action_stream_decoders34.cpp": "04be99f729c47444fd29df85ec6463f20bdbc05c67f9541ccedae404ed55eaeb",
+    "src/trade/trade_action_stream_decoders35.cpp": "b798aaf3cbe181012c5d217ccec130c368a0da6601f36f629287629ecdefefd2",
     "tests/test_trade_action_stream_decoders32.py": "7fcb70def2dd8c1998cd415cf520c5369f3ab7168135f1dc138f315e46f28b0c",
     "tests/test_trade_action_stream_decoders33.py": "9645ca25266d1bf203725d0a91b448d60a257e6d71367d6188073ae6a8f3007e",
     "tests/test_trade_action_stream_decoders34.py": "247997612e8f363b29241cd0bf95ebdacbc509c5af00a92d9300573f4fc5617e",

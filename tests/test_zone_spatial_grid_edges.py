@@ -6,10 +6,10 @@ def test_zone_spatial_grid_edges_native():
         "g++", "-m32", "-O2",
         "-Iinclude",
         "tests/native/zone_spatial_grid_edges_test.cpp",
-        "src/zone_spatial_grid_dispatch_edge_north.cpp",
-        "src/zone_spatial_grid_dispatch_edge_east.cpp",
-        "src/zone_spatial_grid_dispatch_edge_south.cpp",
-        "src/zone_spatial_grid_dispatch_edge_west.cpp",
+        "src/zone/zone_spatial_grid_dispatch_edge_north.cpp",
+        "src/zone/zone_spatial_grid_dispatch_edge_east.cpp",
+        "src/zone/zone_spatial_grid_dispatch_edge_south.cpp",
+        "src/zone/zone_spatial_grid_dispatch_edge_west.cpp",
         "-o", "/tmp/zone_spatial_grid_edges_test"
     ]
     res = subprocess.run(cmd, capture_output=True, text=True)

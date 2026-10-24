@@ -30,7 +30,7 @@ def helper_217A10_test(tmp_path_factory):
     binary = fixture / "helper-217A10-test"
     subprocess.run(
         [compiler, "-m32", "-fno-builtin", "-Iinclude",
-         "src/trade_action_helper_217A10.cpp",
+         "src/trade/trade_action_helper_217A10.cpp",
          "tests/native/trade_action_helper_217A10_test.cpp",
          "-o", str(binary)],
         cwd=PROJECT_ROOT, check=True, capture_output=True, text=True,

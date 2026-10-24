@@ -23,9 +23,9 @@ def test_zone_spatial_grid_block52_native():
     cmd = [
         "g++", "-m32", "-O2", "-Iinclude",
         "tests/native/zone_spatial_grid_block52_test.cpp",
-        "src/zone_spatial_grid_query_raycast_line.cpp",
-        "src/zone_spatial_grid_test_raycast_cell.cpp",
-        "src/zone_spatial_grid_record_raycast_hit.cpp",
+        "src/zone/zone_spatial_grid_query_raycast_line.cpp",
+        "src/zone/zone_spatial_grid_test_raycast_cell.cpp",
+        "src/zone/zone_spatial_grid_record_raycast_hit.cpp",
         "-o", "tests/native/zone_spatial_grid_block52_test"
     ]
     compile_res = subprocess.run(cmd, capture_output=True, text=True)

@@ -42,7 +42,7 @@ def zone_filter_items_test_binary(tmp_path_factory):
 
     binary = fixture_dir / "zone-filter-items-test"
     sources = [
-        "src/zone_filter_cell_items.cpp",
+        "src/zone/zone_filter_cell_items.cpp",
         "tests/native/zone_filter_cell_items_test.cpp",
     ]
     subprocess.run(

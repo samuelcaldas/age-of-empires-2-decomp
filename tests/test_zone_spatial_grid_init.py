@@ -6,9 +6,9 @@ def test_zone_spatial_grid_init_native():
         "g++", "-m32", "-O2",
         "-Iinclude",
         "tests/native/zone_spatial_grid_init_test.cpp",
-        "src/zone_spatial_entity_stub_1e3830.cpp",
-        "src/zone_spatial_entity_identity_getter.cpp",
-        "src/zone_spatial_grid_init_node_buffer.cpp",
+        "src/zone/zone_spatial_entity_stub_1e3830.cpp",
+        "src/zone/zone_spatial_entity_identity_getter.cpp",
+        "src/zone/zone_spatial_grid_init_node_buffer.cpp",
         "-o", "/tmp/zone_spatial_grid_init_test"
     ]
     res = subprocess.run(cmd, capture_output=True, text=True)

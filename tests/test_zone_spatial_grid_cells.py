@@ -6,8 +6,8 @@ def test_zone_spatial_grid_cells_native():
         "g++", "-m32", "-O2",
         "-Iinclude",
         "tests/native/zone_spatial_grid_cells_test.cpp",
-        "src/zone_spatial_grid_reset_cells.cpp",
-        "src/zone_spatial_grid_get_cell.cpp",
+        "src/zone/zone_spatial_grid_reset_cells.cpp",
+        "src/zone/zone_spatial_grid_get_cell.cpp",
         "-o", "/tmp/zone_spatial_grid_cells_test"
     ]
     res = subprocess.run(cmd, capture_output=True, text=True)

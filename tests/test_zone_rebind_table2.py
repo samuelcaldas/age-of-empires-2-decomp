@@ -43,7 +43,7 @@ def zone_rebind_table2_test_binary(tmp_path_factory):
 
     binary = fixture_dir / "zone-rebind2-test"
     sources = [
-        "src/zone_rebind_table2.cpp",
+        "src/zone/zone_rebind_table2.cpp",
         "tests/native/zone_rebind_table2_test.cpp",
     ]
     subprocess.run(

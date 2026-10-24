@@ -4,7 +4,7 @@ from pathlib import Path
 
 def test_zone_spatial_view_transform_point_native():
     repo_root = Path(__file__).resolve().parent.parent
-    src = repo_root / "src" / "zone_spatial_view_transform_point.cpp"
+    src = repo_root / "src/zone" / "zone_spatial_view_transform_point.cpp"
     test_src = repo_root / "tests" / "native" / "zone_spatial_view_transform_point_test.cpp"
     bin_path = repo_root / "build" / "zone_spatial_view_transform_point_test"
     bin_path.parent.mkdir(parents=True, exist_ok=True)

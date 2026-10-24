@@ -6,9 +6,9 @@ def test_zone_spatial_entity_motion_native():
         "g++", "-m32", "-O2",
         "-Iinclude",
         "tests/native/zone_spatial_entity_motion_test.cpp",
-        "src/zone_spatial_entity_has_positive_threshold.cpp",
-        "src/zone_spatial_entity_clear_velocity_threshold.cpp",
-        "src/zone_spatial_entity_stop.cpp",
+        "src/zone/zone_spatial_entity_has_positive_threshold.cpp",
+        "src/zone/zone_spatial_entity_clear_velocity_threshold.cpp",
+        "src/zone/zone_spatial_entity_stop.cpp",
         "-o", "/tmp/zone_spatial_entity_motion_test"
     ]
     res = subprocess.run(cmd, capture_output=True, text=True)

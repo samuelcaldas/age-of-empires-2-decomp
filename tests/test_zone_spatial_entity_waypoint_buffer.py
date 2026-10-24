@@ -6,8 +6,8 @@ def test_zone_spatial_entity_waypoint_buffer_native():
         "g++", "-m32", "-O2",
         "-Iinclude",
         "tests/native/zone_spatial_entity_waypoint_buffer_test.cpp",
-        "src/zone_spatial_entity_alloc_waypoint_buffer.cpp",
-        "src/zone_spatial_entity_free_waypoint_buffer.cpp",
+        "src/zone/zone_spatial_entity_alloc_waypoint_buffer.cpp",
+        "src/zone/zone_spatial_entity_free_waypoint_buffer.cpp",
         "-o", "/tmp/zone_spatial_entity_waypoint_buffer_test"
     ]
     res = subprocess.run(cmd, capture_output=True, text=True)

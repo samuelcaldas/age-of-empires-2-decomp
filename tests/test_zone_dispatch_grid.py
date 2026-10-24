@@ -32,7 +32,7 @@ def grid_test_binary(tmp_path_factory):
         pytest.skip(f"native 32-bit g++ unavailable: {probe.stderr.strip()}")
     binary = build_dir / "zone-dispatch-grid-test"
     subprocess.run(
-        [compiler, "-m32", "-fno-builtin", "-Iinclude", "src/zone_dispatch_grid.cpp",
+        [compiler, "-m32", "-fno-builtin", "-Iinclude", "src/zone/zone_dispatch_grid.cpp",
          "tests/native/zone_dispatch_grid_test.cpp", "-o", str(binary)],
         cwd=PROJECT_ROOT,
         check=True,

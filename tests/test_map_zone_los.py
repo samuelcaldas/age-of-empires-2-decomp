@@ -34,7 +34,7 @@ def map_zone_los_test(tmp_path_factory):
         [
             compiler, "-m32", "-Wno-invalid-offsetof",
             "-Iinclude",
-            "src/map_zone_los.cpp",
+            "src/zone/map_zone_los.cpp",
             "tests/native/map_zone_los_test.cpp",
             "-o", str(binary)
         ],

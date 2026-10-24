@@ -36,7 +36,7 @@ def build_notify_workers_test(tmp_path_factory):
         [
             compiler, "-m32", "-Wno-invalid-offsetof",
             "-Iinclude",
-            "src/unit_action_build_notify_workers.cpp",
+            "src/unit/unit_action_build_notify_workers.cpp",
             "tests/native/unit_action_build_notify_workers_test.cpp",
             "-o", str(binary)
         ],

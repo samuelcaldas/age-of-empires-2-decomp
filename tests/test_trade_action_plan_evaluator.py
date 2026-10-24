@@ -21,7 +21,7 @@ def plan_evaluator_binary(tmp_path_factory):
             "-m32",
             "-fno-builtin",
             "-Iinclude",
-            "src/trade_action_plan_evaluator.cpp",
+            "src/trade/trade_action_plan_evaluator.cpp",
             "tests/native/trade_action_plan_evaluator_test.cpp",
             "-o",
             str(binary),

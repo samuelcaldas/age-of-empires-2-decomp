@@ -45,7 +45,7 @@ def zone_blend_test_binary(tmp_path_factory):
 
     binary = fixture_dir / "zone-blend-terrain-test"
     sources = [
-        "src/zone_blend_terrain.cpp",
+        "src/zone/zone_blend_terrain.cpp",
         "tests/native/zone_blend_terrain_test.cpp",
     ]
     subprocess.run(

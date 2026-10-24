@@ -42,7 +42,7 @@ def zone_paint_line_test_binary(tmp_path_factory):
 
     binary = fixture_dir / "zone-paint-line-test"
     sources = [
-        "src/zone_paint_line.cpp",
+        "src/zone/zone_paint_line.cpp",
         "tests/native/zone_paint_line_test.cpp",
     ]
     subprocess.run(

@@ -6,7 +6,7 @@ def test_zone_spatial_view_serialize_native():
         "g++", "-m32", "-O2",
         "-Iinclude",
         "tests/native/zone_spatial_view_serialize_test.cpp",
-        "src/zone_spatial_view_serialize.cpp",
+        "src/zone/zone_spatial_view_serialize.cpp",
         "-o", "/tmp/zone_spatial_view_serialize_test"
     ]
     res = subprocess.run(cmd, capture_output=True, text=True)

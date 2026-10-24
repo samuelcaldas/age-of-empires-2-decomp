@@ -4,7 +4,7 @@ from pathlib import Path
 
 def test_zone_spatial_view_calc_deflection_native():
     repo_root = Path(__file__).resolve().parent.parent
-    src = repo_root / "src" / "zone_spatial_view_calc_deflection.cpp"
+    src = repo_root / "src/zone" / "zone_spatial_view_calc_deflection.cpp"
     test_src = repo_root / "tests" / "native" / "zone_spatial_view_calc_deflection_test.cpp"
     bin_path = repo_root / "build" / "zone_spatial_view_calc_deflection_test"
     bin_path.parent.mkdir(parents=True, exist_ok=True)

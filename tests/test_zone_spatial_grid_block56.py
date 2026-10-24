@@ -23,9 +23,9 @@ def test_zone_spatial_grid_block56_native():
     cmd = [
         "g++", "-m32", "-O2", "-Iinclude",
         "tests/native/zone_spatial_grid_block56_test.cpp",
-        "src/zone_spatial_grid_scan_cell_nodes.cpp",
-        "src/zone_spatial_grid_traverse_quadtree_path.cpp",
-        "src/zone_spatial_grid_node_pool_init.cpp",
+        "src/zone/zone_spatial_grid_scan_cell_nodes.cpp",
+        "src/zone/zone_spatial_grid_traverse_quadtree_path.cpp",
+        "src/zone/zone_spatial_grid_node_pool_init.cpp",
         "-o", "tests/native/zone_spatial_grid_block56_test"
     ]
     compile_res = subprocess.run(cmd, capture_output=True, text=True)

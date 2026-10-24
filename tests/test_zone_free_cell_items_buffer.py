@@ -41,7 +41,7 @@ def zone_free_buf_test_binary(tmp_path_factory):
 
     binary = fixture_dir / "zone-free-buf-test"
     sources = [
-        "src/zone_free_cell_items_buffer.cpp",
+        "src/zone/zone_free_cell_items_buffer.cpp",
         "tests/native/zone_free_cell_items_buffer_test.cpp",
     ]
     subprocess.run(

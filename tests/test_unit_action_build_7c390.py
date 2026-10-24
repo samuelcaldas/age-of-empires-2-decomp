@@ -33,7 +33,7 @@ def build_7c390_test(tmp_path_factory):
         [
             compiler, "-m32", "-Wno-invalid-offsetof",
             "-Iinclude",
-            "src/unit_action_build_7c390.cpp",
+            "src/unit/unit_action_build_7c390.cpp",
             "tests/native/unit_action_build_7c390_test.cpp",
             "-o", str(binary)
         ],

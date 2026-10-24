@@ -29,7 +29,7 @@ def build_78660_test(tmp_path_factory):
         [
             compiler, "-m32", "-Wno-invalid-offsetof",
             "-Iinclude",
-            "src/unit_action_build_78660.cpp",
+            "src/unit/unit_action_build_78660.cpp",
             "tests/native/unit_action_build_78660_test.cpp",
             "-o", str(binary)
         ],

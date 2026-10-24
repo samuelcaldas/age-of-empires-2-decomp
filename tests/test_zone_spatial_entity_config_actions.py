@@ -6,10 +6,10 @@ def test_zone_spatial_entity_config_actions_native():
         "g++", "-m32", "-O2",
         "-Iinclude",
         "tests/native/zone_spatial_entity_config_actions_test.cpp",
-        "src/zone_spatial_entity_check_motion_flag.cpp",
-        "src/zone_spatial_entity_dispatch_config_action_ac.cpp",
-        "src/zone_spatial_entity_dispatch_config_action_a8.cpp",
-        "src/zone_spatial_entity_dispatch_config_action_10.cpp",
+        "src/zone/zone_spatial_entity_check_motion_flag.cpp",
+        "src/zone/zone_spatial_entity_dispatch_config_action_ac.cpp",
+        "src/zone/zone_spatial_entity_dispatch_config_action_a8.cpp",
+        "src/zone/zone_spatial_entity_dispatch_config_action_10.cpp",
         "-o", "/tmp/zone_spatial_entity_config_actions_test"
     ]
     res = subprocess.run(cmd, capture_output=True, text=True)

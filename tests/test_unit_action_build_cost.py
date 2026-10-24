@@ -35,7 +35,7 @@ def build_cost_test(tmp_path_factory):
         [
             compiler, "-m32", "-Wno-invalid-offsetof",
             "-Iinclude",
-            "src/unit_action_build_cost.cpp",
+            "src/unit/unit_action_build_cost.cpp",
             "tests/native/unit_action_build_cost_test.cpp",
             "-o", str(binary)
         ],

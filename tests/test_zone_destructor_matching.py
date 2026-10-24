@@ -9,7 +9,7 @@ from elftools.elf.elffile import ELFFile
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
-SOURCE_PATH = PROJECT_ROOT / "src/zone_destructor.cpp"
+SOURCE_PATH = PROJECT_ROOT / "src/zone/zone_destructor.cpp"
 ORIGINAL_PATH = PROJECT_ROOT / "orig/SLES-50282/AOK.ELF"
 COMPILER_PATH = PROJECT_ROOT / "compilers/PS2/mwcc-2.3.1.01/mwccps2.exe"
 WRAPPER_PATH = PROJECT_ROOT / "build/tools/wibo"

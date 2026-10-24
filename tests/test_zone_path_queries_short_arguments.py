@@ -30,7 +30,7 @@ def compile_regression(compiler, directory):
     binary = directory / "zone-path-queries-short-arguments"
     command = [compiler, "-m32", "-ffunction-sections", "-fdata-sections",
                "-Wl,--gc-sections", "-fno-builtin", "-Iinclude",
-               "src/zone_path_queries.cpp",
+               "src/zone/zone_path_queries.cpp",
                "tests/native/zone_path_queries_short_arguments_test.cpp",
                "-o", str(binary)]
     subprocess.run(command, cwd=PROJECT_ROOT, check=True,

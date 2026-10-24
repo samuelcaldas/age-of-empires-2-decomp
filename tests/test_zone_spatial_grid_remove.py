@@ -8,7 +8,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def test_zone_spatial_grid_remove_no_asm():
     """Ensure zero inline assembly or raw opcodes in implementation."""
-    path = ROOT / "src/zone_spatial_grid_remove.cpp"
+    path = ROOT / "src/zone/zone_spatial_grid_remove.cpp"
     assert path.is_file(), f"Missing implementation file: {path}"
     content = path.read_text()
     assert "__asm__" not in content, "Found embedded assembly"
@@ -22,7 +22,7 @@ def test_zone_spatial_grid_remove_native(tmp_path):
     cmd = [
         "g++", "-m32", "-std=c++98", "-O2", "-Iinclude",
         "tests/native/zone_spatial_grid_remove_test.cpp",
-        "src/zone_spatial_grid_remove.cpp",
+        "src/zone/zone_spatial_grid_remove.cpp",
         "-o", str(executable)
     ]
     compile_res = subprocess.run(cmd, capture_output=True, text=True, cwd=ROOT)

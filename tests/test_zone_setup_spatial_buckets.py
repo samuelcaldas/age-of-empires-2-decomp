@@ -41,7 +41,7 @@ def zone_setup_buckets_test_binary(tmp_path_factory):
 
     binary = fixture_dir / "zone-setup-buckets-test"
     sources = [
-        "src/zone_setup_spatial_buckets.cpp",
+        "src/zone/zone_setup_spatial_buckets.cpp",
         "tests/native/zone_setup_spatial_buckets_test.cpp",
     ]
     subprocess.run(

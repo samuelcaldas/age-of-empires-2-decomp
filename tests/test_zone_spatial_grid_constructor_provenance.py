@@ -14,7 +14,7 @@ from scripts.verify_zone_spatial_grid_constructor import verify
 
 
 ROOT = Path(__file__).resolve().parents[1]
-SOURCE = ROOT / "build/SLES-50282/src/zone_spatial_grid_constructor.o"
+SOURCE = ROOT / "build/SLES-50282/src/zone/zone_spatial_grid_constructor.o"
 ORIGINAL = ROOT / "orig/SLES-50282/AOK.ELF"
 
 

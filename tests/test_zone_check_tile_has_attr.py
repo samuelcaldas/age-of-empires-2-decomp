@@ -3,7 +3,7 @@ from pathlib import Path
 
 def test_zone_check_tile_has_attr_native():
     repo_root = Path(__file__).resolve().parent.parent
-    src_file = repo_root / "src" / "zone_check_tile_has_attr.cpp"
+    src_file = repo_root / "src/zone" / "zone_check_tile_has_attr.cpp"
     test_file = repo_root / "tests" / "native" / "zone_check_tile_has_attr_test.cpp"
     bin_file = repo_root / "build" / "native_zone_check_tile_has_attr_test"
 

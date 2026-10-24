@@ -6,7 +6,7 @@ import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
 HARNESS_SRC = ROOT / "tests/native/zone_spatial_grid_unbind_test.cpp"
-IMPL_SRC = ROOT / "src/zone_spatial_grid_unbind.cpp"
+IMPL_SRC = ROOT / "src/zone/zone_spatial_grid_unbind.cpp"
 
 
 @pytest.fixture(scope="module")

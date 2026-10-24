@@ -35,7 +35,7 @@ def build_progress_test(tmp_path_factory):
         [
             compiler, "-m32", "-Wno-invalid-offsetof",
             "-Iinclude",
-            "src/unit_action_build_progress.cpp",
+            "src/unit/unit_action_build_progress.cpp",
             "tests/native/unit_action_build_progress_test.cpp",
             "-o", str(binary)
         ],

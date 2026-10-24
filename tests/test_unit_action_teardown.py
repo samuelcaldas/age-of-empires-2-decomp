@@ -35,7 +35,7 @@ def teardown_test(tmp_path_factory):
         [
             compiler, "-m32", "-Wno-invalid-offsetof",
             "-Iinclude",
-            "src/unit_action_teardown.cpp",
+            "src/unit/unit_action_teardown.cpp",
             "tests/native/unit_action_teardown_test.cpp",
             "-o", str(binary)
         ],

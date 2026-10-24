@@ -43,7 +43,7 @@ def zone_update_trans_test_binary(tmp_path_factory):
 
     binary = fixture_dir / "zone-update-trans-test"
     sources = [
-        "src/zone_update_tile_transitions.cpp",
+        "src/zone/zone_update_tile_transitions.cpp",
         "tests/native/zone_update_tile_transitions_test.cpp",
     ]
     subprocess.run(

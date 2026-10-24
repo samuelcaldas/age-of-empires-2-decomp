@@ -44,7 +44,7 @@ def zone_clean_objects_test_binary(tmp_path_factory):
 
     binary = fixture_dir / "zone-clean-obj-test"
     sources = [
-        "src/zone_clean_tile_objects.cpp",
+        "src/zone/zone_clean_tile_objects.cpp",
         "tests/native/zone_clean_tile_objects_test.cpp",
     ]
     subprocess.run(

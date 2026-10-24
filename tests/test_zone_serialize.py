@@ -42,7 +42,7 @@ def zone_serialize_test_binary(tmp_path_factory):
 
     binary = fixture_dir / "zone-serialize-test"
     sources = [
-        "src/zone_serialize.cpp",
+        "src/zone/zone_serialize.cpp",
         "tests/native/zone_serialize_test.cpp",
     ]
     subprocess.run(

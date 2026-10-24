@@ -6,10 +6,10 @@ def test_zone_spatial_entity_pos_vel_native():
         "g++", "-m32", "-O2",
         "-Iinclude",
         "tests/native/zone_spatial_entity_pos_vel_test.cpp",
-        "src/zone_spatial_entity_get_angular_velocity.cpp",
-        "src/zone_spatial_entity_get_vertical_velocity.cpp",
-        "src/zone_spatial_entity_get_angular_rate_z.cpp",
-        "src/zone_spatial_entity_set_position_vector.cpp",
+        "src/zone/zone_spatial_entity_get_angular_velocity.cpp",
+        "src/zone/zone_spatial_entity_get_vertical_velocity.cpp",
+        "src/zone/zone_spatial_entity_get_angular_rate_z.cpp",
+        "src/zone/zone_spatial_entity_set_position_vector.cpp",
         "-o", "/tmp/zone_spatial_entity_pos_vel_test"
     ]
     res = subprocess.run(cmd, capture_output=True, text=True)

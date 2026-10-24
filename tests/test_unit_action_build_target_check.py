@@ -37,7 +37,7 @@ def build_target_check_test(tmp_path_factory):
         [
             compiler, "-m32", "-Wno-invalid-offsetof",
             "-Iinclude",
-            "src/unit_action_build_target_check.cpp",
+            "src/unit/unit_action_build_target_check.cpp",
             "tests/native/unit_action_build_target_check_test.cpp",
             "-o", str(binary)
         ],

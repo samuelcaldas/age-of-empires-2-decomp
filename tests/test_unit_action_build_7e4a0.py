@@ -36,7 +36,7 @@ def build_7e4a0_test(tmp_path_factory):
             compiler, "-m32", "-Wno-invalid-offsetof",
             "-Iinclude",
             "-I.",
-            "src/unit_action_build_7e4a0.cpp",
+            "src/unit/unit_action_build_7e4a0.cpp",
             "tests/native/unit_action_build_7e4a0_test.cpp",
             "-o", str(binary)
         ],

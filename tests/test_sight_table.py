@@ -33,7 +33,7 @@ def sight_table_test(tmp_path_factory):
         [
             compiler, "-m32", "-Wno-invalid-offsetof",
             "-Iinclude",
-            "src/sight_table.cpp",
+            "src/zone/sight_table.cpp",
             "tests/native/sight_table_test.cpp",
             "-o", str(binary)
         ],

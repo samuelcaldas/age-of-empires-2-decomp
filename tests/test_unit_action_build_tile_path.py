@@ -37,7 +37,7 @@ def build_tile_path_test(tmp_path_factory):
         [
             compiler, "-m32", "-Wno-invalid-offsetof",
             "-Iinclude",
-            "src/unit_action_build_tile_path.cpp",
+            "src/unit/unit_action_build_tile_path.cpp",
             "tests/native/unit_action_build_tile_path_test.cpp",
             "-o", str(binary)
         ],

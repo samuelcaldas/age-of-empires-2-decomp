@@ -27,7 +27,7 @@ def getters6_test_binary(tmp_path_factory):
     binary = tmp_path_factory.mktemp("getters6") / "trade-action-getters6-test"
     subprocess.run(
         [compiler, "-fno-builtin", "-Iinclude",
-         "src/trade_action_getters6.cpp",
+         "src/trade/trade_action_getters6.cpp",
          "tests/native/trade_action_getters6_test.cpp",
          "-o", str(binary)],
         cwd=PROJECT_ROOT, check=True, capture_output=True, text=True,

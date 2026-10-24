@@ -6,8 +6,8 @@ def test_zone_spatial_entity_motion_target_native():
         "g++", "-m32", "-O2",
         "-Iinclude",
         "tests/native/zone_spatial_entity_motion_target_test.cpp",
-        "src/zone_spatial_entity_finalize_motion_step.cpp",
-        "src/zone_spatial_entity_get_velocity_vector.cpp",
+        "src/zone/zone_spatial_entity_finalize_motion_step.cpp",
+        "src/zone/zone_spatial_entity_get_velocity_vector.cpp",
         "-o", "/tmp/zone_spatial_entity_motion_target_test"
     ]
     res = subprocess.run(cmd, capture_output=True, text=True)

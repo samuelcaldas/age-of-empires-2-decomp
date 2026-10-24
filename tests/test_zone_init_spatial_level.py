@@ -42,7 +42,7 @@ def zone_init_level_test_binary(tmp_path_factory):
 
     binary = fixture_dir / "zone-init-level-test"
     sources = [
-        "src/zone_init_spatial_level.cpp",
+        "src/zone/zone_init_spatial_level.cpp",
         "tests/native/zone_init_spatial_level_test.cpp",
     ]
     subprocess.run(

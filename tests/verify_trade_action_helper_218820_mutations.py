@@ -9,7 +9,7 @@ from pathlib import Path
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
-SOURCE_PATH = PROJECT_ROOT / "src/trade_action_helper_218820.cpp"
+SOURCE_PATH = PROJECT_ROOT / "src/trade/trade_action_helper_218820.cpp"
 SOURCE_SHA256 = "97ba0194fba95fdff59333f365ecb7a67480d19f5ab574ec9c08baa243fc1369"
 CASE_COUNT = 19
 

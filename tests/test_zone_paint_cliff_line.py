@@ -45,7 +45,7 @@ def zone_paint_cliff_line_test_binary(tmp_path_factory):
 
     binary = fixture_dir / "zone-paint-cliff-line-test"
     sources = [
-        "src/zone_paint_cliff_line.cpp",
+        "src/zone/zone_paint_cliff_line.cpp",
         "tests/native/zone_paint_cliff_line_test.cpp",
     ]
     subprocess.run(

@@ -11,7 +11,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def test_zone_spatial_grid_reset_no_asm():
     """Verify that zone_spatial_grid_reset.cpp contains zero assembly code."""
-    source_path = ROOT / "src/zone_spatial_grid_reset.cpp"
+    source_path = ROOT / "src/zone/zone_spatial_grid_reset.cpp"
     assert source_path.is_file(), "Source file does not exist"
     content = source_path.read_text()
     assert "__asm__" not in content, "Inline assembly detected in source"
@@ -25,7 +25,7 @@ def test_zone_spatial_grid_reset_native(tmp_path):
     cmd = [
         "g++", "-m32", "-std=c++98", "-O2", "-Iinclude",
         "tests/native/zone_spatial_grid_reset_test.cpp",
-        "src/zone_spatial_grid_reset.cpp",
+        "src/zone/zone_spatial_grid_reset.cpp",
         "-o", str(executable)
     ]
     compile_res = subprocess.run(cmd, capture_output=True, text=True, cwd=ROOT)

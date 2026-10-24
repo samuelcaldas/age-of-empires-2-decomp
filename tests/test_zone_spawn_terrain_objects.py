@@ -43,7 +43,7 @@ def zone_spawn_objects_test_binary(tmp_path_factory):
 
     binary = fixture_dir / "zone-spawn-obj-test"
     sources = [
-        "src/zone_spawn_terrain_objects.cpp",
+        "src/zone/zone_spawn_terrain_objects.cpp",
         "tests/native/zone_spawn_terrain_objects_test.cpp",
     ]
     subprocess.run(

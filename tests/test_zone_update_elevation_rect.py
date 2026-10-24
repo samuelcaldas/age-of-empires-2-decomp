@@ -43,7 +43,7 @@ def zone_update_elev_test_binary(tmp_path_factory):
 
     binary = fixture_dir / "zone-update-elev-test"
     sources = [
-        "src/zone_update_elevation_rect.cpp",
+        "src/zone/zone_update_elevation_rect.cpp",
         "tests/native/zone_update_elevation_rect_test.cpp",
     ]
     subprocess.run(

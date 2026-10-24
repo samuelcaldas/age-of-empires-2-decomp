@@ -50,13 +50,13 @@ def zone_raster_test_binary(tmp_path_factory):
 
     binary = fixture_dir / "zone-raster-pipeline-test"
     sources = [
-        "src/zone_perimeter_point.cpp",
-        "src/zone_raster_serialize.cpp",
-        "src/zone_raster_deserialize.cpp",
-        "src/zone_rect_update.cpp",
-        "src/zone_raster_untag.cpp",
-        "src/zone_raster_trace.cpp",
-        "src/zone_raster_extent.cpp",
+        "src/zone/zone_perimeter_point.cpp",
+        "src/zone/zone_raster_serialize.cpp",
+        "src/zone/zone_raster_deserialize.cpp",
+        "src/zone/zone_rect_update.cpp",
+        "src/zone/zone_raster_untag.cpp",
+        "src/zone/zone_raster_trace.cpp",
+        "src/zone/zone_raster_extent.cpp",
         "tests/native/zone_perimeter_point_test.cpp",
         "tests/native/zone_raster_stream_test.cpp",
         "tests/native/zone_raster_spatial_test.cpp",

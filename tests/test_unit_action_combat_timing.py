@@ -34,7 +34,7 @@ def combat_timing_test(tmp_path_factory):
         [
             compiler, "-m32", "-Wno-invalid-offsetof",
             "-Iinclude",
-            "src/unit_action_combat_timing.cpp",
+            "src/unit/unit_action_combat_timing.cpp",
             "tests/native/unit_action_combat_timing_test.cpp",
             "-o", str(binary)
         ],

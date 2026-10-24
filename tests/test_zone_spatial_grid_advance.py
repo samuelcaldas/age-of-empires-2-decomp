@@ -7,7 +7,7 @@ import pytest
 
 
 ROOT = Path(__file__).resolve().parents[1]
-SOURCE = ROOT / "src/zone_spatial_grid_advance.cpp"
+SOURCE = ROOT / "src/zone/zone_spatial_grid_advance.cpp"
 MUTATIONS = (
     (
         "wrong_lookup_item",

@@ -43,7 +43,7 @@ def zone_insert_item_test_binary(tmp_path_factory):
 
     binary = fixture_dir / "zone-insert-item-test"
     sources = [
-        "src/zone_insert_spatial_item.cpp",
+        "src/zone/zone_insert_spatial_item.cpp",
         "tests/native/zone_insert_spatial_item_test.cpp",
     ]
     subprocess.run(

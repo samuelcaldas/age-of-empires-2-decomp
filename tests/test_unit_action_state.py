@@ -37,7 +37,7 @@ def state_test(tmp_path_factory):
         [
             compiler, "-m32", "-Wno-invalid-offsetof",
             "-Iinclude",
-            "src/unit_action_state.cpp",
+            "src/unit/unit_action_state.cpp",
             "tests/native/unit_action_state_test.cpp",
             "-o", str(binary)
         ],

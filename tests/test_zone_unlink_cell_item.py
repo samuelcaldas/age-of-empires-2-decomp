@@ -43,7 +43,7 @@ def zone_unlink_item_test_binary(tmp_path_factory):
 
     binary = fixture_dir / "zone-unlink-item-test"
     sources = [
-        "src/zone_unlink_cell_item.cpp",
+        "src/zone/zone_unlink_cell_item.cpp",
         "tests/native/zone_unlink_cell_item_test.cpp",
     ]
     subprocess.run(

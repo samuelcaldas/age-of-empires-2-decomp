@@ -41,7 +41,7 @@ def zone_reset_counters_test_binary(tmp_path_factory):
 
     binary = fixture_dir / "zone-reset-counters-test"
     sources = [
-        "src/zone_reset_bucket_counters.cpp",
+        "src/zone/zone_reset_bucket_counters.cpp",
         "tests/native/zone_reset_bucket_counters_test.cpp",
     ]
     subprocess.run(

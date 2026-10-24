@@ -34,7 +34,7 @@ def trade_action_stream_pool_test(tmp_path_factory):
         [
             compiler, "-m32", "-Wno-invalid-offsetof",
             "-Iinclude",
-            "src/trade_action_stream_pool.cpp",
+            "src/trade/trade_action_stream_pool.cpp",
             "tests/native/trade_action_stream_pool_test.cpp",
             "-o", str(binary)
         ],

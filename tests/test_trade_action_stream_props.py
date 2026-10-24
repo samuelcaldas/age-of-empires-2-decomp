@@ -34,7 +34,7 @@ def trade_action_stream_props_test(tmp_path_factory):
         [
             compiler, "-m32", "-Wno-invalid-offsetof",
             "-Iinclude",
-            "src/trade_action_stream_props.cpp",
+            "src/trade/trade_action_stream_props.cpp",
             "tests/native/trade_action_stream_props_test.cpp",
             "-o", str(binary)
         ],

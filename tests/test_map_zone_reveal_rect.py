@@ -34,7 +34,7 @@ def map_zone_reveal_rect_test(tmp_path_factory):
         [
             compiler, "-m32", "-Wno-invalid-offsetof",
             "-Iinclude",
-            "src/map_zone_reveal_rect.cpp",
+            "src/zone/map_zone_reveal_rect.cpp",
             "tests/native/map_zone_reveal_rect_test.cpp",
             "-o", str(binary)
         ],

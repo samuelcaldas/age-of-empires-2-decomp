@@ -6,7 +6,7 @@ def test_zone_spatial_view_yaw_native():
         "g++", "-m32", "-O2",
         "-Iinclude",
         "tests/native/zone_spatial_view_yaw_test.cpp",
-        "src/zone_spatial_view_yaw.cpp",
+        "src/zone/zone_spatial_view_yaw.cpp",
         "-o", "/tmp/zone_spatial_view_yaw_test",
         "-lm"
     ]

@@ -25,11 +25,11 @@ def test_zone_spatial_grid_block43_native():
     cmd = [
         "g++", "-m32", "-O2", "-Iinclude",
         "tests/native/zone_spatial_grid_block43_test.cpp",
-        "src/zone_spatial_grid_filter_items.cpp",
-        "src/zone_spatial_grid_get_instance.cpp",
-        "src/zone_spatial_grid_reset_query_state.cpp",
-        "src/zone_spatial_grid_release_or_cleanup.cpp",
-        "src/zone_spatial_grid_clear_tables.cpp",
+        "src/zone/zone_spatial_grid_filter_items.cpp",
+        "src/zone/zone_spatial_grid_get_instance.cpp",
+        "src/zone/zone_spatial_grid_reset_query_state.cpp",
+        "src/zone/zone_spatial_grid_release_or_cleanup.cpp",
+        "src/zone/zone_spatial_grid_clear_tables.cpp",
         "-o", "tests/native/zone_spatial_grid_block43_test"
     ]
     compile_res = subprocess.run(cmd, capture_output=True, text=True)

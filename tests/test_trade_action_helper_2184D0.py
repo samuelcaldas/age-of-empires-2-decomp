@@ -45,7 +45,7 @@ def helper_2184D0_test(tmp_path_factory):
     subprocess.run(
         [compiler, "-m32", "-fno-builtin", "-Iinclude",
          "-include", "tests/native/trade_action_helper_2184D0_break_fixture.h",
-         "src/trade_action_helper_2184D0.cpp",
+         "src/trade/trade_action_helper_2184D0.cpp",
          "tests/native/trade_action_helper_2184D0_support.cpp",
          "tests/native/trade_action_helper_2184D0_cases.cpp",
          "tests/native/trade_action_helper_2184D0_test.cpp",
@@ -80,7 +80,7 @@ def test_zero_step_trap_regression_rejects_mutations(
     """Require trap and state-gate mutants to fail at the expected signal."""
     compiler = shutil.which("g++")
     assert compiler is not None
-    source = PROJECT_ROOT / "src/trade_action_helper_2184D0.cpp"
+    source = PROJECT_ROOT / "src/trade/trade_action_helper_2184D0.cpp"
     original = source.read_text()
     guard = "    if (step == 0) {\n        __I_break(7);\n    }\n"
     if mutation == "wrong-break-code":

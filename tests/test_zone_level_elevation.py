@@ -45,7 +45,7 @@ def zone_level_test_binary(tmp_path_factory):
 
     binary = fixture_dir / "zone-level-elevation-test"
     sources = [
-        "src/zone_level_elevation.cpp",
+        "src/zone/zone_level_elevation.cpp",
         "tests/native/zone_level_elevation_test.cpp",
     ]
     subprocess.run(

@@ -53,7 +53,7 @@ def update_test(tmp_path_factory):
         [
             compiler, "-m32", "-Wno-invalid-offsetof",
             "-Iinclude",
-            "src/unit_action_update.cpp",
+            "src/unit/unit_action_update.cpp",
             "tests/native/unit_action_update_test.cpp",
             "tests/native/unit_action_update_test_cases.cpp",
             "tests/native/unit_action_update_test_support.cpp",

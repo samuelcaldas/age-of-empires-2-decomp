@@ -10,7 +10,7 @@ from elftools.elf.elffile import ELFFile
 
 ROOT = Path(__file__).resolve().parents[1]
 ORIGINAL = ROOT / "orig/SLES-50282/AOK.ELF"
-SOURCE = ROOT / "src/trade_action_stream_decoders82.cpp"
+SOURCE = ROOT / "src/trade/trade_action_stream_decoders82.cpp"
 COMPILER = ROOT / "compilers/PS2/mwcc-2.3.1.01/mwccps2.exe"
 WRAPPER = ROOT / "build/tools/wibo"
 LINKER = ROOT / "build/mips_binutils/mips-linux-gnu-ld"

@@ -42,7 +42,7 @@ def zone_map_generator_test_binary(tmp_path_factory):
 
     binary = fixture_dir / "zone-map-generator-test"
     sources = [
-        "src/zone_map_generator.cpp",
+        "src/zone/zone_map_generator.cpp",
         "tests/native/zone_map_generator_test.cpp",
     ]
     subprocess.run(

@@ -45,7 +45,7 @@ def zone_paint_elevation_test_binary(tmp_path_factory):
 
     binary = fixture_dir / "zone-paint-elevation-test"
     sources = [
-        "src/zone_paint_elevation.cpp",
+        "src/zone/zone_paint_elevation.cpp",
         "tests/native/zone_paint_elevation_test.cpp",
     ]
     subprocess.run(

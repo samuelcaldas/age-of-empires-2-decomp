@@ -1,8 +1,10 @@
+import pytest
 import os
 import subprocess
 import sys
 
 
+@pytest.mark.build
 def test_zone_spatial_grid_block58_build():
     """Verify that Block 58 objects configure and build cleanly."""
     for f in [".ninja_log", ".ninja_deps"]:

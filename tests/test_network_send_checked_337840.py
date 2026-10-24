@@ -11,7 +11,7 @@ def test_network_send_checked_337840_native(tmp_path):
     cmd = [
         "g++", "-m32", "-std=c++98", "-O2", "-Iinclude",
         "tests/native/network_send_checked_337840_test.cpp",
-        "src/network_send_checked_337840.cpp",
+        "src/network/network_send_checked_337840.cpp",
         "-o", str(executable)
     ]
     compile_res = subprocess.run(cmd, capture_output=True, text=True, cwd=ROOT)

@@ -12,7 +12,7 @@ def test_receiver_native_contract(tmp_path):
         pytest.skip("host g++ -m32 unavailable: " + probe.stderr)
     output = tmp_path / "receiver-test"
     result = subprocess.run(
-        ["g++", "-m32", "-std=c++98", "-Iinclude", "src/network_receiver_337B30.cpp",
+        ["g++", "-m32", "-std=c++98", "-Iinclude", "src/network/network_receiver_337B30.cpp",
          "tests/native/network_receiver_337B30_test.cpp", "-o", str(output)],
         cwd=ROOT, capture_output=True, text=True)
     assert result.returncode == 0, result.stdout + result.stderr

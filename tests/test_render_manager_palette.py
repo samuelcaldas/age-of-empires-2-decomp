@@ -36,7 +36,7 @@ def render_manager_palette_test(tmp_path_factory):
         [
             compiler, "-m32", "-Wno-invalid-offsetof",
             "-Iinclude",
-            "src/render_manager_palette.cpp",
+            "src/render/render_manager_palette.cpp",
             "tests/native/render_manager_palette_test.cpp",
             "-o", str(binary)
         ],

@@ -49,7 +49,7 @@ def render_manager_status_test(tmp_path_factory):
     compilation = subprocess.run(
         [
             compiler, "-m32", "-Iinclude",
-            "src/render_manager_status.cpp",
+            "src/render/render_manager_status.cpp",
             "tests/native/render_manager_status_test.cpp",
             "tests/native/render_manager_status_test_support.cpp",
             "tests/native/render_manager_status_selection_test.cpp",

@@ -9,7 +9,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tests"))
 import network_match_support as match
 
-SOURCE = ROOT / "src/network_session_request_338ce0.cpp"
+SOURCE = ROOT / "src/network/network_session_request_338ce0.cpp"
 NAME = "func_00338CE0"
 ADDRESS = 0x338CE0
 SIZE = 0x2BC

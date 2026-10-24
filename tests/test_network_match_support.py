@@ -88,7 +88,7 @@ def test_unpaired_high_relocation_fails_even_with_expected_count(tmp_path):
     if missing:
         pytest.skip("requires original ELF and PS2 tools; missing: " + ", ".join(missing))
     original = support.compile_object(
-        support.ROOT / "src/network_send_checked_337840.cpp", tmp_path)
+        support.ROOT / "src/network/network_send_checked_337840.cpp", tmp_path)
     with original.open("rb") as stream:
         elf = ELFFile(stream)
         lo_entries = [

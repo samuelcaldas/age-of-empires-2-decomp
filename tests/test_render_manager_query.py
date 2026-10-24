@@ -34,7 +34,7 @@ def render_manager_query_test(tmp_path_factory):
         [
             compiler, "-m32", "-Wno-invalid-offsetof",
             "-Iinclude",
-            "src/render_manager_query.cpp",
+            "src/render/render_manager_query.cpp",
             "tests/native/render_manager_query_test.cpp",
             "-o", str(binary)
         ],

@@ -40,7 +40,7 @@ def render_manager_palette_blend_test(tmp_path_factory):
     compilation = subprocess.run(
         [
             compiler, "-m32", "-Iinclude",
-            "src/render_manager_palette_blend.cpp",
+            "src/render/render_manager_palette_blend.cpp",
             "tests/native/render_manager_palette_blend_test.cpp",
             "-o", str(binary),
         ],

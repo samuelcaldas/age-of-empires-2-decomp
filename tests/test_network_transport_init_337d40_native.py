@@ -16,7 +16,7 @@ def test_network_transport_init_native(tmp_path, stage, success, negative):
     command = [
         "g++", "-m32", "-std=c++98", "-Iinclude",
         "tests/native/network_transport_init_337d40_test.cpp",
-        "src/network_transport_init_337d40.cpp", "-o", str(executable),
+        "src/network/network_transport_init_337d40.cpp", "-o", str(executable),
     ]
     compile_result = subprocess.run(command, cwd=ROOT, capture_output=True, text=True)
     assert compile_result.returncode == 0, compile_result.stderr

@@ -43,7 +43,7 @@ def compile_coords(output_directory):
     subprocess.run(
         [str(WRAPPER_PATH), str(COMPILER_PATH), "-O3", "-inline", "on",
          "-msext", "on", "-char", "signed", "-sym", "off", "-Iinclude",
-         "-lang=c++", "-c", "src/render_manager_coords.cpp", "-o", str(output_path)],
+         "-lang=c++", "-c", "src/render/render_manager_coords.cpp", "-o", str(output_path)],
         cwd=PROJECT_ROOT, capture_output=True, text=True, check=True,
     )
     return output_path

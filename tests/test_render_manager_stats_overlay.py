@@ -35,7 +35,7 @@ def render_manager_stats_overlay_test(tmp_path_factory):
         [
             compiler, "-m32", "-Wno-invalid-offsetof",
             "-Iinclude",
-            "src/render_manager_stats_overlay.cpp",
+            "src/render/render_manager_stats_overlay.cpp",
             "tests/native/render_manager_stats_overlay_test.cpp",
             "-o", str(binary)
         ],

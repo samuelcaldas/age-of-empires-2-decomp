@@ -36,7 +36,7 @@ def render_manager_command_test(tmp_path_factory):
         [
             compiler, "-m32", "-Wno-invalid-offsetof",
             "-Iinclude",
-            "src/render_manager_command.cpp",
+            "src/render/render_manager_command.cpp",
             "tests/native/render_manager_command_test.cpp",
             "-o", str(binary)
         ],

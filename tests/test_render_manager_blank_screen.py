@@ -36,7 +36,7 @@ def render_manager_blank_screen_test(tmp_path_factory):
         [
             compiler, "-m32", "-Wno-invalid-offsetof",
             "-Iinclude",
-            "src/render_manager_blank_screen.cpp",
+            "src/render/render_manager_blank_screen.cpp",
             "tests/native/render_manager_blank_screen_test.cpp",
             "-o", str(binary)
         ],

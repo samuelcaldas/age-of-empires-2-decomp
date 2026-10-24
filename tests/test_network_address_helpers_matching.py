@@ -23,7 +23,7 @@ def test_address_helper_matches_and_has_zero_alignment_padding():
     for source, symbol, address, size, relocations, padding, externals in CASES:
         result = subprocess.run(
             [sys.executable, str(ROOT / "tests/network_match_support.py"),
-             str(ROOT / "src" / source), symbol, hex(address), hex(size),
+             str(ROOT / "src/network" / source), symbol, hex(address), hex(size),
              "--expect-relocations", str(relocations),
              *(argument for external in externals for argument in ("--extern", external))],
             cwd=ROOT, capture_output=True, text=True,

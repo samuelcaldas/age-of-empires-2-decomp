@@ -36,7 +36,7 @@ def render_manager_idle_test(tmp_path_factory):
         [
             compiler, "-m32", "-Wno-invalid-offsetof",
             "-Iinclude",
-            "src/render_manager_idle.cpp",
+            "src/render/render_manager_idle.cpp",
             "tests/native/render_manager_idle_test.cpp",
             "-o", str(binary)
         ],

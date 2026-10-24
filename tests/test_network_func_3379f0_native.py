@@ -10,7 +10,7 @@ def test_network_func_3379f0_native(tmp_path):
     compile_result = subprocess.run(
         ["g++", "-m32", "-std=c++98", "-O2", "-Iinclude",
          "tests/native/network_func_3379f0_test.cpp",
-         "src/network_func_3379f0.cpp", "-o", str(executable)],
+         "src/network/network_func_3379f0.cpp", "-o", str(executable)],
         capture_output=True, text=True, cwd=ROOT,
     )
     assert compile_result.returncode == 0, compile_result.stderr

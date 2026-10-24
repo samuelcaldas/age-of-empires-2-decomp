@@ -38,7 +38,7 @@ def render_manager_input_translate_test(tmp_path_factory):
         [
             compiler, "-m32", "-Wno-invalid-offsetof",
             "-Iinclude",
-            "src/render_manager_input_translate.cpp",
+            "src/render/render_manager_input_translate.cpp",
             "tests/native/render_manager_input_translate_test.cpp",
             "-o", str(binary)
         ],

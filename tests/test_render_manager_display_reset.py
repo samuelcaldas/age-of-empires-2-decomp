@@ -40,7 +40,7 @@ def render_manager_display_reset_test(tmp_path_factory):
     compilation = subprocess.run(
         [
             compiler, "-m32", "-Iinclude",
-            "src/render_manager_display_reset.cpp",
+            "src/render/render_manager_display_reset.cpp",
             "tests/native/render_manager_display_reset_test.cpp",
             "-o", str(binary),
         ],

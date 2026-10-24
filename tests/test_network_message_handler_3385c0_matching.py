@@ -9,7 +9,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tests"))
 import network_match_support as match
 
-SOURCE = ROOT / "src/network_message_handler_3385c0.cpp"
+SOURCE = ROOT / "src/network/network_message_handler_3385c0.cpp"
 FUNCTION = "func_003385C0"
 ADDRESS = 0x3385C0
 SIZE = 940

@@ -10,7 +10,7 @@ def test_network_join_request_338fa0_native(tmp_path):
     result = subprocess.run(
         ["g++", "-m32", "-std=c++98", "-O2", "-Iinclude",
          "tests/native/network_join_request_338fa0_test.cpp",
-         "src/network_join_request_338fa0.cpp", "-o", str(executable)],
+         "src/network/network_join_request_338fa0.cpp", "-o", str(executable)],
         capture_output=True, text=True, cwd=ROOT,
     )
     assert result.returncode == 0, result.stderr

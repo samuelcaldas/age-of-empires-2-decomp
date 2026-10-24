@@ -39,7 +39,7 @@ def render_manager_present_test(tmp_path_factory):
         [
             compiler, "-m32", "-Wno-invalid-offsetof",
             "-Iinclude",
-            "src/render_manager_present.cpp",
+            "src/render/render_manager_present.cpp",
             "tests/native/render_manager_present_test.cpp",
             "-o", str(binary)
         ],

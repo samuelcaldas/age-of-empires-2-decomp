@@ -10,7 +10,7 @@ def test_network_buffer_enqueue_338470_native(tmp_path):
     command = [
         "g++", "-m32", "-std=c++98", "-O2", "-Iinclude",
         "tests/native/network_buffer_enqueue_338470_test.cpp",
-        "src/network_buffer_enqueue_338470.cpp",
+        "src/network/network_buffer_enqueue_338470.cpp",
         "-o", str(executable),
     ]
     result = subprocess.run(command, capture_output=True, text=True, cwd=ROOT)

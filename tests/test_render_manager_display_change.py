@@ -36,7 +36,7 @@ def render_manager_display_change_test(tmp_path_factory):
         [
             compiler, "-m32", "-Wno-invalid-offsetof",
             "-Iinclude",
-            "src/render_manager_display_change.cpp",
+            "src/render/render_manager_display_change.cpp",
             "tests/native/render_manager_display_change_test.cpp",
             "-o", str(binary)
         ],

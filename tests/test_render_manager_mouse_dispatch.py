@@ -36,7 +36,7 @@ def render_manager_mouse_dispatch_test(tmp_path_factory):
         [
             compiler, "-m32", "-Wno-invalid-offsetof",
             "-Iinclude",
-            "src/render_manager_mouse_dispatch.cpp",
+            "src/render/render_manager_mouse_dispatch.cpp",
             "tests/native/render_manager_mouse_dispatch_test.cpp",
             "-o", str(binary)
         ],

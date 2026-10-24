@@ -43,7 +43,7 @@ def render_manager_stream_test(tmp_path_factory):
         [
             compiler, "-m32", "-Wno-invalid-offsetof",
             "-Iinclude",
-            "src/render_manager_stream.cpp",
+            "src/render/render_manager_stream.cpp",
             "tests/native/render_manager_stream_test.cpp",
             "tests/native/render_manager_stream_fixture.cpp",
             "tests/native/render_manager_stream_virtual_fixture.cpp",

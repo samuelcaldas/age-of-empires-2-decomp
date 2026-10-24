@@ -26,7 +26,7 @@ def test_network_func_3379f0_matches_original_bytes(tmp_path):
     if missing:
         pytest.skip("requires original ELF and PS2 tools; missing: " + ", ".join(missing))
     original = support.verified_original_image()
-    output = support.compile_object(support.ROOT / "src/network_func_3379f0.cpp", tmp_path)
+    output = support.compile_object(support.ROOT / "src/network/network_func_3379f0.cpp", tmp_path)
     actual = support.relocated_function(output, "func_003379F0", 0x3379F0, 316, EXTERNAL_SYMBOLS, 32)
     expected = support.original_bytes(original, 0x3379F0, 316)
     support.assert_exact(actual, expected, 0x3379F0)

@@ -33,7 +33,7 @@ def render_manager_chat_init_test(tmp_path_factory):
         [
             compiler, "-m32", "-Wno-invalid-offsetof",
             "-Iinclude",
-            "src/render_manager_chat_init.cpp",
+            "src/render/render_manager_chat_init.cpp",
             "tests/native/render_manager_chat_init_test.cpp",
             "-o", str(binary)
         ],

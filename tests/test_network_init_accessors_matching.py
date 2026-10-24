@@ -12,11 +12,11 @@ ROOT = support.ROOT
 
 UNITS = (
     # source, function, address, size, relocations, externals, bytes after the function
-    ("src/network_init_3377d0.cpp", "func_003377D0", 0x3377D0, 0x50, 2,
+    ("src/network/network_init_3377d0.cpp", "func_003377D0", 0x3377D0, 0x50, 2,
      {"func_003379F0": 0x3379F0, "D_004E3568": 0x4E3568}, 0),
-    ("src/network_state_set_337820.cpp", "func_00337820", 0x337820, 8, 1,
+    ("src/network/network_state_set_337820.cpp", "func_00337820", 0x337820, 8, 1,
      {"D_004E3530": 0x4E3530}, 8),
-    ("src/network_state_get_337830.cpp", "func_00337830", 0x337830, 8, 1,
+    ("src/network/network_state_get_337830.cpp", "func_00337830", 0x337830, 8, 1,
      {"D_004E3530": 0x4E3530}, 8),
 )
 

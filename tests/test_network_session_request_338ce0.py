@@ -10,7 +10,7 @@ def test_network_session_request_338ce0_native(tmp_path):
     command = [
         "g++", "-m32", "-std=c++98", "-O2", "-Iinclude",
         "tests/native/network_session_request_338ce0_test.cpp",
-        "src/network_session_request_338ce0.cpp", "-o", str(executable),
+        "src/network/network_session_request_338ce0.cpp", "-o", str(executable),
     ]
     compilation = subprocess.run(command, cwd=ROOT, capture_output=True, text=True)
     assert compilation.returncode == 0, compilation.stderr

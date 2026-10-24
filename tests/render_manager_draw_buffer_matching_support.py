@@ -50,7 +50,7 @@ def compile_draw_buffer(output_directory):
     subprocess.run(
         [str(WRAPPER_PATH), str(COMPILER_PATH), "-O3", "-inline", "on",
          "-msext", "on", "-char", "signed", "-sym", "off", "-Iinclude",
-         "-lang=c++", "-sdatathreshold", "0", "-c", "src/render_manager_draw_buffer.cpp", "-o", str(output_path)],
+         "-lang=c++", "-sdatathreshold", "0", "-c", "src/render/render_manager_draw_buffer.cpp", "-o", str(output_path)],
         cwd=PROJECT_ROOT, capture_output=True, text=True, check=True,
     )
     return output_path

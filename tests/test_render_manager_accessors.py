@@ -37,7 +37,7 @@ def render_manager_accessors_test(tmp_path_factory):
         [
             compiler, "-m32", "-Wno-invalid-offsetof",
             "-Iinclude",
-            "src/render_manager_accessors.cpp",
+            "src/render/render_manager_accessors.cpp",
             "tests/native/render_manager_accessors_test.cpp",
             "-o", str(binary)
         ],

@@ -43,7 +43,7 @@ def test_receiver_extent_and_next_function_entry():
 def test_receiver_relocation_manifest(tmp_path):
     """Assert every emitted relocation's count and type for this function."""
     require_private_inputs()
-    obj = network_match_support.compile_object(ROOT / "src/network_receiver_337B30.cpp", tmp_path)
+    obj = network_match_support.compile_object(ROOT / "src/network/network_receiver_337B30.cpp", tmp_path)
     with obj.open("rb") as stream:
         elf = ELFFile(stream)
         symbols = elf.get_section_by_name(".symtab")
@@ -63,7 +63,7 @@ def test_receiver_matches_original():
     """Resolve all 54 compiler relocations, then compare every executable byte."""
     require_private_inputs()
     command = [sys.executable, "tests/network_match_support.py",
-               "src/network_receiver_337B30.cpp", "func_00337B30", "0x337B30", "0x20c",
+               "src/network/network_receiver_337B30.cpp", "func_00337B30", "0x337B30", "0x20c",
                "--expect-relocations", "54"]
     for name, address in EXTERNALS.items():
         command.extend(("--extern", f"{name}={address:#x}"))

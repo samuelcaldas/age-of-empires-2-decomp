@@ -40,7 +40,7 @@ def render_manager_device_test(tmp_path_factory):
         [
             compiler, "-m32", "-Wno-invalid-offsetof",
             "-Iinclude",
-            "src/render_manager_device.cpp",
+            "src/render/render_manager_device.cpp",
             "tests/native/render_manager_device_test.cpp",
             "tests/native/render_manager_device_virtual_fixture.cpp",
             "-o", str(binary)

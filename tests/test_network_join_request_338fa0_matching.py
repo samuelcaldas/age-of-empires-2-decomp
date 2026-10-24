@@ -9,7 +9,7 @@ import network_match_support as match
 
 
 ROOT = Path(__file__).resolve().parents[1]
-SOURCE = ROOT / "src/network_join_request_338fa0.cpp"
+SOURCE = ROOT / "src/network/network_join_request_338fa0.cpp"
 FUNCTION_NAME = "func_00338FA0"
 START_ADDRESS = 0x338FA0
 FUNCTION_SIZE = 0x12C

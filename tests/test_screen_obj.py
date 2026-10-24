@@ -33,7 +33,7 @@ def screen_obj_test(tmp_path_factory):
         [
             compiler, "-m32", "-Wno-invalid-offsetof",
             "-Iinclude",
-            "src/screen_obj.cpp",
+            "src/render/screen_obj.cpp",
             "tests/native/screen_obj_test.cpp",
             "-o", str(binary)
         ],

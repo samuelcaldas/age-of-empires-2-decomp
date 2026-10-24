@@ -24,7 +24,7 @@ def test_candidate_relocations_and_comparison(tmp_path):
     if missing:
         pytest.skip("private inputs missing: " + ", ".join(missing))
     image = verified_original_image()
-    path = compile_object("src/network_transport_init_337d40.cpp", tmp_path)
+    path = compile_object("src/network/network_transport_init_337d40.cpp", tmp_path)
     actual = relocated_function(path, "func_00337D40", 0x337D40, 920,
                                 EXTERNALS, RELOCATIONS)
     expected = original_bytes(image, 0x337D40, 920)
@@ -37,7 +37,7 @@ def test_candidate_relocations_and_comparison(tmp_path):
 if __name__ == "__main__":
     import sys
     from network_match_support import main
-    args = ["src/network_transport_init_337d40.cpp", "func_00337D40", "0x337D40", "920",
+    args = ["src/network/network_transport_init_337d40.cpp", "func_00337D40", "0x337D40", "920",
             "--expect-relocations", str(RELOCATIONS)]
     for name, address in EXTERNALS.items():
         args += ["--extern", f"{name}={address:#x}"]

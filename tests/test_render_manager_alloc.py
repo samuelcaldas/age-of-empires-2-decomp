@@ -37,7 +37,7 @@ def render_manager_alloc_test(tmp_path_factory):
         [
             compiler, "-m32", "-Wno-invalid-offsetof",
             "-Iinclude",
-            "src/render_manager_alloc.cpp",
+            "src/render/render_manager_alloc.cpp",
             "tests/native/render_manager_alloc_test.cpp",
             "-o", str(binary)
         ],

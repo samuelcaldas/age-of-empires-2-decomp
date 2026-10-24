@@ -6,8 +6,8 @@ import tempfile
 
 ROOT = Path(__file__).resolve().parents[1]
 SOURCES = [
-    "src/network_byte_swap_337520.cpp", "src/network_byte_swap_337560.cpp",
-    "src/network_byte_swap_337590.cpp", "src/network_byte_swap_3375d0.cpp",
+    "src/network/network_byte_swap_337520.cpp", "src/network/network_byte_swap_337560.cpp",
+    "src/network/network_byte_swap_337590.cpp", "src/network/network_byte_swap_3375d0.cpp",
     "tests/native/network_address_helpers_test.cpp",
 ]
 

@@ -11,7 +11,7 @@ def test_network_message_handler_native(tmp_path):
     compile_result = subprocess.run(
         ["g++", "-m32", "-std=c++98", "-Iinclude",
          "tests/native/network_message_handler_3385c0_test.cpp",
-         "src/network_message_handler_3385c0.cpp", "-o", str(executable)],
+         "src/network/network_message_handler_3385c0.cpp", "-o", str(executable)],
         cwd=ROOT, capture_output=True, text=True,
     )
     assert compile_result.returncode == 0, compile_result.stdout + compile_result.stderr

@@ -11,7 +11,7 @@ ROOT = Path(__file__).resolve().parents[1]
 ORIGINAL = ROOT / "orig/SLES-50282/AOK.ELF"
 COMPILER = ROOT / "compilers/PS2/mwcc-2.3.1.01/mwccps2.exe"
 WRAPPER = ROOT / "build/tools/wibo"
-SOURCE = ROOT / "src/network_utf16_length_3394b0.cpp"
+SOURCE = ROOT / "src/network/network_utf16_length_3394b0.cpp"
 START, SIZE = 0x3394B0, 0x28
 SHA1 = "f478e19f2059d52899b691483ef5c7522e30e17c"
 

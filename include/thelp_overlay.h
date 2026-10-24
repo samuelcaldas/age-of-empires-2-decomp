@@ -1,0 +1,132 @@
+#ifndef THELP_OVERLAY_H
+#define THELP_OVERLAY_H
+
+#include "common.h"
+
+#define THELP_DATA_WORD_COUNT 80
+#define THELP_DATA_BYTE_SIZE  320
+
+extern const unsigned int thelp_data[THELP_DATA_WORD_COUNT];
+
+/* THELP_CD.BIN Overlay Function Prototypes */
+void *thelp_func_01F68000(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F690CC(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F69414(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F6947C(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F69780(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F69874(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F69938(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F69A20(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F69B9C(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F69F24(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F6A1EC(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F6A318(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F6A46C(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F6B1C4(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F6CAA8(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F6E18C(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F6E318(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F6E538(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F6EA58(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F6F1C4(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F6F258(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F6F2F8(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F6F308(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F6F368(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F6F3C8(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F6F52C(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F6F6E4(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F6F834(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F6F924(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F6FA18(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F6FA54(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F6FB48(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F6FC70(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F6FD54(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F6FDA4(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F6FE20(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F70420(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F70A3C(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F70CC4(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F70F54(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F719DC(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F71BB8(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F72414(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F72B4C(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F72E04(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F72F74(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F73438(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F73700(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F73A2C(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F73C0C(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F74154(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F741E8(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F7435C(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F74530(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F74600(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F7466C(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F74818(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F7487C(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F74988(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F74BF4(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F74C3C(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F74C70(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F74DC0(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F75188(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F751B0(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F7520C(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F7527C(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F753A0(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F755C0(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F7561C(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F75728(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F757B4(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F75814(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F7586C(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F758A8(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F7595C(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F759B4(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F75ED8(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F76144(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F76B58(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F76CF8(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F7714C(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F771E4(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F77628(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F7777C(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F77890(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F77970(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F77B20(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F77B7C(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F77C78(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F77D00(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F77DF8(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F77FA8(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F7800C(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F78108(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F78190(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F782F0(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F78384(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F783B0(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F7849C(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F785F8(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F786F8(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F78B4C(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F78BA0(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F78BF0(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F78C40(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F78C90(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F78CE4(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F78D44(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F78DA4(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F78DD0(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F78DF0(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F78E44(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F78E80(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F78EB0(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F790C0(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F792A4(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F79440(void *a0, void *a1, void *a2, void *a3);
+void *thelp_func_01F79450(void *a0, void *a1, void *a2, void *a3);
+
+#endif /* THELP_OVERLAY_H */

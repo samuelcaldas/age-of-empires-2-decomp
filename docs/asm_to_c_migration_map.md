@@ -53,7 +53,7 @@ pie title Distribuição de Funções em Assembly (Total: 1.906 funções)
 | **`src/kt_file.c`** | KCET Hardware (I/O VFS) | 1.677 | 50 | 5.760 B | 100% Matched |
 | **`src/dcomp_overlay.c`** | Overlay (Gerador RMS) | 10.169 | 71 | 40.128 B | Decompilado (C Puro + Testes Nativos) |
 | **`src/kt_libpad.c`** | KCET Hardware (DualShock) | 4.486 | 100 | 12.144 B | 100% Matched |
-| **`src/thelp_overlay.c`** | Overlay (Tech Tree) | 38.213 | 119 | 70.848 B | 100% Matched |
+| **`src/thelp_overlay.c`** | Overlay (Tech Tree) | 18.913 | 119 | 70.848 B | Decompilado (C Puro + Testes Nativos) |
 | **`src/smenu_overlay.c`** | Overlay (Setup/Menus) | 24.415 | 144 | 90.560 B | Decompilado (C Puro + Testes Nativos) |
 | **`src/kt_libcdvd_server.c`** | KCET Hardware (CD/DVD) | 5.614 | 150 | 14.104 B | Decompilado (C Puro + Testes Nativos) |
 | **`src/kt_mc_2.c`** | KCET Hardware (Memory Card)| 11.415 | 337 | 56.396 B | **INCOMPLETO** (Transpilação crua de registradores; requer C estruturado) |
@@ -95,10 +95,11 @@ Estes arquivos contêm o código carregado dinamicamente do CD pelo CodeWarrior 
 * **Testes**: `tests/test_dcomp_native.py` (execução comportamental nativa) e `tests/test_dcomp_matching.py` (compilação com `ee-gcc 2.9-991111 -O2 -G0`, validação de símbolos e exatidão bit-a-bit de `.rodata`).
 * **Prioridade**: Concluído.
 
-### 6. `src/thelp_overlay.c` (119 funções / 38.213 linhas)
+### 6. `src/thelp_overlay.c` (119 funções / 18.913 linhas) — *Decompilado (C Puro + Testes Nativos)*
 * **VRAM**: `0x01F68000`
-* **Descrição**: Navegador interativo da Árvore Tecnológica (*Tech Tree*) e janelas de ajuda em tempo real durante a partida.
-* **Complexidade**: Média-Alta. Lógica de UI de grafos de tecnologias, botões e renderização de ícones.
+* **Descrição**: Navegador interativo da Árvore Tecnológica (*Tech Tree*) e janelas de ajuda em tempo real durante a partida (`THELP_CD.BIN`). As 119 funções lógicas foram descompiladas de inline assembly para C puro estruturado com delay slots tratados, e a tabela de dados `.rodata` (320 bytes) foi extraída em `include/thelp_data.inc`.
+* **Header**: `include/thelp_overlay.h`
+* **Testes**: `tests/test_thelp_native.py` (execução comportamental nativa) e `tests/test_thelp_matching.py` (matching de símbolos e exatidão bit-a-bit de `.rodata` com `ee-gcc 2.9-991111 -O2 -G0`).
 
 ### 7. `src/smenu_overlay.c` (144 funções / 24.415 linhas) — *Decompilado (C Puro + Testes Nativos)*
 * **VRAM**: `0x01D98000`

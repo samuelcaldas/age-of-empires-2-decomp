@@ -1,0 +1,129 @@
+# Recompilation specification for kt_libcdvd_server
+module: kt_libcdvd_server
+source_file: src/kcet/kt_libcdvd_server.c
+header_file: include/kt_libcdvd_server.h
+
+description: >
+  KCET CD/DVD asynchronous server subsystem. Communicates with IOP cdvd
+  modules, manages disc reading queues, sector buffering, streaming,
+  filesystem traversal, error handling, and file streaming commands.
+
+functions:
+  func_001295D0:
+    role: "CD/DVD server initialize command queue"
+    purity: false
+    blocking: false
+    memory_writes: ["Server command queue"]
+    return_type: "void *"
+
+  func_00129800:
+    role: "Reset server internal state and queues"
+    purity: false
+    blocking: false
+    memory_writes: ["Server state buffer"]
+    return_type: "void *"
+
+  func_00129B10:
+    role: "Process pending CD/DVD I/O read requests"
+    purity: false
+    blocking: false
+    memory_writes: ["Read request queues", "Sector buffers"]
+    return_type: "void *"
+
+  func_0012CB00:
+    role: "Mask lower 3 bits of command/flag argument (cmd & 0x7)"
+    purity: true
+    blocking: false
+    memory_writes: []
+    return_type: "void *"
+
+  func_0012CB08:
+    role: "Check high bit 15 flag (val & 0x8000)"
+    purity: true
+    blocking: false
+    memory_writes: []
+    return_type: "void *"
+
+  func_0012CB10:
+    role: "Clear high bit 15 flag (val & ~0x8000)"
+    purity: true
+    blocking: false
+    memory_writes: []
+    return_type: "void *"
+
+  func_0012CB20:
+    role: "Safe dereference of 16-bit word from pointer (or 0 if NULL)"
+    purity: true
+    blocking: false
+    memory_writes: []
+    return_type: "void *"
+
+  func_0012CB38:
+    role: "Read 16-bit word and clear bit 15"
+    purity: true
+    blocking: false
+    memory_writes: []
+    return_type: "void *"
+
+  func_0012CB60:
+    role: "Extract upper 24-bit payload (*ptr >> 16) & 0xFFFFFF"
+    purity: true
+    blocking: false
+    memory_writes: []
+    return_type: "void *"
+
+  func_0012CB90:
+    role: "Extract shifted 24-bit payload (*ptr >> 8)"
+    purity: true
+    blocking: false
+    memory_writes: []
+    return_type: "void *"
+
+  func_0012CBA8:
+    role: "Unpack header payloads into high (*a1) and low (*a2) output pointers"
+    purity: false
+    blocking: false
+    memory_writes: ["*a1", "*a2"]
+    return_type: "void *"
+
+  func_0012CBF8:
+    role: "Decode 16-bit little-endian sector/offset value from packet data+2"
+    purity: true
+    blocking: false
+    memory_writes: []
+    return_type: "int"
+
+  func_0012CC20:
+    role: "Compute path length metric for directory record: strlen(data + 4) + 5"
+    purity: true
+    blocking: false
+    memory_writes: []
+    return_type: "void *"
+
+  func_0012CC48:
+    role: "Advance packet pointer past header: data ? data + 4 : NULL"
+    purity: true
+    blocking: false
+    memory_writes: []
+    return_type: "const unsigned char *"
+
+  func_0012CC58:
+    role: "Validate '0' prefix flag in data buffer"
+    purity: true
+    blocking: false
+    memory_writes: []
+    return_type: "int"
+
+  func_0012CC78:
+    role: "Validate '@' prefix flag in data buffer"
+    purity: true
+    blocking: false
+    memory_writes: []
+    return_type: "int"
+
+  func_0012CC98:
+    role: "Pack 64-bit response header: 0x40 | ((a1 & 0xFFFFFF) << 16) | (a2 << 8)"
+    purity: false
+    blocking: false
+    memory_writes: ["*a0"]
+    return_type: "void *"

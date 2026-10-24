@@ -1,0 +1,105 @@
+# Recompilation specification for kt_mc_2
+module: kt_mc_2
+source_file: src/kcet/kt_mc_2.c
+header_file: include/kt_mc_2.h
+
+description: >
+  KCET Memory Card version 2 subsystem. Manages PS2 memory card detection,
+  formatting status, directory listing (mcGetDir), save game creation,
+  reading, writing, deleting, icon.sys configuration and icon 3D models.
+
+types:
+  KtMcCard:
+    size: 20
+    fields:
+      port: { offset: 0, type: "int" }
+      slot: { offset: 4, type: "int" }
+      type: { offset: 8, type: "int" }
+      free_clusters: { offset: 12, type: "int" }
+      flags: { offset: 16, type: "int" }
+
+  KtMcFileInfo:
+    size: 48
+    fields:
+      name: { offset: 0, type: "char[32]" }
+      size: { offset: 32, type: "int" }
+      attr: { offset: 36, type: "int" }
+      date: { offset: 40, type: "unsigned char[8]" }
+
+functions:
+  func_0012DE88:
+    role: "Initialize memory card subsystem 2"
+    purity: false
+    blocking: false
+    memory_writes: ["Global MC work area"]
+    return_type: "void *"
+
+  func_0012DE98:
+    role: "Terminate memory card subsystem 2"
+    purity: false
+    blocking: false
+    memory_writes: ["Global MC work area"]
+    return_type: "void *"
+
+  func_0012DEB8:
+    role: "Table lookup of key-value pair in a 2-word tuple table"
+    purity: true
+    blocking: false
+    memory_writes: []
+    return_type: "void *"
+
+  func_0012E068:
+    role: "Validate card count against KT_MC_CARD_MAX and initialize card descriptors"
+    purity: false
+    blocking: false
+    memory_writes: ["KtMcCard array"]
+    return_type: "void *"
+
+  func_0012E260:
+    role: "Set active card index or selection"
+    purity: false
+    blocking: false
+    memory_writes: ["MC state"]
+    return_type: "void *"
+
+  func_0012E330:
+    role: "Read port/status word from card descriptor (or 1 if NULL)"
+    purity: true
+    blocking: false
+    memory_writes: []
+    return_type: "void *"
+
+  func_0012E348:
+    role: "Read slot word from card descriptor (or 0 if NULL)"
+    purity: true
+    blocking: false
+    memory_writes: []
+    return_type: "void *"
+
+  func_0012E360:
+    role: "Read type word from card descriptor (or 0 if NULL)"
+    purity: true
+    blocking: false
+    memory_writes: []
+    return_type: "void *"
+
+  func_0012EB40:
+    role: "Write attribute word at offset 0x18 of file entry"
+    purity: false
+    blocking: false
+    memory_writes: ["*(ptr + 0x18)"]
+    return_type: "void *"
+
+  func_0012EB80:
+    role: "Write cluster word at offset 0x1C of file entry"
+    purity: false
+    blocking: false
+    memory_writes: ["*(ptr + 0x1C)"]
+    return_type: "void *"
+
+  func_0012F0D0:
+    role: "Zero fields 0, 8, 12 of file header record"
+    purity: false
+    blocking: false
+    memory_writes: ["*(ptr + 0)", "*(ptr + 8)", "*(ptr + 12)"]
+    return_type: "void *"

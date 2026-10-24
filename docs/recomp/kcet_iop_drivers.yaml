@@ -1,0 +1,131 @@
+module: kcet_iop_drivers
+functions:
+  soundcd_init:
+    role: kernel_wrapper
+    purity: os_service
+    blocking: none
+    args:
+      - { name: argc, type: s32 }
+      - { name: argv, type: "char**" }
+    returns:
+      type: s32
+      values: { 0: "sucesso" }
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  sdstr_init:
+    role: kernel_wrapper
+    purity: os_service
+    blocking: none
+    args:
+      - { name: argc, type: s32 }
+      - { name: argv, type: "char**" }
+    returns:
+      type: s32
+      values: { 0: "sucesso" }
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  sdcd_init:
+    role: kernel_wrapper
+    purity: os_service
+    blocking: none
+    args:
+      - { name: argc, type: s32 }
+      - { name: argv, type: "char**" }
+    returns:
+      type: s32
+      values: { 0: "sucesso" }
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  sdrdrv_init:
+    role: kernel_wrapper
+    purity: os_service
+    blocking: none
+    args:
+      - { name: argc, type: s32 }
+      - { name: argv, type: "char**" }
+    returns:
+      type: s32
+      values: { 0: "sucesso" }
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  usbmlcnt_init:
+    role: kernel_wrapper
+    purity: os_service
+    blocking: none
+    args:
+      - { name: argc, type: s32 }
+      - { name: argv, type: "char**" }
+    returns:
+      type: s32
+      values: { 0: "sucesso" }
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  usbmload_init:
+    role: kernel_wrapper
+    purity: os_service
+    blocking: none
+    args:
+      - { name: argc, type: s32 }
+      - { name: argv, type: "char**" }
+    returns:
+      type: s32
+      values: { 0: "sucesso" }
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  kcet_sound_rpc_dispatch:
+    role: dispatch
+    purity: memory_only
+    blocking: none
+    args:
+      - { name: command, type: s32 }
+      - { name: data, type: "void*" }
+      - { name: size, type: size_t }
+    returns:
+      type: s32
+      values: { 0: "sucesso", -1: "comando desconhecido" }
+    memory_effects: []
+    errors: [-1]
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  kcet_mouse_rpc_dispatch:
+    role: dispatch
+    purity: memory_only
+    blocking: none
+    args:
+      - { name: command, type: s32 }
+      - { name: data, type: "void*" }
+      - { name: size, type: size_t }
+    returns:
+      type: s32
+      values: { 0: "sucesso", -1: "comando desconhecido" }
+    memory_effects: ["data[0..8]"]
+    errors: [-1]
+    callers_known: []
+    confidence: high
+    open_questions: []

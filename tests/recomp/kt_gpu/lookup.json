@@ -1,0 +1,23 @@
+{
+  "module": "kt_gpu",
+  "function": "func_00125A70",
+  "description": "Index lookup into pad slot buffer: buffer + (idx << 9)",
+  "vectors": [
+    {
+      "input": { "idx": 0, "count": 2, "buffer_offset": 0 },
+      "expected_offset": 0
+    },
+    {
+      "input": { "idx": 1, "count": 2, "buffer_offset": 0 },
+      "expected_offset": 512
+    },
+    {
+      "input": { "idx": 2, "count": 2, "buffer_offset": 0 },
+      "expected_offset": null
+    },
+    {
+      "input": { "idx": -1, "count": 2, "buffer_offset": 0 },
+      "expected_offset": null
+    }
+  ]
+}

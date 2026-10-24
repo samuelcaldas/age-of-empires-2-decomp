@@ -1,0 +1,27 @@
+{
+  "module": "kt_mc_2",
+  "function": "func_0012DEB8",
+  "description": "Linear table lookup of key-value pairs [key, value]",
+  "vectors": [
+    {
+      "table": [[10, 100], [20, 200], [30, 300]],
+      "key": 10,
+      "expected": 100
+    },
+    {
+      "table": [[10, 100], [20, 200], [30, 300]],
+      "key": 20,
+      "expected": 200
+    },
+    {
+      "table": [[10, 100], [20, 200], [30, 300]],
+      "key": 30,
+      "expected": 300
+    },
+    {
+      "table": [[10, 100], [20, 200], [30, 300]],
+      "key": 999,
+      "expected": -1
+    }
+  ]
+}

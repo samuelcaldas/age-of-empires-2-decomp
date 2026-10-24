@@ -1,0 +1,30 @@
+{
+  "module": "kt_libcdvd_server",
+  "description": "Bit extraction and manipulation test vectors",
+  "func_0012CB00": [
+    { "input": 0, "expected": 0 },
+    { "input": 7, "expected": 7 },
+    { "input": 8, "expected": 0 },
+    { "input": 15, "expected": 7 }
+  ],
+  "func_0012CB08": [
+    { "input": 32768, "expected": 32768 },
+    { "input": 16384, "expected": 0 },
+    { "input": 65535, "expected": 32768 }
+  ],
+  "func_0012CB10": [
+    { "input": 65535, "expected": 32767 },
+    { "input": 32768, "expected": 0 },
+    { "input": 1234, "expected": 1234 }
+  ],
+  "func_0012CC58": [
+    { "input": "0abc", "expected": 1 },
+    { "input": "1abc", "expected": 0 },
+    { "input": null, "expected": 0 }
+  ],
+  "func_0012CC78": [
+    { "input": "@def", "expected": 1 },
+    { "input": "#def", "expected": 0 },
+    { "input": null, "expected": 0 }
+  ]
+}

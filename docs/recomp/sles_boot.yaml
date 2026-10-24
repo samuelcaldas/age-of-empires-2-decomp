@@ -1,0 +1,82 @@
+module: sles_boot
+functions:
+  sles_boot_init:
+    role: kernel_wrapper
+    purity: hardware
+    blocking: none
+    args: []
+    returns:
+      type: void
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  sles_load_iop_modules:
+    role: kernel_wrapper
+    purity: os_service
+    blocking: waits_on:rpc
+    args: []
+    returns:
+      type: void
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  sles_play_intro_movies:
+    role: hw_access
+    purity: hardware
+    blocking: waits_on:vsync
+    args: []
+    returns:
+      type: void
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  sles_select_language:
+    role: state_query
+    purity: memory_only
+    blocking: none
+    args: []
+    returns:
+      type: s32
+      note: "índice de idioma selecionado (0..4)"
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  sles_launch_game:
+    role: kernel_wrapper
+    purity: os_service
+    blocking: none
+    args:
+      - { name: lang, type: s32 }
+    returns:
+      type: void
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  sles_pss_play:
+    role: hw_access
+    purity: hardware
+    blocking: waits_on:vsync
+    args:
+      - { name: pss_filename, type: "const char*" }
+    returns:
+      type: void
+    memory_effects: []
+    errors: []
+    callers_known: [sles_play_intro_movies]
+    confidence: high
+    open_questions: []

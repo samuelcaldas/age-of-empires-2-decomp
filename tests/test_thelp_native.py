@@ -9,7 +9,7 @@ import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
 C_TEST = ROOT / "tests/native/thelp_test.c"
-C_SRC = ROOT / "src/thelp_overlay.c"
+C_SRC = ROOT / "src/overlays/thelp_overlay.c"
 
 
 def test_thelp_native_behavior(tmp_path):

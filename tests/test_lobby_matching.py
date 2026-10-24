@@ -1,6 +1,6 @@
-"""Target matching and symbol regression tests for PS2 LOBBY_CD.BIN overlay (src/lobby_overlay.c).
+"""Target matching and symbol regression tests for PS2 LOBBY_CD.BIN overlay (src/overlays/lobby_overlay.c).
 
-Verifies that src/lobby_overlay.c compiles with EE-GCC 2.9-991111 (-O2 -G0) into
+Verifies that src/overlays/lobby_overlay.c compiles with EE-GCC 2.9-991111 (-O2 -G0) into
 valid object code containing all 814 structured functions and matches the lobby tables
 (.rodata section, 120,896 bytes).
 """
@@ -19,7 +19,7 @@ from lobby_expected_funcs import EXPECTED_FUNCS
 
 ROOT = Path(__file__).resolve().parents[1]
 OVERLAY_BIN = ROOT / "orig/SLES-50282/LOBBY_CD.BIN"
-SOURCE = ROOT / "src/lobby_overlay.c"
+SOURCE = ROOT / "src/overlays/lobby_overlay.c"
 COMPILER = ROOT / "compilers/PS2/ee-gcc2.9-991111/bin/ee-gcc.exe"
 WRAPPER = ROOT / "build/tools/wibo"
 
@@ -66,7 +66,7 @@ def test_lobby_overlay_compiles_and_contains_all_functions(tmp_path):
 
         # Verify no inline assembly remains in C source
         source_text = SOURCE.read_text()
-        assert "__asm__" not in source_text, "Found __asm__ in src/lobby_overlay.c; must be pure C"
+        assert "__asm__" not in source_text, "Found __asm__ in src/overlays/lobby_overlay.c; must be pure C"
 
 
 def test_lobby_overlay_rodata_exact_match(tmp_path):

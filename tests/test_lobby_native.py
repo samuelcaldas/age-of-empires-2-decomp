@@ -9,7 +9,7 @@ import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
 C_TEST = ROOT / "tests/native/lobby_test.c"
-C_SRC = ROOT / "src/lobby_overlay.c"
+C_SRC = ROOT / "src/overlays/lobby_overlay.c"
 
 
 def test_lobby_native_behavior(tmp_path):

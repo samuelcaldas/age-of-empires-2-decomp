@@ -1,6 +1,6 @@
-"""Target matching and symbol regression tests for PS2 HIST_CD.BIN overlay (src/hist_overlay.c).
+"""Target matching and symbol regression tests for PS2 HIST_CD.BIN overlay (src/overlays/hist_overlay.c).
 
-Verifies that src/hist_overlay.c compiles with EE-GCC 2.9-991111 (-O2 -G0) into
+Verifies that src/overlays/hist_overlay.c compiles with EE-GCC 2.9-991111 (-O2 -G0) into
 valid object code containing all 13 structured functions and matches the historical
 encyclopedia tables (.rodata section, 179,264 bytes).
 """
@@ -15,7 +15,7 @@ import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
 OVERLAY_BIN = ROOT / "orig/SLES-50282/HIST_CD.BIN"
-SOURCE = ROOT / "src/hist_overlay.c"
+SOURCE = ROOT / "src/overlays/hist_overlay.c"
 COMPILER = ROOT / "compilers/PS2/ee-gcc2.9-991111/bin/ee-gcc.exe"
 WRAPPER = ROOT / "build/tools/wibo"
 
@@ -77,7 +77,7 @@ def test_hist_overlay_compiles_and_contains_all_functions(tmp_path):
 
         # Verify no inline assembly remains in C source
         source_text = SOURCE.read_text()
-        assert "__asm__" not in source_text, "Found __asm__ in src/hist_overlay.c; must be pure C"
+        assert "__asm__" not in source_text, "Found __asm__ in src/overlays/hist_overlay.c; must be pure C"
 
 
 def test_hist_overlay_rodata_exact_match(tmp_path):

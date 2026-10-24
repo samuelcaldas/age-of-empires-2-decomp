@@ -8,7 +8,7 @@ import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
 C_TEST = ROOT / "tests/native/hist_test.c"
-C_SRC = ROOT / "src/hist_overlay.c"
+C_SRC = ROOT / "src/overlays/hist_overlay.c"
 
 
 def test_hist_native_behavior(tmp_path):

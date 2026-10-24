@@ -9,7 +9,7 @@ import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
 C_TEST = ROOT / "tests/native/rmmmem_test.c"
-C_SRC = ROOT / "src/rmmmem_overlay.c"
+C_SRC = ROOT / "src/overlays/rmmmem_overlay.c"
 
 
 def test_rmmmem_native_behavior(tmp_path):

@@ -9,7 +9,7 @@ import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
 C_TEST = ROOT / "tests/native/dcomp_test.c"
-C_SRC = ROOT / "src/dcomp_overlay.c"
+C_SRC = ROOT / "src/overlays/dcomp_overlay.c"
 
 
 def test_dcomp_native_behavior(tmp_path):

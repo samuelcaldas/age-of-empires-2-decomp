@@ -1,6 +1,6 @@
-"""Compilation and symbol verification tests for PS2 RMMMEMCD.BIN overlay (src/rmmmem_overlay.c).
+"""Compilation and symbol verification tests for PS2 RMMMEMCD.BIN overlay (src/overlays/rmmmem_overlay.c).
 
-Verifies that src/rmmmem_overlay.c compiles with EE-GCC 2.9-991111 (-O2 -G0) into
+Verifies that src/overlays/rmmmem_overlay.c compiles with EE-GCC 2.9-991111 (-O2 -G0) into
 structured object code containing all 5 Random Map heap allocator functions.
 """
 
@@ -12,7 +12,7 @@ import pytest
 
 
 ROOT = Path(__file__).resolve().parents[1]
-SOURCE = ROOT / "src/rmmmem_overlay.c"
+SOURCE = ROOT / "src/overlays/rmmmem_overlay.c"
 COMPILER = ROOT / "compilers/PS2/ee-gcc2.9-991111/bin/ee-gcc.exe"
 WRAPPER = ROOT / "build/tools/wibo"
 

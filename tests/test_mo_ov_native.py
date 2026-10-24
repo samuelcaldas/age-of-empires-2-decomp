@@ -9,7 +9,7 @@ import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
 C_TEST = ROOT / "tests/native/mo_ov_test.c"
-C_SRC = ROOT / "src/mo_ov_overlay.c"
+C_SRC = ROOT / "src/overlays/mo_ov_overlay.c"
 
 
 def test_mo_ov_native_behavior(tmp_path):

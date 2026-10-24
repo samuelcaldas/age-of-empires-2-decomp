@@ -9,7 +9,7 @@ import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
 C_TEST = ROOT / "tests/native/multim_test.c"
-C_SRC = ROOT / "src/multim_overlay.c"
+C_SRC = ROOT / "src/overlays/multim_overlay.c"
 
 
 def test_multim_native_behavior(tmp_path):

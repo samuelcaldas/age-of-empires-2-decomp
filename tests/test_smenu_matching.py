@@ -1,6 +1,6 @@
-"""Target matching and symbol regression tests for PS2 SMENU_CD.BIN overlay (src/smenu_overlay.c).
+"""Target matching and symbol regression tests for PS2 SMENU_CD.BIN overlay (src/overlays/smenu_overlay.c).
 
-Verifies that src/smenu_overlay.c compiles with EE-GCC 2.9-991111 (-O2 -G0) into
+Verifies that src/overlays/smenu_overlay.c compiles with EE-GCC 2.9-991111 (-O2 -G0) into
 valid object code containing all 144 structured functions and matches the dialog tables
 (.rodata section, 2,112 bytes).
 """
@@ -19,7 +19,7 @@ from smenu_expected_funcs import EXPECTED_FUNCS
 
 ROOT = Path(__file__).resolve().parents[1]
 OVERLAY_BIN = ROOT / "orig/SLES-50282/SMENU_CD.BIN"
-SOURCE = ROOT / "src/smenu_overlay.c"
+SOURCE = ROOT / "src/overlays/smenu_overlay.c"
 COMPILER = ROOT / "compilers/PS2/ee-gcc2.9-991111/bin/ee-gcc.exe"
 WRAPPER = ROOT / "build/tools/wibo"
 
@@ -66,7 +66,7 @@ def test_smenu_overlay_compiles_and_contains_all_functions(tmp_path):
 
         # Verify no inline assembly remains in C source
         source_text = SOURCE.read_text()
-        assert "__asm__" not in source_text, "Found __asm__ in src/smenu_overlay.c; must be pure C"
+        assert "__asm__" not in source_text, "Found __asm__ in src/overlays/smenu_overlay.c; must be pure C"
 
 
 def test_smenu_overlay_rodata_exact_match(tmp_path):

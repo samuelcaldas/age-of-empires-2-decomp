@@ -9,7 +9,7 @@ import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
 C_TEST = ROOT / "tests/native/smenu_test.c"
-C_SRC = ROOT / "src/smenu_overlay.c"
+C_SRC = ROOT / "src/overlays/smenu_overlay.c"
 
 
 def test_smenu_native_behavior(tmp_path):

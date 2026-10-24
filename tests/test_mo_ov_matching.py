@@ -1,6 +1,6 @@
-"""Compilation and symbol verification tests for PS2 MO_OV_CD.BIN overlay (src/mo_ov_overlay.c).
+"""Compilation and symbol verification tests for PS2 MO_OV_CD.BIN overlay (src/overlays/mo_ov_overlay.c).
 
-Verifies that src/mo_ov_overlay.c compiles with EE-GCC 2.9-991111 (-O2 -G0) into
+Verifies that src/overlays/mo_ov_overlay.c compiles with EE-GCC 2.9-991111 (-O2 -G0) into
 structured object code containing both PSS movie playback overlay entry and initialization functions.
 """
 
@@ -12,7 +12,7 @@ import pytest
 
 
 ROOT = Path(__file__).resolve().parents[1]
-SOURCE = ROOT / "src/mo_ov_overlay.c"
+SOURCE = ROOT / "src/overlays/mo_ov_overlay.c"
 COMPILER = ROOT / "compilers/PS2/ee-gcc2.9-991111/bin/ee-gcc.exe"
 WRAPPER = ROOT / "build/tools/wibo"
 

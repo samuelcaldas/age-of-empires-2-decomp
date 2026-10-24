@@ -1,0 +1,19 @@
+{
+  "functions": ["func_00126410", "func_00126488", "func_00126500"],
+  "test_cases": [
+    {
+      "name": "cross_and_start",
+      "slot_state": {"buttons": "0x0840", "pressed": "0x0040", "released": "0x0000"},
+      "expected_buttons": 2112,
+      "expected_pressed": 64,
+      "expected_released": 0
+    },
+    {
+      "name": "dpad_up_released",
+      "slot_state": {"buttons": "0x0000", "pressed": "0x0000", "released": "0x1000"},
+      "expected_buttons": 0,
+      "expected_pressed": 0,
+      "expected_released": 4096
+    }
+  ]
+}

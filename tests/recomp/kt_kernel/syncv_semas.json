@@ -1,0 +1,25 @@
+{
+  "functions": ["func_00134528", "func_00134538", "func_00134548", "func_00134558"],
+  "test_cases": [
+    {
+      "name": "uninitialized_semas",
+      "initial_state": {"D_38CEC0": [-1, -1, -1, -1]},
+      "expected_returns": {
+        "func_00134528": -1,
+        "func_00134538": -1,
+        "func_00134548": -1,
+        "func_00134558": -1
+      }
+    },
+    {
+      "name": "allocated_semas",
+      "initial_state": {"D_38CEC0": [10, 11, 12, 13]},
+      "expected_returns": {
+        "func_00134528": 10,
+        "func_00134538": 11,
+        "func_00134548": 12,
+        "func_00134558": 13
+      }
+    }
+  ]
+}

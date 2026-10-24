@@ -1,0 +1,575 @@
+module: kt_kernel
+functions:
+  func_00134140:
+    role: state_query
+    purity: os_service
+    blocking: none
+    args: []
+    returns:
+      type: s32
+      note: "prioridade da thread corrente"
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_00134168:
+    role: state_query
+    purity: os_service
+    blocking: none
+    args:
+      - {name: thid, type: s32}
+    returns:
+      type: s32
+      note: "prioridade atual da thread thid"
+    memory_effects: []
+    errors: []
+    callers_known: [func_00134140]
+    confidence: high
+    open_questions: []
+
+  func_00134188:
+    role: kernel_wrapper
+    purity: os_service
+    blocking: none
+    args:
+      - {name: priority, type: s32}
+    returns:
+      type: s32
+      note: "retorno do ChangeThreadPriority"
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_001341B8:
+    role: kernel_wrapper
+    purity: os_service
+    blocking: none
+    args:
+      - {name: thid, type: s32}
+    returns:
+      type: s32
+      values: {"thid": "id da thread terminada"}
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_00134210:
+    role: kernel_wrapper
+    purity: os_service
+    blocking: none
+    args:
+      - {name: init_count, type: s32}
+      - {name: max_count, type: s32}
+      - {name: option, type: s32}
+    returns:
+      type: s32
+      note: "ID do semáforo criado (>= 0) ou assert se < 0"
+    memory_effects: []
+    errors: []
+    callers_known: [func_00134710]
+    confidence: high
+    open_questions: []
+
+  func_00134290:
+    role: kernel_wrapper
+    purity: os_service
+    blocking: none
+    args:
+      - {name: entry, type: "void*"}
+      - {name: stack, type: "void*"}
+      - {name: stack_size, type: s32}
+      - {name: priority, type: s32}
+      - {name: option, type: s32}
+    returns:
+      type: s32
+      note: "ID da thread criada (>= 0) ou assert se < 0"
+    memory_effects: []
+    errors: []
+    callers_known: [func_00134378]
+    confidence: high
+    open_questions: []
+
+  func_00134330:
+    role: kernel_wrapper
+    purity: os_service
+    blocking: none
+    args:
+      - {name: thid, type: s32}
+      - {name: arg, type: "void*"}
+    returns:
+      type: s32
+      values: {"thid": "id da thread iniciada"}
+    memory_effects: []
+    errors: []
+    callers_known: [func_00134378]
+    confidence: high
+    open_questions: []
+
+  func_00134378:
+    role: kernel_wrapper
+    purity: os_service
+    blocking: none
+    args:
+      - {name: entry, type: "void*"}
+      - {name: stack, type: "void*"}
+      - {name: stack_size, type: s32}
+      - {name: priority, type: s32}
+      - {name: arg, type: "void*"}
+      - {name: option, type: s32}
+    returns:
+      type: s32
+      note: "ID da thread criada e iniciada"
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_001343A8:
+    role: pure_helper
+    purity: os_service
+    blocking: none
+    args:
+      - {name: sem_id, type: s32}
+    returns:
+      type: s32
+      note: "quantidade de contagens drenadas do semáforo"
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_001343F8:
+    role: pure_helper
+    purity: os_service
+    blocking: none
+    args:
+      - {name: sem_id, type: s32}
+    returns:
+      type: s32
+      note: "quantidade de contagens drenadas via PollSema"
+    memory_effects: []
+    errors: []
+    callers_known: [func_001343A8]
+    confidence: high
+    open_questions: []
+
+  func_00134440:
+    role: kernel_wrapper
+    purity: os_service
+    blocking: none
+    args:
+      - {name: sem_id, type: s32}
+    returns:
+      type: s32
+      note: "retorno do SignalSema (sem_id em sucesso)"
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_00134480:
+    role: kernel_wrapper
+    purity: os_service
+    blocking: none
+    args:
+      - {name: sem_id, type: s32}
+    returns:
+      type: s32
+      note: "retorno do iSignalSema (sem_id em sucesso)"
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_001344C0:
+    role: kernel_wrapper
+    purity: os_service
+    blocking: none
+    args:
+      - {name: sem_id, type: s32}
+    returns:
+      type: s32
+      note: "retorno do DeleteSema"
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_00134500:
+    role: kernel_wrapper
+    purity: os_service
+    blocking: waits_on:semaphore
+    args:
+      - {name: sem_id, type: s32}
+    returns:
+      type: s32
+      note: "retorno do WaitSema"
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_00134528:
+    role: state_query
+    purity: memory_only
+    blocking: none
+    args: []
+    returns:
+      type: s32
+      values: {"D_38CEC0[0]": "id do semáforo SyncV 0"}
+    memory_effects: []
+    errors: []
+    callers_known: [func_00134568, func_001349E8]
+    test_vectors: tests/recomp/kt_kernel/syncv_semas.json
+    confidence: high
+    open_questions: []
+
+  func_00134538:
+    role: state_query
+    purity: memory_only
+    blocking: none
+    args: []
+    returns:
+      type: s32
+      values: {"D_38CEC0[1]": "id do semáforo SyncV 1"}
+    memory_effects: []
+    errors: []
+    callers_known: [func_00134568, func_001349E8]
+    test_vectors: tests/recomp/kt_kernel/syncv_semas.json
+    confidence: high
+    open_questions: []
+
+  func_00134548:
+    role: state_query
+    purity: memory_only
+    blocking: none
+    args: []
+    returns:
+      type: s32
+      values: {"D_38CEC0[2]": "id do semáforo SyncV 2"}
+    memory_effects: []
+    errors: []
+    callers_known: [func_001345D0, func_00134A20]
+    test_vectors: tests/recomp/kt_kernel/syncv_semas.json
+    confidence: high
+    open_questions: []
+
+  func_00134558:
+    role: state_query
+    purity: memory_only
+    blocking: none
+    args: []
+    returns:
+      type: s32
+      values: {"D_38CEC0[3]": "id do semáforo SyncV 3"}
+    memory_effects: []
+    errors: []
+    callers_known: [func_001345D0, func_00134A20]
+    test_vectors: tests/recomp/kt_kernel/syncv_semas.json
+    confidence: high
+    open_questions: []
+
+  func_00134568:
+    role: hw_access
+    purity: hardware
+    blocking: none
+    args: []
+    returns:
+      type: s32
+      values: {0: "retorno do handler de interrupção"}
+    memory_effects: []
+    errors: []
+    callers_known: [func_001347A8]
+    confidence: high
+    open_questions: []
+
+  func_001345D0:
+    role: hw_access
+    purity: hardware
+    blocking: none
+    args: []
+    returns:
+      type: s32
+      values: {0: "retorno do handler de interrupção"}
+    memory_effects: []
+    errors: []
+    callers_known: [func_00134828]
+    confidence: high
+    open_questions: []
+
+  func_00134638:
+    role: kernel_wrapper
+    purity: os_service
+    blocking: none
+    args: []
+    returns:
+      type: void
+    memory_effects: ["D_38CED0[0..4]"]
+    errors: []
+    callers_known: [func_00134928]
+    confidence: high
+    open_questions: []
+
+  func_001346A8:
+    role: kernel_wrapper
+    purity: os_service
+    blocking: none
+    args: []
+    returns:
+      type: void
+    memory_effects: ["D_38CEC0[0..4]"]
+    errors: []
+    callers_known: [func_00134710, func_00134928]
+    confidence: high
+    open_questions: []
+
+  func_00134710:
+    role: kernel_wrapper
+    purity: os_service
+    blocking: none
+    args:
+      - {name: start_idx, type: s32}
+      - {name: end_idx, type: s32}
+    returns:
+      type: s32
+      note: "último id de semáforo alocado (>= 0) ou erro (< 0)"
+    memory_effects: ["D_38CEC0[start_idx..end_idx]"]
+    errors: []
+    callers_known: [func_001347A8, func_00134828]
+    confidence: high
+    open_questions: []
+
+  func_001347A8:
+    role: kernel_wrapper
+    purity: os_service
+    blocking: none
+    args: []
+    returns:
+      type: s32
+      note: "id do handler registrado ou 0 se já inicializado"
+    memory_effects: ["D_38CED0[0..2]", "s_vblank_s_initialized"]
+    errors: []
+    callers_known: [func_001348A8]
+    confidence: high
+    open_questions: []
+
+  func_00134828:
+    role: kernel_wrapper
+    purity: os_service
+    blocking: none
+    args: []
+    returns:
+      type: s32
+      note: "id do handler registrado ou 0 se já inicializado"
+    memory_effects: ["D_38CED0[2..4]", "s_vblank_e_initialized"]
+    errors: []
+    callers_known: [func_001348A8]
+    confidence: high
+    open_questions: []
+
+  func_001348A8:
+    role: kernel_wrapper
+    purity: os_service
+    blocking: none
+    args:
+      - {name: mode, type: s32, note: "1 = VBLANK_S, 2 = VBLANK_E, 3 = ambos"}
+    returns:
+      type: s32
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_00134928:
+    role: kernel_wrapper
+    purity: os_service
+    blocking: none
+    args: []
+    returns:
+      type: void
+    memory_effects: ["s_vblank_s_initialized", "s_vblank_e_initialized"]
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_00134970:
+    role: kernel_wrapper
+    purity: os_service
+    blocking: waits_on:vsync
+    args:
+      - {name: sem0, type: s32}
+      - {name: sem1, type: s32}
+    returns:
+      type: s32
+    memory_effects: []
+    errors: []
+    callers_known: [func_001349E8, func_00134A20]
+    confidence: high
+    open_questions: []
+
+  func_001349E8:
+    role: kernel_wrapper
+    purity: os_service
+    blocking: waits_on:vblank_s
+    args: []
+    returns:
+      type: s32
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_00134A20:
+    role: kernel_wrapper
+    purity: os_service
+    blocking: waits_on:vblank_e
+    args: []
+    returns:
+      type: s32
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_00134A58:
+    role: state_query
+    purity: os_service
+    blocking: none
+    args:
+      - {name: thid, type: s32}
+    returns:
+      type: s32
+      note: "status da thread (1=RUN, 2=READY, 3=WAIT, 4=SUSPEND, 5=DORMANT)"
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_00134A78:
+    role: pure_helper
+    purity: os_service
+    blocking: none
+    args:
+      - {name: thid, type: s32}
+    returns:
+      type: void
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_00134AF0:
+    role: table_lookup
+    purity: pure
+    blocking: none
+    args:
+      - {name: status, type: s32}
+    returns:
+      type: "const char*"
+      values: {1: "RUN", 2: "READY", 3: "WAIT", 4: "SUSPEND", 5: "DORMANT", 0: "NULL"}
+    memory_effects: []
+    errors: []
+    callers_known: [func_00134A78, func_00134BB0]
+    test_vectors: tests/recomp/kt_kernel/thread_status_str.json
+    confidence: high
+    open_questions: []
+
+  func_00134BB0:
+    role: state_query
+    purity: os_service
+    blocking: none
+    args: []
+    returns:
+      type: void
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_00134C60:
+    role: state_query
+    purity: os_service
+    blocking: none
+    args:
+      - {name: sem_id, type: s32}
+    returns:
+      type: void
+    memory_effects: []
+    errors: []
+    callers_known: [func_00134CB8]
+    confidence: high
+    open_questions: []
+
+  func_00134CB8:
+    role: state_query
+    purity: os_service
+    blocking: none
+    args: []
+    returns:
+      type: void
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_00134CF0:
+    role: state_query
+    purity: os_service
+    blocking: none
+    args:
+      - {name: sem_id, type: s32}
+    returns:
+      type: void
+    memory_effects: []
+    errors: []
+    callers_known: [func_00134D48]
+    confidence: high
+    open_questions: []
+
+  func_00134D48:
+    role: state_query
+    purity: os_service
+    blocking: none
+    args: []
+    returns:
+      type: void
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_00134D80:
+    role: hw_access
+    purity: hardware
+    blocking: none
+    args:
+      - {name: intc_cause, type: s32}
+      - {name: flag, type: s32}
+    returns:
+      type: s32
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []

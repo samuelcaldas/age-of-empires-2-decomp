@@ -1,0 +1,7 @@
+{
+  "function": "func_00134FE0",
+  "test_cases": [
+    {"name": "zero_step", "args": [0, 0], "expected_return": 1},
+    {"name": "ring_advance", "args": [0, 5], "expected_return": 6}
+  ]
+}

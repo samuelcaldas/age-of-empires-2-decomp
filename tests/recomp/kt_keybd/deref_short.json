@@ -1,0 +1,9 @@
+{
+  "functions": ["func_00136228", "func_001362B8", "func_00136840"],
+  "test_cases": [
+    {"name": "val_zero", "input_value": 0, "expected_return": 0},
+    {"name": "val_42", "input_value": 42, "expected_return": 42},
+    {"name": "val_negative", "input_value": -1, "expected_return": -1},
+    {"name": "val_max_short", "input_value": 32767, "expected_return": 32767}
+  ]
+}

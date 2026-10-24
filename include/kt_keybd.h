@@ -1,21 +1,32 @@
 #ifndef KT_KEYBD_H
 #define KT_KEYBD_H
 
-typedef struct {
-    int handle;
-    int count;
-    char *buffer;
-} KeybdWork;
+#include "common.h"
 
 typedef struct {
-    int f0;
-    int f4;
-    int f8;
+    s32 handle;
+    s32 count;
+    u32 buffer;
+} KeybdWork;
+_Static_assert(sizeof(KeybdWork) == 12, "KeybdWork size");
+_Static_assert(offsetof(KeybdWork, handle) == 0, "KeybdWork handle offset");
+_Static_assert(offsetof(KeybdWork, count) == 4, "KeybdWork count offset");
+_Static_assert(offsetof(KeybdWork, buffer) == 8, "KeybdWork buffer offset");
+
+typedef struct {
+    s32 f0;
+    s32 f4;
+    s32 f8;
 } KeybdBlock;
+_Static_assert(sizeof(KeybdBlock) == 12, "KeybdBlock size");
+_Static_assert(offsetof(KeybdBlock, f0) == 0, "KeybdBlock f0 offset");
+_Static_assert(offsetof(KeybdBlock, f4) == 4, "KeybdBlock f4 offset");
+_Static_assert(offsetof(KeybdBlock, f8) == 8, "KeybdBlock f8 offset");
 
 typedef struct {
     char data[16];
 } KeybdData16;
+_Static_assert(sizeof(KeybdData16) == 16, "KeybdData16 size");
 
 void func_00135EC0(int n_keybd);
 void func_00135F90(void);

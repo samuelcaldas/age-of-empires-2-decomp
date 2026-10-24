@@ -1,0 +1,20 @@
+{
+  "function": "func_00134E50",
+  "test_cases": [
+    {
+      "name": "init_one_mouse",
+      "args": [1],
+      "expected_slots": [
+        {"slot": 0, "status": 0, "parent": -1, "type": 4}
+      ]
+    },
+    {
+      "name": "init_two_mice",
+      "args": [2],
+      "expected_slots": [
+        {"slot": 0, "status": 0, "parent": -1, "type": 4},
+        {"slot": 1, "status": 1, "parent": -1, "type": 4}
+      ]
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "function": "func_00129588",
+  "test_cases": [
+    {
+      "name": "empty_table",
+      "args": {"table": "0x1000", "count": 0, "key": 5},
+      "initial_memory": {},
+      "expected_return": 0
+    },
+    {
+      "name": "found_first",
+      "args": {"table": "0x1000", "count": 3, "key": 10},
+      "initial_memory": {
+        "0x1000": "0a0000006400000014000000c80000001e0000002c010000"
+      },
+      "expected_return": 100
+    },
+    {
+      "name": "found_middle",
+      "args": {"table": "0x1000", "count": 3, "key": 20},
+      "initial_memory": {
+        "0x1000": "0a0000006400000014000000c80000001e0000002c010000"
+      },
+      "expected_return": 200
+    },
+    {
+      "name": "found_last",
+      "args": {"table": "0x1000", "count": 3, "key": 30},
+      "initial_memory": {
+        "0x1000": "0a0000006400000014000000c80000001e0000002c010000"
+      },
+      "expected_return": 300
+    },
+    {
+      "name": "not_found",
+      "args": {"table": "0x1000", "count": 3, "key": 99},
+      "initial_memory": {
+        "0x1000": "0a0000006400000014000000c80000001e0000002c010000"
+      },
+      "expected_return": 0
+    }
+  ]
+}

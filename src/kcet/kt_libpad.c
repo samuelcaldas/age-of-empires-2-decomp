@@ -1,48 +1,6 @@
 #define NULL ((void *)0)
 #include "common.h"
-
-/* KCET Pad Driver Data Types and Forward Declarations */
-
-typedef struct {
-    u16 buttons;          /* 0x00 */
-    u16 buttons_pressed;  /* 0x02 */
-    u16 buttons_released; /* 0x04 */
-    u32 unk_08;           /* 0x08 */
-    u32 unk_0C;           /* 0x0C */
-    u8 data_10[12];       /* 0x10 */
-    u8 unk_1C[24];        /* 0x1C */
-    u32 unk_34;           /* 0x34 */
-    u8 rapid_table[12];   /* 0x38 */
-    u8 act_data[17];      /* 0x44 */
-    u8 act_config[18];    /* 0x55 */
-    u32 unk_68;           /* 0x68 */
-    int port;             /* 0x6C */
-    int slot;             /* 0x70 */
-    int req_port;         /* 0x74 */
-    int req_slot;         /* 0x78 */
-    int act_mode;         /* 0x7C */
-    int act_param;        /* 0x80 */
-    int retry_count;      /* 0x84 */
-    int unk_88;           /* 0x88 */
-    int state;            /* 0x8C */
-    int step;             /* 0x90 */
-    int unk_94;           /* 0x94 */
-    int err_count;        /* 0x98 */
-    int press_mode;       /* 0x9C */
-    int unk_A0;           /* 0xA0 */
-    u8 act_align[12];     /* 0xA4 */
-    u32 flags;            /* 0xB0 */
-    u32 act_exec[2];      /* 0xB4 */
-    int model;            /* 0xBC */
-    u8 dma_buffer[0x140]; /* 0xC0 .. 0x200 */
-} PadSlot;
-
-typedef struct {
-    PadSlot *slots; /* 0x00 */
-    int n_pad;      /* 0x04 */
-    int sema;       /* 0x08 */
-    int flags;      /* 0x0C */
-} PadWork;
+#include "kt_libpad.h"
 
 /* External global references */
 extern PadWork D_4EA148;
@@ -75,6 +33,9 @@ extern void (*D_10DC08)();
 extern void (*D_10DC60)();
 
 /* External library functions */
+void *memcpy(void *dest, const void *src, unsigned int n);
+void *memset(void *s, int c, unsigned int n);
+int func_10D3F8(int port, int slot);
 void func_114320(const char *file, int line, const char *assertion);
 void func_001143C0(void *ptr, int size);
 int func_134210(int, int, int);

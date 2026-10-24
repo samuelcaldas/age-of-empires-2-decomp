@@ -1,0 +1,7 @@
+{
+  "function": "func_00136058",
+  "test_cases": [
+    {"name": "step_0", "args": [0, 0], "expected_return": 1},
+    {"name": "step_3", "args": [0, 3], "expected_return": 4}
+  ]
+}

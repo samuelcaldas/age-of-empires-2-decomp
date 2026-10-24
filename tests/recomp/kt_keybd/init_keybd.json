@@ -1,0 +1,20 @@
+{
+  "function": "func_00135EC0",
+  "test_cases": [
+    {
+      "name": "init_one_keyboard",
+      "args": [1],
+      "expected_slots": [
+        {"slot": 0, "status": 0, "parent": -1, "type": 3}
+      ]
+    },
+    {
+      "name": "init_two_keyboards",
+      "args": [2],
+      "expected_slots": [
+        {"slot": 0, "status": 0, "parent": -1, "type": 3},
+        {"slot": 1, "status": 1, "parent": -1, "type": 3}
+      ]
+    }
+  ]
+}

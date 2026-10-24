@@ -1,0 +1,12 @@
+{
+  "function": "func_00134AF0",
+  "test_cases": [
+    {"name": "status_run", "args": [1], "expected_return": "RUN"},
+    {"name": "status_ready", "args": [2], "expected_return": "READY"},
+    {"name": "status_wait", "args": [3], "expected_return": "WAIT"},
+    {"name": "status_suspend", "args": [4], "expected_return": "SUSPEND"},
+    {"name": "status_dormant", "args": [5], "expected_return": "DORMANT"},
+    {"name": "status_unknown_zero", "args": [0], "expected_return": null},
+    {"name": "status_unknown_high", "args": [99], "expected_return": null}
+  ]
+}

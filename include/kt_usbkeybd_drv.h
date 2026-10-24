@@ -1,10 +1,14 @@
 #ifndef KT_USBKEYBD_DRV_H
 #define KT_USBKEYBD_DRV_H
 
+#include "common.h"
+
 typedef struct {
-    char pad[0x24];
-    unsigned int status;
+    u8 pad[0x24];
+    u32 status;
 } UsbKeybdDevice;
+_Static_assert(sizeof(UsbKeybdDevice) == 40, "UsbKeybdDevice size");
+_Static_assert(offsetof(UsbKeybdDevice, status) == 0x24, "UsbKeybdDevice status offset");
 
 int func_00137208(void);
 int func_00137250(void *info);

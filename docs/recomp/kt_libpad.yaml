@@ -1,0 +1,131 @@
+module: kt_libpad
+functions:
+  func_00125C38:
+    role: kernel_wrapper
+    purity: os_service
+    blocking: none
+    args:
+      - {name: rpc_id, type: s32}
+      - {name: n_pad, type: s32}
+      - {name: buf, type: "PadSlot*"}
+    returns:
+      type: void
+    memory_effects: ["D_4EA148"]
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_00125C58:
+    role: kernel_wrapper
+    purity: os_service
+    blocking: none
+    args:
+      - {name: rpc_id, type: s32}
+      - {name: n_pad, type: s32}
+      - {name: buf, type: "PadSlot*"}
+      - {name: flag, type: s32}
+    returns:
+      type: void
+    memory_effects: ["D_4EA148"]
+    errors: []
+    callers_known: [func_00125C38]
+    confidence: high
+    open_questions: []
+
+  func_00125EC0:
+    role: pure_helper
+    purity: memory_only
+    blocking: none
+    args:
+      - {name: p, type: "PadSlot*"}
+    returns:
+      type: void
+    memory_effects: ["p[0..512]"]
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_001262E8:
+    role: pure_helper
+    purity: pure
+    blocking: none
+    args:
+      - {name: p_ports, type: "int*"}
+      - {name: start, type: s32}
+      - {name: out_ports, type: "u16*"}
+      - {name: max_items, type: s32}
+      - {name: n_ports, type: s32}
+    returns:
+      type: s32
+      note: "quantidade de pares (porta, slot) preenchidos"
+    memory_effects: ["out_ports"]
+    errors: []
+    callers_known: []
+    test_vectors: tests/recomp/kt_libpad/port_slot_enum.json
+    confidence: high
+    open_questions: []
+
+  func_00126350:
+    role: dispatch
+    purity: memory_only
+    blocking: none
+    args:
+      - {name: pad_number, type: s32}
+      - {name: cmd, type: s32}
+    returns:
+      type: void
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_00126410:
+    role: state_query
+    purity: memory_only
+    blocking: none
+    args:
+      - {name: pad_number, type: s32}
+    returns:
+      type: u32
+      note: "máscara de botões mantidos (p->buttons)"
+    memory_effects: []
+    errors: []
+    callers_known: [func_00126350]
+    test_vectors: tests/recomp/kt_libpad/button_masks.json
+    confidence: high
+    open_questions: []
+
+  func_00126488:
+    role: state_query
+    purity: memory_only
+    blocking: none
+    args:
+      - {name: pad_number, type: s32}
+    returns:
+      type: u32
+      note: "máscara de botões pressionados no frame (p->buttons_pressed)"
+    memory_effects: []
+    errors: []
+    callers_known: [func_00126350]
+    test_vectors: tests/recomp/kt_libpad/button_masks.json
+    confidence: high
+    open_questions: []
+
+  func_00126500:
+    role: state_query
+    purity: memory_only
+    blocking: none
+    args:
+      - {name: pad_number, type: s32}
+    returns:
+      type: u32
+      note: "máscara de botões soltos no frame (p->buttons_released)"
+    memory_effects: []
+    errors: []
+    callers_known: [func_00126350]
+    test_vectors: tests/recomp/kt_libpad/button_masks.json
+    confidence: high
+    open_questions: []

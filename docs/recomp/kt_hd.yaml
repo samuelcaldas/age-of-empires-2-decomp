@@ -1,0 +1,406 @@
+module: kt_hd
+functions:
+  func_00128BA8:
+    role: kernel_wrapper
+    purity: os_service
+    blocking: none
+    args:
+      - {name: a0, type: s32}
+      - {name: a1, type: s32}
+      - {name: a2, type: s32}
+      - {name: a3, type: s32}
+    returns:
+      type: s32
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_00128CF0:
+    role: kernel_wrapper
+    purity: os_service
+    blocking: none
+    args:
+      - {name: a0, type: s32}
+      - {name: a1, type: s32}
+      - {name: a2, type: s32}
+      - {name: a3, type: s32}
+    returns:
+      type: s32
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_00128D10:
+    role: disc_io
+    purity: os_service
+    blocking: waits_on:rpc
+    args:
+      - {name: name, type: "const char*"}
+      - {name: buf, type: "void*"}
+      - {name: size, type: s32}
+      - {name: offset, type: s32}
+    returns:
+      type: s32
+    memory_effects: ["buf[0..size]"]
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_00128D30:
+    role: disc_io
+    purity: os_service
+    blocking: waits_on:rpc
+    args:
+      - {name: name, type: "const char*"}
+      - {name: buf, type: "void*"}
+      - {name: size, type: s32}
+      - {name: offset, type: s32}
+    returns:
+      type: s32
+    memory_effects: ["buf[0..size]"]
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_00128D50:
+    role: disc_io
+    purity: os_service
+    blocking: waits_on:rpc
+    args:
+      - {name: name, type: "const char*"}
+      - {name: buf, type: "void*"}
+      - {name: size, type: s32}
+      - {name: offset, type: s32}
+    returns:
+      type: s32
+    memory_effects: ["buf[0..size]"]
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_00128D70:
+    role: disc_io
+    purity: os_service
+    blocking: waits_on:rpc
+    args:
+      - {name: name, type: "const char*"}
+      - {name: buf, type: "void*"}
+      - {name: size, type: s32}
+      - {name: offset, type: s32}
+    returns:
+      type: s32
+    memory_effects: ["buf[0..size]"]
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_00128D90:
+    role: disc_io
+    purity: os_service
+    blocking: waits_on:rpc
+    args:
+      - {name: name, type: "const char*"}
+      - {name: buf, type: "void*"}
+      - {name: size, type: s32}
+      - {name: offset, type: s32}
+      - {name: a4, type: s32}
+    returns:
+      type: s32
+    memory_effects: ["buf[0..size]"]
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_00128DC0:
+    role: disc_io
+    purity: os_service
+    blocking: waits_on:rpc
+    args:
+      - {name: name, type: "const char*"}
+      - {name: buf, type: "void*"}
+      - {name: size, type: s32}
+      - {name: offset, type: s32}
+      - {name: a4, type: s32}
+    returns:
+      type: s32
+    memory_effects: ["buf[0..size]"]
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_00128EC8:
+    role: disc_io
+    purity: os_service
+    blocking: waits_on:rpc
+    args:
+      - {name: name, type: "const char*"}
+    returns:
+      type: s32
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_00128F40:
+    role: state_query
+    purity: memory_only
+    blocking: none
+    args:
+      - {name: flag, type: s32}
+    returns:
+      type: s32
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_00128F68:
+    role: state_query
+    purity: memory_only
+    blocking: none
+    args: []
+    returns:
+      type: s32
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_00128F70:
+    role: disc_io
+    purity: os_service
+    blocking: waits_on:rpc
+    args:
+      - {name: name, type: "const char*"}
+      - {name: flag, type: s32}
+      - {name: mode, type: s32}
+    returns:
+      type: s32
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_00129108:
+    role: disc_io
+    purity: os_service
+    blocking: waits_on:rpc
+    args:
+      - {name: name, type: "const char*"}
+      - {name: buf, type: "void*"}
+      - {name: size, type: s32}
+      - {name: flag, type: s32}
+    returns:
+      type: s32
+    memory_effects: ["buf[0..size]"]
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_00129248:
+    role: disc_io
+    purity: os_service
+    blocking: waits_on:rpc
+    args:
+      - {name: name, type: "const char*"}
+    returns:
+      type: s32
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_00129348:
+    role: pure_helper
+    purity: pure
+    blocking: none
+    args: []
+    returns:
+      type: void
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_00129388:
+    role: pure_helper
+    purity: pure
+    blocking: none
+    args: []
+    returns:
+      type: void
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_001293A8:
+    role: pure_helper
+    purity: pure
+    blocking: none
+    args: []
+    returns:
+      type: void
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_001293E0:
+    role: pure_helper
+    purity: pure
+    blocking: none
+    args: []
+    returns:
+      type: void
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_00129428:
+    role: state_query
+    purity: memory_only
+    blocking: none
+    args:
+      - {name: flag, type: s32}
+    returns:
+      type: s32
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_001294A0:
+    role: pure_helper
+    purity: pure
+    blocking: none
+    args: []
+    returns:
+      type: void
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_001294C0:
+    role: state_query
+    purity: memory_only
+    blocking: none
+    args: []
+    returns:
+      type: s32
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_001294E0:
+    role: pure_helper
+    purity: pure
+    blocking: none
+    args: []
+    returns:
+      type: void
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_001294E8:
+    role: state_query
+    purity: memory_only
+    blocking: none
+    args:
+      - {name: flag, type: s32}
+    returns:
+      type: void
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_00129538:
+    role: state_query
+    purity: memory_only
+    blocking: none
+    args:
+      - {name: val, type: s32}
+    returns:
+      type: void
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_00129548:
+    role: state_query
+    purity: memory_only
+    blocking: none
+    args: []
+    returns:
+      type: s32
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_00129560:
+    role: dispatch
+    purity: memory_only
+    blocking: none
+    args:
+      - {name: func, type: "int(*)(void*)"}
+      - {name: arg, type: "void*"}
+    returns:
+      type: s32
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_00129588:
+    role: table_lookup
+    purity: pure
+    blocking: none
+    args:
+      - {name: table, type: "int*", note: "pares {chave, valor}"}
+      - {name: count, type: s32}
+      - {name: key, type: s32}
+    returns:
+      type: s32
+      values: {0: "não encontrado", "V": "valor mapeado"}
+    memory_effects: []
+    errors: []
+    callers_known: []
+    test_vectors: tests/recomp/kt_hd/table_lookup.json
+    confidence: high
+    open_questions: []

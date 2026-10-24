@@ -1,0 +1,609 @@
+module: kt_mouse
+functions:
+  func_00134DE8:
+    role: kernel_wrapper
+    purity: os_service
+    blocking: none
+    args:
+      - {name: a0, type: s32}
+      - {name: a1, type: s32}
+    returns:
+      type: s32
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_00134E50:
+    role: state_query
+    purity: memory_only
+    blocking: none
+    args:
+      - {name: n_mouse, type: s32}
+    returns:
+      type: void
+    memory_effects: ["D_50A060", "D_509F00"]
+    errors: []
+    callers_known: []
+    test_vectors: tests/recomp/kt_mouse/init_mouse.json
+    confidence: high
+    open_questions: []
+
+  func_00134F18:
+    role: pure_helper
+    purity: pure
+    blocking: none
+    args: []
+    returns:
+      type: void
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_00134F20:
+    role: kernel_wrapper
+    purity: os_service
+    blocking: none
+    args: []
+    returns:
+      type: void
+    memory_effects: ["D_50A060.handle"]
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_00134F50:
+    role: kernel_wrapper
+    purity: os_service
+    blocking: none
+    args: []
+    returns:
+      type: void
+    memory_effects: ["D_50A060.handle"]
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_00134F90:
+    role: kernel_wrapper
+    purity: os_service
+    blocking: waits_on:semaphore
+    args: []
+    returns:
+      type: void
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_00134FB8:
+    role: kernel_wrapper
+    purity: os_service
+    blocking: none
+    args: []
+    returns:
+      type: void
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_00134FE0:
+    role: pure_helper
+    purity: pure
+    blocking: none
+    args:
+      - {name: a0, type: s32}
+      - {name: a1, type: s32}
+    returns:
+      type: s32
+    memory_effects: []
+    errors: []
+    callers_known: [func_00135008, func_00135090]
+    test_vectors: tests/recomp/kt_mouse/ring_index.json
+    confidence: high
+    open_questions: []
+
+  func_00135008:
+    role: pure_helper
+    purity: memory_only
+    blocking: none
+    args:
+      - {name: a0, type: s32}
+    returns:
+      type: void
+    memory_effects: ["D_509F00"]
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_00135058:
+    role: pure_helper
+    purity: memory_only
+    blocking: none
+    args:
+      - {name: a0, type: s32}
+    returns:
+      type: "int*"
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_00135090:
+    role: pure_helper
+    purity: memory_only
+    blocking: none
+    args:
+      - {name: a0, type: s32}
+    returns:
+      type: void
+    memory_effects: ["D_509F00"]
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_001350E0:
+    role: pure_helper
+    purity: memory_only
+    blocking: none
+    args:
+      - {name: a0, type: s32}
+    returns:
+      type: "int*"
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_00135118:
+    role: state_query
+    purity: memory_only
+    blocking: none
+    args:
+      - {name: a0, type: s32}
+    returns:
+      type: s32
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_001351B0:
+    role: pure_helper
+    purity: pure
+    blocking: none
+    args: []
+    returns:
+      type: void
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_001351B8:
+    role: state_query
+    purity: memory_only
+    blocking: none
+    args:
+      - {name: a0, type: s32}
+      - {name: a1, type: "void*"}
+    returns:
+      type: s32
+    memory_effects: ["a1"]
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_00135238:
+    role: state_query
+    purity: memory_only
+    blocking: none
+    args:
+      - {name: a0, type: s32}
+    returns:
+      type: s32
+    memory_effects: ["D_509F00"]
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_00135258:
+    role: state_query
+    purity: memory_only
+    blocking: none
+    args:
+      - {name: a0, type: s32}
+    returns:
+      type: s32
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_001352D8:
+    role: pure_helper
+    purity: memory_only
+    blocking: none
+    args:
+      - {name: a0, type: s32}
+      - {name: a1, type: "void*"}
+      - {name: a2, type: s32}
+    returns:
+      type: s32
+    memory_effects: ["a1", "D_509F00"]
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_001353C0:
+    role: pure_helper
+    purity: memory_only
+    blocking: none
+    args:
+      - {name: a0, type: s32}
+      - {name: a1, type: "void*"}
+      - {name: a2, type: s32}
+    returns:
+      type: s32
+    memory_effects: ["D_509F00"]
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_00135478:
+    role: hw_access
+    purity: hardware
+    blocking: none
+    args: []
+    returns:
+      type: void
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_001354A0:
+    role: hw_access
+    purity: hardware
+    blocking: none
+    args: []
+    returns:
+      type: void
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_001354C8:
+    role: hw_access
+    purity: hardware
+    blocking: none
+    args: []
+    returns:
+      type: void
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_00135508:
+    role: hw_access
+    purity: hardware
+    blocking: none
+    args: []
+    returns:
+      type: void
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_00135530:
+    role: state_query
+    purity: memory_only
+    blocking: none
+    args: []
+    returns:
+      type: "void*"
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_00135598:
+    role: state_query
+    purity: memory_only
+    blocking: none
+    args: []
+    returns:
+      type: s32
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_001355D0:
+    role: hw_access
+    purity: hardware
+    blocking: none
+    args: []
+    returns:
+      type: void
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_00135638:
+    role: hw_access
+    purity: hardware
+    blocking: none
+    args: []
+    returns:
+      type: void
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_001356D8:
+    role: pure_helper
+    purity: pure
+    blocking: none
+    args: []
+    returns:
+      type: void
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_001356E8:
+    role: pure_helper
+    purity: memory_only
+    blocking: none
+    args: []
+    returns:
+      type: void
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_00135798:
+    role: pure_helper
+    purity: memory_only
+    blocking: none
+    args: []
+    returns:
+      type: void
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_00135870:
+    role: pure_helper
+    purity: memory_only
+    blocking: none
+    args: []
+    returns:
+      type: void
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_00135980:
+    role: pure_helper
+    purity: memory_only
+    blocking: none
+    args: []
+    returns:
+      type: void
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_001359B8:
+    role: state_query
+    purity: memory_only
+    blocking: none
+    args: []
+    returns:
+      type: s32
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_001359D0:
+    role: state_query
+    purity: memory_only
+    blocking: none
+    args: []
+    returns:
+      type: s32
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_00135A38:
+    role: pure_helper
+    purity: memory_only
+    blocking: none
+    args: []
+    returns:
+      type: void
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_00135AB8:
+    role: pure_helper
+    purity: pure
+    blocking: none
+    args: []
+    returns:
+      type: void
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_00135B88:
+    role: state_query
+    purity: memory_only
+    blocking: none
+    args: []
+    returns:
+      type: s32
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_00135BE8:
+    role: hw_access
+    purity: hardware
+    blocking: none
+    args: []
+    returns:
+      type: void
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_00135BF0:
+    role: hw_access
+    purity: hardware
+    blocking: waits_on:vsync
+    args: []
+    returns:
+      type: void
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_00135D60:
+    role: pure_helper
+    purity: memory_only
+    blocking: none
+    args:
+      - {name: a0, type: s32}
+    returns:
+      type: void
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_00135D98:
+    role: pure_helper
+    purity: memory_only
+    blocking: none
+    args: []
+    returns:
+      type: void
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_00135DA0:
+    role: hw_access
+    purity: hardware
+    blocking: none
+    args: []
+    returns:
+      type: void
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_00135DE8:
+    role: disc_io
+    purity: os_service
+    blocking: waits_on:rpc
+    args: []
+    returns:
+      type: s32
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_00135E30:
+    role: disc_io
+    purity: os_service
+    blocking: waits_on:rpc
+    args: []
+    returns:
+      type: s32
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_00135E78:
+    role: disc_io
+    purity: os_service
+    blocking: waits_on:rpc
+    args: []
+    returns:
+      type: s32
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []

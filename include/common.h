@@ -1,8 +1,6 @@
 #ifndef COMMON_H
 #define COMMON_H
 
-#include "kt_mouse.h"
-
 #ifndef NULL
 #define NULL ((void *)0)
 #endif
@@ -10,8 +8,6 @@
 #ifndef INCLUDE_ASM
 #define INCLUDE_ASM(FOLDER, NAME)
 #endif
-
-typedef u32 GuestAddr;
 
 #ifndef offsetof
 #define offsetof(st, m) ((unsigned int)((char *)&((st *)0)->m - (char *)0))
@@ -22,5 +18,9 @@ typedef u32 GuestAddr;
 #define STATIC_ASSERT_JOIN(a, b) STATIC_ASSERT_JOIN2(a, b)
 #define _Static_assert(cond, msg) typedef char STATIC_ASSERT_JOIN(static_assert_line_, __LINE__)[(cond) ? 1 : -1]
 #endif
+
+#include "kt_mouse.h"
+
+typedef u32 GuestAddr;
 
 #endif /* COMMON_H */

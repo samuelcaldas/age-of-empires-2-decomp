@@ -1,0 +1,30 @@
+{
+  "function": "func_001262E8",
+  "test_cases": [
+    {
+      "name": "null_output_buffer",
+      "args": {"p_ports": [1, 1], "start": 0, "out_ports": 0, "max_items": 4, "n_ports": 2},
+      "expected_return": 0
+    },
+    {
+      "name": "single_slot_per_port",
+      "args": {"p_ports": [1, 1], "start": 0, "out_ports": "0x1000", "max_items": 4, "n_ports": 2},
+      "expected_return": 2,
+      "expected_output_pairs": [
+        {"port": 0, "slot": 0},
+        {"port": 1, "slot": 0}
+      ]
+    },
+    {
+      "name": "two_slots_per_port",
+      "args": {"p_ports": [2, 2], "start": 0, "out_ports": "0x1000", "max_items": 4, "n_ports": 2},
+      "expected_return": 4,
+      "expected_output_pairs": [
+        {"port": 0, "slot": 0},
+        {"port": 0, "slot": 1},
+        {"port": 1, "slot": 0},
+        {"port": 1, "slot": 1}
+      ]
+    }
+  ]
+}

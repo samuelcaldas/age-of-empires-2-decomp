@@ -3,6 +3,15 @@
 
 #include "common.h"
 
+/* Key-value pair for table lookup (8 bytes) */
+typedef struct HdMapEntry {
+    s32 key;
+    s32 val;
+} HdMapEntry;
+_Static_assert(sizeof(HdMapEntry) == 8, "HdMapEntry size");
+_Static_assert(offsetof(HdMapEntry, key) == 0, "HdMapEntry key offset");
+_Static_assert(offsetof(HdMapEntry, val) == 4, "HdMapEntry val offset");
+
 int func_00128BA8(int a0, int a1, int a2, int a3);
 int func_00128CF0(int a0, int a1, int a2, int a3);
 int func_00128D10(const char *name, void *buf, int size, int offset);

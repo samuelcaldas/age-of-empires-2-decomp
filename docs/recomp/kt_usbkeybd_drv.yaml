@@ -1,0 +1,89 @@
+module: kt_usbkeybd_drv
+functions:
+  func_00137208:
+    role: hw_access
+    purity: hardware
+    blocking: none
+    args: []
+    returns:
+      type: s32
+      values: {0: "device error/offline", 1: "device ready"}
+    memory_effects: ["D_50A540"]
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_00137250:
+    role: hw_access
+    purity: os_service
+    blocking: waits_on:rpc
+    args:
+      - {name: info, type: "void*"}
+    returns:
+      type: s32
+    memory_effects: ["D_50A580", "info[0..32]"]
+    errors: [0x4F]
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_001372C0:
+    role: hw_access
+    purity: os_service
+    blocking: waits_on:rpc
+    args:
+      - {name: a0, type: s32}
+      - {name: data, type: "void*"}
+    returns:
+      type: s32
+    memory_effects: ["D_50A580", "data[0..32]"]
+    errors: [0x7B]
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_00137340:
+    role: hw_access
+    purity: os_service
+    blocking: waits_on:rpc
+    args:
+      - {name: a0, type: s32}
+      - {name: location, type: "void*"}
+    returns:
+      type: s32
+    memory_effects: ["D_50A580", "location[0..32]"]
+    errors: [0x99]
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_001373C0:
+    role: hw_access
+    purity: os_service
+    blocking: waits_on:rpc
+    args:
+      - {name: a0, type: u8}
+      - {name: a1, type: u8}
+    returns:
+      type: s32
+    memory_effects: ["D_50A580"]
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_00137420:
+    role: hw_access
+    purity: os_service
+    blocking: waits_on:rpc
+    args:
+      - {name: a0, type: u8}
+      - {name: a1, type: u8}
+    returns:
+      type: s32
+    memory_effects: ["D_50A580"]
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []

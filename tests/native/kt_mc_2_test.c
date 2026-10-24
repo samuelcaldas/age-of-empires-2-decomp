@@ -283,6 +283,38 @@ static void test_initialization_flow(void) {
     printf("  [PASS] test_initialization_flow\n");
 }
 
+static void test_accessor_semantics(void) {
+    int sample[8] = { 111, 222, 333, 444, 555, 666, 777, 888 };
+
+    /* func_0012E330: *(int*)(ptr + 0) or 1 if NULL */
+    assert((int)(long)func_0012E330(sample, 0, 0, 0) == 111);
+    assert((int)(long)func_0012E330(NULL, 0, 0, 0) == 1);
+
+    /* func_0012E348: *(int*)(ptr + 4) or 0 if NULL */
+    assert((int)(long)func_0012E348(sample, 0, 0, 0) == 222);
+    assert((int)(long)func_0012E348(NULL, 0, 0, 0) == 0);
+
+    /* func_0012E360: *(int*)(ptr + 8) or 0 if NULL */
+    assert((int)(long)func_0012E360(sample, 0, 0, 0) == 333);
+    assert((int)(long)func_0012E360(NULL, 0, 0, 0) == 0);
+
+    /* func_0012EB40: write *(int*)(ptr + 0x18) = val */
+    func_0012EB40(sample, (void *)9999, 0, 0);
+    assert(sample[6] == 9999);
+
+    /* func_0012EB80: write *(int*)(ptr + 0x1C) = val */
+    func_0012EB80(sample, (void *)8888, 0, 0);
+    assert(sample[7] == 8888);
+
+    /* func_0012F0D0: clear fields 0, 8, 12 (words 0, 2, 3) */
+    func_0012F0D0(sample, 0, 0, 0);
+    assert(sample[0] == 0);
+    assert(sample[2] == 0);
+    assert(sample[3] == 0);
+
+    printf("  [PASS] test_accessor_semantics\n");
+}
+
 int main(void) {
     /* Map PS2 low BSS region (0x400000 - 0x600000) so fixed hardware addresses are valid */
     mmap((void *)0x400000, 0x200000, PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS | MAP_FIXED, -1, 0);
@@ -292,6 +324,7 @@ int main(void) {
     test_string_helpers();
     test_card_limit_validation();
     test_initialization_flow();
+    test_accessor_semantics();
     printf("All native kt_mc_2 tests passed successfully.\n");
     return 0;
 }

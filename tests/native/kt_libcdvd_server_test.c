@@ -197,10 +197,33 @@ static void test_tail_helpers_semantics(void) {
     assert((int)(long)func_0012CC20(NULL, 0, 0, 0) == 0);
 }
 
+static void test_fase1_helpers_semantics(void) {
+    char ctx[128] = {0};
+    *(int *)(ctx + 0x2C) = 0;
+    /* func_0012A180: when *(int*)(ctx + 0x2C) == 0, returns 2 */
+    assert((int)(long)func_0012A180(ctx, 0, 0, 0) == 2);
+
+    /* func_0012BC40: decrement if non-zero */
+    *(int *)(D_4ED300 + 0x68) = 5;
+    func_0012BC40(0, 0, 0, 0);
+    assert(*(int *)(D_4ED300 + 0x68) == 4);
+    *(int *)(D_4ED300 + 0x68) = 0;
+    func_0012BC40(0, 0, 0, 0);
+    assert(*(int *)(D_4ED300 + 0x68) == 0);
+
+    /* func_0012BFB8: counts non-zero words in table of 4 entries spaced by 0x38 */
+    memset(D_4F1400, 0, 0x100);
+    assert((int)(long)func_0012BFB8(0, 0, 0, 0) == 0);
+    *(int *)(D_4F1400 + 0 * 0x38) = 1;
+    *(int *)(D_4F1400 + 2 * 0x38) = 42;
+    assert((int)(long)func_0012BFB8(0, 0, 0, 0) == 2);
+}
+
 int main(void) {
     test_kt_libcdvd_server_data_access();
     test_kt_libcdvd_server_execution();
     test_tail_helpers_semantics();
+    test_fase1_helpers_semantics();
     puts("All native kt_libcdvd_server tests passed successfully.");
     return 0;
 }

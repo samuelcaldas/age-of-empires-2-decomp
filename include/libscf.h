@@ -5,15 +5,23 @@
 
 /* Sony CDVD Real-Time Clock Structure */
 typedef struct {
-    unsigned char stat;
-    unsigned char second;
-    unsigned char minute;
-    unsigned char hour;
-    unsigned char pad;
-    unsigned char day;
-    unsigned char month;
-    unsigned char year;
+    u8 stat;
+    u8 second;
+    u8 minute;
+    u8 hour;
+    u8 pad;
+    u8 day;
+    u8 month;
+    u8 year;
 } sceCdCLOCK;
+_Static_assert(sizeof(sceCdCLOCK) == 8, "sceCdCLOCK size");
+_Static_assert(offsetof(sceCdCLOCK, stat) == 0, "sceCdCLOCK stat offset");
+_Static_assert(offsetof(sceCdCLOCK, second) == 1, "sceCdCLOCK second offset");
+_Static_assert(offsetof(sceCdCLOCK, minute) == 2, "sceCdCLOCK minute offset");
+_Static_assert(offsetof(sceCdCLOCK, hour) == 3, "sceCdCLOCK hour offset");
+_Static_assert(offsetof(sceCdCLOCK, day) == 5, "sceCdCLOCK day offset");
+_Static_assert(offsetof(sceCdCLOCK, month) == 6, "sceCdCLOCK month offset");
+_Static_assert(offsetof(sceCdCLOCK, year) == 7, "sceCdCLOCK year offset");
 
 /* Function Declarations */
 unsigned char func_00389570(unsigned char c);

@@ -1,0 +1,11 @@
+{
+  "functions": ["func_00389570", "func_003895D8"],
+  "test_cases": [
+    {"name": "zero", "dec": 0, "bcd": 0},
+    {"name": "nine", "dec": 9, "bcd": 9},
+    {"name": "ten", "dec": 10, "bcd": 16},
+    {"name": "twenty_four", "dec": 24, "bcd": 36},
+    {"name": "fifty_nine", "dec": 59, "bcd": 89},
+    {"name": "ninety_nine", "dec": 99, "bcd": 153}
+  ]
+}

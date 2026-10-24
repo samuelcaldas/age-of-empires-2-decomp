@@ -27,7 +27,7 @@ extern const char D_48F430[]; /* "offset+length < n_act" */
 extern const char D_4E2BC8[]; /* "src" */
 extern const char D_4E2BD0[]; /* "n_dat" */
 
-extern void (*D_38C7B8[])(PadSlot *);
+extern int (*D_38C7B8[])(PadSlot *);
 extern const u32 D_38C7C8[];
 extern void (*D_10DC08)();
 extern void (*D_10DC60)();
@@ -923,14 +923,14 @@ void func_001273D8(PadSlot *p) {
         func_114320(D_48F1F0, 0x568, D_48F3B0);
     }
     p->flags &= ~0x40000;
-    D_38C7B8[step](p);
-
-    step++;
-    if (step >= 3) {
-        step = 0;
+    if (D_38C7B8[step](p) != 0) {
+        step++;
+        if (step >= 3) {
+            step = 0;
+        }
+        p->step = step;
+        func_00125E20(p);
     }
-    p->step = step;
-    func_00125E20(p);
 }
 
 /* Function 51: func_00127488 */
@@ -1074,7 +1074,7 @@ void func_00127820(PadSlot *p) {
     }
     for (i = 0; i < max_acts; i++) {
         for (j = 0; j < 4; j++) {
-            p->unk_1C[i * 4 + j] = (u8)func_10D480(p->port, p->slot, -1, i, j + 1);
+            p->unk_1C[i * 4 + j] = (u8)func_10D480(p->port, p->slot, i, j + 1);
         }
     }
 }
@@ -1481,7 +1481,7 @@ void func_00128390(PadSlot *p) {
 
 /* Function 82: func_001285F8 */
 int func_001285F8(int port, int slot, int type) {
-    int count = func_10D6C0(port, slot, 4);
+    int count = func_10D6C0(port, slot, 4, -1);
     int i;
 
     for (i = 0; i < count; i++) {

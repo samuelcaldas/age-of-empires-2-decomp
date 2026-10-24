@@ -21,6 +21,7 @@ def test_unverified_node_pool_units_are_incomplete(unit_name):
     assert units[f"main/{unit_name}"]["metadata"]["complete"] is False
 
 
+@pytest.mark.build
 def test_zone_spatial_grid_block60_build():
     """Verify that Block 60 objects configure and build cleanly."""
     for f in [".ninja_log", ".ninja_deps"]:

@@ -2,6 +2,7 @@ import os
 import subprocess
 import pytest
 
+@pytest.mark.build
 def test_zone_spatial_grid_block57_build():
     """Verify that Block 57 objects build and link without errors."""
     import sys

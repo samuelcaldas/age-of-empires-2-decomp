@@ -2,6 +2,7 @@ import os
 import subprocess
 import pytest
 
+@pytest.mark.build
 def test_zone_spatial_grid_block40_build():
     """Verify that Block 40 objects build and link without errors."""
     res = subprocess.run(["ninja"], capture_output=True, text=True)

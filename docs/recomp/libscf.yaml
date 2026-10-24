@@ -1,0 +1,160 @@
+module: libscf
+functions:
+  func_00389570:
+    role: pure_helper
+    purity: pure
+    blocking: none
+    args:
+      - {name: c, type: u8, note: "valor decimal (0..99)"}
+    returns:
+      type: u8
+      note: "valor codificado em BCD"
+    memory_effects: []
+    errors: [0x119]
+    callers_known: []
+    test_vectors: tests/recomp/libscf/bcd_conversions.json
+    confidence: high
+    open_questions: []
+
+  func_003895D8:
+    role: pure_helper
+    purity: pure
+    blocking: none
+    args:
+      - {name: c, type: u8, note: "valor BCD (0x00..0x99)"}
+    returns:
+      type: u8
+      note: "valor decodificado em decimal"
+    memory_effects: []
+    errors: [0x126]
+    callers_known: [func_00389630]
+    test_vectors: tests/recomp/libscf/bcd_conversions.json
+    confidence: high
+    open_questions: []
+
+  func_00389630:
+    role: pure_helper
+    purity: memory_only
+    blocking: none
+    args:
+      - {name: prtc, type: "sceCdCLOCK*"}
+    returns:
+      type: void
+    memory_effects: ["prtc[0..8]"]
+    errors: [0x132]
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_003896B8:
+    role: pure_helper
+    purity: memory_only
+    blocking: none
+    args:
+      - {name: prtc, type: "sceCdCLOCK*"}
+    returns:
+      type: void
+    memory_effects: ["prtc[0..8]"]
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_00389740:
+    role: state_query
+    purity: os_service
+    blocking: waits_on:rtc
+    args:
+      - {name: prtc, type: "sceCdCLOCK*"}
+    returns:
+      type: void
+    memory_effects: ["prtc[0..8]"]
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_00389828:
+    role: state_query
+    purity: os_service
+    blocking: waits_on:rtc
+    args:
+      - {name: prtc, type: "sceCdCLOCK*"}
+    returns:
+      type: void
+    memory_effects: ["prtc[0..8]"]
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_00389900:
+    role: state_query
+    purity: os_service
+    blocking: waits_on:rtc
+    args:
+      - {name: prtc, type: "sceCdCLOCK*"}
+    returns:
+      type: void
+    memory_effects: ["prtc[0..8]"]
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_00389970:
+    role: state_query
+    purity: os_service
+    blocking: waits_on:rtc
+    args:
+      - {name: prtc, type: "sceCdCLOCK*"}
+    returns:
+      type: void
+    memory_effects: ["prtc[0..8]"]
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_003899D8:
+    role: pure_helper
+    purity: memory_only
+    blocking: none
+    args:
+      - {name: prtc, type: "sceCdCLOCK*"}
+      - {name: diff, type: s32}
+    returns:
+      type: void
+    memory_effects: ["prtc[0..8]"]
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_00389AA8:
+    role: state_query
+    purity: os_service
+    blocking: waits_on:rtc
+    args:
+      - {name: prtc, type: "sceCdCLOCK*"}
+    returns:
+      type: void
+    memory_effects: ["prtc[0..8]"]
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_00389AF0:
+    role: state_query
+    purity: os_service
+    blocking: waits_on:rtc
+    args:
+      - {name: prtc, type: "sceCdCLOCK*"}
+    returns:
+      type: void
+    memory_effects: ["prtc[0..8]"]
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []

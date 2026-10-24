@@ -1274,68 +1274,24 @@ void *func_0012E7E8(void *a0, void *a1, void *a2, void *a3) {
 
 /* func_0012EA40 */
 void *func_0012EA40(void *a0, void *a1, void *a2, void *a3) {
-    long r_v0 = 0, r_v1 = 0;
-    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
-    long r_ra = 0, r_gp = 0;
-    long r_s0 = 0, r_s1 = 0, r_s2 = 0;
-    unsigned char stack_mem[256];
-    long r_sp = (long)stack_mem + 128;
-    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
-    (void)r_s0;
-    (void)r_s1;
-    (void)r_s2;
-    r_sp = (long)(r_sp + (-0x40));
-    if (r_sp) { *(long *)((char *)r_sp + (0x20)) = (long)r_s2; }
-    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_s1; }
-    r_s2 = (long)(r_a3 + 0);
-    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_s0; }
-    r_s1 = (long)(r_a2 + 0);
-    r_s0 = (long)(r_a0 + 0);
-    if (r_s0 == 0) { if (r_sp) { *(long *)((char *)r_sp + (0x30)) = (long)r_ra; } goto _lbl_L0012EA74; }
-    if (r_sp) { *(long *)((char *)r_sp + (0x30)) = (long)r_ra; }
-    r_v0 = (long)strcpy((char *)r_a0, (const char *)r_a1);
-    if (r_s0) { *(int *)((char *)r_s0 + (0x1C)) = (int)r_s1; }
-    if (r_s0) { *(int *)((char *)r_s0 + (0x18)) = (int)r_s2; }
-_lbl_L0012EA74:
-    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x30)); }
-    if (r_sp) { r_s2 = *(long *)((char *)r_sp + (0x20)); }
-    if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x10)); }
-    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
-    r_sp = (long)(r_sp + (0x40));
-    return (void *)r_v0;
+    if (a0 == NULL) {
+        return NULL;
+    }
+    strcpy((char *)a0, (const char *)a1);
+    *(int *)((char *)a0 + 0x1C) = (int)(long)a2;
+    *(int *)((char *)a0 + 0x18) = (int)(long)a3;
+    return a0;
 }
 
 /* func_0012EA90 */
 void *func_0012EA90(void *a0, void *a1, void *a2, void *a3) {
-    long r_v0 = 0, r_v1 = 0;
-    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
-    long r_ra = 0, r_gp = 0;
-    long r_s0 = 0, r_s1 = 0, r_s2 = 0;
-    unsigned char stack_mem[256];
-    long r_sp = (long)stack_mem + 128;
-    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
-    (void)r_s0;
-    (void)r_s1;
-    (void)r_s2;
-    r_sp = (long)(r_sp + (-0x40));
-    if (r_sp) { *(long *)((char *)r_sp + (0x20)) = (long)r_s2; }
-    if (r_sp) { *(long *)((char *)r_sp + (0x10)) = (long)r_s1; }
-    r_s2 = (long)(r_a2 + 0);
-    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_s0; }
-    r_s1 = (long)(r_a3 + 0);
-    r_s0 = (long)(r_a0 + 0);
-    if (r_s0 == 0) { if (r_sp) { *(long *)((char *)r_sp + (0x30)) = (long)r_ra; } goto _lbl_L0012EAC4; }
-    if (r_sp) { *(long *)((char *)r_sp + (0x30)) = (long)r_ra; }
-    r_v0 = (long)strcpy((char *)r_a0, (const char *)r_a1);
-    if (r_s0) { *(int *)((char *)r_s0 + (0x1C)) = (int)r_s1; }
-    if (r_s0) { *(int *)((char *)r_s0 + (0x18)) = (int)r_s2; }
-_lbl_L0012EAC4:
-    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x30)); }
-    if (r_sp) { r_s2 = *(long *)((char *)r_sp + (0x20)); }
-    if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x10)); }
-    if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
-    r_sp = (long)(r_sp + (0x40));
-    return (void *)r_v0;
+    if (a0 == NULL) {
+        return NULL;
+    }
+    strcpy((char *)a0, (const char *)a1);
+    *(int *)((char *)a0 + 0x1C) = (int)(long)a3;
+    *(int *)((char *)a0 + 0x18) = (int)(long)a2;
+    return a0;
 }
 
 /* func_0012EAE0 */
@@ -3202,21 +3158,15 @@ void *func_0012F970(void *a0, void *a1, void *a2, void *a3) {
 
 /* func_0012F980 */
 void *func_0012F980(void *a0, void *a1, void *a2, void *a3) {
-    long r_v0 = 0, r_v1 = 0;
-    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
-    long r_ra = 0, r_gp = 0;
-    unsigned char stack_mem[256];
-    long r_sp = (long)stack_mem + 128;
-    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
-    if (r_a0 == 0) { r_a1 = (long)(0 + 0); goto _lbl_L0012F998; }
-    r_a1 = (long)(0 + 0);
-    r_v1 = (long)((long)r_a0 < (long)(0x4) ? 1 : 0);
-    r_a1 = (long)(0 + (0x1));
-    r_v0 = (long)(0 + (0x2));
-    if (r_v1 == 0) r_a1 = r_v0;
-_lbl_L0012F998:
-    r_v0 = (long)(r_a1 + 0);
-    return (void *)r_v0;
+    long r_a0 = (long)a0;
+    (void)a1; (void)a2; (void)a3;
+    if (r_a0 == 0) {
+        return (void *)0L;
+    }
+    if (r_a0 < 4) {
+        return (void *)1L;
+    }
+    return (void *)2L;
 }
 
 /* func_0012F9A0 */
@@ -3563,42 +3513,26 @@ void *func_0012FBD8(void *a0, void *a1, void *a2, void *a3) {
 
 /* func_0012FBE8 */
 void *func_0012FBE8(void *a0, void *a1, void *a2, void *a3) {
-    long r_v0 = 0, r_v1 = 0;
-    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
-    long r_ra = 0, r_gp = 0;
-    unsigned char stack_mem[256];
-    long r_sp = (long)stack_mem + 128;
-    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
-    r_sp = (long)(r_sp + (-0x10));
-    r_v0 = (long)(r_a3 + 0);
-    if (r_a0 == 0) { if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_ra; } goto _lbl_L0012FC08; }
-    if (r_sp) { *(long *)((char *)r_sp + (0x0)) = (long)r_ra; }
-    if (r_a1) { *(int *)((char *)r_a1 + (0x20)) = (int)r_a0; }
-    r_a0 = (long)(r_a1 + 0);
-    r_a1 = (long)(r_a2 + 0);
-    r_v0 = (long)func_0012F108((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
-_lbl_L0012FC08:
-    if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
-    r_sp = (long)(r_sp + (0x10));
-    return (void *)r_v0;
+    if (a0 == NULL) {
+        return a3;
+    }
+    if (a1 != NULL) {
+        *(int *)((char *)a1 + 0x20) = (int)(long)a0;
+    }
+    return func_0012F108(a1, a2, a2, a3);
 }
 
 /* func_0012FC18 */
 void *func_0012FC18(void *a0, void *a1, void *a2, void *a3) {
-    long r_v0 = 0, r_v1 = 0;
-    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
-    long r_ra = 0, r_gp = 0;
-    unsigned char stack_mem[256];
-    long r_sp = (long)stack_mem + 128;
-    (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
-    r_v0 = (long)((0x500000 >> 16) << 16);
-    if (r_v0) { *(int *)((char *)r_v0 + (-0x6804)) = (int)0; }
-    if (r_a0 != 0) { r_v0 = (long)(0 + 0); goto _lbl_L0012FC30; }
-    r_v0 = (long)(0 + 0);
-    if (r_a1) { *(int *)((char *)r_a1 + (0x8)) = (int)0; }
-    r_v0 = (long)(0 + (-0x7F));
-_lbl_L0012FC30:
-    return (void *)r_v0;
+    (void)a2; (void)a3;
+    *(int *)(0x500000 - 0x6804) = 0;
+    if (a0 != NULL) {
+        return (void *)0L;
+    }
+    if (a1 != NULL) {
+        *(int *)((char *)a1 + 0x8) = 0;
+    }
+    return (void *)-0x7FL;
 }
 
 /* func_0012FC38 */

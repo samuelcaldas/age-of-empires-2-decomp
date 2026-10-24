@@ -219,11 +219,24 @@ static void test_fase1_helpers_semantics(void) {
     assert((int)(long)func_0012BFB8(0, 0, 0, 0) == 2);
 }
 
+static void test_fase1_b2_server_helpers(void) {
+    /* Map low BSS space for 0x4F0000 offsets if needed */
+    /* func_0012AD58: if *(int*)(D_4ED300 + 0x44) >= 0 calls func_1344C0 and sets to -1 */
+    *(int *)(D_4ED300 + 0x44) = 10;
+    func_0012AD58(0, 0, 0, 0);
+    assert(*(int *)(D_4ED300 + 0x44) == -1);
+
+    /* func_0012AD58: if already negative, leaves untouched */
+    func_0012AD58(0, 0, 0, 0);
+    assert(*(int *)(D_4ED300 + 0x44) == -1);
+}
+
 int main(void) {
     test_kt_libcdvd_server_data_access();
     test_kt_libcdvd_server_execution();
     test_tail_helpers_semantics();
     test_fase1_helpers_semantics();
+    test_fase1_b2_server_helpers();
     puts("All native kt_libcdvd_server tests passed successfully.");
     return 0;
 }

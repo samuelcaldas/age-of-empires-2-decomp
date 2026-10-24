@@ -325,6 +325,42 @@ static void test_fase1_mc_helpers(void) {
     *(int *)(ctx + 0x1C) = 0;
     assert(func_0012EEC0(ctx, (void *)2, 0, 0) == NULL);
 
+    /* func_0012EA40 */
+    char buf_ea40[64] = {0};
+    void *ret_ea40 = func_0012EA40(buf_ea40, (void *)"hello_ea40", (void *)0x2222, (void *)0x1111);
+    assert(ret_ea40 == buf_ea40);
+    assert(strcmp(buf_ea40, "hello_ea40") == 0);
+    assert(*(int *)(buf_ea40 + 0x1C) == 0x2222);
+    assert(*(int *)(buf_ea40 + 0x18) == 0x1111);
+    assert(func_0012EA40(NULL, (void *)"test", 0, 0) == NULL);
+
+    /* func_0012EA90 */
+    char buf_ea90[64] = {0};
+    void *ret_ea90 = func_0012EA90(buf_ea90, (void *)"hello_ea90", (void *)0x3333, (void *)0x4444);
+    assert(ret_ea90 == buf_ea90);
+    assert(strcmp(buf_ea90, "hello_ea90") == 0);
+    assert(*(int *)(buf_ea90 + 0x1C) == 0x4444);
+    assert(*(int *)(buf_ea90 + 0x18) == 0x3333);
+    assert(func_0012EA90(NULL, (void *)"test", 0, 0) == NULL);
+
+    /* func_0012F980 */
+    assert((long)func_0012F980((void *)0, 0, 0, 0) == 0);
+    assert((long)func_0012F980((void *)1, 0, 0, 0) == 1);
+    assert((long)func_0012F980((void *)3, 0, 0, 0) == 1);
+    assert((long)func_0012F980((void *)4, 0, 0, 0) == 2);
+    assert((long)func_0012F980((void *)10, 0, 0, 0) == 2);
+
+    /* func_0012FBE8 */
+    char file_ctx[64] = {0};
+    assert(func_0012FBE8(NULL, file_ctx, 0, (void *)0x99) == (void *)0x99);
+
+    /* func_0012FC18 */
+    char mc_obj[32] = {0};
+    *(int *)(mc_obj + 0x8) = 123;
+    assert((long)func_0012FC18(NULL, mc_obj, 0, 0) == -0x7F);
+    assert(*(int *)(mc_obj + 0x8) == 0);
+    assert((long)func_0012FC18((void *)1, mc_obj, 0, 0) == 0);
+
     printf("  [PASS] test_fase1_mc_helpers\n");
 }
 

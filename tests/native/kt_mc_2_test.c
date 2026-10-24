@@ -315,6 +315,19 @@ static void test_accessor_semantics(void) {
     printf("  [PASS] test_accessor_semantics\n");
 }
 
+static void test_fase1_mc_helpers(void) {
+    char ctx[64] = {0};
+    /* On 32-bit guest/PS2, pointers fit in 32-bit int */
+    /* Map low 32-bit address */
+    int guest_buf_addr = 0x410000;
+    *(int *)(ctx + 0x1C) = guest_buf_addr;
+    assert((long)func_0012EEC0(ctx, (void *)2, 0, 0) == (guest_buf_addr + 64));
+    *(int *)(ctx + 0x1C) = 0;
+    assert(func_0012EEC0(ctx, (void *)2, 0, 0) == NULL);
+
+    printf("  [PASS] test_fase1_mc_helpers\n");
+}
+
 int main(void) {
     /* Map PS2 low BSS region (0x400000 - 0x600000) so fixed hardware addresses are valid */
     mmap((void *)0x400000, 0x200000, PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS | MAP_FIXED, -1, 0);
@@ -325,6 +338,7 @@ int main(void) {
     test_card_limit_validation();
     test_initialization_flow();
     test_accessor_semantics();
+    test_fase1_mc_helpers();
     printf("All native kt_mc_2 tests passed successfully.\n");
     return 0;
 }

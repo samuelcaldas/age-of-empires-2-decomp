@@ -9,7 +9,7 @@ import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
 C_TEST = ROOT / "tests/native/kt_hd_test.c"
-C_SRC = ROOT / "src/kt_hd.c"
+C_SRC = ROOT / "src/kcet/kt_hd.c"
 
 
 def test_kt_hd_native_behavior(tmp_path):

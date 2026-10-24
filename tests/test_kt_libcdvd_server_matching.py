@@ -16,7 +16,7 @@ from kt_libcdvd_server_expected_funcs import EXPECTED_FUNCS
 
 
 ROOT = Path(__file__).resolve().parents[1]
-SOURCE = ROOT / "src/kt_libcdvd_server.c"
+SOURCE = ROOT / "src/kcet/kt_libcdvd_server.c"
 COMPILER = ROOT / "compilers/PS2/ee-gcc2.9-991111/bin/ee-gcc.exe"
 WRAPPER = ROOT / "build/tools/wibo"
 
@@ -59,4 +59,4 @@ def test_kt_libcdvd_server_compiles_and_matches_target(tmp_path):
 
         # Verify no inline assembly remains in C source
         source_text = SOURCE.read_text()
-        assert "__asm__" not in source_text, "Found __asm__ in src/kt_libcdvd_server.c; must be pure C"
+        assert "__asm__" not in source_text, "Found __asm__ in src/kcet/kt_libcdvd_server.c; must be pure C"

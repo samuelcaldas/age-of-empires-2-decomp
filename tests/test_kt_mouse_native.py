@@ -9,7 +9,7 @@ import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
 C_TEST = ROOT / "tests/native/kt_mouse_test.c"
-C_SRC = ROOT / "src/kt_mouse.c"
+C_SRC = ROOT / "src/kcet/kt_mouse.c"
 
 
 def test_kt_mouse_native_behavior(tmp_path):

@@ -9,7 +9,7 @@ import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
 C_TEST = ROOT / "tests/native/kt_usbkeybd_drv_test.c"
-C_SRC = ROOT / "src/kt_usbkeybd_drv.c"
+C_SRC = ROOT / "src/kcet/kt_usbkeybd_drv.c"
 
 
 def test_kt_usbkeybd_drv_native_behavior(tmp_path):

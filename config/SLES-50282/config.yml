@@ -96,61 +96,61 @@ segments:
     start: 0x259e8
     vram: 0x125808
     subsegments:
-      - [0x259e8, asm, kt_gpu]
+      - [0x259e8, asm, kcet/kt_gpu]
   - name: kt_libpad
     type: code
     start: 0x25e18
     vram: 0x125c38
     subsegments:
-      - [0x25e18, asm, kt_libpad]
+      - [0x25e18, asm, kcet/kt_libpad]
   - name: kt_hd
     type: code
     start: 0x28d88
     vram: 0x128ba8
     subsegments:
-      - [0x28d88, asm, kt_hd]
+      - [0x28d88, asm, kcet/kt_hd]
   - name: kt_libcdvd_server
     type: code
     start: 0x297b0
     vram: 0x1295d0
     subsegments:
-      - [0x297b0, asm, kt_libcdvd_server]
+      - [0x297b0, asm, kcet/kt_libcdvd_server]
   - name: kt_file
     type: code
     start: 0x2cec8
     vram: 0x12cce8
     subsegments:
-      - [0x2cec8, asm, kt_file]
+      - [0x2cec8, asm, kcet/kt_file]
   - name: kt_mc_2
     type: code
     start: 0x2deb0
     vram: 0x12de88
     subsegments:
-      - [0x2deb0, asm, kt_mc_2]
+      - [0x2deb0, asm, kcet/kt_mc_2]
   - name: kt_kernel
     type: code
     start: 0x34320
     vram: 0x134140
     subsegments:
-      - [0x34320, asm, kt_kernel]
+      - [0x34320, asm, kcet/kt_kernel]
   - name: kt_mouse
     type: code
     start: 0x34fc8
     vram: 0x134de8
     subsegments:
-      - [0x34fc8, asm, kt_mouse]
+      - [0x34fc8, asm, kcet/kt_mouse]
   - name: kt_keybd
     type: code
     start: 0x360a0
     vram: 0x135ec0
     subsegments:
-      - [0x360a0, asm, kt_keybd]
+      - [0x360a0, asm, kcet/kt_keybd]
   - name: kt_usbkeybd_drv
     type: code
     start: 0x373e8
     vram: 0x137208
     subsegments:
-      - [0x373e8, asm, kt_usbkeybd_drv]
+      - [0x373e8, asm, kcet/kt_usbkeybd_drv]
   - name: post_usbkeybd
     type: bin
     start: 0x3765c
@@ -6254,7 +6254,7 @@ segments:
     start: 0x289750
     vram: 0x389570
     subsegments:
-      - [0x289750, asm, libscf]
+      - [0x289750, asm, kcet/libscf]
   - name: post_libscf
     type: bin
     start: 0x289d40

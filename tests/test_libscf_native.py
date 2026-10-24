@@ -9,7 +9,7 @@ import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
 C_TEST = ROOT / "tests/native/libscf_test.c"
-C_SRC = ROOT / "src/libscf.c"
+C_SRC = ROOT / "src/kcet/libscf.c"
 
 
 def test_libscf_native_behavior(tmp_path):

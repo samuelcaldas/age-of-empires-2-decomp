@@ -15,7 +15,7 @@ import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
 ORIGINAL = ROOT / "orig/SLES-50282/AOK.ELF"
-SOURCE = ROOT / "src/kt_file.c"
+SOURCE = ROOT / "src/kcet/kt_file.c"
 COMPILER = ROOT / "compilers/PS2/ee-gcc2.9-991111/bin/ee-gcc.exe"
 WRAPPER = ROOT / "build/tools/wibo"
 

@@ -9,7 +9,7 @@ import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
 C_TEST = ROOT / "tests/native/kt_keybd_test.c"
-C_SRC = ROOT / "src/kt_keybd.c"
+C_SRC = ROOT / "src/kcet/kt_keybd.c"
 
 
 def test_kt_keybd_native_behavior(tmp_path):

@@ -12,7 +12,7 @@ import pytest
 
 
 ROOT = Path(__file__).resolve().parents[1]
-SOURCE = ROOT / "src/kt_gpu.c"
+SOURCE = ROOT / "src/kcet/kt_gpu.c"
 COMPILER = ROOT / "compilers/PS2/ee-gcc2.9-991111/bin/ee-gcc.exe"
 WRAPPER = ROOT / "build/tools/wibo"
 

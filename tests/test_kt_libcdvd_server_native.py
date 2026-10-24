@@ -9,7 +9,7 @@ import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
 C_TEST = ROOT / "tests/native/kt_libcdvd_server_test.c"
-C_SRC = ROOT / "src/kt_libcdvd_server.c"
+C_SRC = ROOT / "src/kcet/kt_libcdvd_server.c"
 
 
 def test_kt_libcdvd_server_native_behavior(tmp_path):

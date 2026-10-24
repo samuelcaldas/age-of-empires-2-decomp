@@ -3,33 +3,80 @@
 
 #include "common.h"
 
+/* Thread status enum */
+typedef enum KtThreadStatus {
+    KT_THREAD_STATUS_RUN     = 1,
+    KT_THREAD_STATUS_READY   = 2,
+    KT_THREAD_STATUS_WAIT    = 3,
+    KT_THREAD_STATUS_SUSPEND = 4,
+    KT_THREAD_STATUS_DORMANT = 5
+} KtThreadStatus;
+
+/* V-Sync init modes */
+typedef enum KtVSyncMode {
+    KT_VSYNC_MODE_VBLANK_S = 1,
+    KT_VSYNC_MODE_VBLANK_E = 2,
+    KT_VSYNC_MODE_BOTH     = 3
+} KtVSyncMode;
+
+/* INTC interrupt causes */
+typedef enum KtIntcCause {
+    KT_INTC_VBLANK_S = 2,
+    KT_INTC_VBLANK_E = 3
+} KtIntcCause;
+
+/* Subsystem limits */
+#define KT_MAX_THREADS       64
+#define KT_MAX_SEMAPHORES    128
+#define KT_SYNCV_SEMA_COUNT  4
+
 /* Sony EE Kernel Types */
 typedef struct {
-    int status;             /* 0x00 */
-    void *entry;            /* 0x04 */
-    void *stack;            /* 0x08 */
-    int stack_size;         /* 0x0C */
-    void *gp_reg;           /* 0x10 */
-    int init_priority;      /* 0x14 */
-    int current_priority;   /* 0x18 */
-    unsigned int attr;      /* 0x1C */
-    unsigned int option;    /* 0x20 */
-    unsigned int wait_type; /* 0x24 */
-    int wait_id;            /* 0x28 */
-    int wakeup_count;       /* 0x2C */
+    s32 status;             /* 0x00 */
+    GuestAddr entry;        /* 0x04 */
+    GuestAddr stack;        /* 0x08 */
+    s32 stack_size;         /* 0x0C */
+    GuestAddr gp_reg;       /* 0x10 */
+    s32 init_priority;      /* 0x14 */
+    s32 current_priority;   /* 0x18 */
+    u32 attr;               /* 0x1C */
+    u32 option;             /* 0x20 */
+    u32 wait_type;          /* 0x24 */
+    s32 wait_id;            /* 0x28 */
+    s32 wakeup_count;       /* 0x2C */
 } KtThreadParam;
+_Static_assert(sizeof(KtThreadParam) == 48, "KtThreadParam size");
+_Static_assert(offsetof(KtThreadParam, status) == 0, "KtThreadParam status offset");
+_Static_assert(offsetof(KtThreadParam, entry) == 4, "KtThreadParam entry offset");
+_Static_assert(offsetof(KtThreadParam, stack) == 8, "KtThreadParam stack offset");
+_Static_assert(offsetof(KtThreadParam, stack_size) == 12, "KtThreadParam stack_size offset");
+_Static_assert(offsetof(KtThreadParam, gp_reg) == 16, "KtThreadParam gp_reg offset");
+_Static_assert(offsetof(KtThreadParam, init_priority) == 20, "KtThreadParam init_priority offset");
+_Static_assert(offsetof(KtThreadParam, current_priority) == 24, "KtThreadParam current_priority offset");
+_Static_assert(offsetof(KtThreadParam, attr) == 28, "KtThreadParam attr offset");
+_Static_assert(offsetof(KtThreadParam, option) == 32, "KtThreadParam option offset");
+_Static_assert(offsetof(KtThreadParam, wait_type) == 36, "KtThreadParam wait_type offset");
+_Static_assert(offsetof(KtThreadParam, wait_id) == 40, "KtThreadParam wait_id offset");
+_Static_assert(offsetof(KtThreadParam, wakeup_count) == 44, "KtThreadParam wakeup_count offset");
 
 typedef struct {
-    int current_count;   /* 0x00 */
-    int max_count;       /* 0x04 */
-    int init_count;      /* 0x08 */
-    int wait_threads;    /* 0x0C */
-    unsigned int attr;   /* 0x10 */
-    unsigned int option; /* 0x14 */
+    s32 current_count;   /* 0x00 */
+    s32 max_count;       /* 0x04 */
+    s32 init_count;      /* 0x08 */
+    s32 wait_threads;    /* 0x0C */
+    u32 attr;            /* 0x10 */
+    u32 option;          /* 0x14 */
 } KtSemaParam;
+_Static_assert(sizeof(KtSemaParam) == 24, "KtSemaParam size");
+_Static_assert(offsetof(KtSemaParam, current_count) == 0, "KtSemaParam current_count offset");
+_Static_assert(offsetof(KtSemaParam, max_count) == 4, "KtSemaParam max_count offset");
+_Static_assert(offsetof(KtSemaParam, init_count) == 8, "KtSemaParam init_count offset");
+_Static_assert(offsetof(KtSemaParam, wait_threads) == 12, "KtSemaParam wait_threads offset");
+_Static_assert(offsetof(KtSemaParam, attr) == 16, "KtSemaParam attr offset");
+_Static_assert(offsetof(KtSemaParam, option) == 20, "KtSemaParam option offset");
 
 typedef struct {
-    int status_id;
+    s32 status_id;
     const char *status_str;
 } KtThreadStatusEntry;
 

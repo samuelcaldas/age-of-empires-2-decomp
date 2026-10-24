@@ -103,11 +103,11 @@ int func_00134290(void *entry, void *stack, int stack_size, int priority, int op
     int id;
 
     func_001143C0(&th, sizeof(th));
-    th.entry = entry;
-    th.stack = stack;
+    th.entry = (GuestAddr)(unsigned long)entry;
+    th.stack = (GuestAddr)(unsigned long)stack;
     th.stack_size = stack_size;
     th.init_priority = priority;
-    th.gp_reg = &D_4EA7C0;
+    th.gp_reg = (GuestAddr)(unsigned long)&D_4EA7C0;
     th.option = option;
 
     id = func_104B20(&th);

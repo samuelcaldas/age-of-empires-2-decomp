@@ -1,4 +1,5 @@
 #include <assert.h>
+#include <stdarg.h>
 #include <stdio.h>
 #include <string.h>
 
@@ -47,12 +48,98 @@ void func_1057B0(int a) {}
 int func_134440(int a) { return 0; }
 int func_134500(int a) { return 0; }
 
-int func_10D6C0(void) { return 0; }
+static int s_mock_mode_query_count = 0;
+static int s_mock_first_mode_call_offset = -999;
+
+int func_10D6C0(int port, int slot, int type, ...) {
+    va_list ap;
+    va_start(ap, type);
+    s_mock_mode_query_count++;
+    if (type == 4) {
+        int off = va_arg(ap, int);
+        if (s_mock_mode_query_count == 1) {
+            s_mock_first_mode_call_offset = off;
+        }
+        va_end(ap);
+        if (off == -1) {
+            return 2; /* 2 modes in table */
+        }
+        if (off == 0) {
+            return 0x41; /* Digital */
+        }
+        if (off == 1) {
+            return 0x73; /* Analog (DualShock) */
+        }
+        return 0;
+    }
+    va_end(ap);
+    return 0;
+}
+
+int func_001285F8(int port, int slot, int type);
+
+static void test_mode_info_query_conventions(void) {
+    s_mock_mode_query_count = 0;
+    s_mock_first_mode_call_offset = -999;
+
+    int idx = func_001285F8(0, 0, 0x73);
+    assert(s_mock_first_mode_call_offset == -1);
+    assert(idx == 1);
+}
 int func_10CF10(void) { return 0; }
 static int s_mock_pad_state = 0;
 int func_10D2E0(int port, int slot) { return s_mock_pad_state; }
 int func_10D0F8(void) { return 0; }
-int func_10D480(void) { return 0; }
+/* Declarations from kt_libpad.c */
+int func_001262E8(int *p_ports, int start, u16 *out_ports, int max_items, int n_ports);
+u32 func_00126410(int pad_number);
+u32 func_00126488(int pad_number);
+PadSlot *func_00125A70(int pad_number);
+void func_00125AA8(void);
+void func_00125AC8(void);
+int func_001275A0(PadSlot *p);
+void func_001273D8(PadSlot *p);
+void func_00127820(PadSlot *p);
+int func_001285F8(int port, int slot, int type);
+
+static int s_mock_act_calls = 0;
+static int s_mock_act_last_args[5] = {0};
+
+int func_10D480(int port, int slot, ...) {
+    va_list ap;
+    va_start(ap, slot);
+    s_mock_act_last_args[0] = port;
+    s_mock_act_last_args[1] = slot;
+    if (s_mock_act_calls == 0) {
+        /* First call is max_acts query: (port, slot) */
+        s_mock_act_calls++;
+        va_end(ap);
+        return 1;
+    }
+    /* Subsequent calls: descriptor query */
+    s_mock_act_last_args[2] = va_arg(ap, int);
+    s_mock_act_last_args[3] = va_arg(ap, int);
+    s_mock_act_calls++;
+    va_end(ap);
+    return 0x55;
+}
+
+static void test_actuator_desc_call_convention(void) {
+    PadSlot slot;
+    memset(&slot, 0, sizeof(slot));
+    slot.port = 1;
+    slot.slot = 0;
+
+    s_mock_act_calls = 0;
+    func_00127820(&slot);
+
+    /* Verify 4 arguments: (port=1, slot=0, actuator=0, term=1..4) */
+    /* If 5 arguments were passed with -1 as arg 2, last_args[2] would be -1 instead of actuator index 0 */
+    assert(s_mock_act_last_args[0] == 1);
+    assert(s_mock_act_last_args[1] == 0);
+    assert(s_mock_act_last_args[2] == 0); /* actuator index */
+    assert(s_mock_act_last_args[3] == 4); /* term: 4th term */
+}
 int func_10D260(void) { return 0; }
 int func_10D968(void) { return 0; }
 int func_00125AE8(void) { return 0; }
@@ -63,14 +150,6 @@ int func_10DBA8(void) { return 0; }
 int func_116F68(void) { return 0; }
 int func_128D30(void) { return 0; }
 int func_104B60(void) { return 0; }
-
-/* Declarations from kt_libpad.c */
-int func_001262E8(int *p_ports, int start, u16 *out_ports, int max_items, int n_ports);
-u32 func_00126410(int pad_number);
-u32 func_00126488(int pad_number);
-PadSlot *func_00125A70(int pad_number);
-void func_00125AA8(void);
-void func_00125AC8(void);
 
 static PadSlot s_mock_slots[2];
 
@@ -104,6 +183,7 @@ static void test_button_accessors(void) {
 }
 
 int func_001275A0(PadSlot *p);
+void func_001273D8(PadSlot *p);
 
 static void test_pad_state_dispatcher(void) {
     PadSlot slot;
@@ -130,10 +210,48 @@ static void test_pad_state_dispatcher(void) {
     assert(func_001275A0(&slot) == 1);
 }
 
+static int s_mock_step_return = 0;
+static int mock_step_handler(PadSlot *p) {
+    return s_mock_step_return;
+}
+
+static void test_step_advancement_logic(void) {
+    PadSlot slot;
+    memset(&slot, 0, sizeof(slot));
+    slot.step = 0;
+    slot.flags = 0x40000;
+
+    D_38C7B8[0] = (void (*)(PadSlot *))mock_step_handler;
+    D_38C7B8[1] = (void (*)(PadSlot *))mock_step_handler;
+    D_38C7B8[2] = (void (*)(PadSlot *))mock_step_handler;
+
+    /* When handler returns 0, step does NOT advance */
+    s_mock_step_return = 0;
+    func_001273D8(&slot);
+    assert(slot.step == 0);
+    assert((slot.flags & 0x40000) == 0);
+
+    /* When handler returns 1 (non-zero), step advances to 1 */
+    s_mock_step_return = 1;
+    func_001273D8(&slot);
+    assert(slot.step == 1);
+
+    /* Advance again with return 1 */
+    func_001273D8(&slot);
+    assert(slot.step == 2);
+
+    /* Step wraps from 2 to 0 when non-zero returned */
+    func_001273D8(&slot);
+    assert(slot.step == 0);
+}
+
 int main(void) {
     test_port_slot_enumeration();
     test_button_accessors();
     test_pad_state_dispatcher();
+    test_step_advancement_logic();
+    test_actuator_desc_call_convention();
+    test_mode_info_query_conventions();
     printf("All native kt_libpad tests passed successfully.\n");
     return 0;
 }

@@ -129,3 +129,24 @@ functions:
     test_vectors: tests/recomp/kt_libpad/button_masks.json
     confidence: high
     open_questions: []
+
+  func_001275A0:
+    role: state_dispatcher
+    purity: hardware_io
+    blocking: none
+    args:
+      - {name: p, type: "PadSlot*"}
+    returns:
+      type: s32
+      note: "0 em processamento contínuo; 1 se desconectado/desplugado ou porta inválida"
+    memory_effects: ["p->state", "p->buttons", "p->err_count"]
+    state_dispatch:
+      5: "zera botões (func_001279B8 -> func_00125E30)"
+      6: "processa dados (func_001279C0 -> func_001279C8 com flag 1)"
+      7: "conta erro (func_00127BD8 -> p->err_count++)"
+      2: "processa com outra flag (func_001279B0 -> func_001279C8 com flag 0)"
+      0x63: "desconectado (func_001279A0, retorna 1)"
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []

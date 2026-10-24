@@ -49,7 +49,8 @@ int func_134500(int a) { return 0; }
 
 int func_10D6C0(void) { return 0; }
 int func_10CF10(void) { return 0; }
-int func_10D2E0(void) { return 0; }
+static int s_mock_pad_state = 0;
+int func_10D2E0(int port, int slot) { return s_mock_pad_state; }
 int func_10D0F8(void) { return 0; }
 int func_10D480(void) { return 0; }
 int func_10D260(void) { return 0; }
@@ -102,9 +103,37 @@ static void test_button_accessors(void) {
     assert(func_00126488(0) == KT_PAD_CROSS);
 }
 
+int func_001275A0(PadSlot *p);
+
+static void test_pad_state_dispatcher(void) {
+    PadSlot slot;
+    memset(&slot, 0, sizeof(slot));
+    slot.port = 0;
+    slot.slot = 0;
+    slot.req_port = 0;
+    slot.req_slot = 0;
+
+    /* State 5: Zera botões (func_001279B8 -> func_00125E30) */
+    slot.buttons = 0xFFFF;
+    s_mock_pad_state = 5;
+    assert(func_001275A0(&slot) == 0);
+    assert(slot.buttons == 0);
+
+    /* State 7: Conta erro (func_00127BD8 -> err_count++) */
+    slot.err_count = 10;
+    s_mock_pad_state = 7;
+    assert(func_001275A0(&slot) == 0);
+    assert(slot.err_count == 11);
+
+    /* State 0x63: Desconectado -> retorna 1 */
+    s_mock_pad_state = 0x63;
+    assert(func_001275A0(&slot) == 1);
+}
+
 int main(void) {
     test_port_slot_enumeration();
     test_button_accessors();
+    test_pad_state_dispatcher();
     printf("All native kt_libpad tests passed successfully.\n");
     return 0;
 }

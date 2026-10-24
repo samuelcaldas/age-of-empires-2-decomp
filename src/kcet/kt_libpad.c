@@ -968,37 +968,40 @@ int func_00127488(PadSlot *p) {
 
 /* Function 52: func_001275A0 */
 int func_001275A0(PadSlot *p) {
+    int res = 0;
     int st;
 
-    if (func_001276B8(p) == 0) {
-        return 1;
-    }
-    st = func_10D2E0(p->port, p->slot);
-    p->state = st;
-
-    if (st == 5) {
-        func_00127BD8(p);
-    } else if (st < 6) {
-        if (st == 1) {
-            func_001279A8(p);
-        } else if (st < 2) {
-            func_001279A0(p);
-        } else if (st == 2) {
-            func_001279B0(p);
-        } else {
-            func_001279A0(p);
-        }
+    if (func_001276B8(p)) {
+        res = 1;
     } else {
-        if (st == 7) {
-            func_001279C0(p);
-        } else if (st < 7) {
-            func_001279B8(p);
-        } else if (st == 0x63) {
-            func_001279A0(p);
-            return 1;
+        p->state = st = func_10D2E0(p->port, p->slot);
+        switch (st) {
+            default:
+            case 0:
+                func_001279A0(p);
+                break;
+            case 1:
+                func_001279A8(p);
+                break;
+            case 2:
+                func_001279B0(p);
+                break;
+            case 5:
+                func_001279B8(p);
+                break;
+            case 6:
+                func_001279C0(p);
+                break;
+            case 7:
+                func_00127BD8(p);
+                break;
+            case 0x63:
+                func_001279A0(p);
+                res = 1;
+                break;
         }
     }
-    return 0;
+    return res;
 }
 
 /* Function 53: func_001276B0 */

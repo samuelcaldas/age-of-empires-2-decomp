@@ -38,6 +38,7 @@ typedef struct {
     uint32_t bss_base;
     uint32_t bss_size;
 } SlesBootHeader;
+_Static_assert(sizeof(SlesBootHeader) == 24, "SlesBootHeader size");
 
 /* Boot initialization & launcher prototypes */
 void sles_boot_init(void);

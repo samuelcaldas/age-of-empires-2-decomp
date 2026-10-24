@@ -25,6 +25,12 @@ typedef struct {
     int free_clusters;
     int flags;
 } KtMcCard;
+_Static_assert(sizeof(KtMcCard) == 20, "KtMcCard size");
+_Static_assert(offsetof(KtMcCard, port) == 0, "KtMcCard port offset");
+_Static_assert(offsetof(KtMcCard, slot) == 4, "KtMcCard slot offset");
+_Static_assert(offsetof(KtMcCard, type) == 8, "KtMcCard type offset");
+_Static_assert(offsetof(KtMcCard, free_clusters) == 12, "KtMcCard free_clusters offset");
+_Static_assert(offsetof(KtMcCard, flags) == 16, "KtMcCard flags offset");
 
 typedef struct {
     char name[32];
@@ -32,6 +38,11 @@ typedef struct {
     int attr;
     unsigned char date[8];
 } KtMcFileInfo;
+_Static_assert(sizeof(KtMcFileInfo) == 48, "KtMcFileInfo size");
+_Static_assert(offsetof(KtMcFileInfo, name) == 0, "KtMcFileInfo name offset");
+_Static_assert(offsetof(KtMcFileInfo, size) == 32, "KtMcFileInfo size offset");
+_Static_assert(offsetof(KtMcFileInfo, attr) == 36, "KtMcFileInfo attr offset");
+_Static_assert(offsetof(KtMcFileInfo, date) == 40, "KtMcFileInfo date offset");
 
 /* All 337 functions in kt_mc_2.c */
 void *func_0012DE88(void *a0, void *a1, void *a2, void *a3);

@@ -43,6 +43,7 @@ typedef struct {
     uint8_t wheel;
     uint16_t reserved;
 } KcetMousePacket;
+_Static_assert(sizeof(KcetMousePacket) == 8, "KcetMousePacket size");
 
 typedef struct {
     uint32_t track_id;
@@ -50,6 +51,7 @@ typedef struct {
     uint16_t volume_r;
     uint32_t loop_flag;
 } KcetSoundTrackCmd;
+_Static_assert(sizeof(KcetSoundTrackCmd) == 12, "KcetSoundTrackCmd size");
 
 /* Driver entry point prototypes (IOP MIPS) */
 int soundcd_init(int argc, char *argv[]);

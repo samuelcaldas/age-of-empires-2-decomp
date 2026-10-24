@@ -1152,9 +1152,11 @@ void func_001279C8(PadSlot *p, int flag) {
             break;
         case 1:
             ret = func_001286A8(p);
+            /* NOTE: Intentional goto for switch branch convergence to shared post-processing (idiomatic original C). */
             goto check_sub;
         case 2:
             ret = func_001281C0(p);
+            /* NOTE: Intentional goto for switch branch convergence to shared post-processing (idiomatic original C). */
             goto check_sub;
         case 3:
             ret = func_00128878(p);

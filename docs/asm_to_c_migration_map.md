@@ -54,7 +54,7 @@ pie title Distribuição de Funções em Assembly (Total: 1.906 funções)
 | **`src/dcomp_overlay.c`** | Overlay (Gerador RMS) | 10.169 | 71 | 40.128 B | Decompilado (C Puro + Testes Nativos) |
 | **`src/kt_libpad.c`** | KCET Hardware (DualShock) | 4.486 | 100 | 12.144 B | 100% Matched |
 | **`src/thelp_overlay.c`** | Overlay (Tech Tree) | 38.213 | 119 | 70.848 B | 100% Matched |
-| **`src/smenu_overlay.c`** | Overlay (Setup/Menus) | 49.515 | 144 | 90.560 B | 100% Matched |
+| **`src/smenu_overlay.c`** | Overlay (Setup/Menus) | 24.415 | 144 | 90.560 B | Decompilado (C Puro + Testes Nativos) |
 | **`src/kt_libcdvd_server.c`** | KCET Hardware (CD/DVD) | 5.614 | 150 | 14.104 B | Decompilado (C Puro + Testes Nativos) |
 | **`src/kt_mc_2.c`** | KCET Hardware (Memory Card)| 11.415 | 337 | 56.396 B | **INCOMPLETO** (Transpilação crua de registradores; requer C estruturado) |
 | **`src/lobby_overlay.c`** | Overlay (Multiplayer) | 96.389 | 814 | 337.472 B | **Concluído** (Descompilado 814/814 fns estruturadas em C, bit-exact .rodata, 0 stubs) |
@@ -100,10 +100,11 @@ Estes arquivos contêm o código carregado dinamicamente do CD pelo CodeWarrior 
 * **Descrição**: Navegador interativo da Árvore Tecnológica (*Tech Tree*) e janelas de ajuda em tempo real durante a partida.
 * **Complexidade**: Média-Alta. Lógica de UI de grafos de tecnologias, botões e renderização de ícones.
 
-### 7. `src/smenu_overlay.c` (144 funções / 49.515 linhas)
+### 7. `src/smenu_overlay.c` (144 funções / 24.415 linhas) — *Decompilado (C Puro + Testes Nativos)*
 * **VRAM**: `0x01D98000`
-* **Descrição**: Menus principais, carrossel de campanhas, telas de configuração de áudio/vídeo e opções de jogo.
-* **Complexidade**: Alta. Gerenciamento extensivo de estados de interface do usuário, eventos de cursor e fluxo de menus.
+* **Descrição**: Menus principais, carrossel de campanhas, telas de configuração de áudio/vídeo e opções de jogo (`SMENU_CD.BIN`). As 144 funções lógicas foram descompiladas de inline assembly para C puro estruturado com delay slots tratados, e a tabela de dados `.rodata` (2.112 bytes) foi extraída em `include/smenu_data.inc`.
+* **Header**: `include/smenu_overlay.h`
+* **Testes**: `tests/test_smenu_native.py` (execução comportamental nativa) e `tests/test_smenu_matching.py` (matching de símbolos e exatidão bit-a-bit de `.rodata` com `ee-gcc 2.9-991111 -O2 -G0`).
 
 ### 8. `src/lobby_overlay.c` (814 funções / 96.389 linhas) — *Concluído*
 * **VRAM**: `0x01D98000`

@@ -1,0 +1,11 @@
+{
+  "function": "func_0012D0D0",
+  "test_cases": [
+    {"name": "zero", "args": [0], "expected_return": 0},
+    {"name": "positive_one", "args": [1], "expected_return": 1},
+    {"name": "negative_one", "args": [-1], "expected_return": -1},
+    {"name": "max_s32", "args": [2147483647], "expected_return": 2147483647},
+    {"name": "min_s32", "args": [-2147483648], "expected_return": -2147483648},
+    {"name": "arbitrary_val", "args": [42], "expected_return": 42}
+  ]
+}

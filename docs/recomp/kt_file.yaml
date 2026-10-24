@@ -1,0 +1,719 @@
+module: kt_file
+functions:
+  func_0012CCE8:
+    role: state_query
+    purity: memory_only
+    blocking: none
+    args:
+      - {name: table, type: "FileRecord*"}
+    returns:
+      type: "FileRecord*"
+      values: {0: "tabela anterior vazia"}
+    memory_effects: ["D_4F1508.record_table", "D_4F1508.record_count", "D_4F1508.min_val"]
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_0012CDE0:
+    role: state_query
+    purity: memory_only
+    blocking: none
+    args:
+      - {name: table, type: "void*"}
+    returns:
+      type: "void*"
+      values: {0: "tabela anterior vazia"}
+    memory_effects: ["D_4F1508.entry_table", "D_4F1508.entry_count"]
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_0012CEA0:
+    role: dispatch
+    purity: pure
+    blocking: none
+    args:
+      - {name: arg, type: "void*"}
+    returns:
+      type: s32
+      values: {0: "kind 0", 1: "kind 1", 2: "kind 2", 3: "kind 3/nulo"}
+    memory_effects: []
+    errors: []
+    callers_known: [func_0012CF58, func_0012CFC8, func_0012D060, func_0012D4D0, func_0012D540]
+    test_vectors: tests/recomp/kt_file/classify_kind.json
+    confidence: high
+    open_questions: []
+
+  func_0012CF00:
+    role: dispatch
+    purity: memory_only
+    blocking: none
+    args:
+      - {name: kind, type: s32}
+    returns:
+      type: "void*"
+    memory_effects: []
+    errors: [0x16A]
+    callers_known: [func_0012D540]
+    confidence: high
+    open_questions: []
+
+  func_0012CF58:
+    role: dispatch
+    purity: memory_only
+    blocking: none
+    args:
+      - {name: arg, type: "void*"}
+    returns:
+      type: s32
+    memory_effects: []
+    errors: [0x183]
+    callers_known: [func_0012D540]
+    confidence: high
+    open_questions: []
+
+  func_0012CFC8:
+    role: dispatch
+    purity: memory_only
+    blocking: none
+    args:
+      - {name: arg, type: "void*"}
+    returns:
+      type: s32
+    memory_effects: []
+    errors: [0x19B]
+    callers_known: [func_0012D038, func_0012D540]
+    confidence: high
+    open_questions: []
+
+  func_0012D038:
+    role: pure_helper
+    purity: memory_only
+    blocking: none
+    args:
+      - {name: arg, type: "void*"}
+    returns:
+      type: s32
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_0012D060:
+    role: dispatch
+    purity: memory_only
+    blocking: none
+    args:
+      - {name: arg, type: "void*"}
+    returns:
+      type: s32
+    memory_effects: []
+    errors: [0x1BA]
+    callers_known: [func_0012D540]
+    confidence: high
+    open_questions: []
+
+  func_0012D0D0:
+    role: pure_helper
+    purity: pure
+    blocking: none
+    args:
+      - {name: arg, type: s32}
+    returns:
+      type: s32
+      values: {"arg": "identidade"}
+    memory_effects: []
+    errors: []
+    callers_known: []
+    test_vectors: tests/recomp/kt_file/identity.json
+    confidence: high
+    open_questions: []
+
+  func_0012D0D8:
+    role: pure_helper
+    purity: pure
+    blocking: none
+    args: []
+    returns:
+      type: s32
+      values: {0: "constante 0"}
+    memory_effects: []
+    errors: []
+    callers_known: []
+    test_vectors: tests/recomp/kt_file/const_zero.json
+    confidence: high
+    open_questions: []
+
+  func_0012D0E0:
+    role: table_lookup
+    purity: memory_only
+    blocking: none
+    args:
+      - {name: arg, type: "void*"}
+    returns:
+      type: GuestAddr
+      values: {0: "não encontrado"}
+    memory_effects: []
+    errors: []
+    callers_known: [func_0012D1F0, func_0012D400]
+    confidence: high
+    open_questions: []
+
+  func_0012D128:
+    role: table_lookup
+    purity: memory_only
+    blocking: none
+    args:
+      - {name: key, type: s32}
+      - {name: table, type: "FileRecord*", note: "ordenada por id"}
+      - {name: count, type: s32}
+    returns:
+      type: GuestAddr
+      values: {0: "não encontrado"}
+    memory_effects: []
+    errors: []
+    callers_known: [func_0012D0E0]
+    test_vectors: tests/recomp/kt_file/lookup_by_id.json
+    confidence: high
+    open_questions: []
+
+  func_0012D1F0:
+    role: table_lookup
+    purity: memory_only
+    blocking: none
+    args:
+      - {name: arg, type: "void*"}
+    returns:
+      type: GuestAddr
+      values: {0: "não encontrado"}
+    memory_effects: []
+    errors: []
+    callers_known: [func_0012D470]
+    confidence: high
+    open_questions: []
+
+  func_0012D218:
+    role: pure_helper
+    purity: pure
+    blocking: none
+    args:
+      - {name: arg, type: s32}
+    returns:
+      type: s32
+      values: {"arg": "identidade"}
+    memory_effects: []
+    errors: []
+    callers_known: []
+    test_vectors: tests/recomp/kt_file/identity.json
+    confidence: high
+    open_questions: []
+
+  func_0012D220:
+    role: pure_helper
+    purity: pure
+    blocking: none
+    args: []
+    returns:
+      type: s32
+      values: {0: "constante 0"}
+    memory_effects: []
+    errors: []
+    callers_known: []
+    test_vectors: tests/recomp/kt_file/const_zero.json
+    confidence: high
+    open_questions: []
+
+  func_0012D228:
+    role: table_lookup
+    purity: memory_only
+    blocking: none
+    args:
+      - {name: arg, type: "void*"}
+    returns:
+      type: GuestAddr
+      values: {0: "não encontrado"}
+    memory_effects: []
+    errors: []
+    callers_known: [func_0012D2E0, func_0012D400]
+    test_vectors: tests/recomp/kt_file/linear_search_id.json
+    confidence: high
+    open_questions: []
+
+  func_0012D2D8:
+    role: pure_helper
+    purity: pure
+    blocking: none
+    args:
+      - {name: arg, type: s32}
+    returns:
+      type: s32
+      values: {"arg": "identidade"}
+    memory_effects: []
+    errors: []
+    callers_known: []
+    test_vectors: tests/recomp/kt_file/identity.json
+    confidence: high
+    open_questions: []
+
+  func_0012D2E0:
+    role: table_lookup
+    purity: memory_only
+    blocking: none
+    args:
+      - {name: arg, type: "void*"}
+    returns:
+      type: GuestAddr
+      values: {0: "não encontrado"}
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_0012D308:
+    role: pure_helper
+    purity: pure
+    blocking: none
+    args: []
+    returns:
+      type: s32
+      values: {0: "constante 0"}
+    memory_effects: []
+    errors: []
+    callers_known: []
+    test_vectors: tests/recomp/kt_file/const_zero.json
+    confidence: high
+    open_questions: []
+
+  func_0012D310:
+    role: table_lookup
+    purity: memory_only
+    blocking: none
+    args:
+      - {name: arg, type: "void*", note: "string de nome em offset +4"}
+    returns:
+      type: GuestAddr
+      values: {0: "não encontrado"}
+    memory_effects: []
+    errors: []
+    callers_known: [func_0012D1F0]
+    test_vectors: tests/recomp/kt_file/linear_search_name.json
+    confidence: high
+    open_questions: []
+
+  func_0012D400:
+    role: table_lookup
+    purity: memory_only
+    blocking: none
+    args:
+      - {name: arg, type: "void*"}
+    returns:
+      type: s32
+      values: {0: "não encontrado"}
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_0012D470:
+    role: table_lookup
+    purity: memory_only
+    blocking: none
+    args:
+      - {name: arg, type: "void*"}
+    returns:
+      type: s32
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_0012D4A0:
+    role: pure_helper
+    purity: memory_only
+    blocking: none
+    args:
+      - {name: arg, type: "void*"}
+    returns:
+      type: s32
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_0012D4C8:
+    role: pure_helper
+    purity: pure
+    blocking: none
+    args: []
+    returns:
+      type: s32
+      values: {0: "constante 0"}
+    memory_effects: []
+    errors: []
+    callers_known: []
+    test_vectors: tests/recomp/kt_file/const_zero.json
+    confidence: high
+    open_questions: []
+
+  func_0012D4D0:
+    role: dispatch
+    purity: memory_only
+    blocking: none
+    args:
+      - {name: arg, type: "void*"}
+    returns:
+      type: s32
+    memory_effects: []
+    errors: [0x2B1]
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_0012D540:
+    role: state_query
+    purity: memory_only
+    blocking: none
+    args:
+      - {name: arg, type: "void*"}
+    returns:
+      type: s32
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_0012D5F0:
+    role: disc_io
+    purity: os_service
+    blocking: none
+    args:
+      - {name: a0, type: "void*"}
+      - {name: a1, type: "void*"}
+    returns:
+      type: s32
+      values: {1: "sucesso"}
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_0012D648:
+    role: hw_access
+    purity: hardware
+    blocking: waits_on:busy_loop
+    args: []
+    returns:
+      type: s32
+      values: {0: "sucesso"}
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_0012D7E0:
+    role: disc_io
+    purity: os_service
+    blocking: waits_on:rpc
+    args:
+      - {name: name, type: "const char*"}
+    returns:
+      type: s32
+    memory_effects: ["D_4F1540[0..256]"]
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_0012D840:
+    role: disc_io
+    purity: os_service
+    blocking: waits_on:rpc
+    args:
+      - {name: arg, type: s32}
+    returns:
+      type: s32
+    memory_effects: ["D_38C880[0..48]"]
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_0012D888:
+    role: disc_io
+    purity: os_service
+    blocking: waits_on:rpc
+    args: []
+    returns:
+      type: u8
+      note: "byte de resposta em D_38C880[-0x3780]"
+    memory_effects: ["D_38C880[0..1]"]
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_0012D8D8:
+    role: disc_io
+    purity: os_service
+    blocking: waits_on:rpc
+    args:
+      - {name: a0, type: s32}
+      - {name: a1, type: s32}
+      - {name: a2, type: s32}
+      - {name: a3, type: s32}
+    returns:
+      type: s32
+      values: {0: "sucesso"}
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_0012D988:
+    role: pure_helper
+    purity: pure
+    blocking: none
+    args: []
+    returns:
+      type: s32
+      values: {0: "constante 0"}
+    memory_effects: []
+    errors: []
+    callers_known: []
+    test_vectors: tests/recomp/kt_file/const_zero.json
+    confidence: high
+    open_questions: []
+
+  func_0012D990:
+    role: disc_io
+    purity: os_service
+    blocking: none
+    args: []
+    returns:
+      type: s32
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_0012DA00:
+    role: state_query
+    purity: pure
+    blocking: none
+    args: []
+    returns:
+      type: s32
+      values: {0: "inativo ou zero setores", "N": "quantidade de setores de 2048 bytes restantes"}
+    memory_effects: []
+    errors: []
+    callers_known: []
+    test_vectors: tests/recomp/kt_file/stream_sectors.json
+    confidence: high
+    open_questions: []
+
+  func_0012DA38:
+    role: disc_io
+    purity: os_service
+    blocking: none
+    args: []
+    returns:
+      type: s32
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_0012DA88:
+    role: kernel_wrapper
+    purity: os_service
+    blocking: none
+    args: []
+    returns:
+      type: s32
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_0012DAC8:
+    role: kernel_wrapper
+    purity: os_service
+    blocking: none
+    args: []
+    returns:
+      type: s32
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_0012DB08:
+    role: kernel_wrapper
+    purity: os_service
+    blocking: none
+    args: []
+    returns:
+      type: s32
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_0012DB48:
+    role: kernel_wrapper
+    purity: os_service
+    blocking: none
+    args: []
+    returns:
+      type: s32
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_0012DB80:
+    role: disc_io
+    purity: os_service
+    blocking: none
+    args: []
+    returns:
+      type: s32
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_0012DBA0:
+    role: kernel_wrapper
+    purity: os_service
+    blocking: none
+    args: []
+    returns:
+      type: s32
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_0012DBC0:
+    role: kernel_wrapper
+    purity: os_service
+    blocking: none
+    args: []
+    returns:
+      type: s32
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_0012DBE0:
+    role: kernel_wrapper
+    purity: os_service
+    blocking: none
+    args: []
+    returns:
+      type: s32
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_0012DC00:
+    role: kernel_wrapper
+    purity: os_service
+    blocking: none
+    args: []
+    returns:
+      type: s32
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_0012DC20:
+    role: kernel_wrapper
+    purity: os_service
+    blocking: none
+    args: []
+    returns:
+      type: s32
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_0012DC60:
+    role: kernel_wrapper
+    purity: os_service
+    blocking: none
+    args: []
+    returns:
+      type: s32
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_0012DC80:
+    role: kernel_wrapper
+    purity: os_service
+    blocking: none
+    args: []
+    returns:
+      type: s32
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_0012DCA0:
+    role: kernel_wrapper
+    purity: os_service
+    blocking: none
+    args: []
+    returns:
+      type: s32
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []
+
+  func_0012DCC0:
+    role: kernel_wrapper
+    purity: os_service
+    blocking: none
+    args: []
+    returns:
+      type: s32
+    memory_effects: []
+    errors: []
+    callers_known: []
+    confidence: high
+    open_questions: []

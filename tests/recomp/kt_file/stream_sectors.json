@@ -1,0 +1,40 @@
+{
+  "function": "func_0012DA00",
+  "test_cases": [
+    {
+      "name": "inactive_stream_with_bytes",
+      "initial_state": {
+        "D_4F16C0": {"active": 0, "bytes_remaining": 40960}
+      },
+      "expected_return": 0
+    },
+    {
+      "name": "active_stream_one_sector",
+      "initial_state": {
+        "D_4F16C0": {"active": 1, "bytes_remaining": 2048}
+      },
+      "expected_return": 1
+    },
+    {
+      "name": "active_stream_ten_sectors",
+      "initial_state": {
+        "D_4F16C0": {"active": 1, "bytes_remaining": 20480}
+      },
+      "expected_return": 10
+    },
+    {
+      "name": "active_stream_fractional_sector",
+      "initial_state": {
+        "D_4F16C0": {"active": 1, "bytes_remaining": 4095}
+      },
+      "expected_return": 1
+    },
+    {
+      "name": "active_stream_zero_bytes",
+      "initial_state": {
+        "D_4F16C0": {"active": 1, "bytes_remaining": 0}
+      },
+      "expected_return": 0
+    }
+  ]
+}

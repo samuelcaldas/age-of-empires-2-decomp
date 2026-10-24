@@ -1,19 +1,5 @@
 #include "common.h"
-
-/* Global State and Data Structures */
-typedef struct {
-    void *f0;
-    int f4;
-    int f8;
-    void *table;
-    int count;
-} CdServerState_0012CDE0;
-
-extern CdServerState_0012CDE0 D_4F1508;
-extern char D_4F1540[];
-extern char D_4F1640[];
-extern char D_4F1680[];
-extern char D_4F16C0[];
+#include "kt_file.h"
 
 extern const char D_48FE38[];
 extern const char D_48FE70[];
@@ -136,7 +122,7 @@ void *func_0012CCE8(char *table) {
     int i;
 
     if (table != 0) {
-        old_table = *(void **)&D_4F1508;
+        old_table = (void *)D_4F1508.record_table;
         if (*(short *)table != 0) {
             do {
                 count++;
@@ -153,10 +139,10 @@ void *func_0012CCE8(char *table) {
             }
         }
     }
-    *(char **)&D_4F1508 = table;
-    *(int *)((char *)&D_4F1508 + 8) = min_val;
+    D_4F1508.record_table = (GuestAddr)(u32)table;
+    D_4F1508.min_val = min_val;
     func_118de0(D_48FE38, table, count, min_val);
-    *(int *)((char *)&D_4F1508 + 4) = count;
+    D_4F1508.record_count = count;
     return old_table;
 }
 
@@ -167,15 +153,15 @@ void *func_0012CDE0(char *table) {
     int offset = 0;
 
     if (table != 0) {
-        old_table = D_4F1508.table;
+        old_table = (void *)D_4F1508.entry_table;
         while (func_0012CBF8(table + offset) != 0) {
             count++;
             offset += func_0012CC20(table + offset);
         }
     }
-    D_4F1508.count = count;
+    D_4F1508.entry_count = count;
     func_118de0(D_48FE70, table, count);
-    D_4F1508.table = table;
+    D_4F1508.entry_table = (GuestAddr)(u32)table;
     return old_table;
 }
 
@@ -258,22 +244,22 @@ int func_0012D0E0(void *arg) {
 int func_0012D128(int key, void *table, int count) {
     int low = 0;
     int high = count;
+    FileRecord *entry;
     int mid;
-    char *entry;
 
-    if (table == 0) {
-        return 0;
-    }
-    while (low < high) {
-        mid = (low + high) / 2;
-        entry = (char *)table + (mid << 3);
-        if (key < func_0012CB10(*(unsigned short *)entry)) {
-            high = mid;
-        } else if (func_0012CB10(*(unsigned short *)entry) < key) {
-            low = mid + 1;
-        } else {
-            return (int)entry;
-        }
+    if (table != NULL && count > 0) {
+        do {
+            mid = (low + high) / 2;
+            entry = (FileRecord *)table + mid;
+            if (key < func_0012CB10(entry->id)) {
+                high = mid;
+            } else {
+                if (func_0012CB10(entry->id) >= key) {
+                    return (int)entry;
+                }
+                low = mid + 1;
+            }
+        } while (low < high);
     }
     return 0;
 }
@@ -455,10 +441,8 @@ int func_0012D990(void) {
 
 /* func_0012DA00 */
 int func_0012DA00(void) {
-    int val = *(int *)(D_4F16C0 + 4);
-    if (val != 0) {
-        int diff = *(int *)(D_4F16C0 + 8);
-        return diff >> 11;
+    if (D_4F16C0.active != 0) {
+        return D_4F16C0.bytes_remaining >> 11;
     }
     return 0;
 }

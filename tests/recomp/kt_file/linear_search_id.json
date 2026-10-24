@@ -1,0 +1,44 @@
+{
+  "function": "func_0012D228",
+  "test_cases": [
+    {
+      "name": "null_table",
+      "args": {"target_id": 42},
+      "initial_state": {"table_ptr": 0, "count": 0},
+      "expected_return": 0
+    },
+    {
+      "name": "found_first",
+      "args": {"target_id": 10},
+      "initial_state": {"table_ptr": "0x2000", "count": 3},
+      "initial_memory": {
+        "0x2000": "0a00000008000000",
+        "0x2008": "1400000008000000",
+        "0x2010": "1e00000008000000"
+      },
+      "expected_return": "0x2000"
+    },
+    {
+      "name": "found_middle",
+      "args": {"target_id": 20},
+      "initial_state": {"table_ptr": "0x2000", "count": 3},
+      "initial_memory": {
+        "0x2000": "0a00000008000000",
+        "0x2008": "1400000008000000",
+        "0x2010": "1e00000008000000"
+      },
+      "expected_return": "0x2008"
+    },
+    {
+      "name": "not_found",
+      "args": {"target_id": 99},
+      "initial_state": {"table_ptr": "0x2000", "count": 3},
+      "initial_memory": {
+        "0x2000": "0a00000008000000",
+        "0x2008": "1400000008000000",
+        "0x2010": "1e00000008000000"
+      },
+      "expected_return": 0
+    }
+  ]
+}

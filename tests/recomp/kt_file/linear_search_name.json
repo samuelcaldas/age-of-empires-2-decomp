@@ -1,0 +1,31 @@
+{
+  "function": "func_0012D310",
+  "test_cases": [
+    {
+      "name": "null_table",
+      "args": {"target_name": "data.bin"},
+      "initial_state": {"table_ptr": 0, "count": 0},
+      "expected_return": 0
+    },
+    {
+      "name": "found_matching_name",
+      "args": {"target_name": "data.bin"},
+      "initial_state": {"table_ptr": "0x3000", "count": 2},
+      "initial_memory": {
+        "0x3000": "00000000646174612e62696e00000000",
+        "0x3010": "00000000746573742e74787400000000"
+      },
+      "expected_return": "0x3000"
+    },
+    {
+      "name": "name_not_found",
+      "args": {"target_name": "missing.dat"},
+      "initial_state": {"table_ptr": "0x3000", "count": 2},
+      "initial_memory": {
+        "0x3000": "00000000646174612e62696e00000000",
+        "0x3010": "00000000746573742e74787400000000"
+      },
+      "expected_return": 0
+    }
+  ]
+}

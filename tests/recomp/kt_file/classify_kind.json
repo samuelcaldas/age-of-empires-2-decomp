@@ -1,0 +1,26 @@
+{
+  "function": "func_0012CEA0",
+  "test_cases": [
+    {
+      "name": "null_argument",
+      "args": [0],
+      "expected_return": 3
+    },
+    {
+      "name": "kind_1_tag_0x40",
+      "args": ["0x4000"],
+      "initial_memory": {
+        "0x4000": "40000000"
+      },
+      "expected_return": 1
+    },
+    {
+      "name": "kind_2_other_tag",
+      "args": ["0x4000"],
+      "initial_memory": {
+        "0x4000": "20000000"
+      },
+      "expected_return": 2
+    }
+  ]
+}

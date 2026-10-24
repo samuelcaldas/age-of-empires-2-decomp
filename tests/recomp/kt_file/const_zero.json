@@ -1,0 +1,6 @@
+{
+  "functions": ["func_0012D0D8", "func_0012D220", "func_0012D308", "func_0012D4C8", "func_0012D988"],
+  "test_cases": [
+    {"name": "call", "args": [], "expected_return": 0}
+  ]
+}

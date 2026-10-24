@@ -56,7 +56,7 @@ pie title Distribuição de Funções em Assembly (Total: 1.906 funções)
 | **`src/thelp_overlay.c`** | Overlay (Tech Tree) | 18.913 | 119 | 70.848 B | Decompilado (C Puro + Testes Nativos) |
 | **`src/smenu_overlay.c`** | Overlay (Setup/Menus) | 24.415 | 144 | 90.560 B | Decompilado (C Puro + Testes Nativos) |
 | **`src/kt_libcdvd_server.c`** | KCET Hardware (CD/DVD) | 5.614 | 150 | 14.104 B | Decompilado (C Puro + Testes Nativos) |
-| **`src/kt_mc_2.c`** | KCET Hardware (Memory Card)| 11.415 | 337 | 56.396 B | **INCOMPLETO** (Transpilação crua de registradores; requer C estruturado) |
+| **`src/kt_mc_2.c`** | KCET Hardware (Memory Card)| 11.177 | 337 | 56.396 B | Decompilado (C Puro + Testes Nativos) |
 | **`src/lobby_overlay.c`** | Overlay (Multiplayer) | 96.389 | 814 | 337.472 B | **Concluído** (Descompilado 814/814 fns estruturadas em C, bit-exact .rodata, 0 stubs) |
 | **TOTAL** | — | **519.736** | **1.906** | **631.328 B** *(~616 KB)* | **16 arquivos** |
 
@@ -153,12 +153,10 @@ Módulos desenvolvidos pela Konami Tokyo para adaptar o motor de PC ao hardware 
 * **Testes**: `tests/test_kt_libcdvd_server_native.py` (execução comportamental nativa) e `tests/test_kt_libcdvd_server_matching.py` (compilação e símbolos de todas as 150 funções com `ee-gcc 2.9-991111 -O2 -G0`).
 * **Prioridade**: Concluído.
 
-### 8. `src/kt_mc_2.c` (337 funções / 11.415 linhas) — *INCOMPLETO (Transpilação de Registradores)*
-* **Descrição**: Gerenciador de Memory Cards da Konami Tokyo (leitura/escrita de saves, verificação de espaço livre, ícones de save 3D e cabeçalhos de arquivo `icon.sys`).
+### 8. `src/kt_mc_2.c` (337 funções / 11.177 linhas) — *Decompilado (C Puro + Testes Nativos)*
+* **Descrição**: Gerenciador de Memory Cards da Konami Tokyo (leitura/escrita de saves, verificação de espaço livre, ícones de save 3D e cabeçalhos de arquivo `icon.sys`). Todas as 337 funções encontram-se descompiladas em C estruturado puro com cabeçalho limpo, zero inline assembly e compilação validada.
 * **Header**: `include/kt_mc_2.h`
-* **Status Crítico**: Não possui stubs vazios, porém as 337 funções consistem em uma transpilação mecânica linha-a-linha de instruções assembly para variáveis de registradores C (`long r_v0, r_sp, stack_mem...`). Requer refatoração e descompilação estruturada de verdade em C idiomático com correspondência comportamental e tipagem real.
 * **Testes**: `tests/test_kt_mc_2_native.py` e `tests/test_kt_mc_2_matching.py`.
-* **Prioridade**: Média-Alta.
 
 ---
 

@@ -110,6 +110,7 @@ extern char D_509EC0[];
 extern char D_509ED0[];
 extern char D_509EE0[];
 
+/* External function prototypes */
 extern void *func_001143C0(void *a0, ...);
 extern void *func_0011ACD0(void *a0, ...);
 extern void *func_00126040(void *a0, ...);
@@ -147,10 +148,6 @@ extern void *func_123818(void *a0, ...);
 extern void *func_123848(void *a0, ...);
 extern void *func_12DD00(void *a0, ...);
 extern void *func_12DE28(void *a0, ...);
-extern void *func_00128990(void *a0, ...);
-extern void *func_00126040(void *a0, ...);
-extern void *func_1043B8(void *a0, ...);
-extern void *func_1043C8(void *a0, ...);
 
 /* func_0012DE88 */
 void *func_0012DE88(void *a0, void *a1, void *a2, void *a3) {
@@ -162,7 +159,6 @@ void *func_0012DE88(void *a0, void *a1, void *a2, void *a3) {
     (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
     if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x10));
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -179,7 +175,6 @@ void *func_0012DE98(void *a0, void *a1, void *a2, void *a3) {
     r_v0 = (long)func_10FE50((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
     if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x10));
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -213,7 +208,6 @@ _lbl_L0012DEE0:
     if (r_v0) { r_t0 = *(int *)((char *)r_v0 + (0x4)); }
 _lbl_L0012DF00:
     r_v0 = (long)(r_t0 + 0);
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -255,7 +249,6 @@ void *func_0012DF08(void *a0, void *a1, void *a2, void *a3) {
     if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x20)); }
     r_sp = (long)(r_sp + (0x30));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_0012DF78 */
@@ -294,7 +287,6 @@ void *func_0012DF78(void *a0, void *a1, void *a2, void *a3) {
     r_v0 = (long)func_12DD00((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
     if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x20)); }
     r_sp = (long)(r_sp + (0x30));
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -338,7 +330,6 @@ void *func_0012DFE0(void *a0, void *a1, void *a2, void *a3) {
     r_v0 = (long)func_12DD00((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
     if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x30)); }
     r_sp = (long)(r_sp + (0x40));
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -585,7 +576,6 @@ _lbl_L0012E240:
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x10)); }
     r_sp = (long)(r_sp + (0x70));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_0012E260 */
@@ -598,7 +588,6 @@ void *func_0012E260(void *a0, void *a1, void *a2, void *a3) {
     (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
     r_v0 = (long)((0x500000 >> 16) << 16);
     if (r_v0) { *(int *)((char *)r_v0 + (-0x680C)) = (int)r_a0; }
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -619,7 +608,6 @@ void *func_0012E270(void *a0, void *a1, void *a2, void *a3) {
     if (r_v0) { *(int *)((char *)r_v0 + (0x23)) = (int)r_v1; }
     if (r_v0) { *(int *)((char *)r_v0 + (0x20)) = (int)r_v1; }
     r_sp = (long)(r_sp + (0x10));
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -642,7 +630,6 @@ void *func_0012E298(void *a0, void *a1, void *a2, void *a3) {
     r_v0 = (long)func_0012E0B8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
     if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x10)); }
     r_sp = (long)(r_sp + (0x20));
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -706,7 +693,6 @@ void *func_0012E320(void *a0, void *a1, void *a2, void *a3) {
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x10)); }
     r_sp = (long)(r_sp + (0x30));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_0012E330 */
@@ -721,7 +707,6 @@ void *func_0012E330(void *a0, void *a1, void *a2, void *a3) {
     r_v0 = (long)(0 + (0x1));
     if (r_a0) { r_v0 = *(int *)((char *)r_a0 + (0x0)); }
 _lbl_L0012E33C:
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -738,7 +723,6 @@ void *func_0012E348(void *a0, void *a1, void *a2, void *a3) {
     if (r_a0) { r_v0 = *(int *)((char *)r_a0 + (0x4)); }
 _lbl_L0012E354:
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_0012E360 */
@@ -753,7 +737,6 @@ void *func_0012E360(void *a0, void *a1, void *a2, void *a3) {
     r_v0 = (long)(0 + 0);
     if (r_a0) { r_v0 = *(int *)((char *)r_a0 + (0x8)); }
 _lbl_L0012E36C:
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -786,7 +769,6 @@ _lbl_L0012E3B0:
     if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x10)); }
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x30));
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -889,7 +871,6 @@ _lbl_L0012E494:
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x20)); }
     r_sp = (long)(r_sp + (0x60));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_0012E4A8 */
@@ -911,7 +892,6 @@ void *func_0012E4A8(void *a0, void *a1, void *a2, void *a3) {
     r_a1 = (long)(r_v1 + r_v0);
 _lbl_L0012E4CC:
     r_v0 = (long)(r_a1 + 0);
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -942,7 +922,6 @@ void *func_0012E4E8(void *a0, void *a1, void *a2, void *a3) {
     if (r_a1) { r_a0 = *(int *)((char *)r_a1 + (0x4)); }
 _lbl_L0012E4F0:
     r_v0 = (long)(r_a0 + 0);
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -990,7 +969,6 @@ _lbl_L0012E544:
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x20)); }
     r_sp = (long)(r_sp + (0x40));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_0012E580 */
@@ -1016,7 +994,6 @@ _lbl_L0012E5AC:
     if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x10)); }
     r_v0 = (long)(r_v1 + 0);
     r_sp = (long)(r_sp + (0x20));
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -1044,7 +1021,6 @@ _lbl_L0012E5EC:
     r_v0 = (long)(r_v1 + 0);
     r_sp = (long)(r_sp + (0x20));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_0012E600 */
@@ -1070,7 +1046,6 @@ _lbl_L0012E62C:
     if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x10)); }
     r_v0 = (long)(r_v1 + 0);
     r_sp = (long)(r_sp + (0x20));
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -1107,7 +1082,6 @@ _lbl_L0012E68C:
     if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x20)); }
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x10)); }
     r_sp = (long)(r_sp + (0x30));
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -1175,7 +1149,6 @@ _lbl_L0012E754:
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x10)); }
     r_sp = (long)(r_sp + (0x40));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_0012E768 */
@@ -1187,7 +1160,6 @@ void *func_0012E768(void *a0, void *a1, void *a2, void *a3) {
     long r_sp = (long)stack_mem + 128;
     (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
     r_v0 = (long)(r_a0 + 0);
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -1204,7 +1176,6 @@ void *func_0012E770(void *a0, void *a1, void *a2, void *a3) {
     r_v0 = (long)func_0012ECA8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
     if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x10));
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -1442,7 +1413,6 @@ _lbl_L0012EA74:
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x40));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_0012EA90 */
@@ -1476,7 +1446,6 @@ _lbl_L0012EAC4:
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x40));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_0012EAE0 */
@@ -1494,7 +1463,6 @@ void *func_0012EAE0(void *a0, void *a1, void *a2, void *a3) {
     r_a2 = (long)(0 + (0xB));
     r_v0 = (long)func_12DD00((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
     if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -1547,7 +1515,6 @@ void *func_0012EB40(void *a0, void *a1, void *a2, void *a3) {
     if (r_a0) { *(int *)((char *)r_a0 + (0x18)) = (int)r_a1; }
 _lbl_L0012EB48:
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_0012EB50 */
@@ -1585,7 +1552,6 @@ void *func_0012EB80(void *a0, void *a1, void *a2, void *a3) {
     if (r_a0 != 0) { if (r_a0) { *(int *)((char *)r_a0 + (0x1C)) = (int)r_a1; } goto _lbl_L0012EB88; }
     if (r_a0) { *(int *)((char *)r_a0 + (0x1C)) = (int)r_a1; }
 _lbl_L0012EB88:
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -1635,7 +1601,6 @@ _lbl_L0012EC00:
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x30));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_0012EC18 */
@@ -1669,7 +1634,6 @@ void *func_0012EC18(void *a0, void *a1, void *a2, void *a3) {
     if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x20)); }
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x10)); }
     r_sp = (long)(r_sp + (0x30));
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -1819,7 +1783,6 @@ _lbl_L0012ED80:
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x70));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_0012EDA0 */
@@ -1850,7 +1813,6 @@ void *func_0012EDA0(void *a0, void *a1, void *a2, void *a3) {
 _lbl_L0012EDE4:
     if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x10));
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -1897,7 +1859,6 @@ void *func_0012EE20(void *a0, void *a1, void *a2, void *a3) {
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x30));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_0012EE38 */
@@ -1914,7 +1875,6 @@ void *func_0012EE38(void *a0, void *a1, void *a2, void *a3) {
     r_v1 = (long)(r_v1 ^ (0x1));
     if (r_v1 != 0) r_v0 = r_a0;
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_0012EE50 */
@@ -1928,7 +1888,6 @@ void *func_0012EE50(void *a0, void *a1, void *a2, void *a3) {
     if (r_a0) { r_v1 = *(int *)((char *)r_a0 + (0x1C)); }
     r_v0 = (long)(0 + (-0x3));
     if (r_v1 == 0) r_v0 = 0;
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -1966,7 +1925,6 @@ _lbl_L0012EE98:
     if (r_v1) { r_v0 = *(int *)((char *)r_v1 + (0x0)); }
     r_sp = (long)(r_sp + (0x20));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_0012EEC0 */
@@ -1983,7 +1941,6 @@ void *func_0012EEC0(void *a0, void *a1, void *a2, void *a3) {
     r_v0 = (long)((unsigned long)r_a1 << (5));
     r_v0 = (long)(r_v1 + r_v0);
 _lbl_L0012EED4:
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -2077,7 +2034,6 @@ _lbl_L0012EF74:
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x50));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_0012EF98 */
@@ -2118,7 +2074,6 @@ _lbl_L0012EFC8:
     if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x10)); }
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x20));
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -2224,7 +2179,6 @@ void *func_0012F0A0(void *a0, void *a1, void *a2, void *a3) {
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x90));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_0012F0D0 */
@@ -2240,7 +2194,6 @@ void *func_0012F0D0(void *a0, void *a1, void *a2, void *a3) {
     if (r_a0) { *(int *)((char *)r_a0 + (0x0)) = (int)0; }
     if (r_a0) { *(int *)((char *)r_a0 + (0x8)) = (int)0; }
 _lbl_L0012F0E4:
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -2295,7 +2248,6 @@ void *func_0012F108(void *a0, void *a1, void *a2, void *a3) {
     r_v0 = (long)func_001143C0((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
     if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x10)); }
     r_sp = (long)(r_sp + (0x20));
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -2404,7 +2356,6 @@ _lbl_L0012F244:
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x30));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_0012F258 */
@@ -2461,7 +2412,6 @@ _lbl_L0012F2A8:
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x40));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_0012F2C0 */
@@ -2503,7 +2453,6 @@ _lbl_L0012F318:
     if (r_v0 != r_a1) goto _lbl_L0012F318;
 _lbl_L0012F334:
     r_v0 = (long)(r_t0 - r_a3);
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -2571,7 +2520,6 @@ _lbl_L0012F39C:
     if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x10)); }
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x60));
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -2668,7 +2616,6 @@ void *func_0012F438(void *a0, void *a1, void *a2, void *a3) {
     if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x10)); }
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x60));
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -2792,7 +2739,6 @@ _lbl_L0012F520:
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x50));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_0012F540 */
@@ -2858,7 +2804,6 @@ void *func_0012F5C8(void *a0, void *a1, void *a2, void *a3) {
     r_v0 = (long)(r_v0 ^ (0x3));
     r_v0 = (long)((unsigned long)r_v0 < (unsigned long)(0x1) ? 1 : 0);
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_0012F5E0 */
@@ -2872,7 +2817,6 @@ void *func_0012F5E0(void *a0, void *a1, void *a2, void *a3) {
     if (r_a0) { r_v0 = *(short *)((char *)r_a0 + (0x4)); }
     r_v0 = (long)(r_v0 ^ (0x2));
     r_v0 = (long)((unsigned long)r_v0 < (unsigned long)(0x1) ? 1 : 0);
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -2932,7 +2876,6 @@ _lbl_L0012F658:
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x20));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_0012F668 */
@@ -2947,7 +2890,6 @@ void *func_0012F668(void *a0, void *a1, void *a2, void *a3) {
     r_v1 = (long)(0 + (0x2000));
     r_v0 = (long)(0 + (0x400));
     if (r_a0 != 0) r_v0 = r_v1;
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -2982,7 +2924,6 @@ void *func_0012F6A8(void *a0, void *a1, void *a2, void *a3) {
     long r_sp = (long)stack_mem + 128;
     (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
     /* unhandled: mflo */
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -3104,7 +3045,6 @@ void *func_0012F768(void *a0, void *a1, void *a2, void *a3) {
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x90));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_0012F780 */
@@ -3122,7 +3062,6 @@ void *func_0012F780(void *a0, void *a1, void *a2, void *a3) {
     r_v0 = (long)(r_v0 + (0x1));
     r_v1 = (long)((unsigned long)r_v0 >> (31));
     r_v0 = (long)(r_v0 + r_v1);
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -3152,7 +3091,6 @@ void *func_0012F7B0(void *a0, void *a1, void *a2, void *a3) {
     r_v0 = (long)func_0012F610((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
     if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x10));
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -3227,7 +3165,6 @@ _lbl_L0012F838:
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x10)); }
     r_sp = (long)(r_sp + (0x70));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_0012F860 */
@@ -3239,7 +3176,6 @@ void *func_0012F860(void *a0, void *a1, void *a2, void *a3) {
     long r_sp = (long)stack_mem + 128;
     (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
     if (r_a0) { r_v0 = *(int *)((char *)r_a0 + (0x8)); }
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -3256,7 +3192,6 @@ void *func_0012F868(void *a0, void *a1, void *a2, void *a3) {
     if (r_v1 == 0) r_v0 = r_a2;
     if (r_a0) { *(short *)((char *)r_a0 + (0x4)) = (short)r_a1; }
     if (r_a0) { *(int *)((char *)r_a0 + (0x8)) = (int)r_v0; }
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -3280,7 +3215,6 @@ void *func_0012F880(void *a0, void *a1, void *a2, void *a3) {
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
     r_v0 = (long)(r_v0 ^ (0x1));
     r_sp = (long)(r_sp + (0x20));
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -3326,7 +3260,6 @@ _lbl_L0012F900:
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x50));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_0012F920 */
@@ -3352,7 +3285,6 @@ _lbl_L0012F94C:
     r_v0 = (long)(r_a1 + 0);
 _lbl_L0012F950:
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_0012F958 */
@@ -3366,7 +3298,6 @@ void *func_0012F958(void *a0, void *a1, void *a2, void *a3) {
     r_v0 = (long)(~(0 | r_a0));
     r_v0 = (long)(r_v0 & r_a1);
     r_v0 = (long)((unsigned long)r_v0 < (unsigned long)(0x1) ? 1 : 0);
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -3395,7 +3326,6 @@ void *func_0012F970(void *a0, void *a1, void *a2, void *a3) {
     if (r_a1) { r_v0 = *(int *)((char *)r_a1 + (0x18)); }
     r_v0 = (long)((unsigned long)0 < (unsigned long)r_v0 ? 1 : 0);
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_0012F980 */
@@ -3414,7 +3344,6 @@ void *func_0012F980(void *a0, void *a1, void *a2, void *a3) {
     if (r_v1 == 0) r_a1 = r_v0;
 _lbl_L0012F998:
     r_v0 = (long)(r_a1 + 0);
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -3610,7 +3539,6 @@ _lbl_L0012FAA8:
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x40)); }
     r_sp = (long)(r_sp + (0xB0));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_0012FAC8 */
@@ -3639,7 +3567,6 @@ _lbl_L0012FB00:
     if (r_a0) { *(char *)((char *)r_a0 + (0x15)) = (char)r_a2; }
     if (r_a0) { *(char *)((char *)r_a0 + (0x14)) = (char)r_a1; }
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_0012FB28 */
@@ -3653,7 +3580,6 @@ void *func_0012FB28(void *a0, void *a1, void *a2, void *a3) {
     if (r_a0) { r_v0 = *(int *)((char *)r_a0 + (0xC)); }
     r_v0 = (long)(r_v0 | (0x1));
     if (r_a0) { *(int *)((char *)r_a0 + (0xC)) = (int)r_v0; }
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -3733,7 +3659,6 @@ void *func_0012FBA8(void *a0, void *a1, void *a2, void *a3) {
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x10)); }
     r_sp = (long)(r_sp + (0x50));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_0012FBC0 */
@@ -3749,7 +3674,6 @@ void *func_0012FBC0(void *a0, void *a1, void *a2, void *a3) {
     r_v1 = (long)((long)r_v1 < (long)r_a0 ? 1 : 0);
     if (r_v1 != 0) r_v0 = r_a0;
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_0012FBD8 */
@@ -3762,7 +3686,6 @@ void *func_0012FBD8(void *a0, void *a1, void *a2, void *a3) {
     (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
     r_v0 = (long)((0x500000 >> 16) << 16);
     if (r_v0) { *(int *)((char *)r_v0 + (-0x6800)) = (int)0; }
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -3786,7 +3709,6 @@ _lbl_L0012FC08:
     if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x10));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_0012FC18 */
@@ -3804,7 +3726,6 @@ void *func_0012FC18(void *a0, void *a1, void *a2, void *a3) {
     if (r_a1) { *(int *)((char *)r_a1 + (0x8)) = (int)0; }
     r_v0 = (long)(0 + (-0x7F));
 _lbl_L0012FC30:
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -3850,7 +3771,6 @@ _lbl_L0012FC68:
     if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x10)); }
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x20));
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -3920,7 +3840,6 @@ void *func_0012FD10(void *a0, void *a1, void *a2, void *a3) {
     (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
     r_sp = (long)(r_sp + (0x70));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_0012FD18 */
@@ -3962,7 +3881,6 @@ void *func_0012FD58(void *a0, void *a1, void *a2, void *a3) {
     long r_sp = (long)stack_mem + 128;
     (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
     r_sp = (long)(r_sp + (0x20));
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -4006,7 +3924,6 @@ void *func_0012FD60(void *a0, void *a1, void *a2, void *a3) {
     if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x10)); }
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x50));
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -4063,7 +3980,6 @@ void *func_0012FE10(void *a0, void *a1, void *a2, void *a3) {
     long r_sp = (long)stack_mem + 128;
     (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
     r_sp = (long)(r_sp + (0x20));
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -4169,7 +4085,6 @@ void *func_0012FE88(void *a0, void *a1, void *a2, void *a3) {
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x80));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_0012FEC8 */
@@ -4213,7 +4128,6 @@ void *func_0012FEF8(void *a0, void *a1, void *a2, void *a3) {
     if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x10)); }
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x20));
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -4280,7 +4194,6 @@ void *func_0012FF28(void *a0, void *a1, void *a2, void *a3) {
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x60));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_0012FF98 */
@@ -4304,7 +4217,6 @@ void *func_0012FF98(void *a0, void *a1, void *a2, void *a3) {
     if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x10)); }
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x20));
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -4335,7 +4247,6 @@ void *func_0012FFC8(void *a0, void *a1, void *a2, void *a3) {
     if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x10)); }
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x30));
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -4371,7 +4282,6 @@ void *func_00130038(void *a0, void *a1, void *a2, void *a3) {
     long r_sp = (long)stack_mem + 128;
     (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
     r_sp = (long)(r_sp + (0x20));
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -4432,7 +4342,6 @@ void *func_00130068(void *a0, void *a1, void *a2, void *a3) {
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x50));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_001300B0 */
@@ -4467,7 +4376,6 @@ void *func_001300D8(void *a0, void *a1, void *a2, void *a3) {
     long r_sp = (long)stack_mem + 128;
     (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
     r_sp = (long)(r_sp + (0x20));
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -4528,7 +4436,6 @@ void *func_00130108(void *a0, void *a1, void *a2, void *a3) {
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x50));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_00130150 */
@@ -4565,7 +4472,6 @@ void *func_00130168(void *a0, void *a1, void *a2, void *a3) {
     if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x10)); }
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x20));
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -4610,7 +4516,6 @@ void *func_00130180(void *a0, void *a1, void *a2, void *a3) {
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x50));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_001301F0 */
@@ -4634,7 +4539,6 @@ void *func_001301F0(void *a0, void *a1, void *a2, void *a3) {
     if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x10)); }
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x20));
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -4709,7 +4613,6 @@ void *func_00130280(void *a0, void *a1, void *a2, void *a3) {
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x50));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_00130290 */
@@ -4733,7 +4636,6 @@ void *func_00130290(void *a0, void *a1, void *a2, void *a3) {
     if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x10)); }
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x20));
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -4787,7 +4689,6 @@ void *func_001302F0(void *a0, void *a1, void *a2, void *a3) {
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x40));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_00130320 */
@@ -4824,7 +4725,6 @@ _lbl_L00130358:
     if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x10)); }
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x20));
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -4902,7 +4802,6 @@ void *func_001303A8(void *a0, void *a1, void *a2, void *a3) {
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x70));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_00130408 */
@@ -4926,7 +4825,6 @@ void *func_00130408(void *a0, void *a1, void *a2, void *a3) {
     if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x10)); }
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x20));
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -4984,7 +4882,6 @@ void *func_00130440(void *a0, void *a1, void *a2, void *a3) {
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x50));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_001304A8 */
@@ -5020,7 +4917,6 @@ void *func_001304D0(void *a0, void *a1, void *a2, void *a3) {
     long r_sp = (long)stack_mem + 128;
     (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
     r_sp = (long)(r_sp + (0x20));
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -5071,7 +4967,6 @@ void *func_001304D8(void *a0, void *a1, void *a2, void *a3) {
     if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x10)); }
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x60));
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -5148,7 +5043,6 @@ _lbl_L001305DC:
     if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x10)); }
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x60));
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -5230,7 +5124,6 @@ void *func_00130670(void *a0, void *a1, void *a2, void *a3) {
     if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x10)); }
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x30));
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -5318,7 +5211,6 @@ _lbl_L0013076C:
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x50));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_00130788 */
@@ -5357,7 +5249,6 @@ _lbl_L001307D4:
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x20));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_001307E8 */
@@ -5385,7 +5276,6 @@ _lbl_L00130814:
     if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x10)); }
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x20));
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -5460,7 +5350,6 @@ _lbl_L001308DC:
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x20)); }
     r_sp = (long)(r_sp + (0x80));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_00130900 */
@@ -5479,7 +5368,6 @@ void *func_00130900(void *a0, void *a1, void *a2, void *a3) {
     if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x10));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_00130920 */
@@ -5492,7 +5380,6 @@ void *func_00130920(void *a0, void *a1, void *a2, void *a3) {
     (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
     if (r_a0) { *(int *)((char *)r_a0 + (0xD0)) = (int)0; }
     r_v0 = (long)(0 + (-0x7E));
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -5576,7 +5463,6 @@ _lbl_L001309C8:
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x40));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_001309E0 */
@@ -5657,7 +5543,6 @@ _lbl_L00130A80:
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x10)); }
     r_sp = (long)(r_sp + (0x50));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_00130A98 */
@@ -5716,7 +5601,6 @@ _lbl_L00130B00:
     r_v0 = (long)(0 + (-0x80));
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x20));
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -5817,7 +5701,6 @@ void *func_00130BD8(void *a0, void *a1, void *a2, void *a3) {
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x10)); }
     r_sp = (long)(r_sp + (0x60));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_00130BE8 */
@@ -5835,7 +5718,6 @@ void *func_00130BE8(void *a0, void *a1, void *a2, void *a3) {
     r_v0 = (long)func_0012EE20((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
     if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x10));
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -5863,7 +5745,6 @@ void *func_00130C08(void *a0, void *a1, void *a2, void *a3) {
     if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x10));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_00130C40 */
@@ -5879,7 +5760,6 @@ void *func_00130C40(void *a0, void *a1, void *a2, void *a3) {
     r_v0 = (long)func_00130A50((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
     if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x10));
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -5956,7 +5836,6 @@ _lbl_L00130D18:
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x10)); }
     r_sp = (long)(r_sp + (0x80));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_00130D40 */
@@ -5976,7 +5855,6 @@ void *func_00130D40(void *a0, void *a1, void *a2, void *a3) {
     if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x10));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_00130D68 */
@@ -5988,7 +5866,6 @@ void *func_00130D68(void *a0, void *a1, void *a2, void *a3) {
     long r_sp = (long)stack_mem + 128;
     (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
     r_v0 = (long)(0 + (-0x7E));
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -6005,7 +5882,6 @@ void *func_00130D70(void *a0, void *a1, void *a2, void *a3) {
     r_v0 = (long)func_00130BB0((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
     if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_00130D88 */
@@ -6018,7 +5894,6 @@ void *func_00130D88(void *a0, void *a1, void *a2, void *a3) {
     (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
     r_sp = (long)(r_sp + (0x10));
     r_v0 = (long)(0 + (-0x7E));
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -6037,7 +5912,6 @@ void *func_00130D98(void *a0, void *a1, void *a2, void *a3) {
     r_v0 = (long)func_00130BD8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
     if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x10));
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -6089,7 +5963,6 @@ void *func_00130DF0(void *a0, void *a1, void *a2, void *a3) {
     if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x10)); }
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x30));
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -6197,7 +6070,6 @@ _lbl_L00130F04:
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x10)); }
     r_sp = (long)(r_sp + (0x60));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_00130F20 */
@@ -6215,7 +6087,6 @@ void *func_00130F20(void *a0, void *a1, void *a2, void *a3) {
     r_v0 = (long)func_00130D88((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
     if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x10));
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -6256,7 +6127,6 @@ void *func_00130F40(void *a0, void *a1, void *a2, void *a3) {
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x30));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_00130FA8 */
@@ -6278,7 +6148,6 @@ void *func_00130FA8(void *a0, void *a1, void *a2, void *a3) {
     if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x10));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_00130FD8 */
@@ -6298,7 +6167,6 @@ void *func_00130FD8(void *a0, void *a1, void *a2, void *a3) {
     r_v0 = (long)func_00130DF0((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
     if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x10));
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -6371,7 +6239,6 @@ _lbl_L001310AC:
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x10)); }
     r_sp = (long)(r_sp + (0x70));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_001310D0 */
@@ -6389,7 +6256,6 @@ void *func_001310D0(void *a0, void *a1, void *a2, void *a3) {
     r_v0 = (long)func_00130E48((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
     if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x10));
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -6461,7 +6327,6 @@ _lbl_L00131178:
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x60));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_001311C0 */
@@ -6509,7 +6374,6 @@ _lbl_L00131224:
     if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x10)); }
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x50));
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -6597,7 +6461,6 @@ _lbl_L00131324:
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x10)); }
     r_sp = (long)(r_sp + (0x70));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_00131348 */
@@ -6665,7 +6528,6 @@ _lbl_L001313E8:
     if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x10)); }
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x60));
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -6746,7 +6608,6 @@ _lbl_L001314D0:
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x10)); }
     r_sp = (long)(r_sp + (0x70));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_001314F0 */
@@ -6766,7 +6627,6 @@ void *func_001314F0(void *a0, void *a1, void *a2, void *a3) {
     if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x10));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_00131518 */
@@ -6784,7 +6644,6 @@ void *func_00131518(void *a0, void *a1, void *a2, void *a3) {
     r_v0 = (long)func_00130E48((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
     if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x10));
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -6912,7 +6771,6 @@ _lbl_L0013169C:
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0xA0));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_001316D0 */
@@ -6997,7 +6855,6 @@ _lbl_L00131790:
     if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x10)); }
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0xA0));
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -7088,7 +6945,6 @@ _lbl_L001318A0:
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x60));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_001318D8 */
@@ -7125,7 +6981,6 @@ _lbl_L00131918:
     if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x10)); }
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x20));
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -7255,7 +7110,6 @@ _lbl_L00131AA0:
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0xA0));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_00131AD0 */
@@ -7320,7 +7174,6 @@ _lbl_L00131B70:
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x10)); }
     r_sp = (long)(r_sp + (0x50));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_00131B88 */
@@ -7343,7 +7196,6 @@ void *func_00131B88(void *a0, void *a1, void *a2, void *a3) {
     if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x10));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_00131BB8 */
@@ -7362,7 +7214,6 @@ void *func_00131BB8(void *a0, void *a1, void *a2, void *a3) {
     r_v0 = (long)func_00132590((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
     if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x10));
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -7398,7 +7249,6 @@ void *func_00131BE0(void *a0, void *a1, void *a2, void *a3) {
     if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x10)); }
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x30));
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -7469,7 +7319,6 @@ _lbl_L00131CEC:
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x10)); }
     r_sp = (long)(r_sp + (0x50));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_00131D08 */
@@ -7487,7 +7336,6 @@ void *func_00131D08(void *a0, void *a1, void *a2, void *a3) {
     r_v0 = (long)func_0012FE10((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
     if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x10));
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -7579,7 +7427,6 @@ _lbl_L00131DE8:
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x10)); }
     r_sp = (long)(r_sp + (0x60));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_00131E08 */
@@ -7594,7 +7441,6 @@ void *func_00131E08(void *a0, void *a1, void *a2, void *a3) {
     if (r_a0) { *(int *)((char *)r_a0 + (0xC8)) = (int)0; }
     r_v0 = (long)(0 + (-0x7E));
     r_sp = (long)(r_sp + (0x20));
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -7673,7 +7519,6 @@ _lbl_L00131EC4:
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x10)); }
     r_sp = (long)(r_sp + (0x40));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_00131ED8 */
@@ -7739,7 +7584,6 @@ _lbl_L00131F48:
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x40));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_00131F60 */
@@ -7755,7 +7599,6 @@ void *func_00131F60(void *a0, void *a1, void *a2, void *a3) {
     if (r_a0) { r_v1 = *(int *)((char *)r_a0 + (0xB0)); }
     if (r_v1) { *(int *)((char *)r_v1 + (0x0)) = (int)r_a1; }
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_00131F78 */
@@ -7767,7 +7610,6 @@ void *func_00131F78(void *a0, void *a1, void *a2, void *a3) {
     long r_sp = (long)stack_mem + 128;
     (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
     if (r_a0) { r_v0 = *(int *)((char *)r_a0 + (0xC8)); }
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -7795,7 +7637,6 @@ void *func_00131F80(void *a0, void *a1, void *a2, void *a3) {
     r_v0 = (long)func_00131E08((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
     if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x10)); }
     r_sp = (long)(r_sp + (0x20));
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -7833,7 +7674,6 @@ void *func_00131FC0(void *a0, void *a1, void *a2, void *a3) {
     if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x20)); }
     r_sp = (long)(r_sp + (0x30));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_00132018 */
@@ -7864,7 +7704,6 @@ void *func_00132018(void *a0, void *a1, void *a2, void *a3) {
     r_v0 = (long)func_00131EA8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
     if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x10)); }
     r_sp = (long)(r_sp + (0x20));
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -7919,7 +7758,6 @@ void *func_00132060(void *a0, void *a1, void *a2, void *a3) {
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x10)); }
     r_sp = (long)(r_sp + (0x70));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_001320E8 */
@@ -7953,7 +7791,6 @@ void *func_001320E8(void *a0, void *a1, void *a2, void *a3) {
     r_v0 = (long)func_00131F80((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
     if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x20)); }
     r_sp = (long)(r_sp + (0x30));
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -8052,7 +7889,6 @@ _lbl_L00132228:
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x10)); }
     r_sp = (long)(r_sp + (0xA0));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_00132258 */
@@ -8071,7 +7907,6 @@ void *func_00132258(void *a0, void *a1, void *a2, void *a3) {
     if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x10));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_00132278 */
@@ -8087,7 +7922,6 @@ void *func_00132278(void *a0, void *a1, void *a2, void *a3) {
     r_v0 = (long)func_00130A50((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
     if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x10));
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -8108,7 +7942,6 @@ void *func_00132298(void *a0, void *a1, void *a2, void *a3) {
     if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x10));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_001322C0 */
@@ -8124,7 +7957,6 @@ void *func_001322C0(void *a0, void *a1, void *a2, void *a3) {
     r_v0 = (long)func_00130BB0((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
     if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x10));
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -8143,7 +7975,6 @@ void *func_001322E0(void *a0, void *a1, void *a2, void *a3) {
     r_v0 = (long)func_00130BD8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
     if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x10));
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -8198,7 +8029,6 @@ _lbl_L00132348:
     if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x10)); }
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x50));
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -8277,7 +8107,6 @@ _lbl_L00132454:
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x10)); }
     r_sp = (long)(r_sp + (0x60));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_00132478 */
@@ -8327,7 +8156,6 @@ _lbl_L001324E0:
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x40));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_00132500 */
@@ -8340,7 +8168,6 @@ void *func_00132500(void *a0, void *a1, void *a2, void *a3) {
     (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
     if (r_a0) { *(int *)((char *)r_a0 + (0xBC)) = (int)0; }
     r_v0 = (long)(0 + (-0x7E));
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -8437,7 +8264,6 @@ void *func_00132590(void *a0, void *a1, void *a2, void *a3) {
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x60));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_001325C0 */
@@ -8522,7 +8348,6 @@ _lbl_L001326A0:
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x10)); }
     r_sp = (long)(r_sp + (0x60));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_001326C0 */
@@ -8543,7 +8368,6 @@ void *func_001326C0(void *a0, void *a1, void *a2, void *a3) {
     r_v0 = (long)func_00132538((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
     if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x10));
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -8567,7 +8391,6 @@ _lbl_L0013270C:
 _lbl_L00132714:
     r_sp = (long)(r_sp + (0x10));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_00132720 */
@@ -8586,7 +8409,6 @@ void *func_00132720(void *a0, void *a1, void *a2, void *a3) {
     r_v0 = (long)func_00132590((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
     if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x10));
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -8651,7 +8473,6 @@ _lbl_L001327E8:
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x10)); }
     r_sp = (long)(r_sp + (0x40));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_00132800 */
@@ -8681,7 +8502,6 @@ void *func_00132800(void *a0, void *a1, void *a2, void *a3) {
     if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x10)); }
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x30));
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -8761,7 +8581,6 @@ _lbl_L00132914:
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x10)); }
     r_sp = (long)(r_sp + (0x60));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_00132930 */
@@ -8779,7 +8598,6 @@ void *func_00132930(void *a0, void *a1, void *a2, void *a3) {
     r_v0 = (long)func_0012FE10((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
     if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x10));
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -8839,7 +8657,6 @@ _lbl_L001329E4:
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x10)); }
     r_sp = (long)(r_sp + (0x40));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_001329F8 */
@@ -8896,7 +8713,6 @@ _lbl_L00132A8C:
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x20));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_00132A98 */
@@ -8913,7 +8729,6 @@ void *func_00132A98(void *a0, void *a1, void *a2, void *a3) {
     r_v0 = (long)(0 + (-0x80));
     if (r_v1 == 0) r_v1 = r_a2;
     if (r_a1) { *(int *)((char *)r_a1 + (0x0)) = (int)r_v1; }
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -8988,7 +8803,6 @@ _lbl_L00132B34:
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x10)); }
     r_sp = (long)(r_sp + (0x60));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_00132B50 */
@@ -9007,7 +8821,6 @@ void *func_00132B50(void *a0, void *a1, void *a2, void *a3) {
     if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x10));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_00132B70 */
@@ -9023,7 +8836,6 @@ void *func_00132B70(void *a0, void *a1, void *a2, void *a3) {
     r_v0 = (long)func_00130A50((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
     if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x10));
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -9044,7 +8856,6 @@ void *func_00132B90(void *a0, void *a1, void *a2, void *a3) {
     if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x10));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_00132BB8 */
@@ -9064,7 +8875,6 @@ void *func_00132BB8(void *a0, void *a1, void *a2, void *a3) {
     r_v0 = (long)func_00130108((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
     if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x10));
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -9122,7 +8932,6 @@ _lbl_L00132C64:
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x10)); }
     r_sp = (long)(r_sp + (0x40));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_00132C78 */
@@ -9137,7 +8946,6 @@ void *func_00132C78(void *a0, void *a1, void *a2, void *a3) {
     r_v0 = (long)(0 + (-0x80));
     if (r_a0) { r_v1 = *(int *)((char *)r_a0 + (0xB0)); }
     if (r_v1) { *(int *)((char *)r_v1 + (0x0)) = (int)r_a1; }
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -9268,7 +9076,6 @@ _lbl_L00132DA8:
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x10)); }
     r_sp = (long)(r_sp + (0xA0));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_00132DD8 */
@@ -9303,7 +9110,6 @@ _lbl_L00132E18:
     r_v0 = (long)(r_v1 + 0);
     r_sp = (long)(r_sp + (0x20));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_00132E28 */
@@ -9322,7 +9128,6 @@ void *func_00132E28(void *a0, void *a1, void *a2, void *a3) {
     if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x10));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_00132E48 */
@@ -9338,7 +9143,6 @@ void *func_00132E48(void *a0, void *a1, void *a2, void *a3) {
     r_v0 = (long)func_00130A50((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
     if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x10));
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -9359,7 +9163,6 @@ void *func_00132E68(void *a0, void *a1, void *a2, void *a3) {
     if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x10));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_00132E90 */
@@ -9375,7 +9178,6 @@ void *func_00132E90(void *a0, void *a1, void *a2, void *a3) {
     r_v0 = (long)func_00130BB0((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
     if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x10));
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -9394,7 +9196,6 @@ void *func_00132EB0(void *a0, void *a1, void *a2, void *a3) {
     r_v0 = (long)func_00130BD8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
     if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x10));
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -9420,7 +9221,6 @@ _lbl_L00132EF4:
     if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
 _lbl_L00132EFC:
     r_sp = (long)(r_sp + (0x10));
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -9457,7 +9257,6 @@ void *func_00132F08(void *a0, void *a1, void *a2, void *a3) {
     if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x10)); }
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x30));
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -9534,7 +9333,6 @@ _lbl_L00133020:
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x10)); }
     r_sp = (long)(r_sp + (0x50));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_00133038 */
@@ -9585,7 +9383,6 @@ _lbl_L0013308C:
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x40));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_001330C0 */
@@ -9601,7 +9398,6 @@ void *func_001330C0(void *a0, void *a1, void *a2, void *a3) {
     r_v0 = (long)func_00132D50((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
     if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x10));
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -9677,7 +9473,6 @@ _lbl_L001331A0:
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x10)); }
     r_sp = (long)(r_sp + (0x50));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_001331B8 */
@@ -9698,7 +9493,6 @@ void *func_001331B8(void *a0, void *a1, void *a2, void *a3) {
     if (r_a2) { *(int *)((char *)r_a2 + (0x4)) = (int)r_a1; }
     if (r_a0) { r_v1 = *(int *)((char *)r_a0 + (0xC0)); }
     if (r_a2) { *(int *)((char *)r_a2 + (0x8)) = (int)r_v1; }
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -9762,7 +9556,6 @@ _lbl_L00133278:
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x10)); }
     r_sp = (long)(r_sp + (0x60));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_00133298 */
@@ -9781,7 +9574,6 @@ void *func_00133298(void *a0, void *a1, void *a2, void *a3) {
     if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x10));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_001332B8 */
@@ -9797,7 +9589,6 @@ void *func_001332B8(void *a0, void *a1, void *a2, void *a3) {
     r_v0 = (long)func_00130A50((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
     if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x10));
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -9818,7 +9609,6 @@ void *func_001332D8(void *a0, void *a1, void *a2, void *a3) {
     if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x10));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_00133300 */
@@ -9834,7 +9624,6 @@ void *func_00133300(void *a0, void *a1, void *a2, void *a3) {
     r_v0 = (long)func_00130BB0((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
     if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x10));
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -9853,7 +9642,6 @@ void *func_00133320(void *a0, void *a1, void *a2, void *a3) {
     r_v0 = (long)func_00130BD8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
     if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x10));
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -9890,7 +9678,6 @@ void *func_00133340(void *a0, void *a1, void *a2, void *a3) {
     if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x10)); }
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x30));
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -9986,7 +9773,6 @@ _lbl_L00133490:
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x10)); }
     r_sp = (long)(r_sp + (0x70));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_001334B0 */
@@ -10077,7 +9863,6 @@ void *func_00133568(void *a0, void *a1, void *a2, void *a3) {
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x90));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_00133580 */
@@ -10165,7 +9950,6 @@ _lbl_L0013363C:
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x10)); }
     r_sp = (long)(r_sp + (0x50));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_00133658 */
@@ -10178,7 +9962,6 @@ void *func_00133658(void *a0, void *a1, void *a2, void *a3) {
     (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
     if (r_a0) { *(int *)((char *)r_a0 + (0xB8)) = (int)0; }
     r_v0 = (long)(0 + (-0x7E));
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -10244,7 +10027,6 @@ _lbl_L0013370C:
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x40));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_00133720 */
@@ -10265,7 +10047,6 @@ void *func_00133720(void *a0, void *a1, void *a2, void *a3) {
     r_v0 = (long)func_00130068((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
     if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x10));
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -10325,7 +10106,6 @@ _lbl_L001337E4:
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x10)); }
     r_sp = (long)(r_sp + (0x40));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_001337F8 */
@@ -10343,7 +10123,6 @@ void *func_001337F8(void *a0, void *a1, void *a2, void *a3) {
     r_v0 = (long)func_00133598((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
     if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x10));
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -10370,7 +10149,6 @@ void *func_00133818(void *a0, void *a1, void *a2, void *a3) {
     if (r_s0) { *(int *)((char *)r_s0 + (0xB8)) = (int)r_v1; }
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x20));
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -10403,7 +10181,6 @@ void *func_00133850(void *a0, void *a1, void *a2, void *a3) {
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x30));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_00133898 */
@@ -10422,7 +10199,6 @@ void *func_00133898(void *a0, void *a1, void *a2, void *a3) {
     if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x10));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_001338B8 */
@@ -10439,7 +10215,6 @@ void *func_001338B8(void *a0, void *a1, void *a2, void *a3) {
     r_v0 = (long)(0 + (-0x80));
     if (r_v1 == 0) r_v1 = r_a2;
     if (r_a1) { *(int *)((char *)r_a1 + (0x0)) = (int)r_v1; }
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -10462,7 +10237,6 @@ void *func_001338D8(void *a0, void *a1, void *a2, void *a3) {
     r_v0 = (long)func_00130960((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
     if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x10)); }
     r_sp = (long)(r_sp + (0x20));
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -10613,7 +10387,6 @@ _lbl_L00133ABC:
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x10)); }
     r_sp = (long)(r_sp + (0xA0));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_00133AE8 */
@@ -10632,7 +10405,6 @@ void *func_00133AE8(void *a0, void *a1, void *a2, void *a3) {
     if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x10));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_00133B08 */
@@ -10648,7 +10420,6 @@ void *func_00133B08(void *a0, void *a1, void *a2, void *a3) {
     r_v0 = (long)func_00130A50((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
     if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x10));
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -10668,7 +10439,6 @@ void *func_00133B28(void *a0, void *a1, void *a2, void *a3) {
     r_v0 = (long)func_00130AA8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
     if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x10));
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -10717,7 +10487,6 @@ _lbl_L00133BB0:
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x30));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_00133BD0 */
@@ -10761,7 +10530,6 @@ _lbl_L00133C28:
     if (r_sp) { r_s1 = *(long *)((char *)r_sp + (0x10)); }
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x30));
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -10899,7 +10667,6 @@ _lbl_L00133DE0:
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x80));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_00133E08 */
@@ -11027,7 +10794,6 @@ _lbl_L00133F5C:
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x10)); }
     r_sp = (long)(r_sp + (0x40));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_00133F70 */
@@ -11050,7 +10816,6 @@ void *func_00133F70(void *a0, void *a1, void *a2, void *a3) {
     if (r_sp) { r_ra = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x10));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_00133FA0 */
@@ -11070,7 +10835,6 @@ _lbl_L00133FB0:
     r_v0 = (long)(0 + (-0x80));
     if (r_a1 == 0) r_a1 = r_v1;
     if (r_a2) { *(int *)((char *)r_a2 + (0x0)) = (int)r_a1; }
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -11114,7 +10878,6 @@ void *func_00134010(void *a0, void *a1, void *a2, void *a3) {
     (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
     r_v0 = (long)&D_509EC0;
     r_v0 = (long)&D_509EC0;
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -11188,7 +10951,6 @@ _lbl_L001340D0:
     if (r_sp) { r_s0 = *(long *)((char *)r_sp + (0x0)); }
     r_sp = (long)(r_sp + (0x20));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_001340E0 */
@@ -11201,7 +10963,6 @@ void *func_001340E0(void *a0, void *a1, void *a2, void *a3) {
     (void)r_v0; (void)r_v1; (void)r_a0; (void)r_a1; (void)r_a2; (void)r_a3; (void)r_sp; (void)r_ra; (void)r_gp;
     if (r_gp) { r_v0 = *(int *)((char *)r_gp + (-0x7778)); }
     r_v0 = (long)(r_v0 & (0x1));
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 
@@ -11233,7 +10994,6 @@ _lbl_L00134118:
     if ((long)r_v1 >= 0) { r_a0 = (long)(r_a0 + (0x28)); goto _lbl_L00134118; }
     r_a0 = (long)(r_a0 + (0x28));
     return (void *)r_v0;
-    return (void *)r_v0;
 }
 
 /* func_00134140 */
@@ -11255,7 +11015,6 @@ _lbl_L00134148:
     if (r_a0) { *(char *)((char *)r_a0 + (0x1)) = (char)0; }
     if ((long)r_v1 >= 0) { r_a0 = (long)(r_a0 + (0x28)); goto _lbl_L00134148; }
     r_a0 = (long)(r_a0 + (0x28));
-    return (void *)r_v0;
     return (void *)r_v0;
 }
 

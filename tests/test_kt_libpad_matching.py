@@ -1,7 +1,7 @@
 """Compilation and symbol verification tests for KCET Libpad driver (kt_libpad.c).
 
 Verifies that kt_libpad.c compiles with EE-GCC 2.9-991111 (-O2 -G0) into
-valid object code containing all 100 pad functions.
+valid object code containing all 105 pad functions.
 """
 
 from pathlib import Path
@@ -45,7 +45,10 @@ def test_kt_libpad_compiles_and_matches_target(tmp_path):
 
         symtab = elf.get_section_by_name(".symtab")
         funcs = [s.name for s in symtab.iter_symbols() if s["st_info"]["type"] == "STT_FUNC"]
-        assert len(funcs) == 100, f"expected 100 functions, found {len(funcs)}"
+        assert len(funcs) == 105, f"expected 105 functions, found {len(funcs)}"
+
+        for prefix_fn in ["func_00125A70", "func_00125AA8", "func_00125AC8", "func_00125AE8", "func_00125AF8"]:
+            assert prefix_fn in funcs, f"expected pad helper {prefix_fn} in kt_libpad.o"
 
         rel = elf.get_section_by_name(".rel.text")
         assert rel is not None, ".rel.text missing"

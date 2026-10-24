@@ -47,12 +47,11 @@ def test_kt_gpu_compiles_and_matches_target(tmp_path):
         funcs = [s.name for s in symtab.iter_symbols() if s["st_info"]["type"] == "STT_FUNC"]
         expected_funcs = [
             "func_00125808", "func_00125858", "func_001258A8", "func_001258F8",
-            "func_00125940", "func_00125988", "func_001259C8", "func_00125A70",
-            "func_00125AA8", "func_00125AC8", "func_00125AE8", "func_00125AF8"
+            "func_00125940", "func_00125988", "func_001259C8"
         ]
         for fn in expected_funcs:
             assert fn in funcs, f"missing function: {fn}"
-        assert len(funcs) == 12, f"expected 12 functions, found {len(funcs)}"
+        assert len(funcs) == 7, f"expected 7 functions, found {len(funcs)}"
 
         rel = elf.get_section_by_name(".rel.text")
         assert rel is not None, ".rel.text missing"

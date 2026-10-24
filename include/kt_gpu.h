@@ -45,10 +45,5 @@ void func_001258F8(void *p, u64 *data);
 void func_00125940(void *p, u32 *data);
 void func_00125988(void *p);
 void func_001259C8(void *p, u8 *cmd, int flag);
-void *func_00125A70(int idx);
-void func_00125AA8(void);
-void func_00125AC8(void);
-void func_00125AE8(int a0, int a1);
-int func_00125AF8(void);
 
 #endif /* KT_GPU_H */

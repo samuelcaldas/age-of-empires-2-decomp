@@ -3,9 +3,7 @@
 #include <string.h>
 
 #include "kt_gpu.h"
-#include "kt_libpad.h"
 
-GpuWorkState D_4EA148;
 const char D_48F1B8[] = "kt_gpu.c";
 const char D_48F1C8[] = "kind < 29";
 
@@ -41,37 +39,14 @@ int func_10CE90(void) { return 1; }
 void func_116F68(int a) {}
 void func_1344C0(int a) {}
 
-static char s_mock_pad_buffer[1024];
-
 static void test_gpu_dispatcher(void) {
     u8 cmd[4] = {3, 0, 0, 0};
     func_001259C8(NULL, cmd, 1);
     assert(s_dispatched_kind == 3);
 }
 
-static void test_gpu_pad_shutdown(void) {
-    memset(&D_4EA148, 0, sizeof(D_4EA148));
-    memset(s_mock_pad_buffer, 0, sizeof(s_mock_pad_buffer));
-
-    PadSlot *slot = (PadSlot *)s_mock_pad_buffer;
-    slot->port = 0;
-    slot->slot = 0;
-    slot->flags = 0;
-
-    D_4EA148.count = 1;
-#if defined(__LP64__)
-    D_4EA148.buffer = (u32)(uintptr_t)s_mock_pad_buffer;
-#else
-    D_4EA148.buffer = s_mock_pad_buffer;
-#endif
-
-    int res = func_00125AF8();
-    assert(res == 1);
-}
-
 int main(void) {
     test_gpu_dispatcher();
-    test_gpu_pad_shutdown();
     printf("All native kt_gpu tests passed successfully.\n");
     return 0;
 }

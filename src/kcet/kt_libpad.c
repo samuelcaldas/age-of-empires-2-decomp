@@ -57,14 +57,17 @@ int func_10DBA8(int, int);
 int func_116F68(int);
 int func_128D30(int, int, int, int);
 int func_104B60(int);
+int func_10CE90(void);
+void func_134500(int);
+void func_134440(int);
+void func_1344C0(int);
 
-/* Forward declarations of kt_gpu helper functions referenced */
+/* Function Prototypes */
 PadSlot *func_00125A70(int idx);
 void func_00125AA8(void);
 void func_00125AC8(void);
-int func_00125AE8(int, int);
-
-/* Function Prototypes */
+int func_00125AE8(int a0, int a1);
+int func_00125AF8(void);
 void func_00125C38(int rpc_id, int n_pad, PadSlot *buf);
 void func_00125C58(int rpc_id, int n_pad, PadSlot *buf, int flag);
 void func_00125DB8(PadSlot *p);
@@ -174,6 +177,74 @@ static u16 s_vibe_1 = 0;
 static int s_state_77cc = 0;
 static int s_state_77d0 = 0;
 static int s_state_77d4 = 0;
+
+/* Function 0a: func_00125A70 */
+PadSlot *func_00125A70(int idx) {
+    if ((unsigned int)idx < (unsigned int)D_4EA148.n_pad) {
+        return (PadSlot *)((char *)D_4EA148.slots + (idx << 9));
+    }
+    return NULL;
+}
+
+/* Function 0b: func_00125AA8 */
+void func_00125AA8(void) {
+    if (D_4EA148.sema >= 0) {
+        func_134500(D_4EA148.sema);
+    }
+}
+
+/* Function 0c: func_00125AC8 */
+void func_00125AC8(void) {
+    if (D_4EA148.sema >= 0) {
+        func_134440(D_4EA148.sema);
+    }
+}
+
+/* Function 0d: func_00125AE8 */
+int func_00125AE8(int a0, int a1) {
+#if defined(__mips__)
+    register void *gp asm("8");
+    return func_10D8B0(a0, a1, (char *)gp - 0x7c00);
+#else
+    return func_10D8B0(a0, a1, NULL);
+#endif
+}
+
+/* Function 0e: func_00125AF8 */
+int func_00125AF8(void) {
+    int i;
+    int res = 1;
+
+    if (D_4EA148.n_pad > 0) {
+        for (i = 0; i < D_4EA148.n_pad; i++) {
+            PadSlot *item = func_00125A70(i);
+            int v1 = item->port;
+            int v2 = item->slot;
+            if (v1 != -1 && v2 != -1) {
+                if (item->flags & 0x20000) {
+                    func_00125AE8(v1, v2);
+                }
+                if (func_10D0F8(v1, v2) == 1) {
+                    res = 0;
+                    item->slot = -1;
+                    item->port = -1;
+                }
+            }
+        }
+    }
+    if (res != 0) {
+        if (func_10CE90() == 1) {
+            if (D_4EA148.flags & 1) {
+                func_116F68(*(int *)((char *)&D_4EA148 - 24248));
+                D_4EA148.flags &= ~1;
+            }
+            func_1344C0(D_4EA148.sema);
+        } else {
+            res = 0;
+        }
+    }
+    return res;
+}
 
 /* Function 1: func_00125C38 */
 void func_00125C38(int rpc_id, int n_pad, PadSlot *buf) {

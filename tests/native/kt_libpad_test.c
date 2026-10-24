@@ -101,6 +101,11 @@ int func_001275A0(PadSlot *p);
 void func_001273D8(PadSlot *p);
 void func_00127820(PadSlot *p);
 int func_001285F8(int port, int slot, int type);
+PadSlot *func_00125A70(int idx);
+void func_00125AA8(void);
+void func_00125AC8(void);
+int func_00125AE8(int a0, int a1);
+int func_00125AF8(void);
 
 static int s_mock_act_calls = 0;
 static int s_mock_act_last_args[5] = {0};
@@ -142,22 +147,17 @@ static void test_actuator_desc_call_convention(void) {
 }
 int func_10D260(void) { return 0; }
 int func_10D968(void) { return 0; }
-int func_00125AE8(void) { return 0; }
 int func_10D8B0(void) { return 0; }
 int func_10D7F8(void) { return 0; }
 int func_10D3F8(int a, int b) { return 0; }
 int func_10DBA8(void) { return 0; }
-int func_116F68(void) { return 0; }
-int func_128D30(void) { return 0; }
-int func_104B60(void) { return 0; }
+int func_116F68(int a) { return 0; }
+int func_128D30(int a, int b, int c, int d) { return 0; }
+int func_104B60(int a) { return 0; }
+int func_10CE90(void) { return 1; }
+void func_1344C0(int a) {}
 
 static PadSlot s_mock_slots[2];
-
-PadSlot *func_00125A70(int pad_number) {
-    return &s_mock_slots[pad_number];
-}
-void func_00125AA8(void) {}
-void func_00125AC8(void) {}
 
 static void test_port_slot_enumeration(void) {
     int p_ports[2] = {1, 1}; /* port 0 has 1 slot, port 1 has 1 slot */
@@ -174,6 +174,7 @@ static void test_port_slot_enumeration(void) {
 static void test_button_accessors(void) {
     memset(s_mock_slots, 0, sizeof(s_mock_slots));
     D_4EA148.n_pad = 2;
+    D_4EA148.slots = s_mock_slots;
 
     s_mock_slots[0].buttons = KT_PAD_CROSS | KT_PAD_START;
     s_mock_slots[0].buttons_pressed = KT_PAD_CROSS;
@@ -245,6 +246,26 @@ static void test_step_advancement_logic(void) {
     assert(slot.step == 0);
 }
 
+static void test_pad_slot_lookup_and_shutdown(void) {
+    memset(&D_4EA148, 0, sizeof(D_4EA148));
+    memset(s_mock_slots, 0, sizeof(s_mock_slots));
+
+    D_4EA148.n_pad = 2;
+    D_4EA148.slots = s_mock_slots;
+
+    assert(func_00125A70(0) == &s_mock_slots[0]);
+    assert(func_00125A70(1) == &s_mock_slots[1]);
+    assert(func_00125A70(2) == NULL);
+
+    s_mock_slots[0].port = 0;
+    s_mock_slots[0].slot = 0;
+    s_mock_slots[1].port = -1;
+    s_mock_slots[1].slot = -1;
+
+    int res = func_00125AF8();
+    assert(res == 1);
+}
+
 int main(void) {
     test_port_slot_enumeration();
     test_button_accessors();
@@ -252,6 +273,7 @@ int main(void) {
     test_step_advancement_logic();
     test_actuator_desc_call_convention();
     test_mode_info_query_conventions();
+    test_pad_slot_lookup_and_shutdown();
     printf("All native kt_libpad tests passed successfully.\n");
     return 0;
 }

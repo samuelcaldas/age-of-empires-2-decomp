@@ -86,4 +86,11 @@ _Static_assert(offsetof(PadWork, n_pad) == 0x04, "PadWork n_pad offset");
 _Static_assert(offsetof(PadWork, sema) == 0x08, "PadWork sema offset");
 _Static_assert(offsetof(PadWork, flags) == 0x0C, "PadWork flags offset");
 
+/* Functions 0x125A70 .. 0x125AF8 */
+PadSlot *func_00125A70(int idx);
+void func_00125AA8(void);
+void func_00125AC8(void);
+int func_00125AE8(int a0, int a1);
+int func_00125AF8(void);
+
 #endif /* KT_LIBPAD_H */

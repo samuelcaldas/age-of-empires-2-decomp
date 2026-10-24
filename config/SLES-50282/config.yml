@@ -99,10 +99,10 @@ segments:
       - [0x259e8, asm, kcet/kt_gpu]
   - name: kt_libpad
     type: code
-    start: 0x25e18
-    vram: 0x125c38
+    start: 0x25c50
+    vram: 0x125a70
     subsegments:
-      - [0x25e18, asm, kcet/kt_libpad]
+      - [0x25c50, asm, kcet/kt_libpad]
   - name: kt_hd
     type: code
     start: 0x28d88

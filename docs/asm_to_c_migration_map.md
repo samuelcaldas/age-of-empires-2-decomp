@@ -57,7 +57,7 @@ pie title Distribuição de Funções em Assembly (Total: 1.906 funções)
 | **`src/smenu_overlay.c`** | Overlay (Setup/Menus) | 49.515 | 144 | 90.560 B | 100% Matched |
 | **`src/kt_libcdvd_server.c`** | KCET Hardware (CD/DVD) | 5.614 | 150 | 14.104 B | Decompilado (C Puro + Testes Nativos) |
 | **`src/kt_mc_2.c`** | KCET Hardware (Memory Card)| 11.415 | 337 | 56.396 B | **INCOMPLETO** (Transpilação crua de registradores; requer C estruturado) |
-| **`src/lobby_overlay.c`** | Overlay (Multiplayer) | 3.268 | 814 | 337.472 B | **INCOMPLETO** (Stubbing total: 814/814 fns vazias; requer descompilação real) |
+| **`src/lobby_overlay.c`** | Overlay (Multiplayer) | 96.389 | 814 | 337.472 B | **Concluído** (Descompilado 814/814 fns estruturadas em C, bit-exact .rodata, 0 stubs) |
 | **TOTAL** | — | **519.736** | **1.906** | **631.328 B** *(~616 KB)* | **16 arquivos** |
 
 ---
@@ -105,7 +105,7 @@ Estes arquivos contêm o código carregado dinamicamente do CD pelo CodeWarrior 
 * **Descrição**: Menus principais, carrossel de campanhas, telas de configuração de áudio/vídeo e opções de jogo.
 * **Complexidade**: Alta. Gerenciamento extensivo de estados de interface do usuário, eventos de cursor e fluxo de menus.
 
-### 8. `src/lobby_overlay.c` (814 funções / 3.268 linhas atuais) — *INCOMPLETO (Stubbing Total Detectado)*
+### 8. `src/lobby_overlay.c` (814 funções / 96.389 linhas) — *Concluído*
 * **VRAM**: `0x01D98000`
 * **Descrição**: Sistema de saguão multiplayer para console (criação de salas, seleção de facções, ping, serialização de pacotes via `ps2_DataTrans`).
 * **Header**: `include/lobby_overlay.h`

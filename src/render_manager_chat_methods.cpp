@@ -45,6 +45,13 @@ int func_001891d0(ChatLog *self, int idx) {
     return self->field_2C[idx];
 }
 
+/*
+ * func_00189210:
+ * Section padding / alignment callback stub.
+ * In the original AOK.ELF binary (VRAM 0x00189210, 8 bytes),
+ * this routine consists of `jr $ra; nop` (08 00 e0 03 00 00 00 00) emitted
+ * by the compiler/linker for alignment / empty stub.
+ */
 void func_00189210() {}
 
 int func_00189220() {

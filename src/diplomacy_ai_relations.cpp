@@ -97,5 +97,12 @@ int func_1402E0(DiplomacyAI *self, int player) {
     return 0;
 }
 
+/*
+ * func_00140360:
+ * Section padding / alignment callback stub.
+ * In the original AOK.ELF binary (VRAM 0x00140360, 8 bytes),
+ * this routine consists of `jr $ra; nop` (08 00 e0 03 00 00 00 00) emitted
+ * by the compiler/linker for section alignment / empty callback stub.
+ */
 void func_00140360() {}
 }

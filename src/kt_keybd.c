@@ -85,6 +85,13 @@ void func_00135EC0(int n_keybd) {
     }
 }
 
+/*
+ * func_00135F90:
+ * Section padding / alignment function.
+ * In the original AOK.ELF binary (VRAM 0x00135F90, 8 bytes),
+ * this routine consists of `jr $ra; nop` (08 00 e0 03 00 00 00 00) emitted
+ * by the compiler/linker for section alignment between keyboard work routines.
+ */
 void func_00135F90(void) {}
 
 void func_00135F98(void) {
@@ -610,4 +617,11 @@ void func_001371C8(int a0) {
     }
 }
 
+/*
+ * func_00137200:
+ * Section padding / alignment function.
+ * In the original AOK.ELF binary (VRAM 0x00137200, 8 bytes),
+ * this routine consists of `jr $ra; nop` (08 00 e0 03 00 00 00 00) emitted
+ * by the compiler/linker for section alignment after keyboard device loop routines.
+ */
 void func_00137200(void) {}

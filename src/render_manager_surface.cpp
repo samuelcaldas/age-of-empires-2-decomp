@@ -16,6 +16,13 @@ int func_001889a0(RenderManagerSurface *self) {
     return 1;
 }
 
+/*
+ * func_00188a30:
+ * Section padding / alignment callback stub.
+ * In the original AOK.ELF binary (VRAM 0x00188A30, 8 bytes),
+ * this routine consists of `jr $ra; nop` (08 00 e0 03 00 00 00 00) emitted
+ * by the compiler/linker for alignment / empty stub.
+ */
 void func_00188a30() {}
 
 void func_00188a40(RenderManagerSurface *self) {
@@ -58,8 +65,22 @@ int func_00188bb0() {
     return 0;
 }
 
+/*
+ * func_00188bc0:
+ * Section padding / alignment callback stub.
+ * In the original AOK.ELF binary (VRAM 0x00188BC0, 8 bytes),
+ * this routine consists of `jr $ra; nop` (08 00 e0 03 00 00 00 00) emitted
+ * by the compiler/linker for alignment / empty stub.
+ */
 void func_00188bc0() {}
 
+/*
+ * func_00188bd0:
+ * Section padding / alignment callback stub.
+ * In the original AOK.ELF binary (VRAM 0x00188BD0, 8 bytes),
+ * this routine consists of `jr $ra; nop` (08 00 e0 03 00 00 00 00) emitted
+ * by the compiler/linker for alignment / empty stub.
+ */
 void func_00188bd0() {}
 
 int func_00188be0() {

@@ -27,10 +27,31 @@ void func_00187b40(RenderManagerStatsOverlay *self) {
 }
 #pragma divbyzerocheck reset
 
+/*
+ * func_00187c40:
+ * Section padding / alignment callback stub.
+ * In the original AOK.ELF binary (VRAM 0x00187C40, 8 bytes),
+ * this routine consists of `jr $ra; nop` (08 00 e0 03 00 00 00 00) emitted
+ * by the compiler/linker for alignment / empty stub.
+ */
 void func_00187c40() {}
 
+/*
+ * func_00187c50:
+ * Section padding / alignment callback stub.
+ * In the original AOK.ELF binary (VRAM 0x00187C50, 8 bytes),
+ * this routine consists of `jr $ra; nop` (08 00 e0 03 00 00 00 00) emitted
+ * by the compiler/linker for alignment / empty stub.
+ */
 void func_00187c50() {}
 
+/*
+ * func_00187c60:
+ * Section padding / alignment callback stub.
+ * In the original AOK.ELF binary (VRAM 0x00187C60, 8 bytes),
+ * this routine consists of `jr $ra; nop` (08 00 e0 03 00 00 00 00) emitted
+ * by the compiler/linker for alignment / empty stub.
+ */
 void func_00187c60() {}
 
 void func_00187c70(RenderManagerStatsOverlay *self) {

@@ -169,6 +169,13 @@ int func_00183f20(AspAnimatedNode *n) {
     return 0;
 }
 
+/*
+ * func_00183f60:
+ * Section padding / alignment callback stub.
+ * In the original AOK.ELF binary (VRAM 0x00183F60, 8 bytes),
+ * this routine consists of `jr $ra; nop` (08 00 e0 03 00 00 00 00) emitted
+ * by the compiler/linker for empty callback / alignment.
+ */
 void func_00183f60(AspAnimatedNode *n, int p, void *e) {}
 
 int func_00183f70(AspAnimatedNode *n, int target) {

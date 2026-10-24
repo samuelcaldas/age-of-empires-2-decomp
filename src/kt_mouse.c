@@ -68,6 +68,13 @@ void *func_00135530(void);
 int *func_001350E0(int);
 int func_00135258(int);
 
+/*
+ * func_00134F18:
+ * Section padding / alignment function.
+ * In the original AOK.ELF binary (VRAM 0x00134F18, 8 bytes),
+ * this routine consists of `jr $ra; nop` (08 00 e0 03 00 00 00 00) emitted
+ * by the compiler/linker for section alignment between mouse work routines.
+ */
 void func_00134F18(void) {}
 
 void func_00134F20(void) {
@@ -539,6 +546,13 @@ void func_00135D60(int a0) {
     }
 }
 
+/*
+ * func_00135D98:
+ * Section padding / alignment function.
+ * In the original AOK.ELF binary (VRAM 0x00135D98, 8 bytes),
+ * this routine consists of `jr $ra; nop` (08 00 e0 03 00 00 00 00) emitted
+ * by the compiler/linker for section alignment between mouse device routines.
+ */
 void func_00135D98(void) {}
 
 typedef struct {

@@ -86,10 +86,27 @@ static void test_mode_info_query_conventions(void) {
     assert(s_mock_first_mode_call_offset == -1);
     assert(idx == 1);
 }
-int func_10CF10(void) { return 0; }
+static void *s_mock_port_open_buffer = NULL;
+int func_10CF10(int req_port, int req_slot, void *dma_buffer) {
+    (void)req_port;
+    (void)req_slot;
+    s_mock_port_open_buffer = dma_buffer;
+    return 1;
+}
 static int s_mock_pad_state = 0;
 int func_10D2E0(int port, int slot) { return s_mock_pad_state; }
 int func_10D0F8(void) { return 0; }
+static int s_mock_pad_read_res = 4;
+int func_10D260(int port, int slot, void *report) {
+    (void)port;
+    (void)slot;
+    unsigned char *buf = (unsigned char *)report;
+    buf[0] = 0x00;
+    buf[1] = 0x73;
+    buf[2] = 0xFF;
+    buf[3] = 0xFF;
+    return s_mock_pad_read_res;
+}
 /* Declarations from kt_libpad.c */
 int func_001262E8(int *p_ports, int start, u16 *out_ports, int max_items, int n_ports);
 u32 func_00126410(int pad_number);
@@ -145,7 +162,6 @@ static void test_actuator_desc_call_convention(void) {
     assert(s_mock_act_last_args[2] == 0); /* actuator index */
     assert(s_mock_act_last_args[3] == 4); /* term: 4th term */
 }
-int func_10D260(void) { return 0; }
 int func_10D968(void) { return 0; }
 int func_10D8B0(void) { return 0; }
 int func_10D7F8(void) { return 0; }
@@ -266,6 +282,57 @@ static void test_pad_slot_lookup_and_shutdown(void) {
     assert(res == 1);
 }
 
+void func_00126BC0(PadSlot *p, int ch, int mask, int mode, int speed);
+int func_00127488(PadSlot *p);
+int func_00127BE8(PadSlot *p);
+
+static void test_rapid_fire_entry_packing(void) {
+    PadSlot slot;
+    int i;
+    memset(&slot, 0, sizeof(slot));
+    func_00126BC0(&slot, 0, 0x1234, 2, 5);
+    /* In binary: rapid_table at offset 0x38 + ch*4 with packed byte */
+    assert(*(u16 *)&slot.rapid_table[0] == 0x1234);
+    assert(slot.rapid_table[2] == 0);
+    assert(slot.rapid_table[3] == (u8)(((2 + 15) & 0xF0) | (5 & 0x0F)));
+    /* Ensure old unk_1C offset was NOT written */
+    for (i = 0; i < 24; i++) {
+        assert(slot.unk_1C[i] == 0);
+    }
+}
+
+static void test_port_open_dma_buffer_offset(void) {
+    PadSlot slot;
+    memset(&slot, 0, sizeof(slot));
+    slot.port = -1;
+    slot.slot = -1;
+    slot.req_port = 0;
+    slot.req_slot = 0;
+    s_mock_port_open_buffer = NULL;
+
+    int res = func_00127488(&slot);
+    assert(res == 1);
+    /* In binary: dma_buffer handed to port open is at offset slot + 0x100 */
+    assert(s_mock_port_open_buffer == (void *)((char *)&slot + 0x100));
+}
+
+static void test_pad_read_fill_and_return(void) {
+    PadSlot slot;
+    int i;
+    memset(&slot, 0, sizeof(slot));
+    slot.port = 0;
+    slot.slot = 0;
+    s_mock_pad_read_res = 4;
+
+    int r = func_00127BE8(&slot);
+    assert(r == 4);
+    assert(slot.read_len == 4);
+    /* Report[4..31] filled with 0xFF */
+    for (i = 4; i < 32; i++) {
+        assert(slot.report[i] == 0xFF);
+    }
+}
+
 int main(void) {
     test_port_slot_enumeration();
     test_button_accessors();
@@ -274,6 +341,9 @@ int main(void) {
     test_actuator_desc_call_convention();
     test_mode_info_query_conventions();
     test_pad_slot_lookup_and_shutdown();
+    test_rapid_fire_entry_packing();
+    test_port_open_dma_buffer_offset();
+    test_pad_read_fill_and_return();
     printf("All native kt_libpad tests passed successfully.\n");
     return 0;
 }

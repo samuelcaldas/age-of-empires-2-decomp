@@ -102,7 +102,7 @@ void func_00126938(int pad_number, u32 mask);
 void func_001269B0(int pad_number, u32 mask);
 void func_00126A30(int pad_number, int ch, u8 *data);
 void func_00126AE8(int pad_number, u8 *table, int n_rpd);
-void func_00126BC0(PadSlot *p, int ch, u16 mask, int mode, int speed);
+void func_00126BC0(PadSlot *p, int ch, int mask, int mode, int speed);
 int func_00126C30(int pad_number);
 int func_00126D50(PadSlot *p);
 int func_00126D60(int pad_number);
@@ -741,11 +741,14 @@ void func_00126AE8(int pad_number, u8 *table, int n_rpd) {
 }
 
 /* Function 35: func_00126BC0 */
-void func_00126BC0(PadSlot *p, int ch, u16 mask, int mode, int speed) {
+void func_00126BC0(PadSlot *p, int ch, int mask, int mode, int speed) {
+    u8 *dst = &p->rapid_table[ch * 4];
     func_00125AA8();
-    *(u16 *)(&p->unk_1C[ch * 4]) = mask;
-    p->unk_1C[ch * 4 + 2] = (u8)mode;
-    p->unk_1C[ch * 4 + 3] = (u8)speed;
+    speed &= 0xF;
+    mode = (mode + 15) & 0xF0;
+    *(u16 *)dst = mask;
+    dst[2] = 0;
+    dst[3] = mode | speed;
     func_00125AC8();
 }
 
@@ -1197,7 +1200,7 @@ void func_001279C8(PadSlot *p, int flag) {
     int ret;
 
     if (func_00127BE8(p) == 0) {
-        u8 val4 = p->dma_buffer[5];
+        u8 val4 = p->report[1];
         if ((val4 & 0xF0) != (p->model & 0xF0)) {
             p->model = val4;
             unk_19 = 0;
@@ -1287,10 +1290,15 @@ void func_00127BD8(PadSlot *p) {
 
 /* Function 68: func_00127BE8 : ktPadReadDmaBuffer */
 int func_00127BE8(PadSlot *p) {
-    int res = func_10D260(p->port, p->slot, &p->dma_buffer[4]);
-    if ((u32)(res - 1) >= 0x1F) {
-        return 0;
+    int i;
+    int res = func_10D260(p->port, p->slot, p->report);
+    i = res;
+    if ((u32)(res - 1) < 31) {
+        do {
+            p->report[i++] = 0xFF;
+        } while ((u32)(i - 1) < 31);
     }
+    p->read_len = res;
     return res;
 }
 
@@ -1388,7 +1396,7 @@ int func_00127E68(PadSlot *p, int flag) {
         p->err_count = 0;
         return 0;
     }
-    if (p->dma_buffer[4] != 0) {
+    if (p->report[0] != 0) {
         p->err_count++;
         func_001277E0(p);
         p->buttons_pressed = 0;
@@ -1398,12 +1406,12 @@ int func_00127E68(PadSlot *p, int flag) {
         return 0;
     }
 
-    raw_btn = (u32)p->dma_buffer[5];
+    raw_btn = (u32)p->report[1];
     if (!((p->unk_68 >> (raw_btn >> 4)) & 1)) {
         return 0;
     }
 
-    btn = (~((p->dma_buffer[6] << 8) | p->dma_buffer[7])) & 0xFFFF;
+    btn = (~((p->report[2] << 8) | p->report[3])) & 0xFFFF;
     if (btn != 0) {
         for (i = 0; i < 3; i++) {
             u16 mask = *(u16 *)(&p->rapid_table[i * 4]);
@@ -1424,17 +1432,17 @@ int func_00127E68(PadSlot *p, int flag) {
         }
     }
 
-    src_data = &p->dma_buffer[12];
+    src_data = &p->report[8];
     if (func_00127C68(p) && func_00127C78(raw_btn >> 4)) {
         for (i = 0; i < 4; i++) {
-            u8 d = p->dma_buffer[11 - i];
+            u8 d = p->report[7 - i];
             int r = func_00127D30(d, p->act_data[i * 4 + 2], p->act_data[i * 4], p->act_data[i * 4 + 1], p->act_data[i * 4 + 3]);
             unk_10 = (unk_10 << 8) | d;
             unk_14 = (unk_14 << 8) | (r & 0xFF);
         }
     }
 
-    if (func_00128868(p->dma_buffer[5])) {
+    if (func_00128868(p->report[1])) {
         src_data = (void *)D_38C7C8;
     }
 

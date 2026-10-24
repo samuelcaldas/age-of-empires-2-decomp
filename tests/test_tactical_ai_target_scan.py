@@ -35,7 +35,7 @@ def _compile_fixture(tmp_path_factory, source_name, bin_name):
     subprocess.run(
         [
             compiler, "-m32", "-fno-builtin", "-Iinclude",
-            "src/tactical_ai_target_scan.cpp",
+            "src/ai/tactical_ai_target_scan.cpp",
             f"tests/native/{source_name}",
             "-o", str(binary)
         ],

@@ -41,10 +41,10 @@ def base_list_update_test(tmp_path_factory):
         [
             compiler, "-m32", "-std=c++98", "-Wno-invalid-offsetof",
             "-Iinclude",
-            "src/base_list.cpp",
-            "src/base_list_node_mgr.cpp",
-            "src/base_list_ops.cpp",
-            "src/base_list_update.cpp",
+            "src/core/base_list.cpp",
+            "src/core/base_list_node_mgr.cpp",
+            "src/core/base_list_ops.cpp",
+            "src/core/base_list_update.cpp",
             "tests/native/base_list_update_test.cpp",
             "-o", str(binary)
         ],

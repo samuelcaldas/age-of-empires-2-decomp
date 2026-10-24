@@ -37,7 +37,7 @@ def tile_eval_test(tmp_path_factory):
     subprocess.run(
         [
             compiler, "-m32", "-fno-builtin", "-Iinclude",
-            "src/tactical_ai_tile_eval.cpp",
+            "src/ai/tactical_ai_tile_eval.cpp",
             "tests/native/tactical_ai_tile_eval_test.cpp",
             "-o", str(binary)
         ],

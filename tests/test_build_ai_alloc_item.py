@@ -41,7 +41,7 @@ def build_ai_alloc_item_test(tmp_path_factory):
         [
             compiler, "-m32", "-std=c++98", "-Wno-invalid-offsetof",
             "-Iinclude",
-            "src/build_ai_alloc_item.cpp",
+            "src/ai/build_ai_alloc_item.cpp",
             "tests/native/build_ai_alloc_item_test.cpp",
             "-o", str(binary)
         ],

@@ -65,7 +65,7 @@ def tactical_ai_node_item_test(tmp_path_factory):
         [
             compiler, "-m32", "-std=c++98", "-Wno-invalid-offsetof",
             "-Iinclude",
-            "src/tactical_ai_node_item.cpp",
+            "src/ai/tactical_ai_node_item.cpp",
             "tests/native/tactical_ai_node_item_test.cpp",
             "-o", str(binary)
         ],

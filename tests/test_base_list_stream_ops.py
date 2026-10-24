@@ -53,7 +53,7 @@ def base_list_stream_ops_test(tmp_path_factory):
         [
             compiler, "-m32", "-std=c++98", "-Wno-invalid-offsetof",
             "-Iinclude",
-            "src/base_list_stream_ops.cpp",
+            "src/core/base_list_stream_ops.cpp",
             "tests/native/base_list_stream_ops_test.cpp",
             "-o", str(binary)
         ],

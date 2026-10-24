@@ -37,7 +37,7 @@ def target_dispatch_test(tmp_path_factory):
     subprocess.run(
         [
             compiler, "-m32", "-fno-builtin", "-Iinclude",
-            "src/tactical_ai_target_dispatch.cpp",
+            "src/ai/tactical_ai_target_dispatch.cpp",
             "tests/native/tactical_ai_target_dispatch_test.cpp",
             "-o", str(binary)
         ],

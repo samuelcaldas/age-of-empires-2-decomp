@@ -41,9 +41,9 @@ def base_list_spatial_ops_test(tmp_path_factory):
         [
             compiler, "-m32", "-std=c++98", "-Wno-invalid-offsetof",
             "-Iinclude",
-            "src/base_list.cpp",
-            "src/base_list_node_mgr.cpp",
-            "src/base_list_spatial_ops.cpp",
+            "src/core/base_list.cpp",
+            "src/core/base_list_node_mgr.cpp",
+            "src/core/base_list_spatial_ops.cpp",
             "tests/native/base_list_spatial_ops_test.cpp",
             "-o", str(binary)
         ],

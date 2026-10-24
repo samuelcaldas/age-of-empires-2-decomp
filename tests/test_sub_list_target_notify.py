@@ -43,7 +43,7 @@ def sub_list_target_notify_test(tmp_path_factory):
         [
             compiler, "-m32", "-std=c++98", "-Wno-invalid-offsetof",
             "-Iinclude",
-            "src/sub_list_target_notify.cpp",
+            "src/core/sub_list_target_notify.cpp",
             "tests/native/sub_list_target_notify_test.cpp",
             "-o", str(binary)
         ],

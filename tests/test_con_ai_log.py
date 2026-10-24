@@ -43,7 +43,7 @@ def con_ai_log_test(tmp_path_factory):
         [
             compiler, "-m32", "-std=c++98", "-Wno-invalid-offsetof",
             "-Iinclude",
-            "src/con_ai_log.cpp",
+            "src/ai/con_ai_log.cpp",
             "tests/native/con_ai_log_test.cpp",
             "-o", str(binary)
         ],

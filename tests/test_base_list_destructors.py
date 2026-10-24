@@ -39,7 +39,7 @@ def base_list_destructors_test(tmp_path_factory):
         [
             compiler, "-m32", "-std=c++98", "-Wno-invalid-offsetof",
             "-Iinclude",
-            "src/base_list_destructors.cpp",
+            "src/core/base_list_destructors.cpp",
             "tests/native/base_list_destructors_test.cpp",
             "-o", str(binary)
         ],

@@ -5,7 +5,7 @@ import subprocess
 import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
-SOURCE = ROOT / "src/tactical_ai_combat_subsystem_controller_drag.cpp"
+SOURCE = ROOT / "src/ai/tactical_ai_combat_subsystem_controller_drag.cpp"
 NATIVE_TEST = (
     ROOT / "tests/native/tactical_ai_combat_subsystem_controller_drag_test.cpp"
 )

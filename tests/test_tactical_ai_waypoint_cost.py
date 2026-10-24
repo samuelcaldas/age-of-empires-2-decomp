@@ -37,7 +37,7 @@ def waypoint_cost_test(tmp_path_factory):
     subprocess.run(
         [
             compiler, "-m32", "-fno-builtin", "-Iinclude",
-            "src/tactical_ai_waypoint_cost.cpp",
+            "src/ai/tactical_ai_waypoint_cost.cpp",
             "tests/native/tactical_ai_waypoint_cost_test.cpp",
             "-o", str(binary)
         ],

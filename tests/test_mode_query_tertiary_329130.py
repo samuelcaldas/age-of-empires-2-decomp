@@ -5,7 +5,7 @@ import subprocess
 import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
-SOURCE = ROOT / "src/mode_query_tertiary_329130.cpp"
+SOURCE = ROOT / "src/core/mode_query_tertiary_329130.cpp"
 NATIVE_TEST = ROOT / "tests/native/mode_query_tertiary_329130_test.cpp"
 MUTATIONS = [
     ("invert_global_guard", "if (!D_004E2EA0)", "if (D_004E2EA0)", "null_global", "null global guard return 0 failed"),

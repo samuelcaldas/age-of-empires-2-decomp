@@ -13,7 +13,7 @@ import pytest
 from test_ps2_route_finish_matching import original_function_bytes
 
 ROOT = Path(__file__).resolve().parents[1]
-SOURCE = ROOT / "src/tactical_ai_combat_subsystem_elevation_mesh_vertex.cpp"
+SOURCE = ROOT / "src/ai/tactical_ai_combat_subsystem_elevation_mesh_vertex.cpp"
 ORIGINAL = ROOT / "orig/SLES-50282/AOK.ELF"
 COMPILER = ROOT / "compilers/PS2/mwcc-2.3.1.01/mwccps2.exe"
 RUNNER = ROOT / "build/tools/wibo"

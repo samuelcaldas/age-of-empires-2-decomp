@@ -10,8 +10,8 @@ from elftools.elf.elffile import ELFFile
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
-SOURCE_PATH = PROJECT_ROOT / "src/tactical_ai_layout_341040.cpp"
-FUNC_342170_SOURCE_PATH = PROJECT_ROOT / "src/tactical_ai_func_342170.cpp"
+SOURCE_PATH = PROJECT_ROOT / "src/ai/tactical_ai_layout_341040.cpp"
+FUNC_342170_SOURCE_PATH = PROJECT_ROOT / "src/ai/tactical_ai_func_342170.cpp"
 ORIGINAL_PATH = PROJECT_ROOT / "orig/SLES-50282/AOK.ELF"
 COMPILER_PATH = PROJECT_ROOT / "compilers/PS2/mwcc-2.3.1.01/mwccps2.exe"
 WRAPPER_PATH = PROJECT_ROOT / "build/tools/wibo"
@@ -73,8 +73,8 @@ def test_tactical_ai_layout_native_runner(tmp_path):
         [
             "g++", "-m32", "-std=c++98", "-flto", "-Werror=lto-type-mismatch", "-Iinclude",
             "tests/native/tactical_ai_layout_341040_test.cpp",
-            "src/tactical_ai_layout_341040.cpp",
-            "src/tactical_ai_func_342170.cpp",
+            "src/ai/tactical_ai_layout_341040.cpp",
+            "src/ai/tactical_ai_func_342170.cpp",
             "-o", str(test_bin),
         ],
         cwd=PROJECT_ROOT,
@@ -114,7 +114,7 @@ def test_tactical_ai_func_342170_mwcc_compilation(tmp_path):
     assert compiled_obj.stat().st_size > 0, "MWCC produced empty object file"
 
     # Also build to project base_path for objdiff tracking
-    base_obj = PROJECT_ROOT / "build/SLES-50282/src/tactical_ai_func_342170.o"
+    base_obj = PROJECT_ROOT / "build/SLES-50282/src/ai/tactical_ai_func_342170.o"
     base_obj.parent.mkdir(parents=True, exist_ok=True)
     subprocess.run(
         [

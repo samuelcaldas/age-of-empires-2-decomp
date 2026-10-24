@@ -57,7 +57,7 @@ def sub_list_handlers_test(tmp_path_factory):
         [
             compiler, "-m32", "-std=c++98", "-Wno-invalid-offsetof",
             "-Iinclude",
-            "src/sub_list_handlers.cpp",
+            "src/core/sub_list_handlers.cpp",
             "tests/native/sub_list_handlers_test.cpp",
             "-o", str(binary)
         ],

@@ -47,7 +47,7 @@ def sub_list_targets_test(tmp_path_factory):
         [
             compiler, "-m32", "-std=c++98", "-Wno-invalid-offsetof",
             "-Iinclude",
-            "src/sub_list_targets.cpp",
+            "src/core/sub_list_targets.cpp",
             "tests/native/sub_list_targets_test.cpp",
             "-o", str(binary)
         ],

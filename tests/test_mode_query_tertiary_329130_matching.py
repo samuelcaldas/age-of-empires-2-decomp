@@ -14,7 +14,7 @@ import pytest
 from test_ps2_route_finish_matching import original_function_bytes
 
 ROOT = Path(__file__).resolve().parents[1]
-SOURCE = ROOT / "src/mode_query_tertiary_329130.cpp"
+SOURCE = ROOT / "src/core/mode_query_tertiary_329130.cpp"
 ORIGINAL = ROOT / "orig/SLES-50282/AOK.ELF"
 COMPILER = ROOT / "compilers/PS2/mwcc-2.3.1.01/mwccps2.exe"
 RUNNER = ROOT / "build/tools/wibo"

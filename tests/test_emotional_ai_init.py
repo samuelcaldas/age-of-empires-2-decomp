@@ -53,7 +53,7 @@ def emotional_ai_init_test(tmp_path_factory):
         [
             compiler, "-m32", "-std=c++98", "-Wno-invalid-offsetof",
             "-Iinclude",
-            "src/emotional_ai_init.cpp",
+            "src/ai/emotional_ai_init.cpp",
             "tests/native/emotional_ai_init_test.cpp",
             "-o", str(binary)
         ],

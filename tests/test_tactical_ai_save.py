@@ -51,7 +51,7 @@ def tactical_ai_save_test(tmp_path_factory):
         [
             compiler, "-m32", "-std=c++98", "-Wno-invalid-offsetof",
             "-Iinclude",
-            "src/tactical_ai_save.cpp",
+            "src/ai/tactical_ai_save.cpp",
             "tests/native/tactical_ai_save_test.cpp",
             "-o", str(binary)
         ],

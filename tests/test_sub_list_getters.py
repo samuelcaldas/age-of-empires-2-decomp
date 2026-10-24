@@ -57,7 +57,7 @@ def sub_list_getters_test(tmp_path_factory):
         [
             compiler, "-m32", "-std=c++98", "-Wno-invalid-offsetof",
             "-Iinclude",
-            "src/sub_list_getters.cpp",
+            "src/core/sub_list_getters.cpp",
             "tests/native/sub_list_getters_test.cpp",
             "-o", str(binary)
         ],

@@ -43,7 +43,7 @@ def sub_list_validate_test(tmp_path_factory):
         [
             compiler, "-m32", "-std=c++98", "-Wno-invalid-offsetof",
             "-Iinclude",
-            "src/sub_list_validate.cpp",
+            "src/core/sub_list_validate.cpp",
             "tests/native/sub_list_validate_test.cpp",
             "-o", str(binary)
         ],

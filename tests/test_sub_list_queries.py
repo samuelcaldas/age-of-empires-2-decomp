@@ -57,7 +57,7 @@ def sub_list_queries_test(tmp_path_factory):
         [
             compiler, "-m32", "-std=c++98", "-Wno-invalid-offsetof",
             "-Iinclude",
-            "src/sub_list_queries.cpp",
+            "src/core/sub_list_queries.cpp",
             "tests/native/sub_list_queries_test.cpp",
             "-o", str(binary)
         ],

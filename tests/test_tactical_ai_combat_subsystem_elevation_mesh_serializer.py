@@ -6,7 +6,7 @@ import subprocess
 import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
-SOURCE = ROOT / "src/tactical_ai_combat_subsystem_elevation_mesh_serializer.cpp"
+SOURCE = ROOT / "src/ai/tactical_ai_combat_subsystem_elevation_mesh_serializer.cpp"
 NATIVE_TEST = (
     ROOT / "tests/native/tactical_ai_combat_subsystem_elevation_mesh_serializer_test.cpp"
 )

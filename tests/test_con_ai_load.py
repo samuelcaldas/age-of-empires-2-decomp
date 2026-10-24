@@ -45,7 +45,7 @@ def con_ai_load_test(tmp_path_factory):
         [
             compiler, "-m32", "-std=c++98", "-Wno-invalid-offsetof",
             "-Iinclude",
-            "src/con_ai_load.cpp",
+            "src/ai/con_ai_load.cpp",
             "tests/native/con_ai_load_test.cpp",
             "-o", str(binary)
         ],

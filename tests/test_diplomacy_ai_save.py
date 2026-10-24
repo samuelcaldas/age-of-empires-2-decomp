@@ -47,7 +47,7 @@ def diplomacy_ai_save_test(tmp_path_factory):
         [
             compiler, "-m32", "-std=c++98", "-Wno-invalid-offsetof",
             "-Iinclude",
-            "src/diplomacy_ai_save.cpp",
+            "src/ai/diplomacy_ai_save.cpp",
             "tests/native/diplomacy_ai_save_test.cpp",
             "-o", str(binary)
         ],

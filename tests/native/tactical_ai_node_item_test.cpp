@@ -61,9 +61,6 @@ static void test_tactical_ai_node_ctor() {
     assert(node.field_16 == 0);
     assert(node.field_17 == 0);
 
-    // Intentional failure for RED demonstration:
-    assert(node.field_0 == 9999);
-
     printf("TACTICAL_AI_NODE_ITEM_TEST_0_CTOR_PASSED\n");
 }
 

@@ -49,7 +49,7 @@ def sub_list_build_item_test(tmp_path_factory):
         [
             compiler, "-m32", "-std=c++98", "-Wno-invalid-offsetof",
             "-Iinclude",
-            "src/sub_list_build_item.cpp",
+            "src/core/sub_list_build_item.cpp",
             "tests/native/sub_list_build_item_test.cpp",
             "-o", str(binary)
         ],

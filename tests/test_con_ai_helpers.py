@@ -47,7 +47,7 @@ def con_ai_helpers_test(tmp_path_factory):
         [
             compiler, "-m32", "-std=c++98", "-Wno-invalid-offsetof",
             "-Iinclude",
-            "src/con_ai_helpers.cpp",
+            "src/ai/con_ai_helpers.cpp",
             "tests/native/con_ai_helpers_test.cpp",
             "-o", str(binary)
         ],

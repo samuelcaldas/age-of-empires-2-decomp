@@ -44,7 +44,7 @@ def tactical_ai_func_342ab0_binary(tmp_path_factory):
             "-Werror=lto-type-mismatch",
             "-Iinclude",
             "tests/native/tactical_ai_func_342ab0_test.cpp",
-            "src/tactical_ai_func_342ab0.cpp",
+            "src/ai/tactical_ai_func_342ab0.cpp",
             "-o",
             str(binary),
         ],

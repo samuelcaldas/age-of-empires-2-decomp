@@ -41,7 +41,7 @@ def item_creator_test(tmp_path_factory):
         [
             compiler, "-m32", "-std=c++98", "-Wno-invalid-offsetof",
             "-Iinclude",
-            "src/base_list.cpp",
+            "src/core/base_list.cpp",
             "src/item_creator.cpp",
             "tests/native/item_creator_test.cpp",
             "-o", str(binary)

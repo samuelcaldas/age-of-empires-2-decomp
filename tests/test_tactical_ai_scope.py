@@ -60,7 +60,7 @@ def tactical_ai_scope_test(tmp_path_factory):
         [
             compiler, "-m32", "-std=c++98", "-Wno-invalid-offsetof",
             "-Iinclude",
-            "src/tactical_ai_scope.cpp",
+            "src/ai/tactical_ai_scope.cpp",
             "tests/native/tactical_ai_scope_test.cpp",
             "-o", str(binary)
         ],

@@ -38,7 +38,7 @@ def tactical_ai_action_manager_test(tmp_path_factory):
     subprocess.run(
         [
             compiler, "-m32", "-fno-builtin", "-Iinclude",
-            "src/tactical_ai_action_manager.cpp",
+            "src/ai/tactical_ai_action_manager.cpp",
             "tests/native/tactical_ai_action_manager_test.cpp",
             "-o", str(binary)
         ],

@@ -55,7 +55,7 @@ def sub_list_action_test(tmp_path_factory):
         [
             compiler, "-m32", "-std=c++98", "-Wno-invalid-offsetof",
             "-Iinclude",
-            "src/sub_list_action.cpp",
+            "src/core/sub_list_action.cpp",
             "tests/native/sub_list_action_test.cpp",
             "-o", str(binary)
         ],

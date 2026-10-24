@@ -71,4 +71,28 @@ void func_00137000(void);
 void func_001371C8(int a0);
 void func_00137200(void);
 
+/* Aliases / Macros for known function names */
+#define ktKeybdInit                 func_00135EC0
+#define ktKeybdLock                 func_00136008
+#define ktKeybdUnlock               func_00136030
+#define ktKeybdAdvanceWriteIndex    func_00136080
+#define ktKeybdGetWriteBufferEntry  func_001360D0
+#define ktKeybdAdvanceReadIndex     func_00136108
+#define ktKeybdGetReadBufferEntry   func_00136158
+#define ktKeybdReadPacket           func_00136190
+#define ktKeybdGetStatus            func_001362D8
+#define ktKeybdResetPorts           func_00136450
+#define ktKeybdSetBus               func_00136508
+#define ktKeybdSetLocation          func_00136598
+#define ktKeybdStartup              func_00136628
+#define ktKeybdShutdown             func_00136668
+#define ktKeybdFindFreePort         func_00136690
+#define ktKeybdSetPortState         func_00136850
+#define ktKeybdPostEvent            func_001369E8
+#define ktKeybdGetLed               func_00136B50
+#define ktKeybdSetLed               func_00136BE0
+#define ktKeybdGetCapsType          func_00136C90
+#define ktKeybdSetCapsType          func_00136D20
+#define ktKeybdProcessEvents        func_00137000
+
 #endif /* KT_KEYBD_H */

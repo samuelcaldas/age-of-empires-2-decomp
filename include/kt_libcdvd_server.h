@@ -155,4 +155,23 @@ int func_0012CC78(const char *data);
 void *func_0012CC98(void *a0, void *a1, void *a2, void *a3);
 void *func_0012CCD8(void *a0, void *a1, void *a2, void *a3);
 
+/* Aliases / Macros for known function names */
+#define ktCdServerInit                    func_001295D0
+#define ktCdServerReset                   func_00129800
+#define ktCdServerProcessRequests         func_00129B10
+#define ktCdServerMaskCmd                 func_0012CB00
+#define ktCdServerCheckFlagBit15          func_0012CB08
+#define ktCdServerClearFlagBit15          func_0012CB10
+#define ktCdServerGetWordSafe             func_0012CB20
+#define ktCdServerGetWordWithoutBit15     func_0012CB38
+#define ktCdServerExtractPayload24Upper   func_0012CB60
+#define ktCdServerExtractPayload24Shifted func_0012CB90
+#define ktCdServerUnpackPayloads          func_0012CBA8
+#define ktCdServerDecodeOffset16          func_0012CBF8
+#define ktCdServerComputePathLength       func_0012CC20
+#define ktCdServerAdvancePastHeader       func_0012CC48
+#define ktCdServerValidatePrefixZero      func_0012CC58
+#define ktCdServerValidatePrefixAt        func_0012CC78
+#define ktCdServerPackHeader64            func_0012CC98
+
 #endif /* KT_LIBCDVD_SERVER_H */

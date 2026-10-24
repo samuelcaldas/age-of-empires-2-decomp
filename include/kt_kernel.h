@@ -121,4 +121,21 @@ void func_00134CF0(int sem_id);
 void func_00134D48(void);
 int func_00134D80(int intc_cause, int flag);
 
+/* Aliases / Macros for known function names */
+#define ktKernelGetThreadPriority       func_00134140
+#define ktKernelGetThreadPriorityById   func_00134168
+#define ktKernelChangeThreadPriority    func_00134188
+#define ktKernelTerminateThread         func_001341B8
+#define ktKernelCreateSema              func_00134210
+#define ktKernelCreateThread            func_00134290
+#define ktKernelStartThread             func_00134330
+#define ktKernelCreateAndStartThread    func_00134378
+#define ktKernelDrainSema               func_001343A8
+#define ktKernelPollSema                func_001343F8
+#define ktKernelSignalSema              func_00134440
+#define ktKernelSignalSemaInterrupt     func_00134480
+#define ktKernelDeleteSemaDirect        func_001344C0
+#define ktKernelWaitSema                func_00134500
+#define ktKernelGetThreadStatusString   func_00134AF0
+
 #endif /* KT_KERNEL_H */

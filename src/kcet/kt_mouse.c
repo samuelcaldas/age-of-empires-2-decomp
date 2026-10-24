@@ -4,6 +4,7 @@ int func_105748(int);
 int func_104A20(int, int);
 void func_1057B0(int);
 
+/* 0x00134DE8 : ktMouseDispatchNotify */
 int func_00134DE8(int a0, int a1) {
     int flag = func_105748(a0);
     int res = func_104A20(a0, a1);
@@ -31,6 +32,7 @@ extern const char D_490870[];
 void func_114320(const char *, int, const char *);
 void func_1143C0(void *, int);
 
+/* 0x00134E50 : ktMouseInit */
 void func_00134E50(int n_mouse) {
     int i;
     char *ptr;
@@ -88,12 +90,14 @@ void func_00134F50(void) {
     }
 }
 
+/* 0x00134F90 : ktMouseLock */
 void func_00134F90(void) {
     if (D_50A060.handle != -1) {
         func_134500(D_50A060.handle);
     }
 }
 
+/* 0x00134FB8 : ktMouseUnlock */
 void func_00134FB8(void) {
     if (D_50A060.handle != -1) {
         func_134440(D_50A060.handle);
@@ -108,11 +112,13 @@ int func_00134FE0(int a0, int a1) {
     return 0;
 }
 
+/* 0x00135008 : ktMouseAdvanceWriteIndex */
 void func_00135008(int a0) {
     char *base = (char *)(a0 * 0xB0);
     *(int *)(base + (int)D_50A060.buffer + 0x1C) = func_00134FE0(a0, *(int *)(base + (int)D_50A060.buffer + 0x1C));
 }
 
+/* 0x00135058 : ktMouseGetWriteBufferEntry */
 int *func_00135058(int a0) {
     int idx;
     a0 = a0 * 0xB0 + (int)D_50A060.buffer;
@@ -124,11 +130,13 @@ int *func_00135058(int a0) {
     return (int *)a0;
 }
 
+/* 0x00135090 : ktMouseAdvanceReadIndex */
 void func_00135090(int a0) {
     char *base = (char *)(a0 * 0xB0);
     *(int *)(base + (int)D_50A060.buffer + 0x18) = func_00134FE0(a0, *(int *)(base + (int)D_50A060.buffer + 0x18));
 }
 
+/* 0x001350E0 : ktMouseGetReadBufferEntry */
 int *func_001350E0(int a0) {
     int idx;
     a0 = a0 * 0xB0 + (int)D_50A060.buffer;
@@ -140,6 +148,7 @@ int *func_001350E0(int a0) {
     return (int *)a0;
 }
 
+/* 0x00135118 : ktMouseReadPacket */
 int func_00135118(int a0, int *out) {
     int *entry;
     int res = 0;
@@ -186,6 +195,7 @@ int func_00135238(short *ptr) {
     return res;
 }
 
+/* 0x00135258 : ktMouseGetStatus */
 int func_00135258(int a0) {
     short *ptr;
     int res;
@@ -200,6 +210,7 @@ int func_00135258(int a0) {
     return res;
 }
 
+/* 0x001352D8 : ktMouseReadPayload */
 int func_001352D8(int a0, int *out) {
     char *ptr;
     int type;
@@ -233,6 +244,7 @@ int func_001352D8(int a0, int *out) {
     return len;
 }
 
+/* 0x001353C0 : ktMouseResetPorts */
 int func_001353C0(int a0) {
     int res = 0;
     int count = D_50A060.count;
@@ -266,6 +278,7 @@ void func_001354A0(void) {
     func_00134FB8();
 }
 
+/* 0x001354C8 : ktMouseStartup */
 void func_001354C8(int a0) {
     func_1348A8(2);
     func_00134E50(a0);
@@ -273,12 +286,14 @@ void func_001354C8(int a0) {
     func_00135D60(a0);
 }
 
+/* 0x00135508 : ktMouseShutdown */
 void func_00135508(void) {
     func_00135D98();
     func_00134F18();
     func_00134F50();
 }
 
+/* 0x00135530 : ktMouseFindFreePort */
 void *func_00135530(void) {
     int i;
     char *res = 0;
@@ -339,6 +354,7 @@ int func_001356D8(short *ptr) {
     return ptr[1] != -1;
 }
 
+/* 0x001356E8 : ktMouseSetPortState */
 int func_001356E8(int a0, int a1) {
     int res = -1;
     char *port;
@@ -358,6 +374,7 @@ int func_001356E8(int a0, int a1) {
     return res;
 }
 
+/* 0x00135798 : ktMouseSetPayload */
 int func_00135798(int a0, void *a1, int a2) {
     int res = -1;
     char *port;
@@ -381,6 +398,7 @@ int func_00135798(int a0, void *a1, int a2) {
     return res;
 }
 
+/* 0x00135870 : ktMousePostEvent */
 int func_00135870(int a0, int a1, int a2, int a3, int a4) {
     int res = -1;
     char *port;
@@ -508,6 +526,7 @@ int func_00135DE8(void *);
 int func_00135E30(int, void *);
 int func_00135E78(int, void *);
 
+/* 0x00135BF0 : ktMouseProcessEvents */
 void func_00135BF0(void) {
     MouseBlock_9B8 *entry_arr = (MouseBlock_9B8 *)D_50A08C;
     int count = *(int *)((char *)entry_arr - 4);

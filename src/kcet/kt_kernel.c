@@ -52,24 +52,24 @@ void func_106E20(const char *fmt, ...);
 static int s_vblank_s_initialized = 0;
 static int s_vblank_e_initialized = 0;
 
-/* func_00134140: Get current thread priority */
+/* 0x00134140 : ktKernelGetThreadPriority */
 int func_00134140(void) {
     return func_00134168(func_104C10());
 }
 
-/* func_00134168: Get specific thread priority */
+/* 0x00134168 : ktKernelGetThreadPriorityById */
 int func_00134168(int thid) {
     KtThreadParam status;
     func_104C20(thid, &status);
     return status.current_priority;
 }
 
-/* func_00134188: Change current thread priority */
+/* 0x00134188 : ktKernelChangeThreadPriority */
 int func_00134188(int priority) {
     return func_104BB0(func_104C10(), priority);
 }
 
-/* func_001341B8: Terminate and delete thread */
+/* 0x001341B8 : ktKernelTerminateThread */
 int func_001341B8(int thid) {
     if (func_104B70(thid) != thid) {
         func_118de0(D_4905C0, thid);
@@ -80,7 +80,7 @@ int func_001341B8(int thid) {
     return thid;
 }
 
-/* func_00134210: Create semaphore */
+/* 0x00134210 : ktKernelCreateSema */
 int func_00134210(int init_count, int max_count, int option) {
     KtSemaParam sema;
     int id;
@@ -97,7 +97,7 @@ int func_00134210(int init_count, int max_count, int option) {
     return id;
 }
 
-/* func_00134290: Create thread */
+/* 0x00134290 : ktKernelCreateThread */
 int func_00134290(void *entry, void *stack, int stack_size, int priority, int option) {
     KtThreadParam th;
     int id;
@@ -117,7 +117,7 @@ int func_00134290(void *entry, void *stack, int stack_size, int priority, int op
     return id;
 }
 
-/* func_00134330: Start thread */
+/* 0x00134330 : ktKernelStartThread */
 int func_00134330(int thid, void *arg) {
     int check_id = func_104B40(thid, arg);
     if (check_id != thid) {
@@ -126,14 +126,14 @@ int func_00134330(int thid, void *arg) {
     return thid;
 }
 
-/* func_00134378: Create and start thread */
+/* 0x00134378 : ktKernelCreateAndStartThread */
 int func_00134378(void *entry, void *stack, int stack_size, int priority, void *arg, int option) {
     int id = func_00134290(entry, stack, stack_size, priority, option);
     func_00134330(id, arg);
     return id;
 }
 
-/* func_001343A8: Drain semaphore and print cancel count */
+/* 0x001343A8 : ktKernelDrainSema */
 int func_001343A8(int sem_id) {
     int count = func_001343F8(sem_id);
     if (count > 0) {
@@ -142,7 +142,7 @@ int func_001343A8(int sem_id) {
     return count;
 }
 
-/* func_001343F8: Drain semaphore count via polling */
+/* 0x001343F8 : ktKernelPollSema */
 int func_001343F8(int sem_id) {
     int count = 0;
     while (func_104D70(sem_id) > 0) {
@@ -151,7 +151,7 @@ int func_001343F8(int sem_id) {
     return count;
 }
 
-/* func_00134440: Signal semaphore */
+/* 0x00134440 : ktKernelSignalSema */
 int func_00134440(int sem_id) {
     int res = func_104D40(sem_id);
     if (res != sem_id) {
@@ -160,7 +160,7 @@ int func_00134440(int sem_id) {
     return res;
 }
 
-/* func_00134480: Signal semaphore (interrupt context) */
+/* 0x00134480 : ktKernelSignalSemaInterrupt */
 int func_00134480(int sem_id) {
     int res = func_104D50(sem_id);
     if (res != sem_id) {
@@ -169,7 +169,7 @@ int func_00134480(int sem_id) {
     return res;
 }
 
-/* func_001344C0: Delete semaphore */
+/* 0x001344C0 : ktKernelDeleteSemaDirect */
 int func_001344C0(int sem_id) {
     int res = func_104D30(sem_id);
     if (res != sem_id) {
@@ -178,7 +178,7 @@ int func_001344C0(int sem_id) {
     return res;
 }
 
-/* func_00134500: Wait semaphore */
+/* 0x00134500 : ktKernelWaitSema */
 int func_00134500(int sem_id) {
     return func_104D60(sem_id);
 }
@@ -376,7 +376,7 @@ void func_00134A78(int thid) {
                 param.attr);
 }
 
-/* func_00134AF0: Convert thread status ID to string */
+/* 0x00134AF0 : ktKernelGetThreadStatusString */
 const char *func_00134AF0(int status) {
     KtThreadStatusEntry table[6];
     int i;

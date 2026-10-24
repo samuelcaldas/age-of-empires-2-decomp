@@ -1,6 +1,7 @@
 module: kt_mouse
 functions:
   func_00134DE8:
+    alias: ktMouseDispatchNotify
     role: kernel_wrapper
     purity: os_service
     blocking: none
@@ -16,6 +17,7 @@ functions:
     open_questions: []
 
   func_00134E50:
+    alias: ktMouseInit
     role: state_query
     purity: memory_only
     blocking: none
@@ -70,6 +72,7 @@ functions:
     open_questions: []
 
   func_00134F90:
+    alias: ktMouseLock
     role: kernel_wrapper
     purity: os_service
     blocking: waits_on:semaphore
@@ -83,6 +86,7 @@ functions:
     open_questions: []
 
   func_00134FB8:
+    alias: ktMouseUnlock
     role: kernel_wrapper
     purity: os_service
     blocking: none
@@ -112,6 +116,7 @@ functions:
     open_questions: []
 
   func_00135008:
+    alias: ktMouseAdvanceWriteIndex
     role: pure_helper
     purity: memory_only
     blocking: none
@@ -126,6 +131,7 @@ functions:
     open_questions: []
 
   func_00135058:
+    alias: ktMouseGetWriteBufferEntry
     role: pure_helper
     purity: memory_only
     blocking: none
@@ -140,6 +146,7 @@ functions:
     open_questions: []
 
   func_00135090:
+    alias: ktMouseAdvanceReadIndex
     role: pure_helper
     purity: memory_only
     blocking: none
@@ -154,6 +161,7 @@ functions:
     open_questions: []
 
   func_001350E0:
+    alias: ktMouseGetReadBufferEntry
     role: pure_helper
     purity: memory_only
     blocking: none
@@ -168,6 +176,7 @@ functions:
     open_questions: []
 
   func_00135118:
+    alias: ktMouseReadPacket
     role: state_query
     purity: memory_only
     blocking: none
@@ -224,6 +233,7 @@ functions:
     open_questions: []
 
   func_00135258:
+    alias: ktMouseGetStatus
     role: state_query
     purity: memory_only
     blocking: none
@@ -238,6 +248,7 @@ functions:
     open_questions: []
 
   func_001352D8:
+    alias: ktMouseReadPayload
     role: pure_helper
     purity: memory_only
     blocking: none
@@ -254,6 +265,7 @@ functions:
     open_questions: []
 
   func_001353C0:
+    alias: ktMouseResetPorts
     role: pure_helper
     purity: memory_only
     blocking: none
@@ -296,6 +308,7 @@ functions:
     open_questions: []
 
   func_001354C8:
+    alias: ktMouseStartup
     role: hw_access
     purity: hardware
     blocking: none
@@ -309,6 +322,7 @@ functions:
     open_questions: []
 
   func_00135508:
+    alias: ktMouseShutdown
     role: hw_access
     purity: hardware
     blocking: none
@@ -322,6 +336,7 @@ functions:
     open_questions: []
 
   func_00135530:
+    alias: ktMouseFindFreePort
     role: state_query
     purity: memory_only
     blocking: none
@@ -387,6 +402,7 @@ functions:
     open_questions: []
 
   func_001356E8:
+    alias: ktMouseSetPortState
     role: pure_helper
     purity: memory_only
     blocking: none
@@ -400,6 +416,7 @@ functions:
     open_questions: []
 
   func_00135798:
+    alias: ktMouseSetPayload
     role: pure_helper
     purity: memory_only
     blocking: none
@@ -413,6 +430,7 @@ functions:
     open_questions: []
 
   func_00135870:
+    alias: ktMousePostEvent
     role: pure_helper
     purity: memory_only
     blocking: none
@@ -517,6 +535,7 @@ functions:
     open_questions: []
 
   func_00135BF0:
+    alias: ktMouseProcessEvents
     role: hw_access
     purity: hardware
     blocking: waits_on:vsync

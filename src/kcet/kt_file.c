@@ -113,7 +113,7 @@ int func_0012DC80(void);
 int func_0012DCA0(void);
 int func_0012DCC0(void);
 
-/* func_0012CCE8 */
+/* 0x0012CCE8 : ktFileSetRecordTable */
 void *func_0012CCE8(char *table) {
     void *old_table;
     int count = 0;
@@ -146,7 +146,7 @@ void *func_0012CCE8(char *table) {
     return old_table;
 }
 
-/* func_0012CDE0 */
+/* 0x0012CDE0 : ktFileSetEntryTable */
 void *func_0012CDE0(char *table) {
     void *old_table;
     int count = 0;
@@ -165,7 +165,7 @@ void *func_0012CDE0(char *table) {
     return old_table;
 }
 
-/* func_0012CEA0 */
+/* 0x0012CEA0 : ktFileClassifyKind */
 int func_0012CEA0(void *arg) {
     if (arg == 0) {
         return 3;
@@ -182,7 +182,7 @@ int func_0012CEA0(void *arg) {
     return 1;
 }
 
-/* func_0012CF00 */
+/* 0x0012CF00 : ktFileGetHandlerByKind */
 void *func_0012CF00(int kind) {
     if ((unsigned int)kind >= 4) {
         func_114320(D_48FEA0, 0x16A, D_48FEB0);
@@ -240,7 +240,7 @@ int func_0012D0E0(void *arg) {
     return func_0012D128((int)arg, table, count);
 }
 
-/* func_0012D128 */
+/* 0x0012D128 : ktFileBinarySearchRecord */
 int func_0012D128(int key, void *table, int count) {
     int low = 0;
     int high = count;
@@ -402,7 +402,7 @@ int func_0012D648(void) {
     return 0;
 }
 
-/* func_0012D7E0 */
+/* 0x0012D7E0 : ktFileFindEntryByName */
 int func_0012D7E0(const char *name) {
     strcpy(D_4F1540, name);
     return func_107E08((int)D_4F1640, 0x10, 0, (int)D_4F1540, 0x100, 0, 0, 0);
@@ -419,7 +419,7 @@ int func_0012D888(void) {
     return *(unsigned char *)((char *)D_38C880 - 0x3780);
 }
 
-/* func_0012D8D8 */
+/* 0x0012D8D8 : ktFileReadSectorStream */
 int func_0012D8D8(int a0, int a1, int a2, int a3) {
     if (func_10EF80(1) == 2) {
         if (func_10F368(a0, a1, a2, a3) == 0) {
@@ -434,7 +434,7 @@ int func_0012D988(void) {
     return 0;
 }
 
-/* func_0012D990 */
+/* 0x0012D990 : ktFileStreamRemainingSectors */
 int func_0012D990(void) {
     return func_10EA20(1);
 }

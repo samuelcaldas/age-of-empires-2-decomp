@@ -14,7 +14,7 @@ void func_114320(const char *file, int line, const char *expr);
 int func_389388(sceCdCLOCK *clock);
 int func_389470(void);
 
-/* func_00389570: Decimal to BCD */
+/* 0x00389570 : sceScfDec2Bcd (Decimal to BCD) */
 unsigned char func_00389570(unsigned char c) {
     if (c > 99) {
         func_114320(D_4D6298, 0x119, D_4D62A8);
@@ -22,7 +22,7 @@ unsigned char func_00389570(unsigned char c) {
     return (unsigned char)(c + (c / 10) * 6);
 }
 
-/* func_003895D8: BCD to Decimal */
+/* 0x003895D8 : sceScfBcd2Dec (BCD to Decimal) */
 unsigned char func_003895D8(unsigned char c) {
     if (c > 0x99) {
         func_114320(D_4D6298, 0x126, D_4D62B0);
@@ -30,7 +30,7 @@ unsigned char func_003895D8(unsigned char c) {
     return (unsigned char)(c - (c >> 4) * 6);
 }
 
-/* func_00389630: RTC BCD to Decimal */
+/* 0x00389630 : sceScfRtcBcd2Dec (RTC BCD to Decimal) */
 void func_00389630(sceCdCLOCK *prtc) {
     if (prtc == NULL) {
         func_114320(D_4D6298, 0x132, D_4D62C0);
@@ -43,7 +43,7 @@ void func_00389630(sceCdCLOCK *prtc) {
     prtc->second = func_003895D8(prtc->second);
 }
 
-/* func_003896B8: RTC Decimal to BCD */
+/* 0x003896B8 : sceScfRtcDec2Bcd (RTC Decimal to BCD) */
 void func_003896B8(sceCdCLOCK *prtc) {
     if (prtc == NULL) {
         func_114320(D_4D6298, 0x141, D_4D62C0);
@@ -56,7 +56,7 @@ void func_003896B8(sceCdCLOCK *prtc) {
     prtc->second = func_00389570(prtc->second);
 }
 
-/* func_00389740: RTC Increment Day with Leap Year Calculation */
+/* 0x00389740 : sceScfRtcIncDay (RTC Increment Day with Leap Year Calculation) */
 void func_00389740(sceCdCLOCK *prtc) {
     char table[12];
     int i;
@@ -82,7 +82,7 @@ void func_00389740(sceCdCLOCK *prtc) {
     }
 }
 
-/* func_00389828: RTC Decrement Day with Leap Year Calculation */
+/* 0x00389828 : sceScfRtcDecDay (RTC Decrement Day with Leap Year Calculation) */
 void func_00389828(sceCdCLOCK *prtc) {
     char table[12];
     int i;
@@ -108,7 +108,7 @@ void func_00389828(sceCdCLOCK *prtc) {
     }
 }
 
-/* func_00389900: RTC Increment Hour */
+/* 0x00389900 : sceScfRtcIncHour (RTC Increment Hour) */
 void func_00389900(sceCdCLOCK *prtc) {
     if (prtc == NULL) {
         func_114320(D_4D6298, 0x181, D_4D62C0);
@@ -120,7 +120,7 @@ void func_00389900(sceCdCLOCK *prtc) {
     }
 }
 
-/* func_00389970: RTC Decrement Hour */
+/* 0x00389970 : sceScfRtcDecHour (RTC Decrement Hour) */
 void func_00389970(sceCdCLOCK *prtc) {
     if (prtc == NULL) {
         func_114320(D_4D6298, 0x190, D_4D62C0);
@@ -133,7 +133,7 @@ void func_00389970(sceCdCLOCK *prtc) {
     }
 }
 
-/* func_003899D8: Adjust RTC by timezone difference (in minutes) */
+/* 0x003899D8 : sceScfRtcAdjustMinutes (Adjust RTC by timezone difference) */
 void func_003899D8(sceCdCLOCK *prtc, int diff) {
     if (prtc == NULL) {
         func_114320(D_4D6298, 0x1A0, D_4D62C0);
@@ -159,7 +159,7 @@ void func_003899D8(sceCdCLOCK *prtc, int diff) {
     func_003896B8(prtc);
 }
 
-/* func_00389AA8: Get Local Time from RTC with -540 min default offset */
+/* 0x00389AA8 : sceScfGetLocalTime (Get Local Time from RTC with -540 min default offset) */
 void func_00389AA8(sceCdCLOCK *prtc) {
     if (prtc == NULL) {
         func_114320(D_4D6298, 0x1BC, D_4D62C0);
@@ -167,7 +167,7 @@ void func_00389AA8(sceCdCLOCK *prtc) {
     func_003899D8(prtc, -540);
 }
 
-/* func_00389AF0: Read RTC, query TimeZone and adjust */
+/* 0x00389AF0 : sceScfReadRtcAndAdjust (Read RTC, query TimeZone and adjust) */
 void func_00389AF0(sceCdCLOCK *prtc) {
     int tz;
     int diff;

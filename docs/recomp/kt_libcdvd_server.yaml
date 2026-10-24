@@ -10,6 +10,7 @@ description: >
 
 functions:
   func_001295D0:
+    alias: ktCdServerInit
     role: "CD/DVD server initialize command queue"
     purity: false
     blocking: false
@@ -17,6 +18,7 @@ functions:
     return_type: "void *"
 
   func_00129800:
+    alias: ktCdServerReset
     role: "Reset server internal state and queues"
     purity: false
     blocking: false
@@ -24,6 +26,7 @@ functions:
     return_type: "void *"
 
   func_00129B10:
+    alias: ktCdServerProcessRequests
     role: "Process pending CD/DVD I/O read requests"
     purity: false
     blocking: false
@@ -31,6 +34,7 @@ functions:
     return_type: "void *"
 
   func_0012CB00:
+    alias: ktCdServerMaskCmd
     role: "Mask lower 3 bits of command/flag argument (cmd & 0x7)"
     purity: true
     blocking: false
@@ -38,6 +42,7 @@ functions:
     return_type: "void *"
 
   func_0012CB08:
+    alias: ktCdServerCheckFlagBit15
     role: "Check high bit 15 flag (val & 0x8000)"
     purity: true
     blocking: false
@@ -45,6 +50,7 @@ functions:
     return_type: "void *"
 
   func_0012CB10:
+    alias: ktCdServerClearFlagBit15
     role: "Clear high bit 15 flag (val & ~0x8000)"
     purity: true
     blocking: false
@@ -52,6 +58,7 @@ functions:
     return_type: "void *"
 
   func_0012CB20:
+    alias: ktCdServerGetWordSafe
     role: "Safe dereference of 16-bit word from pointer (or 0 if NULL)"
     purity: true
     blocking: false
@@ -59,6 +66,7 @@ functions:
     return_type: "void *"
 
   func_0012CB38:
+    alias: ktCdServerGetWordWithoutBit15
     role: "Read 16-bit word and clear bit 15"
     purity: true
     blocking: false
@@ -66,6 +74,7 @@ functions:
     return_type: "void *"
 
   func_0012CB60:
+    alias: ktCdServerExtractPayload24Upper
     role: "Extract upper 24-bit payload (*ptr >> 16) & 0xFFFFFF"
     purity: true
     blocking: false
@@ -73,6 +82,7 @@ functions:
     return_type: "void *"
 
   func_0012CB90:
+    alias: ktCdServerExtractPayload24Shifted
     role: "Extract shifted 24-bit payload (*ptr >> 8)"
     purity: true
     blocking: false
@@ -80,6 +90,7 @@ functions:
     return_type: "void *"
 
   func_0012CBA8:
+    alias: ktCdServerUnpackPayloads
     role: "Unpack header payloads into high (*a1) and low (*a2) output pointers"
     purity: false
     blocking: false
@@ -87,6 +98,7 @@ functions:
     return_type: "void *"
 
   func_0012CBF8:
+    alias: ktCdServerDecodeOffset16
     role: "Decode 16-bit little-endian sector/offset value from packet data+2"
     purity: true
     blocking: false
@@ -94,6 +106,7 @@ functions:
     return_type: "int"
 
   func_0012CC20:
+    alias: ktCdServerComputePathLength
     role: "Compute path length metric for directory record: strlen(data + 4) + 5"
     purity: true
     blocking: false
@@ -101,6 +114,7 @@ functions:
     return_type: "void *"
 
   func_0012CC48:
+    alias: ktCdServerAdvancePastHeader
     role: "Advance packet pointer past header: data ? data + 4 : NULL"
     purity: true
     blocking: false
@@ -108,6 +122,7 @@ functions:
     return_type: "const unsigned char *"
 
   func_0012CC58:
+    alias: ktCdServerValidatePrefixZero
     role: "Validate '0' prefix flag in data buffer"
     purity: true
     blocking: false
@@ -115,6 +130,7 @@ functions:
     return_type: "int"
 
   func_0012CC78:
+    alias: ktCdServerValidatePrefixAt
     role: "Validate '@' prefix flag in data buffer"
     purity: true
     blocking: false
@@ -122,6 +138,7 @@ functions:
     return_type: "int"
 
   func_0012CC98:
+    alias: ktCdServerPackHeader64
     role: "Pack 64-bit response header: 0x40 | ((a1 & 0xFFFFFF) << 16) | (a2 << 8)"
     purity: false
     blocking: false

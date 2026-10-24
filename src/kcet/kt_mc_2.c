@@ -149,18 +149,18 @@ extern void *func_123848(void *a0, ...);
 extern void *func_12DD00(void *a0, ...);
 extern void *func_12DE28(void *a0, ...);
 
-/* func_0012DE88 */
+/* 0x0012DE88 : ktMcInitWork */
 void *func_0012DE88(void *a0, void *a1, void *a2, void *a3) {
     (void)a0; (void)a1; (void)a2; (void)a3;
     return NULL;
 }
 
-/* func_0012DE98 */
+/* 0x0012DE98 : ktMcTermWork */
 void *func_0012DE98(void *a0, void *a1, void *a2, void *a3) {
     return func_10FE50(a0, a1, a2, a3);
 }
 
-/* func_0012DEB8 */
+/* 0x0012DEB8 : ktMcTableLookup */
 void *func_0012DEB8(void *a0, void *a1, void *a2, void *a3) {
     int key = (int)(long)a0;
     int *table = (int *)a1;
@@ -317,7 +317,7 @@ void *func_0012E058(void *a0, void *a1, void *a2, void *a3) {
     return func_0012E068((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
 }
 
-/* func_0012E068 */
+/* 0x0012E068 : ktMcInit2 */
 void *func_0012E068(void *a0, void *a1, void *a2, void *a3) {
     long r_v0 = 0, r_v1 = 0;
     long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
@@ -1391,7 +1391,7 @@ void *func_0012EB80(void *a0, void *a1, void *a2, void *a3) {
     return NULL;
 }
 
-/* func_0012EB90 */
+/* 0x0012EB90 : ktMcSetFileDataName */
 void *func_0012EB90(void *a0, void *a1, void *a2, void *a3) {
     long r_v0 = 0, r_v1 = 0;
     long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
@@ -1727,7 +1727,7 @@ void *func_0012EE50(void *a0, void *a1, void *a2, void *a3) {
     return (void *)r_v0;
 }
 
-/* func_0012EE60 */
+/* 0x0012EE60 : ktMcGetDefaultIconName */
 void *func_0012EE60(void *a0, void *a1, void *a2, void *a3) {
     long r_v0 = 0, r_v1 = 0;
     long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
@@ -2538,7 +2538,7 @@ void *func_0012F4C8(void *a0, void *a1, void *a2, void *a3) {
     return func_0012F500((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
 }
 
-/* func_0012F500 */
+/* 0x0012F500 : ktMcSearchNumberFile */
 void *func_0012F500(void *a0, void *a1, void *a2, void *a3) {
     long r_v0 = 0, r_v1 = 0;
     long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
@@ -8755,7 +8755,7 @@ void *func_00132C78(void *a0, void *a1, void *a2, void *a3) {
     return (void *)r_v0;
 }
 
-/* func_00132C90 */
+/* 0x00132C90 : ktMcGetDir2 */
 void *func_00132C90(void *a0, void *a1, void *a2, void *a3) {
     long r_v0 = 0, r_v1 = 0;
     long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
@@ -10046,7 +10046,7 @@ void *func_001338D8(void *a0, void *a1, void *a2, void *a3) {
     return (void *)r_v0;
 }
 
-/* func_00133908 */
+/* 0x00133908 : ktMcRename */
 void *func_00133908(void *a0, void *a1, void *a2, void *a3) {
     long r_v0 = 0, r_v1 = 0;
     long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;

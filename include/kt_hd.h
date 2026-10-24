@@ -40,4 +40,7 @@ int func_00129548(void);
 int func_00129560(int (*func)(void *), void *arg);
 int func_00129588(int *table, int count, int key);
 
+/* Aliases / Macros for known function names */
+#define ktHdTableLookup         func_00129588
+
 #endif /* KT_HD_H */

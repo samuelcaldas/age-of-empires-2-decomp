@@ -21,43 +21,43 @@ void func_114320(const char *file, int line, const char *expr);
 void func_104448(void *p, int, int, int);
 void func_104600(void *p);
 
-/* 0x00125808 (handler 23) */
+/* 0x00125808 : ktGpuSetFrame1 (handler 23) */
 void func_00125808(void *p, u64 *data) {
     func_1045E8(p, D_38C730);
     func_1046A8(p, func_123A70(data) + 6, data[1]);
 }
 
-/* 0x00125858 (handler 24) */
+/* 0x00125858 : ktGpuSetFrame2 (handler 24) */
 void func_00125858(void *p, u64 *data) {
     func_1045E8(p, D_38C730);
     func_1046A8(p, func_123A70(data) + 20, data[1]);
 }
 
-/* 0x001258A8 (handler 25) */
+/* 0x001258A8 : ktGpuSetZbuf1 (handler 25) */
 void func_001258A8(void *p, u64 *data) {
     func_1045E8(p, D_38C730);
     func_1046A8(p, func_123A70(data) + 22, data[1]);
 }
 
-/* 0x001258F8 (handler 26) */
+/* 0x001258F8 : ktGpuSetZbuf2 (handler 26) */
 void func_001258F8(void *p, u64 *data) {
     func_1045E8(p, D_38C730);
     func_1046A8(p, 0x3B, data[1]);
 }
 
-/* 0x00125940 (handler 27) */
+/* 0x00125940 : ktGpuSetDrawRegisters (handler 27) */
 void func_00125940(void *p, u32 *data) {
     func_1045E8(p, D_38C730);
     func_1046A8(p, 0x1C, data[1]);
 }
 
-/* 0x00125988 (handler 28) */
+/* 0x00125988 : ktGpuResetTestRegister (handler 28) */
 void func_00125988(void *p) {
     func_1045E8(p, D_38C730);
     func_1046A8(p, 0x3F, 0);
 }
 
-/* 0x001259C8 (dispatcher) */
+/* 0x001259C8 : ktGpuDispatchCommand (dispatcher) */
 void func_001259C8(void *p, u8 *cmd, int flag) {
     u8 kind = *cmd;
     if (kind >= 29) {

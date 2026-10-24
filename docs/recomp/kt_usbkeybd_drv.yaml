@@ -1,6 +1,7 @@
 module: kt_usbkeybd_drv
 functions:
   func_00137208:
+    alias: ktUsbKeybdCheckReady
     role: hw_access
     purity: hardware
     blocking: none
@@ -15,6 +16,7 @@ functions:
     open_questions: []
 
   func_00137250:
+    alias: ktUsbKeybdGetInfo
     role: hw_access
     purity: os_service
     blocking: waits_on:rpc
@@ -29,6 +31,7 @@ functions:
     open_questions: []
 
   func_001372C0:
+    alias: ktUsbKeybdReadData
     role: hw_access
     purity: os_service
     blocking: waits_on:rpc
@@ -44,6 +47,7 @@ functions:
     open_questions: []
 
   func_00137340:
+    alias: ktUsbKeybdGetLocation
     role: hw_access
     purity: os_service
     blocking: waits_on:rpc
@@ -59,6 +63,7 @@ functions:
     open_questions: []
 
   func_001373C0:
+    alias: ktUsbKeybdSetLed
     role: hw_access
     purity: os_service
     blocking: waits_on:rpc
@@ -74,6 +79,7 @@ functions:
     open_questions: []
 
   func_00137420:
+    alias: ktUsbKeybdSetCapsType
     role: hw_access
     purity: os_service
     blocking: waits_on:rpc

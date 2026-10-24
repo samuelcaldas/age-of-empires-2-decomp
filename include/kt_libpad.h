@@ -93,4 +93,33 @@ void func_00125AC8(void);
 int func_00125AE8(int a0, int a1);
 int func_00125AF8(void);
 
+void func_00125C38(int rpc_id, int n_pad, PadSlot *buf);
+void func_00125C58(int rpc_id, int n_pad, PadSlot *buf, int flag);
+void func_00125E30(PadSlot *p);
+void func_00125E68(PadSlot *p);
+int func_001262E8(int *p_ports, int start, u16 *out_ports, int max_items, int n_ports);
+void func_00126350(int pad_number, int cmd);
+u32 func_00126410(int pad_number);
+u32 func_00126488(int pad_number);
+u32 func_00126500(int pad_number);
+int func_001275A0(PadSlot *p);
+int func_001276B8(PadSlot *p);
+void func_00127BD8(PadSlot *p);
+int func_00127BE8(PadSlot *p);
+
+/* Aliases / Macros for known function names */
+#define ktPadInit                   func_00125C38
+#define ktPadInit2                  func_00125C58
+#define ktPadResetButtons           func_00125E30
+#define ktPadResetAll               func_00125E68
+#define ktPadEnumPorts              func_001262E8
+#define ktPadDispatchCmd            func_00126350
+#define ktPadGetButtons             func_00126410
+#define ktPadGetButtonsPressed      func_00126488
+#define ktPadGetButtonsReleased     func_00126500
+#define ktPadProcessState           func_001275A0
+#define ktPadCheckDisconnected      func_001276B8
+#define ktPadCountError             func_00127BD8
+#define ktPadReadDmaBuffer          func_00127BE8
+
 #endif /* KT_LIBPAD_H */

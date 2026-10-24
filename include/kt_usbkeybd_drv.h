@@ -17,4 +17,12 @@ int func_00137340(int a0, void *location);
 int func_001373C0(unsigned char a0, unsigned char a1);
 int func_00137420(unsigned char a0, unsigned char a1);
 
+/* Aliases / Macros for known function names */
+#define ktUsbKeybdCheckReady    func_00137208
+#define ktUsbKeybdGetInfo       func_00137250
+#define ktUsbKeybdReadData      func_001372C0
+#define ktUsbKeybdGetLocation   func_00137340
+#define ktUsbKeybdSetLed        func_001373C0
+#define ktUsbKeybdSetCapsType   func_00137420
+
 #endif /* KT_USBKEYBD_DRV_H */

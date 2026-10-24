@@ -388,6 +388,7 @@ functions:
     open_questions: []
 
   func_00129588:
+    alias: ktHdTableLookup
     role: table_lookup
     purity: pure
     blocking: none

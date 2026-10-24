@@ -115,4 +115,14 @@ int func_0012DC80(void);
 int func_0012DCA0(void);
 int func_0012DCC0(void);
 
+/* Aliases / Macros for known function names */
+#define ktFileSetRecordTable        func_0012CCE8
+#define ktFileSetEntryTable         func_0012CDE0
+#define ktFileClassifyKind          func_0012CEA0
+#define ktFileGetHandlerByKind      func_0012CF00
+#define ktFileBinarySearchRecord    func_0012D128
+#define ktFileFindEntryByName       func_0012D7E0
+#define ktFileReadSectorStream      func_0012D8D8
+#define ktFileStreamRemainingSectors func_0012D990
+
 #endif /* KT_FILE_H */

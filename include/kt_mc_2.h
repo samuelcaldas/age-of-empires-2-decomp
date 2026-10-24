@@ -383,4 +383,15 @@ void *func_00134170(void *a0, void *a1, void *a2, void *a3);
 void *func_001341B8(void *a0, void *a1, void *a2, void *a3);
 void *func_00134210(void *a0, void *a1, void *a2, void *a3);
 
+/* Aliases / Macros for known function names */
+#define ktMcInitWork                func_0012DE88
+#define ktMcTermWork                func_0012DE98
+#define ktMcTableLookup             func_0012DEB8
+#define ktMcInit2                   func_0012E068
+#define ktMcSetFileDataName         func_0012EB90
+#define ktMcGetDefaultIconName      func_0012EE60
+#define ktMcSearchNumberFile        func_0012F500
+#define ktMcGetDir2                 func_00132C90
+#define ktMcRename                  func_00133908
+
 #endif /* KT_MC_2_H */

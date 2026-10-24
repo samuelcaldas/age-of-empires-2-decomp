@@ -1,6 +1,7 @@
 module: kt_keybd
 functions:
   func_00135EC0:
+    alias: ktKeybdInit
     role: state_query
     purity: memory_only
     blocking: none
@@ -55,6 +56,7 @@ functions:
     open_questions: []
 
   func_00136008:
+    alias: ktKeybdLock
     role: kernel_wrapper
     purity: os_service
     blocking: waits_on:semaphore
@@ -68,6 +70,7 @@ functions:
     open_questions: []
 
   func_00136030:
+    alias: ktKeybdUnlock
     role: kernel_wrapper
     purity: os_service
     blocking: none
@@ -97,6 +100,7 @@ functions:
     open_questions: []
 
   func_00136080:
+    alias: ktKeybdAdvanceWriteIndex
     role: pure_helper
     purity: memory_only
     blocking: none
@@ -111,6 +115,7 @@ functions:
     open_questions: []
 
   func_001360D0:
+    alias: ktKeybdGetWriteBufferEntry
     role: pure_helper
     purity: memory_only
     blocking: none
@@ -125,6 +130,7 @@ functions:
     open_questions: []
 
   func_00136108:
+    alias: ktKeybdAdvanceReadIndex
     role: pure_helper
     purity: memory_only
     blocking: none
@@ -139,6 +145,7 @@ functions:
     open_questions: []
 
   func_00136158:
+    alias: ktKeybdGetReadBufferEntry
     role: pure_helper
     purity: memory_only
     blocking: none
@@ -153,6 +160,7 @@ functions:
     open_questions: []
 
   func_00136190:
+    alias: ktKeybdReadPacket
     role: state_query
     purity: memory_only
     blocking: none
@@ -214,6 +222,7 @@ functions:
     open_questions: []
 
   func_001362D8:
+    alias: ktKeybdGetStatus
     role: state_query
     purity: memory_only
     blocking: none

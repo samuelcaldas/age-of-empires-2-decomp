@@ -1,6 +1,7 @@
 module: kt_file
 functions:
   func_0012CCE8:
+    alias: ktFileSetRecordTable
     role: state_query
     purity: memory_only
     blocking: none
@@ -16,6 +17,7 @@ functions:
     open_questions: []
 
   func_0012CDE0:
+    alias: ktFileSetEntryTable
     role: state_query
     purity: memory_only
     blocking: none
@@ -31,6 +33,7 @@ functions:
     open_questions: []
 
   func_0012CEA0:
+    alias: ktFileClassifyKind
     role: dispatch
     purity: pure
     blocking: none
@@ -47,6 +50,7 @@ functions:
     open_questions: []
 
   func_0012CF00:
+    alias: ktFileGetHandlerByKind
     role: dispatch
     purity: memory_only
     blocking: none
@@ -163,6 +167,7 @@ functions:
     open_questions: []
 
   func_0012D128:
+    alias: ktFileBinarySearchRecord
     role: table_lookup
     purity: memory_only
     blocking: none
@@ -421,6 +426,7 @@ functions:
     open_questions: []
 
   func_0012D7E0:
+    alias: ktFileFindEntryByName
     role: disc_io
     purity: os_service
     blocking: waits_on:rpc
@@ -463,6 +469,7 @@ functions:
     open_questions: []
 
   func_0012D8D8:
+    alias: ktFileReadSectorStream
     role: disc_io
     purity: os_service
     blocking: waits_on:rpc
@@ -496,6 +503,7 @@ functions:
     open_questions: []
 
   func_0012D990:
+    alias: ktFileStreamRemainingSectors
     role: disc_io
     purity: os_service
     blocking: none

@@ -178,7 +178,7 @@ static int s_state_77cc = 0;
 static int s_state_77d0 = 0;
 static int s_state_77d4 = 0;
 
-/* Function 0a: func_00125A70 */
+/* Function 0a: func_00125A70 : ktPadGetSlot */
 PadSlot *func_00125A70(int idx) {
     if ((unsigned int)idx < (unsigned int)D_4EA148.n_pad) {
         return (PadSlot *)((char *)D_4EA148.slots + (idx << 9));
@@ -186,21 +186,21 @@ PadSlot *func_00125A70(int idx) {
     return NULL;
 }
 
-/* Function 0b: func_00125AA8 */
+/* Function 0b: func_00125AA8 : ktPadUnlock */
 void func_00125AA8(void) {
     if (D_4EA148.sema >= 0) {
         func_134500(D_4EA148.sema);
     }
 }
 
-/* Function 0c: func_00125AC8 */
+/* Function 0c: func_00125AC8 : ktPadLock */
 void func_00125AC8(void) {
     if (D_4EA148.sema >= 0) {
         func_134440(D_4EA148.sema);
     }
 }
 
-/* Function 0d: func_00125AE8 */
+/* Function 0d: func_00125AE8 : ktPadNotifyReset */
 int func_00125AE8(int a0, int a1) {
 #if defined(__mips__)
     register void *gp asm("8");
@@ -210,7 +210,7 @@ int func_00125AE8(int a0, int a1) {
 #endif
 }
 
-/* Function 0e: func_00125AF8 */
+/* Function 0e: func_00125AF8 : ktPadCloseSlots */
 int func_00125AF8(void) {
     int i;
     int res = 1;
@@ -246,12 +246,12 @@ int func_00125AF8(void) {
     return res;
 }
 
-/* Function 1: func_00125C38 */
+/* Function 1: func_00125C38 : ktPadInit */
 void func_00125C38(int rpc_id, int n_pad, PadSlot *buf) {
     func_00125C58(rpc_id, n_pad, buf, 0);
 }
 
-/* Function 2: func_00125C58 */
+/* Function 2: func_00125C58 : ktPadInit2 */
 void func_00125C58(int rpc_id, int n_pad, PadSlot *buf, int flag) {
     PadSlot *p;
     int i;
@@ -328,7 +328,7 @@ void func_00125E20(PadSlot *p) {
     p->state = -1;
 }
 
-/* Function 8: func_00125E30 */
+/* Function 8: func_00125E30 : ktPadResetButtons */
 void func_00125E30(PadSlot *p) {
     p->buttons = 0;
     p->flags |= 0x40;
@@ -342,7 +342,7 @@ void func_00125E30(PadSlot *p) {
     func_00125DE8(p);
 }
 
-/* Function 9: func_00125E68 */
+/* Function 9: func_00125E68 : ktPadResetAll */
 void func_00125E68(PadSlot *p) {
     func_00125DB8(p);
     func_00125DC8(p);
@@ -474,7 +474,7 @@ void func_00126288(int *p_ports, int count) {
     }
 }
 
-/* Function 18: func_001262E8 */
+/* Function 18: func_001262E8 : ktPadEnumPorts */
 int func_001262E8(int *p_ports, int start, u16 *out_ports, int max_items, int n_ports) {
     int count = 0;
     int port;
@@ -497,7 +497,7 @@ int func_001262E8(int *p_ports, int start, u16 *out_ports, int max_items, int n_
     return count;
 }
 
-/* Function 19: func_00126350 */
+/* Function 19: func_00126350 : ktPadDispatchCmd */
 void func_00126350(int pad_number, int cmd) {
     if (pad_number >= D_4EA148.n_pad) {
         func_114320(D_48F1F0, 0x319, D_48F268);
@@ -523,7 +523,7 @@ void func_00126350(int pad_number, int cmd) {
     }
 }
 
-/* Function 20: func_00126410 */
+/* Function 20: func_00126410 : ktPadGetButtons */
 u32 func_00126410(int pad_number) {
     PadSlot *p;
     u16 val;
@@ -538,7 +538,7 @@ u32 func_00126410(int pad_number) {
     return val;
 }
 
-/* Function 21: func_00126488 */
+/* Function 21: func_00126488 : ktPadGetButtonsPressed */
 u32 func_00126488(int pad_number) {
     PadSlot *p;
     u16 val;
@@ -553,7 +553,7 @@ u32 func_00126488(int pad_number) {
     return val;
 }
 
-/* Function 22: func_00126500 */
+/* Function 22: func_00126500 : ktPadGetButtonsReleased */
 u32 func_00126500(int pad_number) {
     PadSlot *p;
     u16 val;
@@ -1037,7 +1037,7 @@ int func_00127488(PadSlot *p) {
     return 1;
 }
 
-/* Function 52: func_001275A0 */
+/* Function 52: func_001275A0 : ktPadProcessState */
 int func_001275A0(PadSlot *p) {
     int res = 0;
     int st;
@@ -1080,7 +1080,7 @@ int func_001276B0(PadSlot *p) {
     return 0;
 }
 
-/* Function 54: func_001276B8 */
+/* Function 54: func_001276B8 : ktPadCheckDisconnected */
 int func_001276B8(PadSlot *p) {
     int cond = 0;
 
@@ -1280,12 +1280,12 @@ void func_001279C8(PadSlot *p, int flag) {
     p->unk_88 = unk_19;
 }
 
-/* Function 67: func_00127BD8 */
+/* Function 67: func_00127BD8 : ktPadCountError */
 void func_00127BD8(PadSlot *p) {
     p->err_count++;
 }
 
-/* Function 68: func_00127BE8 */
+/* Function 68: func_00127BE8 : ktPadReadDmaBuffer */
 int func_00127BE8(PadSlot *p) {
     int res = func_10D260(p->port, p->slot, &p->dma_buffer[4]);
     if ((u32)(res - 1) >= 0x1F) {

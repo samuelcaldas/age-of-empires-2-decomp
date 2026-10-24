@@ -28,6 +28,7 @@ types:
 
 functions:
   func_0012DE88:
+    alias: ktMcInitWork
     role: "Initialize memory card subsystem 2"
     purity: false
     blocking: false
@@ -35,6 +36,7 @@ functions:
     return_type: "void *"
 
   func_0012DE98:
+    alias: ktMcTermWork
     role: "Terminate memory card subsystem 2"
     purity: false
     blocking: false
@@ -42,6 +44,7 @@ functions:
     return_type: "void *"
 
   func_0012DEB8:
+    alias: ktMcTableLookup
     role: "Table lookup of key-value pair in a 2-word tuple table"
     purity: true
     blocking: false
@@ -49,6 +52,7 @@ functions:
     return_type: "void *"
 
   func_0012E068:
+    alias: ktMcInit2
     role: "Validate card count against KT_MC_CARD_MAX and initialize card descriptors"
     purity: false
     blocking: false
@@ -102,4 +106,44 @@ functions:
     purity: false
     blocking: false
     memory_writes: ["*(ptr + 0)", "*(ptr + 8)", "*(ptr + 12)"]
+    return_type: "void *"
+
+  func_0012EB90:
+    alias: ktMcSetFileDataName
+    role: "Set filename in file descriptor"
+    purity: false
+    blocking: false
+    memory_writes: ["filedata->name"]
+    return_type: "void *"
+
+  func_0012EE60:
+    alias: ktMcGetDefaultIconName
+    role: "Retrieve default icon name by file type"
+    purity: true
+    blocking: false
+    memory_writes: []
+    return_type: "void *"
+
+  func_0012F500:
+    alias: ktMcSearchNumberFile
+    role: "Search save file by number index"
+    purity: false
+    blocking: false
+    memory_writes: []
+    return_type: "void *"
+
+  func_00132C90:
+    alias: ktMcGetDir2
+    role: "Directory listing query on memory card"
+    purity: false
+    blocking: true
+    memory_writes: ["directory buffer"]
+    return_type: "void *"
+
+  func_00133908:
+    alias: ktMcRename
+    role: "Rename file on memory card"
+    purity: false
+    blocking: true
+    memory_writes: ["MC file table"]
     return_type: "void *"

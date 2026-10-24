@@ -46,4 +46,13 @@ void func_00125940(void *p, u32 *data);
 void func_00125988(void *p);
 void func_001259C8(void *p, u8 *cmd, int flag);
 
+/* Aliases / Macros for known function names */
+#define ktGpuSetFrame1          func_00125808
+#define ktGpuSetFrame2          func_00125858
+#define ktGpuSetZbuf1           func_001258A8
+#define ktGpuSetZbuf2           func_001258F8
+#define ktGpuSetDrawRegisters   func_00125940
+#define ktGpuResetTestRegister  func_00125988
+#define ktGpuDispatchCommand    func_001259C8
+
 #endif /* KT_GPU_H */

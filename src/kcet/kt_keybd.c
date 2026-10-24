@@ -60,6 +60,7 @@ int func_00137340(int, void *);
 int func_001373C0(int, int);
 int func_00137420(int, int);
 
+/* 0x00135EC0 : ktKeybdInit */
 void func_00135EC0(int n_keybd) {
     int i;
     char *ptr;
@@ -105,12 +106,14 @@ void func_00135FC8(void) {
     }
 }
 
+/* 0x00136008 : ktKeybdLock */
 void func_00136008(void) {
     if (D_50A338.handle != -1) {
         func_134500(D_50A338.handle);
     }
 }
 
+/* 0x00136030 : ktKeybdUnlock */
 void func_00136030(void) {
     if (D_50A338.handle != -1) {
         func_134440(D_50A338.handle);
@@ -125,11 +128,13 @@ int func_00136058(int a0, int a1) {
     return 0;
 }
 
+/* 0x00136080 : ktKeybdAdvanceWriteIndex */
 void func_00136080(int a0) {
     char *base = (char *)(a0 * 0x78);
     *(int *)(base + (int)D_50A338.buffer + 0x24) = func_00136058(a0, *(int *)(base + (int)D_50A338.buffer + 0x24));
 }
 
+/* 0x001360D0 : ktKeybdGetWriteBufferEntry */
 int *func_001360D0(int a0) {
     int idx;
     a0 = a0 * 0x78 + (int)D_50A338.buffer;
@@ -141,11 +146,13 @@ int *func_001360D0(int a0) {
     return (int *)a0;
 }
 
+/* 0x00136108 : ktKeybdAdvanceReadIndex */
 void func_00136108(int a0) {
     char *base = (char *)(a0 * 0x78);
     *(int *)(base + (int)D_50A338.buffer + 0x20) = func_00136058(a0, *(int *)(base + (int)D_50A338.buffer + 0x20));
 }
 
+/* 0x00136158 : ktKeybdGetReadBufferEntry */
 int *func_00136158(int a0) {
     int idx;
     a0 = a0 * 0x78 + (int)D_50A338.buffer;
@@ -161,6 +168,7 @@ typedef struct {
     char data[16];
 } KeybdData16;
 
+/* 0x00136190 : ktKeybdReadPacket */
 int func_00136190(int a0, KeybdData16 *out) {
     int *entry;
     int res = 0;
@@ -201,6 +209,7 @@ int func_001362B8(short *ptr) {
     return res;
 }
 
+/* 0x001362D8 : ktKeybdGetStatus */
 int func_001362D8(int a0) {
     short *ptr;
     int res;

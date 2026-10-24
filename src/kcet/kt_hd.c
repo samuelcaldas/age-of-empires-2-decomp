@@ -426,7 +426,7 @@ int func_00129560(int (*func)(void *), void *arg) {
     return 0;
 }
 
-/* Function 27: func_00129588 */
+/* 0x00129588 : ktHdTableLookup */
 int func_00129588(int *table, int count, int key) {
     int i;
     if (count <= 0) {

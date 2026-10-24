@@ -135,7 +135,7 @@ extern void *func_134480(void *a0, ...);
 extern void *func_1344C0(void *a0, ...);
 extern void *func_134500(void *a0, ...);
 
-/* func_001295D0 */
+/* 0x001295D0 : ktCdServerInit */
 void *func_001295D0(void *a0, void *a1, void *a2, void *a3) {
     long r_v0 = 0, r_v1 = 0;
     long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
@@ -545,7 +545,7 @@ _lbl_L001297EC:
     return (void *)r_v0;
 }
 
-/* func_00129800 */
+/* 0x00129800 : ktCdServerReset */
 void *func_00129800(void *a0, void *a1, void *a2, void *a3) {
     long r_v0 = 0, r_v1 = 0;
     long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
@@ -1011,7 +1011,7 @@ void *func_00129AE0(void *a0, void *a1, void *a2, void *a3) {
     return (void *)r_v0;
 }
 
-/* func_00129B10 */
+/* 0x00129B10 : ktCdServerProcessRequests */
 void *func_00129B10(void *a0, void *a1, void *a2, void *a3) {
     long r_v0 = 0, r_v1 = 0;
     long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
@@ -8749,25 +8749,25 @@ void *func_0012CAF0(void *a0, void *a1, void *a2, void *a3) {
     return (void *)(long)*(int *)(0x4F1518);
 }
 
-/* func_0012CB00 */
+/* 0x0012CB00 : ktCdServerMaskCmd */
 void *func_0012CB00(void *a0, void *a1, void *a2, void *a3) {
     (void)a1; (void)a2; (void)a3;
     return (void *)((unsigned long)a0 & 0x7);
 }
 
-/* func_0012CB08 */
+/* 0x0012CB08 : ktCdServerCheckFlagBit15 */
 void *func_0012CB08(void *a0, void *a1, void *a2, void *a3) {
     (void)a1; (void)a2; (void)a3;
     return (void *)((unsigned long)a0 & 0x8000);
 }
 
-/* func_0012CB10 */
+/* 0x0012CB10 : ktCdServerClearFlagBit15 */
 void *func_0012CB10(void *a0, void *a1, void *a2, void *a3) {
     (void)a1; (void)a2; (void)a3;
     return (void *)((unsigned long)a0 & 0xFFFF7FFF);
 }
 
-/* func_0012CB20 */
+/* 0x0012CB20 : ktCdServerGetWordSafe */
 void *func_0012CB20(void *a0, void *a1, void *a2, void *a3) {
     (void)a1; (void)a2; (void)a3;
     if (a0 == NULL) {
@@ -8776,13 +8776,13 @@ void *func_0012CB20(void *a0, void *a1, void *a2, void *a3) {
     return (void *)(long)*(unsigned short *)a0;
 }
 
-/* func_0012CB38 */
+/* 0x0012CB38 : ktCdServerGetWordWithoutBit15 */
 void *func_0012CB38(void *a0, void *a1, void *a2, void *a3) {
     void *val = func_0012CB20(a0, a1, a2, a3);
     return func_0012CB10(val, a1, a2, a3);
 }
 
-/* func_0012CB60 */
+/* 0x0012CB60 : ktCdServerExtractPayload24Upper */
 void *func_0012CB60(void *a0, void *a1, void *a2, void *a3) {
     (void)a1; (void)a2; (void)a3;
     if (a0 == NULL) {
@@ -8791,7 +8791,7 @@ void *func_0012CB60(void *a0, void *a1, void *a2, void *a3) {
     return (void *)(((unsigned long)*(long *)a0 >> 16) & 0xFFFFFF);
 }
 
-/* func_0012CB90 */
+/* 0x0012CB90 : ktCdServerExtractPayload24Shifted */
 void *func_0012CB90(void *a0, void *a1, void *a2, void *a3) {
     (void)a1; (void)a2; (void)a3;
     if (a0 == NULL) {
@@ -8800,7 +8800,7 @@ void *func_0012CB90(void *a0, void *a1, void *a2, void *a3) {
     return (void *)((unsigned long)*(long *)a0 >> 8);
 }
 
-/* func_0012CBA8 */
+/* 0x0012CBA8 : ktCdServerUnpackPayloads */
 void *func_0012CBA8(void *a0, void *a1, void *a2, void *a3) {
     (void)a3;
     if (a0 != NULL) {
@@ -8820,7 +8820,7 @@ void *func_0012CBE8(void *a0, void *a1, void *a2, void *a3) {
     return (void *)(long)*(int *)(0x4F1510);
 }
 
-/* func_0012CBF8 */
+/* 0x0012CBF8 : ktCdServerDecodeOffset16 */
 int func_0012CBF8(const unsigned char *data) {
     int value = 0;
     /* Avoid null-pointer arithmetic while preserving target address calculation. */
@@ -8831,7 +8831,7 @@ int func_0012CBF8(const unsigned char *data) {
     return value;
 }
 
-/* func_0012CC20 */
+/* 0x0012CC20 : ktCdServerComputePathLength */
 void *func_0012CC20(void *a0, void *a1, void *a2, void *a3) {
     (void)a1; (void)a2; (void)a3;
     if (a0 == NULL) {
@@ -8840,22 +8840,22 @@ void *func_0012CC20(void *a0, void *a1, void *a2, void *a3) {
     return (void *)(long)(func_0011ACD0((char *)a0 + 4) + 5);
 }
 
-/* func_0012CC48 */
+/* 0x0012CC48 : ktCdServerAdvancePastHeader */
 const unsigned char *func_0012CC48(const unsigned char *data) {
     return data ? data + 4 : 0;
 }
 
-/* func_0012CC58 */
+/* 0x0012CC58 : ktCdServerValidatePrefixZero */
 int func_0012CC58(const char *data) {
     return data && data[0] == '0';
 }
 
-/* func_0012CC78 */
+/* 0x0012CC78 : ktCdServerValidatePrefixAt */
 int func_0012CC78(const char *data) {
     return data && data[0] == '@';
 }
 
-/* func_0012CC98 */
+/* 0x0012CC98 : ktCdServerPackHeader64 */
 void *func_0012CC98(void *a0, void *a1, void *a2, void *a3) {
     unsigned long res = 0x40;
     (void)a3;

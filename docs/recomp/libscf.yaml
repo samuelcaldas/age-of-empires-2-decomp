@@ -1,6 +1,7 @@
 module: libscf
 functions:
   func_00389570:
+    alias: sceScfDec2Bcd
     role: pure_helper
     purity: pure
     blocking: none
@@ -17,6 +18,7 @@ functions:
     open_questions: []
 
   func_003895D8:
+    alias: sceScfBcd2Dec
     role: pure_helper
     purity: pure
     blocking: none
@@ -33,6 +35,7 @@ functions:
     open_questions: []
 
   func_00389630:
+    alias: sceScfRtcBcd2Dec
     role: pure_helper
     purity: memory_only
     blocking: none
@@ -47,6 +50,7 @@ functions:
     open_questions: []
 
   func_003896B8:
+    alias: sceScfRtcDec2Bcd
     role: pure_helper
     purity: memory_only
     blocking: none
@@ -61,6 +65,7 @@ functions:
     open_questions: []
 
   func_00389740:
+    alias: sceScfRtcIncDay
     role: state_query
     purity: os_service
     blocking: waits_on:rtc
@@ -75,6 +80,7 @@ functions:
     open_questions: []
 
   func_00389828:
+    alias: sceScfRtcDecDay
     role: state_query
     purity: os_service
     blocking: waits_on:rtc
@@ -89,6 +95,7 @@ functions:
     open_questions: []
 
   func_00389900:
+    alias: sceScfRtcIncHour
     role: state_query
     purity: os_service
     blocking: waits_on:rtc
@@ -103,6 +110,7 @@ functions:
     open_questions: []
 
   func_00389970:
+    alias: sceScfRtcDecHour
     role: state_query
     purity: os_service
     blocking: waits_on:rtc
@@ -117,6 +125,7 @@ functions:
     open_questions: []
 
   func_003899D8:
+    alias: sceScfRtcAdjustMinutes
     role: pure_helper
     purity: memory_only
     blocking: none
@@ -132,6 +141,7 @@ functions:
     open_questions: []
 
   func_00389AA8:
+    alias: sceScfGetLocalTime
     role: state_query
     purity: os_service
     blocking: waits_on:rtc
@@ -146,6 +156,7 @@ functions:
     open_questions: []
 
   func_00389AF0:
+    alias: sceScfReadRtcAndAdjust
     role: state_query
     purity: os_service
     blocking: waits_on:rtc

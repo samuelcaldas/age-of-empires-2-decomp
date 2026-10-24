@@ -36,4 +36,17 @@ void func_003899D8(sceCdCLOCK *prtc, int diff);
 void func_00389AA8(sceCdCLOCK *prtc);
 void func_00389AF0(sceCdCLOCK *prtc);
 
+/* Aliases / Macros for known function names */
+#define sceScfDec2Bcd            func_00389570
+#define sceScfBcd2Dec            func_003895D8
+#define sceScfRtcBcd2Dec         func_00389630
+#define sceScfRtcDec2Bcd         func_003896B8
+#define sceScfRtcIncDay          func_00389740
+#define sceScfRtcDecDay          func_00389828
+#define sceScfRtcIncHour         func_00389900
+#define sceScfRtcDecHour         func_00389970
+#define sceScfRtcAdjustMinutes   func_003899D8
+#define sceScfGetLocalTime       func_00389AA8
+#define sceScfReadRtcAndAdjust   func_00389AF0
+
 #endif /* LIBSCF_H */

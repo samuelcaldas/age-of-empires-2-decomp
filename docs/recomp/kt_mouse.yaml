@@ -182,9 +182,10 @@ functions:
     blocking: none
     args:
       - {name: a0, type: s32}
+      - {name: out, type: "int*"}
     returns:
       type: s32
-    memory_effects: []
+    memory_effects: ["out", "D_509F00"]
     errors: []
     callers_known: []
     confidence: high
@@ -194,12 +195,13 @@ functions:
     role: pure_helper
     purity: pure
     blocking: none
-    args: []
+    args:
+      - {name: ptr, type: "short*"}
     returns:
-      type: void
+      type: s16
     memory_effects: []
     errors: []
-    callers_known: []
+    callers_known: [func_001351B8, func_001353C0]
     confidence: high
     open_questions: []
 
@@ -209,10 +211,9 @@ functions:
     blocking: none
     args:
       - {name: a0, type: s32}
-      - {name: a1, type: "void*"}
     returns:
-      type: s32
-    memory_effects: ["a1"]
+      type: s16
+    memory_effects: []
     errors: []
     callers_known: []
     confidence: high
@@ -223,12 +224,12 @@ functions:
     purity: memory_only
     blocking: none
     args:
-      - {name: a0, type: s32}
+      - {name: ptr, type: "short*"}
     returns:
       type: s32
-    memory_effects: ["D_509F00"]
+    memory_effects: []
     errors: []
-    callers_known: []
+    callers_known: [func_00135258, func_001352D8, func_00135638]
     confidence: high
     open_questions: []
 
@@ -254,11 +255,10 @@ functions:
     blocking: none
     args:
       - {name: a0, type: s32}
-      - {name: a1, type: "void*"}
-      - {name: a2, type: s32}
+      - {name: out, type: "int*"}
     returns:
       type: s32
-    memory_effects: ["a1", "D_509F00"]
+    memory_effects: ["out"]
     errors: []
     callers_known: []
     confidence: high
@@ -271,8 +271,6 @@ functions:
     blocking: none
     args:
       - {name: a0, type: s32}
-      - {name: a1, type: "void*"}
-      - {name: a2, type: s32}
     returns:
       type: s32
     memory_effects: ["D_509F00"]
@@ -288,7 +286,7 @@ functions:
     args: []
     returns:
       type: void
-    memory_effects: []
+    memory_effects: ["D_50A06C"]
     errors: []
     callers_known: []
     confidence: high
@@ -301,7 +299,7 @@ functions:
     args: []
     returns:
       type: void
-    memory_effects: []
+    memory_effects: ["D_50A06C"]
     errors: []
     callers_known: []
     confidence: high
@@ -312,7 +310,8 @@ functions:
     role: hw_access
     purity: hardware
     blocking: none
-    args: []
+    args:
+      - {name: a0, type: s32}
     returns:
       type: void
     memory_effects: []
@@ -353,12 +352,13 @@ functions:
     role: state_query
     purity: memory_only
     blocking: none
-    args: []
+    args:
+      - {name: ptr, type: "int*"}
     returns:
-      type: s32
-    memory_effects: []
+      type: void
+    memory_effects: ["ptr"]
     errors: []
-    callers_known: []
+    callers_known: [func_001355D0, func_00135638]
     confidence: high
     open_questions: []
 
@@ -366,10 +366,11 @@ functions:
     role: hw_access
     purity: hardware
     blocking: none
-    args: []
+    args:
+      - {name: a0, type: s32}
     returns:
-      type: void
-    memory_effects: []
+      type: s32
+    memory_effects: ["D_509F00"]
     errors: []
     callers_known: []
     confidence: high
@@ -379,10 +380,12 @@ functions:
     role: hw_access
     purity: hardware
     blocking: none
-    args: []
+    args:
+      - {name: a0, type: s32}
+      - {name: a1, type: s32}
     returns:
       type: void
-    memory_effects: []
+    memory_effects: ["D_509F00"]
     errors: []
     callers_known: []
     confidence: high
@@ -392,12 +395,13 @@ functions:
     role: pure_helper
     purity: pure
     blocking: none
-    args: []
+    args:
+      - {name: ptr, type: "short*"}
     returns:
-      type: void
+      type: s32
     memory_effects: []
     errors: []
-    callers_known: []
+    callers_known: [func_001356E8, func_00135798, func_00135870]
     confidence: high
     open_questions: []
 
@@ -406,10 +410,12 @@ functions:
     role: pure_helper
     purity: memory_only
     blocking: none
-    args: []
+    args:
+      - {name: a0, type: s32}
+      - {name: a1, type: s32}
     returns:
-      type: void
-    memory_effects: []
+      type: s32
+    memory_effects: ["D_509F00"]
     errors: []
     callers_known: []
     confidence: high
@@ -420,10 +426,13 @@ functions:
     role: pure_helper
     purity: memory_only
     blocking: none
-    args: []
+    args:
+      - {name: a0, type: s32}
+      - {name: a1, type: "void*"}
+      - {name: a2, type: s32}
     returns:
-      type: void
-    memory_effects: []
+      type: s32
+    memory_effects: ["D_509F00"]
     errors: []
     callers_known: []
     confidence: high
@@ -434,10 +443,15 @@ functions:
     role: pure_helper
     purity: memory_only
     blocking: none
-    args: []
+    args:
+      - {name: a0, type: s32}
+      - {name: a1, type: s32}
+      - {name: a2, type: s32}
+      - {name: a3, type: s32}
+      - {name: a4, type: s32}
     returns:
-      type: void
-    memory_effects: []
+      type: s32
+    memory_effects: ["D_509F00"]
     errors: []
     callers_known: []
     confidence: high
@@ -449,7 +463,7 @@ functions:
     blocking: none
     args: []
     returns:
-      type: void
+      type: s32
     memory_effects: []
     errors: []
     callers_known: []
@@ -460,12 +474,14 @@ functions:
     role: state_query
     purity: memory_only
     blocking: none
-    args: []
+    args:
+      - {name: ptr, type: "KT_MOUSE_BLOCK*"}
+      - {name: val, type: s32}
     returns:
-      type: s32
-    memory_effects: []
+      type: void
+    memory_effects: ["ptr"]
     errors: []
-    callers_known: []
+    callers_known: [func_001359D0, func_00135A38]
     confidence: high
     open_questions: []
 
@@ -473,12 +489,15 @@ functions:
     role: state_query
     purity: memory_only
     blocking: none
-    args: []
+    args:
+      - {name: ptr, type: "char*"}
+      - {name: count, type: s32}
+      - {name: stride, type: s32}
     returns:
-      type: s32
-    memory_effects: []
+      type: void
+    memory_effects: ["ptr"]
     errors: []
-    callers_known: []
+    callers_known: [func_00135B88]
     confidence: high
     open_questions: []
 
@@ -486,25 +505,34 @@ functions:
     role: pure_helper
     purity: memory_only
     blocking: none
-    args: []
+    args:
+      - {name: ptr, type: "char*"}
+      - {name: count, type: s32}
+      - {name: stride, type: s32}
+      - {name: a3, type: s32}
     returns:
       type: void
-    memory_effects: []
+    memory_effects: ["ptr"]
     errors: []
-    callers_known: []
+    callers_known: [func_00135BF0]
     confidence: high
     open_questions: []
 
   func_00135AB8:
     role: pure_helper
-    purity: pure
+    purity: memory_only
     blocking: none
-    args: []
+    args:
+      - {name: ptr, type: "char*"}
+      - {name: count, type: s32}
+      - {name: stride, type: s32}
+      - {name: a3, type: s32}
+      - {name: buf, type: "char*"}
     returns:
       type: void
-    memory_effects: []
+    memory_effects: ["ptr", "D_509F00"]
     errors: []
-    callers_known: []
+    callers_known: [func_00135BF0]
     confidence: high
     open_questions: []
 
@@ -512,12 +540,13 @@ functions:
     role: state_query
     purity: memory_only
     blocking: none
-    args: []
+    args:
+      - {name: a0, type: s32}
     returns:
-      type: s32
-    memory_effects: []
+      type: void
+    memory_effects: ["D_50A080"]
     errors: []
-    callers_known: []
+    callers_known: [func_00135D60]
     confidence: high
     open_questions: []
 
@@ -530,7 +559,7 @@ functions:
       type: void
     memory_effects: []
     errors: []
-    callers_known: []
+    callers_known: [func_00135D60]
     confidence: high
     open_questions: []
 
@@ -542,7 +571,7 @@ functions:
     args: []
     returns:
       type: void
-    memory_effects: []
+    memory_effects: ["D_50A08C", "D_50A0C0", "D_50A140", "D_50A1C0", "D_509F00"]
     errors: []
     callers_known: []
     confidence: high
@@ -558,7 +587,7 @@ functions:
       type: void
     memory_effects: []
     errors: []
-    callers_known: []
+    callers_known: [func_001354C8]
     confidence: high
     open_questions: []
 
@@ -571,7 +600,7 @@ functions:
       type: void
     memory_effects: []
     errors: []
-    callers_known: []
+    callers_known: [func_00135508]
     confidence: high
     open_questions: []
 
@@ -581,10 +610,10 @@ functions:
     blocking: none
     args: []
     returns:
-      type: void
-    memory_effects: []
+      type: s32
+    memory_effects: ["D_50A240"]
     errors: []
-    callers_known: []
+    callers_known: [func_00135D60]
     confidence: high
     open_questions: []
 
@@ -592,12 +621,13 @@ functions:
     role: disc_io
     purity: os_service
     blocking: waits_on:rpc
-    args: []
+    args:
+      - {name: a0, type: "void*"}
     returns:
       type: s32
-    memory_effects: []
+    memory_effects: ["a0", "D_50A280"]
     errors: []
-    callers_known: []
+    callers_known: [func_00135BF0]
     confidence: high
     open_questions: []
 
@@ -605,12 +635,14 @@ functions:
     role: disc_io
     purity: os_service
     blocking: waits_on:rpc
-    args: []
+    args:
+      - {name: a0, type: s32}
+      - {name: a1, type: "void*"}
     returns:
       type: s32
-    memory_effects: []
+    memory_effects: ["a1", "D_50A280"]
     errors: []
-    callers_known: []
+    callers_known: [func_00135BF0]
     confidence: high
     open_questions: []
 
@@ -618,11 +650,13 @@ functions:
     role: disc_io
     purity: os_service
     blocking: waits_on:rpc
-    args: []
+    args:
+      - {name: a0, type: s32}
+      - {name: a1, type: "void*"}
     returns:
       type: s32
-    memory_effects: []
+    memory_effects: ["a1", "D_50A280"]
     errors: []
-    callers_known: []
+    callers_known: [func_00135BF0]
     confidence: high
     open_questions: []

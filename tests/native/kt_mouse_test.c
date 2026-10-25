@@ -1,23 +1,18 @@
 #include <assert.h>
 #include <stdio.h>
 #include <string.h>
+#include "kt_mouse.h"
 
 /* Global variables defined in BSS/rodata for kt_mouse */
 char D_509F00[0x160];
-typedef struct {
-    int handle;
-    int count;
-    char *buffer;
-    int flag;
-} MouseWork;
-
-MouseWork D_50A060;
+KT_MOUSE_WORK D_50A060;
 int D_50A06C = 0;
 char D_50A080[0x18];
 char D_50A08C[0x40];
 char D_50A0C0[0x40];
 char D_50A140[0x40];
 signed char D_50A1C0[0x40];
+
 typedef struct {
     char pad[0x24];
     unsigned int status;
@@ -29,30 +24,6 @@ const char D_490820[] = "kt_mouse.c";
 const char D_490830[] = "n_mouse <= KT_MOUSE_MAX_NUM";
 const char D_490850[] = "mouse_number < W->n_mouse";
 const char D_490870[] = "number < W->n_mouse";
-
-/* Test harness doubles for kt_mouse functions */
-int func_00134DE8(int a0, int a1);
-void func_00134E50(int n_mouse);
-void func_00134F18(void);
-void func_00134F20(void);
-void func_00134F50(void);
-void func_00134F90(void);
-void func_00134FB8(void);
-int func_00134FE0(int a0, int a1);
-void func_00135008(int a0);
-int *func_00135058(int a0);
-void func_00135090(int a0);
-int *func_001350E0(int a0);
-int func_00135118(int a0, int *out);
-short func_001351B0(short *ptr);
-short func_001351B8(int a0);
-int func_00135238(short *ptr);
-int func_00135258(int a0);
-int func_001352D8(int a0, int *out);
-int func_001353C0(int a0);
-void func_00135478(void);
-void func_001354A0(void);
-int func_00135870(int a0, int a1, int a2, int a3, int a4);
 
 /* Test mock states */
 static int mock_status_flag = 0;
@@ -92,8 +63,8 @@ void func_117AF8(void *dst, const void *src, int n) {
 }
 void func_134A20(void) {}
 void func_1075C8(int x) {}
-void func_107C38(void *a, unsigned int b, int c) {}
-int func_107E08(void *a, int b, int c, int *d, int e, void *f, int g, int h, int i) {
+void func_107C38(MouseDevice_DA0 *dev, unsigned int cmd, int flag) {}
+int func_107E08(MouseDevice_DA0 *dev, int cmd, int opt, int *req, int req_sz, void *buf, int buf_sz, int a, int b) {
     return 0;
 }
 
@@ -119,30 +90,74 @@ static void test_mouse_dispatch_wrapper(void) {
 
 static void test_mouse_init_work(void) {
     func_00134E50(2);
-    /* verify handle init */
+    assert(D_50A060.count == 2);
+    assert(D_50A060.handle == -1);
+    assert(D_50A060.buffer == D_509F00);
+
+    KT_MOUSE_PORT *port0 = (KT_MOUSE_PORT *)D_509F00;
+    KT_MOUSE_PORT *port1 = (KT_MOUSE_PORT *)(D_509F00 + 0xB0);
+    assert(port0->port_id == 0);
+    assert(port0->state == -1);
+    assert(port0->queue_cap == 4);
+    assert(port1->port_id == 1);
+    assert(port1->state == -1);
+    assert(port1->queue_cap == 4);
+
     func_00134F20();
+    assert(D_50A060.handle == 42);
     func_00134F90();
     func_00134FB8();
     func_00134F50();
+    assert(D_50A060.handle == -1);
 }
 
-static void test_mouse_buffer_math(void) {
+static void test_mouse_ports_and_events(void) {
     func_00134E50(2);
-    /* buffer index 0 modulo advance */
-    assert(func_00134FE0(0, 0) == 1);
-    assert(func_00134FE0(0, 3) == 0);
 
-    /* Post event into queue */
-    int res = func_00135870(0, 10, 20, 30, 40);
-    /* Dequeue */
-    int out[4] = {0};
-    int ok = func_00135118(0, out);
+    /* Allocate port for device type 1 */
+    int port_id = func_001355D0(1);
+    assert(port_id == 0);
+    assert(func_001351B8(0) == 0); /* state is 0 */
+    assert(func_00135258(0) == 1); /* type is 1 */
+
+    /* Set port state to active (1) */
+    assert(func_001356E8(0, 1) == 0);
+    assert(func_001351B8(0) == 1);
+
+    /* Set payload */
+    char test_payload[4] = {0x11, 0x22, 0x33, 0x44};
+    assert(func_00135798(0, test_payload, 4) == 0);
+
+    int read_out[4] = {0};
+    int plen = func_001352D8(0, read_out);
+    assert(plen == 4);
+    assert(read_out[0] == 1); /* device type */
+    char *bytes = (char *)(read_out + 1);
+    assert(bytes[0] == 0x11 && bytes[1] == 0x22 && bytes[2] == 0x33 && bytes[3] == 0x44);
+
+    /* Enqueue mouse motion/button event */
+    assert(func_00135870(0, 10, -5, 1, 0) == 0);
+
+    /* Dequeue packet */
+    int pkt[4] = {0};
+    assert(func_00135118(0, pkt) == 1);
+    assert(pkt[0] == 10);
+    assert(pkt[1] == -5);
+    assert(pkt[2] == 1);
+    assert(pkt[3] == 0);
+
+    /* Queue should now be empty */
+    assert(func_00135118(0, pkt) == 0);
+
+    /* Reset ports */
+    assert(func_001353C0(1) == 2);
+    assert(func_001351B8(0) == -1);
 }
 
 int main(int argc, char **argv) {
     test_mouse_dispatch_wrapper();
     test_mouse_init_work();
-    test_mouse_buffer_math();
+    test_mouse_ports_and_events();
     printf("All native kt_mouse tests passed successfully.\n");
     return 0;
 }

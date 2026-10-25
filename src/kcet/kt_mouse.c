@@ -16,14 +16,7 @@ int func_00134DE8(int a0, int a1) {
     return res;
 }
 
-typedef struct {
-    int handle;
-    int count;
-    char *buffer;
-    int flag;
-} MouseWork;
-
-extern MouseWork D_50A060;
+extern KT_MOUSE_WORK D_50A060;
 extern char D_509F00[];
 extern const char D_490820[];
 extern const char D_490830[];
@@ -438,12 +431,6 @@ int func_00135980(void) {
     return res;
 }
 
-typedef struct {
-    int f0;
-    int f4;
-    int f8;
-} MouseBlock_9B8;
-
 void func_001359B8(MouseBlock_9B8 *ptr, int val) {
     ptr->f4 = val;
     ptr->f0 = -1;
@@ -605,3 +592,4 @@ int func_00135E78(int a0, void *a1) {
     D_50A280[0] = a0;
     return func_107E08(&D_50A240, 3, 0, D_50A280, 0x20, a1, 0x20, 0, 0);
 }
+

@@ -121,11 +121,11 @@ int func_0033F280(MemoryCardScreen *self, int has_card) {
         if (count < 0) {
             count = 0;
         }
-        strcpy(buf1, func_1F6EA0(self, 0xC3BD));
+        strcpy(buf1, (char*)func_1F6EA0(self, 0xC3BD));
         if (D_004E3610 < 0) {
-            strcpy(buf2, func_1F6EA0(self, 0xC3E3));
+            strcpy(buf2, (char*)func_1F6EA0(self, 0xC3E3));
         } else {
-            strcpy(buf2, func_1F6EA0(self, 0xC3E2));
+            strcpy(buf2, (char*)func_1F6EA0(self, 0xC3E2));
             func_11A498(buf1, buf2, count);
         }
         strcat(buf1, buf2);
@@ -133,8 +133,8 @@ int func_0033F280(MemoryCardScreen *self, int has_card) {
     } else {
         self->field_840 = 0;
         self->field_848 = 0;
-        strcpy(buf1, func_1F6EA0(self, 0xC3BD));
-        strcat(buf1, func_1F6EA0(self, 0xC3E3));
+        strcpy(buf1, (char*)func_1F6EA0(self, 0xC3BD));
+        strcat(buf1, (char*)func_1F6EA0(self, 0xC3E3));
         ((VFunc_100)(*(void***)self->field_818)[64])(self->field_818, buf1, 0);
     }
 

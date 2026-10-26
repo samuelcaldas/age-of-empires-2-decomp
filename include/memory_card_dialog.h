@@ -110,6 +110,6 @@ int func_00342170(MemoryCardDialog *self, int a1, int a2, int a3, int t0);
 void func_00340C30(void *self);
 int func_00340CF0(void *self);
 int func_00219BA0(void *self);
-char *func_1F6EA0(void *self, int code);
+int func_1F6EA0(void *self, int code);
 int func_1FBD30(void *self, int a1, int a2, int a3, int t0);
 }

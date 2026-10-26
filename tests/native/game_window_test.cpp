@@ -40,7 +40,36 @@ void test_wndproc_dispatch() {
     printf("PASS: test_wndproc_dispatch\n");
 }
 
+void test_win32_window_long_management() {
+    g_wndproc = NULL;
+
+    // 1. func_002264A0 stores proc and returns 1
+    int res = func_002264A0((void *)0x12345678);
+    assert(res == 1);
+    assert(g_wndproc == (void *)0x12345678);
+
+    // 2. func_002264B0 queries GWL_WNDPROC (-4)
+    void *proc = func_002264B0(1, GWL_WNDPROC);
+    assert(proc == (void *)0x12345678);
+
+    // 2b. func_002264B0 with other index returns 1
+    void *non_wndproc = func_002264B0(1, 0);
+    assert(non_wndproc == (void *)1);
+
+    // 3. func_002264E0 replaces GWL_WNDPROC (-4) and returns old proc
+    void *old = func_002264E0(1, GWL_WNDPROC, (void *)0x87654321);
+    assert(old == (void *)0x12345678);
+    assert(g_wndproc == (void *)0x87654321);
+
+    // 3b. func_002264E0 with other index does not mutate g_wndproc
+    func_002264E0(1, 0, (void *)0x99999999);
+    assert(g_wndproc == (void *)0x87654321);
+
+    printf("PASS: test_win32_window_long_management\n");
+}
+
 int main() {
     test_wndproc_dispatch();
+    test_win32_window_long_management();
     return 0;
 }

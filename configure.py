@@ -412,13 +412,13 @@ if config.platform == Platform.PS2:
                 ),
                 Object(
                     Matching,
-                    "unit/item_creator",
+                    "core/base_list_item_creator",
                     cflags=config.cflags,
                     toolchain_version="PS2/mwcc-2.3.1.01",
                 ),
                 Object(
                     Matching,
-                    "zone/spatial_item_creator",
+                    "core/base_list_spatial_item_creator",
                     cflags=config.cflags,
                     toolchain_version="PS2/mwcc-2.3.1.01",
                 ),

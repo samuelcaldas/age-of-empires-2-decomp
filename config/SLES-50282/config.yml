@@ -218,18 +218,18 @@ segments:
     vram: 0x138a40
     subsegments:
       - [0x38c20, asm, base_list]
-  - name: item_creator
+  - name: base_list_item_creator
     type: code
     start: 0x38f30
     vram: 0x138d50
     subsegments:
-      - [0x38f30, asm, item_creator]
-  - name: spatial_item_creator
+      - [0x38f30, asm, core/base_list_item_creator]
+  - name: base_list_spatial_item_creator
     type: code
     start: 0x39170
     vram: 0x138f90
     subsegments:
-      - [0x39170, asm, spatial_item_creator]
+      - [0x39170, asm, core/base_list_spatial_item_creator]
   - name: base_list_update
     type: code
     start: 0x394a0

@@ -9,7 +9,7 @@ from pathlib import Path
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
-SOURCE_PATH = PROJECT_ROOT / "src/trade/trade_action_helper_218820.cpp"
+SOURCE_PATH = PROJECT_ROOT / "src/render/render_helper_218820.cpp"
 SOURCE_SHA256 = "97ba0194fba95fdff59333f365ecb7a67480d19f5ab574ec9c08baa243fc1369"
 CASE_COUNT = 19
 
@@ -29,8 +29,8 @@ def source_mutation(source, replacements):
 def compile_test(compiler, source_path, binary_path):
     subprocess.run(
         [compiler, "-m32", "-fno-builtin", "-Iinclude", str(source_path),
-         "tests/native/trade_action_helper_218820_support.cpp",
-         "tests/native/trade_action_helper_218820_test.cpp", "-o", str(binary_path)],
+         "src/render/render_helper_218820_support.cpp",
+         "src/render/render_helper_218820_test.cpp", "-o", str(binary_path)],
         cwd=PROJECT_ROOT, check=True, capture_output=True, text=True,
     )
 

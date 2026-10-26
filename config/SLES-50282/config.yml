@@ -4695,164 +4695,164 @@ segments:
   - name: post_aoe2
     type: bin
     start: 0xF2680
-  - name: trade_action_helper_217730
+  - name: render_helper_217730
     type: code
     start: 0x117910
     vram: 0x217730
     subsegments:
-      - [0x117910, asm, trade_action_helper_217730]
-  - name: trade_action_helper_217840
+      - [0x117910, asm, render/render_helper_217730]
+  - name: render_helper_217840
     type: code
     start: 0x117A20
     vram: 0x217840
     subsegments:
-      - [0x117A20, asm, trade_action_helper_217840]
-  - name: trade_action_helper_217930
+      - [0x117A20, asm, render/render_helper_217840]
+  - name: render_helper_217930
     type: code
     start: 0x117B10
     vram: 0x217930
     subsegments:
-      - [0x117B10, asm, trade_action_helper_217930]
+      - [0x117B10, asm, render/render_helper_217930]
   - name: post_217930
     type: bin
     start: 0x117BF0
-  - name: trade_action_helper_2181F0
+  - name: render_helper_2181F0
     type: code
     start: 0x1183D0
     vram: 0x2181F0
     subsegments:
-      - [0x1183D0, asm, trade_action_helper_2181F0]
-  - name: trade_action_helper_218350
+      - [0x1183D0, asm, render/render_helper_2181F0]
+  - name: render_helper_218350
     type: code
     start: 0x118530
     vram: 0x218350
     subsegments:
-      - [0x118530, asm, trade_action_helper_218350]
+      - [0x118530, asm, render/render_helper_218350]
       - [0x1186AC, bin]
-  - name: trade_action_helper_2184D0
+  - name: render_helper_2184D0
     type: code
     start: 0x1186B0
     vram: 0x2184D0
     subsegments:
-      - [0x1186B0, asm, trade_action_helper_2184D0]
+      - [0x1186B0, asm, render/render_helper_2184D0]
       - [0x1189F8, bin]
-  - name: trade_action_helper_218820
+  - name: render_helper_218820
     type: code
     start: 0x118A00
     vram: 0x218820
     subsegments:
-      - [0x118A00, asm, trade_action_helper_218820]
+      - [0x118A00, asm, render/render_helper_218820]
   - name: post_218820
     type: bin
     start: 0x118C40
-  - name: trade_action_helper_219040
+  - name: render_helper_219040
     type: code
     start: 0x119220
     vram: 0x219040
     subsegments:
-      - [0x119220, asm, trade_action_helper_219040]
-  - name: trade_action_helper_219380
+      - [0x119220, asm, render/render_helper_219040]
+  - name: render_helper_219380
     type: code
     start: 0x119560
     vram: 0x219380
     subsegments:
-      - [0x119560, asm, trade_action_helper_219380]
-  - name: trade_action_helper_2193D0
+      - [0x119560, asm, render/render_helper_219380]
+  - name: render_helper_2193D0
     type: code
     start: 0x1195B0
     vram: 0x2193D0
     subsegments:
-      - [0x1195B0, asm, trade_action_helper_2193D0]
-  - name: trade_action_helper_219440
+      - [0x1195B0, asm, render/render_helper_2193D0]
+  - name: render_helper_219440
     type: code
     start: 0x119620
     vram: 0x219440
     subsegments:
-      - [0x119620, asm, trade_action_helper_219440]
-  - name: trade_action_helper_2194D0
+      - [0x119620, asm, render/render_helper_219440]
+  - name: render_helper_2194D0
     type: code
     start: 0x1196B0
     vram: 0x2194D0
     subsegments:
-      - [0x1196B0, asm, trade_action_helper_2194D0]
-  - name: trade_action_helper_219530
+      - [0x1196B0, asm, render/render_helper_2194D0]
+  - name: render_helper_219530
     type: code
     start: 0x119710
     vram: 0x219530
     subsegments:
-      - [0x119710, asm, trade_action_helper_219530]
-  - name: trade_action_helper_2195C0
+      - [0x119710, asm, render/render_helper_219530]
+  - name: render_helper_2195C0
     type: code
     start: 0x1197A0
     vram: 0x2195C0
     subsegments:
-      - [0x1197A0, asm, trade_action_helper_2195C0]
-  - name: trade_action_helper_2198A0
+      - [0x1197A0, asm, render/render_helper_2195C0]
+  - name: render_helper_2198A0
     type: code
     start: 0x119A80
     vram: 0x2198A0
     subsegments:
-      - [0x119A80, asm, trade_action_helper_2198A0]
-  - name: trade_action_helper_219910
+      - [0x119A80, asm, render/render_helper_2198A0]
+  - name: render_helper_219910
     type: code
     start: 0x119AF0
     vram: 0x219910
     subsegments:
-      - [0x119AF0, asm, trade_action_helper_219910]
-  - name: trade_action_helper_219990
+      - [0x119AF0, asm, render/render_helper_219910]
+  - name: render_helper_219990
     type: code
     start: 0x119B70
     vram: 0x219990
     subsegments:
-      - [0x119B70, asm, trade_action_helper_219990]
-  - name: trade_action_helper_219AC0
+      - [0x119B70, asm, render/render_helper_219990]
+  - name: render_helper_219AC0
     type: code
     start: 0x119CA0
     vram: 0x219AC0
     subsegments:
-      - [0x119CA0, asm, trade_action_helper_219AC0]
-  - name: trade_action_helper_219C00
+      - [0x119CA0, asm, render/render_helper_219AC0]
+  - name: render_helper_219C00
     type: code
     start: 0x119DE0
     vram: 0x219C00
     subsegments:
-      - [0x119DE0, asm, trade_action_helper_219C00]
-  - name: trade_action_helper_219D30
+      - [0x119DE0, asm, render/render_helper_219C00]
+  - name: render_helper_219D30
     type: code
     start: 0x119F10
     vram: 0x219D30
     subsegments:
-      - [0x119F10, asm, trade_action_helper_219D30]
-  - name: trade_action_helper_219E00
+      - [0x119F10, asm, render/render_helper_219D30]
+  - name: render_helper_219E00
     type: code
     start: 0x119FE0
     vram: 0x219E00
     subsegments:
-      - [0x119FE0, asm, trade_action_helper_219E00]
-  - name: trade_action_helper_219F60
+      - [0x119FE0, asm, render/render_helper_219E00]
+  - name: render_helper_219F60
     type: code
     start: 0x11A140
     vram: 0x219F60
     subsegments:
-      - [0x11A140, asm, trade_action_helper_219F60]
-  - name: trade_action_helper_21A0A0
+      - [0x11A140, asm, render/render_helper_219F60]
+  - name: render_helper_21A0A0
     type: code
     start: 0x11A280
     vram: 0x21A0A0
     subsegments:
-      - [0x11A280, asm, trade_action_helper_21A0A0]
-  - name: trade_action_helper_21A190
+      - [0x11A280, asm, render/render_helper_21A0A0]
+  - name: render_helper_21A190
     type: code
     start: 0x11A370
     vram: 0x21A190
     subsegments:
-      - [0x11A370, asm, trade_action_helper_21A190]
-  - name: trade_action_helper_21A310
+      - [0x11A370, asm, render/render_helper_21A190]
+  - name: render_helper_21A310
     type: code
     start: 0x11A4F0
     vram: 0x21A310
     subsegments:
-      - [0x11A4F0, asm, trade_action_helper_21A310]
+      - [0x11A4F0, asm, render/render_helper_21A310]
   - name: render_viewport_21a520
     type: code
     start: 0x11A700

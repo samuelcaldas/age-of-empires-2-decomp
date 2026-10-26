@@ -3,15 +3,6 @@ module: kt_gpu
 source_file: src/kcet/kt_gpu.c
 header_file: include/kt_gpu.h
 
-types:
-  GpuWorkState:
-    size: 16
-    fields:
-      buffer: { offset: 0, type: "GuestAddr" }
-      count: { offset: 4, type: "s32" }
-      sema: { offset: 8, type: "s32" }
-      flags: { offset: 12, type: "s32" }
-
 functions:
   func_00125808:
     alias: ktGpuSetFrame1
@@ -68,41 +59,3 @@ functions:
     blocking: false
     memory_writes: ["Handler-specific GPU state"]
     return_type: "void"
-
-  func_00125A70:
-    role: "Resolve pad slot pointer by index from global work buffer"
-    purity: true
-    blocking: false
-    memory_writes: []
-    return_type: "void *"
-
-  func_00125AA8:
-    role: "Signal/release pad subsystem semaphore"
-    purity: false
-    blocking: false
-    memory_writes: []
-    return_type: "void"
-
-  func_00125AC8:
-    role: "Wait/acquire pad subsystem semaphore"
-    purity: false
-    blocking: true
-    memory_writes: []
-    return_type: "void"
-
-  func_00125AE8:
-    role: "Pad device close/reset notification"
-    purity: false
-    blocking: false
-    memory_writes: []
-    return_type: "void"
-
-  func_00125AF8:
-    role: "Iterate pad slots, dispatch close events and cleanup active slots"
-    purity: false
-    blocking: false
-    memory_writes: ["PadSlot struct", "D_4EA148"]
-    return_type: "int"
-    returns:
-      0: "Active slot was closed/reset"
-      1: "Iteration completed without active close or no pads"

@@ -5,8 +5,14 @@
 #include "tribe_app.h"
 
 static int s_rge_app_init_called = 0;
-extern "C" void func_184340(void *self, void *cfg, int arg) {
+static int s_rge_app_fail = 0;
+
+extern "C" void *func_184340(void *self, void *cfg, int arg) {
     s_rge_app_init_called++;
+    if (s_rge_app_fail) {
+        return NULL;
+    }
+    return self;
 }
 
 void test_tribe_app_constructor() {
@@ -31,7 +37,21 @@ void test_tribe_app_constructor() {
     printf("PASS: test_tribe_app_constructor\n");
 }
 
+void test_tribe_app_base_constructor_failure() {
+    unsigned char app_buf[0x1948];
+    memset(app_buf, 0x55, sizeof(app_buf));
+
+    s_rge_app_fail = 1;
+    void *res = func_2F61F0(app_buf, NULL, 0);
+    // Must preserve 'this' pointer in return register $v0 even on base failure
+    assert(res == app_buf);
+    s_rge_app_fail = 0;
+
+    printf("PASS: test_tribe_app_base_constructor_failure\n");
+}
+
 int main() {
     test_tribe_app_constructor();
+    test_tribe_app_base_constructor_failure();
     return 0;
 }

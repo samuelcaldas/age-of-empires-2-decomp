@@ -10,6 +10,7 @@ extern "C" {
 void *g_pApp = NULL;
 
 __attribute__((weak)) int func_00226630(const MSG *msg);
+__attribute__((weak)) int func_00300C90(void);
 
 int func_00185230(void *self) {
     if (self) {
@@ -19,6 +20,9 @@ int func_00185230(void *self) {
     memset(&msg, 0, sizeof(msg));
     if (func_00226630) {
         func_00226630(&msg);
+    }
+    if (func_00300C90) {
+        func_00300C90();
     }
     return 0;
 }
@@ -36,7 +40,7 @@ void *func_2F61F0(void *obj, void *cfg, int arg) {
         return NULL;
     }
 
-    // 1. Invoke base constructor
+    // 1. Invoke base constructor (failure must still preserve 'obj' in return)
     func_184340(obj, cfg, arg);
 
     char *self = (char *)obj;

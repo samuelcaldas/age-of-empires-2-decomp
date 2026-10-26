@@ -42,14 +42,31 @@ int func_002240B0(const char *filename, void *destination) {
     return 1;
 }
 
+#include "tribe_app.h"
+
 /* External subsystem stubs and drivers */
 extern void func_1DE9900(void);
 extern void func_1DE9B00(void);
 extern void func_25D060(int a0);
 extern void func_2249C0(int a0, void *a1, int a2);
 extern int func_224B30(void);
-extern void func_21BDF0(void);
-extern void func_21BFB0(void);
+
+static unsigned char s_tribe_app_buffer[TRIBE_APP_SIZE];
+
+void func_21BDF0(void) {
+    func_2F61F0(s_tribe_app_buffer, NULL, 1);
+}
+
+void func_21BFB0(void) {
+    if (g_pApp != NULL) {
+        void **vtable = *(void ***)g_pApp;
+        if (vtable != NULL && vtable[3] != NULL) {
+            typedef int (*EventLoopFn)(void *self);
+            EventLoopFn fn = (EventLoopFn)vtable[3];
+            fn(g_pApp);
+        }
+    }
+}
 extern void func_33B680(void);
 extern void func_1C1FD0(int a0, int a1, void *a2, int a3);
 extern void func_223DE0(void *a0, int a1, int a2, int a3, int t0, int t1, int t2, int t3);

@@ -111,8 +111,6 @@ static int s_func_2249c0_calls = 0;
 static int s_func_224b30_ready = 1;
 static int s_func_223ff0_calls = 0;
 static int s_func_25d060_calls = 0;
-static int s_func_21bdf0_calls = 0;
-static int s_func_21bfb0_calls = 0;
 static int s_func_33b680_calls = 0;
 
 void func_220E90(void) {
@@ -147,33 +145,9 @@ void func_25D060(int a0) {
     s_func_25d060_calls++;
 }
 
-/* App buffer for Phase 0x10 allocation */
-static unsigned char s_app_instance[0x1948];
-static int s_tribe_app_constructed = 0;
-
-void func_184340(void *self, void *cfg, int arg) {
-    (void)self; (void)cfg; (void)arg;
-}
-
-void func_21BDF0(void) {
-    record_call("func_21BDF0");
-    s_func_21bdf0_calls++;
-    void *app = func_2F61F0(s_app_instance, NULL, 1);
-    assert(app == s_app_instance);
-    s_tribe_app_constructed = 1;
-}
-
-void func_21BFB0(void) {
-    record_call("func_21BFB0");
-    s_func_21bfb0_calls++;
-    if (s_tribe_app_constructed) {
-        void **vtable = *(void ***)s_app_instance;
-        assert(vtable != NULL);
-        assert(vtable[3] == (void *)func_00185230);
-        typedef int (*VtableFn)(void *);
-        VtableFn fn = (VtableFn)vtable[3];
-        fn(s_app_instance);
-    }
+void *func_184340(void *self, void *cfg, int arg) {
+    (void)cfg; (void)arg;
+    return self;
 }
 
 void func_33B680(void) {
@@ -445,17 +419,20 @@ static void test_func_002206A0_init_sequence(void) {
 /* Integration Test: State Machine -> TRIBE_App Constructor -> WndProc -> SMENU */
 static int s_integ_wndproc_called = 0;
 static int s_integ_last_hwnd = 0;
+static unsigned int s_integ_last_msg = 0;
 
 static int integration_wndproc(int hwnd, unsigned int msg, unsigned int wp, long lp) {
-    (void)msg; (void)wp; (void)lp;
+    (void)wp; (void)lp;
     s_integ_wndproc_called++;
     s_integ_last_hwnd = hwnd;
+    s_integ_last_msg = msg;
     return 100;
 }
 
 static void test_full_boot_to_smenu_integration(void) {
     s_integ_wndproc_called = 0;
     s_integ_last_hwnd = 0;
+    s_integ_last_msg = 0;
     SetWindowProc((void *)integration_wndproc);
 
     g_boot_phase_init = 0;
@@ -468,30 +445,37 @@ static void test_full_boot_to_smenu_integration(void) {
     }
     assert(g_boot_phase == BOOT_PHASE_OVERLAY_ENTRY1); /* 0x10 */
 
-    /* 2. In Phase 0x10, func_00221F40 calls func_21BDF0, which allocates 0x1948 and runs func_2F61F0 */
-    s_func_21bdf0_calls = 0;
-    s_func_21bfb0_calls = 0;
-    s_tribe_app_constructed = 0;
+    /* Setup mock CDVD so smenu_cd.bin loads on second poll */
+    s_c1d0_poll_count = 0;
+    s_use_mock_c1d0 = 1;
 
+    /* 2. Execute Phase 0x10 via the real state machine func_00221F40():
+     * - calls real func_21BDF0, which allocates TRIBE_App buffer and calls func_2F61F0
+     * - func_2F61F0 sets g_pApp and binds vtable[3] = func_00185230
+     * - advances g_boot_phase to 0x11
+     * - calls real func_21BFB0, which dispatches vtable[3](g_pApp) without jumping to pc=0
+     * - func_00185230 runs message pump through func_00226630 (calling integration_wndproc)
+     * - func_00185230 calls real func_00300C90, streaming "smenu_cd.bin" into 0x01D98000 via func_002240B0
+     */
     func_00221F40();
-    assert(s_func_21bdf0_calls == 1);
-    assert(s_tribe_app_constructed == 1);
 
-    /* 3. func_21BFB0 invokes vtable[3] which routes to func_00185230 without jumping to pc=0 */
-    assert(s_func_21bfb0_calls == 1);
-    assert(g_boot_phase == BOOT_PHASE_OVERLAY_ENTRY2); /* advanced to 0x11 */
+    /* Verify TRIBE_App was constructed and bound */
+    assert(g_pApp != NULL);
+    void **vtable = *(void ***)g_pApp;
+    assert(vtable != NULL);
+    assert(vtable[3] == (void *)func_00185230);
 
-    /* 4. func_00185230 message pump dispatches messages safely through func_00226630 */
+    /* Verify virtual dispatch reached func_00185230 and invoked WndProc */
     assert(s_integ_wndproc_called == 1);
     assert(s_integ_last_hwnd == 1);
 
-    /* 5. func_00300C90 loads smenu_cd.bin into 0x01D98000 via func_002240B0 */
-    s_c1d0_poll_count = 0;
-    s_use_mock_c1d0 = 1;
-    int load_res = func_00300C90();
-    assert(load_res == 1);
+    /* Verify boot phase advanced to 0x11 */
+    assert(g_boot_phase == BOOT_PHASE_OVERLAY_ENTRY2);
+
+    /* Verify smenu_cd.bin was loaded into 0x01D98000 */
     assert(strcmp(&s_captured_request_path[4], "EN\\smenu_cd.bin") == 0);
     assert(s_cache_inv_dest == (void *)OVERLAY_LOAD_ADDR);
+
     s_use_mock_c1d0 = 0;
 
     printf("PASS: test_full_boot_to_smenu_integration\n");

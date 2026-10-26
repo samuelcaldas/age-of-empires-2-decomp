@@ -25,7 +25,18 @@ void test_smenu_loader(void) {
     printf("PASS: test_smenu_loader\n");
 }
 
+void test_multimcd_loader(void) {
+    s_overlay_read_count = 0;
+    int res = func_00300C60();
+    assert(res == 1);
+    assert(s_overlay_read_count == 2);
+    assert(strcmp(s_last_filename, "multimcd.bin") == 0);
+    assert(s_last_dest == (void *)0x01D98000);
+    printf("PASS: test_multimcd_loader\n");
+}
+
 int main(void) {
     test_smenu_loader();
+    test_multimcd_loader();
     return 0;
 }

@@ -139,7 +139,7 @@ def staging_test(tmp_path_factory):
     harness.write_text(FIXTURE, encoding="utf-8")
     binary = fixture / "staging-test"
     subprocess.run(
-        [compiler, "-m32", "-Iinclude", "src/trade/trade_action_helper_217730.cpp",
+        [compiler, "-m32", "-Iinclude", "src/render/render_helper_217730.cpp",
          str(harness), "-o", str(binary)],
         cwd=PROJECT_ROOT, check=True, capture_output=True, text=True,
     )
@@ -158,7 +158,7 @@ def test_staging_helper_flag_mutant_fails_expected_assertion(staging_test, tmp_p
     """Reject a zero-flag mutant at the native ABI assertion for each case."""
     compiler = shutil.which("g++")
     assert compiler is not None
-    source = PROJECT_ROOT / "src/trade/trade_action_helper_217730.cpp"
+    source = PROJECT_ROOT / "src/render/render_helper_217730.cpp"
     changed = source.read_text().replace(
         "func_00217B50(self, 1);", "func_00217B50(self, 0);", 1
     )

@@ -37,7 +37,7 @@ def trade_action_helpers_test(tmp_path_factory):
     binary = fixture_directory / "trade-action-helpers-test"
     subprocess.run(
         [compiler, "-m32", "-fno-builtin", "-Iinclude",
-         "src/trade/trade_action_helper_217840.cpp",
+         "src/render/render_helper_217840.cpp",
          "tests/native/trade_action_helpers_217840_test.cpp", "-o", str(binary)],
         cwd=PROJECT_ROOT,
         check=True,

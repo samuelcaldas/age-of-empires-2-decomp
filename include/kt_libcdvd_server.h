@@ -107,7 +107,7 @@ void *func_0012BFB8(void *a0, void *a1, void *a2, void *a3);
 void *func_0012BFF0(void *a0, void *a1, void *a2, void *a3);
 void *func_0012C060(void *a0, void *a1, void *a2, void *a3);
 void *func_0012C068(void *a0, void *a1, void *a2, void *a3);
-void *func_0012C128(void *a0, void *a1, void *a2, void *a3);
+void *func_0012C128(void *a0, void *a1, void *a2, void *a3, void *t0, void *t1, void *t2, void *t3);
 void *func_0012C1D0(void *a0, void *a1, void *a2, void *a3);
 void *func_0012C240(void *a0, void *a1, void *a2, void *a3);
 void *func_0012C2B0(void *a0, void *a1, void *a2, void *a3);
@@ -173,5 +173,6 @@ void *func_0012CCD8(void *a0, void *a1, void *a2, void *a3);
 #define ktCdServerValidatePrefixZero      func_0012CC58
 #define ktCdServerValidatePrefixAt        func_0012CC78
 #define ktCdServerPackHeader64            func_0012CC98
+#define ktCdServerRequestRead             func_0012C1D0
 
 #endif /* KT_LIBCDVD_SERVER_H */

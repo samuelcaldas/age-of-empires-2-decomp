@@ -93,7 +93,7 @@ extern void *func_00129548(void *a0, ...);
 extern void *func_00129560(void *a0, ...);
 extern void *func_00129588(void *a0, ...);
 extern void *func_0012B8A8(void *a0, ...);
-extern void *func_00134DE8(void *a0, ...);
+/* extern void *func_00134DE8 declared in kt_mouse.h */
 extern void *func_103358(void *a0, ...);
 extern void *func_104A00(void *a0, ...);
 extern void *func_104D70(void *a0, ...);
@@ -1622,7 +1622,7 @@ _lbl_L00129F4C:
 }
 
 /* func_00129F58 */
-void *func_00129F58(void *a0, void *a1, void *a2, void *a3) {
+WEAK void *func_00129F58(void *a0, void *a1, void *a2, void *a3) {
     (void)a0; (void)a1; (void)a2; (void)a3;
     return (void *)(long)*(int *)(0x4F0000 - 0x2CF0);
 }
@@ -1638,7 +1638,7 @@ void *func_00129F68(void *a0, void *a1, void *a2, void *a3) {
 }
 
 /* func_00129FD0 */
-void *func_00129FD0(void *a0, void *a1, void *a2, void *a3) {
+WEAK void *func_00129FD0(void *a0, void *a1, void *a2, void *a3) {
     (void)a0; (void)a1; (void)a2; (void)a3;
     return (void *)(long)*(int *)(0x4F0000 - 0x2CE8);
 }
@@ -3687,7 +3687,7 @@ void *func_0012AC78(void *a0, void *a1, void *a2, void *a3) {
     }
     r_s0 = (long)(r_s0 + (0x34));
     r_a0 = (long)(0 + (0x3));
-    r_v0 = (long)func_00134DE8((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_v0 = (long)func_00134DE8((int)r_a0, (int)r_a1);
     r_v1 = (long)(0 + (-0x1));
     if (r_s0) {
         *(int *)((char *)r_s0 + (0x40)) = (int)r_v1;
@@ -6957,11 +6957,12 @@ _lbl_L0012C0F0:
 }
 
 /* func_0012C128 */
-void *func_0012C128(void *a0, void *a1, void *a2, void *a3) {
+WEAK void *func_0012C128(void *a0, void *a1, void *a2, void *a3, void *t0, void *t1, void *t2, void *t3) {
     long r_v0 = 0, r_v1 = 0;
     long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
+    long r_t0 = (long)t0, r_t1 = (long)t1, r_t2 = (long)t2, r_t3 = (long)t3;
     long r_ra = 0, r_gp = 0;
-    long r_s0 = 0, r_s1 = 0, r_s2 = 0, r_s3 = 0, r_s4 = 0, r_s5 = 0, r_s6 = 0, r_s7 = 0, r_t0 = 0, r_t1 = 0, r_t2 = 0, r_t3 = 0;
+    long r_s0 = 0, r_s1 = 0, r_s2 = 0, r_s3 = 0, r_s4 = 0, r_s5 = 0, r_s6 = 0, r_s7 = 0;
     unsigned char stack_mem[256];
     long r_sp = (long)stack_mem + 128;
     (void)r_v0;
@@ -7067,80 +7068,12 @@ void *func_0012C128(void *a0, void *a1, void *a2, void *a3) {
     return (void *)r_v0;
 }
 
-/* func_0012C1D0 */
-void *func_0012C1D0(void *a0, void *a1, void *a2, void *a3) {
-    long r_v0 = 0, r_v1 = 0;
-    long r_a0 = (long)a0, r_a1 = (long)a1, r_a2 = (long)a2, r_a3 = (long)a3;
-    long r_ra = 0, r_gp = 0;
-    long r_s0 = 0, r_s1 = 0, r_s2 = 0, r_s3 = 0, r_t0 = 0, r_t1 = 0, r_t2 = 0, r_t3 = 0;
-    unsigned char stack_mem[256];
-    long r_sp = (long)stack_mem + 128;
-    (void)r_v0;
-    (void)r_v1;
-    (void)r_a0;
-    (void)r_a1;
-    (void)r_a2;
-    (void)r_a3;
-    (void)r_sp;
-    (void)r_ra;
-    (void)r_gp;
-    (void)r_s0;
-    (void)r_s1;
-    (void)r_s2;
-    (void)r_s3;
-    (void)r_t0;
-    (void)r_t1;
-    (void)r_t2;
-    (void)r_t3;
-    r_sp = (long)(r_sp + (-0x50));
-    if (r_sp) {
-        *(long *)((char *)r_sp + (0x30)) = (long)r_s3;
-    }
-    if (r_sp) {
-        *(long *)((char *)r_sp + (0x20)) = (long)r_s2;
-    }
-    r_s3 = (long)(r_a2 + 0);
-    if (r_sp) {
-        *(long *)((char *)r_sp + (0x10)) = (long)r_s1;
-    }
-    r_s2 = (long)(r_a1 + 0);
-    if (r_sp) {
-        *(long *)((char *)r_sp + (0x0)) = (long)r_s0;
-    }
-    if (r_sp) {
-        *(long *)((char *)r_sp + (0x40)) = (long)r_ra;
-    }
-    r_s1 = (long)(r_a0 + 0);
-    r_v0 = (long)func_00129F58((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
-    r_s0 = (long)(r_v0 + 0);
-    r_v0 = (long)func_00129FD0((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
-    r_a0 = (long)(r_s1 + 0);
-    r_a1 = (long)(r_s2 + 0);
-    r_a2 = (long)(r_s3 + 0);
-    r_t1 = (long)(r_s0 + 0);
-    r_t2 = (long)(r_v0 + 0);
-    r_a3 = (long)(0 + 0);
-    r_t0 = (long)(0 + 0);
-    r_t3 = (long)(0 + (0x1));
-    r_v0 = (long)func_0012C128((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
-    if (r_sp) {
-        r_ra = *(long *)((char *)r_sp + (0x40));
-    }
-    if (r_sp) {
-        r_s3 = *(long *)((char *)r_sp + (0x30));
-    }
-    if (r_sp) {
-        r_s2 = *(long *)((char *)r_sp + (0x20));
-    }
-    if (r_sp) {
-        r_s1 = *(long *)((char *)r_sp + (0x10));
-    }
-    if (r_sp) {
-        r_s0 = *(long *)((char *)r_sp + (0x0));
-    }
-    r_sp = (long)(r_sp + (0x50));
-    return (void *)r_v0;
-    return (void *)r_v0;
+/* 0x0012C1D0 : ktCdServerRequestRead */
+WEAK void *func_0012C1D0(void *a0, void *a1, void *a2, void *a3) {
+    (void)a3;
+    void *token1 = func_00129F58(NULL, NULL, NULL, NULL);
+    void *token2 = func_00129FD0(NULL, NULL, NULL, NULL);
+    return func_0012C128(a0, a1, a2, NULL, NULL, token1, token2, (void *)1);
 }
 
 /* func_0012C240 */
@@ -7198,7 +7131,8 @@ void *func_0012C240(void *a0, void *a1, void *a2, void *a3) {
     r_a3 = (long)(0 + 0);
     r_t0 = (long)(0 + 0);
     r_t3 = (long)(0 + 0);
-    r_v0 = (long)func_0012C128((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3);
+    r_v0 = (long)func_0012C128((void *)r_a0, (void *)r_a1, (void *)r_a2, (void *)r_a3,
+                               (void *)r_t0, (void *)r_t1, (void *)r_t2, (void *)r_t3);
     if (r_sp) {
         r_ra = *(long *)((char *)r_sp + (0x40));
     }
@@ -8824,7 +8758,7 @@ void *func_0012CBE8(void *a0, void *a1, void *a2, void *a3) {
 int func_0012CBF8(const unsigned char *data) {
     int value = 0;
     /* Avoid null-pointer arithmetic while preserving target address calculation. */
-    const unsigned char *payload = (const unsigned char *)((unsigned long long)data + 2);
+    const unsigned char *payload = (data != NULL) ? (data + 2) : NULL;
     if (data) {
         value = payload[0] + ((unsigned int)payload[1] << 8);
     }

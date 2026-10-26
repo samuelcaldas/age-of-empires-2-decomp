@@ -4,6 +4,9 @@
 #include <assert.h>
 #include "game_thread.h"
 #include "kt_libcdvd_server.h"
+#include "game_window.h"
+#include "smenu_loader.h"
+#include "tribe_app.h"
 
 /* Trace / Mock structures */
 static int s_cdvd_request_called = 0;
@@ -108,8 +111,6 @@ static int s_func_2249c0_calls = 0;
 static int s_func_224b30_ready = 1;
 static int s_func_223ff0_calls = 0;
 static int s_func_25d060_calls = 0;
-static int s_func_21bdf0_calls = 0;
-static int s_func_21bfb0_calls = 0;
 static int s_func_33b680_calls = 0;
 
 void func_220E90(void) {
@@ -144,14 +145,9 @@ void func_25D060(int a0) {
     s_func_25d060_calls++;
 }
 
-void func_21BDF0(void) {
-    record_call("func_21BDF0");
-    s_func_21bdf0_calls++;
-}
-
-void func_21BFB0(void) {
-    record_call("func_21BFB0");
-    s_func_21bfb0_calls++;
+void *func_184340(void *self, void *cfg, int arg) {
+    (void)cfg; (void)arg;
+    return self;
 }
 
 void func_33B680(void) {
@@ -210,6 +206,11 @@ void func_1DE9B00(void) {
     record_call("func_1DE9B00");
     s_overlay_entry2_called++;
 }
+
+/* Include C modules directly to enable single-command hermetic build */
+#include "../../src/kcet/game_window.c"
+#include "../../src/kcet/smenu_loader.c"
+#include "../../src/app/tribe_app.cpp"
 
 /* Red Test: Check presence and basic symbols */
 static void test_initial_signatures_and_constants(void) {
@@ -415,6 +416,71 @@ static void test_func_002206A0_init_sequence(void) {
     printf("PASS: test_func_002206A0_init_sequence\n");
 }
 
+/* Integration Test: State Machine -> TRIBE_App Constructor -> WndProc -> SMENU */
+static int s_integ_wndproc_called = 0;
+static int s_integ_last_hwnd = 0;
+static unsigned int s_integ_last_msg = 0;
+
+static int integration_wndproc(int hwnd, unsigned int msg, unsigned int wp, long lp) {
+    (void)wp; (void)lp;
+    s_integ_wndproc_called++;
+    s_integ_last_hwnd = hwnd;
+    s_integ_last_msg = msg;
+    return 100;
+}
+
+static void test_full_boot_to_smenu_integration(void) {
+    s_integ_wndproc_called = 0;
+    s_integ_last_hwnd = 0;
+    s_integ_last_msg = 0;
+    SetWindowProc((void *)integration_wndproc);
+
+    g_boot_phase_init = 0;
+    g_boot_phase = 0;
+    g_boot_subphase = 0;
+
+    /* 1. func_00221F40 advances through subphases to Phase 0x10 */
+    while (g_boot_phase < BOOT_PHASE_OVERLAY_ENTRY1) {
+        func_00221F40();
+    }
+    assert(g_boot_phase == BOOT_PHASE_OVERLAY_ENTRY1); /* 0x10 */
+
+    /* Setup mock CDVD so smenu_cd.bin loads on second poll */
+    s_c1d0_poll_count = 0;
+    s_use_mock_c1d0 = 1;
+
+    /* 2. Execute Phase 0x10 via the real state machine func_00221F40():
+     * - calls real func_21BDF0, which allocates TRIBE_App buffer and calls func_2F61F0
+     * - func_2F61F0 sets g_pApp and binds vtable[3] = func_00185230
+     * - advances g_boot_phase to 0x11
+     * - calls real func_21BFB0, which dispatches vtable[3](g_pApp) without jumping to pc=0
+     * - func_00185230 runs message pump through func_00226630 (calling integration_wndproc)
+     * - func_00185230 calls real func_00300C90, streaming "smenu_cd.bin" into 0x01D98000 via func_002240B0
+     */
+    func_00221F40();
+
+    /* Verify TRIBE_App was constructed and bound */
+    assert(g_pApp != NULL);
+    void **vtable = *(void ***)g_pApp;
+    assert(vtable != NULL);
+    assert(vtable[3] == (void *)func_00185230);
+
+    /* Verify virtual dispatch reached func_00185230 and invoked WndProc */
+    assert(s_integ_wndproc_called == 1);
+    assert(s_integ_last_hwnd == 1);
+
+    /* Verify boot phase advanced to 0x11 */
+    assert(g_boot_phase == BOOT_PHASE_OVERLAY_ENTRY2);
+
+    /* Verify smenu_cd.bin was loaded into 0x01D98000 */
+    assert(strcmp(&s_captured_request_path[4], "EN\\smenu_cd.bin") == 0);
+    assert(s_cache_inv_dest == (void *)OVERLAY_LOAD_ADDR);
+
+    s_use_mock_c1d0 = 0;
+
+    printf("PASS: test_full_boot_to_smenu_integration\n");
+}
+
 int main(void) {
     test_initial_signatures_and_constants();
     test_func_0012C1D0_packaging();
@@ -423,6 +489,7 @@ int main(void) {
     test_func_002221A0_phase12_handoff();
     test_game_thread_loop_order();
     test_func_002206A0_init_sequence();
+    test_full_boot_to_smenu_integration();
     printf("All game_thread tests passed successfully!\n");
     return 0;
 }

@@ -1,4 +1,4 @@
-"""Native semantic regressions for trade_action_helper_21BFD0."""
+"""Native semantic regressions for render_packet_builder_21c410."""
 
 from pathlib import Path
 import shutil
@@ -9,21 +9,21 @@ import pytest
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 CASES = [
-    ("0", "func_0021BFD0 packet construction and register 0x08 write"),
-    ("1", "func_0021C050 packet construction and register 0x3F write"),
-    ("2", "func_0021C0D0 packet construction and register 0x42 bitfield write"),
-    ("3", "func_0021C1D0 packet construction and register 0x43 bitfield write"),
-    ("4", "func_0021C2D0 packet construction and register 0x48 bitfield write"),
+    ("0", "func_0021C410 packet construction and register 0x4A zero-extended write"),
+    ("1", "func_0021C4A0 packet construction and register 0x4B zero-extended write"),
+    ("2", "func_0021C530 packet construction and register 0x4D 4-field bitfield write"),
+    ("3", "func_0021C610 packet construction and register 0x48 direct write"),
+    ("4", "func_0021C690 packet construction and register 0x41 direct write"),
 ]
 
 
 @pytest.fixture(scope="module")
-def helper_21BFD0_test(tmp_path_factory):
-    """Compile trade_action_helper_21BFD0 with test harness."""
+def helper_21C410_test(tmp_path_factory):
+    """Compile render_packet_builder_21c410 with test harness."""
     compiler = shutil.which("g++")
     if compiler is None:
-        pytest.skip("trade_action_helper_21BFD0 tests require g++")
-    fixture = tmp_path_factory.mktemp("helper-21BFD0")
+        pytest.skip("render_packet_builder_21c410 tests require g++")
+    fixture = tmp_path_factory.mktemp("helper-21C410")
     probe = subprocess.run(
         [compiler, "-m32", "-x", "c++", "-", "-o", str(fixture / "probe")],
         input="#include <cstddef>\nint main() { static_assert(sizeof(void *) == 4); }\n",
@@ -31,11 +31,11 @@ def helper_21BFD0_test(tmp_path_factory):
     )
     if probe.returncode:
         pytest.skip(f"native 32-bit g++ unavailable: {probe.stderr.strip()}")
-    binary = fixture / "helper-21BFD0-test"
+    binary = fixture / "helper-21C410-test"
     subprocess.run(
         [compiler, "-m32", "-fno-builtin", "-Iinclude",
-         "src/trade/trade_action_helper_21BFD0.cpp",
-         "tests/native/trade_action_helper_21BFD0_test.cpp",
+         "src/render/render_packet_builder_21c410.cpp",
+         "tests/native/render_packet_builder_21c410_test.cpp",
          "-o", str(binary)],
         cwd=PROJECT_ROOT, check=True, capture_output=True, text=True,
     )
@@ -43,10 +43,10 @@ def helper_21BFD0_test(tmp_path_factory):
 
 
 @pytest.mark.parametrize("case,description", CASES, ids=[case[1] for case in CASES])
-def test_helper_21BFD0_behavior(helper_21BFD0_test, case, description):
+def test_helper_21C410_behavior(helper_21C410_test, case, description):
     """Run each behavior in an isolated native process."""
     result = subprocess.run(
-        [str(helper_21BFD0_test), case], capture_output=True, text=True,
+        [str(helper_21C410_test), case], capture_output=True, text=True,
     )
     assert result.returncode == 0, f"stderr: {result.stderr}, stdout: {result.stdout}"
     assert "PASS" in result.stdout

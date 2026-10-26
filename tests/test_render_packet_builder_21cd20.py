@@ -1,4 +1,4 @@
-"""Native semantic regressions for trade_action_helper_21CD20."""
+"""Native semantic regressions for render_packet_builder_21cd20."""
 
 from pathlib import Path
 import shutil
@@ -16,10 +16,10 @@ CASES = [
 
 @pytest.fixture(scope="module")
 def helper_21CD20_test(tmp_path_factory):
-    """Compile trade_action_helper_21CD20 with test harness."""
+    """Compile render_packet_builder_21cd20 with test harness."""
     compiler = shutil.which("g++")
     if compiler is None:
-        pytest.skip("trade_action_helper_21CD20 tests require g++")
+        pytest.skip("render_packet_builder_21cd20 tests require g++")
     fixture = tmp_path_factory.mktemp("helper-21CD20")
     probe = subprocess.run(
         [compiler, "-m32", "-x", "c++", "-", "-o", str(fixture / "probe")],
@@ -31,8 +31,8 @@ def helper_21CD20_test(tmp_path_factory):
     binary = fixture / "helper-21CD20-test"
     subprocess.run(
         [compiler, "-m32", "-fno-builtin", "-Iinclude",
-         "src/trade/trade_action_helper_21CD20.cpp",
-         "tests/native/trade_action_helper_21CD20_test.cpp",
+         "src/render/render_packet_builder_21cd20.cpp",
+         "tests/native/render_packet_builder_21cd20_test.cpp",
          "-o", str(binary)],
         cwd=PROJECT_ROOT, check=True, capture_output=True, text=True,
     )

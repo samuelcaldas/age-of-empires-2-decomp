@@ -5,7 +5,7 @@
 #include "game_thread.h"
 #include "kt_libcdvd_server.h"
 #include "game_window.h"
-#include "smenu_loader.h"
+#include "overlay_loader.h"
 #include "tribe_app.h"
 
 /* Trace / Mock structures */
@@ -209,7 +209,7 @@ void func_1DE9B00(void) {
 
 /* Include C modules directly to enable single-command hermetic build */
 #include "../../src/kcet/game_window.c"
-#include "../../src/kcet/smenu_loader.c"
+#include "../../src/kcet/overlay_loader.c"
 #include "../../src/app/tribe_app.cpp"
 
 /* Red Test: Check presence and basic symbols */

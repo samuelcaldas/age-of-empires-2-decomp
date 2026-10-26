@@ -4907,48 +4907,48 @@ segments:
     vram: 0x21B130
     subsegments:
       - [0x11B310, asm, trade_action_helper_21B130]
-  - name: trade_action_helper_21B300
+  - name: render_palette_helper_21b300
     type: code
     start: 0x11B4E0
     vram: 0x21B300
     subsegments:
-      - [0x11B4E0, asm, trade_action_helper_21B300]
-  - name: trade_action_helper_21B440
+      - [0x11B4E0, asm, render/render_palette_helper_21b300]
+  - name: render_palette_helper_21b440
     type: code
     start: 0x11B620
     vram: 0x21B440
     subsegments:
-      - [0x11B620, asm, trade_action_helper_21B440]
-  - name: trade_action_helper_21B640
+      - [0x11B620, asm, render/render_palette_helper_21b440]
+  - name: render_palette_helper_21b640
     type: code
     start: 0x11B820
     vram: 0x21B640
     subsegments:
-      - [0x11B820, asm, trade_action_helper_21B640]
-  - name: trade_action_helper_21B7B0
+      - [0x11B820, asm, render/render_palette_helper_21b640]
+  - name: render_palette_helper_21b7b0
     type: code
     start: 0x11B990
     vram: 0x21B7B0
     subsegments:
-      - [0x11B990, asm, trade_action_helper_21B7B0]
-  - name: trade_action_helper_21B880
+      - [0x11B990, asm, render/render_palette_helper_21b7b0]
+  - name: render_palette_helper_21b880
     type: code
     start: 0x11BA60
     vram: 0x21B880
     subsegments:
-      - [0x11BA60, asm, trade_action_helper_21B880]
-  - name: trade_action_helper_21BAE0
+      - [0x11BA60, asm, render/render_palette_helper_21b880]
+  - name: render_palette_helper_21bae0
     type: code
     start: 0x11BCC0
     vram: 0x21BAE0
     subsegments:
-      - [0x11BCC0, asm, trade_action_helper_21BAE0]
-  - name: trade_action_helper_21BC30
+      - [0x11BCC0, asm, render/render_palette_helper_21bae0]
+  - name: render_drs_loader_21bc30
     type: code
     start: 0x11BE10
     vram: 0x21BC30
     subsegments:
-      - [0x11BE10, asm, trade_action_helper_21BC30]
+      - [0x11BE10, asm, render/render_drs_loader_21bc30]
   - name: render_manager_init_21bdf0
     type: code
     start: 0x11BFD0

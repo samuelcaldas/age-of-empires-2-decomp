@@ -1,4 +1,4 @@
-"""Native semantic regressions for trade_action_helper_21B300."""
+"""Native semantic regressions for render_palette_helper_21b440."""
 
 from pathlib import Path
 import shutil
@@ -9,19 +9,19 @@ import pytest
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 CASES = [
-    ("0", "func_0021B300 coords storage and downstream palette calls"),
-    ("1", "func_0021B3C0, func_0021B3D0 and field 0 reset routines"),
-    ("2", "func_0021B3E0 palette slot allocation from D_00C5C700"),
+    ("0", "func_0021B440 copy palette entries to buffer"),
+    ("1", "func_0021B4C0 set palette entries with transparent alpha and upload"),
+    ("2", "func_0021B560 PS2 GS CLUT bit 3/4 swizzling verification"),
 ]
 
 
 @pytest.fixture(scope="module")
-def helper_21B300_test(tmp_path_factory):
-    """Compile trade_action_helper_21B300 with test harness."""
+def helper_21B440_test(tmp_path_factory):
+    """Compile render_palette_helper_21b440 with test harness."""
     compiler = shutil.which("g++")
     if compiler is None:
-        pytest.skip("trade_action_helper_21B300 tests require g++")
-    fixture = tmp_path_factory.mktemp("helper-21B300")
+        pytest.skip("render_palette_helper_21b440 tests require g++")
+    fixture = tmp_path_factory.mktemp("helper-21B440")
     probe = subprocess.run(
         [compiler, "-m32", "-x", "c++", "-", "-o", str(fixture / "probe")],
         input="#include <cstddef>\nint main() { static_assert(sizeof(void *) == 4); }\n",
@@ -29,11 +29,11 @@ def helper_21B300_test(tmp_path_factory):
     )
     if probe.returncode:
         pytest.skip(f"native 32-bit g++ unavailable: {probe.stderr.strip()}")
-    binary = fixture / "helper-21B300-test"
+    binary = fixture / "helper-21B440-test"
     subprocess.run(
         [compiler, "-m32", "-fno-builtin", "-Iinclude",
-         "src/trade/trade_action_helper_21B300.cpp",
-         "tests/native/trade_action_helper_21B300_test.cpp",
+         "src/render/render_palette_helper_21b440.cpp",
+         "tests/native/render_palette_helper_21b440_test.cpp",
          "-o", str(binary)],
         cwd=PROJECT_ROOT, check=True, capture_output=True, text=True,
     )
@@ -41,10 +41,10 @@ def helper_21B300_test(tmp_path_factory):
 
 
 @pytest.mark.parametrize("case,description", CASES, ids=[case[1] for case in CASES])
-def test_helper_21B300_behavior(helper_21B300_test, case, description):
+def test_helper_21B440_behavior(helper_21B440_test, case, description):
     """Run each behavior in an isolated native process."""
     result = subprocess.run(
-        [str(helper_21B300_test), case], capture_output=True, text=True,
+        [str(helper_21B440_test), case], capture_output=True, text=True,
     )
     assert result.returncode == 0, f"stderr: {result.stderr}, stdout: {result.stdout}"
     assert "PASS" in result.stdout

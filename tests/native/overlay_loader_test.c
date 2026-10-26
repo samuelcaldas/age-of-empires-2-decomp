@@ -45,6 +45,12 @@ int func_002240B0(const char *filename, void *dest) {
         s_last_dests[5] = dest;
         return (s_poll_counts[5] >= 2) ? 1 : 0;
     }
+    if (strcmp(filename, "dcomp_cd.bin") == 0) {
+        s_poll_counts[6]++;
+        s_last_files[6] = filename;
+        s_last_dests[6] = dest;
+        return (s_poll_counts[6] >= 2) ? 1 : 0;
+    }
     return 1;
 }
 
@@ -54,6 +60,9 @@ static void *s_last_36cc40_handle = NULL;
 static int s_rmmmem_entry_called = 0;
 static int s_hist_entry_called = 0;
 static int s_func_257e40_called = 0;
+
+static int s_dcomp_init_called = 0;
+static int s_dcomp_dispatch_called = 0;
 
 void *mock_mo_ov_entry(void) {
     s_mo_ov_entry_called++;
@@ -75,6 +84,14 @@ void mock_hist_entry(void) {
 void func_257E40(void *ctx) {
     (void)ctx;
     s_func_257e40_called++;
+}
+
+void mock_dcomp_init(void) {
+    s_dcomp_init_called++;
+}
+
+void mock_dcomp_dispatch(void) {
+    s_dcomp_dispatch_called++;
 }
 
 void test_standalone_streamers(void) {
@@ -139,8 +156,44 @@ void test_dynamic_invokers(void) {
     printf("PASS: test_dynamic_invokers\n");
 }
 
+void test_dcomp_loaders(void) {
+    g_dcomp_init = mock_dcomp_init;
+    g_dcomp_dispatch = mock_dcomp_dispatch;
+
+    // 1. func_00226DE0
+    g_dcomp_ptr = NULL;
+    s_poll_counts[6] = 0;
+    func_00226DE0();
+    assert(s_poll_counts[6] == 2);
+    assert(s_last_dests[6] == (void *)0x01D98000);
+    assert(g_dcomp_ptr == (void *)DCOMP_OVERLAY_PTR);
+
+    // 2. func_00226FA0 with g_dcomp_loaded == 0
+    g_dcomp_loaded = 0;
+    g_dcomp_ptr = NULL;
+    s_poll_counts[6] = 0;
+    s_dcomp_init_called = 0;
+    s_dcomp_dispatch_called = 0;
+
+    func_00226FA0();
+    assert(s_poll_counts[6] == 2);
+    assert(g_dcomp_loaded == 1);
+    assert(g_dcomp_ptr == (void *)DCOMP_OVERLAY_PTR);
+    assert(s_dcomp_init_called == 1);
+    assert(s_dcomp_dispatch_called == 1);
+
+    // 3. func_00226FA0 with g_dcomp_loaded == 1 (cached, skips func_002240B0)
+    func_00226FA0();
+    assert(s_poll_counts[6] == 2); // unchanged, no reload
+    assert(s_dcomp_init_called == 1); // init not called again
+    assert(s_dcomp_dispatch_called == 2); // dispatch called
+
+    printf("PASS: test_dcomp_loaders\n");
+}
+
 int main(void) {
     test_standalone_streamers();
     test_dynamic_invokers();
+    test_dcomp_loaders();
     return 0;
 }

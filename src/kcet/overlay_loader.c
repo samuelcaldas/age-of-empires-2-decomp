@@ -97,3 +97,34 @@ int func_00258E40(void *context) {
     }
     return 1;
 }
+
+/*
+ * 0x00226DE0
+ * Streams dcomp_cd.bin into 0x01D98000 and assigns g_dcomp_ptr = 0x01E58000
+ */
+void func_00226DE0(void) {
+    while (!func_002240B0("dcomp_cd.bin", (void *)OVERLAY_LOAD_ADDR)) {
+    }
+    g_dcomp_ptr = (void *)DCOMP_OVERLAY_PTR;
+}
+
+/*
+ * 0x00226FA0
+ * Checks if dcomp is loaded. If not, streams dcomp_cd.bin into 0x01D98000,
+ * sets g_dcomp_loaded = 1, sets g_dcomp_ptr = 0x01E58000, and calls init.
+ * Then executes dispatch entry point.
+ */
+void func_00226FA0(void) {
+    if (!g_dcomp_loaded) {
+        while (!func_002240B0("dcomp_cd.bin", (void *)OVERLAY_LOAD_ADDR)) {
+        }
+        g_dcomp_loaded = 1;
+        g_dcomp_ptr = (void *)DCOMP_OVERLAY_PTR;
+        if (g_dcomp_init != NULL) {
+            g_dcomp_init();
+        }
+    }
+    if (g_dcomp_dispatch != NULL) {
+        g_dcomp_dispatch();
+    }
+}

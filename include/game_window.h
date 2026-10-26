@@ -15,9 +15,18 @@ typedef struct MSG {
     int pt_y;
 } MSG;
 
+#define GWL_WNDPROC (-4)
+
 extern void *g_wndproc;
 
+int func_002264A0(void *proc);
+void *func_002264B0(int hwnd, int nIndex);
+void *func_002264E0(int hwnd, int nIndex, void *newVal);
 int func_00226630(const MSG *msg);
+
+#define RegisterWndProc func_002264A0
+#define GetWindowLongA func_002264B0
+#define SetWindowLongA func_002264E0
 void *SetWindowProc(void *proc);
 void *GetWindowProc(void);
 

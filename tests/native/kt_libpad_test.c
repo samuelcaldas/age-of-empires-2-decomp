@@ -50,6 +50,8 @@ int func_134500(int a) { return 0; }
 
 static int s_mock_mode_query_count = 0;
 static int s_mock_first_mode_call_offset = -999;
+static int s_mock_mode_offsets[4];
+static int s_mock_chained_mode_queries = 0;
 
 int func_10D6C0(int port, int slot, int type, ...) {
     va_list ap;
@@ -57,10 +59,20 @@ int func_10D6C0(int port, int slot, int type, ...) {
     s_mock_mode_query_count++;
     if (type == 4) {
         int off = va_arg(ap, int);
+        if (s_mock_mode_query_count <= 4) {
+            s_mock_mode_offsets[s_mock_mode_query_count - 1] = off;
+        }
         if (s_mock_mode_query_count == 1) {
             s_mock_first_mode_call_offset = off;
         }
         va_end(ap);
+        if (s_mock_chained_mode_queries) {
+            if (off == 0) return 0x73;
+            if (off == 0x73) return 0x79;
+            if (off == 0x79) return 1;
+            if (off == 1) return 0x73;
+            return 0;
+        }
         if (off == -1) {
             return 2; /* 2 modes in table */
         }
@@ -77,6 +89,7 @@ int func_10D6C0(int port, int slot, int type, ...) {
 }
 
 int func_001285F8(int port, int slot, int type);
+int func_00127900(PadSlot *p);
 
 static void test_mode_info_query_conventions(void) {
     s_mock_mode_query_count = 0;
@@ -116,6 +129,7 @@ void func_00125AA8(void);
 void func_00125AC8(void);
 int func_001275A0(PadSlot *p);
 void func_001273D8(PadSlot *p);
+void func_00126810(int pad_number, u8 *align_table);
 void func_00127820(PadSlot *p);
 int func_001285F8(int port, int slot, int type);
 PadSlot *func_00125A70(int idx);
@@ -162,11 +176,13 @@ static void test_actuator_desc_call_convention(void) {
     assert(s_mock_act_last_args[2] == 0); /* actuator index */
     assert(s_mock_act_last_args[3] == 4); /* term: 4th term */
 }
-int func_10D968(void) { return 0; }
+static int s_mock_align_result = 0;
+int func_10D968(void) { return s_mock_align_result; }
 int func_10D8B0(void) { return 0; }
 int func_10D7F8(void) { return 0; }
 int func_10D3F8(int a, int b) { return 0; }
-int func_10DBA8(void) { return 0; }
+static int s_mock_10DBA8_result = 0;
+int func_10DBA8(int port, int slot) { return s_mock_10DBA8_result; }
 int func_116F68(int a) { return 0; }
 int func_128D30(int a, int b, int c, int d) { return 0; }
 int func_104B60(int a) { return 0; }
@@ -333,6 +349,144 @@ static void test_pad_read_fill_and_return(void) {
     }
 }
 
+int func_001281C0(PadSlot *p);
+
+static void test_successful_alignment_preserves_success_result(void) {
+    PadSlot slot;
+    memset(&slot, 0, sizeof(slot));
+    slot.flags = 0x20010;
+    slot.port = 0;
+    slot.slot = 0;
+    slot.unk_1C[0] = 1;
+    s_mock_align_result = 1;
+
+    assert(func_001281C0(&slot) == 1);
+    assert((slot.flags & 0x10) == 0);
+    s_mock_align_result = 0;
+}
+
+static void test_mode_info_queries_chain_returned_offsets(void) {
+    PadSlot slot;
+    memset(&slot, 0, sizeof(slot));
+    slot.port = 0;
+    slot.slot = 0;
+    s_mock_mode_query_count = 0;
+    s_mock_chained_mode_queries = 1;
+
+    assert(func_00127900(&slot) == 1);
+    assert(slot.unk_34 == 0x73017973);
+    assert(s_mock_mode_offsets[0] == 0);
+    assert(s_mock_mode_offsets[1] == 0x73);
+    assert(s_mock_mode_offsets[2] == 0x79);
+    assert(s_mock_mode_offsets[3] == 1);
+    s_mock_chained_mode_queries = 0;
+}
+
+static void test_set_actuator_alignment_byte_layout(void) {
+    u8 align_table[6] = {0x10, 0x21, 0x32, 0x43, 0x54, 0x65};
+    u8 *slot_bytes = (u8 *)&s_mock_slots[0];
+
+    memset(&s_mock_slots[0], 0, sizeof(s_mock_slots[0]));
+    D_4EA148.n_pad = 1;
+    D_4EA148.slots = s_mock_slots;
+
+    func_00126810(0, align_table);
+
+    assert(slot_bytes[0x54] == 0x10);
+    assert(slot_bytes[0x57] == 0x21);
+    assert(slot_bytes[0x5A] == 0x32);
+    assert(slot_bytes[0x5D] == 0x43);
+    assert(slot_bytes[0x60] == 0x54);
+    assert(slot_bytes[0x63] == 0x65);
+}
+
+int func_00128878(PadSlot *p);
+void func_001279C8(PadSlot *p, int flag);
+
+static void test_info_press_mode_polarity(void) {
+    PadSlot slot;
+    memset(&slot, 0, sizeof(slot));
+    slot.port = 0;
+    slot.slot = 0;
+    slot.flags = 0x40; /* enable func_001287D8 path */
+
+    /* When func_10DBA8 != 1: flags |= 0x80000 */
+    s_mock_10DBA8_result = 0;
+    func_00128878(&slot);
+    assert(slot.flags & 0x80000);
+
+    /* When func_10DBA8 == 1: flags &= ~0x80000 */
+    s_mock_10DBA8_result = 1;
+    slot.flags |= 0x80000; /* pre-set the bit */
+    func_00128878(&slot);
+    assert(!(slot.flags & 0x80000));
+
+    /* Restore */
+    s_mock_10DBA8_result = 0;
+}
+
+static void test_phase_sm_model_update_on_nibble_change(void) {
+    PadSlot slot;
+    memset(&slot, 0, sizeof(slot));
+    slot.port = 0;
+    slot.slot = 0;
+    slot.unk_88 = 0;        /* phase 0 */
+    slot.model = 0x40;      /* model nibble high = 0x40 */
+
+    /* func_10D260 puts report[1]=0x73 → nibble high 0x70 != 0x40 */
+    s_mock_pad_read_res = 4; /* nonzero → read succeeded */
+
+    func_001279C8(&slot, 0);
+
+    /* model should be updated to report[1] = 0x73 */
+    assert(slot.model == 0x73);
+}
+
+static void test_phase_sm_model_unchanged_on_nibble_match(void) {
+    PadSlot slot;
+    memset(&slot, 0, sizeof(slot));
+    slot.port = 0;
+    slot.slot = 0;
+    slot.unk_88 = 0;
+    slot.model = 0x79; /* same high nibble as report[1]=0x73 → high nibble 0x70 matches */
+
+    s_mock_pad_read_res = 4;
+
+    func_001279C8(&slot, 0);
+
+    /* nibble high of 0x79 is 0x70, same as 0x73's 0x70 → no update */
+    assert(slot.model == 0x79);
+}
+
+static void test_phase_sm_read_zero_skips_model_update(void) {
+    PadSlot slot;
+    memset(&slot, 0, sizeof(slot));
+    slot.port = 0;
+    slot.slot = 0;
+    slot.unk_88 = 0;
+    slot.model = 0x40;
+
+    s_mock_pad_read_res = 0; /* read failed → should not update model */
+
+    func_001279C8(&slot, 0);
+
+    assert(slot.model == 0x40); /* unchanged */
+}
+
+int func_00127DC8(int val, int a, int b, int c);
+
+static void test_analog_scaling_deadzone_low(void) {
+    /* c < 0x80: threshold = c; if val < c and a < threshold → return 0 */
+    assert(func_00127DC8(0x40, 0x10, 0x00, 0x50) == 0); /* val=0x40 < c=0x50, a=0x10 < 0x50 → 0 */
+}
+
+static void test_analog_scaling_deadzone_high(void) {
+    /* c >= 0x80: threshold = 0x100 - c = 0x80; val=0x90 < c=0x90? No → no early-return */
+    int r = func_00127DC8(0x90, 0x90, 0x00, 0x80);
+    /* val=0x90 not < c=0x80 → falls through to scale */
+    assert(r >= 0 && r <= 0xFF);
+}
+
 int main(void) {
     test_port_slot_enumeration();
     test_button_accessors();
@@ -344,6 +498,15 @@ int main(void) {
     test_rapid_fire_entry_packing();
     test_port_open_dma_buffer_offset();
     test_pad_read_fill_and_return();
+    test_mode_info_queries_chain_returned_offsets();
+    test_successful_alignment_preserves_success_result();
+    test_set_actuator_alignment_byte_layout();
+    test_info_press_mode_polarity();
+    test_phase_sm_model_update_on_nibble_change();
+    test_phase_sm_model_unchanged_on_nibble_match();
+    test_phase_sm_read_zero_skips_model_update();
+    test_analog_scaling_deadzone_low();
+    test_analog_scaling_deadzone_high();
     printf("All native kt_libpad tests passed successfully.\n");
     return 0;
 }

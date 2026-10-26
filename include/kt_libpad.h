@@ -38,9 +38,10 @@ typedef struct PadSlot {
     u8 data_10[12];       /* 0x10 */
     u8 unk_1C[24];        /* 0x1C */
     u32 unk_34;           /* 0x34 */
-    u8 rapid_table[24];   /* 0x38 .. 0x50 (6 channels * 4 bytes) */
-    u8 act_data[16];      /* 0x50 .. 0x60 */
-    u8 act_config[8];     /* 0x60 .. 0x68 */
+    u8 rapid_table[12];   /* 0x38 .. 0x44 (3 entries * 4 bytes) */
+    u8 act_data[16];      /* 0x44 .. 0x54 */
+    u8 act_config[18];    /* 0x54 .. 0x66 (6 entries * 3 bytes) */
+    u8 pad_66[2];         /* 0x66 .. 0x68 */
     u32 unk_68;           /* 0x68 */
     s32 port;             /* 0x6C */
     s32 slot;             /* 0x70 */
@@ -68,6 +69,8 @@ typedef struct PadSlot {
 _Static_assert(sizeof(PadSlot) == 512, "PadSlot size");
 _Static_assert(offsetof(PadSlot, buttons) == 0x00, "PadSlot buttons offset");
 _Static_assert(offsetof(PadSlot, rapid_table) == 0x38, "PadSlot rapid_table offset");
+_Static_assert(offsetof(PadSlot, act_data) == 0x44, "PadSlot act_data offset");
+_Static_assert(offsetof(PadSlot, act_config) == 0x54, "PadSlot act_config offset");
 _Static_assert(offsetof(PadSlot, port) == 0x6C, "PadSlot port offset");
 _Static_assert(offsetof(PadSlot, state) == 0x8C, "PadSlot state offset");
 _Static_assert(offsetof(PadSlot, model) == 0xBC, "PadSlot model offset");

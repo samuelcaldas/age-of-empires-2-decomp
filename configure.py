@@ -6783,6 +6783,30 @@ if config.platform == Platform.PS2:
                 ),
                 Object(
                     Matching,
+                    "ui/memory_card_dialog_340490",
+                    cflags=config.cflags,
+                    toolchain_version="PS2/mwcc-2.3.1.01",
+                ),
+                Object(
+                    Matching,
+                    "ui/memory_card_screen_33ece0",
+                    cflags=config.cflags,
+                    toolchain_version="PS2/mwcc-2.3.1.01",
+                ),
+                Object(
+                    Matching,
+                    "ui/memory_card_screen_33e590",
+                    cflags=config.cflags,
+                    toolchain_version="PS2/mwcc-2.3.1.01",
+                ),
+                Object(
+                    Matching,
+                    "ui/memory_card_screen_33f280",
+                    cflags=config.cflags,
+                    toolchain_version="PS2/mwcc-2.3.1.01",
+                ),
+                Object(
+                    Matching,
                     "ai/tactical_ai_destructors_340370",
                     cflags=config.cflags,
                     toolchain_version="PS2/mwcc-2.3.1.01",

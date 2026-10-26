@@ -38,9 +38,11 @@ void func_0033DAF0(MemoryCardScreen *self, int mode);
 int func_0033E590(MemoryCardScreen *self, void *control, int action, int a3, int a4);
 void func_0033E7B0(MemoryCardScreen *self);
 void func_0033EA30(MemoryCardScreen *self);
+int func_0033EC50(MemoryCardScreen *self);
+void func_0033EC70(MemoryCardScreen *self, int a1);
 void func_0033ECE0(MemoryCardScreen *self);
-void func_0033F280(MemoryCardScreen *self, int has_card);
+int func_0033F280(MemoryCardScreen *self, int has_card);
 void func_0033F480(MemoryCardScreen *self);
-void func_0033F540(MemoryCardScreen *self, int slot_idx);
+void func_0033F540(MemoryCardScreen *self);
 void func_0033F660(MemoryCardScreen *self);
 }

@@ -68,3 +68,55 @@ def test_jump_table_4d5390_entries():
         0x33ED70, 0x33F200, 0x33F234,
     )
     assert entries == expected, f"Table entries mismatch: {entries}"
+
+
+def test_func_0033F280_resolved_exact_match(tmp_path):
+    """Verify compiled func_0033F280 byte-for-byte against the original binary."""
+    require_toolchain()
+    src = PROJECT_ROOT / "src/ui/memory_card_screen_33f280.cpp"
+    obj = tmp_path / "screen_33f280.o"
+    subprocess.run(
+        [
+            str(WRAPPER_PATH), str(COMPILER_PATH),
+            "-c", "-O3", "-inline", "on", "-msext", "on", "-char", "signed", "-sym", "off",
+            "-Iinclude", "-lang=c++", str(src), "-o", str(obj),
+        ],
+        cwd=PROJECT_ROOT, capture_output=True, text=True, check=True,
+    )
+
+    ld_script = tmp_path / "link.ld"
+    ld_script.write_text("SECTIONS { .text 0x33F280 : { *(.text) } }")
+    linked_elf = tmp_path / "linked.elf"
+
+    subprocess.run(
+        [
+            str(LINKER_PATH), "-EL", "-T", str(ld_script), str(obj),
+            "--defsym", "strcpy=0x11abbc",
+            "--defsym", "strcat=0x11a7bc",
+            "--defsym", "func_1F6EA0=0x1F6EA0",
+            "--defsym", "func_11A498=0x11A498",
+            "--defsym", "func_00219D20=0x219D20",
+            "--defsym", "func_0033F540=0x33F540",
+            "--defsym", "func_0033F480=0x33F480",
+            "--defsym", "func_1F6750=0x1F6750",
+            "--defsym", "func_2119B0=0x2119B0",
+            "--defsym", "func_2257C0=0x2257C0",
+            "--defsym", "func_1F88B0=0x1F88B0",
+            "--defsym", "D_1292360=0x1292360",
+            "--defsym", "D_004E360C=0x4E360C",
+            "--defsym", "D_004E3610=0x4E3610",
+            "--defsym", "_gp=0x4EA7C0",
+            "-o", str(linked_elf),
+        ],
+        cwd=PROJECT_ROOT, capture_output=True, text=True, check=True,
+    )
+
+    with linked_elf.open("rb") as f:
+        elf = ELFFile(f)
+        sym = elf.get_section_by_name(".symtab").get_symbol_by_name("func_0033F280")[0]
+        sec = elf.get_section(sym["st_shndx"])
+        start = sym["st_value"] - sec["sh_addr"]
+        compiled_bytes = sec.data()[start:start + sym["st_size"]]
+
+    orig_bytes = load_original_range(0x33F280, len(compiled_bytes))
+    assert compiled_bytes == orig_bytes, "Resolved bytes differ from original binary"

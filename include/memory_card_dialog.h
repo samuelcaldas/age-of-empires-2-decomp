@@ -9,7 +9,7 @@ public:
     virtual void vfunc_02() {}
     virtual void vfunc_03() {}
     virtual void vfunc_04() {}
-    virtual void vfunc_05() {}
+    virtual void vfunc_05(int a) { (void)a; }
     virtual void vfunc_06() {}
     virtual void vfunc_07() {}
     virtual void vfunc_08() {}
@@ -66,7 +66,7 @@ public:
     virtual void vfunc_59() {}
     virtual void vfunc_60() {}
     virtual void vfunc_61() {}
-    virtual void vfunc_62() {}
+    virtual void vfunc_62(const char *str, int a) { (void)str; (void)a; }
     virtual void vfunc_63() {}
     virtual void vfunc_64() {}
     virtual void vfunc_65() {}
@@ -110,6 +110,6 @@ int func_00342170(MemoryCardDialog *self, int a1, int a2, int a3, int t0);
 void func_00340C30(void *self);
 int func_00340CF0(void *self);
 int func_00219BA0(void *self);
-int func_1F6EA0(void *self, int code);
+char *func_1F6EA0(void *self, int code);
 int func_1FBD30(void *self, int a1, int a2, int a3, int t0);
 }

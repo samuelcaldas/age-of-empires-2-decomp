@@ -4961,36 +4961,36 @@ segments:
     vram: 0x21BFB0
     subsegments:
       - [0x11C190, asm, core/app_dispatch_21bfb0]
-  - name: trade_action_helper_21BFD0
+  - name: render_packet_builder_21bfd0
     type: code
     start: 0x11C1B0
     vram: 0x21BFD0
     subsegments:
-      - [0x11C1B0, asm, trade_action_helper_21BFD0]
-  - name: trade_action_helper_21C410
+      - [0x11C1B0, asm, render/render_packet_builder_21bfd0]
+  - name: render_packet_builder_21c410
     type: code
     start: 0x11C5F0
     vram: 0x21C410
     subsegments:
-      - [0x11C5F0, asm, trade_action_helper_21C410]
-  - name: trade_action_helper_21C710
+      - [0x11C5F0, asm, render/render_packet_builder_21c410]
+  - name: render_packet_builder_21c710
     type: code
     start: 0x11C8F0
     vram: 0x21C710
     subsegments:
-      - [0x11C8F0, asm, trade_action_helper_21C710]
-  - name: trade_action_helper_21C990
+      - [0x11C8F0, asm, render/render_packet_builder_21c710]
+  - name: render_packet_builder_21c990
     type: code
     start: 0x11CB70
     vram: 0x21C990
     subsegments:
-      - [0x11CB70, asm, trade_action_helper_21C990]
-  - name: trade_action_helper_21CD20
+      - [0x11CB70, asm, render/render_packet_builder_21c990]
+  - name: render_packet_builder_21cd20
     type: code
     start: 0x11CF00
     vram: 0x21CD20
     subsegments:
-      - [0x11CF00, asm, trade_action_helper_21CD20]
+      - [0x11CF00, asm, render/render_packet_builder_21cd20]
   - name: post_21CD20
     type: bin
     start: 0x11D190

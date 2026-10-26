@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-Guidance for Claude Code when working in this repository.
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ## Project
 
@@ -20,30 +20,106 @@ findings are documented in [docs/ps2_binary_analysis.md](docs/ps2_binary_analysi
 
 ## Commands
 
+### Configuration and Build
+
 ```sh
-# Configure a version (generates build.ninja; objdiff.json appears after the first split)
+# Configure a version (generates build.ninja and objdiff.json)
 .venv/bin/python configure.py --version <VERSION> --compilers <DIR>
 
 # Build the registered objects
 ninja
+
+# Dry-run build check
+ninja -n
 ```
 
-`configure.py` checks the original binary and the compiler directory before it
-writes anything. Do not bypass those checks. Only the configure step and the
-PS2 `ninja -n` dry run have been verified. The PC split additionally needs
-IDA-exported `splits.json` and `symbols.json` (see `docs/toolchain.md`).
+`configure.py` verifies the original binary and compiler directory before generating
+build files. The PC split additionally requires IDA-exported `splits.json` and `symbols.json`.
 
-## Layout
+### Testing
 
-- `configure.py`: project configuration. Versions, platform flags, and object lists.
-- `tools/`: build generator copied from the dtk template and the nfsmw project.
-  `project.py` and the helper scripts are kept close to upstream. Lint warnings
-  in them are inherited. Fix upstream, not here.
-- `config/<VERSION>/`: `config.yml` (slicer config), `build.sha1` (pinned hash).
-  `splits.json`, `symbols.json`, and `symbols.txt` are added once a binary is analysed.
-- `orig/<VERSION>/`: original binaries. Ignored by git.
-- `docs/`: game files, toolchain, binary analysis (`docs/ps2_binary_analysis.md`), and decisions (`docs/adr/`).
-- `scripts/agy/`: wrapper for delegating separable tasks to the agy CLI. See `docs/agy_orchestration.md`.
+Tests use a dual-gate approach: target binary matching via `ninja`/`objdiff` and behavioral
+regression tests via `pytest` (which compile and execute C++ native tests with `g++ -m32`).
+
+```sh
+# Run tests inside Docker container (recommended test environment; docker-dev context)
+docker --context docker-dev run --rm \
+  -e TZ=America/Sao_Paulo \
+  --mount "type=bind,source=$(pwd),target=/workspace" \
+  aoe-tests:verification python -m pytest -q -ra
+
+# Run a single test module inside Docker
+docker --context docker-dev run --rm \
+  -e TZ=America/Sao_Paulo \
+  --mount "type=bind,source=$(pwd),target=/workspace" \
+  aoe-tests:verification python -m pytest -q -ra tests/test_unit_action_build_worker.py
+
+# Run tests locally (when python3 venv is active)
+pytest -q -ra
+
+# Run a single test file or specific test function locally
+pytest -q -ra tests/test_unit_action_build_worker.py
+pytest -q -ra tests/test_render_helper_219040.py::test_render_helper_219040
+```
+
+### Linting and Formatting
+
+```sh
+# Python linting
+flake8
+
+# C/C++ formatting (configured in .clang-format: C++03, 150 column limit)
+clang-format -i src/<subsystem>/<file>.cpp include/<file>.h
+
+# C/C++ static analysis
+clang-tidy -p build src/<subsystem>/<file>.cpp
+```
+
+### Observability
+
+```sh
+# Check verified decompilation status
+python -m scripts.observability status
+python -m scripts.observability status --json
+
+# Refresh tracked README badges after verified matching changes
+.venv/bin/python -m scripts.observability badges
+
+# Live terminal monitor (tmux pane)
+python -m scripts.observability watch --interval 5
+```
+
+## Architecture and Subsystems
+
+The codebase combines a Python slicer/build generator based on `dtk` with decompiled C++
+implementations organized into clear domain subsystems under `src/` and `include/`:
+
+- **KCET Hardware Layer (`src/kcet/`, `include/kt_*.h`)**: Konami Computer Entertainment Tokyo
+  PS2 hardware abstraction layer comprising 10 modules: GPU (`kt_gpu`), sound (`kt_sound`),
+  controller pad (`kt_libpad`), mouse (`kt_mouse`), keyboard (`kt_keybd`), filesystem (`kt_file`),
+  hard disk (`kt_hd`), CDVD server (`kt_libcdvd_server`), kernel (`kt_kernel`), and USB keyboard
+  driver (`kt_usbkeybd_drv`).
+- **Dynamic Overlays (`src/overlays/`, `include/*_overlay.h`)**: Relocatable CodeWarrior overlays
+  loaded dynamically from disc into executable memory segments (`DCOMP`, `LOBBY`, `HIST`, `MULTIM`).
+- **Spatial Grid & Map Zones (`src/zone/`, `src/engine/`)**: Spatial indexing system (`ZoneSpatialGrid`),
+  circular doubly-linked sentinel lists, spatial hashing, node pool allocators, elevation meshes,
+  and map zone bounds.
+- **Networking (`src/network/`)**: DirectPlay / PAL network stack implementation covering packet framing,
+  buffer queueing, session dispatch, datagram transmission, and transport initialization.
+- **Tactical AI & Simulation (`src/ai/`, `src/unit/`, `src/trade/`)**: Tactical AI combat state
+  machines, waypoint evaluations, trade action routes/decoders, and unit action handlers.
+- **Render Management (`src/render/`)**: High-level rendering abstraction, UI dispatch, and chat methods.
+- **Runtime Support (`src/msl/`)**: Metrowerks Standard Library / C runtime support routines.
+
+### Build and Test Architecture
+
+1. **Slicer Pipeline**: `config/<VERSION>/config.yml` and `symbols.txt` define function boundaries
+   and symbol relocations. `configure.py` parses these and writes `build.ninja`.
+2. **Matching Compilation**: Compiles C++ source with authentic Metrowerks compilers (`MWCCPS2` or
+   MSVC) and compares hashes/relocations against the original binary using `objdiff`.
+3. **Behavioral Native Harness**: Behavioral tests reside in `tests/native/*_test.cpp` and are compiled
+   as 32-bit binaries (`-m32`) by Python harness scripts in `tests/test_*.py` to verify logic,
+   memory layouts, calling conventions, and state transitions independently of target compiler availability.
 
 ## Mandatory test-driven development
 

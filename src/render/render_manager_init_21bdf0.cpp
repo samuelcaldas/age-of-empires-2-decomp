@@ -73,10 +73,4 @@ void func_0021BDF0() {
     func_00219F60();
     D_004E32E4 = obj;
 }
-
-void func_0021BFB0() {
-    void *obj = D_004E32E4;
-    void (**vtable)(void *) = *(void (***)(void *))obj;
-    vtable[3](obj);
-}
 }

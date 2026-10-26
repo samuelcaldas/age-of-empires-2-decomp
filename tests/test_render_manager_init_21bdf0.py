@@ -1,4 +1,4 @@
-"""Native semantic regressions for trade_action_helper_21BDF0."""
+"""Native semantic regressions for render_manager_init_21bdf0."""
 
 from pathlib import Path
 import shutil
@@ -9,18 +9,18 @@ import pytest
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 CASES = [
-    ("0", "func_0021BDF0 initialization, configuration and virtual call dispatch"),
+    ("0", "func_0021BDF0 initialization and configuration"),
     ("1", "func_0021BDF0 allocation failure handling"),
 ]
 
 
 @pytest.fixture(scope="module")
-def helper_21BDF0_test(tmp_path_factory):
-    """Compile trade_action_helper_21BDF0 with test harness."""
+def render_init_21bdf0_test(tmp_path_factory):
+    """Compile render_manager_init_21bdf0 with test harness."""
     compiler = shutil.which("g++")
     if compiler is None:
-        pytest.skip("trade_action_helper_21BDF0 tests require g++")
-    fixture = tmp_path_factory.mktemp("helper-21BDF0")
+        pytest.skip("render_manager_init_21bdf0 tests require g++")
+    fixture = tmp_path_factory.mktemp("render-init-21bdf0")
     probe = subprocess.run(
         [compiler, "-m32", "-x", "c++", "-", "-o", str(fixture / "probe")],
         input="#include <cstddef>\nint main() { static_assert(sizeof(void *) == 4); }\n",
@@ -28,11 +28,11 @@ def helper_21BDF0_test(tmp_path_factory):
     )
     if probe.returncode:
         pytest.skip(f"native 32-bit g++ unavailable: {probe.stderr.strip()}")
-    binary = fixture / "helper-21BDF0-test"
+    binary = fixture / "render-init-21bdf0-test"
     subprocess.run(
         [compiler, "-m32", "-fno-builtin", "-Iinclude",
-         "src/trade/trade_action_helper_21BDF0.cpp",
-         "tests/native/trade_action_helper_21BDF0_test.cpp",
+         "src/render/render_manager_init_21bdf0.cpp",
+         "tests/native/render_manager_init_21bdf0_test.cpp",
          "-o", str(binary)],
         cwd=PROJECT_ROOT, check=True, capture_output=True, text=True,
     )
@@ -40,10 +40,10 @@ def helper_21BDF0_test(tmp_path_factory):
 
 
 @pytest.mark.parametrize("case,description", CASES, ids=[case[1] for case in CASES])
-def test_helper_21BDF0_behavior(helper_21BDF0_test, case, description):
+def test_render_init_21bdf0_behavior(render_init_21bdf0_test, case, description):
     """Run each behavior in an isolated native process."""
     result = subprocess.run(
-        [str(helper_21BDF0_test), case], capture_output=True, text=True,
+        [str(render_init_21bdf0_test), case], capture_output=True, text=True,
     )
     assert result.returncode == 0, f"stderr: {result.stderr}, stdout: {result.stdout}"
     assert "PASS" in result.stdout

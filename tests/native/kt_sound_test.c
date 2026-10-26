@@ -15,7 +15,10 @@ static void *s_last_recv_buf = NULL;
 static int s_last_recv_size = 0;
 
 static u8 s_mock_sdd_status = 1;
-static u8 s_mock_recv_buffer[64];
+static int s_mock_status_queries_count = 0;
+static int s_vsync_sync_count = 0;
+static int s_dispatched_cmds[16];
+static int s_dispatched_cmd_count = 0;
 
 /* SIF RPC Mocks */
 int sceSifInitRpc(int mode) {
@@ -52,8 +55,20 @@ int sceSifCallRpc(SifRpcClientData *client, int fno, int mode,
     s_last_recv_size = recv_size;
 
     if (fno == 3 && recv && recv_size >= 1) {
-        *(u8 *)recv = s_mock_sdd_status;
+        s_mock_status_queries_count++;
+        /* Transition from BUSY (1) to READY (4) on second query */
+        if (s_mock_sdd_status == SDD_STATUS_BUSY && s_mock_status_queries_count >= 2) {
+            *(u8 *)recv = SDD_STATUS_READY;
+        } else {
+            *(u8 *)recv = s_mock_sdd_status;
+        }
     }
+    return 0;
+}
+
+int sceGsSyncV(int mode) {
+    (void)mode;
+    s_vsync_sync_count++;
     return 0;
 }
 
@@ -82,21 +97,48 @@ void test_kt_sound_stream_open(void) {
 
 void test_kt_sound_status_query(void) {
     s_mock_sdd_status = SDD_STATUS_READY;
+    s_mock_status_queries_count = 0;
     int status = func_0012D888();
     assert(status == SDD_STATUS_READY);
     assert(s_last_call_rpc_fno == 3);
     assert(s_last_recv_size == 1);
 
     s_mock_sdd_status = SDD_STATUS_BUSY;
+    s_mock_status_queries_count = 0;
     status = func_0012D888();
     assert(status == SDD_STATUS_BUSY);
     printf("PASS: test_kt_sound_status_query\n");
+}
+
+void test_kt_sound_vsync_wait_loop(void) {
+    s_mock_sdd_status = SDD_STATUS_BUSY;
+    s_mock_status_queries_count = 0;
+    s_vsync_sync_count = 0;
+
+    /* func_00220F70 should wait until status == 4 */
+    int res = func_00220F70();
+    assert(res == 0);
+    assert(s_mock_status_queries_count >= 2);
+    assert(s_vsync_sync_count >= 2);
+    printf("PASS: test_kt_sound_vsync_wait_loop\n");
+}
+
+void test_kt_sound_multi_stage_init(void) {
+    s_mock_sdd_status = SDD_STATUS_READY;
+    s_mock_status_queries_count = 0;
+    s_vsync_sync_count = 0;
+
+    int res = func_00220FF0();
+    assert(res == 0);
+    printf("PASS: test_kt_sound_multi_stage_init\n");
 }
 
 int main(void) {
     test_kt_sound_init_binds_services();
     test_kt_sound_stream_open();
     test_kt_sound_status_query();
+    test_kt_sound_vsync_wait_loop();
+    test_kt_sound_multi_stage_init();
     printf("All kt_sound tests passed!\n");
     return 0;
 }

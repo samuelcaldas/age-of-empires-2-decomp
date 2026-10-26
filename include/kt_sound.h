@@ -30,11 +30,21 @@ typedef struct SifRpcClientData {
 
 _Static_assert(sizeof(SifRpcClientData) == 64, "SifRpcClientData size");
 
-/* Function prototypes */
+/* SIF RPC Communication Layer (0x0012D648 - 0x0012D888) */
 int func_0012D648(void);
 int func_0012D7E0(const char *name);
 int func_0012D840(int cmd);
 int func_0012D888(void);
+
+/* Sound Synchronization & Multi-stage Init (0x00220F70 - 0x00220FF0) */
+int func_00220F70(void);
+int func_00220FF0(void);
+
+/* Sound Channel & Dispatch Management (0x0025D060 - 0x0025D600) */
+int func_0025D060(int cmd);
+int func_0025D320(int channel, int volume);
+int func_0025D430(int cmd);
+int func_0025D540(void);
 
 #ifdef __cplusplus
 }

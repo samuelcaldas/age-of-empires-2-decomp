@@ -1,13 +1,17 @@
-#include <cstring>
+#include <string.h>
 #include <stddef.h>
 #include "tribe_app.h"
 #include "game_window.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 void *g_pApp = NULL;
 
-extern "C" __attribute__((weak)) int func_00226630(const MSG *msg);
+__attribute__((weak)) int func_00226630(const MSG *msg);
 
-extern "C" int func_00185230(void *self) {
+int func_00185230(void *self) {
     if (self) {
         *(int *)((char *)self + 0x1C) = 0;
     }
@@ -27,7 +31,7 @@ void *g_tribe_app_vtable[64] = {
     NULL
 };
 
-extern "C" void *func_2F61F0(void *obj, void *cfg, int arg) {
+void *func_2F61F0(void *obj, void *cfg, int arg) {
     if (!obj) {
         return NULL;
     }
@@ -71,3 +75,7 @@ extern "C" void *func_2F61F0(void *obj, void *cfg, int arg) {
 
     return obj;
 }
+
+#ifdef __cplusplus
+}
+#endif

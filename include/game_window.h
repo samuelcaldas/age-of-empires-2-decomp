@@ -22,6 +22,8 @@ extern void *g_wndproc;
 int func_002264A0(void *proc);
 void *func_002264B0(int hwnd, int nIndex);
 void *func_002264E0(int hwnd, int nIndex, void *newVal);
+int func_002265D0(MSG *msg, void *hwnd, int min, int max, int remove);
+int func_00226620(const MSG *msg);
 int func_00226630(const MSG *msg);
 
 #define RegisterWndProc func_002264A0

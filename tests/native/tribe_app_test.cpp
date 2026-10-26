@@ -6,6 +6,7 @@
 
 static int s_rge_app_init_called = 0;
 static int s_rge_app_fail = 0;
+static int s_smenu_stream_called = 0;
 
 extern "C" void *func_184340(void *self, void *cfg, int arg) {
     s_rge_app_init_called++;
@@ -13,6 +14,11 @@ extern "C" void *func_184340(void *self, void *cfg, int arg) {
         return NULL;
     }
     return self;
+}
+
+extern "C" int func_00300C90(void) {
+    s_smenu_stream_called++;
+    return 1;
 }
 
 void test_tribe_app_constructor() {
@@ -50,8 +56,25 @@ void test_tribe_app_base_constructor_failure() {
     printf("PASS: test_tribe_app_base_constructor_failure\n");
 }
 
+void test_event_pump_no_unconditional_smenu() {
+    unsigned char app_buf[0x1948];
+    memset(app_buf, 0, sizeof(app_buf));
+    func_2F61F0(app_buf, NULL, 1);
+
+    // Set field 0x1C = 1 to signal immediate exit without looping
+    *(int *)(app_buf + 0x1C) = 1;
+
+    // Verify func_00185230 does not invoke func_00300C90
+    s_smenu_stream_called = 0;
+    int res = func_00185230(app_buf);
+    assert(res == 0);
+    assert(s_smenu_stream_called == 0);
+    printf("PASS: test_event_pump_no_unconditional_smenu\n");
+}
+
 int main() {
     test_tribe_app_constructor();
     test_tribe_app_base_constructor_failure();
+    test_event_pump_no_unconditional_smenu();
     return 0;
 }

@@ -1,4 +1,4 @@
-"""Native semantic regressions for trade_action_helper_21A590."""
+"""Native semantic regressions for render_viewport_21a590."""
 
 from pathlib import Path
 import shutil
@@ -17,10 +17,10 @@ CASES = [
 
 @pytest.fixture(scope="module")
 def helper_21A590_test(tmp_path_factory):
-    """Compile trade_action_helper_21A590 with test harness."""
+    """Compile render_viewport_21a590 with test harness."""
     compiler = shutil.which("g++")
     if compiler is None:
-        pytest.skip("trade_action_helper_21A590 tests require g++")
+        pytest.skip("render_viewport_21a590 tests require g++")
     fixture = tmp_path_factory.mktemp("helper-21A590")
     probe = subprocess.run(
         [compiler, "-m32", "-x", "c++", "-", "-o", str(fixture / "probe")],
@@ -32,8 +32,8 @@ def helper_21A590_test(tmp_path_factory):
     binary = fixture / "helper-21A590-test"
     subprocess.run(
         [compiler, "-m32", "-fno-builtin", "-Iinclude",
-         "src/trade/trade_action_helper_21A590.cpp",
-         "tests/native/trade_action_helper_21A590_test.cpp",
+         "src/render/render_viewport_21a590.cpp",
+         "tests/native/render_viewport_21a590_test.cpp",
          "-o", str(binary)],
         cwd=PROJECT_ROOT, check=True, capture_output=True, text=True,
     )

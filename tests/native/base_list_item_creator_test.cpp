@@ -9,7 +9,7 @@
 
 ListNode s_node_pool[1000];
 void *__vt__8BaseList = 0;
-extern const char D_490AE0[] = "ERR";
+extern "C" const char D_490AE0[];
 
 static void *last_item_ptr = (void*)0x8888;
 static int factory_called = 0;

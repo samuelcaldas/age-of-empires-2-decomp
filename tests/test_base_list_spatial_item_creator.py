@@ -40,8 +40,8 @@ def spatial_item_creator_test(tmp_path_factory):
             compiler, "-m32", "-std=c++98", "-Wno-invalid-offsetof",
             "-Iinclude",
             "src/core/base_list.cpp",
-            "src/zone/spatial_item_creator.cpp",
-            "tests/native/spatial_item_creator_test.cpp",
+            "src/core/base_list_spatial_item_creator.cpp",
+            "tests/native/base_list_spatial_item_creator_test.cpp",
             "-o", str(binary)
         ],
         cwd=Path.cwd(), check=True, capture_output=True, text=True,

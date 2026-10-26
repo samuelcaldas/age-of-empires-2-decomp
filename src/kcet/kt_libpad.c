@@ -142,7 +142,7 @@ void func_00127C88(PadSlot *p, int a, int b, int c);
 void func_00127C98(PadSlot *p, void *src, int n_dat);
 int func_00127D30(int val, int mode, int a, int b, int c);
 int func_00127D88(int val, int scale, int min_val, int max_val);
-int func_00127DC8(int val, int a, int b);
+int func_00127DC8(int val, int a, int b, int c);
 int func_00127E40(int val, int min_val, int max_val);
 int func_00127E68(PadSlot *p, int flag);
 int func_00128130(u8 *p, int idx);
@@ -652,7 +652,7 @@ void func_00126810(int pad_number, u8 *align_table) {
     p = func_00125A70(pad_number);
     func_00125AA8();
     for (i = 0; i < 6; i++) {
-        p->act_align[i * 2] = align_table[i];
+        p->act_config[i * 3] = align_table[i];
     }
     func_00125AC8();
     func_001268D0(pad_number);
@@ -1157,9 +1157,11 @@ void func_00127820(PadSlot *p) {
 int func_00127900(PadSlot *p) {
     u8 buf[4];
     int i;
+    int offset = 0;
 
     for (i = 0; i < 4; i++) {
-        buf[i] = (u8)func_10D6C0(p->port, p->slot, i + 1);
+        buf[i] = (u8)func_10D6C0(p->port, p->slot, 4, offset);
+        offset = buf[i];
     }
     if (p->unk_34 != *(u32 *)buf) {
         p->unk_34 = *(u32 *)buf;
@@ -1199,7 +1201,7 @@ void func_001279C8(PadSlot *p, int flag) {
     int unk_17 = 0;
     int ret;
 
-    if (func_00127BE8(p) == 0) {
+    if (func_00127BE8(p) != 0) {
         u8 val4 = p->report[1];
         if ((val4 & 0xF0) != (p->model & 0xF0)) {
             p->model = val4;
@@ -1333,7 +1335,7 @@ void func_00127C98(PadSlot *p, void *src, int n_dat) {
 /* Function 73: func_00127D30 */
 int func_00127D30(int val, int mode, int a, int b, int c) {
     if (mode == 1) {
-        return func_00127DC8(val, a, b);
+        return func_00127DC8(val, a, b, c);
     }
     if (mode == 2) {
         return func_00127E40(val, b, c);
@@ -1362,14 +1364,14 @@ int func_00127D88(int val, int scale, int min_val, int max_val) {
 }
 
 /* Function 75: func_00127DC8 */
-int func_00127DC8(int val, int a, int b) {
+int func_00127DC8(int val, int a, int b, int c) {
     int threshold;
-    if (b < 0x80) {
-        threshold = b;
+    if (c < 0x80) {
+        threshold = c;
     } else {
-        threshold = 0x100 - b;
+        threshold = 0x100 - c;
     }
-    if (val < b) {
+    if (val < c) {
         if (a < threshold) {
             return 0;
         }
@@ -1506,7 +1508,6 @@ int func_001281C0(PadSlot *p) {
         res = func_10D968(p->port, p->slot, dummy);
         if (res == 1) {
             func_00125AE8(p->port, p->slot);
-            res = -1;
         }
     }
     if (res != -1) {

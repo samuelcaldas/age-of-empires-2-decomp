@@ -6200,18 +6200,54 @@ segments:
     vram: 0x3394B0
     subsegments:
       - [0x239690, asm, network/network_utf16_length_3394b0]
-  - name: bin_3394e0_340370
+  - name: bin_3394e0_33daf0
     type: bin
     start: 0x2396C0
+  - name: memory_card_screen
+    type: code
+    start: 0x23DCD0
+    vram: 0x33DAF0
+    subsegments:
+      - [0x23DCD0, asm, ui/memory_card_screen_33daf0]
+      - [0x23E0B0, asm, ui/memory_card_screen_33ded0]
+      - [0x23E140, asm, ui/memory_card_screen_33df60]
+      - [0x23E230, asm, ui/memory_card_screen_33e050]
+      - [0x23E2E0, asm, ui/memory_card_screen_33e100]
+      - [0x23E340, asm, ui/memory_card_screen_33e160]
+      - [0x23E4D0, asm, ui/memory_card_screen_33e2f0]
+      - [0x23E6E0, asm, ui/memory_card_screen_33e500]
+      - [0x23E770, asm, ui/memory_card_screen_33e590]
+      - [0x23E990, asm, ui/memory_card_screen_33e7b0]
+      - [0x23EC10, asm, ui/memory_card_screen_33ea30]
+      - [0x23EE30, asm, ui/memory_card_screen_33ec50]
+      - [0x23EE50, asm, ui/memory_card_screen_33ec70]
+      - [0x23EEC0, asm, ui/memory_card_screen_33ece0]
+      - [0x23F460, asm, ui/memory_card_screen_33f280]
+      - [0x23F660, asm, ui/memory_card_screen_33f480]
+      - [0x23F6D0, asm, ui/memory_card_screen_33f4f0]
+      - [0x23F720, asm, ui/memory_card_screen_33f540]
+      - [0x23F840, asm, ui/memory_card_screen_33f660]
+      - [0x23FA00, asm, ui/memory_card_screen_33f820]
+      - [0x23FA50, asm, ui/memory_card_screen_33f870]
+      - [0x23FA80, asm, ui/memory_card_screen_33f8a0]
+      - [0x23FA90, asm, ui/memory_card_screen_33f8b0]
+      - [0x23FB70, asm, ui/memory_card_screen_33f990]
+      - [0x23FBB0, asm, ui/memory_card_screen_33f9d0]
+      - [0x240270, asm, ui/memory_card_screen_340090]
   - name: tactical_ai_destructors_340370
     type: code
     start: 0x240550
     vram: 0x340370
     subsegments:
       - [0x240550, asm, tactical_ai_destructors_340370]
-  - name: bin_340490_3409c0
-    type: bin
+  - name: memory_card_dialog_340490
+    type: code
     start: 0x240670
+    vram: 0x340490
+    subsegments:
+      - [0x240670, asm, ui/memory_card_dialog_340490]
+      - [0x2409D0, asm, ui/memory_card_dialog_3407f0]
+      - [0x240B10, asm, ui/memory_card_dialog_340930]
   - name: tactical_ai_dispatch_3409c0
     type: code
     start: 0x240BA0

@@ -1,4 +1,4 @@
-"""Native semantic regressions for trade_action_helper_21A780."""
+"""Native semantic regressions for render_viewport_21a680."""
 
 from pathlib import Path
 import shutil
@@ -9,19 +9,18 @@ import pytest
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 CASES = [
-    ("0", "func_0021A780 flag 0x800 overrides arg5 from func_0021AE90"),
-    ("1", "func_0021A780 default flags with arg2 calls func_0021ACD0 and func_0021AD70"),
-    ("2", "func_0021A780 default flags with null arg2 skips func_0021ACD0"),
+    ("0", "func_0021A680 default flags without ptr14 packs 64-bit register"),
+    ("1", "func_0021A680 flag 0x800 with ptr14 overrides dimensions and packs s0"),
 ]
 
 
 @pytest.fixture(scope="module")
-def helper_21A780_test(tmp_path_factory):
-    """Compile trade_action_helper_21A780 with test harness."""
+def helper_21A680_test(tmp_path_factory):
+    """Compile render_viewport_21a680 with test harness."""
     compiler = shutil.which("g++")
     if compiler is None:
-        pytest.skip("trade_action_helper_21A780 tests require g++")
-    fixture = tmp_path_factory.mktemp("helper-21A780")
+        pytest.skip("render_viewport_21a680 tests require g++")
+    fixture = tmp_path_factory.mktemp("helper-21A680")
     probe = subprocess.run(
         [compiler, "-m32", "-x", "c++", "-", "-o", str(fixture / "probe")],
         input="#include <cstddef>\nint main() { static_assert(sizeof(void *) == 4); }\n",
@@ -29,11 +28,11 @@ def helper_21A780_test(tmp_path_factory):
     )
     if probe.returncode:
         pytest.skip(f"native 32-bit g++ unavailable: {probe.stderr.strip()}")
-    binary = fixture / "helper-21A780-test"
+    binary = fixture / "helper-21A680-test"
     subprocess.run(
         [compiler, "-m32", "-fno-builtin", "-Iinclude",
-         "src/trade/trade_action_helper_21A780.cpp",
-         "tests/native/trade_action_helper_21A780_test.cpp",
+         "src/render/render_viewport_21a680.cpp",
+         "tests/native/render_viewport_21a680_test.cpp",
          "-o", str(binary)],
         cwd=PROJECT_ROOT, check=True, capture_output=True, text=True,
     )
@@ -41,10 +40,10 @@ def helper_21A780_test(tmp_path_factory):
 
 
 @pytest.mark.parametrize("case,description", CASES, ids=[case[1] for case in CASES])
-def test_helper_21A780_behavior(helper_21A780_test, case, description):
+def test_helper_21A680_behavior(helper_21A680_test, case, description):
     """Run each behavior in an isolated native process."""
     result = subprocess.run(
-        [str(helper_21A780_test), case], capture_output=True, text=True,
+        [str(helper_21A680_test), case], capture_output=True, text=True,
     )
     assert result.returncode == 0, f"stderr: {result.stderr}, stdout: {result.stdout}"
     assert "PASS" in result.stdout

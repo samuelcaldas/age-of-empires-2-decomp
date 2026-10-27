@@ -49,8 +49,24 @@ int func_0036DF30(int vkey) {
     return 0;
 }
 
-int func_2263F0(int msg, int wParam, int lParam);
-unsigned int func_2261C0(void);
+__attribute__((weak)) int func_2263F0(int msg, int wParam, int lParam) {
+    (void)msg; (void)wParam; (void)lParam;
+    return 1;
+}
+
+__attribute__((weak)) unsigned int func_2261C0(void) {
+    return 0;
+}
+
+__attribute__((weak)) int func_136190(int port, void *packet) {
+    (void)port; (void)packet;
+    return 0;
+}
+
+__attribute__((weak)) int func_136230(int port) {
+    (void)port;
+    return 0;
+}
 
 /*
  * func_0036DFB0: Evaluates USB HID modifier bytes
@@ -140,9 +156,6 @@ void func_0036E1F0(const unsigned char *current_packet) {
         }
     }
 }
-
-int func_136190(int port, void *packet);
-int func_136230(int port);
 
 /*
  * func_0036E350: Modifier Transition and LED Update

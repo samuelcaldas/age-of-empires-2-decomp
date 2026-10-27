@@ -4991,9 +4991,60 @@ segments:
     vram: 0x21CD20
     subsegments:
       - [0x11CF00, asm, render/render_packet_builder_21cd20]
-  - name: post_21CD20
-    type: bin
+  - name: render_packet_builder_21cfb0
+    type: code
     start: 0x11D190
+    vram: 0x21CFB0
+    subsegments:
+      - [0x11D190, asm, render/render_packet_builder_21cfb0]
+  - name: render_packet_builder_21d2c0
+    type: code
+    start: 0x11D4A0
+    vram: 0x21D2C0
+    subsegments:
+      - [0x11D4A0, asm, render/render_packet_builder_21d2c0]
+  - name: post_21D2C0
+    type: bin
+    start: 0x11D6D0
+  - name: render_packet_builder_21de90
+    type: code
+    start: 0x11E070
+    vram: 0x21DE90
+    subsegments:
+      - [0x11E070, asm, render/render_packet_builder_21de90]
+  - name: render_helper_21df50
+    type: code
+    start: 0x11E130
+    vram: 0x21DF50
+    subsegments:
+      - [0x11E130, asm, render/render_helper_21df50]
+  - name: post_21DF50
+    type: bin
+    start: 0x11E270
+  - name: render_helper_21e350
+    type: code
+    start: 0x11E530
+    vram: 0x21E350
+    subsegments:
+      - [0x11E530, asm, render/render_helper_21e350]
+  - name: render_viewport_21e370
+    type: code
+    start: 0x11E550
+    vram: 0x21E370
+    subsegments:
+      - [0x11E550, asm, render/render_viewport_21e370]
+  - name: post_21E370
+    type: bin
+    start: 0x11E6E0
+  - name: render_packet_builder_221b60
+    type: code
+    start: 0x121D40
+    vram: 0x221B60
+    subsegments:
+      - [0x121D40, asm, render/render_packet_builder_221b60]
+  - name: post_221B60
+    type: bin
+    start: 0x121DE0
   - name: unit_action_core
     type: code
     start: 0x166960

@@ -30,6 +30,10 @@ typedef struct {
 #define MK_CONTROL       0x0008
 #define MK_MBUTTON       0x0010
 
+/* Mouse Operating Modes */
+#define MOUSE_MODE_RELATIVE 0
+#define MOUSE_MODE_ABSOLUTE 1
+
 extern int g_cursor_x;
 extern int g_cursor_y;
 
@@ -37,6 +41,10 @@ int func_00225580(POINT *pt);
 int func_002255A0(int x, int y);
 void func_0036D700_dispatch_buttons(unsigned int new_buttons, unsigned int prev_buttons, unsigned int now_tick);
 int func_0036D700(void);
+
+void Mouse_SetMode(int mode);
+int Mouse_GetMode(void);
+void Mouse_SetAbsolutePosition(int x, int y, unsigned int buttons);
 
 #define GetCursorPos func_00225580
 #define SetCursorPos func_002255A0

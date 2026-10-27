@@ -5,6 +5,7 @@ int g_cursor_y = 0;
 
 static unsigned int s_last_lbutton_down_tick = 0;
 static unsigned int s_prev_mouse_buttons = 0;
+static int s_mouse_mode = MOUSE_MODE_RELATIVE;
 
 __attribute__((weak)) int g_mock_mouse_buttons = 0;
 
@@ -106,12 +107,13 @@ int func_0036D700(void) {
         return 0;
     }
 
-    /* Update cursor position */
-    func_002255A0(g_cursor_x + total_dx, g_cursor_y + total_dy);
+    if (s_mouse_mode != MOUSE_MODE_ABSOLUTE) {
+        func_002255A0(g_cursor_x + total_dx, g_cursor_y + total_dy);
+    }
 
     int lparam = (g_cursor_y << 16) | (g_cursor_x & 0xFFFF);
 
-    if (total_dx != 0 || total_dy != 0) {
+    if (s_mouse_mode != MOUSE_MODE_ABSOLUTE && (total_dx != 0 || total_dy != 0)) {
         func_2263F0(WM_MOUSEMOVE, buttons, lparam);
     }
 
@@ -126,4 +128,31 @@ int func_0036D700(void) {
     g_mock_mouse_buttons = buttons;
 
     return 1;
+}
+
+void Mouse_SetMode(int mode) {
+    s_mouse_mode = mode;
+}
+
+int Mouse_GetMode(void) {
+    return s_mouse_mode;
+}
+
+void Mouse_SetAbsolutePosition(int x, int y, unsigned int buttons) {
+    int prev_x = g_cursor_x;
+    int prev_y = g_cursor_y;
+
+    func_002255A0(x, y);
+
+    int lparam = (g_cursor_y << 16) | (g_cursor_x & 0xFFFF);
+
+    if (g_cursor_x != prev_x || g_cursor_y != prev_y) {
+        func_2263F0(WM_MOUSEMOVE, buttons, lparam);
+    }
+
+    unsigned int now_tick = func_2261C0();
+    func_0036D700_dispatch_buttons(buttons, s_prev_mouse_buttons, now_tick);
+
+    s_prev_mouse_buttons = buttons;
+    g_mock_mouse_buttons = buttons;
 }

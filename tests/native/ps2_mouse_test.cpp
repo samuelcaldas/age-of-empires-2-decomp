@@ -202,9 +202,47 @@ void test_relative_motion_accumulator() {
     printf("PASS: test_relative_motion_accumulator\n");
 }
 
+void test_absolute_mouse_mode() {
+    Mouse_SetMode(MOUSE_MODE_ABSOLUTE);
+    assert(Mouse_GetMode() == MOUSE_MODE_ABSOLUTE);
+
+    reset_posted();
+    Mouse_SetAbsolutePosition(320, 240, 0x01); // LMB at center screen
+    assert(g_cursor_x == 320);
+    assert(g_cursor_y == 240);
+    assert(s_num_posted >= 1);
+    assert(s_posted[s_num_posted - 1].msg == WM_LBUTTONDOWN);
+    assert(s_posted[s_num_posted - 1].lParam == ((240 << 16) | 320));
+
+    // When in absolute mode, func_0036D700 ignores relative dX, dY packets
+    reset_posted();
+    s_mock_packet_available = 1;
+    s_mock_packet_data[0] = 0x01;
+    s_mock_packet_data[1] = 50;
+    s_mock_packet_data[2] = 50;
+    s_mock_packet_data[3] = 0;
+    func_0036D700();
+    assert(g_cursor_x == 320); // Position unchanged by relative packet
+    assert(g_cursor_y == 240);
+
+    // Return to relative mode
+    Mouse_SetMode(MOUSE_MODE_RELATIVE);
+    s_mock_packet_available = 1;
+    s_mock_packet_data[0] = 0x01;
+    s_mock_packet_data[1] = 50;
+    s_mock_packet_data[2] = 50;
+    s_mock_packet_data[3] = 0;
+    func_0036D700();
+    assert(g_cursor_x == 370); // Accumulated
+    assert(g_cursor_y == 290);
+
+    printf("PASS: test_absolute_mouse_mode\n");
+}
+
 int main() {
     test_cursor_pos_get_set();
     test_mouse_button_dispatch();
     test_relative_motion_accumulator();
+    test_absolute_mouse_mode();
     return 0;
 }

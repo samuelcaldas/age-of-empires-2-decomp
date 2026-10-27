@@ -4994,6 +4994,15 @@ segments:
   - name: post_21CD20
     type: bin
     start: 0x11D190
+  - name: render_font_context
+    type: code
+    start: 0x1200A0
+    vram: 0x21FEC0
+    subsegments:
+      - [0x1200A0, asm, render/render_font_context]
+  - name: post_21FF40
+    type: bin
+    start: 0x120120
   - name: unit_action_core
     type: code
     start: 0x166960

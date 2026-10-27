@@ -49,6 +49,9 @@ int func_0036DF30(int vkey) {
     return 0;
 }
 
+int func_2263F0(int msg, int wParam, int lParam);
+unsigned int func_2261C0(void);
+
 /*
  * func_0036DFB0: Evaluates USB HID modifier bytes
  * Matches AOK.ELF 0x0036DFB0 - 0x0036E008 (88 bytes)
@@ -65,3 +68,76 @@ int func_0036DFB0(int mode) {
     }
     return 0;
 }
+
+unsigned char g_key_pressed_state[256] = {0};
+unsigned short s_repeat_key = 0;
+unsigned int s_repeat_time = 0;
+
+/*
+ * func_0036E010: Scancode translation and layout adjustment
+ * Matches AOK.ELF 0x0036E010 - 0x0036E0A4 (148 bytes)
+ */
+int func_0036E010(int scancode) {
+    int vk = g_usb_scancode_table[scancode & 0xFF];
+    return vk;
+}
+
+/*
+ * func_0036E0A8: Key-Down Event Handler
+ * Matches AOK.ELF 0x0036E0A8 - 0x0036E15C (180 bytes)
+ */
+void func_0036E0A8(int scancode) {
+    int vk = func_0036E010(scancode);
+    if (vk != 0 && g_key_pressed_state[vk] == 0) {
+        int msg = (g_keybd_alt_state != 0) ? 0x104 : 0x100; // WM_SYSKEYDOWN : WM_KEYDOWN
+        func_2263F0(msg, vk, 0);
+        s_repeat_key = (unsigned short)vk;
+        s_repeat_time = func_2261C0() + 0x1F4; // Initial typematic delay: 500 ms
+        g_key_pressed_state[vk] = 0x80;
+    }
+}
+
+/*
+ * func_0036E160: Typematic Key Repeat Handler
+ * Matches AOK.ELF 0x0036E160 - 0x0036E1E4 (132 bytes)
+ */
+void func_0036E160(void) {
+    if (s_repeat_key != 0 && g_key_pressed_state[s_repeat_key] != 0) {
+        unsigned int now = func_2261C0();
+        if (now > s_repeat_time) {
+            int msg = (g_keybd_alt_state != 0) ? 0x104 : 0x100;
+            func_2263F0(msg, s_repeat_key, 0);
+            s_repeat_time = func_2261C0() + 0x32; // Repeat rate: 50 ms
+        }
+    }
+}
+
+/*
+ * func_0036E1F0: Key-Up Event Detector
+ * Matches AOK.ELF 0x0036E1F0 - 0x0036E340 (336 bytes)
+ */
+void func_0036E1F0(const unsigned char *current_packet) {
+    for (int vk = 0; vk < 256; ++vk) {
+        if (g_key_pressed_state[vk] != 0) {
+            int still_pressed = 0;
+            if (current_packet != 0) {
+                for (int slot = 2; slot < 8; ++slot) {
+                    int scancode = current_packet[slot];
+                    if (scancode >= 4 && func_0036E010(scancode) == vk) {
+                        still_pressed = 1;
+                        break;
+                    }
+                }
+            }
+            if (!still_pressed) {
+                int msg = (g_keybd_alt_state != 0) ? 0x105 : 0x101; // WM_SYSKEYUP : WM_KEYUP
+                func_2263F0(msg, vk, 0);
+                g_key_pressed_state[vk] = 0;
+                if (s_repeat_key == vk) {
+                    s_repeat_key = 0;
+                }
+            }
+        }
+    }
+}
+

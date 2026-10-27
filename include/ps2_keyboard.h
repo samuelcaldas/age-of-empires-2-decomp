@@ -27,11 +27,30 @@ extern unsigned char g_keybd_ctrl_state;
 extern unsigned char g_keybd_alt_state;
 extern unsigned char g_keybd_modifier_byte;
 
+/* Active key pressed state array at AOK.ELF 0x0048A270 */
+extern unsigned char g_key_pressed_state[256];
+
+/* Repeat key tracking in gp storage */
+extern unsigned short s_repeat_key;
+extern unsigned int s_repeat_time;
+
 /* Win32 GetAsyncKeyState implementation for PS2 USB keyboard (0x0036DF30) */
 int func_0036DF30(int vkey);
 
 /* USB HID modifier byte evaluator (0x0036DFB0) */
 int func_0036DFB0(int mode);
+
+/* Scancode translation and layout mapping (0x0036E010) */
+int func_0036E010(int scancode);
+
+/* Key-down event processor (0x0036E0A8) */
+void func_0036E0A8(int scancode);
+
+/* Typematic key repeat handler (0x0036E160) */
+void func_0036E160(void);
+
+/* Key-up event detector (0x0036E1F0) */
+void func_0036E1F0(const unsigned char *current_packet);
 
 #ifdef __cplusplus
 }

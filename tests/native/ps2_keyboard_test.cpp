@@ -91,8 +91,85 @@ void test_modifier_queries() {
     printf("PASS: test_modifier_queries\n");
 }
 
+static int s_posted_msg = 0;
+static int s_posted_wparam = 0;
+static int s_posted_lparam = 0;
+static int s_post_count = 0;
+static unsigned int s_mock_tick = 1000;
+
+extern "C" int func_2263F0(int msg, int wParam, int lParam) {
+    s_posted_msg = msg;
+    s_posted_wparam = wParam;
+    s_posted_lparam = lParam;
+    s_post_count++;
+    return 1;
+}
+
+extern "C" unsigned int func_2261C0(void) {
+    return s_mock_tick;
+}
+
+void test_win32_key_event_bridge() {
+    s_post_count = 0;
+    memset(g_key_pressed_state, 0, sizeof(g_key_pressed_state));
+    s_repeat_key = 0;
+    s_repeat_time = 0;
+    g_keybd_alt_state = 0;
+
+    // 1. func_0036E0A8: Key-Down on 'A' (HID usage 0x04)
+    func_0036E0A8(0x04);
+    assert(s_post_count == 1);
+    assert(s_posted_msg == 0x100); // WM_KEYDOWN
+    assert(s_posted_wparam == 'A');
+    assert(g_key_pressed_state['A'] == 0x80);
+    assert(s_repeat_key == 'A');
+    assert(s_repeat_time == s_mock_tick + 0x1F4); // Initial typematic delay: 500ms
+
+    // Pressing already pressed key does not repost WM_KEYDOWN
+    func_0036E0A8(0x04);
+    assert(s_post_count == 1);
+
+    // 2. func_0036E160: Typematic repeat before interval does nothing
+    s_mock_tick += 200; // 1200 < 1500
+    func_0036E160();
+    assert(s_post_count == 1);
+
+    // Tick reaches 1501 (> 1500) -> emits repeated WM_KEYDOWN
+    s_mock_tick = 1501;
+    func_0036E160();
+    assert(s_post_count == 2);
+    assert(s_posted_msg == 0x100);
+    assert(s_posted_wparam == 'A');
+    assert(s_repeat_time == s_mock_tick + 0x32); // Repeat interval: 50ms
+
+    // 3. func_0036E1F0: Key release detection
+    // Packet with no keys active
+    unsigned char empty_packet[8] = {0};
+    func_0036E1F0(empty_packet);
+    assert(s_post_count == 3);
+    assert(s_posted_msg == 0x101); // WM_KEYUP
+    assert(s_posted_wparam == 'A');
+    assert(g_key_pressed_state['A'] == 0);
+    assert(s_repeat_key == 0);
+
+    // 4. Alt down produces WM_SYSKEYDOWN (0x104) and WM_SYSKEYUP (0x105)
+    g_keybd_alt_state = 1;
+    func_0036E0A8(0x05); // 'B'
+    assert(s_post_count == 4);
+    assert(s_posted_msg == 0x104); // WM_SYSKEYDOWN
+    assert(s_posted_wparam == 'B');
+
+    func_0036E1F0(empty_packet);
+    assert(s_post_count == 5);
+    assert(s_posted_msg == 0x105); // WM_SYSKEYUP
+    assert(s_posted_wparam == 'B');
+
+    printf("PASS: test_win32_key_event_bridge\n");
+}
+
 int main() {
     test_scancode_table_parity();
     test_modifier_queries();
+    test_win32_key_event_bridge();
     return 0;
 }

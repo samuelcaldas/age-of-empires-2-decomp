@@ -40,7 +40,7 @@ def test_render_manager_palette_blend_split_boundaries():
     segment = segments[index]
     assert (segment["start"], segment["vram"]) == (0x89440, 0x189260)
     assert segment["type"] == "code"
-    assert segment["subsegments"] == [[0x89440, "asm", "render_manager_palette_blend"]]
+    assert segment["subsegments"] == [[0x89440, "asm", "render/render_manager_palette_blend"]]
     assert segments[index + 1]["start"] == 0x89660
     assert segments[index + 1]["vram"] == 0x189480
     assert original_bytes(0x189260, 4) == bytes.fromhex("70ffbd27")

@@ -9,21 +9,86 @@ extern "C" {
 
 void *g_pApp = NULL;
 
-__attribute__((weak)) int func_00226630(const MSG *msg);
-__attribute__((weak)) int func_00300C90(void);
+__attribute__((weak)) int func_185160(MSG *msg, int *handled) {
+    (void)msg;
+    if (handled) {
+        *handled = 0;
+    }
+    return 1;
+}
 
+__attribute__((weak)) int func_002265D0(MSG *msg, void *hwnd, int min, int max, int remove) {
+    (void)msg;
+    (void)hwnd;
+    (void)min;
+    (void)max;
+    (void)remove;
+    return 0; // No more messages in queue
+}
+
+__attribute__((weak)) int func_00226620(const MSG *msg) {
+    (void)msg;
+    return 0;
+}
+
+__attribute__((weak)) void func_388010(void *app) {
+    (void)app;
+}
+
+/* Static initial message template at 0x00391CD0 */
+static const MSG s_default_msg = {0, 0, 0, 0, 0, 0, 0};
+
+/*
+ * func_00185230: Main Win32 Event Pump of RGE_App / TRIBE_App
+ * Matches AOK.ELF 0x00185230 - 0x001853D8
+ */
 int func_00185230(void *self) {
-    if (self) {
-        *(int *)((char *)self + 0x1C) = 0;
+    if (!self) {
+        return 0;
     }
-    MSG msg;
-    memset(&msg, 0, sizeof(msg));
-    if (func_00226630) {
-        func_00226630(&msg);
+
+    /* field_1C is the quit request flag */
+    *(int *)((char *)self + 0x1C) = 0;
+
+    MSG msg = s_default_msg;
+    typedef int (*VirtualMethodFn)(void *app, MSG *m);
+
+    void ***vtable_ptr = (void ***)self;
+    void **vtable = *vtable_ptr;
+
+    /* Loop until field_1C becomes non-zero or WM_QUIT (0x12) is received */
+    while (*(int *)((char *)self + 0x1C) == 0) {
+        if (msg.message == 0x12) { // WM_QUIT
+            break;
+        }
+
+        /* Virtual call at vtable[0xA8 / 4] (Method 0xA8) */
+        if (vtable && vtable[0x2A]) {
+            VirtualMethodFn methodA8 = (VirtualMethodFn)vtable[0x2A];
+            if (!methodA8(self, &msg)) {
+                break;
+            }
+        }
+
+        int handled = 0;
+        int res = func_185160(&msg, &handled);
+        if (res > 0) {
+            func_00226620(&msg);
+            func_00226630(&msg);
+        }
+
+        /* Poll remaining messages in queue */
+        if (!func_002265D0(&msg, NULL, 0, 0, 1)) {
+            /* Queue empty: call idle handler at vtable[0xAC / 4] (Method 0xAC) */
+            if (vtable && vtable[0x2B]) {
+                VirtualMethodFn methodAC = (VirtualMethodFn)vtable[0x2B];
+                methodAC(self, &msg);
+            }
+            break;
+        }
     }
-    if (func_00300C90) {
-        func_00300C90();
-    }
+
+    func_388010(self);
     return 0;
 }
 

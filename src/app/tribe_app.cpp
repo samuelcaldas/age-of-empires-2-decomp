@@ -31,11 +31,6 @@ __attribute__((weak)) int func_00226620(const MSG *msg) {
     return 0;
 }
 
-__attribute__((weak)) int func_00226630(const MSG *msg) {
-    (void)msg;
-    return 0;
-}
-
 __attribute__((weak)) void func_388010(void *app) {
     (void)app;
 }

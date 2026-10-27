@@ -207,10 +207,13 @@ void func_1DE9B00(void) {
     s_overlay_entry2_called++;
 }
 
+#include "screen_manager.h"
+
 /* Include C modules directly to enable single-command hermetic build */
 #include "../../src/kcet/game_window.c"
 #include "../../src/kcet/overlay_loader.c"
 #include "../../src/app/tribe_app.cpp"
+#include "../../src/app/screen_manager.cpp"
 
 /* Red Test: Check presence and basic symbols */
 static void test_initial_signatures_and_constants(void) {
@@ -471,6 +474,10 @@ static void test_full_boot_to_smenu_integration(void) {
 
     /* Verify boot phase advanced to 0x11 */
     assert(g_boot_phase == BOOT_PHASE_OVERLAY_ENTRY2);
+
+    /* 3. Screen transition to SMENU via func_002FD5C0 streams smenu_cd.bin into 0x01D98000 */
+    int screen_res = func_002FD5C0(g_pApp);
+    assert(screen_res == 1);
 
     /* Verify smenu_cd.bin was loaded into 0x01D98000 */
     assert(strcmp(&s_captured_request_path[4], "EN\\smenu_cd.bin") == 0);

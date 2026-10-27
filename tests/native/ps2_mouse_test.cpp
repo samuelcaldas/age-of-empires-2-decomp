@@ -2,6 +2,29 @@
 #include <stdio.h>
 #include "ps2_mouse.h"
 
+struct PostedMsg {
+    int msg;
+    int wParam;
+    int lParam;
+};
+
+static PostedMsg s_posted[32];
+static int s_num_posted = 0;
+
+extern "C" int func_2263F0(int msg, int wParam, int lParam) {
+    if (s_num_posted < 32) {
+        s_posted[s_num_posted].msg = msg;
+        s_posted[s_num_posted].wParam = wParam;
+        s_posted[s_num_posted].lParam = lParam;
+        s_num_posted++;
+    }
+    return 1;
+}
+
+static void reset_posted() {
+    s_num_posted = 0;
+}
+
 void test_cursor_pos_get_set() {
     POINT pt = {0, 0};
     func_002255A0(100, 200);
@@ -24,7 +47,86 @@ void test_cursor_pos_get_set() {
     printf("PASS: test_cursor_pos_get_set\n");
 }
 
+void test_mouse_button_dispatch() {
+    func_002255A0(150, 250);
+    int expected_lparam = (250 << 16) | (150 & 0xFFFF);
+
+    // 1. Pressing LMB posts WM_LBUTTONDOWN with packed coordinates in lParam
+    reset_posted();
+    func_0036D700_dispatch_buttons(0x01, 0x00, 1000);
+    assert(s_num_posted == 1);
+    assert(s_posted[0].msg == WM_LBUTTONDOWN);
+    assert(s_posted[0].lParam == expected_lparam);
+
+    // 2. Releasing LMB posts WM_LBUTTONUP
+    reset_posted();
+    func_0036D700_dispatch_buttons(0x00, 0x01, 1100);
+    assert(s_num_posted == 1);
+    assert(s_posted[0].msg == WM_LBUTTONUP);
+    assert(s_posted[0].lParam == expected_lparam);
+
+    // 3. Pressing LMB twice within 250 ms posts WM_LBUTTONDBLCLK
+    // First press at tick 2000
+    reset_posted();
+    func_0036D700_dispatch_buttons(0x01, 0x00, 2000);
+    assert(s_num_posted == 1);
+    assert(s_posted[0].msg == WM_LBUTTONDOWN);
+
+    // Release at tick 2050
+    reset_posted();
+    func_0036D700_dispatch_buttons(0x00, 0x01, 2050);
+    assert(s_num_posted == 1);
+    assert(s_posted[0].msg == WM_LBUTTONUP);
+
+    // Second press at tick 2150 (interval = 150 <= 250 ms) -> DBLCLK
+    reset_posted();
+    func_0036D700_dispatch_buttons(0x01, 0x00, 2150);
+    assert(s_num_posted == 1);
+    assert(s_posted[0].msg == WM_LBUTTONDBLCLK);
+    assert(s_posted[0].lParam == expected_lparam);
+
+    // 4. Pressing LMB after > 250 ms posts a second WM_LBUTTONDOWN (not a double-click)
+    // Release at tick 2200
+    reset_posted();
+    func_0036D700_dispatch_buttons(0x00, 0x01, 2200);
+
+    // Press at tick 3000 (interval > 250 ms) -> WM_LBUTTONDOWN
+    reset_posted();
+    func_0036D700_dispatch_buttons(0x01, 0x00, 3000);
+    assert(s_num_posted == 1);
+    assert(s_posted[0].msg == WM_LBUTTONDOWN);
+
+    // Release at tick 3050
+    func_0036D700_dispatch_buttons(0x00, 0x01, 3050);
+
+    // 5. RMB and MMB transitions post matching messages
+    reset_posted();
+    func_0036D700_dispatch_buttons(0x02, 0x00, 4000); // RMB down
+    assert(s_num_posted == 1);
+    assert(s_posted[0].msg == WM_RBUTTONDOWN);
+    assert(s_posted[0].lParam == expected_lparam);
+
+    reset_posted();
+    func_0036D700_dispatch_buttons(0x00, 0x02, 4100); // RMB up
+    assert(s_num_posted == 1);
+    assert(s_posted[0].msg == WM_RBUTTONUP);
+
+    reset_posted();
+    func_0036D700_dispatch_buttons(0x04, 0x00, 5000); // MMB down
+    assert(s_num_posted == 1);
+    assert(s_posted[0].msg == WM_MBUTTONDOWN);
+    assert(s_posted[0].lParam == expected_lparam);
+
+    reset_posted();
+    func_0036D700_dispatch_buttons(0x00, 0x04, 5100); // MMB up
+    assert(s_num_posted == 1);
+    assert(s_posted[0].msg == WM_MBUTTONUP);
+
+    printf("PASS: test_mouse_button_dispatch\n");
+}
+
 int main() {
     test_cursor_pos_get_set();
+    test_mouse_button_dispatch();
     return 0;
 }

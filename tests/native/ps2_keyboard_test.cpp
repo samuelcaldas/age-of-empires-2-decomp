@@ -167,9 +167,65 @@ void test_win32_key_event_bridge() {
     printf("PASS: test_win32_key_event_bridge\n");
 }
 
+static int s_mock_keybd_status = 1;
+static unsigned char s_mock_packet_queue[2][8] = {
+    {0, 0, 0x06, 0, 0, 0, 0, 0}, // 'C' pressed
+    {0, 0, 0, 0, 0, 0, 0, 0}     // released
+};
+static int s_mock_packet_idx = 0;
+static int s_mock_packet_count = 1;
+
+extern "C" int func_136190(int port, void *out_packet) {
+    (void)port;
+    if (s_mock_packet_idx < s_mock_packet_count) {
+        memcpy(out_packet, s_mock_packet_queue[s_mock_packet_idx++], 8);
+        return 1;
+    }
+    return 0; // No more packets
+}
+
+extern "C" int func_136230(int port) {
+    (void)port;
+    return s_mock_keybd_status;
+}
+
+void test_polling_loop_and_status() {
+    s_post_count = 0;
+    memset(g_key_pressed_state, 0, sizeof(g_key_pressed_state));
+    s_repeat_key = 0;
+    g_keybd_alt_state = 0;
+
+    // 1. func_0036E510: Poll packet containing scancode 0x06 ('C')
+    s_mock_packet_idx = 0;
+    s_mock_packet_count = 1;
+    func_0036E510(0);
+    assert(s_post_count == 1);
+    assert(s_posted_msg == 0x100); // WM_KEYDOWN
+    assert(s_posted_wparam == 'C');
+    assert(g_key_pressed_state['C'] == 0x80);
+
+    // 2. func_0036E5E0: Connected status (1) executes update
+    s_mock_keybd_status = 1;
+    s_mock_packet_idx = 0;
+    s_mock_packet_count = 0; // no new packet, just repeat check
+    int res = func_0036E5E0();
+    assert(res == 1);
+
+    // 3. func_0036E5E0: Disconnected status (0) flushes pressed keys
+    assert(g_key_pressed_state['C'] == 0x80);
+    s_mock_keybd_status = 0;
+    res = func_0036E5E0();
+    assert(res == 0);
+    assert(g_key_pressed_state['C'] == 0); // Flushed
+    assert(s_posted_msg == 0x101); // Released WM_KEYUP posted
+
+    printf("PASS: test_polling_loop_and_status\n");
+}
+
 int main() {
     test_scancode_table_parity();
     test_modifier_queries();
     test_win32_key_event_bridge();
+    test_polling_loop_and_status();
     return 0;
 }

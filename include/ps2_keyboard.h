@@ -52,6 +52,15 @@ void func_0036E160(void);
 /* Key-up event detector (0x0036E1F0) */
 void func_0036E1F0(const unsigned char *current_packet);
 
+/* Modifier transition and LED update (0x0036E350) */
+void func_0036E350(void);
+
+/* Packet polling loop (0x0036E510) */
+int func_0036E510(int reset_flag);
+
+/* Subsystem update tick (0x0036E5E0) */
+int func_0036E5E0(void);
+
 #ifdef __cplusplus
 }
 #endif

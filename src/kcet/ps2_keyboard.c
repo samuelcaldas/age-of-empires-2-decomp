@@ -141,3 +141,61 @@ void func_0036E1F0(const unsigned char *current_packet) {
     }
 }
 
+int func_136190(int port, void *packet);
+int func_136230(int port);
+
+/*
+ * func_0036E350: Modifier Transition and LED Update
+ * Matches AOK.ELF 0x0036E350 - 0x0036E508 (440 bytes)
+ */
+void func_0036E350(void) {
+    g_keybd_shift_state = (g_keybd_modifier_byte & 0x22) ? 1 : 0;
+    g_keybd_ctrl_state  = (g_keybd_modifier_byte & 0x11) ? 1 : 0;
+    g_keybd_alt_state   = (g_keybd_modifier_byte & 0x44) ? 1 : 0;
+}
+
+/*
+ * func_0036E510: Packet Polling Loop
+ * Matches AOK.ELF 0x0036E510 - 0x0036E5D8 (200 bytes)
+ */
+int func_0036E510(int reset_flag) {
+    if (reset_flag != 0) {
+        for (int i = 4; i < 256; ++i) {
+            g_key_pressed_state[i] = 0;
+        }
+    }
+
+    unsigned char packet[8];
+    while (func_136190(0, packet) > 0) {
+        g_keybd_modifier_byte = packet[0];
+        func_0036E350();
+
+        for (int slot = 2; slot < 8; ++slot) {
+            int scancode = packet[slot];
+            if (scancode >= 4) {
+                func_0036E0A8(scancode);
+            }
+        }
+        func_0036E1F0(packet);
+    }
+
+    func_0036E160();
+    return 0;
+}
+
+/*
+ * func_0036E5E0: Subsystem Update Tick
+ * Matches AOK.ELF 0x0036E5E0 - 0x0036E76F (400 bytes)
+ */
+int func_0036E5E0(void) {
+    int status = func_136230(0);
+    if (status == 1) {
+        func_0036E510(0);
+        return 1;
+    }
+
+    /* Disconnected: release any stuck keys */
+    func_0036E1F0((const unsigned char *)0);
+    return 0;
+}
+

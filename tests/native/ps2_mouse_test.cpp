@@ -11,6 +11,10 @@ struct PostedMsg {
 static PostedMsg s_posted[32];
 static int s_num_posted = 0;
 
+static int s_mock_packet_available = 0;
+static int s_mock_packet_data[8] = {0};
+static unsigned int s_mock_tick = 1000;
+
 extern "C" int func_2263F0(int msg, int wParam, int lParam) {
     if (s_num_posted < 32) {
         s_posted[s_num_posted].msg = msg;
@@ -18,6 +22,29 @@ extern "C" int func_2263F0(int msg, int wParam, int lParam) {
         s_posted[s_num_posted].lParam = lParam;
         s_num_posted++;
     }
+    return 1;
+}
+
+extern "C" unsigned int func_2261C0(void) {
+    return s_mock_tick;
+}
+
+extern "C" int func_00135118(int port, int *out) {
+    (void)port;
+    if (s_mock_packet_available > 0) {
+        if (out) {
+            for (int i = 0; i < 8; i++) {
+                out[i] = s_mock_packet_data[i];
+            }
+        }
+        s_mock_packet_available--;
+        return 1;
+    }
+    return 0;
+}
+
+extern "C" int func_00135258(int port) {
+    (void)port;
     return 1;
 }
 
@@ -125,8 +152,59 @@ void test_mouse_button_dispatch() {
     printf("PASS: test_mouse_button_dispatch\n");
 }
 
+void test_relative_motion_accumulator() {
+    func_002255A0(100, 100);
+    reset_posted();
+
+    // Send relative packet (dX = 25, dY = 30)
+    s_mock_packet_available = 1;
+    s_mock_packet_data[0] = 0;   // buttons
+    s_mock_packet_data[1] = 25;  // dX
+    s_mock_packet_data[2] = 30;  // dY
+    s_mock_packet_data[3] = 0;   // wheel
+
+    int res = func_0036D700();
+    assert(res == 1);
+    assert(g_cursor_x == 125);
+    assert(g_cursor_y == 130);
+    assert(s_num_posted >= 1);
+    assert(s_posted[0].msg == WM_MOUSEMOVE);
+    assert(s_posted[0].lParam == ((130 << 16) | 125));
+
+    // Clamping to 0: negative delta
+    reset_posted();
+    s_mock_packet_available = 1;
+    s_mock_packet_data[0] = 0;
+    s_mock_packet_data[1] = -500;
+    s_mock_packet_data[2] = -500;
+    s_mock_packet_data[3] = 0;
+
+    func_0036D700();
+    assert(g_cursor_x == 0);
+    assert(g_cursor_y == 0);
+    assert(s_posted[0].msg == WM_MOUSEMOVE);
+    assert(s_posted[0].lParam == 0);
+
+    // Clamping to (639, 479): overflow delta
+    reset_posted();
+    s_mock_packet_available = 1;
+    s_mock_packet_data[0] = 0;
+    s_mock_packet_data[1] = 1000;
+    s_mock_packet_data[2] = 1000;
+    s_mock_packet_data[3] = 0;
+
+    func_0036D700();
+    assert(g_cursor_x == 639);
+    assert(g_cursor_y == 479);
+    assert(s_posted[0].msg == WM_MOUSEMOVE);
+    assert(s_posted[0].lParam == ((479 << 16) | 639));
+
+    printf("PASS: test_relative_motion_accumulator\n");
+}
+
 int main() {
     test_cursor_pos_get_set();
     test_mouse_button_dispatch();
+    test_relative_motion_accumulator();
     return 0;
 }

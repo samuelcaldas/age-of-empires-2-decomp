@@ -4,10 +4,27 @@ int g_cursor_x = 0;
 int g_cursor_y = 0;
 
 static unsigned int s_last_lbutton_down_tick = 0;
+static unsigned int s_prev_mouse_buttons = 0;
+
+__attribute__((weak)) int g_mock_mouse_buttons = 0;
 
 __attribute__((weak)) int func_2263F0(int msg, int wParam, int lParam) {
     (void)msg; (void)wParam; (void)lParam;
     return 1;
+}
+
+__attribute__((weak)) unsigned int func_2261C0(void) {
+    return 0;
+}
+
+__attribute__((weak)) int func_00135118(int port, int *out) {
+    (void)port; (void)out;
+    return 0;
+}
+
+__attribute__((weak)) int func_00135258(int port) {
+    (void)port;
+    return 0;
 }
 
 int func_00225580(POINT *pt) {
@@ -67,4 +84,46 @@ void func_0036D700_dispatch_buttons(unsigned int new_buttons, unsigned int prev_
             func_2263F0(WM_MBUTTONUP, new_buttons, lparam);
         }
     }
+}
+
+int func_0036D700(void) {
+    int packet[8];
+    int total_dx = 0;
+    int total_dy = 0;
+    int total_wheel = 0;
+    int got_packet = 0;
+    unsigned int buttons = s_prev_mouse_buttons;
+
+    while (func_00135118(0, packet)) {
+        got_packet = 1;
+        buttons = (unsigned int)packet[0];
+        total_dx += packet[1];
+        total_dy += packet[2];
+        total_wheel += packet[3];
+    }
+
+    if (!got_packet) {
+        return 0;
+    }
+
+    /* Update cursor position */
+    func_002255A0(g_cursor_x + total_dx, g_cursor_y + total_dy);
+
+    int lparam = (g_cursor_y << 16) | (g_cursor_x & 0xFFFF);
+
+    if (total_dx != 0 || total_dy != 0) {
+        func_2263F0(WM_MOUSEMOVE, buttons, lparam);
+    }
+
+    if (total_wheel != 0) {
+        func_2263F0(WM_MOUSEWHEEL, (total_wheel << 16) | (buttons & 0xFFFF), lparam);
+    }
+
+    unsigned int now_tick = func_2261C0();
+    func_0036D700_dispatch_buttons(buttons, s_prev_mouse_buttons, now_tick);
+
+    s_prev_mouse_buttons = buttons;
+    g_mock_mouse_buttons = buttons;
+
+    return 1;
 }

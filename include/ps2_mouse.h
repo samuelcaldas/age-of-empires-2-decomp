@@ -36,9 +36,12 @@ extern int g_cursor_y;
 int func_00225580(POINT *pt);
 int func_002255A0(int x, int y);
 void func_0036D700_dispatch_buttons(unsigned int new_buttons, unsigned int prev_buttons, unsigned int now_tick);
+int func_0036D700(void);
 
 #define GetCursorPos func_00225580
 #define SetCursorPos func_002255A0
+#define Mouse_Update func_0036D700
+#define PollMouse    func_0036D700
 
 #ifdef __cplusplus
 }

@@ -4,6 +4,10 @@ int g_cursor_x = 0;
 int g_cursor_y = 0;
 
 static unsigned int s_last_lbutton_down_tick = 0;
+static int s_last_lbutton_valid = 0;
+static int s_last_lbutton_x = 0;
+static int s_last_lbutton_y = 0;
+
 static unsigned int s_prev_mouse_buttons = 0;
 static int s_mouse_mode = MOUSE_MODE_RELATIVE;
 
@@ -56,12 +60,18 @@ void func_0036D700_dispatch_buttons(unsigned int new_buttons, unsigned int prev_
     /* Left Button (bit 0 / 0x01) */
     if (diff & 0x01) {
         if (new_buttons & 0x01) {
-            if (s_last_lbutton_down_tick != 0 && (now_tick - s_last_lbutton_down_tick) <= 250) {
+            if (s_last_lbutton_valid &&
+                (now_tick - s_last_lbutton_down_tick) <= 250 &&
+                g_cursor_x == s_last_lbutton_x &&
+                g_cursor_y == s_last_lbutton_y) {
                 func_2263F0(WM_LBUTTONDBLCLK, new_buttons, lparam);
-                s_last_lbutton_down_tick = 0;
+                s_last_lbutton_valid = 0;
             } else {
                 func_2263F0(WM_LBUTTONDOWN, new_buttons, lparam);
                 s_last_lbutton_down_tick = now_tick;
+                s_last_lbutton_x = g_cursor_x;
+                s_last_lbutton_y = g_cursor_y;
+                s_last_lbutton_valid = 1;
             }
         } else {
             func_2263F0(WM_LBUTTONUP, new_buttons, lparam);
@@ -89,18 +99,18 @@ void func_0036D700_dispatch_buttons(unsigned int new_buttons, unsigned int prev_
 
 int func_0036D700(void) {
     int packet[8];
-    int total_dx = 0;
-    int total_dy = 0;
-    int total_wheel = 0;
+    long long total_dx = 0;
+    long long total_dy = 0;
+    long long total_wheel = 0;
     int got_packet = 0;
     unsigned int buttons = s_prev_mouse_buttons;
 
     while (func_00135118(0, packet)) {
         got_packet = 1;
         buttons = (unsigned int)packet[0];
-        total_dx += packet[1];
-        total_dy += packet[2];
-        total_wheel += packet[3];
+        total_dx += (long long)packet[1];
+        total_dy += (long long)packet[2];
+        total_wheel += (long long)packet[3];
     }
 
     if (!got_packet) {
@@ -108,7 +118,14 @@ int func_0036D700(void) {
     }
 
     if (s_mouse_mode != MOUSE_MODE_ABSOLUTE) {
-        func_002255A0(g_cursor_x + total_dx, g_cursor_y + total_dy);
+        long long new_x = (long long)g_cursor_x + total_dx;
+        long long new_y = (long long)g_cursor_y + total_dy;
+        if (new_x < 0) new_x = 0;
+        else if (new_x > 639) new_x = 639;
+        if (new_y < 0) new_y = 0;
+        else if (new_y > 479) new_y = 479;
+        g_cursor_x = (int)new_x;
+        g_cursor_y = (int)new_y;
     }
 
     int lparam = (g_cursor_y << 16) | (g_cursor_x & 0xFFFF);
@@ -118,7 +135,8 @@ int func_0036D700(void) {
     }
 
     if (total_wheel != 0) {
-        func_2263F0(WM_MOUSEWHEEL, (total_wheel << 16) | (buttons & 0xFFFF), lparam);
+        unsigned int wheel_hi = ((unsigned int)(short)(int)total_wheel) << 16;
+        func_2263F0(WM_MOUSEWHEEL, wheel_hi | (buttons & 0xFFFF), lparam);
     }
 
     unsigned int now_tick = func_2261C0();

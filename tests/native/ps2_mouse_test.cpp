@@ -239,10 +239,92 @@ void test_absolute_mouse_mode() {
     printf("PASS: test_absolute_mouse_mode\n");
 }
 
+void test_double_click_requires_same_position() {
+    func_002255A0(100, 100);
+    reset_posted();
+
+    // First press at (100, 100)
+    func_0036D700_dispatch_buttons(0x01, 0x00, 10000);
+    assert(s_posted[0].msg == WM_LBUTTONDOWN);
+
+    // Release at (100, 100)
+    func_0036D700_dispatch_buttons(0x00, 0x01, 10050);
+
+    // Move cursor to (200, 200)
+    func_002255A0(200, 200);
+
+    // Second press at (200, 200) within 100 ms -> should NOT be double click
+    reset_posted();
+    func_0036D700_dispatch_buttons(0x01, 0x00, 10100);
+    assert(s_num_posted == 1);
+    assert(s_posted[0].msg == WM_LBUTTONDOWN); // NOT WM_LBUTTONDBLCLK!
+
+    printf("PASS: test_double_click_requires_same_position\n");
+}
+
+void test_double_click_at_tick_zero() {
+    func_002255A0(100, 100);
+    reset_posted();
+
+    // First click at tick 0
+    func_0036D700_dispatch_buttons(0x01, 0x00, 0);
+    assert(s_posted[0].msg == WM_LBUTTONDOWN);
+
+    func_0036D700_dispatch_buttons(0x00, 0x01, 50);
+
+    // Second click at tick 100 (within 250 ms of tick 0) -> DBLCLK
+    reset_posted();
+    func_0036D700_dispatch_buttons(0x01, 0x00, 100);
+    assert(s_num_posted == 1);
+    assert(s_posted[0].msg == WM_LBUTTONDBLCLK);
+
+    printf("PASS: test_double_click_at_tick_zero\n");
+}
+
+void test_extreme_delta_clamping() {
+    func_002255A0(100, 100);
+    reset_posted();
+
+    s_mock_packet_available = 1;
+    s_mock_packet_data[0] = 0;
+    s_mock_packet_data[1] = 0x7FFFFFFF;
+    s_mock_packet_data[2] = 0x7FFFFFFF;
+    s_mock_packet_data[3] = 0;
+
+    func_0036D700();
+    assert(g_cursor_x == 639);
+    assert(g_cursor_y == 479);
+
+    printf("PASS: test_extreme_delta_clamping\n");
+}
+
+void test_negative_wheel_delta() {
+    func_002255A0(100, 100);
+    reset_posted();
+
+    s_mock_packet_available = 1;
+    s_mock_packet_data[0] = 0;
+    s_mock_packet_data[1] = 0;
+    s_mock_packet_data[2] = 0;
+    s_mock_packet_data[3] = -2;
+
+    func_0036D700();
+    assert(s_num_posted >= 1);
+    assert(s_posted[0].msg == WM_MOUSEWHEEL);
+    short wheel_delta = (short)((s_posted[0].wParam >> 16) & 0xFFFF);
+    assert(wheel_delta == -2);
+
+    printf("PASS: test_negative_wheel_delta\n");
+}
+
 int main() {
     test_cursor_pos_get_set();
     test_mouse_button_dispatch();
     test_relative_motion_accumulator();
     test_absolute_mouse_mode();
+    test_double_click_requires_same_position();
+    test_double_click_at_tick_zero();
+    test_extreme_delta_clamping();
+    test_negative_wheel_delta();
     return 0;
 }

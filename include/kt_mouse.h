@@ -1,7 +1,9 @@
 #ifndef KT_MOUSE_H
 #define KT_MOUSE_H
 
-#include <stddef.h>
+#ifndef offsetof
+#define offsetof(st, m) ((unsigned int)((char *)&((st *)0)->m - (char *)0))
+#endif
 
 typedef unsigned char u8;
 typedef unsigned short u16;

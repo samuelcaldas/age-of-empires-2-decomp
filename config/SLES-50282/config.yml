@@ -5018,6 +5018,15 @@ segments:
   - name: post_220380
     type: bin
     start: 0x120560
+  - name: kt_sema_poll_2204d0
+    type: code
+    start: 0x1206B0
+    vram: 0x2204D0
+    subsegments:
+      - [0x1206B0, asm, kcet/kt_sema_poll_2204d0]
+  - name: post_220530
+    type: bin
+    start: 0x120710
   - name: unit_action_core
     type: code
     start: 0x166960

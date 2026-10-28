@@ -2695,6 +2695,12 @@ if config.platform == Platform.PS2:
                     toolchain_version="PS2/mwcc-2.3.1.01",
                 ),
                 Object(
+                    Matching,
+                    "kcet/kt_sema_poll_2204d0",
+                    cflags=["-O3", "-inline", "off", "-msext", "on", "-char", "signed", "-sym", "off", "-Iinclude"],
+                    toolchain_version="PS2/mwcc-2.3.1.01",
+                ),
+                Object(
                     NonMatching,
                     "zone/zone_path_eval",
                     cflags=config.cflags,

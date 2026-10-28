@@ -33,10 +33,10 @@ def test_kt_game_main_split_boundaries():
     """Check the slicer's loaded address and boundary against actual ELF bytes."""
     require_original()
     config = yaml.safe_load((PROJECT_ROOT / "config/SLES-50282/config.yml").read_text())
-    segment = next(item for item in config["segments"] if item["name"] == "kt_game_main_220530")
+    segment = next(item for item in config["segments"] if isinstance(item, dict) and item.get("name") == "kt_game_main_220530")
     assert (segment["start"], segment["vram"]) == (0x120710, 0x220530)
 
-    post_segment = next(item for item in config["segments"] if item["name"] == "post_2205E0")
+    post_segment = next(item for item in config["segments"] if isinstance(item, dict) and item.get("name") == "post_2205E0")
     assert post_segment["start"] == 0x1207C0
 
     # Verify prologue instructions in original ELF

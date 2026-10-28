@@ -33,10 +33,10 @@ def test_kt_thread_sema_split_boundaries():
     """Check the slicer's loaded address and boundary against actual ELF bytes."""
     require_original()
     config = yaml.safe_load((PROJECT_ROOT / "config/SLES-50282/config.yml").read_text())
-    segment = next(item for item in config["segments"] if item["name"] == "kt_thread_sema_220280")
+    segment = next(item for item in config["segments"] if isinstance(item, dict) and item.get("name") == "kt_thread_sema_220280")
     assert (segment["start"], segment["vram"]) == (0x120460, 0x220280)
 
-    post_segment = next(item for item in config["segments"] if item["name"] == "post_220380")
+    post_segment = next(item for item in config["segments"] if isinstance(item, dict) and item.get("name") == "post_220380")
     assert post_segment["start"] == 0x120560
 
     # Verify prologue instructions in original ELF

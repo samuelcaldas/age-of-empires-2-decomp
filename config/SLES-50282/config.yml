@@ -5048,9 +5048,12 @@ segments:
     vram: 0x220C10
     subsegments:
       - [0x120DF0, asm, kcet/kt_vsync_thread_220c10]
-  - name: post_220C60
-    type: bin
+  - name: kt_thread_spawn_220c60
+    type: code
     start: 0x120E40
+    vram: 0x220C60
+    subsegments:
+      - [0x120E40, asm, kcet/kt_thread_spawn_220c60]
   - name: kt_render_sync_220cd0
     type: code
     start: 0x120EB0

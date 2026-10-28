@@ -36,7 +36,7 @@ def test_kt_vsync_thread_split_boundaries():
     segment = next(item for item in config["segments"] if isinstance(item, dict) and item.get("name") == "kt_vsync_thread_220c10")
     assert (segment["start"], segment["vram"]) == (0x120DF0, 0x220C10)
 
-    post_segment = next(item for item in config["segments"] if isinstance(item, dict) and item.get("name") == "post_220C60")
+    post_segment = next(item for item in config["segments"] if isinstance(item, dict) and item.get("name") in ("post_220C60", "kt_thread_spawn_220c60"))
     assert post_segment["start"] == 0x120E40
 
     # Verify prologue instructions in original ELF

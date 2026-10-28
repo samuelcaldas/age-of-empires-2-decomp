@@ -1,84 +1,58 @@
-# Plano de Decompilação Completa do Subsistema Gráfico (Full Graphics Decomp)
+# Plano de Descompilação da Camada Gráfica da Demo de PC (Genie Graphics Reference)
 
 ## Contexto
 
-O subsistema gráfico do Age of Empires II (PS2 PAL `SLES-50282`) é composto por duas camadas interligadas:
-1. **Camada de Alto Nível (`src/render/`)**: Originária da base de código do PC, gerencia superfícies, viewports, decodificação de `.SLP`, tabelas de paletas e o ciclo de vida do `RenderManager`. Cerca de 80-90% desse código já se encontra em C++ estruturado e com testes comportamentais.
-2. **Camada de Baixo Nível / Hardware (`src/kcet/kt_gpu.c` e `render_packet_builder_*.cpp` + `post_21CD20`)**: Implementada pela Konami (KCET), responsável pela inicialização dos registradores do Graphics Synthesizer (GS), canais DMA (GIF/VIF) e empacotamento de primitivas gráficas (GIFtag, RGBAQ, XYZ2, UV).
+O binário `EMPIRES2.EXE` da demo de PC (`orig/AOE2_TRIAL_1999/EMPIRES2.EXE`, build de 18/10/1999) foi construído com MSVC 6.0 SP3 e utiliza o pipeline de software rasterizer 2D da Ensemble Studios (Genie Engine):
+1. **Paletas e Misturas de Cores**: Tabelas de 256 cores, mapeamento por menor distância euclidiana, cálculo de brilho e mistura alfa em software (`RenderPaletteTable`, `RenderPaletteBlend`).
+2. **Sprites .SLP**: Decodificação de comandos de linha (runs de pixels literais, saltos transparentes, sombreamento/transparência de contorno e sombras com dithering). Atualmente o repositório possui validação de cabeçalhos em `src/render/slp_decoder.cpp`, mas ainda não possui a rotina de rasterização dos comandos de pixel.
+3. **Superfícies e Conversão de Cores (Blits 8-bit -> 16/32-bit)**: O jogo renderiza nativamente em 8bpp paletizado e converte (ou blita diretamente via DirectDraw) para o formato do display (RGB555, RGB565 ou ARGB8888).
+4. **Cálculo de Clip Rectangles e Viewports**: Recorte de coordenadas de sprites e tiles contra a área de tela visível (`render_viewport_21ae90.cpp` e afins).
 
-O objetivo deste plano é atingir o **Full Decomp Puro**: 100% de cobertura e matching exato (bit-for-bit no MWCC PS2 2.3.1.01 e EE-GCC 2.9-991111) de todas as rotinas gráficas no repositório `age-of-empires-2-decomp`.
-
----
-
-## Estado Atual do Subsistema
-
-| Componente | Total de Módulos | Status Atual | Compilador Alvo |
-|---|---|---|---|
-| **KCET GPU Driver** (`src/kcet/kt_gpu.c`) | 7 funções (0x125808 - 0x125A70) | **Matching** | EE-GCC 2.9-991111 |
-| **Render Manager Core / Subsystems** (`src/render/render_manager_*.cpp`) | 40 módulos | ~33 Matching, 7 NonMatching | MWCC PS2 2.3.1.01 |
-| **Render Helpers** (`src/render/render_helper_*.cpp`) | 24 módulos (0x117910 - 0x11A4F0) | Funcional (NonMatching) | MWCC PS2 2.3.1.01 |
-| **Render Viewports** (`src/render/render_viewport_*.cpp`) | 9 módulos (0x11A700 - 0x11B310) | Funcional (NonMatching) | MWCC PS2 2.3.1.01 |
-| **Palette Helpers & DRS** (`src/render/render_palette_helper_*.cpp`, DRS) | 8 módulos (0x11B4E0 - 0x11BFD0) | Funcional (NonMatching) | MWCC PS2 2.3.1.01 |
-| **Packet Builders** (`src/render/render_packet_builder_*.cpp`) | 5 módulos (0x11C1B0 - 0x11CF00) | Funcional (NonMatching) | MWCC PS2 2.3.1.01 |
-| **GS Primitive Pipeline Bruto** (`post_21CD20`, 0x21CFB0 - 0x224000) | ~10 funções críticas não fatiadas | Binário Bruto (`bin`) | MWCC PS2 2.3.1.01 |
+Este plano visa extrair, implementar e validar essas rotinas fundamentais do Genie Engine em C++ sob `src/render/` usando a metodologia TDD rigorosa com testes nativos (`-m32` g++), servindo de referência formal para o recompilador moderno (`aoe2-ps2-recomp` / `IRenderer`).
 
 ---
 
-## Fases de Execução
+## Módulos e Objetivos
 
-### Fase 1: Fatiamento e Decompilação do Pipeline de Primitivas GS (`post_21CD20`)
-A área atualmente contida no bloco `post_21CD20` (entre `0x11D190` e `0x166960` em arquivo, correspondendo a VRAM `0x21CF30` em diante) contém as rotinas cruciais que pegam coordenadas de tela e geram comandos GS:
-- **1.1 Fatiamento no Splat (`config/SLES-50282/config.yml` e `symbols.txt`)**:
-  - `func_0021CFB0`: Blit de textura / desenho de quads com retângulos de origem/destino.
-  - `func_0021D2C0`: Preenchimento de retângulos sólidos (clear rect / solid fill).
-  - `func_0021DE90`: Upload de CLUT / tabelas de paleta para a memória eDRAM do GS.
-  - `func_0021DF50`: Configuração de textura e parâmetros de render context.
-  - `func_0021E350` e `func_0021E370`: Configuração de viewport de saída e blit final para a tela.
-  - `func_00221B60`: Alocação/obtenção do buffer de pacotes DMA ativo.
-  - `func_0021FEC0` e `func_0021FED0`: Renderizadores de fontes e glifos na tela.
-- **1.2 Criação dos Testes Comportamentais TDD**:
-  - Implementar testes nativos (`tests/native/*_test.cpp` e harnesses pytest em `tests/test_*.py`) validando os parâmetros recebidos e a estrutura dos pacotes DMA/GIF gerados.
-- **1.3 Implementação em C++**:
-  - Criar arquivos dedicados em `src/render/` (ex: `render_packet_quad_21cfb0.cpp`, `render_rect_fill_21d2c0.cpp`, `render_gs_clut_21de90.cpp`, etc.).
-  - Registrar no `configure.py`.
+### Módulo 1: Rasterizador de Comandos de Linha SLP (`src/render/slp_rasterizer.cpp`)
+- **Objetivo**: Completar `src/render/slp_decoder.cpp` com a máquina de estados de desenho de pixels de uma linha SLP:
+  - `CMD 0x00..0x03` / Block runs: Saltos transparentes (skip X pixels).
+  - `CMD 0x06` / Player color runs: Substituição por paleta de jogador.
+  - `CMD 0x07` / Shadow / Dither: Blit com tabela de sombreamento (50% alpha dither).
+  - `CMD 0x0A..0x0F` / Extended commands: Literal pixel copying para o buffer de destino.
+- **Arquivos**:
+  - `include/slp_rasterizer.h`
+  - `src/render/slp_rasterizer.cpp`
+  - `tests/native/slp_rasterizer_test.cpp`
+  - `tests/test_slp_rasterizer.py`
 
-### Fase 2: Fechamento dos Módulos Restantes do RenderManager
-Harmonizar e levar a 100% Matching os 7 módulos do `RenderManager` que ainda estão como `NonMatching`:
-- `render/render_manager_core.cpp` (0x84520)
-- `render/render_manager_screen.cpp` (0x849A0)
-- `render/render_manager_methods.cpp` (0x84C68)
-- `render/render_manager_query.cpp` (0x84E08)
-- `render/render_manager_messages.cpp` (0x84EC0)
-- `render/render_manager_palette_table.cpp` (0x89660)
-- `render/render_manager_error.cpp` (0x89A10)
-- `trade/trade_action_stream_render.cpp` (0x82A70)
+### Módulo 2: Conversor e Blitter de Superfície 8bpp -> 16bpp / 32bpp (`src/render/render_blit_converter.cpp`)
+- **Objetivo**: Implementar o software blitter do Genie Engine que transfere retângulos de 8-bit paletizados para buffers de visualização modernos:
+  - Blit paletizado 8bpp -> RGB565 (16-bit com stride ajustado).
+  - Blit paletizado 8bpp -> ARGB8888 (32-bit padrão de host moderno / textura OpenGL/Vulkan).
+  - Suporte a color key transparente e clip bounds (min_x, max_x, min_y, max_y).
+- **Arquivos**:
+  - `include/render_blit_converter.h`
+  - `src/render/render_blit_converter.cpp`
+  - `tests/native/render_blit_converter_test.cpp`
+  - `tests/test_render_blit_converter.py`
 
-**Ação:** Ajustar alocação de variáveis locais, inlining e ordem de registradores usando `objdiff` até a flag mudar de `NonMatching` para `Matching`.
-
-### Fase 3: Matching das Camadas Auxiliares e Viewports
-Refinar o código C++ existente nos módulos já funcionais:
-- **3.1 Render Helpers (`render_helper_*.cpp`)**: 24 arquivos cobrindo cálculos de projeção 2D, clip rects e conversões de coordenadas.
-- **3.2 Render Viewports (`render_viewport_*.cpp`)**: 9 arquivos lidando com scroll do mapa, posicionamento da câmera e bounding boxes de visão.
-- **3.3 Palette Helpers (`render_palette_helper_*.cpp`)**: 6 arquivos de mesclagem de cores e mapeamento de índices de jogadores.
-- **3.4 DRS Loader (`render_drs_loader_21bc30.cpp`)**: Carregamento de sprites e recursos DRS do disco.
-
-### Fase 4: Matching dos Packet Builders e Auditoria do KCET GPU
-- **4.1 Matching de `render_packet_builder_*.cpp`**:
-  - `render_packet_builder_21bfd0`
-  - `render_packet_builder_21c410`
-  - `render_packet_builder_21c710`
-  - `render_packet_builder_21c990`
-  - `render_packet_builder_21cd20`
-  - Refinar literais de 64/128 bits e empacotamento de bitfields (`PackBitfield42`, `PackBitfield48`, `BuildLineTag`) para coincidir com a saída exata do compilador CodeWarrior.
-- **4.2 Auditoria da Tabela de Despacho KCET (`D_38C740`)**:
-  - Mapear handlers 0 a 22 chamados por `ktGpuDispatchCommand` para garantir que todas as funções KCET GPU estejam registradas e verificadas.
+### Módulo 3: Clipper de Retângulos e Viewport 2D (`src/render/render_clip_math.cpp`)
+- **Objetivo**: Formalizar as rotinas de interseção e corte retangular de tela encontradas em `render_viewport_21ae90.cpp`:
+  - Recorte de caixas delimitadoras de sprites contra janelas de UI.
+  - Ajuste de ponteiros de origem e offsets de destino quando partes do sprite saem da tela (coordenadas negativas ou superiores à resolução).
+- **Arquivos**:
+  - `include/render_clip_math.h`
+  - `src/render/render_clip_math.cpp`
+  - `tests/native/render_clip_math_test.cpp`
+  - `tests/test_render_clip_math.py`
 
 ---
 
-## Verificação e Regras TDD
+## Ciclo de Desenvolvimento TDD (Mandatory Rules)
 
-Todas as alterações devem seguir estritamente as regras de desenvolvimento do repositório:
-1. **Red**: Escrever teste unitário comportamental em `tests/native/*_test.cpp` e executar via harness `pytest` (verificando falha esperada).
-2. **Green**: Implementar código C++ necessário em `src/render/` até o teste passar.
-3. **Refactor & Match**: Compilar com `ninja` / CodeWarrior PS2 (`docker-dev`) e inspecionar diff binário via `objdiff` até 100% de coincidência.
-4. **Regression Gate**: Executar `pytest -q -ra` e `python -m scripts.observability status` garantindo zero regressões.
+Para cada módulo:
+1. **Red**: Criar teste comportamental em `tests/native/<module>_test.cpp` e harness `pytest` em `tests/test_<module>.py`. Executar no container Docker (`docker-dev` / `aoe-tests:verification`) e comprovar a falha de compilação ou assertion esperada.
+2. **Green**: Implementar código mínimo necessário em `src/render/<module>.cpp` e `include/<module>.h`. Re-executar o teste e comprovar 100% de aprovação (`PASS`).
+3. **Refactor**: Otimizar laços de pixels, simplificar ramificações e manter código dentro das regras do repositório (estilo C++03, tipagem explícita, sem warnings).
+4. **Regression Gate**: Executar a suite completa `python -m pytest -q -ra tests/test_render_*.py` garantindo zero regressões nos testes existentes.

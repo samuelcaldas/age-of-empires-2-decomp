@@ -5033,6 +5033,15 @@ segments:
   - name: post_2205E0
     type: bin
     start: 0x1207C0
+  - name: kt_game_loop_2206a0
+    type: code
+    start: 0x120880
+    vram: 0x2206A0
+    subsegments:
+      - [0x120880, asm, kcet/kt_game_loop_2206a0]
+  - name: post_2207B0
+    type: bin
+    start: 0x120990
   - name: unit_action_core
     type: code
     start: 0x166960

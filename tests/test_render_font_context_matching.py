@@ -36,7 +36,7 @@ def test_render_font_context_split_boundaries():
     segment = next(item for item in config["segments"] if item["name"] == "render_font_context")
     assert (segment["start"], segment["vram"]) == (0x1200A0, 0x21FEC0)
 
-    post_segment = next(item for item in config["segments"] if item["name"] == "post_21FF40")
+    post_segment = next(item for item in config["segments"] if item["name"] in ("post_21FF40", "render_font_lookup"))
     assert post_segment["start"] == 0x120120
 
     # Verify prologue instructions in original ELF

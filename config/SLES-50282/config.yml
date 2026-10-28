@@ -5042,6 +5042,15 @@ segments:
   - name: post_2207B0
     type: bin
     start: 0x120990
+  - name: kt_thread_spawn_220940
+    type: code
+    start: 0x120B20
+    vram: 0x220940
+    subsegments:
+      - [0x120B20, asm, kcet/kt_thread_spawn_220940]
+  - name: post_2209B0
+    type: bin
+    start: 0x120B90
   - name: kt_thread_spawn_220ba0
     type: code
     start: 0x120D80

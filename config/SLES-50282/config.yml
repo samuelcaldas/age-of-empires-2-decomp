@@ -5042,6 +5042,15 @@ segments:
   - name: post_2207B0
     type: bin
     start: 0x120990
+  - name: kt_vblank_handlers_220d50
+    type: code
+    start: 0x120F30
+    vram: 0x220D50
+    subsegments:
+      - [0x120F30, asm, kcet/kt_vblank_handlers_220d50]
+  - name: post_220DD0
+    type: bin
+    start: 0x120FB0
   - name: unit_action_core
     type: code
     start: 0x166960

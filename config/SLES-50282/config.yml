@@ -5009,6 +5009,15 @@ segments:
   - name: post_21FF60
     type: bin
     start: 0x120140
+  - name: kt_thread_sema_220280
+    type: code
+    start: 0x120460
+    vram: 0x220280
+    subsegments:
+      - [0x120460, asm, kcet/kt_thread_sema_220280]
+  - name: post_220380
+    type: bin
+    start: 0x120560
   - name: unit_action_core
     type: code
     start: 0x166960

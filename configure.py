@@ -2731,6 +2731,12 @@ if config.platform == Platform.PS2:
                     toolchain_version="PS2/mwcc-2.3.1.01",
                 ),
                 Object(
+                    Matching,
+                    "kcet/kt_iop_init_220dd0",
+                    cflags=config.cflags,
+                    toolchain_version="PS2/mwcc-2.3.1.01",
+                ),
+                Object(
                     NonMatching,
                     "zone/zone_path_eval",
                     cflags=config.cflags,

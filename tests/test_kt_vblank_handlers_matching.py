@@ -36,7 +36,7 @@ def test_kt_vblank_handlers_split_boundaries():
     segment = next(item for item in config["segments"] if isinstance(item, dict) and item.get("name") == "kt_vblank_handlers_220d50")
     assert (segment["start"], segment["vram"]) == (0x120F30, 0x220D50)
 
-    post_segment = next(item for item in config["segments"] if isinstance(item, dict) and item.get("name") == "post_220DD0")
+    post_segment = next(item for item in config["segments"] if isinstance(item, dict) and item.get("name") in ("post_220DD0", "kt_iop_init_220dd0"))
     assert post_segment["start"] == 0x120FB0
 
     # Verify prologue instructions in original ELF

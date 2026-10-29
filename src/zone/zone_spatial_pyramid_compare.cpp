@@ -10,10 +10,12 @@ extern "C" int func_001D20D0(void *self, const float *values, int count) {
     }
 
     float *arr = *(float **)(zm + 0x9C);
-    for (int i = 0; i < self_count; i++) {
-        if (arr[i] != values[i]) {
+    int i = 0;
+    while (i < self_count) {
+        if (!(arr[i] == values[i])) {
             return 0;
         }
+        i++;
     }
 
     return 1;

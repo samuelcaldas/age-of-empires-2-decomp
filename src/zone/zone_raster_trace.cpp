@@ -28,41 +28,35 @@ extern "C" int func_001CA560(void *self, int x, int y, int *out_x, int *out_y) {
 
     ZoneLayout *zm = (ZoneLayout *)self;
 
-loop:
-    if (x < 0) return 0;
-    if (!(x < zm->width)) return 0;
-    if (y < 0) return 0;
-    if (!(y < zm->height)) return 0;
+    for (;;) {
+        if (!(x >= 0 && x < zm->width && y >= 0 && y < zm->height)) {
+            return 0;
+        }
 
-    {
-        int x_offset = (x * 8 - x) * 4;
-        ZoneCell *cell = (ZoneCell *)((char *)zm->cells_ptr[y] + x_offset);
+        int x_offset = ((x << 3) - x) << 2;
+        ZoneCell **rows = zm->cells_ptr;
+        ZoneCell *row = rows[y];
+        unsigned char *cell = (unsigned char *)row + x_offset;
 
-        unsigned char tag = (unsigned char)(cell->f_B & 0x60);
-        if (tag == 0x40 || !tag) {
+        unsigned int tag = (unsigned int)(cell[0xB] & 0x60);
+        if (tag == 0x40 || tag == 0) {
             *out_x = x;
             *out_y = y;
             return 1;
         }
 
-        if (tag != 0x20) {
-            return 0;
+        int dx = 0;
+        int dy = 0;
+        if (tag == 0x20) {
+            char val = (char)cell[0xC];
+            dx = D_00392020[val & 0xF];
+            dy = D_00392020[(val & 0xF0) >> 4];
         }
-
-        unsigned char val = cell->f_C;
-        int dx = D_00392020[val & 0xF];
-        int dy = D_00392020[(val & 0xF0) >> 4];
 
         x -= dx;
-        if (dx != 0) {
-            y -= dy;
-            goto loop;
-        }
         y -= dy;
-        if (dy != 0) {
-            goto loop;
+        if (dx == 0 && dy == 0) {
+            return 0;
         }
     }
-
-    return 0;
 }

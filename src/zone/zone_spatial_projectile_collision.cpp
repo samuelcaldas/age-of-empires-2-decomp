@@ -5,11 +5,11 @@
 extern "C" {
 void *func_100850(unsigned int size);
 void func_1ECFC0(void *self);
-void func_1DB890(void *self, void *target_pos, void *cur_pos, int a3, int t0, int t1, float f12);
+void func_001DB890(void *self, void *target_pos, void *cur_pos, int a3, int t0, int t1, float f12);
 float func_3675D0(void *obj);
 void func_1ED050(void *list, void *target, int zero, float f12, float f13);
-void func_1ECFD0(void *list, int flag);
-extern void *D_00948FD0[];
+void func_001ECFD0(void *list, int flag);
+extern void *D_938FD0[];
 extern int D_004E324C;
 }
 
@@ -57,28 +57,32 @@ extern "C" void *func_001D8900(ProjectileMotion *self, float tx, float ty, float
     cur_pos[1] = self->z;
     cur_pos[2] = self->y;
 
-    func_1DB890(self, target_pos, cur_pos, 0, 0, 0, 1.0f);
+    func_001DB890(self, target_pos, cur_pos, 0, 0, 0, 1.0f);
 
     for (int i = 0; i < D_004E324C; i++) {
-        CollisionTarget *target = (CollisionTarget *)D_00948FD0[i];
+        CollisionTarget *target = (CollisionTarget *)D_938FD0[i];
         void *ent = target->entity;
-        if (ent != 0) {
-            float ent_z = *(float *)((char *)ent + 0x4C);
-            float diff = ent_z - self->z;
-            float radius = func_3675D0(ent);
-            if (diff >= -radius) {
-                float self_radius = func_3675D0(self);
-                if (diff <= self_radius) {
-                    func_1ED050(list, ent, 0, 0.0f, 0.0f);
-                }
-            }
+        if (ent == 0) {
+            continue;
+        }
+
+        float ent_z = *(float *)((char *)ent + 0x4C);
+        float diff = ent_z - self->z;
+        float radius = func_3675D0(ent);
+        if (diff < -radius) {
+            continue;
+        }
+
+        float self_radius = func_3675D0(self);
+        if (diff <= self_radius) {
+            func_1ED050(list, ent, 0, 0.0f, 0.0f);
         }
     }
 
-    if (list->count != 0) {
-        return list;
+    if (list->count == 0) {
+        func_001ECFD0(list, 1);
+        list = 0;
     }
 
-    func_1ECFD0(list, 1);
-    return 0;
+    return list;
 }

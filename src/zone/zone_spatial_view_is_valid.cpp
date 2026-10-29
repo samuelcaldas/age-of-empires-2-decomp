@@ -2,8 +2,6 @@
 
 #include "zone_spatial_view_is_valid.h"
 
-extern "C" float sqrtf(float);
-
 struct SpatialViewObj {
     char pad[0x64];
     float x;
@@ -12,10 +10,10 @@ struct SpatialViewObj {
 };
 
 extern "C" int func_001D8FD0(SpatialViewObj *self) {
-    float sum = self->x * self->x + self->y * self->y + self->z * self->z;
-    float len = sqrtf(sum);
-    if (len <= 0.0f) {
+    if ((self->x * self->x + self->y * self->y) + self->z * self->z <= 0.0f) {
         return 0;
+    } else {
+        return 1;
     }
-    return 1;
+    return 0;
 }

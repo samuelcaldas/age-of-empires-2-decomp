@@ -32,24 +32,22 @@ extern "C" int func_001CA430(void *self, int x0, int y0, int x1, int y1) {
 
     ZoneLayout *zm = (ZoneLayout *)self;
 
-    if (!(x0 < zm->width)) return 0;
-    if (!(y0 < zm->height)) return 0;
-    if (x1 < 0) return 0;
-    if (y1 < 0) return 0;
+    if (!(x0 < zm->width && y0 < zm->height && x1 >= 0 && y1 >= 0)) {
+        return 0;
+    }
 
     if (x0 < 0) x0 = 0;
     if (y0 < 0) y0 = 0;
-    if (!(x1 < zm->width)) x1 = zm->width - 1;
-    if (!(y1 < zm->height)) y1 = zm->height - 1;
+    if (x1 >= zm->width) x1 = zm->width - 1;
+    if (y1 >= zm->height) y1 = zm->height - 1;
 
-    int x0_offset = (x0 * 8 - x0) * 4;
+    int x0_offset = (x0 * 7) << 2;
 
     for (int y = y0; y <= y1; y++) {
-        ZoneCell *cell = (ZoneCell *)((char *)zm->cells_ptr[y] + x0_offset);
-        for (int x = x0; x <= x1; x++) {
-            cell->f_C = 0;
-            cell->f_B = (unsigned char)(cell->f_B & 0x9F);
-            cell = (ZoneCell *)((char *)cell + 0x1C);
+        char *cell = (char *)zm->cells_ptr[y] + x0_offset;
+        for (int x = x0; x <= x1; x++, cell += 0x1C) {
+            cell[0xC] = 0;
+            cell[0xB] = (unsigned char)(cell[0xB] & 0x9F);
         }
     }
 

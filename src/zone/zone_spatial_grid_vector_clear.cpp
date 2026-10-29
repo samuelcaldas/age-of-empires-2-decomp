@@ -6,16 +6,16 @@ void func_367470(void *elem);
 }
 
 struct FastVector {
-    void **buffer;
-    short count;
-    short cap;
-    char flag;
+    void **buffer; // 0x0
+    short count;   // 0x4
+    short cap;     // 0x6
+    char flag;     // 0x8
 };
 
 extern "C" void func_001EBA30(void *self_ptr) {
     FastVector *self = (FastVector *)self_ptr;
     self->flag = 1;
-    for (short i = 0; i < self->count; i++) {
+    for (int i = 0; i < (int)self->count; i++) {
         func_367470(self->buffer[i]);
         self->buffer[i] = 0;
     }

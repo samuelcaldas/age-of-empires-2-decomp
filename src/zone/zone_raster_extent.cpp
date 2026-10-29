@@ -32,50 +32,45 @@ extern "C" int func_001CA670(void *self, int x, int y, int *out_x1, int *out_y1,
 
     ZoneLayout *zm = (ZoneLayout *)self;
 
-    while (x >= 0 && x < zm->width && y >= 0 && y < zm->height) {
-        int x_offset = (x * 8 - x) * 4;
-        ZoneCell *cell = (ZoneCell *)((char *)zm->cells_ptr[y] + x_offset);
-
-        unsigned char tag = (unsigned char)(cell->f_B & 0x60);
-        if (tag == 0x40) {
-            unsigned char idx = cell->f_C;
-            if (idx == 0) {
-                return 0;
-            }
-            int packed = zm->f_8ED8[idx - 1];
-            signed char ext_left = (signed char)(packed & 0xFF);
-            signed char ext_top = (signed char)((packed >> 8) & 0xFF);
-            signed char ext_right = (signed char)((packed >> 16) & 0xFF);
-            signed char ext_bottom = (signed char)((packed >> 24) & 0xFF);
-
-            *out_x1 = x - ext_left;
-            *out_y1 = y - ext_top;
-            *out_x2 = x + ext_right;
-            *out_y2 = y + ext_bottom;
-            return 1;
-        }
-
-        if (tag == 0 || tag != 0x20) {
+    for (;;) {
+        if (x < 0 || !(x < zm->width) || y < 0 || !(y < zm->height)) {
             return 0;
         }
 
-        unsigned char val = cell->f_C;
-        int dx = D_00392020[val & 0xF];
-        int dy = D_00392020[(val & 0xF0) >> 4];
+        int x_off = ((x << 3) - x) << 2;
+        char *cell = (char *)zm->cells_ptr[y] + x_off;
+
+        unsigned char tag = (unsigned char)(cell[0xB] & 0x60);
+        if (tag == 0x40) {
+            unsigned char idx = (unsigned char)cell[0xC];
+            if (!idx) {
+                return 0;
+            }
+            int packed = zm->f_8ED8[idx - 1];
+            char *bytes = (char *)&packed;
+            *out_x1 = x - bytes[0];
+            *out_y1 = y - bytes[1];
+            *out_x2 = x + bytes[2];
+            *out_y2 = y + bytes[3];
+            return 1;
+        }
+
+        if (!tag) {
+            return 0;
+        }
+
+        int dx = 0;
+        int dy = 0;
+        if (tag == 0x20) {
+            unsigned char val = (unsigned char)cell[0xC];
+            dx = D_00392020[val & 0xF];
+            dy = D_00392020[(val & 0xF0) >> 4];
+        }
 
         x -= dx;
-        if (dx != 0) {
-            y -= dy;
-            continue;
-        }
-
         y -= dy;
-        if (dy != 0) {
-            continue;
+        if (dx == 0 && dy == 0) {
+            return 0;
         }
-
-        return 0;
     }
-
-    return 0;
 }

@@ -17,20 +17,22 @@ extern "C" void func_001D42A0(void *self, void *list_head, void *node, int flag)
     }
 
     void **prev_ptr = (void **)(head_ptr + 0x20);
-    float node_val = *(float *)(node_ptr + 0x18);
-
-    while (*prev_ptr != 0) {
-        char *curr = (char *)*prev_ptr;
-        float curr_val = *(float *)(curr + 0x18);
-        if (curr_val < node_val) {
-            prev_ptr = (void **)(curr + 0x20);
-        } else {
-            *(void **)(node_ptr + 0x20) = *prev_ptr;
-            *prev_ptr = node;
-            return;
+    if (*prev_ptr != 0) {
+        float node_val = *(float *)(node_ptr + 0x18);
+        for (;;) {
+            char *curr = (char *)*prev_ptr;
+            if (*(float *)(curr + 0x18) < node_val) {
+                prev_ptr = (void **)(curr + 0x20);
+            } else {
+                *(void **)(node_ptr + 0x20) = *prev_ptr;
+                *prev_ptr = node;
+                return;
+            }
+            if (*prev_ptr == 0) break;
         }
     }
 
-    *(void **)(node_ptr + 0x20) = 0;
-    *prev_ptr = node;
+    if (*prev_ptr == 0) {
+        *prev_ptr = node;
+    }
 }

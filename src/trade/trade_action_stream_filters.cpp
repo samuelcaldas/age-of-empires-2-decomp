@@ -56,10 +56,14 @@ void func_00155C70() {
         D_004E2DA0.w = D_004E2DA0.w & D_004E30A8;
         D_004E2DB0 += 4;
         D_004E2DA0.w = D_004E2DA0.w | D_004E30AC;
-        *D_004E2DB4++ = D_004E2DA0.b[0];
-        *D_004E2DB4++ = D_004E2DA0.b[1];
-        *D_004E2DB4++ = D_004E2DA0.b[2];
-        *D_004E2DB4++ = D_004E2DA0.b[3];
+        *D_004E2DB4 = D_004E2DA0.b[0];
+        D_004E2DB4++;
+        *D_004E2DB4 = D_004E2DA0.b[1];
+        D_004E2DB4++;
+        *D_004E2DB4 = D_004E2DA0.b[2];
+        D_004E2DB4++;
+        *D_004E2DB4 = D_004E2DA0.b[3];
+        D_004E2DB4++;
         D_004E2DA8 -= 4;
     } while (D_004E2DA8 != 0);
 }

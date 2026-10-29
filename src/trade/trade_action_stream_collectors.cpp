@@ -82,8 +82,10 @@ void func_00156920() {
     D_004E2DA0.w = D_004E2DA0.w & D_004E30A8;
     D_004E2DB0 += 2;
     D_004E2DA0.w = D_004E2DA0.w | D_004E30AC;
-    *D_004E2DB4++ = D_004E2DA0.b[0];
-    *D_004E2DB4++ = D_004E2DA0.b[1];
+    *D_004E2DB4 = D_004E2DA0.b[0];
+    D_004E2DB4++;
+    *D_004E2DB4 = D_004E2DA0.b[1];
+    D_004E2DB4++;
     D_004E2DA8 -= 4;
 
     do {
@@ -91,10 +93,14 @@ void func_00156920() {
         D_004E2DA0.w = D_004E2DA0.w & D_004E30A8;
         D_004E2DB0 += 4;
         D_004E2DA0.w = D_004E2DA0.w | D_004E30AC;
-        *D_004E2DB4++ = D_004E2DA0.b[0];
-        *D_004E2DB4++ = D_004E2DA0.b[1];
-        *D_004E2DB4++ = D_004E2DA0.b[2];
-        *D_004E2DB4++ = D_004E2DA0.b[3];
+        *D_004E2DB4 = D_004E2DA0.b[0];
+        D_004E2DB4++;
+        *D_004E2DB4 = D_004E2DA0.b[1];
+        D_004E2DB4++;
+        *D_004E2DB4 = D_004E2DA0.b[2];
+        D_004E2DB4++;
+        *D_004E2DB4 = D_004E2DA0.b[3];
+        D_004E2DB4++;
         D_004E2DA8 -= 4;
     } while (D_004E2DA8 != 0);
 
@@ -102,8 +108,10 @@ void func_00156920() {
     D_004E2DA0.w = D_004E2DA0.w & D_004E30A8;
     D_004E2DB0 += 2;
     D_004E2DA0.w = D_004E2DA0.w | D_004E30AC;
-    *D_004E2DB4++ = D_004E2DA0.b[0];
-    *D_004E2DB4++ = D_004E2DA0.b[1];
+    *D_004E2DB4 = D_004E2DA0.b[0];
+    D_004E2DB4++;
+    *D_004E2DB4 = D_004E2DA0.b[1];
+    D_004E2DB4++;
 }
 
 void func_00156AC0() {
@@ -111,9 +119,12 @@ void func_00156AC0() {
     D_004E2DA0.w = D_004E2DA0.w & D_004E30A8;
     D_004E2DB0 += 3;
     D_004E2DA0.w = D_004E2DA0.w | D_004E30AC;
-    *D_004E2DB4++ = D_004E2DA0.b[1];
-    *D_004E2DB4++ = D_004E2DA0.b[2];
-    *D_004E2DB4++ = D_004E2DA0.b[3];
+    *D_004E2DB4 = D_004E2DA0.b[1];
+    D_004E2DB4++;
+    *D_004E2DB4 = D_004E2DA0.b[2];
+    D_004E2DB4++;
+    *D_004E2DB4 = D_004E2DA0.b[3];
+    D_004E2DB4++;
     D_004E2DA8 -= 5;
 
     do {
@@ -121,10 +132,14 @@ void func_00156AC0() {
         D_004E2DA0.w = D_004E2DA0.w & D_004E30A8;
         D_004E2DB0 += 4;
         D_004E2DA0.w = D_004E2DA0.w | D_004E30AC;
-        *D_004E2DB4++ = D_004E2DA0.b[0];
-        *D_004E2DB4++ = D_004E2DA0.b[1];
-        *D_004E2DB4++ = D_004E2DA0.b[2];
-        *D_004E2DB4++ = D_004E2DA0.b[3];
+        *D_004E2DB4 = D_004E2DA0.b[0];
+        D_004E2DB4++;
+        *D_004E2DB4 = D_004E2DA0.b[1];
+        D_004E2DB4++;
+        *D_004E2DB4 = D_004E2DA0.b[2];
+        D_004E2DB4++;
+        *D_004E2DB4 = D_004E2DA0.b[3];
+        D_004E2DB4++;
         D_004E2DA8 -= 4;
     } while (D_004E2DA8 != 0);
 
@@ -132,8 +147,10 @@ void func_00156AC0() {
     D_004E2DA0.w = D_004E2DA0.w & D_004E30A8;
     D_004E2DB0 += 2;
     D_004E2DA0.w = D_004E2DA0.w | D_004E30AC;
-    *D_004E2DB4++ = D_004E2DA0.b[0];
-    *D_004E2DB4++ = D_004E2DA0.b[1];
+    *D_004E2DB4 = D_004E2DA0.b[0];
+    D_004E2DB4++;
+    *D_004E2DB4 = D_004E2DA0.b[1];
+    D_004E2DB4++;
 }
 
 }

@@ -96,8 +96,8 @@ public:
     virtual void vfn90();
     virtual void vfn91();
     virtual void vfn92();
-    virtual int Method174(float x, float y, float z, int a4, int a5, float f4); // index 93 -> offset 380
     virtual void vfn94();
+    virtual int Method17C(float x, float y, int a3, int a4, float z, float f4); // index 95 -> offset 0x17C
     virtual void vfn95();
     virtual void vfn96();
     virtual void vfn97();
@@ -130,18 +130,14 @@ short func_001471B0(TradeAction *self, short cmd);
 int func_0014BD20(TradeAction *self, int a1, float x, float y, float z);
 
 int func_0014AEF0(TradeAction *self, short target_id, int flag, float x, float y, float z) {
-    int f = flag;
-    TradeAction *act = self;
-    short id = target_id;
-
-    if (!f && act->m_field48 != -1) {
+    if (!flag && self->m_field48 != -1) {
         return 0;
     }
 
     if (x < 0.0f) {
         x = 0.0f;
     } else {
-        void *world = act->m_target->m_world;
+        void *world = self->m_target->m_world;
         void *mgr = *(void **)((char *)world + 2968);
         void *map = *(void **)((char *)mgr + 60);
         int map_w = *(int *)((char *)map + 8);
@@ -153,7 +149,7 @@ int func_0014AEF0(TradeAction *self, short target_id, int flag, float x, float y
     if (y < 0.0f) {
         y = 0.0f;
     } else {
-        void *world = act->m_target->m_world;
+        void *world = self->m_target->m_world;
         void *mgr = *(void **)((char *)world + 2968);
         void *map = *(void **)((char *)mgr + 60);
         int map_h = *(int *)((char *)map + 12);
@@ -166,16 +162,17 @@ int func_0014AEF0(TradeAction *self, short target_id, int flag, float x, float y
     int *py = &tile_coords[1];
     tile_coords[0] = func_123350(x);
     *py = func_123350(y);
-    tile_coords[2] = func_123350(*(float *)((char *)act->m_target + 76));
+    tile_coords[2] = func_123350(*(float *)((char *)self->m_target + 76));
 
-    if (act->m_target->Method1B4(tile_coords, -1, 0, -1, -1, 0)) {
+    if (self->m_target->Method1B4(tile_coords, -1, 0, -1, -1, 0)) {
         goto L_passable;
     }
 
     {
         int i = -1;
-        float orig_dist = func_269190(act->m_target, x, y, *(float *)((char *)act->m_target + 76));
-        while (++i < 8) {
+        float orig_dist = func_269190(self->m_target, x, y, *(float *)((char *)self->m_target + 76));
+        goto L_loop_inc;
+        while (1) {
             switch (i) {
             case 0: tile_coords[0] -= 2; *py -= 2; break;
             case 1: tile_coords[0] += 2; break;
@@ -190,7 +187,7 @@ int func_0014AEF0(TradeAction *self, short target_id, int flag, float x, float y
             if (tile_coords[0] < 0) {
                 tile_coords[0] = 0;
             } else {
-                void *world = act->m_target->m_world;
+                void *world = self->m_target->m_world;
                 void *mgr = *(void **)((char *)world + 2968);
                 void *map = *(void **)((char *)mgr + 60);
                 int map_w = *(int *)((char *)map + 8);
@@ -202,7 +199,7 @@ int func_0014AEF0(TradeAction *self, short target_id, int flag, float x, float y
             if (*py < 0) {
                 *py = 0;
             } else {
-                void *world = act->m_target->m_world;
+                void *world = self->m_target->m_world;
                 void *mgr = *(void **)((char *)world + 2968);
                 void *map = *(void **)((char *)mgr + 60);
                 int map_h = *(int *)((char *)map + 12);
@@ -211,22 +208,28 @@ int func_0014AEF0(TradeAction *self, short target_id, int flag, float x, float y
                 }
             }
 
-            if (id == 0) {
-                float dist = func_269190(act->m_target, (float)tile_coords[0] + 0.5f, (float)*py + 0.5f, *(float *)((char *)act->m_target + 76));
-                if (!(dist < orig_dist)) continue;
+            if (target_id == 0) {
+                float dist = func_269190(self->m_target, (float)tile_coords[0] + 0.5f, (float)*py + 0.5f, *(float *)((char *)self->m_target + 76));
+                if (dist < orig_dist) {
+                    goto L_check_pass;
+                }
+                goto L_loop_inc;
             }
-
-            if (act->m_target->Method1B4(tile_coords, -1, 0, -1, -1, 0) == 1) {
+        L_check_pass:
+            if (self->m_target->Method1B4(tile_coords, -1, 0, -1, -1, 0) == 1) {
                 goto L_passable;
             }
+        L_loop_inc:
+            i++;
+            if (i >= 8) break;
         }
         return 0;
     }
 
 L_passable:
-    if (act->m_target->Method174((float)tile_coords[0] + 0.5f, (float)*py + 0.5f, z, f, 0, 0.0f) == 1) {
-        func_001471B0(act, 610);
-        func_0014BD20(act, -1, x, y, z);
+    if (self->m_target->Method17C((float)tile_coords[0] + 0.5f, (float)*py + 0.5f, flag, 0, z, 0.0f) == 1) {
+        func_001471B0(self, 610);
+        func_0014BD20(self, -1, x, y, z);
         return 1;
     }
     return 0;

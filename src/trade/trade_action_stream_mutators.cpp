@@ -23,25 +23,25 @@ void func_0015A1D0() {
 }
 
 void func_0015A210() {
-    unsigned char *src = D_004E2DB0;
-    unsigned char *dst = D_004E2DA0.b;
-    dst[0] = src[0];
-    dst[1] = src[1];
+    D_004E2DA0.b[0] = D_004E2DB0[0];
+    D_004E2DA0.b[1] = D_004E2DB0[1];
     D_004E2DA0.w = D_004E2DA0.w | D_004E2DA4;
     D_004E2DB0 += 2;
-    *D_004E2DB4++ = D_004E2DA0.b[0];
-    *D_004E2DB4++ = D_004E2DA0.b[1];
+    *D_004E2DB4 = D_004E2DA0.b[0];
+    D_004E2DB4++;
+    *D_004E2DB4 = D_004E2DA0.b[1];
+    D_004E2DB4++;
 }
 
 void func_0015A280() {
-    unsigned char *src = D_004E2DB0;
-    unsigned char *dst = D_004E2DA0.b;
-    dst[0] = src[0];
-    dst[1] = src[1];
+    D_004E2DA0.b[0] = D_004E2DB0[0];
+    D_004E2DA0.b[1] = D_004E2DB0[1];
     D_004E2DA0.w = D_004E2DA0.w | D_004E2DA4;
     D_004E2DB0 += 2;
-    *D_004E2DB4++ = D_004E2DA0.b[0];
-    *D_004E2DB4++ = D_004E2DA0.b[1];
+    *D_004E2DB4 = D_004E2DA0.b[0];
+    D_004E2DB4++;
+    *D_004E2DB4 = D_004E2DA0.b[1];
+    D_004E2DB4++;
 }
 
 void func_0015A2F0() {

@@ -45,9 +45,12 @@ extern "C" {
     }
 
     static int s_0630_called = 0;
-    void func_00100630(void *ptr) {
+    void func_100630(void *ptr) {
         s_0630_called++;
         if (ptr) free(ptr);
+    }
+    void func_00100630(void *ptr) {
+        func_100630(ptr);
     }
 
     static int s_1456f0_called = 0;
@@ -73,9 +76,12 @@ extern "C" {
     static int s_0670_called = 0;
     static void *s_0670_last_ptr = 0;
 
-    void func_00100670(void *self) {
+    void func_100670(void *self) {
         s_0670_called++;
         s_0670_last_ptr = self;
+    }
+    void func_00100670(void *self) {
+        func_100670(self);
     }
 
     static int s_26af90_called = 0;

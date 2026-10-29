@@ -1,6 +1,7 @@
 #include <cassert>
 #include <iostream>
 #include <string>
+#include <sys/mman.h>
 
 static int sync_calls = 0;
 extern "C" {
@@ -9,11 +10,19 @@ int func_00221AC0(void) {
     return 1;
 }
 
+void *func_104558(void *, int, int, int) { return 0; }
+void *func_1043D8(void *) { return 0; }
+void func_00221880(void) {}
+void func_00221920(void) {}
+
 void *func_00221B60(int type);
 void func_00221C00(void);
 }
 
 int main(int argc, char **argv) {
+    void *dma_state = mmap((void *)0x70000000, 0x10000, PROT_READ | PROT_WRITE,
+                           MAP_PRIVATE | MAP_ANONYMOUS | MAP_FIXED, -1, 0);
+    assert(dma_state == (void *)0x70000000);
     if (argc < 2) {
         std::cerr << "Usage: " << argv[0] << " <case_id>\n";
         return 1;

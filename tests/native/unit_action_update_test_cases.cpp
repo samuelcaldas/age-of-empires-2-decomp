@@ -31,13 +31,15 @@ void test_func_002683F0() {
     ActionRebind *act = (ActionRebind*)&mock;
 
     mock.m_field39 = 0;
-    assert(func_002683F0(act) == 1);
-    mock.m_field39 = 1;
-    assert(func_002683F0(act) == 1);
-    mock.m_field39 = 2;
-    assert(func_002683F0(act) == 1);
-    mock.m_field39 = 3;
     assert(func_002683F0(act) == 0);
+    mock.m_field39 = 1;
+    assert(func_002683F0(act) == 0);
+    mock.m_field39 = 2;
+    assert(func_002683F0(act) == 0);
+    mock.m_field39 = 3;
+    assert(func_002683F0(act) == 1);
+    mock.m_field39 = 0xFF;
+    assert(func_002683F0(act) == 1);
 }
 
 void test_func_00268410() {

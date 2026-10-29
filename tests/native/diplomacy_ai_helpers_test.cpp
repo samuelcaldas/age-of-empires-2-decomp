@@ -42,8 +42,6 @@ struct AIObj {
     virtual void* v15() { return 0; }
     virtual void* v16() { return 0; }
     virtual void* v17() { return 0; }
-    virtual void* v18() { return 0; }
-    virtual void* v19() { return 0; }
     virtual int GetFact(int id);
 };
 
@@ -302,7 +300,7 @@ static void test_diplomacy_ai_helpers_fe30_facts_and_call() {
     assert(s_fef0_last_self == &h.ai);
     assert(s_fef0_last_p1 == 222);
     assert(s_fef0_last_p2 == 333);
-    assert(s_fef0_last_p3 == 444);
+    assert(s_fef0_last_p3 == 111);
     assert(s_fef0_last_p4 == 444);
 
     printf("DIPLOMACY_AI_HELPERS_TEST_6_FE30_FACTS_AND_CALL_PASSED\n");

@@ -3,32 +3,31 @@
 
 extern "C" {
 void *func_123908(void *);
-void func_1046D0(void *obj, void *data, int count);
+void func_1046D0(void *obj, unsigned short a1, unsigned char a2, unsigned short a3, void *t0, int t1, short t2,
+                 short t3, long long stack_t3, long long stack_arg_b0);
 void *func_0021C050(void *obj);
 
-static void *EnsurePacketObject(void *obj) {
-    if (obj != 0) {
-        return obj;
+void *func_0021DF50(void *ctx, short a0, short a1, short a2, void *t0, short t1, short t2, short t3,
+                    short arg_b0) {
+    if (ctx == 0) {
+        ctx = func_123908(0);
     }
-    return func_123908(0);
-}
+    void *packet = ctx;
 
-void *func_0021DF50(void *ctx, int a1, int f1c, int a3, int s1, int a5, int a6, int aligned_3c, long long f38) {
-    void *packet = EnsurePacketObject(ctx);
+    int divisor = 0x40;
+    if (a1 == 0x14) {
+        divisor = 0x200;
+    } else if (a1 == 0x13) {
+        divisor = 0x100;
+    } else if (a1 == 0x2) {
+        divisor = 0x80;
+    }
 
-    unsigned int params[8];
-    params[0] = (unsigned int)a1;
-    params[1] = (unsigned int)f1c;
-    params[2] = (unsigned int)a3;
-    params[3] = (unsigned int)s1;
-    params[4] = (unsigned int)a5;
-    params[5] = (unsigned int)a6;
-    params[6] = (unsigned int)aligned_3c;
-    params[7] = (unsigned int)f38;
+    int extent = ((t3 * arg_b0 << 4) + divisor - 1) / divisor;
 
-    func_1046D0(packet, params, 8);
+    func_1046D0(packet, (unsigned short)a0, (unsigned char)a1, (unsigned short)a2, t0, extent, t1, t2,
+                (long long)t3, (long long)arg_b0);
     func_0021C050(packet);
-
     return packet;
 }
 }

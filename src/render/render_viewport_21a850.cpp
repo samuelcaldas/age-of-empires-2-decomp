@@ -10,16 +10,16 @@ int func_0021A960(void *self, const int *local_rect, void *arg3, const int *rect
 
 int func_0021A850(void *self, int x, int y, void *arg3, const int *rect_t0, int arg5) {
     char *self_bytes = (char *)self;
+    int local_rect[4];
     char buffer[100];
     func_1143C0(buffer, sizeof(buffer));
 
-    int local_rect[4];
     local_rect[0] = x;
     local_rect[1] = y;
     local_rect[2] = x + (rect_t0[2] - rect_t0[0]);
     local_rect[3] = y + (rect_t0[3] - rect_t0[1]);
 
-    unsigned int flags = *(unsigned int *)(self_bytes + 0x98);
+    int flags = *(int *)(self_bytes + 0x98);
     if ((flags & 0x800) != 0) {
         return func_0021AE90(self, local_rect, arg3, rect_t0, arg5, 0);
     }

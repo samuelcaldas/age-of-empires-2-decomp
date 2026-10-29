@@ -2,12 +2,20 @@
 #include "sub_list.h"
 
 extern "C" {
-typedef void (*Fn)(void *, int);
+struct BaseRenderHelper217840 {
+    virtual void v0();
+    virtual void v4();
+    virtual void v8();
+    virtual void vC();
+    virtual void v10();
+    virtual void v14();
+    virtual void v18();
+    virtual void v1C();
+    virtual void method28(int arg1);
+};
 
 static inline void call_vtable_28(void *self) {
-    void **vtable = *(void ***)self;
-    Fn fn = (Fn)*(void **)((char *)vtable + 0x28);
-    fn(self, 1);
+    ((BaseRenderHelper217840 *)self)->method28(1);
 }
 
 void func_00217840(void *self, int arg1, int arg2) {

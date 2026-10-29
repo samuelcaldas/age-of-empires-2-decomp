@@ -4,7 +4,7 @@ from pathlib import Path
 
 def test_matrix_rotate_axis_angle_native():
     repo_root = Path(__file__).resolve().parent.parent
-    src = repo_root / "src" / "matrix_rotate_axis_angle.cpp"
+    src = repo_root / "src" / "render" / "matrix_rotate_axis_angle.cpp"
     test_src = repo_root / "tests" / "native" / "matrix_rotate_axis_angle_test.cpp"
     bin_path = repo_root / "build" / "matrix_rotate_axis_angle_test"
     bin_path.parent.mkdir(parents=True, exist_ok=True)

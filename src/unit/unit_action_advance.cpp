@@ -72,13 +72,9 @@ void func_00268F50(ActionRebind *self, int add_flag, int clamp_flag, float delta
 
 int func_00268FB0(ActionRebind *self, float delta) {
     float f1 = self->m_field30;
-    if (delta < 0.0f) {
-        self->m_field30 = f1 + delta;
-        if (self->m_field30 < 1.0f) {
-            self->m_field30 = 1.0f;
-        }
-    } else {
-        self->m_field30 = f1 + delta;
+    self->m_field30 = f1 + delta;
+    if (delta < 0.0f && self->m_field30 < 1.0f) {
+        self->m_field30 = 1.0f;
     }
 
     void *field4 = self->m_field4;

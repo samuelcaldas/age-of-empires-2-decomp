@@ -49,7 +49,7 @@ void func_00268200(ActionRebind *self, unsigned char new_state) {
 }
 
 int func_002683F0(ActionRebind *self) {
-    return self->m_field39 < 3;
+    return self->m_field39 >= 3;
 }
 
 int func_00268410(ActionRebind *self) {

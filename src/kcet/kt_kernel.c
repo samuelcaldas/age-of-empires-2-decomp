@@ -86,8 +86,8 @@ int func_00134210(int init_count, int max_count, int option) {
     int id;
 
     func_001143C0(&sema, sizeof(sema));
-    sema.max_count = max_count;
     sema.init_count = init_count;
+    sema.max_count = max_count;
     sema.option = option;
 
     id = func_104D20(&sema);
@@ -121,7 +121,7 @@ int func_00134290(void *entry, void *stack, int stack_size, int priority, int op
 int func_00134330(int thid, void *arg) {
     int check_id = func_104B40(thid, arg);
     if (check_id != thid) {
-        func_114320(D_490600, 0xA8, D_490610);
+        func_114320(D_490600, 0x95, D_490610);
     }
     return thid;
 }
@@ -417,7 +417,7 @@ void func_00134BB0(void) {
 void func_00134C60(int sem_id) {
     KtSemaParam param;
     if (func_104DA0(sem_id, &param) == sem_id) {
-        func_106E20(D_4907E8, sem_id, param.current_count, param.init_count, param.max_count, param.wait_threads, param.option);
+        func_106E20(D_4907E8, sem_id, param.current_count, param.max_count, param.init_count, param.wait_threads, param.option);
     }
 }
 
@@ -433,7 +433,7 @@ void func_00134CB8(void) {
 void func_00134CF0(int sem_id) {
     KtSemaParam param;
     if (func_104D90(sem_id, &param) == sem_id) {
-        func_118de0(D_4907E8, sem_id, param.current_count, param.init_count, param.max_count, param.wait_threads, param.option);
+        func_118de0(D_4907E8, sem_id, param.current_count, param.max_count, param.init_count, param.wait_threads, param.option);
     }
 }
 

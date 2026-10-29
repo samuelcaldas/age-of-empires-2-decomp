@@ -7070,9 +7070,11 @@ WEAK void *func_0012C128(void *a0, void *a1, void *a2, void *a3, void *t0, void 
 
 /* 0x0012C1D0 : ktCdServerRequestRead */
 WEAK void *func_0012C1D0(void *a0, void *a1, void *a2, void *a3) {
+    void *token1;
+    void *token2;
     (void)a3;
-    void *token1 = func_00129F58(NULL, NULL, NULL, NULL);
-    void *token2 = func_00129FD0(NULL, NULL, NULL, NULL);
+    token1 = func_00129F58(NULL, NULL, NULL, NULL);
+    token2 = func_00129FD0(NULL, NULL, NULL, NULL);
     return func_0012C128(a0, a1, a2, NULL, NULL, token1, token2, (void *)1);
 }
 

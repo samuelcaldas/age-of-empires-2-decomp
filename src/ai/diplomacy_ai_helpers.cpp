@@ -23,7 +23,7 @@ struct AIObj {
     virtual void* v0(); virtual void* v1(); virtual void* v2(); virtual void* v3(); virtual void* v4();
     virtual void* v5(); virtual void* v6(); virtual void* v7(); virtual void* v8(); virtual void* v9();
     virtual void* v10(); virtual void* v11(); virtual void* v12(); virtual void* v13(); virtual void* v14();
-    virtual void* v15(); virtual void* v16(); virtual void* v17(); virtual void* v18(); virtual void* v19();
+    virtual void* v15(); virtual void* v16(); virtual void* v17();
     virtual int GetFact(int id);
 };
 
@@ -88,11 +88,10 @@ void func_0013FDF0(DiplomacyAI *self, int player, int val) {
 }
 
 void func_0013FE30(DiplomacyAI *self) {
-    self->m_fieldAC->GetFact(0x7C);
+    int p0 = self->m_fieldAC->GetFact(0x7C);
     int p1 = self->m_fieldAC->GetFact(0x80);
     int p2 = self->m_fieldAC->GetFact(0xBC);
-    int p3 = self->m_fieldAC->GetFact(0xC3);
-    func_13FEF0(self, p1, p2, p3, p3);
+    func_13FEF0(self, p1, p2, p0, self->m_fieldAC->GetFact(0xC3));
 }
 
 int func_0013FEE0() {

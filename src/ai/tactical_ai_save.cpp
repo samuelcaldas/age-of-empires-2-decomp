@@ -36,6 +36,10 @@ struct TacticalNodeRecord {
     char data[24];
 };
 
+struct TacticalElem18 {
+    char data[12];
+};
+
 struct TacticalAI {
     void *vtable;
     short m_field4;
@@ -46,7 +50,7 @@ struct TacticalAI {
     TacticalNodeRecord *m_field10;
     short m_field14;
     short m_field16;
-    void *m_field18;
+    TacticalElem18 *m_field18;
     short m_field1C;
     short pad_1E;
     Field20Elem *m_field20;
@@ -115,8 +119,7 @@ int func_001411E0(void *self, int a1, int a2) {
     if (ai->m_field16 >= ai->m_field14) {
         return -1;
     }
-    void *elem = (char*)ai->m_field18 + ai->m_field16 * 12;
-    func_0013C560(elem, a1, a2, 0, 0, 0, 0);
+    func_0013C560(&ai->m_field18[ai->m_field16], a1, a2, 0, 0, 0, 0);
     int old = ai->m_field16;
     ai->m_field16 = old + 1;
     return old;

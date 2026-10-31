@@ -89,7 +89,8 @@ void func_100670(void *ptr) {
     s_last_self = ptr;
 }
 
-void func_1a34d0(void *self) {
+void func_1a34d0(void *self, int arg1) {
+    (void)arg1;
     record_call(CALL_PRE_NOTIFY_1A34D0);
     s_last_self = self;
     if (s_mutate_in_pre_notify && s_target_mutation_obj) {

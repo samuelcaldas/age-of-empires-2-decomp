@@ -29,34 +29,11 @@ def test_slice_total_extent(decoder_code):
     assert len(decoder_code) == SLICE_SIZE
 
 
-def test_func_0015FD70_near_matching(decoder_code, original_image):
-    """Verify 97/98 matching words and equivalent original/generated store targets."""
+def test_func_0015FD70_exact_bytes(decoder_code, original_image):
+    """Require exact instructions for func_0015FD70 (392 bytes, 100% exact)."""
     actual = decoder_code[FD70_OFFSET:FD70_OFFSET + FD70_SIZE]
     expected = read_original(original_image, FD70_OFFSET, FD70_SIZE)
-    assert len(actual) == len(expected) == FD70_SIZE
-    original_base = struct.unpack_from("<I", expected, 0x0C)[0]
-    original_target = (
-        EXTERNAL_SYMBOLS["_gp"] + struct.unpack_from("<h", expected, 0x0C)[0]
-    )
-    actual_base = struct.unpack_from("<I", actual, 0x0C)[0]
-    actual_base_target = (
-        EXTERNAL_SYMBOLS["_gp"] + struct.unpack_from("<h", actual, 0x0C)[0]
-    )
-    assert original_base == 0x278485E0
-    assert original_target == EXTERNAL_SYMBOLS["D_004E2DA0"]
-    assert actual_base_target == EXTERNAL_SYMBOLS["D_004E2DA0"]
-    assert actual_base == 0x278485E0
-    actual_target = EXTERNAL_SYMBOLS["_gp"] + struct.unpack_from("<h", actual, 0x14)[0]
-    assert actual_target == EXTERNAL_SYMBOLS["D_004E2DA0"]
-    expected_store = struct.unpack_from("<I", expected, 0x14)[0]
-    actual_store = struct.unpack_from("<I", actual, 0x14)[0]
-    assert (expected_store, actual_store) == (0xA0820000, 0xA38285E0)
-    assert sum(a == b for a, b in zip(actual, expected)) == 389
-    matching_words = sum(
-        actual[offset:offset + 4] == expected[offset:offset + 4]
-        for offset in range(0, FD70_SIZE, 4)
-    )
-    assert matching_words == 97
+    assert_same_code(actual, expected, START_ADDRESS + FD70_OFFSET)
 
 
 def test_func_0015FD70_alignment_padding(decoder_code, original_image):

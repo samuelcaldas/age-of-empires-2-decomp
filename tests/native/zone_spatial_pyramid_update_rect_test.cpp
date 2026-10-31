@@ -10,9 +10,13 @@ void func_001D2320(void *self, int x0, int y0, int x1, int y1);
 
 static int g_func_1d2460_calls = 0;
 
-void func_1D2460(void *self, int level, int x, int y, void *p1, void *p2) {
+void func_001D2460(void *self, int level, int x, int y, void *p1, void *p2) {
     g_func_1d2460_calls++;
     assert(level == 3);
+}
+
+void func_1D2460(void *self, int level, int x, int y, void *p1, void *p2) {
+    func_001D2460(self, level, x, y, p1, p2);
 }
 }
 

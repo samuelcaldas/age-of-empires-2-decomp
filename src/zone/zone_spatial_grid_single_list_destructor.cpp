@@ -15,18 +15,17 @@ struct SingleList {
     Node *head;
 };
 
-extern "C" void *func_001ECFE0(void *self_ptr, int flag) {
-    SingleList *self = (SingleList *)self_ptr;
-    if (self == 0) {
-        return 0;
+extern "C" void *func_001ECFE0(void *self_ptr, short flag) {
+    if (self_ptr != 0) {
+        SingleList *self = (SingleList *)self_ptr;
+        while (self->head != 0) {
+            Node *next = self->head->next;
+            func_116F68(self->head);
+            self->head = next;
+        }
+        if (flag > 0) {
+            func_100670(self_ptr);
+        }
     }
-    while (self->head != 0) {
-        Node *next = self->head->next;
-        func_116F68(self->head);
-        self->head = next;
-    }
-    if (flag > 0) {
-        func_100670(self);
-    }
-    return self;
+    return self_ptr;
 }

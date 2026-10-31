@@ -1,10 +1,13 @@
 #pragma exceptions off
 #include "unit_action_state_mgr.h"
 
-void func_0026A460(void *action, float x, float y) {
+void func_0026A460(void *action) {
     if (action == 0) {
         return;
     }
+    void *field4 = *(void**)((char*)action + 0x4);
+    float x = *(float*)((char*)action + 0x44) - *(float*)((char*)field4 + 0x20);
+    float y = *(float*)((char*)action + 0x48) - *(float*)((char*)field4 + 0x24);
     int ix = func_123350(x);
     int iy = func_123350(y);
     func_3675D0(action, ix, iy);

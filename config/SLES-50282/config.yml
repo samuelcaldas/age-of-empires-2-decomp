@@ -1012,10 +1012,10 @@ segments:
       - [0x52D00, asm, trade_action_stream_writers]
   - name: trade_action_stream_buffers
     type: code
-    start: 0x53110
-    vram: 0x152F20
+    start: 0x53120
+    vram: 0x152F30
     subsegments:
-      - [0x53110, asm, trade_action_stream_buffers]
+      - [0x53120, asm, trade_action_stream_buffers]
   - name: trade_action_stream_decoders
     type: code
     start: 0x53630

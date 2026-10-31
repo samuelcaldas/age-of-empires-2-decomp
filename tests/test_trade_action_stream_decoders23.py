@@ -52,18 +52,13 @@ def test_func_001633B0_alignment_padding(decoder_code, original_image):
     assert_same_code(actual_pad, expected_pad, START_ADDRESS + PAD2_OFFSET)
 
 
-def test_func_00163500_near_matching(decoder_code, original_image):
-    """Verify func_00163500 60/61 instructions (241/244B) with identical store target."""
-    actual = decoder_code[F3500_OFFSET:F3500_OFFSET + F3500_SIZE]
-    expected = read_original(original_image, F3500_OFFSET, F3500_SIZE)
-    assert len(actual) == len(expected) == F3500_SIZE
-    assert sum(a == b for a, b in zip(actual, expected)) == 241
-    assert (struct.unpack_from("<I", expected, 0x0C)[0],
-            struct.unpack_from("<I", actual, 0x0C)[0]) == (0xA0830000, 0xA38385E0)
-    orig_target = (EXTERNAL_SYMBOLS["_gp"] + struct.unpack_from("<h", expected, 0x04)[0]
-                   + struct.unpack_from("<h", expected, 0x0C)[0])
-    actual_target = EXTERNAL_SYMBOLS["_gp"] + struct.unpack_from("<h", actual, 0x0C)[0]
-    assert orig_target == actual_target == EXTERNAL_SYMBOLS["D_004E2DA0"]
+def test_func_00163500_exact_bytes(decoder_code, original_image):
+    """Require exact instructions for func_00163500 (244 bytes / 61 instrs, 100% exact)."""
+    assert_same_code(
+        decoder_code[F3500_OFFSET:F3500_OFFSET + F3500_SIZE],
+        read_original(original_image, F3500_OFFSET, F3500_SIZE),
+        START_ADDRESS + F3500_OFFSET,
+    )
 
 
 def test_func_00163500_alignment_padding(decoder_code, original_image):
@@ -73,18 +68,13 @@ def test_func_00163500_alignment_padding(decoder_code, original_image):
     assert_same_code(actual_pad, expected_pad, START_ADDRESS + PAD3_OFFSET)
 
 
-def test_func_00163600_near_matching(decoder_code, original_image):
-    """Verify func_00163600 60/61 instructions (240/244B) with identical store target."""
-    actual = decoder_code[F3600_OFFSET:F3600_OFFSET + F3600_SIZE]
-    expected = read_original(original_image, F3600_OFFSET, F3600_SIZE)
-    assert len(actual) == len(expected) == F3600_SIZE
-    assert sum(a == b for a, b in zip(actual, expected)) == 240
-    assert (struct.unpack_from("<I", expected, 0x60)[0],
-            struct.unpack_from("<I", actual, 0x60)[0]) == (0xA0E30000, 0xA38385E0)
-    orig_target = (EXTERNAL_SYMBOLS["_gp"] + struct.unpack_from("<h", expected, 0x10)[0]
-                   + struct.unpack_from("<h", expected, 0x60)[0])
-    actual_target = EXTERNAL_SYMBOLS["_gp"] + struct.unpack_from("<h", actual, 0x60)[0]
-    assert orig_target == actual_target == EXTERNAL_SYMBOLS["D_004E2DA0"]
+def test_func_00163600_exact_bytes(decoder_code, original_image):
+    """Require exact instructions for func_00163600 (244 bytes / 61 instrs, 100% exact)."""
+    assert_same_code(
+        decoder_code[F3600_OFFSET:F3600_OFFSET + F3600_SIZE],
+        read_original(original_image, F3600_OFFSET, F3600_SIZE),
+        START_ADDRESS + F3600_OFFSET,
+    )
 
 
 def test_func_00163600_tail_alignment_padding(decoder_code, original_image):

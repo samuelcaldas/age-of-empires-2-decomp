@@ -86,8 +86,9 @@ void func_001672D0() {
 /** 2-byte staged lookup and mask, D_004E2DA8 -= 5, loop decoder, and trailing pass. */
 void func_001675E0() {
     unsigned char *ptr = D_004E2DB4;
-    unsigned char *dst = D_004E2DA0.bytes;
-    *dst++ = *ptr++; *dst = *ptr;
+    unsigned char *dst = (unsigned char *)&D_004E2DA0;
+    dst[0] = ptr[0];
+    dst[1] = ptr[1];
     D_004E2DAC.bytes[0] = D_004E2DA0.bytes[0]; D_004E2DA0.bytes[0] = D_004E2DA4[D_004E2DAC.word];
     D_004E2DAC.bytes[0] = D_004E2DA0.bytes[1]; D_004E2DA0.bytes[1] = D_004E2DA4[D_004E2DAC.word];
     D_004E2DA0.word |= D_004E30AC; D_004E2DA0.word &= D_004E30A8;

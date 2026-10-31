@@ -5386,7 +5386,7 @@ if config.platform == Platform.PS2:
                     toolchain_version="PS2/mwcc-2.3.1.01",
                 ),
                 Object(
-                    NonMatching,
+                    Matching,
                     "zone_spatial_grid_deserialize_node_stream",
                     source="zone/zone_spatial_grid_deserialize_node_stream",
                     cflags=config.cflags,

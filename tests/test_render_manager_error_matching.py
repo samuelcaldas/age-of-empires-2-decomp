@@ -45,15 +45,12 @@ def test_render_manager_error_dtor_exact(error_object):
     assert actual == original_bytes(address, size)
 
 
-def test_render_manager_error_translate_structure(error_object):
-    """Verify translate_error compiles and matches prologue/epilogue."""
+def test_render_manager_error_translate_exact(error_object):
+    """Verify translate_error matches 100% byte for byte."""
     name = "translate_error__18RenderManagerErrorFi"
     address, size = FUNCTIONS[name]
     actual = compiled_bytes(error_object, name)
-    assert len(actual) > 600
-    orig = original_bytes(address, size)
-    assert actual[:4] == orig[:4]
-    assert actual[-4:] == orig[-4:]
+    assert actual == original_bytes(address, size)
 
 
 def test_render_manager_error_split_boundaries():

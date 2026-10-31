@@ -10,10 +10,10 @@ struct FastVector {
     void **buffer;
     short count;
     short cap;
-    char flag;
+    unsigned char flag;
 };
 
-extern "C" void func_001EBB20(void *self_ptr, void *elem, int index) {
+extern "C" void func_001EBB20(void *self_ptr, void *elem, short index) {
     FastVector *self = (FastVector *)self_ptr;
     if (self->flag != 0) {
         return;
@@ -23,8 +23,21 @@ extern "C" void func_001EBB20(void *self_ptr, void *elem, int index) {
         void *last = self->buffer[self->count];
         self->buffer[index] = last;
         Element *el = (Element *)self->buffer[index];
-        el->index = (short)index;
+        el->index = index;
         self->buffer[self->count] = 0;
         return;
+    }
+    for (int i = 0; i < self->count; ++i) {
+        if (self->buffer[i] == elem) {
+            self->count--;
+            if (i < self->count) {
+                void *last = self->buffer[self->count];
+                self->buffer[i] = last;
+                Element *el = (Element *)self->buffer[i];
+                el->index = (short)i;
+            }
+            self->buffer[self->count] = 0;
+            return;
+        }
     }
 }

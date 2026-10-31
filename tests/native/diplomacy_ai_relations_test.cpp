@@ -20,8 +20,6 @@ public:
     virtual void* v4() { return 0; }
     virtual void* v5() { return 0; }
     virtual void* v6() { return 0; }
-    virtual void* v7() { return 0; }
-    virtual void* v8() { return 0; }
     virtual int CheckRelation(int self_id);
 };
 

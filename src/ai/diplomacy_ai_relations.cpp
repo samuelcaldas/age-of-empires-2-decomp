@@ -16,8 +16,6 @@ class OtherPlayer : public OtherPlayerBase {
     virtual void *v4();
     virtual void *v5();
     virtual void *v6();
-    virtual void *v7();
-    virtual void *v8();
     virtual int CheckRelation(int self_id);
 };
 

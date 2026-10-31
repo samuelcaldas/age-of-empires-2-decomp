@@ -74,13 +74,13 @@ int main(int argc, char **argv) {
         return 0;
     }
     case 3: {
-        // Test func_001596E0: writes bytes 0, 1, 2 then loops 4 bytes
+        // Test func_001596E0: writes bytes 1, 0, 1 then loops 4 bytes
         reset_state(buf, sizeof(buf));
         D_004E2DA8 = 7;
         func_001596E0();
         assert(D_004E2DA8 == 0);
         assert(D_004E2DB4 == buf + 7);
-        assert(buf[0] == 0xAA && buf[1] == 0xBB && buf[2] == 0xCC);
+        assert(buf[0] == 0xBB && buf[1] == 0xAA && buf[2] == 0xBB);
         assert(buf[3] == 0xAA && buf[4] == 0xBB && buf[5] == 0xCC && buf[6] == 0xDD);
         printf("CASE 3 PASSED\n");
         return 0;

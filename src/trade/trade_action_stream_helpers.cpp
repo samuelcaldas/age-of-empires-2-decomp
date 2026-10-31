@@ -1,4 +1,5 @@
 #pragma exceptions off
+#include "trade_action_stream_helpers.h"
 
 union StagingWord { unsigned char bytes[4]; int word; };
 union CounterWord { unsigned char bytes[4]; int word; };
@@ -23,7 +24,7 @@ extern int D_004E30F0;
 extern int D_004E30F4;
 extern int D_004E30F8;
 
-void func_0017dbd0(int a0, int a1, int a2, int a3) {
+void func_0017DBD0(int a0, int a1, int a2, int a3) {
     D_004E2DA0.word = a0;
     D_0038FB10[0] = D_004E2DA0.word;
     D_0038FB10[2] = D_004E2DA0.word;
@@ -38,7 +39,7 @@ void func_0017dbd0(int a0, int a1, int a2, int a3) {
     D_0038FB10[7] = D_004E2DA0.word;
 }
 
-void func_0017dc40(int a0, int a1, int a2, int a3, int t0, int t1, int t2) {
+void func_0017DC40(int a0, int a1, int a2, int a3, int t0, int t1, int t2) {
     D_004E2DA0.word = a0;
     D_004E3074 = D_004E2DA0.word;
     D_004E2DA0.word = a1;
@@ -55,7 +56,7 @@ void func_0017dc40(int a0, int a1, int a2, int a3, int t0, int t1, int t2) {
     D_004E30E8 = D_004E2DA0.word;
 }
 
-void func_0017dca0(int a0) {
+void func_0017DCA0(int a0) {
     D_004E2DA0.word = a0;
     unsigned char b = D_004E2DA0.bytes[0];
     unsigned char *p = (unsigned char *)&D_004E2DA0;
@@ -74,13 +75,13 @@ void func_0017dca0(int a0) {
     D_004E30D8 = val;
 }
 
-int func_0017dcf0() {
+int func_0017DCF0() {
     D_004E2DA0.word = D_004E30BC;
     D_004E2DA0.word = D_004E2DA0.bytes[0];
     return D_004E2DA0.word;
 }
 
-void func_0017dd10(int a0, int a1) {
+void func_0017DD10(int a0, int a1) {
     D_004E2DA0.word = a0;
     unsigned char b = D_004E2DA0.bytes[0];
     unsigned char *p = (unsigned char *)&D_004E2DA0;
@@ -108,7 +109,7 @@ void func_0017dd10(int a0, int a1) {
     D_004E30F4 = D_004E2DA0.word;
 }
 
-void func_0017dd90(int a0, int a1) {
+void func_0017DD90(int a0, int a1) {
     D_004E2DA0.word = 0;
     if (a0 != 0) {
         D_004E2DA0.word |= 1;
@@ -120,7 +121,7 @@ void func_0017dd90(int a0, int a1) {
     D_004E30F8 = D_004E2DA0.word;
 }
 
-void func_0017ddd0(int a0) {
+void func_0017DDD0(int a0) {
     D_004E2DA0.word = a0;
     D_004E3098 = D_004E2DA0.word;
 }

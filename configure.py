@@ -1267,7 +1267,8 @@ if config.platform == Platform.PS2:
                 ),
                 Object(
                     NonMatching,
-                    "trade/trade_action_trade_finalize",
+                    "trade_action_trade_finalize",
+                    source="trade/trade_action_trade_finalize",
                     cflags=config.cflags,
                     toolchain_version="PS2/mwcc-2.3.1.01",
                 ),
@@ -2259,7 +2260,7 @@ if config.platform == Platform.PS2:
                     toolchain_version="PS2/mwcc-2.3.1.01",
                 ),
                 Object(
-                    NonMatching,
+                    Matching,
                     "trade_action_stream_helpers",
                     source="trade/trade_action_stream_helpers",
                     cflags=config.cflags,

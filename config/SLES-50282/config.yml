@@ -1024,10 +1024,10 @@ segments:
       - [0x53630, asm, trade_action_stream_decoders]
   - name: trade_action_stream_unpacker
     type: code
-    start: 0x53BD0
-    vram: 0x1539E0
+    start: 0x53BC0
+    vram: 0x1539D0
     subsegments:
-      - [0x53BD0, asm, trade_action_stream_unpacker]
+      - [0x53BC0, asm, trade_action_stream_unpacker]
   - name: trade_action_stream_handlers
     type: code
     start: 0x540E0

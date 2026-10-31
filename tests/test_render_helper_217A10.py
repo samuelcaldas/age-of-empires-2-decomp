@@ -10,6 +10,9 @@ import pytest
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 CASES = [
     ("0", "func_00217A10 stores fields and invokes vtable 0x28"),
+    ("1", "func_00217A50 stores fields, switch 0x1BC, calls func_00217B50"),
+    ("2", "func_00217AD0 stores field 0x1C0, calls func_00217B50"),
+    ("3", "func_00217AE0 calls 1F3DC0 and dispatches method 0x1C"),
 ]
 
 

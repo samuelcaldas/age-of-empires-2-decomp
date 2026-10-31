@@ -88,10 +88,7 @@ void func_0013FDF0(DiplomacyAI *self, int player, int val) {
 }
 
 void func_0013FE30(DiplomacyAI *self) {
-    int p0 = self->m_fieldAC->GetFact(0x7C);
-    int p1 = self->m_fieldAC->GetFact(0x80);
-    int p2 = self->m_fieldAC->GetFact(0xBC);
-    func_13FEF0(self, p1, p2, p0, self->m_fieldAC->GetFact(0xC3));
+    func_13FEF0(self, self->m_fieldAC->GetFact(0x7C), self->m_fieldAC->GetFact(0x80), self->m_fieldAC->GetFact(0xBC), self->m_fieldAC->GetFact(0xC3));
 }
 
 int func_0013FEE0() {

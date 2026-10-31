@@ -3260,7 +3260,7 @@ if config.platform == Platform.PS2:
                     toolchain_version="PS2/mwcc-2.3.1.01",
                 ),
                 Object(
-                    NonMatching,
+                    Matching,
                     "zone_set_table_item_ranges",
                     source="zone/zone_set_table_item_ranges",
                     cflags=config.cflags,

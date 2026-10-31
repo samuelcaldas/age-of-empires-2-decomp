@@ -5393,7 +5393,7 @@ if config.platform == Platform.PS2:
                     toolchain_version="PS2/mwcc-2.3.1.01",
                 ),
                 Object(
-                    NonMatching,
+                    Matching,
                     "zone_spatial_grid_deserialize_entity_factory",
                     source="zone/zone_spatial_grid_deserialize_entity_factory",
                     cflags=config.cflags,

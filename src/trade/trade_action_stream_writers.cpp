@@ -1,22 +1,16 @@
 #pragma exceptions off
 #include "trade_action_stream_writers.h"
 
+#define COPY_BYTE() \
+    *D_004E2DB4 = *D_004E2DB0; \
+    D_004E2DB4++; \
+    D_004E2DB0++;
+
 void func_00152B10() {
-    *D_004E2DB4 = *D_004E2DB0;
-    D_004E2DB4++;
-    D_004E2DB0++;
-
-    *D_004E2DB4 = *D_004E2DB0;
-    D_004E2DB4++;
-    D_004E2DB0++;
-
-    *D_004E2DB4 = *D_004E2DB0;
-    D_004E2DB4++;
-    D_004E2DB0++;
-
-    *D_004E2DB4 = *D_004E2DB0;
-    D_004E2DB0++;
-    D_004E2DB4++;
+    COPY_BYTE()
+    COPY_BYTE()
+    COPY_BYTE()
+    COPY_BYTE()
 
     func_001522C0(D_004E2DA0, D_004E2DB0);
 
@@ -28,21 +22,10 @@ void func_00152B10() {
 }
 
 void func_00152C10() {
-    *D_004E2DB4 = *D_004E2DB0;
-    D_004E2DB4++;
-    D_004E2DB0++;
-
-    *D_004E2DB4 = *D_004E2DB0;
-    D_004E2DB4++;
-    D_004E2DB0++;
-
-    *D_004E2DB4 = *D_004E2DB0;
-    D_004E2DB4++;
-    D_004E2DB0++;
-
-    *D_004E2DB4 = *D_004E2DB0;
-    D_004E2DB0++;
-    D_004E2DB4++;
+    COPY_BYTE()
+    COPY_BYTE()
+    COPY_BYTE()
+    COPY_BYTE()
 
     func_001522C0(D_004E2DA0, D_004E2DB0);
 
@@ -54,21 +37,10 @@ void func_00152C10() {
 }
 
 void func_00152D10() {
-    *D_004E2DB4 = *D_004E2DB0;
-    D_004E2DB4++;
-    D_004E2DB0++;
-
-    *D_004E2DB4 = *D_004E2DB0;
-    D_004E2DB4++;
-    D_004E2DB0++;
-
-    *D_004E2DB4 = *D_004E2DB0;
-    D_004E2DB4++;
-    D_004E2DB0++;
-
-    *D_004E2DB4 = *D_004E2DB0;
-    D_004E2DB0++;
-    D_004E2DB4++;
+    COPY_BYTE()
+    COPY_BYTE()
+    COPY_BYTE()
+    COPY_BYTE()
 
     func_001522C0(D_004E2DA0, D_004E2DB0);
 
@@ -80,21 +52,10 @@ void func_00152D10() {
 }
 
 void func_00152E10() {
-    *D_004E2DB4 = *D_004E2DB0;
-    D_004E2DB4++;
-    D_004E2DB0++;
-
-    *D_004E2DB4 = *D_004E2DB0;
-    D_004E2DB4++;
-    D_004E2DB0++;
-
-    *D_004E2DB4 = *D_004E2DB0;
-    D_004E2DB4++;
-    D_004E2DB0++;
-
-    *D_004E2DB4 = *D_004E2DB0;
-    D_004E2DB0++;
-    D_004E2DB4++;
+    COPY_BYTE()
+    COPY_BYTE()
+    COPY_BYTE()
+    COPY_BYTE()
 
     func_001522C0(D_004E2DA0, D_004E2DB0);
 

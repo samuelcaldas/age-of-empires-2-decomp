@@ -9,9 +9,6 @@ extern unsigned char *D_004E2DB4;
 
 void func_001522C0(unsigned char *a0, unsigned char *a1);
 
-void func_00152F20() {
-}
-
 #define COPY_BYTE() \
     *D_004E2DB4 = *D_004E2DB0; \
     D_004E2DB4++; \

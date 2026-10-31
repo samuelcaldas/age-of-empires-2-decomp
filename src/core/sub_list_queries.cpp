@@ -90,7 +90,7 @@ int func_0013A0A0(SubList *self, void *other, float *out, float x, float y, floa
     }
 
     if (s1) {
-        self->v194(s1);
+        self->v196(s1);
     }
 
     self->m_fieldC5++;

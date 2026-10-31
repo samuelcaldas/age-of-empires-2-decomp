@@ -24,8 +24,8 @@ static void *sub_list_v190_other = 0;
 static int sub_list_v190_a = 0;
 static int sub_list_v190_b = 0;
 
-static int sub_list_v194_called = 0;
-static void *sub_list_v194_p = 0;
+static int sub_list_v196_called = 0;
+static void *sub_list_v196_p = 0;
 
 static float sub_list_get_range_val = 15.0f;
 
@@ -155,16 +155,16 @@ void* SubList::v190(void *other, int a, int b) {
     return 0;
 }
 void* SubList::v193(short) { return 0; }
-void* SubList::v194(void *p) {
-    sub_list_v194_called++;
-    sub_list_v194_p = p;
+void* SubList::v194(void*) { return 0; }
+void* SubList::v195() { return 0; }
+void* SubList::v196(void *p) {
+    sub_list_v196_called++;
+    sub_list_v196_p = p;
     return 0;
 }
-void* SubList::v195() { return 0; }
-void* SubList::v196(void*) { return 0; }
-void* SubList::v197(short, void*, float, float, float) { return 0; }
+void* SubList::v197() { return 0; }
 void* SubList::v198() { return 0; }
-void* SubList::v199() { return 0; }
+void* SubList::v199(short, void*, float, float, float) { return 0; }
 void* SubList::v200() { return 0; }
 BaseList* SubList::v201() { return 0; }
 
@@ -390,7 +390,7 @@ static void test_sub_list_queries_a0a0_with_other() {
     func_147180_called = 0;
     func_1471b0_called = 0;
     func_14bd90_called = 0;
-    sub_list_v194_called = 0;
+    sub_list_v196_called = 0;
 
     float out = 0.0f;
     int res = func_0013A0A0(self, &other, &out, 1.0f, 2.0f, 3.0f);
@@ -400,8 +400,8 @@ static void test_sub_list_queries_a0a0_with_other() {
     assert(func_147180_called == 1);
     assert(func_1471b0_called == 1);
     assert(func_14bd90_called == 1);
-    assert(sub_list_v194_called == 1);
-    assert(sub_list_v194_p == (void*)0x77665544);
+    assert(sub_list_v196_called == 1);
+    assert(sub_list_v196_p == (void*)0x77665544);
     assert(self->m_fieldC5 == 6);
     printf("SUB_LIST_QUERIES_TEST_8_A0A0_WITH_OTHER_PASSED\n");
 }
@@ -421,7 +421,7 @@ static void test_sub_list_queries_a0a0_without_other() {
     func_147180_called = 0;
     func_1471b0_called = 0;
     func_14bd90_called = 0;
-    sub_list_v194_called = 0;
+    sub_list_v196_called = 0;
 
     float out = 0.0f;
     int res = func_0013A0A0(self, 0, &out, 1.0f, 2.0f, 3.0f);
@@ -431,8 +431,8 @@ static void test_sub_list_queries_a0a0_without_other() {
     assert(func_147180_called == 1);
     assert(func_1471b0_called == 1);
     assert(func_14bd90_called == 1);
-    assert(sub_list_v194_called == 1);
-    assert(sub_list_v194_p == (void*)0x77665544);
+    assert(sub_list_v196_called == 1);
+    assert(sub_list_v196_p == (void*)0x77665544);
     assert(self->m_fieldC5 == 11);
     printf("SUB_LIST_QUERIES_TEST_9_A0A0_WITHOUT_OTHER_PASSED\n");
 }

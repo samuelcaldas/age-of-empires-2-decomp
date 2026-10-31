@@ -13,6 +13,10 @@ int func_1D3440(void *self, int level, int x, int y, void *p1, void *p2) {
     g_func_1d3440_calls++;
     return (x == 1 && y == 1) ? 1 : 0;
 }
+
+int func_001D3440(void *self, int level, int x, int y, void *p1) {
+    return func_1D3440(self, level, x, y, p1, nullptr);
+}
 }
 
 static void test_check_rect_hit() {

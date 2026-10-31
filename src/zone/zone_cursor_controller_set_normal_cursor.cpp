@@ -9,7 +9,8 @@ struct CursorController {
 };
 
 extern "C" void func_001DB760(CursorController *self, int val) {
-    if (val >= 0 && val < self->max) {
-        self->normal_cursor = val;
+    if (val < 0 || val >= self->max) {
+        return;
     }
+    self->normal_cursor = val;
 }

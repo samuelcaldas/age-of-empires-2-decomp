@@ -8,7 +8,7 @@ static_assert(sizeof(void *) == 4, "native fixture requires 32-bit pointers");
 extern "C" {
 void func_001D7ED0(float *dst, const float *axis, float angle);
 
-int func_123350(float val) {
+int func_00123350(float val) {
     return static_cast<int>(std::floor(val));
 }
 

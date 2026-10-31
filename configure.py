@@ -2515,9 +2515,9 @@ if config.platform == Platform.PS2:
                     toolchain_version="PS2/mwcc-2.3.1.01",
                 ),
                 Object(
-                    NonMatching,
+                    Matching,
                     "render/render_helper_219F60",
-                    cflags=config.cflags,
+                    cflags=config.cflags + ["-sdatathreshold", "0"],
                     toolchain_version="PS2/mwcc-2.3.1.01",
                 ),
                 Object(

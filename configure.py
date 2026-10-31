@@ -1928,13 +1928,15 @@ if config.platform == Platform.PS2:
                 ),
                 Object(
                     Matching,
-                    "trade/trade_action_stream_decoders96",
+                    "trade_action_stream_decoders96",
+                    source="trade/trade_action_stream_decoders96",
                     cflags=config.cflags,
                     toolchain_version="PS2/mwcc-2.3.1.01",
                 ),
                 Object(
-                    NonMatching,
-                    "trade/trade_action_stream_decoders97",
+                    Matching,
+                    "trade_action_stream_decoders97",
+                    source="trade/trade_action_stream_decoders97",
                     cflags=config.cflags,
                     toolchain_version="PS2/mwcc-2.3.1.01",
                 ),

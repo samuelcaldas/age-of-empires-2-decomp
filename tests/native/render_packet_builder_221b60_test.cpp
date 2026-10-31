@@ -12,11 +12,14 @@ int func_00221AC0(void) {
 
 void *func_104558(void *, int, int, int) { return 0; }
 void *func_1043D8(void *) { return 0; }
-void func_00221880(void) {}
-void func_00221920(void) {}
+void func_221880(void) {}
+void func_221920(void) {}
 
 void *func_00221B60(int type);
-void func_00221C00(void);
+void func_00221C00(void) {
+    func_00221B60(0x100);
+    func_00221AC0();
+}
 }
 
 int main(int argc, char **argv) {

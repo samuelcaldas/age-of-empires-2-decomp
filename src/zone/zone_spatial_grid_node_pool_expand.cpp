@@ -16,6 +16,9 @@ struct NodePool {
     int capacity_138834;
 };
 
+extern const char D_492750[];
+extern const char D_492740[];
+
 extern "C" void func_001F20E0(NodePool *self, int new_cap) {
     if (new_cap >= self->field_13881C) {
         void **table0 = (void **)func_117CAC(self, 0, 8);
@@ -25,7 +28,7 @@ extern "C" void func_001F20E0(NodePool *self, int new_cap) {
             table1[i] = 0;
         }
         if (self->table_138810 != 0) {
-            func_118de0("!!!err!!!(%s,%d)Zone_Ptrs > PS2_MAX_ZONE_SIZE_M(=%d)\n", "obmanager.cpp", 0x145F, 10000);
+            func_118de0(D_492750, D_492740, 0x145F, 10000);
         }
         self->table_138810 = table0;
         self->table_138814 = table1;

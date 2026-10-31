@@ -72,11 +72,17 @@ struct ActionExtended {
 
 extern "C" {
     void func_1827B0(void *fieldC, int target);
+    void func_001827b0(void *fieldC, int target);
     void func_182610(void *fieldC, int target, int code, int zero1, int zero2, unsigned char field35);
+    void func_00182610(void *fieldC, int target, int code, int zero1, int zero2, unsigned char field35);
     int func_2634A0(int target);
+    int func_2634a0(int target);
     void func_26A460(void *action);
+    void func_0026A460(void *action);
     void func_205F70(void *world, void *action);
+    void func_205f70(void *world, void *action);
     void func_2643C0(void *action);
+    void func_2643c0(void *action);
     void func_264290(void *action);
     char func_26AD20(void *action, int flag);
 

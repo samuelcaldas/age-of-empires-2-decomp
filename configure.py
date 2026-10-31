@@ -3645,7 +3645,7 @@ if config.platform == Platform.PS2:
                     toolchain_version="PS2/mwcc-2.3.1.01",
                 ),
                 Object(
-                    NonMatching,
+                    Matching,
                     "zone_tile_terrain_is_passable",
                     source="zone/zone_tile_terrain_is_passable",
                     cflags=config.cflags,

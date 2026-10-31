@@ -1453,7 +1453,7 @@ if config.platform == Platform.PS2:
                     toolchain_version="PS2/mwcc-2.3.1.01",
                 ),
                 Object(
-                    NonMatching,
+                    Matching,
                     "trade_action_stream_transformers2",
                     source="trade/trade_action_stream_transformers2",
                     cflags=config.cflags,

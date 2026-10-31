@@ -16,29 +16,6 @@ from trade_action_stream_decoders18_support import (  # noqa: E402
 pytest_plugins = ("trade_action_stream_decoders18_support",)
 
 
-def effective_store_target(code):
-    """Resolve an sb destination using its actual base and target registers."""
-    store_word = struct.unpack_from("<I", code, 0x14)[0]
-    assert store_word >> 26 == 0x28
-    target_register = (store_word >> 16) & 0x1F
-    assert target_register == 2
-    base_register = (store_word >> 21) & 0x1F
-    store_offset = struct.unpack_from("<h", code, 0x14)[0]
-    gp_address = EXTERNAL_SYMBOLS["_gp"]
-    if base_register == 28:
-        return gp_address + store_offset
-    base_writes = []
-    for offset in range(0, 0x14, 4):
-        word = struct.unpack_from("<I", code, offset)[0]
-        opcode = word >> 26
-        source_register = (word >> 21) & 0x1F
-        destination_register = (word >> 16) & 0x1F
-        if opcode == 9 and source_register == 28 and destination_register == base_register:
-            base_writes.append(struct.unpack_from("<h", code, offset)[0])
-    assert len(base_writes) == 1
-    return gp_address + base_writes[0] + store_offset
-
-
 def test_vram_mapping_matches_pt_load(original_image):
     file_offset, virtual_address, file_size = original_load_mapping(original_image)
     assert file_offset + START_ADDRESS - virtual_address == FILE_OFFSET
@@ -50,20 +27,11 @@ def test_slice_total_extent(decoder_code):
     assert len(decoder_code) == SLICE_SIZE
 
 
-def test_func_001611B0_near_matching(decoder_code, original_image):
-    """Verify func_001611B0 108/109 instructions (432/436B) with identical store target."""
+def test_func_001611B0_exact_bytes(decoder_code, original_image):
+    """Require exact instructions for func_001611B0 (436 bytes, 100% exact)."""
     actual = decoder_code[F11B0_OFFSET:F11B0_OFFSET + F11B0_SIZE]
     expected = read_original(original_image, F11B0_OFFSET, F11B0_SIZE)
-    assert len(actual) == len(expected) == F11B0_SIZE
-    assert effective_store_target(expected) == EXTERNAL_SYMBOLS["D_004E2DA0"]
-    assert effective_store_target(actual) == EXTERNAL_SYMBOLS["D_004E2DA0"]
-    assert struct.unpack_from("<I", expected, 0x0C)[0] == 0x278385E0
-    assert struct.unpack_from("<I", actual, 0x14)[0] == 0xA38285E0
-    assert sum(a == b for a, b in zip(actual, expected)) == 432
-    assert sum(
-        actual[offset:offset + 4] == expected[offset:offset + 4]
-        for offset in range(0, F11B0_SIZE, 4)
-    ) == 108
+    assert_same_code(actual, expected, START_ADDRESS + F11B0_OFFSET)
 
 
 def test_func_001611B0_alignment_padding(decoder_code, original_image):

@@ -79,9 +79,7 @@ int EntityMotion::g_check_terrain_calls = 0;
 int EntityMotion::g_out_of_bounds_calls = 0;
 float EntityMotion::g_mock_terrain_z = 0.0f;
 
-extern "C" {
-int func_001D8800(EntityMotion *self);
-}
+#include "zone_spatial_projectile_step.h"
 
 static void test_step_in_bounds_terrain_match() {
     EntityMotion::g_check_terrain_calls = 0;
@@ -102,8 +100,8 @@ static void test_step_in_bounds_terrain_match() {
     entity.vy = 1.0f;
     entity.vz = 0.0f;
 
-    int res = func_001D8800(&entity);
-    assert(res == 1);
+    bool res = func_001D8800(&entity);
+    assert(res == true);
     assert(EntityMotion::g_check_terrain_calls == 1);
     assert(EntityMotion::g_out_of_bounds_calls == 0);
 }
@@ -127,8 +125,8 @@ static void test_step_out_of_bounds_calls_handler() {
     entity.vy = 0.0f;
     entity.vz = 0.0f;
 
-    int res = func_001D8800(&entity);
-    assert(res == 0);
+    bool res = func_001D8800(&entity);
+    assert(res == false);
     assert(EntityMotion::g_out_of_bounds_calls == 1);
     assert(EntityMotion::g_check_terrain_calls == 1);
 }

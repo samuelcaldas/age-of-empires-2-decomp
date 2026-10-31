@@ -64,7 +64,7 @@ public:
     float vz;             // 0x78
 };
 
-extern "C" int func_001D8800(EntityMotion *self) {
+extern "C" bool func_001D8800(EntityMotion *self) {
     float new_x = self->x + self->vx;
     float new_y = self->y + self->vy;
     float new_z = self->z + self->vz;

@@ -5029,16 +5029,9 @@ if config.platform == Platform.PS2:
                     toolchain_version="PS2/mwcc-2.3.1.01",
                 ),
                 Object(
-                    NonMatching,
+                    Matching,
                     "zone_spatial_grid_zero_vector3",
                     source="zone/zone_spatial_grid_zero_vector3",
-                    cflags=config.cflags,
-                    toolchain_version="PS2/mwcc-2.3.1.01",
-                ),
-                Object(
-                    NonMatching,
-                    "zone_spatial_grid_identity_helper",
-                    source="zone/zone_spatial_grid_identity_helper",
                     cflags=config.cflags,
                     toolchain_version="PS2/mwcc-2.3.1.01",
                 ),

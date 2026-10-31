@@ -3966,12 +3966,6 @@ segments:
     vram: 0x1E62A0
     subsegments:
       - [0xE6470, asm, zone_spatial_grid_zero_vector3]
-  - name: zone_spatial_grid_identity_helper
-    type: code
-    start: 0xE6480
-    vram: 0x1E62B0
-    subsegments:
-      - [0xE6480, asm, zone_spatial_grid_identity_helper]
   - name: zone_spatial_grid_reset_destructor
     type: code
     start: 0xE6490

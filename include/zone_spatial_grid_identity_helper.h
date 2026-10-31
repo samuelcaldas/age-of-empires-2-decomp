@@ -1,8 +1,0 @@
-#ifndef ZONE_SPATIAL_GRID_IDENTITY_HELPER_H
-#define ZONE_SPATIAL_GRID_IDENTITY_HELPER_H
-
-extern "C" {
-void *func_001E62B0(void *self);
-}
-
-#endif // ZONE_SPATIAL_GRID_IDENTITY_HELPER_H

@@ -2389,7 +2389,7 @@ if config.platform == Platform.PS2:
                     toolchain_version="PS2/mwcc-2.3.1.01",
                 ),
                 Object(
-                    NonMatching,
+                    Matching,
                     "render/render_helper_217730",
                     cflags=config.cflags,
                     toolchain_version="PS2/mwcc-2.3.1.01",
@@ -2407,7 +2407,7 @@ if config.platform == Platform.PS2:
                     toolchain_version="PS2/mwcc-2.3.1.01",
                 ),
                 Object(
-                    NonMatching,
+                    Matching,
                     "render/render_helper_218350",
                     cflags=config.cflags,
                     toolchain_version="PS2/mwcc-2.3.1.01",
@@ -2437,7 +2437,7 @@ if config.platform == Platform.PS2:
                     toolchain_version="PS2/mwcc-2.3.1.01",
                 ),
                 Object(
-                    NonMatching,
+                    Matching,
                     "render/render_helper_219380",
                     cflags=config.cflags,
                     toolchain_version="PS2/mwcc-2.3.1.01",
@@ -2479,7 +2479,7 @@ if config.platform == Platform.PS2:
                     toolchain_version="PS2/mwcc-2.3.1.01",
                 ),
                 Object(
-                    NonMatching,
+                    Matching,
                     "render/render_helper_219910",
                     cflags=config.cflags,
                     toolchain_version="PS2/mwcc-2.3.1.01",
@@ -2503,7 +2503,7 @@ if config.platform == Platform.PS2:
                     toolchain_version="PS2/mwcc-2.3.1.01",
                 ),
                 Object(
-                    NonMatching,
+                    Matching,
                     "render/render_helper_219D30",
                     cflags=config.cflags,
                     toolchain_version="PS2/mwcc-2.3.1.01",
@@ -2521,13 +2521,13 @@ if config.platform == Platform.PS2:
                     toolchain_version="PS2/mwcc-2.3.1.01",
                 ),
                 Object(
-                    NonMatching,
+                    Matching,
                     "render/render_helper_21A0A0",
                     cflags=config.cflags,
                     toolchain_version="PS2/mwcc-2.3.1.01",
                 ),
                 Object(
-                    NonMatching,
+                    Matching,
                     "render/render_helper_21A190",
                     cflags=config.cflags,
                     toolchain_version="PS2/mwcc-2.3.1.01",
@@ -2563,7 +2563,7 @@ if config.platform == Platform.PS2:
                     toolchain_version="PS2/mwcc-2.3.1.01",
                 ),
                 Object(
-                    NonMatching,
+                    Matching,
                     "render/render_viewport_21a780",
                     cflags=config.cflags,
                     toolchain_version="PS2/mwcc-2.3.1.01",
@@ -2599,7 +2599,7 @@ if config.platform == Platform.PS2:
                     toolchain_version="PS2/mwcc-2.3.1.01",
                 ),
                 Object(
-                    NonMatching,
+                    Matching,
                     "render/render_palette_helper_21b300",
                     cflags=config.cflags,
                     toolchain_version="PS2/mwcc-2.3.1.01",
@@ -2611,7 +2611,7 @@ if config.platform == Platform.PS2:
                     toolchain_version="PS2/mwcc-2.3.1.01",
                 ),
                 Object(
-                    NonMatching,
+                    Matching,
                     "render/render_palette_helper_21b640",
                     cflags=config.cflags,
                     toolchain_version="PS2/mwcc-2.3.1.01",
@@ -2653,7 +2653,7 @@ if config.platform == Platform.PS2:
                     toolchain_version="PS2/mwcc-2.3.1.01",
                 ),
                 Object(
-                    NonMatching,
+                    Matching,
                     "render/render_packet_builder_21bfd0",
                     cflags=config.cflags,
                     toolchain_version="PS2/mwcc-2.3.1.01",

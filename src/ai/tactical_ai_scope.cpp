@@ -1,7 +1,7 @@
 #include "sub_list.h"
 
 extern "C" {
-char *func_0011ABBC(char *dst, const char *src);
+char *strcpy(char *dst, const char *src);
 extern const char D_490F1C[];
 }
 
@@ -48,7 +48,7 @@ void func_1441B0(TacticalAI2 *self) {
     self->scopes[self->field_6C0].field_6AC = self->field_6AC;
     self->scopes[self->field_6C0].field_6A8 = self->field_6A8;
     self->scopes[self->field_6C0].field_6B0 = self->field_6B0;
-    func_0011ABBC(self->scopes[self->field_6C0].buf, self->field_2A8);
+    strcpy(self->scopes[self->field_6C0].buf, self->field_2A8);
     self->scopes[self->field_6C0].field_6B8 = self->field_6B8;
     self->scopes[self->field_6C0].field_6BC = self->field_6BC;
     self->field_6C0++;
@@ -71,9 +71,9 @@ void func_144340(TacticalAI2 *self, int a1, const char *a2) {
         return;
     }
     if (self->field_6AC) {
-        func_0011ABBC(self->field_6B4->msg1, (char *)self->field_6AC);
+        strcpy(self->field_6B4->msg1, (char *)self->field_6AC);
     } else {
-        func_0011ABBC(self->field_6B4->msg1, D_490F1C);
+        strcpy(self->field_6B4->msg1, D_490F1C);
     }
 
     switch (a1) {
@@ -113,9 +113,9 @@ void func_144340(TacticalAI2 *self, int a1, const char *a2) {
     }
 
     if (a2) {
-        func_0011ABBC(self->field_6B4->msg2, a2);
+        strcpy(self->field_6B4->msg2, a2);
     } else {
-        func_0011ABBC(self->field_6B4->msg2, D_490F1C);
+        strcpy(self->field_6B4->msg2, D_490F1C);
     }
 
     self->field_6B4->field_188 = a1;

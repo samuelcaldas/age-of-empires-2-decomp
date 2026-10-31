@@ -695,27 +695,27 @@ segments:
   - name: tactical_ai_node_item
     type: code
     start: 0x44620
-    vram: 0x144434
+    vram: 0x144440
     subsegments:
       - [0x44620, asm, tactical_ai_node_item]
   - name: tactical_ai_condition
     type: code
     start: 0x44730
-    vram: 0x144544
+    vram: 0x144550
     subsegments:
       - [0x44730, asm, tactical_ai_condition]
   - name: tactical_ai_param_desc
     type: code
     start: 0x44890
-    vram: 0x1446A4
+    vram: 0x1446B0
     subsegments:
       - [0x44890, asm, tactical_ai_param_desc]
   - name: tactical_ai_infantry
     type: code
-    start: 0x448DC
-    vram: 0x1446EC
+    start: 0x448E0
+    vram: 0x144700
     subsegments:
-      - [0x448DC, asm, tactical_ai_infantry]
+      - [0x448E0, asm, tactical_ai_infantry]
   - name: strategy_ai_init
     type: code
     start: 0x458BC
@@ -3236,10 +3236,10 @@ segments:
       - [0xDB9D0, asm, zone_cursor_controller_timer_tick]
   - name: zone_cursor_controller_render_sprite
     type: code
-    start: 0xDBA60
+    start: 0xDBA70
     vram: 0x1DB890
     subsegments:
-      - [0xDBA60, asm, zone_cursor_controller_render_sprite]
+      - [0xDBA70, asm, zone_cursor_controller_render_sprite]
   - name: zone_cursor_controller_reset_global
     type: code
     start: 0xDBD50

@@ -32,8 +32,8 @@ struct TacticalActionManagerObj {
 };
 
 extern "C" {
-    extern void *D_4DE780;
-    extern void *D_4DEBF0;
+    extern void *D_4DE780[];
+    extern void *D_4DEBF0[];
     extern const char D_004D1930[];
     extern void *D_004E3180;
 

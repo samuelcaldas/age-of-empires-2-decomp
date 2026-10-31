@@ -14,8 +14,8 @@ static_assert(sizeof(TacticalActionManagerObj) == 588, "TacticalActionManagerObj
 // Mock global addresses and buffers
 static int s_dummy_vtable_ctor = 0x4DE780;
 static int s_dummy_vtable_dtor = 0x4DEBF0;
-void *D_4DE780 = &s_dummy_vtable_ctor;
-void *D_4DEBF0 = &s_dummy_vtable_dtor;
+void *D_4DE780[] = { &s_dummy_vtable_ctor };
+void *D_4DEBF0[] = { &s_dummy_vtable_dtor };
 const char D_004D1930[] = "TacticalActionManager Error Notification";
 
 static char s_global_state_buffer[1024] __attribute__((aligned(4)));

@@ -43,7 +43,7 @@ void func_0013C6D0(SubListItemBase *self, int a1, int a2, int a3,
                    float f1, float f2, float f3, float f4, float f5, float f6,
                    const char *str);
 SubListItemBase* func_0013C770(SubListItemBase *self, int flag);
-void __vec_ctor(void *self);
+void func_100670(void *self);
 
 SubListBuildItem* func_0013C8E0(SubListBuildItem *self) {
     func_0013C660((SubListItemBase*)self);
@@ -72,7 +72,7 @@ void func_0013C960(SubListBuildItem *self, int p74, int a1, int a3,
                    int p78, int p7C, int p84, const char *str,
                    float f12, float f13, float f14,
                    int p88, int p8C, int p90, int pA8) {
-    float m = -1.0f; float n = -1.0f; func_0013C6D0((SubListItemBase*)self, a1, -1, a3, -1.0f, -1.0f, -1.0f, f12, f13, f14, str);
+    float d0 = -1.0f, d1 = -1.0f, d2 = -1.0f; func_0013C6D0((SubListItemBase*)self, a1, -1, a3, -1.0f, -1.0f, -1.0f, f12, f13, f14, str);
     self->m_field74 = p74;
     self->m_field78 = p78;
     self->m_field7C = p7C;
@@ -99,7 +99,7 @@ SubListBuildItem* func_0013CA40(SubListBuildItem *self, int flag) {
         self->m_field70 = 0;
         func_0013C770((SubListItemBase*)self, 0);
         if ((short)flag > 0) {
-            __vec_ctor(self);
+            func_100670(self);
         }
     }
     return self;

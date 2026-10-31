@@ -2117,6 +2117,7 @@ func_0021CD20 = 0x21CD20; // type:func size:0x210 absolute:True
 func_0021CF30 = 0x21CF30; // type:func size:0x80 absolute:True
 D_00392B50 = 0x392B50; // type:u32 size:16 absolute:True
 D_00392B40 = 0x392B40; // type:u32 size:16 absolute:True
+D_00392BB0 = 0x392BB0; // type:u32 size:16 ignore:True
 D_00CA158C = 0xCA158C; // type:u16 size:2 absolute:True
 D_00CA158E = 0xCA158E; // type:u16 size:2 absolute:True
 D_00392B30 = 0x392B30; // type:u32 size:16 absolute:True

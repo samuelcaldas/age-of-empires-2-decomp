@@ -2,7 +2,7 @@
 #define ZONE_SPATIAL_GRID_VECTOR_DESTRUCTOR_H
 
 extern "C" {
-void *func_001EB920(void *self, int flag);
+void *func_001EB920(void *self, short flag);
 }
 
 #endif // ZONE_SPATIAL_GRID_VECTOR_DESTRUCTOR_H

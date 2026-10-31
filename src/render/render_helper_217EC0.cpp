@@ -4,57 +4,73 @@
 extern "C" {
 void func_00217DD0(void *self, int arg1, int arg2, int arg3);
 
-typedef void (*VirtualFn)(void *, void *, void *, void *, void *, void *);
+struct TargetObjC8 {
+    virtual void m00(); virtual void m04(); virtual void m08(); virtual void m0C();
+    virtual void m10(); virtual void m14(); virtual void m18(); virtual void m1C();
+    virtual void m20(); virtual void m24(); virtual void m28(); virtual void m2C();
+    virtual void m30(); virtual void m34(); virtual void m38(); virtual void m3C();
+    virtual void m40(); virtual void m44(); virtual void m48(); virtual void m4C();
+    virtual void m50(); virtual void m54(); virtual void m58(); virtual void m5C();
+    virtual void m60(); virtual void m64(); virtual void m68(); virtual void m6C();
+    virtual void m70(); virtual void m74(); virtual void m78(); virtual void m7C();
+    virtual void m80(); virtual void m84(); virtual void m88(); virtual void m8C();
+    virtual void m90(); virtual void m94(); virtual void m98(); virtual void m9C();
+    virtual void mA0(); virtual void mA4(); virtual void mA8(); virtual void mAC();
+    virtual void mB0(); virtual void mB4(); virtual void mB8(); virtual void mBC();
+    virtual int MethodC8(int a1, int a2, int a3, int a4, int a5);
+};
 
+/* 0x00217EC0 */
 int func_00217EC0(void *self, int arg1, int arg2, int arg3, int arg4, int arg5) {
-    char *s0 = (char *)self;
-    void *ptr16C = *(void **)(s0 + 0x16C);
-    if (ptr16C != 0) {
-        unsigned char byte16C = *(unsigned char *)((char *)ptr16C + 0x16C);
-        if (byte16C != 0) {
-            return (int)byte16C;
-        }
-    }
-
-    int switch_val = arg1 - 33;
-    if (switch_val < 0 || switch_val >= 8) {
-        return 0;
-    }
-
-    int target_id = -1;
-    switch (switch_val) {
-        case 0: target_id = 5; break;
-        case 1: target_id = 4; break;
-        case 2: target_id = 7; break;
-        case 3: target_id = 6; break;
-        case 4: target_id = -1; break;
-        case 5: target_id = 3; break;
-        case 6: target_id = -1; break;
-        case 7: target_id = 2; break;
-        default: target_id = -1; break;
-    }
-
-    if (target_id == -1) {
-        return 0;
-    }
-
-    // A2 is always 0 per original delay slot (A2 = 0)
-    func_00217DD0(self, target_id, 0, 1);
-
-    void *obj40 = *(void **)(s0 + 0x40);
-    if (obj40 != 0) {
-        int flag8C = *(int *)(s0 + 0x8C);
-        if (flag8C != 0) {
-            void **vtable = *(void ***)obj40;
-            if (vtable != 0) {
-                VirtualFn fn = (VirtualFn)*(void **)((char *)vtable + 0xC8);
-                if (fn != 0) {
-                    fn(obj40, (void *)(unsigned long)arg1, (void *)(unsigned long)arg2, (void *)(unsigned long)arg3, (void *)(unsigned long)arg4, (void *)(unsigned long)arg5);
+    char *v0 = *(char **)((char *)self + 0x16C);
+    if (v0 == 0 || *(unsigned char *)(v0 + 0x16C) == 0) {
+        switch (arg1) {
+        case 40:
+            func_00217DD0(self, 2, 0, 1);
+            {
+                TargetObjC8 *a0 = *(TargetObjC8 **)((char *)self + 0x40);
+                if (a0 != 0 && *(int *)((char *)self + 0x8C) != 0) {
+                    a0->MethodC8(arg1, arg2, arg3, arg4, arg5);
                 }
             }
+            return 1;
+        case 38:
+            func_00217DD0(self, 3, 0, 1);
+            {
+                TargetObjC8 *a0 = *(TargetObjC8 **)((char *)self + 0x40);
+                if (a0 != 0 && *(int *)((char *)self + 0x8C) != 0) {
+                    a0->MethodC8(arg1, arg2, arg3, arg4, arg5);
+                }
+            }
+            return 1;
+        case 34:
+            func_00217DD0(self, 4, 0, 1);
+            {
+                TargetObjC8 *a0 = *(TargetObjC8 **)((char *)self + 0x40);
+                if (a0 != 0 && *(int *)((char *)self + 0x8C) != 0) {
+                    a0->MethodC8(arg1, arg2, arg3, arg4, arg5);
+                }
+            }
+            return 1;
+        case 33:
+            func_00217DD0(self, 5, 0, 1);
+            {
+                TargetObjC8 *a0 = *(TargetObjC8 **)((char *)self + 0x40);
+                if (a0 != 0 && *(int *)((char *)self + 0x8C) != 0) {
+                    a0->MethodC8(arg1, arg2, arg3, arg4, arg5);
+                }
+            }
+            return 1;
+        case 36:
+            func_00217DD0(self, 6, 0, 1);
+            return 1;
+        case 35:
+            func_00217DD0(self, 7, 0, 1);
+            return 1;
+        default:
+            break;
         }
     }
-
-    return 1;
+    return 0;
 }
 }

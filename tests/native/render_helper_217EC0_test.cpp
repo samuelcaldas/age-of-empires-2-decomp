@@ -56,6 +56,7 @@ void test_case_all_switch_cases_and_defaults() {
 
         unsigned char sub_obj[0x100];
         std::memset(sub_obj, 0, sizeof(sub_obj));
+        vtable[48] = reinterpret_cast<void *>(mock_vtable_C8);
         vtable[50] = reinterpret_cast<void *>(mock_vtable_C8);
         *reinterpret_cast<void ***>(sub_obj) = vtable;
 
@@ -75,12 +76,17 @@ void test_case_all_switch_cases_and_defaults() {
             assert(helper_7DD0_arg1 == exp_id);
             assert(helper_7DD0_arg2 == 0);
             assert(helper_7DD0_arg3 == 1);
-            assert(vtable_C8_calls == 1);
+            // Cases 35 (id 7) and 36 (id 6) do not dispatch vtable C8 in target assembly
+            if (exp_id == 6 || exp_id == 7) {
+                assert(vtable_C8_calls == 0);
+            } else {
+                assert(vtable_C8_calls == 1);
+            }
         }
     }
 }
 
-void test_case_guard_returns_byte() {
+void test_case_guard_returns_zero() {
     reset_mocks();
     unsigned char obj[0x200];
     std::memset(obj, 0, sizeof(obj));
@@ -91,7 +97,7 @@ void test_case_guard_returns_byte() {
     *reinterpret_cast<void **>(obj + 0x16C) = guard_obj;
 
     int res = func_00217EC0(obj, 33, 11, 22, 33, 44);
-    assert(res == 7);
+    assert(res == 0);
     assert(helper_7DD0_calls == 0);
 }
 
@@ -124,7 +130,7 @@ int main(int argc, char **argv) {
     }
     int case_num = std::stoi(argv[1]);
     if (case_num == 0) test_case_all_switch_cases_and_defaults();
-    else if (case_num == 1) test_case_guard_returns_byte();
+    else if (case_num == 1) test_case_guard_returns_zero();
     else if (case_num == 2) test_case_gates_block_vtable();
     else {
         std::cerr << "Unknown case\n";

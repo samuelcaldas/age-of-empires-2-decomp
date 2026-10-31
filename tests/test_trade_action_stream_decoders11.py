@@ -24,7 +24,7 @@ SLICE_SIZE = 0x130
 # Exact function offsets, instruction sizes, and padding ranges:
 # func_0015F0F0: 0x15F0F0, 0x38 bytes (56B) -> exact 100%
 # internal padding 1: offset 0x38 to 0x40 (8 bytes) -> 16-byte alignment before func_0015F130
-# func_0015F130: 0x15F130, 0x80 bytes (128B) -> 3 bytes differ at offset 0x0C (sb v1, 0(a0) vs sb v1, -0x7A20(gp))
+# func_0015F130: 0x15F130, 0x80 bytes (128B) -> exact 100%
 # func_0015F1B0: 0x15F1B0, 0x6C bytes (108B) -> exact 100%
 # tail padding 2: offset 0x12C to 0x130 (4 bytes) -> 16-byte alignment at slice end
 F0F0_OFFSET = 0x0
@@ -157,31 +157,11 @@ def test_internal_alignment_padding(decoder_code):
     assert_same_code(actual_pad, expected_pad, START_ADDRESS + PAD1_OFFSET)
 
 
-def decode_staging_address(code):
-    """Derive a0 from the pinned addiu instruction, rejecting other registers or offsets."""
-    instruction = struct.unpack_from("<I", code, 0x04)[0]
-    assert instruction == 0x278485E0
-    assert instruction >> 26 == 0x09
-    assert (instruction >> 21) & 0x1F == 28
-    assert (instruction >> 16) & 0x1F == 4
-    displacement = struct.unpack_from("<h", code, 0x04)[0]
-    assert displacement == -0x7A20
-    return SYMBOLS["_gp"] + displacement
-
-
-def test_func_0015F130_near_matching(decoder_code):
-    """Pin both store encodings and prove their effective addresses without masks."""
+def test_func_0015F130_exact_bytes(decoder_code):
+    """Require exact instructions for func_0015F130 (128 bytes, 100% exact)."""
     actual = decoder_code[F130_OFFSET:F130_OFFSET + F130_SIZE]
     expected = read_original(F130_OFFSET, F130_SIZE)
-    assert len(actual) == len(expected) == F130_SIZE
-    assert sum(a == b for a, b in zip(actual, expected)) == 125
-    expected_store = struct.unpack_from("<I", expected, 0x0C)[0]
-    actual_store = struct.unpack_from("<I", actual, 0x0C)[0]
-    assert (expected_store, actual_store) == (0xA0830000, 0xA38385E0)
-    assert decode_staging_address(actual) == decode_staging_address(expected)
-    expected_target = decode_staging_address(expected) + struct.unpack_from("<h", expected, 0x0C)[0]
-    actual_target = SYMBOLS["_gp"] + struct.unpack_from("<h", actual, 0x0C)[0]
-    assert expected_target == actual_target == SYMBOLS["D_004E2DA0"]
+    assert_same_code(actual, expected, START_ADDRESS + F130_OFFSET)
 
 
 def test_func_0015F1B0_exact_bytes(decoder_code):

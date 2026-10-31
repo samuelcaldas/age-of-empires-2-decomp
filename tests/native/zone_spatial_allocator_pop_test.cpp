@@ -27,6 +27,10 @@ void *func_100730(unsigned int size) {
     return std::malloc(size);
 }
 
+void *func_00100730(unsigned int size) {
+    return func_100730(size);
+}
+
 void *func_117AF8(void *dst, const void *src, unsigned int size) {
     return std::memcpy(dst, src, size);
 }
@@ -46,6 +50,10 @@ void func_1D8120(void *root, void *node) {
         r = r->child;
     }
     r->child = n;
+}
+
+void func_001D8120(void *root, void *node) {
+    func_1D8120(root, node);
 }
 
 int func_1D80D0(void *node, unsigned int w, unsigned int h) {

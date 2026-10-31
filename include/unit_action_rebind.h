@@ -18,7 +18,7 @@ struct ActionRebind {
     virtual void Method30();
     virtual void* v29();
     virtual void* v30();
-    virtual void* v31();
+    virtual void v31();
     virtual float Method32();
     virtual void* v33(); virtual void Method34(int code); virtual void* v35(); virtual void* v36();
     virtual void* v37(); virtual void* v38(); virtual void* v39();

@@ -3,6 +3,14 @@
 #include <cstring>
 #include <iostream>
 
+#if defined(__MWERKS__) || defined(_R5900)
+typedef unsigned __int128 PacketTag;
+#else
+struct PacketTag {
+    unsigned int w[4];
+};
+#endif
+
 extern "C" {
 void *func_0021C410(void *obj, int a1);
 void *func_0021C4A0(void *obj, int a1);
@@ -27,9 +35,13 @@ void *func_104448(void *obj, int a1, int a2, int a3) {
 
 static int g_set_tag_calls = 0;
 static uint32_t g_last_tag[4];
-void *func_1045E8(void *obj, uint32_t *tag) {
+void *func_1045E8(void *obj, PacketTag tag) {
     g_set_tag_calls++;
-    std::memcpy(g_last_tag, tag, sizeof(g_last_tag));
+#if defined(__MWERKS__) || defined(_R5900)
+    std::memcpy(g_last_tag, &tag, sizeof(g_last_tag));
+#else
+    std::memcpy(g_last_tag, tag.w, sizeof(g_last_tag));
+#endif
     return obj;
 }
 

@@ -31,7 +31,7 @@ static int mock_21a960_ret = 999;
 extern "C" {
 int func_0021A850(void *self, int x, int y, void *arg3, const int *rect_t0, int arg5);
 
-void func_1143C0(void *ptr, int size) {
+void func_001143C0(void *ptr, int size) {
     c1143c0_calls++;
     last_1143c0_ptr = ptr;
     last_1143c0_size = size;

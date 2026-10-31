@@ -1,7 +1,16 @@
 #include <cassert>
+#include <cstdarg>
 #include <cstdint>
 #include <cstring>
 #include <iostream>
+
+#if defined(__MWERKS__) || defined(_R5900)
+typedef unsigned __int128 PacketTag;
+#else
+struct PacketTag {
+    unsigned int w[4];
+};
+#endif
 
 extern "C" {
 void *func_0021BFD0(void *obj, int val);
@@ -27,19 +36,30 @@ void *func_104448(void *obj, int a1, int a2, int a3) {
 
 static int g_set_tag_calls = 0;
 static uint32_t g_last_tag[4];
-void *func_1045E8(void *obj, uint32_t *tag) {
+void *func_1045E8(void *obj, PacketTag tag) {
     g_set_tag_calls++;
-    std::memcpy(g_last_tag, tag, sizeof(g_last_tag));
+#if defined(__MWERKS__) || defined(_R5900)
+    std::memcpy(g_last_tag, &tag, sizeof(g_last_tag));
+#else
+    std::memcpy(g_last_tag, tag.w, sizeof(g_last_tag));
+#endif
     return obj;
 }
 
 static int g_reg_write_calls = 0;
 static int g_last_reg = -1;
 static uint64_t g_last_data = 0;
-void *func_1046A8(void *obj, int reg, uint64_t data) {
+void *func_1046A8(void *obj, int reg, ...) {
     g_reg_write_calls++;
     g_last_reg = reg;
-    g_last_data = data;
+    va_list args;
+    va_start(args, reg);
+    if (reg == 0x08 || reg == 0x3F) {
+        g_last_data = (uint64_t)va_arg(args, int);
+    } else {
+        g_last_data = va_arg(args, uint64_t);
+    }
+    va_end(args);
     return obj;
 }
 

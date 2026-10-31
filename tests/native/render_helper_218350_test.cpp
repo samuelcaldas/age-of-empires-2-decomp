@@ -48,6 +48,9 @@ void test_case_218350_success_and_fn120_args() {
     *reinterpret_cast<void **>((char *)vtable + 0x30) = (void *)mock_fn30;
     *reinterpret_cast<void **>((char *)vtable + 0x120) = (void *)mock_fn120;
     *reinterpret_cast<void **>((char *)vtable + 0x34) = (void *)mock_fn34;
+    vtable[10] = (void *)mock_fn30;
+    vtable[11] = (void *)mock_fn34;
+    vtable[70] = (void *)mock_fn120;
 
     *reinterpret_cast<void **>(buf) = vtable;
     *reinterpret_cast<void **>(buf + 0x20) = (void *)0x9999;
@@ -117,6 +120,9 @@ void test_case_218350_flag80_single_iteration() {
     *reinterpret_cast<void **>((char *)vtable + 0x30) = (void *)mock_fn30;
     *reinterpret_cast<void **>((char *)vtable + 0x120) = (void *)mock_fn120;
     *reinterpret_cast<void **>((char *)vtable + 0x34) = (void *)mock_fn34;
+    vtable[10] = (void *)mock_fn30;
+    vtable[11] = (void *)mock_fn34;
+    vtable[70] = (void *)mock_fn120;
 
     *reinterpret_cast<void **>(buf) = vtable;
     *reinterpret_cast<void **>(buf + 0x20) = (void *)0x9999;
@@ -131,7 +137,7 @@ void test_case_218350_flag80_single_iteration() {
 
     assert(event_log.size() == 9);
     assert(event_log[4].type == EV_FN120);
-    assert(event_log[4].param4 == (void *)0);
+    assert(event_log[4].param4 == (void *)1);
 
     delete[] buf;
 }

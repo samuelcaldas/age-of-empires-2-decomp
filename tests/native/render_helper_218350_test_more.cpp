@@ -29,6 +29,9 @@ void test_case_218350_dynamic_mutation_during_loop() {
     *reinterpret_cast<void **>((char *)vtable + 0x30) = (void *)mock_fn30;
     *reinterpret_cast<void **>((char *)vtable + 0x120) = (void *)mock_fn120_limit_mutator;
     *reinterpret_cast<void **>((char *)vtable + 0x34) = (void *)mock_fn34;
+    vtable[10] = (void *)mock_fn30;
+    vtable[11] = (void *)mock_fn34;
+    vtable[70] = (void *)mock_fn120_limit_mutator;
 
     *reinterpret_cast<void **>(buf) = vtable;
     *reinterpret_cast<void **>(buf + 0x20) = (void *)0x9999;
@@ -83,10 +86,16 @@ void test_case_218350_dynamic_vtable_and_flags_mutation() {
     *reinterpret_cast<void **>((char *)vtable1 + 0x30) = (void *)mock_fn30;
     *reinterpret_cast<void **>((char *)vtable1 + 0x120) = (void *)mock_fn120_normal;
     *reinterpret_cast<void **>((char *)vtable1 + 0x34) = (void *)mock_fn34;
+    vtable1[10] = (void *)mock_fn30;
+    vtable1[11] = (void *)mock_fn34;
+    vtable1[70] = (void *)mock_fn120_normal;
 
     *reinterpret_cast<void **>((char *)vtable2 + 0x30) = (void *)mock_fn30;
     *reinterpret_cast<void **>((char *)vtable2 + 0x120) = (void *)mock_fn120_alt;
     *reinterpret_cast<void **>((char *)vtable2 + 0x34) = (void *)mock_fn34;
+    vtable2[10] = (void *)mock_fn30;
+    vtable2[11] = (void *)mock_fn34;
+    vtable2[70] = (void *)mock_fn120_alt;
 
     *reinterpret_cast<void **>(buf) = vtable1;
     *reinterpret_cast<void **>(buf + 0x20) = (void *)0x9999;
@@ -117,7 +126,7 @@ void test_case_218350_dynamic_vtable_and_flags_mutation() {
     assert(event_log[5].param1 == (void *)0x9999);
     assert(event_log[5].param2 == (void *)1);
     assert(event_log[5].param3 == (void *)6);
-    assert(event_log[5].param4 == (void *)0); // alt path uses flag80 (param4 = 0)
+    assert(event_log[5].param4 == (void *)1); // alt path uses flag80 (param4 = 1)
 
     assert(event_log[7].type == EV_ABA70);
     assert(event_log[7].receiver == (void *)0x9999);

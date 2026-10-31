@@ -48,6 +48,7 @@ static void reset_mocks() {
     method12C_calls = 0;
     last_method12C_self = nullptr;
     vtable[0x12C / 4] = (void *)mock_method_12C;
+    vtable[0x12C / 4 - 2] = (void *)mock_method_12C;
 }
 
 static ActionListItem *make_full_node(const char *t, const char *et, int id, void *vc, char b10) {

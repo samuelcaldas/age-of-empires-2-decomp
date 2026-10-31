@@ -68,6 +68,7 @@ static void reset_mocks() {
     c2198a0_return = 200;
 
     vtable[0x124 / 4] = (void *)mock_method_124;
+    vtable[0x124 / 4 - 2] = (void *)mock_method_124;
 }
 
 void test_case_2195A0_and_219530() {

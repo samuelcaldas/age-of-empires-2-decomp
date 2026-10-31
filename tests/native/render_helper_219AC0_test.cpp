@@ -49,6 +49,7 @@ static void reset_mocks() {
     last_method128_arg1 = -1;
     mock_method128_ret = (void *)0x5555;
     vtable[0x128 / 4] = (void *)mock_method_128;
+    vtable[0x128 / 4 - 2] = (void *)mock_method_128;
 }
 
 static ActionListItem *make_node(const char *t, int id) {

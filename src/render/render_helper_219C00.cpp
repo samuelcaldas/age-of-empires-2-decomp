@@ -9,7 +9,7 @@ struct ActionListItem {
     char *extra_text;
     int val_8;
     void *val_c;
-    char byte_10;
+    unsigned char byte_10;
     char pad_11[3];
     void *val_14;
     void *val_18;
@@ -22,13 +22,12 @@ struct ActionListItem {
 
 int func_00219CE0(void *self, int index);
 
-int func_00219C00(void *self, int index, void **loc120, void **loc124, void **loc128, void **loc12C, int selector = 0) {
+void func_00219C00(void *self, int index, void **loc120, void **loc124, void **loc128, void **loc12C, int selector) {
     *loc120 = 0;
     *loc124 = 0;
 
-    char *self_bytes = (char *)self;
-    ActionListItem *curr = *(ActionListItem **)(self_bytes + 0x11C);
     int idx = 0;
+    ActionListItem *curr = *(ActionListItem **)((char *)self + 0x11C);
 
     while (curr != 0) {
         if (idx == index) {
@@ -38,8 +37,7 @@ int func_00219C00(void *self, int index, void **loc120, void **loc124, void **lo
                 if (selector != 0) {
                     *loc128 = curr->val_1c;
                     *loc12C = curr->val_20;
-                }
-                if (selector == 0) {
+                } else {
                     *loc128 = curr->val_14;
                     *loc12C = curr->val_18;
                 }
@@ -48,13 +46,11 @@ int func_00219C00(void *self, int index, void **loc120, void **loc124, void **lo
         curr = curr->next;
         idx++;
     }
-    return 0;
 }
 
 const char *func_00219C90(void *self, int index) {
-    char *self_bytes = (char *)self;
-    ActionListItem *curr = *(ActionListItem **)(self_bytes + 0x11C);
     int idx = 0;
+    ActionListItem *curr = *(ActionListItem **)((char *)self + 0x11C);
 
     while (curr != 0) {
         if (idx == index) {
@@ -75,9 +71,8 @@ int func_00219CD0(void *self) {
 }
 
 int func_00219CE0(void *self, int index) {
-    char *self_bytes = (char *)self;
-    ActionListItem *curr = *(ActionListItem **)(self_bytes + 0x11C);
     int idx = 0;
+    ActionListItem *curr = *(ActionListItem **)((char *)self + 0x11C);
 
     while (curr != 0) {
         if (idx == index) {
@@ -90,10 +85,84 @@ int func_00219CE0(void *self, int index) {
     return -1;
 }
 
+struct BaseRenderHelper219C00 {
+    virtual void v0();
+    virtual void v4();
+    virtual void v8();
+    virtual void vC();
+    virtual void v10();
+    virtual void v14();
+    virtual void v18();
+    virtual void v1C();
+    virtual void v20();
+    virtual void v24();
+    virtual void v28();
+    virtual void v2C();
+    virtual void v30();
+    virtual void v34();
+    virtual void v38();
+    virtual void v3C();
+    virtual void v40();
+    virtual void v44();
+    virtual void v48();
+    virtual void v4C();
+    virtual void v50();
+    virtual void v54();
+    virtual void v58();
+    virtual void v5C();
+    virtual void v60();
+    virtual void v64();
+    virtual void v68();
+    virtual void v6C();
+    virtual void v70();
+    virtual void v74();
+    virtual void v78();
+    virtual void v7C();
+    virtual void v80();
+    virtual void v84();
+    virtual void v88();
+    virtual void v8C();
+    virtual void v90();
+    virtual void v94();
+    virtual void v98();
+    virtual void v9C();
+    virtual void vA0();
+    virtual void vA4();
+    virtual void vA8();
+    virtual void vAC();
+    virtual void vB0();
+    virtual void vB4();
+    virtual void vB8();
+    virtual void vBC();
+    virtual void vC0();
+    virtual void vC4();
+    virtual void vC8();
+    virtual void vCC();
+    virtual void vD0();
+    virtual void vD4();
+    virtual void vD8();
+    virtual void vDC();
+    virtual void vE0();
+    virtual void vE4();
+    virtual void vE8();
+    virtual void vEC();
+    virtual void vF0();
+    virtual void vF4();
+    virtual void vF8();
+    virtual void vFC();
+    virtual void v100();
+    virtual void v104();
+    virtual void v108();
+    virtual void v10C();
+    virtual void v110();
+    virtual void v114();
+    virtual void v118();
+    virtual void v11C();
+    virtual void v120();
+    virtual void method124();
+};
+
 void func_00219D20(void *self) {
-    void **vtable = *(void ***)self;
-    typedef void (*VMethod12C)(void *);
-    VMethod12C method12C = (VMethod12C)*(void **)((char *)vtable + 0x12C);
-    method12C(self);
+    ((BaseRenderHelper219C00 *)self)->method124();
 }
 }

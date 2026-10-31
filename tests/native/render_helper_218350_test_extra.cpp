@@ -17,6 +17,8 @@ void test_case_218350_null_aba00() {
     std::memset(vtable, 0, sizeof(vtable));
     *reinterpret_cast<void **>((char *)vtable + 0x30) = (void *)mock_fn30;
     *reinterpret_cast<void **>((char *)vtable + 0x34) = (void *)mock_fn34;
+    vtable[10] = (void *)mock_fn30;
+    vtable[11] = (void *)mock_fn34;
 
     *reinterpret_cast<void **>(buf) = vtable;
     *reinterpret_cast<void **>(buf + 0x20) = (void *)0x9999;
@@ -44,6 +46,8 @@ void test_case_218350_manager_mutation() {
     std::memset(vtable, 0, sizeof(vtable));
     *reinterpret_cast<void **>((char *)vtable + 0x30) = (void *)mock_fn30;
     *reinterpret_cast<void **>((char *)vtable + 0x34) = (void *)mock_fn34;
+    vtable[10] = (void *)mock_fn30;
+    vtable[11] = (void *)mock_fn34;
 
     *reinterpret_cast<void **>(buf) = vtable;
     *reinterpret_cast<void **>(buf + 0x20) = (void *)0x9999;

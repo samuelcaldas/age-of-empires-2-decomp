@@ -65,7 +65,7 @@ void test_case_buffer_formatting_and_dispatch() {
     assert(res == 999);
 
     assert(c1f6e50_calls == 1);
-    assert(last_1f6e50_arg0 == 0);
+    assert(last_1f6e50_arg0 == (int)(unsigned long)obj);
     assert(last_1f6e50_arg1 == 20);
     assert(last_1f6e50_size == 256);
     assert(last_1f6e50_buffer != nullptr);

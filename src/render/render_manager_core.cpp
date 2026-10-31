@@ -1,41 +1,71 @@
 #pragma exceptions off
 
+class RenderManagerClass {
+public:
+    virtual void m0();
+    virtual void m1();
+    virtual void m2();
+    virtual void m3();
+    virtual void m4();
+    virtual void m5();
+    virtual void m6();
+    virtual void m7();
+    virtual void m8();
+    virtual void m9();
+    virtual void m10();
+    virtual void m11();
+    virtual void m12();
+    virtual void m13();
+    virtual void m14();
+    virtual void m15();
+    virtual void m16();
+    virtual void m17();
+    virtual void m18();
+    virtual void m19();
+    virtual void m20();
+    virtual void m21();
+    virtual void m22();
+    virtual void m23();
+    virtual int VirtualMethod26();
+};
+
 extern "C" {
 void func_117CAC(void *dst, int val, int size);
-void func_188250(void *self, float f);
-void func_188240(void *self, int);
-void func_188290(void *self, int);
-void func_1882A0(void *self, int);
-void func_1882B0(void *self, int);
-void func_1882D0(void *self, int);
-void func_1882F0(void *self, int, int, int);
-void func_188300(void *self, int);
-void func_188310(void *self, int);
-void func_188330(void *self, int);
-void func_188340(void *self, int);
-void func_1884A0(void *self, float f);
-void func_188490(void *self, float f);
-void func_1884F0(void *self);
-void func_188500(void *self);
-void func_188360(void *self, int);
-void func_1883C0(void *self, int);
-void func_1883B0(void *self, int, int);
-void func_188370(void *self, int, int);
-void func_188390(void *self, int, int);
-void func_1883D0(void *self, int, int);
-void func_1883E0(void *self, int);
-void func_1883F0(void *self, int);
-void func_188350(void *self, int);
-void func_188260(void *self, const void *ptr);
+void func_00188250(void *self, float f);
+void func_00188240(void *self, int);
+void func_00188290(void *self, int);
+void func_001882a0(void *self, int);
+void func_001882b0(void *self, int);
+void func_001882d0(void *self, int);
+void func_001882f0(void *self, int, int, int);
+void func_00188300(void *self, int);
+void func_00188310(void *self, int);
+void func_00188330(void *self, int);
+void func_00188340(void *self, int);
+void func_001884a0(void *self, float f);
+void func_00188490(void *self, float f);
+void func_001884F0(void *self);
+void func_00188500(void *self);
+void func_00188360(void *self, int);
+void func_001883c0(void *self, int);
+void func_001883b0(void *self, int, int);
+void func_00188370(void *self, int, int);
+void func_00188390(void *self, int, int);
+void func_001883d0(void *self, int, int);
+void func_001883e0(void *self, int);
+void func_001883f0(void *self, int);
+void func_00188350(void *self, int);
+void func_00188260(void *self, const void *ptr);
 
 extern void *D_004E3180;
 extern int D_004E3110, D_004E3114, D_004E30FC, D_004E3100, D_004E3104;
 extern int D_004E3108, D_004E310C, D_004E315C;
-extern const char D_004D7DB0[];
+extern const char D_4D7DB0[];
+extern const char D_491988[];
+extern const char D_5670C0[];
 
-void *func_00184340(void *this_ptr, void *a1, int a2) {
-    char *p = (char *)this_ptr;
-    *(const void **)p = D_004D7DB0;
+void *func_00184340(char *p, void *a1, int a2) {
+    *(const void **)p = D_4D7DB0;
     *(int *)(p + 0x24) = 0;
     *(int *)(p + 0x48) = -1;
     *(int *)(p + 0x4C) = -1;
@@ -46,34 +76,34 @@ void *func_00184340(void *this_ptr, void *a1, int a2) {
     func_117CAC(p + 0x9F8, 0, 0x24);
     func_117CAC(p + 0x90C, 0, 0xB0);
     func_117CAC(p + 0x1044, 0, 0x14);
-    func_188250(p, 2.0f);
     *(int *)(p + 0x60) = 0;
-    func_188240(p, 0);
-    func_188290(p, 0);
-    func_1882A0(p, 0);
-    func_1882B0(p, 1);
-    func_1882D0(p, 0);
-    func_1882F0(p, 0x60, 0x60, 8);
-    func_188300(p, 0);
-    func_188310(p, 1);
-    func_188330(p, 1);
-    func_188340(p, 1);
-    func_1884A0(p, 2.0f);
-    func_188490(p, 2.0f);
-    func_1884F0(p);
-    func_188500(p);
-    func_188360(p, 0);
-    func_1883C0(p, 2);
+    func_00188250(p, 2.0f);
+    func_00188240(p, 0);
+    func_00188290(p, 0);
+    func_001882a0(p, 0);
+    func_001882b0(p, 1);
+    func_001882d0(p, 0);
+    func_001882f0(p, 0x60, 0x60, 8);
+    func_00188300(p, 0);
+    func_00188310(p, 1);
+    func_00188330(p, 1);
+    func_00188340(p, 1);
+    func_001884a0(p, 2.0f);
+    func_00188490(p, 2.0f);
+    func_001884F0(p);
+    func_00188500(p);
+    func_00188360(p, 0);
+    func_001883c0(p, 2);
     for (int i = 0; i < 9; i++) {
-        func_1883B0(p, i, 0);
-        func_188370(p, i, 0);
-        func_188390(p, i, 0);
-        func_1883D0(p, i, 1);
+        func_001883b0(p, i, 0);
+        func_00188370(p, i, 0);
+        func_00188390(p, i, 0);
+        func_001883d0(p, i, 1);
     }
-    func_1883E0(p, 2);
-    func_1883F0(p, 2);
-    func_188350(p, 4);
-    func_188260(p, (const void *)0x00491988);
+    func_001883e0(p, 2);
+    func_001883f0(p, 2);
+    func_00188350(p, 4);
+    func_00188260(p, D_491988);
     D_004E3180 = p;
     *(void **)(p + 0x28) = a1;
     *(int *)(p + 0x2C) = 0;
@@ -177,11 +207,9 @@ void *func_00184340(void *this_ptr, void *a1, int a2) {
     *(int *)(p + 0xB2C) = 1;
     *(int *)(p + 0x106C) = 0;
     *(int *)(p + 0x105C) = 3;
-    D_004E315C = 0x005670C0;
+    D_004E315C = (int)D_5670C0;
     if (a2 != 0) {
-        typedef int (*VMethod26)(void *self);
-        VMethod26 fn = *(VMethod26 *)(*(char **)p + 0x68);
-        if (fn(p) == 0 && *(int *)(p + 0x64) == 0) {
+        if (((RenderManagerClass *)p)->VirtualMethod26() == 0 && *(int *)(p + 0x64) == 0) {
             *(int *)(p + 0x64) = 1;
         }
     }

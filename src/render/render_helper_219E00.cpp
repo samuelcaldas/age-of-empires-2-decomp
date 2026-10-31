@@ -2,7 +2,7 @@
 #include "sub_list.h"
 
 extern "C" {
-void func_217DD0(void *self, int arg1, int arg2, int arg3);
+void func_00217DD0(void *self, int arg1, int arg2, int arg3);
 
 typedef void (*VMethod28)(void *, int);
 
@@ -70,11 +70,11 @@ void func_00219E20(void *self, int index, void *arg2, void *arg3, void *arg4, vo
 int func_00219E90(void *self, int arg1, int arg2) {
     short hi = (short)(((unsigned int)arg2 >> 16) & 0xFFFF);
     if (hi > 0) {
-        func_217DD0(self, 3, 0, 1);
+        func_00217DD0(self, 3, 0, 1);
         return 1;
     }
     if (hi < 0) {
-        func_217DD0(self, 2, 0, 1);
+        func_00217DD0(self, 2, 0, 1);
         return 1;
     }
     return 0;

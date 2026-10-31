@@ -19,7 +19,7 @@ void test_cases_callbacks(int case_number) {
     }
     func_002181F0(object);
     if (case_number == 6) {
-        assert(callback_count == 1 && callback_mode == 0);
+        assert(callback_count == 1 && callback_mode == 1);
         assert(callback_handle_last == result_handle && callback_index_last == 0);
         assert(callback_sequence_last == 4);
     } else if (case_number == 7) {
@@ -27,10 +27,10 @@ void test_cases_callbacks(int case_number) {
         assert(callback_handle_last == result_handle && callback_index_last == 0);
         assert(callback_sequence_last == 4);
     } else if (case_number == 8) {
-        assert(callback_count == 0 && callback_mode == -1);
+        assert(callback_count == 1 && callback_mode == 0);
     } else {
         assert(case_number == 9);
-        assert(callback_count == 1 && callback_mode == 1);
+        assert(callback_count == 2 && callback_mode == 0);
         assert(*reinterpret_cast<short *>(object + 0x126) == 5);
         assert(*reinterpret_cast<short *>(object + 0x124) == 4);
     }

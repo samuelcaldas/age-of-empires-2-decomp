@@ -30,8 +30,16 @@ void func_1D2140(void *self) {
     g_func_1d2140_calls++;
 }
 
+void func_001D2140(void *self) {
+    func_1D2140(self);
+}
+
 void func_1D2320(void *self, int x0, int y0, int x1, int y1) {
     g_func_1d2320_calls++;
+}
+
+void func_001D2320(void *self, int x0, int y0, int x1, int y1) {
+    func_1D2320(self, x0, y0, x1, y1);
 }
 }
 

@@ -4713,9 +4713,36 @@ segments:
     vram: 0x217930
     subsegments:
       - [0x117B10, asm, render/render_helper_217930]
-  - name: post_217930
-    type: bin
+  - name: render_helper_217A10
+    type: code
     start: 0x117BF0
+    vram: 0x217A10
+    subsegments:
+      - [0x117BF0, asm, render/render_helper_217A10]
+  - name: render_helper_217B50
+    type: code
+    start: 0x117D30
+    vram: 0x217B50
+    subsegments:
+      - [0x117D30, asm, render/render_helper_217B50]
+  - name: render_helper_217DD0
+    type: code
+    start: 0x117FB0
+    vram: 0x217DD0
+    subsegments:
+      - [0x117FB0, asm, render/render_helper_217DD0]
+  - name: render_helper_217EC0
+    type: code
+    start: 0x1180A0
+    vram: 0x217EC0
+    subsegments:
+      - [0x1180A0, asm, render/render_helper_217EC0]
+  - name: render_helper_218100
+    type: code
+    start: 0x1182E0
+    vram: 0x218100
+    subsegments:
+      - [0x1182E0, asm, render/render_helper_218100]
   - name: render_helper_2181F0
     type: code
     start: 0x1183D0

@@ -2701,7 +2701,7 @@ if config.platform == Platform.PS2:
                     toolchain_version="PS2/mwcc-2.3.1.01",
                 ),
                 Object(
-                    NonMatching,
+                    Matching,
                     "render/render_packet_builder_21c990",
                     cflags=config.cflags,
                     toolchain_version="PS2/mwcc-2.3.1.01",

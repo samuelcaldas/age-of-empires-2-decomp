@@ -2,7 +2,7 @@
 #include "zone_spatial_grid_vector_push_back.h"
 
 extern "C" {
-int func_1EBA00(void *self);
+int func_001EBA00(void *self);
 }
 
 struct FastVector {
@@ -13,10 +13,10 @@ struct FastVector {
 };
 
 extern "C" int func_001EBAB0(void *self_ptr, void *elem) {
-    FastVector *self = (FastVector *)self_ptr;
-    if (func_1EBA00(self) == 0) {
+    if (func_001EBA00(self_ptr)) {
         return -1;
     }
+    FastVector *self = (FastVector *)self_ptr;
     short idx = self->count;
     self->buffer[idx] = elem;
     self->count++;

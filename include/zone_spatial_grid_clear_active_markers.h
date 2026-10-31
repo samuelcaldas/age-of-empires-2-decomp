@@ -6,7 +6,7 @@ struct MarkerNode;
 
 extern "C" {
 void func_001EE080(SpatialGrid *self);
-void func_1EE780(SpatialGrid *self, MarkerNode *node);
+void func_001EE780(SpatialGrid *self, MarkerNode *node);
 }
 
 #endif

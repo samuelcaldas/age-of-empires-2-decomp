@@ -2,7 +2,7 @@
 #include "sub_list.h"
 
 extern "C" {
-extern unsigned char D_004E2DA0[];
+extern unsigned char D_004E2DA0[4];
 extern unsigned char *D_004E2DB0;
 extern unsigned char *D_004E2DB4;
 
@@ -41,10 +41,8 @@ void func_00152A10() {
     COPY_BYTE()
     COPY_BYTE()
     COPY_BYTE()
+    COPY_BYTE()
 
-    *D_004E2DB4 = *D_004E2DB0;
-    D_004E2DB0++;
-    D_004E2DB4++;
     func_001522C0(D_004E2DA0, D_004E2DB0);
 
     D_004E2DB0 += 2;

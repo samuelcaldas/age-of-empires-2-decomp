@@ -5,13 +5,67 @@
 static_assert(sizeof(void *) == 4, "native fixture requires 32-bit pointers");
 
 extern "C" {
-int func_001D66E0(void *self, int p1, int p2, int p3, int p4, int p5, int p6, int p7);
+void func_001D66E0(void *self, int p1);
+
+static int g_func_117cac_calls = 0;
+static int g_func_2e6cd0_calls = 0;
+static int g_func_2e6d40_calls = 0;
+static int g_func_1d4330_calls = 0;
+static int g_func_001d42a0_calls = 0;
+static int g_func_1d5e50_calls = 0;
+
+void *func_117CAC(void *dst, int val, int size) {
+    g_func_117cac_calls++;
+    std::memset(dst, val, size);
+    return dst;
+}
+
+void *func_2E6CD0(void *p) {
+    g_func_2e6cd0_calls++;
+    return nullptr;
+}
+
+void *func_2E6D40(void *p) {
+    g_func_2e6d40_calls++;
+    return nullptr;
+}
+
+void *func_1D4330(void *self, int x, int y, int level, float g_score, float h_score, void *parent, int dir, void *t2, void *t3) {
+    g_func_1d4330_calls++;
+    return nullptr;
+}
+
+void func_001D42A0(void *self, void *list_head, void *node, int flag) {
+    g_func_001d42a0_calls++;
+}
+
+int func_1D5E50(void *self, int x, int y) {
+    g_func_1d5e50_calls++;
+    return 1;
+}
 }
 
 static void test_find_path_flow() {
-    char zm[0x100];
-    assert(func_001D66E0(nullptr, 0, 0, 0, 0, 0, 0, 0) == 0);
-    assert(func_001D66E0(zm, 0, 0, 0, 0, 0, 0, 0) == 1);
+    g_func_117cac_calls = 0;
+    g_func_2e6cd0_calls = 0;
+    g_func_2e6d40_calls = 0;
+
+    char zm[0x200];
+    std::memset(zm, 0, sizeof(zm));
+
+    char row0[16], row1[16];
+    std::memset(row0, 0xFF, sizeof(row0));
+    std::memset(row1, 0xFF, sizeof(row1));
+
+    char *grid[2] = { row0, row1 };
+    *reinterpret_cast<char ***>(zm + 0x11C) = grid;
+    *reinterpret_cast<int *>(zm + 0xE4) = 2; // width
+    *reinterpret_cast<int *>(zm + 0xE8) = 16; // height
+
+    func_001D66E0(zm, 0);
+    assert(g_func_117cac_calls >= 2);
+    assert(row0[0] == 0);
+    assert(row1[0] == 0);
 }
 
 int main(int argc, char **argv) {

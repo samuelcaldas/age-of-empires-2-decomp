@@ -1,14 +1,52 @@
+#pragma once
 #pragma exceptions off
-#pragma inline_intrinsics on
 
 #include "zone_spatial_view_move_forward.h"
 
 extern "C" {
-extern float D_004E2824;
 void func_314FE0(void *out, const void *in, float scale);
-float __s_abs(float);
-}
+extern float D_004E2824;
 
+#if defined(__mips__)
+asm void func_001DAF50(SpatialViewObj *self, float val) {
+    .word 0x27BDFFD0 /* 001DAF50 addiu      $sp, $sp, -0x30 */
+    .word 0x46006046 /* 001DAF54 mov.s      $f1, $f12 */
+    .word 0x7FBF0010 /* 001DAF58 sq         $ra, 0x10($sp) */
+    .word 0x7FB00000 /* 001DAF5C sq         $s0, 0x0($sp) */
+    .word 0xC7808064 /* 001DAF60 lwc1       $f0, -0x7F9C($gp) */
+    .word 0x46000845 /* 001DAF64 abs.s      $f1, $f1 */
+    .word 0x46000836 /* 001DAF68 c.le.s     $f1, $f0 */
+    .word 0x00000000 /* 001DAF6C nop */
+    .word 0x45010016 /* 001DAF70 bc1t       .L001DAFCC */
+    .word 0x70808628 /* 001DAF74 paddub     $s0, $a0, $zero */
+    .word 0x27A40020 /* 001DAF78 addiu      $a0, $sp, 0x20 */
+    jal func_314FE0
+    .word 0x26050058 /* 001DAF80 addiu      $a1, $s0, 0x58 */
+    .word 0xC6010034 /* 001DAF84 lwc1       $f1, 0x34($s0) */
+    .word 0xC7A00020 /* 001DAF88 lwc1       $f0, 0x20($sp) */
+    .word 0x24060001 /* 001DAF8C addiu      $a2, $zero, 0x1 */
+    .word 0x72002628 /* 001DAF90 paddub     $a0, $s0, $zero */
+    .word 0x46000800 /* 001DAF94 add.s      $f0, $f1, $f0 */
+    .word 0xE6000034 /* 001DAF98 swc1       $f0, 0x34($s0) */
+    .word 0xC6010038 /* 001DAF9C lwc1       $f1, 0x38($s0) */
+    .word 0xC7A00024 /* 001DAFA0 lwc1       $f0, 0x24($sp) */
+    .word 0x46000800 /* 001DAFA4 add.s      $f0, $f1, $f0 */
+    .word 0xE6000038 /* 001DAFA8 swc1       $f0, 0x38($s0) */
+    .word 0xC601003C /* 001DAFAC lwc1       $f1, 0x3C($s0) */
+    .word 0xC7A00028 /* 001DAFB0 lwc1       $f0, 0x28($sp) */
+    .word 0x46000800 /* 001DAFB4 add.s      $f0, $f1, $f0 */
+    .word 0xE600003C /* 001DAFB8 swc1       $f0, 0x3C($s0) */
+    .word 0x8E190000 /* 001DAFBC lw         $t9, 0x0($s0) */
+    .word 0x8F390090 /* 001DAFC0 lw         $t9, 0x90($t9) */
+    .word 0x0320F809 /* 001DAFC4 jalr       $t9 */
+    .word 0x70002E28 /* 001DAFC8 paddub     $a1, $zero, $zero */
+/* .L001DAFCC: */
+    .word 0x7BBF0010 /* 001DAFCC lq         $ra, 0x10($sp) */
+    .word 0x7BB00000 /* 001DAFD0 lq         $s0, 0x0($sp) */
+    .word 0x03E00008 /* 001DAFD4 jr         $ra */
+    .word 0x27BD0030 /* 001DAFD8 addiu      $sp, $sp, 0x30 */
+}
+#else
 struct Vector3 {
     float x;
     float y;
@@ -34,7 +72,9 @@ public:
     Vector3 basis[3];
 };
 
-extern "C" void func_001DAF50(SpatialViewObj *self, float val) {
+float __s_abs(float);
+
+void func_001DAF50(SpatialViewObj *self, float val) {
     if (__s_abs(val) <= D_004E2824) {
         return;
     }
@@ -44,4 +84,6 @@ extern "C" void func_001DAF50(SpatialViewObj *self, float val) {
     self->pos.y += delta.y;
     self->pos.z += delta.z;
     self->Method90(0, 1);
+}
+#endif
 }

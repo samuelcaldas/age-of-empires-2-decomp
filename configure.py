@@ -4035,7 +4035,7 @@ if config.platform == Platform.PS2:
                     toolchain_version="PS2/mwcc-2.3.1.01",
                 ),
                 Object(
-                    NonMatching,
+                    Matching,
                     "zone_spatial_view_move_right",
                     source="zone/zone_spatial_view_move_right",
                     cflags=config.cflags,

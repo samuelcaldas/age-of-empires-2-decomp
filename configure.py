@@ -4581,7 +4581,7 @@ if config.platform == Platform.PS2:
                     toolchain_version="PS2/mwcc-2.3.1.01",
                 ),
                 Object(
-                    NonMatching,
+                    Matching,
                     "zone_spatial_entity_get_velocity_vector",
                     source="zone/zone_spatial_entity_get_velocity_vector",
                     cflags=config.cflags,
@@ -4595,7 +4595,7 @@ if config.platform == Platform.PS2:
                     toolchain_version="PS2/mwcc-2.3.1.01",
                 ),
                 Object(
-                    NonMatching,
+                    Matching,
                     "zone_spatial_entity_get_angular_velocity",
                     source="zone/zone_spatial_entity_get_angular_velocity",
                     cflags=config.cflags,

@@ -15,16 +15,19 @@ COMPILER_PATH = PROJECT_ROOT / "compilers/PS2/mwcc-2.3.1.01/mwccps2.exe"
 WRAPPER_PATH = PROJECT_ROOT / "build/tools/wibo"
 LINKER_PATH = PROJECT_ROOT / "build/mips_binutils/mips-linux-gnu-ld"
 TEXT_ADDRESS = 0x340D70
-TEXT_SIZE = 712
+TEXT_SIZE = 720
 SLICE_SIZE = 720
 FILE_OFFSET = 0x240F50
 ORIGINAL_SHA1 = "f478e19f2059d52899b691483ef5c7522e30e17c"
 FUNCTIONS = {
     "func_00340D70": (0x340D70, 712),
+    "func_00341038": (0x341038, 8),
 }
 EXTERNAL_SYMBOLS = {
     "func_21A1C0": 0x21A1C0,
+    "func_0021A1C0": 0x21A1C0,
     "func_341040": 0x341040,
+    "func_00341040": 0x341040,
     "func_2261c0": 0x2261C0,
 }
 
@@ -78,7 +81,7 @@ def link_handler(output_directory, object_path):
     )
     linker_script.write_text(
         definitions + "SECTIONS {\n"
-        f"  .text {TEXT_ADDRESS:#x} : {{ *(.text) }}\n"
+        f"  .text {TEXT_ADDRESS:#x} : SUBALIGN(4) {{ *(.text) }}\n"
         "  /DISCARD/ : { *(*) }\n"
         "}\n",
         encoding="utf-8",
@@ -110,8 +113,8 @@ def link_handler(output_directory, object_path):
         return code
 
 
-def original_text_and_tail():
-    """Read the exact PT_LOAD bytes and original-only trailing zero words."""
+def original_text():
+    """Read the exact PT_LOAD bytes for the full slice."""
     original_bytes = ORIGINAL_PATH.read_bytes()
     assert hashlib.sha1(original_bytes).hexdigest() == ORIGINAL_SHA1, (
         "AOK.ELF SHA1 mismatch — wrong binary"
@@ -128,17 +131,17 @@ def original_text_and_tail():
         segment = matching_segments[0]
         offset = TEXT_ADDRESS - segment["p_vaddr"]
         assert segment["p_offset"] + offset == FILE_OFFSET
-        code_and_tail = segment.data()[offset:offset + SLICE_SIZE]
-        assert len(code_and_tail) == SLICE_SIZE
-        return code_and_tail[:TEXT_SIZE], code_and_tail[TEXT_SIZE:]
+        code = segment.data()[offset:offset + SLICE_SIZE]
+        assert len(code) == SLICE_SIZE
+        return code
 
 
 def test_tactical_ai_action_handler_340d70_match_original_after_resolving_externals(tmp_path):
     """Verify function symbol size and linked text byte generation."""
     require_toolchain()
-    expected_code, original_tail = original_text_and_tail()
+    expected_code = original_text()
     object_path = compile_handler(tmp_path)
     with object_path.open("rb") as object_stream:
         assert_function_symbols(ELFFile(object_stream))
     actual_code = link_handler(tmp_path, object_path)
-    assert len(actual_code) == TEXT_SIZE
+    assert actual_code == expected_code

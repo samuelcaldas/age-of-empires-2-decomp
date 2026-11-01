@@ -31,10 +31,13 @@ extern "C" {
         g_func_186010_called++;
         return &g_res_world;
     }
-    void func_2646E0(ActionRebind *self, int a1, int a2, int a3, int a4) {
+    void func_002646E0(ActionRebind *self, int a1, int a2, int a3, int a4) {
         g_func_2646E0_called++;
         g_last_2646E0_self = self;
         g_last_a1 = a1; g_last_a2 = a2; g_last_a3 = a3; g_last_a4 = a4;
+    }
+    void func_2646E0(ActionRebind *self, int a1, int a2, int a3, int a4) {
+        func_002646E0(self, a1, a2, a3, a4);
     }
 }
 

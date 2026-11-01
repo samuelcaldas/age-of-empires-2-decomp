@@ -377,10 +377,10 @@ if config.platform == Platform.PS2:
                     toolchain_version="PS2/mwcc-2.3.1.01",
                 ),
                 Object(
-                    NonMatching,
+                    Matching,
                     "map_zone_los",
                     source="zone/map_zone_los",
-                    cflags=config.cflags,
+                    cflags=config.cflags + ["-sdatathreshold", "0"],
                     toolchain_version="PS2/mwcc-2.3.1.01",
                 ),
                 Object(

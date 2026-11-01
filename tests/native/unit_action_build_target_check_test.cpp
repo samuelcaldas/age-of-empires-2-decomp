@@ -36,6 +36,9 @@ extern "C" {
         (void)self;
         g_func_270E30_called++;
     }
+    void func_270E30(ActionRebind *self) {
+        func_00270E30(self);
+    }
     void func_264450(ActionRebind *self, int a1, int a2, int a3, int a4) {
         g_func_264450_called++;
         g_last_264450_self = self;

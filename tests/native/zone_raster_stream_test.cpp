@@ -21,6 +21,10 @@ void func_00226F70(void *stream, void *data, int size) {
     rec->bytes.insert(rec->bytes.end(), p, p + size);
 }
 
+void func_226F70(void *stream, void *data, int size) {
+    func_00226F70(stream, data, size);
+}
+
 void func_00226D90(void *stream, void *data, int size) {
     StreamRecord *rec = static_cast<StreamRecord *>(stream);
     assert(rec != nullptr);

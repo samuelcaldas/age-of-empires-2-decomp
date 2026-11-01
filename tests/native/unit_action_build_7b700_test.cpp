@@ -22,6 +22,9 @@ extern "C" {
         g_func_27B6B0_called++;
         return g_return_entry;
     }
+    void *func_0027B6D0(void *self) {
+        return func_27B6B0(self);
+    }
     void *func_117CAC(void *dest, int val, unsigned int size) {
         g_func_117CAC_called++;
         return std::memset(dest, val, size);

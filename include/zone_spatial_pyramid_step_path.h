@@ -1,5 +1,5 @@
 #pragma once
 
 extern "C" {
-int func_001D5610(void *self, int x0, int y0, int x1, int y1, void *out1, void *out2);
+void func_001D5610(void *self, int min_x, int min_y, int max_x, int max_y, int dir, int flag, int level);
 }

@@ -7282,7 +7282,7 @@ if config.platform == Platform.PS2:
                     toolchain_version="PS2/mwcc-2.3.1.01",
                 ),
                 Object(
-                    NonMatching,
+                    Matching,
                     "tactical_ai_player_dispatch",
                     source="ai/tactical_ai_player_dispatch",
                     cflags=config.cflags,

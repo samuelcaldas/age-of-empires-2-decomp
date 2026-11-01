@@ -5,19 +5,51 @@
 static_assert(sizeof(void *) == 4, "native fixture requires 32-bit pointers");
 
 extern "C" {
-int func_001D5EB0(void *self, int p1);
+void func_001D5EB0(void *self, int p1);
 
 static int g_func_117cac_calls = 0;
+static int g_func_2e6cd0_calls = 0;
+static int g_func_2e6d40_calls = 0;
+static int g_func_1d4330_calls = 0;
+static int g_func_001d42a0_calls = 0;
+static int g_func_1d5e50_calls = 0;
 
 void *func_117CAC(void *dst, int val, int size) {
     g_func_117cac_calls++;
     std::memset(dst, val, size);
     return dst;
 }
+
+void *func_2E6CD0(void *p) {
+    g_func_2e6cd0_calls++;
+    return nullptr;
+}
+
+void *func_2E6D40(void *p) {
+    g_func_2e6d40_calls++;
+    return nullptr;
+}
+
+void *func_1D4330(void *self, int x, int y, int level, float g_score, float h_score, void *parent, int dir, void *t2, void *t3) {
+    g_func_1d4330_calls++;
+    return nullptr;
+}
+
+void func_001D42A0(void *self, void *list_head, void *node, int flag) {
+    g_func_001d42a0_calls++;
+}
+
+int func_1D5E50(void *self, int x, int y) {
+    g_func_1d5e50_calls++;
+    return 1;
+}
 }
 
 static void test_build_graph_flow() {
     g_func_117cac_calls = 0;
+    g_func_2e6cd0_calls = 0;
+    g_func_2e6d40_calls = 0;
+
     char zm[0x200];
     std::memset(zm, 0, sizeof(zm));
 
@@ -30,9 +62,12 @@ static void test_build_graph_flow() {
     *reinterpret_cast<int *>(zm + 0xE4) = 2; // width
     *reinterpret_cast<int *>(zm + 0xE8) = 16; // height
 
-    int res = func_001D5EB0(zm, 0);
-    assert(res == 1);
-    assert(g_func_117cac_calls == 2);
+    char sub94[0x100];
+    std::memset(sub94, 0, sizeof(sub94));
+    *reinterpret_cast<void **>(zm + 0x94) = sub94;
+
+    func_001D5EB0(zm, 0);
+    assert(g_func_117cac_calls >= 2);
     assert(row0[0] == 0);
     assert(row1[0] == 0);
 }

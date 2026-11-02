@@ -212,7 +212,7 @@ extern "C" {
 
     void* func_00144F90(void *self) { return self; }
     void* func_00144FC0() { return 0; }
-    void* func_00144FD0(void *self) { return self; }
+    void* func_00144FD0() { return 0; }
     void func_001451E0() {}
     void func_001451F0() {}
     void func_00145200() {}

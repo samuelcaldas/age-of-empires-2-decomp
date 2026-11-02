@@ -82,7 +82,7 @@ def attempt(unit, offset, vram, symbols, gp_alias):
         defs.append(f"{name} = {address:#x};")
     with tempfile.TemporaryDirectory() as tmp:
         script = Path(tmp) / "unit.ld"
-        script.write_text("SECTIONS { .text %#x : { *(.text) } /DISCARD/ : { *(*) } }\n%s\n"
+        script.write_text("SECTIONS { .text %#x : { *(.text) } .lit4 0x4E2808 : { *(.lit4) } .lit8 0x4E2820 : { *(.lit8) } /DISCARD/ : { *(*) } }\n%s\n"
                           % (vram, "\n".join(defs)))
         linked = Path(tmp) / "unit.elf"
         result = subprocess.run([str(BIN / "mips-linux-gnu-ld"), "-EL", "-m", "elf32ltsmip", "-T", str(script),

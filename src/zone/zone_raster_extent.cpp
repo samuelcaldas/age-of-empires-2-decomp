@@ -37,12 +37,11 @@ extern "C" int func_001CA670(void *self, int x, int y, int *out_x1, int *out_y1,
             return 0;
         }
 
-        int x_off = ((x << 3) - x) << 2;
-        char *cell = (char *)zm->cells_ptr[y] + x_off;
+        ZoneCell *cell = &zm->cells_ptr[y][x];
 
-        unsigned char tag = (unsigned char)(cell[0xB] & 0x60);
+        int tag = cell->f_B & 0x60;
         if (tag == 0x40) {
-            unsigned char idx = (unsigned char)cell[0xC];
+            int idx = cell->f_C;
             if (!idx) {
                 return 0;
             }
@@ -59,12 +58,15 @@ extern "C" int func_001CA670(void *self, int x, int y, int *out_x1, int *out_y1,
             return 0;
         }
 
-        int dx = 0;
-        int dy = 0;
+        int dx;
+        int dy;
         if (tag == 0x20) {
-            unsigned char val = (unsigned char)cell[0xC];
+            unsigned char val = cell->f_C;
             dx = D_00392020[val & 0xF];
             dy = D_00392020[(val & 0xF0) >> 4];
+        } else {
+            dx = 0;
+            dy = 0;
         }
 
         x -= dx;

@@ -3,7 +3,7 @@
 
 extern "C" {
 int func_00332DA0(void *obj);
-int func_00202B10(void *obj);
+int func_202B10(void *obj);
 void *func_001510D0(void *self, int id);
 
 struct SearchItem {
@@ -135,7 +135,7 @@ float func_001499F0(TradeActionBase *self) {
     MarketObj *market = self->m_market;
     MarketData8 *d8 = (MarketData8 *)market->m_field8;
     int s0 = func_00332DA0(d8->m_b98);
-    int valid = func_00202B10(self->m_market->m_field8);
+    int valid = func_202B10(self->m_market->m_field8);
 
     if (!valid || s0 < 3) {
         MarketData4 *d4 = *(MarketData4 **)((char *)self->m_market + 4);

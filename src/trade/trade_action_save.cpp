@@ -215,9 +215,9 @@ void func_00146400(TradeAction *self, void *stream) {
         if (k > self->m_fieldB0 - 1) {
             v0 = self->m_fieldA4;
         } else {
-            v0 = self->m_fieldA4;
+            v0 = self->m_fieldA4 + k;
         }
-        ival = *(short *)((char *)v0 + (k << 1));
+        ival = *v0;
         func_00226F70(stream, &ival, 4);
     }
 

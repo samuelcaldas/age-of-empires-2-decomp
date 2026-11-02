@@ -4,8 +4,8 @@
 class TargetObj;
 
 extern "C" {
-extern int D_00F99940;
-extern int *D_00F99920;
+#define D_00F99940 (*(int *)0x00F99940)
+#define D_00F99920 (*(int **)0x00F99920)
 
 TargetObj* func_1510D0(void *self, int id);
 void* func_332e60(void *timer, int a1);

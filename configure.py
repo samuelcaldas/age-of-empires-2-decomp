@@ -1071,7 +1071,7 @@ if config.platform == Platform.PS2:
                     toolchain_version="PS2/mwcc-2.3.1.01",
                 ),
                 Object(
-                    NonMatching,
+                    Matching,
                     "trade_action_callbacks",
                     source="trade/trade_action_callbacks",
                     cflags=config.cflags,
@@ -1113,7 +1113,7 @@ if config.platform == Platform.PS2:
                     toolchain_version="PS2/mwcc-2.3.1.01",
                 ),
                 Object(
-                    NonMatching,
+                    Matching,
                     "trade_action_market_items",
                     source="trade/trade_action_market_items",
                     cflags=config.cflags,

@@ -2703,7 +2703,7 @@ if config.platform == Platform.PS2:
                 ),
                 Object(
                     Matching,
-                    "render_manager_status",
+                    "render/render_manager_status",
                     source="render/render_manager_status",
                     cflags=config.cflags,
                     toolchain_version="PS2/mwcc-2.3.1.01",

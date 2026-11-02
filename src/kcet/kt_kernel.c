@@ -416,7 +416,7 @@ void func_00134BB0(void) {
 /* func_00134C60: Dump semaphore status (interrupt context) */
 void func_00134C60(int sem_id) {
     KtSemaParam param;
-    if (func_104DA0(sem_id, &param) == sem_id) {
+    if (sem_id == func_104DA0(sem_id, &param)) {
         func_106E20(D_4907E8, sem_id, param.current_count, param.max_count, param.init_count, param.wait_threads, param.option);
     }
 }
@@ -432,7 +432,7 @@ void func_00134CB8(void) {
 /* func_00134CF0: Dump semaphore status (thread context) */
 void func_00134CF0(int sem_id) {
     KtSemaParam param;
-    if (func_104D90(sem_id, &param) == sem_id) {
+    if (sem_id == func_104D90(sem_id, &param)) {
         func_118de0(D_4907E8, sem_id, param.current_count, param.max_count, param.init_count, param.wait_threads, param.option);
     }
 }

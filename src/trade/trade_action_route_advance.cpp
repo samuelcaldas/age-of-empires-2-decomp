@@ -69,8 +69,8 @@ int func_0014B310(TradeAction *self, int a1, int a2) {
         }
     }
 
-    for (int s1_idx = 0; s1_idx < *(int*)0x00F99934; s1_idx++) {
-        int *table = *(int**)0x00F99914;
+    for (int s1_idx = 0; s1_idx < D_00F99930[1]; s1_idx++) {
+        int *table = D_00F99910[1];
         if (self->m_target->m_field24 == table[s1_idx * 2]) {
             continue;
         }

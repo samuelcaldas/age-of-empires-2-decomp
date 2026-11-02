@@ -5565,7 +5565,7 @@ if config.platform == Platform.PS2:
                     toolchain_version="PS2/mwcc-2.3.1.01",
                 ),
                 Object(
-                    NonMatching,
+                    Matching,
                     "zone_spatial_grid_vector_purge_inactive_elements",
                     source="zone/zone_spatial_grid_vector_purge_inactive_elements",
                     cflags=config.cflags,

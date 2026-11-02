@@ -43,11 +43,17 @@ extern "C" {
 static void test_func_0026A460() {
     g_func_3675D0_called = 0;
     g_func_1C9E00_called = 0;
-    func_0026A460(nullptr, 1.0f, 2.0f);
+    func_0026A460(nullptr);
     assert(g_func_3675D0_called == 0);
 
     char dummy[100];
-    func_0026A460(dummy, 12.4f, 34.8f);
+    char field4[100];
+    *(void**)(dummy + 0x4) = field4;
+    *(float*)(dummy + 0x44) = 12.4f;
+    *(float*)(dummy + 0x48) = 34.8f;
+    *(float*)(field4 + 0x20) = 0.0f;
+    *(float*)(field4 + 0x24) = 0.0f;
+    func_0026A460(dummy);
     assert(g_func_3675D0_called == 1);
     assert(g_func_1C9E00_called == 1);
 }

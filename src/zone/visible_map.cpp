@@ -4,10 +4,13 @@
 int D_004E3058 = 0;
 int *D_50A5A0[200];
 
+#include <stddef.h>
 extern "C" {
     void __vec_ctor(void *ptr) { (void)ptr; }
+#if defined(__MWERKS__)
     void *memset(void *dst, int val, int size);
     void *memcpy(void *dst, const void *src, int size);
+#endif
     void func_226d90(void *stream, void *dst, int size) {
         memcpy(dst, stream, size);
     }

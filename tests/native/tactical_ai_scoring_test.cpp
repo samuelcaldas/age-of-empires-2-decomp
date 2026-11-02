@@ -47,7 +47,7 @@ extern "C" {
     static int s_21a4a0_called = 0;
     static char s_21a4a0_buf[32];
 
-    void *func_21A4A0(int token) {
+    void *func_0021A4A0(int token) {
         s_21a4a0_called++;
         snprintf(s_21a4a0_buf, sizeof(s_21a4a0_buf), "TOK%d ", token);
         return s_21a4a0_buf;

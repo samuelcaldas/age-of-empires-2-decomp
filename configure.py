@@ -406,7 +406,7 @@ if config.platform == Platform.PS2:
                     toolchain_version="PS2/mwcc-2.3.1.01",
                 ),
                 Object(
-                    NonMatching,
+                    Matching,
                     "visible_map",
                     source="zone/visible_map",
                     cflags=config.cflags,
@@ -896,7 +896,7 @@ if config.platform == Platform.PS2:
                     toolchain_version="PS2/mwcc-2.3.1.01",
                 ),
                 Object(
-                    NonMatching,
+                    Matching,
                     "tactical_ai_scoring",
                     source="ai/tactical_ai_scoring",
                     cflags=config.cflags,
@@ -1239,7 +1239,7 @@ if config.platform == Platform.PS2:
                     toolchain_version="PS2/mwcc-2.3.1.01",
                 ),
                 Object(
-                    NonMatching,
+                    Matching,
                     "trade_action_market_eval_planner",
                     source="trade/trade_action_market_eval_planner",
                     cflags=config.cflags,
@@ -2310,7 +2310,7 @@ if config.platform == Platform.PS2:
                     toolchain_version="PS2/mwcc-2.3.1.01",
                 ),
                 Object(
-                    NonMatching,
+                    Matching,
                     "trade_action_stream_dispatch",
                     source="trade/trade_action_stream_dispatch",
                     cflags=config.cflags,
@@ -6363,7 +6363,7 @@ if config.platform == Platform.PS2:
                     toolchain_version="PS2/mwcc-2.3.1.01",
                 ),
                 Object(
-                    NonMatching,
+                    Matching,
                     "unit_action_state_mgr",
                     source="unit/unit_action_state_mgr",
                     cflags=config.cflags,

@@ -7,7 +7,7 @@ extern "C" {
 #define D_00F99940 (*(int *)0x00F99940)
 #define D_00F99920 (*(int **)0x00F99920)
 
-TargetObj* func_1510D0(void *self, int id);
+TargetObj* func_001510D0(void *self, int id);
 void* func_332e60(void *timer, int a1);
 void func_001471B0(void *self, int a1);
 void func_14bd90(void *self, int a1, short a2, float f12, float f13, float f14);
@@ -182,7 +182,7 @@ int func_00149C20(TradeAction *self, float *s3) {
     float f20 = 0.0f;
 
     for (int s1 = 0; s1 < D_00F99940; s1++) {
-        TargetObj *v0 = func_1510D0(self, D_00F99920[s1 * 2]);
+        TargetObj *v0 = func_001510D0(self, D_00F99920[s1 * 2]);
         if (!v0) {
             continue;
         }

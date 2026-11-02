@@ -52,8 +52,8 @@ int func_0014A880(TradeAction *self, int a1, int a2) {
         TargetObj *s0 = (TargetObj*)func_332e60(timer, a1);
         func_001471B0(self, 610);
         if (!s0) {
-            float f = 0.0f;
-            func_14BD20(self, a1, 0.0f, 0.0f, f);
+            float z;
+            func_14BD20(self, a1, z, z, z = 0.0f);
         } else {
             func_14BD20(self, a1, s0->x, s0->y, s0->z);
         }
@@ -72,8 +72,7 @@ int func_0014A970(TradeAction *self, int a1, int a2) {
         TargetObj *s0 = (TargetObj*)func_332e60(timer, a1);
         func_001471B0(self, 610);
         if (!s0) {
-            float f = 0.0f;
-            func_14BD20(self, a1, 0.0f, 0.0f, f);
+            func_14BD20(self, a1, 0.0f, 0.0f, 0.0f);
         } else {
             func_14BD20(self, a1, s0->x, s0->y, s0->z);
         }

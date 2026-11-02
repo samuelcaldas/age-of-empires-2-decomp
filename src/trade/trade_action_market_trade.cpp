@@ -203,7 +203,7 @@ int func_0014CFF0(TradeActionBase *self, int target_id) {
     return 0;
 }
 
-int func_0014D160(TradeActionBase *self, short target_id, int a2) {
+int func_0014D160(TradeActionBase *self, int target_id, int a2) {
     if (!a2 && self->m_actionId != -1) {
         return 0;
     }

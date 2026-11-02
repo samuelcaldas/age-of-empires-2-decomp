@@ -4205,3 +4205,9 @@ jtbl_4D5570 = 0x4D5570; // type:jtbl size:0x78 absolute:True
 jtbl_4D55F0 = 0x4D55F0; // type:jtbl size:0x78 absolute:True
 
 __dl__FPv = 0x100670; // type:func absolute:True
+
+__construct_array = 0x1003B0; // type:func absolute:True
+
+__ct__18SubContainerItem12Fv = 0x1E6290; // type:func absolute:True
+
+__dt__18SubContainerItem12Fv = 0x1E6220; // type:func absolute:True

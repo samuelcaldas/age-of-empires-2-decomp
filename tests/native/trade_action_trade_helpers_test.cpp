@@ -15,7 +15,7 @@ int mock_func_00263700(void *a0, void *a1, void *a2, void *a3) { return 0; }
 int mock_func_00263760(void *a0, void *a1, void *a2, void *a3) { return 0; }
 void mock_func_002637C0(void *a0) {}
 void mock_func_00263A30(void *a0) {}
-void mock_func_0026A540(void *a0) {}
+void mock_func_0026A540(void *a0, int a1) {}
 void mock_func_00263CC0() {}
 int mock_func_226D90(void *a0, void *a1, int sz) { return 0; }
 }

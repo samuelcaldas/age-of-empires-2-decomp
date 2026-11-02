@@ -4340,7 +4340,7 @@ if config.platform == Platform.PS2:
                     toolchain_version="PS2/mwcc-2.3.1.01",
                 ),
                 Object(
-                    NonMatching,
+                    Matching,
                     "zone_cursor_controller_reset_global",
                     source="zone/zone_cursor_controller_reset_global",
                     cflags=config.cflags,

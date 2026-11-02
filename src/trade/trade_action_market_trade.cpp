@@ -2,7 +2,7 @@
 #include "sub_list.h"
 
 extern "C" {
-void *func_00332E60(void *mgr, int id);
+void *func_332e60(void *mgr, int id);
 void func_001471B0(void *self, short actionId);
 void func_0014BD20(void *self, int id, float f12, float f13, float f14);
 }
@@ -173,7 +173,7 @@ int func_0014CFF0(TradeActionBase *self, int target_id) {
     }
 
     MarketPlayerMgr *mgr = (MarketPlayerMgr *)self->m_target->m_game;
-    StatusEntity *entity = (StatusEntity *)func_00332E60(mgr->m_b98, target_id);
+    StatusEntity *entity = (StatusEntity *)func_332e60(mgr->m_b98, target_id);
     if (!entity) {
         return 0;
     }
@@ -192,8 +192,8 @@ int func_0014CFF0(TradeActionBase *self, int target_id) {
     if (self->m_target->Method16C(target_id, 1) == 1) {
         func_001471B0(self, 0x258);
         if (!entity) {
-            float y = 0.0f;
-            func_0014BD20(self, target_id, y, y, y);
+            float x = 0.0f;
+            func_0014BD20(self, target_id, x, x, x);
         } else {
             func_0014BD20(self, target_id, entity->m_posX, entity->m_posY, entity->m_posZ);
         }
@@ -209,7 +209,7 @@ int func_0014D160(TradeActionBase *self, short target_id, int a2) {
     }
 
     MarketPlayerMgr *mgr = (MarketPlayerMgr *)self->m_target->m_game;
-    StatusEntity *entity = (StatusEntity *)func_00332E60(mgr->m_b98, target_id);
+    StatusEntity *entity = (StatusEntity *)func_332e60(mgr->m_b98, target_id);
     if (!entity) {
         return 0;
     }

@@ -8,7 +8,7 @@
 #define func_00263A30 mock_func_00263A30
 #define func_0026A540 mock_func_0026A540
 #define func_00263CC0 mock_func_00263CC0
-#define func_00226D90 mock_func_00226D90
+#define func_226D90 mock_func_226D90
 
 extern "C" {
 int mock_func_00263700(void *a0, void *a1, void *a2, void *a3) { return 0; }
@@ -16,8 +16,8 @@ int mock_func_00263760(void *a0, void *a1, void *a2, void *a3) { return 0; }
 void mock_func_002637C0(void *a0) {}
 void mock_func_00263A30(void *a0) {}
 void mock_func_0026A540(void *a0) {}
-void mock_func_00263CC0(void *a0, void *a1) {}
-void mock_func_00226D90(void *a0, void *a1, int sz) {}
+void mock_func_00263CC0() {}
+int mock_func_226D90(void *a0, void *a1, int sz) { return 0; }
 }
 
 #include "../../src/trade/trade_action_trade_helpers.cpp"
@@ -60,6 +60,14 @@ int main() {
         assert(func_00151A10(ta, 10) == 1);
         assert(func_00151A10(ta, 30) == 1);
         assert(func_00151A10(ta, 40) == 0);
+    }
+
+    // Tests for func_00151C20
+    {
+        char buffer[128];
+        std::memset(buffer, 0, sizeof(buffer));
+        int ret = func_00151C20(buffer, buffer + 64);
+        assert(ret == 1);
     }
 
     std::printf("All trade_action_trade_helpers tests passed!\n");

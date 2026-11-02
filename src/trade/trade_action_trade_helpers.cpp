@@ -39,15 +39,14 @@ int func_00263760(void *a0, void *a1, void *a2, void *a3);
 void func_002637C0(void *a0);
 void func_00263A30(void *a0);
 void func_0026A540(void *a0);
-void func_00263CC0(void *a0, void *a1);
-void func_00226D90(void *a0, void *a1, int sz);
+void func_00263CC0();
+int func_226D90(void *a0, void *a1, int sz);
 
 int func_00151BA0(void *a0, void *a1, void *a2);
 int func_00151C20(void *a0, void *a1);
 
 int func_00151960(TradeAction *self) {
-    int count = (int)self->m_entry_count;
-    for (int a2 = 0; a2 < count; a2++) {
+    for (int a2 = 0; a2 < (int)self->m_entry_count; a2++) {
         ActionEntry *e = (ActionEntry *)((char *)self->m_entries + a2 * 24);
         if (e->m_field6 < 0) {
             continue;
@@ -65,9 +64,8 @@ int func_001519D0(void *self, int a1) {
 }
 
 int func_00151A10(TradeAction *self, int a1) {
-    int v1 = (int)*(unsigned char *)((char *)self + 44);
-    for (int a2 = 0; a2 < v1; a2++) {
-        if (*(unsigned char *)((char *)self + 4 + a2) == a1) {
+    for (int i = 0; i < (int)*(unsigned char *)((char *)self + 44); i++) {
+        if (*(unsigned char *)((char *)self + 4 + i) == a1) {
             return 1;
         }
     }
@@ -120,8 +118,8 @@ int func_00151BA0(void *a0, void *a1, void *a2) {
 }
 
 int func_00151C20(void *a0, void *a1) {
-    func_00263CC0(a1, a0);
-    func_00226D90(a1, (char *)a0 + 104, 4);
+    func_00263CC0();
+    func_226D90(a1, (char *)a0 + 104, 4);
     return 1;
 }
 

@@ -7,7 +7,7 @@ class TargetObj;
 #define func_001510D0 mock_func_1510D0
 #define func_332e60 mock_func_332e60
 #define func_001471B0 mock_func_001471B0
-#define func_14bd90 mock_func_14bd90
+#define func_0014BD90 mock_func_14bd90
 
 extern "C" {
 int D_00F99940 = 0;

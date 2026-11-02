@@ -10,7 +10,7 @@ extern "C" {
 TargetObj* func_001510D0(void *self, int id);
 void* func_332e60(void *timer, int a1);
 void func_001471B0(void *self, int a1);
-void func_14bd90(void *self, int a1, short a2, float f12, float f13, float f14);
+void func_0014BD90(void *self, int a1, short a2, float f12, float f13, float f14);
 }
 
 class TargetObj {
@@ -267,14 +267,14 @@ int func_00149ED0(TradeAction *self, int a1, int a2) {
         func_001471B0(self, 0x265);
 
         if (!entity) {
-            func_14bd90(self, a1, -1, 0.0f, 0.0f, 0.0f);
+            func_0014BD90(self, a1, -1, 0.0f, 0.0f, 0.0f);
         } else {
             void *v0 = *(void **)((char *)entity + 4);
             short type = *(short *)((char *)v0 + 0xE);
             float x = *(float *)((char *)entity + 0x44);
             float y = *(float *)((char *)entity + 0x48);
             float z = *(float *)((char *)entity + 0x4C);
-            func_14bd90(self, a1, type, x, y, z);
+            func_0014BD90(self, a1, type, x, y, z);
         }
 
         return 1;

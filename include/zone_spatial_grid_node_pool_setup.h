@@ -7,7 +7,7 @@ extern "C" {
 void func_001F1EE0(NodePool *self, void *p1, int count);
 void *func_118de0(const char *format, const char *file, int line);
 void func_001F20E0(NodePool *self, int val);
-void func_1F21E0(NodePool *self, void *p1);
+void func_001F21E0(NodePool *self, void *p1);
 }
 
 #endif

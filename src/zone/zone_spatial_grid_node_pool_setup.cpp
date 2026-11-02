@@ -29,5 +29,5 @@ extern "C" void func_001F1EE0(NodePool *self, void *p1, int count) {
 
     func_118de0("%s(%d) make SonftOb_ArrayList.\n", "obmanager.cpp", 0x13D6);
     func_001F20E0(self, self->field_13881C);
-    func_1F21E0(self, p1);
+    func_001F21E0(self, p1);
 }

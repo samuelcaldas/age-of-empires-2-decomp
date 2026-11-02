@@ -60,9 +60,7 @@ int func_00151960(TradeAction *self) {
 }
 
 int func_001519D0(void *self, int a1) {
-    if (a1 == 15 || (unsigned int)(a1 - 7) < 4 || a1 == 32) {
-        return 1;
-    }
+    if (a1 == 15 || (unsigned)(a1 - 7) <= 3 || a1 == 32) return 1;
     return 0;
 }
 

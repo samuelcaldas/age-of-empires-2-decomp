@@ -65,9 +65,9 @@ int func_001519D0(void *self, int a1) {
 }
 
 int func_00151A10(TradeAction *self, int a1) {
-    int count = (int)*(unsigned char *)((char *)self + 44);
-    for (int v1 = 0; v1 < count; v1++) {
-        if (*(unsigned char *)((char *)self + 4 + v1) == a1) {
+    int v1 = (int)*(unsigned char *)((char *)self + 44);
+    for (int a2 = 0; a2 < v1; a2++) {
+        if (*(unsigned char *)((char *)self + 4 + a2) == a1) {
             return 1;
         }
     }
@@ -96,7 +96,7 @@ void func_00151B10(void *s1, void *s2, void *s0, void *a3) {
 
 void func_00151B80(void *self, void *a1) {
     if (a1) {
-        func_002637C0(a1);
+        func_002637C0(self);
     }
 }
 

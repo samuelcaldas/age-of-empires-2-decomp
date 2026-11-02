@@ -46,6 +46,22 @@ int main() {
     assert(func_00151A50() == 0);
     assert(func_00151A60() == -1);
 
+    // Tests for func_00151A10
+    {
+        char buffer[64];
+        std::memset(buffer, 0, sizeof(buffer));
+        TradeAction *ta = (TradeAction *)buffer;
+        *(unsigned char *)((char *)ta + 44) = 3; // count = 3
+        buffer[4] = 10;
+        buffer[5] = 20;
+        buffer[6] = 30;
+
+        assert(func_00151A10(ta, 20) == 1);
+        assert(func_00151A10(ta, 10) == 1);
+        assert(func_00151A10(ta, 30) == 1);
+        assert(func_00151A10(ta, 40) == 0);
+    }
+
     std::printf("All trade_action_trade_helpers tests passed!\n");
     return 0;
 }

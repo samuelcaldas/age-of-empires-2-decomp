@@ -6188,7 +6188,7 @@ if config.platform == Platform.PS2:
                     toolchain_version="PS2/mwcc-2.3.1.01",
                 ),
                 Object(
-                    NonMatching,
+                    Matching,
                     "trade_action_getters6",
                     source="trade/trade_action_getters6",
                     cflags=config.cflags,

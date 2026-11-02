@@ -4203,3 +4203,5 @@ func_00340930 = 0x340930; // type:func size:0x90 absolute:True
 jtbl_4D5390 = 0x4D5390; // type:jtbl size:0x34 absolute:True
 jtbl_4D5570 = 0x4D5570; // type:jtbl size:0x78 absolute:True
 jtbl_4D55F0 = 0x4D55F0; // type:jtbl size:0x78 absolute:True
+
+__dl__FPv = 0x100670; // type:func absolute:True

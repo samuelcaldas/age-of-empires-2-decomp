@@ -12,7 +12,7 @@ void func_00188740(RenderManagerDisplayMode *self, int a1, int a2) {
         func_1DB4E0(self->field_1D8);
         func_1AAF80(self->field_6C);
         func_188A40(self);
-        D_004E89EC = 1;
+        D_004E314C = 1;
     } else {
         if (a1 > 0 || a2 > 0) {
             return;

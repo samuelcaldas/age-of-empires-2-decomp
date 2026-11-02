@@ -2,7 +2,7 @@
 #include <cassert>
 #include <cstdlib>
 
-int D_004E89EC = 0;
+int D_004E314C = 0;
 const char D_00491A28[] = "display";
 
 static int g_1db4e0_calls = 0;
@@ -43,7 +43,7 @@ static void test_display_mode_change() {
     // Resolution change with field_44 == 2 and field_45 == 2
     func_00188740(&mgr, 800, 600);
     assert(g_1db4e0_calls == 1);
-    assert(D_004E89EC == 1);
+    assert(D_004E314C == 1);
 
     // Negative / window mode
     s6C.field_44 = 0;

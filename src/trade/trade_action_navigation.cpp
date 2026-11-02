@@ -212,18 +212,11 @@ int func_00149D20(TradeAction *self, int a1, int a2) {
 }
 
 int func_00149D80(TradeAction *self, int a1, int a2) {
-    float f2 = (float)a1;
-    float f0 = (float)a2;
-
-    for (int v1 = 0; v1 < self->m_field134; v1++) {
-        if (self->m_posEntries[v1].x != f2) {
-            continue;
-        }
-        if (self->m_posEntries[v1].y == f0) {
+    for (int i = 0; i < self->m_field134; i++) {
+        if (self->m_posEntries[i].x == (float)a1 && self->m_posEntries[i].y == (float)a2) {
             return 1;
         }
     }
-
     return 0;
 }
 

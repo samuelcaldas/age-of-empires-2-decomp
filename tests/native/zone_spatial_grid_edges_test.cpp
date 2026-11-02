@@ -1,10 +1,68 @@
 #include <cassert>
+#include "zone_spatial_grid_dispatch_edge.h"
 #include "zone_spatial_grid_dispatch_edge_north.h"
 #include "zone_spatial_grid_dispatch_edge_east.h"
 #include "zone_spatial_grid_dispatch_edge_south.h"
 #include "zone_spatial_grid_dispatch_edge_west.h"
 
 static_assert(sizeof(void *) == 4, "native fixture requires 32-bit pointers");
+
+// Test doubles for the target functions
+extern "C" {
+static int s_called_target = -1;
+
+unsigned char func_1E5510(SpatialGrid *self, float *p1, float *p2, int *p3, int *p4, int *p5) {
+    s_called_target = 0;
+    return 10;
+}
+
+unsigned char func_1E5620(SpatialGrid *self, float *p1, float *p2, int *p3, int *p4, int *p5) {
+    s_called_target = 1;
+    return 11;
+}
+
+unsigned char func_1E5730(SpatialGrid *self, float *p1, float *p2, int *p3, int *p4, int *p5) {
+    s_called_target = 2;
+    return 12;
+}
+
+unsigned char func_1E5840(SpatialGrid *self, float *p1, float *p2, int *p3, int *p4, int *p5) {
+    s_called_target = 3;
+    return 13;
+}
+}
+
+static void test_dispatch_edge() {
+    SpatialGrid sg;
+    float p1[2] = {1.0f, 2.0f};
+    float p3[2] = {0.0f, 0.0f};
+    int p4 = 0, p5 = 0, p6 = 0;
+
+    s_called_target = -1;
+    unsigned char res = func_001E5460(&sg, p1, 0, p3, &p4, &p5, &p6);
+    assert(s_called_target == 0);
+    assert(res == 10);
+
+    s_called_target = -1;
+    res = func_001E5460(&sg, p1, 1, p3, &p4, &p5, &p6);
+    assert(s_called_target == 1);
+    assert(res == 11);
+
+    s_called_target = -1;
+    res = func_001E5460(&sg, p1, 2, p3, &p4, &p5, &p6);
+    assert(s_called_target == 2);
+    assert(res == 12);
+
+    s_called_target = -1;
+    res = func_001E5460(&sg, p1, 3, p3, &p4, &p5, &p6);
+    assert(s_called_target == 3);
+    assert(res == 13);
+
+    s_called_target = -1;
+    res = func_001E5460(&sg, p1, 4, p3, &p4, &p5, &p6);
+    assert(s_called_target == -1);
+    assert(res == 0);
+}
 
 static void test_edges() {
     SpatialGrid sg;
@@ -73,6 +131,7 @@ static void test_edges() {
 }
 
 int main(int argc, char **argv) {
+    test_dispatch_edge();
     test_edges();
     return 0;
 }

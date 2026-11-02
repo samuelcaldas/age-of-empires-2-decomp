@@ -42,15 +42,38 @@ def text_size(object_path):
     return elf.get_section_by_name(".text")["sh_size"]
 
 
+def gp_relative_symbols(object_path):
+    output = subprocess.run([str(BIN / "mips-linux-gnu-objdump"), "-r", str(object_path)],
+                            capture_output=True, text=True, check=True).stdout
+    return {line.split()[-1] for line in output.splitlines() if "R_MIPS_GPREL16" in line}
+
+
+def signed_gp_address(name):
+    """Alternative naming: the low 16 bits of the name are the gp offset."""
+    low = int(HEX_NAME.match(name).group(1), 16) & 0xFFFF
+    return GLOBAL_POINTER + (low - 0x10000 if low >= 0x8000 else low)
+
+
 def verify(unit, offset, vram, symbols):
+    result = attempt(unit, offset, vram, symbols, False)
+    if not result.startswith("DIFF"):
+        return result
+    alternative = attempt(unit, offset, vram, symbols, True)
+    return alternative if alternative == "MATCH" else result
+
+
+def attempt(unit, offset, vram, symbols, gp_alias):
     ours = ROOT / f"build/SLES-50282/src/{unit}.o"
     target = ROOT / f"build/SLES-50282/obj/{unit}.o"
     if not ours.is_file() or not target.is_file():
         return "SKIP (no object)"
     size = text_size(target)
+    gp_names = gp_relative_symbols(ours)
     defs = [f"_gp = {GLOBAL_POINTER:#x};"]
     for name in undefined_symbols(ours):
         address = symbols.get(name)
+        if gp_alias and name in gp_names and HEX_NAME.match(name):
+            address = signed_gp_address(name)
         if address is None:
             match = HEX_NAME.match(name)
             address = int(match.group(1), 16) if match else None
@@ -72,7 +95,11 @@ def verify(unit, offset, vram, symbols):
     with ORIGINAL.open("rb") as stream:
         stream.seek(offset)
         expected = stream.read(size)
-    return "MATCH" if code == expected else "DIFF"
+    if code == expected:
+        return "MATCH"
+    offsets = [i for i in range(0, size, 4) if code[i:i+4] != expected[i:i+4]]
+    detail = " ".join(f"+{i:#x}:{expected[i:i+4][::-1].hex()}/{code[i:i+4][::-1].hex()}" for i in offsets[:4])
+    return f"DIFF words={len(offsets)}/{size // 4} (orig/ours {detail})"
 
 
 def main():

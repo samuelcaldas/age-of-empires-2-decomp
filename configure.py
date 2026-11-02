@@ -6153,7 +6153,7 @@ if config.platform == Platform.PS2:
                     toolchain_version="PS2/mwcc-2.3.1.01",
                 ),
                 Object(
-                    NonMatching,
+                    Matching,
                     "unit_action_core",
                     source="unit/unit_action_core",
                     cflags=config.cflags,

@@ -41,7 +41,7 @@ void func_001513F0(void *self) {
 
 int func_00151400(TradeAction *self) {
     if (self->m_route_obj) {
-        if (self->m_route_obj->m_flags & *(int*)0x00491024) {
+        if (self->m_route_obj->m_flags & D_00491024) {
             return 1;
         }
     }

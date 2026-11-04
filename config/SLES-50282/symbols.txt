@@ -912,6 +912,7 @@ func_100850 = 0x100850; // type:func absolute:True
 func_144550 = 0x144550; // type:func absolute:True
 jtbl_490E80 = 0x490E80; // type:jtbl absolute:True
 jtbl_4910A0 = 0x4910A0; // type:jtbl absolute:True
+D_00491024 = 0x00491024; // type:s32 size:4 absolute:True
 func_269190 = 0x269190; // type:func absolute:True
 D_4D7768 = 0x4D7768; // type:s32 absolute:True
 func_26AD90 = 0x26AD90; // type:func absolute:True

@@ -4213,3 +4213,5 @@ __construct_array = 0x1003B0; // type:func absolute:True
 __ct__18SubContainerItem12Fv = 0x1E6290; // type:func absolute:True
 
 __dt__18SubContainerItem12Fv = 0x1E6220; // type:func absolute:True
+func_001E46E0 = 0x1E46E0; // type:func absolute:True
+func_001E4820 = 0x1E4820; // type:func absolute:True

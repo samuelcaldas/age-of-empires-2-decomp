@@ -4753,7 +4753,7 @@ if config.platform == Platform.PS2:
                     toolchain_version="PS2/mwcc-2.3.1.01",
                 ),
                 Object(
-                    NonMatching,
+                    Matching,
                     "zone_spatial_entity_step_angular_motion",
                     source="zone/zone_spatial_entity_step_angular_motion",
                     cflags=config.cflags,

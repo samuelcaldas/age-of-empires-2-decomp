@@ -4424,7 +4424,7 @@ if config.platform == Platform.PS2:
                     toolchain_version="PS2/mwcc-2.3.1.01",
                 ),
                 Object(
-                    NonMatching,
+                    Matching,
                     "zone_spatial_entity_update_sub_entity",
                     source="zone/zone_spatial_entity_update_sub_entity",
                     cflags=config.cflags,

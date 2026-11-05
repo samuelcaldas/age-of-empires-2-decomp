@@ -36,7 +36,7 @@ def test_kt_thread_spawn_220940_split_boundaries():
     segment = next(item for item in config["segments"] if isinstance(item, dict) and item.get("name") == "kt_thread_spawn_220940")
     assert (segment["start"], segment["vram"]) == (0x120B20, 0x220940)
 
-    post_segment = next(item for item in config["segments"] if isinstance(item, dict) and item.get("name") == "post_2209B0")
+    post_segment = next(item for item in config["segments"] if isinstance(item, dict) and item.get("name") == "kt_worker_thread_2209b0")
     assert post_segment["start"] == 0x120B90
 
     # Verify prologue instructions in original ELF

@@ -36,7 +36,7 @@ def test_kt_game_loop_split_boundaries():
     segment = next(item for item in config["segments"] if isinstance(item, dict) and item.get("name") == "kt_game_loop_2206a0")
     assert (segment["start"], segment["vram"]) == (0x120880, 0x2206A0)
 
-    post_segment = next(item for item in config["segments"] if isinstance(item, dict) and item.get("name") == "post_2207B0")
+    post_segment = next(item for item in config["segments"] if isinstance(item, dict) and item.get("name") == "kt_frame_update_2207b0")
     assert post_segment["start"] == 0x120990
 
     # Verify prologue instructions in original ELF

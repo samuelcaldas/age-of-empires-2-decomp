@@ -5015,9 +5015,12 @@ segments:
     vram: 0x220280
     subsegments:
       - [0x120460, asm, kcet/kt_thread_sema_220280]
-  - name: post_220380
-    type: bin
+  - name: kt_thread_init_220380
+    type: code
     start: 0x120560
+    vram: 0x220380
+    subsegments:
+      - [0x120560, asm, kcet/kt_thread_init_220380]
   - name: kt_sema_poll_2204d0
     type: code
     start: 0x1206B0

@@ -36,7 +36,7 @@ def test_kt_draw_sync_221550_split_boundaries():
     segment = next(item for item in config["segments"] if isinstance(item, dict) and item.get("name") == "kt_draw_sync_221550")
     assert (segment["start"], segment["vram"]) == (0x121730, 0x221550)
 
-    post_segment = next(item for item in config["segments"] if isinstance(item, dict) and item.get("name") == "post_221610")
+    post_segment = next(item for item in config["segments"] if isinstance(item, dict) and item.get("name") == "kt_gs_init_221610")
     assert post_segment["start"] == 0x1217F0
 
     # Verify prologue instructions in original ELF

@@ -5195,9 +5195,15 @@ segments:
     vram: 0x2222D0
     subsegments:
       - [0x1224B0, asm, kcet/kt_gs_init_2222d0]
-  - name: post_222370
-    type: bin
+  - name: kt_gs_render_222370
+    type: code
     start: 0x122550
+    vram: 0x222370
+    subsegments:
+      - [0x122550, asm, kcet/kt_gs_render_222370]
+  - name: post_222500
+    type: bin
+    start: 0x1226E0
   - name: unit_action_core
     type: code
     start: 0x166960

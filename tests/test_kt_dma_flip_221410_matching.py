@@ -36,7 +36,7 @@ def test_kt_dma_flip_221410_split_boundaries():
     segment = next(item for item in config["segments"] if isinstance(item, dict) and item.get("name") == "kt_dma_flip_221410")
     assert (segment["start"], segment["vram"]) == (0x1215F0, 0x221410)
 
-    post_segment = next(item for item in config["segments"] if isinstance(item, dict) and item.get("name") == "post_221550")
+    post_segment = next(item for item in config["segments"] if isinstance(item, dict) and item.get("name") == "kt_draw_sync_221550")
     assert post_segment["start"] == 0x121730
 
     # Verify prologue instructions in original ELF

@@ -43,7 +43,9 @@ IDA-exported `splits.json` and `symbols.json` (see `docs/toolchain.md`).
   `splits.json`, `symbols.json`, and `symbols.txt` are added once a binary is analysed.
 - `orig/<VERSION>/`: original binaries. Ignored by git.
 - `docs/`: game files, toolchain, binary analysis (`docs/ps2_binary_analysis.md`), and decisions (`docs/adr/`).
+- `scripts/decomp_pipeline.py`: programmatic and idempotent decompilation staging, compilation, diffing and promotion pipeline. See `docs/decomp_pipeline.md` and `.claude/skills/ps2-decomp/SKILL.md`.
 - `scripts/agy/`: wrapper for delegating separable tasks to the agy CLI. See `docs/agy_orchestration.md`.
+- `staging/`: isolated staging directory for draft decompiler outputs (`.gitignore` covers it). Never register drafts in `configure.py` until 100% matched.
 
 ## Mandatory test-driven development
 
@@ -127,3 +129,4 @@ Next: provision compiler, then run native and target-matching checks.
 - Keep `docs/` in step with the code. Update the relevant doc in the same change.
 - Delegate to agy only through `scripts/agy/`, never with a raw `agy -p`. Accept a
   result only after checking its `state`, the worktree diff, and the tests.
+- For PS2 decompilation workflow, use `scripts/decomp_pipeline.py` (stage -> compile -> diff -> promote). Follow `.claude/skills/ps2-decomp/SKILL.md` and `docs/recomp_ready_decomp_guidelines.md`.

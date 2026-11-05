@@ -12,6 +12,7 @@ Thumbs.db
 .cache/
 tmp/*
 !tmp/.gitkeep
+staging/
 coverage/
 dist/
 build/

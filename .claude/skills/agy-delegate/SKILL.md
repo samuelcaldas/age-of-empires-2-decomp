@@ -36,6 +36,8 @@ Run from the main checkout. Pick a profile; never write a new prompt by hand.
 | `splat-split` | `config/<version>/config.yml` | propose a splat config; TODO values stay TODO |
 | `doc-draft` | `docs/*` | draft one doc from given findings |
 
+Para o fluxo de engenharia reversa e decompilação de código C/C++ do PS2, utilize a skill dedicada [ps2-decomp](../ps2-decomp/SKILL.md) e o pipeline em `scripts/decomp_pipeline.py`.
+
 ```sh
 .venv/bin/python scripts/agy/delegate.py --task binary-analysis \
   --input binary=orig/AGE2_X1_1_0C_EN/age2_x1.icd

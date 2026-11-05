@@ -5153,9 +5153,15 @@ segments:
     vram: 0x221A40
     subsegments:
       - [0x121C20, asm, kcet/kt_gs_init_221a40]
-  - name: post_221B60
-    type: bin
+  - name: kt_gs_render_221b60
+    type: code
     start: 0x121D40
+    vram: 0x221B60
+    subsegments:
+      - [0x121D40, asm, kcet/kt_gs_render_221b60]
+  - name: post_221C30
+    type: bin
+    start: 0x121E10
   - name: unit_action_core
     type: code
     start: 0x166960

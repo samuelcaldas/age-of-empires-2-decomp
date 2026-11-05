@@ -4273,3 +4273,7 @@ D_004E1CAC = 0x4E1CAC; // type:u32 size:0x4 absolute:True
 func_00221A40 = 0x221A40; // type:func size:0x80 absolute:True
 func_00221AC0 = 0x221AC0; // type:func size:0x94 absolute:True
 func_00103920 = 0x103920; // type:func size:0x100 absolute:True
+func_00221B60 = 0x221B60; // type:func size:0x94 absolute:True
+func_00221C00 = 0x221C00; // type:func size:0x24 absolute:True
+func_00104558 = 0x104558; // type:func size:0x100 absolute:True
+func_001043D8 = 0x1043D8; // type:func size:0x100 absolute:True

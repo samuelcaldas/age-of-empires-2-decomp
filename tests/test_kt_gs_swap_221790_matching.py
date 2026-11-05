@@ -36,7 +36,7 @@ def test_kt_gs_swap_221790_split_boundaries():
     segment = next(item for item in config["segments"] if isinstance(item, dict) and item.get("name") == "kt_gs_swap_221790")
     assert (segment["start"], segment["vram"]) == (0x121970, 0x221790)
 
-    post_segment = next(item for item in config["segments"] if isinstance(item, dict) and item.get("name") == "post_221920")
+    post_segment = next(item for item in config["segments"] if isinstance(item, dict) and item.get("name") == "kt_gs_exec_221920")
     assert post_segment["start"] == 0x121B00
 
     # Verify prologue instructions in original ELF

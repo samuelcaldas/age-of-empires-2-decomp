@@ -19,7 +19,7 @@ def test_kt_kernel_native_behavior(tmp_path):
     bin_path = tmp_path / "kt_kernel_test"
     # Build test binary linking kt_kernel.c
     res = subprocess.run(
-        [cc, "-O2", "-Iinclude", str(C_SRC), str(C_TEST), "-o", str(bin_path)],
+        [cc, "-m32", "-O2", "-Iinclude", str(C_SRC), str(C_TEST), "-o", str(bin_path)],
         cwd=ROOT,
         capture_output=True,
         text=True,

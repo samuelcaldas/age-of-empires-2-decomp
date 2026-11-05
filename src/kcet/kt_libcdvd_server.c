@@ -8722,7 +8722,7 @@ void *func_0012CB60(void *a0, void *a1, void *a2, void *a3) {
     if (a0 == NULL) {
         return NULL;
     }
-    return (void *)(((unsigned long)*(long *)a0 >> 16) & 0xFFFFFF);
+    return (void *)((s32)((*(u64 *)a0 >> 16) & 0xFFFFFF));
 }
 
 /* 0x0012CB90 : ktCdServerExtractPayload24Shifted */
@@ -8731,7 +8731,7 @@ void *func_0012CB90(void *a0, void *a1, void *a2, void *a3) {
     if (a0 == NULL) {
         return NULL;
     }
-    return (void *)((unsigned long)*(long *)a0 >> 8);
+    return (void *)((s32)(*(u64 *)a0 >> 8));
 }
 
 /* 0x0012CBA8 : ktCdServerUnpackPayloads */
@@ -8739,10 +8739,10 @@ void *func_0012CBA8(void *a0, void *a1, void *a2, void *a3) {
     (void)a3;
     if (a0 != NULL) {
         if (a1 != NULL) {
-            *(int *)a1 = (int)(((unsigned long)*(long *)a0 >> 16) & 0xFFFFFF);
+            *(int *)a1 = (int)((*(u64 *)a0 >> 16) & 0xFFFFFF);
         }
         if (a2 != NULL) {
-            *(int *)a2 = (int)((unsigned long)*(long *)a0 >> 8);
+            *(int *)a2 = (int)(*(u64 *)a0 >> 8);
         }
     }
     return (void *)(a0 != NULL ? 1L : 0L);

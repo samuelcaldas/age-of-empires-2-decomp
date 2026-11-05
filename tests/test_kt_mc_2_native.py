@@ -20,7 +20,7 @@ def test_kt_mc_2_native_behavior(tmp_path):
     bin_path = tmp_path / "kt_mc_2_test"
     # Build test binary linking kt_mc_2.c
     res = subprocess.run(
-        [cc, "-O2", "-Iinclude", str(C_SRC), str(C_TEST), "-o", str(bin_path)],
+        [cc, "-m32", "-O2", "-Iinclude", str(C_SRC), str(C_TEST), "-o", str(bin_path)],
         cwd=ROOT,
         capture_output=True,
         text=True,

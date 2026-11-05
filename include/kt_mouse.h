@@ -1,17 +1,24 @@
 #ifndef KT_MOUSE_H
 #define KT_MOUSE_H
 
-#include <stddef.h>
+#ifndef offsetof
+#define offsetof(st, m) ((unsigned int)((char *)&((st *)0)->m - (char *)0))
+#endif
 
 typedef unsigned char u8;
 typedef unsigned short u16;
 typedef unsigned int u32;
+#if defined(__mips__) && !defined(__MWERKS__)
 typedef unsigned long u64;
+typedef signed long s64;
+#else
+typedef unsigned long long u64;
+typedef signed long long s64;
+#endif
 
 typedef signed char s8;
 typedef signed short s16;
 typedef signed int s32;
-typedef signed long s64;
 
 /*
  * KCET Mouse Port and Event structures.

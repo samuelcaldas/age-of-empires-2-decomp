@@ -88,7 +88,7 @@ void *func_00129548(void *a0, ...) { (void)a0; return NULL; }
 void *func_00129560(void *a0, ...) { (void)a0; return NULL; }
 void *func_00129588(void *a0, ...) { (void)a0; return NULL; }
 void *func_0012B8A8(void *a0, ...) { (void)a0; return NULL; }
-void *func_00134DE8(void *a0, ...) { (void)a0; return NULL; }
+int func_00134DE8(int a0, int a1) { (void)a0; (void)a1; return 0; }
 void *func_103358(void *a0, ...) { (void)a0; return NULL; }
 void *func_104A00(void *a0, ...) { (void)a0; return NULL; }
 void *func_104D70(void *a0, ...) { (void)a0; return NULL; }
@@ -182,13 +182,13 @@ static void test_tail_helpers_semantics(void) {
     assert((int)(long)func_0012CB60(NULL, 0, 0, 0) == 0);
 
     /* func_0012CB90: unpacks bits 8..31 */
-    assert((int)(long)func_0012CB90(buf, 0, 0, 0) == (int)((*(unsigned long *)buf >> 8)));
+    assert((int)(long)func_0012CB90(buf, 0, 0, 0) == (int)((*(u64 *)buf >> 8)));
     assert((int)(long)func_0012CB90(NULL, 0, 0, 0) == 0);
 
     /* func_0012CBA8: unpacks into pointers */
     assert((int)(long)func_0012CBA8(buf, &high, &low, 0) == 1);
     assert(high == 0x785634);
-    assert(low == (int)((*(unsigned long *)buf >> 8)));
+    assert(low == (int)((*(u64 *)buf >> 8)));
     assert((int)(long)func_0012CBA8(NULL, &high, &low, 0) == 0);
 
     /* func_0012CC20: strlen(data + 4) + 5 */

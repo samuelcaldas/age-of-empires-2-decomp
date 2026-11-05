@@ -19,7 +19,7 @@ def test_kt_hd_native_behavior(tmp_path):
 
     bin_path = tmp_path / "kt_hd_test"
     res = subprocess.run(
-        [cc, "-O2", "-Iinclude", str(C_SRC), str(C_TEST), "-o", str(bin_path)],
+        [cc, "-m32", "-O2", "-Iinclude", str(C_SRC), str(C_TEST), "-o", str(bin_path)],
         cwd=ROOT, capture_output=True, text=True,
     )
     if res.returncode != 0:

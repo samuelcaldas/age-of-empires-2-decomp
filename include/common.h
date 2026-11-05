@@ -22,9 +22,14 @@
 #endif
 
 #if !defined(__STDC_VERSION__) || __STDC_VERSION__ < 201112L
-#define STATIC_ASSERT_JOIN2(a, b) a##b
-#define STATIC_ASSERT_JOIN(a, b) STATIC_ASSERT_JOIN2(a, b)
-#define _Static_assert(cond, msg) typedef char STATIC_ASSERT_JOIN(static_assert_line_, __LINE__)[(cond) ? 1 : -1]
+#ifdef __cplusplus
+extern "C" {
+#endif
+extern char static_assert_failed[1];
+#ifdef __cplusplus
+}
+#endif
+#define _Static_assert(cond, msg) extern char static_assert_failed[(cond) ? 1 : -1]
 #endif
 
 #include "kt_mouse.h"

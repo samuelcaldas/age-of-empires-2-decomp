@@ -4338,6 +4338,7 @@ func_002249A0 = 0x2249A0; // type:func size:0x020 absolute:True
 func_002249C0 = 0x2249C0; // type:func size:0x050 absolute:True
 func_00224A10 = 0x224A10; // type:func size:0x120 absolute:True
 func_00224B30 = 0x224B30; // type:func size:0x060 absolute:True
+func_00224B90 = 0x224B90; // type:func size:0x5D0 absolute:True
 func_0025D060 = 0x25D060; // type:func size:0x100 absolute:True
 func_01DE9900 = 0x1DE9900; // type:func size:0x100 absolute:True
 func_01DE9B00 = 0x1DE9B00; // type:func size:0x100 absolute:True

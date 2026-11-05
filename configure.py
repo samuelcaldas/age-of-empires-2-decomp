@@ -2708,6 +2708,12 @@ if config.platform == Platform.PS2:
                 ),
                 Object(
                     Matching,
+                    "kcet/kt_game_thread_spawn_2205e0",
+                    cflags=config.cflags,
+                    toolchain_version="PS2/mwcc-2.3.1.01",
+                ),
+                Object(
+                    Matching,
                     "kcet/kt_game_loop_2206a0",
                     cflags=config.cflags + ["-sdatathreshold", "0"],
                     toolchain_version="PS2/mwcc-2.3.1.01",

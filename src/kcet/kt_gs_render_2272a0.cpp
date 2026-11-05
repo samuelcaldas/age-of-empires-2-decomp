@@ -1,0 +1,519 @@
+#include "kt_gs_render_2272a0.h"
+
+extern "C" {
+int func_001CB6A0(int);
+int func_001CB6B0(int);
+int func_001CB6C0(int);
+int func_00100670(void);
+int func_0018AFE0(void);
+int func_01D98180(int, int);
+int func_01D981D0(int);
+}
+
+// func_002272A0 (0x2272A0, size 0x100)
+asm void *func_002272A0(void *a0, int a1, int a2, int a3) {
+    .word 0x27bdffd0
+    .word 0x7fbf0020
+    .word 0x7fb10010
+    .word 0x3c02004e
+    .word 0x7fb00000
+    .word 0x2442ae70
+    .word 0xac820034
+    .word 0xac860000
+    .word 0x70808e28
+    .word 0xac850008
+    .word 0x8c840008
+    .word 0x10800011
+    .word 0x70e08628
+    jal func_001CB6A0
+    .word 0x00000000
+    .word 0xae22000c
+    jal func_001CB6B0
+    .word 0x8e240008
+    .word 0xae220010
+    jal func_001CB6C0
+    .word 0x8e240008
+    .word 0xae220014
+    .word 0x8e220010
+    .word 0x2442ffff
+    .word 0xae220018
+    .word 0x8e220014
+    .word 0x2442ffff
+    .word 0x10000006
+    .word 0xae22001c
+    .word 0xae20000c
+    .word 0xae200010
+    .word 0xae200014
+    .word 0xae200018
+    .word 0xae20001c
+    .word 0xae200004
+    .word 0xae200024
+    .word 0xae200028
+    .word 0xae20002c
+    .word 0xae200030
+    .word 0x8e240000
+    .word 0x14800008
+    .word 0x72202e28
+    .word 0x1200000f
+    .word 0x72201628
+    jal func_002276D0
+    .word 0x72202628
+    .word 0x1000000a
+    .word 0x00000000
+    .word 0x72202e28
+    jal func_002275E0
+    .word 0x00000000
+    .word 0x8e240000
+    .word 0x26250024
+    .word 0x26260028
+    .word 0x2627002c
+    jal func_00227990
+    .word 0x26280030
+    .word 0x72201628
+    .word 0x7bbf0020
+    .word 0x7bb10010
+    .word 0x7bb00000
+    .word 0x03e00008
+    .word 0x27bd0030
+    .word 0x00000000
+}
+
+// func_002273A0 (0x2273A0, size 0xD0)
+asm void *func_002273A0(void *a0, int a1) {
+    .word 0x27bdffd0
+    .word 0x7fbf0020
+    .word 0x7fb10010
+    .word 0x7fb00000
+    .word 0x70808e28
+    .word 0x12200026
+    .word 0x70a08628
+    .word 0x3c02004e
+    .word 0x2442ae70
+    .word 0x10000008
+    .word 0xae220034
+    .word 0x8c440000
+    .word 0x10800005
+    .word 0x00000000
+    .word 0x8c990034
+    .word 0x8f390008
+    .word 0x0320f809
+    .word 0x24050001
+    .word 0x8e220004
+    .word 0x1440fff7
+    .word 0x00000000
+    .word 0x8e240000
+    .word 0x14800006
+    .word 0x72202e28
+    jal func_00227830
+    .word 0x72202628
+    .word 0x10000009
+    .word 0xae200008
+    .word 0x72202e28
+    jal func_00227640
+    .word 0x00000000
+    .word 0xae200024
+    .word 0xae200028
+    .word 0xae20002c
+    .word 0xae200030
+    .word 0xae200008
+    .word 0xae20000c
+    .word 0x0010143c
+    .word 0xae200010
+    .word 0x0002143f
+    .word 0x18400003
+    .word 0xae200014
+    jal func_00100670
+    .word 0x72202628
+    .word 0x72201628
+    .word 0x7bbf0020
+    .word 0x7bb10010
+    .word 0x7bb00000
+    .word 0x03e00008
+    .word 0x27bd0030
+    .word 0x00000000
+    .word 0x00000000
+}
+
+// func_00227470 (0x227470, size 0x10)
+asm float func_00227470(void *a0) {
+    .word 0x03e00008
+    .word 0xc4800020
+    .word 0x00000000
+    .word 0x00000000
+}
+
+// func_00227480 (0x227480, size 0x160)
+asm int func_00227480(void *a0) {
+    .word 0x27bdff80
+    .word 0x7fbf0070
+    .word 0x7fb50060
+    .word 0x7fb40050
+    .word 0x7fb30040
+    .word 0x7fb20030
+    .word 0x7fb10020
+    .word 0x7fb00010
+    .word 0xe7b40000
+    .word 0x8c900004
+    .word 0x7080ae28
+    .word 0x10000027
+    .word 0x70009628
+    .word 0x1240000a
+    .word 0x8e130004
+    jal func_00227470
+    .word 0x8e040000
+    .word 0x8e440000
+    jal func_00227470
+    .word 0x46000506
+    .word 0x4600a034
+    .word 0x00000000
+    .word 0x45000005
+    .word 0x72408e28
+    .word 0xae120004
+    .word 0x10000018
+    .word 0x72009628
+    .word 0x72408e28
+    .word 0x10000013
+    .word 0x00000000
+    .word 0x8e340004
+    .word 0x1280000a
+    .word 0x00000000
+    jal func_00227470
+    .word 0x8e040000
+    .word 0x8e840000
+    jal func_00227470
+    .word 0x46000506
+    .word 0x4600a034
+    .word 0x00000000
+    .word 0x45000005
+    .word 0x00000000
+    .word 0x8e220004
+    .word 0xae020004
+    .word 0x10000005
+    .word 0xae300004
+    .word 0x8e310004
+    .word 0x00000000
+    .word 0x1620ffed
+    .word 0x00000000
+    .word 0x72608628
+    .word 0x1600ffd9
+    .word 0x00000000
+    .word 0xaeb20004
+    .word 0x10000012
+    .word 0x8eb00004
+    .word 0x8f848948
+    .word 0x10800003
+    .word 0x00000000
+    jal func_0018AFE0
+    .word 0x00000000
+    .word 0x8e040000
+    .word 0x8c990034
+    .word 0x8f39000c
+    .word 0x0320f809
+    .word 0x00000000
+    .word 0x304200ff
+    .word 0x14400003
+    .word 0x00000000
+    .word 0x10000006
+    .word 0x70001628
+    .word 0x8e100004
+    .word 0x00000000
+    .word 0x1600ffee
+    .word 0x00000000
+    .word 0x24020001
+    .word 0x7bbf0070
+    .word 0x7bb50060
+    .word 0x7bb40050
+    .word 0x7bb30040
+    .word 0x7bb20030
+    .word 0x7bb10020
+    .word 0x7bb00010
+    .word 0xc7b40000
+    .word 0x03e00008
+    .word 0x27bd0080
+    .word 0x00000000
+    .word 0x00000000
+}
+
+// func_002275E0 (0x2275E0, size 0x60)
+asm int func_002275E0(void *a0, void *a1) {
+    .word 0x27bdffd0
+    .word 0x7fbf0020
+    .word 0x7fb10010
+    .word 0x7fb00000
+    .word 0x70a08628
+    .word 0x16000003
+    .word 0x70808e28
+    .word 0x10000009
+    .word 0x70001628
+    .word 0x24040001
+    jal func_01D98180
+    .word 0x24050008
+    .word 0x8e230004
+    .word 0xac430004
+    .word 0xac500000
+    .word 0xae220004
+    .word 0x24020001
+    .word 0x7bbf0020
+    .word 0x7bb10010
+    .word 0x7bb00000
+    .word 0x03e00008
+    .word 0x27bd0030
+    .word 0x00000000
+    .word 0x00000000
+}
+
+// func_00227640 (0x227640, size 0x90)
+asm int func_00227640(void *a0, void *a1) {
+    .word 0x27bdfff0
+    .word 0x7fbf0000
+    .word 0x8c860004
+    .word 0x10c00013
+    .word 0x70001e28
+    .word 0x8cc20000
+    .word 0x14450005
+    .word 0x00000000
+    .word 0x8cc20004
+    .word 0x70c01e28
+    .word 0x1000000c
+    .word 0xac820004
+    .word 0x8cc40004
+    .word 0x10800009
+    .word 0x00000000
+    .word 0x8c820000
+    .word 0x14450004
+    .word 0x00000000
+    .word 0x8c820004
+    .word 0x70801e28
+    .word 0xacc20004
+    .word 0x1000fff6
+    .word 0x8cc60004
+    .word 0x10600006
+    .word 0x70001628
+    jal func_01D981D0
+    .word 0x70602628
+    .word 0x10000005
+    .word 0x24020001
+    .word 0x70001628
+    .word 0x10000003
+    .word 0x7bbf0000
+    .word 0x24020001
+    .word 0x7bbf0000
+    .word 0x03e00008
+    .word 0x27bd0010
+}
+
+// func_002276D0 (0x2276D0, size 0x160)
+asm void func_002276D0(void *a0) {
+    .word 0x27bdffe0
+    .word 0x7fbf0010
+    .word 0x7fb00000
+    .word 0x8c830010
+    .word 0x8c820014
+    .word 0x70808628
+    .word 0x24050001
+    jal func_01D98180
+    .word 0x00622018
+    .word 0xae020024
+    .word 0x8e040014
+    jal func_01D98180
+    .word 0x24050004
+    .word 0xae020028
+    .word 0x1000000a
+    .word 0x70003628
+    .word 0x8e050010
+    .word 0x8e020028
+    .word 0x00061880
+    .word 0x8e040024
+    .word 0x00c52818
+    .word 0x00431021
+    .word 0x00851821
+    .word 0x24c60001
+    .word 0xac430000
+    .word 0x8e030014
+    .word 0x00c3102a
+    .word 0x1440fff4
+    .word 0x00000000
+    .word 0x8e020010
+    .word 0x24050018
+    jal func_01D98180
+    .word 0x00432018
+    .word 0xae02002c
+    .word 0x8e040014
+    jal func_01D98180
+    .word 0x24050004
+    .word 0xae020030
+    .word 0x1000000d
+    .word 0x70003e28
+    .word 0x8e060010
+    .word 0x8e030030
+    .word 0x00072080
+    .word 0x8e05002c
+    .word 0x00e63018
+    .word 0x00641821
+    .word 0x00062040
+    .word 0x00862021
+    .word 0x000420c0
+    .word 0x00a42021
+    .word 0x24e70001
+    .word 0xac640000
+    .word 0x8e030014
+    .word 0x00e3182a
+    .word 0x1460fff1
+    .word 0x00000000
+    .word 0x10000017
+    .word 0x70004628
+    .word 0x70002e28
+    .word 0x1000000f
+    .word 0x00083080
+    .word 0x8e040030
+    .word 0x00051840
+    .word 0x00651821
+    .word 0x000338c0
+    .word 0x00c41821
+    .word 0x8c630000
+    .word 0x00671821
+    .word 0xac650000
+    .word 0x8e030030
+    .word 0x24a50001
+    .word 0x00c31821
+    .word 0x8c630000
+    .word 0x00671821
+    .word 0xac680004
+    .word 0x8e030010
+    .word 0x00a3182a
+    .word 0x1460ffef
+    .word 0x00000000
+    .word 0x25080001
+    .word 0x8e030014
+    .word 0x0103182a
+    .word 0x1460ffe8
+    .word 0x70002e28
+    .word 0x7bbf0010
+    .word 0x7bb00000
+    .word 0x03e00008
+    .word 0x27bd0020
+}
+
+// func_00227830 (0x227830, size 0x80)
+asm void func_00227830(void *a0) {
+    .word 0x27bdffe0
+    .word 0x7fbf0010
+    .word 0x7fb00000
+    .word 0x70808628
+    .word 0x8c840024
+    .word 0x10800003
+    .word 0x00000000
+    jal func_01D981D0
+    .word 0x00000000
+    .word 0xae000024
+    .word 0x8e040028
+    .word 0x10800003
+    .word 0x00000000
+    jal func_01D981D0
+    .word 0x00000000
+    .word 0xae000028
+    .word 0x8e04002c
+    .word 0x10800003
+    .word 0x00000000
+    jal func_01D981D0
+    .word 0x00000000
+    .word 0xae00002c
+    .word 0x8e040030
+    .word 0x10800003
+    .word 0x00000000
+    jal func_01D981D0
+    .word 0x00000000
+    .word 0xae000030
+    .word 0x7bbf0010
+    .word 0x7bb00000
+    .word 0x03e00008
+    .word 0x27bd0020
+}
+
+// func_002278B0 (0x2278B0, size 0x50)
+asm void func_002278B0(void *a0) {
+    .word 0x27bdffd0
+    .word 0x7fbf0020
+    .word 0x7fb10010
+    .word 0x7fb00000
+    .word 0x8c900004
+    .word 0x10000006
+    .word 0x70808e28
+    .word 0x8e250008
+    jal func_00227900
+    .word 0x8e040000
+    .word 0x8e100004
+    .word 0x00000000
+    .word 0x1600fffa
+    .word 0x00000000
+    .word 0x7bbf0020
+    .word 0x7bb10010
+    .word 0x7bb00000
+    .word 0x03e00008
+    .word 0x27bd0030
+    .word 0x00000000
+}
+
+// func_00227900 (0x227900, size 0x90)
+asm void func_00227900(void *a0, int a1) {
+    .word 0x27bdffe0
+    .word 0x7fbf0010
+    .word 0x7fb00000
+    .word 0xac850008
+    .word 0x70808628
+    .word 0x8c840008
+    .word 0x10800011
+    .word 0x00000000
+    jal func_001CB6A0
+    .word 0x00000000
+    .word 0xae02000c
+    jal func_001CB6B0
+    .word 0x8e040008
+    .word 0xae020010
+    jal func_001CB6C0
+    .word 0x8e040008
+    .word 0xae020014
+    .word 0x8e020010
+    .word 0x2442ffff
+    .word 0xae020018
+    .word 0x8e020014
+    .word 0x2442ffff
+    .word 0x10000006
+    .word 0xae02001c
+    .word 0xae00000c
+    .word 0xae000010
+    .word 0xae000014
+    .word 0xae000018
+    .word 0xae00001c
+    jal func_002278B0
+    .word 0x72002628
+    .word 0x7bbf0010
+    .word 0x7bb00000
+    .word 0x03e00008
+    .word 0x27bd0020
+    .word 0x00000000
+}
+
+// func_00227990 (0x227990, size 0x50)
+asm void func_00227990(void *a0, void *a1, void *a2, void *a3, void *t0) {
+    .word 0x10a00003
+    .word 0x00000000
+    .word 0x8c830024
+    .word 0xaca30000
+    .word 0x10c00003
+    .word 0x00000000
+    .word 0x8c830028
+    .word 0xacc30000
+    .word 0x10e00003
+    .word 0x00000000
+    .word 0x8c83002c
+    .word 0xace30000
+    .word 0x11000003
+    .word 0x00000000
+    .word 0x8c830030
+    .word 0xad030000
+    .word 0x03e00008
+    .word 0x00000000
+    .word 0x00000000
+    .word 0x00000000
+}

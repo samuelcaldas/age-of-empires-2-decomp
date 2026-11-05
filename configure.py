@@ -2732,6 +2732,12 @@ if config.platform == Platform.PS2:
                 ),
                 Object(
                     Matching,
+                    "kcet/kt_worker_thread_2209b0",
+                    cflags=config.cflags,
+                    toolchain_version="PS2/mwcc-2.3.1.01",
+                ),
+                Object(
+                    Matching,
                     "kcet/kt_thread_spawn_220ba0",
                     cflags=config.cflags,
                     toolchain_version="PS2/mwcc-2.3.1.01",

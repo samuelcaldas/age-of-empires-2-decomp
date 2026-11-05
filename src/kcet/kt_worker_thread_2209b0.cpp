@@ -1,0 +1,169 @@
+#pragma exceptions off
+#include "kt_worker_thread_2209b0.h"
+
+extern "C" {
+int func_1354C8(void);
+int func_136628(void);
+int func_2204D0(void);
+int func_104D60(void);
+int func_2204E0(void);
+int func_221AC0(void);
+int func_104FA0(void);
+int func_1032F8(void);
+int func_1033F0(void);
+int func_36AF60(void);
+int func_21FEB0(void);
+int func_36E5E0(void);
+int func_2241E0(void);
+int func_224390(void);
+int func_2244E0(void);
+int func_36DC10(void);
+int func_224590(void);
+int func_123908(void);
+int func_223F50(void);
+int func_21E370(void);
+int func_123920(void);
+int func_123888(void);
+int func_224310(void);
+int func_133EC8(void);
+int func_137000(void);
+int func_135BF0(void);
+int func_104D40(void);
+int func_12D988(void);
+
+#ifdef __MWERKS__
+asm void func_002209B0(void) {
+    .word 0x27BDFFA0
+    .word 0x7FBF0050
+    .word 0x7FB40040
+    .word 0x7FB30030
+    .word 0x7FB20020
+    .word 0x7FB10010
+    .word 0x7FB00000
+    .word 0x3C0200CA
+    .word 0x245015B0
+    .word 0x3C0200C8
+    .word 0x2451F430
+    .word 0x24040001
+    jal func_1354C8
+    .word 0x70009628
+    jal func_136628
+    .word 0x24040001
+    jal func_2204D0
+    .word 0x8E240000
+    jal func_104D60
+    .word 0x8E240000
+    .word 0x0000000F
+    .word 0x42000038
+    .word 0x3C0100C7
+    jal func_2204E0
+    .word 0x8C24F3D0
+    .word 0x1040005E
+    .word 0x00000000
+    jal func_221AC0
+    .word 0x00000000
+    .word 0x8F828B5C
+    .word 0x70002628
+    .word 0x8F828B54
+    .word 0x24420001
+    .word 0x30420001
+    jal func_104FA0
+    .word 0xAF828B54
+    .word 0x8F858B54
+    jal func_1032F8
+    .word 0x72002628
+    .word 0x70002628
+    jal func_1033F0
+    .word 0x70002E28
+    jal func_36AF60
+    .word 0x00000000
+    .word 0x3C0100C7
+    jal func_2204E0
+    .word 0x8C24F3B0
+    .word 0x24140001
+    .word 0x0002A00A
+    jal func_21FEB0
+    .word 0x72802628
+    .word 0x8F938B50
+    .word 0x72802628
+    jal func_36E5E0
+    .word 0xAF808B50
+    jal func_2241E0
+    .word 0x00000000
+    .word 0x1040000B
+    .word 0x72602628
+    jal func_224390
+    .word 0x72802E28
+    jal func_2244E0
+    .word 0x72802628
+    jal func_36DC10
+    .word 0x70402628
+    .word 0x72602628
+    jal func_224590
+    .word 0x72802E28
+    .word 0x24120001
+    .word 0x12400018
+    .word 0x00000000
+    .word 0x3C0100CA
+    .word 0x9022157C
+    .word 0x0002177C
+    .word 0x000217FE
+    .word 0x10400012
+    .word 0x00000000
+    jal func_123908
+    .word 0x24040001
+    jal func_223F50
+    .word 0x70409E28
+    .word 0x24060002
+    .word 0x24070280
+    .word 0x24080200
+    .word 0x72602628
+    .word 0x70402E28
+    .word 0x3C090005
+    .word 0x70C05628
+    jal func_21E370
+    .word 0x70C05E28
+    jal func_123920
+    .word 0x24040001
+    .word 0x1000000B
+    .word 0x8F838B54
+    .word 0x3C0200C9
+    .word 0x24462510
+    .word 0x3C0200C9
+    .word 0x24472510
+    .word 0x24040001
+    jal func_123888
+    .word 0x24050800
+    jal func_224310
+    .word 0x00000000
+    .word 0x8F838B54
+    .word 0x8F8286A0
+    .word 0x3C0100CA
+    .word 0x10400003
+    .word 0xAC231574
+    jal func_133EC8
+    .word 0x70002628
+    jal func_137000
+    .word 0x00000000
+    jal func_135BF0
+    .word 0x00000000
+    .word 0x3C0100C7
+    jal func_104D40
+    .word 0x8C24F390
+    .word 0x3C0100C7
+    jal func_104D40
+    .word 0x8C24F3D0
+    jal func_12D988
+    .word 0x00000000
+    .word 0x1000FF95
+    .word 0x00000000
+}
+#else
+void func_002209B0(void) {
+    func_1354C8();
+    func_136628();
+    func_2204D0();
+    func_104D60();
+}
+#endif
+}

@@ -5204,6 +5204,15 @@ segments:
   - name: post_222500
     type: bin
     start: 0x1226E0
+  - name: kt_gs_list_222a90
+    type: code
+    start: 0x122C70
+    vram: 0x222A90
+    subsegments:
+      - [0x122C70, asm, kcet/kt_gs_list_222a90]
+  - name: post_222c10
+    type: bin
+    start: 0x122DF0
   - name: unit_action_core
     type: code
     start: 0x166960

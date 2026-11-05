@@ -5042,9 +5042,12 @@ segments:
     vram: 0x2206A0
     subsegments:
       - [0x120880, asm, kcet/kt_game_loop_2206a0]
-  - name: post_2207B0
-    type: bin
+  - name: kt_frame_update_2207b0
+    type: code
     start: 0x120990
+    vram: 0x2207B0
+    subsegments:
+      - [0x120990, asm, kcet/kt_frame_update_2207b0]
   - name: kt_thread_spawn_220940
     type: code
     start: 0x120B20

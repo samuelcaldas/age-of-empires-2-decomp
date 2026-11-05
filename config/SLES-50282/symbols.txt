@@ -2129,6 +2129,7 @@ func_00220D50 = 0x220D50; // type:func size:0x50 absolute:True
 func_00220DA0 = 0x220DA0; // type:func size:0x30 absolute:True
 func_00220DD0 = 0x220DD0; // type:func size:0xB8 absolute:True
 func_00220E90 = 0x220E90; // type:func size:0xD4 absolute:True
+func_00220F70 = 0x220F70; // type:func size:0x80 absolute:True
 D_00492EE0 = 0x492EE0; // type:asciz absolute:True
 D_00492DE0 = 0x492DE0; // type:u32 absolute:True
 D_00392BF0 = 0x392BF0; // type:u32 absolute:True

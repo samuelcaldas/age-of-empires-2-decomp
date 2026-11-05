@@ -5099,9 +5099,15 @@ segments:
     vram: 0x220DD0
     subsegments:
       - [0x120FB0, asm, kcet/kt_iop_init_220dd0]
-  - name: post_220F70
-    type: bin
+  - name: kt_loop_event_220f70
+    type: code
     start: 0x121150
+    vram: 0x220F70
+    subsegments:
+      - [0x121150, asm, kcet/kt_loop_event_220f70]
+  - name: post_220FF0
+    type: bin
+    start: 0x1211D0
   - name: unit_action_core
     type: code
     start: 0x166960

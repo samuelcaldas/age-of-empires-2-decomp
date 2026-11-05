@@ -36,7 +36,7 @@ def test_kt_iop_init_split_boundaries():
     segment = next(item for item in config["segments"] if isinstance(item, dict) and item.get("name") == "kt_iop_init_220dd0")
     assert (segment["start"], segment["vram"]) == (0x120FB0, 0x220DD0)
 
-    post_segment = next(item for item in config["segments"] if isinstance(item, dict) and item.get("name") == "post_220F70")
+    post_segment = next(item for item in config["segments"] if isinstance(item, dict) and item.get("name") == "kt_loop_event_220f70")
     assert post_segment["start"] == 0x121150
 
     # Verify prologue instructions in original ELF

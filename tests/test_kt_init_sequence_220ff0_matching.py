@@ -36,7 +36,7 @@ def test_kt_init_sequence_220ff0_split_boundaries():
     segment = next(item for item in config["segments"] if isinstance(item, dict) and item.get("name") == "kt_init_sequence_220ff0")
     assert (segment["start"], segment["vram"]) == (0x1211D0, 0x220FF0)
 
-    post_segment = next(item for item in config["segments"] if isinstance(item, dict) and item.get("name") == "post_221110")
+    post_segment = next(item for item in config["segments"] if isinstance(item, dict) and item.get("name") == "kt_init_sequence_221110")
     assert post_segment["start"] == 0x1212F0
 
     # Verify prologue instructions in original ELF

@@ -5165,9 +5165,15 @@ segments:
     vram: 0x221C30
     subsegments:
       - [0x121E10, asm, kcet/kt_gs_packet_221c30]
-  - name: post_221D10
-    type: bin
+  - name: kt_gs_texture_221d10
+    type: code
     start: 0x121EF0
+    vram: 0x221D10
+    subsegments:
+      - [0x121EF0, asm, kcet/kt_gs_texture_221d10]
+  - name: post_221E20
+    type: bin
+    start: 0x122000
   - name: unit_action_core
     type: code
     start: 0x166960

@@ -1,0 +1,109 @@
+#include "kt_gs_render_2317a0.h"
+
+extern "C" {
+int strcmp(const char*, const char*);
+char* strcpy(char*, const char*);
+void func_002316B0(void);
+void func_002319D0(void);
+void func_002324A0(void);
+}
+
+// func_002317A0 (0x2317A0, size 0x180)
+asm int func_002317A0(void* a0, void* a1, void* a2, void* a3) {
+    .word 0x27bdffa0
+    .word 0x7fbf0040
+    .word 0x7fb30030
+    .word 0x7fb20020
+    .word 0x7fb10010
+    .word 0x3c010003
+    .word 0x7fb00000
+    .word 0x00810821
+    .word 0x8c23edf8
+    .word 0x70a09628
+    .word 0x70809e28
+    .word 0x70008e28
+    .word 0x70008628
+    .word 0x3c010003
+    .word 0x24630001
+    .word 0x00810821
+    .word 0x1000000c
+    .word 0xac23edf8
+    .word 0x00101200
+    .word 0x3c010002
+    .word 0x02621021
+    .word 0x342189f8
+    .word 0x00412021
+    jal strcmp
+    .word 0x72402e28
+    .word 0x54400003
+    .word 0x26100001
+    .word 0x64110001
+    .word 0x26100001
+    .word 0x3c010003
+    .word 0x02610821
+    .word 0x8c23edf8
+    .word 0x0203082a
+    .word 0x10200003
+    .word 0x00000000
+    .word 0x5220ffef
+    .word 0x00101200
+    .word 0x1620002c
+    .word 0x3c010003
+    .word 0x00031200
+    .word 0x3c010002
+    .word 0x02621021
+    .word 0x342189f8
+    .word 0x00412021
+    jal strcpy
+    .word 0x72402e28
+    .word 0x3c0100cd
+    .word 0x8c22aac0
+    .word 0x72402e28
+    .word 0x72602628
+    .word 0x24420001
+    .word 0x3c0100cd
+    jal func_002316B0
+    .word 0xac22aac0
+    .word 0xafa0005c
+    .word 0x10000007
+    .word 0x70008628
+    .word 0x8fa5005c
+    .word 0x50a00005
+    .word 0x27a5005c
+    jal func_002324A0
+    .word 0x72602628
+    .word 0x26100001
+    .word 0x27a5005c
+    jal func_002319D0
+    .word 0x72602628
+    .word 0x1440fff6
+    .word 0x00000000
+    .word 0x3c0100cd
+    .word 0x8c23aac0
+    .word 0x2463ffff
+    .word 0x3c0100cd
+    .word 0xac23aac0
+    .word 0x3c010003
+    .word 0x02610821
+    .word 0x8c23885c
+    .word 0x18600004
+    .word 0x00000000
+    .word 0x3c010003
+    .word 0x02610821
+    .word 0xac20885c
+    .word 0x3c010003
+    .word 0x02610821
+    .word 0x8c23edf8
+    .word 0x3c010003
+    .word 0x2463ffff
+    .word 0x02610821
+    .word 0xac23edf8
+    .word 0x7bbf0040
+    .word 0x7bb30030
+    .word 0x7bb20020
+    .word 0x7bb10010
+    .word 0x7bb00000
+    .word 0x03e00008
+    .word 0x27bd0060
+    .word 0x00000000
+}

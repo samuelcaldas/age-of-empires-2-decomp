@@ -1,0 +1,116 @@
+#include "kt_gs_render_22b700.h"
+
+extern "C" {
+int func_00117CAC(void*);
+int func_00122690(void);
+int func_001228E8(void);
+int func_00123350(float);
+}
+
+// func_0022B700 (0x22B700, size 0x16C -> 0x170)
+asm void func_0022B700(void* a0, void* a1, void* a2) {
+    .word 0x27bdffa0
+    .word 0x7fbf0050
+    .word 0x7fb40040
+    .word 0x7fb30030
+    .word 0x7fb20020
+    .word 0x7fb10010
+    .word 0x7fb00000
+    .word 0x8c830010
+    .word 0x8c820014
+    .word 0x7080a628
+    .word 0x70002e28
+    .word 0x8c840024
+    jal func_00117CAC
+    .word 0x00623018
+    .word 0x10000040
+    .word 0x70009628
+    .word 0x10000039
+    .word 0x70008e28
+    .word 0x70009e28
+    .word 0x10000020
+    .word 0x70008628
+    .word 0x00101100
+    .word 0x00541021
+    .word 0x8c430984
+    .word 0x8c420988
+    .word 0x02231823
+    .word 0x04610002
+    .word 0x02421023
+    .word 0x00031823
+    .word 0x04430003
+    .word 0x00631818
+    .word 0x00021023
+    .word 0x00631818
+    .word 0x70421018
+    jal func_00122690
+    .word 0x00622021
+    jal func_001228E8
+    .word 0x70402628
+    .word 0x46000004
+    jal func_00123350
+    .word 0x46000306
+    .word 0x00101900
+    .word 0x00742021
+    .word 0x8c83098c
+    .word 0x70403628
+    .word 0x00663023
+    .word 0x58c00005
+    .word 0x26100001
+    .word 0x8c830990
+    .word 0x00c31818
+    .word 0x02639821
+    .word 0x26100001
+    .word 0x8e830fb4
+    .word 0x0203182a
+    .word 0x5460ffdf
+    .word 0x00101100
+    .word 0x2a610065
+    .word 0x14200009
+    .word 0x00000000
+    .word 0x8e830028
+    .word 0x00122080
+    .word 0x24060065
+    .word 0x00641821
+    .word 0x8c630000
+    .word 0x00711821
+    .word 0x10000007
+    .word 0xa0660000
+    .word 0x8e830028
+    .word 0x00122080
+    .word 0x00641821
+    .word 0x8c630000
+    .word 0x00711821
+    .word 0xa0730000
+    .word 0x26310001
+    .word 0x8e830010
+    .word 0x0223182a
+    .word 0x1460ffc6
+    .word 0x70009e28
+    .word 0x26520001
+    .word 0x8e830014
+    .word 0x0243182a
+    .word 0x1460ffbe
+    .word 0x00000000
+    .word 0x7bbf0050
+    .word 0x7bb40040
+    .word 0x7bb30030
+    .word 0x7bb20020
+    .word 0x7bb10010
+    .word 0x7bb00000
+    .word 0x03e00008
+    .word 0x27bd0060
+    .word 0x00000000
+}
+
+// func_0022B870 (0x22B870, size 0x01C -> 0x020)
+asm float func_0022B870(int a0, int a1) {
+    .word 0x00051100
+    .word 0x240300fa
+    .word 0x00451023
+    .word 0x00621023
+    .word 0x44820000
+    .word 0x03e00008
+    .word 0x46800020
+    .word 0x00000000
+}

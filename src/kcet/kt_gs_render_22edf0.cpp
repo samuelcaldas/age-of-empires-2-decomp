@@ -1,0 +1,137 @@
+#include "kt_gs_render_22edf0.h"
+
+extern "C" {
+void func_00334FC0(void);
+}
+
+// func_0022EDF0 (0x22EDF0, size 0x1A0)
+asm int func_0022EDF0(void* a0, void* a1, void* a2, void* a3) {
+    .word 0x27bdff70
+    .word 0x7fbf0080
+    .word 0x7fb70070
+    .word 0x7fb60060
+    .word 0x7fb50050
+    .word 0x7fb40040
+    .word 0x7fb30030
+    .word 0x7fb20020
+    .word 0x7fb10010
+    .word 0x7fb00000
+    .word 0x8c821c40
+    .word 0x70e09628
+    .word 0x71008e28
+    .word 0x7080ae28
+    .word 0x70a0a628
+    .word 0x10400005
+    .word 0x70c09e28
+    .word 0x1a400004
+    .word 0x24020001
+    .word 0x06210004
+    .word 0x00000000
+    .word 0x24020001
+    .word 0x10000045
+    .word 0x7bbf0080
+    jal func_0022EF90
+    .word 0x00000000
+    .word 0x305600ff
+    .word 0x02723023
+    .word 0x72a02628
+    jal func_0022EF90
+    .word 0x72802e28
+    .word 0x304200ff
+    .word 0x16c20037
+    .word 0x70001628
+    .word 0x0291b821
+    .word 0x02718023
+    .word 0x72a02628
+    .word 0x72e02e28
+    jal func_0022EF90
+    .word 0x72003628
+    .word 0x304200ff
+    .word 0x16c2002d
+    .word 0x00000000
+    .word 0x02922821
+    .word 0x72a02628
+    jal func_0022EF90
+    .word 0x72603628
+    .word 0x304200ff
+    .word 0x16c20026
+    .word 0x00000000
+    .word 0x72e02e28
+    .word 0x0271b821
+    .word 0x72a02628
+    jal func_0022EF90
+    .word 0x72e03628
+    .word 0x304200ff
+    .word 0x16c2001e
+    .word 0x00000000
+    .word 0x02723021
+    .word 0x72a02628
+    jal func_0022EF90
+    .word 0x72802e28
+    .word 0x304200ff
+    .word 0x16c20017
+    .word 0x00000000
+    .word 0x02918823
+    .word 0x72e03628
+    .word 0x72a02628
+    jal func_0022EF90
+    .word 0x72202e28
+    .word 0x304200ff
+    .word 0x16c2000f
+    .word 0x00000000
+    .word 0x02922823
+    .word 0x72603628
+    jal func_0022EF90
+    .word 0x72a02628
+    .word 0x304200ff
+    .word 0x16c20008
+    .word 0x00000000
+    .word 0x72a02628
+    .word 0x72202e28
+    jal func_0022EF90
+    .word 0x72003628
+    .word 0x304200ff
+    .word 0x12c20005
+    .word 0x24020001
+    .word 0x70001628
+    .word 0x10000002
+    .word 0x00000000
+    .word 0x24020001
+    .word 0x7bbf0080
+    .word 0x7bb70070
+    .word 0x7bb60060
+    .word 0x7bb50050
+    .word 0x7bb40040
+    .word 0x7bb30030
+    .word 0x7bb20020
+    .word 0x7bb10010
+    .word 0x7bb00000
+    .word 0x03e00008
+    .word 0x27bd0090
+    .word 0x00000000
+    .word 0x00000000
+}
+
+// func_0022EF90 (0x22EF90, size 0x50)
+asm int func_0022EF90(void* a0, void* a1, void* a2, void* a3) {
+    .word 0x04a10003
+    .word 0x00000000
+    .word 0x10000006
+    .word 0x70002e28
+    .word 0x8c820018
+    .word 0x0045082a
+    .word 0x10200002
+    .word 0x00000000
+    .word 0x70402e28
+    .word 0x04c10003
+    .word 0x00000000
+    .word 0x10000006
+    .word 0x70003628
+    .word 0x8c82001c
+    .word 0x0046082a
+    .word 0x10200002
+    .word 0x00000000
+    .word 0x70403628
+    j func_00334FC0
+    .word 0x8c841c40
+}

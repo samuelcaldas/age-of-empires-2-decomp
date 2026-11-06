@@ -1,0 +1,99 @@
+#include "kt_gs_render_22d2b0.h"
+
+extern "C" {
+void func_0022E030(void);
+void func_0022DCC0(void);
+void func_0022D930(void);
+}
+
+// func_0022D2B0 (0x22D2B0, size 0x160)
+asm int func_0022D2B0(void* a0, void* a1, void* a2, void* a3) {
+    .word 0x27bdffc0
+    .word 0x7fbf0030
+    .word 0x7fb20020
+    .word 0x7fb10010
+    .word 0x7fb00000
+    .word 0x70808e28
+    .word 0x90a40009
+    .word 0x70a08628
+    .word 0x24050001
+    .word 0x14850013
+    .word 0x24030002
+    .word 0x8e260010
+    .word 0x8e250014
+    .word 0x8e040014
+    .word 0x24032710
+    .word 0x00c52818
+    .word 0x00852018
+    .word 0x14600002
+    .word 0x0083001a
+    .word 0x000001cd
+    .word 0x00001812
+    .word 0xae030014
+    .word 0x8e030014
+    .word 0x1c600011
+    .word 0x00000000
+    .word 0x24030001
+    .word 0x1000000e
+    .word 0xae030014
+    .word 0x24030002
+    .word 0x1483000b
+    .word 0x00000000
+    .word 0x8e240038
+    .word 0x8e030014
+    .word 0x84840050
+    .word 0x2484ffff
+    .word 0x00641818
+    .word 0xae030014
+    .word 0x8e030014
+    .word 0x1c600002
+    .word 0x00000000
+    .word 0xae050014
+    .word 0x8e040020
+    .word 0x04800019
+    .word 0x2403ffff
+    .word 0x10000010
+    .word 0x70009628
+    .word 0x00121900
+    .word 0x02233821
+    .word 0x8e030020
+    .word 0x8ce415f0
+    .word 0x5483000a
+    .word 0x26520001
+    .word 0x8ce615e8
+    .word 0x8e080024
+    .word 0x8e090028
+    .word 0x72202628
+    .word 0x72002e28
+    .word 0x8ce715ec
+    jal func_0022E030
+    .word 0x72405628
+    .word 0x26520001
+    .word 0x8e231c18
+    .word 0x0243182a
+    .word 0x1460ffef
+    .word 0x00121900
+    .word 0x10000011
+    .word 0x7bbf0030
+    .word 0x2403ffff
+    .word 0x14830007
+    .word 0x2403fffe
+    .word 0x72202628
+    jal func_0022DCC0
+    .word 0x72002e28
+    .word 0x10000008
+    .word 0x00000000
+    .word 0x2403fffe
+    .word 0x14830005
+    .word 0x00000000
+    .word 0x8e060024
+    .word 0x72202628
+    jal func_0022D930
+    .word 0x72002e28
+    .word 0x7bbf0030
+    .word 0x7bb20020
+    .word 0x7bb10010
+    .word 0x7bb00000
+    .word 0x03e00008
+    .word 0x27bd0040
+}

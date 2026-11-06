@@ -1,0 +1,226 @@
+#include "kt_gs_render_22f520.h"
+
+extern "C" {
+void func_00100850(void);
+void func_0021A310(void);
+void func_002240B0(void);
+void func_00227480(void);
+void func_002276D0(void);
+void func_00227830(void);
+void func_00227900(void);
+void func_00228A40(void);
+void func_0022B2B0(void);
+void func_0022C1F0(void);
+void func_0022CF90(void);
+void func_0022F950(void);
+void func_00231670(void);
+void func_00231760(void);
+void func_00232430(void);
+void func_00235220(void);
+void func_00236F50(void);
+void func_01D98080(void);
+}
+
+// func_0022F520 (0x22F520, size 0x320)
+asm int func_0022F520(void* a0, void* a1, void* a2, void* a3) {
+    .word 0x27bdffd0
+    .word 0x7fbf0020
+    .word 0x7fb10010
+    .word 0x7fb00000
+    .word 0x80820038
+    .word 0x14400003
+    .word 0x70808628
+    .word 0x100000bb
+    .word 0x70001628
+    .word 0x8f8289c0
+    .word 0x8c420404
+    .word 0xae02013c
+    .word 0x8e02013c
+    .word 0x14400004
+    .word 0x3c0201d9
+    .word 0x100000b3
+    .word 0x70001628
+    .word 0x3c0201d9
+    .word 0x34518000
+    .word 0x3c02004d
+    .word 0x2444a968
+    jal func_002240B0
+    .word 0x72202e28
+    .word 0x1040fffb
+    .word 0x00000000
+    jal func_01D98080
+    .word 0x00000000
+    .word 0x8e02013c
+    .word 0x8c45003c
+    jal func_00227900
+    .word 0x72002628
+    jal func_00227830
+    .word 0x72002628
+    jal func_002276D0
+    .word 0x72002628
+    .word 0x8e190034
+    .word 0x8f390034
+    .word 0x0320f809
+    .word 0x72002628
+    .word 0x8e190034
+    .word 0x8f390014
+    .word 0x0320f809
+    .word 0x72002628
+    jal func_00231670
+    .word 0x72002628
+    jal func_0021A310
+    .word 0x24040001
+    .word 0x8e050138
+    .word 0x26060038
+    jal func_00231760
+    .word 0x72002628
+    jal func_0022F950
+    .word 0x72002628
+    .word 0x3c010003
+    .word 0x02010821
+    .word 0x9022884a
+    .word 0x10400006
+    .word 0x3c010003
+    .word 0x3c010003
+    .word 0x24020001
+    .word 0x02010821
+    .word 0xa022884b
+    .word 0x3c010003
+    .word 0x02010821
+    .word 0x9022884d
+    .word 0x10400009
+    .word 0x3c010003
+    .word 0x3c010003
+    .word 0x24020001
+    .word 0x02010821
+    .word 0xa022884b
+    .word 0x3c010003
+    .word 0x02010821
+    .word 0xa022884a
+    .word 0x3c010003
+    .word 0x02010821
+    .word 0x90228848
+    .word 0x1040000c
+    .word 0x3c010003
+    jal func_00100850
+    .word 0x24040fb8
+    .word 0x10400006
+    .word 0x70408e28
+    .word 0x8e050008
+    .word 0x26070158
+    .word 0x72202628
+    jal func_0022B2B0
+    .word 0x72003628
+    .word 0xae110140
+    .word 0x3c010003
+    .word 0x02010821
+    .word 0x90228849
+    .word 0x1040000d
+    .word 0x3c010003
+    .word 0x3c020002
+    jal func_00100850
+    .word 0x34442b90
+    .word 0x10400006
+    .word 0x70408e28
+    .word 0x8e050008
+    .word 0x260710d8
+    .word 0x72202628
+    jal func_00235220
+    .word 0x72003628
+    .word 0xae110144
+    .word 0x3c010003
+    .word 0x02010821
+    .word 0x9022884a
+    .word 0x1040000e
+    .word 0x3c010003
+    jal func_00100850
+    .word 0x24041778
+    .word 0x10400008
+    .word 0x70408e28
+    .word 0x8e050008
+    .word 0x3c010002
+    .word 0x34213c30
+    .word 0x02013821
+    .word 0x72202628
+    jal func_00236F50
+    .word 0x72003628
+    .word 0xae110148
+    .word 0x3c010003
+    .word 0x02010821
+    .word 0x9022884b
+    .word 0x10400010
+    .word 0x3c010003
+    jal func_00100850
+    .word 0x24041c4c
+    .word 0x1040000a
+    .word 0x70408e28
+    .word 0x8e050008
+    .word 0x8e07013c
+    .word 0x3c010002
+    .word 0x3421536c
+    .word 0x02014021
+    .word 0x24090001
+    .word 0x72202628
+    jal func_0022CF90
+    .word 0x72003628
+    .word 0xae11014c
+    .word 0x3c010003
+    .word 0x02010821
+    .word 0x9022884c
+    .word 0x1040000e
+    .word 0x3c010003
+    jal func_00100850
+    .word 0x24040514
+    .word 0x10400008
+    .word 0x70408e28
+    .word 0x8e050008
+    .word 0x3c010002
+    .word 0x34216f4c
+    .word 0x02013821
+    .word 0x72202628
+    jal func_00228A40
+    .word 0x72003628
+    .word 0xae110150
+    .word 0x3c010003
+    .word 0x02010821
+    .word 0x9022884d
+    .word 0x1040000e
+    .word 0x72002628
+    jal func_00100850
+    .word 0x24041470
+    .word 0x10400008
+    .word 0x70408e28
+    .word 0x8e050008
+    .word 0x3c010002
+    .word 0x34217410
+    .word 0x02013821
+    .word 0x72202628
+    jal func_0022C1F0
+    .word 0x72003628
+    .word 0xae110154
+    .word 0x72002628
+    jal func_00227480
+    .word 0x00000000
+    .word 0xae000140
+    .word 0xae000144
+    .word 0xae000148
+    .word 0xae00014c
+    .word 0x3c010003
+    .word 0xae000150
+    .word 0x02010821
+    .word 0xae000154
+    .word 0x8c228850
+    .word 0x10400007
+    .word 0x24020001
+    .word 0x3c010002
+    .word 0x34218850
+    .word 0x02012821
+    jal func_00232430
+    .word 0x72002628
+    .word 0x24020001
+    .word 0x7bbf0020
+    .word 0x7bb10010
+    .word 0x7bb00000
+    .word 0x03e00008
+    .word 0x27bd0030
+}

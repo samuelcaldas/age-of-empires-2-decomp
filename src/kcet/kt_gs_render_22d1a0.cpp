@@ -1,0 +1,81 @@
+#include "kt_gs_render_22d1a0.h"
+
+extern "C" {
+void func_001CF9B0(void);
+void func_00117CAC(void);
+void func_00227C20(void);
+void func_0022D2B0(void);
+void func_00335960(void);
+}
+
+// func_0022D1A0 (0x22D1A0, size 0x110)
+asm int func_0022D1A0(void* a0, void* a1, void* a2) {
+    .word 0x27bdffc0
+    .word 0x7fbf0030
+    .word 0x7fb10020
+    .word 0x7fb00010
+    .word 0x90821c3c
+    .word 0x10400013
+    .word 0x70808628
+    .word 0x8e060038
+    .word 0x240b0001
+    .word 0x70003e28
+    .word 0x70004628
+    .word 0xffa00000
+    .word 0xffa00008
+    .word 0x8cc50054
+    .word 0x8e030010
+    .word 0x8e020014
+    .word 0x8e040008
+    .word 0x8ca50000
+    .word 0x2463ffff
+    .word 0x2442ffff
+    .word 0x00034c3c
+    .word 0x0002543c
+    .word 0x00094c3f
+    jal func_001CF9B0
+    .word 0x000a543f
+    .word 0x8e030010
+    .word 0x8e020014
+    .word 0x8e040024
+    .word 0x24050001
+    jal func_00117CAC
+    .word 0x00623018
+    jal func_00227C20
+    .word 0x72002628
+    .word 0x10000004
+    .word 0x70001e28
+    .word 0x02031021
+    .word 0x24630001
+    .word 0xa0401c1c
+    .word 0x28620020
+    .word 0x1440fffc
+    .word 0x02031021
+    .word 0x10000009
+    .word 0x70008e28
+    .word 0x001110c0
+    .word 0x00511023
+    .word 0x000210c0
+    .word 0x02021021
+    .word 0x2445003c
+    jal func_0022D2B0
+    .word 0x72002628
+    .word 0x26310001
+    .word 0x8e0215e4
+    .word 0x0222102a
+    .word 0x1440fff6
+    .word 0x001110c0
+    .word 0x8e020008
+    .word 0x3c010001
+    .word 0x00410821
+    jal func_00335960
+    .word 0x8c248eec
+    .word 0x7bbf0030
+    .word 0x7bb10020
+    .word 0x7bb00010
+    .word 0x24020001
+    .word 0x03e00008
+    .word 0x27bd0040
+    .word 0x00000000
+    .word 0x00000000
+}

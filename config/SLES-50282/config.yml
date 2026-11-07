@@ -5828,6 +5828,15 @@ segments:
   - name: post_23641c
     type: bin
     start: 0x1365FC
+  - name: kt_gs_render_236420
+    type: code
+    start: 0x136600
+    vram: 0x236420
+    subsegments:
+      - [0x136600, asm, kcet/kt_gs_render_236420]
+  - name: post_236cbc
+    type: bin
+    start: 0x136E9C
   - name: unit_action_core
     type: code
     start: 0x166960

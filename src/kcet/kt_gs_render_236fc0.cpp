@@ -1,0 +1,104 @@
+#include "kt_gs_render_236fc0.h"
+
+extern "C" {
+void func_00237640(void*);
+void func_00335650(void*);
+void func_00335920(void*);
+void func_00237A20(void*);
+void func_001CC6E0(void*);
+void func_00237190(void*);
+}
+
+// func_00236FC0 (0x236FC0, size 0x164)
+asm int func_00236FC0(void* a0) {
+    .word 0x27bdff50
+    .word 0x7fbf0020
+    .word 0x7fb10010
+    .word 0x70808e28
+    jal func_00237640
+    .word 0x7fb00000
+    .word 0x10000007
+    .word 0x70001e28
+    .word 0x44830000
+    .word 0x00031080
+    .word 0x46800020
+    .word 0x005d1021
+    .word 0x24630001
+    .word 0xe4400030
+    .word 0x28620020
+    .word 0x1440fff8
+    .word 0x00000000
+    .word 0x8e220008
+    .word 0x3c010001
+    .word 0x27a50030
+    .word 0x00410821
+    .word 0x8c248eec
+    jal func_00335650
+    .word 0x24060020
+    .word 0x8e230008
+    .word 0x3c010001
+    .word 0x00610821
+    .word 0x8c248eec
+    jal func_00335920
+    .word 0x70402e28
+    .word 0xae221774
+    .word 0x1000000b
+    .word 0x70008628
+    .word 0x00101080
+    .word 0x00501021
+    .word 0x00021040
+    .word 0x00501021
+    .word 0x00021080
+    .word 0x02221021
+    .word 0x24450038
+    jal func_00237A20
+    .word 0x72202628
+    .word 0x26100001
+    .word 0x8e22113c
+    .word 0x0202102a
+    .word 0x1440fff4
+    .word 0x00101080
+    .word 0x24030010
+    .word 0x10000016
+    .word 0x70002e28
+    .word 0x000510c0
+    .word 0x00451023
+    .word 0x70003628
+    .word 0x1000000c
+    .word 0x00023880
+    .word 0x8e22000c
+    .word 0x00062080
+    .word 0x00441021
+    .word 0x8c420000
+    .word 0x00e21021
+    .word 0x24440005
+    .word 0x90420005
+    .word 0x54430003
+    .word 0x24c60001
+    .word 0xa0800000
+    .word 0x24c60001
+    .word 0x8e220014
+    .word 0x00c2102a
+    .word 0x1440fff2
+    .word 0x00000000
+    .word 0x24a50001
+    .word 0x8e270010
+    .word 0x00a7102a
+    .word 0x1440ffe9
+    .word 0x000510c0
+    .word 0x8e240008
+    .word 0x8e280014
+    .word 0x24090001
+    .word 0x70002e28
+    jal func_001CC6E0
+    .word 0x70003628
+    jal func_00237190
+    .word 0x72202628
+    .word 0x7bbf0020
+    .word 0x7bb10010
+    .word 0x7bb00000
+    .word 0x24020001
+    .word 0x03e00008
+    .word 0x27bd00b0
+
+}

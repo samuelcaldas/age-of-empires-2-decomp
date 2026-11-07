@@ -6011,9 +6011,15 @@ segments:
     vram: 0x23A270
     subsegments:
       - [0x13A450, asm, kcet/kt_gs_render_23a270]
+  - name: kt_gs_render_23a370
+    type: code
+    start: 0x13A550
+    vram: 0x23A370
+    subsegments:
+      - [0x13A550, asm, kcet/kt_gs_render_23a370]
   - name: post_239e8c
     type: bin
-    start: 0x13A54C
+    start: 0x13A6D8
   - name: unit_action_core
     type: code
     start: 0x166960

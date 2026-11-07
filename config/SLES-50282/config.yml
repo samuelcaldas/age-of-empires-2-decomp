@@ -5861,9 +5861,15 @@ segments:
     vram: 0x236EF0
     subsegments:
       - [0x1370D0, asm, kcet/kt_gs_render_236ef0]
-  - name: post_236f50
-    type: bin
+  - name: kt_gs_render_236f50
+    type: code
     start: 0x137130
+    vram: 0x236F50
+    subsegments:
+      - [0x137130, asm, kcet/kt_gs_render_236f50]
+  - name: post_236fbc
+    type: bin
+    start: 0x13719C
   - name: unit_action_core
     type: code
     start: 0x166960

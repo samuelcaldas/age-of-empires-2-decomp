@@ -1,0 +1,111 @@
+#include "kt_gs_render_239d00.h"
+
+extern "C" {
+void __vec_ctor(...);
+void func_00100630(...);
+void func_00116F68(...);
+void func_002014B0(...);
+}
+
+// func_00239D00 (0x239D00, size 0x18C)
+asm int func_00239D00(void* a0, void* a1, void* a2, void* a3) {
+    .word 0x27bdffb0
+    .word 0x7fbf0040
+    .word 0x7fb30030
+    .word 0x7fb20020
+    .word 0x7fb10010
+    .word 0x7fb00000
+    .word 0x70808628
+    .word 0x12000053
+    .word 0x70a09e28
+    .word 0x3c02004e
+    .word 0x2442afc0
+    .word 0xae02000c
+    .word 0x8e040000
+    .word 0x10800008
+    .word 0x00000000
+    .word 0x10800005
+    .word 0x00000000
+    .word 0x8c990010
+    .word 0x8f390008
+    .word 0x0320f809
+    .word 0x24050001
+    .word 0xae000000
+    .word 0x8e041054
+    .word 0x10800003
+    .word 0x00000000
+    jal func_00116F68
+    .word 0x00000000
+    .word 0x8e041058
+    .word 0x10800003
+    .word 0x00000000
+    jal func_00116F68
+    .word 0x00000000
+    .word 0x8e04105c
+    .word 0x10800003
+    .word 0x00000000
+    jal func_00116F68
+    .word 0x00000000
+    .word 0x8e041060
+    .word 0x10800003
+    .word 0x00000000
+    jal func_00116F68
+    .word 0x00000000
+    .word 0x8e041064
+    .word 0x10800003
+    .word 0x00000000
+    jal func_00116F68
+    .word 0x00000000
+    jal func_00100630
+    .word 0x8e041050
+    .word 0x8e0419f0
+    .word 0x10800005
+    .word 0x70008e28
+    jal func_002014B0
+    .word 0x24050001
+    .word 0xae0019f0
+    .word 0x70008e28
+    .word 0x1000001a
+    .word 0x2a220010
+    .word 0x00111080
+    .word 0x02029021
+    jal func_00100630
+    .word 0x8e44131c
+    jal func_00100630
+    .word 0x8e44135c
+    jal func_00100630
+    .word 0x8e44139c
+    .word 0x8e4413ec
+    .word 0x10800003
+    .word 0x00000000
+    jal func_00116F68
+    .word 0x00000000
+    .word 0x8e44142c
+    .word 0x10800003
+    .word 0x00000000
+    jal func_00116F68
+    .word 0x00000000
+    .word 0x8e44146c
+    .word 0x50800004
+    .word 0x26310001
+    jal func_00116F68
+    .word 0x00000000
+    .word 0x26310001
+    .word 0x2a220010
+    .word 0x1440ffe7
+    .word 0x00111080
+    .word 0x0013143c
+    .word 0x0002143f
+    .word 0x18400004
+    .word 0x72001628
+    jal __vec_ctor
+    .word 0x72002628
+    .word 0x72001628
+    .word 0x7bbf0040
+    .word 0x7bb30030
+    .word 0x7bb20020
+    .word 0x7bb10010
+    .word 0x7bb00000
+    .word 0x03e00008
+    .word 0x27bd0050
+}

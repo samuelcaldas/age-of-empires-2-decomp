@@ -5801,6 +5801,15 @@ segments:
   - name: post_235bd4
     type: bin
     start: 0x135DB4
+  - name: kt_gs_render_235be0
+    type: code
+    start: 0x135DC0
+    vram: 0x235BE0
+    subsegments:
+      - [0x135DC0, asm, kcet/kt_gs_render_235be0]
+  - name: post_235c60
+    type: bin
+    start: 0x135E40
   - name: unit_action_core
     type: code
     start: 0x166960

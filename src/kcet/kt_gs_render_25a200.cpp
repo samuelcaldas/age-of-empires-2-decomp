@@ -1,0 +1,32 @@
+#include "kt_gs_render_25a200.h"
+
+extern "C" {
+
+asm void func_0025A200(void) {
+    .word 0x27bdfff0 // 0x0025a200
+    .word 0x7fbf0000 // 0x0025a204
+    .word 0x0c040214 // 0x0025a208
+    .word 0x24040b6c // 0x0025a20c
+    .word 0x10400003 // 0x0025a210
+    .word 0x00000000 // 0x0025a214
+    .word 0x0c0dd4b4 // 0x0025a218
+    .word 0x70402628 // 0x0025a21c
+    .word 0x3c0200a8 // 0x0025a220
+    .word 0x24440bb0 // 0x0025a224
+    .word 0x3c02004d // 0x0025a228
+    .word 0x2445b430 // 0x0025a22c
+    .word 0x0c07ca40 // 0x0025a230
+    .word 0x70003628 // 0x0025a234
+    .word 0x3c0200a8 // 0x0025a238
+    .word 0x24440bb0 // 0x0025a23c
+    .word 0x3c02004d // 0x0025a240
+    .word 0x0c07cb2c // 0x0025a244
+    .word 0x2445b258 // 0x0025a248
+    .word 0x7bbf0000 // 0x0025a24c
+    .word 0x03e00008 // 0x0025a250
+    .word 0x27bd0010 // 0x0025a254
+    .word 0x00000000 // 0x0025a258
+    .word 0x00000000 // 0x0025a25c
+}
+
+}

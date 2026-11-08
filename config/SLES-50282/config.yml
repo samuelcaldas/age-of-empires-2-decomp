@@ -7313,9 +7313,15 @@ segments:
     vram: 0x25A2A0
     subsegments:
       - [0x15A480, asm, kcet/kt_gs_render_25a2a0]
+  - name: kt_gs_render_25a300
+    type: code
+    start: 0x15A4E0
+    vram: 0x25A300
+    subsegments:
+      - [0x15A4E0, asm, kcet/kt_gs_render_25a300]
   - name: post_2456a0
     type: bin
-    start: 0x15A4E0
+    start: 0x15A5B0
   - name: unit_action_core
     type: code
     start: 0x166960

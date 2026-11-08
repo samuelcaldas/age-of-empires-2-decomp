@@ -7367,9 +7367,15 @@ segments:
     vram: 0x25B5B0
     subsegments:
       - [0x15B790, asm, kcet/kt_gs_render_25b5b0]
+  - name: kt_gs_render_25b610
+    type: code
+    start: 0x15B7F0
+    vram: 0x25B610
+    subsegments:
+      - [0x15B7F0, asm, kcet/kt_gs_render_25b610]
   - name: post_2456a0
     type: bin
-    start: 0x15B7F0
+    start: 0x15B850
   - name: unit_action_core
     type: code
     start: 0x166960

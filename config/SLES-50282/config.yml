@@ -6089,9 +6089,15 @@ segments:
     vram: 0x23EE80
     subsegments:
       - [0x13F060, asm, kcet/kt_gs_render_23ee80]
-  - name: post_23efb0
-    type: bin
+  - name: kt_gs_render_23efb0
+    type: code
     start: 0x13F190
+    vram: 0x23EFB0
+    subsegments:
+      - [0x13F190, asm, kcet/kt_gs_render_23efb0]
+  - name: post_23f1b0
+    type: bin
+    start: 0x13F390
   - name: unit_action_core
     type: code
     start: 0x166960

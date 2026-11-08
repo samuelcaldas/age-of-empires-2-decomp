@@ -45,6 +45,7 @@ IDA-exported `splits.json` and `symbols.json` (see `docs/toolchain.md`).
 - `docs/`: game files, toolchain, binary analysis (`docs/ps2_binary_analysis.md`), and decisions (`docs/adr/`).
 - `scripts/decomp_pipeline.py`: programmatic and idempotent decompilation staging, compilation, diffing and promotion pipeline. See `docs/decomp_pipeline.md` and `.claude/skills/ps2-decomp/SKILL.md`.
 - `scripts/agy/`: wrapper for delegating separable tasks to the agy CLI. See `docs/agy_orchestration.md`.
+- `scripts/ralph_decomp.sh`: Ralph-style loop that auto-slices and decompiles the whole `.text` with agy/codex/claude. See `docs/ralph_decomp.md`.
 - `staging/`: isolated staging directory for draft decompiler outputs (`.gitignore` covers it). Never register drafts in `configure.py` until 100% matched.
 
 ## Mandatory test-driven development

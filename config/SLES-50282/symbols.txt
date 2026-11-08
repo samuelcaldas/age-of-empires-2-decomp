@@ -4821,3 +4821,4 @@ func_002552F0 = 0x2552F0; // type:func size:0x50
 func_00255340 = 0x255340; // type:func size:0x10
 func_00255350 = 0x255350; // type:func size:0x3D0
 func_00255720 = 0x255720; // type:func size:0xE0
+func_00255800 = 0x255800; // type:func size:0x50

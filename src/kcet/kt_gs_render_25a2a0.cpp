@@ -1,0 +1,35 @@
+#include "kt_gs_render_25A2A0.h"
+
+extern "C" {
+
+asm void func_0025A2A0(void) {
+    .word 0x27bdffe0 // 0x0025a2a0
+    .word 0x7fbf0010 // 0x0025a2a4
+    .word 0x7fb00000 // 0x0025a2a8
+    .word 0x0c0857b8 // 0x0025a2ac
+    .word 0x70808628 // 0x0025a2b0
+    .word 0x3c02004e // 0x0025a2b4
+    .word 0x2442bd50 // 0x0025a2b8
+    .word 0xae020000 // 0x0025a2bc
+    .word 0xae0001dc // 0x0025a2c0
+    .word 0x72001628 // 0x0025a2c4
+    .word 0x7bbf0010 // 0x0025a2c8
+    .word 0x7bb00000 // 0x0025a2cc
+    .word 0x03e00008 // 0x0025a2d0
+    .word 0x27bd0020 // 0x0025a2d4
+    .word 0x00000000 // 0x0025a2d8
+    .word 0x00000000 // 0x0025a2dc
+}
+
+asm void func_0025A2E0(void) {
+    .word 0xac8501dc // 0x0025a2e0
+    .word 0x8c990000 // 0x0025a2e4
+    .word 0x24050001 // 0x0025a2e8
+    .word 0x8f390028 // 0x0025a2ec
+    .word 0x03200008 // 0x0025a2f0
+    .word 0x00000000 // 0x0025a2f4
+    .word 0x00000000 // 0x0025a2f8
+    .word 0x00000000 // 0x0025a2fc
+}
+
+}

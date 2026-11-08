@@ -1,0 +1,46 @@
+#include "kt_gs_render_25A180.h"
+
+extern "C" {
+
+asm void func_0025A180(void) {
+    .word 0x27bdffe0 // 0x0025a180
+    .word 0x7fbf0010 // 0x0025a184
+    .word 0x7fb00000 // 0x0025a188
+    .word 0x0c095f90 // 0x0025a18c
+    .word 0x70808628 // 0x0025a190
+    .word 0x0c07dc00 // 0x0025a194
+    .word 0x72002628 // 0x0025a198
+    .word 0x7bbf0010 // 0x0025a19c
+    .word 0x7bb00000 // 0x0025a1a0
+    .word 0x03e00008 // 0x0025a1a4
+    .word 0x27bd0020 // 0x0025a1a8
+    .word 0x00000000 // 0x0025a1ac
+}
+
+asm void func_0025A1B0(void) {
+    .word 0x27bdffe0 // 0x0025a1b0
+    .word 0x7fbf0010 // 0x0025a1b4
+    .word 0x7fb00000 // 0x0025a1b8
+    .word 0x0c095f74 // 0x0025a1bc
+    .word 0x70808628 // 0x0025a1c0
+    .word 0x0c07dc14 // 0x0025a1c4
+    .word 0x72002628 // 0x0025a1c8
+    .word 0x7bbf0010 // 0x0025a1cc
+    .word 0x7bb00000 // 0x0025a1d0
+    .word 0x03e00008 // 0x0025a1d4
+    .word 0x27bd0020 // 0x0025a1d8
+    .word 0x00000000 // 0x0025a1dc
+}
+
+asm void func_0025A1E0(void) {
+    .word 0x8c8408b4 // 0x0025a1e0
+    .word 0x70003628 // 0x0025a1e4
+    .word 0x8c990000 // 0x0025a1e8
+    .word 0x8f390100 // 0x0025a1ec
+    .word 0x03200008 // 0x0025a1f0
+    .word 0x00000000 // 0x0025a1f4
+    .word 0x00000000 // 0x0025a1f8
+    .word 0x00000000 // 0x0025a1fc
+}
+
+}

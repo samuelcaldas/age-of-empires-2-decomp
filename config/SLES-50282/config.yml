@@ -8811,3 +8811,9 @@ segments:
     vram: 0x100b70
     subsegments:
       - [0xd50, asm, kcet/func_00100B70]
+  - name: func_00100BA0
+    type: code
+    start: 0xd80
+    vram: 0x100ba0
+    subsegments:
+      - [0xd80, asm, kcet/func_00100BA0]

@@ -12,6 +12,7 @@ from __future__ import annotations
 
 import argparse
 from pathlib import Path
+import re
 import shutil
 import struct
 import subprocess
@@ -146,30 +147,42 @@ def diff_draft(func_name: str, vram: int, size: int, obj_path: Path, known_symbo
 
     # Relocation-patched matching check
     patched_bytes = bytearray(raw_bytes)
-    if known_symbols:
-        for rel in relocs:
-            sym_name = rel["symbol"]
-            target_addr = known_symbols.get(sym_name)
-            if target_addr is not None:
-                offset = rel["offset"]
-                rel_type = rel["type"]
-                # MIPS R_MIPS_26 (JAL): (addr >> 2) & 0x3FFFFFF
-                if rel_type == 4:  # R_MIPS_26
-                    inst = struct.unpack("<I", patched_bytes[offset:offset+4])[0]
-                    inst = (inst & 0xFC000000) | ((target_addr >> 2) & 0x03FFFFFF)
-                    patched_bytes[offset:offset+4] = struct.pack("<I", inst)
-                # MIPS R_MIPS_HI16
-                elif rel_type == 5:
-                    inst = struct.unpack("<I", patched_bytes[offset:offset+4])[0]
-                    hi = ((target_addr + 0x8000) >> 16) & 0xFFFF
-                    inst = (inst & 0xFFFF0000) | hi
-                    patched_bytes[offset:offset+4] = struct.pack("<I", inst)
-                # MIPS R_MIPS_LO16
-                elif rel_type == 6:
-                    inst = struct.unpack("<I", patched_bytes[offset:offset+4])[0]
-                    lo = target_addr & 0xFFFF
-                    inst = (inst & 0xFFFF0000) | lo
-                    patched_bytes[offset:offset+4] = struct.pack("<I", inst)
+    symbols_map = dict(known_symbols) if known_symbols is not None else {}
+    if not symbols_map and SYMBOLS_TXT.is_file():
+        for line in SYMBOLS_TXT.read_text().splitlines():
+            m = re.match(r"^(\S+)\s*=\s*(0x[0-9A-Fa-f]+)", line.strip())
+            if m:
+                symbols_map[m.group(1)] = int(m.group(2), 16)
+    for rel in relocs:
+        sym_name = rel["symbol"]
+        if sym_name and sym_name not in symbols_map:
+            m = re.match(r"^(?:func_|D_)([0-9A-Fa-f]{4,8})$", sym_name)
+            if m:
+                symbols_map[sym_name] = int(m.group(1), 16)
+
+    for rel in relocs:
+        sym_name = rel["symbol"]
+        target_addr = symbols_map.get(sym_name)
+        if target_addr is not None:
+            offset = rel["offset"]
+            rel_type = rel["type"]
+            # MIPS R_MIPS_26 (JAL): (addr >> 2) & 0x3FFFFFF
+            if rel_type == 4:  # R_MIPS_26
+                inst = struct.unpack("<I", patched_bytes[offset:offset+4])[0]
+                inst = (inst & 0xFC000000) | ((target_addr >> 2) & 0x03FFFFFF)
+                patched_bytes[offset:offset+4] = struct.pack("<I", inst)
+            # MIPS R_MIPS_HI16
+            elif rel_type == 5:
+                inst = struct.unpack("<I", patched_bytes[offset:offset+4])[0]
+                hi = ((target_addr + 0x8000) >> 16) & 0xFFFF
+                inst = (inst & 0xFFFF0000) | hi
+                patched_bytes[offset:offset+4] = struct.pack("<I", inst)
+            # MIPS R_MIPS_LO16
+            elif rel_type == 6:
+                inst = struct.unpack("<I", patched_bytes[offset:offset+4])[0]
+                lo = target_addr & 0xFFFF
+                inst = (inst & 0xFFFF0000) | lo
+                patched_bytes[offset:offset+4] = struct.pack("<I", inst)
 
     mismatches = []
     min_len = min(len(orig_bytes), len(patched_bytes))

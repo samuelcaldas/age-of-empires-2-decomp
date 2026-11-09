@@ -64,3 +64,23 @@ def test_diff_against_known_matched_function(tmp_path):
     assert diff_result["is_match"] is True
     assert diff_result["match_percentage"] == 100.0
     assert len(diff_result["mismatches"]) == 0
+
+
+def test_diff_draft_auto_resolves_symbols_when_not_provided(tmp_path):
+    src = PROJECT_ROOT / "src/kcet/kt_thread_spawn_220c60.cpp"
+    tmp_obj = tmp_path / "test_spawn_auto.o"
+    ok, msg, obj_path = compile_draft(src, tmp_obj)
+    assert ok, f"Compilation failed: {msg}"
+
+    diff_result = diff_draft(
+        func_name="func_00220C60",
+        vram=0x220C60,
+        size=0x64,
+        obj_path=obj_path,
+    )
+
+    assert diff_result["size_match"] is True
+    assert diff_result["is_match"] is True
+    assert diff_result["match_percentage"] == 100.0
+    assert len(diff_result["mismatches"]) == 0
+

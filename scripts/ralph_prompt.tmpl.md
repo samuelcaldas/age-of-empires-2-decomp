@@ -17,6 +17,9 @@ Read first: CLAUDE.md, docs/recomp_ready_decomp_guidelines.md, docs/decomp_pipel
 - Check yourself: `.venv/bin/python scripts/decomp_pipeline.py compile --source {{STAGING_FILE}}` then
   `.venv/bin/python scripts/ralph_slice.py measure --func {{FUNC}} --vram {{VRAM}} --size {{SIZE}} --obj {{STAGING_FILE_OBJ}}`
 - Final reply: one line, outcome only.
+- Only if the function cannot be written in C/C++ (syscall, COP0, hand-written asm, not compiler output): make the last
+  line of your reply exactly `UNMATCHABLE: <reason>`. Do not use it for hard-to-match C.
+{{HINTS_LINE}}
 
 ## Original bytes (little-endian words)
 ```

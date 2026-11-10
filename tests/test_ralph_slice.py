@@ -485,3 +485,23 @@ def test_next_reply_adds_hints_and_flags_likely_asm():
     clean = ralph_slice.slice_reply(ralph_slice.Slice("func_00100000", 0x100000, 16),
                                     words(PROLOGUE, ADDIU_V0, JR_RA, NOP))
     assert clean["hints"] == [] and clean["likely_asm"] is False
+
+
+# ---------------------------------------------------------------- oversized functions
+def test_function_longer_than_max_slice_grows_the_cap_instead_of_failing():
+    body = [ADDIU_V0] * 0x240  # 0x900 bytes, larger than the 0x800 default cap
+    code = words(PROLOGUE, *body, JR_RA, NOP)
+    found = ralph_slice.next_slice(code, 0x100000, [], max_size=0x800)
+    assert found == ralph_slice.Slice("func_00100000", 0x100000, 4 + 0x900 + 8)
+
+
+def test_growing_cap_never_crosses_the_next_covered_function():
+    code = words(PROLOGUE, *([ADDIU_V0] * 0x240), JR_RA, NOP)
+    with pytest.raises(ralph_slice.SliceBoundaryError):
+        ralph_slice.next_slice(code, 0x100000, [(0x100400, 0x100500)], max_size=0x200)
+
+
+def test_function_with_no_return_anywhere_still_raises():
+    code = words(PROLOGUE, *([ADDIU_V0] * 0x700))
+    with pytest.raises(ralph_slice.SliceBoundaryError):
+        ralph_slice.next_slice(code, 0x100000, [], max_size=0x800)

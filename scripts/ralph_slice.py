@@ -28,6 +28,7 @@ DEFAULT_MAX_SLICE = 0x800
 DEFAULT_MIN_PCT = 90.0
 DEFAULT_MAX_ATTEMPTS = 5
 DEFAULT_MAX_PASSES = 3
+HARD_MAX_SLICE = 0x4000
 VALID_MARK_STATUSES = {"asm"}
 STRONG_HINTS = {"syscall", "cop0"}
 UNDECODABLE_FRACTION = 0.25
@@ -160,9 +161,21 @@ def next_slice(
     if address is None:
         return None
     following = index.next_begin_after(address)
-    cap = max_size if following is None else min(max_size, following - address)
-    size = find_function_size(code, address - base, cap)
+    room = HARD_MAX_SLICE if following is None else min(HARD_MAX_SLICE, following - address)
+    size = _size_with_growing_cap(code, address - base, max_size, room)
     return Slice(func=f"func_{address:08X}", vram=address, size=size)
+
+
+def _size_with_growing_cap(code: bytes, start: int, cap: int, room: int) -> int:
+    """Function size, doubling the cap (up to ``room``) while no return is found."""
+    cap = min(cap, room)
+    while True:
+        try:
+            return find_function_size(code, start, cap)
+        except SliceBoundaryError:
+            if cap >= room:
+                raise
+            cap = min(cap * 2, room)
 
 
 def classify_code(words: List[int]) -> List[str]:
@@ -480,7 +493,11 @@ def _command_next(args: argparse.Namespace) -> int:
     state = LoopState(args.state)
     covered = CoveredIndex(parse_covered(SYMBOLS_TXT.read_text()) + state.covered())
     text = _load_text_section()
-    found = next_slice(text, TEXT_START, covered, args.max_slice)
+    try:
+        found = next_slice(text, TEXT_START, covered, args.max_slice)
+    except SliceBoundaryError as error:
+        print(f"ralph_slice: cannot slice: {error}", file=sys.stderr)
+        return 2
     if found:
         start = found.vram - TEXT_START
         _emit(slice_reply(found, text[start : start + found.size]))

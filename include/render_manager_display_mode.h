@@ -47,7 +47,7 @@ struct RenderManagerDisplayMode {
     int field_105C;
 };
 
-extern int D_004E89EC;
+extern int D_004E314C;
 extern const char D_00491A28[];
 
 extern "C" {

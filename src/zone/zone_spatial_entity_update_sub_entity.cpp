@@ -24,7 +24,7 @@ public:
     virtual void m33(); virtual void m34(); virtual void m35(); virtual void m36();
     virtual void m37(); virtual void m38(); virtual void m39(); virtual void m40();
     virtual void m41(); virtual void m42(); virtual void m43(); virtual void m44();
-    virtual void m45(); virtual void m46(); virtual void m47();
+    virtual void m45(); virtual void m46(); virtual void m47(); virtual void m48();
     virtual void MethodC4(float speed);
 
     SubEntityInfo *info;

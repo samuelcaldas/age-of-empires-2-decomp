@@ -2,7 +2,7 @@
 #define ZONE_SPATIAL_GRID_VECTOR_SWAP_REMOVE_H
 
 extern "C" {
-void func_001EBB20(void *self, void *elem, int index);
+void func_001EBB20(void *self, void *elem, short index);
 }
 
 #endif // ZONE_SPATIAL_GRID_VECTOR_SWAP_REMOVE_H

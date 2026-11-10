@@ -7,10 +7,19 @@ static int c21b6a0_calls = 0;
 static int c21b420_calls = 0;
 static int c21a550_calls = 0;
 
+struct ElementA {
+    char data[0xA8];
+    ElementA();
+};
+
+struct ElementB {
+    char data[8];
+    ElementB();
+};
+
 extern "C" {
 char D_00C5C2D0[0x420] = {0};
 
-void *func_0021B640(void *self);
 void func_0021B6A0(void *self);
 int func_0021B730(void *unused, void **out_ptr);
 void *func_0021B760(void *self);
@@ -23,10 +32,27 @@ void *func_0021B3E0(void *self) {
     return self;
 }
 
+ElementA::ElementA() {
+    func_0021A520(this);
+}
+
+ElementB::ElementB() {
+    func_0021B3E0(this);
+}
+
+
 void *func_1003B0(void *array, void *ctor_fn, void *dtor_fn, int elem_size, int count) {
     c1003b0_calls++;
     return array;
 }
+
+void *func_0021B640(void *self) {
+    func_1003B0(self, (void *)func_0021A520, 0, 0xA8, 6);
+    func_1003B0((char *)self + 0x3F0, (void *)func_0021B3E0, 0, 8, 6);
+    func_0021B6A0(self);
+    return self;
+}
+
 
 void func_0021B420(void *self) {
     c21b420_calls++;

@@ -14,6 +14,10 @@ int func_002257A0(void *arg0, int arg1) {
     return arg1 + 1;
 }
 
+int func_2257A0(void *arg0, int arg1) {
+    return func_002257A0(arg0, arg1);
+}
+
 int func_001ABA70(void *arg0) {
     log_event(EV_ABA70, arg0);
     return 1;

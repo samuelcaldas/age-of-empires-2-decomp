@@ -2,10 +2,10 @@
 #include "sub_list.h"
 
 extern "C" {
-void *func_00332E60(void *mgr, short id);
+void *func_332e60(void *mgr, short id);
 void func_001471B0(void *self, short actionId);
 void func_0014BD20(void *self, short id, float f12, float f13, float f14);
-float func_002690D0(void *obj, void *target);
+float func_2690D0(void *obj, void *target);
 }
 
 class MarketObj {
@@ -178,7 +178,7 @@ int func_0014B8F0(TradeActionBase *self, short a1, int a2, float f12) {
     }
 
     MarketPlayerMgr *mgr = (MarketPlayerMgr *)self->m_market->m_field8;
-    StatusEntity *entity = (StatusEntity *)func_00332E60(mgr->m_b98, a1);
+    StatusEntity *entity = (StatusEntity *)func_332e60(mgr->m_b98, a1);
     if (!entity) {
         return 0;
     }
@@ -187,7 +187,7 @@ int func_0014B8F0(TradeActionBase *self, short a1, int a2, float f12) {
     func_0014BD20(self, a1, entity->m_posX, entity->m_posY, entity->m_posZ);
     self->m_field5C = f12;
 
-    float dist = func_002690D0(self->m_market, entity);
+    float dist = func_2690D0(self->m_market, entity);
     float bound = self->m_field5C;
     if (dist > bound) {
         self->Method98(self->m_field4A, 1);
@@ -201,7 +201,7 @@ int func_0014B9E0(TradeActionBase *self, short a1, int a2, float f12) {
     }
 
     MarketPlayerMgr *mgr = (MarketPlayerMgr *)self->m_market->m_field8;
-    StatusEntity *entity = (StatusEntity *)func_00332E60(mgr->m_b98, a1);
+    StatusEntity *entity = (StatusEntity *)func_332e60(mgr->m_b98, a1);
     if (!entity) {
         return 0;
     }

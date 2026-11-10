@@ -10,6 +10,6 @@ struct SpatialGridState {
 
 extern "C" void func_001ED160(SpatialGridState *self) {
     self->field_12B5B0 = -2;
-    func_1ED1F0(self);
+    func_001ED1F0(self);
     self->field_12B574 = -1;
 }

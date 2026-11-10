@@ -1,12 +1,22 @@
 #pragma exceptions off
-#include "sub_list.h"
+
+class RenderWidget219D30 {
+public:
+    virtual void m0();
+    virtual void m1();
+    virtual void m2();
+    virtual void m3();
+    virtual void m4();
+    virtual void m5();
+    virtual void m6();
+    virtual void m7();
+    virtual void m8(int arg);
+};
 
 extern "C" {
-void func_00116F68(void *ptr);
+void func_116F68(void *ptr);
 void func_100670(void *ptr);
 void func_00217B50(void *self, int arg1);
-
-typedef void (*VMethod28)(void *, int);
 
 struct ActionListItem {
     char *text;
@@ -24,34 +34,28 @@ struct ActionListItem {
     ActionListItem *next;
 };
 
-static void free_sub_list(void *sub) {
-    while (sub != 0) {
-        void *next_sub = *(void **)((char *)sub + 0x8);
-        func_100670(sub);
-        sub = next_sub;
-    }
-}
-
-static void free_action_item(ActionListItem *item) {
-    if (item->text != 0) {
-        func_00116F68(item->text);
-    }
-    if (item->extra_text != 0) {
-        func_00116F68(item->extra_text);
-    }
-    free_sub_list(item->val_c);
-    func_00116F68(item);
-}
-
-void func_00219D30(void *self) {
+void func_00219D30(RenderWidget219D30 *self) {
     char *self_bytes = (char *)self;
+    void *next_sub;
     ActionListItem *curr = *(ActionListItem **)(self_bytes + 0x11C);
 
     if (curr != 0) {
         while (curr != 0) {
-            ActionListItem *next = curr->next;
-            free_action_item(curr);
-            curr = next;
+            if (curr->text != 0) {
+                func_116F68(curr->text);
+            }
+            if (curr->extra_text != 0) {
+                func_116F68(curr->extra_text);
+            }
+            while (curr->val_c != 0) {
+                void *sub = curr->val_c;
+                next_sub = *(void **)((char *)sub + 0x8);
+                func_100670(sub);
+                curr->val_c = next_sub;
+            }
+            ActionListItem *to_free = curr;
+            curr = curr->next;
+            func_116F68(to_free);
         }
         *(ActionListItem **)(self_bytes + 0x11C) = 0;
     }
@@ -59,8 +63,6 @@ void func_00219D30(void *self) {
     *(short *)(self_bytes + 0x120) = 0;
     func_00217B50(self, 1);
 
-    void **vtable = *(void ***)self;
-    VMethod28 method28 = (VMethod28)*(void **)((char *)vtable + 0x28);
-    method28(self, 1);
+    self->m8(1);
 }
 }

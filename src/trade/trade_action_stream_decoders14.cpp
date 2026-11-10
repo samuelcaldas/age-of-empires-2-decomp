@@ -21,9 +21,9 @@ void func_001522C0(unsigned char *destination, unsigned char *source);
 /** Dual sequential 2-byte staging lookups and stream writes. */
 void func_0015F840() {
     unsigned char *ptr = D_004E2DB4;
-    unsigned char *dst = D_004E2DA0.bytes;
-    *dst++ = *ptr++;
-    *dst = *ptr;
+    unsigned char *dst = (unsigned char *)&D_004E2DA0;
+    dst[0] = ptr[0];
+    dst[1] = ptr[1];
 
     D_004E2DAC.bytes[0] = D_004E2DA0.bytes[0];
     D_004E2DA0.bytes[0] = D_004E2DA4[D_004E2DAC.word];
@@ -37,9 +37,9 @@ void func_0015F840() {
     D_004E2DB4++;
 
     ptr = D_004E2DB4;
-    dst = D_004E2DA0.bytes;
-    *dst++ = *ptr++;
-    *dst = *ptr;
+    dst = (unsigned char *)&D_004E2DA0;
+    dst[0] = ptr[0];
+    dst[1] = ptr[1];
 
     D_004E2DAC.bytes[0] = D_004E2DA0.bytes[0];
     D_004E2DA0.bytes[0] = D_004E2DA4[D_004E2DAC.word];

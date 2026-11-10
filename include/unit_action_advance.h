@@ -7,9 +7,12 @@ extern "C" {
     void func_0026A540(void *action, int flag);
     int func_001AAB30();
     int func_26A700(void *action, int *out1, int *out2);
+    int func_0026A700(ActionRebind *action, int *out1, int *out2);
     void func_25F6E0(void *field38, int a1, int a2, int a3, int a4, int a5);
     void func_001AAB70(int obj);
+void func_1AAB70(int obj);
     void func_26A680(void *action, unsigned char frame);
+void func_0026A680(void *action, unsigned char frame);
 
     void func_00268DE0(ActionRebind *self);
     float func_00268EB0(int count, void *arr, float scale);

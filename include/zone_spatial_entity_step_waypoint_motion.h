@@ -4,7 +4,7 @@
 struct SpatialEntity;
 
 extern "C" {
-int func_001DF2D0(SpatialEntity *self, float val);
+void func_001DF2D0(SpatialEntity *self, void *target);
 }
 
 #endif // ZONE_SPATIAL_ENTITY_STEP_WAYPOINT_MOTION_H

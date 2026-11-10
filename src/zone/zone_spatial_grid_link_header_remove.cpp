@@ -19,26 +19,28 @@ struct LinkHeader {
 
 extern "C" void func_001ECA40(void *self_ptr, void *elem, void *node_ptr) {
     LinkHeader *self = (LinkHeader *)self_ptr;
-    Node *node = (Node *)node_ptr;
-    if (self->head == 0) {
+    Node *node = self->head;
+    if (node == 0) {
         return;
     }
-    if (node == 0) {
-        node = self->head;
-        while (node != 0) {
-            if (node->data == elem) {
-                break;
-            }
-            node = node->next;
-        }
+    if (node_ptr != 0) {
+        goto found;
+    }
+    while (node->data != elem) {
+        node = node->next;
         if (node == 0) {
             return;
         }
     }
+    goto found2;
+
+found:
+    node = (Node *)node_ptr;
+
+found2:
     if (node->prev != 0) {
         node->prev->next = node->next;
-    }
-    if (node->prev == 0) {
+    } else {
         self->head = node->next;
     }
     if (node->next != 0) {

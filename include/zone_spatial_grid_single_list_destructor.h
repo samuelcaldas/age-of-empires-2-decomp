@@ -2,7 +2,7 @@
 #define ZONE_SPATIAL_GRID_SINGLE_LIST_DESTRUCTOR_H
 
 extern "C" {
-void *func_001ECFE0(void *self, int flag);
+void *func_001ECFE0(void *self, short flag);
 }
 
 #endif // ZONE_SPATIAL_GRID_SINGLE_LIST_DESTRUCTOR_H

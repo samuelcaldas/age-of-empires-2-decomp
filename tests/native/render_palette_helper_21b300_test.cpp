@@ -66,12 +66,19 @@ void test_case_21B300_modes() {
     assert(res1_null == 1);
     assert(c21b440_calls == 0);
 
-    // Mode == 0, ptr14 != nullptr -> calls 21B440 and 21B4C0, returns 0
+    // Mode == 0 -> returns 1
     *(int *)(obj + 0x1C) = 0;
+    *(void **)(obj + 0x14) = (void *)0x5555;
+    int res0 = func_0021B300(obj, 0, coords);
+    assert(res0 == 1);
+    assert(c21b440_calls == 0);
+
+    // Mode == 1, ptr14 != nullptr -> calls 21B440 and 21B4C0, returns 0
+    *(int *)(obj + 0x1C) = 1;
     void *ptr14 = (void *)0x5555;
     *(void **)(obj + 0x14) = ptr14;
-    int res0 = func_0021B300(obj, 0, coords);
-    assert(res0 == 0);
+    int res1 = func_0021B300(obj, 0, coords);
+    assert(res1 == 0);
     assert(c21b440_calls == 1);
     assert(last_21b440_ptr14 == ptr14);
     assert(c21b4c0_calls == 1);

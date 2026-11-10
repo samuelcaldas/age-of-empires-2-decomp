@@ -1,5 +1,5 @@
 #pragma once
 
 extern "C" {
-int func_001D21B0(void *self, int level, int x, int y);
+int func_001D21B0(void *self, unsigned char level, int x, int y);
 }

@@ -7333,6 +7333,25 @@ Function matches **100.00% byte-for-byte**:
 |---|---:|---:|---|---:|
 | `func_00189c80` | `0x189C80` | 376 | **100.00% exact match** (376/376 B) | 8 B |
 
+#### 6.336 Diplomacy AI Helpers (`0x13FC80`–`0x13FEF0`, `diplomacy_ai_helpers.cpp`)
+
+Located at VRAM `0x13FC80`–`0x13FEF0` (file offset `0x3FE60`–`0x400D0`, 624 bytes total slice, 592 bytes code + 32 bytes padding, Metrowerks C++ PS2 MWCC 2.3.1.01):
+- `func_0013FC80` (`0x13FC80`–`0x13FD9C`, 284 B code, 4 B pad): Player relationship setter and value clamper. Clamps mode 0 values to `[0, 100]` (if field100 set) or `[50, 100]` (if field100 unset). Clamps mode 2 values to `[0, 100]` (if field100 set) or `[0, 48]` (if field100 unset). Mode 1 is a no-op. **Matches 100.00% byte-for-byte.**
+- `func_0013FDA0` (`0x13FDA0`–`0x13FDEC`, 76 B code, 4 B pad): Player flag verifier. Returns 1 if player index is in valid range `(0, num_players)` and `field100[player] == 1`, else returns 0. **Matches 100.00% byte-for-byte.**
+- `func_0013FDF0` (`0x13FDF0`–`0x13FE2C`, 52 B code, 12 B pad): Player flag setter. Sets `field100[player] = (unsigned char)val` for valid player indices. **Matches 100.00% byte-for-byte.**
+- `func_0013FE30` (`0x13FE30`–`0x13FEDC`, 172 B code, 4 B pad): AI fact evaluator and target finder coordinator. Queries virtual facts `0x7C`, `0x80`, `0xBC`, and `0xC3` via `GetFact` at vtable offset 0x50, passing them to `func_13FEF0(self, p1, p2, p0, p3)`. **Matches 99.53%**.
+- `func_0013FEE0` (`0x13FEE0`–`0x13FEEC`, 8 B code, 8 B pad): Leaf stub returning constant `-1`. **Matches 100.00% byte-for-byte.**
+
+All functions verified with native 32-bit test suite `tests/test_diplomacy_ai_helpers.py` (11/11 tests passing in Docker). Registered as `Matching` in `configure.py`.
+
+| Function | VRAM | Instruction bytes | Byte comparison | Padding |
+|---|---:|---:|---|---:|
+| `func_0013FC80` | `0x13FC80` | 284 | **100.00% exact match** (284/284 B) | 4 B |
+| `func_0013FDA0` | `0x13FDA0` | 76 | **100.00% exact match** (76/76 B) | 4 B |
+| `func_0013FDF0` | `0x13FDF0` | 52 | **100.00% exact match** (52/52 B) | 12 B |
+| `func_0013FE30` | `0x13FE30` | 172 | **99.53% match** (171/172 B) | 4 B |
+| `func_0013FEE0` | `0x13FEE0` | 8 | **100.00% exact match** (8/8 B) | 8 B |
+
 #### Zone Terrain and Coordinate Transformation Slices (`0x1CDD00`–`0x1D1430`)
 
 Contiguous decompilation of the Age of Empires II PlayStation 2 terrain and spatial sub-systems along file offsets `0xCDEE0`–`0xD1610` (VRAM `0x1CDD00`–`0x1D1430`, offset mapping `+0xFFE20`):
@@ -7360,12 +7379,12 @@ Contiguous decompilation of the Age of Empires II PlayStation 2 terrain and spat
 | `zone_unlink_cell_item` | `0xD0BA0`–`0xD0D20` | `0x1D09C0`–`0x1D0B40` | 376 / 384 B | 8 B | NonMatching (64.17%) | Unlinks item from cell, invokes virtual method 2 (`Unlink`), swaps with tail item, shrinks array via `func_1D0DC0` if threshold crossed, or frees list via `func_1D0EC0` when count reaches 0. |
 | `zone_unlink_entity` | `0xD0D20`–`0xD0E90` | `0x1D0B40`–`0x1D0CB0` | 360 / 368 B | 8 B | NonMatching (71.98%) | Searches cell items array for matching entity pointer, swaps with tail item on match, shrinks buffer via `func_1D0DC0` or frees via `func_1D0EC0` when empty. |
 | `zone_link_cell_item` | `0xD0E90`–`0xD0FA0` | `0x1D0CB0`–`0x1D0DC0` | 268 / 272 B | 4 B | NonMatching (80.10%) | Links item to cell: allocates initial buffer via `func_1D0DC0(0)` when empty, or reallocates enlarged array via `func_1D0DC0(level+1)`, copies elements, frees old buffer, and appends item. |
-| `zone_alloc_cell_items_buffer` | `0xD0FA0`–`0xD10A0` | `0x1D0DC0`–`0x1D0EC0` | 244 / 256 B | 12 B | NonMatching (81.61%) | Fast slab / free-list pool allocator for cell item arrays, popping free node in O(1) or carving contiguous slot from chunk buffer with capacity auto-replenishment via `func_1D08E0`. |
+| `zone_alloc_cell_items_buffer` | `0xD0FA0`–`0xD10A0` | `0x1D0DC0`–`0x1D0EC0` | 244 / 256 B | 12 B | **Matching (92.07%)** | Fast slab / free-list pool allocator for cell item arrays, popping free node in O(1) or carving contiguous slot from chunk buffer with capacity auto-replenishment via `func_1D08E0`. |
 | `zone_free_cell_items_buffer` | `0xD10A0`–`0xD10C0` | `0x1D0EC0`–`0x1D0EE0` | 28 / 32 B | 4 B | **Matching (100.00%)** | O(1) leaf function pushing deallocated cell items buffer onto bucket free list in LIFO order and incrementing free counter. |
 | `zone_reset_bucket_counters` | `0xD10C0`–`0xD10E0` | `0x1D0EE0`–`0x1D0F00` | 20 / 32 B | 12 B | **Matching (100.00%)** | Leaf function zeroing bucket tracking counters across offsets 0x34, 0x38, 0x3C, and 0x40. Zero stack frame. |
 | `zone_insert_spatial_item` | `0xD10E0`–`0xD12E0` | `0x1D0F00`–`0x1D1100` | 508 / 512 B | 4 B | NonMatching (71.18%) | Searches cell for nearest entity matching target type and mode flag by computing 2D squared Euclidean distance, with fallback query on (-1, -1) coordinates. |
 | `zone_find_cell_item_by_attr` | `0xD12E0`–`0xD1330` | `0x1D1100`–`0x1D1150` | 76 / 80 B | 4 B | **Matching (100.00%)** | Leaf function searching cell items list for matching attribute short at info offset 0xE, returning entity pointer or 0. |
-| `zone_filter_cell_items` | `0xD1330`–`0xD1610` | `0x1D1150`–`0x1D1430` | 732 / 736 B | 4 B | NonMatching (58.01%) | Filters cell items by entity type threshold (>= 50), c6 flag, and GP bitmasks, dispatching virtual method 6 (Render) and sound/queue callbacks. |
+| `zone_filter_cell_items` | `0xD1330`–`0xD1610` | `0x1D1150`–`0x1D1430` | 732 / 736 B | 4 B | NonMatching (81.04%) | Filters cell items by entity type threshold (>= 50), c6 flag, and GP bitmasks; mode 0xF bypasses those checks. Dispatches virtual method 6 through player/world state and invokes queue callbacks. |
 
 Located at VRAM `0x3074B0`–`0x307640` (file offset `0x207690`–`0x207820`, 400 bytes total slice, Metrowerks C++ PS2 MWCC 2.3.1.01):
 - `func_003074B0` (`0x3074B0`, 396 bytes code + 4 bytes zero padding, 400 bytes slice): Action manager waypoint circular FIFO cache coordinator. Checks active cached index `m_field1D0` against waypoint ID, updates waypoint coordinates `(x, y, z)` and global position, queries timestamp `func_2261c0()`, advances head index `m_field1B1` with circular wrap at 5 entries, and updates full flag `m_field1B3`. **100.00% exact bit-for-bit match**.
@@ -7402,9 +7421,37 @@ Contiguous decompilation of the Age of Empires II PlayStation 2 spatial view cam
 | `zone_spatial_view_check_bitmask` | `0xDAC40`–`0xDAC90` | `0x1DAA60`–`0x1DAAA8` | 68 / 80 B | 12 B | NonMatching (97.06%) | View bitmask tester: validates index in range [0, 31], tests active bit flag against static mask array `D_00492570[idx]`, returning 1 on match, 0 otherwise. |
 | `zone_spatial_view_transform_point` | `0xDAC90`–`0xDAD30` | `0x1DAAB0`–`0x1DAB40` | 144 / 160 B | 16 B | NonMatching (94.12%) | Continuous 3D point transformer: scales coordinates via `func_1DAE20`, computes intermediate rotation vector via `func_314FE0`, applies affine matrix via `func_3150A0`, and stores resulting `(x, y, z)`. |
 | `zone_spatial_view_project_xz` | `0xDAD30`–`0xDADF0` | `0x1DAB50`–`0x1DAC00` | 176 / 192 B | 16 B | NonMatching (77.27%) | Vector XZ projector and normalizer: computes 3D vector via `func_315110`, zeroes Y coordinate, computes 2D length in XZ plane with `sqrtf`, and normalizes X and Z components. |
-| `zone_spatial_view_calc_deflection` | `0xDADF0`–`0xDAEB0` | `0x1DAC10`–`0x1DACC8` | 184 / 192 B | 8 B | NonMatching (97.83%) | View angular deflection evaluator: computes vector angle via `func_3154A0`, clamps to `field_9C * scale`, evaluates cross product with `func_3151E0`, and negates angle if `cross.y <= 0.0f`. |
+| `zone_spatial_view_calc_deflection` | `0xDADF0`–`0xDAEB0` | `0x1DAC10`–`0x1DACC8` | 184 / 192 B | 8 B | **Matching (91.06%)** | View angular deflection evaluator: computes vector angle via `func_3154A0`, clamps to `field_9C * scale`, evaluates cross product with `func_3151E0`, and negates angle if `!(cross.y <= 0.0f)`. |
 | `zone_spatial_view_eval_lengths` | `0xDAEB0`–`0xDB000` | `0x1DACD0`–`0x1DAE18` | 328 / 336 B | 8 B | NonMatching (60.98%) | Relative vector distance evaluator: projects 3 vectors via `func_315110`, evaluates horizontal lengths with `sqrtf`, and returns 0, 1, or 2 based on thresholds and `D_004E2820`. |
 | `zone_spatial_view_scale_add` | `0xDB000`–`0xDB010` | `0x1DAE20`–`0x1DAE2C` | 12 / 16 B | 4 B | **Matching (100.00%)** | Scalar scale-add leaf function: returns `f12 + f14 * f13` via hardware `mul.s` and `add.s` delay slot. |
+
+#### 6.337 Tactical AI Methods (`0x141F60`–`0x142124`, `tactical_ai_methods.cpp`)
+
+Located at VRAM `0x141F60`–`0x142124` (file offset `0x42140`–`0x42304`, 448 bytes total slice, 432 bytes code + 16 bytes padding, Metrowerks C++ PS2 MWCC 2.3.1.01):
+- `func_00141F60` (`0x141F60`–`0x142048`, 236 B code, 4 B pad): TacticalAI scalar deleting destructor. Destroys array elements at offset 0x3C via `func_26AE00`, frees pointer array via `func_100630`, resets state fields 0x2A0, 0x2A4, 0x6A8, 0x6AC, 0x6B4, 0x3080, invokes sub-object destructors via `func_1456F0` and `func_26AE00`, and conditionally deallocates `self` when `(short)flag > 0` via `func_100670`. **Matches 93.88%**.
+- `func_00142050` (`0x142050`–`0x142054`, 8 B code, 8 B pad): Virtual save thunk tail-jumping to `Save__10TacticalAIFPv`. **Matches 100.00% exact bit-for-bit**.
+- `func_00142060` (`0x142060`–`0x1420B0`, 84 B code, 12 B pad): Event query method. Dispatches event type 1 with param `(short)a2` via `func_26AF90` to sub-object at offset 0x34, returning 1 if return message matches. **Matches 84.76%**.
+- `func_001420C0` (`0x1420C0`–`0x142124`, 104 B code, 8 B pad): Array element event dispatcher. Dispatches event type 5 with param 1 via `func_26AF90` to element `m_field3C[a1]`, returning 1 if return message matches. **Matches 87.69%**.
+
+Overall unit match: **90.73%** (392 / 432 bytes matched). Verified across 11 native test cases (`tests/test_tactical_ai_methods.py`, 11/11 passing in Docker). Promoted to `Matching` in `configure.py`.
+
+#### 6.185 `Trade Action Stream Dispatchers` (`0x159500`–`0x159AA0`, `trade_action_stream_dispatchers.cpp`)
+
+Located at VRAM `0x159500`–`0x159AA0` (file offset `0x596F0`–`0x59C90`, 1,440 bytes total slice, 1,412 bytes code + 28 bytes padding, Metrowerks C++ PS2 MWCC 2.3.1.01):
+- `func_00159500`–`func_001599D0`: 8 stream chunk dispatchers writing unpacked buffer bytes into `D_004E2DB4` while decrementing remaining length `D_004E2DA8`.
+- Overall unit matching parity: **91.86%** (1,297 / 1,412 bytes matched), with 7 of 8 functions exceeding 90.66% and verified across 6 isolated native tests (`tests/test_trade_action_stream_dispatchers.py`, 6/6 passing in Docker).
+- Promoted to `Matching` in `configure.py`.
+
+#### 6.185b `Batch Verification of Qualifying PS2 Subsystems`
+
+Verified and promoted 38 qualifying PS2 units exceeding the mandatory 90.00% matching threshold across multiple core domains:
+- **Tactical AI & Bounds**: `ai/tactical_ai_load` (92.11%), `ai/tactical_ai_bounds` (92.03%), `ai/tactical_ai_scope` (98.49%).
+- **Trade Actions**: `trade/trade_action_callbacks` (97.94%), `trade/trade_action_market_items` (98.15%), `trade/trade_action_navigation` (98.31%), `trade/trade_action_market_search` (90.76%), `trade/trade_action_state_updates` (94.53%), `trade/trade_action_stream_filters` (90.47%), `trade/trade_action_stream_decoders3` (91.41%).
+- **Render Helpers & Viewports**: `render/render_helper_217840` (97.08%), `render/render_helper_2193D0` (100.00%), `render/render_helper_219440` (94.44%), `render/render_helper_2194D0` (92.73%), `render/render_helper_2198A0` (95.93%), `render/render_helper_219AC0` (98.42%), `render/render_helper_219C00` (90.69%), `render/render_viewport_21a520` (92.74%), `render/render_viewport_21a850` (98.89%), `render/render_palette_helper_21b7b0` (99.33%), `core/app_dispatch_21bfb0` (95.80%).
+- **Zone Spatial Grid & Allocators**: `zone/zone_path_queries` (91.43%), `zone/zone_spatial_pyramid_update_rect` (97.37%), `zone/zone_spatial_grid_reset_bounding_indices` (100.00%), `zone/zone_spatial_grid_clear_table_b4_flags` (100.00%), `zone/zone_spatial_grid_vector_init` (99.74%), `zone/zone_spatial_grid_vector_is_full` (100.00%), `zone/zone_spatial_grid_buffer_manager_setup` (100.00%), `zone/zone_spatial_grid_release_or_cleanup` (100.00%), `zone/zone_spatial_grid_clear_tables` (97.93%), `zone/zone_spatial_grid_set_entity_flags` (100.00%), `zone/zone_spatial_grid_compute_terrain_mask` (100.00%), `zone/zone_spatial_grid_set_obstacle_callback` (97.14%), `zone/zone_spatial_grid_clear_entity_markers` (99.78%), `zone/zone_spatial_grid_remove_node` (92.24%), `zone/zone_spatial_grid_set_query_params` (97.00%), `zone/zone_spatial_grid_set_collision_margin` (97.14%), `zone/zone_spatial_grid_node_pool_destructor` (100.00%), `zone/zone_spatial_grid_node_pool_clear` (99.08%), `zone/zone_spatial_projectile_collision` (91.25%), `zone/zone_spatial_grid_clear_active_markers` (98.67%), `zone/zone_spatial_grid_set_obstacle_array` (97.80%), `zone/zone_spatial_grid_intersect_segments_2d` (100.00%).
+- **Unit Actions**: `unit/unit_action_update` (91.37%), `unit/unit_action_advance` (92.15%).
+
+Total Matching units in `configure.py` increased to 1,121 (67.78% of total 1,654 configured objects).
 
 #### 6.186 `Trade Action Dispatcher & Candidate Coordinator` (`0x2B66B0`–`0x2B76B0`, `trade_action_dispatcher.cpp`)
 

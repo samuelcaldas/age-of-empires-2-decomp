@@ -64,8 +64,10 @@ void func_0014C110(TradeAction *self, int mode, int *results, int *p_count, int 
                 if (v0->m_field39 >= 3) {
                     continue;
                 }
-                if (mode != -1 && *(int*)((char*)v0->m_game + 2976) != mode) {
-                    continue;
+                if (mode != -1) {
+                    if (*(int*)((char*)v0->m_game + 0xBA0) != mode) {
+                        continue;
+                    }
                 }
 
                 if (s0 == 3) {

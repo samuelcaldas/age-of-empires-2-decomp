@@ -56,6 +56,7 @@ static void reset_mocks() {
     mock_219990_ret = 1;
 
     vtable[0x124 / 4] = (void *)mock_method_124;
+    vtable[71] = (void *)mock_method_124;
 }
 
 void test_case_method124_fails() {

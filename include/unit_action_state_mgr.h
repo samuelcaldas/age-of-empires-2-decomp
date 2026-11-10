@@ -10,7 +10,7 @@ extern "C" {
     void func_26AD30(void *action, int flag);
     void func_26AD60(void *action, int flag);
 
-    void func_0026A460(void *action, float x, float y);
+    void func_0026A460(void *action);
     void func_0026A540(void *action, int flag);
     void func_0026A680(void *action, unsigned char frame);
 }

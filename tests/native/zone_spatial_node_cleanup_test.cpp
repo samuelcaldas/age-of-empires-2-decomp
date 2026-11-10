@@ -9,8 +9,9 @@ void func_001D7B20(void *self);
 
 static int g_func_1d1fb0_calls = 0;
 static int g_func_100630_calls = 0;
+void *D_4E3244 = nullptr;
 
-void *func_1D1FB0(void *pyramid, int flag) {
+void *func_001D1FB0(void *pyramid, int flag) {
     g_func_1d1fb0_calls++;
     assert(flag == 1);
     return pyramid;
@@ -21,6 +22,9 @@ void func_100630(void *ptr) {
 }
 
 void func_1EE700(void *mgr, void *code, int flag) {
+}
+
+void func_001D7E70(void) {
 }
 }
 

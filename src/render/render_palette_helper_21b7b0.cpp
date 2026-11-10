@@ -24,11 +24,13 @@ int func_0021B7B0(void *manager, int unused, void *palette_src, void **out_slot)
 
 void *func_0021B830(void *manager) {
     char *viewport = (char *)manager;
-    for (int i = 0; i < 6; i++) {
+    int i = 0;
+    while (i < 6) {
         if (*(int *)viewport == 0) {
             *(int *)viewport = 1;
             return viewport;
         }
+        i++;
         viewport += 0xA8;
     }
     return 0;

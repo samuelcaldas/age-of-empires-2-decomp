@@ -42,6 +42,138 @@ segments:
     type: bin
     start: 0x1e0
   # Identified Metrowerks MSL runtime routines. These are library references, not matched objects.
+  - name: func_00100100
+    type: code
+    start: 0x2e0
+    vram: 0x100100
+    subsegments:
+      - [0x2e0, asm, kcet/func_00100100]
+  - name: func_00100120
+    type: code
+    start: 0x300
+    vram: 0x100120
+    subsegments:
+      - [0x300, asm, kcet/func_00100120]
+  - name: func_00100140
+    type: code
+    start: 0x320
+    vram: 0x100140
+    subsegments:
+      - [0x320, asm, kcet/func_00100140]
+  - name: func_00100170
+    type: code
+    start: 0x350
+    vram: 0x100170
+    subsegments:
+      - [0x350, asm, kcet/func_00100170]
+  - name: func_00100190
+    type: code
+    start: 0x370
+    vram: 0x100190
+    subsegments:
+      - [0x370, asm, kcet/func_00100190]
+  - name: func_001001C0
+    type: code
+    start: 0x3a0
+    vram: 0x1001c0
+    subsegments:
+      - [0x3a0, asm, kcet/func_001001C0]
+  - name: func_00100270
+    type: code
+    start: 0x450
+    vram: 0x100270
+    subsegments:
+      - [0x450, asm, kcet/func_00100270]
+  - name: func_00100720
+    type: code
+    start: 0x900
+    vram: 0x100720
+    subsegments:
+      - [0x900, asm, kcet/func_00100720]
+  - name: func_00100730
+    type: code
+    start: 0x910
+    vram: 0x100730
+    subsegments:
+      - [0x910, asm, kcet/func_00100730]
+  - name: func_001007B0
+    type: code
+    start: 0x990
+    vram: 0x1007b0
+    subsegments:
+      - [0x990, asm, kcet/func_001007B0]
+  - name: func_00100840
+    type: code
+    start: 0xa20
+    vram: 0x100840
+    subsegments:
+      - [0xa20, asm, kcet/func_00100840]
+  - name: func_00100850
+    type: code
+    start: 0xa30
+    vram: 0x100850
+    subsegments:
+      - [0xa30, asm, kcet/func_00100850]
+  - name: func_00100B70
+    type: code
+    start: 0xd50
+    vram: 0x100b70
+    subsegments:
+      - [0xd50, asm, kcet/func_00100B70]
+  - name: func_00100BA0
+    type: code
+    start: 0xd80
+    vram: 0x100ba0
+    subsegments:
+      - [0xd80, asm, kcet/func_00100BA0]
+  - name: func_00100BD0
+    type: code
+    start: 0xdb0
+    vram: 0x100bd0
+    subsegments:
+      - [0xdb0, asm, kcet/func_00100BD0]
+  - name: func_00100C00
+    type: code
+    start: 0xde0
+    vram: 0x100c00
+    subsegments:
+      - [0xde0, asm, kcet/func_00100C00]
+  - name: func_00100C20
+    type: code
+    start: 0xe00
+    vram: 0x100c20
+    subsegments:
+      - [0xe00, asm, kcet/func_00100C20]
+  - name: func_00100CB0
+    type: code
+    start: 0xe90
+    vram: 0x100cb0
+    subsegments:
+      - [0xe90, asm, kcet/func_00100CB0]
+  - name: func_00100D50
+    type: code
+    start: 0xf30
+    vram: 0x100d50
+    subsegments:
+      - [0xf30, asm, kcet/func_00100D50]
+  - name: func_00101470
+    type: code
+    start: 0x1650
+    vram: 0x101470
+    subsegments:
+      - [0x1650, asm, kcet/func_00101470]
+  - name: func_00102300
+    type: code
+    start: 0x24e0
+    vram: 0x102300
+    subsegments:
+      - [0x24e0, asm, kcet/func_00102300]
+  - name: func_00102450
+    type: code
+    start: 0x2630
+    vram: 0x102450
+    subsegments:
+      - [0x2630, asm, kcet/func_00102450]
   - name: msl_integer_conversions
     type: code
     start: 0x14558
@@ -695,27 +827,27 @@ segments:
   - name: tactical_ai_node_item
     type: code
     start: 0x44620
-    vram: 0x144434
+    vram: 0x144440
     subsegments:
       - [0x44620, asm, tactical_ai_node_item]
   - name: tactical_ai_condition
     type: code
     start: 0x44730
-    vram: 0x144544
+    vram: 0x144550
     subsegments:
       - [0x44730, asm, tactical_ai_condition]
   - name: tactical_ai_param_desc
     type: code
     start: 0x44890
-    vram: 0x1446A4
+    vram: 0x1446B0
     subsegments:
       - [0x44890, asm, tactical_ai_param_desc]
   - name: tactical_ai_infantry
     type: code
-    start: 0x448DC
-    vram: 0x1446EC
+    start: 0x448E0
+    vram: 0x144700
     subsegments:
-      - [0x448DC, asm, tactical_ai_infantry]
+      - [0x448E0, asm, tactical_ai_infantry]
   - name: strategy_ai_init
     type: code
     start: 0x458BC
@@ -1012,10 +1144,10 @@ segments:
       - [0x52D00, asm, trade_action_stream_writers]
   - name: trade_action_stream_buffers
     type: code
-    start: 0x53110
-    vram: 0x152F20
+    start: 0x53120
+    vram: 0x152F30
     subsegments:
-      - [0x53110, asm, trade_action_stream_buffers]
+      - [0x53120, asm, trade_action_stream_buffers]
   - name: trade_action_stream_decoders
     type: code
     start: 0x53630
@@ -1024,10 +1156,10 @@ segments:
       - [0x53630, asm, trade_action_stream_decoders]
   - name: trade_action_stream_unpacker
     type: code
-    start: 0x53BD0
-    vram: 0x1539E0
+    start: 0x53BC0
+    vram: 0x1539D0
     subsegments:
-      - [0x53BD0, asm, trade_action_stream_unpacker]
+      - [0x53BC0, asm, trade_action_stream_unpacker]
   - name: trade_action_stream_handlers
     type: code
     start: 0x540E0
@@ -3236,10 +3368,10 @@ segments:
       - [0xDB9D0, asm, zone_cursor_controller_timer_tick]
   - name: zone_cursor_controller_render_sprite
     type: code
-    start: 0xDBA60
+    start: 0xDBA70
     vram: 0x1DB890
     subsegments:
-      - [0xDBA60, asm, zone_cursor_controller_render_sprite]
+      - [0xDBA70, asm, zone_cursor_controller_render_sprite]
   - name: zone_cursor_controller_reset_global
     type: code
     start: 0xDBD50
@@ -3966,12 +4098,6 @@ segments:
     vram: 0x1E62A0
     subsegments:
       - [0xE6470, asm, zone_spatial_grid_zero_vector3]
-  - name: zone_spatial_grid_identity_helper
-    type: code
-    start: 0xE6480
-    vram: 0x1E62B0
-    subsegments:
-      - [0xE6480, asm, zone_spatial_grid_identity_helper]
   - name: zone_spatial_grid_reset_destructor
     type: code
     start: 0xE6490
@@ -4713,9 +4839,36 @@ segments:
     vram: 0x217930
     subsegments:
       - [0x117B10, asm, render/render_helper_217930]
-  - name: post_217930
-    type: bin
+  - name: render_helper_217A10
+    type: code
     start: 0x117BF0
+    vram: 0x217A10
+    subsegments:
+      - [0x117BF0, asm, render/render_helper_217A10]
+  - name: render_helper_217B50
+    type: code
+    start: 0x117D30
+    vram: 0x217B50
+    subsegments:
+      - [0x117D30, asm, render/render_helper_217B50]
+  - name: render_helper_217DD0
+    type: code
+    start: 0x117FB0
+    vram: 0x217DD0
+    subsegments:
+      - [0x117FB0, asm, render/render_helper_217DD0]
+  - name: render_helper_217EC0
+    type: code
+    start: 0x1180A0
+    vram: 0x217EC0
+    subsegments:
+      - [0x1180A0, asm, render/render_helper_217EC0]
+  - name: render_helper_218100
+    type: code
+    start: 0x1182E0
+    vram: 0x218100
+    subsegments:
+      - [0x1182E0, asm, render/render_helper_218100]
   - name: render_helper_2181F0
     type: code
     start: 0x1183D0
@@ -4991,9 +5144,51 @@ segments:
     vram: 0x21CD20
     subsegments:
       - [0x11CF00, asm, render/render_packet_builder_21cd20]
-  - name: post_21CD20
-    type: bin
+  - name: render_packet_builder_21cfb0
+    type: code
     start: 0x11D190
+    vram: 0x21CFB0
+    subsegments:
+      - [0x11D190, asm, render/render_packet_builder_21cfb0]
+  - name: render_packet_builder_21d2c0
+    type: code
+    start: 0x11D4A0
+    vram: 0x21D2C0
+    subsegments:
+      - [0x11D4A0, asm, render/render_packet_builder_21d2c0]
+  - name: post_21D2C0
+    type: bin
+    start: 0x11D6D0
+  - name: render_packet_builder_21de90
+    type: code
+    start: 0x11E070
+    vram: 0x21DE90
+    subsegments:
+      - [0x11E070, asm, render/render_packet_builder_21de90]
+  - name: render_helper_21df50
+    type: code
+    start: 0x11E130
+    vram: 0x21DF50
+    subsegments:
+      - [0x11E130, asm, render/render_helper_21df50]
+  - name: post_21DF50
+    type: bin
+    start: 0x11E270
+  - name: render_helper_21e350
+    type: code
+    start: 0x11E530
+    vram: 0x21E350
+    subsegments:
+      - [0x11E530, asm, render/render_helper_21e350]
+  - name: render_viewport_21e370
+    type: code
+    start: 0x11E550
+    vram: 0x21E370
+    subsegments:
+      - [0x11E550, asm, render/render_viewport_21e370]
+  - name: post_21E370
+    type: bin
+    start: 0x11E6E0
   - name: render_font_context
     type: code
     start: 0x1200A0
@@ -5153,12 +5348,15 @@ segments:
     vram: 0x221A40
     subsegments:
       - [0x121C20, asm, kcet/kt_gs_init_221a40]
-  - name: kt_gs_render_221b60
+  - name: render_packet_builder_221b60
     type: code
     start: 0x121D40
     vram: 0x221B60
     subsegments:
-      - [0x121D40, asm, kcet/kt_gs_render_221b60]
+      - [0x121D40, asm, render/render_packet_builder_221b60]
+  - name: post_221B60
+    type: bin
+    start: 0x121DE0
   - name: kt_gs_packet_221c30
     type: code
     start: 0x121E10
@@ -8666,18 +8864,54 @@ segments:
     vram: 0x3394B0
     subsegments:
       - [0x239690, asm, network/network_utf16_length_3394b0]
-  - name: bin_3394e0_340370
+  - name: bin_3394e0_33daf0
     type: bin
     start: 0x2396C0
+  - name: memory_card_screen
+    type: code
+    start: 0x23DCD0
+    vram: 0x33DAF0
+    subsegments:
+      - [0x23DCD0, asm, ui/memory_card_screen_33daf0]
+      - [0x23E0B0, asm, ui/memory_card_screen_33ded0]
+      - [0x23E140, asm, ui/memory_card_screen_33df60]
+      - [0x23E230, asm, ui/memory_card_screen_33e050]
+      - [0x23E2E0, asm, ui/memory_card_screen_33e100]
+      - [0x23E340, asm, ui/memory_card_screen_33e160]
+      - [0x23E4D0, asm, ui/memory_card_screen_33e2f0]
+      - [0x23E6E0, asm, ui/memory_card_screen_33e500]
+      - [0x23E770, asm, ui/memory_card_screen_33e590]
+      - [0x23E990, asm, ui/memory_card_screen_33e7b0]
+      - [0x23EC10, asm, ui/memory_card_screen_33ea30]
+      - [0x23EE30, asm, ui/memory_card_screen_33ec50]
+      - [0x23EE50, asm, ui/memory_card_screen_33ec70]
+      - [0x23EEC0, asm, ui/memory_card_screen_33ece0]
+      - [0x23F460, asm, ui/memory_card_screen_33f280]
+      - [0x23F660, asm, ui/memory_card_screen_33f480]
+      - [0x23F6D0, asm, ui/memory_card_screen_33f4f0]
+      - [0x23F720, asm, ui/memory_card_screen_33f540]
+      - [0x23F840, asm, ui/memory_card_screen_33f660]
+      - [0x23FA00, asm, ui/memory_card_screen_33f820]
+      - [0x23FA50, asm, ui/memory_card_screen_33f870]
+      - [0x23FA80, asm, ui/memory_card_screen_33f8a0]
+      - [0x23FA90, asm, ui/memory_card_screen_33f8b0]
+      - [0x23FB70, asm, ui/memory_card_screen_33f990]
+      - [0x23FBB0, asm, ui/memory_card_screen_33f9d0]
+      - [0x240270, asm, ui/memory_card_screen_340090]
   - name: tactical_ai_destructors_340370
     type: code
     start: 0x240550
     vram: 0x340370
     subsegments:
       - [0x240550, asm, tactical_ai_destructors_340370]
-  - name: bin_340490_3409c0
-    type: bin
+  - name: memory_card_dialog_340490
+    type: code
     start: 0x240670
+    vram: 0x340490
+    subsegments:
+      - [0x240670, asm, ui/memory_card_dialog_340490]
+      - [0x2409D0, asm, ui/memory_card_dialog_3407f0]
+      - [0x240B10, asm, ui/memory_card_dialog_340930]
   - name: tactical_ai_dispatch_3409c0
     type: code
     start: 0x240BA0
@@ -8733,135 +8967,3 @@ segments:
   - [0x3e31c0]
 
 
-  - name: func_00100100
-    type: code
-    start: 0x2e0
-    vram: 0x100100
-    subsegments:
-      - [0x2e0, asm, kcet/func_00100100]
-  - name: func_00100120
-    type: code
-    start: 0x300
-    vram: 0x100120
-    subsegments:
-      - [0x300, asm, kcet/func_00100120]
-  - name: func_00100140
-    type: code
-    start: 0x320
-    vram: 0x100140
-    subsegments:
-      - [0x320, asm, kcet/func_00100140]
-  - name: func_00100170
-    type: code
-    start: 0x350
-    vram: 0x100170
-    subsegments:
-      - [0x350, asm, kcet/func_00100170]
-  - name: func_00100190
-    type: code
-    start: 0x370
-    vram: 0x100190
-    subsegments:
-      - [0x370, asm, kcet/func_00100190]
-  - name: func_001001C0
-    type: code
-    start: 0x3a0
-    vram: 0x1001c0
-    subsegments:
-      - [0x3a0, asm, kcet/func_001001C0]
-  - name: func_00100270
-    type: code
-    start: 0x450
-    vram: 0x100270
-    subsegments:
-      - [0x450, asm, kcet/func_00100270]
-  - name: func_00100720
-    type: code
-    start: 0x900
-    vram: 0x100720
-    subsegments:
-      - [0x900, asm, kcet/func_00100720]
-  - name: func_00100730
-    type: code
-    start: 0x910
-    vram: 0x100730
-    subsegments:
-      - [0x910, asm, kcet/func_00100730]
-  - name: func_001007B0
-    type: code
-    start: 0x990
-    vram: 0x1007b0
-    subsegments:
-      - [0x990, asm, kcet/func_001007B0]
-  - name: func_00100840
-    type: code
-    start: 0xa20
-    vram: 0x100840
-    subsegments:
-      - [0xa20, asm, kcet/func_00100840]
-  - name: func_00100850
-    type: code
-    start: 0xa30
-    vram: 0x100850
-    subsegments:
-      - [0xa30, asm, kcet/func_00100850]
-  - name: func_00100B70
-    type: code
-    start: 0xd50
-    vram: 0x100b70
-    subsegments:
-      - [0xd50, asm, kcet/func_00100B70]
-  - name: func_00100BA0
-    type: code
-    start: 0xd80
-    vram: 0x100ba0
-    subsegments:
-      - [0xd80, asm, kcet/func_00100BA0]
-  - name: func_00100BD0
-    type: code
-    start: 0xdb0
-    vram: 0x100bd0
-    subsegments:
-      - [0xdb0, asm, kcet/func_00100BD0]
-  - name: func_00100C00
-    type: code
-    start: 0xde0
-    vram: 0x100c00
-    subsegments:
-      - [0xde0, asm, kcet/func_00100C00]
-  - name: func_00100C20
-    type: code
-    start: 0xe00
-    vram: 0x100c20
-    subsegments:
-      - [0xe00, asm, kcet/func_00100C20]
-  - name: func_00100CB0
-    type: code
-    start: 0xe90
-    vram: 0x100cb0
-    subsegments:
-      - [0xe90, asm, kcet/func_00100CB0]
-  - name: func_00100D50
-    type: code
-    start: 0xf30
-    vram: 0x100d50
-    subsegments:
-      - [0xf30, asm, kcet/func_00100D50]
-  - name: func_00101470
-    type: code
-    start: 0x1650
-    vram: 0x101470
-    subsegments:
-      - [0x1650, asm, kcet/func_00101470]
-  - name: func_00102300
-    type: code
-    start: 0x24e0
-    vram: 0x102300
-    subsegments:
-      - [0x24e0, asm, kcet/func_00102300]
-  - name: func_00102450
-    type: code
-    start: 0x2630
-    vram: 0x102450
-    subsegments:
-      - [0x2630, asm, kcet/func_00102450]

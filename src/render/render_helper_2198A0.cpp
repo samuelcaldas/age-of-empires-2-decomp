@@ -7,7 +7,8 @@ int func_002195A0(void *self, short arg1, void *buffer, int arg3, int arg4);
 
 int func_002198A0(void *self, short arg1, int arg2, int arg3, int arg4) {
     char buffer[256];
-    func_001F6E50(0, arg2, buffer, sizeof(buffer));
-    return func_002195A0(self, arg1, buffer, arg3, arg4);
+    void *s = self;
+    func_001F6E50((int)self, arg2, buffer, sizeof(buffer));
+    return func_002195A0(s, arg1, buffer, arg3, arg4);
 }
 }

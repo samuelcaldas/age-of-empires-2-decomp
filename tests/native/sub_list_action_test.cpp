@@ -19,12 +19,12 @@ static void *sub_list_v24_item = 0;
 static int sub_list_v42_called = 0;
 static void *sub_list_v42_other = 0;
 
-static int sub_list_v194_called = 0;
-static void *sub_list_v194_p = 0;
+static int sub_list_v196_called = 0;
+static void *sub_list_v196_p = 0;
 
-static int sub_list_v197_called = 0;
-static short sub_list_v197_action = 0;
-static void *sub_list_v197_other = 0;
+static int sub_list_v199_called = 0;
+static short sub_list_v199_action = 0;
+static void *sub_list_v199_other = 0;
 
 static int mock_method16_called = 0;
 static void *mock_method16_world = 0;
@@ -216,21 +216,21 @@ DEF_V10(18)
 
 void* SubList::v190(void*, int, int) { return 0; }
 void* SubList::v193(short) { return 0; }
-void* SubList::v194(void *p) {
-    sub_list_v194_called++;
-    sub_list_v194_p = p;
-    return 0;
-}
+void* SubList::v194(void*) { return 0; }
 void* SubList::v195() { return 0; }
-void* SubList::v196(void*) { return 0; }
-void* SubList::v197(short action_id, void *other, float, float, float) {
-    sub_list_v197_called++;
-    sub_list_v197_action = action_id;
-    sub_list_v197_other = other;
+void* SubList::v196(void *p) {
+    sub_list_v196_called++;
+    sub_list_v196_p = p;
     return 0;
 }
+void* SubList::v197() { return 0; }
 void* SubList::v198() { return 0; }
-void* SubList::v199() { return 0; }
+void* SubList::v199(short action_id, void *other, float, float, float) {
+    sub_list_v199_called++;
+    sub_list_v199_action = action_id;
+    sub_list_v199_other = other;
+    return 0;
+}
 void* SubList::v200() { return 0; }
 BaseList* SubList::v201() { return 0; }
 
@@ -283,9 +283,9 @@ static void test_sub_list_action_self_guard() {
     memset(sublist_storage, 0, sizeof(sublist_storage));
     SubList *self = new (sublist_storage) SubList();
 
-    sub_list_v197_called = 0;
+    sub_list_v199_called = 0;
     func_0013A280(self, self, 0, 0, 1.0f, 2.0f, 3.0f);
-    assert(sub_list_v197_called == 0);
+    assert(sub_list_v199_called == 0);
     printf("SUB_LIST_ACTION_TEST_0_SELF_GUARD_PASSED\n");
 }
 
@@ -318,13 +318,13 @@ static void test_sub_list_action_head_field30() {
     call_method15_ret = 1;
     base_list_head_item_ret = &head_item;
     base_list_has_items_ret = 0;
-    sub_list_v197_called = 0;
+    sub_list_v199_called = 0;
 
     void *other = (void*)0x88776655;
     func_0013A280(self, other, 0, 0, 1.0f, 2.0f, 3.0f);
-    assert(sub_list_v197_called == 1);
-    assert(sub_list_v197_action == 12);
-    assert(sub_list_v197_other == other);
+    assert(sub_list_v199_called == 1);
+    assert(sub_list_v199_action == 12);
+    assert(sub_list_v199_other == other);
     printf("SUB_LIST_ACTION_TEST_1_HEAD_FIELD30_PASSED\n");
 }
 
@@ -354,12 +354,12 @@ static void test_sub_list_action_has_items_type9() {
     base_list_head_field30_ret = 0;
     base_list_has_items_ret = 1;
     base_list_head_item_ret = &head_item;
-    sub_list_v197_called = 0;
+    sub_list_v199_called = 0;
 
     func_0013A280(self, other, 0, -1, 1.0f, 2.0f, 3.0f);
-    assert(sub_list_v197_called == 1);
-    assert(sub_list_v197_action == 9);
-    assert(sub_list_v197_other == other);
+    assert(sub_list_v199_called == 1);
+    assert(sub_list_v199_action == 9);
+    assert(sub_list_v199_other == other);
     printf("SUB_LIST_ACTION_TEST_2_HAS_ITEMS_TYPE9_PASSED\n");
 }
 
@@ -394,16 +394,16 @@ static void test_sub_list_action_create_item() {
     base_list_has_items_ret = 0;
     create_item_ret = v8_obj;
 
-    sub_list_v197_called = 0;
-    sub_list_v194_called = 0;
+    sub_list_v199_called = 0;
+    sub_list_v196_called = 0;
 
     void *other = (void*)0x88776655;
     func_0013A280(self, other, 0, 0, 1.0f, 2.0f, 3.0f);
-    assert(sub_list_v197_called == 1);
-    assert(sub_list_v197_action == 88);
-    assert(sub_list_v197_other == other);
-    assert(sub_list_v194_called == 1);
-    assert(sub_list_v194_p == v8_obj);
+    assert(sub_list_v199_called == 1);
+    assert(sub_list_v199_action == 88);
+    assert(sub_list_v199_other == other);
+    assert(sub_list_v196_called == 1);
+    assert(sub_list_v196_p == v8_obj);
     printf("SUB_LIST_ACTION_TEST_3_CREATE_ITEM_PASSED\n");
 }
 
@@ -430,14 +430,14 @@ static void test_sub_list_action_field_a4_gt_0() {
     base_list_has_items_ret = 0;
     create_item_ret = 0;
 
-    sub_list_v197_called = 0;
+    sub_list_v199_called = 0;
     sub_list_v42_called = 0;
 
     void *other = (void*)0x88776655;
     func_0013A280(self, other, 0, -1, 1.0f, 2.0f, 3.0f);
-    assert(sub_list_v197_called == 1);
-    assert(sub_list_v197_action == 1);
-    assert(sub_list_v197_other == other);
+    assert(sub_list_v199_called == 1);
+    assert(sub_list_v199_action == 1);
+    assert(sub_list_v199_other == other);
     assert(sub_list_v42_called == 1);
     assert(sub_list_v42_other == other);
     printf("SUB_LIST_ACTION_TEST_4_FIELD_A4_GT0_PASSED\n");

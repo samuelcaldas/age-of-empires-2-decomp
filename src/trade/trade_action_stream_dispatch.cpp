@@ -1,4 +1,5 @@
 #pragma exceptions off
+#include "trade_action_stream_dispatch.h"
 
 union StagingWord { unsigned char bytes[4]; int word; };
 union StagingPtr { unsigned char bytes[4]; unsigned char *ptr; int word; };
@@ -18,7 +19,7 @@ void func_001522C0(unsigned char *destination, unsigned char *source);
 void func_118de0(const char *str);
 int func_0011a498(char *buffer, const char *format, ...);
 
-void func_0017dde0(int x1, int x2, int y, int code) {
+void func_0017DDE0(int x1, int x2, int y, int code) {
     char buf1[256], buf2[256];
 
     D_004E2DA0.word = y;

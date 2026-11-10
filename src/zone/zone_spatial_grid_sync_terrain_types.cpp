@@ -15,9 +15,14 @@ struct Tile {
     char pad_06[22];
 };
 
+struct WorldMap {
+    char pad_00[0x8E8C];
+    Tile **tile_rows;
+};
+
 struct WorldObj {
     char pad_00[0x3C];
-    char *map_ptr;
+    WorldMap *map;
 };
 
 struct SpatialGrid {
@@ -31,17 +36,14 @@ struct SpatialGrid {
 };
 
 extern "C" int func_001ED9C0(SpatialGrid *self) {
-    WorldObj *world = self->world;
-    char *map = world->map_ptr;
-    Tile **tile_rows = *(Tile ***)(map + 0x8E8C);
+    int x;
+    WorldMap *map = self->world->map;
 
     for (int y = 0; y < self->height; ++y) {
-        Tile *tiles = tile_rows[y];
+        Tile *tiles = map->tile_rows[y];
         int *grid_cells = self->grid_rows[y];
-        for (int x = 0; x < self->width; ++x) {
-            unsigned char type = tiles[x].type;
-            unsigned char val = D_00392070[type];
-            grid_cells[x] = (grid_cells[x] & ~0xFF) | val;
+        for (x = 0; x < self->width; ++x) {
+            grid_cells[x] = D_00392070[tiles[x].type] | (grid_cells[x] & ~0xFF);
         }
     }
     return 1;

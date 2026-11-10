@@ -45,7 +45,7 @@ struct ActionNodeItem {
 
 struct Action {
     V_SLOT_10(0)
-    virtual void* v10(); virtual void* v11(); virtual void* v12(); virtual void* v13(); virtual void* v14(); virtual void* v15(); virtual void* v16();
+    virtual void* v10(); virtual void* v11(); virtual void* v12(); virtual void* v13(); virtual void* v14();
     virtual void* Method17(float x, float y, float z);
     virtual void* v18(); virtual void* v19();
     V_SLOT_10(2)

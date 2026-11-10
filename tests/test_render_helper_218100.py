@@ -1,4 +1,4 @@
-"""Native semantic regressions for render_helper_218100."""
+"""Native semantic regressions for render helper 218100 block."""
 
 from pathlib import Path
 import shutil
@@ -9,7 +9,14 @@ import pytest
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 CASES = [
-    ("0", "func_00218100 basic execution"),
+    ("0", "func_00218100 null field_16C delegates to func_1F6460"),
+    ("1", "func_00218100 mismatch arg1 delegates to func_1F6460"),
+    ("2", "func_00218100 match op 0 calls func_00217DD0(self, 3, 0, 1) and returns 1"),
+    ("3", "func_00218100 match op 1 calls func_00217DD0(self, 2, 0, 1) and returns 1"),
+    ("4", "func_00218100 match op 2 calls func_00217DD0(self, 5, 0, 1) and returns 1"),
+    ("5", "func_00218100 match op 3 calls func_00217DD0(self, 4, 0, 1) and returns 1"),
+    ("6", "func_00218100 match op 4 calls func_00217DD0(self, 1, arg3, 0) and returns 1"),
+    ("7", "func_00218100 match unhandled op delegates to func_1F6460"),
 ]
 
 

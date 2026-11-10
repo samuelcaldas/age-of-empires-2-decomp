@@ -1,5 +1,4 @@
 #pragma exceptions off
-
 #include "zone_spatial_entity_dispatch_config_action_10.h"
 
 struct ConfigEntity {

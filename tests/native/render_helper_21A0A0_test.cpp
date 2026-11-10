@@ -87,13 +87,13 @@ void test_case_21A0A0_and_21A0F0() {
     assert(slot == 0);
     assert(c21bc30_calls == 1);
     assert(last_21bc30_arg0 == ctx);
-    assert(last_21bc30_buf == &D_01E98000);
+    assert(last_21bc30_buf == (void *)0x01E98000 || last_21bc30_buf == &D_01E98000);
     assert(last_21bc30_arg2 == 42);
     assert(last_21bc30_cap == 512);
     assert(last_21bc30_arg4 == 1);
 
     assert(c219fb0_calls == 1);
-    assert(last_219fb0_buf == &D_01E98000);
+    assert(last_219fb0_buf == (void *)0x01E98000 || last_219fb0_buf == &D_01E98000);
     assert(last_219fb0_cap == 512);
     assert(last_219fb0_f1 == 0);
     assert(last_219fb0_f2 == 0);

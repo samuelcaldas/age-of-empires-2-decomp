@@ -40,7 +40,7 @@ def test_render_manager_display_reset_split_boundaries():
     segment = segments[index]
     assert (segment["start"], segment["vram"]) == (0x89D20, 0x189B40)
     assert segment["type"] == "code"
-    assert segment["subsegments"] == [[0x89D20, "asm", "render_manager_display_reset"]]
+    assert segment["subsegments"] == [[0x89D20, "asm", "render/render_manager_display_reset"]]
     assert segments[index + 1]["start"] == 0x89E60
     assert segments[index + 1]["vram"] == 0x189C80
 

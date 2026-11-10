@@ -7,8 +7,10 @@ extern "C" {
     extern void *D_004E3180;
 
     void *func_186010(void *global);
+void *func_00186010(void *global);
     void func_204920(void *renderer, int zero, float x, float y);
     int func_123350(float val);
+int func_00123350(float val);
     void func_204910(void *target, int tx, int ty);
 
     /**

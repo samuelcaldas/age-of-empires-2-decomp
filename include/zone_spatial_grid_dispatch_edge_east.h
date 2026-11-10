@@ -1,10 +1,10 @@
 #ifndef ZONE_SPATIAL_GRID_DISPATCH_EDGE_EAST_H
 #define ZONE_SPATIAL_GRID_DISPATCH_EDGE_EAST_H
 
-struct SpatialGrid;
+#include "zone_spatial_grid_dispatch_edge_north.h"
 
 extern "C" {
-int func_001E5630(SpatialGrid *self, void *p1, void *p2, void *p3);
+unsigned char func_001E5630(SpatialGrid *self, float *pt, int a2, float *out_pt, int *out_t0, int *out_t1);
 }
 
 #endif // ZONE_SPATIAL_GRID_DISPATCH_EDGE_EAST_H

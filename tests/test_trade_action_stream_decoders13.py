@@ -29,17 +29,11 @@ def test_slice_total_extent(decoder_code):
     assert len(decoder_code) == SLICE_SIZE
 
 
-def test_func_0015F450_near_matching(decoder_code, original_image):
-    """Verify func_0015F450 44/45 instructions (177/180B) with identical store target."""
+def test_func_0015F450_exact_bytes(decoder_code, original_image):
+    """Require exact instructions for func_0015F450 (180 bytes, 100% exact)."""
     actual = decoder_code[F450_OFFSET:F450_OFFSET + F450_SIZE]
     expected = read_original(original_image, F450_OFFSET, F450_SIZE)
-    assert len(actual) == len(expected) == F450_SIZE
-    assert sum(a == b for a, b in zip(actual, expected)) == 177
-    expected_store = struct.unpack_from("<I", expected, 0x0C)[0]
-    actual_store = struct.unpack_from("<I", actual, 0x0C)[0]
-    assert (expected_store, actual_store) == (0xA0830000, 0xA38385E0)
-    actual_target = EXTERNAL_SYMBOLS["_gp"] + struct.unpack_from("<h", actual, 0x0C)[0]
-    assert actual_target == EXTERNAL_SYMBOLS["D_004E2DA0"]
+    assert_same_code(actual, expected, START_ADDRESS + F450_OFFSET)
 
 
 def test_func_0015F450_alignment_padding(decoder_code, original_image):
@@ -49,17 +43,11 @@ def test_func_0015F450_alignment_padding(decoder_code, original_image):
     assert_same_code(actual_pad, expected_pad, START_ADDRESS + PAD1_OFFSET)
 
 
-def test_func_0015F510_near_matching(decoder_code, original_image):
-    """Verify func_0015F510 44/45 instructions (176/180B) with identical store target."""
+def test_func_0015F510_exact_bytes(decoder_code, original_image):
+    """Require exact instructions for func_0015F510 (180 bytes, 100% exact)."""
     actual = decoder_code[F510_OFFSET:F510_OFFSET + F510_SIZE]
     expected = read_original(original_image, F510_OFFSET, F510_SIZE)
-    assert len(actual) == len(expected) == F510_SIZE
-    assert sum(a == b for a, b in zip(actual, expected)) == 176
-    expected_store = struct.unpack_from("<I", expected, 0x40)[0]
-    actual_store = struct.unpack_from("<I", actual, 0x40)[0]
-    assert (expected_store, actual_store) == (0xA0A30000, 0xA38385E0)
-    actual_target = EXTERNAL_SYMBOLS["_gp"] + struct.unpack_from("<h", actual, 0x40)[0]
-    assert actual_target == EXTERNAL_SYMBOLS["D_004E2DA0"]
+    assert_same_code(actual, expected, START_ADDRESS + F510_OFFSET)
 
 
 def test_func_0015F510_alignment_padding(decoder_code, original_image):

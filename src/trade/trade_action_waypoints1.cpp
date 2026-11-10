@@ -1,5 +1,6 @@
 #pragma exceptions off
 #include "sub_list.h"
+#include "trade_action_waypoints1.h"
 
 class TargetObj {
 public:
@@ -107,13 +108,6 @@ public:
     void *m_world;
 };
 
-struct TradeAction {
-    char pad_00[0x38];
-    TargetObj *m_target;
-    char pad_3C[0x0C];
-    short m_field48;
-};
-
 extern "C" {
 void *func_332e60(void *mgr, short id);
 short func_001471B0(TradeAction *self, short cmd);
@@ -157,7 +151,7 @@ int func_0014A0D0(TradeAction *self, short target_id, int flag) {
         func_001471B0(self, 603);
         if (!obj) {
             float y = 0.0f;
-            func_14bd90(self, target_id, -1, 0.0f, y, y);
+            func_14bd90(self, target_id, -1, 0.0f, 0.0f, y);
         } else {
             void *master = *(void **)((char *)obj + 4);
             short obj_type = *(short *)((char *)master + 14);

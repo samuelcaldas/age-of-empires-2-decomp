@@ -3,79 +3,75 @@
 
 extern "C" {
 int func_001ABA00(void *arg0);
-int func_002257A0(void *arg0, int arg1);
+int func_2257A0(void *arg0, int arg1);
 int func_001ABA70(void *arg0);
 void func_002184D0(void *self);
 void func_00218820(void *self);
 
-typedef void (*VFnArg)(void *, void *);
-typedef void (*VFn)(void *);
-typedef void (*VFn5)(void *, void *, void *, void *, void *);
+struct RenderHelper218350Base {
+    virtual void v0();
+    virtual void v4();
+    virtual void v8();
+    virtual void vC();
+    virtual void v10();
+    virtual void v14();
+    virtual void v18();
+    virtual void v1C();
+    virtual void v20();
+    virtual void v24(); // 9
+    virtual void method30(int arg); // 10 -> 0x30
+    virtual void method34(); // 11 -> 0x34
+    virtual void v38(); virtual void v3C();
+    virtual void v40(); virtual void v44(); virtual void v48(); virtual void v4C();
+    virtual void v50(); virtual void v54(); virtual void v58(); virtual void v5C();
+    virtual void v60(); virtual void v64(); virtual void v68(); virtual void v6C();
+    virtual void v70(); virtual void v74(); virtual void v78(); virtual void v7C();
+    virtual void v80(); virtual void v84(); virtual void v88(); virtual void v8C();
+    virtual void v90(); virtual void v94(); virtual void v98(); virtual void v9C();
+    virtual void vA0(); virtual void vA4(); virtual void vA8(); virtual void vAC();
+    virtual void vB0(); virtual void vB4(); virtual void vB8(); virtual void vBC();
+    virtual void vC0(); virtual void vC4(); virtual void vC8(); virtual void vCC();
+    virtual void vD0(); virtual void vD4(); virtual void vD8(); virtual void vDC();
+    virtual void vE0(); virtual void vE4(); virtual void vE8(); virtual void vEC();
+    virtual void vF0(); virtual void vF4(); virtual void vF8(); virtual void vFC();
+    virtual void v100(); virtual void v104(); virtual void v108(); virtual void v10C();
+    virtual void v110(); virtual void v114(); virtual void v118(); virtual void v11C();
+    virtual void method120(void *arg1, short arg2, short arg3, int arg4); // index 70 -> 0x120
+};
 
 void func_00218350(void *self) {
     char *s4 = (char *)self;
     *(int *)(s4 + 0x38) = 0;
 
-    void *field20 = *(void **)(s4 + 0x20);
-    if (field20 == 0) {
+    if (*(void **)(s4 + 0x20) == 0 || *(void **)(s4 + 0x88) == 0 || *(void **)(s4 + 0x84) == 0) {
         return;
     }
 
-    void *field88 = *(void **)(s4 + 0x88);
-    if (field88 == 0) {
-        return;
-    }
+    RenderHelper218350Base *base = (RenderHelper218350Base *)self;
+            base->method30(0);
 
-    void *field84 = *(void **)(s4 + 0x84);
-    if (field84 == 0) {
-        return;
-    }
+            func_002184D0(self);
 
-    void **vtable = *(void ***)self;
-    VFnArg fn30 = (VFnArg)*(void **)((char *)vtable + 0x30);
-    fn30(self, 0);
+            void *s0_res = (void *)func_001ABA00(*(void **)(s4 + 0x20));
+            if (s0_res != 0) {
+                int s1_res = func_2257A0(s0_res, *(int *)(s4 + 0x12C));
 
-    func_002184D0(self);
+                short s2 = *(short *)(s4 + 0x124);
+                short s3 = 0;
 
-    void *fresh_field20 = *(void **)(s4 + 0x20);
-    void *s0_res = (void *)(unsigned long)func_001ABA00(fresh_field20);
+                for (; s2 <= *(short *)(s4 + 0x126); s2++, s3++) {
+                    if ((*(int *)(s4 + 0x8C) != 0 && *(int *)(s4 + 0x90) != 0) || *(int *)(s4 + 0x80) != 0) {
+                        base->method120(s0_res, s3, s2, 1);
+                    } else {
+                        base->method120(s0_res, s3, s2, 0);
+                    }
+                }
 
-    if (s0_res != 0) {
-        int field12C = *(int *)(s4 + 0x12C);
-        int s1_res = func_002257A0(s0_res, field12C);
-
-        short s2 = *(short *)(s4 + 0x124);
-        short s3 = 0;
-        short limit126 = *(short *)(s4 + 0x126);
-
-        while (limit126 >= s2) {
-            int flag8C = *(int *)(s4 + 0x8C);
-            int flag90 = *(int *)(s4 + 0x90);
-            int flag80 = *(int *)(s4 + 0x80);
-
-            vtable = *(void ***)self;
-            VFn5 fn120 = (VFn5)*(void **)((char *)vtable + 0x120);
-            if (flag8C != 0 && flag90 != 0) {
-                fn120(self, s0_res, (void *)(unsigned long)s3, (void *)(unsigned long)s2, (void *)1);
-            } else if (flag80 != 0) {
-                fn120(self, s0_res, (void *)(unsigned long)s3, (void *)(unsigned long)s2, (void *)0);
+                func_2257A0(s0_res, s1_res);
+                func_001ABA70(*(void **)(s4 + 0x20));
             }
 
-            s2 = (short)(s2 + 1);
-            s3 = (short)(s3 + 1);
-            limit126 = *(short *)(s4 + 0x126);
-        }
-
-        func_002257A0(s0_res, s1_res);
-
-        fresh_field20 = *(void **)(s4 + 0x20);
-        func_001ABA70(fresh_field20);
-    }
-
-    func_00218820(self);
-
-    vtable = *(void ***)self;
-    VFn fn34 = (VFn)*(void **)((char *)vtable + 0x34);
-    fn34(self);
+            func_00218820(self);
+            base->method34();
 }
 }

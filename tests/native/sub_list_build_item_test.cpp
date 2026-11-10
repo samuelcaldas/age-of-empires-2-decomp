@@ -75,6 +75,10 @@ extern "C" {
         vec_ctor_self = self;
     }
 
+    void func_100670(void *self) {
+        __vec_ctor(self);
+    }
+
     SubListBuildItem* func_0013C8E0(SubListBuildItem *self);
     void func_0013C960(SubListBuildItem *self, int p74, int a1, int a3,
                        int p78, int p7C, int p84, const char *str,

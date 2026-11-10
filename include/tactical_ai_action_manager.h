@@ -32,15 +32,15 @@ struct TacticalActionManagerObj {
 };
 
 extern "C" {
-    extern void *D_4DE780;
-    extern void *D_4DEBF0;
+    extern void *D_4DE780[];
+    extern void *D_4DEBF0[];
     extern const char D_004D1930[];
     extern void *D_004E3180;
 
     void *func_3285d0(void *self);
     void func_1a2cf0(void *self, int zero);
     void func_100670(void *ptr);
-    void func_1a34d0(void *self);
+    void func_1a34d0(void *self, int arg1);
     void func_242fc0(void *field40, int arg1);
     void func_118de0(const char *msg);
 

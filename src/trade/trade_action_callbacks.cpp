@@ -218,8 +218,8 @@ extern int D_004E3060;
 extern void *D_004E3510;
 extern int D_00F99940[];
 
-void* func_333b30(void *timer, int field64);
-void func_1BCE20(void *entity, short field24, int a2, short a3, int t0, int t1);
+void* func_333B30(void *timer, int field64);
+void func_001BCE20(void *entity, short field24, int a2, short a3, int t0, int t1);
 void* func_1AAB30();
 void func_1AAB70(void *token);
 TargetObj* func_1510D0(TradeAction *self, short field4E);
@@ -232,7 +232,7 @@ void func_00147CD0(TradeAction *self, short *param1) {
     }
 
     void *timer = *(void **)((char *)self->m_target->m_game + 0xB98);
-    void *entity = func_333b30(timer, self->m_target->m_field64);
+    void *entity = func_333B30(timer, self->m_target->m_field64);
     if (!entity) {
         return;
     }
@@ -240,7 +240,7 @@ void func_00147CD0(TradeAction *self, short *param1) {
     switch (param1[2]) {
     case 0x20F:
     case 0x1F4:
-        func_1BCE20(entity, self->m_target->m_field24, 0, param1[0], 0, 0);
+        func_001BCE20(entity, self->m_target->m_field24, 0, param1[0], 0, 0);
         break;
     }
 }

@@ -40,12 +40,13 @@ void test_case_switch_case_1() {
     reset_mocks();
     unsigned char obj[0x200];
     std::memset(obj, 0, sizeof(obj));
+    vtable[8] = reinterpret_cast<void *>(mock_vtable_28);
     vtable[10] = reinterpret_cast<void *>(mock_vtable_28);
     *reinterpret_cast<void ***>(obj) = vtable;
     *reinterpret_cast<short *>(obj + 0x124) = 10;
 
-    // case 1: adds arg2 (e.g. 5) to field 0x124, arg3 is flag (e.g. 42)
-    func_00217DD0(obj, 1, 5, 42);
+    // case 0: adds arg2 (e.g. 5) to field 0x124, arg3 is flag (e.g. 42)
+    func_00217DD0(obj, 0, 5, 42);
 
     assert(*reinterpret_cast<short *>(obj + 0x124) == 15);
     assert(helper_7B50_calls == 1);

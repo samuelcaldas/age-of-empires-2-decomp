@@ -14,8 +14,8 @@ static_assert(sizeof(TacticalActionManagerObj) == 588, "TacticalActionManagerObj
 // Mock global addresses and buffers
 static int s_dummy_vtable_ctor = 0x4DE780;
 static int s_dummy_vtable_dtor = 0x4DEBF0;
-void *D_4DE780 = &s_dummy_vtable_ctor;
-void *D_4DEBF0 = &s_dummy_vtable_dtor;
+void *D_4DE780[] = { &s_dummy_vtable_ctor };
+void *D_4DEBF0[] = { &s_dummy_vtable_dtor };
 const char D_004D1930[] = "TacticalActionManager Error Notification";
 
 static char s_global_state_buffer[1024] __attribute__((aligned(4)));
@@ -89,7 +89,8 @@ void func_100670(void *ptr) {
     s_last_self = ptr;
 }
 
-void func_1a34d0(void *self) {
+void func_1a34d0(void *self, int arg1) {
+    (void)arg1;
     record_call(CALL_PRE_NOTIFY_1A34D0);
     s_last_self = self;
     if (s_mutate_in_pre_notify && s_target_mutation_obj) {

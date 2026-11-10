@@ -21,6 +21,7 @@ void func_270F80(ActionRebind *self, int a1, int a2, int a3, int a4);
 
 extern void *D_004E3180;
 void* func_00186010(void *game);
+void func_270E30(ActionRebind *self);
 void func_00270E30(ActionRebind *self);
 void func_264450(ActionRebind *self, int a1, int a2, int a3, int a4);
 

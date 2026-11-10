@@ -32,9 +32,9 @@ static void test_calc_deflection_flag1() {
     view.field_9C = 8.0f;
 
     int v1 = 0, v2 = 0;
-    // val = 10, limit = 8 * 0.5 = 4. val > limit -> val = 4. cross.y > 0 -> return 4
+    // val = 10, limit = 8 * 0.5 = 4. val > limit -> val = 4. cross.y > 0 -> return -4
     float res = func_001DAC10(&view, &v1, &v2, 1, 0.5f);
-    assert(res == 4.0f);
+    assert(res == -4.0f);
 }
 
 static void test_calc_deflection_flag0() {
@@ -43,9 +43,9 @@ static void test_calc_deflection_flag0() {
     view.field_9C = 12.0f;
 
     int v1 = 0, v2 = 0;
-    // val = 10, limit = 12. val <= limit -> val = 10.
+    // val = 10, limit = 12. val <= limit -> val = 10. cross.y > 0 -> return -10
     float res = func_001DAC10(&view, &v1, &v2, 0, 1.0f);
-    assert(res == 10.0f);
+    assert(res == -10.0f);
 }
 
 int main(int argc, char **argv) {

@@ -1,18 +1,19 @@
 #pragma exceptions off
-
 #include "zone_tile_terrain_is_passable.h"
 
+struct Tile {
+    char pad[5];
+    unsigned char terrain;
+    char pad2[22];
+};
+
+struct ZoneTileMap {
+    char pad[0x98];
+    Tile **rows;
+    float *thresholds;
+};
+
 extern "C" int func_001D5E50(void *self, int x, int y) {
-    char *zm = (char *)self;
-    char **rows = *(char ***)(zm + 0x98);
-    char *cell = rows[y] + x * 28;
-
-    unsigned char terrain = *(unsigned char *)(cell + 5);
-    float *thresholds = *(float **)(zm + 0x9C);
-    float thresh = thresholds[terrain];
-
-    if (thresh <= 0.0f) {
-        return 0;
-    }
-    return 1;
+    ZoneTileMap *map = (ZoneTileMap *)self;
+    Tile **rows = map->rows; Tile *r = rows[y]; if (map->thresholds[r[x].terrain] > 0.0f) return 1; return 0;
 }

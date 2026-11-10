@@ -24,6 +24,7 @@ struct WorldProps {
 
 extern "C" {
     int func_123350(float val);
+    int func_00123350(float val);
 
     void func_00267750(ActionExtended *self, int prop_id, float val);
     void func_002678A0(ActionExtended *self, int prop_id, float val);

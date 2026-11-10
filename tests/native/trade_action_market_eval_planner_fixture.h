@@ -4,7 +4,7 @@
 #include <cassert>
 #include <cstddef>
 #include <cstring>
-#include "../../src/trade_action_market_eval_planner.cpp"
+#include "../../src/trade/trade_action_market_eval_planner.cpp"
 
 union TargetStorage {
     long long alignment;

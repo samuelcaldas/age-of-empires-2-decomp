@@ -17,17 +17,13 @@ struct SingleList {
     Node *head;
 };
 
-extern "C" void *func_001ED060(void *self_ptr, void *data, char flag, float fx, float fy) {
+extern "C" void func_001ED060(void *self_ptr, void *data, char flag, float fx, float fy) {
+    Node *node = (Node *)func_1143F8(1, 0x14);
     SingleList *self = (SingleList *)self_ptr;
-    Node *node = (Node *)func_1143F8(1, sizeof(Node));
-    if (node == 0) {
-        return 0;
-    }
-    node->data = data;
     node->next = self->head;
+    node->data = data;
     node->fx = fx;
     node->fy = fy;
     node->flag = flag;
     self->head = node;
-    return node;
 }

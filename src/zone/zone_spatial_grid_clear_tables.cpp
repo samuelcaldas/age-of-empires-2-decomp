@@ -76,9 +76,9 @@ extern "C" void func_001ED200(SpatialGridTables *self) {
     self->field_12B580 = 0;
     self->field_12B570 = 0;
 
-    func_1EE850(self, 0, 0, 0);
+    func_001EE850(self, 0, 0, 0);
     func_1EE8C0(self, 0, 0, 0);
-    func_1EE8F0(self, 0, 0.0f);
+    func_001EE8F0(self, 0, 0.0f);
 
     self->field_12B5AC = 0;
     self->field_12B5A4 = 0;

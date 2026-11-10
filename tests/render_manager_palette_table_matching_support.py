@@ -24,6 +24,7 @@ CALLEES = {
     "func_226D90": 0x226D90,
     "func_100730": 0x100730,
     "func_21BC30": 0x21BC30,
+    "func_0021BC30": 0x21BC30,
     "func_117AF8": 0x117AF8,
     "func_1AE350": 0x1AE350,
     "func_00189260": 0x189260,

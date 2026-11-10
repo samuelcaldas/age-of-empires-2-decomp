@@ -80,6 +80,8 @@ extern "C" {
     void* func_001510D0(void *self);
     int func_001471A0(void *arg);
     int func_1AAB30();
+    extern int D_00F99930[];
+    extern int *D_00F99910[];
     extern float D_004E2824;
 
     int func_0014B310(TradeAction *self, int a1, int a2);

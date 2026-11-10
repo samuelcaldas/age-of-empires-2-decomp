@@ -68,7 +68,11 @@ _Static_assert(offsetof(KT_MOUSE_PORT, events) == 0x20, "KT_MOUSE_PORT events of
 typedef struct KT_MOUSE_WORK {
     s32 handle;                 /* +0x00: semaphore handle */
     s32 count;                  /* +0x04: n_mouse (<= 2) */
+#if defined(__LP64__)
+    u32 buffer;                 /* +0x08: pointer/GuestAddr to port buffer (D_509F00) */
+#else
     char *buffer;               /* +0x08: pointer to port buffer (D_509F00) */
+#endif
     s32 flag;                   /* +0x0C */
 } KT_MOUSE_WORK;
 _Static_assert(sizeof(KT_MOUSE_WORK) == 16, "KT_MOUSE_WORK size must be 0x10 bytes");

@@ -156,13 +156,13 @@ extern const char D_4910D8[];
 extern const char D_4910E8[];
 extern const char D_4910F8[];
 
-void func_14bce0(TradeAction *self);
+void func_0014BCE0(TradeAction *self);
 float func_269190(TargetObj *t, float x, float y, float z);
 short func_001471B0(TradeAction *self, short cmd);
 void *func_332e60(void *mgr, int id);
-void *func_333b30(void *mgr, int id);
-int func_1bbe40(void *timer, int a1);
-void func_1b95b0(void *timer, short target_action, int target_id);
+void *func_333B30(void *mgr, int id);
+int func_1BBE40(void *timer, int a1);
+void func_001B95B0(void *timer, short target_action, int target_id);
 
 void func_0014C7E0(TradeAction *self, unsigned char state) {
     self->m_state = state;
@@ -171,7 +171,7 @@ void func_0014C7E0(TradeAction *self, unsigned char state) {
     if (self->m_state == 3) {
         if (self->m_field44 == 700 || self->m_field48 == 600) {
             self->Method5C(1);
-            func_14bce0(self);
+            func_0014BCE0(self);
         }
     }
 }
@@ -190,18 +190,21 @@ int func_0014C870(TradeAction *self) {
 }
 
 const char *func_0014C910(TradeAction *self, int stance) {
-    if (stance == 3) goto L3;
-    if (stance == 2) goto L2;
-    if (stance == 1) goto L1;
-    if (stance == 0) goto L0;
-    goto L_def;
-
-L0: return D_4910C0;
-L1: return D_4910D0;
-L2: return D_4910D8;
-L3: return D_4910E8;
-L_def: return D_4910F8;
+    switch (stance) {
+    case 0:
+        return D_4910C0;
+    case 1:
+        return D_4910D0;
+    case 2:
+        return D_4910D8;
+    case 3:
+        return D_4910E8;
+    default:
+        return D_4910F8;
+    }
 }
+
+
 
 int func_0014C990(TradeAction *self, int target_id) {
     void *game = D_004E3180;
@@ -215,16 +218,16 @@ L_ok:
     if (self->m_target->m_timer_id != -1) {
         void *world = self->m_target->m_world;
         void *game_mgr = *(void **)((char *)world + 2968);
-        void *timer_obj = func_333b30(game_mgr, self->m_target->m_timer_id);
+        void *timer_obj = func_333B30(game_mgr, self->m_target->m_timer_id);
         if (timer_obj) {
-            if (func_1bbe40(timer_obj, 1) == 0) {
+            if (func_1BBE40(timer_obj, 1) == 0) {
                 return 0;
             }
             if (*(int *)((char *)timer_obj + 236) != 0) goto L_call;
             return 1;
 
         L_call:
-            func_1b95b0(timer_obj, self->m_target->m_action, target_id);
+            func_001B95B0(timer_obj, self->m_target->m_action, target_id);
             return 1;
         }
     }

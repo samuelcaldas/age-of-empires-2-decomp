@@ -76,10 +76,66 @@ static void test_filter_cell_items_flow() {
     *reinterpret_cast<void ***>(cell + 0x14) = items;
 
     // Call with filter_mode = 0
+    D_004E33F4 = 0x1234;
     func_001D1150(nullptr, cell, nullptr, nullptr, nullptr, nullptr, 0);
 
-    assert(g_func_326a80_calls == 1);
+    assert(D_004E33F4 == 0x1234);
+    assert(g_func_326a80_calls == 2);
     assert(g_method6_calls == 1);
+}
+
+static void test_filter_mode_f_dispatches_type_below_50() {
+    reset_test_state();
+
+    DummyItemInfo info = {};
+    info.type = 40;
+    info.b57 = 0;
+
+    char dummy_player[0x1000] = {};
+    *reinterpret_cast<int *>(dummy_player + 0xC68) = 100;
+
+    DummyItem item = {};
+    item.vtable = g_vtable;
+    item.info = &info;
+    item.player = dummy_player;
+
+    void *items[1] = {&item};
+    char cell[28];
+    std::memset(cell, 0, sizeof(cell));
+    cell[0xD] = 1;
+    *reinterpret_cast<void ***>(cell + 0x14) = items;
+
+    func_001D1150(nullptr, cell, nullptr, nullptr, nullptr, nullptr, 0xF);
+
+    assert(g_method6_calls == 1);
+    assert(g_func_326a80_calls == 0);
+}
+
+static void test_filter_mode_80_dispatches_without_flags() {
+    reset_test_state();
+
+    DummyItemInfo info = {};
+    info.type = 40;
+    info.b57 = 1;
+
+    char dummy_player[0x1000] = {};
+    *reinterpret_cast<int *>(dummy_player + 0xC68) = 100;
+
+    DummyItem item = {};
+    item.vtable = g_vtable;
+    item.info = &info;
+    item.player = dummy_player;
+
+    void *items[1] = {&item};
+    char cell[28];
+    std::memset(cell, 0, sizeof(cell));
+    cell[0xD] = 1;
+    *reinterpret_cast<void ***>(cell + 0x14) = items;
+
+    func_001D1150(nullptr, cell, nullptr, nullptr, nullptr, nullptr, 0x80);
+
+    assert(g_method6_calls == 1);
+    assert(g_func_326a80_calls == 0);
 }
 
 static void test_type_lt_50_skipped() {
@@ -87,7 +143,7 @@ static void test_type_lt_50_skipped() {
 
     DummyItemInfo info = {};
     info.type = 40; // < 50 -> skipped
-    info.attr = 0x22;
+    info.attr = 0;
 
     DummyItem item = {};
     item.vtable = g_vtable;
@@ -109,6 +165,10 @@ static void test_type_lt_50_skipped() {
 int main(int argc, char **argv) {
     if (argc > 1 && std::string(argv[1]) == "type_skip") {
         test_type_lt_50_skipped();
+    } else if (argc > 1 && std::string(argv[1]) == "filter_mode_f") {
+        test_filter_mode_f_dispatches_type_below_50();
+    } else if (argc > 1 && std::string(argv[1]) == "filter_mode_80") {
+        test_filter_mode_80_dispatches_without_flags();
     } else {
         test_filter_cell_items_flow();
         test_type_lt_50_skipped();

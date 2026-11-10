@@ -9,7 +9,7 @@ extern "C" {
 
     void func_001522C0(unsigned char *buf, unsigned char *src);
 
-    void func_001539E0();
+    void func_001539D0();
     void func_00153B30();
     void func_00153C50();
     void func_00153D90();

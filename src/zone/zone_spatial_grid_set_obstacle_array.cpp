@@ -6,7 +6,7 @@ struct SpatialGrid {
     unsigned char flag;
     char pad_85[3];
     int count;
-    void *array_ptr;
+    int array_ptr;
 };
 
 extern "C" void func_001EE860(SpatialGrid *self, int flag, int array_ptr, int count) {
@@ -18,7 +18,7 @@ extern "C" void func_001EE860(SpatialGrid *self, int flag, int array_ptr, int co
     }
     self->flag = (unsigned char)flag;
     if (flag != 0) {
-        self->array_ptr = (void *)(long)array_ptr;
+        self->array_ptr = array_ptr;
         self->count = count;
     } else {
         self->array_ptr = 0;

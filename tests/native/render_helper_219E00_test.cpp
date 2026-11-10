@@ -70,6 +70,7 @@ static void reset_mocks() {
     last_217dd0_arg3 = -1;
 
     vtable[0x28 / 4] = (void *)mock_method_28;
+    vtable[0x28 / 4 - 2] = (void *)mock_method_28;
 }
 
 void test_case_219E00_and_219F00() {

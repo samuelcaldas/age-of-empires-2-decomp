@@ -12,22 +12,25 @@ extern "C" void func_001D16D0(void *self) {
     char *zm = (char *)self;
     func_001D1560(self);
 
-    void *buf = *(void **)(zm + 0x903C);
+    char *high = zm + 0x10000;
+    void *buf = *(void **)(high - 0x6FC4);
     if (buf != 0) {
         func_00100670(buf);
-        *(void **)(zm + 0x903C) = 0;
+        *(void **)(high - 0x6FC4) = 0;
     }
 
-    for (int i = 0; i < 17; i++) {
-        void **item_slot = (void **)(zm + 0x9114 + i * 4);
+    int i = 0;
+    while (i < 17) {
+        void **item_slot = (void **)(zm + 0x111C + 0x7FF8 + i * 4);
         void *item = *item_slot;
         if (item != 0) {
             func_25DE30(item, 1);
         }
         *item_slot = 0;
+        i++;
     }
 
-    *(int *)(zm + 0x9040) = 0;
-    *(int *)(zm + 0x9044) = 0;
-    *(void **)(zm + 0x9034) = 0;
+    *(int *)(high - 0x6FC0) = 0;
+    *(int *)(high - 0x6FBC) = 0;
+    *(void **)(high - 0x6FCC) = 0;
 }

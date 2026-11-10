@@ -123,7 +123,7 @@ void func_00389900(sceCdCLOCK *prtc) {
 /* 0x00389970 : sceScfRtcDecHour (RTC Decrement Hour) */
 void func_00389970(sceCdCLOCK *prtc) {
     if (prtc == NULL) {
-        func_114320(D_4D6298, 0x190, D_4D62C0);
+        func_114320(D_4D6298, 0x18E, D_4D62C0);
     }
     if (prtc->hour == 0) {
         prtc->hour = 23;

@@ -194,9 +194,9 @@ void* SubList::v196(void *p) {
     sub_list_v196_arg = p;
     return 0;
 }
-void* SubList::v197(short, void*, float, float, float) { return 0; }
+void* SubList::v197() { return 0; }
 void* SubList::v198() { return 0; }
-void* SubList::v199() { return 0; }
+void* SubList::v199(short, void*, float, float, float) { return 0; }
 void* SubList::v200() { return 0; }
 BaseList* SubList::v201() { return 0; }
 

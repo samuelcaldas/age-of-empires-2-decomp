@@ -2,7 +2,7 @@
 
 static_assert(sizeof(void *) == 4, "native fixture requires 32-bit pointers");
 
-unsigned int D_00492570[32] = {
+unsigned int D_492570[32] = {
     1u << 0,  1u << 1,  1u << 2,  1u << 3,
     1u << 4,  1u << 5,  1u << 6,  1u << 7,
     1u << 8,  1u << 9,  1u << 10, 1u << 11,

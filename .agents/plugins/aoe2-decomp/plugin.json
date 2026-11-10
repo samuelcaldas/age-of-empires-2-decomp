@@ -1,0 +1,17 @@
+{
+  "$schema": "https://antigravity.google/schemas/v1/plugin.json",
+  "name": "aoe2-decomp",
+  "displayName": "Age of Empires II Decompilation",
+  "version": "1.0.0",
+  "description": "Matching decompilation, TDD behavioral test harness, and recomp-ready workflow for Age of Empires II (PC and PS2).",
+  "logo": "assets/logo.svg",
+  "suggestedPrompts": [
+    "Check matching compilation status with ninja and objdiff",
+    "Run behavioral native regression tests using pytest",
+    "Format decompiled structures and sidecar for recomp shim compatibility"
+  ],
+  "author": {
+    "name": "aoe2-ps2-recomp team"
+  },
+  "license": "MIT"
+}

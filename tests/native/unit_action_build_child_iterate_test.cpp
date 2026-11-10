@@ -58,12 +58,12 @@ static void mock_m31(void *c) {
     g_method31_called++;
 }
 
-static void *dummy_child_vtable[64] = {};
+static void *dummy_child_vtable[128] = {};
 
 static void init_child_vtable() {
     memset(dummy_child_vtable, 0, sizeof(dummy_child_vtable));
-    dummy_child_vtable[58] = (void*)mock_m58;
-    dummy_child_vtable[31] = (void*)mock_m31;
+    dummy_child_vtable[56] = (void*)mock_m58;
+    dummy_child_vtable[29] = (void*)mock_m31;
 }
 
 static void reset_test_state() {

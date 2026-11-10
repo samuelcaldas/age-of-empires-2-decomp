@@ -21,6 +21,8 @@ int main() {
 CASES = [
     ("filter_flow", "Filters cell items, checks flags against GP masks, dispatches render method 6"),
     ("type_skip", "When item info type is below 50, immediately skips entity processing"),
+    ("filter_mode_f", "Filter mode 0xF bypasses the item type threshold and dispatches render"),
+    ("filter_mode_80", "Filter mode 0x80 dispatches eligible non-special items without flags"),
 ]
 
 

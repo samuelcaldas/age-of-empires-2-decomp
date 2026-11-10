@@ -2,7 +2,7 @@
 #define ZONE_SPATIAL_GRID_BUFFER_MANAGER_INSERT_H
 
 extern "C" {
-int func_001ECC00(void *self, void *elem);
+int func_001ECC00(void *self, void *elem, void *arg2);
 }
 
 #endif // ZONE_SPATIAL_GRID_BUFFER_MANAGER_INSERT_H

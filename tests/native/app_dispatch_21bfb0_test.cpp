@@ -12,7 +12,7 @@ static void MockVirtualMethod3(void *self) {
 }
 
 static void test_func_0021BFB0_dispatch() {
-    void *vtable[5] = {nullptr, nullptr, nullptr, (void *)MockVirtualMethod3, nullptr};
+    void *vtable[5] = {nullptr, (void *)MockVirtualMethod3, nullptr, (void *)MockVirtualMethod3, nullptr};
     void *mock_obj[4] = {vtable, nullptr, nullptr, nullptr};
     D_004E32E4 = mock_obj;
 

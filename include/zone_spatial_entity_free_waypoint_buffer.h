@@ -4,7 +4,7 @@
 struct SpatialEntity;
 
 extern "C" {
-void func_001DEEE0(SpatialEntity *self);
+void *func_001DEEE0(SpatialEntity *self, void **out_ptr);
 }
 
 #endif // ZONE_SPATIAL_ENTITY_FREE_WAYPOINT_BUFFER_H

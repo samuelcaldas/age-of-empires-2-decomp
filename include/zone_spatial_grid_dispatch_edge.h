@@ -4,7 +4,7 @@
 struct SpatialGrid;
 
 extern "C" {
-int func_001E5460(SpatialGrid *self, void *p1, int a2, void *p3);
+unsigned char func_001E5460(SpatialGrid *self, float *p1, int a2, float *p3, int *p4, int *p5, int *p6);
 }
 
 #endif // ZONE_SPATIAL_GRID_DISPATCH_EDGE_H

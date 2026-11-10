@@ -20,10 +20,10 @@ extern "C" void func_001EE080(SpatialGrid *self) {
     MarkerNode *curr = self->marker_head;
     while (curr != 0) {
         unsigned char y = (unsigned char)curr->coord;
-        unsigned char x = (unsigned char)(curr->coord >> 8);
+        unsigned int x = (curr->coord & 0xFF00) >> 8;
         self->grid_table[y][x] ^= 0x80;
         MarkerNode *next = curr->next;
-        func_1EE780(self, curr);
+        func_001EE780(self, curr);
         self->marker_count--;
         curr = next;
     }

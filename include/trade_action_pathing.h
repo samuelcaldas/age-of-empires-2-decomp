@@ -2,8 +2,8 @@
 #define TRADE_ACTION_PATHING_H
 
 #define V_SLOT_10(base) \
-    virtual int v##base##0(); virtual int v##base##1(); virtual int v##base##2(); virtual int v##base##3(); virtual int v##base##4(); \
-    virtual int v##base##5(); virtual int v##base##6(); virtual int v##base##7(); virtual int v##base##8(); virtual int v##base##9();
+    virtual int v##base##0() = 0; virtual int v##base##1() = 0; virtual int v##base##2() = 0; virtual int v##base##3() = 0; virtual int v##base##4() = 0; \
+    virtual int v##base##5() = 0; virtual int v##base##6() = 0; virtual int v##base##7() = 0; virtual int v##base##8() = 0; virtual int v##base##9() = 0;
 
 struct TimerNode {
     char pad_00[14];
@@ -21,21 +21,21 @@ public:
     V_SLOT_10(6)  // 60-69
     V_SLOT_10(7)  // 70-79
     V_SLOT_10(8)  // 80-89
-    virtual int v90();
-    virtual int Method372(int a1);                         // offset 372 = 0x174
-    virtual int Method376(int a1);                         // offset 376 = 0x178
-    virtual int Method380(float x, float y, float z);      // offset 380 = 0x17C
-    virtual int v94();                                     // offset 384 = 0x180
-    virtual int Method388(int a1);                         // offset 388 = 0x184
-    virtual int Method392(int a1);                         // offset 392 = 0x188
-    virtual int Method396(int a1);                         // offset 396 = 0x18C
-    virtual int Method400(int a1);                         // offset 400 = 0x190
-    virtual int Method404(int a1);                         // offset 404 = 0x194
-    virtual int Method408(int a1);                         // offset 408 = 0x198
-    virtual int Method412(int a1);                         // offset 412 = 0x19C
-    virtual int Method416(int a1);                         // offset 416 = 0x1A0
-    virtual int Method420(float x, float y, float z);      // offset 420 = 0x1A4
-    virtual int Method424(float x, float y, float z);      // offset 424 = 0x1A8
+    virtual int v90() = 0;
+    virtual int Method372(int a1) = 0;                         // offset 372 = 0x174
+    virtual int Method376(int a1) = 0;                         // offset 376 = 0x178
+    virtual int Method380(float x, float y, float z) = 0;      // offset 380 = 0x17C
+    virtual int v94() = 0;                                     // offset 384 = 0x180
+    virtual int Method388(int a1) = 0;                         // offset 388 = 0x184
+    virtual int Method392(int a1) = 0;                         // offset 392 = 0x188
+    virtual int Method396(int a1) = 0;                         // offset 396 = 0x18C
+    virtual int Method400(int a1) = 0;                         // offset 400 = 0x190
+    virtual int Method404(int a1) = 0;                         // offset 404 = 0x194
+    virtual int Method408(int a1) = 0;                         // offset 408 = 0x198
+    virtual int Method412(int a1) = 0;                         // offset 412 = 0x19C
+    virtual int Method416(int a1) = 0;                         // offset 416 = 0x1A0
+    virtual int Method420(float x, float y, float z) = 0;      // offset 420 = 0x1A4
+    virtual int Method424(float x, float y, float z) = 0;      // offset 424 = 0x1A8
 
     TimerNode *m_node;             // offset 4
     void *m_game;                  // offset 8

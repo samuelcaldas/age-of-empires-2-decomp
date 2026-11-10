@@ -35,6 +35,7 @@ static void reset_mocks() {
     last_arg4 = -1;
     method_d0_return = 42;
     vtable[0xD0 / 4] = (void *)mock_method_d0;
+    vtable[50] = (void *)mock_method_d0;
 }
 
 void test_case_target_null() {

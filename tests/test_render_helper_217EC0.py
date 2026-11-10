@@ -10,7 +10,7 @@ import pytest
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 CASES = [
     ("0", "func_00217EC0 all 8 switch cases and 4-arg ABI"),
-    ("1", "func_00217EC0 guard byte returns non-zero byte"),
+    ("1", "func_00217EC0 guard byte non-zero causes early return 0"),
     ("2", "func_00217EC0 gates (obj40/flag8C) block vtable dispatch"),
 ]
 

@@ -3,6 +3,8 @@
 
 #include "unit_action_rebind.h"
 
+typedef void (*NotifyLOSFn)(void *component, void *player, void *action, float x, float y, float z);
+
 extern "C" {
     extern int *D_50A5A0[];
 

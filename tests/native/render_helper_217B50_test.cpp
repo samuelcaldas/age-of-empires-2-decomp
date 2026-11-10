@@ -99,6 +99,7 @@ void test_case_1a8_clearing_path() {
 
     unsigned char sub_obj[0x100];
     std::memset(sub_obj, 0, sizeof(sub_obj));
+    vtable[5] = reinterpret_cast<void *>(mock_vtable_1C_arg);
     vtable[7] = reinterpret_cast<void *>(mock_vtable_1C_arg);
     *reinterpret_cast<void ***>(sub_obj) = vtable;
 
@@ -126,12 +127,14 @@ void test_case_16c_mutation() {
 
     unsigned char sub_obj[0x100];
     std::memset(sub_obj, 0, sizeof(sub_obj));
+    vtable[5] = reinterpret_cast<void *>(mock_vtable_1C);
     vtable[7] = reinterpret_cast<void *>(mock_vtable_1C);
     *reinterpret_cast<void ***>(sub_obj) = vtable;
 
     unsigned char new_sub_obj[0x100];
     std::memset(new_sub_obj, 0, sizeof(new_sub_obj));
     void *new_vtable[20];
+    new_vtable[5] = reinterpret_cast<void *>(mock_vtable_1C);
     new_vtable[7] = reinterpret_cast<void *>(mock_vtable_1C);
     *reinterpret_cast<void ***>(new_sub_obj) = new_vtable;
 
@@ -160,6 +163,7 @@ void test_case_84_zero_blocks_vtable_1c() {
 
     unsigned char sub_obj[0x100];
     std::memset(sub_obj, 0, sizeof(sub_obj));
+    vtable[5] = reinterpret_cast<void *>(mock_vtable_1C);
     vtable[7] = reinterpret_cast<void *>(mock_vtable_1C);
     *reinterpret_cast<void ***>(sub_obj) = vtable;
 

@@ -8,8 +8,9 @@ struct Vector3Int {
     int z;
 };
 
-extern "C" void func_001E62A0(Vector3Int *v) {
+extern "C" Vector3Int *func_001E62A0(Vector3Int *v) {
     v->x = 0;
     v->y = 0;
     v->z = 0;
+    return v;
 }

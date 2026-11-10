@@ -5,7 +5,7 @@ struct SpatialGridState;
 
 extern "C" {
 void func_001ED160(SpatialGridState *self);
-void func_1ED1F0(SpatialGridState *self);
+void func_001ED1F0(SpatialGridState *self);
 }
 
 #endif

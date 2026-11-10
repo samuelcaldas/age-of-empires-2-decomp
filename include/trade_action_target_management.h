@@ -60,6 +60,8 @@ public:
 };
 
 extern "C" {
+    extern int D_00491024;
+
     void* func_1fd4e0(Vector3 *out, RouteObj *route, int idx);
     void func_1FC810(RouteObj *route);
     void* func_332e60(void *mgr, short id);

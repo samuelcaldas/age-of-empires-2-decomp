@@ -46,6 +46,10 @@ void func_00116F68(void *ptr) {
     std::free(ptr);
 }
 
+void func_116F68(void *ptr) {
+    func_00116F68(ptr);
+}
+
 void func_100670(void *ptr) {
     func_100670_calls++;
     std::free(ptr);
@@ -75,6 +79,7 @@ static void reset_mocks() {
     method28_calls = 0;
     last_method28_self = nullptr;
     last_method28_arg = -1;
+    vtable[8] = (void *)mock_method_28;
     vtable[0x28 / 4] = (void *)mock_method_28;
 }
 

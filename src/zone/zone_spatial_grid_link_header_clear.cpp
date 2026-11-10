@@ -17,10 +17,11 @@ struct LinkHeader {
 };
 
 extern "C" void func_001EC9F0(void *self_ptr) {
+    Node *next;
     LinkHeader *self = (LinkHeader *)self_ptr;
     Node *curr = self->head;
     while (curr != 0) {
-        Node *next = curr->next;
+        next = curr->next;
         func_116F68(curr);
         curr = next;
     }

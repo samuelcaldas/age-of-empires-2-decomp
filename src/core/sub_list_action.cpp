@@ -87,7 +87,7 @@ void func_0013A280(SubList *self, void *other, int a2, int mode, float x, float 
     if (headField30 && (int)s0 == headField30) {
         if (CallMethod15__8BaseListFv(self->m_fieldCC, other, x, y, z)) {
             ListItem *head = (ListItem*)self->m_fieldCC->GetHeadItem();
-            self->v197(head->v8(), other, x, y, z);
+            self->v199(head->v8(), other, x, y, z);
             s1 = 1;
         }
     }
@@ -100,7 +100,7 @@ void func_0013A280(SubList *self, void *other, int a2, int mode, float x, float 
                 ListItem *head3 = (ListItem*)self->m_fieldCC->GetHeadItem();
                 if (head3->Method15(other, x, y, z)) {
                     ListItem *head4 = (ListItem*)self->m_fieldCC->GetHeadItem();
-                    self->v197(head4->v8(), other, x, y, z);
+                    self->v199(head4->v8(), other, x, y, z);
                     s1 = 1;
                 }
             }
@@ -114,8 +114,8 @@ void func_0013A280(SubList *self, void *other, int a2, int mode, float x, float 
     s0 = s0 ? (SpatialObj1*)((VBaseList*)self->m_fieldCC)->CreateItem(s0, other, x, y, z) : 0;
 
     if (s0) {
-        self->v197(((SpatialObjV8*)s0)->v8(), other, x, y, z);
-        self->v194(s0);
+        self->v199(((SpatialObjV8*)s0)->v8(), other, x, y, z);
+        self->v196(s0);
         return;
     }
 
@@ -123,7 +123,7 @@ void func_0013A280(SubList *self, void *other, int a2, int mode, float x, float 
         return;
     }
 
-    self->v197(1, other, x, y, z);
+    self->v199(1, other, x, y, z);
     self->v42(other, x, y, z);
 }
 

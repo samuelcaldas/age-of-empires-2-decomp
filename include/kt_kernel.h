@@ -61,16 +61,16 @@ _Static_assert(offsetof(KtThreadParam, wakeup_count) == 44, "KtThreadParam wakeu
 
 typedef struct {
     s32 current_count;   /* 0x00 */
-    s32 max_count;       /* 0x04 */
-    s32 init_count;      /* 0x08 */
+    s32 init_count;      /* 0x04 */
+    s32 max_count;       /* 0x08 */
     s32 wait_threads;    /* 0x0C */
     u32 attr;            /* 0x10 */
     u32 option;          /* 0x14 */
 } KtSemaParam;
 _Static_assert(sizeof(KtSemaParam) == 24, "KtSemaParam size");
 _Static_assert(offsetof(KtSemaParam, current_count) == 0, "KtSemaParam current_count offset");
-_Static_assert(offsetof(KtSemaParam, max_count) == 4, "KtSemaParam max_count offset");
-_Static_assert(offsetof(KtSemaParam, init_count) == 8, "KtSemaParam init_count offset");
+_Static_assert(offsetof(KtSemaParam, init_count) == 4, "KtSemaParam init_count offset");
+_Static_assert(offsetof(KtSemaParam, max_count) == 8, "KtSemaParam max_count offset");
 _Static_assert(offsetof(KtSemaParam, wait_threads) == 12, "KtSemaParam wait_threads offset");
 _Static_assert(offsetof(KtSemaParam, attr) == 16, "KtSemaParam attr offset");
 _Static_assert(offsetof(KtSemaParam, option) == 20, "KtSemaParam option offset");

@@ -67,7 +67,7 @@ def test_render_manager_palette_table_split_boundaries():
     segment = segments[index]
     assert (segment["start"], segment["vram"]) == (0x89660, 0x189480)
     assert segment["type"] == "code"
-    assert segment["subsegments"] == [[0x89660, "asm", "render_manager_palette_table"]]
+    assert segment["subsegments"] == [[0x89660, "asm", "render/render_manager_palette_table"]]
     assert segments[index + 1]["start"] == 0x89A10
     assert segments[index + 1]["vram"] == 0x189830
 

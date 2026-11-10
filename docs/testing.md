@@ -69,3 +69,12 @@ agents, not an installed Git hook or a server-side merge restriction. A green
 suite catches covered regressions but cannot prove test-first chronology or the
 absence of untested bugs. No automatic hook, CI job, or remote branch protection
 is installed by this policy.
+
+## Per-unit ELF verification
+
+`scripts/verify_units_against_elf.py [unit ...]` links each C-built unit alone at
+its VRAM (undefined symbols resolved from `symbols.txt` and `func_/D_` hex names,
+`_gp = 0x4EA7C0`) and compares `.text` with `orig/SLES-50282/AOK.ELF`. It prints
+`MATCH`, `DIFF` or `SKIP` per unit. It sees through the `objdiff` artifact where
+`gp`-relative and `%hi/%lo` references show as mismatches although bytes are equal.
+Only `.text` is compared; jump tables and data are not covered.

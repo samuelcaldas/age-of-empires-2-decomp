@@ -4,13 +4,13 @@
 class TargetObj;
 
 extern "C" {
-extern int D_00F99940;
-extern int *D_00F99920;
+#define D_00F99940 (*(int *)0x00F99940)
+#define D_00F99920 (*(int **)0x00F99920)
 
-TargetObj* func_1510D0(void *self, int id);
+TargetObj* func_001510D0(void *self, int id);
 void* func_332e60(void *timer, int a1);
 void func_001471B0(void *self, int a1);
-void func_14bd90(void *self, int a1, short a2, float f12, float f13, float f14);
+void func_0014BD90(void *self, int a1, short a2, float f12, float f13, float f14);
 }
 
 class TargetObj {
@@ -182,7 +182,7 @@ int func_00149C20(TradeAction *self, float *s3) {
     float f20 = 0.0f;
 
     for (int s1 = 0; s1 < D_00F99940; s1++) {
-        TargetObj *v0 = func_1510D0(self, D_00F99920[s1 * 2]);
+        TargetObj *v0 = func_001510D0(self, D_00F99920[s1 * 2]);
         if (!v0) {
             continue;
         }
@@ -212,18 +212,11 @@ int func_00149D20(TradeAction *self, int a1, int a2) {
 }
 
 int func_00149D80(TradeAction *self, int a1, int a2) {
-    float f2 = (float)a1;
-    float f0 = (float)a2;
-
-    for (int v1 = 0; v1 < self->m_field134; v1++) {
-        if (self->m_posEntries[v1].x != f2) {
-            continue;
-        }
-        if (self->m_posEntries[v1].y == f0) {
+    for (int i = 0; i < self->m_field134; i++) {
+        if (self->m_posEntries[i].x == (float)a1 && self->m_posEntries[i].y == (float)a2) {
             return 1;
         }
     }
-
     return 0;
 }
 
@@ -274,14 +267,14 @@ int func_00149ED0(TradeAction *self, int a1, int a2) {
         func_001471B0(self, 0x265);
 
         if (!entity) {
-            func_14bd90(self, a1, -1, 0.0f, 0.0f, 0.0f);
+            func_0014BD90(self, a1, -1, 0.0f, 0.0f, 0.0f);
         } else {
             void *v0 = *(void **)((char *)entity + 4);
             short type = *(short *)((char *)v0 + 0xE);
             float x = *(float *)((char *)entity + 0x44);
             float y = *(float *)((char *)entity + 0x48);
             float z = *(float *)((char *)entity + 0x4C);
-            func_14bd90(self, a1, type, x, y, z);
+            func_0014BD90(self, a1, type, x, y, z);
         }
 
         return 1;

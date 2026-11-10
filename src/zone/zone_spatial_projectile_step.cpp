@@ -64,16 +64,16 @@ public:
     float vz;             // 0x78
 };
 
-extern "C" int func_001D8800(EntityMotion *self) {
+extern "C" bool func_001D8800(EntityMotion *self) {
     float new_x = self->x + self->vx;
     float new_y = self->y + self->vy;
     float new_z = self->z + self->vz;
 
-    if (new_x < 0.0f || !(new_x < (float)self->world->map->bounds->width) ||
+    if (new_x < 0.0f || new_x >= (float)self->world->map->bounds->width ||
         new_y < 0.0f || !(new_y < (float)self->world->map->bounds->height)) {
         self->OnOutOfBounds();
     }
 
     float res = self->CheckTerrain(new_x, new_y, new_z);
-    return (int)(res == self->z);
+    return res == self->z;
 }

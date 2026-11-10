@@ -3,7 +3,7 @@
 #include "zone_spatial_pyramid_update_rect.h"
 
 extern "C" {
-void func_1D2460(void *self, int level, int x, int y, void *p1, void *p2);
+void func_001D2460(void *self, int level, int x, int y, void *p1, void *p2);
 }
 
 extern "C" void func_001D2320(void *self, int x0, int y0, int x1, int y1) {
@@ -55,7 +55,7 @@ extern "C" void func_001D2320(void *self, int x0, int y0, int x1, int y1) {
 
     for (int x = s4; x <= s2; x++) {
         for (int y = s1; y <= s3; y++) {
-            func_1D2460(self, 3, x, y, &stack_7e, &stack_7f);
+            func_001D2460(self, 3, x, y, &stack_7e, &stack_7f);
         }
     }
 }

@@ -11,11 +11,15 @@ void func_001D2140(void *self);
 static int g_func_1d21b0_calls = 0;
 static std::vector<std::pair<int, int>> g_coords;
 
-int func_1D21B0(void *self, int level, int x, int y) {
+int func_001D21B0(void *self, int level, int x, int y) {
     g_func_1d21b0_calls++;
     assert(level == 3);
     g_coords.push_back({x, y});
     return 1;
+}
+
+int func_1D21B0(void *self, int level, int x, int y) {
+    return func_001D21B0(self, level, x, y);
 }
 }
 

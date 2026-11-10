@@ -1,10 +1,10 @@
 #ifndef ZONE_SPATIAL_GRID_TRACE_PATH_H
 #define ZONE_SPATIAL_GRID_TRACE_PATH_H
 
-struct SpatialGrid;
+struct GridBuffer;
 
 extern "C" {
-int func_001E5230(SpatialGrid *self, void *p1, void *p2);
+void func_001E5230(GridBuffer *self, void *point, int insert_idx, int val);
 }
 
 #endif // ZONE_SPATIAL_GRID_TRACE_PATH_H

@@ -3,5 +3,5 @@
 class EntityMotion;
 
 extern "C" {
-int func_001D8800(EntityMotion *self);
+bool func_001D8800(EntityMotion *self);
 }

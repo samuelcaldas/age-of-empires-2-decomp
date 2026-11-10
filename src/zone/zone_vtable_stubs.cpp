@@ -35,12 +35,12 @@ void func_001C97C0(void *self, unsigned char val) {
 }
 
 void func_001C97D0(void *a0, void *a1, void *a2, void *a3, void *a4, void *a5) {
-    register void *s5 = a4;
-    register void *s2 = a1;
-    register void *s4 = a5;
-    register void *s1 = a2;
-    register void *s0 = a3;
-    register void *s3 = a0;
+    void *s5 = a4;
+    void *s2 = a1;
+    void *s4 = a5;
+    void *s1 = a2;
+    void *s0 = a3;
+    void *s3 = a0;
 
     func_1C98A0(s3, s5, s4);
 

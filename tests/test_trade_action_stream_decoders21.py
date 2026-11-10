@@ -25,18 +25,11 @@ def test_slice_total_extent(decoder_code):
     assert len(decoder_code) == SLICE_SIZE
 
 
-def test_func_00162A40_near_matching(decoder_code, original_image):
-    """Verify func_00162A40 170/171 instructions (680/684B) with identical store target."""
+def test_func_00162A40_exact_bytes(decoder_code, original_image):
+    """Require exact instructions for func_00162A40 (684 bytes, 100% exact)."""
     actual = decoder_code[F2A40_OFFSET:F2A40_OFFSET + F2A40_SIZE]
     expected = read_original(original_image, F2A40_OFFSET, F2A40_SIZE)
-    assert len(actual) == len(expected) == F2A40_SIZE
-    assert sum(a == b for a, b in zip(actual, expected)) == 680
-    assert (struct.unpack_from("<I", expected, 0x14)[0],
-            struct.unpack_from("<I", actual, 0x14)[0]) == (0xA0620000, 0xA38285E0)
-    orig_target = (EXTERNAL_SYMBOLS["_gp"] + struct.unpack_from("<h", expected, 0x0C)[0]
-                   + struct.unpack_from("<h", expected, 0x14)[0])
-    actual_target = EXTERNAL_SYMBOLS["_gp"] + struct.unpack_from("<h", actual, 0x14)[0]
-    assert orig_target == actual_target == EXTERNAL_SYMBOLS["D_004E2DA0"]
+    assert_same_code(actual, expected, START_ADDRESS + F2A40_OFFSET)
 
 
 def test_func_00162A40_alignment_padding(decoder_code, original_image):

@@ -3,15 +3,16 @@
 
 union Buffer4 {
     unsigned char b[4];
+    unsigned char bytes[4];
     int w;
+    int word;
     unsigned int u;
 };
 
 extern "C" {
+    extern Buffer4 D_004E2DA0;
     extern unsigned char *D_004E2DB0;
     extern unsigned char *D_004E2DB4;
-    extern int D_004E2DA8;
-    extern Buffer4 D_004E2DA0;
     extern int D_004E30A8;
     extern int D_004E30AC;
 

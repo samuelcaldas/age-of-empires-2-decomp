@@ -46,6 +46,13 @@ def test_size_cap_cuts_at_last_return_seen():
     assert ralph_slice.find_function_size(code, 0, max_size=0x10) == 0xC
 
 
+def test_tail_call_to_earlier_code_ends_function_after_delay_slot():
+    # base 0x100020: the function starts at 0x100020 and ends in `j 0x100000` (earlier code).
+    tail_call = (0x02 << 26) | ((0x100000 >> 2) & 0x3FFFFFF)
+    code = words(ADDIU_V0, tail_call, NOP)
+    assert ralph_slice.find_function_size(code, 0, max_size=0x800, base=0x100020) == 0xC
+
+
 def test_missing_return_within_buffer_is_an_error():
     with pytest.raises(ralph_slice.SliceBoundaryError):
         ralph_slice.find_function_size(words(ADDIU_V0, ADDIU_V0), 0, max_size=0x800)
@@ -505,3 +512,36 @@ def test_function_with_no_return_anywhere_still_raises():
     code = words(PROLOGUE, *([ADDIU_V0] * 0x700))
     with pytest.raises(ralph_slice.SliceBoundaryError):
         ralph_slice.next_slice(code, 0x100000, [], max_size=0x800)
+
+
+QUOTA_LOG = (
+    "error: Your AI credits balance is too low to continue.\n"
+    'AGY_ERROR: {"short_error":"RESOURCE_EXHAUSTED (code 429): Resource has been exhausted (e.g. check quota).",'
+    '"status":"RESOURCE_EXHAUSTED","error_code":429}\n'
+)
+
+
+def test_quota_exhaustion_is_detected_from_agent_log():
+    assert ralph_slice.is_agent_unavailable(QUOTA_LOG) is True
+
+
+def test_ordinary_agent_failure_is_not_agent_unavailable():
+    assert ralph_slice.is_agent_unavailable("agent crashed: segmentation fault\n") is False
+
+
+def test_cli_fatal_check_returns_zero_on_quota_and_one_otherwise(tmp_path, capsys):
+    log = tmp_path / "agent.log"
+    parser = ralph_slice.build_parser()
+    log.write_text(QUOTA_LOG)
+    args = parser.parse_args(["fatal-check", "--log", str(log)])
+    assert args.handler(args) == 0
+    log.write_text("ok\n")
+    args = parser.parse_args(["fatal-check", "--log", str(log)])
+    assert args.handler(args) == 1
+
+
+INVALID_MODEL_LOG = 'error: invalid model selection (--model "" --effort "high"): --effort is not supported for the current model\n'
+
+
+def test_invalid_model_selection_is_agent_unavailable():
+    assert ralph_slice.is_agent_unavailable(INVALID_MODEL_LOG) is True

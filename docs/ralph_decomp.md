@@ -14,6 +14,7 @@ Prompt delivery: `agy --print "<prompt>"`, `codex exec -` (stdin), `claude -p` (
 |---|---|---|
 | `AGENT` | `agy` | Agent CLI |
 | `RALPH_MODEL` | CLI default | Model override |
+| `RALPH_EFFORT` | empty | agy `--effort` level; leave empty when the model name already sets it (e.g. `gemini-3.8-flash-low`) |
 | `RALPH_MIN_PCT` | 90 | Similarity needed to advance |
 | `RALPH_MAX_ATTEMPTS` | 5 | Attempts per slice per pass |
 | `RALPH_MAX_SLICE` | 0x800 | Max slice size |
@@ -29,7 +30,12 @@ Gate: 100% → promote + commit. 90–99% → stays in `staging/`, status `parti
 uncovered function, partial, or blocked slice remains. Partial/blocked slices are revisited after new ones run out.
 
 Slicing (`scripts/ralph_slice.py`): first function not covered by sized `type:func` entries in `symbols.txt` or by loop state;
-NOP padding skipped; ends at `jr $ra` + delay slot once all forward branch targets are resolved.
+NOP padding skipped; ends at `jr $ra` + delay slot once all forward branch targets are resolved, or at a `j` tail call
+to code before the function start + delay slot.
+
+Environment failures: when the agent log reports `RESOURCE_EXHAUSTED`, `credits balance is too low`, or
+`invalid model selection` (`ralph_slice.py fatal-check`), the loop stops with exit 3 and a message. The slice is not
+recorded in `state.json`, so rerunning after the cause is fixed resumes it. These failures never mark slices `blocked`.
 
 ## Helper commands (`scripts/ralph_slice.py`)
 

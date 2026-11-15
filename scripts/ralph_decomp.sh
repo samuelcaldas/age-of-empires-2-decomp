@@ -10,6 +10,7 @@ cd "$ROOT"
 
 AGENT="${AGENT:-agy}"
 RALPH_MODEL="${RALPH_MODEL:-}"
+RALPH_EFFORT="${RALPH_EFFORT:-}"              # agy only; empty = no --effort flag (agy rejects it with some models)
 RALPH_MIN_PCT="${RALPH_MIN_PCT:-90}"
 RALPH_MAX_ATTEMPTS="${RALPH_MAX_ATTEMPTS:-5}"
 RALPH_MAX_SLICE="${RALPH_MAX_SLICE:-0x800}"
@@ -82,8 +83,9 @@ invoke_agent() { # prompt_file log_file
   case "$AGENT" in
     agy)
       [[ -n "$RALPH_MODEL" ]] && model_args=(--model "$RALPH_MODEL")
+      [[ -n "$RALPH_EFFORT" ]] && model_args+=(--effort "$RALPH_EFFORT")
       timeout "$RALPH_TIMEOUT" agy --print "$(cat "$prompt_file")" --dangerously-skip-permissions \
-        --effort high "${model_args[@]}" >"$log_file" 2>&1 ;;
+        "${model_args[@]}" >"$log_file" 2>&1 ;;
     codex)
       [[ -n "$RALPH_MODEL" ]] && model_args=(-m "$RALPH_MODEL")
       timeout "$RALPH_TIMEOUT" codex exec --dangerously-bypass-approvals-and-sandbox \
@@ -142,6 +144,15 @@ unmatchable_reason() { # agent_log -> prints reason when the last line is UNMATC
   return 0
 }
 
+# Environment failures (quota, credits, bad model config) are not slice failures: stop without recording the slice.
+stop_on_agent_failure() { # func agent_log
+  printf '\n[ralph] PARADO: o agente %s está indisponível (durante %s): quota/créditos esgotados ou modelo/opções inválidos.\n' "$AGENT" "$1" >&2
+  printf '[ralph] Nenhum resultado foi gravado para este slice; o estado salvo continua válido.\n' >&2
+  printf '[ralph] Log do agente: %s\n' "$2" >&2
+  printf '[ralph] Corrija a causa (créditos, RALPH_MODEL ou AGENT) e rode scripts/ralph_decomp.sh de novo.\n' >&2
+  exit 3
+}
+
 mark_asm() { # func vram size reason
   $SLICE mark --state "$STATE" --func "$1" --vram "$2" --size "$3" --status asm --reason "$4" >/dev/null
   log "$1 marked asm: $4"
@@ -171,6 +182,9 @@ process_slice() { # json
     $SLICE guard snapshot --file "$RALPH_DIR/guard.json" >/dev/null
     invoke_agent "$prompt" "$attempt_dir/agent.log" || log "agent exited non-zero (see agent.log)"
     guard_check "$RALPH_DIR/guard.json" "$func"
+    if $SLICE fatal-check --log "$attempt_dir/agent.log" >/dev/null 2>&1; then
+      stop_on_agent_failure "$func" "$attempt_dir/agent.log"
+    fi
     reason="$(unmatchable_reason "$attempt_dir/agent.log")"
     if [[ -n "$reason" ]]; then mark_asm "$func" "$vram" "$size" "$reason"; return 0; fi
     pct="$(measure_attempt "$func" "$vram" "$size" "$feedback")"

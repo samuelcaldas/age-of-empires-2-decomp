@@ -41,9 +41,22 @@ JR_RA = 0x03E00008
 BRANCH_OPCODES = {0x01, 0x04, 0x05, 0x06, 0x07, 0x14, 0x15, 0x16, 0x17}
 COP1_OPCODE = 0x11
 COP1_BRANCH_RS = 0x08
+J_OPCODE = 0x02
 SYMBOL_PATTERN = re.compile(
     r"^\S+\s*=\s*(0x[0-9A-Fa-f]+);\s*//\s*(?=.*\btype:func\b)(?=.*\bsize:(0x[0-9A-Fa-f]+|\d+))"
 )
+
+
+AGENT_UNAVAILABLE_MARKERS = (
+    "RESOURCE_EXHAUSTED",            # provider quota used up
+    "credits balance is too low",    # account credits used up
+    "invalid model selection",       # agent CLI rejects its model/effort config
+)
+
+
+def is_agent_unavailable(agent_log: str) -> bool:
+    """True when an agent log shows an environment failure (quota, credits, bad model config)."""
+    return any(marker in agent_log for marker in AGENT_UNAVAILABLE_MARKERS)
 
 
 class SliceBoundaryError(ValueError):
@@ -74,12 +87,22 @@ def _branch_target(offset: int, instruction: int) -> int:
     return offset + 4 + signed * 4
 
 
-def find_function_size(code: bytes, start: int, max_size: int) -> int:
-    """Return the byte size of the function at ``start`` (through jr ra + delay slot).
+def _is_tail_call(instruction: int, pc: int, function_vram: int) -> bool:
+    """True for an unconditional ``j`` to code before the function (a tail call exit)."""
+    if instruction >> 26 != J_OPCODE:
+        return False
+    target = ((pc + 4) & 0xF0000000) | ((instruction & 0x3FFFFFF) << 2)
+    return target < function_vram
 
+
+def find_function_size(code: bytes, start: int, max_size: int, base: int = 0) -> int:
+    """Return the byte size of the function at ``start`` (through jr ra or a tail call + delay slot).
+
+    ``base`` is the VRAM address of ``code[0]``; it decides whether a ``j`` leaves the function.
     Raises SliceBoundaryError when no return is found within the buffer or cap.
     """
     limit = min(len(code), start + max_size)
+    function_vram = base + start
     farthest_target = start
     last_return_end: Optional[int] = None
     offset = start
@@ -87,7 +110,7 @@ def find_function_size(code: bytes, start: int, max_size: int) -> int:
         instruction = _word(code, offset)
         if _is_branch(instruction):
             farthest_target = max(farthest_target, _branch_target(offset, instruction))
-        if instruction == JR_RA:
+        if instruction == JR_RA or _is_tail_call(instruction, base + offset, function_vram):
             end = offset + 8
             if end > len(code):
                 break
@@ -162,16 +185,16 @@ def next_slice(
         return None
     following = index.next_begin_after(address)
     room = HARD_MAX_SLICE if following is None else min(HARD_MAX_SLICE, following - address)
-    size = _size_with_growing_cap(code, address - base, max_size, room)
+    size = _size_with_growing_cap(code, address - base, max_size, room, base)
     return Slice(func=f"func_{address:08X}", vram=address, size=size)
 
 
-def _size_with_growing_cap(code: bytes, start: int, cap: int, room: int) -> int:
+def _size_with_growing_cap(code: bytes, start: int, cap: int, room: int, base: int) -> int:
     """Function size, doubling the cap (up to ``room``) while no return is found."""
     cap = min(cap, room)
     while True:
         try:
-            return find_function_size(code, start, cap)
+            return find_function_size(code, start, cap, base)
         except SliceBoundaryError:
             if cap >= room:
                 raise
@@ -528,6 +551,13 @@ def _command_mark(args: argparse.Namespace) -> int:
     return 0
 
 
+def _command_fatal_check(args: argparse.Namespace) -> int:
+    log_text = args.log.read_text(errors="ignore") if args.log.is_file() else ""
+    unavailable = is_agent_unavailable(log_text)
+    _emit({"agent_unavailable": unavailable, "log": str(args.log)})
+    return 0 if unavailable else 1
+
+
 def _command_summary(args: argparse.Namespace) -> int:
     symbols = SYMBOLS_TXT.read_text() if SYMBOLS_TXT.is_file() else ""
     _emit(summarize(LoopState(args.state), symbols, TEXT_START, TEXT_END))
@@ -605,6 +635,9 @@ def build_parser() -> argparse.ArgumentParser:
     guard.add_argument("--file", type=Path, required=True)
     guard.add_argument("--restore", action="store_true")
     guard.set_defaults(handler=_command_guard)
+    fatal = sub.add_parser("fatal-check", help="Exit 0 when an agent log reports an environment failure")
+    fatal.add_argument("--log", type=Path, required=True)
+    fatal.set_defaults(handler=_command_fatal_check)
     dis = sub.add_parser("disasm", help="Disassemble original bytes")
     dis.add_argument("--vram", type=_hex, required=True)
     dis.add_argument("--size", type=_hex, required=True)

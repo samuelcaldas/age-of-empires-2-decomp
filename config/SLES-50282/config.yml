@@ -8979,3 +8979,9 @@ segments:
     vram: 0x125dd8
     subsegments:
       - [0x25fb8, asm, kcet/func_00125DD8]
+  - name: func_00125E20
+    type: code
+    start: 0x26000
+    vram: 0x125e20
+    subsegments:
+      - [0x26000, asm, kcet/func_00125E20]

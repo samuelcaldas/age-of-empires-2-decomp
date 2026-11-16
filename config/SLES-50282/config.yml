@@ -9075,3 +9075,9 @@ segments:
     vram: 0x1281c0
     subsegments:
       - [0x283a0, asm, kcet/func_001281C0]
+  - name: func_00128390
+    type: code
+    start: 0x28570
+    vram: 0x128390
+    subsegments:
+      - [0x28570, asm, kcet/func_00128390]

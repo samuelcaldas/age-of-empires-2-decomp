@@ -9627,3 +9627,9 @@ segments:
     vram: 0x12b530
     subsegments:
       - [0x2b710, asm, kcet/func_0012B530]
+  - name: func_0012B550
+    type: code
+    start: 0x2b730
+    vram: 0x12b550
+    subsegments:
+      - [0x2b730, asm, kcet/func_0012B550]

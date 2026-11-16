@@ -5130,3 +5130,4 @@ func_0012CB20 = 0x12CB20; // type:func size:0x14 absolute:True
 func_0012CB90 = 0x12CB90; // type:func size:0x18 absolute:True
 func_0012CBA8 = 0x12CBA8; // type:func size:0x3C absolute:True
 func_0012CBE8 = 0x12CBE8; // type:func size:0xC absolute:True
+func_0012CC20 = 0x12CC20; // type:func size:0x28 absolute:True

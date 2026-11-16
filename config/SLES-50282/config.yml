@@ -9999,3 +9999,9 @@ segments:
     vram: 0x12cc48
     subsegments:
       - [0x2ce28, asm, kcet/func_0012CC48]
+  - name: func_0012CC58
+    type: code
+    start: 0x2ce38
+    vram: 0x12cc58
+    subsegments:
+      - [0x2ce38, asm, kcet/func_0012CC58]

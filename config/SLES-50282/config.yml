@@ -9417,3 +9417,9 @@ segments:
     vram: 0x12a0b0
     subsegments:
       - [0x2a290, asm, kcet/func_0012A0B0]
+  - name: func_0012A0C0
+    type: code
+    start: 0x2a2a0
+    vram: 0x12a0c0
+    subsegments:
+      - [0x2a2a0, asm, kcet/func_0012A0C0]

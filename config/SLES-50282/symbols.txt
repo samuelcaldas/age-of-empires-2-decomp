@@ -5033,3 +5033,4 @@ func_00129FE0 = 0x129FE0; // type:func size:0x60 absolute:True
 func_0012A040 = 0x12A040; // type:func size:0x14 absolute:True
 func_0012A058 = 0x12A058; // type:func size:0x2C absolute:True
 func_0012A088 = 0x12A088; // type:func size:0x14 absolute:True
+func_0012A0A0 = 0x12A0A0; // type:func size:0xC absolute:True

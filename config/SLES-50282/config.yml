@@ -9057,3 +9057,9 @@ segments:
     vram: 0x127dc8
     subsegments:
       - [0x27fa8, asm, kcet/func_00127DC8]
+  - name: func_00127E68
+    type: code
+    start: 0x28048
+    vram: 0x127e68
+    subsegments:
+      - [0x28048, asm, kcet/func_00127E68]

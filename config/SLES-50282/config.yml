@@ -9723,3 +9723,9 @@ segments:
     vram: 0x12bd88
     subsegments:
       - [0x2bf68, asm, kcet/func_0012BD88]
+  - name: func_0012BE20
+    type: code
+    start: 0x2c000
+    vram: 0x12be20
+    subsegments:
+      - [0x2c000, asm, kcet/func_0012BE20]

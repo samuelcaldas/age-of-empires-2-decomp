@@ -10113,3 +10113,9 @@ segments:
     vram: 0x12d310
     subsegments:
       - [0x2d4f0, asm, kcet/func_0012D310]
+  - name: func_0012D400
+    type: code
+    start: 0x2d5e0
+    vram: 0x12d400
+    subsegments:
+      - [0x2d5e0, asm, kcet/func_0012D400]

@@ -5079,3 +5079,4 @@ func_0012BB20 = 0x12BB20; // type:func size:0x2C absolute:True
 func_0012BB50 = 0x12BB50; // type:func size:0x50 absolute:True
 func_0012BBA0 = 0x12BBA0; // type:func size:0x6C absolute:True
 func_0012BC10 = 0x12BC10; // type:func size:0xC absolute:True
+func_0012BC20 = 0x12BC20; // type:func size:0xC absolute:True

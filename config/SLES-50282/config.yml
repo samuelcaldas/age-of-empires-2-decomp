@@ -9105,3 +9105,9 @@ segments:
     vram: 0x1287d8
     subsegments:
       - [0x289b8, asm, kcet/func_001287D8]
+  - name: func_00128850
+    type: code
+    start: 0x28a30
+    vram: 0x128850
+    subsegments:
+      - [0x28a30, asm, kcet/func_00128850]

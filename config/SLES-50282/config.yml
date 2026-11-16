@@ -9123,3 +9123,9 @@ segments:
     vram: 0x128878
     subsegments:
       - [0x28a58, asm, kcet/func_00128878]
+  - name: func_00128A20
+    type: code
+    start: 0x28c00
+    vram: 0x128a20
+    subsegments:
+      - [0x28c00, asm, kcet/func_00128A20]

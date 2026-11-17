@@ -10749,3 +10749,9 @@ segments:
     vram: 0x12fac8
     subsegments:
       - [0x2fca8, asm, kcet/func_0012FAC8]
+  - name: func_0012FB60
+    type: code
+    start: 0x2fd40
+    vram: 0x12fb60
+    subsegments:
+      - [0x2fd40, asm, kcet/func_0012FB60]

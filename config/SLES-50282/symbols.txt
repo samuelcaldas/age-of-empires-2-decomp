@@ -5274,3 +5274,4 @@ func_00130038 = 0x130038; // type:func size:0x30 absolute:True
 func_00130068 = 0x130068; // type:func size:0x70 absolute:True
 func_001300D8 = 0x1300D8; // type:func size:0x30 absolute:True
 func_00130108 = 0x130108; // type:func size:0x5C absolute:True
+func_00130168 = 0x130168; // type:func size:0x50 absolute:True

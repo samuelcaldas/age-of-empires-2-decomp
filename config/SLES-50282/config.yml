@@ -10275,3 +10275,9 @@ segments:
     vram: 0x12dc80
     subsegments:
       - [0x2de60, asm, kcet/func_0012DC80]
+  - name: func_0012DCA0
+    type: code
+    start: 0x2de80
+    vram: 0x12dca0
+    subsegments:
+      - [0x2de80, asm, kcet/func_0012DCA0]

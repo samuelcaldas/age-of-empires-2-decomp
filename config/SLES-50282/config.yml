@@ -10407,3 +10407,9 @@ segments:
     vram: 0x12e448
     subsegments:
       - [0x2e628, asm, kcet/func_0012E448]
+  - name: func_0012E488
+    type: code
+    start: 0x2e668
+    vram: 0x12e488
+    subsegments:
+      - [0x2e668, asm, kcet/func_0012E488]

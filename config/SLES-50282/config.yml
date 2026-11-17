@@ -10893,3 +10893,9 @@ segments:
     vram: 0x1305d0
     subsegments:
       - [0x307b0, asm, kcet/func_001305D0]
+  - name: func_00130630
+    type: code
+    start: 0x30810
+    vram: 0x130630
+    subsegments:
+      - [0x30810, asm, kcet/func_00130630]

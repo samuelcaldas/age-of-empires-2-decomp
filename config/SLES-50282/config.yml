@@ -10383,3 +10383,9 @@ segments:
     vram: 0x12e320
     subsegments:
       - [0x2e500, asm, kcet/func_0012E320]
+  - name: func_0012E340
+    type: code
+    start: 0x2e520
+    vram: 0x12e340
+    subsegments:
+      - [0x2e520, asm, kcet/func_0012E340]

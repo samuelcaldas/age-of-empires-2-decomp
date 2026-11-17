@@ -5259,3 +5259,4 @@ func_0012FA80 = 0x12FA80; // type:func size:0x48 absolute:True
 func_0012FAC8 = 0x12FAC8; // type:func size:0x98 absolute:True
 func_0012FB60 = 0x12FB60; // type:func size:0x48 absolute:True
 func_0012FBA8 = 0x12FBA8; // type:func size:0x70 absolute:True
+func_0012FC18 = 0x12FC18; // type:func size:0x48 absolute:True

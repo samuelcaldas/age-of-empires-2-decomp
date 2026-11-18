@@ -545,3 +545,162 @@ INVALID_MODEL_LOG = 'error: invalid model selection (--model "" --effort "high")
 
 def test_invalid_model_selection_is_agent_unavailable():
     assert ralph_slice.is_agent_unavailable(INVALID_MODEL_LOG) is True
+
+
+# ---------------------------------------------------------------- agent failure classes
+TRANSIENT_LOG = "error: model gemini-3.8-flash-low is not recognized\n"
+
+
+@pytest.mark.parametrize(
+    "log,expected",
+    [
+        (QUOTA_LOG, "quota"),
+        (INVALID_MODEL_LOG, "model_config"),
+        (TRANSIENT_LOG, "transient"),
+        ("agent crashed: segmentation fault\n", "none"),
+    ],
+)
+def test_classify_agent_failure_separates_quota_config_and_transient(log, expected):
+    assert ralph_slice.classify_agent_failure(log) == expected
+
+
+def test_quota_wins_over_transient_when_both_appear():
+    assert ralph_slice.classify_agent_failure(TRANSIENT_LOG + QUOTA_LOG) == "quota"
+
+
+def test_cli_classify_failure_prints_class(tmp_path, capsys):
+    log = tmp_path / "agent.log"
+    log.write_text(TRANSIENT_LOG)
+    assert _cli(capsys, "classify-failure", "--log", log) == {"class": "transient", "log": str(log)}
+
+
+# ---------------------------------------------------------------- batch and next
+def _three_functions():
+    return words(PROLOGUE, JR_RA, NOP, PROLOGUE, JR_RA, NOP, PROLOGUE, JR_RA, NOP)
+
+
+def test_batch_returns_distinct_non_overlapping_new_slices(tmp_path):
+    state = ralph_slice.LoopState(tmp_path / "state.json")
+    result = ralph_slice.choose_batch(state, _three_functions(), 0x100000, [], 3, 0x800, 3)
+    assert result["kind"] == "batch"
+    items = result["items"]
+    assert [item["kind"] for item in items] == ["new", "new", "new"]
+    assert len({item["func"] for item in items}) == 3
+    for before, after in zip(items, items[1:]):
+        assert before["vram"] + before["size"] <= after["vram"]
+
+
+def test_batch_treats_chosen_slices_as_covered_for_the_next_pick(tmp_path):
+    state = ralph_slice.LoopState(tmp_path / "state.json")
+    result = ralph_slice.choose_batch(state, _three_functions(), 0x100000, [], 1, 0x800, 3)
+    assert [item["func"] for item in result["items"]] == ["func_00100000"]
+    # The first function is covered (by symbols.txt here), so the next pick starts right after it.
+    again = ralph_slice.choose_batch(state, _three_functions(), 0x100000, [(0x100000, 0x10000C)], 1, 0x800, 3)
+    assert [item["func"] for item in again["items"]] == ["func_0010000C"]
+
+
+def test_batch_fills_remaining_places_with_revisits_after_new_slices(tmp_path):
+    state = ralph_slice.LoopState(tmp_path / "state.json")
+    state.record("func_00100040", 0x100040, 0x10, pct=95.0, attempts=1, min_pct=90.0, max_attempts=5)
+    result = ralph_slice.choose_batch(state, words(PROLOGUE, JR_RA, NOP), 0x100000, [], 2, 0x800, 3)
+    assert [(item["kind"], item["func"]) for item in result["items"]] == [
+        ("new", "func_00100000"), ("revisit", "func_00100040")]
+
+
+def test_batch_reports_done_when_nothing_is_left(tmp_path):
+    state = ralph_slice.LoopState(tmp_path / "state.json")
+    result = ralph_slice.choose_batch(state, words(PROLOGUE, JR_RA, NOP), 0x100000,
+                                      [(0x100000, 0x10000C)], 4, 0x800, 3)
+    assert result == {"kind": "done", "unresolved": []}
+
+
+def test_unbounded_region_becomes_asm_and_the_scan_continues(tmp_path):
+    # 0x100000..0x100020 has no return before the covered function at 0x100020: marked asm, not raised.
+    state = ralph_slice.LoopState(tmp_path / "state.json")
+    code = words(*([ADDIU_V0] * 8), NOP, NOP, NOP, NOP, PROLOGUE, JR_RA, NOP)
+    result = ralph_slice.choose_batch(state, code, 0x100000, [(0x100020, 0x100030)], 1, 0x800, 3)
+    assert result["marked_asm"] == ["func_00100000"]
+    assert state.status("func_00100000") == "asm"
+    assert state.data["slices"]["func_00100000"]["reason"] == "no function end"
+    assert [item["func"] for item in result["items"]] == ["func_00100030"]
+
+
+# ---------------------------------------------------------------- per-status bytes
+def test_summary_splits_bytes_by_status(tmp_path):
+    state = ralph_slice.LoopState(tmp_path / "s.json")
+    state.record("func_00100000", 0x100000, 0x100, pct=100.0, attempts=1, min_pct=90.0, max_attempts=5)
+    state.record("func_00100100", 0x100100, 0x10, pct=95.0, attempts=1, min_pct=90.0, max_attempts=5)
+    state.record("func_00100200", 0x100200, 0x20, pct=10.0, attempts=5, min_pct=90.0, max_attempts=5)
+    state.mark("func_00100300", 0x100300, 0x40, status="asm", reason="syscall")
+    result = ralph_slice.summarize(state, "", text_start=0x100000, text_end=0x100800)
+    assert result["cpp_bytes"] == 0x100
+    assert result["partial_bytes"] == 0x10
+    assert result["blocked_bytes"] == 0x20
+    assert result["asm_bytes"] == 0x40
+    assert result["covered_bytes"] == 0x100 + 0x40
+
+
+# ---------------------------------------------------------------- environment failure cleanup
+def _write_state(path, slices):
+    path.write_text(json.dumps({"slices": slices}))
+
+
+def _slice_entry(func, vram, size, status, attempts=1):
+    return {"func": func, "vram": vram, "size": size, "status": status, "pct": 0.0,
+            "attempts": attempts, "history": [], "passes": 0, "last_pass": 0}
+
+
+def _attempt_log(root, func, number, text):
+    attempt = root / func / f"attempt-{number}"
+    attempt.mkdir(parents=True)
+    (attempt / "agent.log").write_text(text)
+
+
+def test_requeue_removes_only_blocked_slices_with_environment_failures_only(tmp_path):
+    state_path = tmp_path / "state.json"
+    _write_state(state_path, {
+        "func_00100000": _slice_entry("func_00100000", 0x100000, 0x10, "blocked", attempts=2),
+        "func_00100010": _slice_entry("func_00100010", 0x100010, 0x10, "blocked", attempts=2),
+        "func_00100020": _slice_entry("func_00100020", 0x100020, 0x10, "blocked", attempts=1),
+        "func_00100030": _slice_entry("func_00100030", 0x100030, 0x10, "done"),
+    })
+    _attempt_log(tmp_path, "func_00100000", 1, QUOTA_LOG)
+    _attempt_log(tmp_path, "func_00100000", 2, INVALID_MODEL_LOG)
+    _attempt_log(tmp_path, "func_00100010", 1, QUOTA_LOG)
+    _attempt_log(tmp_path, "func_00100010", 2, "agent wrote nothing useful\n")
+    result = ralph_slice.requeue_unavailable(state_path)
+    assert result["requeued"] == ["func_00100000"]
+    remaining = json.loads(state_path.read_text())["slices"]
+    assert sorted(remaining) == ["func_00100010", "func_00100020", "func_00100030"]
+
+
+def test_requeue_keeps_a_backup_of_the_previous_state(tmp_path):
+    state_path = tmp_path / "state.json"
+    _write_state(state_path, {"func_00100000": _slice_entry("func_00100000", 0x100000, 0x10, "blocked")})
+    _attempt_log(tmp_path, "func_00100000", 1, QUOTA_LOG)
+    original = state_path.read_text()
+    result = ralph_slice.requeue_unavailable(state_path)
+    backup = Path(result["backup"])
+    assert backup.parent == tmp_path and backup.name.startswith("state.json.bak-")
+    assert backup.read_text() == original
+
+
+def test_requeue_is_idempotent_and_writes_no_second_backup(tmp_path):
+    state_path = tmp_path / "state.json"
+    _write_state(state_path, {"func_00100000": _slice_entry("func_00100000", 0x100000, 0x10, "blocked")})
+    _attempt_log(tmp_path, "func_00100000", 1, QUOTA_LOG)
+    ralph_slice.requeue_unavailable(state_path)
+    second = ralph_slice.requeue_unavailable(state_path)
+    assert second == {"requeued": [], "backup": None}
+    assert len(list(tmp_path.glob("state.json.bak-*"))) == 1
+
+
+def test_requeue_dry_run_changes_nothing(tmp_path):
+    state_path = tmp_path / "state.json"
+    _write_state(state_path, {"func_00100000": _slice_entry("func_00100000", 0x100000, 0x10, "blocked")})
+    _attempt_log(tmp_path, "func_00100000", 1, QUOTA_LOG)
+    before = state_path.read_text()
+    result = ralph_slice.requeue_unavailable(state_path, dry_run=True)
+    assert result["requeued"] == ["func_00100000"] and result["backup"] is None
+    assert state_path.read_text() == before
+    assert not list(tmp_path.glob("state.json.bak-*"))

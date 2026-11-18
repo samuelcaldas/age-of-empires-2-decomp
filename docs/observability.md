@@ -72,3 +72,7 @@ python -m scripts.observability publish --dry-run
 ```
 No git branches or network requests are pushed unless `--apply` is explicitly passed and configured.
 No game binaries, compiler files, objects, or raw private logs are ever included in public exports.
+
+## Ralph loop metrics
+
+Performance metrics of the Ralph decomp loop (bytes per hour, time per attempt, failures) are separate from this verified-evidence site. See [docs/ralph_decomp.md](ralph_decomp.md#metrics-scriptsralph_metricspy).

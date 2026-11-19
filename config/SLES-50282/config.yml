@@ -11061,3 +11061,9 @@ segments:
     vram: 0x105928
     subsegments:
       - [0x5b08, asm, kcet/func_00105928]
+  - name: func_00105948
+    type: code
+    start: 0x5b28
+    vram: 0x105948
+    subsegments:
+      - [0x5b28, asm, kcet/func_00105948]

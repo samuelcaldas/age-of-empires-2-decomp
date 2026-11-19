@@ -25,6 +25,9 @@ RALPH_PARALLEL="${RALPH_PARALLEL:-2}"                   # slices per wave; 1 = s
 RALPH_UNAVAILABLE_RETRIES="${RALPH_UNAVAILABLE_RETRIES:-3}"  # transient model errors retried per agent call
 RALPH_UNAVAILABLE_BACKOFF="${RALPH_UNAVAILABLE_BACKOFF:-30}" # seconds before the first retry; doubles each time
 RALPH_WAIT_ON_QUOTA="${RALPH_WAIT_ON_QUOTA:-0}"         # 0 = stop on quota; N = sleep N s and retry the call
+RALPH_PUSH="${RALPH_PUSH:-1}"                          # 1 = fetch+rebase and push after each promotion commit; 0 = commit only
+RALPH_BRANCH="${RALPH_BRANCH:-main}"
+CURRENT_WAVE=0
 PY=".venv/bin/python"
 SLICE="$PY scripts/ralph_slice.py"
 PIPELINE="$PY scripts/decomp_pipeline.py"
@@ -56,6 +59,7 @@ preflight() {
   [[ "$RALPH_UNAVAILABLE_RETRIES" =~ ^[0-9]+$ ]] || die "RALPH_UNAVAILABLE_RETRIES must be an integer"
   [[ "$RALPH_UNAVAILABLE_BACKOFF" =~ ^[0-9]+$ ]] || die "RALPH_UNAVAILABLE_BACKOFF must be an integer"
   [[ "$RALPH_WAIT_ON_QUOTA" =~ ^[0-9]+$ ]] || die "RALPH_WAIT_ON_QUOTA must be an integer (seconds)"
+  case "$RALPH_PUSH" in 0|1) ;; *) die "RALPH_PUSH must be 0 or 1" ;; esac
   case "$RALPH_ASM_POLICY" in once|skip|off) ;; *) die "RALPH_ASM_POLICY must be once|skip|off" ;; esac
   case "$AGENT" in
     agy|codex|claude) command -v "$AGENT" >/dev/null || die "$AGENT not in PATH" ;;
@@ -160,16 +164,34 @@ if sbs: print("Original | compiled around divergences (! = differs):"); print("\
   json_get "$result" pct
 }
 
-promote_and_commit() { # func vram size
-  local func="$1" vram="$2" size="$3" offset end
+promote_and_commit() { # func vram size pct attempts seconds
+  local func="$1" vram="$2" size="$3" pct="$4" attempts="$5" seconds="$6" offset
   offset=$(( vram - 0x100000 + 0x1E0 ))
   $PIPELINE promote --func "$func" --module kcet --source "staging/${func}.cpp" \
     --header "${func}.h" --vram "$vram" --offset "$offset" --size "$size"
-  printf -v end '0x%08X' $(( vram + size ))
-  git add -- "src/kcet/${func}.cpp" config/SLES-50282/config.yml config/SLES-50282/symbols.txt configure.py
-  git commit -q -m "decomp(ps2): match ${func} slice ($(printf '0x%08X' "$vram") - ${end})
+  commit_promotion "$func" "$vram" "$size" "$pct" "$attempts" "$seconds" "$CURRENT_WAVE" "$AGENT" "${RALPH_MODEL:-default}"
+}
 
-Co-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>"
+# Commits one promoted slice with a generated message, then publishes it when RALPH_PUSH=1.
+commit_promotion() { # func vram size pct attempts seconds wave agent model
+  local func="$1" vram="$2" size="$3" message
+  git add -- "src/kcet/${func}.cpp" config/SLES-50282/config.yml config/SLES-50282/symbols.txt configure.py
+  message="$($SLICE commit-message --func "$func" --vram "$vram" --size "$size" --pct "$4" --attempts "$5" \
+    --seconds "$6" --wave "$7" --agent "$8" --model "$9")"
+  git commit -q -F - <<<"$message"
+  publish_commits || log "push failed; commits stay local until the next publish"
+}
+
+# Syncs with origin (fetch + rebase) and pushes to RALPH_BRANCH. Returns 1 and leaves the repo clean when it cannot.
+publish_commits() {
+  [[ "$RALPH_PUSH" == "1" ]] || return 0
+  git fetch -q origin || return 1
+  if ! git rebase -q "origin/$RALPH_BRANCH"; then
+    git rebase --abort 2>/dev/null || true
+    log "rebase onto origin/$RALPH_BRANCH failed; not pushing"
+    return 1
+  fi
+  git push -q origin "HEAD:$RALPH_BRANCH"
 }
 
 # Replaces the agent's edits outside staging/ and build/; logs what it undid.
@@ -241,7 +263,7 @@ mark_asm() { # func vram size reason
 finish_slice() { # func vram size pct status hints attempts seconds
   local func="$1" vram="$2" size="$3" pct="$4" status="$5" hints="$6" attempts="$7" seconds="$8" final="$5"
   if [[ "$status" == "done" ]]; then
-    promote_and_commit "$func" "$vram" "$size"; log "$func promoted"
+    promote_and_commit "$func" "$vram" "$size" "$pct" "$attempts" "$seconds"; log "$func promoted"
   elif [[ "$status" == "partial" ]]; then
     log "$func partial (${pct}%), kept in staging, advancing"
   elif [[ -n "$hints" && "$RALPH_ASM_POLICY" == "once" ]]; then
@@ -267,6 +289,7 @@ for func in d.get("marked_asm", []):
 # promoting and metrics run one slice at a time once no agent is active. Sets WAVE_SIZE.
 run_wave() { # batch_json wave_no
   local batch="$1" wave_no="$2" wave_started=$SECONDS kind a b c d e index limit n=0 status=0
+  CURRENT_WAVE="$wave_no"
   local -a funcs=() vrams=() sizes=() hints=() limits=() attempts=() seconds=() active=() jobs=() next=()
   local dir feedback prompt pct record seconds_now reason status_now entry pid func vram size cls
   while IFS=$'\t' read -r kind a b c d e; do
@@ -397,4 +420,4 @@ main() {
   done
 }
 
-main "$@"
+[[ "${RALPH_LIB_ONLY:-0}" == "1" ]] || main "$@"

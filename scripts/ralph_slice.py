@@ -664,6 +664,27 @@ def _command_requeue(args: argparse.Namespace) -> int:
     return 0
 
 
+COAUTHOR_TRAILER = "Co-Authored-By: Claude Haiku 5.5 <noreply@anthropic.com>"
+
+
+def commit_message(func: str, vram: int, size: int, pct: float, attempts: int, seconds: float,
+                   agent: str, model: str, wave: int) -> str:
+    """Commit message for a promoted slice: range subject, measured facts, co-author trailer."""
+    end = vram + size
+    plural = "" if attempts == 1 else "s"
+    body = [
+        f"Similarity: {pct:.1f}% of {size} bytes after {attempts} attempt{plural}.",
+        f"Agent: {agent} (model: {model}); attempt time {seconds:.0f} s; wave {wave}.",
+    ]
+    return f"decomp(ps2): match {func} slice (0x{vram:08X} - 0x{end:08X})\n\n" + "\n".join(body) + f"\n\n{COAUTHOR_TRAILER}\n"
+
+
+def _command_commit_message(args: argparse.Namespace) -> int:
+    sys.stdout.write(commit_message(args.func, args.vram, args.size, args.pct, args.attempts,
+                                    args.seconds, args.agent, args.model, args.wave))
+    return 0
+
+
 def _command_classify_failure(args: argparse.Namespace) -> int:
     text = args.log.read_text(errors="ignore") if args.log.is_file() else ""
     _emit({"class": classify_agent_failure(text), "log": str(args.log)})
@@ -759,6 +780,17 @@ def build_parser() -> argparse.ArgumentParser:
     classify = sub.add_parser("classify-failure", help="Print the failure class of an agent log")
     classify.add_argument("--log", type=Path, required=True)
     classify.set_defaults(handler=_command_classify_failure)
+    message = sub.add_parser("commit-message", help="Print the commit message of a promoted slice")
+    message.add_argument("--func", required=True)
+    message.add_argument("--vram", type=_hex, required=True)
+    message.add_argument("--size", type=_hex, required=True)
+    message.add_argument("--pct", type=float, required=True)
+    message.add_argument("--attempts", type=int, required=True)
+    message.add_argument("--seconds", type=float, default=0.0)
+    message.add_argument("--agent", required=True)
+    message.add_argument("--model", default="default")
+    message.add_argument("--wave", type=int, default=0)
+    message.set_defaults(handler=_command_commit_message)
     rec = sub.add_parser("record", help="Record a measured result in the loop state")
     _add_slice_arguments(rec)
     rec.add_argument("--pct", type=float, required=True)

@@ -28,6 +28,12 @@ Prompt delivery: `agy --print "<prompt>"`, `codex exec -` (stdin), `claude -p` (
 | `RALPH_UNAVAILABLE_RETRIES` | 3 | Retries of a call that failed with a transient model error (`... model ... is not recognized`) |
 | `RALPH_UNAVAILABLE_BACKOFF` | 30 | Seconds before the first transient retry; doubles on each retry |
 | `RALPH_WAIT_ON_QUOTA` | 0 | `0` stops on quota exhaustion (exit 3). `N` sleeps N seconds and retries the same call |
+| `RALPH_PUSH` | 1 | `1`: after each promotion commit, `git fetch` + `git rebase origin/$RALPH_BRANCH` and `git push`. `0`: commit only |
+| `RALPH_BRANCH` | `main` | Branch the promotion commits are rebased onto and pushed to |
+
+Commits: each promotion commit has a generated message (`ralph_slice.py commit-message`): the `decomp(ps2): match <func> slice (<start> - <end>)`
+subject, the measured similarity and attempt count, the agent, model and wave, and a `Co-Authored-By` trailer. If the rebase
+conflicts, nothing is pushed, the rebase is aborted and the commit stays local. A failed push logs a message and the loop continues.
 
 Gate: 100% → promote + commit. 90–99% → stays in `staging/`, status `partial`, cursor advances.
 <90% → retry with compile/diff feedback; after max attempts `blocked`, skipped. The loop stops only when no

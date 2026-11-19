@@ -704,3 +704,30 @@ def test_requeue_dry_run_changes_nothing(tmp_path):
     assert result["requeued"] == ["func_00100000"] and result["backup"] is None
     assert state_path.read_text() == before
     assert not list(tmp_path.glob("state.json.bak-*"))
+
+
+# ---------------------------------------------------------------- commit message
+def test_commit_message_subject_names_function_and_range():
+    message = ralph_slice.commit_message("func_00105428", 0x105428, 8, 100.0, 1, 13.0, "agy", "gemini", 3)
+    assert message.splitlines()[0] == "decomp(ps2): match func_00105428 slice (0x00105428 - 0x00105430)"
+
+
+def test_commit_message_body_reports_similarity_attempts_and_agent():
+    message = ralph_slice.commit_message("func_00105428", 0x105428, 8, 100.0, 2, 13.4, "agy", "gemini", 3)
+    assert "Similarity: 100.0% of 8 bytes after 2 attempts." in message
+    assert "Agent: agy (model: gemini); attempt time 13 s; wave 3." in message
+
+
+def test_commit_message_singular_attempt_and_coauthor_trailer_last():
+    message = ralph_slice.commit_message("func_00105428", 0x105428, 8, 100.0, 1, 2.0, "agy", "default", 1)
+    assert "after 1 attempt." in message
+    assert message.rstrip().splitlines()[-1] == "Co-Authored-By: Claude Haiku 5.5 <noreply@anthropic.com>"
+
+
+def test_cli_commit_message_prints_the_same_text(capsys):
+    args = ralph_slice.build_parser().parse_args([
+        "commit-message", "--func", "func_00105428", "--vram", "0x105428", "--size", "0x8", "--pct", "100",
+        "--attempts", "1", "--seconds", "2", "--agent", "agy", "--model", "gemini", "--wave", "1"])
+    assert args.handler(args) == 0
+    out = capsys.readouterr().out
+    assert out == ralph_slice.commit_message("func_00105428", 0x105428, 8, 100.0, 1, 2.0, "agy", "gemini", 1)

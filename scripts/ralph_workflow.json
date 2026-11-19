@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "description": "Ralph-style PS2 decompilation loop as a run_workflow script. Mirrors scripts/ralph_decomp.sh wave-by-wave; fans out RALPH_PARALLEL decomp agents in parallel, then measures/records/promotes sequentially.",
+  "entry": "scripts/ralph_workflow.py",
+  "args": {
+    "type": "object",
+    "properties": {
+      "ralph_parallel":           { "type": "integer", "default": 2, "minimum": 1 },
+      "ralph_model":              { "type": "string",  "default": "" },
+      "ralph_min_pct":            { "type": "number",  "default": 90 },
+      "ralph_max_attempts":       { "type": "integer", "default": 5 },
+      "ralph_max_slice":          { "type": "string",  "default": "0x800" },
+      "ralph_timeout":            { "type": "integer", "default": 1800 },
+      "ralph_dry_run":            { "type": "boolean", "default": false },
+      "ralph_dir":                { "type": "string",  "default": "build/ralph" },
+      "ralph_stall":              { "type": "integer", "default": 2 },
+      "ralph_max_passes":         { "type": "integer", "default": 3 },
+      "ralph_asm_policy":         { "type": "string",  "default": "once", "enum": ["once", "skip", "off"] },
+      "ralph_summary_every":      { "type": "integer", "default": 5 },
+      "ralph_unavailable_retries":{ "type": "integer", "default": 3 },
+      "ralph_unavailable_backoff":{ "type": "integer", "default": 30 },
+      "ralph_wait_on_quota":      { "type": "integer", "default": 0 },
+      "ralph_push":               { "type": "integer", "default": 1, "enum": [0, 1] },
+      "ralph_branch":             { "type": "string",  "default": "main" }
+    },
+    "additionalProperties": false
+  }
+}

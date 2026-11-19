@@ -10977,3 +10977,9 @@ segments:
     vram: 0x1043b8
     subsegments:
       - [0x4598, asm, kcet/func_001043B8]
+  - name: func_001051E0
+    type: code
+    start: 0x53c0
+    vram: 0x1051e0
+    subsegments:
+      - [0x53c0, asm, kcet/func_001051E0]
